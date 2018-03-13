@@ -21,6 +21,7 @@ phases:
     commands:
       - "ls -la"
       - "echo OK"
+      - "echo MASTER BRANCH"
   #post_build:
     #commands:
       # - command
