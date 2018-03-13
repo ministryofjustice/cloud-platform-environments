@@ -24,6 +24,7 @@ phases:
     commands:
       - "mkdir ~/.kube/"
       - "cp ./kube/config ~/.kube/config"
+      - "export KOPS_STATE_STORE=s3://moj-cloud-platforms-kops-state-store"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   build:
     commands:
