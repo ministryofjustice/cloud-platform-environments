@@ -20,7 +20,7 @@ phases:
        - "snap install kubectl --classic"
        - "apt-get install git-crypt"
   pre_build:
-    commands
+    commands:
       - "mkdir ~/.kube/"
       - "cp ./kube/config ~/.kube/config"
   build:
