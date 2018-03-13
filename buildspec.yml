@@ -19,11 +19,13 @@ phases:
       # - command
   build:
     commands:
+      - "id"
       - "pwd"
       - "ls -la"
       - "echo $HOME"
       - "chmod +x ./install.sh"
       - "./install.sh"
+      - "kubectl config get-contexts"
   #post_build:
     #commands:
       # - command
