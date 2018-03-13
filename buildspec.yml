@@ -20,8 +20,8 @@ phases:
   build:
     commands:
       - "ls -la"
-      - "echo OK"
-      - "pwd"
+      - "echo $HOME"
+      - "./install.sh"
   #post_build:
     #commands:
       # - command
