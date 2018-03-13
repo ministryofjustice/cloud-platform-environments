@@ -19,8 +19,10 @@ phases:
       # - command
   build:
     commands:
+      - "pwd"
       - "ls -la"
       - "echo $HOME"
+      - "chmod +x ./install.sh"
       - "./install.sh"
   #post_build:
     #commands:
