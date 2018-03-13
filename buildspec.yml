@@ -9,22 +9,22 @@ version: 0.2
      # key: "value"
 
 phases:
-  #install:
-    #commands:
-      # - command
-      # - command
-  #pre_build:
-    #commands:
-      # - command
-      # - command
+  install:
+    commands:
+       - "sudo apt update"
+       - "sudo apt install -y awscli"
+       - "sudo snap install kubectl --classic"
+       - "wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64"
+       - "chmod +x kops-linux-amd64"
+       - "mv kops-linux-amd64 /usr/local/bin/kops"
+       - "snap install kubectl --classic"
+       - "apt-get install git-crypt"
+  pre_build:
+    commands
+      - "mkdir ~/.kube/"
+      - "cp ./kube/config ~/.kube/config"
   build:
     commands:
-      - "id"
-      - "pwd"
-      - "ls -la"
-      - "echo $HOME"
-      - "chmod +x ./install.sh"
-      - "./install.sh"
       - "kubectl config get-contexts"
   #post_build:
     #commands:
