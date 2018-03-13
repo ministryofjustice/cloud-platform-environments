@@ -28,6 +28,7 @@ phases:
     commands:
       - "kubectl config get-contexts"
       - "kubectl cluster-info"
+      - "kubectl --context kuberos get namespaces"
       - "kubectl get pods --all-namespaces"
   #post_build:
     #commands:
