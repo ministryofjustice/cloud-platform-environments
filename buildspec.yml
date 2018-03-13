@@ -24,6 +24,7 @@ phases:
     commands:
       - "mkdir ~/.kube/"
       - "cp ./kube/config ~/.kube/config"
+      - "kops export kubecfg non-production.k8s.integration.dsd.io"
   build:
     commands:
       - "kubectl config get-contexts"
