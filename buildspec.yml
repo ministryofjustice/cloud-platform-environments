@@ -22,9 +22,6 @@ phases:
        - "mv ./kubectl /usr/local/bin/kubectl"
   pre_build:
     commands:
-      #- "export AWS_ACCESS_KEY_ID=AKIAIOIQLFUPJ2SGN42A"
-      #- "export AWS_SECRET_ACCESS_KEY=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"
-      #- "export AWS_DEFAULT_REGION=eu-west-1"
       - "mkdir ~/.kube/"
       - "cp ./kube/config ~/.kube/config"
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
@@ -33,8 +30,12 @@ phases:
     commands:
       - "kubectl config get-contexts"
       - "kubectl cluster-info"
-      - "kubectl --context non-production.k8s.integration.dsd.io get namespaces"
+#      - "kubectl --context non-production.k8s.integration.dsd.io get namespaces"
+      - "kubectl get namespaces"
       - "kubectl get pods --all-namespaces"
+      - "ls namespaces/ | while read file; do kubectl create namespace $file; kubectl create -f namespaces/$file/compute-resources.yaml --namespace=$file; kubectl create -f namespaces/$file/object-counts.yaml --namespace=$file; kubectl get quota --namespace=myspace;$file describe quota compute-resources --namespace=$file;kubectl describe quota object-counts --namespace=$file  ; done"
+#     - "kubectl delete namespaces dev"
+
   #post_build:
     #commands:
       # - command
