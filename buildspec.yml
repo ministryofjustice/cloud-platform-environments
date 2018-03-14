@@ -33,7 +33,7 @@ phases:
     commands:
       - "kubectl config get-contexts"
       - "kubectl cluster-info"
-      - "kubectl --context kuberos get namespaces"
+      - "kubectl --context non-production.k8s.integration.dsd.io get namespaces"
       - "kubectl get pods --all-namespaces"
   #post_build:
     #commands:
