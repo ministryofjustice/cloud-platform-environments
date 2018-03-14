@@ -22,12 +22,12 @@ phases:
        - "mv ./kubectl /usr/local/bin/kubectl"
   pre_build:
     commands:
-      - "export AWS_ACCESS_KEY_ID=AKIAIOIQLFUPJ2SGN42A"
-      - "export AWS_SECRET_ACCESS_KEY=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"
-      - "export AWS_DEFAULT_REGION=eu-west-1"
+      #- "export AWS_ACCESS_KEY_ID=AKIAIOIQLFUPJ2SGN42A"
+      #- "export AWS_SECRET_ACCESS_KEY=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"
+      #- "export AWS_DEFAULT_REGION=eu-west-1"
       - "mkdir ~/.kube/"
       - "cp ./kube/config ~/.kube/config"
-      - "export KOPS_STATE_STORE=s3://moj-cloud-platforms-kops-state-store"
+      - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   build:
     commands:
