@@ -3,9 +3,7 @@ version: 0.2
 #env:
   #variables:
      # key: "value"
-     # key: "value"
   #parameter-store:
-     # key: "value"
      # key: "value"
 
 phases:
@@ -20,7 +18,7 @@ phases:
        - "chmod +x kubectl"
        - "mv ./kubectl /usr/local/bin/kubectl"
        - "git clone https://github.com/AGWA/git-crypt.git"
-       - "cd git-crypt; make; make install PREFIX=/usr/local"
+       - "cd git-crypt; make; make install PREFIX=/usr/local; cd -"
   pre_build:
     commands:
       - "mkdir ~/.kube/"
@@ -31,25 +29,21 @@ phases:
     commands:
       - "kubectl config get-contexts"
       - "kubectl cluster-info"
-#      - "kubectl --context non-production.k8s.integration.dsd.io get namespaces"
       - "kubectl get namespaces"
       - "kubectl get pods --all-namespaces"
       - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
-#      - "ls namespaces/ | while read file; do kubectl get quota --namespace=$file; kubectl describe quota compute-resources --namespace=$file; kubectl describe quota object-counts --namespace=$file; done"
 #     - "kubectl delete namespaces dev"
-
-
 
   #post_build:
     #commands:
       # - command
-      # - command
+
 #artifacts:
   #files:
     # - location
-    # - location
   #discard-paths: yes
   #base-directory: location
+
 #cache:
   #paths:
     # - paths
