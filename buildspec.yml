@@ -33,8 +33,11 @@ phases:
 #      - "kubectl --context non-production.k8s.integration.dsd.io get namespaces"
       - "kubectl get namespaces"
       - "kubectl get pods --all-namespaces"
-      - "ls namespaces/ | while read file; do kubectl create namespace $file; kubectl create -f namespaces/$file --namespace=$file; kubectl get quota --namespace=$file; kubectl describe quota compute-resources --namespace=$file; kubectl describe quota object-counts --namespace=$file; done"
+      - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
+#      - "ls namespaces/ | while read file; do kubectl get quota --namespace=$file; kubectl describe quota compute-resources --namespace=$file; kubectl describe quota object-counts --namespace=$file; done"
 #     - "kubectl delete namespaces dev"
+
+
 
   #post_build:
     #commands:
