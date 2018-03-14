@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: webops-test-role
+  namespace: dev
+subjects:
+- kind: Group
+  name: "github:webops-test"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: webops-test-role
+  apiGroup: rbac.authorization.k8s.io
