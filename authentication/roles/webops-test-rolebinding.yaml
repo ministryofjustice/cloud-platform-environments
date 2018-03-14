@@ -1,13 +1,13 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: developer-role
-  namespace: laa-fee-calculator-dev
+  name: webops-test-role
+  namespace: dev
 subjects:
 - kind: Group
-  name: "github:crime-billing-online"
+  name: "github:webops-test"
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
-  name: developer-role
+  name: webops-test-role
   apiGroup: rbac.authorization.k8s.io
