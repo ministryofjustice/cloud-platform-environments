@@ -1,10 +1,10 @@
-resource "aws_s3_bucket" "kubernetes-kickoff-tf-bucket" {
-  bucket = kubernetes-kickoff-tf-bucket"
+resource "aws_s3_bucket" "codepipeline_bucket" {
+  bucket = "kubernetes-kickoff-tf-bucket"
   acl    = "private"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-role"
+  name = "kubernetes-kickoff-pipeline-role"
 
   assume_role_policy = <<EOF
 {
@@ -23,7 +23,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline_policy"
+  name = "kubernetes-kickoff-pipeline-policy"
   role = "${aws_iam_role.codepipeline_role.id}"
   policy = <<EOF
 {
@@ -37,8 +37,18 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "s3:GetBucketVersioning"
       ],
       "Resource": [
-        "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.arn}",
-        "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.arn}/*"
+        "${aws_s3_bucket.codepipeline_bucket.arn}",
+        "${aws_s3_bucket.codepipeline_bucket.arn}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "${aws_s3_bucket.codepipeline_bucket.arn}",
+        "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       ]
     },
     {
@@ -55,15 +65,15 @@ EOF
 }
 
 data "aws_kms_alias" "s3kmskey" {
-  name = "alias/myKmsKey"
+  name = "alias/aws/s3"
 }
 
-resource "aws_codepipeline" "kubernetes-kickoff-tf-pipeline" {
+resource "aws_codepipeline" "code_pipeline" {
   name     = "kubernetes-kickoff-tf-pipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
-    location = "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.bucket}"
+    location = "${aws_s3_bucket.codepipeline_bucket.bucket}"
     type     = "S3"
     encryption_key {
       id   = "${data.aws_kms_alias.s3kmskey.arn}"
@@ -73,7 +83,6 @@ resource "aws_codepipeline" "kubernetes-kickoff-tf-pipeline" {
 
   stage {
     name = "Source"
-
     action {
       name             = "Source"
       category         = "Source"
@@ -81,28 +90,27 @@ resource "aws_codepipeline" "kubernetes-kickoff-tf-pipeline" {
       provider         = "GitHub"
       version          = "1"
       output_artifacts = ["test"]
-
       configuration {
-        Owner      = "my-organization"
-        Repo       = "test"
+        Owner      = "ministryofjustice"
+        Repo       = "kubernetes-kickoff"
+        PollForSourceChanges = "true" 
         Branch     = "master"
+        OAuthToken = "8ecb9b5efb8ec67a71eab6c8c721bcb1dfb238a3"
       }
     }
   }
 
   stage {
     name = "Build"
-
     action {
       name            = "Build"
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
-      input_artifacts = ["test"]
       version         = "1"
-
+      input_artifacts = ["test"]
       configuration {
-        ProjectName = "test"
+        ProjectName = "kubernetes-kickoff-tf"
       }
     }
   }
