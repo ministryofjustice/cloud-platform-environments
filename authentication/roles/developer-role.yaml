@@ -1,9 +1,0 @@
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  namespace: laa-fee-calculator-dev
-  name: developer-role
-rules:
-- apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["pods", "nodes", "namespaces", "deployments"]
-  verbs: ["get", "watch", "list"]

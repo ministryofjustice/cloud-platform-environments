@@ -1,10 +1,10 @@
-resource "aws_s3_bucket" "foo" {
-  bucket = "test-bucket"
+resource "aws_s3_bucket" "kubernetes-kickoff-tf-bucket" {
+  bucket = kubernetes-kickoff-tf-bucket"
   acl    = "private"
 }
 
-resource "aws_iam_role" "foo" {
-  name = "test-role"
+resource "aws_iam_role" "codepipeline_role" {
+  name = "codepipeline-role"
 
   assume_role_policy = <<EOF
 {
@@ -37,8 +37,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "s3:GetBucketVersioning"
       ],
       "Resource": [
-        "${aws_s3_bucket.foo.arn}",
-        "${aws_s3_bucket.foo.arn}/*"
+        "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.arn}",
+        "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.arn}/*"
       ]
     },
     {
@@ -58,12 +58,12 @@ data "aws_kms_alias" "s3kmskey" {
   name = "alias/myKmsKey"
 }
 
-resource "aws_codepipeline" "foo" {
-  name     = "tf-test-pipeline"
-  role_arn = "${aws_iam_role.foo.arn}"
+resource "aws_codepipeline" "kubernetes-kickoff-tf-pipeline" {
+  name     = "kubernetes-kickoff-tf-pipeline"
+  role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
-    location = "${aws_s3_bucket.foo.bucket}"
+    location = "${aws_s3_bucket.kubernetes-kickoff-tf-bucket.bucket}"
     type     = "S3"
     encryption_key {
       id   = "${data.aws_kms_alias.s3kmskey.arn}"
