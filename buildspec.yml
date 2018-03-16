@@ -17,13 +17,12 @@ phases:
        - "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
        - "chmod +x kubectl"
        - "mv ./kubectl /usr/local/bin/kubectl"
-       - "git clone https://github.com/AGWA/git-crypt.git"
-       - "cd git-crypt; make; make install PREFIX=/usr/local; cd -"
+#       - "git clone https://github.com/AGWA/git-crypt.git"
+#       - "cd git-crypt; make; make install PREFIX=/usr/local; cd -"
   pre_build:
     commands:
       - "mkdir ~/.kube/"
       - "aws s3 cp s3://non-production-cluster-keystore/config ~/.kube/config" 
-#      - "cp ./kube/config ~/.kube/config"
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   build:

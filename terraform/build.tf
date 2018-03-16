@@ -27,24 +27,9 @@ resource "aws_iam_policy" "codebuild_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Effect":"Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:GetObjectVersion",
-        "s3:GetBucketVersioning"
-      ],
-      "Resource": [
-        "*"
-      ]
-    },
-    {
       "Effect": "Allow",
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Resource": [
-        "*"
-      ]
+      "Action": "s3:*",
+      "Resource": "*"
     },
     {
       "Effect": "Allow",
