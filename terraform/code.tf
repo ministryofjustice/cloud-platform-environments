@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "kubernetes-kickoff-tf-bucket"
+  bucket = "${var.project_name}-bucket"
   acl    = "private"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "kubernetes-kickoff-pipeline-role"
+  name = "${var.project_name}-pipeline-role"
 
   assume_role_policy = <<EOF
 {
@@ -23,7 +23,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "kubernetes-kickoff-pipeline-policy"
+  name = "${var.project_name}-pipeline-policy"
   role = "${aws_iam_role.codepipeline_role.id}"
   policy = <<EOF
 {
@@ -69,7 +69,7 @@ data "aws_kms_alias" "s3kmskey" {
 }
 
 resource "aws_codepipeline" "code_pipeline" {
-  name     = "kubernetes-kickoff-tf-pipeline"
+  name     = "${var.project_name}-pipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
@@ -92,10 +92,10 @@ resource "aws_codepipeline" "code_pipeline" {
       output_artifacts = ["test"]
       configuration {
         Owner      = "ministryofjustice"
-        Repo       = "kubernetes-kickoff"
+        Repo       = "${var.git_repo}"
         PollForSourceChanges = "true" 
-        Branch     = "master"
-        OAuthToken = "6b9f603904a73ce45bfe8f3bab09a52ccf4b3d0e"
+        Branch     = "${var.git_branch}"
+        OAuthToken = "${var.git_token}"
       }
     }
   }
@@ -110,7 +110,7 @@ resource "aws_codepipeline" "code_pipeline" {
       version         = "1"
       input_artifacts = ["test"]
       configuration {
-        ProjectName = "kubernetes-kickoff-tf"
+        ProjectName = "${var.project_name}"
       }
     }
   }
