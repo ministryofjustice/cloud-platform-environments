@@ -95,7 +95,7 @@ resource "aws_codepipeline" "code_pipeline" {
         Repo       = "kubernetes-kickoff"
         PollForSourceChanges = "true" 
         Branch     = "master"
-        OAuthToken = "8ecb9b5efb8ec67a71eab6c8c721bcb1dfb238a3"
+        OAuthToken = "6b9f603904a73ce45bfe8f3bab09a52ccf4b3d0e"
       }
     }
   }
