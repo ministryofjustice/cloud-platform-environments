@@ -17,6 +17,9 @@ phases:
        - "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
        - "chmod +x kubectl"
        - "mv ./kubectl /usr/local/bin/kubectl"
+       - "wget https://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz -O helm.tar.gz; tar -xzf helm.tar.gz"
+       - "chmod +x ./linux-amd64/helm"
+       - "mv ./linux-amd64/helm /usr/local/bin/helm"
 #       - "git clone https://github.com/AGWA/git-crypt.git"
 #       - "cd git-crypt; make; make install PREFIX=/usr/local; cd -"
   pre_build:
@@ -25,6 +28,7 @@ phases:
       - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config" 
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
+      - "helm init"
   build:
     commands:
       - "kubectl config get-contexts"
