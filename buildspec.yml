@@ -28,7 +28,6 @@ phases:
       - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config" 
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
-      - "helm init"
   build:
     commands:
       - "kubectl config get-contexts"
@@ -38,9 +37,9 @@ phases:
       - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
 #     - "kubectl delete namespaces dev"
 
-  #post_build:
-    #commands:
-      # - command
+  post_build:
+    commands:
+       - "ls namespaces/ | while read file; do helm init --service-account $file-tiller --tiller-namespace $file; done"
 
 #artifacts:
   #files:
