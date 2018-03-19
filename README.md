@@ -17,3 +17,6 @@ $ cd terraform
 $ terraform init
 $ terraform apply
 ```
+### kubecfg.yaml
+
+Place the kubecfg.yaml file in the s3 bucket keystore

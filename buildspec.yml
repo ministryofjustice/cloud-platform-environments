@@ -22,7 +22,7 @@ phases:
   pre_build:
     commands:
       - "mkdir ~/.kube/"
-      - "aws s3 cp s3://non-production-cluster-keystore/config ~/.kube/config" 
+      - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config" 
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   build:
