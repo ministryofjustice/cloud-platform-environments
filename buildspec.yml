@@ -33,8 +33,14 @@ phases:
       - "kubectl cluster-info"
       - "kubectl get namespaces"
       - "kubectl get pods --all-namespaces"
+      # namespace and resource creation
       - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
-#     - "kubectl delete namespaces dev"
+      # namespace deletion
+      - NS=$(kubectl get namespaces -o name)
+      - DIR=$(find namespaces -type d -depth 1)
+      - LIST=$(echo "$NS" | while read LINE; do if ! echo "$DIR" | grep -q "$LINE";then echo $LINE; fi; done)
+      - FILTERED=$(echo "$LIST" | grep -v 'namespaces/default\|namespaces/kube-public\|namespaces/kube-system')
+      - echo $FILTERED | while read LINE; do echo "kubectl delete namespaces $LINE"; done
 
   post_build:
     commands:
