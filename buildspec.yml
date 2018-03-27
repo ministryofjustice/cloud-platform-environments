@@ -37,7 +37,7 @@ phases:
       - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
       # namespace deletion
       - NS=$(kubectl get namespaces -o name)
-      - DIR=$(find namespaces -type d -depth 1)
+      - DIR=$(find namespaces -type d -mindepth 1)
       - LIST=$(echo "$NS" | while read LINE; do if ! echo "$DIR" | grep -q "$LINE";then echo $LINE; fi; done)
       - FILTERED=$(echo "$LIST" | grep -v 'namespaces/default\|namespaces/kube-public\|namespaces/kube-system')
       - echo $FILTERED | while read LINE; do echo "kubectl delete namespaces $LINE"; done
