@@ -38,12 +38,16 @@ phases:
       # namespace deletion
       - NS=$(kubectl get namespaces -o name | tr " " "\n")
       - echo $NS
+      - echo $NS | wc -l
       - DIR=$(find namespaces -type d -mindepth 1 | tr " " "\n")
       - echo $DIR
+      - echo $DIR | wc -l
       - LIST=$(echo "$NS" | while read LINE; do if ! echo "$DIR" | grep -q "$LINE";then echo $LINE; fi; done)
       - echo $LIST
+      - echo $LIST | wc -l
       - FILTERED=$(echo "$LIST" | grep -v 'namespaces/default\|namespaces/kube-public\|namespaces/kube-system')
       - echo $FILTERED
+      - echo $FILTERED | wc -l
       - echo $FILTERED | while read LINE; do echo "kubectl delete namespaces $LINE"; done
 
   post_build:
