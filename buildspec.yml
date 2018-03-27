@@ -36,9 +36,9 @@ phases:
       # namespace and resource creation
       - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
       # namespace deletion
-      - NS=$(kubectl get namespaces -o name)
+      - NS=$(kubectl get namespaces -o name | tr " " "\n")
       - echo $NS
-      - DIR=$(find namespaces -type d -mindepth 1)
+      - DIR=$(find namespaces -type d -mindepth 1 | tr " " "\n")
       - echo $DIR
       - LIST=$(echo "$NS" | while read LINE; do if ! echo "$DIR" | grep -q "$LINE";then echo $LINE; fi; done)
       - echo $LIST
