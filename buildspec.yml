@@ -45,7 +45,7 @@ phases:
       - LIST=$(echo "$NS"| tr ' ' '\n' | while read LINE; do if ! echo "$DIR" | tr ' ' '\n' | grep -q "$LINE";then echo $LINE; fi; done)
       - echo $LIST
       - echo $LIST | wc -l
-      - FILTERED=$(echo "$LIST" | tr ' ' '\n' | grep -v 'namespaces/default\|namespaces/kube-public\|namespaces/kube-system')
+      - FILTERED=$(echo "$LIST" | tr ' ' '\n' | grep -v '/default\|/kube-public\|/kube-system')
       - echo $FILTERED
       - echo $FILTERED | wc -l
       - echo $FILTERED | tr ' ' '\n' | while read LINE; do echo "kubectl delete namespaces $LINE"; done
