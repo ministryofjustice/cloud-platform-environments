@@ -10,8 +10,8 @@ phases:
   install:
     commands:
        - "apt update"
-       - "apt install -y awscli git"
-       - "pip install kubernetes"
+       - "apt install -y awscli git python3"
+#       - "pip install kubernetes"
        - "wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64"
        - "chmod +x kops-linux-amd64"
        - "mv kops-linux-amd64 /usr/local/bin/kops"
@@ -34,23 +34,8 @@ phases:
       - "kubectl cluster-info"
       - "kubectl get namespaces"
       - "kubectl get pods --all-namespaces"
-      # namespace and resource creation
-      - "ls namespaces/ | while read file; do kubectl create -f namespaces/$file/namespace.yaml; kubectl apply -f namespaces/$file --namespace=$file; done"
-      # namespace deletion
-      - NS=$(kubectl get namespaces -o name)
-      - echo $NS
-      - echo $NS | wc -l
-      - DIR=$(find namespaces -type d -mindepth 1)
-      - echo $DIR
-      - echo $DIR | wc -l
-      - LIST=$(echo "$NS"| tr ' ' '\n' | while read LINE; do if ! echo "$DIR" | tr ' ' '\n' | grep -q "$LINE";then echo $LINE; fi; done)
-      - echo $LIST
-      - echo $LIST | wc -l
-      - FILTERED=$(echo "$LIST" | tr ' ' '\n' | grep -v '/default\|/kube-public\|/kube-system')
-      - echo $FILTERED
-      - echo $FILTERED | wc -l
-      - echo $FILTERED | tr ' ' '\n' | while read LINE; do echo "kubectl delete namespaces $LINE"; done
-
+      - "which python3"
+      - "python3 namespace.py"
   post_build:
     commands:
 #       - "ls namespaces/ | while read file; do helm init --service-account $file-tiller --tiller-namespace $file; done"
