@@ -19,10 +19,12 @@ for item in k8_json['items']:
   k8_namespaces.append(item['metadata']['name'])
 
 for item in dir_namespaces:
-  k8_namespaces.remove(item)
+  if item in k8_namespaces:
+    k8_namespaces.remove(item)
 
 for item in default_namespaces:
-  k8_namespaces.remove(item)
+  if item in k8_namespaces:
+    k8_namespaces.remove(item)
 
 for item in k8_namespaces:
   if item:
