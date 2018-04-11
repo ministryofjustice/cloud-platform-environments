@@ -1,15 +1,4 @@
-variable "project_name" {
-  default = "k8s-nonprod-env"
-}
-
-variable "git_repo" {
-  default = "k8s-nonprod-environments"
-}
-
-variable "git_branch" {
-  default = "master"
-}
-
-variable "git_token" {
-  default = ""
-}
+variable "project_name" {}
+variable "git_repo" {}
+variable "git_branch" {}
+variable "git_token" {}
