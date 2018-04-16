@@ -1,39 +1,23 @@
-output "this_slack_topic_arn" {
-  description = "The ARN of the SNS topic from which messages will be sent to Slack"
-  value       = "${local.sns_topic_arn}"
-}
-
-output "lambda_iam_role_arn" {
-  description = "The ARN of the IAM role used by Lambda function"
-  value       = "${aws_iam_role.lambda.arn}"
-}
-
-output "lambda_iam_role_name" {
-  description = "The name of the IAM role used by Lambda function"
-  value       = "${aws_iam_role.lambda.arn}"
-}
-
-output "notify_slack_lambda_function_arn" {
-  description = "The ARN of the Lambda function"
+output "notify_slack_lambda_function_version" {
+  description = "Latest published version of your Lambda function"
   value       = "${aws_lambda_function.notify_slack.arn}"
 }
 
-output "notify_slack_lambda_function_name" {
-  description = "The name of the Lambda function"
-  value       = "${aws_lambda_function.notify_slack.function_name}"
+output "notify_cloudwatch_rule" {
+  description = "Name of your Cloudwatch rule"
+  value       = "${aws_cloudwatch_event_rule.codebuild_watcher_rule.name}"
 }
 
-output "notify_slack_lambda_function_invoke_arn" {
-  description = "The ARN to be used for invoking Lambda function from API Gateway"
-  value       = "${aws_lambda_function.notify_slack.invoke_arn}"
+output "notify_lambda_permissions" {
+  description = "Permissions ARN for Lambda"
+  value       = "${aws_iam_role.cp_build_LambdaExecution.arn}"
 }
 
-output "notify_slack_lambda_function_last_modified" {
-  description = "The date Lambda function was last modified"
-  value       = "${aws_lambda_function.notify_slack.last_modified}"
+output "notify_lambda_execution_IAM_ID" {
+  description = "IAM Lambda Role ID"
+  value       = "${aws_iam_role.cp_build_LambdaExecution.id}"
 }
 
-output "notify_slack_lambda_function_version" {
-  description = "Latest published version of your Lambda function"
-  value       = "${aws_lambda_function.notify_slack.version}"
+output "codebuild_watcher_rule_arn" {
+  value = "${aws_cloudwatch_event_rule.codebuild_watcher_rule.arn}"
 }

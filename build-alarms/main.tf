@@ -2,48 +2,102 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-resource "aws_sns_topic" "this" {
-  name = "${var.sns_topic_name}"
+# Cloudwatch event creation
+resource "aws_cloudwatch_event_rule" "codebuild_watcher_rule" {
+  name        = "cp-build-notifications"
+  description = "Capture CodeBuild events and trigger a Lambda which pushes to Slack"
+
+  event_pattern = <<PATTERN
+{
+  "source": [
+    "aws.codebuild"
+  ],
+  "detail-type": [
+    "CodeBuild Build State Change"
+  ],
+  "detail": {
+    "build-status": [
+      "FAILED",
+      "SUCCEEDED",
+      "IN_PROGRESS",
+      "STOPPED"
+    ]
+  }
+}
+PATTERN
 }
 
-locals {
-  sns_topic_arn = "${element(compact(concat(aws_sns_topic.this.*.arn, data.aws_sns_topic.this.*.arn)), 0)}"
+# Lambda execution IAM policy
+resource "aws_iam_role" "cp_build_LambdaExecution" {
+  name = "cp-build-notification-role"
+
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+POLICY
 }
 
-resource "aws_sns_topic_subscription" "sns_notify_slack" {
-  topic_arn = "${local.sns_topic_arn}"
-  protocol  = "lambda"
-  endpoint  = "${aws_lambda_function.notify_slack.arn}"
+resource "aws_iam_role_policy" "cp_build_LambdaPolicy" {
+  name = "cp-build-notification-policy"
+  role = "${aws_iam_role.cp_build_LambdaExecution.id}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:*"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Effect": "Allow"
+    }
+  ]
+}
+POLICY
 }
 
-resource "aws_lambda_permission" "sns_notify_slack" {
-  statement_id  = "AllowExecutionFromSNS"
+# Lambda invocation permissions
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.notify_slack.function_name}"
-  principal     = "sns.amazonaws.com"
-  source_arn    = "${local.sns_topic_arn}"
+  principal     = "events.amazonaws.com"
+  source_arn    = "${aws_cloudwatch_event_rule.codebuild_watcher_rule.arn}"
 }
 
-data "archive_file" "notify_slack" {
-  type        = "zip"
-  source_file = "${path.module}/functions/notify_slack.py"
-  output_path = "${path.module}/functions/notify_slack.zip"
-}
-
+# Lambda function
 resource "aws_lambda_function" "notify_slack" {
-  filename         = "${data.archive_file.notify_slack.output_path}"
-  function_name    = "${var.lambda_function_name}"
-  role             = "${aws_iam_role.lambda.arn}"
-  handler          = "notify_slack.lambda_handler"
-  source_code_hash = "${data.archive_file.notify_slack.output_base64sha256}"
-  runtime          = "python3.6"
-  timeout          = 30
+  filename      = "functions/notify_slack.zip"
+  function_name = "cloud-platforms-codebuild-notifier"
+  description   = "CodeBuild success failure notification to Slack"
+  role          = "${aws_iam_role.cp_build_LambdaExecution.arn}"
+  handler       = "notify_slack.handler"
+  runtime       = "nodejs8.10"
+  timeout       = 30
 
   environment {
     variables = {
-      SLACK_WEBHOOK_URL = "${var.slack_webhook_url}"
-      SLACK_CHANNEL     = "${var.slack_channel}"
-      SLACK_USERNAME    = "${var.slack_username}"
+      SLACK_HOOK_URL = "${var.slack_webhook_url}"
     }
   }
+}
+
+# Cloudwatch event execution
+resource "aws_cloudwatch_event_target" "codebuild_watcher_target" {
+  rule = "${aws_cloudwatch_event_rule.codebuild_watcher_rule.name}"
+  arn  = "${aws_lambda_function.notify_slack.arn}"
 }
