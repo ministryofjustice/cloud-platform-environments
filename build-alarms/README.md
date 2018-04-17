@@ -60,7 +60,7 @@ Git clone repo, change current directory to k8s-nonprod-environments/build-alarm
 ```bash
 $ git-crypt unlock
 
-$ terraform plan -var-file variables.tf
+$ terraform plan
 
 # you will get an output that asks you for a value. Enter your Slack webhook url.
 
@@ -70,7 +70,3 @@ var.slack_webhook_url
 ```
 
 
-
-## License
-
-Apache 2 Licensed. See LICENSE for full details.
