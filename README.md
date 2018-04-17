@@ -31,6 +31,6 @@ You must place the cluster's kubecfg.yaml file in the s3 bucket keystore `s3://n
 
 ### Build alarms: Success/failure slackbot
 
-The build-alarms/ directory contains all you need to setup a slackbot to notify users on the success/failure of their namespace creation. 
+The `build-alarms/` directory contains all you need to setup a slackbot to notify users on the success/failure of their namespace creation. 
 
 This creates a Cloudwatch rule to monitor everything Codebuild writes to Cloudwatch. When this rule is matched a Lambda is triggered, sending an alert to a specified slack channel.  
