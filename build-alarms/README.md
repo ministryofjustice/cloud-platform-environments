@@ -67,6 +67,10 @@ $ terraform plan
 var.slack_webhook_url
   Enter a value: "https://hooks.slack.com/services/AAA/BBB/CCC"
 
+# run terraform apply to apply changes.
+
+terraform apply
+
 ```
 
 
