@@ -2,6 +2,15 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# Remote state store
+terraform {
+  backend "s3" {
+    bucket = "build-notifications-cloud-platforms"
+    region = "eu-west-1"
+    key    = "terraform.tfstate"
+  }
+}
+
 # Cloudwatch event creation
 resource "aws_cloudwatch_event_rule" "codebuild_watcher_rule" {
   name        = "cp-build-notifications"
