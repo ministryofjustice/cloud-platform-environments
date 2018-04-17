@@ -1,47 +1,72 @@
-# AWS Notify Slack Terraform module
+# # Codebuild-slack notification module
 
-This module creates SNS topic (or use existing one) and a AWS Lambda function which sends notifications to Slack using [incoming webhooks API](https://api.slack.com/incoming-webhooks).
+This module contains a CloudWatch event rule which captures Codebuild events and triggers a lambda function which notifies your slack channel on the build success or failure using [incoming webhooks API](https://api.slack.com/incoming-webhooks).
 
 Start by setting up an [incoming webhook integration](https://my.slack.com/services/new/incoming-webhook/) in your Slack workspace.
 
-## Features
+## CloudWatch Events
+This resource in terraform creates a CloudWatch event rule which will capture the status ["Success" or "Failure"] of your CodeBuild once it has completed. The status of your build will then trigger the lambda.
 
-- [x] AWS Lambda runtime Python 3.6
-- [x] Create new SNS topic or use existing one
-- [x] Support plaintext and encrypted version of Slack webhook URL
-- [x] Most of Slack message options are customizable
-- [x] Support different types of SNS messages:
-  - [x] AWS Cloudwatch
-  - [ ] [Send pull-request to add support of other message types](https://github.com/terraform-aws-modules/terraform-aws-notify-slack/pulls)
+```hcl
+resource "aws_cloudwatch_event_rule" "codebuild_watcher_rule" {
+  name        = "cp-build-notifications"
+  description = "Capture CodeBuild events and trigger a Lambda which pushes to Slack"
+
+  event_pattern = <<PATTERN
+{
+  "source": [
+    "aws.codebuild"
+  ],
+  "detail-type": [
+    "CodeBuild Build State Change"
+  ],
+  "detail": {
+    "build-status": [
+      "FAILED",
+      "SUCCEEDED",
+      "IN_PROGRESS",
+      "STOPPED"
+    ]
+  }
+}
+PATTERN
+}
+
+```
+
+## Lambda
+
+This resource creates the lambda function. Once CloudWatch events triggers the lambda, the lambda will send a notification of your codebuild to your slack channel.
+
+```hcl
+
+resource "aws_lambda_function" "notify_slack" {
+  filename      = "functions/notify_slack.zip"
+  function_name = "cloud-platforms-codebuild-notifier"
+  description   = "CodeBuild success failure notification to Slack"
+  role          = "${aws_iam_role.cp_build_LambdaExecution.arn}"
+  handler       = "notify_slack.handler"
+  runtime       = "nodejs8.10"
+  timeout       = 30
+
+
+```
+
 
 ## Usage
 
-```hcl
-module "notify_slack" {
-  source = "terraform-aws-modules/notify-slack/aws"
-  
-  sns_topic_name = "slack-topic"
+Git clone repo, change current directory to k8s-nonprod-environments/build-alarms
 
-  slack_webhook_url = "https://hooks.slack.com/services/AAA/BBB/CCC"
-  slack_channel     = "aws-notification"
-  slack_username    = "reporter"
-}
+```bash
+$ git-crypt unlock
+
+$ terraform plan
+
+# you will get an output that asks you for a value. Enter your Slack webhook url.
+
+var.slack_webhook_url
+  Enter a value: "https://hooks.slack.com/services/AAA/BBB/CCC"
+
 ```
 
-## Use existing SNS topic or create new
 
-If you want to subscribe AWS Lambda Function created by this module to an existing SNS topic you should specify `create_sns_topic = false` as argument and specify name of existing SNS topic name in `sns_topic_name`.
-
-## Examples
-
-* [notify-slack-simple](https://github.com/terraform-aws-modules/terraform-aws-notify-slack/tree/master/examples/notify-slack-simple) - Creates SNS topic which sends messages to Slack channel.
-* [notify-slack-kms](https://github.com/terraform-aws-modules/terraform-aws-notify-slack/tree/master/examples/notify-slack-simple) - Creates SNS topic which sends messages to Slack channel (using KMS to encrypt Slack webhook URL).
-* [cloudwatch-alerts-to-slack](https://github.com/terraform-aws-modules/terraform-aws-notify-slack/tree/master/examples/cloudwatch-alerts-to-slack) - End to end example which shows how to send AWS Cloudwatch alerts to Slack channel and use KMS to encrypt webhook URL.
-
-## Authors
-
-Module managed by [Anton Babenko](https://github.com/antonbabenko).
-
-## License
-
-Apache 2 Licensed. See LICENSE for full details.
