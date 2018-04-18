@@ -60,7 +60,7 @@ functions.handler = function(event, context) {
     var text = project+' '+status;
     if (status === 'FAILED') {
         text += '\n';
-        text += 'https://console.aws.amazon.com/cloudwatch/home?region='+event.region+'#logEventViewer:group=/aws/codebuild/'+project+';start=PT5M';
+        text += 'https://console.aws.amazon.com/codebuild/home?region='+event.region+'#/projects/'+project+'/view';
     }
 
     const SLACK_HOOK_URL = process.env.SLACK_HOOK_URL;
