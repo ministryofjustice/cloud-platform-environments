@@ -15,6 +15,8 @@ for item in dir_namespaces:
 
   print(subprocess.check_output(['kubectl', 'apply', '-f', 'namespaces/' + item, '--namespace=' + item]) )
 
+  print(subprocess.check_output(['helm', 'init', '--service-account', 'tiller', '--tiller-namespace', item]) )
+
 for item in k8_json['items']:
   k8_namespaces.append(item['metadata']['name'])
 
