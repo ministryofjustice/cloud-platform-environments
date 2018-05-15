@@ -9,11 +9,16 @@ k8_json = json.loads(str(subprocess.check_output(["kubectl", "get", "namespaces"
 
 for item in dir_namespaces:
   try:
+    print('kubectl create')
     print(subprocess.check_output(['kubectl', 'create', '-f', 'namespaces/' + item + '/namespace.yaml']) )
   except subprocess.CalledProcessError as e:
     print('exit code 1') 
 
+  print('kubectl apply')
   print(subprocess.check_output(['kubectl', 'apply', '-f', 'namespaces/' + item, '--namespace=' + item]) )
+
+  print('helm init')
+  print(subprocess.check_output(['helm', 'init', '--service-account', 'tiller', '--tiller-namespace', item]) )
 
 for item in k8_json['items']:
   k8_namespaces.append(item['metadata']['name'])

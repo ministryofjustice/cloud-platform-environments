@@ -2,17 +2,17 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tiller
-  namespace: laa-fee-calculator-dev
+  namespace: pvbpublic-dev
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: tiller
-  namespace: laa-fee-calculator-dev
+  namespace: pvbpublic-dev
 subjects:
 - kind: ServiceAccount
   name: tiller
-  namespace: laa-fee-calculator-dev
+  namespace: pvbpublic-dev
 roleRef:
   kind: ClusterRole
   name: cluster-admin
