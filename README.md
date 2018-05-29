@@ -1,10 +1,10 @@
-# cloud-platforms-test-env creation
+# cloud-platform-environments
 
 ### Intro
-This repo has been created to initiate an environment (namespace) creation in the MoJ Kubernetes cluster 'cloud-platforms-test.k8s.integration.dsd.io'. It also contains files required to create a pipeline in AWS utilising CodePipeline and CodeBuild. 
-
+This repo contains the necesary files to create a pipeline in aws to create kubernetes cluster namespaces and resources after a push is made to the master branch of a given repo.
 The aws resources and pipeline can be created with the terraform templates included.
 Kubernetes namespaces and resources are defined in the namespaces directory in this repo.
+
 
 ### Buildspec
 
