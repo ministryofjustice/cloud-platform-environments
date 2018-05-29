@@ -5,8 +5,11 @@
 *.tfstate
 *.tfstate.*
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # .tfvars files
 *.tfvars
 =======
 >>>>>>> k8s-nonprod-environments/master
+=======
+>>>>>>> cloud-platform-test-cluster-env/master
