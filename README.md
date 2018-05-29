@@ -3,7 +3,7 @@
 ### Intro
 This repo contains the necesary files to create a pipeline in aws to create kubernetes cluster namespaces and resources after a push is made to the master branch of a given repo.
 The aws resources and pipeline can be created with the terraform templates included.
-Kubernetes namespaces and resources are defined in the namespaces directory in this repo.
+Kubernetes namespaces and resources are defined in the namespaces directory in this repo under the corresponding cluster name.
 
 
 ### Buildspec
