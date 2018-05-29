@@ -71,6 +71,6 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type     = "CODEPIPELINE"
-    buildspec = "buildspec.yml"
+    buildspec = "terraform_nonprod/buildspec.yml"
   }
 }
