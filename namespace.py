@@ -8,6 +8,7 @@ parser.add_argument("-c", "--cluster", dest="cluster",
                     help="Cluster to run this on", required=True)
 
 args = parser.parse_args()
+cluster = vars(args)['cluster']
 
 default_namespaces = ['default', 'kube-public', 'kube-system']
 k8_namespaces = []
