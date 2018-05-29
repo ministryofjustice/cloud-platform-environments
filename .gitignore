@@ -4,6 +4,9 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+<<<<<<< HEAD
 
 # .tfvars files
 *.tfvars
+=======
+>>>>>>> k8s-nonprod-environments/master
