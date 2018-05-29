@@ -44,4 +44,4 @@ for item in default_namespaces:
 for item in k8_namespaces:
   if item:
     print('kubectl delete namespaces', item)
-#    print(subprocess.check_output(['kubectl', 'delete', 'namespaces', item]) )
+    print(subprocess.check_output(['kubectl', 'delete', 'namespaces', item]) )
