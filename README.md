@@ -1,33 +1,50 @@
 # cloud-platform-environments
 
-### Intro
-This repo contains the necesary files to create a pipeline in aws to create kubernetes cluster namespaces and resources after a push is made to the master branch of a given repo.
-The aws resources and pipeline can be created with the terraform templates included.
+## Intro
+
+This repo contains the necesary files to create a pipeline in aws to create and delete kubernetes cluster namespaces and resources after a push is made to the master branch.
+The aws resources and pipeline can be created with the terraform templates included. One Pipeline exist for each cluster under the `terraform` directory.
 Kubernetes namespaces and resources are defined in the namespaces directory in this repo under the corresponding cluster name.
 
+### Functionality
 
-### Buildspec
+The pipeline will for each defined cluster:
+1) create any namespace defined in the `namespaces/<cluster>` directory in the corresponding cluster that does not actually exist on the cluster.
+2) delete any namespaces that exist in the <cluster> but is not defined in the repo.
+3) create any kubernetes resource that is defined under `namespaces/<cluster>`
 
-The `buildspec.yml` file contains the codebuild build specification that will create the resources defined in the `namespaces/` directory. These will be the commands executed by the pipeline every time it runs.
+### namespace.py
+
+namespace.py is the main python script in charge of creating, deleting namespaces and creating resources. It is triggered by the pipeline and takes as an argument the cluster name.
+usage:
+```
+python3 namespace.py
+usage: namespace.py [-h] -c CLUSTER
+namespace.py: error: the following arguments are required: -c/--cluster
+```
 
 ### Namespaces
 
-The `namespaces/` directory contains sub directorys named after each of the desired namespaces you want to create. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the repos master branch by the aws codepipeline.
+The `namespaces/` directory contains the cluster names, and inside sub directories named after each of the desired namespaces you want to create. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the repos master branch by the aws codepipeline.
 
 ### Terraform
 
-The `terraform/` directory contains Terraform resources to create the AWS pipeline for kubernetes namespace and resource creation. To create the pipeline, or make changes:
+The `terraform/` directory contains Terraform resources to create the AWS pipeline for kubernetes namespace and resource creation under the corresponding cluster name. To create the pipeline, or make changes:
 
 ```
-$ cd terraform
+$ cd terraform/<cluster>
 $ terraform init
 $ terraform apply
 ```
-The configuration changes, like repo, branch or project name can be done from the `terraform/variables.tf` file
+The configuration changes, like repo, branch or project name can be done from the `terraform/<cluster>/terraform.tfvars` file
+
+### Buildspec
+
+The `buildspec.yml` file lives under `terraform/<cluster>` and contains the codebuild build specification that will create the resources defined in the `namespaces/<cluster>` directory. These will be the commands executed by the pipeline every time it runs.
 
 ### Kube config kubecfg.yaml file
 
-You must place the cluster's kubecfg.yaml file in the s3 bucket keystore `s3://non-production-cluster-keystore/kubecfg.yaml`. That is the way the codepipeline connects to the cluster to perform operations.
+You must place the cluster's kubecfg.yaml file in the s3 bucket keystore `s3://<cluster-keystore>/kubecfg.yaml`. That is the way the codepipeline connects to the cluster to perform operations.
 
 ### Build alarms: Success/failure slackbot
 
