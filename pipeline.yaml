@@ -1,0 +1,34 @@
+resources:
+  - name: cloud-platform-environments-repo
+    type: git
+    source:
+      uri: https://github.com/ministryofjustice/cloud-platform-environments.git
+      branch: build-env-using-concourse
+
+jobs:
+  - name: prepare-environments-build
+    plan:
+      - get: cloud-platform-environments-repo
+        trigger: true
+      - task: build-pre-cooked-image
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: ubuntu
+              tag: 16.04
+          inputs:
+            - name: cloud-platform-environments-repo
+          run:
+            path: /bin/bash
+            dir: cloud-platform-environments-repo
+            args:
+              - -c
+              - |
+                apt update
+                apt install -y awscli git python3 wget
+                wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64 -O /usr/local/bin/kops
+                wget https://storage.googleapis.com/kubernetes-release/release/$(wget -qO- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+                wget https://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz -O helm.tar.gz; tar -xzf helm.tar.gz; mv ./linux-amd64/helm /usr/local/bin/helm
+                chmod +x /usr/local/bin/kops /usr/local/bin/kubectl /usr/local/bin/helm && mkdir -p ~/.kube && ./whichNamespace.sh
