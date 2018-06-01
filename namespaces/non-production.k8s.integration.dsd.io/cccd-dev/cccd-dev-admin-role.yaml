@@ -1,3 +1,54 @@
+# Role to allow listing of namespaces.
+#
+# As this role is not bound to a namespace, it could be created once
+# at the cluster scope, rather than multiple roles being created for
+# each namespace. This is the simplest solution for now however.
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cccd-dev-namespaces-list
+rules:
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["list"]
+
+# Bind namespace-list role to team group
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cccd-dev-namespaces-list
+subjects:
+- kind: Group
+  name: "github:crime-billing-online"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cccd-dev-namespaces-list
+  apiGroup: rbac.authorization.k8s.io
+
+# Bind basic-user role to team group
+# This allows users to use the Authorization API to check their
+# access levels
+#
+# https://github.com/kubernetes/kubernetes/blob/master/plugin/pkg/auth/authorizer/rbac/bootstrappolicy/testdata/cluster-roles.yaml#L576
+# https://kubernetes.io/docs/reference/access-authn-authz/authorization/
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cccd-dev-basic-user
+subjects:
+- kind: Group
+  name: "github:crime-billing-online"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: system:basic-user
+  apiGroup: rbac.authorization.k8s.io
+
+# Bind admin role for namespace to team group
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
