@@ -6,9 +6,9 @@ This repository contains the necessary files to create a pipeline in AWS to crea
 ### Functionality
 The pipeline will for each defined `cluster`:
 
-1) create any namespace defined in the namespaces/`cluster` directory in the corresponding cluster, that does not actually exist on the cluster.
-2) delete any namespaces that exist in the cluster but are not defined in the repository.
-3) create any kubernetes resource that is defined under namespaces/`custer`/`namespace`
+1) Create a namespace defined the namespace/`cluster` directory. If the namespace already exists on the cluster it will be ignored.
+2) Delete any namespaces that exist in the cluster but are not defined in the repository.
+3) Create any kubernetes resource that is defined under namespaces/`custer`/`namespace`
 
 ### namespace.py
 namespace.py is the main python script in charge of creating, deleting namespaces and creating resources. It is triggered by the pipeline and takes as an argument the cluster name.
