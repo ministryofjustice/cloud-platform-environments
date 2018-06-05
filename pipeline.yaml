@@ -20,6 +20,9 @@ jobs:
               tag: 16.04
           inputs:
             - name: cloud-platform-environments-repo
+          params:
+            AWS_ACCESS_KEY_ID: ((aws-key-id))
+            AWS_SECRET_ACCESS_KEY: ((aws-key-secret))
           run:
             path: /bin/bash
             dir: cloud-platform-environments-repo

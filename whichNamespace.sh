@@ -17,7 +17,6 @@ else
     echo "Running kubectl config use-context $CLUSTER"
     kubectl config use-context $CLUSTER
     echo "Running python3 namespace.py -c $CLUSTER"
+    python3 namespace.py -c $CLUSTER
   done
 fi
-
-# Dummy change to trigger the build
