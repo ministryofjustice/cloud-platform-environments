@@ -4,26 +4,15 @@ metadata:
   name: tiller
   namespace: concourse
 ---
-kind: Role
+kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: tiller-manager
-  namespace: concourse
-rules:
-- apiGroups: ["", "extensions", "apps"]
-  resources: ["*"]
-  verbs: ["*"]
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: tiller-binding
-  namespace: concourse
+  name: concourse-tiller-admin
 subjects:
 - kind: ServiceAccount
   name: tiller
   namespace: concourse
 roleRef:
-  kind: Role
-  name: tiller-manager
+  kind: ClusterRole
+  name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
