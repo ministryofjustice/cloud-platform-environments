@@ -1,15 +1,31 @@
 resources:
-  - name: cloud-platform-environments-repo
-    type: git
-    source:
-      uri: https://github.com/ministryofjustice/cloud-platform-environments.git
-      branch: build-env-using-concourse
+- name: cloud-platform-environments-repo
+  type: git
+  source:
+    uri: https://github.com/ministryofjustice/cloud-platform-environments.git
+    branch: build-env-using-concourse
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: https://hooks.slack.com/services/((slack-hook-id))
+
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
 
 jobs:
   - name: prepare-environments-build
     plan:
       - get: cloud-platform-environments-repo
         trigger: true
+      - put: slack-alert
+        params:
+          channel: "#cp-build-notifications"
+          text: |
+            *INFO* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has started.
       - task: build-pre-cooked-image
         config:
           platform: linux
@@ -35,3 +51,15 @@ jobs:
                 wget https://storage.googleapis.com/kubernetes-release/release/$(wget -qO- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
                 wget https://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz -O helm.tar.gz; tar -xzf helm.tar.gz; mv ./linux-amd64/helm /usr/local/bin/helm
                 chmod +x /usr/local/bin/kops /usr/local/bin/kubectl /usr/local/bin/helm && mkdir -p ~/.kube && ./whichNamespace.sh
+        on_success:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *SUCCESS!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has completed successfully.
+        on_failure:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *FAILURE!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has failed.
