@@ -25,7 +25,36 @@ namespace.py: error: the following arguments are required: -c/--cluster
 
 ### Namespaces
 
-The `namespaces/` directory contains the cluster names, and inside sub directories named after each of the desired namespaces you want to create. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the repos master branch by the aws codepipeline.
+The `namespaces/` directory contains sub directories named after the existing cluster names, and inside, sub directories named after each of the desired namespaces you want to create for each cluster. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the repos master branch by the aws codepipeline.
+
+### AWS resources
+
+In a similar fashion as namespaces, you can create AWS resources in your desired namespace. The file structure for that is `namespaces/<cluster>/<namespace>/terraform/` and terrafom files should be placed in that route for the pipeline to be triggered and create those AWS resources.
+Different terraform modules exist,[ECR credentials](https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials), [S3 bucket](https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket) and should be used to create these resources as follows:
+
+#### Example terraform file
+
+```
+module "my_s3_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
+
+  team_name = "my-team"
+  bucket_id = "my-bucket"
+}
+
+resource "kubernetes_secret" "my_s3_bucket_creds" {
+  metadata {
+    name = "my-s3-bucket-creds"
+  }
+
+  data {
+    access_key_id     = "${module.my_s3_bucket.access_key_id}"
+    secret_access_key = "${module.my_s3_bucket.secret_access_key}"
+    bucket_name       = "${module.my_s3_bucket.bucket_name}"
+  }
+}
+
+```
 
 ### Terraform
 
