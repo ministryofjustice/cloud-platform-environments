@@ -4,6 +4,7 @@ resources:
   source:
     uri: https://github.com/ministryofjustice/cloud-platform-environments.git
     branch: build-env-using-concourse
+  webhook_token: ((github-hook-id))
 - name: slack-alert
   type: slack-notification
   source:
@@ -63,3 +64,9 @@ jobs:
             channel: "#cp-build-notifications"
             text: |
               *FAILURE!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has failed.
+        on_abort:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *ABORTED!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has been cancelled.
