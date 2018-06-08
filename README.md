@@ -27,6 +27,12 @@ namespace.py: error: the following arguments are required: -c/--cluster
 
 The `namespaces/` directory contains the cluster names, and inside sub directories named after each of the desired namespaces you want to create. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the repos master branch by the aws codepipeline.
 
+### Changes within namespaces
+
+Changes within namespaces directory are managed by concourse job configured with `fly` and running on live-0 cluster.
+Command used to create build job is `fly --target live0 sp -c pipeline.yaml -p build-environments`.
+GitHub triggers the build process using [webhook](https://github.com/ministryofjustice/cloud-platform-environments/settings/hooks/32085881). Build itself runs script `whichNamespace.sh` checking for last commit changes, and if it detects any within namespace folder it executes `namespace.py` with appropriate cluster(s) parameter.
+
 ### Terraform
 
 The `terraform/` directory contains Terraform resources to create the AWS pipeline for kubernetes namespace and resource creation under the corresponding cluster name. To create the pipeline, or make changes:
@@ -48,6 +54,6 @@ You must place the cluster's kubecfg.yaml file in the s3 bucket keystore `s3://<
 
 ### Build alarms: Success/failure slackbot
 
-The `build-alarms/` directory contains all you need to setup a slackbot to notify users on the success/failure of their namespace creation. 
+The `build-alarms/` directory contains all you need to setup a slackbot to notify users on the success/failure of their namespace creation.
 
-This creates a Cloudwatch rule to monitor everything Codebuild writes to Cloudwatch. When this rule is matched a Lambda is triggered, sending an alert to a specified slack channel.  
+This creates a Cloudwatch rule to monitor everything Codebuild writes to Cloudwatch. When this rule is matched a Lambda is triggered, sending an alert to a specified slack channel.
