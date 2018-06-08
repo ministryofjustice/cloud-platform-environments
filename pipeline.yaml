@@ -3,7 +3,6 @@ resources:
   type: git
   source:
     uri: https://github.com/ministryofjustice/cloud-platform-environments.git
-    branch: build-env-using-concourse
   webhook_token: ((github-hook-id))
 - name: slack-alert
   type: slack-notification
