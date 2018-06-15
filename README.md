@@ -27,6 +27,12 @@ The `namespaces/` directory contains sub directories named after the existing cl
 ### AWS resources
 In a similar fashion as namespaces, you can create AWS resources in your desired namespace. The file structure for that is namespaces/`cluster`/`namespace`/terraform/ and Terraform files should be placed in that route for the pipeline to be triggered and create those AWS resources. Different terraform modules exist, for example t,[ECR credentials](https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials), [S3 bucket](https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket), and should be used to create these resources as follows:
 
+### Changes within namespaces
+
+Changes within namespaces directory are managed by concourse job configured with `fly` and running on live-0 cluster.
+Command used to create build job is `fly --target live0 sp -c pipeline.yaml -p build-environments`.
+GitHub triggers the build process using [webhook](https://github.com/ministryofjustice/cloud-platform-environments/settings/hooks/32085881). Build itself runs script `whichNamespace.sh` checking for last commit changes, and if it detects any within namespace folder it executes `namespace.py` with appropriate cluster(s) parameter.
+
 #### Example terraform file
 
 ```

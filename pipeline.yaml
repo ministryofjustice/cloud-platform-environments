@@ -1,0 +1,71 @@
+resources:
+- name: cloud-platform-environments-repo
+  type: git
+  source:
+    uri: https://github.com/ministryofjustice/cloud-platform-environments.git
+  webhook_token: ((github-hook-id))
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: https://hooks.slack.com/services/((slack-hook-id))
+
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
+jobs:
+  - name: prepare-environments-build
+    plan:
+      - get: cloud-platform-environments-repo
+        trigger: true
+      - put: slack-alert
+        params:
+          channel: "#cp-build-notifications"
+          text: |
+            *INFO* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has started.
+      - task: build-pre-cooked-image
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: ubuntu
+              tag: 16.04
+          inputs:
+            - name: cloud-platform-environments-repo
+          params:
+            AWS_ACCESS_KEY_ID: ((aws-key-id))
+            AWS_SECRET_ACCESS_KEY: ((aws-key-secret))
+          run:
+            path: /bin/bash
+            dir: cloud-platform-environments-repo
+            args:
+              - -c
+              - |
+                apt update
+                apt install -y awscli git python3 wget
+                wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64 -O /usr/local/bin/kops
+                wget https://storage.googleapis.com/kubernetes-release/release/$(wget -qO- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+                wget https://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz -O helm.tar.gz; tar -xzf helm.tar.gz; mv ./linux-amd64/helm /usr/local/bin/helm
+                chmod +x /usr/local/bin/kops /usr/local/bin/kubectl /usr/local/bin/helm && mkdir -p ~/.kube && ./whichNamespace.sh
+        on_success:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *SUCCESS!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has completed successfully.
+        on_failure:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *FAILURE!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has failed.
+        on_abort:
+          put: slack-alert
+          params:
+            channel: "#cp-build-notifications"
+            text: |
+              *ABORTED!* The build of <https://concourse.apps.cloud-platform-live-0.k8s.integration.dsd.io/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_TEAM_NAME/$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME#$BUILD_NAME> has been cancelled.
