@@ -29,8 +29,7 @@ In a similar fashion as namespaces, you can create AWS resources in your desired
 
 ### Changes within namespaces
 
-Changes within namespaces directory are managed by concourse job configured with `fly` and running on live-0 cluster.
-Command used to create build job is `fly --target live0 sp -c pipeline.yaml -p build-environments`.
+Changes within namespaces directory are managed by the `build-environments` concourse job configured [here](https://github.com/ministryofjustice/cloud-platform-concourse/tree/master/pipelines/cloud-platform-live-0/main/build-environments.yaml).
 GitHub triggers the build process using [webhook](https://github.com/ministryofjustice/cloud-platform-environments/settings/hooks/32085881). Build itself runs script `whichNamespace.sh` checking for last commit changes, and if it detects any within namespace folder it executes `namespace.py` with appropriate cluster(s) parameter.
 
 #### Example terraform file
