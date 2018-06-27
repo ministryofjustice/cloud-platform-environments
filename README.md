@@ -1,7 +1,7 @@
 # cloud-platform-environments
 
 ## Intro
-This repository contains the necessary files to create a pipeline in AWS to create and delete kubernetes cluster namespaces and resources after a push is made to the master branch. The AWS resources and pipeline can be created with the terraform templates included. One Pipeline exist for each cluster under the `terraform` directory. Kubernetes namespaces and resources are defined in the `namespaces` directory in this repository under the corresponding `cluster` name.
+This repository is where kubernetes namespaces are managed, across all the clusters. Kubernetes namespaces and resources are defined in the `namespaces` directory in this repository under the corresponding `cluster` name.
 
 ### Functionality
 The pipeline will for each defined `cluster`:
@@ -54,25 +54,3 @@ resource "kubernetes_secret" "my_S3_bucket_creeds" {
   }
 }
 ```
-
-### Terraform
-The terraform/ directory contains Terraform resources to create the AWS pipeline for kubernetes namespace and resource creation under the corresponding cluster name. To create the pipeline, or make changes:
-
-```
-$ cd terraform/<cluster>
-$ terraform init
-$ terraform apply
-```
-
-The configuration changes, like repository, branch or project name can be done from the terraform/<cluster>/terraform.tfvars file
-
-### Buildspec
-The buildspec.yml file lives under terraform/`cluster` and contains the codebuild build specification that will create the resources defined in the namespaces/`cluster` directory. These will be the commands executed by the pipeline every time it runs.
-
-### Kube config file
-You must place the cluster's kubecfg.yaml file in the S3 bucket keystore S3://`cluster-keystore`/kubecfg.yaml. That is the way the code pipeline connects to the cluster to perform operations.
-
-### Build alarms: Success/failure slackbot
-The build-alarms/ directory contains all you need to setup a slackbot to notify users on the success/failure of their namespace creation.
-
-This creates a Cloudwatch rule to monitor everything Codebuild writes to Cloudwatch. When this rule is matched a Lambda is triggered, sending an alert to a specified slack channel.
