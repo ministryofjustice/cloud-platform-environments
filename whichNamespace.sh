@@ -12,10 +12,10 @@ else
     echo "Running python3 namespace.py -c $CLUSTER"
     python3 namespace.py -c $CLUSTER
     if [ -z "$(ls -A ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources)" ]; then
-      echo "directory does not exist"
+      echo "terraform directory does not exist"
     else
-      terraform init ./namespaces/$CLUSTER/$DIR/resources
-      terraform apply ./namespaces/$CLUSTER/$DIR/resources
+      terraform init ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources
+      terraform apply ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources
     fi
   done
 fi

@@ -5,7 +5,7 @@ module "example_team_s3" {
   team_name              = "cloudplatform"
   bucket_identifier      = "platform-dev"
   acl                    = "private"
-  versioning             = true
+  versioning             = false
   business-unit          = "mojdigital"
   application            = "pipeline-example-app"
   is-production          = "false"
