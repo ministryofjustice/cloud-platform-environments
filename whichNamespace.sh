@@ -11,7 +11,7 @@ else
     kubectl config use-context $CLUSTER
     echo "Running python3 namespace.py -c $CLUSTER"
     python3 namespace.py -c $CLUSTER
-    if [ -z "$(ls -A ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_FILES/resources)" ]; then
+    if [ -z "$(ls -A ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources)" ]; then
       echo "directory does not exist"
     else
       #terraform init ./namespaces/$CLUSTER/$DIR/resources
