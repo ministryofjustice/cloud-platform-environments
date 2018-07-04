@@ -14,9 +14,8 @@ else
     if [ -z "$(ls -A ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources)" ]; then
       echo "directory does not exist"
     else
-      #terraform init ./namespaces/$CLUSTER/$DIR/resources
-      #terraform apply ./namespaces/$CLUSTER/$DIR/resources
-      echo "directory exists"
+      terraform init ./namespaces/$CLUSTER/$DIR/resources
+      terraform apply ./namespaces/$CLUSTER/$DIR/resources
     fi
   done
 fi
