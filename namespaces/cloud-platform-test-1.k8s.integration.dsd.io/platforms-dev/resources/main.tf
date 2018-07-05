@@ -11,7 +11,7 @@ module "example_team_s3" {
   versioning             = false
   business-unit          = "mojdigital"
   application            = "pipeline-example-app"
-  is-production          = "false"
+  is-production          = "true"
   environment-name       = "development"
   infrastructure-support = "platform@digtal.justice.gov.uk"
 }
