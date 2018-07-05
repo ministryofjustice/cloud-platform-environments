@@ -14,10 +14,9 @@ else
       cluster="$(basename ${file})"
       echo $cluster
       for product in namespaces/$cluster/*; do
-        if [ -d "${product}" ]; then
+        if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
           echo "Applying terraform resources on $(basename ${product})"
-          service=$(basename ${product})
-          terraform init namespaces/$cluster/$service/resources
+          terraform init "$product/resources/"
           #terraform apply namespaces/$cluster/$service/resources
         fi
       done
