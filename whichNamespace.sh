@@ -18,8 +18,9 @@ else
           echo "Applying terraform resources on $(basename ${product})"
           service=$(basename ${product})
           terraform init namespaces/$cluster/$service/resources
-          terraform apply namespaces/$cluster/$service/resources
+          terraform apply namespaces/$cluster/$service/resources -auto-approve
         fi
       done
     done
   done
+fi
