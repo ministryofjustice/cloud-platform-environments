@@ -17,6 +17,7 @@ else
         if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
           echo "Applying terraform resources on $(basename ${product})"
           terraform init "$product/resources/"
+          terraform apply "$product/resources/" -auto-approve
           #terraform apply namespaces/$cluster/$service/resources
         fi
       done
