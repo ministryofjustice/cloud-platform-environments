@@ -12,13 +12,11 @@ else
     python3 namespace.py -c $CLUSTER
     for file in namespaces/*; do
       cluster="$(basename ${file})"
-      echo $cluster
       for product in namespaces/$cluster/*; do
         if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
           echo "Applying terraform resources on $(basename ${product})"
           terraform init "$product/resources/"
-          terraform apply "$product/resources/" -auto-approve
-          #terraform apply namespaces/$cluster/$service/resources
+          terraform apply "$product/resources/" -input=false -auto-approve
         fi
       done
     done
