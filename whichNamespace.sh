@@ -19,5 +19,6 @@ else
         service=$(basename ${product})
         terraform init namespaces/$cluster/$service/resources
       done
+    done
   done
 fi
