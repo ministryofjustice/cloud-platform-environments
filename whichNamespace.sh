@@ -2,7 +2,6 @@
 
 # This script determines which environment / cluster should we deploy to
 LIST_OF_CHANGED_FILES=`git diff-tree --no-commit-id --name-only -r $(git log --pretty=format:"%h" -1) | grep namespaces | cut -d "/" -f2 | uniq`
-LIST_OF_CHANGED_DIR=`git diff-tree --no-commit-id --name-only -r $(git log --pretty=format:"%h" -1) | grep namespaces | cut -d "/" -f3 | uniq`
 if [ `echo $LIST_OF_CHANGED_FILES | wc -l` -lt 1 ]; then
   echo "No clusters changes to apply"
 else
@@ -15,10 +14,12 @@ else
       cluster="$(basename ${file})"
       echo $cluster
       for product in namespaces/$cluster/*; do
+        if [ -d "${product}" ]; then
         echo "Applying terraform resources on $(basename ${product})"
         service=$(basename ${product})
         terraform init namespaces/$cluster/$service/resources
+        terraform apply namespaces/$cluster/$service/resources
+        fi
       done
     done
   done
-fi
