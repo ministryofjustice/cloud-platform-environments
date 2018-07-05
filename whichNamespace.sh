@@ -11,11 +11,13 @@ else
     kubectl config use-context $CLUSTER
     echo "Running python3 namespace.py -c $CLUSTER"
     python3 namespace.py -c $CLUSTER
-    if [ -z "$(ls -A ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources)" ]; then
-      echo "terraform directory does not exist"
-    else
-      terraform init ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources
-      terraform apply ./namespaces/$LIST_OF_CHANGED_FILES/$LIST_OF_CHANGED_DIR/resources
-    fi
+    for file in namespaces/*; do
+      cluster="$(basename ${file})"
+      echo $cluster
+      for product in namespaces/$cluster/*; do
+        echo "Applying terraform resources on $(basename ${product})"
+        service=$(basename ${product})
+        terraform init namespaces/$cluster/$service/resources
+      done
   done
 fi
