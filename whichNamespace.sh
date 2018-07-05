@@ -17,9 +17,8 @@ else
         if [ -d "${product}" ]; then
           echo "Applying terraform resources on $(basename ${product})"
           service=$(basename ${product})
-          resources = namespaces/$cluster/$service/resources
-          terraform init $resources
-          terraform apply $resources
+          terraform init namespaces/$cluster/$service/resources
+          terraform apply namespaces/$cluster/$service/resources
         fi
       done
     done
