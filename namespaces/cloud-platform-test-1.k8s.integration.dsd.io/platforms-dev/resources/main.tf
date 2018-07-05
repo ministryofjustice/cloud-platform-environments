@@ -10,7 +10,7 @@ module "example_team_s3" {
   acl                    = "private"
   versioning             = false
   business-unit          = "mojdigital"
-  application            = "pipeline-example-app"
+  application            = "pipeline-example"
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "platform@digtal.justice.gov.uk"
