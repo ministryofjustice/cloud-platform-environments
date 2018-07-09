@@ -21,12 +21,12 @@ for _c in namespaces/*; do
       namespace="$(basename ${_f})"
       log blue "applying resources for namespace ${namespace} in ${cluster}"
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-      resource="namespaces/${cluster}/${namespace}"
-      for product in ${resource}/*; do
-        if [ -d "${product}" ] && [ "$(basename ${product})" = "resources" ]; then
+      dir_to_resouces="namespaces/${cluster}/${namespace}"
+      for resource in ${dir_to_resources}/*; do
+        if [ -d "${resource}" ] && [ "$(basename ${resource})" = "resources" ]; then
           echo "Applying terraform resources on $(basename ${namespace})"
-          terraform init "$product"
-          #terraform apply -auto-approve "$product/resources/"
+          terraform init "$resource"
+          terraform apply -auto-approve "$resource"
         fi
       done
     fi
