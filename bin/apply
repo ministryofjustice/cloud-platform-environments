@@ -21,7 +21,7 @@ for _c in namespaces/*; do
       namespace="$(basename ${_f})"
       log blue "applying resources for namespace ${namespace} in ${cluster}"
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-      dir_to_resouces="namespaces/${cluster}/${namespace}"
+      dir_to_resources="namespaces/${cluster}/${namespace}"
       for resource in ${dir_to_resources}/*; do
         if [ -d "${resource}" ] && [ "$(basename ${resource})" = "resources" ]; then
           echo "Applying terraform resources on $(basename ${namespace})"
