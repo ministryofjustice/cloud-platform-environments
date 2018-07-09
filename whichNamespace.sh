@@ -10,5 +10,15 @@ else
     kubectl config use-context $CLUSTER
     echo "Running python3 namespace.py -c $CLUSTER"
     python3 namespace.py -c $CLUSTER
+    for file in namespaces/*; do
+      cluster="$(basename ${file})"
+      for product in namespaces/$cluster/*; do
+        if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
+          echo "Applying terraform resources on $(basename ${product})"
+          terraform init "$product/resources/"
+          terraform apply -auto-approve "$product/resources/"
+        fi
+      done
+    done
   done
 fi
