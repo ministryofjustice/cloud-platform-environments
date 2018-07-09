@@ -1,0 +1,37 @@
+#!/bin/sh
+
+log() {
+  _fg=''
+  [ "${1}" = "red" ] && _fg='\033[0;31m'
+  [ "${1}" = "blue" ] && _fg='\033[0;34m'
+  [ "${1}" = "green" ] && _fg='\033[0;32m'
+  shift
+  # shellcheck disable=SC2145
+  echo -e "${_fg}>>> ${@}\033[0m"
+}
+
+for _c in namespaces/*; do
+  cluster="$(basename ${_c})"
+  log green "found cluster ${cluster}"
+  ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
+  log blue "applying cluster-level resources for ${cluster}"
+  ( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
+  for _f in ${_c}/*; do
+    if [ -d "${_f}" ]; then
+      namespace="$(basename ${_f})"
+      log blue "applying resources for namespace ${namespace} in ${cluster}"
+      ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+    fi
+  done
+  _ns_pruneable=$(kubectl get ns -o json | jq -r '.items[] | select(.metadata.annotations["environment.k8s.dsd.io/managed"] == "true") | .metadata.name')
+  _ns_toprune=$(echo "${_ns_pruneable}" | grep -vE '(default|kube-system|kube-public)' | grep -v "$(ls ${_c})")
+  if [ "${#_ns_toprune}" -gt 0 ]; then
+    log red "pruning namespaces in cluster ${cluster}: $(echo ${_ns_toprune})"
+    log blue "skipping deletion of namespaces"
+    # for _nsp in ${_ns_toprune}; do
+    #   ( set -x; kubectl delete namespace "${_nsp}" --grace-period=30 )
+    # done
+  else
+    log blue "no namespaces to prune in ${cluster}"
+  fi
+done
