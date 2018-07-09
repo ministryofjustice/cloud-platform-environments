@@ -21,7 +21,7 @@ for _c in namespaces/*; do
       namespace="$(basename ${_f})"
       log blue "applying resources for namespace ${namespace} in ${cluster}"
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-      for product in $cluster/$namespace/*; do
+      for product in ${cluster}/${namespace}/*; do
         if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
           echo "Applying terraform resources on $(basename ${product})"
           terraform init "$product/resources/"
