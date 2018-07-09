@@ -6,7 +6,7 @@ module "example_team_s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
 
   team_name              = "cloud-platform"
-  bucket_identifier      = "bucket-one"
+  bucket_identifier      = "bucket-example"
   acl                    = "private"
   versioning             = false
   business-unit          = "mojdigital"
