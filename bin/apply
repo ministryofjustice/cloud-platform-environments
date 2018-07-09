@@ -21,6 +21,13 @@ for _c in namespaces/*; do
       namespace="$(basename ${_f})"
       log blue "applying resources for namespace ${namespace} in ${cluster}"
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+      for product in $cluster/$namespace/*; do
+        if [ -d "${product}" ] && [ -d "${product}/resources" ]; then
+          echo "Applying terraform resources on $(basename ${product})"
+          terraform init "$product/resources/"
+          terraform apply -auto-approve "$product/resources/"
+        fi
+      done
     fi
   done
   _ns_pruneable=$(kubectl get ns -o json | jq -r '.items[] | select(.metadata.annotations["environment.k8s.dsd.io/managed"] == "true") | .metadata.name')
