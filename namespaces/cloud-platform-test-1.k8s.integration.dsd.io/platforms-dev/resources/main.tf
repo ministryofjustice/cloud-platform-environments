@@ -1,5 +1,9 @@
+terraform {
+  backend "s3" {}
+}
+
 provider "aws" {
-  region   = "eu-west-1"
+  region = "eu-west-1"
 }
 
 module "example_team_s3" {

@@ -24,7 +24,11 @@ for _c in namespaces/*; do
       terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
       if [ -d "${terraform_resources_path}" ]; then
         log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
-        terraform init "${terraform_resources_path}"
+        terraform init \
+          -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
+          -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="region=eu-west-1"
+          "${terraform_resources_path}"
         terraform apply -auto-approve "${terraform_resources_path}"
       fi
     fi
