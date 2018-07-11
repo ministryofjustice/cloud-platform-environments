@@ -27,7 +27,7 @@ for _c in namespaces/*; do
         terraform init \
           -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
           -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
-          -backend-config="region=eu-west-1"
+          -backend-config="region=eu-west-1" \
           "${terraform_resources_path}"
         terraform apply -auto-approve "${terraform_resources_path}"
       fi
