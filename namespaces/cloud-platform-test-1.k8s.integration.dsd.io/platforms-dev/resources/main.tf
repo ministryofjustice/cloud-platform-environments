@@ -19,3 +19,16 @@ module "example_team_s3" {
   environment-name       = "dev"
   infrastructure-support = "platform@digtal.justice.gov.uk"
 }
+
+resource "kubernetes_secret" "example_s3_bucket_credentials" {
+  metadata {
+    name      = "s3-bucket-example"
+    namespace = "platforms-dev"
+  }
+
+  data {
+    bucket_name       = "${module.example_team_s3.bucket_name}"
+    access_key_id     = "${module.example_team_s3.access_key_id}"
+    secret_access_key = "${module.example_team_s3.secret_access_key}"
+  }
+}
