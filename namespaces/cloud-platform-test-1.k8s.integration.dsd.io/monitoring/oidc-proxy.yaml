@@ -116,12 +116,20 @@ spec:
       - backend:
           serviceName: oidc-proxy
           servicePort: 80
+      - path: /-/healthy
+        backend:
+          serviceName: kube-prometheus
+          servicePort: 9090
   - host: alertmanager-oidc.apps.cloud-platform-test-1.k8s.integration.dsd.io
     http:
       paths:
       - backend:
           serviceName: oidc-proxy
           servicePort: 80
+      - path: /-/healthy
+        backend:
+          serviceName: kube-prometheus-alertmanager
+          servicePort: 9093
 
 ---
 apiVersion: v1
