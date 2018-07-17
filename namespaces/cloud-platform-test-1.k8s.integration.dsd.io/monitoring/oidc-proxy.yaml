@@ -87,7 +87,7 @@ data:
           server kube-prometheus:9090;
     }
     server {
-        server_name prometheus-oidc.apps.cloud-platform-test-1.k8s.integration.dsd.io;
+        server_name prometheus.apps.cloud-platform-test-1.k8s.integration.dsd.io;
         set $upstream prometheus;
         include sites/.common.conf;
     }
@@ -97,7 +97,7 @@ data:
           server kube-prometheus-alertmanager:9093;
     }
     server {
-        server_name alertmanager-oidc.apps.cloud-platform-test-1.k8s.integration.dsd.io;
+        server_name alertmanager.apps.cloud-platform-test-1.k8s.integration.dsd.io;
         set $upstream alertmanager;
         include sites/.common.conf;
     }
@@ -110,7 +110,7 @@ metadata:
   namespace: monitoring
 spec:
   rules:
-  - host: prometheus-oidc.apps.cloud-platform-test-1.k8s.integration.dsd.io
+  - host: prometheus.apps.cloud-platform-test-1.k8s.integration.dsd.io
     http:
       paths:
       - backend:
@@ -120,7 +120,7 @@ spec:
         backend:
           serviceName: kube-prometheus
           servicePort: 9090
-  - host: alertmanager-oidc.apps.cloud-platform-test-1.k8s.integration.dsd.io
+  - host: alertmanager.apps.cloud-platform-test-1.k8s.integration.dsd.io
     http:
       paths:
       - backend:
