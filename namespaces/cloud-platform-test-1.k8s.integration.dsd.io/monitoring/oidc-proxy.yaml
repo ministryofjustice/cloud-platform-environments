@@ -84,7 +84,7 @@ data:
 
   10-proxy_prometheus.conf: |
     upstream prometheus {
-          server kube-prometheus:9090;
+        server kube-prometheus:9090;
     }
     server {
         server_name prometheus.apps.cloud-platform-test-1.k8s.integration.dsd.io;
@@ -94,7 +94,7 @@ data:
 
   11-proxy_alertmanager.conf: |
     upstream alertmanager {
-          server kube-prometheus-alertmanager:9093;
+        server kube-prometheus-alertmanager:9093;
     }
     server {
         server_name alertmanager.apps.cloud-platform-test-1.k8s.integration.dsd.io;
@@ -169,8 +169,6 @@ spec:
       containers:
       - name: oidc-proxy
         env:
-        # - name: OIDC_AUTH_SCOPE
-
         - name: OID_SESSION_NAME
           value: oidc_proxy
         - name: OID_DISCOVERY
