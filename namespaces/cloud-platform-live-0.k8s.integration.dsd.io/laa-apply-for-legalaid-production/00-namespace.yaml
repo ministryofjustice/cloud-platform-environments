@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: laa-apply-for-legalaid-production
+labels:
+    name: laa-apply-for-legalaid-production
