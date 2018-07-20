@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-fee-calculator-production-admin
-  namespace: laa-fee-calculator-production
+  name: laa-apply-for-legalaid-staging-admin
+  namespace: laa-apply-for-legalaid-staging
 subjects:
   - kind: Group
     name: "github:apply-for-legalaid"
