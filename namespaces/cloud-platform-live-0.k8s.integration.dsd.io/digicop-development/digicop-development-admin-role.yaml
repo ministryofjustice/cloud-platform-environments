@@ -1,11 +1,8 @@
-opg-webops
-
-
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: digicop-development-admin
-  namespace: digicop-development 
+  namespace: digicop-development
 subjects:
   - kind: Group
     name: "github:opg-webops"
