@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: oa-test-admin  # Your namespace with `-admin` e.g. `$servicename-$env-admin`
+  namespace: oa-test # Your namespace `$servicename-$env`
+subjects:
+  - kind: Group
+    name: "github:Admins" # Make this the name of the GitHub team you want to give access to
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
