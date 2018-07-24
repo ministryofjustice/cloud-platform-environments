@@ -23,13 +23,14 @@ for _c in namespaces/*; do
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
       terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
       if [ -d "${terraform_resources_path}" ]; then
+        cd "${terraform_resources_path}"
         log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
         terraform init \
           -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
           -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
-          -backend-config="region=eu-west-1" \
-          "${terraform_resources_path}"
-        terraform apply -auto-approve "${terraform_resources_path}"
+          -backend-config="region=eu-west-1"
+        terraform apply -auto-approve
+        cd $OLDPWD
       fi
     fi
   done
