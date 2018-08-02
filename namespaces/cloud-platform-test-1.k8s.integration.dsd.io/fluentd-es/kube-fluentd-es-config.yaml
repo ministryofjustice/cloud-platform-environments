@@ -1,3 +1,6 @@
+#This file deploys a configMap that supports the main fluentd-es file. Apart from this comment and the line directly below, the pther comments are there by default from the original template.
+#This file is linked to the following issue https://github.com/ministryofjustice/cloud-platform/issues/283
+
 kind: ConfigMap
 apiVersion: v1
 metadata:

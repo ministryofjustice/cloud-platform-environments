@@ -1,3 +1,6 @@
+#This file deploys a 'logging' namespace and a Fluentd DaemonSet, along with the supporting RBAC.
+#This file is linked to the following issue https://github.com/ministryofjustice/cloud-platform/issues/283
+
 ---
 apiVersion: v1
 kind: Namespace
