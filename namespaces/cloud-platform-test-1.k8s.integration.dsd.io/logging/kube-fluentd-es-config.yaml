@@ -444,6 +444,7 @@ data:
       logstash_format true
 
       # Prevent reloading connections to AWS ES
+      # Link to issue solution: https://github.com/atomita/fluent-plugin-aws-elasticsearch-service/issues/15#issuecomment-254793259
       reload_on_failure false
       reload_connections false
 
