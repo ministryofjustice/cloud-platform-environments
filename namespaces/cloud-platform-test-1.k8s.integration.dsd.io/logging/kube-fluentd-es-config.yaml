@@ -438,15 +438,15 @@ data:
       @type elasticsearch
       @log_level info
       include_tag_key true
-      host search-cloud-platform-test-o2m2taivvjpovbcl63mlytnpua.eu-west-1.es.amazonaws.com
-      port 80
-      scheme http
+      host "#{ENV['FLUENT_ELASTICSEARCH_HOST']}"
+      port "#{ENV['FLUENT_ELASTICSEARCH_PORT'] || '80'}"
+      scheme "#{ENV['FLUENT_ELASTICSEARCH_SCHEME'] || 'http'}"
       logstash_format true
 
       # Prevent reloading connections to AWS ES
       reload_on_failure false
       reload_connections false
-      
+
       <buffer>
         @type file
         path /var/log/fluentd-buffers/kubernetes.system.buffer
