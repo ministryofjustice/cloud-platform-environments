@@ -442,6 +442,11 @@ data:
       port 80
       scheme http
       logstash_format true
+
+      # Prevent reloading connections to AWS ES
+      reload_on_failure false
+      reload_connections false
+      
       <buffer>
         @type file
         path /var/log/fluentd-buffers/kubernetes.system.buffer
