@@ -14,7 +14,24 @@ This guide assumes you have already configured or have access to an AWS Hosted E
 
 ## File-Breakdown
 
-..
+### Logging Namespace
+
+The `00.namespace.yaml` file simply creates a 'logging' namespace in the cluster. 
+
+This is where fluent-es will be deployed, and therfore has to be the first of the 3 files to be deployed.
+
+It is strongly advised that these 3 files are deployed by deploying all the contents of this directory together. 
+
+Example: `$ kubectl create -f logging/`
+
+### Application & RBAC
+
+`kube-fluentd-es.yaml`
+
+### Application ConfigMap
+
+`kube-fluentd-es-config.yaml`
+
 
 ## Configuration 
 
