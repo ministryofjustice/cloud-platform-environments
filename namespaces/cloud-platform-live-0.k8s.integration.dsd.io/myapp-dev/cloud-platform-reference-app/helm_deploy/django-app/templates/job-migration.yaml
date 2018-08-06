@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "django-app.fullname" . }}-db-migration-{{ randAlphaNum 5 | lower }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ template "django-app.fullname" . }}-db-migration
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/bash","-c","python3 manage.py migrate"]
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "django-app.fullname" . }}
+                  key: postgresUser
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "django-app.fullname" . }}
+                  key: secretKey
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "django-app.fullname" . }}
+                  key: postgresPassword
+                  
+            - name: POSTGRES_HOST
+              value: {{ printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" }}
+
+      restartPolicy: OnFailure
+  backoffLimit: 5

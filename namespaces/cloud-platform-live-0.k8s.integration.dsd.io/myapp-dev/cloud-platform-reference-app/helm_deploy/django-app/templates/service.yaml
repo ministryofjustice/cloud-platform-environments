@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "django-app.fullname" . }}
+  labels:
+    app: {{ template "django-app.name" . }}
+    chart: {{ template "django-app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: {{ template "django-app.name" . }}
+    release: {{ .Release.Name }}

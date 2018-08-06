@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# To have this hook set-up and working run
+# make prepare
+
+# Run default set of tests
+make codetest
+
+# Make commit fail if there's an issue
+exit $?

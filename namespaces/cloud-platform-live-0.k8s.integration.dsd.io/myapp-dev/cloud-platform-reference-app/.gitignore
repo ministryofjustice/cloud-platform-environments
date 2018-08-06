@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# Python
+*.pyc
+*.pyo
+
+# db
+*.db
+db.sqlite*
+
+# Logs
+*.log
+.coverage

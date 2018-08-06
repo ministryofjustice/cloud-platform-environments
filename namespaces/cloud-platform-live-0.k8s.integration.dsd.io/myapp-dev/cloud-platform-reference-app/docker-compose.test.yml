@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+    image: app
+    command: /bin/sh -c "make codetest && make apptest"
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_USER=postgres
+      - POSTGRES_DATABASE=postgres
+      - POSTGRES_HOST=postgres
+  postgres:
+    image: "postgres:alpine"
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres

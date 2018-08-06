@@ -1,0 +1,6 @@
+django==2.0.5
+django-govuk-template==0.7
+django-govuk-forms==0.6
+psycopg2-binary==2.7.4
+boto3==1.7.10
+flake8==3.5.0
