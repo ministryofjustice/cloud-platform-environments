@@ -26,16 +26,20 @@ Example: `$ kubectl create -f logging/`
 
 ### Application & RBAC
 
-`kube-fluentd-es.yaml`
+The `kube-fluentd-es.yaml` file is the core file that specifys the container and deploys the application. The `fluentd-es` containers are deployed through a `DaemonSet`. This means whenever a new container is created anywhere in the cluster, a `fluentd-es` pod will also be deployed and logging of the container will start automatically. 
+
+In addition to the application's `DaemonSet`, there are an additional 3 parts to the file that handle the RBAC permissions. The parts that handle the RBAC are a `ServiceAccount`, a `ClusterRole`, and a `ClusterRoleBinding`. 
 
 ### Application ConfigMap
 
-`kube-fluentd-es-config.yaml`
+The `kube-fluentd-es-config.yaml` file is the config file that `fluentd-es` depends on for all of it's default configurations. Don't be overwhelmbed by the size of this file as over 99% of it's contents are default and shouldn't be touched. The only part of this file that you should concern yourself with is the very last block of code at the bottom, within the `<match>` tag.
 
 
 ## Configuration 
 
-..
+### Overview
+
+### File Changes
 
 ## Notes of considerations
 
