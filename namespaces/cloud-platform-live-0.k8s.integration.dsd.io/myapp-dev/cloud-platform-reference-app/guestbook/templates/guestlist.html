@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load govuk_template_base %}
+{% load govuk_forms}
+
+{% block page_title %}{% get_service_settings as service_settings %}GOV.UK – {{ service_settings.localised_name }}{% endblock %}
+
+{% block head %}
+  {{ block.super }}
+  <link href="{% static 'stylesheets/base.css' %}" media="screen" rel="stylesheet" />
+  <link href="{% static 'stylesheets/base-print.css' %}" media="print" rel="stylesheet"/>
+  <style media="print">
+    a[href^="/"]:after {
+      content: " ({{ request.scheme }}://{{ request.get_host }}" attr(href) ")";
+    }
+
+   
+  </style>
+{% endblock %}
+
+{% block cookie_message %}
+  <p>
+    {% trans 'GOV.UK uses cookies to make the site simpler.' %}
+    <a href="https://www.gov.uk/help/cookies">
+      {% trans 'Find out more about cookies' %}
+    </a>
+  </p>
+{% endblock %}
+
+{% block header_class %}with-proposition{% endblock %}
+{% block proposition_header %}
+  {% get_service_settings as service_settings %}
+  <div class="header-proposition">
+    <div class="content">
+      {% if service_settings.has_header_links %}
+        <a href="#proposition-links" class="js-header-toggle menu">{% trans 'Menu' %}</a>
+      {% endif %}
+      <nav id="proposition-menu">
+        <a href="{{ service_settings.header_link_url|default:'/' }}" id="proposition-name">
+          {% block proposition %}{{ service_settings.localised_name }}{% endblock %}
+        </a>
+        {% block proposition_menu %}
+          {% if service_settings.has_header_links %}
+            <ul id="proposition-links">
+              {% for link in service_settings.get_header_links %}
+                <li><a href="{{ link.url }}" class="{% if link.link_is_view_name and link.link == request.resolver_match.view_name %}active{% endif %}">{{ link.localised_name }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endblock %}
+      </nav>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <main role="main" id="content" tabindex="-1">
+    {% block phase_banner %}
+      {% get_service_settings as service_settings %}
+      {% if service_settings.phase != 'live' %}
+        <div class="phase-banner">
+          <p>
+            <strong class="phase-tag">{{ service_settings.phase_name }}</strong>
+            <span>{% block phase_banner_message %}{% trans 'This is a new service.' %}{% endblock %}</span>
+          </p>
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block inner_content %}
+
+    <h1 class="heading-xlarge">Guestbook</h1>
+    <body>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Job</th>
+            <th>Visited</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for person in people %}
+          <tr>
+            <td>{{ person.name }}</td>
+            <td>{{ person.job }}</td>
+            <td>{{ person.date_created }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1 class="heading-xlarge">Cloud Platforms Deployment</h1>
+      <h2 class="heading-medium">Congratulations, You have Successfully Deployed The Kubernetes example app </h1>
+      <h2 class="heading-medium">Getting started with the Cloud Platform</h2> 
+      <p>This site will give information on the new cloud platform solution</p>
+      <p>These are the follwoing repos and resources you will need to use the new platform</p>
+      <ul>
+        <li><a href="https://kubernetes.io/">Kubernetes documentation</a></li>
+        <li><a href="https://github.com/ministryofjustice/k8s-nonprod-environments">Non-production cluster repo</a></li>
+      </ul>
+      <h2 class="heading-medium">Deploy the app with helm</h2>
+      <p>This is instructions on how to deploy an app via helm. Helm is a package manager for Kubernetes</p>
+      <a href="https://helm.sh/">Helm package manager</a>
+      
+
+
+
+
+    </body>
+    
+    {% endblock %}
+  </main>
+{% endblock %}
+
+{% block licence_message %}
+  <p>
+    {% blocktrans trimmed with url='https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/' %}
+      All content is available under the <a href="{{ url }}" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+    {% endblocktrans %}
+  </p>
+{% endblock %}
+
+{% block footer_support_links %}
+  {% get_service_settings as service_settings %}
+  {% if service_settings.has_footer_links %}
+    <ul>
+      {% for link in service_settings.get_footer_links %}
+        <li><a href="{{ link.url }}">{{ link.localised_name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+{% block body_end %}
+  <script src="{% static 'javascripts/vendor/jquery-1.11.0.min.js' %}"></script>
+
+  {# govuk_frontend_toolkit #}
+  <script src="{% static 'javascripts/vendor/polyfills/bind.js' %}"></script>
+  <script src="{% static 'javascripts/govuk/shim-links-with-button-role.js' %}"></script>
+  <script src="{% static 'javascripts/govuk/show-hide-content.js' %}"></script>
+
+  {# govuk_elements #}
+  <script src="{% static 'javascripts/govuk/details.polyfill.js' %}"></script>
+  <script src="{% static 'javascripts/application.js' %}"></script>
+{% endblock %}

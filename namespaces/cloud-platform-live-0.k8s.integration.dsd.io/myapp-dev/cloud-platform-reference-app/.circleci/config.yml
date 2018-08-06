@@ -1,0 +1,66 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform-circle-workers:reference-app
+        # environment variables for all commands executed in the primary container
+        environment:
+          GITHUB_TEAM_NAME_SLUG: cloud-platform
+          APPLICATON_DEPLOY_NAME: django-app-circleci
+          APPLICATION_HOST_URL: showthething.apps.non-production.k8s.integration.dsd.io
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Run code tests
+          command: |
+            make codetest
+      - run:
+          name: Authenticate with non-production cluster
+          command: |
+            echo -n ${NON_PROD_CA_CERT} | base64 -d > ./ca.crt
+            kubectl config set-cluster ${NON_PROD_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://api.${NON_PROD_CLUSTER_NAME}
+            kubectl config set-credentials circleci --token=${NON_PROD_TOKEN}
+            kubectl config set-context ${NON_PROD_CLUSTER_NAME} --cluster=${NON_PROD_CLUSTER_NAME} --user=circleci --namespace=${NON_PROD_NS}
+            kubectl config use-context ${NON_PROD_CLUSTER_NAME}
+            kubectl get pods
+            helm init --tiller-namespace ${NON_PROD_NS} --client-only
+            helm list --tiller-namespace ${NON_PROD_NS}
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t app .
+      - run:
+          name: Run docker tests
+          command: |
+            docker-compose -f docker-compose.test.yml up --abort-on-container-exit --quiet-pull --no-color --exit-code-from=app
+      - deploy:
+          name: Push application Docker image
+          command: |
+            login="$(aws ecr get-login)"
+            ${login}
+
+            docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+            docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+              docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+            fi
+      - deploy:
+          name: Helm deployment
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              helm upgrade ${APPLICATON_DEPLOY_NAME} ./helm_deploy/django-app/. \
+                            --install \
+                            --tiller-namespace=${NON_PROD_NS} \
+                            --namespace=${NON_PROD_NS} \
+                            --set image.repository="${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}" \
+                            --set image.tag="latest" \
+                            --set deploy.host="${APPLICATION_HOST_URL}" \
+                            --set replicaCount="4" \
+                            --debug
+            fi
+            kubectl get pods --show-all

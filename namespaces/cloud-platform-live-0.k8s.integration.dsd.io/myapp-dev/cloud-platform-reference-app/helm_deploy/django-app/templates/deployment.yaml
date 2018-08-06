@@ -1,0 +1,62 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "django-app.fullname" . }}
+  labels:
+    app: {{ template "django-app.name" . }}
+    chart: {{ template "django-app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "django-app.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "django-app.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: SERVER_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "django-app.fullname" . }}
+                key: secretKey
+          - name: SERVER_NAME
+            value: {{required "URL is required" .Values.deploy.host | quote }}
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "django-app.fullname" . }}
+                key: postgresUser
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "django-app.fullname" . }}
+                key: postgresPassword
+          - name: POSTGRES_HOST
+            value: {{ printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" }}
+          - name: POSTGRES_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "django-app.fullname" . }}
+                key: postgresDatabase
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5

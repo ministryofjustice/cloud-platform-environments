@@ -1,0 +1,34 @@
+resources:
+- name: app-source
+  type: git
+  source:
+    uri: https://github.com/ministryofjustice/cloud-platform-reference-app
+    branch: manual-app-deploy
+    git_crypt_key: ((ref-secret.ref-key))
+jobs:
+- name: deploy-demo-app
+  plan:
+  - get: app-source
+    trigger: true
+  - task: deploy-task
+    config:
+      platform: linux
+      inputs:
+        - name: app-source
+      image_resource: 
+        type: docker-image
+        source:
+          repository: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/concourse-workers
+          tag: worker-demo
+      params:
+        AWS_ACCESS_KEY_ID: ((demosecret.thekey))
+        AWS_SECRET_ACCESS_KEY: ((demosecret.thesecret))
+      run:
+        path: /bin/bash
+        args:
+          - -exc
+          - |
+              mkdir -p ~/.kube
+              cp ./app-source/kube.secrets ~/.kube/config
+              helm install --namespace development --wait --timeout 30 --name demo-app ./app-source/chart
+

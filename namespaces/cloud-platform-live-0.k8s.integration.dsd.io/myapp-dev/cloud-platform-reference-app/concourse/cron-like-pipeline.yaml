@@ -1,0 +1,44 @@
+resources:
+- name: 5m
+  type: time
+  check_every: 1m
+  source:
+    interval: 5m
+- name: app-source
+  type: git
+  source:
+    uri: https://github.com/ministryofjustice/cloud-platform-reference-app
+    branch: manual-app-deploy
+    git_crypt_key: ((ref-secret.ref-key))
+jobs:
+- name: check-secrets-every-5m
+  plan:
+  - get: app-source
+  - get: 5m
+    trigger: true
+  - task: check-secrets
+    config:
+      platform: linux
+      inputs:
+        - name: app-source
+      image_resource: 
+        type: docker-image
+        source:
+          repository: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/concourse-workers
+          tag: worker-demo
+      params:
+        AWS_ACCESS_KEY_ID: ((demosecret.thekey))
+        AWS_SECRET_ACCESS_KEY: ((demosecret.thesecret))
+      run:
+        path: /bin/bash
+        args:
+          - -exc
+          - |
+            if [ "$AWS_ACCESS_KEY_ID" != "YOURKEYHERE" ]; then
+              echo "wrong AWS key, replacing"
+              kubectl --kubeconfig=app-source/kube.secrets -n development-concourse-main delete secret demosecret || true
+              kubectl --kubeconfig=app-source/kube.secrets -n development-concourse-main create -f app-source/secrets.txt
+              exit 1
+            fi
+            echo "OK, AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID"
+

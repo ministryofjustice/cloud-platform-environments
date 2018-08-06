@@ -1,0 +1,37 @@
+# Default values for django-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/cloud-platform-demo-app
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+deploy: 
+  host: ""
+  secretKey: "EdocGMybHpWR2hsVTJWamNtVjBTMlY1VG05MGFHbHVaMVJ2VTJWbFNHVnlaUzQ9"
+
+postgresql:
+    postgresUser: "postgres"
+    postgresPassword: "hdjhfsjkdfgsghfjgshdfgsdfkhkjdf"
+    postgresDatabase: "django_reference_app"
+    postgresHost: ""
+    persistence:
+      enabled: false

@@ -1,0 +1,111 @@
+{% load static %}{% block top_of_page %}{% endblock %}
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lte-ie8" lang="{{ html_lang|default:'en' }}"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="{{ html_lang|default:'en' }}"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block page_title %}GOV.UK - The best place to find government services and information{% endblock %}</title>
+
+    <!--[if gt IE 8]><!--><link rel="stylesheet" media="screen" href="{% static 'stylesheets/govuk-template.css' %}"/><!--<![endif]-->
+    <!--[if IE 6]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/govuk-template-ie6.css' %}"/><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/govuk-template-ie7.css' %}"/><![endif]-->
+    <!--[if IE 8]><link rel="stylesheet" media="screen" href="{% static 'stylesheets/govuk-template-ie8.css' %}"/><![endif]-->
+    <link rel="stylesheet" media="print" href="{% static 'stylesheets/govuk-template-print.css' %}"/>
+
+    <!--[if IE 8]><link rel="stylesheet" media="all" href="{% static 'stylesheets/fonts-ie8.css' %}"/><![endif]-->
+    <!--[if gte IE 9]><!--><link rel="stylesheet" media="all" href="{% static 'stylesheets/fonts.css' %}"/><!--<![endif]-->
+    <!--[if lt IE 9]><script src="{% static 'javascripts/ie.js' %}"></script><![endif]-->
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+    
+    <link rel="mask-icon" href="{% static 'images/gov.uk_logotype_crown.svg' %}" color="#0b0c0c">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon-180x180.png' %}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{% static 'images/apple-touch-icon-167x167.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/apple-touch-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+
+    
+    <meta name="theme-color" content="#0b0c0c" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="{% static 'images/opengraph-image.png' %}">
+
+    {% block head %}{% endblock %}
+  </head>
+
+  <body class="{% block body_classes %}{% endblock %}">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+    {% block body_start %}
+
+    
+    {% endblock %}
+
+    <div id="skiplink-container">
+      <div>
+        <a href="#content" class="skiplink">{{ skip_link_message|default:'Skip to main content' }}</a>
+      </div>
+    </div>
+
+    <div id="global-cookie-message">
+      
+        {% block cookie_message %}{% endblock %}
+      
+    </div>
+
+    
+    <header role="banner" id="global-header" class="{% block header_class %}{% endblock %}">
+      <div class="header-wrapper">
+        <div class="header-global">
+          <div class="header-logo">
+            <a href="{{ homepage_url|default:'https://www.gov.uk' }}" title="{{ logo_link_title|default:'Go to the GOV.UK homepage' }}" id="logo" class="content">
+              <img src="{% static 'images/gov.uk_logotype_crown_invert_trans.png' %}" width="36" height="32" alt=""> {{ global_header_text|default:'GOV.UK' }}
+            </a>
+          </div>
+          {% block inside_header %}{% endblock %}
+        </div>
+        {% block proposition_header %}{% endblock %}
+      </div>
+    </header>
+    
+
+    {% block after_header %}{% endblock %}
+
+    <div id="global-header-bar"></div>
+
+    {% block content %}{% endblock %}
+
+    <footer class="group js-footer" id="footer" role="contentinfo">
+
+      <div class="footer-wrapper">
+        {% block footer_top %}{% endblock %}
+
+        <div class="footer-meta">
+          <div class="footer-meta-inner">
+            {% block footer_support_links %}{% endblock %}
+
+            <div class="open-government-licence">
+              <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
+              
+                {% block licence_message %}<p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>{% endblock %}
+              
+            </div>
+          </div>
+
+          <div class="copyright">
+            <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">{{ crown_copyright_message|default:'&copy; Crown copyright' }}</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="global-app-error" class="app-error hidden"></div>
+
+    <script src="{% static 'javascripts/govuk-template.js' %}"></script>
+
+    {% block body_end %}{% endblock %}
+
+    
+    <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>
+  </body>
+</html>
