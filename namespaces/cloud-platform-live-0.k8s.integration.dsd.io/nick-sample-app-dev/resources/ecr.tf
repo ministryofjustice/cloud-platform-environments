@@ -9,14 +9,14 @@ provider "aws" {
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=master"
 
-  team_name = "my-team-name"
-  repo_name = "my-app-name"
+  team_name = "laa-get-access"
+  repo_name = "nick-sample-app-dev"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-my-app-name"
-    namespace = "my-environment"
+    name      = "ecr-repo-nick-sample-app-dev"
+    namespace = "nick-sample-app-dev"
   }
 
   data {
