@@ -4,7 +4,7 @@ metadata:
   name: elasticsearch-curator-cronjob
   namespace: logging
 spec: 
-  schedule: "* * * * *"
+  schedule: "0 1 * * *"
   jobTemplate: 
     spec:
       template:
