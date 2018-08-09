@@ -79,4 +79,3 @@ tolerations:
 ```
 
 * Currently the ElasticSearch domain accepts logs into it's endpoint based on IP Whitelisting. If you experience any connection issues, check the access policy for your ES Domain and ensure that the IP addresses for all of the availability zones for your cluster are properly defined in the policy.
-
