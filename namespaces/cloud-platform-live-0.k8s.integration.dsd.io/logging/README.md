@@ -34,6 +34,14 @@ In addition to the application's `DaemonSet`, there are an additional 3 parts to
 
 The `kube-fluentd-es-config.yaml` file is the config file that `fluentd-es` depends on for all of it's default configurations. Don't be overwhelmed by the size of this file as over 99% of it's contents are default and shouldn't be touched. The only part of this file that you should concern yourself with is the very last block of code at the bottom, within the `<match>` tag.
 
+### ElasticSearch Curator
+
+The `elasticsearch-curator.yaml` file is made up of two resources, a ConfigMap and a CronJob. The ConfigMap contains a Python script that generates AWS credentials in the `aws-platforms-integration` account and deletes logs older than 1 month in the `cloud-platform-live` elasticsearch cluster. 
+https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/curator.html
+
+The CronJob is responsible for scheduling the Python script to run every day at 1am. 
+
+Note: The script only works if the Kubernetes cluster is whitelisted on Elasticsearch. This can be done from the AWS console by `Modifying the access policy` and adding the K8s cluster NAT Gateway IP's.
 
 ## Configuration 
 
