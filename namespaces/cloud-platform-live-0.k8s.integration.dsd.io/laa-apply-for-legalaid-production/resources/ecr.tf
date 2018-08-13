@@ -45,3 +45,23 @@ resource "kubernetes_secret" "ecr-repo-citizen-frontend" {
     secret_access_key = "${module.ecr-repo-citizen-frontend.secret_access_key}"
   }
 }
+
+module "ecr-repo-applyforlegalaid-service" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=master"
+
+  team_name = "apply-for-legalaid"
+  repo_name = "applyforlegalaid-service"
+}
+
+resource "kubernetes_secret" "ecr-repo-applyforlegalaid-service" {
+  metadata {
+    name      = "ecr-repo-applyforlegalaid-service"
+    namespace = "laa-apply-for-legalaid-production"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-applyforlegalaid-service.repo_url}"
+    access_key_id     = "${module.ecr-repo-applyforlegalaid-service.access_key_id}"
+    secret_access_key = "${module.ecr-repo-ecr-repo-applyforlegalaid-service.secret_access_key}"
+  }
+}
