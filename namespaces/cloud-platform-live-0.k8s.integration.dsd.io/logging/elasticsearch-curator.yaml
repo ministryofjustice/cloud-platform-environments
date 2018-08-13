@@ -48,7 +48,7 @@ data:
     from elasticsearch import Elasticsearch, RequestsHttpConnection
     import curator
 
-    host = 'https://search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com' 
+    host = 'search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com' 
     region = 'eu-west-1' 
     service = 'es'
     credentials = boto3.Session().get_credentials()
