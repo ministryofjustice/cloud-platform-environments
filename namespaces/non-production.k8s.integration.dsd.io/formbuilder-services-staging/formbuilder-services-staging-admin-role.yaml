@@ -10,6 +10,9 @@ subjects:
   - kind: Group
     name: "github:form-builder"
     apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: "formbuilder-platform-staging:formbuilder-publisher-workers-staging"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
