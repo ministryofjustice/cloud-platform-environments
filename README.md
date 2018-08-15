@@ -54,3 +54,14 @@ resource "kubernetes_secret" "my_S3_bucket_creeds" {
   }
 }
 ```
+
+### Namespace Files
+
+#### 00-namespace
+
+#### 01-rbac
+
+#### 02-limitrange
+
+
+#### 03-resourcequota
