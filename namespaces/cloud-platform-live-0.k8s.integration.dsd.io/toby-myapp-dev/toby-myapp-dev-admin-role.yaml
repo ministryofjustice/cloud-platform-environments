@@ -1,8 +1,8 @@
-nd: RoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: toby-myapp-dev-admin
-  namespace: toby-myapp-dev # Your namespace `$servicename-$env`
+  namespace: toby-myapp-dev
 subjects:
   - kind: Group
     name: "github:prison-visits-booking"
