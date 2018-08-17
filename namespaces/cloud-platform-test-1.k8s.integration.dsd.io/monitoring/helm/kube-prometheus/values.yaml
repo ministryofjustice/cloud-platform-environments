@@ -1,8 +1,8 @@
 # exporter-node configuration
-deployExporterNode: false
+deployExporterNode: true
 
 # Grafana
-deployGrafana: false
+deployGrafana: true
 
 ## If true, create & use RBAC resources resp. Pod Security Policies
 ##
@@ -11,7 +11,7 @@ global:
   pspEnable: true
 
 # AlertManager
-deployAlertManager: false
+deployAlertManager: true
 
 alertmanager:
   ## Alertmanager configuration directives
@@ -140,15 +140,18 @@ alertmanager:
   ## Alertmanager StorageSpec for persistent data
   ## Ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/storage.md
   ##
-  storageSpec: {}
-  #  volumeClaimTemplate:
-  #    spec:
-  #      storageClassName: gluster
-  #      accessModes: ["ReadWriteOnce"]
-  #      resources:
-  #        requests:
-  #          storage: 50Gi
-  #    selector: {}
+  storageSpec: 
+    volumeClaimTemplate:
+      spec:
+        storageClassName: monitoring-storage
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 40Gi
+      selector: 
+        matchLabels:
+          app: prometheus
+          prometheus: kube-prometheus
 
 prometheus:
   ## Alertmanagers to which alerts will be sent
@@ -415,15 +418,18 @@ prometheus:
   ## Prometheus StorageSpec for persistent data
   ## Ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/storage.md
   ##
-  storageSpec: {}
-  #  volumeClaimTemplate:
-  #    spec:
-  #      storageClassName: gluster
-  #      accessModes: ["ReadWriteOnce"]
-  #      resources:
-  #        requests:
-  #          storage: 50Gi
-  #    selector: {}
+  storageSpec: 
+    volumeClaimTemplate:
+      spec:
+        storageClassName: monitoring-storage
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 40Gi
+      selector: 
+        matchLabels:
+          app: prometheus
+          prometheus: kube-prometheus
 
 # default rules are in templates/general.rules.yaml
 # prometheusRules: {}
