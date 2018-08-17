@@ -62,6 +62,6 @@ resource "kubernetes_secret" "ecr-repo-applyforlegalaid-service" {
   data {
     repo_url          = "${module.ecr-repo-applyforlegalaid-service.repo_url}"
     access_key_id     = "${module.ecr-repo-applyforlegalaid-service.access_key_id}"
-    secret_access_key = "${module.ecr-repo-ecr-repo-applyforlegalaid-service.secret_access_key}"
+    secret_access_key = "${module.ecr-repo-applyforlegalaid-service.secret_access_key}"
   }
 }
