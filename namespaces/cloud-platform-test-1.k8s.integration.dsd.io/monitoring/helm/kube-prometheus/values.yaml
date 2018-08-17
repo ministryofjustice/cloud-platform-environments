@@ -147,11 +147,8 @@ alertmanager:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 40Gi
-      selector: 
-        matchLabels:
-          app: prometheus
-          prometheus: kube-prometheus
+            storage: 10Gi
+      selector: {}
 
 prometheus:
   ## Alertmanagers to which alerts will be sent
@@ -425,11 +422,8 @@ prometheus:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 40Gi
-      selector: 
-        matchLabels:
-          app: prometheus
-          prometheus: kube-prometheus
+            storage: 10Gi
+      selector: {}
 
 # default rules are in templates/general.rules.yaml
 # prometheusRules: {}
