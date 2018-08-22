@@ -8,5 +8,4 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: ingress-controllers
-          
+          component: ingress-controllers
