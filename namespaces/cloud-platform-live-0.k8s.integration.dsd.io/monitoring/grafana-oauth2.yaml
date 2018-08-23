@@ -24,22 +24,19 @@ spec:
         - --email-domain=*
         - --upstream=file:///dev/null
         - --http-address=0.0.0.0:4180
-        - --client-id=$CLIENT_ID
-        - --client-secret=$CLIENT_SECRET
-        - --cookie-secret=$SESSION_SECRET
         - --redirect-url=https://grafana.apps.cloud-platform-live-0.k8s.integration.dsd.io/oauth2
         env:
-        - name: CLIENT_ID
+        - name: OAUTH2_PROXY_CLIENT_ID
           valueFrom:
             secretKeyRef:
               name: grafana-auth-secret
               key: client-id
-        - name: CLIENT_SECRET
+        - name: OAUTH2_PROXY_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
               name: grafana-auth-secret
               key: client-secret
-        - name: SESSION_SECRET
+        - name: OAUTH2_PROXY_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               name: grafana-auth-secret
