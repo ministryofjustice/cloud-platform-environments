@@ -439,8 +439,8 @@ data:
       @log_level info
       include_tag_key true
       host "#{ENV['FLUENT_ELASTICSEARCH_HOST']}"
-      port "#{ENV['FLUENT_ELASTICSEARCH_PORT'] || '80'}"
-      scheme "#{ENV['FLUENT_ELASTICSEARCH_SCHEME'] || 'http'}"
+      port "#{ENV['FLUENT_ELASTICSEARCH_PORT'] || '443'}"
+      scheme "#{ENV['FLUENT_ELASTICSEARCH_SCHEME'] || 'https'}"
       logstash_format true
 
       # Prevent reloading connections to AWS ES
