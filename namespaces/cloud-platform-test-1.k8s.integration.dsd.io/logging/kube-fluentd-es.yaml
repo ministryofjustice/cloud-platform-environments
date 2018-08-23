@@ -89,9 +89,9 @@ spec:
         - name:  FLUENT_ELASTICSEARCH_HOST
           value: "search-cloud-platform-test-o2m2taivvjpovbcl63mlytnpua.eu-west-1.es.amazonaws.com"
         - name:  FLUENT_ELASTICSEARCH_PORT
-          value: "80"
+          value: "443"
         - name: FLUENT_ELASTICSEARCH_SCHEME
-          value: "http"
+          value: "https"
         resources:
           limits:
             memory: 500Mi
