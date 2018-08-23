@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: ingress-controllers
   labels:
-    name: ingress-controllers
+    component: ingress-controllers
