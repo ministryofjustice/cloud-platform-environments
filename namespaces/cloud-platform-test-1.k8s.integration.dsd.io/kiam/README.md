@@ -18,7 +18,7 @@ With the implementation of Kubernetes, we have entered into the world of Multi-T
 
 The problem with the above paragraph is that the IAM Role stops at the Node level and all the containers below the Nodes share the same credentials and permissions to all the AWS resources that are specified on the Nodes IAM Role. 
 
-An example of where this could become problematic is you may have an application in a cluster that requires full read and write access to a specific S3 Bucket. So to give access to the S3 bucket for the application, you'd have to modify the Node IAM Role to include a policy for full read and write access to S3. Bearing in mind, that all the containers under the Nodes share the same IAM role, you're not just given that singular container access to the S3 bucket, but every container under the Nodes.
+An example of where this could become problematic is you may have an application in a cluster that requires full read and write access to a specific S3 Bucket. So to give access to the S3 bucket for the application, you'd have to modify the Node IAM Role to include a policy for full read and write access to S3, or add an additional IAM Role to the Node. Bearing in mind, that all the containers under the Nodes share the same IAM role, you're not just given that singular container access to the S3 bucket, but every container under the Nodes.
 
 This is where Kiam comes in as the solution.
 
@@ -55,7 +55,7 @@ As detailed in the **Overview** section above, the Helm chart deploys an Agent P
   
 ### Generation
 
-To generate the TSL certificates, we will be using a CLI tool called [CFSSL](https://github.com/helm/charts/tree/master/stable/kiam).
+To generate the TLS certificates, we will be using a CLI tool called [CFSSL](https://github.com/helm/charts/tree/master/stable/kiam).
 
 To install CFSSL and it's supporting tools:
 ```go
@@ -195,7 +195,7 @@ $ kubectl cluster-info
 
 **When the Helm chart is deployed, ALL Pod traffic to the AWS Metadata API will be intercepted by Kiam and any Pod that wishes to assume a role will not be able to until the steps detailed in the Post-Installation Usage are applied.**
 
-**NOTE: The name of the Helm install MUST be `kiam`. Anything else will result in a failed installation.**
+**NOTE: The name of the Helm install MUST be `kiam`. Anything else will result in a failed installation. If you must, you can call it something else, but you have to update the JSON files when generating the certificate files.**
 
 Now you can go ahead and install the chart into the `kube-system` namespace with the following command:
 ```
@@ -215,13 +215,22 @@ This section of the documentation will show how Kiam is used to assign IAM Roles
 
 Quite simplistically, Kiam uses an **annotation** added to a Pod to express the Role it should assume. We will come back to this point in a moment.
 
-At a higher level than a Pod, we have Namespaces that the Pods sit under. In order for a Pod's annotated Role to be assumed, it is required for the Namespace it sits under to be annotated with a regular expression expressing which roles can be assumed by Pods in the Namespace:
+At a higher level than a Pod, we have Namespaces that the Pods sit under. In order for a Pod's annotated Role to be assumed, it is required for the Namespace it sits under to be annotated with a regular expression expressing which roles can be assumed by Pods in the Namespace.
 ```yaml
 kind: Namespace
 metadata:
   name: example-namespace
   annotations:
     iam.amazonaws.com/permitted: ".*"
+```
+ The example above is expressing a wildcard, and when fully implemented, this isn't best practice.
+* You could use the namespace name to scope roles in AWS .e.g 
+```yaml
+iam.amazonaws.com/permitted: "{namespace_name}_.*"
+```
+* You could be even more strict and only allow one explicit role on the namespace  
+```yaml
+iam.amazonaws.com/permitted: "foo_role$"
 ```
 
 Now back to the Pod annotations. As briefly mentioned above, Kiam uses an **annotation** added to a Pod to express the Role it should assume. The value of the annotation key is simply the name of the Role that has been created in AWS's IAM:
