@@ -369,7 +369,7 @@ data:
       read_from_head true
       tag node-problem-detector
     </source>
-    
+
     <source>
       @id kernel
       @type systemd
@@ -431,6 +431,13 @@ data:
     # Enriches records with Kubernetes metadata
     <filter kubernetes.**>
       @type kubernetes_metadata
+    </filter>
+
+    <filter **>
+      @type record_transformer
+      <record>
+        kubernetes_cluster "#{ENV['FLUENT_KUBERNETES_CLUSTER_NAME']}"
+      </record>
     </filter>
 
     <match **>
