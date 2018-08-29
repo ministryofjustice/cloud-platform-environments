@@ -1,4 +1,4 @@
-#This file deploys a 'logging' namespace and a Fluentd DaemonSet, along with the supporting RBAC. 
+#This file deploys a 'logging' namespace and a Fluentd DaemonSet, along with the supporting RBAC.
 
 apiVersion: v1
 kind: ServiceAccount
@@ -88,10 +88,10 @@ spec:
           value: --no-supervisor -q
         - name:  FLUENT_ELASTICSEARCH_HOST
           value: "search-cloud-platform-test-o2m2taivvjpovbcl63mlytnpua.eu-west-1.es.amazonaws.com"
-        - name:  FLUENT_ELASTICSEARCH_PORT
-          value: "443"
-        - name: FLUENT_ELASTICSEARCH_SCHEME
-          value: "https"
+        - name:  FLUENT_ELASTICSEARCH_AUDIT_HOST
+          value: search-cloud-platform-audit-effm3qdiau42obkarrpvdxioxm.eu-west-1.es.amazonaws.com
+        - name: FLUENT_KUBERNETES_CLUSTER_NAME
+          value: cloud-platform-test-1
         resources:
           limits:
             memory: 500Mi
