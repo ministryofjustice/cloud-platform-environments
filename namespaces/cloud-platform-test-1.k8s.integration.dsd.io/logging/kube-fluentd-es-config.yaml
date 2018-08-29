@@ -146,6 +146,71 @@ data:
       max_lines 1000
     </match>
 
+  audit.input.conf: |-
+    # This configuration file for Fluentd / td-agent is used to watch changes
+    # to the kubernetes audit log file. The path to the log file is part of the
+    # kops configuration for a cluster (`auditLogPath`).
+    # See https://kubernetes.io/docs/tasks/debug-application-cluster/audit/ for
+    # how the audit logs are configured.
+    # If running this fluentd configuration in a Docker container, the directory
+    # where the audit log file is written should be mounted in the container.
+    #
+    # These logs are then submitted to Elasticsearch which assumes the
+    # installation of the fluent-plugin-elasticsearch.
+    # See https://github.com/uken/fluent-plugin-elasticsearch for more
+    # information about the plugins.
+    #
+    # Example
+    # =======
+    # A line in the audit log file might look like this JSON:
+    #
+    # {"kind":"Event","apiVersion":"audit.k8s.io/v1beta1",
+    #  "metadata":{"creationTimestamp":"2018-08-29T11:32:17Z"},
+    #  "level":"Request",
+    #  "timestamp":"2018-08-29T11:32:17Z",
+    #  "auditID":"3b4713ee-0816-46e8-91b1-fa6d27c6e710",
+    #  "stage":"ResponseComplete",
+    #  "requestURI":"/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations",
+    #  "verb":"list",
+    #  "user":{"username":"system:apiserver","uid":"027f5648-eea3-444f-9aa8-94ca4a7a3a0b", "groups":["system:masters"]},
+    #  "sourceIPs":["127.0.0.1"],
+    #  "objectRef":{"resource":"initializerconfigurations","apiGroup":"admissionregistration.k8s.io","apiVersion":"v1alpha1"},
+    #  "responseStatus":{"metadata":{},"status":"Failure","reason":"NotFound","code":404},
+    #  "requestReceivedTimestamp":"2018-08-29T11:32:17.861350Z",
+    #  "stageTimestamp":"2018-08-29T11:32:17.861430Z",
+    #  "annotations":{"authorization.k8s.io/decision":"allow","authorization.k8s.io/reason":""}}
+    #
+    # The time_format specification below makes sure we properly
+    # parse the time format produced by Kubernetes. This will be
+    # submitted to Elasticsearch and should appear like:
+    # $ curl 'http://elasticsearch-logging:9200/_search?pretty'
+    # ...
+    # {
+    #      "_index" : "logstash-2014.09.25",
+    #      "_type" : "fluentd",
+    #      "_id" : "VBrbor2QTuGpsQyTCdfzqA",
+    #      "_score" : 1.0,
+    #      "_source":{ <json-object-from-above>,
+    #                 "@timestamp":"2018-08-29T11:32:17+00:00"}
+    #    },
+    # ...
+
+    <source>
+      @id kubernetes-audit.log
+      @type tail
+      path /var/log/kube-apiserver-audit.log
+      pos_file /var/log/kube-apiserver-audit.log.pos
+      time_format %Y-%m-%dT%H:%M:%S.%NZ
+      tag kubernetes-audit
+      read_from_head true
+      <parse>
+        @type json
+        time_key timestamp
+        time_format %Y-%m-%dT%H:%M:%SZ
+        keep_time_key true
+      </parse>
+    </source>
+
   system.input.conf: |-
     # Example:
     # 2015-12-21 23:17:22,066 [salt.state       ][INFO    ] Completed state [net.ipv4.ip_forward] at time 23:17:22.066081
@@ -439,6 +504,36 @@ data:
         kubernetes_cluster "#{ENV['FLUENT_KUBERNETES_CLUSTER_NAME']}"
       </record>
     </filter>
+
+    <match kubernetes-audit>
+      @id elasticsearch-audit
+      @type elasticsearch
+      @log_level info
+      include_tag_key true
+      host "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_HOST']}"
+      port "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_PORT'] || '443'}"
+      scheme "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_SCHEME'] || 'https'}"
+      logstash_format true
+
+      # Prevent reloading connections to AWS ES
+      # Link to issue solution: https://github.com/atomita/fluent-plugin-aws-elasticsearch-service/issues/15#issuecomment-254793259
+      reload_on_failure false
+      reload_connections false
+
+      <buffer>
+        @type file
+        path /var/log/fluentd-buffers/kubernetes-audit.system.buffer
+        flush_mode interval
+        retry_type exponential_backoff
+        flush_thread_count 2
+        flush_interval 5s
+        retry_forever
+        retry_max_interval 30
+        chunk_limit_size 2M
+        queue_limit_length 8
+        overflow_action block
+      </buffer>
+    </match>
 
     <match **>
       @id elasticsearch

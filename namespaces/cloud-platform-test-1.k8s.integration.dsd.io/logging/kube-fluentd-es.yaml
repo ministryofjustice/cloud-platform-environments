@@ -88,6 +88,8 @@ spec:
           value: --no-supervisor -q
         - name:  FLUENT_ELASTICSEARCH_HOST
           value: "search-cloud-platform-test-o2m2taivvjpovbcl63mlytnpua.eu-west-1.es.amazonaws.com"
+        - name:  FLUENT_ELASTICSEARCH_AUDIT_HOST
+          value: search-cloud-platform-audit-effm3qdiau42obkarrpvdxioxm.eu-west-1.es.amazonaws.com
         - name: FLUENT_KUBERNETES_CLUSTER_NAME
           value: cloud-platform-test-1
         resources:
