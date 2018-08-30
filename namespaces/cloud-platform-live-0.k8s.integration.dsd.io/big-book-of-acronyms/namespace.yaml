@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: big-book-of-acronyms
+  labels:
+    name: big-book-of-acronyms
+    application: Big Book of Acronyms
+    business-unit: platforms
+    is-production: true
+    environment-name: production
+    owner: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
+    infrastructure-support: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
+    source-code: https://github.com/ministryofjustice/bba
