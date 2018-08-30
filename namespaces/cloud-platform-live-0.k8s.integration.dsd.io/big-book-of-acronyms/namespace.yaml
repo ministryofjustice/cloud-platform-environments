@@ -4,11 +4,11 @@ metadata:
   name: big-book-of-acronyms
   labels:
     name: big-book-of-acronyms
-    business-unit: platforms
-    is-production: true
-    environment-name: production
+    cloud-platform.justice.gov.uk/business-unit: platforms
+    cloud-platform.justice.gov.uk/is-production: true
+    cloud-platform.justice.gov.uk/environment-name: production
   annotations:
-    application: "Big Book of Acronyms"
-    owner: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
-    infrastructure-support: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
-    source-code: "https://github.com/ministryofjustice/bba"
+    cloud-platform.justice.gov.uk/application: "Big Book of Acronyms"
+    cloud-platform.justice.gov.uk/owner: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/infrastructure-support: "Steve Marshall: steve.marshall@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/bba"
