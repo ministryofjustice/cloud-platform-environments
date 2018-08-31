@@ -12,6 +12,9 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-dev
     namespace: formbuilder-platform-dev
+  - kind: ServiceAccount
+    name: formbuilder-publisher-workers-staging
+    namespace: formbuilder-platform-staging
 roleRef:
   kind: ClusterRole
   name: admin
