@@ -11,7 +11,8 @@ subjects:
     name: "github:form-builder"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
-    name: "formbuilder-platform-staging:formbuilder-publisher-workers-staging"
+    name: formbuilder-publisher-workers-staging
+    namespace: formbuilder-platform-staging
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

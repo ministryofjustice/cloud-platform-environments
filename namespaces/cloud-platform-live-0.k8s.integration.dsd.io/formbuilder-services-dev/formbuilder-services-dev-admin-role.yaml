@@ -59,7 +59,8 @@ subjects:
     name: "github:form-builder"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
-    name: "formbuilder-platform-dev:formbuilder-publisher-workers-dev"
+    name: formbuilder-publisher-workers-dev
+    namespace: formbuilder-platform-dev
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
