@@ -10,17 +10,6 @@ The pipeline will for each defined `cluster`:
 2) Delete any namespaces that exist in the cluster but are not defined in the repository.
 3) Create any kubernetes resource that is defined under namespaces/`custer`/`namespace`
 
-### namespace.py
-namespace.py is the main python script in charge of creating, deleting namespaces and creating resources. It is triggered by the pipeline and takes as an argument the cluster name.
-
-usage:
-
-```
-python3 namespace.py
-usage: namespace.py [-h] -c CLUSTER
-namespace.py: error: the following arguments are required: -c/--cluster
-```
-
 ### Namespaces
 The `namespaces/` directory contains sub directories named after the existing cluster names, and inside, sub directories named after each of the desired namespaces you want to create for each cluster. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the Repositories master branch by the saws code pipeline.
 
