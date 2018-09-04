@@ -11,7 +11,7 @@ global:
   pspEnable: true
 
 # AlertManager
-deployAlertManager: false
+deployAlertManager: true
 
 alertmanager:
   ## Alertmanager configuration directives
@@ -315,23 +315,10 @@ prometheus:
   ## Ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/design.md
   ##
   serviceMonitorsSelector:
-    matchExpressions:
-    - key: app
-      operator: In
-      values:
-      - alertmanager
-      - exporter-coredns
-      - exporter-kube-controller-manager
-      - exporter-kube-dns
-      - exporter-kube-etcd
-      - exporter-kube-scheduler
-      - exporter-kube-state
-      - exporter-kubelets
-      - exporter-kubernetes
-      - exporter-node
-      - grafana
-      - prometheus
-      - prometheus-operator
+    any: true
+
+  serviceMonitorNamespaceSelector:
+    any: true
 
   ## ServiceMonitor CRDs to create & be scraped by the Prometheus instance.
   ## Ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/service-monitor.md
