@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cla-public-staging-admins
-  namespace: cla-public-staging
+  name: laa-cla-public-staging-admins
+  namespace: laa-cla-public-staging
 subjects:
   - kind: Group
     name: "github:laa-get-access"
