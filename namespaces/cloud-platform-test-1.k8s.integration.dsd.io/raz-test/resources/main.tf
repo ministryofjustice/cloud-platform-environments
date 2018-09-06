@@ -82,7 +82,7 @@ resource "kubernetes_secret" "dynamodb" {
 }
 
 module "elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add/ec-terra"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add%2Fec-terra"
 
   team_name              = "raz-test"
   ec_engine              = "redis"
