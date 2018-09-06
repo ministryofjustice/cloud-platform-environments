@@ -59,7 +59,7 @@ module "dynamodb" {
 
   team_name              = "raz-test"
   business-unit          = "example-bu"
-  application            = "exampleapp"
+  application            = "raz-test"
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "razvan.cosma@digtal.justice.gov.uk"
