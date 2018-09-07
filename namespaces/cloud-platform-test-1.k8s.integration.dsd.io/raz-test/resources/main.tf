@@ -11,7 +11,6 @@ module "s3-bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
 
   team_name              = "raz-test"
-  bucket_identifier      = "raz-test"
   versioning             = true
   business-unit          = "mojdigital"
   application            = "raz-test"
