@@ -7,6 +7,32 @@ provider "aws" {
   version = "~> 1.17.0"
 }
 
+module "s3-bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
+
+  team_name              = "raz-test"
+  bucket_identifier      = "raz-test"
+  versioning             = true
+  business-unit          = "mojdigital"
+  application            = "raz-test"
+  is-production          = "false"
+  environment-name       = "development"
+  infrastructure-support = "razvan.cosma@digtal.justice.gov.uk"
+}
+
+resource "kubernetes_secret" "s3-bucket" {
+  metadata {
+    name      = "s3-bucket"
+    namespace = "raz-test"
+  }
+
+  data {
+    bucket_name       = "${module.s3-bucket.bucket_name}"
+    access_key_id     = "${module.s3-bucket.access_key_id}"
+    secret_access_key = "${module.s3-bucket.secret_access_key}"
+  }
+}
+  
 module "rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=master"
 
