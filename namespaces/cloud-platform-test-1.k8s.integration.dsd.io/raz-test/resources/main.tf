@@ -12,7 +12,7 @@ module "rds-instance" {
 
   team_name                   = "raz-test"
   db_backup_retention_period  = "1"
-  application                 = "raz-test"
+  application                 = "raztest"
   environment-name            = "dev"
   is-production               = "false"
   infrastructure-support      = "Raz razvan.cosma@digital.justice.gov.uk"
