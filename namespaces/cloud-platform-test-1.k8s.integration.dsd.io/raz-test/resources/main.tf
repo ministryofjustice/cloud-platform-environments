@@ -106,6 +106,6 @@ resource "kubernetes_secret" "elasticache" {
   }
 
   data {
-    name = "${module.elasticache.cache_nodes}"
+    name = "${module.elasticache.cache_nodes.0.address}"
   }
 }
