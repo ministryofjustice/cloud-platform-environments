@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=master"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=v1.0"
 
   team_name                   = "formbuilder-dev"
   db_backup_retention_period  = "2"
