@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
+  namespace: laa-apply-for-legalaid-production
 spec:
   hard:
     limits.cpu: "10"

@@ -2,6 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
+  namespace: nick-sample-app-dev
 spec:
   limits:
   - default:
