@@ -35,6 +35,6 @@ resource "kubernetes_secret" "elasticache" {
   }
 
   data {
-    nodes = "${jsonencode(module.example_team_ec_cluster.cache_nodes)}"
+    nodes = "${jsonencode(module.elasticache.cache_nodes)}"
   }
 }
