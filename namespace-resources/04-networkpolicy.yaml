@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
+  namespace: <namespace-name>
 spec:
   podSelector: {}
   policyTypes:
@@ -23,4 +24,3 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
-
