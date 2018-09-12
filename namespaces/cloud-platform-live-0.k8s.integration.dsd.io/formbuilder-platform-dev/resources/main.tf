@@ -11,13 +11,13 @@ provider "aws" {
 module "rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=1.0"
 
-  db_backup_retention_period  = "2"
+  db_backup_retention_period = "2"
 
-  application                 = "formbuilderpublisher"
-  environment-name            = "${var.environment-name}"
-  is-production               = "${var.is_production}"
-  infrastructure-support      = "${var.infrastructure-support}"
-  team_name                   = "${var.team_name}"
+  application            = "formbuilderpublisher"
+  environment-name       = "${var.environment-name}"
+  is-production          = "${var.is_production}"
+  infrastructure-support = "${var.infrastructure-support}"
+  team_name              = "${var.team_name}"
 }
 
 resource "kubernetes_secret" "rds-instance" {
@@ -27,15 +27,17 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data {
-    instance_id         = "${module.rds-instance.rds_instance_id}"
-    arn                 = "${module.rds-instance.rds_instance_arn}"
+    instance_id = "${module.rds-instance.rds_instance_id}"
+    arn         = "${module.rds-instance.rds_instance_arn}"
+
     # postgres://USER:PASSWORD@HOST:PORT/NAME
-    url                 = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
-    kms_key_id          = "${module.rds-instance.kms_key_id}"
-    access_key_id       = "${module.rds-instance.access_key_id}"
-    secret_access_key   = "${module.rds-instance.secret_access_key}"
+    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    kms_key_id        = "${module.rds-instance.kms_key_id}"
+    access_key_id     = "${module.rds-instance.access_key_id}"
+    secret_access_key = "${module.rds-instance.secret_access_key}"
   }
 }
+
 ##################################################
 
 ########################################################
@@ -43,17 +45,17 @@ resource "kubernetes_secret" "rds-instance" {
 module "publisher-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=1.0"
 
-  ec_engine                   = "redis"
-  number_of_nodes             = 1
+  ec_engine       = "redis"
+  number_of_nodes = 1
 
-  cluster_name                = "${var.cluster_name}"
-  cluster_state_bucket        = "${var.cluster_state_bucket}"
+  cluster_name         = "${var.cluster_name}"
+  cluster_state_bucket = "${var.cluster_state_bucket}"
 
-  application                 = "formbuilderpublisher"
-  environment-name            = "${var.environment-name}"
-  is-production               = "${var.is_production}"
-  infrastructure-support      = "${var.infrastructure-support}"
-  team_name                   = "${var.team_name}"
+  application            = "formbuilderpublisher"
+  environment-name       = "${var.environment-name}"
+  is-production          = "${var.is_production}"
+  infrastructure-support = "${var.infrastructure-support}"
+  team_name              = "${var.team_name}"
 }
 
 resource "kubernetes_secret" "publisher-elasticache" {
@@ -63,7 +65,9 @@ resource "kubernetes_secret" "publisher-elasticache" {
   }
 
   data {
-    endpoint          = "${module.publisher-elasticache.endpoint}"
+    endpoint = "${module.publisher-elasticache.endpoint}"
   }
 }
+
 ########################################################
+
