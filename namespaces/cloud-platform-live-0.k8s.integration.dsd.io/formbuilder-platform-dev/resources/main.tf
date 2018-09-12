@@ -15,7 +15,7 @@ module "rds-instance" {
 
   application            = "formbuilderpublisher"
   environment-name       = "${var.environment-name}"
-  is-production          = "${var.is_production}"
+  is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
 }
@@ -53,7 +53,7 @@ module "publisher-elasticache" {
 
   application            = "formbuilderpublisher"
   environment-name       = "${var.environment-name}"
-  is-production          = "${var.is_production}"
+  is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
 }
