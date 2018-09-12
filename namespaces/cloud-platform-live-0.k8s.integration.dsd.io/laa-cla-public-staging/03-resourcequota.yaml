@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
+  namespace: laa-cla-public-staging
 spec:
   hard:
     requests.cpu: 4000m
