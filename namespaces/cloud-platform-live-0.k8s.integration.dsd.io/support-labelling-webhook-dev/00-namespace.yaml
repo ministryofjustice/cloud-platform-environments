@@ -4,9 +4,9 @@ metadata:
   name: support-labelling-webhook-dev
   labels:
     name: support-labelling-webhook
-    cloud-platform.justice.gov.uk/business-unit: cloud-platform
-    cloud-platform.justice.gov.uk/is-production: false
-    cloud-platform.justice.gov.uk/environment-name: development
+    cloud-platform.justice.gov.uk/business-unit: "cloud-platform"
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/application: "Support Labelling Webhook"
     cloud-platform.justice.gov.uk/owner: "Kalbir Sohi: kalbir.sohi@digital.justice.gov.uk"
