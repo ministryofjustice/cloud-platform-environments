@@ -46,6 +46,9 @@ module "publisher-elasticache" {
   ec_engine                   = "redis"
   number_of_nodes             = 1
 
+  cluster_name                = "${var.cluster_name}"
+  cluster_state_bucket        = "${var.cluster_state_bucket}"
+
   application                 = "formbuilderpublisher"
   environment-name            = "${var.environment-name}"
   is-production               = "${var.is_production}"
