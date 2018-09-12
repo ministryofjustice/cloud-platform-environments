@@ -65,9 +65,8 @@ resource "kubernetes_secret" "publisher-elasticache" {
   }
 
   data {
-    endpoint = "${module.publisher-elasticache.endpoint}"
+    url = "redis://${lookup(module.publisher-elasticache.cache_nodes[0],"address")}:${lookup(module.publisher-elasticache.cache_nodes[0],"port")}"
   }
 }
 
 ########################################################
-
