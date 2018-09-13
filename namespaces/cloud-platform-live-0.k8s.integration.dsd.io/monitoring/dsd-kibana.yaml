@@ -1,0 +1,172 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dsd-kibana-auth-script
+  namespace: monitoring
+data:
+  # this is based on the upstream authentication script with added bits to limit
+  # access to the webops team
+  # https://github.com/evry/docker-oidc-proxy/blob/master/nginx/lua/auth.lua
+  auth.lua: |
+    local opts = {
+        redirect_uri_path = os.getenv("OID_REDIRECT_PATH") or "/redirect_uri",
+        discovery = os.getenv("OID_DISCOVERY"),
+        client_id = os.getenv("OID_CLIENT_ID"),
+        client_secret = os.getenv("OID_CLIENT_SECRET"),
+        token_endpoint_auth_method = os.getenv("OIDC_AUTH_METHOD") or "client_secret_basic",
+        scope = os.getenv("OIDC_AUTH_SCOPE") or "openid",
+        iat_slack = 600,
+    }
+
+    -- call authenticate for OpenID Connect user authentication
+    local res, err, _target, session = require("resty.openidc").authenticate(opts)
+    if err then
+        ngx.log(ngx.DEBUG, tostring(err))
+        ngx.exit(ngx.HTTP_FORBIDDEN)
+    end
+
+    ngx.log(ngx.DEBUG, "Authentication successful, setting Auth header...")
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dsd-kibana-config
+  namespace: monitoring
+data:
+  # .common is based on the default proxy configuration of the image
+  # https://github.com/evry/docker-oidc-proxy/blob/master/nginx/conf/sites/proxy.conf
+  .common.conf: |
+    listen 80;
+
+    error_log /dev/stdout info;
+
+    large_client_header_buffers 8 64k;
+    client_header_buffer_size 64k;
+    set_by_lua $session_secret 'return os.getenv("OID_SESSION_SECRET")';
+    set_by_lua $session_check_ssi 'return os.getenv("OID_SESSION_CHECK_SSI")';
+    set_by_lua $session_name 'return os.getenv("OID_SESSION_NAME")';
+
+    location /favicon.ico {
+      return 404;
+    }
+
+    location /healthz {
+      return 201;
+    }
+
+    location / {
+      access_by_lua_file  lua/auth.lua;
+      proxy_http_version  1.1;
+      proxy_set_header    Host $host;
+      proxy_set_header    X-Real-IP $remote_addr;
+      proxy_pass          https://$upstream;
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root html;
+    }
+
+  00-http.conf: |
+    server_names_hash_bucket_size 128;
+
+  10-dsd_kibana.conf: |
+    upstream dsd-kibana {
+        server search-elasticseach-public-prod-736d24533xsoqxjsvbtouev5sm.eu-west-1.es.amazonaws.com:443;
+    }
+    server {
+        server_name dsd-kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io;
+        set $upstream dsd-kibana;
+        include sites/.common.conf;
+    }
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dsd-kibana
+  namespace: monitoring
+spec:
+  rules:
+  - host: dsd-kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io
+    http:
+      paths:
+      - backend:
+          serviceName: dsd-kibana
+          servicePort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: dsd-kibana
+  name: dsd-kibana
+  namespace: monitoring
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    k8s-app: dsd-kibana
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: dsd-kibana
+  name: dsd-kibana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: dsd-kibana
+  template:
+    metadata:
+      labels:
+        k8s-app: dsd-kibana
+    spec:
+      containers:
+      - name: dsd-kibana
+        env:
+        - name: OID_SESSION_NAME
+          value: oidc_proxy
+        - name: OID_DISCOVERY
+          value: https://moj-cloud-platforms-dev.eu.auth0.com/.well-known/openid-configuration
+        - name: OID_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-oidc
+              key: client-id
+        - name: OID_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-oidc
+              key: client-secret
+        - name: OID_SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-oidc
+              key: cookie-secret
+        image: evry/oidc-proxy:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: config
+          mountPath: /usr/local/openresty/nginx/conf/sites/
+        - name: auth-script
+          mountPath: /usr/local/openresty/nginx/lua
+      volumes:
+      - name: config
+        configMap:
+          name: dsd-kibana-config
+      - name: auth-script
+        configMap:
+          name: dsd-kibana-auth-script
