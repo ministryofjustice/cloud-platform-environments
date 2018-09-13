@@ -43,7 +43,7 @@ resource "kubernetes_secret" "rds-instance" {
 ########################################################
 # Publisher Elasticache Redis (for resque + job logging)
 module "publisher-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=1.1"
 
   ec_engine       = "redis"
   number_of_nodes = 1
