@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=master"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
   team_name = "cloud-platform"
   repo_name = "kuberos"
