@@ -1,6 +1,6 @@
 variable "cluster" {
   description = "What cluster are you deploying your namespace. I.E cloud-platform-test-1 "
-  default = "cloud-platform-live-0"
+  default     = "cloud-platform-live-0"
 }
 
 variable "namespace" {
@@ -12,7 +12,7 @@ variable "github_team" {
 }
 
 variable "name" {
-    description = "Name of your application"
+  description = "Name of your application"
 }
 
 variable "business-unit" {
@@ -29,16 +29,13 @@ variable "environment" {}
 variable "application" {}
 
 variable "owner" {
-    description = "Who is the owner/Who is responsible for this application"
+  description = "Who is the owner/Who is responsible for this application"
 }
 
 variable "contact_email" {
-    description = "Contact email address for owner of the application"
+  description = "Contact email address for owner of the application"
 }
 
 variable "source_code_url" {
-    description = "Url of the source code for your application"
+  description = "Url of the source code for your application"
 }
-
-
-
