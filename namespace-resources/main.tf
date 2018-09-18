@@ -73,10 +73,3 @@ resource "local_file" "04-networkpolicy" {
     filename = "../namespaces/${local.cluster}/${var.namespace}/04-networkpolicy.yaml"
 }
 
-
-
-
-
-
-
-
