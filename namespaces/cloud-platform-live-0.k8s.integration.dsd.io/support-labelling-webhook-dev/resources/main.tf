@@ -16,7 +16,7 @@ module "ecr-repo" {
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
     name      = "ecr-repo-support-labelling-webhook"
-    namespace = "support-labelling-webhook"
+    namespace = "support-labelling-webhook-dev"
   }
 
   data {
