@@ -7,7 +7,6 @@ data "template_file" "namespace" {
 
   vars {
     namespace       = "${var.namespace}"
-    name            = "${var.name}"
     business-unit   = "${var.business-unit}"
     is-production   = "${var.is-production}"
     environment     = "${var.environment}"
