@@ -7,6 +7,14 @@ data "template_file" "namespace" {
 
   vars {
     namespace = "${var.namespace}"
+    name = "${var.name}"
+    business-unit = "${var.business-unit}"
+    is-production = "${var.is-production}"
+    environment = "${var.environment}"
+    application = "${var.application}"
+    owner = "${var.owner}"
+    contact_email = "${var.contact_email}"
+    source_code_url = "${var.source_code_url}"
   }
 }
 

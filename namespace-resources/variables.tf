@@ -10,3 +10,35 @@ variable "namespace" {
 variable "github_team" {
   description = "This is your team name as defined by the GITHUB api. This has to match the team name on the Github API"
 }
+
+variable "name" {
+    description = "Name of your application"
+}
+
+variable "business-unit" {
+  description = " Area of the MOJ responsible for the service"
+  default     = "platforms"
+}
+
+variable "is-production" {
+  default = "false"
+}
+
+variable "environment" {}
+
+variable "application" {}
+
+variable "owner" {
+    description = "Who is the owner/Who is responsible for this application"
+}
+
+variable "contact_email" {
+    description = "Contact email address for owner of the application"
+}
+
+variable "source_code_url" {
+    description = "Url of the source code for your application"
+}
+
+
+
