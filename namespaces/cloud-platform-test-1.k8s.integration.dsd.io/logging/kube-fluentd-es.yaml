@@ -78,6 +78,7 @@ spec:
       priorityClassName: node-critical
       serviceAccountName: fluentd-es
       tolerations:
+      # This needs to run on all nodes, including masters.
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       containers:

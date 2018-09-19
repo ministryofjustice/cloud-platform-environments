@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: ${namespace}
+  namespace: jenny-myapp-dev
 spec:
   podSelector: {}
   policyTypes:

@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: ${namespace}-admin
-  namespace: ${namespace}
+  name: laa-cla-public-production-admins
+  namespace: laa-cla-public-production
 subjects:
   - kind: Group
-    name: "github:${github_team}"
+    name: "github:laa-get-access"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

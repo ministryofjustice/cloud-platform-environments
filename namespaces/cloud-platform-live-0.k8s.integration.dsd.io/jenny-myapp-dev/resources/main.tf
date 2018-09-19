@@ -9,14 +9,14 @@ provider "aws" {
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
-  team_name = "cloud-platform"
-  repo_name = "kuberos"
+  team_name = "prison-visits-booking"
+  repo_name = "jennyd-myapp-dev"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-kuberos"
-    namespace = "kuberos"
+    name      = "ecr-repo-jenny-myapp-dev"
+    namespace = "jenny-myapp-dev"
   }
 
   data {
