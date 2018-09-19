@@ -9,6 +9,5 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/application: ${application}
     cloud-platform.justice.gov.uk/owner: "${owner}: ${contact_email}"
-    cloud-platform.justice.gov.uk/infrastructure-support: "${owner}: ${contact_email}"
     cloud-platform.justice.gov.uk/source-code: ${source_code_url}
     
