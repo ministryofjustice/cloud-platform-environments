@@ -13,7 +13,6 @@ variable "github_team" {
 
 variable "business-unit" {
   description = " Area of the MOJ responsible for the service"
-  default     = "platforms"
 }
 
 variable "is-production" {
