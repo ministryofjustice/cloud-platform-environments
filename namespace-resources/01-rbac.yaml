@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: <namespace-name>-admin
-  namespace: <namespace-name>
+  name: ${namespace}-admin
+  namespace: ${namespace}
 subjects:
   - kind: Group
-    name: "github:<github-team>"
+    name: "github:${github_team}"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

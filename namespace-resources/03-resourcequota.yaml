@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: <namespace-name>
+  namespace: ${namespace}
 spec:
   hard:
     requests.cpu: 4000m
