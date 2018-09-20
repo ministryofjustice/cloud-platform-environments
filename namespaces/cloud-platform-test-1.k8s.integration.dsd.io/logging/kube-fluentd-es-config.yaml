@@ -146,6 +146,14 @@ data:
       max_lines 1000
     </match>
 
+    # Prevent fluentd from handling records containing fluentd logs.
+    # Allowing this access can lead to an infinite loop, in which an
+    # error in sending one message generates another message which
+    # also fails to be sent, and so on.
+    <match kubernetes.var.log.containers.fluentd**>
+      @type null
+    </match>
+
   audit.input.conf: |-
     # This configuration file for Fluentd / td-agent is used to watch changes
     # to the kubernetes audit log file. The path to the log file is part of the
