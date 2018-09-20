@@ -514,6 +514,8 @@ data:
       port "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_PORT'] || '443'}"
       scheme "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_SCHEME'] || 'https'}"
       logstash_format true
+      template_name index-template
+      template_file /etc/fluent/config.d/index-template.json
 
       # Prevent reloading connections to AWS ES
       # Link to issue solution: https://github.com/atomita/fluent-plugin-aws-elasticsearch-service/issues/15#issuecomment-254793259
@@ -564,3 +566,25 @@ data:
         overflow_action block
       </buffer>
     </match>
+
+  index-template.json: |-
+    {
+      "template": "logstash-*",
+      "mappings": {
+        "fluentd": {
+          "dynamic_templates": [
+            {
+              "default_no_index": {
+                "path_match": "^.*$",
+                "path_unmatch": "^(@timestamp|kubernetes_cluster|auditID|level|stage|requestURI|sourceIPs|metadata|objectRef|user|verb)(\\..+)?$",
+                "match_pattern": "regex",
+                "mapping": {
+                  "index": false,
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
