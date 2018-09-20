@@ -1,4 +1,4 @@
-#This file deploys a 'logging' namespace and a Fluentd DaemonSet, along with the supporting RBAC. 
+#This file deploys a 'logging' namespace and a Fluentd DaemonSet, along with the supporting RBAC.
 
 apiVersion: v1
 kind: ServiceAccount
@@ -78,6 +78,7 @@ spec:
       priorityClassName: system-node-critical
       serviceAccountName: fluentd-es
       tolerations:
+      # This needs to run on all nodes, including masters.
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       containers:
@@ -87,11 +88,11 @@ spec:
         - name: FLUENTD_ARGS
           value: --no-supervisor -q
         - name:  FLUENT_ELASTICSEARCH_HOST
-          value: "search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com"
-        - name:  FLUENT_ELASTICSEARCH_PORT
-          value: "443"
-        - name: FLUENT_ELASTICSEARCH_SCHEME
-          value: "https"
+          value: search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com
+        - name:  FLUENT_ELASTICSEARCH_AUDIT_HOST
+          value: search-cloud-platform-audit-effm3qdiau42obkarrpvdxioxm.eu-west-1.es.amazonaws.com
+        - name: FLUENT_KUBERNETES_CLUSTER_NAME
+          value: cloud-platform-live-0
         resources:
           limits:
             memory: 500Mi
