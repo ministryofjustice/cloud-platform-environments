@@ -146,6 +146,14 @@ data:
       max_lines 1000
     </match>
 
+    # Prevent fluentd from handling records containing fluentd logs.
+    # Allowing this access can lead to an infinite loop, in which an
+    # error in sending one message generates another message which
+    # also fails to be sent, and so on.
+    <match kubernetes.var.log.containers.fluentd**>
+      @type null
+    </match>
+
   audit.input.conf: |-
     # This configuration file for Fluentd / td-agent is used to watch changes
     # to the kubernetes audit log file. The path to the log file is part of the
@@ -514,6 +522,8 @@ data:
       port "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_PORT'] || '443'}"
       scheme "#{ENV['FLUENT_ELASTICSEARCH_AUDIT_SCHEME'] || 'https'}"
       logstash_format true
+      template_name index-template
+      template_file /etc/fluent/config.d/index-template.json
 
       # Prevent reloading connections to AWS ES
       # Link to issue solution: https://github.com/atomita/fluent-plugin-aws-elasticsearch-service/issues/15#issuecomment-254793259
@@ -564,3 +574,25 @@ data:
         overflow_action block
       </buffer>
     </match>
+
+  index-template.json: |-
+    {
+      "template": "logstash-*",
+      "mappings": {
+        "fluentd": {
+          "dynamic_templates": [
+            {
+              "default_no_index": {
+                "path_match": "^.*$",
+                "path_unmatch": "^(@timestamp|kubernetes_cluster|auditID|level|stage|requestURI|sourceIPs|metadata|objectRef|user|verb)(\\..+)?$",
+                "match_pattern": "regex",
+                "mapping": {
+                  "index": false,
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
