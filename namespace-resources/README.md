@@ -5,14 +5,11 @@ This directory stores template Kubernetes manifest files that can be used to cre
 These files define key elements of the namespace and restrictions we want to place on it so that we have security and resource allocation properties. We describe each of these files in more detail below.
 
 ### 00-Namespace.yaml 
-This file defines your namespace.
+In Kubernetes you run your application in a namespace; namespaces allow us to subdivide our cluster for multitenacy and provide isolation of Kubernetes resources..
 
-###0 01-rbac.yaml 
-We will also create a RoleBinding resource by adding the 01-rbac.yaml file. This will provide us with access policies on the namespace we have created in the cluster.
+### 01-rbac.yaml 
 
-A role binding resource grants the permissions defined in a role to a user or set of users. A role can be another resource we can create but in this instance we will reference a Kubernetes default role ClusterRole - admin.
-
-This RoleBinding resource references the ClusterRole - admin to provide admin permissions on the namespace to the set of users defined under subjects. In this case, the <yourTeam> GitHub group will have admin access to any resources within the namespace myapp-dev.
+Role base access control will provide permission to grant access to resources within your namespace. You will need to provide your github team that matches the Github API as your github team will be given access to your namespace via this file.
 
 ### 02-limitrange.yaml
 
@@ -38,7 +35,9 @@ We use terraform to automate the creation of these files and the directory for y
     # if you want to specify another cluster, use terraform apply -var "cluster=cloud-platform-test-1"
 
 ```
-Once you fill your values, you can find your kubernetes file in cloud-platform-environments/$cluster/$your-namespace/
+Once you fill your values, you can find your kubernetes file in cloud-platform-environments/$cluster/$your-namespace/ directory.
+
+You can then check these files into github so that our pipeline can apply these flies into your chosen cluster.
 
 ## Inputs
 
