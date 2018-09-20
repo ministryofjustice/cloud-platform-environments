@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: laa-cla-public-production
+spec:
+  hard:
+    requests.cpu: 4000m
+    requests.memory: 8Gi
+    limits.cpu: 6000m
+    limits.memory: 12Gi
