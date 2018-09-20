@@ -23,6 +23,15 @@ The ResourceQuota object allows us to set a total limit on the resources used in
 
 The NetworkPolicy object defines how groups of pods are allowed to communicate with each other and other network endpoints. By default pods are non-isolated, they accept traffic from any source. We apply a network policy to restrict where traffic can come from, allowing traffic only from the ingress controller and other pods in your namespace.
 
+### Prereq
+
+To automate the creation of the namespace-resources files, you will need terraform installed locally
+
+```
+brew install terraform
+
+```
+
 
 ## Usage
 
