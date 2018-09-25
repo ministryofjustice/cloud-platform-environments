@@ -3,4 +3,10 @@ kind: Namespace
 metadata:
   name: omic-allocation-prototype
   labels:
-    name: omic-allocation-prototype
+    cloud-platform.justice.gov.uk/business-unit: hmpps
+    cloud-platform.justice.gov.uk/is-production: false
+    cloud-platform.justice.gov.uk/environment-name: staging
+  annotations:
+    cloud-platform.justice.gov.uk/application: omic-allocation-prototype
+    cloud-platform.justice.gov.uk/owner: "Sassy Bears: pvb-team@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/allocation-prototype"
