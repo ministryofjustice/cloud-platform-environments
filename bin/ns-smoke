@@ -1,0 +1,10 @@
+#!/bin/bash
+
+namespace="$1"
+github_team="$2"
+
+if kubectl auth can-i get namespace --namespace "${namespace}" --as=test --as-group=github:"${github_team}" | grep  -q "yes"; then
+    echo "namespace exists"
+else
+    echo "namespace does not exist or you do not have access"
+fi
