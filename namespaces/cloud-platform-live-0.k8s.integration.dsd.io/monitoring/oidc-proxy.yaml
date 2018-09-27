@@ -25,21 +25,8 @@ data:
         ngx.exit(ngx.HTTP_FORBIDDEN)
     end
 
-    allowed = false
-    if res.id_token["https://k8s.integration.dsd.io/groups"] ~= nil then
-      for k, v in pairs(res.id_token["https://k8s.integration.dsd.io/groups"]) do
-          if v == "github:webops" then
-              allowed = true
-              break
-          end
-      end
-    end
-    if not allowed then
-      ngx.exit(ngx.HTTP_FORBIDDEN)
-    end
-
     ngx.log(ngx.DEBUG, "Authentication successful, setting Auth header...")
-    ngx.req.set_header("Authorization", "Bearer "..session.data.enc_id_token)
+
 ---
 apiVersion: v1
 kind: ConfigMap
