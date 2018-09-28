@@ -70,3 +70,4 @@ resource "kubernetes_secret" "publisher-elasticache" {
 }
 
 ########################################################
+
