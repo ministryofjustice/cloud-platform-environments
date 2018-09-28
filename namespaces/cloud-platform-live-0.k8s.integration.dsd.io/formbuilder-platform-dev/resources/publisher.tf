@@ -1,4 +1,3 @@
-
 ##################################################
 # Publisher RDS
 module "publisher-rds-instance" {
@@ -63,3 +62,4 @@ resource "kubernetes_secret" "publisher-elasticache" {
 }
 
 ########################################################
+
