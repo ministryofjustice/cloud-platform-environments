@@ -1,0 +1,6 @@
+#This file creates the logging namespace for flentd-es. It is named as is to ensure it's the first file deployed.
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
