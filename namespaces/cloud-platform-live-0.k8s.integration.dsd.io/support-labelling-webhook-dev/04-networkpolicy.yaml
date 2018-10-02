@@ -15,6 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
+  namespace: support-labelling-webhook-dev
 spec:
   podSelector: {}
   policyTypes:
@@ -24,4 +25,3 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
-
