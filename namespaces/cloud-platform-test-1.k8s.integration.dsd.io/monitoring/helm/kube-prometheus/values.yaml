@@ -35,7 +35,7 @@ alertmanager:
 
   ## External URL at which Alertmanager will be reachable
   ##
-  externalUrl: ""
+  externalUrl: "https://alertmanager.apps.cloud-platform-test-1.k8s.integration.dsd.io"
 
   ## Alertmanager container image
   ##
@@ -170,7 +170,7 @@ prometheus:
 
   ## External URL at which Prometheus will be reachable
   ##
-  externalUrl: ""
+  externalUrl: "https://prometheus.apps.cloud-platform-test-1.k8s.integration.dsd.io"
 
   ## Prometheus container image
   ##
