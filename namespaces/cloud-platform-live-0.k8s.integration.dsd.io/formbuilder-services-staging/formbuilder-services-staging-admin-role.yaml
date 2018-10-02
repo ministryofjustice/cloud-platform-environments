@@ -21,6 +21,7 @@ subjects:
   # service tokens
   - kind: ServiceAccount
     name: formbuilder-user-datastore-staging
+    namespace: formbuilder-platform-staging
 roleRef:
   kind: ClusterRole
   name: admin
