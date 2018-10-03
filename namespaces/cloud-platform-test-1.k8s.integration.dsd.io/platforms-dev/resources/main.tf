@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "example_team_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
   team_name              = "cloud-platform"
   acl                    = "private"
