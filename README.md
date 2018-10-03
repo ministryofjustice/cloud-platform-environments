@@ -27,7 +27,7 @@ GitHub triggers the build process using [webhook](https://github.com/ministryofj
 
 ```
 module "my_S3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=master"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
   team_name = "my-team"
   bucket_id = "my-bucket"
