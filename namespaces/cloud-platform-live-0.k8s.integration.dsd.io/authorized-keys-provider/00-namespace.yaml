@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: authorized-keys-provider
   labels:
-    name: authorized-keys-provider
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:
