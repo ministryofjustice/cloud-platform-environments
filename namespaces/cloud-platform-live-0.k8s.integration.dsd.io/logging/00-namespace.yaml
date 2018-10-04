@@ -1,6 +1,12 @@
-#This file creates the logging namespace for flentd-es. It is named as is to ensure it's the first file deployed.
-
 apiVersion: v1
 kind: Namespace
 metadata:
   name: logging
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "cloud-platform"
+    cloud-platform.justice.gov.uk/application: "Logs"
+    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-environments"
