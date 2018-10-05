@@ -32,8 +32,8 @@ resource "kubernetes_secret" "user-datastore-rds-instance" {
 module "user-datastore-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name         = "${var.cluster_name}"
+  cluster_state_bucket = "${var.cluster_state_bucket}"
 
   application            = "formbuilderuserdatastore"
   environment-name       = "${var.environment-name}"
@@ -54,4 +54,6 @@ resource "kubernetes_secret" "user-datastore-elasticache" {
     auth_token               = "${module.user-datastore-elasticache.auth_token}"
   }
 }
+
 ########################################################
+
