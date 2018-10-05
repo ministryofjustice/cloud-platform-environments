@@ -28,15 +28,12 @@ resource "kubernetes_secret" "user-datastore-rds-instance" {
 ##################################################
 
 ########################################################
-# Publisher Elasticache Redis (for resque + job logging)
+# User Datastore Elasticache Redis (service token cache)
 module "user-datastore-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
 
-  ec_engine       = "redis"
-  number_of_nodes = 1
-
-  cluster_name         = "${var.cluster_name}"
-  cluster_state_bucket = "${var.cluster_state_bucket}"
+  cluster_name           = "${var.cluster_name}"
+  cluster_state_bucket   = "${var.cluster_state_bucket}"
 
   application            = "formbuilderuserdatastore"
   environment-name       = "${var.environment-name}"
@@ -46,15 +43,15 @@ module "user-datastore-elasticache" {
 }
 
 resource "kubernetes_secret" "user-datastore-elasticache" {
-  metadata {
+  mmetadata {
     name      = "elasticache-formbuilder-user-datastore-dev"
     namespace = "formbuilder-platform-dev"
   }
 
   data {
-    url = "redis://${lookup(module.user-datastore-elasticache.cache_nodes[0],"address")}:${lookup(module.user-datastore-elasticache.cache_nodes[0],"port")}"
+    primary_endpoint_address = "${module.user-datastore-elasticache.primary_endpoint_address}"
+    member_clusters          = "${module.user-datastore-elasticache.member_clusters}"
+    auth_token               = "${module.user-datastore-elasticache.auth_token}"
   }
 }
-
 ########################################################
-
