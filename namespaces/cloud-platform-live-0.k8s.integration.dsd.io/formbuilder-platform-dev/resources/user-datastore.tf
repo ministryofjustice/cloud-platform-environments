@@ -43,7 +43,7 @@ module "user-datastore-elasticache" {
 }
 
 resource "kubernetes_secret" "user-datastore-elasticache" {
-  mmetadata {
+  metadata {
     name      = "elasticache-formbuilder-user-datastore-dev"
     namespace = "formbuilder-platform-dev"
   }
