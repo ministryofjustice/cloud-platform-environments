@@ -31,10 +31,7 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 ########################################################
 # Publisher Elasticache Redis (for resque + job logging)
 module "publisher-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=1.0"
-
-  ec_engine       = "redis"
-  number_of_nodes = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
 
   cluster_name         = "${var.cluster_name}"
   cluster_state_bucket = "${var.cluster_state_bucket}"
@@ -53,7 +50,8 @@ resource "kubernetes_secret" "publisher-elasticache" {
   }
 
   data {
-    url = "redis://${lookup(module.publisher-elasticache.cache_nodes[0],"address")}:${lookup(module.publisher-elasticache.cache_nodes[0],"port")}"
+    primary_endpoint_address = "${module.publisher-elasticache.primary_endpoint_address}"
+    auth_token               = "${module.publisher-elasticache.auth_token}"
   }
 }
 
