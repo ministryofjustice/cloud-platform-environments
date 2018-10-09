@@ -1,27 +1,19 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
-module "ecr-repo" {
+module "ecr-repo-allocation-api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
   team_name = "offender-management"
   repo_name = "offender-management-allocation-api"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-allocation-api" {
   metadata {
     name      = "offender-management-allocation-api"
     namespace = "offender-management-staging"
   }
 
   data {
-    repo_url          = "${module.ecr-repo.repo_url}"
-    access_key_id     = "${module.ecr-repo.access_key_id}"
-    secret_access_key = "${module.ecr-repo.secret_access_key}"
+    repo_url          = "${module.ecr-repo-allocation-api.repo_url}"
+    access_key_id     = "${module.ecr-repo-allocation-api.access_key_id}"
+    secret_access_key = "${module.ecr-repo-allocation-api.secret_access_key}"
   }
 }

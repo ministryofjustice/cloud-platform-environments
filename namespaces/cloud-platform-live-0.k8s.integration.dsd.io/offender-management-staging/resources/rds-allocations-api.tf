@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 /*
  * When using this module through the cloud-platform-environments, the following
  * two variables are automatically supplied by the pipeline.
@@ -38,7 +30,7 @@ module "allocation-rds" {
   db_name                = "allocations"
 }
 
-resource "kubernetes_secret" "example_team_rds" {
+resource "kubernetes_secret" "allocation-rds" {
   metadata {
     name      = "allocation-rds-instance-output"
     namespace = "offender-management-staging"
