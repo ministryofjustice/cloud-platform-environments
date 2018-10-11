@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: laa-apply-for-legalaid-kubewatch
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "laa"
+    cloud-platform.justice.gov.uk/application: "kubewatch"
+    cloud-platform.justice.gov.uk/owner: "Sergio Marques: sergio.marques@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/bitnami-labs/kubewatch"
