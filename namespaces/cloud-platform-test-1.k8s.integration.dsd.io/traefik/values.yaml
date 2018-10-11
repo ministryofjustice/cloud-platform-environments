@@ -1,5 +1,0 @@
-dashboard:
-    enabled: true
-    domain: dashboard.test-1-traefik.k8s.integration.dsd.io
-rbac:
-    enabled: true
