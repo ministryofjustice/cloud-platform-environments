@@ -17,10 +17,10 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-staging
     namespace: formbuilder-platform-staging
-  # ...but only the dev user datastore can read the dev
+  # ...but only the dev service token cache can read the dev
   # service tokens
   - kind: ServiceAccount
-    name: formbuilder-user-datastore-dev
+    name: formbuilder-service-token-cache-dev
     namespace: formbuilder-platform-dev
 roleRef:
   kind: ClusterRole
