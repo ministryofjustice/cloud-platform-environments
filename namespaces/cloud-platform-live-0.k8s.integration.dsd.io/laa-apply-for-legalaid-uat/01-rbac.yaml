@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-apply-for-legalaid-staging-admin
+  name: laa-apply-for-legalaid-uat-admin
   namespace: laa-apply-for-legalaid-uat
 subjects:
   - kind: Group
-    name: "github:apply-for-legalaid"
+    name: "github:laa-apply-for-legal-aid"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
