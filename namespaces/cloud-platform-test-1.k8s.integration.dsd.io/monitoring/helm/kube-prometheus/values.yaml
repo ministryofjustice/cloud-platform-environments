@@ -12,6 +12,11 @@ grafana:
   # adminUser: ""
   # adminPassword: ""
 
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.apps.cloud-platform-test-1.k8s.integration.dsd.io
+
   extraVars:
     - name: GF_SERVER_ROOT_URL
       value: "https://grafana.apps.cloud-platform-test-1.k8s.integration.dsd.io"
