@@ -2,7 +2,52 @@
 deployExporterNode: false
 
 # Grafana
-deployGrafana: false
+deployGrafana: true
+
+grafana:
+  auth:
+    anonymous:
+      enabled: "false"
+
+  # adminUser: ""
+  # adminPassword: ""
+
+  extraVars:
+    - name: GF_SERVER_ROOT_URL
+      value: "https://grafana.apps.cloud-platform-test-1.k8s.integration.dsd.io"
+    - name: GF_ANALYTICS_REPORTING_ENABLED
+      value: "false"
+    - name: GF_AUTH_DISABLE_LOGIN_FORM
+      value: "true"
+    - name: GF_USERS_ALLOW_SIGN_UP
+      value: "false"
+    - name: GF_USERS_AUTO_ASSIGN_ORG_ROLE
+      value: "Viewer"
+    - name: GF_USERS_VIEWERS_CAN_EDIT
+      value: "true"
+    - name: GF_AUTH_GITHUB_ENABLED
+      value: "true"
+    - name: GF_AUTH_GITHUB_ALLOW_SIGN_UP
+      value: "true"
+    - name: GF_AUTH_GITHUB_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          key: client-id
+          name: grafana-auth-secret
+    - name: GF_AUTH_GITHUB_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          key: client-secret
+          name: grafana-auth-secret
+    - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
+      value: "ministryofjustice"
+    - name: GF_SECURITY_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          key: cookie-secret
+          name: grafana-auth-secret
+    - name: GF_SMTP_ENABLED
+      value: "false"
 
 ## If true, create & use RBAC resources resp. Pod Security Policies
 ##
