@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all
-  namespace: ingress-controllers
+  namespace: kube-system
 spec:
   podSelector: {}
   ingress:
