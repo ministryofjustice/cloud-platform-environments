@@ -57,3 +57,63 @@ resource "kubernetes_secret" "publisher-elasticache" {
 
 ########################################################
 
+# Publisher ECR Repos
+module "ecr-repo-fb-publisher-base" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+
+  team_name = "${var.team_name}"
+  repo_name = "fb-publisher-base"
+}
+
+resource "kubernetes_secret" "ecr-repo" {
+  metadata {
+    name      = "ecr-repo-fb-publisher-base"
+    namespace = "formbuilder-platform-dev"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-publisher-base.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-publisher-base.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-publisher-base.secret_access_key}"
+  }
+}
+
+module "ecr-repo-fb-publisher-web" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+
+  team_name = "${var.team_name}"
+  repo_name = "fb-publisher-web"
+}
+
+resource "kubernetes_secret" "ecr-repo" {
+  metadata {
+    name      = "ecr-repo-fb-publisher-web"
+    namespace = "formbuilder-platform-dev"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-publisher-web.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-publisher-web.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-publisher-web.secret_access_key}"
+  }
+}
+
+module "ecr-repo-fb-publisher-worker" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+
+  team_name = "${var.team_name}"
+  repo_name = "fb-publisher-worker"
+}
+
+resource "kubernetes_secret" "ecr-repo" {
+  metadata {
+    name      = "ecr-repo-fb-publisher-worker"
+    namespace = "formbuilder-platform-dev"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-publisher-worker.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-publisher-worker.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-publisher-worker.secret_access_key}"
+  }
+}

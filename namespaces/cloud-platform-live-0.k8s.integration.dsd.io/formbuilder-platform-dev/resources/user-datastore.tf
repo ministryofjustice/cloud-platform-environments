@@ -27,33 +27,23 @@ resource "kubernetes_secret" "user-datastore-rds-instance" {
 
 ##################################################
 
-########################################################
-# User Datastore Elasticache Redis (service token cache)
-module "user-datastore-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
+# User Datastore ECR Repos
+module "ecr-repo-fb-user-datastore-api" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
-  cluster_name         = "${var.cluster_name}"
-  cluster_state_bucket = "${var.cluster_state_bucket}"
-
-  application            = "formbuilderuserdatastore"
-  environment-name       = "${var.environment-name}"
-  is-production          = "${var.is-production}"
-  infrastructure-support = "${var.infrastructure-support}"
-  team_name              = "${var.team_name}"
+  team_name = "${var.team_name}"
+  repo_name = "fb-user-datastore-api"
 }
 
-resource "kubernetes_secret" "user-datastore-elasticache" {
+resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "elasticache-formbuilder-user-datastore-dev"
+    name      = "ecr-repo-fb-user-datastore-api"
     namespace = "formbuilder-platform-dev"
   }
 
   data {
-    primary_endpoint_address = "${module.user-datastore-elasticache.primary_endpoint_address}"
-    member_clusters          = "${jsonencode(module.user-datastore-elasticache.member_clusters)}"
-    auth_token               = "${module.user-datastore-elasticache.auth_token}"
+    repo_url          = "${module.ecr-repo-fb-user-datastore-api.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-user-datastore-api.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-user-datastore-api.secret_access_key}"
   }
 }
-
-########################################################
-
