@@ -35,7 +35,7 @@ module "ecr-repo-fb-service-token-cache" {
   repo_name = "fb-service-token-cache"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
   metadata {
     name      = "ecr-repo-fb-service-token-cache"
     namespace = "formbuilder-platform-dev"

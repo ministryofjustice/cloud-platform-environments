@@ -65,7 +65,7 @@ module "ecr-repo-fb-submitter-base" {
   repo_name = "fb-submitter-base"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-submitter-base" {
   metadata {
     name      = "ecr-repo-fb-submitter-base"
     namespace = "formbuilder-platform-dev"
@@ -85,7 +85,7 @@ module "ecr-repo-fb-submitter-api" {
   repo_name = "fb-submitter-api"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-submitter-api" {
   metadata {
     name      = "ecr-repo-fb-submitter-api"
     namespace = "formbuilder-platform-dev"
@@ -105,7 +105,7 @@ module "ecr-repo-fb-submitter-worker" {
   repo_name = "fb-submitter-worker"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-submitter-worke" {
   metadata {
     name      = "ecr-repo-fb-submitter-worker"
     namespace = "formbuilder-platform-dev"

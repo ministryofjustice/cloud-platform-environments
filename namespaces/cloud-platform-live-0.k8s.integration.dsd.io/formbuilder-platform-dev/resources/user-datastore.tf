@@ -35,7 +35,7 @@ module "ecr-repo-fb-user-datastore-api" {
   repo_name = "fb-user-datastore-api"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-user-datastore-api" {
   metadata {
     name      = "ecr-repo-fb-user-datastore-api"
     namespace = "formbuilder-platform-dev"

@@ -65,7 +65,7 @@ module "ecr-repo-fb-publisher-base" {
   repo_name = "fb-publisher-base"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-publisher-base" {
   metadata {
     name      = "ecr-repo-fb-publisher-base"
     namespace = "formbuilder-platform-dev"
@@ -85,7 +85,7 @@ module "ecr-repo-fb-publisher-web" {
   repo_name = "fb-publisher-web"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-publisher-web" {
   metadata {
     name      = "ecr-repo-fb-publisher-web"
     namespace = "formbuilder-platform-dev"
@@ -105,7 +105,7 @@ module "ecr-repo-fb-publisher-worker" {
   repo_name = "fb-publisher-worker"
 }
 
-resource "kubernetes_secret" "ecr-repo" {
+resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
   metadata {
     name      = "ecr-repo-fb-publisher-worker"
     namespace = "formbuilder-platform-dev"
