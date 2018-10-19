@@ -84,9 +84,20 @@ data:
 
     data=""
     while read -r c; do
-      ns=${c%%[[:space:]]*}
-      cm=${c##*[[:space:]]}
+      ns="${c%%[[:space:]]*}"
+      cm="${c##*[[:space:]]}"
       echo "[$(date -uIseconds)] found configmap ${ns}/${cm}"
+
+      # Construct new names and uids for all dashboards in this configmap
+      names="$(kubectl -n${ns} get configmap ${cm} --export -o json | jq -rc '.data | keys[]')"
+      ids="{"
+      for d in ${names}; do
+        name="${ns}-${cm}-${d}"
+        uid="$(echo -n ${name} | gsha1sum)"
+        ids="${ids}\"${d}\":{\"name\":\"${name}\",\"uid\":\"${uid%%[[:space:]]*}\"},"
+      done
+      ids="${ids}\"\":null}"
+
       #
       # The JSON string exported from a Grafana dashboard cannot be used as-is on the
       #  Grafana API. Instead, it needs to be wrapped into another object. See the
@@ -95,19 +106,22 @@ data:
       # This is all achieved with `jq`. The query itself is perhaps a bit too long
       #  so the section below is an attempt to explain how it works:
       #
-      # // infers the `inputs` array from the exported dashboard's `__inputs`
-      # def set_inputs: [.["__inputs"][] | del(.description, .label, .pluginName) + {"value": .label | ascii_downcase}];
-      # // as per the doc above
-      # def wrap_dashboard: {"dashboard": ., "inputs": . | set_inputs};
-      # [
-      #   // foreach of the keys in the ConfigMap
-      #   .data | . as $x | keys[] |
-      #   // prefix its key and wrap the dashboard object
-      #   {("'${ns}'-'${cm}'-" + .): $x[.] | fromjson | wrap_dashboard | tojson}
-      #   // concatenate the produced objects
-      # ] | add
-      #
-      data=${data}$(kubectl -n${ns} get configmap ${cm} --export -o json | jq -c 'def set_inputs: [.["__inputs"][] | del(.description, .label, .pluginName) + {"value": .label | ascii_downcase}]; def wrap_dashboard: {"dashboard": ., "inputs": . | set_inputs}; [.data | . as $x | keys[] | {("'${ns}'-'${cm}'-" + .): $x[.] | fromjson | wrap_dashboard | tojson}] | add'),
+      data=${data},$(kubectl -n${ns} get configmap ${cm} --export -o json | jq -c '
+        # infers the `inputs` array from `__inputs` of the exported dashboard
+        def set_inputs: [.["__inputs"][] | del(.description, .label, .pluginName) + {"value": .label | ascii_downcase}];
+        # wraps the dashboard and fixes the id and uid properties
+        def wrap_dashboard(u): {"dashboard": (. | del(.id) + {uid: u}), "inputs": . | set_inputs};
+        # inject the generated names and uids
+        '"${ids}"' as $ids |
+        [
+          # foreach of the keys in the ConfigMap
+          .data | . as $x | keys[] |
+          # wrap the dashboard
+          $ids[.] as $i | {($i.name): $x[.] | fromjson | wrap_dashboard($i.uid) | tojson}
+        # and concatenate the resulting array
+        ] | add'
+      )
+
     done <<< "$(kubectl get configmaps \
       --all-namespaces \
       -lcloud-platform.justice.gov.uk/grafana-dashboard \
@@ -119,7 +133,7 @@ data:
     kubectl apply -f - <<EOS
     {
       "apiVersion": "v1",
-      "data": $(echo "[${data}{}]" | jq 'add'),
+      "data": $(echo "[{}${data}]" | jq 'add'),
       "kind": "ConfigMap",
       "metadata": {
         "name": "grafana-user-dashboards",
