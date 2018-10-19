@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grafana-dashboard-aggregator
+  namespace: monitoring
+  labels:
+    k8s-app: grafana-dashboard-aggregator
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cloud-platform:grafana-dashboard-aggregator
+  namespace: monitoring
+  labels:
+    k8s-app: grafana-dashboard-aggregator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  verbs:
+  - "create"
+  - "patch"
+  - "update"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cloud-platform:grafana-dashboard-aggregator
+  namespace: monitoring
+  labels:
+    k8s-app: grafana-dashboard-aggregator
+subjects:
+- kind: ServiceAccount
+  name: grafana-dashboard-aggregator
+  namespace: monitoring
+roleRef:
+  kind: Role
+  name: cloud-platform:grafana-dashboard-aggregator
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cloud-platform:grafana-dashboard-aggregator
+  labels:
+    k8s-app: grafana-dashboard-aggregator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  verbs:
+  - "get"
+  - "list"
+  - "watch"
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cloud-platform:grafana-dashboard-aggregator
+  labels:
+    k8s-app: grafana-dashboard-aggregator
+subjects:
+- kind: ServiceAccount
+  name: grafana-dashboard-aggregator
+  namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: cloud-platform:grafana-dashboard-aggregator
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-aggregator
+  namespace: monitoring
+data:
+  grafana-dashboard-aggregator: |
+    #!/bin/bash
+
+    set -o errexit
+    set -o pipefail
+
+    data=""
+    while read -r c; do
+      ns="${c%%[[:space:]]*}"
+      cm="${c##*[[:space:]]}"
+      echo "[$(date -uIseconds)] found configmap ${ns}/${cm}"
+
+      # Construct new names and uids for all dashboards in this configmap
+      names="$(kubectl -n${ns} get configmap ${cm} --export -o json | jq -rc '.data | keys[]')"
+      ids="{"
+      for d in ${names}; do
+        name="${ns}-${cm}-${d}"
+        uid="$(echo -n ${name} | sha1sum)"
+        ids="${ids}\"${d}\":{\"name\":\"${name}\",\"uid\":\"${uid%%[[:space:]]*}\"},"
+      done
+      ids="${ids}\"\":null}"
+
+      #
+      # The JSON string exported from a Grafana dashboard cannot be used as-is on the
+      #  Grafana API. Instead, it needs to be wrapped into another object. See the
+      #  docs: http://docs.grafana.org/http_api/dashboard/#create-update-dashboard
+      #
+      # This is all achieved with `jq`. The query itself is perhaps a bit too long
+      #  so the section below is an attempt to explain how it works:
+      #
+      data=${data},$(kubectl -n${ns} get configmap ${cm} --export -o json | jq -c '
+        # infers the `inputs` array from `__inputs` of the exported dashboard
+        def set_inputs: [.["__inputs"][] | del(.description, .label, .pluginName) + {"value": .label | ascii_downcase}];
+        # wraps the dashboard and fixes the id and uid properties
+        def wrap_dashboard(u): {"dashboard": (. | del(.id) + {uid: u}), "inputs": . | set_inputs};
+        # inject the generated names and uids
+        '"${ids}"' as $ids |
+        [
+          # foreach of the keys in the ConfigMap
+          .data | . as $x | keys[] |
+          # wrap the dashboard
+          $ids[.] as $i | {($i.name): $x[.] | fromjson | wrap_dashboard($i.uid) | tojson}
+        # and concatenate the resulting array
+        ] | add'
+      )
+
+    done <<< "$(kubectl get configmaps \
+      --all-namespaces \
+      -lcloud-platform.justice.gov.uk/grafana-dashboard \
+      --no-headers \
+      -o custom-columns=:.metadata.namespace,:metadata.name)"
+
+    echo "[$(date -uIseconds)] applying aggregate configmap"
+
+    kubectl apply -f - <<EOS
+    {
+      "apiVersion": "v1",
+      "data": $(echo "[{}${data}]" | jq 'add'),
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "grafana-user-dashboards",
+        "namespace": "monitoring"
+      }
+    }
+    EOS
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana-dashboard-aggregator
+  name: grafana-dashboard-aggregator
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-dashboard-aggregator
+  template:
+    metadata:
+      labels:
+        app: grafana-dashboard-aggregator
+    spec:
+      serviceAccountName: grafana-dashboard-aggregator
+      containers:
+      - name: aggregator
+        image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/cloud-platform/tools
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache bash
+          while true; do
+            /var/run/bin/grafana-dashboard-aggregator
+            sleep 60
+          done;
+        volumeMounts:
+        - name: grafana-dashboard-aggregator
+          mountPath: /var/run/bin
+          readOnly: true
+      volumes:
+      - name: grafana-dashboard-aggregator
+        configMap:
+          name: grafana-dashboard-aggregator
+          defaultMode: 0755
