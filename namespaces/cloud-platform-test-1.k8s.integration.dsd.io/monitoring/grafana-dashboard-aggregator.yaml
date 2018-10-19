@@ -93,7 +93,7 @@ data:
       ids="{"
       for d in ${names}; do
         name="${ns}-${cm}-${d}"
-        uid="$(echo -n ${name} | gsha1sum)"
+        uid="$(echo -n ${name} | sha1sum)"
         ids="${ids}\"${d}\":{\"name\":\"${name}\",\"uid\":\"${uid%%[[:space:]]*}\"},"
       done
       ids="${ids}\"\":null}"
