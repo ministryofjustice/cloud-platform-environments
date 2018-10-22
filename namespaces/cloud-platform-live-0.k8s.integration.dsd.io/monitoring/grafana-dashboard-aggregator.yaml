@@ -84,6 +84,10 @@ data:
 
     data=""
     while read -r c; do
+      if [ "${c}" == "" ]; then
+        continue
+      fi
+
       ns="${c%%[[:space:]]*}"
       cm="${c##*[[:space:]]}"
       echo "[$(date -uIseconds)] found configmap ${ns}/${cm}"
@@ -127,6 +131,11 @@ data:
       -lcloud-platform.justice.gov.uk/grafana-dashboard \
       --no-headers \
       -o custom-columns=:.metadata.namespace,:metadata.name)"
+
+    if [ "${data}" == "" ]; then
+      echo "[$(date -uIseconds)] no dashboards found"
+      exit 0
+    fi
 
     echo "[$(date -uIseconds)] applying aggregate configmap"
 
