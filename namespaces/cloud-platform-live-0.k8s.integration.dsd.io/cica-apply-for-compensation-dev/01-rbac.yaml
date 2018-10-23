@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cica-apply-for-compensation-dev-admin
+  namespace: cica-apply-for-compensation-dev
+subjects:
+  - kind: Group
+    name: "github:criminalInjuriesCompensationAuthority"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
