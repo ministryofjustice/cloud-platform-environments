@@ -13,16 +13,16 @@ module "ecr-repo-laa-fala-webapp" {
   repo_name = "laa-fala-webapp"
 }
 
-resource "kubernetes_secret" "ecr-repo-laa-fala-web" {
+resource "kubernetes_secret" "ecr-repo-laa-fala-webapp" {
   metadata {
     name      = "ecr-repo-laa-fala-webapp"
     namespace = "laa-fala-staging"
   }
 
   data {
-    repo_url          = "${module.ecr-repo.repo_url}"
-    access_key_id     = "${module.ecr-repo.access_key_id}"
-    secret_access_key = "${module.ecr-repo.secret_access_key}"
+    repo_url          = "${module.ecr-repo-laa-fala-webapp.repo_url}"
+    access_key_id     = "${module.ecr-repo-laa-fala-webapp.access_key_id}"
+    secret_access_key = "${module.ecr-repo-laa-fala-webapp.secret_access_key}"
   }
 }
 
@@ -40,8 +40,8 @@ resource "kubernetes_secret" "ecr-repo-laa-fala-nginx" {
   }
 
   data {
-    repo_url          = "${module.ecr-repo.repo_url}"
-    access_key_id     = "${module.ecr-repo.access_key_id}"
-    secret_access_key = "${module.ecr-repo.secret_access_key}"
+    repo_url          = "${module.ecr-repo-laa-fala-nginx.repo_url}"
+    access_key_id     = "${module.ecr-repo-laa-fala-nginx.access_key_id}"
+    secret_access_key = "${module.ecr-repo-laa-fala-nginx.secret_access_key}"
   }
 }
