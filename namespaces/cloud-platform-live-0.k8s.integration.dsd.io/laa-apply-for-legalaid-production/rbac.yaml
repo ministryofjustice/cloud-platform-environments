@@ -6,7 +6,7 @@ metadata:
   namespace: laa-apply-for-legalaid-production
 subjects:
   - kind: Group
-    name: "github:apply-for-legalaid"
+    name: "github:laa-apply-for-legal-aid"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
