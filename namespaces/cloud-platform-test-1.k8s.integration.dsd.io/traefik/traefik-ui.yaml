@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: traefik-web-ui
-  namespace: kube-system
+  namespace: ingress-controllers
 spec:
   selector:
     k8s-app: traefik-ingress-lb
@@ -15,10 +15,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: traefik-web-ui
-  namespace: kube-system
+  namespace: ingress-controllers
 spec:
   rules:
-  - host: web-ui.test-1-traefik.k8s.integration.dsd.io
     http:
       paths:
       - path: /

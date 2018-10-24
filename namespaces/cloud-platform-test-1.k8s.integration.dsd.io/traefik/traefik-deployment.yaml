@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: traefik-ingress-controller
-  namespace: kube-system
+  namespace: ingress-controllers
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
   name: traefik-ingress-controller
-  namespace: kube-system
+  namespace: ingress-controllers
   labels:
     k8s-app: traefik-ingress-lb
 spec:
@@ -42,7 +42,10 @@ kind: Service
 apiVersion: v1
 metadata:
   name: traefik-ingress-service
-  namespace: kube-system
+  namespace: ingress-controllers
+  annotations:
+      # Have `external-dns` create a Route53 record pointing to this ELB
+      external-dns.alpha.kubernetes.io/hostname: "*.test-1-traefik.k8s.integration.dsd.io"
 spec:
   selector:
     k8s-app: traefik-ingress-lb
