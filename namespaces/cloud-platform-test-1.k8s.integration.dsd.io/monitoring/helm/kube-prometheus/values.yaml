@@ -1,5 +1,5 @@
 # exporter-node configuration
-deployExporterNode: false
+deployExporterNode: true
 
 # Grafana
 deployGrafana: true
