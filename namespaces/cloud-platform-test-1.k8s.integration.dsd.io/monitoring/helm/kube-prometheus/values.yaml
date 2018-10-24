@@ -331,7 +331,12 @@ prometheus:
   ## 2. If `matchExpressions` is used `rules.additionalLabels` must contain at least one label
   ##    from `matchExpressions` in order to be matched by Prometheus
   ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
-  rulesSelector: {}
+  rulesSelector:
+    any: true
+
+  ruleNamespaceSelector:
+    any: true
+
    # rulesSelector: {
    #   matchExpressions: [{key: prometheus, operator: In, values: [example-rules, example-rules-2]}]
    # }
