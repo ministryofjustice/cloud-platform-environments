@@ -15,7 +15,7 @@ variable "cluster_state_bucket" {}
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.3"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
