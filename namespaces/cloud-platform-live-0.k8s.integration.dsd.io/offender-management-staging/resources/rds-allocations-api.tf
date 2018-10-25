@@ -41,6 +41,6 @@ resource "kubernetes_secret" "allocation-rds" {
     database_name         = "${module.allocation-rds.database_name}"
     database_username     = "${module.allocation-rds.database_username}"
     database_password     = "${module.allocation-rds.database_password}"
-    rds_instance_address  = "${module.allocation_rds.rds_instance_address}"
+    rds_instance_address  = "${module.allocation-rds.rds_instance_address}"
   }
 }
