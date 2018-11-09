@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-web-ui
+  namespace: ingress-controllers
+spec:
+  selector:
+    k8s-app: traefik-ingress-lb
+  ports:
+  - name: web
+    port: 80
+    targetPort: 8080
