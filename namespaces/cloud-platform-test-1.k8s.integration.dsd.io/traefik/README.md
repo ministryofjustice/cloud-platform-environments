@@ -11,8 +11,6 @@ This guide will use a collection of manifest files to install Traefik.
 
 In this directory, you will see three manifest files, `traefik-deployment.yaml`, `traefik-rbac.yaml`, and `traefik-ui.yaml`.
 
-### Manifest files Deployment
-
 ## Configuring an App to use the Traefik Ingress Controller
 
 Traefik knows to handle the ingress for an application simply through the use of the annotation in the ingress manifest file under `metadata`.

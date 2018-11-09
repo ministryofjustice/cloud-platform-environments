@@ -37,6 +37,7 @@ spec:
         - --api
         - --kubernetes
         - --logLevel=INFO
+        - --kubernetes.ingressclass=traefik
 ---
 kind: Service
 apiVersion: v1
@@ -45,7 +46,8 @@ metadata:
   namespace: ingress-controllers
   annotations:
       # Have `external-dns` create a Route53 record pointing to this ELB
-      external-dns.alpha.kubernetes.io/hostname: "*.test-1-traefik.k8s.integration.dsd.io"
+      external-dns.alpha.kubernetes.io/hostname: "*.traefik.cloud-platform-test-1.k8s.integration.dsd.io"
+
 spec:
   selector:
     k8s-app: traefik-ingress-lb
