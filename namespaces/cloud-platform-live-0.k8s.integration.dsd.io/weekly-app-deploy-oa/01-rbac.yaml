@@ -5,7 +5,7 @@ metadata:
   namespace: weekly-app-deploy-oa
 subjects:
   - kind: Group
-    name: "github:@ministryofjustice/admins"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
