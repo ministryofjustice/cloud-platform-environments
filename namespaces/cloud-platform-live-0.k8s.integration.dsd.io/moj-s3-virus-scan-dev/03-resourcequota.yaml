@@ -5,7 +5,7 @@ metadata:
   namespace: moj-s3-virus-scan-dev
 spec:
   hard:
-    requests.cpu: 4000m
-    requests.memory: 8Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
+    requests.cpu: 500m
+    requests.memory: 512Mi
+    limits.cpu: 2000m
+    limits.memory: 1Gi
