@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
 
   team_name = "correspondence"
   repo_name = "moj-s3-virus-scan"
