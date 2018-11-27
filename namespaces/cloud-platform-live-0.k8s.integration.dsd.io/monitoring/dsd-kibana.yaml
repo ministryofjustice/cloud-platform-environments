@@ -155,6 +155,13 @@ spec:
               key: cookie-secret
         image: evry/oidc-proxy:v1.2.0
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 5m
+            memory: 64Mi
+          limits:
+            cpu: 5m
+            memory: 64Mi
         ports:
         - containerPort: 80
           protocol: TCP
