@@ -181,6 +181,13 @@ spec:
             /var/run/bin/grafana-dashboard-aggregator
             sleep 60
           done;
+        resources:
+          requests:
+            cpu: 1m
+            memory: 32Mi
+          limits:
+            cpu: 1m
+            memory: 32Mi
         volumeMounts:
         - name: grafana-dashboard-aggregator
           mountPath: /var/run/bin
