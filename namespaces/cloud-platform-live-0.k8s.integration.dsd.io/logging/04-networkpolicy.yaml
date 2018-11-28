@@ -37,9 +37,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: monitoring
-  podSelector:
-    matchLabels:
-      app: fluentd-es
+  podSelector: {}
   policyTypes:
   - Ingress
   
