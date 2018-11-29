@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cica-namespace-dev-practice-admin
+  namespace: cica-namespace-dev-practice
+subjects:
+  - kind: Group
+    name: "github:https://github.com/Adesanluj/hello-world.git"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
