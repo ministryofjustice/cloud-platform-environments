@@ -27,3 +27,23 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
 
 ########################################################
 
+# Service Token Cache ECR Repos
+module "ecr-repo-fb-service-token-cache" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+
+  team_name = "${var.team_name}"
+  repo_name = "fb-service-token-cache"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
+  metadata {
+    name      = "ecr-repo-fb-service-token-cache"
+    namespace = "formbuilder-platform-staging"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-service-token-cache.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-service-token-cache.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-service-token-cache.secret_access_key}"
+  }
+}

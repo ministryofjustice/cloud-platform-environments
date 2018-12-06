@@ -3,4 +3,13 @@ kind: Namespace
 metadata:
   name: formbuilder-platform-staging
   labels:
+    # for fb's own purposes
     name: formbuilder-platform-staging
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "staging"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "transformed-department"
+    cloud-platform.justice.gov.uk/application: "formbuilder"
+    cloud-platform.justice.gov.uk/owner: "Form Builder: formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/form-builder"
+

@@ -1,14 +1,25 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: formbuilder-services-staging-admins
+  namespace: formbuilder-services-staging
+subjects:
+  - kind: Group
+    name: "github:form-builder"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+  
 # Bind admin role for namespace to team group & publisher ServiceAccount
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: formbuilder-services-dev-admins
-  namespace: formbuilder-services-dev
+  name: formbuilder-services-staging-service-account
+  namespace: formbuilder-services-staging
 subjects:
-  - kind: Group
-    name: "github:form-builder"
-    apiGroup: rbac.authorization.k8s.io
   # both dev & staging Publisher service accounts
   # are admins, so that they can both deploy to either
   - kind: ServiceAccount
@@ -17,11 +28,11 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-staging
     namespace: formbuilder-platform-staging
-  # ...but only the dev service token cache can read the dev
+  # ...but only the staging service token cache can read the staging
   # service tokens
   - kind: ServiceAccount
-    name: formbuilder-service-token-cache-dev
-    namespace: formbuilder-platform-dev
+    name: formbuilder-service-token-cache-staging
+    namespace: formbuilder-platform-staging
 roleRef:
   kind: ClusterRole
   name: admin
