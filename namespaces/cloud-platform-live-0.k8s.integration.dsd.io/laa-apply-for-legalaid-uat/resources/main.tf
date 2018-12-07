@@ -49,6 +49,6 @@ resource "kubernetes_secret" "apply-for-legal-aid-rds" {
     database_name         = "${module.apply-for-legal-aid-rds.database_name}"
     database_username     = "${module.apply-for-legal-aid-rds.database_username}"
     database_password     = "${module.apply-for-legal-aid-rds.database_password}"
-    rds_instance_address	= "${module.apply-for-legal-aid-rds.rds_instance_address}"
+    rds_instance_address  = "${module.apply-for-legal-aid-rds.rds_instance_address}"
   }
 }
