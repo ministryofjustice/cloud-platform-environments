@@ -5,7 +5,7 @@ metadata:
   namespace: cica-development
 subjects:
   - kind: Group
-    name: "github:CICA"
+    name: "github:cica"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
