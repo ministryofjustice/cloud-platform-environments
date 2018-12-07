@@ -63,7 +63,6 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
   }
 }
 
-
 ##################################################
 
 # Runner ECR Repos
@@ -87,7 +86,6 @@ resource "kubernetes_secret" "ecr-repo-fb-runner-node" {
   }
 }
 
-
 ########################################################
 
 # Service Token Cache ECR Repos
@@ -110,7 +108,6 @@ resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
     secret_access_key = "${module.ecr-repo-fb-service-token-cache.secret_access_key}"
   }
 }
-
 
 ########################################################
 
@@ -174,7 +171,6 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-worke" {
     secret_access_key = "${module.ecr-repo-fb-submitter-worker.secret_access_key}"
   }
 }
-
 
 ##################################################
 
