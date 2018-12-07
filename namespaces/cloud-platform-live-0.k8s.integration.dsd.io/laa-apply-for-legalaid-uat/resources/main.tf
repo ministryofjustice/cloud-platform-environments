@@ -35,7 +35,7 @@ module "apply-for-legal-aid-rds" {
   infrastructure-support = "apply@digtal.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10.5"
-  db_name                = "apply-for-legal-aid"
+  db_name                = "apply_for_legal_aid"
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {
