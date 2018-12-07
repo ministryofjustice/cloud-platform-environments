@@ -2,7 +2,7 @@
 # Publisher RDS
 
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.1"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
@@ -52,68 +52,5 @@ resource "kubernetes_secret" "publisher-elasticache" {
   data {
     primary_endpoint_address = "${module.publisher-elasticache.primary_endpoint_address}"
     auth_token               = "${module.publisher-elasticache.auth_token}"
-  }
-}
-
-########################################################
-
-# Publisher ECR Repos
-module "ecr-repo-fb-publisher-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
-
-  team_name = "${var.team_name}"
-  repo_name = "fb-publisher-base"
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-publisher-base" {
-  metadata {
-    name      = "ecr-repo-fb-publisher-base"
-    namespace = "formbuilder-platform-staging"
-  }
-
-  data {
-    repo_url          = "${module.ecr-repo-fb-publisher-base.repo_url}"
-    access_key_id     = "${module.ecr-repo-fb-publisher-base.access_key_id}"
-    secret_access_key = "${module.ecr-repo-fb-publisher-base.secret_access_key}"
-  }
-}
-
-module "ecr-repo-fb-publisher-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
-
-  team_name = "${var.team_name}"
-  repo_name = "fb-publisher-web"
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-publisher-web" {
-  metadata {
-    name      = "ecr-repo-fb-publisher-web"
-    namespace = "formbuilder-platform-staging"
-  }
-
-  data {
-    repo_url          = "${module.ecr-repo-fb-publisher-web.repo_url}"
-    access_key_id     = "${module.ecr-repo-fb-publisher-web.access_key_id}"
-    secret_access_key = "${module.ecr-repo-fb-publisher-web.secret_access_key}"
-  }
-}
-
-module "ecr-repo-fb-publisher-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
-
-  team_name = "${var.team_name}"
-  repo_name = "fb-publisher-worker"
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
-  metadata {
-    name      = "ecr-repo-fb-publisher-worker"
-    namespace = "formbuilder-platform-staging"
-  }
-
-  data {
-    repo_url          = "${module.ecr-repo-fb-publisher-worker.repo_url}"
-    access_key_id     = "${module.ecr-repo-fb-publisher-worker.access_key_id}"
-    secret_access_key = "${module.ecr-repo-fb-publisher-worker.secret_access_key}"
   }
 }
