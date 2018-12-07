@@ -15,8 +15,8 @@ module "user-datastore-rds-instance" {
 
 resource "kubernetes_secret" "user-datastore-rds-instance" {
   metadata {
-    name      = "rds-instance-formbuilder-user-datastore-dev"
-    namespace = "formbuilder-platform-dev"
+    name      = "rds-instance-formbuilder-user-datastore-staging"
+    namespace = "formbuilder-platform-staging"
   }
 
   data {

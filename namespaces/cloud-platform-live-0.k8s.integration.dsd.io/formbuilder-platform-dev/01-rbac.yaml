@@ -14,3 +14,9 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+
+# Further roles defined in:
+# - publisher-workers-service-account.yaml
+# - service-token-cache-service-account.yaml
+# - submitter-workers-service-account.yaml
+# - user-datastore-service-account.yaml
