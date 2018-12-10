@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-ops
+  labels:
+    application: kube-ops
+    business-unit: cloud-platform
+    cluster: cloud-platform-live-0
+    contact_email: oliver.anwyll@digital.justice.gov.uk
+    environment: production
+    github_team: WebOps
+    is-production: yes
+    namespace: kube-ops
+    owner: cloud-platform
+    source_code_url: "https://github.com/ministryofjustice/cloud-platform-environments/"
