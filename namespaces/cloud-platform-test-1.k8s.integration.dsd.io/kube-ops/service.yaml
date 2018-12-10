@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    application: kube-ops
+  name: kube-ops
+  namespace: kube-ops
+spec:
+  selector:
+    application: kube-ops
+  type: ClusterIP
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authcode-client-id
+  namespace: kube-ops
+type: Opaque
+data:
+  # Populate the values below with the keys generated in the auth0 app.
+  # To generate a cookie-secret use: `head -c 32 /dev/urandom | base64 | base64`
+  authcode-client-id: bm53a1RJMjNQZFFUNTRuUVpRdlAyb3R6SzMzTU5QWnQ=
