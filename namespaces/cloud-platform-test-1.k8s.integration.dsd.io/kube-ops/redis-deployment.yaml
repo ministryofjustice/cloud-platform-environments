@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    application: kube-ops-redis
+    version: v0.0.1
+  name: kube-ops-redis
+  namespace: kube-ops
+  labels:
+    application: kube-ops
+    business-unit: cloud-platform
+    cluster: cloud-platform-test-1
+    contact_email: oliver.anwyll@digital.justice.gov.uk
+    environment: test
+    github_team: WebOps
+    is-production: no
+    namespace: kube-ops
+    owner: cloud-platform
+    source_code_url: "https://github.com/ministryofjustice/cloud-platform-environments/"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: kube-ops-redis
+  template:
+    metadata:
+      labels:
+        application: kube-ops-redis
+        version: v0.0.1
+    spec:
+      containers:
+      - name: redis
+        image: redis:3.2-alpine
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: 6379
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
