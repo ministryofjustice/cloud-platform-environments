@@ -9,6 +9,15 @@ rules:
   resources: ["namespaces"]
   verbs: ["list"]
 ---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: top-pod
+rules:
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["pods"]
+  verbs: ["get","list","watch"]
+---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -34,3 +43,17 @@ roleRef:
   kind: ClusterRole
   name: system:basic-user
   apiGroup: rbac.authorization.k8s.io
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: authenticated-top-pod
+subjects:
+- kind: Group
+  name: "system:authenticated"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: top-pod
+  apiGroup: rbac.authorization.k8s.io
+  
