@@ -13,6 +13,8 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r HEAD^^..HEAD | gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print}' | sort | uniq)
+
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
@@ -25,7 +27,7 @@ for _c in namespaces/*; do
       log blue "applying resources for namespace ${namespace} in ${cluster}"
       ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
       terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-      if [ -d "${terraform_resources_path}" ]; then
+      if [ -d "${terraform_resources_path}" ] && echo "${changed_dirs[@]}" | grep -q "${terraform_resources_path}" ; then
         cd "${terraform_resources_path}"
         log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
         terraform init \
@@ -37,6 +39,8 @@ for _c in namespaces/*; do
           -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
           -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
         cd $OLDPWD
+      else
+        log blue "no terraform changes for namespace ${namespace} in ${cluster}"
       fi
     fi
   done
