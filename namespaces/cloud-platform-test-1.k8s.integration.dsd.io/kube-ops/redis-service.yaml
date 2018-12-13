@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    application: kube-ops-redis
+  name: kube-ops-redis
+  namespace: kube-ops
+spec:
+  selector:
+    application: kube-ops-redis
+  type: ClusterIP
+  ports:
+  - port: 6379
+    protocol: TCP
+    targetPort: 6379
