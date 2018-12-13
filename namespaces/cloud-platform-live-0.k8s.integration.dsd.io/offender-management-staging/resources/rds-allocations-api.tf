@@ -24,7 +24,7 @@ module "allocation-rds" {
   application            = "offender-management-allocation-api"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "omic@digtal.justice.gov.uk"
+  infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10.5"
   db_name                = "allocations"
