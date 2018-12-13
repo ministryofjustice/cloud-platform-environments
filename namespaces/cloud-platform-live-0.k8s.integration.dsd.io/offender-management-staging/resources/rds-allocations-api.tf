@@ -1,7 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
 /*
  * When using this module through the cloud-platform-environments, the following
  * two variables are automatically supplied by the pipeline.
