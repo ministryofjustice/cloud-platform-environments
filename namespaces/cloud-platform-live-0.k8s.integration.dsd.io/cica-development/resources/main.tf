@@ -2,7 +2,7 @@ terraform {
   backend "s3" {}
 }
 provider "aws" {
-  region = "eu-west-2"
+  region = "eu-west-1"
 }
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
