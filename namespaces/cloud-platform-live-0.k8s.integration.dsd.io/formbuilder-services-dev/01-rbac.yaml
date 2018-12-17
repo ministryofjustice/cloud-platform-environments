@@ -20,7 +20,7 @@ metadata:
   name: formbuilder-services-dev-service-account
   namespace: formbuilder-services-dev
 subjects:
-  # both dev & staging Publisher service accounts
+  # dev, staging and production Publisher service accounts
   # are admins, so that they can both deploy to either
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-dev
@@ -28,6 +28,9 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-staging
     namespace: formbuilder-platform-staging
+  - kind: ServiceAccount
+    name: formbuilder-publisher-workers-production
+    namespace: formbuilder-platform-production
   # ...but only the dev service token cache can read the dev
   # service tokens
   - kind: ServiceAccount
