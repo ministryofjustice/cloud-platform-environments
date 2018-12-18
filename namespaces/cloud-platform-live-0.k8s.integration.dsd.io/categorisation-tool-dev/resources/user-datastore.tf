@@ -15,7 +15,7 @@ module "categorisation_tool_rds" {
   application            = "categorisation-tool-db"
   is-production          = "false"
   environment-name       = "development"
-  db_name                = "categorisation-tool"
+  db_name                = "categorisation_tool"
   infrastructure-support = "steve.rendell@digital.justice.gov.uk"
 }
 
