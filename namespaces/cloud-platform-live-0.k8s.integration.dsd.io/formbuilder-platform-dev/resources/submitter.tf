@@ -31,7 +31,7 @@ resource "kubernetes_secret" "submitter-rds-instance" {
 ########################################################
 # Submitter Elasticache Redis (for resque + job logging)
 module "submitter-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.1"
 
   cluster_name         = "${var.cluster_name}"
   cluster_state_bucket = "${var.cluster_state_bucket}"
