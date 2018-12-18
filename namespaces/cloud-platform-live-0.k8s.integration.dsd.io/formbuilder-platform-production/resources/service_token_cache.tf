@@ -15,8 +15,8 @@ module "service-token-cache-elasticache" {
 
 resource "kubernetes_secret" "service-token-cache-elasticache" {
   metadata {
-    name      = "elasticache-formbuilder-service-token-cache-dev"
-    namespace = "formbuilder-platform-dev"
+    name      = "elasticache-formbuilder-service-token-cache-production"
+    namespace = "formbuilder-platform-production"
   }
 
   data {

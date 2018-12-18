@@ -16,8 +16,8 @@ module "publisher-rds-instance" {
 
 resource "kubernetes_secret" "publisher-rds-instance" {
   metadata {
-    name      = "rds-instance-formbuilder-publisher-staging"
-    namespace = "formbuilder-platform-staging"
+    name      = "rds-instance-formbuilder-publisher-production"
+    namespace = "formbuilder-platform-production"
   }
 
   data {
@@ -45,8 +45,8 @@ module "publisher-elasticache" {
 
 resource "kubernetes_secret" "publisher-elasticache" {
   metadata {
-    name      = "elasticache-formbuilder-publisher-staging"
-    namespace = "formbuilder-platform-staging"
+    name      = "elasticache-formbuilder-publisher-production"
+    namespace = "formbuilder-platform-production"
   }
 
   data {
