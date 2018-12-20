@@ -15,7 +15,6 @@ subjects:
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
     name: circleci
-    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
