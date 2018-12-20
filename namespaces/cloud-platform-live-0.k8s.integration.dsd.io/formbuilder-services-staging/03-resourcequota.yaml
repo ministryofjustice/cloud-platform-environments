@@ -5,7 +5,7 @@ metadata:
   namespace: formbuilder-services-staging
 spec:
   hard:
-    requests.cpu: 10000m
-    requests.memory: 16Gi
-    limits.cpu: 20000m
-    limits.memory: 64Gi
+    requests.cpu: 500m
+    requests.memory: 6.4Gi
+    limits.cpu: 7500m
+    limits.memory: 15Gi
