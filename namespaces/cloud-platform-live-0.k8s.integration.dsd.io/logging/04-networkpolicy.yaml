@@ -11,17 +11,17 @@ spec:
   - from:
     - podSelector: {}
 ---
+apiVersion: extensions/v1beta1
 kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-ingress-controllers
+  name: allow-prometheus-scraping
   namespace: logging
 spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: ingress-controllers
+          component: monitoring
+  podSelector: {}
+  policyTypes:
+  - Ingress

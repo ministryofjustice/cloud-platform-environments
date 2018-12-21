@@ -24,6 +24,3 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
     auth_token               = "${module.service-token-cache-elasticache.auth_token}"
   }
 }
-
-########################################################
-

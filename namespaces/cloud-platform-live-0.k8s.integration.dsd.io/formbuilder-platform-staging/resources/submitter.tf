@@ -1,8 +1,8 @@
 ##################################################
-# Publisher RDS
+# Submitter RDS
 
 module "submitter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.0"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
@@ -29,7 +29,7 @@ resource "kubernetes_secret" "submitter-rds-instance" {
 ##################################################
 
 ########################################################
-# Publisher Elasticache Redis (for resque + job logging)
+# Submitter Elasticache Redis (for resque + job logging)
 module "submitter-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=2.0"
 
@@ -54,6 +54,3 @@ resource "kubernetes_secret" "submitter-elasticache" {
     auth_token               = "${module.submitter-elasticache.auth_token}"
   }
 }
-
-########################################################
-

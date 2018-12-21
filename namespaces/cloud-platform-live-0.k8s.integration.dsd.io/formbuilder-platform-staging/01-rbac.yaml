@@ -1,0 +1,22 @@
+
+# Bind admin role for namespace to team group
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: formbuilder-platform-staging-admins
+  namespace: formbuilder-platform-staging
+subjects:
+  - kind: Group
+    name: "github:form-builder"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+
+# Further roles defined in:
+# - publisher-workers-service-account.yaml
+# - service-token-cache-service-account.yaml
+# - submitter-workers-service-account.yaml
+# - user-datastore-service-account.yaml
