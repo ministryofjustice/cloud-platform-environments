@@ -16,7 +16,7 @@ module "example_team_s3" {
   application            = "pipeline-example"
   is-production          = "false"
   environment-name       = "dev"
-  infrastructure-support = "platform@digtal.justice.gov.uk"
+  infrastructure-support = "platforms@digital.justice.gov.uk"
 }
 
 resource "kubernetes_secret" "example_s3_bucket_credentials" {

@@ -7,15 +7,16 @@ provider "aws" {
 }
 
 module "ecr-repo" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
-  team_name = "cica"
-  repo_name = "cicadevelopment"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+
+  team_name = "omic"
+  repo_name = "categorisation-tool"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "cica"
-    namespace = "cica-development"
+    name      = "ecr-repo-categorisation-tool"
+    namespace = "categorisation-tool-dev"
   }
 
   data {

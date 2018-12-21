@@ -2,7 +2,7 @@
 # Submitter RDS
 
 module "submitter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.0"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
@@ -16,8 +16,8 @@ module "submitter-rds-instance" {
 
 resource "kubernetes_secret" "submitter-rds-instance" {
   metadata {
-    name      = "rds-instance-formbuilder-submitter-dev"
-    namespace = "formbuilder-platform-dev"
+    name      = "rds-instance-formbuilder-submitter-production"
+    namespace = "formbuilder-platform-production"
   }
 
   data {
@@ -45,8 +45,8 @@ module "submitter-elasticache" {
 
 resource "kubernetes_secret" "submitter-elasticache" {
   metadata {
-    name      = "elasticache-formbuilder-submitter-dev"
-    namespace = "formbuilder-platform-dev"
+    name      = "elasticache-formbuilder-submitter-production"
+    namespace = "formbuilder-platform-production"
   }
 
   data {

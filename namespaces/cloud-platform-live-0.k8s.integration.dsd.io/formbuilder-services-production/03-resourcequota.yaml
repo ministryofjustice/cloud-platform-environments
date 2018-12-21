@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: formbuilder-services-staging
+  namespace: formbuilder-services-production
 spec:
   hard:
     requests.cpu: 500m

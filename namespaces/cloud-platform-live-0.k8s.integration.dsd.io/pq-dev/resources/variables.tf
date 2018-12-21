@@ -1,5 +1,5 @@
 variable "team_name" {
-  default = "parliamentary-questions"
+  default = "pq-team"
 }
 
 variable "db_backup_retention_period" {

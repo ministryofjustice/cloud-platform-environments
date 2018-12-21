@@ -5,7 +5,7 @@ metadata:
   namespace: formbuilder-services-dev
 spec:
   hard:
-    requests.cpu: 10000m
-    requests.memory: 16Gi
-    limits.cpu: 20000m
-    limits.memory: 64Gi
+    requests.cpu: 1000m
+    requests.memory: 12.8Gi
+    limits.cpu: 15000m
+    limits.memory: 30Gi

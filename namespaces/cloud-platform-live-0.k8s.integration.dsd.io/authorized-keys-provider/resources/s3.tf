@@ -16,7 +16,7 @@ module "authorized-keys" {
   application            = "cloud-platform-authorized-keys"
   is-production          = "true"
   environment-name       = "production"
-  infrastructure-support = "platform@digtal.justice.gov.uk"
+  infrastructure-support = "platforms@digital.justice.gov.uk"
 }
 
 resource "kubernetes_secret" "example_s3_bucket_credentials" {
