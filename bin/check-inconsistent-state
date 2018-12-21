@@ -45,6 +45,5 @@ for _c in namespaces/*; do
       if [[ ${_ns_tf_diff} == *"${_nsp}"* ]]; then _nsf="${_nsf}✓"; fi
       if [ ${_nsf} != ":" ]; then _t="${_t}${_nsp}:${_nsf}\n"; fi
   done
-# echo -e "${_t}\n\n\n" | column -s':' -t -x
   echo -e "${_t}\n\n\n" | column -s':' -t
 done
