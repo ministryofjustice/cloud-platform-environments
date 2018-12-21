@@ -19,9 +19,9 @@ for _c in namespaces/*; do
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
   _ns_yaml_kube=$(kubectl get ns -ojsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
-  _ns_yaml_git="$(find ${_c}/* -type d -maxdepth 0 -print0 | xargs -0 basename | tr '\n' '|')"
-  _ns_tf_s3="$(aws s3 ls s3://moj-cp-k8s-investigation-environments-terraform/${cluster}/ | awk '{print $2;}' | xargs basename)"
-  _ns_tf_git="$(find ${_c}/* -type d -name resources -print0 | xargs -0 -I '{}' dirname '{}' | xargs basename | tr '\n' '|')"
+  _ns_yaml_git="$(find ${_c}/* -maxdepth 0 -type d -print0 | xargs -0 -i basename {} | tr '\n' '|')"
+  _ns_tf_s3="$(aws s3 ls s3://moj-cp-k8s-investigation-environments-terraform/${cluster}/ | awk '{print $2;}' | xargs -i basename {})"
+  _ns_tf_git="$(find ${_c}/* -type d -name resources -print0 | xargs -0 -i dirname {} | xargs -i basename {} | tr '\n' '|')"
 
   _ns_yaml_diff=$(echo "${_ns_yaml_kube}" | grep -vE "(${_ns_yaml_git}${_ns_default})")
   _ns_tf_diff=$(echo "${_ns_tf_s3}" | grep -vE "(${_ns_tf_git}${_ns_default})")
@@ -45,5 +45,5 @@ for _c in namespaces/*; do
       if [[ ${_ns_tf_diff} == *"${_nsp}"* ]]; then _nsf="${_nsf}✓"; fi
       if [ ${_nsf} != ":" ]; then _t="${_t}${_nsp}:${_nsf}\n"; fi
   done
-  echo -e "${_t}\n\n\n" | column -s':' -t -x
+  echo -e "${_t}\n\n\n" | column -s':' -t
 done
