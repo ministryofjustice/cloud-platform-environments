@@ -3,17 +3,16 @@
 ############################################
 
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.0"
 
   cluster_name         = "${var.cluster_name}"
   cluster_state_bucket = "${var.cluster_state_bucket}"
 
-  db_backup_retention_period = "${var.db_backup_retention_period}"
-  application                = "${var.application}"
-  environment-name           = "${var.environment-name}"
-  is-production              = "${var.is-production}"
-  infrastructure-support     = "${var.infrastructure-support}"
-  team_name                  = "${var.team_name}"
+  application            = "${var.application}"
+  environment-name       = "${var.environment-name}"
+  is-production          = "${var.is-production}"
+  infrastructure-support = "${var.infrastructure-support}"
+  team_name              = "${var.team_name}"
 }
 
 resource "kubernetes_secret" "rds-instance" {

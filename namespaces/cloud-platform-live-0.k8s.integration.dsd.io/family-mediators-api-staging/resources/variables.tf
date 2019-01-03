@@ -2,10 +2,6 @@ variable "team_name" {
   default = "family-justice"
 }
 
-variable "db_backup_retention_period" {
-  default = "2"
-}
-
 variable "environment-name" {
   default = "staging"
 }
