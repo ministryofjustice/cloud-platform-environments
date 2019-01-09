@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 /*
  * When using this module through the cloud-platform-environments, the following
  * two variables are automatically supplied by the pipeline.
@@ -30,8 +22,8 @@ module "apply-for-legal-aid-rds" {
   team_name              = "apply-for-legal-aid"
   business-unit          = "laa"
   application            = "laa-apply-for-legal-aid"
-  is-production          = "false"
-  environment-name       = "staging"
+  is-production          = "true"
+  environment-name       = "production"
   infrastructure-support = "apply@digtal.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10.5"
@@ -41,7 +33,7 @@ module "apply-for-legal-aid-rds" {
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {
   metadata {
     name      = "apply-for-legal-aid-rds-instance-output"
-    namespace = "laa-apply-for-legalaid-staging"
+    namespace = "laa-apply-for-legalaid-production"
   }
 
   data {
