@@ -1,5 +1,5 @@
 ---
-# Source: fb-publisher/templates/01-rbac.yaml
+# Source: formbuilder-publisher/templates/01-rbac.yaml
 # auto-generated from templates in fb-cloud-platforms-environments
 # Bind admin role for namespace to team group
 ---

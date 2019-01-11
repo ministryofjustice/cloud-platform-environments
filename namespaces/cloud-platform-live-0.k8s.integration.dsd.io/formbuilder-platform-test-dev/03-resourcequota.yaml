@@ -1,3 +1,6 @@
+---
+# Source: formbuilder-platform/templates/03-resourcequota.yaml
+# auto-generated from templates in fb-cloud-platforms-environments
 apiVersion: v1
 kind: ResourceQuota
 metadata:

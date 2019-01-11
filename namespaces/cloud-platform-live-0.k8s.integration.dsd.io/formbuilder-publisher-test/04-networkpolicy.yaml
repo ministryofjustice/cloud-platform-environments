@@ -1,5 +1,5 @@
 ---
-# Source: fb-publisher/templates/04-networkpolicy.yaml
+# Source: formbuilder-publisher/templates/04-networkpolicy.yaml
 # auto-generated from templates in fb-cloud-platforms-environments
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
