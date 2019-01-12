@@ -1,3 +1,4 @@
+# auto-generated from fb-cloud-platforms-environments
 terraform {
   backend "s3" {}
 }

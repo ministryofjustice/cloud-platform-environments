@@ -1,6 +1,6 @@
 ---
 # Source: formbuilder-services/templates/01-rbac.yaml
-# auto-generated from templates in fb-cloud-platforms-environments
+# auto-generated from fb-cloud-platforms-environments
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:

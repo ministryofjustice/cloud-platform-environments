@@ -1,3 +1,4 @@
+# auto-generated from fb-cloud-platforms-environments
 variable "environment-name" {
   default = "test"
 }

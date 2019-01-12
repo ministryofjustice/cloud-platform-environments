@@ -1,3 +1,4 @@
+# auto-generated from fb-cloud-platforms-environments
 ########################################################
 # Service Token Cache Elasticache Redis (for resque + job logging)
 module "service-token-cache-elasticache" {
