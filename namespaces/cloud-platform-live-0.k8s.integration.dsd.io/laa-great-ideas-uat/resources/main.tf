@@ -26,6 +26,9 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 }
 
+variable "cluster_name" {}
+variable "cluster_state_bucket" {}
+
 module "laa-great-ideas-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.0"
 
