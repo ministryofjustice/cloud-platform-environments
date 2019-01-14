@@ -42,7 +42,7 @@ module "laa-great-ideas-rds" {
   infrastructure-support = "laa-great-ideas@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10.5"
-  db_name                = "laa-great-ideas-db"
+  db_name                = "laa_great_ideas_db"
 }
 
 resource "kubernetes_secret" "laa-great-ideas-rds" {
