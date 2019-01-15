@@ -5,7 +5,7 @@ metadata:
   namespace: offender-management-production
 spec:
   hard:
-    requests.cpu: 4000m
+    requests.cpu: "4"
     requests.memory: 8Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
+    limits.cpu: "10"
+    limits.memory: 20Gi
