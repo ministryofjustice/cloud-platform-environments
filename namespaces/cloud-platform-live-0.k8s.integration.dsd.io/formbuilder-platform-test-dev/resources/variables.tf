@@ -3,7 +3,7 @@ variable "environment-name" {
   default = "test-dev"
 }
 variable "team_name" {
-  default = "formbuilder"
+  default = "formbuilder-test-dev"
 }
 
 variable "db_backup_retention_period_submitter" {
