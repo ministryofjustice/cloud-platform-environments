@@ -4,7 +4,7 @@ variable "environment-name" {
 }
 
 variable "team_name" {
-  default = "formbuilder"
+  default = "formbuilder-test"
 }
 
 variable "is-production" {
