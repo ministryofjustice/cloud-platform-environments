@@ -7,9 +7,9 @@ provider "aws" {
 }
 
 module "vv-ecr-cred" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
   repo_name = "vv-k8s-deploy-test-app"
-  team_name = "test-webops" 
+  team_name = "test-webops"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
