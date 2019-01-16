@@ -7,7 +7,7 @@ module "ecr-repo-allocation-api" {
 
 resource "kubernetes_secret" "ecr-repo-allocation-api" {
   metadata {
-    name      = "offender-management-allocation-api"
+    name      = "ecr-repo-allocation-api"
     namespace = "offender-management-staging"
   }
 
