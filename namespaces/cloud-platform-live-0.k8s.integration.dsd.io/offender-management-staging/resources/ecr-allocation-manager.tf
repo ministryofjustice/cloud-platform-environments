@@ -15,7 +15,7 @@ module "ecr-repo-allocation-manager" {
 
 resource "kubernetes_secret" "ecr-repo-allocation-manager" {
   metadata {
-    name      = "offender-management-allocation-manager"
+    name      = "ecr-repo-allocation-manager"
     namespace = "offender-management-staging"
   }
 
