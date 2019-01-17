@@ -5,7 +5,7 @@ metadata:
   namespace: kuberos
 spec:
   hard:
-    requests.cpu: 4000m
-    requests.memory: 8Gi
+    requests.cpu: 3000m
+    requests.memory: 6Gi
     limits.cpu: 6000m
     limits.memory: 12Gi
