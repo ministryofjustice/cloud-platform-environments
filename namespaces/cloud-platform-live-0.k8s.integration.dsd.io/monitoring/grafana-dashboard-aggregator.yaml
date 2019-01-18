@@ -183,11 +183,11 @@ spec:
           done;
         resources:
           requests:
-            cpu: 1m
-            memory: 32Mi
+            cpu: 10m
+            memory: 64Mi
           limits:
-            cpu: 1m
-            memory: 32Mi
+            cpu: 100m
+            memory: 128Mi
         volumeMounts:
         - name: grafana-dashboard-aggregator
           mountPath: /var/run/bin
