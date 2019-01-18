@@ -26,7 +26,7 @@ subjects:
   # allow platformenv Publisher to deploy to this deploymentenv
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-test
-    namespace: formbuilder-platform-test-dev
+    namespace: formbuilder-publisher-test
   # ...but only the dev service token cache can read the dev
   # service tokens
   - kind: ServiceAccount
