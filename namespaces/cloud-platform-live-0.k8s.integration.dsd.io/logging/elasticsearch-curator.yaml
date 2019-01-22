@@ -8,6 +8,11 @@ spec:
   jobTemplate: 
     spec:
       template:
+        metadata:
+          labels:
+            application: live-es-cleanuper
+          annotations:
+            iam.amazonaws.com/role: elasticsearch-curator
         spec:
           restartPolicy: OnFailure
           containers:

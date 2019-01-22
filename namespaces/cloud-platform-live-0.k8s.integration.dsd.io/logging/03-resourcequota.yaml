@@ -5,7 +5,7 @@ metadata:
   namespace: logging
 spec:
   hard:
-    requests.cpu: 3000m
+    requests.cpu: 10000m
     requests.memory: 6Gi
-    limits.cpu: 6000m
+    limits.cpu: 10000m
     limits.memory: 12Gi
