@@ -8,7 +8,7 @@ provider "aws" {
 
 module "cbo_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
-  repo_name = "Claim-for-Crown-Court-Defence"
+  repo_name = "claim-for-crown-court-defence"
   team_name = "crime-billing-online"
 }
 
