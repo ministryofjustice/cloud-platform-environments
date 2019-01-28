@@ -38,9 +38,13 @@ resource "kubernetes_secret" "allocation-rds" {
 
   data {
     rds_instance_endpoint = "${module.allocation-rds.rds_instance_endpoint}"
+    rds_instance_address  = "${module.allocation-rds.rds_instance_address}"
     database_name         = "${module.allocation-rds.database_name}"
     database_username     = "${module.allocation-rds.database_username}"
     database_password     = "${module.allocation-rds.database_password}"
-    rds_instance_address  = "${module.allocation-rds.rds_instance_address}"
+    postgres_name         = "${module.allocation-rds.database_name}"
+    postgres_host         = "${module.allocation-rds.rds_instance_address}"
+    postgres_user         = "${module.allocation-rds.database_username}"
+    postgres_password     = "${module.allocation-rds.database_password}"
   }
 }
