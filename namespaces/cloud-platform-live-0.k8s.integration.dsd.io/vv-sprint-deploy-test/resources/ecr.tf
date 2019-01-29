@@ -12,7 +12,7 @@ module "vv-ecr-sprint-deploy" {
   team_name = "test-webops"
 }
 
-resource "kubernetes_secret" "example_team_ecr_credentials" {
+resource "kubernetes_secret" "ecr-repo" {
   metadata {
     name      = "ecr-repo-vv-sprint-deploy-test"
     namespace = "vv-sprint-deploy-test"
