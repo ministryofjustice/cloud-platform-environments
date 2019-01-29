@@ -1,0 +1,38 @@
+---
+# Source: formbuilder-services/templates/01-rbac.yaml
+# auto-generated from fb-cloud-platforms-environments
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: formbuilder-services-integration-staging-admins
+  namespace: formbuilder-services-integration-staging
+subjects:
+  - kind: Group
+    name: "github:form-builder"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+  
+# Bind admin role for namespace to team group & publisher ServiceAccount
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: formbuilder-services-integration-staging-service-account
+  namespace: formbuilder-services-integration-staging
+subjects:
+  # allow platformenv Publisher to deploy to this deploymentenv
+  - kind: ServiceAccount
+    name: formbuilder-publisher-workers-integration
+    namespace: formbuilder-publisher-integration
+  # ...but only the dev service token cache can read the dev
+  # service tokens
+  - kind: ServiceAccount
+    name: formbuilder-service-token-cache-integration-staging
+    namespace: formbuilder-platform-integration-staging
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
