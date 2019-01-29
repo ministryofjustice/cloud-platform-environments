@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vv-sprint-deploy-test-admin
+  namespace: vv-sprint-deploy-test
+subjects:
+  - kind: Group
+    name: "github:test-webops"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
