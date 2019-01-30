@@ -5,7 +5,7 @@ metadata:
   namespace: matt-demo
 subjects:
   - kind: Group
-    name: "github:tactical-products"
+    name: "github:technical-architects"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
