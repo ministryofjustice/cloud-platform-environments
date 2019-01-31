@@ -1,0 +1,17 @@
+---
+# Source: formbuilder-services/templates/02-limitrange.yaml
+# auto-generated from fb-cloud-platforms-environments
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: formbuilder-services-live-staging
+spec:
+  limits:
+  - default:
+      cpu: 150m
+      memory: 300Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 128Mi
+    type: Container
