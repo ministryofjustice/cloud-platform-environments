@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cloud-platform-environments-pr-git-access-token
-  namespace: concourse-main
-type: Opaque
-data:
-  key: 81e9f711e95c0b41b71cd1e270e91d526741bde7
