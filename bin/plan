@@ -13,23 +13,23 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
-changed_dirs=$(git diff-tree --no-commit-id --name-only -r HEAD^^..HEAD | gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print}' | sort | uniq)
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r HEAD^^..HEAD | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print}' | sort | uniq)
 
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
-  log blue "applying cluster-level resources for ${cluster}"
-  ( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
+  #log blue "applying cluster-level resources for ${cluster}"
+  #( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
   for _f in ${_c}/*; do
     if [ -d "${_f}" ]; then
       namespace="$(basename ${_f})"
-      log blue "applying resources for namespace ${namespace} in ${cluster}"
-      ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+     # log blue "applying resources for namespace ${namespace} in ${cluster}"
+     # ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
       terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-      if [ -d "${terraform_resources_path}" ] && echo "${changed_dirs[@]}" | grep -q "${terraform_resources_path}" ; then
+      #if [ -d "${terraform_resources_path}" ] && echo "${changed_dirs[@]}" | grep -q "${terraform_resources_path}" ; then
         cd "${terraform_resources_path}"
-        log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
+        #log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
         terraform init \
           -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
           -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
@@ -39,9 +39,9 @@ for _c in namespaces/*; do
           -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
           -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
         cd $OLDPWD
-      else
-        log blue "no terraform changes for namespace ${namespace} in ${cluster}"
-      fi
+      # else
+      #   log blue "no terraform changes for namespace ${namespace} in ${cluster}"
+      # fi
     fi
   done
   # _ns_pruneable=$(kubectl get ns -o json | jq -r '.items[] | select(.metadata.annotations["environment.k8s.dsd.io/managed"] == "true") | .metadata.name')
