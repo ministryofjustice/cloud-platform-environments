@@ -50,4 +50,4 @@ for _c in namespaces/*; do
 #   else
 #     log blue "no namespaces to prune in ${cluster}"
 #   fi
-# done
+ done
