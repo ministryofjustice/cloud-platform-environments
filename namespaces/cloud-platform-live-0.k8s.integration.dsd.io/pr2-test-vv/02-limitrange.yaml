@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: pr-test-app
+  namespace: pr2-test-vv
 spec:
   limits:
   - default:
