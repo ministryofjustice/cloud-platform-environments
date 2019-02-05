@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: vv-sprint-deploy-test
+  namespace: pr-test-app
 spec:
   hard:
     requests.cpu: 3000m
