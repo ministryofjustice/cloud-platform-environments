@@ -22,6 +22,6 @@ resource "kubernetes_secret" "ecr-repo-test" {
   data {
     repo_url          = "${module.ecr-repo-test.repo_url}"
     access_key_id     = "${module.ecr-repo-test.access_key_id}"
-    secret_access_key = "${module.ecr-repo_test.secret_access_key}"
+    secret_access_key = "${module.ecr-repo-test.secret_access_key}"
   }
 }
