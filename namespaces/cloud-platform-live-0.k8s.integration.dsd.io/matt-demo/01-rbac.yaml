@@ -5,7 +5,7 @@ metadata:
   namespace: matt-demo
 subjects:
   - kind: Group
-    name: "github:ministryofjustice/tactical-products"
+    name: "github:tactical-products"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
