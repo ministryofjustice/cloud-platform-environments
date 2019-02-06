@@ -34,9 +34,9 @@ for _c in namespaces/*; do
           -backend-config="region=eu-west-1"
         terraform plan \
           #-auto-approve \
-          -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
+          -var="cluster_name=cloud-platform-live-0.k8s.integration.dsd.io" \
           -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
-        cd $OLDPWD
+        #cd $OLDPWD
       fi
     fi
   done
