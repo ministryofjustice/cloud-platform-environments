@@ -18,14 +18,14 @@ for _c in namespaces/*; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
-  log blue "applying cluster-level resources for ${cluster}"
-  ( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
+  # log blue "applying cluster-level resources for ${cluster}"
+  # ( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
   for _f in ${_c}/*; do
     if [ -d "${_f}" ]; then
       namespace="$(basename ${_f})"
-      log blue "applying resources for namespace ${namespace} in ${cluster}"
-      ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-      terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
+      # log blue "applying resources for namespace ${namespace} in ${cluster}"
+      # ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+        terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
       if [ -d "${terraform_resources_path}" ] && echo "${changed_dirs[@]}" | grep -q "${terraform_resources_path}" ; then
         cd "${terraform_resources_path}"
         log blue "planning terraform resources for namespace ${namespace} in ${cluster}"
