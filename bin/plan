@@ -14,7 +14,7 @@ log() {
 }
 
 
-changed_dirs=$(git diff-tree --no-commit-id --name-only -r HEAD^^..HEAD | gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print}' | sort | uniq)
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r HEAD^^..HEAD | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print}' | sort | uniq)
 
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
