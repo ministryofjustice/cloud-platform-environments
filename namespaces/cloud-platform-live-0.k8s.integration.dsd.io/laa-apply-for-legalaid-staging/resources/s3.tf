@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 module "authorized-keys" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
