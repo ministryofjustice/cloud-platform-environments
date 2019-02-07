@@ -21,7 +21,7 @@ module "allocation-rds" {
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "offender-management"
   business-unit          = "HMPPS"
-  application            = "offender-management-allocation-api"
+  application            = "offender-management-allocation-manager"
   is-production          = "true"
   environment-name       = "production"
   infrastructure-support = "omic@digital.justice.gov.uk"
