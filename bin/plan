@@ -19,7 +19,7 @@ for _c in namespaces/*; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
-  for _f in ${changed_dirs}/*; do
+  for _f in ${changed_dirs}; do
   echo "${_f}"
     # if [ -d "${_f}" ]; then
     # echo "${_f}"
