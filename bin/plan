@@ -31,6 +31,7 @@ for _c in namespaces/*; do
         terraform plan \
           -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
           -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
+        cd $OLDPWD
       fi
     fi
   done
