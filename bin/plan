@@ -13,7 +13,7 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
-changed_dirs=$(git diff HEAD^^^^^^^^^^^..HEAD --name-only --pretty=format:"" | grep 'cloud-platform-live-0.k8s.integration.dsd.io' | awk -F'/' '{print $3}' | sort | uniq)
+changed_dirs=$(git diff HEAD^^..HEAD --name-only --pretty=format:"" | grep 'cloud-platform-live-0.k8s.integration.dsd.io' | awk -F'/' '{print $3}' | sort | uniq)
 
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
