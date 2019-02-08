@@ -24,7 +24,7 @@ for _c in namespaces/*; do
     terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
     if [ -d "${terraform_resources_path}" ]; then
       cd "${terraform_resources_path}"
-      log blue "planning terraform resources for namespace ${namespace} in ${cluster}"
+      log blue "Planning terraform resources for namespace ${namespace} in ${cluster}"
       terraform init \
         -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
         -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
@@ -33,6 +33,8 @@ for _c in namespaces/*; do
         -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
         -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
       cd $OLDPWD
+    else
+        log blue "No terraform changes for in this PR"
     fi
   done
 done
