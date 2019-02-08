@@ -9,6 +9,7 @@ log() {
   [ "${1}" = "blue" ] && _fg='\033[0;34m'
   [ "${1}" = "green" ] && _fg='\033[0;32m'
   shift
+  # shellcheck disable=SC2145
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
@@ -19,19 +20,24 @@ for _c in namespaces/*; do
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
   for _f in ${changed_dirs}; do
-    namespace="$(basename ${_f})"
-    terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-    if [ -d "${terraform_resources_path}" ]; then
-      cd "${terraform_resources_path}"
-      log blue "Planning terraform resources for namespace ${namespace} in ${cluster}"
-      terraform init \
-        -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
-        -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
-        -backend-config="region=eu-west-1"
-      terraform plan \
-        -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
-        -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
-      cd $OLDPWD
+  echo "${_f}"
+    # if [ -d "${_f}" ]; then
+    # echo "${_f}"
+      namespace="$(basename ${_f})"
+      echo $namespace
+      terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
+      if [ -d "${terraform_resources_path}" ]; then
+        cd "${terraform_resources_path}"
+        log blue "planning terraform resources for namespace ${namespace} in ${cluster}"
+        terraform init \
+          -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
+          -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="region=eu-west-1"
+        terraform plan \
+          -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
+          -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
+        cd $OLDPWD
+      # fi
     fi
   done
-done
+ done
