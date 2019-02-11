@@ -8,7 +8,7 @@ provider "aws" {
 
 module "vv-ecr-wc-1102" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
-  repo_name = "vv-k8s-deploy-test-app"
+  repo_name = "vv-ecr-wc-1102"
   team_name = "test-webops"
 }
 
