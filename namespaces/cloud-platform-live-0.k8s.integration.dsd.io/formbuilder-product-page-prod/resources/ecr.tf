@@ -8,7 +8,7 @@ provider "aws" {
 
 module "formbuilder_product_page_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
-  repo_name = "formBuilder-product-page"
+  repo_name = "formbuilder-product-page"
   team_name = "formbuilder"
 }
 
