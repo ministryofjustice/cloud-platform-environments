@@ -5,9 +5,7 @@ kind: Service
 metadata:
   labels:
     app: oauth2-proxy
-    chart: oauth2-proxy-0.9.1
     release: kibana-proxy
-    heritage: Tiller
   name: kibana-proxy-oauth2-proxy
 spec:
   type: ClusterIP
@@ -26,8 +24,6 @@ kind: Deployment
 metadata:
   labels:
     app: oauth2-proxy
-    chart: oauth2-proxy-0.9.1
-    heritage: Tiller
     release: kibana-proxy
   name: kibana-proxy-oauth2-proxy
 spec:
@@ -95,8 +91,6 @@ kind: Ingress
 metadata:
   labels:
     app: oauth2-proxy
-    chart: oauth2-proxy-0.9.1
-    heritage: Tiller
     release: kibana-proxy
   name: kibana-proxy-oauth2-proxy
   annotations:
