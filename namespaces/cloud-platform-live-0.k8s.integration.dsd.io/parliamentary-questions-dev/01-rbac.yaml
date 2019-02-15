@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: parliamentary-questions-staging-admin
-  namespace: parliamentary-questions-staging
+  name: parliamentary-questions-dev-admin
+  namespace: parliamentary-questions-dev
 subjects:
   - kind: Group
     name: "github:parliamentary-questions"
