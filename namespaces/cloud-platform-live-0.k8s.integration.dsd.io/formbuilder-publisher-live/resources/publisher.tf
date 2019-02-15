@@ -3,7 +3,7 @@
 # Publisher RDS
 
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
