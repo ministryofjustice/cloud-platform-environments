@@ -5,8 +5,8 @@ kind: Service
 metadata:
   labels:
     app: oauth2-proxy
-    release: kibana-proxy
-  name: kibana-proxy-oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
   namespace: monitoring
 spec:
   type: ClusterIP
@@ -17,7 +17,7 @@ spec:
       name: http
   selector:
     app: oauth2-proxy
-    release: kibana-proxy
+    release: kibana-audit-proxy
 ---
 # Source: oauth2-proxy/templates/deployment.yaml
 apiVersion: apps/v1beta2
@@ -25,20 +25,20 @@ kind: Deployment
 metadata:
   labels:
     app: oauth2-proxy
-    release: kibana-proxy
-  name: kibana-proxy-oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
   namespace: monitoring
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: oauth2-proxy
-      release: kibana-proxy
+      release: kibana-audit-proxy
   template:
     metadata:
       labels:
         app: oauth2-proxy
-        release: "kibana-proxy"
+        release: "kibana-audit-proxy"
     spec:
       containers:
       - name: oauth2-proxy
@@ -51,7 +51,7 @@ spec:
           - --oidc-issuer-url=https://moj-cloud-platforms-dev.eu.auth0.com/
           - --provider=oidc
           - --skip-provider-button=true
-          - --upstream=https://search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com
+          - --upstream=https://search-cloud-platform-audit-effm3qdiau42obkarrpvdxioxm.eu-west-1.es.amazonaws.com
           - --pass-host-header=false
           - --pass-basic-auth=false
         env:
@@ -84,25 +84,27 @@ spec:
             port: http
         resources:
           {}
+
         volumeMounts:
       volumes:
       tolerations:
         []
 ---
+# Source: oauth2-proxy/templates/ingress.yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   labels:
     app: oauth2-proxy
-    release: kibana-proxy
-  name: kibana-proxy-oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
   namespace: monitoring
 spec:
   rules:
-    - host: kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io
+    - host: kibana-audit.apps.cloud-platform-live-0.k8s.integration.dsd.io
       http:
         paths:
           - path: /
             backend:
-              serviceName: kibana-proxy-oauth2-proxy
+              serviceName: kibana-audit-proxy-oauth2-proxy
               servicePort: 80
