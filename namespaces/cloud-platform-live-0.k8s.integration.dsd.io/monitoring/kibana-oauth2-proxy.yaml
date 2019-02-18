@@ -7,6 +7,7 @@ metadata:
     app: oauth2-proxy
     release: kibana-proxy
   name: kibana-proxy-oauth2-proxy
+  namespace: monitoring
 spec:
   type: ClusterIP
   ports:
@@ -26,6 +27,7 @@ metadata:
     app: oauth2-proxy
     release: kibana-proxy
   name: kibana-proxy-oauth2-proxy
+  namespace: monitoring
 spec:
   replicas: 1
   selector:
@@ -49,8 +51,9 @@ spec:
           - --oidc-issuer-url=https://moj-cloud-platforms-dev.eu.auth0.com/
           - --provider=oidc
           - --skip-provider-button=true
-          - --pass-basic-auth=false
           - --upstream=https://search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com
+          - --pass-host-header=false
+          - --pass-basic-auth=false
         env:
         - name: OAUTH2_PROXY_CLIENT_ID
           valueFrom:
@@ -93,7 +96,7 @@ metadata:
     app: oauth2-proxy
     release: kibana-proxy
   name: kibana-proxy-oauth2-proxy
-  annotations:
+  namespace: monitoring
 spec:
   rules:
     - host: kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io
