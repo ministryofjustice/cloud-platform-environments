@@ -1,7 +1,7 @@
 # https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials
 
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "${var.application}"
