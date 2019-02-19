@@ -16,7 +16,7 @@ module "ecr-repo" {
 module "offender-risk-profiler-ecr-repo" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
   repo_name = "offender-risk-profiler"
-  team_name = "omic"
+  team_name = "digcat"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
