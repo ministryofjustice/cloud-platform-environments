@@ -2,14 +2,6 @@
 # Family Mediators API ECR repository
 #####################################
 
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "${var.aws_region}"
-}
-
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
