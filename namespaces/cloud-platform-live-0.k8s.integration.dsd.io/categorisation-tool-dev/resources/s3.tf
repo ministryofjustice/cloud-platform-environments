@@ -1,48 +1,66 @@
 
-module "risk_offender_data_omic_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
-
-  team_name              = "cloudplatform"
-  business-unit          = "mojdigital"
-  application            = "cloud-platform-terraform-s3-bucket"
-  is-production          = "false"
-  environment-name       = "development"
-  infrastructure-support = "platform@digtal.justice.gov.uk"
-}
-
 module "pras_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
-
-  team_name = "omic"
-  bucket_id = "pras"
+  team_name              = "omic"
+  acl                    = "private"
+  versioning             =  false
+  business-unit          = "hmpps"
+  application            = "offender-risk-profiler"
+  is-production          = "false"
+  environment-name       = "categorisation-tool-dev"
+  infrastructure-support = "feedback@digtal.justice.gov.uk"
 }
 
 module "ocg_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
-  team_name = "omic"
-  bucket_id = "ocg"
+  team_name              = "omic"
+  acl                    = "private"
+  versioning             =  false
+  business-unit          = "hmpps"
+  application            = "offender-risk-profiler"
+  is-production          = "false"
+  environment-name       = "categorisation-tool-dev"
+  infrastructure-support = "feedback@digtal.justice.gov.uk"
 }
 
 module "ocgm_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
-  team_name = "omic"
-  bucket_id = "ocgm"
+  team_name              = "omic"
+  acl                    = "private"
+  versioning             =  false
+  business-unit          = "hmpps"
+  application            = "offender-risk-profiler"
+  is-production          = "false"
+  environment-name       = "categorisation-tool-dev"
+  infrastructure-support = "feedback@digtal.justice.gov.uk"
 }
 
 module "pathfinder_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
-  team_name = "omic"
-  bucket_id = "pathfinder"
+  team_name              = "omic"
+  acl                    = "private"
+  versioning             =  false
+  business-unit          = "hmpps"
+  application            = "offender-risk-profiler"
+  is-production          = "false"
+  environment-name       = "categorisation-tool-dev"
+  infrastructure-support = "feedback@digtal.justice.gov.uk"
 }
 
 module "viper_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
 
-  team_name = "omic"
-  bucket_id = "viper"
+  team_name              = "omic"
+  acl                    = "private"
+  versioning             =  false
+  business-unit          = "hmpps"
+  application            = "offender-risk-profiler"
+  is-production          = "false"
+  environment-name       = "categorisation-tool-dev"
+  infrastructure-support = "feedback@digtal.justice.gov.uk"
 }
 
 resource "kubernetes_secret" "viper_offender_data_omic_s3_bucket" {
@@ -52,8 +70,8 @@ resource "kubernetes_secret" "viper_offender_data_omic_s3_bucket" {
   }
 
   data {
-    access_key_id     = "${module.risk_offender_data_omic_s3_bucket.access_key_id}"
-    secret_access_key = "${module.risk_offender_data_omic_s3_bucket.secret_access_key}"
+    access_key_id     = "${module.viper_s3_bucket.access_key_id}"
+    secret_access_key = "${module.viper_s3_bucket.secret_access_key}"
     bucket_arn        = "${module.viper_s3_bucket.bucket_arn}"
     bucket_name       = "${module.viper_s3_bucket.bucket_name}"
   }
@@ -66,8 +84,8 @@ resource "kubernetes_secret" "pras_offender_data_omic_s3_bucket" {
   }
 
   data {
-    access_key_id     = "${module.risk_offender_data_omic_s3_bucket.access_key_id}"
-    secret_access_key = "${module.risk_offender_data_omic_s3_bucket.secret_access_key}"
+    access_key_id     = "${module.pras_s3_bucket.access_key_id}"
+    secret_access_key = "${module.pras_s3_bucket.secret_access_key}"
     bucket_arn        = "${module.pras_s3_bucket.bucket_arn}"
     bucket_name       = "${module.pras_s3_bucket.bucket_name}"
   }
@@ -81,8 +99,8 @@ resource "kubernetes_secret" "ocgm_offender_data_omic_s3_bucket" {
   }
 
   data {
-    access_key_id     = "${module.risk_offender_data_omic_s3_bucket.access_key_id}"
-    secret_access_key = "${module.risk_offender_data_omic_s3_bucket.secret_access_key}"
+    access_key_id     = "${module.ocgm_s3_bucket.access_key_id}"
+    secret_access_key = "${module.ocgm_s3_bucket.secret_access_key}"
     bucket_arn        = "${module.ocgm_s3_bucket.bucket_arn}"
     bucket_name       = "${module.ocgm_s3_bucket.bucket_name}"
   }
@@ -95,8 +113,8 @@ resource "kubernetes_secret" "pathfinder_offender_data_omic_s3_bucket" {
   }
 
   data {
-    access_key_id     = "${module.risk_offender_data_omic_s3_bucket.access_key_id}"
-    secret_access_key = "${module.risk_offender_data_omic_s3_bucket.secret_access_key}"
+    access_key_id     = "${module.pathfinder_s3_bucket.access_key_id}"
+    secret_access_key = "${module.pathfinder_s3_bucket.secret_access_key}"
     bucket_arn        = "${module.pathfinder_s3_bucket.bucket_arn}"
     bucket_name       = "${module.pathfinder_s3_bucket.bucket_name}"
   }
@@ -110,8 +128,8 @@ resource "kubernetes_secret" "ocg_offender_data_omic_s3_bucket" {
   }
 
   data {
-    access_key_id     = "${module.risk_offender_data_omic_s3_bucket.access_key_id}"
-    secret_access_key = "${module.risk_offender_data_omic_s3_bucket.secret_access_key}"
+    access_key_id     = "${module.ocg_s3_bucket.access_key_id}"
+    secret_access_key = "${module.ocg_s3_bucket.secret_access_key}"
     bucket_arn        = "${module.ocg_s3_bucket.bucket_arn}"
     bucket_name       = "${module.ocg_s3_bucket.bucket_name}"
   }
