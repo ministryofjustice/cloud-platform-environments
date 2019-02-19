@@ -16,7 +16,7 @@ module "apply-for-legal-aid-rds" {
   environment-name       = "production"
   infrastructure-support = "apply@digtal.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "10.5"
+  db_engine_version      = "10.6"
   db_name                = "apply_for_legal_aid_production"
 }
 
