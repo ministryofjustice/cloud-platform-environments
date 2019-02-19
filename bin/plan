@@ -15,14 +15,14 @@ log() {
 
 changed_dirs=$(git diff --no-commit-id --name-only -r master..HEAD | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
 
-echo "${changed_dirs[@]}"
-
+str=$(echo "${changed_dirs[@]}")
+echo $str
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
-  if [ -n "${changed_dirs[@]}" ]; then
-    for _f in "${changed_dirs[@]}"; do
+  if [ -n $str ]; then
+    for _f in $str; do
       echo $_f
       namespace="$(basename ${_f})"
       terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
