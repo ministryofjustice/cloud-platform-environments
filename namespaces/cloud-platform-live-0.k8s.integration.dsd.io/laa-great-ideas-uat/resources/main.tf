@@ -41,7 +41,7 @@ module "laa-great-ideas-rds" {
   environment-name       = "uat"
   infrastructure-support = "laa-great-ideas@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "10.5"
+  db_engine_version      = "10.6"
   db_name                = "laa_great_ideas_db"
 }
 
