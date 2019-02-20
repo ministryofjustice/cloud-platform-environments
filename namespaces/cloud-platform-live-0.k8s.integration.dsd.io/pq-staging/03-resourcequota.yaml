@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: parliamentary-questions-staging
+  namespace: pq-staging
 spec:
   hard:
     requests.cpu: 3000m
