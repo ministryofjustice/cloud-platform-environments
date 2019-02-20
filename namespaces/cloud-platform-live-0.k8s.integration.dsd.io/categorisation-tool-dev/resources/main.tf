@@ -44,4 +44,3 @@ resource "kubernetes_secret" "offender-risk-profiler-ecr-repo" {
     secret_access_key = "${module.offender-risk-profiler-ecr-repo.secret_access_key}"
   }
 }
-
