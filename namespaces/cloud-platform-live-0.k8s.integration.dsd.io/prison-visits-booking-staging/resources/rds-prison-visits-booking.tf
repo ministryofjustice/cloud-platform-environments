@@ -27,7 +27,7 @@ module "prison-visits-booking-rds" {
   infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10.5"
-  db_name                = "prison-visits-booking"
+  db_name                = "prisonvisitsbooking"
 }
 
 resource "kubernetes_secret" "prison-visits-booking-rds" {
