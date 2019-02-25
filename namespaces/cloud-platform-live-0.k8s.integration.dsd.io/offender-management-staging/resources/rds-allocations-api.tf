@@ -26,7 +26,7 @@ module "allocation-rds" {
   environment-name       = "staging"
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "10.5"
+  db_engine_version      = "10.6"
   db_name                = "allocations"
 }
 
