@@ -5,7 +5,7 @@ metadata:
   namespace: prison-visits-booking-staging
 subjects:
   - kind: Group
-    name: "github:prison visits booking"
+    name: "github:prison-visits-booking"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
