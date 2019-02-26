@@ -14,6 +14,7 @@ module "rds-instance" {
   is-production              = "${var.is-production}"
   infrastructure-support     = "${var.infrastructure-support}"
   team_name                  = "${var.team_name}"
+  db_engine_version          = "10"
 }
 
 resource "kubernetes_secret" "rds-instance" {
