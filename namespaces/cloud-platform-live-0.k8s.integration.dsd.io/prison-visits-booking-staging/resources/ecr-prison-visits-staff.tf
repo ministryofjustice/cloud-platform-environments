@@ -1,14 +1,14 @@
 module "ecr-repo-prison-visits-staff" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
-  team_name = "prison-visits-booking"
+  team_name = "${var.team_name}"
   repo_name = "prison-visits-staff"
 }
 
 resource "kubernetes_secret" "ecr-repo-prison-visits-staff" {
   metadata {
     name      = "ecr-repo-prison-visits-staff"
-    namespace = "prison-visits-booking-staging"
+    namespace = "${var.namespace}"
   }
 
   data {
