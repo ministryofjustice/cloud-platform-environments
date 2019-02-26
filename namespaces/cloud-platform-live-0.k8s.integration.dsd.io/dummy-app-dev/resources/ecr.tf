@@ -8,7 +8,7 @@ module "example_team_ecr_credentials" {
   team_name = "cloud-platform-test"
 }
 
-resource "kubernetes_secret" "dummy_app_ecr_mourad_credentials" {
+resource "kubernetes_secret" "dummy_app_mourad_ecr_credentials" {
   metadata {
     name      = "dummy-app-mourad-ecr-credentials-output"
     namespace = "dummy-app-dev"
