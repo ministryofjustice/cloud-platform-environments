@@ -1,4 +1,4 @@
-module "ecr-repo-prison-visits-public" {
+module "ecr-repo-prison-visits-staff" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
 
   team_name = "prison-visits-booking"
