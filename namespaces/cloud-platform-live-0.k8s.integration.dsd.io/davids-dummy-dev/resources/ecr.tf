@@ -13,7 +13,7 @@ provider "aws" {
  *
  */
 module "davids_dummy_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "davids-dummy-app"
   team_name = "davids-dummy-team"
 }
