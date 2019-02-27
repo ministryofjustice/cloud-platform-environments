@@ -17,7 +17,7 @@ echo $base_sha
 
 echo $head_sha
 
-changed_dirs=$(git diff-tree --no-commit-id --name-only -r $base_sha $head_sha |gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r $base_sha $head_sha |awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
 
 echo $changed_dirs
 
