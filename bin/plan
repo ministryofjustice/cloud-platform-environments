@@ -13,11 +13,11 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
-# current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+echo $base_sha
 
-# echo $current_branch
+echo $head_sha
 
-changed_dirs=$(git diff-tree --no-commit-id --name-only -r origin/master..HEAD |gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r $base_sha $head_sha |gawk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
 
 echo $changed_dirs
 
