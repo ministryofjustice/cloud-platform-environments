@@ -100,6 +100,9 @@ metadata:
   name: kibana-dsd-proxy-oauth2-proxy
   namespace: monitoring
 spec:
+  tls:
+  - hosts:
+    - dsd-kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io
   rules:
     - host: dsd-kibana.apps.cloud-platform-live-0.k8s.integration.dsd.io
       http:
