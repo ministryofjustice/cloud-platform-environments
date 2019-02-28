@@ -14,8 +14,8 @@ module "userguide-2702" {
 
 resource "kubernetes_secret" "sec-userguide-2702" {
   metadata {
-    name      = "ecr-repo-vv-myapp-dev"
-    namespace = "vv-myapp-dev"
+    name      = "sec-userguide-2702"
+    namespace = "userguide-2702"
   }
 
   data {
