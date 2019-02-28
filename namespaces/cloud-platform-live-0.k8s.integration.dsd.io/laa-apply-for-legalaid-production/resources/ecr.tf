@@ -57,3 +57,23 @@ resource "kubernetes_secret" "ecr-repo-applyforlegalaid-service" {
     secret_access_key = "${module.ecr-repo-applyforlegalaid-service.secret_access_key}"
   }
 }
+
+module "ecr-repo-clamav" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+
+  team_name = "laa-apply-for-legal-aid"
+  repo_name = "clamav"
+}
+
+resource "kubernetes_secret" "ecr-repo-clamav" {
+  metadata {
+    name      = "ecr-repo-clamav"
+    namespace = "laa-apply-for-legalaid-production"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-clamav.repo_url}"
+    access_key_id     = "${module.ecr-repo-clamav.access_key_id}"
+    secret_access_key = "${module.ecr-repo-clamav.secret_access_key}"
+  }
+}
