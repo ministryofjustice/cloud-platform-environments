@@ -14,7 +14,7 @@ module "vv-ecr-wc-1102" {
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-vv-ecr-wc-1102"
+    name      = "new-repo-vv-ecr-wc-1102"
     namespace = "userguide-test-wc1102"
   }
 
