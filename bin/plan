@@ -13,13 +13,7 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
-echo $master_base_sha
-
-echo $branch_head_sha
-
 changed_dirs=$(git diff-tree --no-commit-id --name-only -r $master_base_sha $branch_head_sha | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
-
-echo $changed_dirs
 
 for _c in namespaces/*; do
   cluster="$(basename ${_c})"
