@@ -15,7 +15,7 @@ provider "aws" {
 module "jhackett-dso-service" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "jhackett-dso"
-  team_name = "jhackett-dso"
+  team_name = "dso"
 }
 
 resource "kubernetes_secret" "example_team_ecr_credentials" {
