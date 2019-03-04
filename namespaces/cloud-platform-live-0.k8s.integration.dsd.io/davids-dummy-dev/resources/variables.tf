@@ -4,6 +4,10 @@ variable "application" {
   default = "multi-container-demo"
 }
 
+variable "namespace" {
+  default = "davids-dummy-dev"
+}
+
 variable "environment-name" {
   default = "dev"
 }
