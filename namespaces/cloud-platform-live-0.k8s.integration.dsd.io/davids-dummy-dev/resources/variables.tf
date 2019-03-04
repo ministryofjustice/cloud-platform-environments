@@ -23,8 +23,3 @@ variable "is-production" {
 variable "infrastructure-support" {
   default = "David Salgado david.salgado@digital.justice.gov.uk"
 }
-
-// The following two variables are provided at runtime by the pipeline.
-variable "cluster_name" {}
-
-variable "cluster_state_bucket" {}
