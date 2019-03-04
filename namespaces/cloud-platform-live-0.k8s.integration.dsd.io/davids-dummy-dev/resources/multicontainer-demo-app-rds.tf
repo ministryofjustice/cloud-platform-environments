@@ -13,7 +13,7 @@ variable "cluster_state_bucket" {}
  * releases page of this repository.
  *
  */
-module "example_team_rds" {
+module "multi_container_demo_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
 
   application            = "${var.application}"
