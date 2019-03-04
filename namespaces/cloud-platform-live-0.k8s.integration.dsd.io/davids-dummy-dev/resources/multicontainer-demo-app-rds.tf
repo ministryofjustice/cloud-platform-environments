@@ -33,6 +33,6 @@ resource "kubernetes_secret" "multi_container_demo_rds" {
 
   data {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
-    url = "postgres://${module.submitter-rds-instance.database_username}:${module.submitter-rds-instance.database_password}@${module.submitter-rds-instance.rds_instance_endpoint}/${module.submitter-rds-instance.database_name}"
+    url = "postgres://${module.multi_container_demo_rds.database_username}:${module.multi_container_demo_rds.database_password}@${module.multi_container_demo_rds.rds_instance_endpoint}/${module.multi_container_demo_rds.database_name}"
   }
 }
