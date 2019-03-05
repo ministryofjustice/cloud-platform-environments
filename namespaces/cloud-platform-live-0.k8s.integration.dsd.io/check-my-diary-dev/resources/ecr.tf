@@ -25,9 +25,9 @@ resource "kubernetes_secret" "checkmydiary_ecr_credentials" {
   }
 
   data {
-    access_key_id     = "${module.checkmydiary_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.checkmydiary_ecr_credentials.secret_access_key}"
-    repo_arn          = "${module.checkmydiary_ecr_credentials.repo_arn}"
-    repo_url          = "${module.checkmydiary_ecr_credentials.repo_url}"
+    access_key_id     = "${module.checkmydiary-service-dev.access_key_id}"
+    secret_access_key = "${module.checkmydiary-service-dev.secret_access_key}"
+    repo_arn          = "${module.checkmydiary-service-dev.repo_arn}"
+    repo_url          = "${module.checkmydiary-service-dev.repo_url}"
   }
 }
