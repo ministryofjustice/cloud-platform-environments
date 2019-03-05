@@ -7,6 +7,6 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "dev"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/application: "Check My Diary"
-    cloud-platform.justice.gov.uk/owner: "Check My Diary Team: rob.lazzurs@digital.justice.gov.uk: rob.lazzurs@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/trident-csr"
+    cloud-platform.justice.gov.uk/application: "check-my-diary"
+    cloud-platform.justice.gov.uk/owner: "Fareed Mohammed: fareed.mohammed@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "git@github.com:ministryofjustice/check-my-diary.git"
