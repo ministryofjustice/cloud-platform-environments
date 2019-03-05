@@ -6,10 +6,10 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-module "ecr-repo" {  
+module "ecr-repo" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "nickp-test-dev"
-  team_name = "tactical-products"
+  team_name = "tactical-products-np"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
