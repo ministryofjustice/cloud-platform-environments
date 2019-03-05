@@ -12,7 +12,7 @@ provider "aws" {
  * releases page of this repository.
  *
  */
-module "checkmydiary_ecr_credentials" {
+module "checkmydiary-service-dev" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "check-my-diary-dev"
   team_name = "check-my-diary"
