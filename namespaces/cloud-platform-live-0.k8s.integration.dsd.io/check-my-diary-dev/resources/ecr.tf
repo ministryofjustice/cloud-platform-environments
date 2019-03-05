@@ -6,7 +6,7 @@ module "checkmydiary-service-dev" {
 
 resource "kubernetes_secret" "checkmydiary_ecr_credentials" {
   metadata {
-    name      = "checkmydiary_ecr_credentials_output"
+    name      = "checkmydiary-ecr-credentials-output"
     namespace = "check-my-diary-dev"
   }
 
