@@ -13,7 +13,7 @@ log() {
   echo -e "${_fg}>>> ${@}\033[0m"
 }
 
-for _c in namespaces/*; do
+for _c in namespaces/cloud-platform-live-0.k8s.integration.dsd.io; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
