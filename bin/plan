@@ -15,7 +15,7 @@ log() {
 
 changed_dirs=$(git diff-tree --no-commit-id --name-only -r $master_base_sha $branch_head_sha | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
 
-for _c in namespaces/*; do
+for _c in namespaces/cloud-platform-live-0.k8s.integration.dsd.io; do
   cluster="$(basename ${_c})"
   log green "found cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
