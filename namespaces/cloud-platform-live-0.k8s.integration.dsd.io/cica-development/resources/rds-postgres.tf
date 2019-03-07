@@ -2,10 +2,6 @@ terraform {
   backend "s3" {}
 }
 
-provider "aws" {
-  region = "eu-west-1"
-}
-
 /*
  * When using this module through the cloud-platform-environments, the following
  * two variables are automatically supplied by the pipeline.
