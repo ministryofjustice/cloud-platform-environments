@@ -9,4 +9,4 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "Tactical Products"
     cloud-platform.justice.gov.uk/application: "Hello World"
     cloud-platform.justice.gov.uk/owner: "Nick Preddy: nick.preddy@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "git@github.com:ministryofjustice/cloud-platform-helloworld-ruby-app.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
