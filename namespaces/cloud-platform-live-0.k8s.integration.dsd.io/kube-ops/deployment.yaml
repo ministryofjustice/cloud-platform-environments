@@ -5,7 +5,7 @@ metadata:
   namespace: kube-ops
   labels:
     application: kube-ops
-    version: v0.8.1
+    version: v0.10
 spec:
   replicas: 1
   selector:
@@ -15,13 +15,13 @@ spec:
     metadata:
       labels:
         application: kube-ops
-        version: v0.8.1
+        version: v0.10
     spec:
       serviceAccount: kube-ops
       containers:
       - name: service
         # see https://github.com/hjacobs/kube-ops-view/releases
-        image: hjacobs/kube-ops-view:0.8.1
+        image: hjacobs/kube-ops-view:0.10
         env:
           - name: APP_URL
             value: "https://kube-ops.apps.cloud-platform-live-0.k8s.integration.dsd.io/redirect_uri"
