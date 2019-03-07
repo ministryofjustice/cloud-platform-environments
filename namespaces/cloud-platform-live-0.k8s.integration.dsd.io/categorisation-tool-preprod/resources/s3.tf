@@ -10,7 +10,6 @@ module "risk_profiler_digcat_s3_bucket" {
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
 }
 
-
 resource "kubernetes_secret" "risk_profiler_digcat_s3_bucket" {
   metadata {
     name      = "risk-profiler-digcat-s3-bucket-output"
