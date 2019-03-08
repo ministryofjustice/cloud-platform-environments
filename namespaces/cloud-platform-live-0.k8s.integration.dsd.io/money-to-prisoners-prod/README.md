@@ -15,4 +15,4 @@ Architecture
 Deployment pipeline
 -------------------
 
-See https://github.com/ministryofjustice/money-to-prisoners-deploy
+See [money-to-prisoners-deploy](https://github.com/ministryofjustice/money-to-prisoners-deploy)
