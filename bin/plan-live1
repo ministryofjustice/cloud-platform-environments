@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+
+log() {
+  _fg=''
+  [ "${1}" = "red" ] && _fg='\033[0;31m'
+  [ "${1}" = "blue" ] && _fg='\033[0;34m'
+  [ "${1}" = "green" ] && _fg='\033[0;32m'
+  shift
+  # shellcheck disable=SC2145
+  echo -e "${_fg}>>> ${@}\033[0m"
+}
+
+changed_dirs=$(git diff-tree --no-commit-id --name-only -r $master_base_sha $branch_head_sha | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq)
+
+for _c in namespaces/live-1.cloud-platform.service.justice.gov.uk; do
+  cluster="$(basename ${_c})"
+  log green "found cluster ${cluster}"
+  ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
+  if [ -n "$changed_dirs" ]; then
+    for _f in ${changed_dirs}; do
+      namespace="$(basename ${_f})"
+      terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
+      if [ -d "${terraform_resources_path}" ]; then
+        cd "${terraform_resources_path}"
+        log blue "Planning terraform resources for namespace ${namespace} in ${cluster}"
+        terraform init \
+          -backend-config="bucket=cloud-platform-terraform-state" \
+          -backend-config="key=cloud-platform-environment/${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="region=eu-west-1"
+        terraform plan
+        cd $OLDPWD
+      fi
+    done
+  else
+    log blue "No terraform changes in this PR"
+  fi
+done
