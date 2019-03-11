@@ -10,3 +10,22 @@ spec:
   ingress:
   - from:
     - podSelector: {}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: cert-manager
+spec:
+  podSelector:
+    matchLabels:
+      app: cert-manager
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
+    ports:
+      - port: 9402
