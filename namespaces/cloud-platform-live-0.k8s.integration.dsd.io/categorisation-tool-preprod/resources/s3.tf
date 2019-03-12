@@ -5,7 +5,7 @@ module "risk_profiler_digcat_s3_bucket" {
   versioning             = false
   business-unit          = "hmpps"
   application            = "offender-risk-profiler"
-  is-production          = "false"
+  is-production          = "true"
   environment-name       = "categorisation-tool-preprod"
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
 }
