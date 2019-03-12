@@ -9,8 +9,7 @@ module "ec-cluster-offender-management-allocation-manager" {
   infrastructure-support = "${var.infrastructure-support}"
 }
 
-resource "kubernetes_secret"
-"ec-cluster-offender-management-allocation-manager-${var.environment-name}" {
+resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-${var.environment-name}" {
   metadata {
     name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment-name}"
     namespace = "${var.namespace}"
