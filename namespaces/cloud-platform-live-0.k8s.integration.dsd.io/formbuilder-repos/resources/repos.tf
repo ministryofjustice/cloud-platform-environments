@@ -191,3 +191,26 @@ resource "kubernetes_secret" "ecr-repo-fb-user-datastore-api" {
     secret_access_key = "${module.ecr-repo-fb-user-datastore-api.secret_access_key}"
   }
 }
+
+##################################################
+
+# User Filestore ECR Repos
+module "ecr-repo-fb-user-filestore-api" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+
+  team_name = "formbuilder"
+  repo_name = "fb-user-filestore-api"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-user-filestore-api" {
+  metadata {
+    name      = "ecr-repo-fb-user-filestore-api"
+    namespace = "formbuilder-repos"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-user-filestore-api.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-user-filestore-api.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-user-filestore-api.secret_access_key}"
+  }
+}
