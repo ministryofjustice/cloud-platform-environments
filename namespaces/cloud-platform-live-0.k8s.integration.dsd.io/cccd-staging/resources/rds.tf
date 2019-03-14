@@ -17,7 +17,7 @@ module "example_team_rds" {
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
 }
 
-resource "kubernetes_secret" "cbo_ecr_credentials" {
+resource "kubernetes_secret" "cbo-rds-credentials-output" {
   metadata {
     name      = "cbo-rds-credentials-output"
     namespace = "cccd-staging"
