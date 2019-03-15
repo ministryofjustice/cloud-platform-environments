@@ -19,17 +19,17 @@ module "example_team_rds" {
   db_name                = "adp_staging"
 }
 
-resource "kubernetes_secret" "cbo-rds-credentials-output" {
+resource "kubernetes_secret" "cccd_staging_rds" {
   metadata {
-    name      = "cbo-rds-credentials-output"
+    name      = "cccd_staging_rds_output"
     namespace = "cccd-staging"
   }
 
   data {
-    rds_instance_endpoint = "${module.cbo-rds-credentials-output.rds_instance_endpoint}"
-    database_name         = "${module.cbo-rds-credentials-output.database_name}"
-    database_username     = "${module.cbo-rds-credentials-output.database_username}"
-    database_password     = "${module.cbo-rds-credentials-output.database_password}"
-    rds_instance_address  = "${module.cbo-rds-credentials-output.rds_instance_address}"
+    rds_instance_endpoint = "${module.cccd_staging_rds.rds_instance_endpoint}"
+    database_name         = "${module.cccd_staging_rds.database_name}"
+    database_username     = "${module.cccd_staging_rds.database_username}"
+    database_password     = "${module.cccd_staging_rds.database_password}"
+    rds_instance_address  = "${module.cccd_staging_rds.rds_instance_address}"
   }
 }
