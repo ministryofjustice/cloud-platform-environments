@@ -26,10 +26,10 @@ resource "kubernetes_secret" "cbo-rds-credentials-output" {
   }
 
   data {
-    rds_instance_endpoint = "${module.example_team_rds.rds_instance_endpoint}"
-    database_name         = "${module.example_team_rds.database_name}"
-    database_username     = "${module.example_team_rds.database_username}"
-    database_password     = "${module.example_team_rds.database_password}"
-    rds_instance_address  = "${module.example_team_rds.rds_instance_address}"
+    rds_instance_endpoint = "${module.cbo-rds-credentials-output.rds_instance_endpoint}"
+    database_name         = "${module.cbo-rds-credentials-output.database_name}"
+    database_username     = "${module.cbo-rds-credentials-output.database_username}"
+    database_password     = "${module.cbo-rds-credentials-output.database_password}"
+    rds_instance_address  = "${module.cbo-rds-credentials-output.rds_instance_address}"
   }
 }
