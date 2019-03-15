@@ -21,7 +21,7 @@ module "cccd_staging_rds" {
 
 resource "kubernetes_secret" "cccd_staging_rds" {
   metadata {
-    name      = "cccd_staging_rds_output"
+    name      = "cccd-staging-rds-output"
     namespace = "cccd-staging"
   }
 
