@@ -15,6 +15,8 @@ module "example_team_rds" {
   is-production          = "false"
   environment-name       = "staging"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  db_engine_version      = "10.6"
+  db_name                = "adp_staging"
 }
 
 resource "kubernetes_secret" "cbo-rds-credentials-output" {
