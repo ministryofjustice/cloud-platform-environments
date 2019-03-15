@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "example_team_rds" {
+module "cccd_staging_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
 
   cluster_name           = "${var.cluster_name}"
