@@ -52,7 +52,6 @@ resource "kubernetes_secret" "offender-risk-profiler-ecr-repo" {
 }
 
 resource "kubernetes_secret" "module "categoriser-tool-postgres-ecr-repo" {
-" {
   metadata {
     name      = "categoriser-tool-postgres-ecr-repo"
     namespace = "categorisation-tool-dev"
