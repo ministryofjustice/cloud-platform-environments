@@ -14,7 +14,7 @@ module "ecr-repo" {
 }
 
 module "categoriser-tool-postgres-ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
   team_name = "digcat"
   repo_name = "categorisation-tool-postgres"
 }
