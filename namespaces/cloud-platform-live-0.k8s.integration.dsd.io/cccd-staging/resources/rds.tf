@@ -31,5 +31,7 @@ resource "kubernetes_secret" "cccd_staging_rds" {
     database_username     = "${module.cccd_staging_rds.database_username}"
     database_password     = "${module.cccd_staging_rds.database_password}"
     rds_instance_address  = "${module.cccd_staging_rds.rds_instance_address}"
+    # postgres://USER:PASSWORD@HOST:PORT/NAME
+    url = "postgres://${module.cccd_staging_rds.database_username}:${module.cccd_staging_rds.database_password}@${module.cccd_staging_rds.rds_instance_endpoint}/${module.cccd_staging_rds.database_name}"
   }
 }
