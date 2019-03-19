@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: kiam
+spec:
+  limits:
+  - default:
+      cpu: 50m
+      memory: 200Mi
+    defaultRequest:
+      cpu: 25m
+      memory: 100Mi
+    type: Container
