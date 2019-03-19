@@ -7,14 +7,14 @@ provider "aws" {
 }
 
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "omic"
   repo_name = "categorisation-tool"
 }
 
 module "offender-risk-profiler-ecr-repo" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "offender-risk-profiler"
   team_name = "digcat"
 }

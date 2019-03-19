@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "moving-people-safely-devs"
   repo_name = "moving-people-safely"

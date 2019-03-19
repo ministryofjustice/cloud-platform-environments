@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "vv-ecr-cred-new" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "vv-ecr-cred-new"
   team_name = "test-webops-cred"
 }
