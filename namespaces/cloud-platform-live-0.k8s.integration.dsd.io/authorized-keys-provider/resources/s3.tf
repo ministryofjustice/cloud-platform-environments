@@ -19,7 +19,7 @@ module "authorized-keys" {
   infrastructure-support = "platforms@digital.justice.gov.uk"
 }
 
-resource "kubernetes_secret" "example_s3_bucket_credentials" {
+resource "kubernetes_secret" "s3_bucket_credentials" {
   metadata {
     name      = "s3-bucket-authorized-keys"
     namespace = "authorized-keys-provider"
