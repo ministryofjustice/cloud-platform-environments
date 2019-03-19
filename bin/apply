@@ -33,9 +33,7 @@ for _c in namespaces/cloud-platform-live-0.k8s.integration.dsd.io; do
           -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
           -backend-config="region=eu-west-1"
         terraform apply \
-          -auto-approve \
-          -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
-          -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
+          -auto-approve
         cd $OLDPWD
       fi
     fi
