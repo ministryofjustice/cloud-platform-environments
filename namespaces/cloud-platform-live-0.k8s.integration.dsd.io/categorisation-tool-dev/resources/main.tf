@@ -13,6 +13,12 @@ module "ecr-repo" {
   repo_name = "categorisation-tool"
 }
 
+module "categoriser-tool-postgres-ecr-repo" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  team_name = "digcat"
+  repo_name = "categorisation-tool-postgres"
+}
+
 module "offender-risk-profiler-ecr-repo" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
   repo_name = "offender-risk-profiler"
@@ -42,5 +48,18 @@ resource "kubernetes_secret" "offender-risk-profiler-ecr-repo" {
     repo_url          = "${module.offender-risk-profiler-ecr-repo.repo_url}"
     access_key_id     = "${module.offender-risk-profiler-ecr-repo.access_key_id}"
     secret_access_key = "${module.offender-risk-profiler-ecr-repo.secret_access_key}"
+  }
+}
+
+resource "kubernetes_secret" "categoriser-tool-postgres-ecr-repo" {
+  metadata {
+    name      = "categoriser-tool-postgres-ecr-repo"
+    namespace = "categorisation-tool-dev"
+  }
+
+  data {
+    repo_url          = "${module.categoriser-tool-postgres-ecr-repo.repo_url}"
+    access_key_id     = "${module.categoriser-tool-postgres-ecr-repo.access_key_id}"
+    secret_access_key = "${module.categoriser-tool-postgres-ecr-repo.secret_access_key}"
   }
 }
