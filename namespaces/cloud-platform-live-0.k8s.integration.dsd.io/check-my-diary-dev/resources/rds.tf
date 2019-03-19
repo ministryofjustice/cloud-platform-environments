@@ -15,7 +15,7 @@ module "checkmydiary_dev_rds" {
   application            = "check-my-diary"
   is-production          = "false"
   environment-name       = "dev"
-  db_name                = "check-my-diary-rds-dev"
+  db_name                = ""
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
 }
 
