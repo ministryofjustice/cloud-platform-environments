@@ -47,7 +47,7 @@ kind: Deployment
 metadata:
   labels:
     app: authorized-keys-provider
-  name: authorized-keys-provier
+  name: authorized-keys-provider
   namespace: authorized-keys-provider
 spec:
   replicas: 1
@@ -100,11 +100,11 @@ spec:
           done;
         resources:
           requests:
-            cpu: 1m
-            memory: 64Mi
+            cpu: 25m
+            memory: 256Mi
           limits:
-            cpu: 1m
-            memory: 64Mi
+            cpu: 100m
+            memory: 512Mi
         volumeMounts:
         - name: python-key-provider
           mountPath: /usr/local/bin
