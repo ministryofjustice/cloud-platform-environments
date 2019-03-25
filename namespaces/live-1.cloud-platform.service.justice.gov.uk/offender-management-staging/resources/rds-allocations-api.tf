@@ -15,7 +15,7 @@ variable "cluster_state_bucket" {}
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -28,6 +28,7 @@ module "allocation-rds" {
   db_engine              = "postgres"
   db_engine_version      = "10"
   db_name                = "allocations"
+  aws_region             = "eu-west-2"
 }
 
 resource "kubernetes_secret" "allocation-rds" {
