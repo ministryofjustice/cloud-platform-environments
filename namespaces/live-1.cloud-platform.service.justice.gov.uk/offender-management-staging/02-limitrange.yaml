@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: offender-management-staging
+spec:
+  limits:
+  - default:
+      cpu: 200m
+      memory: 500Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 250Mi
+    type: Container
