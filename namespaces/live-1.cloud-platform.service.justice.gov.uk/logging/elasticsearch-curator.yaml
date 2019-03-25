@@ -1,0 +1,40 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: elasticsearch-curator-cronjob
+  namespace: logging
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: curator
+            image: python:alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              pip3 install elasticsearch-curator &&
+              curator_cli \
+                --host search-cloud-platform-live-7qrzc26xexgxtkt5qz72gt6cxa.eu-west-1.es.amazonaws.com \
+                --use_ssl \
+                --port 443 \
+                delete_indices \
+                --filter_list '[
+                  {
+                    "filtertype":"age",
+                    "source":"name",
+                    "direction":"older",
+                    "timestring": "%Y.%m.%d",
+                    "unit":"days",
+                    "unit_count":30
+                  },
+                  {
+                    "filtertype":"pattern",
+                    "kind":"prefix",
+                    "value":"logstash"
+                  }
+                ]'
