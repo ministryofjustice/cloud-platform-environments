@@ -3,7 +3,7 @@
 set -o errexit
 set -o pipefail
 
-. .common
+. .common.sh
 
 _checkenv
 
