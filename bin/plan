@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 set -o errexit
 set -o pipefail
 
-. .common.sh
+# shellcheck source=.common.sh
+source ${BASH_SOURCE[0]}/.common.sh
 
 _checkenv
 
