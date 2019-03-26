@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 
 # shellcheck source=.common.sh
-source ${BASH_SOURCE[0]}/.common.sh
+source "$(dirname ${BASH_SOURCE[0]})/.common.sh"
 
 _checkenv
 
