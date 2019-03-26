@@ -4,7 +4,7 @@
 # Publisher ECR Repos
 
 module "ecr-repo-fb-publisher-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-publisher-base"
@@ -24,7 +24,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-base" {
 }
 
 module "ecr-repo-fb-publisher-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-publisher-web"
@@ -44,7 +44,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-web" {
 }
 
 module "ecr-repo-fb-publisher-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-publisher-worker"
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 # Runner ECR Repos
 module "ecr-repo-fb-runner-node" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-runner-node"
@@ -90,7 +90,7 @@ resource "kubernetes_secret" "ecr-repo-fb-runner-node" {
 
 # Service Token Cache ECR Repos
 module "ecr-repo-fb-service-token-cache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-service-token-cache"
@@ -113,7 +113,7 @@ resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
 
 # Submitter ECR Repos
 module "ecr-repo-fb-submitter-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-submitter-base"
@@ -133,7 +133,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-base" {
 }
 
 module "ecr-repo-fb-submitter-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-submitter-api"
@@ -153,7 +153,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-api" {
 }
 
 module "ecr-repo-fb-submitter-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-submitter-worker"
@@ -176,7 +176,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-worke" {
 
 # User Datastore ECR Repos
 module "ecr-repo-fb-user-datastore-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "${var.team_name}"
   repo_name = "fb-user-datastore-api"

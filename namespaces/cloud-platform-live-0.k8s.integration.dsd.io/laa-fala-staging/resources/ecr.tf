@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "ecr-repo-laa-fala-webapp" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "laa-get-access"
   repo_name = "laa-fala-webapp"
@@ -27,7 +27,7 @@ resource "kubernetes_secret" "ecr-repo-laa-fala-webapp" {
 }
 
 module "ecr-repo-laa-fala-nginx" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "laa-get-access"
   repo_name = "laa-fala-nginx"

@@ -1,5 +1,5 @@
 module "ecr-repo-provider-frontend" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "provider-frontend"
@@ -19,7 +19,7 @@ resource "kubernetes_secret" "ecr-repo-provider-frontend" {
 }
 
 module "ecr-repo-citizen-frontend" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "citizen-frontend"
@@ -39,7 +39,7 @@ resource "kubernetes_secret" "ecr-repo-citizen-frontend" {
 }
 
 module "ecr-repo-applyforlegalaid-service" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "applyforlegalaid-service"

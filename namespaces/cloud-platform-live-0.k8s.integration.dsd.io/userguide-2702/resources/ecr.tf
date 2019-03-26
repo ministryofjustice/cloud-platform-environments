@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "userguide-2702" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "userguide-2708"
   team_name = "test-webops"
 }
