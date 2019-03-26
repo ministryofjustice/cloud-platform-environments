@@ -24,7 +24,7 @@ _checkenv(){
     fi
   done
   if [ ! -z "${missing}" ]; then
-    echo "missing environment variables: ${missing}"
+    echo -e "missing environment variables:${missing}"
     exit 1
   fi
 }
