@@ -15,12 +15,16 @@ log() {
 
 _checkenv(){
   missing=""
-  for v in CLUSTER STATE_BUCKET STATE_KEY_PREFIX CLUSTER_STATE_BUCKET CLUSTER_STATE_KEY_PREFIX; do
-    vn="PIPELINE_${v}"
+  for v in \
+      PIPELINE_CLUSTER \
+      PIPELINE_STATE_BUCKET \
+      PIPELINE_STATE_KEY_PREFIX \
+      PIPELINE_CLUSTER_STATE_BUCKET \
+      PIPELINE_CLUSTER_STATE_KEY_PREFIX; do
     fv=""
-    eval fv="\$$vn"
+    eval fv="\${$v+xyz}"
     if [ -z "${fv}" ]; then
-      missing="${missing}\n\t${vn}"
+      missing="${missing}\n\t${v}"
     fi
   done
   if [ ! -z "${missing}" ]; then
@@ -33,6 +37,9 @@ _checkenv
 
 cluster="${PIPELINE_CLUSTER}"
 
+# The two undefined variables below (master_base_sha and branch_head_sha)
+# are passed by the github-pull-request concourse resource.
+# shellcheck disable=SC2154
 changed_dirs=$(git diff-tree --no-commit-id --name-only -r $master_base_sha $branch_head_sha | awk 'BEGIN{FS=OFS="/"}/\/resources\//{NF-=1; print $3}' | sort | uniq | grep "${PIPELINE_CLUSTER}")
 
 log green "planning for cluster ${cluster}"
