@@ -34,16 +34,5 @@ for _f in namespaces/${cluster}/*; do
           -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
       )
     fi
-  done
-  _ns_pruneable=$(kubectl get ns -o json | jq -r '.items[] | select(.metadata.annotations["environment.k8s.dsd.io/managed"] == "true") | .metadata.name')
-  _ns_toprune=$(echo "${_ns_pruneable}" | grep -vE '(default|kube-system|kube-public)' | grep -v "$(ls ${_c})")
-  if [ "${#_ns_toprune}" -gt 0 ]; then
-    log red "pruning namespaces in cluster ${cluster}: $(echo ${_ns_toprune})"
-    log blue "skipping deletion of namespaces"
-    # for _nsp in ${_ns_toprune}; do
-    #   ( set -x; kubectl delete namespace "${_nsp}" --grace-period=30 )
-    # done
-  else
-    log blue "no namespaces to prune in ${cluster}"
   fi
 done
