@@ -21,17 +21,18 @@ if [ -n "$changed_dirs" ]; then
     namespace="$(basename ${_f})"
     terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
     if [ -d "${terraform_resources_path}" ]; then
-      cd "${terraform_resources_path}"
-      log blue "Planning terraform resources for namespace ${namespace} in ${cluster}"
-      terraform init \
-        -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
-        -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
-        -backend-config="region=${PIPELINE_STATE_REGION}"
-      terraform plan \
-        -var="cluster_name=${cluster%%.*}" \
-        -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
-        -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
-      cd $OLDPWD
+      (
+        cd "${terraform_resources_path}"
+        log blue "Planning terraform resources for namespace ${namespace} in ${cluster}"
+        terraform init \
+          -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
+          -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="region=${PIPELINE_STATE_REGION}"
+        terraform plan \
+          -var="cluster_name=${cluster%%.*}" \
+          -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
+          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
+      )
     fi
   done
 else
