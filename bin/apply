@@ -14,7 +14,7 @@ log green "applying for cluster ${cluster}"
 ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && exit 1; }
 log blue "applying cluster-level resources for ${cluster}"
 ( set -x; kubectl apply -f "${cluster}" ) || log blue "no global resources to apply"
-for _f in ${cluster}/*; do
+for _f in namespaces/${cluster}/*; do
   if [ -d "${_f}" ]; then
     namespace="$(basename ${_f})"
     log blue "applying resources for namespace ${namespace} in ${cluster}"
