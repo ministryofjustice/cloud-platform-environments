@@ -3,24 +3,20 @@
 set -o errexit
 set -o pipefail
 
-log() {
-  _fg=''
-  [ "${1}" = "red" ] && _fg='\033[0;31m'
-  [ "${1}" = "blue" ] && _fg='\033[0;34m'
-  [ "${1}" = "green" ] && _fg='\033[0;32m'
-  shift
-  # shellcheck disable=SC2145
-  echo -e "${_fg}>>> ${@}\033[0m"
-}
+# shellcheck source=.common.sh
+source "$(dirname ${BASH_SOURCE[0]})/.common.sh"
+
+_checkenv
+
+cluster="${PIPELINE_CLUSTER}"
 
 _ns_default='default|kube-system|kube-public'
-for _c in namespaces/*; do
-  cluster="$(basename ${_c})"
-  log green "found cluster ${cluster}"
+
+  log green "checking inconsistent for cluster ${cluster}"
   ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
   _ns_yaml_kube=$(kubectl get ns -ojsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
   _ns_yaml_git="$(find ${_c}/* -maxdepth 0 -type d -print0 | xargs -0 -i basename {} | tr '\n' '|')"
-  _ns_tf_s3="$(aws s3 ls s3://moj-cp-k8s-investigation-environments-terraform/${cluster}/ | awk '{print $2;}' | xargs -i basename {})"
+  _ns_tf_s3="$(aws s3 ls s3://${PIPELINE_STATE_BUCKET}/${cluster}/ | awk '{print $2;}' | xargs -i basename {})"
   _ns_tf_git="$(find ${_c}/* -type d -name resources -print0 | xargs -0 -i dirname {} | xargs -i basename {} | tr '\n' '|')"
 
   _ns_yaml_diff=$(echo "${_ns_yaml_kube}" | grep -vE "(${_ns_yaml_git}${_ns_default})")

@@ -1,45 +1,42 @@
-#!/bin/sh
+#!/bin/bash
 
 set -o errexit
 set -o pipefail
 
-log() {
-  _fg=''
-  [ "${1}" = "red" ] && _fg='\033[0;31m'
-  [ "${1}" = "blue" ] && _fg='\033[0;34m'
-  [ "${1}" = "green" ] && _fg='\033[0;32m'
-  shift
-  # shellcheck disable=SC2145
-  echo -e "${_fg}>>> ${@}\033[0m"
-}
+# shellcheck source=.common.sh
+source "$(dirname ${BASH_SOURCE[0]})/.common.sh"
 
-for _c in namespaces/*; do
-  cluster="$(basename ${_c})"
-  log green "found cluster ${cluster}"
-  ( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
-  log blue "applying cluster-level resources for ${cluster}"
-  ( set -x; kubectl apply -f "${_c}" ) || log blue "no global resources to apply"
-  for _f in ${_c}/*; do
-    if [ -d "${_f}" ]; then
-      namespace="$(basename ${_f})"
-      log blue "applying resources for namespace ${namespace} in ${cluster}"
-      ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-      terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-      if [ -d "${terraform_resources_path}" ]; then
+_checkenv
+
+cluster="${PIPELINE_CLUSTER}"
+
+log green "applying for cluster ${cluster}"
+( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && exit 1; }
+log blue "applying cluster-level resources for ${cluster}"
+( set -x; kubectl apply -f "${cluster}" ) || log blue "no global resources to apply"
+for _f in ${cluster}/*; do
+  if [ -d "${_f}" ]; then
+    namespace="$(basename ${_f})"
+    log blue "applying resources for namespace ${namespace} in ${cluster}"
+    ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+    terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
+    if [ -d "${terraform_resources_path}" ]; then
+      (
         cd "${terraform_resources_path}"
         log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
         terraform init \
-          -backend-config="bucket=moj-cp-k8s-investigation-environments-terraform" \
-          -backend-config="key=${cluster}/${namespace}/terraform.tfstate" \
-          -backend-config="region=eu-west-1"
-        terraform apply \
-          -auto-approve \
-          -var="cluster_name=${cluster%.k8s.integration.dsd.io}" \
-          -var="cluster_state_bucket=moj-cp-k8s-investigation-platform-terraform"
-        cd $OLDPWD
-      fi
+          -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
+          -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="region=${PIPELINE_STATE_REGION}"
+        terraform plan \
+          -var="cluster_name=${cluster%%.*}" \
+          -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
+          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
+      )
+      # cd $OLDPWD
     fi
-  done
+  fi
+done 
   _ns_pruneable=$(kubectl get ns -o json | jq -r '.items[] | select(.metadata.annotations["environment.k8s.dsd.io/managed"] == "true") | .metadata.name')
   _ns_toprune=$(echo "${_ns_pruneable}" | grep -vE '(default|kube-system|kube-public)' | grep -v "$(ls ${_c})")
   if [ "${#_ns_toprune}" -gt 0 ]; then
@@ -51,4 +48,3 @@ for _c in namespaces/*; do
   else
     log blue "no namespaces to prune in ${cluster}"
   fi
-done
