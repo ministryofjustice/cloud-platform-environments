@@ -2,11 +2,10 @@
 
 set -o errexit
 set -o pipefail
+set -o nounset
 
 # shellcheck source=.common.sh
 source "$(dirname ${BASH_SOURCE[0]})/.common.sh"
-
-_checkenv
 
 cluster="${PIPELINE_CLUSTER}"
 
