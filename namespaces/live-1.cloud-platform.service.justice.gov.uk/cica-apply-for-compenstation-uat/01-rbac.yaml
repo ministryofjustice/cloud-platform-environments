@@ -5,7 +5,7 @@ metadata:
   namespace: cica-apply-for-compensation-uat
 subjects:
   - kind: Group
-    name: "github:https://github.com/criminalinjuriescompensationauthority/cica-infrastructure"
+    name: "github:cica"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
