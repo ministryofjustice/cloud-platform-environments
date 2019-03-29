@@ -1,5 +1,5 @@
 module "risk_profiler_digcat_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=2.0"
   team_name              = "digcat"
   acl                    = "private"
   versioning             = false
@@ -12,7 +12,7 @@ module "risk_profiler_digcat_s3_bucket" {
 }
 
 module "viper_digcat_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=2.0"
 
   team_name              = "digcat"
   acl                    = "private"
