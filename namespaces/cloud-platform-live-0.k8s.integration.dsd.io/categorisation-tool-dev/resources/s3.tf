@@ -8,6 +8,7 @@ module "risk_profiler_digcat_s3_bucket" {
   is-production          = "false"
   environment-name       = "categorisation-tool-dev"
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
+  aws-s3-region          = "eu-west-2"
 }
 
 module "viper_digcat_s3_bucket" {
@@ -21,6 +22,7 @@ module "viper_digcat_s3_bucket" {
   is-production          = "false"
   environment-name       = "categorisation-tool-dev"
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
+  aws-s3-region          = "eu-west-2"
 }
 
 resource "kubernetes_secret" "viper_digcat_s3_bucket" {
