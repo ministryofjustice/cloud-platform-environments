@@ -12,7 +12,7 @@ cluster="${PIPELINE_CLUSTER}"
 _ns_default='default|kube-system|kube-public'
 
 log green "checking inconsistency for cluster ${cluster}"
-( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && continue; }
+( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && exit 1; }
 _ns_yaml_kube=$(kubectl get ns -ojsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
 _ns_yaml_git="$(find namespaces/${cluster}/* -maxdepth 0 -type d -print0 | xargs -0 -i basename {} | tr '\n' '|')"
 _ns_tf_s3="$(aws s3 ls s3://${PIPELINE_STATE_BUCKET}/${PIPELINE_STATE_KEY_PREFIX}${cluster}/ | awk '{print $2;}' | xargs -i basename {})"
