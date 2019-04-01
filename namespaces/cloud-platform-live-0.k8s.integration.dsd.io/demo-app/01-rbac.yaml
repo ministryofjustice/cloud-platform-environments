@@ -50,7 +50,48 @@ rules:
       - "delete"
       - "create"
       - "patch"
-
+  - apiGroups:
+    - ""
+    resources:
+    - "configmaps"
+    verbs:
+    - "list"
+    - "get"
+    - "create"
+    - "patch"
+    - "update"
+    - "delete"
+  - apiGroups:
+    - ""
+    resources:
+    - "namespaces"
+    verbs:
+    - "list"
+    - "get"
+  - apiGroups:
+    - ""
+    - extensions
+    - apps
+    - batch
+    resources:
+    - deployments
+    - replicasets
+    - pods
+    - jobs
+    verbs:
+    - "*"
+  - apiGroups:
+    - "certmanager.k8s.io"
+    resources:
+    - certificates
+    verbs:
+    - "*"
+  - apiGroups:
+    - monitoring.coreos.com
+    resources:
+    - servicemonitors
+    verbs:
+    - "*"
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
