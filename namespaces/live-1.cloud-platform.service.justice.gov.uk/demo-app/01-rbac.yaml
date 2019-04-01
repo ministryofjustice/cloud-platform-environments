@@ -1,0 +1,108 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: demo-app-admin
+  namespace: demo-app
+subjects:
+  - kind: Group
+    name: "github:webops"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: circleci
+  namespace: demo-app
+
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: circleci
+  namespace: demo-app
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "pods/portforward"
+      - "deployment"
+      - "secrets"
+      - "services"
+      - "pods"
+    verbs:
+      - "patch"
+      - "get"
+      - "create"
+      - "delete"
+      - "list"
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "deployments"
+      - "ingresses"
+    verbs:
+      - "get"
+      - "update"
+      - "delete"
+      - "create"
+      - "patch"
+  - apiGroups:
+    - ""
+    resources:
+    - "configmaps"
+    verbs:
+    - "list"
+    - "get"
+    - "create"
+    - "patch"
+    - "update"
+    - "delete"
+  - apiGroups:
+    - ""
+    resources:
+    - "namespaces"
+    verbs:
+    - "list"
+    - "get"
+  - apiGroups:
+    - ""
+    - extensions
+    - apps
+    - batch
+    resources:
+    - deployments
+    - replicasets
+    - pods
+    - jobs
+    verbs:
+    - "*"
+  - apiGroups:
+    - "certmanager.k8s.io"
+    resources:
+    - certificates
+    verbs:
+    - "*"
+  - apiGroups:
+    - monitoring.coreos.com
+    resources:
+    - servicemonitors
+    verbs:
+    - "*"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: circleci
+  namespace: demo-app
+subjects:
+- kind: ServiceAccount
+  name: circleci
+  namespace: demo-app
+roleRef:
+  kind: Role
+  name: circleci
+  apiGroup: rbac.authorization.k8s.io
