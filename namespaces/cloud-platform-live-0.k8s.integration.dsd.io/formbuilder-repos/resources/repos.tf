@@ -214,3 +214,26 @@ resource "kubernetes_secret" "ecr-repo-fb-user-filestore-api" {
     secret_access_key = "${module.ecr-repo-fb-user-filestore-api.secret_access_key}"
   }
 }
+
+##################################################
+
+# AV (Anti Virus) ECR Repos
+module "ecr-repo-fb-av" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+
+  team_name = "formbuilder"
+  repo_name = "fb-av"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-av" {
+  metadata {
+    name      = "ecr-repo-fb-av"
+    namespace = "formbuilder-repos"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-av.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-av.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-av.secret_access_key}"
+  }
+}
