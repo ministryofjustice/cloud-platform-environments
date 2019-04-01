@@ -14,8 +14,8 @@ provider "aws" {
  */
 module "example_team_ecr_credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cloud-platform/reference-app"
-  team_name  = "cp"
+  repo_name  = "reference-app"
+  team_name  = "cloud-platform"
   aws_region = "eu-west-1"                                                                     # this overwrite the region from the provider defined above. 
 }
 
