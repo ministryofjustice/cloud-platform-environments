@@ -1,5 +1,5 @@
 locals {
-  cluster = "${var.cluster}.k8s.integration.dsd.io"
+  cluster = "live-1.cloud-platform.service.justice.gov.uk"
 }
 
 data "template_file" "namespace" {
