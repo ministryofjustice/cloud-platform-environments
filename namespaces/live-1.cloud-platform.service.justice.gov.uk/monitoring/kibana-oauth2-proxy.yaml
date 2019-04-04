@@ -100,9 +100,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - kibana.cloud-platform.service.justice.gov.uk
   rules:
-    - host: kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: kibana.cloud-platform.service.justice.gov.uk
       http:
         paths:
           - path: /
