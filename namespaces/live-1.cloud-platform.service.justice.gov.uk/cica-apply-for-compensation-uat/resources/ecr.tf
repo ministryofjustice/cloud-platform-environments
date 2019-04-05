@@ -14,8 +14,8 @@ provider "aws" {
  */
 module "cica-repo" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cica-repo"
-  team_name  = "cica-team"
+  repo_name  = "cica"
+  team_name  = "cica"
   aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above.
 }
 
@@ -26,9 +26,9 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 
   data {
-    access_key_id     = "${module.ecr-repo_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.ecr-repo_ecr_credentials.secret_access_key}"
-    repo_url          = "${module.ecr-repo_ecr_credentials.repo_url}"
+    access_key_id     = "${module.cica-repo.access_key_id}"
+    secret_access_key = "${module.cica-repo.secret_access_key}"
+    repo_url          = "${module.cica-repo.repo_url}"
   }
 }
 
