@@ -8,7 +8,7 @@ module "cica_ecr_credentials" {
   source     = "https://github.com/CriminalInjuriesCompensationAuthority/data-capture-service.git"
   repo_name  = "data-capture-service"
   team_name  = "CICA"
-  aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above. 
+  aws_region = "eu-west-2"                                                                         # this overwrite the region from the provider defined above. 
 }
 
 resource "kubernetes_secret" "cica_ecr_credentials" {
