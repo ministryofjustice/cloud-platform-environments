@@ -2,14 +2,6 @@
 # Parliamentary Questions ECR repository #
 ##########################################
 
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "${var.aws_region}"
-}
-
 module "pq_ecr_credentials" {
   aws_region = "${var.aws_region}"
   repo_name  = "${var.repo_name}"
