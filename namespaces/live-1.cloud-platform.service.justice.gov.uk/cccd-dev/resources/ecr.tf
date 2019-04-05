@@ -3,11 +3,11 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "eu-west-2"
 }
 
 module "cbo_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
   repo_name = "claim-for-crown-court-defence"
   team_name = "crime-billing-online"
 }
