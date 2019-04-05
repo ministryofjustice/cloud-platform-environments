@@ -31,4 +31,3 @@ resource "kubernetes_secret" "ecr-repo" {
     repo_url          = "${module.cica-repo.repo_url}"
   }
 }
-
