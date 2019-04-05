@@ -6,8 +6,8 @@
  */
 module "cica_ecr_credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "data-capture-service"
-  team_name  = "cica"
+  repo_name  = "${var.repo_name}"
+  team_name  = "${var.team_name}"
   aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above. 
 }
 
