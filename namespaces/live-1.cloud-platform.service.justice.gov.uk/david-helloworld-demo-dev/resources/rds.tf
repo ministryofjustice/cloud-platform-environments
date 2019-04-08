@@ -15,7 +15,7 @@ variable "cluster_state_bucket" {}
  *
  */
 module "multi_container_demo_app_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "cloud-platform"
@@ -34,10 +34,10 @@ resource "kubernetes_secret" "multi_container_demo_rds" {
   }
 
   data {
-    rds_instance_endpoint = "${module.multi_container_demo_rds.rds_instance_endpoint}"
-    database_name         = "${module.multi_container_demo_rds.database_name}"
-    database_username     = "${module.multi_container_demo_rds.database_username}"
-    database_password     = "${module.multi_container_demo_rds.database_password}"
-    rds_instance_address  = "${module.multi_container_demo_rds.rds_instance_address}"
+    rds_instance_endpoint = "${module.multi_container_demo_app_rds.rds_instance_endpoint}"
+    database_name         = "${module.multi_container_demo_app_rds.database_name}"
+    database_username     = "${module.multi_container_demo_app_rds.database_username}"
+    database_password     = "${module.multi_container_demo_app_rds.database_password}"
+    rds_instance_address  = "${module.multi_container_demo_app_rds.rds_instance_address}"
   }
 }
