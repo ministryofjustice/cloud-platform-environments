@@ -29,7 +29,7 @@ module "multi_container_demo_app_rds" {
 
 resource "kubernetes_secret" "multi_container_demo_rds" {
   metadata {
-    name      = "multi_container_demo_rds"
+    name      = "multi-container-demo-rds"
     namespace = "david-helloworld-demo-dev"
   }
 
