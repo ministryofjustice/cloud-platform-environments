@@ -34,10 +34,6 @@ resource "kubernetes_secret" "multi_container_demo_rds" {
   }
 
   data {
-    rds_instance_endpoint = "${module.multi_container_demo_app_rds.rds_instance_endpoint}"
-    database_name         = "${module.multi_container_demo_app_rds.database_name}"
-    database_username     = "${module.multi_container_demo_app_rds.database_username}"
-    database_password     = "${module.multi_container_demo_app_rds.database_password}"
-    rds_instance_address  = "${module.multi_container_demo_app_rds.rds_instance_address}"
+    url = "postgres://${module.multi_container_demo_app_rds.database_username}:${module.multi_container_demo_app_rds.database_password}@${module.multi_container_demo_app_rds.rds_instance_endpoint}/${module.multi_container_demo_app_rds.database_name}"
   }
 }
