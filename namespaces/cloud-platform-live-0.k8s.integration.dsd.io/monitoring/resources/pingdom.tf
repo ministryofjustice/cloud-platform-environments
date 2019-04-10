@@ -1,5 +1,3 @@
-provider "pingdom" {}
-
 resource "pingdom_check" "cloud-platform-prometheus-live-0-healthcheck" {
   type                     = "http"
   name                     = "Prometheus - live-0 - cloud-platform - Healthcheck"
