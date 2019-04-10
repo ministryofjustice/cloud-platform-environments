@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
 
   team_name = "${var.team_name}"
   repo_name = "${var.repo_name}"

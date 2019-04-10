@@ -27,7 +27,7 @@ variable "repo_name" {
 }
 
 variable "aws_region" {
-  default = "eu-west-1"
+  default = "eu-west-2"
 }
 
 // The following two variables are provided at runtime by the pipeline.
