@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-legal-adviser-api-staging-admin
+  namespace: laa-legal-adviser-api-staging
+subjects:
+  - kind: Group
+    name: "github:laa-get-access"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
