@@ -1,6 +1,6 @@
 variable "cluster" {
   description = "What cluster are you deploying your namespace. I.E cloud-platform-test-1 "
-  default     = "cloud-platform-live-0"
+  default     = "live-1.cloud-platform"
 }
 
 variable "namespace" {
