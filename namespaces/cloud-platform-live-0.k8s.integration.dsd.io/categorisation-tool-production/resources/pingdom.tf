@@ -1,4 +1,3 @@
-
 resource "pingdom_check" "cloud-platform-prometheus-live-0-healthcheck" {
   type                     = "http"
   name                     = "Digital Cat Tool - Production - cloud-platform - Healthcheck"
