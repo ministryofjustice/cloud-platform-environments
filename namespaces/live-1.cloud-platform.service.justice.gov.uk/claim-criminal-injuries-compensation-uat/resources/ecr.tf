@@ -14,9 +14,9 @@ provider "aws" {
  */
 module "cica_ecr_credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cica-repo-app"
+  repo_name  = "cica-repo-uat"
   team_name  = "cica"
-  aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above. 
+  aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above.
 }
 
 resource "kubernetes_secret" "ecr_repo" {
@@ -32,3 +32,4 @@ resource "kubernetes_secret" "ecr_repo" {
     repo_url          = "${module.cica_ecr_credentials.repo_url}"
   }
 }
+
