@@ -1,5 +1,5 @@
 module "risk_profiler_digcat_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=bucket_policy"
   team_name              = "digcat"
   acl                    = "private"
   versioning             = false
@@ -9,6 +9,28 @@ module "risk_profiler_digcat_s3_bucket" {
   environment-name       = "categorisation-tool-production"
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
   aws-s3-region          = "eu-west-2"
+
+  bucket_policy = <<EOF
+{
+  "Version":"2012-10-17",
+  "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::593291632749:role/airflow_viper_to_external"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::cloud-platform-911c893e32afaa59f26d922be89f875a/viper/*"
+            ]
+        }
+    ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "risk_profiler_digcat_s3_bucket" {
