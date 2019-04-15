@@ -1,4 +1,4 @@
-resource "pingdom_check" "cloud-platform-prometheus-live-0-healthcheck" {
+resource "pingdom_check" "cloud-platform-categorisation-tool-prod-healthcheck" {
   type                     = "http"
   name                     = "Digital Cat Tool - Production - cloud-platform - Healthcheck"
   host                     = "categorisation-tool.apps.cloud-platform-live-0.k8s.integration.dsd.io"
