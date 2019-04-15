@@ -25,7 +25,7 @@ module "risk_profiler_digcat_s3_bucket" {
                 "s3:PutObjectAcl"
             ],
             "Resource": [
-                "arn:aws:s3:::cloud-platform-911c893e32afaa59f26d922be89f875a/viper/*"
+                "$${bucket_arn}/viper/*"
             ]
         }
     ]
