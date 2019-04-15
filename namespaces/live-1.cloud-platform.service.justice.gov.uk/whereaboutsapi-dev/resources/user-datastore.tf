@@ -19,7 +19,7 @@ module "whereabouts_rds" {
   infrastructure-support = "jamie.draper@digital.justice.gov.uk"
 }
 
-resource "kubernetes_secret" "whereabouts_rds" {
+resource "kubernetes_secret" "categorisation_tool_rds" {
   metadata {
     name      = "whereabouts-api-rds-dev"
     namespace = "whereabouts-api-dev"
