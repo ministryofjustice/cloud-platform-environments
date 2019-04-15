@@ -14,7 +14,7 @@ provider "aws" {
  */
 module "cica_ecr_credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cica-repo-uat"
+  repo_name  = "repo-uat"
   team_name  = "cica"
   aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above.
 }
