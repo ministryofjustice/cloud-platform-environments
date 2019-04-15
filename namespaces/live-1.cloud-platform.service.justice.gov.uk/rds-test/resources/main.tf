@@ -37,7 +37,7 @@ module "example_team_rds" {
 
 resource "kubernetes_secret" "example_team_rds" {
   metadata {
-    name      = rds-test-rds-instance-output"
+    name      = "rds-test-rds-instance-output"
     namespace = "rds-test"
   }
 

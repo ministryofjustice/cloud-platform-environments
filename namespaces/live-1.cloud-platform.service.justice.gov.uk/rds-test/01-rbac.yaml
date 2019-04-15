@@ -5,7 +5,7 @@ metadata:
   namespace: rds-test
 subjects:
   - kind: Group
-    name: "github:cp"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
