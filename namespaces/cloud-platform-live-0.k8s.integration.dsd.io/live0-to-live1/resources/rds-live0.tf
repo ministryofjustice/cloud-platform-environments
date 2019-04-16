@@ -19,7 +19,7 @@ module "live0_migration_rds" {
 
 resource "kubernetes_secret" "live0_migration_rds" {
   metadata {
-    name      = "live0_migration_rds-instance-output"
+    name      = "live0-migration-rds-instance-output"
     namespace = "live0-to-live1"
   }
 
