@@ -1,4 +1,3 @@
-
 /* These two variables (cluster_name & cluster_state_bucket) are automatically populated via cloud-platform-environments */
 
 variable "cluster_name" {}
