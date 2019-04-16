@@ -31,3 +31,4 @@ resource "kubernetes_secret" "ecr_repo" {
     repo_arn          = "${module.cica_ecr_credentials.repo_arn}"
     repo_url          = "${module.cica_ecr_credentials.repo_url}"
   }
+}
