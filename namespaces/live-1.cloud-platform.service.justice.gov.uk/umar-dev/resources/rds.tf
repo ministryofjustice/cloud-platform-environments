@@ -9,7 +9,7 @@ module "umar-dev-rds-team" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
-  team_name              = "transformed-department"
+  team_name              = "form-builder"
   business-unit          = "transformed-department"
   application            = "umar-dev-rds-app"
   is-production          = "false"
