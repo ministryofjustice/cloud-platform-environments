@@ -8,7 +8,7 @@ module "live0_to_live1_migration_broker" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  aws-s3-region          = "${var.aws_region}"
+  aws_region             = "${var.aws_region}"
 }
 
 resource "kubernetes_secret" "live0_to_live1_migration_broker" {
