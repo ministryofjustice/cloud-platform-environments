@@ -8,7 +8,7 @@ module "becca_test_app_ecr_credentials" {
 resource "kubernetes_secret" "becca_test_app_ecr_credentials" {
   metadata {
     name      = "becca-test-app-ecr-credentials-output"
-    namespace = "becca-test-app"
+    namespace = "becca-test-app-dev"
   }
 
   data {
