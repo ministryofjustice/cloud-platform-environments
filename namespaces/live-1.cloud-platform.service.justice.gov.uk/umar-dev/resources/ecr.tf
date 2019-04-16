@@ -1,6 +1,6 @@
 module "umar-dev-ecr-credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "hello-world-demo-app"
+  repo_name  = "umar-dev"
   team_name  = "umar-dev-ecr-team"
   aws_region = "eu-west-2"
 }
