@@ -8,7 +8,7 @@ module "cica_ecr_credentials" {
   source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
   repo_name  = "cica-repo-uat"
   team_name  = "cica"
-  aws_region = "${var.aws_region}"                                                                 
+  aws_region = "${var.aws_region}"
 }
 
 resource "kubernetes_secret" "ecr_repo" {
