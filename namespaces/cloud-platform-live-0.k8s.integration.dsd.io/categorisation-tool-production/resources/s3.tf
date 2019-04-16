@@ -1,5 +1,5 @@
 module "risk_profiler_digcat_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=bucket_policy"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.0"
   team_name              = "digcat"
   acl                    = "private"
   versioning             = false
