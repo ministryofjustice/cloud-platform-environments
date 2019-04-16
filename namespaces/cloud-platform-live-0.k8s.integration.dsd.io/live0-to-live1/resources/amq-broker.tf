@@ -1,5 +1,7 @@
 module "live0_to_live1_migration_broker" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=1.0"
+  cluster_name           = "${var.cluster_name}"
+  cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
   business-unit          = "${var.business_unit}"
   application            = "${var.application}"
