@@ -22,7 +22,7 @@ module "whereabouts_rds" {
 resource "kubernetes_secret" "whereabouts_rds" {
   metadata {
     name      = "whereabouts-api-rds-dev"
-    namespace = "whereabouts-api-dev"
+    namespace = "whereabouts-dev"
   }
 
   data {
