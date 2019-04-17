@@ -33,7 +33,7 @@ module "example_team_rds" {
   environment-name       = "rds-test"
   infrastructure-support = "oliver.anwyll@digtal.justice.gov.uk"
   aws_region             = "eu-west-2"
-  db_allocated_storage   = "50"
+  db_allocated_storage   = "90"
 }
 
 resource "kubernetes_secret" "example_team_rds" {
