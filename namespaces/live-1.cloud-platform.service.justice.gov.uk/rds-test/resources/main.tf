@@ -23,7 +23,7 @@ variable "cluster_state_bucket" {}
  *
  */
 module "example_team_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.1"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "cloud-platform"
@@ -33,7 +33,7 @@ module "example_team_rds" {
   environment-name       = "rds-test"
   infrastructure-support = "oliver.anwyll@digtal.justice.gov.uk"
   aws_region             = "eu-west-2"
-  db_allocated_storage   = "40"
+  db_allocated_storage   = "50"
 }
 
 resource "kubernetes_secret" "example_team_rds" {
