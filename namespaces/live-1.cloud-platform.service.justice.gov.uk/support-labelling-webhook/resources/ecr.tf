@@ -12,8 +12,8 @@ resource "kubernetes_secret" "ecr-repo-api" {
   }
 
   data {
-    repo_url          = "${module.ecr-repo-api.repo_url}"
-    access_key_id     = "${module.ecr-repo-api.access_key_id}"
-    secret_access_key = "${module.ecr-repo-api.secret_access_key}"
+    repo_url          = "${module.ecr-repo-support-labelling.repo_url}"
+    access_key_id     = "${module.ecr-repo-support-labelling.access_key_id}"
+    secret_access_key = "${module.ecr-repo-support-labelling.secret_access_key}"
   }
 }
