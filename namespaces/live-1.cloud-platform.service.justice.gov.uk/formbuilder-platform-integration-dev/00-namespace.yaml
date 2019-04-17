@@ -1,0 +1,17 @@
+---
+# Source: formbuilder-platform/templates/00-namespace.yaml
+# auto-generated from fb-cloud-platforms-environments
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: formbuilder-platform-integration-dev
+  labels:
+    # for fb's own purposes
+    name: formbuilder-platform-integration-dev
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "integration-dev"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "transformed-department"
+    cloud-platform.justice.gov.uk/application: "formbuilder-platform"
+    cloud-platform.justice.gov.uk/owner: "Form Builder: formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/form-builder"

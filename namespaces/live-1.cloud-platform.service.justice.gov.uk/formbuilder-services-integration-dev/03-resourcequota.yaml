@@ -1,0 +1,14 @@
+---
+# Source: formbuilder-services/templates/03-resourcequota.yaml
+# auto-generated from fb-cloud-platforms-environments
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: formbuilder-services-integration-dev
+spec:
+  hard:
+    requests.cpu: 1000m
+    requests.memory: 12.8Gi
+    limits.cpu: 15000m
+    limits.memory: 30Gi
