@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: live0-to-live1
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "live1-dev"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "cp-live1"
+    cloud-platform.justice.gov.uk/application: "app-live0"
+    cloud-platform.justice.gov.uk/owner: "vijay.veeranki: cloud-platform"
+    cloud-platform.justice.gov.uk/source-code: "test-live1"
