@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: check-financial-eligibility
+  namespace: check-financial-eligibility-uat
 spec:
   hard:
     requests.cpu: 3000m
