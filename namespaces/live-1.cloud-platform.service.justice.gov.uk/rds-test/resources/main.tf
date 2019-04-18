@@ -2,7 +2,7 @@ terraform {
   backend "s3" {}
 }
 
-provider "aws" {
+provider "aws.london" {
   region = "eu-west-2"
 }
 
