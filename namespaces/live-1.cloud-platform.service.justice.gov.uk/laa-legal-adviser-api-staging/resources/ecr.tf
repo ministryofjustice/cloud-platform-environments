@@ -1,13 +1,5 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-2"
-}
-
 module "ecr-repo-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
 
   team_name = "laa-get-access"
   repo_name = "laa-legal-adviser-api"
