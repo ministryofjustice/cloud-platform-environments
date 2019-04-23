@@ -27,7 +27,7 @@ module "checkmydiary-notification-service-dev" {
 resource "kubernetes_secret" "checkmydiary-notification-service_ecr_credentials" {
   metadata {
     name      = "checkmydiary-notification-service-ecr-credentials-output"
-    namespace = "check-my-diary-notification-service-dev"
+    namespace = "check-my-diary-dev"
   }
 
   data {
