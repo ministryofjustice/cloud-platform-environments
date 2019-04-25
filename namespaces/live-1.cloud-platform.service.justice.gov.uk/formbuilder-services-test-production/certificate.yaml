@@ -11,11 +11,11 @@ metadata:
     issuerRef:
       name: letsencrypt-production
       kind: ClusterIssuer
-      commonName: '*.test.form.service.justice.gov.uk'
-      acme:
-        config:
-          - domains:
-            - '*.test.form.service.justice.gov.uk'
-            dns01:
-              provider: route53-cloud-platform
+    commonName: '*.test.form.service.justice.gov.uk'
+    acme:
+      config:
+      - domains:
+        - '*.test.form.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
 
