@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: check-financial-eligibility-production
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "laa"
+    cloud-platform.justice.gov.uk/application: "check-financial-eligibility"
+    cloud-platform.justice.gov.uk/owner: "Apply For Legal Aid dev team: apply@digital.justice.gov.uk: apply@digtal.justice.gov.uk: apply@digtal.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/check-financial-eligibility"
