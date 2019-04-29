@@ -1,5 +1,5 @@
 module "live0_to_live1_migration_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.2"
   team_name              = "${var.team_name}"
   acl                    = "private"
   versioning             = false
@@ -8,7 +8,11 @@ module "live0_to_live1_migration_s3_bucket" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  aws-s3-region          = "${var.aws_region}"
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "live0_to_live1_migration_s3_bucket" {
