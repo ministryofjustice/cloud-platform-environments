@@ -1,9 +1,7 @@
-
 module "live0_to_live1_ecr_cred" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
   repo_name = "live0-to-live1"
   team_name = "webops-cp"
-
 
   providers = {
     aws = "aws.london"
