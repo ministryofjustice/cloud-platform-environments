@@ -7,7 +7,7 @@ module "cccd_ecr_credentials" {
 resource "kubernetes_secret" "cccd_ecr_credentials" {
   metadata {
     name      = "cccd-ecr-credentials-output"
-    namespace = "cccd-staging"
+    namespace = "cccd-api-sandbox"
   }
 
   data {
