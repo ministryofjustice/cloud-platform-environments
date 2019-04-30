@@ -1,7 +1,7 @@
 module "cccd_ecr_credentials" {
-  source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cccd"
-  team_name  = "laa-get-paid"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  repo_name = "cccd"
+  team_name = "laa-get-paid"
 }
 
 resource "kubernetes_secret" "cccd_ecr_credentials" {
