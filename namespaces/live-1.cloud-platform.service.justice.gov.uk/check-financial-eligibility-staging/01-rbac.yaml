@@ -5,7 +5,7 @@ metadata:
   namespace: check-financial-eligibility-staging
 subjects:
   - kind: Group
-    name: "github:apply-for-legalaid"
+    name: "github:laa-apply-for-legal-aid"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
