@@ -2,7 +2,6 @@ module "cbo_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
   repo_name = "cccd"
   team_name = "laa-get-paid"
-  aws_region = "eu-west-2"
 }
 
 resource "kubernetes_secret" "cbo_ecr_credentials" {
