@@ -1,4 +1,3 @@
 terraform {
   backend "s3" {}
 }
-
