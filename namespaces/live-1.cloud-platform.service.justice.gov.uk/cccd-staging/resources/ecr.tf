@@ -4,7 +4,7 @@ module "cbo_ecr_credentials" {
   team_name = "laa-get-paid"
 
   providers = {
-    aws = "eu-west-2"
+    aws = "aws.london"
   }
 }
 
