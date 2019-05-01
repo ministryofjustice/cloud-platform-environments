@@ -11,7 +11,7 @@ module "nomis-api-access_ecr" {
 resource "kubernetes_secret" "nomis-api-access_ecr" {
   metadata {
     name      = "nomis-api-access-ecr-credentials-output"
-    namespace = "nomis-api-access"
+    namespace = "nomis-api-access-staging"
   }
 
   data {
