@@ -29,5 +29,5 @@ subjects:
   namespace: nomis-api-access-staging 
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: admin
   apiGroup: rbac.authorization.k8s.io
