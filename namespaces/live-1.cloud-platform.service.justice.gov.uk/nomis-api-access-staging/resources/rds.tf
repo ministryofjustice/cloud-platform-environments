@@ -12,7 +12,10 @@ module "nomis-api-access_rds" {
   is-production          = "false"
   environment-name       = "staging"
   infrastructure-support = "matt.whittaker@digtal.justice.gov.uk"
-  aws_region             = "eu-west-2"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "nomis-api-access_rds" {
