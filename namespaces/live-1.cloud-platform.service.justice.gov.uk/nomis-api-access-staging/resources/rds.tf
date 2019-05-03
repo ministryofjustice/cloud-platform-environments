@@ -2,7 +2,7 @@ variable "cluster_name" {}
 
 variable "cluster_state_bucket" {}
 
-module "nomis-api-access-staging_rds" {
+module "nomis-api-access_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.1"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -15,18 +15,18 @@ module "nomis-api-access-staging_rds" {
   aws_region             = "eu-west-2"
 }
 
-resource "kubernetes_secret" "nomis-api-access-staging_rds" {
+resource "kubernetes_secret" "nomis-api-access_rds" {
   metadata {
-    name      = "nomis-api-access-staging-rds-instance-output"
+    name      = "nomis-api-access-rds-instance-output"
     namespace = "nomis-api-access-staging"
   }
 
   data {
-    rds_instance_endpoint = "${module.nomis-api-access-staging_rds.rds_instance_endpoint}"
-    database_name         = "${module.nomis-api-access-staging_rds.database_name}"
-    database_username     = "${module.nomis-api-access-staging_rds.database_username}"
-    database_password     = "${module.nomis-api-access-staging_rds.database_password}"
-    rds_instance_address  = "${module.nomis-api-access-staging_rds.rds_instance_address}"
-    url                   = "postgres://${module.nomis-api-access-staging_rds.database_username}:${module.nomis-api-access-staging_rds.database_password}@${module.nomis-api-access-staging_rds.rds_instance_endpoint}/${module.nomis-api-access-staging_rds.database_name}"
+    rds_instance_endpoint = "${module.nomis-api-access_rds.rds_instance_endpoint}"
+    database_name         = "${module.nomis-api-access_rds.database_name}"
+    database_username     = "${module.nomis-api-access_rds.database_username}"
+    database_password     = "${module.nomis-api-access_rds.database_password}"
+    rds_instance_address  = "${module.nomis-api-access_rds.rds_instance_address}"
+    url                   = "postgres://${module.nomis-api-access_rds.database_username}:${module.nomis-api-access_rds.database_password}@${module.nomis-api-access_rds.rds_instance_endpoint}/${module.nomis-api-access_rds.database_name}"
   }
 }
