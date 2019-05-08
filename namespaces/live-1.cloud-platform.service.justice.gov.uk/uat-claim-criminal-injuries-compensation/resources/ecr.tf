@@ -12,7 +12,7 @@ module "cica_ecr_credentials" {
   # aws_region = "eu-west-2" # This input is deprecated from version 3.2 of this module
 
   providers = {
-    aws = "aws.london"
+    aws = "eu-west-2"
   }
 }
 
