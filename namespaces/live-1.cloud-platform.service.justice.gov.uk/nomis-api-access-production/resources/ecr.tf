@@ -1,6 +1,6 @@
 module "nomis-api-access_ecr" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
-  repo_name = "nomis-api-access-production"
+  repo_name = "${var.namespace}"
   team_name = "digital-prison-services"
 
   providers = {
@@ -11,7 +11,7 @@ module "nomis-api-access_ecr" {
 resource "kubernetes_secret" "nomis-api-access_ecr" {
   metadata {
     name      = "nomis-api-access-ecr-credentials-output"
-    namespace = "nomis-api-access-production"
+    namespace = "${var.namespace}"
   }
 
   data {
