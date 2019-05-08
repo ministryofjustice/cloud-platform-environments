@@ -1,15 +1,3 @@
-variable "aws_region" {
-  default = "eu-west-2"
-}
-
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-2"
-}
-
 variable "namespace" {
   default = "uat-claim-criminal-injuries-compensation"
 }
