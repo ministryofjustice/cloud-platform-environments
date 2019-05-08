@@ -75,11 +75,7 @@ resource "local_file" "04-networkpolicy" {
   filename = "../namespaces/${local.cluster}/${var.namespace}/04-networkpolicy.yaml"
 }
 
-data "template_file" "resources-main-tf" {
-  template = "${file("${path.module}/resources-main-tf")}"
-}
-
 resource "local_file" "resources-main-tf" {
-  content  = "${data.template_file.resources-main-tf.rendered}"
+  content  = "${file("${path.module}/resources-main-tf")}"
   filename = "../namespaces/${local.cluster}/${var.namespace}/resources/main.tf"
 }
