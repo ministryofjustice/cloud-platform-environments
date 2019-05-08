@@ -5,9 +5,9 @@
  *
  */
 module "cica_ecr_credentials" {
-  source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
-  repo_name  = "cica-repo-uat"
-  team_name  = "cica"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  repo_name = "cica-repo-uat"
+  team_name = "cica"
 
   # aws_region = "eu-west-2" # This input is deprecated from version 3.2 of this module
 
