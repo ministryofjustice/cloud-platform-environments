@@ -76,7 +76,7 @@ resource "local_file" "04-networkpolicy" {
 }
 
 data "template_file" "resources-main-tf" {
-  template = "${file("${path.module}/main-tf.template")}"
+  template = "${file("${path.module}/resources-main-tf")}"
 }
 
 resource "local_file" "resources-main-tf" {
