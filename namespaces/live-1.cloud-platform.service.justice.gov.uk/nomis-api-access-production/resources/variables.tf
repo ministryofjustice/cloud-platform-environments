@@ -10,10 +10,6 @@ variable "namespace" {
   default = "nomis-api-access-production"
 }
 
-variable "source" {
-  default = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
-}
-
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
