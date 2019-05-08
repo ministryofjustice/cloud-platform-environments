@@ -1,5 +1,5 @@
 variable "namespace" {
-  default = "uat-claim-criminal-injuries-compensation"
+  default = "claim-criminal-injuries-compensation-uat"
 }
 
 variable "business-unit" {
@@ -11,7 +11,7 @@ variable "team_name" {
 }
 
 variable "application" {
-  default = "uat-claim-criminal-injuries-compensation"
+  default = "claim-criminal-injuries-compensation-uat"
 }
 
 variable "email" {
