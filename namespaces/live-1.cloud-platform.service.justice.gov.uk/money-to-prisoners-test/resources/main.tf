@@ -3,6 +3,7 @@ terraform {
 }
 
 provider "aws" {
+  alias  = "london"
   region = "eu-west-2"
 }
 
