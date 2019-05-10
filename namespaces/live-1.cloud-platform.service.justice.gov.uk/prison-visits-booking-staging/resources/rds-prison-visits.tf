@@ -38,14 +38,14 @@ resource "kubernetes_secret" "prison-visits-rds" {
   }
 
   data {
-    rds_instance_endpoint = "${module.prison-visits.rds_instance_endpoint}"
-    rds_instance_address  = "${module.prison-visits.rds_instance_address}"
-    database_name         = "${module.prison-visits.database_name}"
-    database_username     = "${module.prison-visits.database_username}"
-    database_password     = "${module.prison-visits.database_password}"
-    postgres_name         = "${module.prison-visits.database_name}"
-    postgres_host         = "${module.prison-visits.rds_instance_address}"
-    postgres_user         = "${module.prison-visits.database_username}"
-    postgres_password     = "${module.prison-visits.database_password}"
+    rds_instance_endpoint = "${module.prison-visits-rds.rds_instance_endpoint}"
+    rds_instance_address  = "${module.prison-visits-rds.rds_instance_address}"
+    database_name         = "${module.prison-visits-rds.database_name}"
+    database_username     = "${module.prison-visits-rds.database_username}"
+    database_password     = "${module.prison-visits-rds.database_password}"
+    postgres_name         = "${module.prison-visits-rds.database_name}"
+    postgres_host         = "${module.prison-visits-rds.rds_instance_address}"
+    postgres_user         = "${module.prison-visits-rds.database_username}"
+    postgres_password     = "${module.prison-visits-rds.database_password}"
   }
 }
