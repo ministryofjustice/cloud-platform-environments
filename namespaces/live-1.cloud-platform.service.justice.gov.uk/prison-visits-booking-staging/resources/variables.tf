@@ -17,8 +17,3 @@ variable "namespace" {
 variable "infrastructure-support" {
   default = "pvb-technical-support@digtal.justice.gov.uk"
 }
-
-// The following two variables are provided at runtime by the pipeline.
-variable "cluster_name" {}
-
-variable "cluster_state_bucket" {}
