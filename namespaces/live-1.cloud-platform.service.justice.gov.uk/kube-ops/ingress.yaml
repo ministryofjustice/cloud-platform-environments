@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-ops
+  namespace: kube-ops
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - kube-ops.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: kube-ops.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kube-ops
+          servicePort: 8080
