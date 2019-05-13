@@ -25,3 +25,16 @@ variable "environment-name" {
 variable "is-production" {
   default = "false"
 }
+
+variable "domain" {
+  default = "uat-claim-criminal-injuries-compensation.service.justice.gov.uk"
+}
+
+variable "namespace" {
+  default = "claim-criminal-injuries-compensation-uat"
+}
+
+variable "infrastructure-support" {
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "Infrastructure@cica.gov.uk"
+}
