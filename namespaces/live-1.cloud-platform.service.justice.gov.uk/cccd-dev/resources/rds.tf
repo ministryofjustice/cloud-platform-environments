@@ -17,6 +17,10 @@ module "cccd_dev_rds" {
   environment-name       = "dev"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   db_engine_version      = "10.6"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "cccd_dev_rds" {
