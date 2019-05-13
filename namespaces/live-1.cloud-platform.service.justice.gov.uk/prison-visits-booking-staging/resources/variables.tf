@@ -17,3 +17,7 @@ variable "namespace" {
 variable "infrastructure-support" {
   default = "pvb-technical-support@digtal.justice.gov.uk"
 }
+
+variable "cluster_name" {}
+
+variable "cluster_state_bucket" {}
