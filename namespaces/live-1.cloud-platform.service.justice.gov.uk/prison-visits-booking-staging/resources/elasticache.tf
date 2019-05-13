@@ -1,5 +1,7 @@
 module "ec-cluster-prison-visits-booking-staff" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.0"
+  cluster_name           = "${var.cluster_name}"
+  cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
   application            = "prison-visits-booking-staff"
   is-production          = "${var.is-production}"
@@ -19,7 +21,3 @@ resource "kubernetes_secret" "ec-cluster-prison-visits-booking-staff" {
     auth_token               = "${module.ec-cluster-prison-visits-booking-staff.auth_token}"
   }
 }
-
-variable "cluster_name" {}
-
-variable "cluster_state_bucket" {}
