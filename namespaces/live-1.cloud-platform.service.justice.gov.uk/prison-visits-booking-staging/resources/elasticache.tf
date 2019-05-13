@@ -19,3 +19,7 @@ resource "kubernetes_secret" "ec-cluster-prison-visits-booking-staff" {
     auth_token               = "${module.ec-cluster-prison-visits-booking-staff.auth_token}"
   }
 }
+
+variable "cluster_name" {}
+
+variable "cluster_state_bucket" {}
