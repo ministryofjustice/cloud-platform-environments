@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Validate Terraform configurations
           command: |
-            changed_resources=$(git diff --no-commit-id --name-only HEAD..master | grep /resources/ | sort | uniq)
+            changed_resources=$(git diff --no-commit-id --name-only -r origin/master...HEAD | grep /resources/ | sort | uniq)
             for _f in ${changed_resources}; do
               find ${_f} -exec dirname {} \;|sort -u | while read m; 
                 do 
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Check if Terraform configurations are properly formatted
           command: |
-            changed_resources=$(git diff --no-commit-id --name-only HEAD..master | grep /resources/ | sort | uniq)
+            changed_resources=$(git diff --no-commit-id --name-only -r origin/master...HEAD | grep /resources/ | sort | uniq)
             for _f in ${changed_resources}; do
               tf=$(terraform fmt -write=false -diff ${_f}); 
               if [[ -n "$tf" ]]; then 
