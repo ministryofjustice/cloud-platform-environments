@@ -26,7 +26,7 @@ module "prison-visits-rds" {
   environment-name       = "staging"
   infrastructure-support = "pvb-technical-support@digtal.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "9.6"
+  db_engine_version      = "9.5"
   db_name                = "visits"
   aws_region             = "eu-west-2"
 }
