@@ -1,8 +1,8 @@
 module "ecr-repo-api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
 
-  team_name = "laa-get-access"
-  repo_name = "laa-legal-adviser-api"
+  team_name = "${var.team_name}"
+  repo_name = "${var.repo_name}"
 }
 
 resource "kubernetes_secret" "ecr-repo-api" {
