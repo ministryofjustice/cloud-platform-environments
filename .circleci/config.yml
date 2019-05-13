@@ -12,15 +12,29 @@ jobs:
       - checkout
       - run:
           name: Validate Terraform configurations
-          command: find . -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (terraform validate -check-variables=false "$m" && echo "√ $m") || exit 1 ; done
+          command: |
+            changed_resources=$(git diff --no-commit-id --name-only origin/master | grep /resources/ | sort | uniq)
+            for _f in ${changed_resources}; do
+              find ${_f} -exec dirname {} \;|sort -u | while read m; 
+                do 
+                  (terraform validate -check-variables=false "$m" && echo "√ $m") || exit 1 ;
+                done 
+            done 
       - run:
           name: Check if Terraform configurations are properly formatted
-          command: tf=$(terraform fmt -write=false -diff); if [[ -n "$tf" ]]; then printf "$tf\n\n\nSome terraform files failed syntax validation, run 'terraform fmt' to fix\n\n"; exit 1; fi
+          command: |
+            changed_resources=$(git diff --no-commit-id --name-only origin/master | grep /resources/ | sort | uniq)
+            for _f in ${changed_resources}; do
+              tf=$(terraform fmt -write=false -diff ${_f}); 
+              if [[ -n "$tf" ]]; then 
+                printf "$tf\n\n\nSome terraform files failed syntax validation, run 'terraform fmt' to fix\n\n"; exit 1;
+              fi
+            done
       - persist_to_workspace:
           root: .
           paths: 
             - .
-
+            
 workflows:
   version: 2
   build:
