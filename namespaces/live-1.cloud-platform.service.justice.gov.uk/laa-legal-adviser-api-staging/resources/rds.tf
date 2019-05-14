@@ -19,9 +19,9 @@ module "rds" {
   db_name                = "laalaa"
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "db" {
   metadata {
-    name      = "rds"
+    name      = "db"
     namespace = "${var.namespace}"
   }
 
