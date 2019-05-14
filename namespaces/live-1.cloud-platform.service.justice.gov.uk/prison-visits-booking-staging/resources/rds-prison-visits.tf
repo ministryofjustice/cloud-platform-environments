@@ -28,7 +28,10 @@ module "prison-visits-rds" {
   db_engine              = "postgres"
   db_engine_version      = "9.6"
   db_name                = "visits"
-  aws_region             = "eu-west-2"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "prison-visits-rds" {
