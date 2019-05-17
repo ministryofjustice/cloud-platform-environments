@@ -18,7 +18,6 @@ module "rds" {
   db_allocated_storage   = "5"
   db_name                = "datacaptureservice"
   db_backup              = "db_backup_retention_period"
-
 }
 
 resource "kubernetes_secret" "rds" {
