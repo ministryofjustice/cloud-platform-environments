@@ -17,6 +17,8 @@ module "rds" {
   db_instance_class      = "db.t2.small"
   db_allocated_storage   = "5"
   db_name                = "datacaptureservice"
+  db_backup              = "db_backup_retention_period"
+
 }
 
 resource "kubernetes_secret" "rds" {
