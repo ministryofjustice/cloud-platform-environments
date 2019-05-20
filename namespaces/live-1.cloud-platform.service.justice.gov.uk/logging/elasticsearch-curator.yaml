@@ -37,4 +37,18 @@ spec:
                     "kind":"prefix",
                     "value":"logstash"
                   }
-                ]'
+                ]' &&
+              curator_cli \
+                --host search-cloud-platform-test-zradqd7twglkaydvgwhpuypzy4.eu-west-2.es.amazonaws.com
+                --use_ssl \
+                --port 443 \
+                delete_indices \
+                --filter_list '[
+                  {
+                    "filtertype":"age",
+                    "source":"name",
+                    "direction":"older",
+                    "timestring": "%Y.%m.%d",
+                    "unit":"days",
+                    "unit_count":3
+                  }]'
