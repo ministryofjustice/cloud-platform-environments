@@ -34,7 +34,7 @@ module "ps_cps_pack_parser_ecr_credentials" {
 
 resource "kubernetes_secret" "ps_cps_pack_parser_ecr_credentials" {
   metadata {
-    name      = "ps_cps_pack_parser_ecr_credentials-output"
+    name      = "ps-cps-pack-parser-ecr-credentials-output"
     namespace = "court-probation-dev"
   }
 
