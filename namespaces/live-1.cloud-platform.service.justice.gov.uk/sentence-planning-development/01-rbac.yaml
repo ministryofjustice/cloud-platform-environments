@@ -5,7 +5,7 @@ metadata:
   namespace: sentence-planning-development
 subjects:
   - kind: Group
-    name: "github:oasys-dev"
+    name: "github:oasys-development-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -44,11 +44,9 @@ metadata:
   name: sentence-planning-development-admin
   namespace: sentence-planning-development
 subjects:
-  - kind: Group
-    name: "github:oasys-dev"
-    apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
     name: circleci
+    namespace: sentence-planning-development
 roleRef:
   kind: ClusterRole
   name: admin
