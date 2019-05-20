@@ -39,7 +39,7 @@ spec:
                   }
                 ]' &&
               curator_cli \
-                --host search-cloud-platform-test-zradqd7twglkaydvgwhpuypzy4.eu-west-2.es.amazonaws.com
+                --host search-cloud-platform-test-zradqd7twglkaydvgwhpuypzy4.eu-west-2.es.amazonaws.com \
                 --use_ssl \
                 --port 443 \
                 delete_indices \
@@ -51,4 +51,10 @@ spec:
                     "timestring": "%Y.%m.%d",
                     "unit":"days",
                     "unit_count":3
-                  }]'
+                  },
+                  {
+                    "filtertype":"pattern",
+                    "kind":"prefix",
+                    "value":"logstash"
+                  }
+                  ]'
