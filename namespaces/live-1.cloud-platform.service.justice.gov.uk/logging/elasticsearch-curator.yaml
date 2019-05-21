@@ -18,7 +18,7 @@ spec:
             - -c
             - |
               pip3 install elasticsearch-curator &&
-              curator_cli \
+              (curator_cli \
                 --host search-cloud-platform-live-dibidbfud3uww3lpxnhj2jdws4.eu-west-2.es.amazonaws.com \
                 --use_ssl \
                 --port 443 \
@@ -37,7 +37,7 @@ spec:
                     "kind":"prefix",
                     "value":"logstash"
                   }
-                ]' &&
+                ]';
               curator_cli \
                 --host search-cloud-platform-test-zradqd7twglkaydvgwhpuypzy4.eu-west-2.es.amazonaws.com \
                 --use_ssl \
@@ -57,4 +57,4 @@ spec:
                     "kind":"prefix",
                     "value":"logstash"
                   }
-                  ]'
+                ]')
