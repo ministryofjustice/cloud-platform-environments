@@ -15,8 +15,6 @@ variable "cluster_state_bucket" {}
  *
  */
 
-
-/*
 module "prison-visits-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
 
@@ -35,10 +33,8 @@ module "prison-visits-rds" {
   providers = {
     aws = "aws.london"
   }
-}*/
+}
 
-
-/*
 resource "kubernetes_secret" "prison-visits-rds" {
   metadata {
     name      = "prison-visits-rds-instance-output"
@@ -48,5 +44,4 @@ resource "kubernetes_secret" "prison-visits-rds" {
   data {
     url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
-}*/
-
+}
