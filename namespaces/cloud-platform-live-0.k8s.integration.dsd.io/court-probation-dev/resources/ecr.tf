@@ -27,7 +27,7 @@ resource "kubernetes_secret" "probation_services_ecr_credentials" {
 }
 
 module "ps_cps_pack_parser_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
   repo_name = "cps-pack-parser"
   team_name = "probation-services"
 }
