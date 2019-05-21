@@ -12,8 +12,9 @@ variable "cluster_state_bucket" {}
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
- *
  */
+
+ /*
 module "allocation-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
 
@@ -24,12 +25,14 @@ module "allocation-rds" {
   application            = "offender-management-allocation-manager"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "omic@digital.justice.gov.uk"
+  infrastructure-support = "moic@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10"
   db_name                = "allocations"
 }
+ */
 
+/*
 resource "kubernetes_secret" "allocation-rds" {
   metadata {
     name      = "allocation-rds-instance-output"
@@ -48,3 +51,4 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_password     = "${module.allocation-rds.database_password}"
   }
 }
+*/
