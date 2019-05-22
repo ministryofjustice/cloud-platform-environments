@@ -12,7 +12,7 @@ module "cccd-staging-claims-submitted-sns" {
   aws_region         = "eu-west-2"
 }
 
-resource "kubernetes_secret" "cccd_staging_claims_submitted_sns_topic" {
+resource "kubernetes_secret" "cccd_staging_claims_submitted_sns" {
   metadata {
     name      = "cccd-staging-claims-submitted-sns-output"
     namespace = "cccd-staging"
