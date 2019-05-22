@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "cccd-staging-claims-submitted-sns" {
+module "cccd_staging_claims_submitted_sns" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=2.0"
 
   team_name          = "laa-get-paid"
@@ -12,7 +12,7 @@ module "cccd-staging-claims-submitted-sns" {
   aws_region         = "eu-west-2"
 }
 
-resource "kubernetes_secret" "cccd-staging-claims-submitted-sns" {
+resource "kubernetes_secret" "cccd_staging_claims_submitted_sns" {
   metadata {
     name      = "cccd-staging-claims-submitted-sns-output"
     namespace = "cccd-staging"
