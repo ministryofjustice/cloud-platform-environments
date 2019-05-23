@@ -9,6 +9,7 @@ module "amq" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.email}"
+
   providers = {
     # This can be either "aws.london" or "aws.ireland:
     aws = "aws.london"
