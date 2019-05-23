@@ -45,3 +45,43 @@ resource "kubernetes_secret" "ps_cps_pack_parser_ecr_credentials" {
     repo_url          = "${module.ps_cps_pack_parser_ecr_credentials.repo_url}"
   }
 }
+
+module "mock_cp_court_service_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  repo_name = "mock-cp-court-service"
+  team_name = "probation-services"
+}
+
+resource "kubernetes_secret" "mock_cp_court_service_ecr_credentials" {
+  metadata {
+    name      = "mock-cp-court-service-ecr-credentials-output"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.mock_cp_court_service_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.mock_cp_court_service_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.mock_cp_court_service_ecr_credentials.repo_arn}"
+    repo_url          = "${module.mock_cp_court_service_ecr_credentials.repo_url}"
+  }
+}
+
+module "court_list_service_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=2.1"
+  repo_name = "court-list-service"
+  team_name = "probation-services"
+}
+
+resource "kubernetes_secret" "court_list_service_ecr_credentials" {
+  metadata {
+    name      = "court-list-service-ecr-credentials-output"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.court_list_service_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.court_list_service_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.court_list_service_ecr_credentials.repo_arn}"
+    repo_url          = "${module.court_list_service_ecr_credentials.repo_url}"
+  }
+}
