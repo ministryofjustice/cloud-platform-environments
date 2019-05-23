@@ -15,20 +15,14 @@ jobs:
           command: |
             changed_resources=$(git diff --no-commit-id --name-only -r origin/master...HEAD | grep /resources/ | sort | uniq) || true
             for _f in ${changed_resources}; do
-              dirname ${_f} | while read m; 
-                do 
-                  (terraform validate -check-variables=false "$m" && echo "√ $m") || exit 1 ;
-                done 
+              (terraform validate -check-variables=false "$(dirname ${_f})" && echo "√ $(dirname ${_f})") || exit 1 ;
             done 
       - run:
           name: Check if Terraform configurations are properly formatted
           command: |
             changed_resources=$(git diff --no-commit-id --name-only -r origin/master...HEAD | grep /resources/ | sort | uniq) || true
             for _f in ${changed_resources}; do
-              tf=$(terraform fmt -write=false -diff ${_f}); 
-              if [[ -n "$tf" ]]; then 
-                printf "$tf\n\n\nSome terraform files failed syntax validation, run 'terraform fmt' to fix\n\n"; exit 1;
-              fi
+              (terraform fmt -check -diff ${_f}) || exit 1;
             done
       - persist_to_workspace:
           root: .
