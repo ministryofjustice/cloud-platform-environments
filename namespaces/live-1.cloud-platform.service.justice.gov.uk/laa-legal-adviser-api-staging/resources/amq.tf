@@ -22,8 +22,8 @@ resource "kubernetes_secret" "amq" {
   }
 
   data {
-    primary_amqp_ssl_endpoint  = "${module.amq.primary_amqp_ssl_endpoint}"
-    primary_stomp_ssl_endpoint = "${module.amq.primary_stomp_ssl_endpoint}"
+    primary_amqp_ssl_endpoint  = "${replace(module.amq.primary_amqp_ssl_endpoint, "amqp+ssl://", "")}"
+    primary_stomp_ssl_endpoint = "${replace(module.amq.primary_stomp_ssl_endpoint, "stomp+ssl://", "")}"
     username                   = "${module.amq.username}"
     password                   = "${module.amq.password}"
   }
