@@ -36,6 +36,6 @@ variable "infrastructure-support" {
 }
 
 variable "db_backup_retention_period" {
-  description = "The days to retain backups. Must be 1 or greater to be a source for a Read Replica"
+  description = "The days to retain backup jobs. Must be 1 or greater to be a source for a Read Replica"
   default     = "35"
 }
