@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "whereabouts-dev"
+  default = "whereabouts-api-dev"
 }
 
 variable "business-unit" {
