@@ -1,26 +1,23 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "cccd_staging_claims_submitted_sns" {
+module "cccd_claims_submitted" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=2.0"
 
   team_name          = "laa-get-paid"
-  topic_display_name = "cccd-staging-claims-submitted-sns"
-  aws_region         = "eu-west-2"
+  topic_display_name = "cccd-claims-submitted"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
-resource "kubernetes_secret" "cccd_staging_claims_submitted_sns" {
+resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
-    name      = "cccd-staging-claims-submitted-sns-output"
+    name      = "cccd-claims-submitted-sns"
     namespace = "cccd-staging"
   }
 
   data {
-    access_key_id     = "${module.cccd_staging_claims_submitted_sns.access_key_id}"
-    secret_access_key = "${module.cccd_staging_claims_submitted_sns.secret_access_key}"
-    topic_arn         = "${module.cccd_staging_claims_submitted_sns.topic_arn}"
+    access_key_id     = "${module.cccd_claims_submitted.access_key_id}"
+    secret_access_key = "${module.cccd_claims_submitted.secret_access_key}"
+    topic_arn         = "${module.cccd_claims_submitted.topic_arn}"
   }
 }
