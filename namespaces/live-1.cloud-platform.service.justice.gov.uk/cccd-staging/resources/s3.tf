@@ -8,7 +8,6 @@ module "cccd_s3_bucket" {
   environment-name       = "staging"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
 
-  # This is a new input. 
   providers = {
     aws = "aws.london"
   }
@@ -16,7 +15,7 @@ module "cccd_s3_bucket" {
 
 resource "kubernetes_secret" "cccd_s3_bucket" {
   metadata {
-    name      = "cccd-s3-bucket-output"
+    name      = "cccd-s3-bucket"
     namespace = "cccd-staging"
   }
 
