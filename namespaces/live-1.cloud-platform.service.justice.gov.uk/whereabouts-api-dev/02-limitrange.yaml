@@ -2,13 +2,13 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: whereabouts-dev
+  namespace: whereabouts-api-dev
 spec:
   limits:
   - default:
-      cpu: 250m
-      memory: 500Mi
+      cpu: 360m
+      memory: 1024Mi
     defaultRequest:
-      cpu: 125m
-      memory: 250Mi
+      cpu: 180m
+      memory: 512Mi
     type: Container
