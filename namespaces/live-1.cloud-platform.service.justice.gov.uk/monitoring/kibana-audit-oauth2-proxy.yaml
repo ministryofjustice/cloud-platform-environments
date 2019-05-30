@@ -48,7 +48,7 @@ spec:
           - --cookie-expire=7h
           - --email-domain=*
           - --http-address=0.0.0.0:4180
-          - --oidc-issuer-url=https://moj-cloud-platforms-dev.eu.auth0.com/
+          - --oidc-issuer-url=https://justice-cloud-platform.eu.auth0.com/
           - --provider=oidc
           - --skip-provider-button=true
           - --upstream=https://search-cloud-platform-audit-dq5bdnjokj4yt7qozshmifug6e.eu-west-2.es.amazonaws.com
