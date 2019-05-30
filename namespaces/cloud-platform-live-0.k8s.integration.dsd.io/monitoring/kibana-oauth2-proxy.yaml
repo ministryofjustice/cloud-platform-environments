@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: oauth2-proxy
-        image: "quay.io/pusher/oauth2_proxy:v3.1.0"
+        image: "quay.io/pusher/oauth2_proxy:v3.2.0"
         imagePullPolicy: IfNotPresent
         args:
           - --cookie-expire=7h
