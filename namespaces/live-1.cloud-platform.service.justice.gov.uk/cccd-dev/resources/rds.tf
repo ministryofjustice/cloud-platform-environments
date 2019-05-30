@@ -5,8 +5,8 @@
  *
  */
 
-module "cccd_dev_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+module "cccd_rds" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -23,18 +23,18 @@ module "cccd_dev_rds" {
   }
 }
 
-resource "kubernetes_secret" "cccd_dev_rds" {
+resource "kubernetes_secret" "cccd_rds" {
   metadata {
-    name      = "cccd-dev-rds-output"
+    name      = "cccd-rds"
     namespace = "cccd-dev"
   }
 
   data {
-    rds_instance_endpoint = "${module.cccd_dev_rds.rds_instance_endpoint}"
-    database_name         = "${module.cccd_dev_rds.database_name}"
-    database_username     = "${module.cccd_dev_rds.database_username}"
-    database_password     = "${module.cccd_dev_rds.database_password}"
-    rds_instance_address  = "${module.cccd_dev_rds.rds_instance_address}"
-    url                   = "postgres://${module.cccd_dev_rds.database_username}:${module.cccd_dev_rds.database_password}@${module.cccd_dev_rds.rds_instance_endpoint}/${module.cccd_dev_rds.database_name}"
+    rds_instance_endpoint = "${module.cccd_rds.rds_instance_endpoint}"
+    database_name         = "${module.cccd_rds.database_name}"
+    database_username     = "${module.cccd_rds.database_username}"
+    database_password     = "${module.cccd_rds.database_password}"
+    rds_instance_address  = "${module.cccd_rds.rds_instance_address}"
+    url                   = "postgres://${module.cccd_rds.database_username}:${module.cccd_rds.database_password}@${module.cccd_rds.rds_instance_endpoint}/${module.cccd_rds.database_name}"
   }
 }
