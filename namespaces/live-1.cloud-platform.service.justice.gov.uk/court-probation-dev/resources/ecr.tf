@@ -39,7 +39,6 @@ module "ps_cps_pack_parser_ecr_credentials" {
   providers = {
     aws = "aws.london"
   }
-
 }
 
 resource "kubernetes_secret" "ps_cps_pack_parser_ecr_credentials" {
@@ -64,7 +63,6 @@ module "mock_cp_court_service_ecr_credentials" {
   providers = {
     aws = "aws.london"
   }
-
 }
 
 resource "kubernetes_secret" "mock_cp_court_service_ecr_credentials" {
@@ -89,7 +87,6 @@ module "court_list_service_ecr_credentials" {
   providers = {
     aws = "aws.london"
   }
-
 }
 
 resource "kubernetes_secret" "court_list_service_ecr_credentials" {
