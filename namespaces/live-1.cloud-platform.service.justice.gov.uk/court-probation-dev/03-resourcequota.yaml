@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: court-probation-dev
+spec:
+  hard:
+    requests.cpu: 6000m
+    requests.memory: 12Gi
+    limits.cpu: 12000m
+    limits.memory: 24Gi
