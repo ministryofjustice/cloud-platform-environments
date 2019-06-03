@@ -17,7 +17,6 @@ module "court_probation_service_ecr_credentials" {
   }
 }
 
-
 resource "kubernetes_secret" "court_probation_service_ecr_credentials" {
   metadata {
     name      = "court-probation-service-ecr-credentials"
