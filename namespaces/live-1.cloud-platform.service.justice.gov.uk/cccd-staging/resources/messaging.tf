@@ -50,12 +50,9 @@ resource "kubernetes_secret" "claims_for_ccr" {
 }
 
 resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
+  provider      = "aws.london"
   topic_arn     = "${module.cccd_claims_submitted.topic_arn}"
   protocol      = "sqs"
   endpoint      = "${module.claims_for_ccr.sqs_arn}"
   filter_policy = "[\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\"]"
-
-  providers = {
-    aws = "aws.london"
-  }
 }
