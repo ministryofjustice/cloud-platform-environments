@@ -29,7 +29,8 @@ module "claims_for_ccr" {
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
-  policy                 = <<EOF
+
+  policy = <<EOF
 {
   "Policy": 
   {
