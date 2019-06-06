@@ -29,6 +29,32 @@ module "claims_for_ccr" {
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  policy                 = <<EOF
+{
+  "Policy": 
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.claims_for_ccr.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Action": "SQS:SendMessage",
+          "Resource": "${module.claims_for_ccr.sqs_arn}",
+          "Condition": 
+            {
+              "ArnEquals": 
+                {
+                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
+                }
+              }
+        }
+      ]
+  } 
+}
+
+EOF
 
   providers = {
     aws = "aws.london"
