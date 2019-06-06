@@ -12,6 +12,7 @@ module "dps_rds" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
+  force_ssl              = "true"
 
   providers = {
     aws = "aws.london"
