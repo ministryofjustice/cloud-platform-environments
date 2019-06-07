@@ -47,7 +47,7 @@ resource "kubernetes_secret" "cp_team_test_rds" {
     database_username     = "${module.cp_team_test_rds.database_username}"
     database_password     = "${module.cp_team_test_rds.database_password}"
     rds_instance_address  = "${module.cp_team_test_rds.rds_instance_address}"
-
+    url = "postgres://${module.cp_team_test_rds.database_username}:${module.cp_team_test_rds.database_password}@${module.cp_team_test_rds.rds_instance_endpoint}/${module.cp_team_test_rds.database_name}"
     /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
