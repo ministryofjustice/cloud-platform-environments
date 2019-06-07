@@ -49,6 +49,33 @@ resource "kubernetes_secret" "claims_for_ccr" {
   }
 }
 
+module "ccr_dead_letter_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=2.0"
+
+  environment-name       = "staging"
+  team_name              = "laa-get-paid"
+  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  application            = "cccd"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "ccr_dead_letter_queue" {
+  metadata {
+    name      = "ccr-dead-letter-sqs"
+    namespace = "cccd-staging"
+  }
+
+  data {
+    access_key_id     = "${module.ccr_dead_letter_queue.access_key_id}"
+    secret_access_key = "${module.ccr_dead_letter_queue.secret_access_key}"
+    sqs_id            = "${module.ccr_dead_letter_queue.sqs_id}"
+    sqs_arn           = "${module.ccr_dead_letter_queue.sqs_arn}"
+  }
+}
+
 resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
   provider      = "aws.london"
   topic_arn     = "${module.cccd_claims_submitted.topic_arn}"
