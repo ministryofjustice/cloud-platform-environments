@@ -43,5 +43,5 @@ resource "kubernetes_secret" "cp_team_test_rds" {
 
   data {
     url = "postgres://${module.cp_team_test_rds.database_username}:${module.cp_team_test_rds.database_password}@${module.cp_team_test_rds.rds_instance_endpoint}/${module.cp_team_test_rds.database_name}"
- }
+  }
 }
