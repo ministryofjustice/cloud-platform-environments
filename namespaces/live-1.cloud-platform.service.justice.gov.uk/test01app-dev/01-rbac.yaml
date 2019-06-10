@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: test01app-dev-admin
-  namespace: test01app-dev
+  name: sid-test01app-dev-admin
+  namespace: sid-test01app-dev
 subjects:
   - kind: Group
     name: "github:secops"
