@@ -11,3 +11,23 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: myapp-dev ### Your namespace `<servicename-env>`
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tiller
+  namespace: myapp-dev ### Your namespace `<servicename-env>`
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: myapp-dev ### Your namespace `<servicename-env>`
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
