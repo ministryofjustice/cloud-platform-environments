@@ -5,7 +5,7 @@
  *
  */
 module "example_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
   repo_name = "reference-app"
   team_name = "cloud-platform"
 
