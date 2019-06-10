@@ -15,18 +15,18 @@ roleRef:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: tiller
-  namespace: myapp-dev ### Your namespace `<servicename-env>`
+  name: tiller-dev
+  namespace: poornima-dev
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: tiller
-  namespace: myapp-dev ### Your namespace `<servicename-env>`
+  name: tiller-dev
+  namespace: poornima-dev
 subjects:
 - kind: ServiceAccount
-  name: tiller
-  namespace: myapp-dev ### Your namespace `<servicename-env>`
+  name: tiller-dev
+  namespace: poornima-dev
 roleRef:
   kind: ClusterRole
   name: cluster-admin
