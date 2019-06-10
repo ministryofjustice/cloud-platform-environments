@@ -26,7 +26,7 @@ module "test_sqs_two" {
 
 resource "kubernetes_secret" "test_sqs" {
   metadata {
-    name      = "test_sqs"
+    name      = "test-sqs"
     namespace = "demo-app"
   }
 
