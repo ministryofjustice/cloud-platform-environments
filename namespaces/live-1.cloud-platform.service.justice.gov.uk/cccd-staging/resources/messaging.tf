@@ -23,7 +23,7 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=iam-policies"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
@@ -35,44 +35,33 @@ module "claims_for_ccr" {
   }
 }
 
-resource "kubernetes_secret" "claims_for_ccr" {
+module "ccr_dead_letter_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=iam-policies"
+
+  environment-name       = "staging"
+  team_name              = "laa-get-paid"
+  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  application            = "cccd"
+  existing_user_name     = "${module.claims_for_ccr.user_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "cccd-sqs" {
   metadata {
-    name      = "claims-for-ccr-sqs"
+    name      = "cccd-sqs"
     namespace = "cccd-staging"
   }
 
   data {
     access_key_id     = "${module.claims_for_ccr.access_key_id}"
     secret_access_key = "${module.claims_for_ccr.secret_access_key}"
-    sqs_id            = "${module.claims_for_ccr.sqs_id}"
-    sqs_arn           = "${module.claims_for_ccr.sqs_arn}"
-  }
-}
-
-module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=2.0"
-
-  environment-name       = "staging"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
-
-  providers = {
-    aws = "aws.london"
-  }
-}
-
-resource "kubernetes_secret" "ccr_dead_letter_queue" {
-  metadata {
-    name      = "ccr-dead-letter-sqs"
-    namespace = "cccd-staging"
-  }
-
-  data {
-    access_key_id     = "${module.ccr_dead_letter_queue.access_key_id}"
-    secret_access_key = "${module.ccr_dead_letter_queue.secret_access_key}"
-    sqs_id            = "${module.ccr_dead_letter_queue.sqs_id}"
-    sqs_arn           = "${module.ccr_dead_letter_queue.sqs_arn}"
+    sqs_ccr_id        = "${module.claims_for_ccr.sqs_id}"
+    sqs_ccr_arn       = "${module.claims_for_ccr.sqs_arn}"
+    sqs_dlq_id        = "${module.ccr_dead_letter_queue.sqs_id}"
+    sqs_dlq_arn       = "${module.ccr_dead_letter_queue.sqs_arn}"
   }
 }
 
