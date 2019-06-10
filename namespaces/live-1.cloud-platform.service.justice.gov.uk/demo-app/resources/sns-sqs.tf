@@ -2,7 +2,7 @@ module "test_sns" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=3.0"
 
   team_name          = "cloud-platform"
-  topic_display_name = "demo-topic-display-name"
+  topic_display_name = "demo-app-topic"
 }
 
 module "test_sqs" {
