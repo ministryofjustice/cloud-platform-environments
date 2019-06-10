@@ -18,6 +18,7 @@ module "test_sqs_two" {
   team_name              = "cloud-platform"
   infrastructure-support = "platforms@digital.justice.gov.uk"
   application            = "demoapp"
+  existing_user_name     = "${module.test_sqs_one.user_name}"
 
   providers = {
     aws = "aws.london"
