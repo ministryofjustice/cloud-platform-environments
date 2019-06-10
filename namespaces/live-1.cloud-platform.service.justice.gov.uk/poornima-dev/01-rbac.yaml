@@ -25,7 +25,7 @@ metadata:
   namespace: poornima-dev
 subjects:
 - kind: ServiceAccount
-  name: tiller
+  name: tiller-dev
   namespace: poornima-dev
 roleRef:
   kind: ClusterRole
