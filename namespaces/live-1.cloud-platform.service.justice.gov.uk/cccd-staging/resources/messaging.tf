@@ -10,7 +10,7 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=redrive"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
