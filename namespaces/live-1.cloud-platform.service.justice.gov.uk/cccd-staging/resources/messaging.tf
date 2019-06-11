@@ -19,11 +19,8 @@ module "claims_for_ccr" {
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
-   { 
-      "RedrivePolicy": 
-      {
-        "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
-      }
+  {
+    "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
   EOF
 
