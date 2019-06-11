@@ -57,7 +57,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
 }
 
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
