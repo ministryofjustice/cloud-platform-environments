@@ -32,14 +32,13 @@ module "claims_for_ccr" {
   "Policy": 
   {
     "Version": "2012-10-17",
-    "Id": "${module.claims_for_ccr.sqs_arn}/SQSDefaultPolicy",
+    "Id": "SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Action": "SQS:SendMessage",
-          "Resource": "${module.claims_for_ccr.sqs_arn}",
           "Condition": 
             {
               "ArnEquals": 
