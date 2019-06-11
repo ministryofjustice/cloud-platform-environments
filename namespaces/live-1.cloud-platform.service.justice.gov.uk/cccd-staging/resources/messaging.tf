@@ -24,15 +24,24 @@ module "claims_for_ccr" {
   }
   EOF
 
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
+  queue_url = "${module.claims_for_ccr.sqs_id}"
+
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "SQSDefaultPolicy",
+    "Id": "${module.claims_for_ccr.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
+          "Resource": "${module.claims_for_ccr.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition": 
             {
