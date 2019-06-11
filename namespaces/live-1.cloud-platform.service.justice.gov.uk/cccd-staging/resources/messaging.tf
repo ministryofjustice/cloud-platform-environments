@@ -18,7 +18,7 @@ module "claims_for_ccr" {
   application            = "cccd"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
-  redive_policy = <<EOF
+  redrive_policy = <<EOF
    { 
       "RedrivePolicy": 
       {
