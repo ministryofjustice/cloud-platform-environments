@@ -10,13 +10,47 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=redrive"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
+
+  redrive_policy = <<EOF
+   { 
+      "RedrivePolicy": 
+      {
+        "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
+      }
+  }
+  EOF
+
+  policy = <<EOF
+{
+  "Policy": 
+  {
+    "Version": "2012-10-17",
+    "Id": "SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Action": "SQS:SendMessage",
+          "Condition": 
+            {
+              "ArnEquals": 
+                {
+                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
+                }
+              }
+        }
+      ]
+  } 
+}
+ EOF
 
   providers = {
     aws = "aws.london"
