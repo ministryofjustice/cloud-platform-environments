@@ -53,11 +53,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
         }
       ]
   }
- EOF
-
-  providers = {
-    aws = "aws.london"
-  }
+  EOF
 }
 
 module "ccr_dead_letter_queue" {
