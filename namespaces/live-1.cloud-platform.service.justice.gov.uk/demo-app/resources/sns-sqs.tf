@@ -8,11 +8,11 @@ module "test_sns" {
 module "test_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
 
-  environment-name       = "test"
+  environment-name       = "another-test"
   team_name              = "cloud-platform"
   infrastructure-support = "platforms@digital.justice.gov.uk"
   application            = "demoapp"
-#  existing_user_name     = "${module.test_sns.user_name}"
+  existing_user_name     = "${module.test_sns.user_name}"
 
   providers = {
     aws = "aws.london"
