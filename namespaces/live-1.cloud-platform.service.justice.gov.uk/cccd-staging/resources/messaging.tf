@@ -28,8 +28,6 @@ module "claims_for_ccr" {
   EOF
 
   policy = <<EOF
-{
-  "Policy": 
   {
     "Version": "2012-10-17",
     "Id": "SQSDefaultPolicy",
@@ -48,8 +46,7 @@ module "claims_for_ccr" {
               }
         }
       ]
-  } 
-}
+  }
  EOF
 
   providers = {
