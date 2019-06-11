@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=3.0"
 
   team_name          = "laa-get-paid"
   topic_display_name = "cccd-claims-submitted"
@@ -9,26 +9,14 @@ module "cccd_claims_submitted" {
   }
 }
 
-resource "kubernetes_secret" "cccd_claims_submitted" {
-  metadata {
-    name      = "cccd-claims-submitted-sns"
-    namespace = "cccd-staging"
-  }
-
-  data {
-    access_key_id     = "${module.cccd_claims_submitted.access_key_id}"
-    secret_access_key = "${module.cccd_claims_submitted.secret_access_key}"
-    topic_arn         = "${module.cccd_claims_submitted.topic_arn}"
-  }
-}
-
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=iam-policies"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
     aws = "aws.london"
@@ -36,28 +24,29 @@ module "claims_for_ccr" {
 }
 
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=iam-policies"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
 
   environment-name       = "staging"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
-  existing_user_name     = "${module.claims_for_ccr.user_name}"
+  existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
     aws = "aws.london"
   }
 }
 
-resource "kubernetes_secret" "cccd-sqs" {
+resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
-    name      = "cccd-sqs"
+    name      = "cccd-messaging"
     namespace = "cccd-staging"
   }
 
   data {
-    access_key_id     = "${module.claims_for_ccr.access_key_id}"
-    secret_access_key = "${module.claims_for_ccr.secret_access_key}"
+    access_key_id     = "${module.cccd_claims_submitted.access_key_id}"
+    secret_access_key = "${module.cccd_claims_submitted.secret_access_key}"
+    topic_arn         = "${module.cccd_claims_submitted.topic_arn}"
     sqs_ccr_id        = "${module.claims_for_ccr.sqs_id}"
     sqs_ccr_arn       = "${module.claims_for_ccr.sqs_arn}"
     sqs_dlq_id        = "${module.ccr_dead_letter_queue.sqs_id}"
