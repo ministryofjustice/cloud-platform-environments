@@ -1,15 +1,14 @@
 # https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials
 
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
 
   providers = {
     aws = "aws.london"
   }
 
-  team_name     = "${var.team_name}"
-  repo_name     = "${var.application}"
-  enable_policy = false
+  team_name = "${var.team_name}"
+  repo_name = "${var.application}"
 }
 
 resource "kubernetes_secret" "ecr" {
