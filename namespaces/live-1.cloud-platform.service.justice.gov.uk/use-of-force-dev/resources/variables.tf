@@ -1,7 +1,3 @@
-variable "domain" {
-  default = "use-of-force-dev.service.justice.gov.uk"
-}
-
 variable "application" {
   default = "use-of-force"
 }
