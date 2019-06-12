@@ -76,3 +76,9 @@ rules:
   - prometheusrules
   verbs:
   - '*'
+- apiGroups:
+  - cronjobber.hidde.co
+  resources:
+  - tzcronjobs
+  verbs:
+  - '*'
