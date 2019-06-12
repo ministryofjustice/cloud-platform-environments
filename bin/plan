@@ -31,7 +31,8 @@ if [ -n "$changed_dirs" ]; then
         terraform plan \
           -var="cluster_name=${cluster%%.*}" \
           -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
-          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
+          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate" \
+            | grep -vE '^\s{3}'
       )
     fi
   done
