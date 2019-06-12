@@ -29,5 +29,5 @@ subjects:
   namespace: david-add-django-basic-auth-test
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: admin
   apiGroup: rbac.authorization.k8s.io
