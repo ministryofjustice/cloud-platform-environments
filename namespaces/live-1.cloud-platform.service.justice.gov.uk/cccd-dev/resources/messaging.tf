@@ -76,7 +76,7 @@ module "claims_for_cclf" {
   }
 }
 
-resource "kubernetes_secret" "responses_for_cccd" {
+module "responses_for_cccd" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
 
   environment-name       = "dev"
