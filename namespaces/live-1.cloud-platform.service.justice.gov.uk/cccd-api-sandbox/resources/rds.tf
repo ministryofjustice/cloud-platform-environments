@@ -8,16 +8,16 @@
 module "cccd_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
-  team_name              = "laa-get-paid"
-  business-unit          = "legal-aid-agency"
-  application            = "cccd"
-  is-production          = "false"
-  environment-name       = "api-sandbox"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  db_engine_version = "9.6"
-  force_ssl              = "true"
+  cluster_name                = "${var.cluster_name}"
+  cluster_state_bucket        = "${var.cluster_state_bucket}"
+  team_name                   = "laa-get-paid"
+  business-unit               = "legal-aid-agency"
+  application                 = "cccd"
+  is-production               = "false"
+  environment-name            = "api-sandbox"
+  infrastructure-support      = "crowncourtdefence@digtal.justice.gov.uk"
+  db_engine_version           = "9.6"
+  force_ssl                   = "true"
   allow_major_version_upgrade = "true"
 
   providers = {
