@@ -12,7 +12,7 @@ module "rds" {
   is-production          = "false"
   environment-name       = "lab"
   infrastructure-support = "dimitrios.karagiannis@digital.justice.gov.uk"
-  force_ssl              = "false"
+  force_ssl              = true
 
   providers = {
     aws = "aws.london"
