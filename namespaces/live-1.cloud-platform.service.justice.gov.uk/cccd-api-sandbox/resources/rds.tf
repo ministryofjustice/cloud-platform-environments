@@ -6,7 +6,7 @@
  */
 
 module "cccd_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.3"
 
   cluster_name                = "${var.cluster_name}"
   cluster_state_bucket        = "${var.cluster_state_bucket}"
@@ -17,7 +17,6 @@ module "cccd_rds" {
   environment-name            = "api-sandbox"
   infrastructure-support      = "crowncourtdefence@digtal.justice.gov.uk"
   db_engine_version           = "9.6"
-  force_ssl                   = "true"
   allow_major_version_upgrade = "true"
 
   providers = {
