@@ -15,3 +15,7 @@ provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
 }
+
+variable "cluster_name" {}
+
+variable "cluster_state_bucket" {}
