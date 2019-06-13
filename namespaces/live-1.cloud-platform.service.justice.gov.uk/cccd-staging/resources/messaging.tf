@@ -103,6 +103,26 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
   EOF
 }
 
+module "responses_for_cccd" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+
+  environment-name       = "staging"
+  team_name              = "laa-get-paid"
+  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  application            = "cccd"
+  existing_user_name     = "${module.cccd_claims_submitted.user_name}"
+
+  redrive_policy = <<EOF
+  {
+    "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
+  }
+  EOF
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
 module "ccr_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
 
@@ -131,6 +151,20 @@ module "cclf_dead_letter_queue" {
   }
 }
 
+module "cccd_response_dead_letter_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+
+  environment-name       = "staging"
+  team_name              = "laa-get-paid"
+  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  application            = "cccd"
+  existing_user_name     = "${module.cccd_claims_submitted.user_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
 resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
     name      = "cccd-messaging"
@@ -145,10 +179,14 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
     sqs_ccr_arn       = "${module.claims_for_ccr.sqs_arn}"
     sqs_cclf_id       = "${module.claims_for_cclf.sqs_id}"
     sqs_cclf_arn      = "${module.claims_for_cclf.sqs_arn}"
-    sqs_dlq_id        = "${module.ccr_dead_letter_queue.sqs_id}"
-    sqs_dlq_arn       = "${module.ccr_dead_letter_queue.sqs_arn}"
+    sqs_cccd_id       = "${module.responses_for_cccd.sqs_id}"
+    sqs_cccd_arn      = "${module.responses_for_cccd.sqs_arn}"
+    sqs_ccr_dlq_id    = "${module.ccr_dead_letter_queue.sqs_id}"
+    sqs_ccr_dlq_arn   = "${module.ccr_dead_letter_queue.sqs_arn}"
     sqs_cclf_dlq_id   = "${module.cclf_dead_letter_queue.sqs_id}"
     sqs_cclf_dlq_arn  = "${module.cclf_dead_letter_queue.sqs_arn}"
+    sqs_cccd_dlq_id   = "${module.cccd_response_dead_letter_queue.sqs_id}"
+    sqs_cccd_dlq_arn  = "${module.cccd_response_dead_letter_queue.sqs_arn}"
   }
 }
 
