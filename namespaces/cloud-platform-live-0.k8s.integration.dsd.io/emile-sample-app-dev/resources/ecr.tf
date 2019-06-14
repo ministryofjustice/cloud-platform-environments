@@ -15,7 +15,7 @@ provider "aws" {
 module "emile_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "emile-sample-app"
-  team_name = "Form Builder"
+  team_name = "formbuilder-dev"
 }
 
 resource "kubernetes_secret" "ecr_repo" {
