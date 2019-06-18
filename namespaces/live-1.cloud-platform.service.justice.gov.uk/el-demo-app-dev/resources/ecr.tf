@@ -19,7 +19,7 @@ module "example_team_ecr_credentials" {
 resource "kubernetes_secret" "example_team_ecr_credentials" {
   metadata {
     name      = "example-team-ecr-credentials-output"
-    namespace = "my-namespace"
+    namespace = "el-demo-app-dev"
   }
 
   data {
