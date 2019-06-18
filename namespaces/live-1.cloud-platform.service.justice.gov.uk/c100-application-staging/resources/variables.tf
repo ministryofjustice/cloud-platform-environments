@@ -26,10 +26,6 @@ variable "repo_name" {
   default = "c100-application"
 }
 
-variable "aws_region" {
-  default = "eu-west-2"
-}
-
 // The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {}
 
