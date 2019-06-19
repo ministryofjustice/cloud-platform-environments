@@ -3,6 +3,6 @@ terraform {
 }
 
 provider "aws" {
-  alias  = "${var.aws_alias}"
-  region = "${var.aws_region}"
+  alias  = "london"
+  region = "eu-west-2"
 }

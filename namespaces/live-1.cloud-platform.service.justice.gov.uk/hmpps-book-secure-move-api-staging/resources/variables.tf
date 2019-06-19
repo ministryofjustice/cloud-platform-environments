@@ -26,14 +26,6 @@ variable "repo_name" {
   default = "hmpps-book-secure-move-api"
 }
 
-variable "aws_region" {
-  default = "eu-west-2"
-}
-
-variable "aws_alias" {
-  default = "london"
-}
-
 // The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {}
 
