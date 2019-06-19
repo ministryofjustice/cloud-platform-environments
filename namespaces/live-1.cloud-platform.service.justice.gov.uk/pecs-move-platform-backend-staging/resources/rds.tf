@@ -13,7 +13,6 @@ module "rds-instance" {
   providers = {
     aws = "aws.london"
   }
-
 }
 
 resource "kubernetes_secret" "rds-instance" {
