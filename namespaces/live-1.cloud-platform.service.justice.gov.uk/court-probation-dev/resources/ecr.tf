@@ -102,3 +102,99 @@ resource "kubernetes_secret" "court_list_service_ecr_credentials" {
     repo_url          = "${module.court_list_service_ecr_credentials.repo_url}"
   }
 }
+
+module "prepare_probation_courtcases_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  repo_name = "prepare-probation-courtcases"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "prepare_probation_courtcases_ecr_credentials" {
+  metadata {
+    name      = "prepare-probation-courtcases-ecr-credentials"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.prepare_probation_courtcases_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.prepare_probation_courtcases_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.prepare_probation_courtcases_ecr_credentials.repo_arn}"
+    repo_url          = "${module.prepare_probation_courtcases_ecr_credentials.repo_url}"
+  }
+}
+
+module "ndelius_new_tech_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  repo_name = "ndelius-new-tech"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "ndelius_new_tech_ecr_credentials" {
+  metadata {
+    name      = "ndelius-new-tech-ecr-credentials"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.ndelius_new_tech_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.ndelius_new_tech_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.ndelius_new_tech_ecr_credentials.repo_arn}"
+    repo_url          = "${module.ndelius_new_tech_ecr_credentials.repo_url}"
+  }
+}
+
+module "community_api_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  repo_name = "community-api"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "community_api_ecr_credentials" {
+  metadata {
+    name      = "community-api-ecr-credentials"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.community_api_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.community_api_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.community_api_ecr_credentials.repo_arn}"
+    repo_url          = "${module.community_api_ecr_credentials.repo_url}"
+  }
+}
+
+module "ukcloud_proxy_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  repo_name = "ukcloud-proxy"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "ukcloud_proxy_ecr_credentials" {
+  metadata {
+    name      = "ukcloud-proxy-ecr-credentials"
+    namespace = "court-probation-dev"
+  }
+
+  data {
+    access_key_id     = "${module.ukcloud_proxy_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.ukcloud_proxy_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.ukcloud_proxy_ecr_credentials.repo_arn}"
+    repo_url          = "${module.ukcloud_proxy_ecr_credentials.repo_url}"
+  }
+}
