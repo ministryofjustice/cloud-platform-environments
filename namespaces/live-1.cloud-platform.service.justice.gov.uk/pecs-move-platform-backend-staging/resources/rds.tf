@@ -9,6 +9,10 @@ module "rds-instance" {
   is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "rds-instance" {

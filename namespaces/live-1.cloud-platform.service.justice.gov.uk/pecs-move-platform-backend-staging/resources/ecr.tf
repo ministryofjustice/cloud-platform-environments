@@ -3,6 +3,10 @@ module "ecr-repo" {
 
   team_name = "${var.team_name}"
   repo_name = "${var.repo_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo" {
