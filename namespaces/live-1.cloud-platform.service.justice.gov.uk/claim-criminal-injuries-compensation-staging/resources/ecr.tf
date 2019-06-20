@@ -3,10 +3,9 @@
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
  *
- *
  */
 module "cica_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "cica-repo-stg"
   team_name = "cica"
 
