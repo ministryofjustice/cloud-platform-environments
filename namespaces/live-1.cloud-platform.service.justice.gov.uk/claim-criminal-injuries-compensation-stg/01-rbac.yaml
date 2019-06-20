@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: claim-criminal-injuries-compensation-stg-admin
-  namespace: claim-criminal-injuries-compensation-stg
+  name: claim-criminal-injuries-compensation-staging-admin
+  namespace: claim-criminal-injuries-compensation-staging
 subjects:
   - kind: Group
     name: "github:cica"

@@ -19,7 +19,7 @@ module "cica_ecr_credentials" {
 resource "kubernetes_secret" "ecr_repo" {
   metadata {
     name      = "ecr-credentials-output"
-    namespace = "claim-criminal-injuries-compensation-stg"
+    namespace = "claim-criminal-injuries-compensation-staging"
   }
 
   data {
