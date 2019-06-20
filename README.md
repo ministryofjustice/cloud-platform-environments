@@ -45,3 +45,4 @@ resource "kubernetes_secret" "my_S3_bucket_creeds" {
   }
 }
 ```
+
