@@ -16,6 +16,10 @@ module "emile_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "${var.repo_name}"
   team_name = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr_repo" {

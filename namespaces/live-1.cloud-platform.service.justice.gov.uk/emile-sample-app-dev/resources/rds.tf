@@ -15,10 +15,6 @@ module "rds-instance" {
   infrastructure-support      = "${var.infrastructure-support}"
   allow_major_version_upgrade = "true"
   force_ssl                   = "true"
-
-  providers = {
-    aws = "aws.london"
-  }
 }
 
 resource "kubernetes_secret" "rds-instance" {
