@@ -22,20 +22,12 @@ variable "namespace" {
   default = "fj-cait-production"
 }
 
-variable "domain" {
-  default = "https://helpwithchildarrangements.service.justice.gov.uk"
-}
-
 variable "business-unit" {
-  default = "c100"
+  default = "Family Justice"
 }
 
 variable "repo_name" {
   default = "pflr-cait"
-}
-
-variable "aws_region" {
-  default = "eu-west-2"
 }
 
 // The following two variables are provided at runtime by the pipeline.

@@ -1,5 +1,5 @@
-resource "aws_route53_zone" "route53-zone" {
-  name = "${var.domain}"
+resource "aws_route53_zone" "route53_zone" {
+  name = "helpwithchildarrangements.service.justice.gov.uk"
 
   tags {
     business-unit          = "${var.business-unit}"
@@ -11,13 +11,13 @@ resource "aws_route53_zone" "route53-zone" {
   }
 }
 
-resource "kubernetes_secret" "route53-zone" {
+resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
-    name      = "cait-route53-zone-output"
+    name      = "route53-zone-output"
     namespace = "${var.namespace}"
   }
 
   data {
-    zone_id = "${aws_route53_zone.route53-zone.zone_id}"
+    zone_id = "${aws_route53_zone.route53_zone.zone_id}"
   }
 }
