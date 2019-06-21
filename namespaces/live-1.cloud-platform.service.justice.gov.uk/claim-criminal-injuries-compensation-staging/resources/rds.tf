@@ -16,7 +16,7 @@ module "rds" {
   db_engine_version          = "10.6"
   db_instance_class          = "db.t2.small"
   db_allocated_storage       = "5"
-  db_name                    = "datacaptureservice-staging"
+  db_name                    = "datacaptureservicestaging"
   db_backup_retention_period = "${var.db_backup_retention_period}"
 }
 
