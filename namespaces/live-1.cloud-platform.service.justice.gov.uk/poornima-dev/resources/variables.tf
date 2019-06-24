@@ -1,6 +1,7 @@
 variable "domain" {
   default = "dev-pk.service.justice.gov.uk"
 }
+
 variable "namespace" {
   default = "poornima-dev"
 }
@@ -15,12 +16,12 @@ variable "business-unit" {
 }
 
 variable "team_name" {
-  default = "cloud-platform"
+  default     = "cloud-platform"
   description = "Cloud Platform"
 }
 
 variable "environment-name" {
-  default = "test"
+  default     = "test"
   description = "Development/Test environment"
 }
 
