@@ -6,7 +6,6 @@ module "rds-instance" {
 
   db_allocated_storage        = "10"
   db_instance_class           = "db.t2.small"
-  db_iops                     = "1000"
   team_name                   = "${var.team_name}"
   business-unit               = "${var.business-unit}"
   application                 = "${var.application}"
