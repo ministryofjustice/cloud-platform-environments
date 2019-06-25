@@ -1,0 +1,18 @@
+---
+   apiVersion: certmanager.k8s.io/v1alpha1
+   kind: Certificate
+   metadata:
+     name: myruby-app-cert
+     namespace: poornima-dev
+   spec:
+     secretName: myruby-app-cert-secret
+     issuerRef:
+       name: letsencrypt-production
+       kind: ClusterIssuer
+     commonName: 'dev-pk.service.justice.gov.uk'
+     acme:
+       config:
+       - domains:
+         - 'dev-pk.service.justice.gov.uk'
+         dns01:
+           provider: route53-cloud-platform
