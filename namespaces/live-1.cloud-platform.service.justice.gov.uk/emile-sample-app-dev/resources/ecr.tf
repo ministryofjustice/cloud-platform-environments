@@ -3,7 +3,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-2"
+  region = "${var.aws_region}"
 }
 
 /*
@@ -14,14 +14,18 @@ provider "aws" {
  */
 module "emile_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
-  repo_name = "emile-sample-app"
-  team_name = "formbuilder-dev"
+  repo_name = "${var.repo_name}"
+  team_name = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr_repo" {
   metadata {
     name      = "emile-ecr-credentials-output"
-    namespace = "emile-sample-app-dev"
+    namespace = "${var.namespace}"
   }
 
   data {
