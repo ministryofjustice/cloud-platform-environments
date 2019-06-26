@@ -6,7 +6,7 @@ provider "pingdom" {}
 
 resource "pingdom_check" "claim-criminal-injuries-compensation-uat" {
   type                     = "http"
-  name                     = "cicq - uat - cloud-platform - claim - health check"
+  name                     = "cica - uat - cloud-platform - claim - health check"
   host                     = "uat.claim-criminal-injuries-compensation.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
