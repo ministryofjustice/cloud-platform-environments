@@ -13,15 +13,15 @@ module "checkmydiary_rds" {
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "check-my-diary"
   application            = "check-my-diary"
-  is-production          = "false"
-  environment-name       = "preprod"
+  is-production          = "true"
+  environment-name       = "prod"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
 }
 
 resource "kubernetes_secret" "checkmydiary_rds" {
   metadata {
-    name      = "check-my-diary-rds-preprod"
-    namespace = "check-my-diary-preprod"
+    name      = "check-my-diary-rds-prod"
+    namespace = "check-my-diary-prod"
   }
 
   data {

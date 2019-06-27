@@ -7,7 +7,7 @@ module "checkmydiary-service" {
 resource "kubernetes_secret" "checkmydiary_ecr_credentials" {
   metadata {
     name      = "checkmydiary-ecr-credentials-output"
-    namespace = "check-my-diary-preprod"
+    namespace = "check-my-diary-prod"
   }
 
   data {
@@ -27,7 +27,7 @@ module "checkmydiary-notification-service" {
 resource "kubernetes_secret" "checkmydiary-notification-service_ecr_credentials" {
   metadata {
     name      = "checkmydiary-notification-service-ecr-credentials-output"
-    namespace = "check-my-diary-preprod"
+    namespace = "check-my-diary-prod"
   }
 
   data {

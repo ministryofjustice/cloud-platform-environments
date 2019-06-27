@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: check-my-diary-preprod
+  namespace: check-my-diary-prod
 spec:
   hard:
     requests.cpu: 3000m
