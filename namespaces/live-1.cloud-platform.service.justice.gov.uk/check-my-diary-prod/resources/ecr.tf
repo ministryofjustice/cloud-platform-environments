@@ -1,6 +1,6 @@
-module "checkmydiary-service" {
+module "checkmydiary-service-prod" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
-  repo_name = "check-my-diary"
+  repo_name = "check-my-diary-prod"
   team_name = "check-my-diary"
 }
 
@@ -11,16 +11,16 @@ resource "kubernetes_secret" "checkmydiary_ecr_credentials" {
   }
 
   data {
-    access_key_id     = "${module.checkmydiary-service.access_key_id}"
-    secret_access_key = "${module.checkmydiary-service.secret_access_key}"
-    repo_arn          = "${module.checkmydiary-service.repo_arn}"
-    repo_url          = "${module.checkmydiary-service.repo_url}"
+    access_key_id     = "${module.checkmydiary-service-prod.access_key_id}"
+    secret_access_key = "${module.checkmydiary-service-prod.secret_access_key}"
+    repo_arn          = "${module.checkmydiary-service-prod.repo_arn}"
+    repo_url          = "${module.checkmydiary-service-prod.repo_url}"
   }
 }
 
-module "checkmydiary-notification-service" {
+module "checkmydiary-notification-service-prod" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
-  repo_name = "check-my-diary-notification-service"
+  repo_name = "check-my-diary-notification-service-prod"
   team_name = "check-my-diary"
 }
 
@@ -31,9 +31,9 @@ resource "kubernetes_secret" "checkmydiary-notification-service_ecr_credentials"
   }
 
   data {
-    access_key_id     = "${module.checkmydiary-notification-service.access_key_id}"
-    secret_access_key = "${module.checkmydiary-notification-service.secret_access_key}"
-    repo_arn          = "${module.checkmydiary-notification-service.repo_arn}"
-    repo_url          = "${module.checkmydiary-notification-service.repo_url}"
+    access_key_id     = "${module.checkmydiary-notification-service-prod.access_key_id}"
+    secret_access_key = "${module.checkmydiary-notification-service-prod.secret_access_key}"
+    repo_arn          = "${module.checkmydiary-notification-service-prod.repo_arn}"
+    repo_url          = "${module.checkmydiary-notification-service-prod.repo_url}"
   }
 }
