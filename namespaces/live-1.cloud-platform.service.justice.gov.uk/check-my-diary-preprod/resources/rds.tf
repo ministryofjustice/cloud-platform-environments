@@ -7,7 +7,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -15,7 +15,6 @@ module "checkmydiary_rds" {
   application            = "check-my-diary"
   is-production          = "false"
   environment-name       = "preprod"
-  db_name                = ""
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
 }
 
