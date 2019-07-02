@@ -6,7 +6,7 @@ module "test_sns" {
 }
 
 module "test_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
 
   environment-name       = "another-test"
   team_name              = "cloud-platform"
