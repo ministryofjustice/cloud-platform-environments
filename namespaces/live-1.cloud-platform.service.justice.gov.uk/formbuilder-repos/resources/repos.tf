@@ -237,3 +237,26 @@ resource "kubernetes_secret" "ecr-repo-fb-av" {
     secret_access_key = "${module.ecr-repo-fb-av.secret_access_key}"
   }
 }
+
+##################################################
+
+# fb-builder - docker image used to build form builder components
+module "ecr-repo-fb-builder" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+
+  team_name = "formbuilder"
+  repo_name = "fb-builder"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-builder" {
+  metadata {
+    name      = "ecr-repo-fb-builder"
+    namespace = "formbuilder-repos"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-builder.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-builder.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-builder.secret_access_key}"
+  }
+}
