@@ -260,3 +260,26 @@ resource "kubernetes_secret" "ecr-repo-fb-builder" {
     secret_access_key = "${module.ecr-repo-fb-builder.secret_access_key}"
   }
 }
+
+##################################################
+
+# fb-runner-init-containers - docker image used to initialise runner containers
+module "ecr-repo-fb-runner-init-containers" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+
+  team_name = "formbuilder"
+  repo_name = "fb-runner-init-containers"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-runner-init-containers" {
+  metadata {
+    name      = "ecr-repo-fb-runner-init-containers"
+    namespace = "formbuilder-repos"
+  }
+
+  data {
+    repo_url          = "${module.ecr-repo-fb-runner-init-containers.repo_url}"
+    access_key_id     = "${module.ecr-repo-fb-runner-init-containers.access_key_id}"
+    secret_access_key = "${module.ecr-repo-fb-runner-init-containers.secret_access_key}"
+  }
+}
