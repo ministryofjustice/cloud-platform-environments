@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: formbuilder-monitoring
+  labels:
+    name: formbuilder-monitoring
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+  annotations:
+    cloud-platform.justice.gov.uk/application: "formbuilder-monitoring"
+    cloud-platform.justice.gov.uk/business-unit: "transformed-department"
+    cloud-platform.justice.gov.uk/contact_email: "formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/environment: "dev"
+    cloud-platform.justice.gov.uk/github_team: "formbuilder"
+    cloud-platform.justice.gov.uk/namespace: "formbuilder-monitoring"
+    cloud-platform.justice.gov.uk/owner: "Form Builder: formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source_code_url: "https://github.com/ministryofjustice/fb-monitoring"
