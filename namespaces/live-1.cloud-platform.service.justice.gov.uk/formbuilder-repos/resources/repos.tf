@@ -64,10 +64,14 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 # Runner ECR Repos
 module "ecr-repo-fb-runner-node" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
 
   team_name = "formbuilder"
   repo_name = "fb-runner-node"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-runner-node" {
