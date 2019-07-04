@@ -64,7 +64,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 # Runner ECR Repos
 module "ecr-repo-fb-runner-node" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
 
   team_name = "formbuilder"
   repo_name = "fb-runner-node"
