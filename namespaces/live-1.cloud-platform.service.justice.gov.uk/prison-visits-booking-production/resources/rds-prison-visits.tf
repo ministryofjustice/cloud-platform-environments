@@ -16,14 +16,14 @@ variable "cluster_state_bucket" {}
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "prison-visits-booking"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-production"
-  is-production          = "false"
+  is-production          = "${var.is-production}"
   environment-name       = "production"
   infrastructure-support = "pvb-technical-support@digtal.justice.gov.uk"
   db_engine              = "postgres"

@@ -7,7 +7,7 @@ variable "team_name" {
 }
 
 variable "is-production" {
-  default = "false"
+  default = "true"
 }
 
 variable "namespace" {
