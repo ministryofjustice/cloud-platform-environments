@@ -8,7 +8,10 @@ module "ec-cluster-prison-visits-booking-staff" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  aws_region             = "eu-west-2"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ec-cluster-prison-visits-booking-staff" {
