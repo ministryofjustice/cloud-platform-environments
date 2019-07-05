@@ -4,6 +4,7 @@ module "ec-cluster-prison-visits-booking-staff" {
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
   application            = "prison-visits-booking-staff"
+  node_type              = "cache.m4.xlarge"
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
