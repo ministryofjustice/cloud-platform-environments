@@ -1,8 +1,12 @@
 module "ecr-repo-support-labelling" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
 
   team_name = "webops"
   repo_name = "support-labelling-webhooks"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo-api" {

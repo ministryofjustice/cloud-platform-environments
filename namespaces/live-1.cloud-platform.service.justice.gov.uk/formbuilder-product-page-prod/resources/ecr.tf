@@ -1,7 +1,11 @@
 module "formbuilder_product_page_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
   repo_name = "formbuilder-product-page"
   team_name = "formbuilder"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "formbuilder_product_page_ecr_credentials" {

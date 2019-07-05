@@ -1,8 +1,12 @@
 module "ecr-repo-check-financial-eligibility-service" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "check-financial-eligibility-service"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo-check-financial-eligibility-service" {

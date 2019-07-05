@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "eu-west-2"
-}
-
 /*
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
@@ -13,10 +5,13 @@ provider "aws" {
  *
  */
 module "cica-repo" {
-  source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "cica"
-  team_name  = "cica"
-  aws_region = "eu-west-2"                                                                     # this overwrite the region from the provider defined above.
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  repo_name = "cica"
+  team_name = "cica"
+
+  providers = {
+    aws = "aws.london"
+  } # this overwrite the region from the provider defined above.
 }
 
 resource "kubernetes_secret" "ecr-repo" {
