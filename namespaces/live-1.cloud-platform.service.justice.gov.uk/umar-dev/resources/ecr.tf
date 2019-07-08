@@ -1,5 +1,5 @@
 module "umar-dev-ecr-credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "umar-dev"
   team_name = "form-builder"
 

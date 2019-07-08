@@ -1,5 +1,5 @@
 module "sentence-planning_ecr" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.3"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "sentence-planning"
   team_name = "digital-prison-services"
 
