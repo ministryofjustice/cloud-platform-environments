@@ -1,5 +1,5 @@
 module "becca_test_app_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "becca-test-app"
   team_name = "tactical-products"
 
