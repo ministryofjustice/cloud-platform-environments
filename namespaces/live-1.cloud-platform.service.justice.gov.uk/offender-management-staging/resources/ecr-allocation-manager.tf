@@ -1,8 +1,12 @@
 module "ecr-repo-allocation-manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
 
   team_name = "offender-management"
   repo_name = "offender-management-allocation-manager"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo-allocation-manager" {

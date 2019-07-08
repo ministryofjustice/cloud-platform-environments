@@ -3,10 +3,13 @@
 ##########################################
 
 module "pq_ecr_credentials" {
-  aws_region = "${var.aws_region}"
-  repo_name  = "${var.repo_name}"
-  source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  team_name  = "${var.team_name}"
+  repo_name = "${var.repo_name}"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  team_name = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "pq_ecr_credentials" {

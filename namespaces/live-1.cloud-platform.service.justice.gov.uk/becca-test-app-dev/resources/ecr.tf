@@ -1,8 +1,11 @@
 module "becca_test_app_ecr_credentials" {
-  source     = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.1"
-  repo_name  = "becca-test-app"
-  team_name  = "tactical-products"
-  aws_region = "eu-west-2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.2"
+  repo_name = "becca-test-app"
+  team_name = "tactical-products"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "becca_test_app_ecr_credentials" {
