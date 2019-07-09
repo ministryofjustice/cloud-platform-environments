@@ -5,7 +5,7 @@ metadata:
   namespace: nomis-api-access-staging
 subjects:
   - kind: Group
-    name: "github:omic"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
