@@ -22,7 +22,7 @@ module "rds" {
 
 resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "rds"
+    name      = "rds-dev"
     namespace = "${var.namespace}"
   }
 
