@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "main" {
-  name = "test.form.service.justice.gov.uk"
+  name = "form.service.justice.gov.uk"
 
   tags {
     business-unit          = "transformed-department"
