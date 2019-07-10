@@ -11,20 +11,6 @@ module "risk_profiler_s3_bucket" {
   aws-s3-region          = "eu-west-2"
 }
 
-resource "kubernetes_secret" "viper_s3_bucket" {
-  metadata {
-    name      = "viper-s3-bucket-output"
-    namespace = "${var.namespace}"
-  }
-
-  data {
-    access_key_id     = "${module.viper_s3_bucket.access_key_id}"
-    secret_access_key = "${module.viper_s3_bucket.secret_access_key}"
-    bucket_arn        = "${module.viper_s3_bucket.bucket_arn}"
-    bucket_name       = "${module.viper_s3_bucket.bucket_name}"
-  }
-}
-
 resource "kubernetes_secret" "risk_profiler_s3_bucket" {
   metadata {
     name      = "risk-profiler-s3-bucket-output"
