@@ -29,3 +29,7 @@ variable "infrastructure-support" {
 variable "is-production" {
   default = "false"
 }
+
+variable "rds-family" {
+  default = "postgres10"
+}
