@@ -1,0 +1,14 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: offender-categorisation-prod-admin
+  namespace: offender-categorisation-prod
+subjects:
+  - kind: Group
+    name: "github:dps-production-releases"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
