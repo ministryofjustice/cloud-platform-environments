@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: categorisation-tool-dev-admin
-  namespace: categorisation-tool-dev
+  name: categorisation-tool-preprod-admin
+  namespace: categorisation-tool-preprod
 subjects:
   - kind: Group
     name: "github:dps-shared"
