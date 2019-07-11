@@ -17,7 +17,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "DPS"
+  default     = "Digital-Prison-Services"
 }
 
 variable "environment-name" {
@@ -27,7 +27,7 @@ variable "environment-name" {
 
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "michael.willis@digtal.justice.gov.uk"
+  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is-production" {
