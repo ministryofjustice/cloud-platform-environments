@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "dev.offender-case-notes.service.justice.gov.uk"
+  default = "offender-case-notes.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "offender-case-notes-dev"
+  default = "offender-case-notes-prod"
 }
 
 variable "business-unit" {
@@ -17,12 +17,12 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/Tech"
+  default     = "Digital Prison Services/New Nomis"
 }
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "prod"
 }
 
 variable "infrastructure-support" {
@@ -31,5 +31,5 @@ variable "infrastructure-support" {
 }
 
 variable "is-production" {
-  default = "false"
+  default = "true"
 }

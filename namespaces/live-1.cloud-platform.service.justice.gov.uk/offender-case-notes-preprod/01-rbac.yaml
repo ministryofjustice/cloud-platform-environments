@@ -2,11 +2,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: offender-case-notes-dev-admin
-  namespace: offender-case-notes-dev
+  name: offender-case-notes-preprod-admin
+  namespace: offender-case-notes-preprod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:dps-production-releases"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
