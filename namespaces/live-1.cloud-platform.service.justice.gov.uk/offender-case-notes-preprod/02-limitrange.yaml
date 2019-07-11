@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: offender-case-notes-preprod
+spec:
+  limits:
+  - default:
+      cpu: 360m
+      memory: 1024Mi
+    defaultRequest:
+      cpu: 180m
+      memory: 512Mi
+    type: Container
