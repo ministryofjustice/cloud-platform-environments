@@ -198,3 +198,27 @@ resource "kubernetes_secret" "ukcloud_proxy_ecr_credentials" {
     repo_url          = "${module.ukcloud_proxy_ecr_credentials.repo_url}"
   }
 }
+
+module "delius_oauth2_server_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  repo_name = "delius-oauth2-server"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "delius_oauth2_server_ecr_credentials" {
+  metadata {
+    name      = "delius-oauth2-server-ecr-credentials"
+    namespace = "${var.namespace}"
+  }
+
+  data {
+    access_key_id     = "${module.delius_oauth2_server_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.delius_oauth2_server_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.delius_oauth2_server_ecr_credentials.repo_arn}"
+    repo_url          = "${module.delius_oauth2_server_ecr_credentials.repo_url}"
+  }
+}
