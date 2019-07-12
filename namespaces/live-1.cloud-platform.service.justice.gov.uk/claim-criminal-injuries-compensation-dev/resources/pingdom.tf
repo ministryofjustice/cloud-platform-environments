@@ -19,4 +19,3 @@ resource "pingdom_check" "claim-criminal-injuries-compensation-dev" {
   probefilters             = "region:EU"
   publicreport             = "true"
 }
-
