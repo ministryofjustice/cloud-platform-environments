@@ -8,11 +8,10 @@ module "ec-cluster-offender-management-allocation-manager" {
   node_type              = "cache.m4.large"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  
+
   providers = {
     aws = "aws.london"
-  }  
-
+  }
 }
 
 resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-production" {
