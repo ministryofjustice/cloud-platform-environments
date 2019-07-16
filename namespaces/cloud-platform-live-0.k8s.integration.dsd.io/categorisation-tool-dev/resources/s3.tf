@@ -23,6 +23,26 @@ module "viper_digcat_s3_bucket" {
   environment-name       = "categorisation-tool-dev"
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
   aws-s3-region          = "eu-west-2"
+
+bucket_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DelegateS3Access",
+            "Effect": "Allow",
+            "Principal": {"AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/Digital-Prison-Services/s3-bucket-user-33fed4c202e82791a7a0bf9398c9f1fc"},
+            "Action": ["s3:ListBucket","s3:GetObject"],
+            "Resource": [
+                "$${bucket_arn}/*",
+                "$${bucket_arn}"
+            ]
+        }
+    ]
+}
+EOF
+
+
 }
 
 resource "kubernetes_secret" "viper_digcat_s3_bucket" {
