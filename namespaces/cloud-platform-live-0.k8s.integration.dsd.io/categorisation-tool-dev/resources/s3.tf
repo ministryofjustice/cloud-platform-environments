@@ -24,7 +24,7 @@ module "viper_digcat_s3_bucket" {
   infrastructure-support = "michael.willis@digtal.justice.gov.uk"
   aws-s3-region          = "eu-west-2"
 
-bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -41,8 +41,6 @@ bucket_policy = <<EOF
     ]
 }
 EOF
-
-
 }
 
 resource "kubernetes_secret" "viper_digcat_s3_bucket" {
