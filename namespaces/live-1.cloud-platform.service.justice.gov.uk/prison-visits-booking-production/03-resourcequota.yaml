@@ -5,7 +5,7 @@ metadata:
   namespace: prison-visits-booking-production
 spec:
   hard:
-    requests.cpu: 3000m
+    requests.cpu: 6000m
     requests.memory: 12Gi
     limits.cpu: 6000m
     limits.memory: 15Gi
