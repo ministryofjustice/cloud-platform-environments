@@ -131,3 +131,6 @@ puts "  Num. containers:\t#{ns[:container_count]}"
 puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
 puts
 puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
+puts
+puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
+puts
