@@ -2,7 +2,7 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.2"
 
   team_name              = "${var.team_name}"
   acl                    = "private"
@@ -12,6 +12,10 @@ module "user-filestore-s3-bucket" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "user-filestore-s3-bucket" {
