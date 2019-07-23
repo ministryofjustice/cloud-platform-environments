@@ -116,6 +116,10 @@ class Namespace
 
   def memory_value(str)
     case str
+    when /^(\d+)$/
+      $1.to_i / 1_000
+    when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
+      $1.to_i / 1_000_000_000
     when /^(\d+)Gi/
       $1.to_i * 1000
     when /^(\d+)Mi/
