@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: cccd-dev-cert
+  namespace: cccd-dev
+spec:
+  secretName: cccd-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'dev.claim-crown-court-defence.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'dev.claim-crown-court-defence.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
