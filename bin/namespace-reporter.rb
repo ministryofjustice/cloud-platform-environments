@@ -47,34 +47,50 @@ class Namespace
   end
 
   def default_request
-    data = kubectl_get("limits")[0]
-      .dig("spec", "limits")[0]
-      .dig("defaultRequest")
+    limits = kubectl_get("limits")[0]
 
-    {
-      cpu: cpu_value(data.fetch("cpu")),
-      memory: memory_value(data.fetch("memory"))
-    }
+    if limits.nil?
+      {
+        cpu: nil,
+        memory: nil
+      }
+    else
+      data = limits.dig("spec", "limits")[0]
+        .dig("defaultRequest")
+
+      {
+        cpu: cpu_value(data.fetch("cpu")),
+        memory: memory_value(data.fetch("memory"))
+      }
+    end
   end
 
   def quota
-    data = kubectl_get("quota")[0]
-      .dig("status")
+    quota = kubectl_get("quota")[0]
 
-    hard_request_limit = {
-      cpu: cpu_value(data.dig("hard", "requests.cpu")),
-      memory: memory_value(data.dig("hard", "requests.memory"))
-    }
+    if quota.nil?
+      {
+        hard_request_limit: {cpu: nil, memory: nil},
+        requested: {cpu: nil, memory: nil}
+      }
+    else
+      data = quota.dig("status")
 
-    requested = {
-      cpu: cpu_value(data.dig("used", "requests.cpu")),
-      memory: memory_value(data.dig("used", "requests.memory"))
-    }
+      hard_request_limit = {
+        cpu: cpu_value(data.dig("hard", "requests.cpu")),
+        memory: memory_value(data.dig("hard", "requests.memory"))
+      }
 
-    {
-      hard_request_limit: hard_request_limit,
-      requested: requested
-    }
+      requested = {
+        cpu: cpu_value(data.dig("used", "requests.cpu")),
+        memory: memory_value(data.dig("used", "requests.memory"))
+      }
+
+      {
+        hard_request_limit: hard_request_limit,
+        requested: requested
+      }
+    end
   end
 
   def container_count(name)
