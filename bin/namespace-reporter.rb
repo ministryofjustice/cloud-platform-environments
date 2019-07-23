@@ -3,6 +3,22 @@
 # This script outputs a report to assist in comparing the resources a namespace
 # is requesting (and allowed to request), against what it actually uses.
 
+# Usage tips:
+#
+# Get results for all namespaces:
+#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb $ns; done | tee namespace-report.txt
+#
+# Total count of containers:
+#     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
+# https://stackoverflow.com/a/18141152/794111
+#
+# Total CPU used:
+#     grep in-use namespace-report.txt | sed 's/.*CPU: //' | sed 's/,.*//' | paste -sd+ - | bc
+#
+# Total Memory used:
+#     grep in-use namespace-report.txt | sed 's/.*Memory: //' | paste -sd+ - | bc
+#
+
 require 'json'
 
 class Namespace
