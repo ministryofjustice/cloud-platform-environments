@@ -30,7 +30,7 @@ module "user-filestore-s3-bucket" {
       "s3:ListBucketMultipartUploads",
       "s3:ListBucketVersions",
       "s3:GetLifecycleConfiguration",
-      "s3:PutLifecycleConfiguration",
+      "s3:PutLifecycleConfiguration"
     ],
     "Resource": "$${bucket_arn}"
   },
@@ -55,7 +55,7 @@ module "user-filestore-s3-bucket" {
       "s3:PutObjectTagging",
       "s3:PutObjectVersionAcl",
       "s3:PutObjectVersionTagging",
-      "s3:RestoreObject",
+      "s3:RestoreObject"
     ],
     "Resource": "$${bucket_arn}/*"
   }
