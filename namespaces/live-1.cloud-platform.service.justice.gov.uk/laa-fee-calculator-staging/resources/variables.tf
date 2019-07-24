@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "laa-fee-calculator.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "LAA Fee Calculator"
 }
