@@ -75,8 +75,8 @@ class Namespace
         .dig("defaultRequest")
 
       {
-        cpu: cpu_value(data.fetch("cpu")),
-        memory: memory_value(data.fetch("memory"))
+        cpu: cpu_value(data.fetch("cpu", nil)),
+        memory: memory_value(data.fetch("memory", nil))
       }
     end
   end
@@ -120,6 +120,8 @@ class Namespace
   end
 
   def cpu_value(str)
+    return nil if str.nil?
+
     case str
     when /^(\d+)$/
       $1.to_i * 1000
@@ -131,6 +133,8 @@ class Namespace
   end
 
   def memory_value(str)
+    return nil if str.nil?
+
     case str
     when /^(\d+)$/
       $1.to_i / 1_000
