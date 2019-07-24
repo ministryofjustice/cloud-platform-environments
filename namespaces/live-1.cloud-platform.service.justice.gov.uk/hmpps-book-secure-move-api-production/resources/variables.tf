@@ -30,14 +30,6 @@ variable "business-unit" {
   default = "Digital and Technology"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
-variable "environment-name" {
-  default = "production"
-}
-
 variable "domain" {
   default = "api.bookasecuremove.service.justice.gov.uk"
 }
