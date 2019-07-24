@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: family-mediators-api-certificate-production
+  namespace: family-mediators-api-production
+spec:
+  secretName: family-mediators-api-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'familymediators.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'familymediators.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform

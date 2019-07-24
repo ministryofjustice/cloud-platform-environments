@@ -1,0 +1,40 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: c100-application-certificate-long-domain
+  namespace: c100-application-production
+spec:
+  secretName: c100-application-tls-long-domain
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'apply-to-court-about-child-arrangements.service.justice.gov.uk'
+  dnsNames:
+  - apply-to-court-about-child-arrangements.service.justice.gov.uk
+  acme:
+    config:
+    - domains:
+      - 'apply-to-court-about-child-arrangements.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
+
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: c100-application-certificate-short-domain
+  namespace: c100-application-production
+spec:
+  secretName: c100-application-tls-short-domain
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'c100.service.justice.gov.uk'
+  dnsNames:
+  - c100.service.justice.gov.uk
+  acme:
+    config:
+      - domains:
+        - 'c100.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
