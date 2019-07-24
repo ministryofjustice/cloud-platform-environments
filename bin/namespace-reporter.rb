@@ -18,6 +18,8 @@
 # Total Memory used:
 #     grep in-use namespace-report.txt | sed 's/.*Memory: //' | paste -sd+ - | bc
 #
+# Containers by namespace
+#     egrep '(containers|Namespace)' namespace-report.txt | sed 's/    / /g' | paste -s -d ' \n' - | sed 's/Namespace: //' | sed 's/\ *Num. containers:\ */, /' | sed 's/\(.*\), \(.*\)/\2, \1/' | sort -n
 
 require 'json'
 
