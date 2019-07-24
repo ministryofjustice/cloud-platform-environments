@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: laa-fee-calculator-staging-cert
+  namespace: laa-fee-calculator-staging
+spec:
+  secretName: laa-fee-calculator-staging-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staging.laa-fee-calculator.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'staging.laa-fee-calculator.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
