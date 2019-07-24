@@ -31,7 +31,7 @@ variable "business-unit" {
 }
 
 variable "domain" {
-  default = "api.bookasecuremove.service.justice.gov.uk"
+  default = "bookasecuremove.service.justice.gov.uk"
 }
 
 // The following two variables are provided at runtime by the pipeline.
