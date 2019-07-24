@@ -15,7 +15,7 @@ variable "infrastructure-support" {
 }
 
 variable "application" {
-  default = "PECS move platform backend"
+  default = "HMPPS Book a secure move API"
 }
 
 variable "namespace" {
@@ -24,6 +24,14 @@ variable "namespace" {
 
 variable "repo_name" {
   default = "hmpps-book-secure-move-api"
+}
+
+variable "business-unit" {
+  default = "Digital and Technology"
+}
+
+variable "domain" {
+  default = "bookasecuremove.service.justice.gov.uk"
 }
 
 // The following two variables are provided at runtime by the pipeline.
