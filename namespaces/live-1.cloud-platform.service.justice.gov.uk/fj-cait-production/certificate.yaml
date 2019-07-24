@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: fj-cait-certificate-production
+  namespace: fj-cait-production
+spec:
+  secretName: fj-cait-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'helpwithchildarrangements.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'helpwithchildarrangements.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
