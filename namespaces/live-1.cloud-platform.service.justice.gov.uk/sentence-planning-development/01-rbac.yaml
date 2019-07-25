@@ -5,7 +5,7 @@ metadata:
   namespace: sentence-planning-development
 subjects:
   - kind: Group
-    name: "github:oasys-development-team"
+    name: "github:sentencing-and-oasys-development-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
