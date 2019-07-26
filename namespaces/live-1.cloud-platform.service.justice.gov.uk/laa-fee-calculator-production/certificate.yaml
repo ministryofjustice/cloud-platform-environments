@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: laa-fee-calculator-production-cert
+  namespace: laa-fee-calculator-production
+spec:
+  secretName: laa-fee-calculator-production-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'laa-fee-calculator.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'laa-fee-calculator.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
