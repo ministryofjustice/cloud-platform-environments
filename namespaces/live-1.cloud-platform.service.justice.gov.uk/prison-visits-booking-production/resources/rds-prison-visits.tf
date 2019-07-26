@@ -21,6 +21,7 @@ module "prison-visits-rds" {
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "prison-visits-booking"
+  db_instance_class      = "db.m4.large"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-production"
   is-production          = "${var.is-production}"
