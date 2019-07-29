@@ -8,7 +8,6 @@ module "ec-cluster-offender-management-allocation-manager" {
   node_type              = "cache.m4.large"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  aws_region             = "eu-west-2"
 
   providers = {
     aws = "aws.london"

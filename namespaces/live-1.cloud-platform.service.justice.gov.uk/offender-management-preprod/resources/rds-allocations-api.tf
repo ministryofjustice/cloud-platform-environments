@@ -29,7 +29,11 @@ module "allocation-rds" {
   db_engine              = "postgres"
   db_engine_version      = "10"
   db_name                = "allocations"
-  aws_region             = "eu-west-2"
+
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "allocation-rds" {
