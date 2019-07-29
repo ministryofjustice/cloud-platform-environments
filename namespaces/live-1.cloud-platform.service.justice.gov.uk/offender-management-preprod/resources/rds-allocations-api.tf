@@ -15,11 +15,12 @@ variable "cluster_state_bucket" {}
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.3"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "offender-management"
+  db_instance_class      = "db.m4.large"
   business-unit          = "HMPPS"
   application            = "offender-management-allocation-manager"
   is-production          = "true"
