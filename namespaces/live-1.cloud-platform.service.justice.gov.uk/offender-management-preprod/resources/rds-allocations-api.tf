@@ -30,7 +30,6 @@ module "allocation-rds" {
   db_engine_version      = "10"
   db_name                = "allocations"
 
-
   providers = {
     aws = "aws.london"
   }
