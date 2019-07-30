@@ -3,6 +3,24 @@
 # This script outputs a report to assist in comparing the resources a namespace
 # is requesting (and allowed to request), against what it actually uses.
 
+# Usage tips:
+#
+# Get results for all namespaces:
+#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb $ns; done | tee namespace-report.txt
+#
+# Total count of containers:
+#     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
+# https://stackoverflow.com/a/18141152/794111
+#
+# Total CPU used:
+#     grep in-use namespace-report.txt | sed 's/.*CPU: //' | sed 's/,.*//' | paste -sd+ - | bc
+#
+# Total Memory used:
+#     grep in-use namespace-report.txt | sed 's/.*Memory: //' | paste -sd+ - | bc
+#
+# Containers by namespace
+#     egrep '(containers|Namespace)' namespace-report.txt | sed 's/    / /g' | paste -s -d ' \n' - | sed 's/Namespace: //' | sed 's/\ *Num. containers:\ */, /' | sed 's/\(.*\), \(.*\)/\2, \1/' | sort -n
+
 require 'json'
 
 class Namespace
@@ -14,12 +32,16 @@ class Namespace
 
   def report
     ns_quota = quota
+    ns_limits = limits
 
     {
       name: name,
       resources_used: resources_used,
-      default_request: default_request,
-      max_resources: ns_quota.fetch(:hard_request_limit),
+      default_request: default_request(ns_limits),
+      default_limit: default_limit(ns_limits),
+      max_requests: ns_quota.fetch(:hard_request_limit),
+      hard_limit: ns_quota.fetch(:hard_limit),
+      hard_limit_used: ns_quota.fetch(:hard_limit_used),
       resources_requested: ns_quota.fetch(:requested),
       container_count: container_count(name)
     }
@@ -46,35 +68,75 @@ class Namespace
     { cpu: cpu, memory: memory }
   end
 
-  def default_request
-    data = kubectl_get("limits")[0]
-      .dig("spec", "limits")[0]
-      .dig("defaultRequest")
+  def default_request(limits)
+    from_limits(limits, "defaultRequest")
+  end
 
-    {
-      cpu: cpu_value(data.fetch("cpu")),
-      memory: memory_value(data.fetch("memory"))
-    }
+  def default_limit(limits)
+    from_limits(limits, "default")
+  end
+
+  def from_limits(limits, value_type)
+    if limits.nil?
+      {
+        cpu: nil,
+        memory: nil
+      }
+    else
+      data = limits.dig("spec", "limits")[0]
+        .dig(value_type)
+
+      {
+        cpu: cpu_value(data.fetch("cpu", nil)),
+        memory: memory_value(data.fetch("memory", nil))
+      }
+    end
+  end
+
+  def limits
+    kubectl_get("limits")[0]
   end
 
   def quota
-    data = kubectl_get("quota")[0]
-      .dig("status")
+    quota = kubectl_get("quota")[0]
 
-    hard_request_limit = {
-      cpu: cpu_value(data.dig("hard", "requests.cpu")),
-      memory: memory_value(data.dig("hard", "requests.memory"))
-    }
+    if quota.nil?
+      {
+        hard_request_limit: {cpu: nil, memory: nil},
+        hard_limit: {cpu: nil, memory: nil},
+        requested: {cpu: nil, memory: nil},
+        hard_limit_used: {cpu: nil, memory: nil}
+      }
+    else
+      data = quota.dig("status")
 
-    requested = {
-      cpu: cpu_value(data.dig("used", "requests.cpu")),
-      memory: memory_value(data.dig("used", "requests.memory"))
-    }
+      hard_request_limit = {
+        cpu: cpu_value(data.dig("hard", "requests.cpu")),
+        memory: memory_value(data.dig("hard", "requests.memory"))
+      }
 
-    {
-      hard_request_limit: hard_request_limit,
-      requested: requested
-    }
+      hard_limit = {
+        cpu: cpu_value(data.dig("hard", "limits.cpu")),
+        memory: memory_value(data.dig("hard", "limits.memory"))
+      }
+
+      hard_limit_used = {
+        cpu: cpu_value(data.dig("used", "limits.cpu")),
+        memory: memory_value(data.dig("used", "limits.memory"))
+      }
+
+      requested = {
+        cpu: cpu_value(data.dig("used", "requests.cpu")),
+        memory: memory_value(data.dig("used", "requests.memory"))
+      }
+
+      {
+        hard_request_limit: hard_request_limit,
+        hard_limit: hard_limit,
+        hard_limit_used: hard_limit_used,
+        requested: requested
+      }
+    end
   end
 
   def container_count(name)
@@ -88,6 +150,8 @@ class Namespace
   end
 
   def cpu_value(str)
+    return nil if str.nil?
+
     case str
     when /^(\d+)$/
       $1.to_i * 1000
@@ -99,7 +163,15 @@ class Namespace
   end
 
   def memory_value(str)
+    return nil if str.nil?
+
     case str
+    when /^(\d+)$/
+      $1.to_i / 1_000
+    when /^(\d+)k$/
+      $1.to_i / 1024
+    when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
+      $1.to_i / 1_000_000_000
     when /^(\d+)Gi/
       $1.to_i * 1000
     when /^(\d+)Mi/
@@ -124,11 +196,16 @@ ns = Namespace.new(name).report
 puts
 puts "Namespace: #{ns[:name]}"
 puts
-puts "  Request limit:\tCPU: #{ns[:max_resources][:cpu]},\tMemory: #{ns[:max_resources][:memory]}"
+puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
 puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
 puts
-puts "  Num. containers:\t#{ns[:container_count]}"
+puts "  Hard limit:\t\tCPU: #{ns[:hard_limit][:cpu]},\tMemory: #{ns[:hard_limit][:memory]}"
+puts "  Hard limit used:\tCPU: #{ns[:hard_limit_used][:cpu]},\tMemory: #{ns[:hard_limit_used][:memory]}"
+puts
 puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
+puts "  Limit. per-container:\tCPU: #{ns[:default_limit][:cpu]},\tMemory: #{ns[:default_limit][:memory]}"
+puts
+puts "  Num. containers:\t#{ns[:container_count]}"
 puts
 puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
 puts
