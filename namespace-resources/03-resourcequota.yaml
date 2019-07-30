@@ -5,5 +5,5 @@ metadata:
   namespace: ${namespace}
 spec:
   hard:
-    requests.cpu: 1500m
-    requests.memory: 3Gi
+    requests.cpu: 100m
+    requests.memory: 1000Mi
