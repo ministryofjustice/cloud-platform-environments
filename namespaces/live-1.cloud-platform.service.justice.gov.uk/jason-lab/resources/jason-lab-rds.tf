@@ -3,7 +3,6 @@ module "jason-lab-rds-instance" {
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
-  db_backup_retention_period = "${var.db_backup_retention_period_user_datastore}"
   application                = "${var.application}"
   environment-name           = "${var.environment-name}"
   is-production              = "${var.is-production}"
