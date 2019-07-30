@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "is-production" {
-  default = "fals"
+  default = "false"
 }
 
 variable "infrastructure-support" {
