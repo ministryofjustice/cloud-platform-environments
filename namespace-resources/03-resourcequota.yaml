@@ -7,5 +7,3 @@ spec:
   hard:
     requests.cpu: 1500m
     requests.memory: 3Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
