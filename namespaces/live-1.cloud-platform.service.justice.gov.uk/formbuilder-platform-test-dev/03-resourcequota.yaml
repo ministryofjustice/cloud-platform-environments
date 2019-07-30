@@ -11,4 +11,4 @@ spec:
     requests.cpu: 4000m
     requests.memory: 8Gi
     limits.cpu: 6000m
-    limits.memory: 12Gi
+    limits.memory: 14Gi
