@@ -22,7 +22,7 @@ resource "kubernetes_secret" "gdavies-dev_ecr_credentials" {
 
   data {
     access_key_id     = "${module.gdavies-dev_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.gdavies-dev-ecr_credentials.secret_access_key}"
+    secret_access_key = "${module.gdavies-dev_ecr_credentials.secret_access_key}"
     repo_arn          = "${module.gdavies-dev_ecr_credentials.repo_arn}"
     repo_url          = "${module.gdavies-dev_ecr_credentials.repo_url}"
   }
