@@ -13,7 +13,7 @@ module "submitter-rds-instance" {
   is-production              = "${var.is-production}"
   infrastructure-support     = "${var.infrastructure-support}"
   team_name                  = "${var.team_name}"
-  force_ssl                  = true
+  force_ssl                  = "true"
 
   providers = {
     aws = "aws.london"
