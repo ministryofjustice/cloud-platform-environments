@@ -29,6 +29,6 @@ subjects:
     name: "github:dps-nart-team-access"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: nart-team-portforward
   apiGroup: rbac.authorization.k8s.io
