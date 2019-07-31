@@ -14,10 +14,10 @@ resource "aws_route53_zone" "apply_for_legal_aid_route53_zone" {
 resource "kubernetes_secret" "apply_for_legal_aid_route_53_zone_sec" {
   metadata {
     name      = "apply-for-legal-aid-route53-zone-output"
-    namespace = "laa-apply-forlegalaid"
+    namespace = "laa-apply-for-legal-aid-production"
   }
 
   data {
-    zone_id   = "${aws_route53_zone.apply_for_legal_aid_route53_zone}"
+    zone_id   = "${aws_route53_zone.apply_for_legal_aid_route53_zone.zone_id}"
   }
 }
