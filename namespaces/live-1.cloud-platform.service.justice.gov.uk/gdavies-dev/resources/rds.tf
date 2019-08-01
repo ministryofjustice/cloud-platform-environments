@@ -52,12 +52,6 @@ resource "kubernetes_secret" "gdavies_dev_team_rds" {
     database_username     = "${module.gdavies_dev_team_rds.database_username}"
     database_password     = "${module.gdavies_dev_team_rds.database_password}"
     rds_instance_address  = "${module.gdavies_dev_team_rds.rds_instance_address}"
-
-    /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     url = "postgres://${module.gdavies_dev_team_rds.database_username}:${module.gdavies_dev_team_rds.database_password}@${module.gdavies_dev_team_rds.rds_instance_endpoint}/${module.gdavies_dev_team_rds.database_name}"
-     *
-     */
+    url                   = "postgres://${module.gdavies_dev_team_rds.database_username}:${module.gdavies_dev_team_rds.database_password}@${module.gdavies_dev_team_rds.rds_instance_endpoint}/${module.gdavies_dev_team_rds.database_name}"
   }
 }
