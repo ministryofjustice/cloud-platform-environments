@@ -199,13 +199,8 @@ puts
 puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
 puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
 puts
-puts "  Hard limit:\t\tCPU: #{ns[:hard_limit][:cpu]},\tMemory: #{ns[:hard_limit][:memory]}"
-puts "  Hard limit used:\tCPU: #{ns[:hard_limit_used][:cpu]},\tMemory: #{ns[:hard_limit_used][:memory]}"
-puts
-puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
-puts "  Limit. per-container:\tCPU: #{ns[:default_limit][:cpu]},\tMemory: #{ns[:default_limit][:memory]}"
-puts
 puts "  Num. containers:\t#{ns[:container_count]}"
+puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
 puts
 puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
 puts
