@@ -10,5 +10,4 @@ spec:
   hard:
     requests.cpu: 8000m
     requests.memory: 18Gi
-    limits.cpu: 16000m
-    limits.memory: 26Gi
+
