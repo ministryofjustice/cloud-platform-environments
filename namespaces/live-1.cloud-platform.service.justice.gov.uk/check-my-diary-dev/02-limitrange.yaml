@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: check-my-diary-dev
+spec:
+  limits:
+  - default:
+      cpu: 50m
+      memory: 500Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 100Mi
+    type: Container

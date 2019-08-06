@@ -1,0 +1,36 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: check-my-diary-dev-admin
+  namespace: check-my-diary-dev
+subjects:
+  - kind: Group
+    name: "github:check-my-diary"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:digital-studio-sheffield"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: check-my-diary-dev
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller
+  namespace: check-my-diary-dev
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: check-my-diary-dev
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
