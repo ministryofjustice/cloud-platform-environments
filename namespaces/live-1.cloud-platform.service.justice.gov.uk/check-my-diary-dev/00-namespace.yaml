@@ -8,5 +8,5 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "check-my-diary"
-    cloud-platform.justice.gov.uk/owner: "Digital Studio Operations Team : digital-studio-operations-team@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Check My Diary team : check-my-diary-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "git@github.com:ministryofjustice/check-my-diary.git"
