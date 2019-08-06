@@ -1,7 +1,3 @@
-variable "cluster_name" {}
-
-variable "cluster_state_bucket" {}
-
 module "risk_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
   cluster_name           = "${var.cluster_name}"
