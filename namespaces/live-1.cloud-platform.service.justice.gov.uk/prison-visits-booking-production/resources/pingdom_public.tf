@@ -12,7 +12,7 @@ resource "pingdom_check" "prison-visits-booking-public-production" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/healthcheck"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
