@@ -24,6 +24,10 @@
 require 'json'
 require 'optparse'
 
+# Output formats
+TEXT_OUTPUT = "text"
+JSON_OUTPUT = "json"
+
 class Namespace
   attr_reader :name
 
@@ -204,11 +208,16 @@ def text_output(ns)
 end
 
 def parse_options
-  options = {}
+  options = { format: TEXT_OUTPUT }
 
   OptionParser.new do |opts|
     opts.on("-n", "--namespace NAMESPACE", "Namespace name pattern (required)") do |ns|
       options[:namespace] = ns
+    end
+
+    opts.on("-o", "--output FORMAT", "Output format (#{JSON_OUTPUT} | #{TEXT_OUTPUT})") do |fmt|
+      raise "Unknown output format #{fmt}" unless [TEXT_OUTPUT, JSON_OUTPUT].include?(fmt)
+      options[:format] = fmt
     end
 
     opts.on_tail("-h", "--help", "Show help message") do
@@ -225,6 +234,11 @@ end
 options = parse_options
 pattern = options.fetch(:namespace)
 
-Namespace.names(pattern).each do |name|
-  text_output(Namespace.new(name).report)
+names = Namespace.names(pattern)
+
+if options.fetch(:format) == JSON_OUTPUT
+  namespaces = names.map { |name| Namespace.new(name).report }
+  puts({ items: namespaces }.to_json)
+else
+  names.each { |name| text_output(Namespace.new(name).report) }
 end
