@@ -6,7 +6,7 @@
 # Usage tips:
 #
 # Get results for all namespaces:
-#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb $ns; done | tee namespace-report.txt
+#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb -n $ns; done | tee namespace-report.txt
 #
 # Total count of containers:
 #     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
@@ -22,6 +22,7 @@
 #     egrep '(containers|Namespace)' namespace-report.txt | sed 's/    / /g' | paste -s -d ' \n' - | sed 's/Namespace: //' | sed 's/\ *Num. containers:\ */, /' | sed 's/\(.*\), \(.*\)/\2, \1/' | sort -n
 
 require 'json'
+require 'optparse'
 
 class Namespace
   attr_reader :name
@@ -182,14 +183,27 @@ class Namespace
   end
 end
 
+def parse_options
+  options = {}
+
+  OptionParser.new do |opts|
+    opts.on("-n", "--namespace NAMESPACE", "Namespace name (required)") do |ns|
+      options[:namespace] = ns
+    end
+
+    opts.on_tail("-h", "--help", "Show help message") do
+      puts opts
+      exit
+    end
+  end.parse!
+
+  options
+end
+
 ############################################################
 
-name = ARGV.shift
-
-if name.nil?
-  puts "USAGE: $0 [namespace name]"
-  exit
-end
+options = parse_options
+name = options.fetch(:namespace)
 
 ns = Namespace.new(name).report
 
