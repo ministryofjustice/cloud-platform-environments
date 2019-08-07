@@ -6,7 +6,7 @@
 # Usage tips:
 #
 # Get results for all namespaces:
-#     for ns in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do ./bin/namespace-reporter.rb -n $ns; done | tee namespace-report.txt
+#     ./bin/namespace-reporter.rb -n '.*' | tee namespace-report.txt
 #
 # Total count of containers:
 #     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
@@ -46,6 +46,12 @@ class Namespace
       resources_requested: ns_quota.fetch(:requested),
       container_count: container_count(name)
     }
+  end
+
+  def self.names(pattern)
+    `kubectl get ns -o jsonpath='{.items[*].metadata.name}'`.chomp
+      .split(' ')
+      .grep(/#{pattern}/)
   end
 
   private
@@ -187,7 +193,7 @@ def parse_options
   options = {}
 
   OptionParser.new do |opts|
-    opts.on("-n", "--namespace NAMESPACE", "Namespace name (required)") do |ns|
+    opts.on("-n", "--namespace NAMESPACE", "Namespace name pattern (required)") do |ns|
       options[:namespace] = ns
     end
 
@@ -203,20 +209,22 @@ end
 ############################################################
 
 options = parse_options
-name = options.fetch(:namespace)
+pattern = options.fetch(:namespace)
 
-ns = Namespace.new(name).report
+Namespace.names(pattern).each do |name|
+  ns = Namespace.new(name).report
 
-puts
-puts "Namespace: #{ns[:name]}"
-puts
-puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
-puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
-puts
-puts "  Num. containers:\t#{ns[:container_count]}"
-puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
-puts
-puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
-puts
-puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
-puts
+  puts
+  puts "Namespace: #{ns[:name]}"
+  puts
+  puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
+  puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
+  puts
+  puts "  Num. containers:\t#{ns[:container_count]}"
+  puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
+  puts
+  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
+  puts
+  puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
+  puts
+end
