@@ -6,4 +6,4 @@ metadata:
 spec:
   hard:
     requests.cpu: 2000m
-    requests.memory: 5000Mi
+    requests.memory: 16000Mi
