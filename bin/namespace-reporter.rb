@@ -8,18 +8,18 @@
 # Get results for all namespaces:
 #     ./bin/namespace-reporter.rb -n '.*' | tee namespace-report.txt
 #
+# Get results for all namespaces matching a string:
+#     ./bin/namespace-reporter.rb -n prison-visits
+#
+# Store data in a json file
+#     ./bin/namespace-reporter.rb -n '.*' -o json > namespaces.json
+#
+# Namespaces by number of containers
+#     cat namespaces.json | jq -r '.items[] | [.container_count, .name] | join(", ")' | sort -n
+#
 # Total count of containers:
-#     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
+#     cat namespaces.json | jq '.items[].container_count' | paste -sd+ - | bc
 # https://stackoverflow.com/a/18141152/794111
-#
-# Total CPU used:
-#     grep in-use namespace-report.txt | sed 's/.*CPU: //' | sed 's/,.*//' | paste -sd+ - | bc
-#
-# Total Memory used:
-#     grep in-use namespace-report.txt | sed 's/.*Memory: //' | paste -sd+ - | bc
-#
-# Containers by namespace
-#     egrep '(containers|Namespace)' namespace-report.txt | sed 's/    / /g' | paste -s -d ' \n' - | sed 's/Namespace: //' | sed 's/\ *Num. containers:\ */, /' | sed 's/\(.*\), \(.*\)/\2, \1/' | sort -n
 
 require 'json'
 require 'optparse'
