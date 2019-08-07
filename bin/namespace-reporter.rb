@@ -189,6 +189,22 @@ class Namespace
   end
 end
 
+def text_output(ns)
+  puts
+  puts "Namespace: #{ns[:name]}"
+  puts
+  puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
+  puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
+  puts
+  puts "  Num. containers:\t#{ns[:container_count]}"
+  puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
+  puts
+  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
+  puts
+  puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
+  puts
+end
+
 def parse_options
   options = {}
 
@@ -212,19 +228,5 @@ options = parse_options
 pattern = options.fetch(:namespace)
 
 Namespace.names(pattern).each do |name|
-  ns = Namespace.new(name).report
-
-  puts
-  puts "Namespace: #{ns[:name]}"
-  puts
-  puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
-  puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
-  puts
-  puts "  Num. containers:\t#{ns[:container_count]}"
-  puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
-  puts
-  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
-  puts
-  puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
-  puts
+  text_output(Namespace.new(name).report)
 end
