@@ -6,7 +6,7 @@
 # Usage tips:
 #
 # Get results for all namespaces:
-#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb -n $ns; done | tee namespace-report.txt
+#     for ns in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do ./bin/namespace-reporter.rb -n $ns; done | tee namespace-report.txt
 #
 # Total count of containers:
 #     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
