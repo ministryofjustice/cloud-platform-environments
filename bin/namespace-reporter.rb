@@ -168,7 +168,7 @@ class Namespace
     case str
     when /^(\d+)$/
       $1.to_i / 1_000
-    when /^(\d+)k$/
+    when /^(\d+)k$/, /^(\d+)Ki$/
       $1.to_i / 1024
     when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
       $1.to_i / 1_000_000_000
