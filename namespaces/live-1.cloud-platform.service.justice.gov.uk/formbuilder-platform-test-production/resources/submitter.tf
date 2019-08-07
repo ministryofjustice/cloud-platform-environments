@@ -14,6 +14,7 @@ module "submitter-rds-instance" {
   infrastructure-support     = "${var.infrastructure-support}"
   team_name                  = "${var.team_name}"
   force_ssl                  = true
+  db_engine_version          = "10.9"
 
   providers = {
     aws = "aws.london"
