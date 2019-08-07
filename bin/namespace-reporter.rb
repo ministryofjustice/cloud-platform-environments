@@ -84,20 +84,18 @@ class Namespace
   end
 
   def from_limits(limits, value_type)
-    if limits.nil?
-      {
-        cpu: nil,
-        memory: nil
-      }
-    else
-      data = limits.dig("spec", "limits")[0]
-        .dig(value_type)
+    data = limits.dig("spec", "limits")[0]
+      .dig(value_type)
 
-      {
-        cpu: cpu_value(data.fetch("cpu", nil)),
-        memory: memory_value(data.fetch("memory", nil))
-      }
-    end
+    {
+      cpu: cpu_value(data.fetch("cpu", nil)),
+      memory: memory_value(data.fetch("memory", nil))
+    }
+  rescue
+    {
+      cpu: nil,
+      memory: nil
+    }
   end
 
   def limits
