@@ -222,3 +222,27 @@ resource "kubernetes_secret" "delius_oauth2_server_ecr_credentials" {
     repo_url          = "${module.delius_oauth2_server_ecr_credentials.repo_url}"
   }
 }
+
+module "probation_court_prototype_ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  repo_name = "probation-court-prototype"
+  team_name = "probation-services"
+
+  providers = {
+    aws = "aws.london"
+  }
+}
+
+resource "kubernetes_secret" "probation_court_prototype_ecr_credentials" {
+  metadata {
+    name      = "probation-court-prototype-ecr-credentials"
+    namespace = "${var.namespace}"
+  }
+
+  data {
+    access_key_id     = "${module.probation_court_prototype_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.probation_court_prototype_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.probation_court_prototype_ecr_credentials.repo_arn}"
+    repo_url          = "${module.probation_court_prototype_ecr_credentials.repo_url}"
+  }
+}
