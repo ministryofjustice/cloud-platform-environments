@@ -60,5 +60,5 @@ resource postgresql_grant "risk_profiler_tables" {
   role        = "risk_profiler"
   schema      = "public"
   object_type = "table"
-  privileges  = ["SELECT", "UPDATE", "INSERT"]
+  privileges  = ["SELECT", "UPDATE", "INSERT", "CREATE"]
 }
