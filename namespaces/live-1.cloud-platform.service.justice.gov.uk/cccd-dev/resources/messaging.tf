@@ -1,7 +1,7 @@
 module "cccd_claims_submitted" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=3.0"
 
-  team_name          = "laa-get-paid"
+  team_name          = "${var.team_name}"
   topic_display_name = "cccd-claims-submitted"
 
   providers = {
@@ -12,10 +12,10 @@ module "cccd_claims_submitted" {
 module "claims_for_ccr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "cccd-demo-claims-for-ccr"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
@@ -60,10 +60,10 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
 module "claims_for_cclf" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "cccd-demo-claims-for-cclf"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
@@ -108,10 +108,10 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
 module "responses_for_cccd" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "demo-responses-for-cccd"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
@@ -129,10 +129,10 @@ module "responses_for_cccd" {
 module "ccr_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "cccd-demo-claims-submitted-ccr-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
@@ -144,10 +144,10 @@ module "ccr_dead_letter_queue" {
 module "cclf_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "cccd-demo-claims-submitted-cclf-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
@@ -159,10 +159,10 @@ module "cclf_dead_letter_queue" {
 module "cccd_response_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "dev"
-  team_name              = "laa-get-paid"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  application            = "cccd"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "demo-reponses-for-cccd-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
