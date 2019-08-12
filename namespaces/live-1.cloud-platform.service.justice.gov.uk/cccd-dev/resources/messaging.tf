@@ -10,12 +10,13 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "cccd-demo-claims-for-ccr"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -57,12 +58,13 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
 }
 
 module "claims_for_cclf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "cccd-demo-claims-for-cclf"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -104,12 +106,13 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
 }
 
 module "responses_for_cccd" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "demo-responses-for-cccd"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -124,12 +127,13 @@ module "responses_for_cccd" {
 }
 
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "cccd-demo-claims-submitted-ccr-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
@@ -138,12 +142,13 @@ module "ccr_dead_letter_queue" {
 }
 
 module "cclf_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "cccd-demo-claims-submitted-cclf-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
@@ -152,12 +157,13 @@ module "cclf_dead_letter_queue" {
 }
 
 module "cccd_response_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
   environment-name       = "dev"
   team_name              = "laa-get-paid"
   infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
   application            = "cccd"
+  sqs_name               = "demo-reponses-for-cccd-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
@@ -175,16 +181,22 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
     access_key_id     = "${module.cccd_claims_submitted.access_key_id}"
     secret_access_key = "${module.cccd_claims_submitted.secret_access_key}"
     topic_arn         = "${module.cccd_claims_submitted.topic_arn}"
+    sqs_ccr_name      = "${module.claims_for_ccr.sqs_name}"
     sqs_ccr_url       = "${module.claims_for_ccr.sqs_id}"
     sqs_ccr_arn       = "${module.claims_for_ccr.sqs_arn}"
+    sqs_ccr_dlq_name  = "${module.ccr_dead_letter_queue.sqs_name}"
     sqs_ccr_dlq_url   = "${module.ccr_dead_letter_queue.sqs_id}"
     sqs_ccr_dlq_arn   = "${module.ccr_dead_letter_queue.sqs_arn}"
+    sqs_cclf_name     = "${module.claims_for_cclf.sqs_name}"
     sqs_cclf_url      = "${module.claims_for_cclf.sqs_id}"
     sqs_cclf_arn      = "${module.claims_for_cclf.sqs_arn}"
+    sqs_cclf_dlq_name = "${module.cclf_dead_letter_queue.sqs_name}"
     sqs_cclf_dlq_url  = "${module.cclf_dead_letter_queue.sqs_id}"
     sqs_cclf_dlq_arn  = "${module.cclf_dead_letter_queue.sqs_arn}"
+    sqs_cccd_name     = "${module.responses_for_cccd.sqs_name}"
     sqs_cccd_url      = "${module.responses_for_cccd.sqs_id}"
     sqs_cccd_arn      = "${module.responses_for_cccd.sqs_arn}"
+    sqs_cccd_dlq_name = "${module.cccd_response_dead_letter_queue.sqs_name}"
     sqs_cccd_dlq_url  = "${module.cccd_response_dead_letter_queue.sqs_id}"
     sqs_cccd_dlq_arn  = "${module.cccd_response_dead_letter_queue.sqs_arn}"
   }
