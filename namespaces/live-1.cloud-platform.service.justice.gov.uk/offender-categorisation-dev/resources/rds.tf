@@ -20,11 +20,12 @@ resource "random_id" "risk_profiler_role_password" {
 }
 
 provider "postgresql" {
-  host     = "${module.dps_rds.rds_instance_address}"
-  port     = "${module.dps_rds.rds_instance_port}"
-  database = "${module.dps_rds.database_name}"
-  username = "${module.dps_rds.database_username}"
-  password = "${module.dps_rds.database_password}"
+  host      = "${module.dps_rds.rds_instance_address}"
+  port      = "${module.dps_rds.rds_instance_port}"
+  database  = "${module.dps_rds.database_name}"
+  username  = "${module.dps_rds.database_username}"
+  password  = "${module.dps_rds.database_password}"
+  superuser = false
 }
 
 resource "postgresql_database" "risk_profiler" {
