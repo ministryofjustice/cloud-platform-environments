@@ -110,7 +110,7 @@ spec:
       expr: |-
         kube_statefulset_status_observed_generation{job="kube-state-metrics", namespace="prison-visits-booking-staging"}
           !=
-        kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="prison-visits-booking-staging"
+        kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="prison-visits-booking-staging"}
       for: 15m
       labels:
         severity: Prison Visits Booking / PVB
