@@ -215,8 +215,7 @@ def parse_options
       options[:namespace] = ns
     end
 
-    opts.on("-o", "--output FORMAT", "Output format (#{JSON_OUTPUT} | #{TEXT_OUTPUT})") do |fmt|
-      raise "Unknown output format #{fmt}" unless [TEXT_OUTPUT, JSON_OUTPUT].include?(fmt)
+    opts.on("-o", "--output [FORMAT]", [JSON_OUTPUT, TEXT_OUTPUT], "Output format (#{JSON_OUTPUT} | #{TEXT_OUTPUT})") do |fmt|
       options[:format] = fmt
     end
 
