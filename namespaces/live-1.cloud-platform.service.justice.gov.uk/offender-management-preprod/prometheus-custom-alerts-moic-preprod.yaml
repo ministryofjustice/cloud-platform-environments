@@ -110,7 +110,7 @@ spec:
       expr: |-
         kube_statefulset_status_observed_generation{job="kube-state-metrics", namespace="offender-management-preprod"}
           !=
-        kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="offender-management-preprod"
+        kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="offender-management-preprod"}
       for: 15m
       labels:
         severity: moic
