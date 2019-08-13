@@ -39,13 +39,15 @@ resource "postgresql_role" "risk_profiler" {
   password = "${random_id.risk_profiler_role_password.b64}"
 }
 
-resource postgresql_grant "risk_profiler_tables" {
-  database    = "risk_profiler"
-  role        = "risk_profiler"
-  schema      = "public"
-  object_type = "table"
-  privileges  = ["SELECT", "UPDATE", "INSERT"]
-}
+//resource postgresql_grant "risk_profiler_tables" {
+//  database    = "risk_profiler"
+//  role        = "risk_profiler"
+//  schema      = "public"
+//  object_type = "table"
+//  privileges  = ["SELECT", "UPDATE", "INSERT"]
+//}
+// With the above, when a table exists we get:
+//  postgresql_grant.risk_profiler_tables: pq: permission denied for relation flyway_schema_history
 
 resource "kubernetes_secret" "dps_rds" {
   metadata {
