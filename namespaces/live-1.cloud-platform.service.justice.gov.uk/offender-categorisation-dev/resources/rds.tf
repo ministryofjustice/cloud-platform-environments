@@ -25,6 +25,7 @@ provider "postgresql" {
   database = "${module.dps_rds.database_name}"
   username = "${module.dps_rds.database_username}"
   password = "${module.dps_rds.database_password}"
+  superuser = false
 }
 
 resource "postgresql_database" "risk_profiler" {
