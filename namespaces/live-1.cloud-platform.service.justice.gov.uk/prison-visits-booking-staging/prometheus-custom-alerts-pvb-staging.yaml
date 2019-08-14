@@ -46,21 +46,21 @@ spec:
         severity: Prison Visits Booking / PVB
     - alert: SlowResponses
       annotations:
-        message: ingress {{ $labels.ingress }} is serving slow responses over 2 seconds
+        message: ingress {{ $labels.ingress }} is serving slow responses over 5 seconds
         runbook_url: https://example.com/
       expr: |-
         avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "prison-visits-booking-staging"}[5m])
         /
-        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "prison-visits-booking-staging"}[5m]) > 0) by (ingress) > 2
+        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "prison-visits-booking-staging"}[5m]) > 0) by (ingress) > 5
       for: 1m
       labels:
         severity: Prison Visits Booking / PVB
     - alert: ErrorResponses
       annotations:
-        message: ingress {{ $labels.ingress }} is serving 4XX and 5XX responses
+        message: ingress {{ $labels.ingress }} is serving 5XX responses
         runbook_url: https://example.com/
       expr: |-
-        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prison-visits-booking-staging", status=~"4.*|5.*"}[1m]) * 60 > 0) by (ingress)
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prison-visits-booking-staging", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
       for: 1m
       labels:
         severity: Prison Visits Booking / PVB
