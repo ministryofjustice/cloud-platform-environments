@@ -19,14 +19,14 @@ module "dps_rds" {
 //  byte_length = 32
 //}
 
-//provider "postgresql" {
-//  host      = "${module.dps_rds.rds_instance_address}"
-//  port      = "${module.dps_rds.rds_instance_port}"
-//  database  = "${module.dps_rds.database_name}"
-//  username  = "${module.dps_rds.database_username}"
-//  password  = "${module.dps_rds.database_password}"
-//  superuser = false
-//}
+provider "postgresql" {
+  host      = "${module.dps_rds.rds_instance_address}"
+  port      = "${module.dps_rds.rds_instance_port}"
+  database  = "${module.dps_rds.database_name}"
+  username  = "${module.dps_rds.database_username}"
+  password  = "${module.dps_rds.database_password}"
+  superuser = false
+}
 
 //resource "postgresql_database" "risk_profiler" {
 //  name              = "risk_profiler"
