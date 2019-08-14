@@ -1,0 +1,62 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# This file belongs in the dev resources subdir
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  namespace: claim-criminal-injuries-compensation-dev
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-data-dev
+spec:
+  groups:
+  - name: node.rules
+    rules:
+    - alert: cica--Quota-Exceeded--dev
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
+      for: 5m
+      labels:
+        severity: cica-dev-dev
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
+    - alert: cica--KubeJobFailed--dev
+      annotations:
+        message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+      expr: kube_job_status_failed{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}  > 0
+      for: 1m
+      labels:
+        severity: cica-dev-dev
+    - alert: cica--KubeletTooManyPods--dev
+      expr: kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-dev"}
+        > 0 * 0.9
+      for: 5m
+      labels:
+        severity: cica-dev-team
+      annotations:
+        message: Kubelet {{ $labels.instance }} is running {{ $value }} Pods, close to the
+          limit of 1 Test.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
+    - alert: cica-dev-Node-Disk-Space-Low
+      annotations:
+        message: A node is reporting low disk space below 10%. Action is required on a node.
+        runbook_url: https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/resources/prometheusrule-alerts/Custom-Alerts.md#node-disk-space-low
+      expr: ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) < 10
+      for: 30m
+      labels:
+        severity: cica-dev-team
+    - alert: cica--KubeDeploymentReplicasMismatch--dev
+      annotations:
+       message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than an hour.
+       runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+      expr: kube_deployment_spec_replicas{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
+        != kube_deployment_status_replicas_available{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
+      for: 1h
+      labels:
+        severity: cica-dev-dev
+
