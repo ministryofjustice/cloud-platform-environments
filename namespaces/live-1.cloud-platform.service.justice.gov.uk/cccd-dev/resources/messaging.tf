@@ -16,7 +16,7 @@ module "claims_for_ccr" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "cccd-demo-claims-for-ccr"
+  sqs_name               = "cccd-claims-for-ccr"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -64,7 +64,7 @@ module "claims_for_cclf" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "cccd-demo-claims-for-cclf"
+  sqs_name               = "cccd-claims-for-cclf"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -112,7 +112,7 @@ module "responses_for_cccd" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "demo-responses-for-cccd"
+  sqs_name               = "responses-for-cccd"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   redrive_policy = <<EOF
@@ -133,7 +133,7 @@ module "ccr_dead_letter_queue" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "cccd-demo-claims-submitted-ccr-dlq"
+  sqs_name               = "cccd-claims-submitted-ccr-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
@@ -148,7 +148,7 @@ module "cclf_dead_letter_queue" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "cccd-demo-claims-submitted-cclf-dlq"
+  sqs_name               = "cccd-claims-submitted-cclf-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
@@ -163,7 +163,7 @@ module "cccd_response_dead_letter_queue" {
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
-  sqs_name               = "demo-reponses-for-cccd-dlq"
+  sqs_name               = "reponses-for-cccd-dlq"
   existing_user_name     = "${module.cccd_claims_submitted.user_name}"
 
   providers = {
