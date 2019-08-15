@@ -6,22 +6,27 @@
 # Usage tips:
 #
 # Get results for all namespaces:
-#     for ns in $(kubectl get ns | cut -f 1 -d\  | grep -v NAME); do ./bin/namespace-reporter.rb $ns; done | tee namespace-report.txt
+#     ./bin/namespace-reporter.rb -n '.*' | tee namespace-report.txt
+#
+# Get results for all namespaces matching a string:
+#     ./bin/namespace-reporter.rb -n prison-visits
+#
+# Store data in a json file
+#     ./bin/namespace-reporter.rb -n '.*' -o json > namespaces.json
+#
+# Namespaces by number of containers
+#     cat namespaces.json | jq -r '.items[] | [.container_count, .name] | join(", ")' | sort -n
 #
 # Total count of containers:
-#     grep containers namespace-report.txt | sed 's/.*://' | paste -sd+ - | bc
+#     cat namespaces.json | jq '.items[].container_count' | paste -sd+ - | bc
 # https://stackoverflow.com/a/18141152/794111
-#
-# Total CPU used:
-#     grep in-use namespace-report.txt | sed 's/.*CPU: //' | sed 's/,.*//' | paste -sd+ - | bc
-#
-# Total Memory used:
-#     grep in-use namespace-report.txt | sed 's/.*Memory: //' | paste -sd+ - | bc
-#
-# Containers by namespace
-#     egrep '(containers|Namespace)' namespace-report.txt | sed 's/    / /g' | paste -s -d ' \n' - | sed 's/Namespace: //' | sed 's/\ *Num. containers:\ */, /' | sed 's/\(.*\), \(.*\)/\2, \1/' | sort -n
 
 require 'json'
+require 'optparse'
+
+# Output formats
+TEXT_OUTPUT = "text"
+JSON_OUTPUT = "json"
 
 class Namespace
   attr_reader :name
@@ -45,6 +50,12 @@ class Namespace
       resources_requested: ns_quota.fetch(:requested),
       container_count: container_count(name)
     }
+  end
+
+  def self.names(pattern)
+    `kubectl get ns -o jsonpath='{.items[*].metadata.name}'`.chomp
+      .split(' ')
+      .grep(/#{pattern}/)
   end
 
   private
@@ -77,20 +88,18 @@ class Namespace
   end
 
   def from_limits(limits, value_type)
-    if limits.nil?
-      {
-        cpu: nil,
-        memory: nil
-      }
-    else
-      data = limits.dig("spec", "limits")[0]
-        .dig(value_type)
+    data = limits.dig("spec", "limits")[0]
+      .dig(value_type)
 
-      {
-        cpu: cpu_value(data.fetch("cpu", nil)),
-        memory: memory_value(data.fetch("memory", nil))
-      }
-    end
+    {
+      cpu: cpu_value(data.fetch("cpu", nil)),
+      memory: memory_value(data.fetch("memory", nil))
+    }
+  rescue
+    {
+      cpu: nil,
+      memory: nil
+    }
   end
 
   def limits
@@ -168,7 +177,7 @@ class Namespace
     case str
     when /^(\d+)$/
       $1.to_i / 1_000
-    when /^(\d+)k$/
+    when /^(\d+)k$/, /^(\d+)Ki$/
       $1.to_i / 1024
     when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
       $1.to_i / 1_000_000_000
@@ -182,27 +191,53 @@ class Namespace
   end
 end
 
-############################################################
-
-name = ARGV.shift
-
-if name.nil?
-  puts "USAGE: $0 [namespace name]"
-  exit
+def text_output(ns)
+  puts
+  puts "Namespace: #{ns[:name]}"
+  puts
+  puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
+  puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
+  puts
+  puts "  Num. containers:\t#{ns[:container_count]}"
+  puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
+  puts
+  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
+  puts
+  puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
+  puts
 end
 
-ns = Namespace.new(name).report
+def parse_options
+  options = { format: TEXT_OUTPUT }
 
-puts
-puts "Namespace: #{ns[:name]}"
-puts
-puts "  Request limit:\tCPU: #{ns[:max_requests][:cpu]},\tMemory: #{ns[:max_requests][:memory]}"
-puts "  Requested:\t\tCPU: #{ns[:resources_requested][:cpu]},\tMemory: #{ns[:resources_requested][:memory]}"
-puts
-puts "  Num. containers:\t#{ns[:container_count]}"
-puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
-puts
-puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
-puts
-puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
-puts
+  OptionParser.new do |opts|
+    opts.on("-n", "--namespace NAMESPACE", "Namespace name pattern (required)") do |ns|
+      options[:namespace] = ns
+    end
+
+    opts.on("-o", "--output [FORMAT]", [JSON_OUTPUT, TEXT_OUTPUT], "Output format (#{JSON_OUTPUT} | #{TEXT_OUTPUT})") do |fmt|
+      options[:format] = fmt
+    end
+
+    opts.on_tail("-h", "--help", "Show help message") do
+      puts opts
+      exit
+    end
+  end.parse!
+
+  options
+end
+
+############################################################
+
+options = parse_options
+pattern = options.fetch(:namespace)
+
+names = Namespace.names(pattern)
+
+if options.fetch(:format) == JSON_OUTPUT
+  namespaces = names.map { |name| Namespace.new(name).report }
+  puts({ items: namespaces }.to_json)
+else
+  names.each { |name| text_output(Namespace.new(name).report) }
+end

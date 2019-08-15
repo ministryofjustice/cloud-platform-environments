@@ -5,7 +5,5 @@ metadata:
   namespace: laa-fee-calculator-production
 spec:
   hard:
-    requests.cpu: 3000m
-    requests.memory: 6Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
+    requests.cpu: 500m
+    requests.memory: 3000Mi

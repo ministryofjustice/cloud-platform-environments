@@ -3,7 +3,7 @@
 # Publisher RDS
 
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
@@ -13,6 +13,11 @@ module "publisher-rds-instance" {
   is-production              = "${var.is-production}"
   infrastructure-support     = "${var.infrastructure-support}"
   team_name                  = "${var.team_name}"
+  db_engine_version          = "10.9"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "publisher-rds-instance" {

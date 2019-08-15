@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: apply-for-legal-aid-domain
+  namespace: laa-apply-for-legalaid-staging
+spec:
+  secretName: apply-for-legal-aid-tls-certificate-domain
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staging.apply-for-legal-aid.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'staging.apply-for-legal-aid.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
