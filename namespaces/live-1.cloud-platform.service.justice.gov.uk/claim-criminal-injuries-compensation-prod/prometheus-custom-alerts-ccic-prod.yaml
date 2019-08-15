@@ -1,0 +1,24 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  namespace: claim-criminal-injuries-compensation-prod
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-data-capture-service
+spec:
+  groups:
+  - name: node.rules
+    rules:
+    - alert: Quota-Exceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
+      for: 5m
+      labels:
+        severity: cica-dev-team
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
