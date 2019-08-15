@@ -246,8 +246,8 @@ resource "kubernetes_secret" "probation_court_prototype_ecr_credentials" {
     repo_url          = "${module.probation_court_prototype_ecr_credentials.repo_url}"
   }
 }
-  
-module "wiremock_courtlist_ecr_credentials" {
+
+module "wiremock_court_list_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "wiremock-courtlist"
   team_name = "probation-services"
@@ -257,17 +257,17 @@ module "wiremock_courtlist_ecr_credentials" {
   }
 }
 
-resource "kubernetes_secret" "wiremock_courtlist_ecr_credentials" {
+resource "kubernetes_secret" "wiremock_court_list_ecr_credentials" {
   metadata {
-    name      = "wiremock-courtlist-ecr-credentials"
-    namespace = "${var.namespace}"
+    name      = "wiremock-court-list-ecr-credentials"
+    namespace = "court-probation-dev"
   }
 
   data {
-    access_key_id     = "${module.wiremock_courtlist_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.wiremock_courtlist_ecr_credentials.secret_access_key}"
-    repo_arn          = "${module.wiremock_courtlist_ecr_credentials.repo_arn}"
-    repo_url          = "${module.wiremock_courtlist_ecr_credentials.repo_url}"
+    access_key_id     = "${module.wiremock_court_list_ecr_credentials.access_key_id}"
+    secret_access_key = "${module.wiremock_court_list_ecr_credentials.secret_access_key}"
+    repo_arn          = "${module.wiremock_court_list_ecr_credentials.repo_arn}"
+    repo_url          = "${module.wiremock_court_list_ecr_credentials.repo_url}"
   }
 }
 
