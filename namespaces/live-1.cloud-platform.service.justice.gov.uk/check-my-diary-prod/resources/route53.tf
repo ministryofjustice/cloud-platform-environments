@@ -18,6 +18,6 @@ resource "kubernetes_secret" "check-my-diary-prod_sec" {
   }
 
   data {
-    zone_id	= "${aws_route53_zone.check-my-diary-prod.zone_id}"
+    zone_id = "${aws_route53_zone.check-my-diary-prod.zone_id}"
   }
 }
