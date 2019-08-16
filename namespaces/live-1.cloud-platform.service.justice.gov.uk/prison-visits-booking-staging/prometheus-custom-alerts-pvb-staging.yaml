@@ -7,14 +7,6 @@ spec:
   groups:
   - name: pvb-staging
     rules:
-    - alert: KubePodNotReady
-      annotations:
-        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) has been in a non-ready state for longer than 2 minutes
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
-      expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase!~"Running|Completed", namespace="prison-visits-booking-staging"}) > 0
-      for: 2m
-      labels:
-        severity: Prison Visits Booking / PVB
     - alert: KubePodCrashLooping
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
