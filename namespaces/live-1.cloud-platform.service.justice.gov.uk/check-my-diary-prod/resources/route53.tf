@@ -11,6 +11,16 @@ resource "aws_route53_zone" "check-my-diary-prod" {
   }
 }
 
+resource "aws_route53_record" "check-my-diary-prod" {
+  zone_id = "${aws_route53_zone.check-my-diary-prod.zone_id}"
+  name    = "."
+  type    = "CNAME"
+  ttl     = "300"
+
+  set_identifier = "live"
+  records        = ["check-my-diary.apps.live-1.cloud-platform.service.justice.gov.uk"]
+}
+
 resource "kubernetes_secret" "check-my-diary-prod_sec" {
   metadata {
     name      = "check-my-diary-prod-zone-output"
