@@ -41,10 +41,10 @@ resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
 module "risk_profiler_change_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
 
-  environment-name       = "${module.risk_profiler_change.environment-name}"
-  team_name              = "${module.risk_profiler_change.team_name}"
-  infrastructure-support = "${module.risk_profiler_change.infrastructure-support}"
-  application            = "${module.risk_profiler_change.application}"
+  environment-name       = "${var.environment-name}"
+  team_name              = "${var.team_name}"
+  infrastructure-support = "${var.infrastructure-support}"
+  application            = "${var.application}"
   sqs_name               = "risk_profiler_change_dl"
 
   providers = {
