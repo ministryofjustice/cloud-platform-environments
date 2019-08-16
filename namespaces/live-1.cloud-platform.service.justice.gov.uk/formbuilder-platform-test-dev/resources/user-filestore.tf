@@ -2,7 +2,7 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.3"
 
   team_name              = "${var.team_name}"
   acl                    = "private"
@@ -62,6 +62,27 @@ module "user-filestore-s3-bucket" {
 ]
 }
 EOF
+
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-28d"
+      prefix                                 = "28d/"
+      abort_incomplete_multipart_upload_days = 28
+
+      expiration = [
+        {
+          days = 28
+        },
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 28
+        },
+      ]
+    },
+  ]
 }
 
 resource "kubernetes_secret" "user-filestore-s3-bucket" {
