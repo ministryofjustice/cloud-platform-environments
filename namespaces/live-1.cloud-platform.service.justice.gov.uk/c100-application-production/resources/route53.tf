@@ -22,8 +22,6 @@ resource "aws_route53_zone" "route53_zone_long" {
   }
 }
 
-
-
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
@@ -31,7 +29,7 @@ resource "kubernetes_secret" "route53_zone_sec" {
   }
 
   data {
-    short_zone_id = "${aws_route53_zone.route53_zone.zone_id}"
-    long_zone_id = "${aws_route53_zone.route53_zone.zone_id}"
+    short_zone_id = "${aws_route53_zone.route53_zone_short.zone_id}"
+    long_zone_id  = "${aws_route53_zone.route53_zone_long.zone_id}"
   }
 }
