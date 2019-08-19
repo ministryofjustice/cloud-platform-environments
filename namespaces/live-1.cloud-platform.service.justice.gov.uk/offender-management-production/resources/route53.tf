@@ -2,7 +2,7 @@ resource "aws_route53_zone" "route53_zone" {
   name = "moic.service.justice.gov.uk"
 
   tags {
-    application            = "${var.application}"
+    application            = "MOIC"
     is-production          = "${var.is-production}"
     environment-name       = "${var.environment-name}"
     owner                  = "${var.team_name}"
