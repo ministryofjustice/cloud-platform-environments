@@ -17,6 +17,6 @@ resource "kubernetes_secret" "route53_zone_sec" {
   }
 
   data {
-    short_zone_id = "${aws_route53_zone.route53_zone_short.zone_id}"
+    short_zone_id = "${aws_route53_zone.route53_zone.zone_id}"
   }
 }
