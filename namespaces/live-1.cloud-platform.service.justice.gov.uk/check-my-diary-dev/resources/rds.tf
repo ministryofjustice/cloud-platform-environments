@@ -11,9 +11,6 @@ module "checkmydiary_dev_rds" {
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
-  db_allocated_storage   = "20"
-  db_instance_class      = "db.t2.small"
-  db_iops                = "1000"
   team_name              = "check-my-diary"
   business-unit          = "HMPPS"
   application            = "check-my-diary"
@@ -29,13 +26,14 @@ module "checkmydiary_dev_rds" {
 
 resource "kubernetes_secret" "checkmydiary_dev_rds" {
   metadata {
-    name      = "check-my-diary-rds-dev"
+    name      = "check-my-diary-rds-dev-env"
     namespace = "check-my-diary-dev"
   }
 
   data {
     rds_instance_endpoint = "${module.checkmydiary_dev_rds.rds_instance_endpoint}"
     database_name         = "${module.checkmydiary_dev_rds.database_name}"
+    rds_instance_port	  = "${module.checkmydiary_dev_rds.rds_instance_port}"
     database_username     = "${module.checkmydiary_dev_rds.database_username}"
     database_password     = "${module.checkmydiary_dev_rds.database_password}"
     rds_instance_address  = "${module.checkmydiary_dev_rds.rds_instance_address}"
