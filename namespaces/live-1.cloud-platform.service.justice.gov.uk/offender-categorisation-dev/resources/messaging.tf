@@ -36,10 +36,6 @@ resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
       ]
   }
    EOF
-
-  providers = {
-    aws = "aws.london"
-  }
 }
 
 module "risk_profiler_change_dead_letter_queue" {
