@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: sid-test01app-dev
+  namespace: sentence-planning-preprod
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: sid-test01app-dev
+  namespace: sentence-planning-preprod
 spec:
   podSelector: {}
   policyTypes:

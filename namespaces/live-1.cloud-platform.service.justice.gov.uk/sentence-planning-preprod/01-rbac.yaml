@@ -1,0 +1,53 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sentence-planning-preprod-admin
+  namespace: sentence-planning-preprod
+subjects:
+  - kind: Group
+    name: "github:sentencing-and-oasys-development-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: sentence-planning-preprod
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller
+  namespace: sentence-planning-preprod
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: sentence-planning-preprod
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: circleci
+  namespace: sentence-planning-preprod
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sentence-planning-preprod-circleci
+  namespace: sentence-planning-preprod
+subjects:
+  - kind: ServiceAccount
+    name: circleci
+    namespace: sentence-planning-preprod
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

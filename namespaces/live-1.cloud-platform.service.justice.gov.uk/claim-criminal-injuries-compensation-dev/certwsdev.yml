@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: dev-claim-criminal-injuries-compensation-cert
+  namespace: claim-criminal-injuries-compensation-dev
+spec:
+  secretName: dev-claim-criminal-injuries-compensation-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: dev.claim-criminal-injuries-compensation.service.justice.gov.uk
+  acme:
+    config:
+    - dns01:
+        provider: route53-cloud-platform
+      domains:
+      - dev.claim-criminal-injuries-compensation.service.justice.gov.uk
