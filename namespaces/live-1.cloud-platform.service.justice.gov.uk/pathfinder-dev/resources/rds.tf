@@ -3,16 +3,18 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
   business-unit          = "${var.business-unit}"
   application            = "${var.application}"
   is-production          = "${var.is-production}"
+  db_engine_version      = "10"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
   force_ssl              = "true"
+  rds_family             = "postgres10"
 
   providers = {
     aws = "aws.london"
