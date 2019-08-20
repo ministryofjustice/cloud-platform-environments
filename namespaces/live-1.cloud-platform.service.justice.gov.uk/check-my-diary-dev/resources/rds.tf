@@ -11,12 +11,16 @@ module "checkmydiary_dev_rds" {
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
+  db_allocated_storage   = "20"
+  db_instance_class      = "db.t2.small"
+  db_iops                = "1000"
   team_name              = "check-my-diary"
+  business-unit          = "HMPPS"
   application            = "check-my-diary"
   is-production          = "false"
-  environment-name       = "dev"
-  db_name                = ""
+  environment-name       = "development"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
+  rds_family             = "postgres10"
 }
 
 resource "kubernetes_secret" "checkmydiary_dev_rds" {
