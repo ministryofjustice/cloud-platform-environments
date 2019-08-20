@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: check-my-diary-prod-ingress
+spec:
+  tls:
+  - hosts:
+    - checkmydiary.service.justice.gov.uk
+    secretName: tls-certificate
+  rules:
+  - host: checkmydiary.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: check-my-diary-prod
+          servicePort: 3000
