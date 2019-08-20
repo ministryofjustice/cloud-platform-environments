@@ -10,11 +10,11 @@ module "dps_rds" {
   business-unit          = "${var.business-unit}"
   application            = "${var.application}"
   is-production          = "${var.is-production}"
-  db_engine_version      = "10"
+  db_engine_version      = "11.4"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
   force_ssl              = "true"
-  rds_family             = "postgres10"
+  rds_family             = "postgres11"
 
   providers = {
     aws = "aws.london"
