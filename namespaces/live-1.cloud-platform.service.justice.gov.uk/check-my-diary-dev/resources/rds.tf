@@ -21,6 +21,10 @@ module "checkmydiary_dev_rds" {
   environment-name       = "development"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
   rds_family             = "postgres10"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "checkmydiary_dev_rds" {
