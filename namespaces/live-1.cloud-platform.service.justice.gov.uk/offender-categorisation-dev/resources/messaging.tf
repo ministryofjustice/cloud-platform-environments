@@ -18,27 +18,29 @@ module "risk_profiler_change" {
   }
 }
 
-/*temp removed this to fix the pipeline*/
+resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
+  queue_url = "${module.risk_profiler_change.sqs_id}"
 
-# resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
-#   queue_url = "${module.risk_profiler_change.sqs_id}"
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.risk_profiler_change.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.risk_profiler_change.sqs_arn}",
+          "Action": "SQS:SendMessage"
+        }
+      ]
+  }
+   EOF
 
-#   policy = <<EOF
-#   {
-#     "Version": "2012-10-17",
-#     "Id": "${module.risk_profiler_change.sqs_arn}/SQSDefaultPolicy",
-#     "Statement":
-#       [
-#         {
-#           "Effect": "Allow",
-#           "Principal": {"AWS": "*"},
-#           "Resource": "${module.risk_profiler_change.sqs_arn}",
-#           "Action": "SQS:SendMessage"
-#         }
-#       ]
-#   }
-#   EOF
-# }
+  providers = {
+    aws = "aws.london"
+  }
+}
 
 module "risk_profiler_change_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
@@ -65,7 +67,9 @@ resource "kubernetes_secret" "risk_profiler_change" {
     secret_access_key = "${module.risk_profiler_change.secret_access_key}"
     sqs_rpc_url       = "${module.risk_profiler_change.sqs_id}"
     sqs_rpc_arn       = "${module.risk_profiler_change.sqs_arn}"
+    sqs_rpc_name      = "${module.risk_profiler_change.sqs_name}"
     sqs_rpc_dlq_url   = "${module.risk_profiler_change_dead_letter_queue.sqs_id}"
     sqs_rpc_dlq_arn   = "${module.risk_profiler_change_dead_letter_queue.sqs_arn}"
+    sqs_rpc_dlq_name  = "${module.risk_profiler_change_dead_letter_queue.sqs_name}"
   }
 }
