@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: offender-categorisation.service.justice.gov.uk
+  namespace: offender-categorisation-prod
+spec:
+  secretName: offender-categorisation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'offender-categorisation.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'offender-categorisation.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
