@@ -6,6 +6,10 @@ variable "namespace" {
   default = "offender-categorisation-preprod"
 }
 
+variable "cluster_name" {}
+
+variable "cluster_state_bucket" {}
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
