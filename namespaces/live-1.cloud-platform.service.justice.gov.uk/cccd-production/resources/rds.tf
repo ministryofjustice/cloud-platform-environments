@@ -27,7 +27,6 @@ module "cccd_rds" {
   infrastructure-support      = "${var.infrastructure-support}"
   db_allocated_storage        = "50"
   db_instance_class           = "db.t3.medium"
-  db_iops                     = "1000"
   db_engine_version           = "9.6"
   rds_family                  = "postgres9.6"
   allow_major_version_upgrade = "true"
