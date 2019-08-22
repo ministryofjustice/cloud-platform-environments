@@ -29,6 +29,7 @@ module "cccd_rds" {
   db_instance_class           = "db.t3.medium"
   db_engine_version           = "9.6"
   rds_family                  = "postgres9.6"
+  force_ssl                   = "true"
   allow_major_version_upgrade = "true"
 
   providers = {
