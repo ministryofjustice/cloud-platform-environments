@@ -2,13 +2,13 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: manage-key-workers-dev
+  namespace: manage-key-workers-dev 
 spec:
   limits:
   - default:
-      cpu: 360m
-      memory: 1024Mi
+      cpu: 1000m
+      memory: 1000Mi
     defaultRequest:
-      cpu: 180m
-      memory: 512Mi
+      cpu: 10m
+      memory: 100Mi
     type: Container
