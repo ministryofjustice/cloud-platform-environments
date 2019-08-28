@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: dev.manage-key-workers.service.justice.gov.uk
+  namespace: manage-key-workers-dev
+spec:
+  secretName: manage-key-workers-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'dev.manage-key-workers.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'dev.manage-key-workers.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
