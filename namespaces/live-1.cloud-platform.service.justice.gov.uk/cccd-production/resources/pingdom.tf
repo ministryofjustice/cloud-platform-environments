@@ -4,10 +4,10 @@ terraform {
 
 provider "pingdom" {}
 
-resource "pingdom_check" "claim-crown-court-defence-staging" {
+resource "pingdom_check" "claim-crown-court-defence-production" {
   type                     = "http"
-  name                     = "Claim for crown court defence staging - ping"
-  host                     = "staging.claim-crown-court-defence.service.justice.gov.uk"
+  name                     = "Claim for crown court defence production - ping"
+  host                     = "production.claim-crown-court-defence.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
