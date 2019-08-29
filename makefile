@@ -6,10 +6,10 @@ namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platfor
 # Ugly hack to define a heredoc in a makefile
 # https://stackoverflow.com/questions/5873025/heredoc-in-a-makefile
 define NAMESPACE_MESSAGE
-Please raise a pull request, adding the files above, and merge it once
-it has been approved by the cloud platform team.
-Shortly after that, your new namespace will be created via the build
-pipeline.
+Please create a new branch of this repository, add the files above and raise a
+pull request.  Once the PR has been approved by the cloud platform team, please
+merge it and delete the branch.  Shortly after that, your new namespace will be
+created via the build pipeline.
 endef
 export NAMESPACE_MESSAGE
 
