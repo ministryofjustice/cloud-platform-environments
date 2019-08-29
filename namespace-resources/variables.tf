@@ -1,31 +1,36 @@
 variable "namespace" {
-  description = "Namespace you would like to create on cluster <application>-<environment>. I.E myapp-dev"
+  description = "What is the name of your namespace? This should be of the form: <application>-<environment>. e.g. myapp-dev (lower-case letters and dashes only)"
 }
 
 variable "github_team" {
-  description = "This is your team name as defined by the GITHUB api. This has to match the team name on the Github API"
+  description = "What is the name of your Github team? (this must be an exact match, or you will not have access to your namespace)"
 }
 
 variable "business-unit" {
-  description = " Area of the MOJ responsible for the service"
+  description = "Which part of the MoJ is responsible for this service? (e.g HMPPS, Legal Aid Agency)"
 }
 
 variable "is-production" {
+  description = "Is this a production namespace? (please answer true or false)"
   default = "false"
 }
 
-variable "environment" {}
+variable "environment" {
+  description = "What type of application environment is this namespace for? e.g. development, staging, production"
+}
 
-variable "application" {}
+variable "application" {
+  description = "What is the name of your application/service? (e.g. Send money to a prisoner)"
+}
 
 variable "owner" {
-  description = "Who is the owner/Who is responsible for this application"
+  description = "Which team in your organisation is responsible for this application? (e.g. Sentence Planning)"
 }
 
 variable "contact_email" {
-  description = "Contact email address for owner of the application"
+  description = "What is the email address for the team which owns the application? (this should not be a named individual's email address)"
 }
 
 variable "source_code_url" {
-  description = "Url of the source code for your application"
+  description = "What is the Github repository URL of the source code for this application?"
 }
