@@ -5,7 +5,5 @@ metadata:
   namespace: laa-apply-for-legalaid-staging
 spec:
   hard:
-    limits.cpu: "10"
-    limits.memory: 20Gi
-    requests.cpu: "4"
+    requests.cpu: 200m
     requests.memory: 8Gi
