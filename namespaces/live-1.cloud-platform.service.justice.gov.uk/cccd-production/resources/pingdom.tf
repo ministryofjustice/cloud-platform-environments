@@ -7,7 +7,7 @@ provider "pingdom" {}
 resource "pingdom_check" "claim-crown-court-defence-production" {
   type                     = "http"
   name                     = "Claim for crown court defence production - ping"
-  host                     = "production.claim-crown-court-defence.service.justice.gov.uk"
+  host                     = "cccd-production.apps.live-1.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
