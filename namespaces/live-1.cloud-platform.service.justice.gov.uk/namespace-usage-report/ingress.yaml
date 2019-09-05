@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: usage-report-app-ingress
+  namespace: namespace-usage-report
+spec:
+  tls:
+  - hosts:
+    - namespace-usage-report.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: namespace-usage-report.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: usage-report-service
+          servicePort: 4567
