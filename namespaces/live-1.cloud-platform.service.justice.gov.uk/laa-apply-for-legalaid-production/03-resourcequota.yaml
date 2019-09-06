@@ -5,5 +5,7 @@ metadata:
   namespace: laa-apply-for-legalaid-production
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 6Gi
+    limits.cpu: "10"
+    limits.memory: 20Gi
+    requests.cpu: "4"
+    requests.memory: 8Gi
