@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: usage-report-service
+  labels:
+    app: usage-report-service
+spec:
+  ports:
+  - port: 4567
+    name: https
+    targetPort: 4567
+  selector:
+    app: usage-report-app
