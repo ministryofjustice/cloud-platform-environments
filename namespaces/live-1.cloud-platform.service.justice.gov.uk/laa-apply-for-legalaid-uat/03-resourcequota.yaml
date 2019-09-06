@@ -5,7 +5,5 @@ metadata:
   namespace: laa-apply-for-legalaid-uat
 spec:
   hard:
-    requests.cpu: 20000m
-    requests.memory: 20Gi
-    limits.cpu: 20000m
-    limits.memory: 30Gi
+    requests.cpu: 100m
+    requests.memory: 6Gi
