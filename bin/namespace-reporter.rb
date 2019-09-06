@@ -237,7 +237,7 @@ names = Namespace.names(pattern)
 
 if options.fetch(:format) == JSON_OUTPUT
   namespaces = names.map { |name| Namespace.new(name).report }
-  puts({ items: namespaces }.to_json)
+  puts({ items: namespaces, last_updated: Time.now }.to_json)
 else
   names.each { |name| text_output(Namespace.new(name).report) }
 end
