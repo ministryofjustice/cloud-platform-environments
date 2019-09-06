@@ -16,7 +16,7 @@ module "celery-broker" {
 
 resource "kubernetes_secret" "celery-broker" {
   metadata {
-    name      = "celery-broker-${var.environment-name}"
+    name      = "celery-broker"
     namespace = "${var.namespace}"
   }
 
