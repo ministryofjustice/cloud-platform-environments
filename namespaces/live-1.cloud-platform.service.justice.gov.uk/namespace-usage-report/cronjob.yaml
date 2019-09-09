@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: report-generator
+  namespace: namespace-usage-report
+spec:
+  schedule: "*/30 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: report-generator-serviceaccount
+          restartPolicy: Never
+          containers:
+            - name: report-generator
+              image: ministryofjustice/namespace-report-generator:1.0
+              command:
+                - ./update-data.sh
+              env:
+                - name: WEB_APP_URL
+                  value: "http://usage-report-service:4567/update-data"
+                - name: API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: usage-report-api-key
+                      key: token
