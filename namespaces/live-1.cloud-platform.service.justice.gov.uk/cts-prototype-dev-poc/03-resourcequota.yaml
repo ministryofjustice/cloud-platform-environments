@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: cts-prototype-dev-poc
+spec:
+  hard:
+    requests.cpu: 100m
+    requests.memory: 5000Mi

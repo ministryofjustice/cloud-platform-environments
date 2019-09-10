@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cts-prototype-dev-poc-admin
+  namespace: cts-prototype-dev-poc
+subjects:
+  - kind: Group
+    name: "github:correspondence"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
