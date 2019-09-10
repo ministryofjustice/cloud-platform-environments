@@ -5,7 +5,5 @@ metadata:
   namespace: monitoring
 spec:
   hard:
-    requests.cpu: 10000m
-    requests.memory: 24Gi
-    limits.cpu: 10000m
-    limits.memory: 24Gi
+    requests.cpu: 500m
+    requests.memory: 12Gi
