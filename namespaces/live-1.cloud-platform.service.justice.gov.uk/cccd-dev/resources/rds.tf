@@ -1,4 +1,14 @@
 /*
+ * When using this module through the cloud-platform-environments, the following
+ * two variables are automatically supplied by the pipeline.
+ *
+ */
+
+variable "cluster_name" {}
+
+variable "cluster_state_bucket" {}
+
+/*
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
@@ -6,19 +16,23 @@
  */
 
 module "cccd_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
-
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
-  team_name              = "laa-get-paid"
-  business-unit          = "legal-aid-agency"
-  application            = "cccd"
-  is-production          = "false"
-  environment-name       = "dev"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
-  db_engine_version      = "10.6"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
+  cluster_name                = "${var.cluster_name}"
+  cluster_state_bucket        = "${var.cluster_state_bucket}"
+  team_name                   = "${var.team_name}"
+  business-unit               = "${var.business-unit}"
+  application                 = "${var.application}"
+  is-production               = "${var.is-production}"
+  environment-name            = "${var.environment-name}"
+  infrastructure-support      = "${var.infrastructure-support}"
+  db_allocated_storage        = "50"
+  db_instance_class           = "db.t3.small"
+  db_engine_version           = "9.6"
+  rds_family                  = "postgres9.6"
+  allow_major_version_upgrade = "true"
 
   providers = {
+    # Can be either "aws.london" or "aws.ireland"
     aws = "aws.london"
   }
 }
@@ -26,7 +40,7 @@ module "cccd_rds" {
 resource "kubernetes_secret" "cccd_rds" {
   metadata {
     name      = "cccd-rds"
-    namespace = "cccd-dev"
+    namespace = "${var.namespace}"
   }
 
   data {
