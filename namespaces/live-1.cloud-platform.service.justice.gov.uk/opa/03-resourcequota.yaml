@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: logging
+  namespace: opa
 spec:
   hard:
     requests.cpu: 6000m
