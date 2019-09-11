@@ -1,0 +1,21 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: aws-redirect
+  namespace: kuberos
+  annotations:
+    nginx.ingress.kubernetes.io/temporal-redirect: https://justice-cloud-platform.eu.auth0.com/samlp/bnqndz9kxf7wDge8ndCWyVwIX1OEElYf
+spec:
+  tls:
+  - hosts:
+    - aws-login.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: aws-login.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      # nginx-ingress ignores the Ingress resource if no backends are defined,
+      # it will not actually proxy to kuberos due to the redirect annotation
+      - backend:
+          serviceName: kuberos
+          servicePort: 80
