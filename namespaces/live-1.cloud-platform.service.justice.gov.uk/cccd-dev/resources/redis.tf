@@ -18,7 +18,7 @@ module "cccd_elasticache_redis" {
   node_type            = "cache.t2.micro"
 }
 
-resource "kubernetes_secret" "cccd_redis_elasticache" {
+resource "kubernetes_secret" "cccd_elasticache_redis" {
   metadata {
     name      = "cccd-elasticache-redis"
     namespace = "${var.namespace}"
