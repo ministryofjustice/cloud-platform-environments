@@ -3,7 +3,7 @@
 ################################################################################
 
 module "cccd_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.1"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -17,7 +17,6 @@ module "cccd_elasticache_redis" {
   parameter_group_name       = "default.redis4.0"
   number_cache_clusters      = "2"
   node_type                  = "cache.t2.micro"
-  transit_encryption_enabled = "false"
 }
 
 resource "kubernetes_secret" "cccd_elasticache_redis" {
