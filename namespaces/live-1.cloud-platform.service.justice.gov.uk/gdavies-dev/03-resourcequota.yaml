@@ -5,7 +5,5 @@ metadata:
   namespace: gdavies-dev
 spec:
   hard:
-    requests.cpu: 1500m
-    requests.memory: 3Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
+    requests.cpu: 100m
+    requests.memory: 5000Mi
