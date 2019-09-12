@@ -16,8 +16,6 @@ module "track_a_query_elasticache_redis" {
   cluster_name                  = "${var.cluster_name}"
   cluster_state_bucket          = "${var.cluster_state_bucket}"
   team_name                     = "correspondence"
-  number_cache_clusters         = "3"
-  replication_group_description = "example description"
   business-unit                 = "Central Digital"
   application                   = "track-a-query"
   is-production                 = "false"
@@ -37,7 +35,6 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
 
   data {
     primary_endpoint_address = "${module.track_a_query_elasticache_redis.primary_endpoint_address}"
-    member_clusters          = "${jsonencode(module.track_a_query_elasticache_redis.member_clusters)}"
     auth_token               = "${module.track_a_query_elasticache_redis.auth_token}"
   }
 }
