@@ -13,9 +13,10 @@ module "cccd_elasticache_redis" {
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
 
-  engine_version       = "4.0.10"
-  parameter_group_name = "default.redis4.0"
-  node_type            = "cache.t2.micro"
+  engine_version        = "4.0.10"
+  parameter_group_name  = "default.redis4.0"
+  number_cache_clusters = "2"
+  node_type             = "cache.t2.micro"
 }
 
 resource "kubernetes_secret" "cccd_elasticache_redis" {
@@ -26,6 +27,7 @@ resource "kubernetes_secret" "cccd_elasticache_redis" {
 
   data {
     primary_endpoint_address = "${module.cccd_elasticache_redis.primary_endpoint_address}"
+    member_clusters         = "${module.cccd_elasticache_redis.member_clusters}"
     auth_token               = "${module.cccd_elasticache_redis.auth_token}"
     url                      = "redis://dummyuser:${module.cccd_elasticache_redis.auth_token}@${module.cccd_elasticache_redis.primary_endpoint_address}:6379/0"
   }
