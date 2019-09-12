@@ -3,7 +3,7 @@
 ################################################################################
 
 module "cccd_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.2"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -29,6 +29,6 @@ resource "kubernetes_secret" "cccd_elasticache_redis" {
     primary_endpoint_address = "${module.cccd_elasticache_redis.primary_endpoint_address}"
     member_clusters         = "${module.cccd_elasticache_redis.member_clusters}"
     auth_token               = "${module.cccd_elasticache_redis.auth_token}"
-    url                      = "redis://dummyuser:${module.cccd_elasticache_redis.auth_token}@${module.cccd_elasticache_redis.primary_endpoint_address}:6379/0"
+    url                      = "redis://dummyuser:${module.cccd_elasticache_redis.auth_token}@${module.cccd_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
