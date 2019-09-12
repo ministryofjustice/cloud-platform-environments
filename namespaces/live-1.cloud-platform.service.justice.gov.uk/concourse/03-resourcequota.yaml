@@ -5,7 +5,5 @@ metadata:
   namespace: concourse
 spec:
   hard:
-    requests.cpu: 6000m
+    requests.cpu: 2500m
     requests.memory: 12Gi
-    limits.cpu: 6000m
-    limits.memory: 12Gi
