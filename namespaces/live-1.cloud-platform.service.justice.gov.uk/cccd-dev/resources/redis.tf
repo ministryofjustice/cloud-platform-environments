@@ -13,10 +13,10 @@ module "cccd_elasticache_redis" {
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
 
-  engine_version             = "4.0.10"
-  parameter_group_name       = "default.redis4.0"
-  number_cache_clusters      = "2"
-  node_type                  = "cache.t2.micro"
+  engine_version        = "4.0.10"
+  parameter_group_name  = "default.redis4.0"
+  number_cache_clusters = "2"
+  node_type             = "cache.t2.micro"
 }
 
 resource "kubernetes_secret" "cccd_elasticache_redis" {
