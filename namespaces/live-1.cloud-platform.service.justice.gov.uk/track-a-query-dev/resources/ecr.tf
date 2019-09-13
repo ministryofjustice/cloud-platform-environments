@@ -6,7 +6,7 @@
  */
 module "track_a_query_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
-  repo_name = "track-a-query"                                                             # Arbitrary module name does not need to reference any existing modules
+  repo_name = "track-a-query"                                                                 # Arbitrary module name does not need to reference any existing modules
   team_name = "correspondence"                                                                # Github team name
 
   providers = {
