@@ -1,5 +1,8 @@
 ################################################################################
-# CCCD Application Elasticache for ReDiS (for sidekiq background job processing)
+# CCCD Application Elasticache for ReDiS
+# for sidekiq background job processing and internal API cache
+# Size: cache.t2.small (1vCPU, 1.55Gib, low/moderate)
+# https://aws.amazon.com/elasticache/pricing/
 ################################################################################
 
 module "cccd_elasticache_redis" {
@@ -15,8 +18,8 @@ module "cccd_elasticache_redis" {
 
   engine_version        = "4.0.10"
   parameter_group_name  = "default.redis4.0"
-  number_cache_clusters = "2"
-  node_type             = "cache.t2.micro"
+  number_cache_clusters = "3"
+  node_type             = "cache.t2.small"
 }
 
 resource "kubernetes_secret" "cccd_elasticache_redis" {
@@ -29,7 +32,6 @@ resource "kubernetes_secret" "cccd_elasticache_redis" {
     primary_endpoint_address = "${module.cccd_elasticache_redis.primary_endpoint_address}"
     auth_token               = "${module.cccd_elasticache_redis.auth_token}"
     member_clusters          = "${jsonencode(module.cccd_elasticache_redis.member_clusters)}"
-    url                      = "redis://dummyuser:${module.cccd_elasticache_redis.auth_token}@${module.cccd_elasticache_redis.primary_endpoint_address}:6379"
-    unauthed_url             = "redis://${module.cccd_elasticache_redis.primary_endpoint_address}:6379"
+    url                      = "rediss://dummyuser:${module.cccd_elasticache_redis.auth_token}@${module.cccd_elasticache_redis.primary_endpoint_address}:6379"
   }
 }

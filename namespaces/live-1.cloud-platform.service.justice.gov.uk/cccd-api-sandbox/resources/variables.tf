@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "cccd-staging"
+  default = "cccd-api-sandbox"
 }
 
 variable "business-unit" {
@@ -18,7 +18,7 @@ variable "team_name" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "staging"
+  default     = "api-sandbox"
 }
 
 variable "infrastructure-support" {
