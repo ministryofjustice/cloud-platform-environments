@@ -3,14 +3,6 @@
 # Application Elasticache for ReDiS (for sidekiq background job processing)
 #################################################################################
 
-/*
- * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
- */
-
-variable "cluster_name" {}
-variable "cluster_state_bucket" {}
-
 module "track_a_query_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.1"
   cluster_name           = "${var.cluster_name}"
