@@ -48,7 +48,7 @@ module "track_a_query_dev_rds" {
 resource "kubernetes_secret" "track_a_query_dev_rds" {
   metadata {
     name      = "example-team-rds-instance-output"
-    namespace = "my-namespace"
+    namespace = "track-a-query-dev"
   }
 
   data {
