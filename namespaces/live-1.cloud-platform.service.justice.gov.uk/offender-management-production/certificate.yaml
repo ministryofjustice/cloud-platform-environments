@@ -1,0 +1,19 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: allocation-manager-certificate
+  namespace: offender-management-production
+spec:
+  secretName: allocation-manager-hostname
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: moic.service.justice.gov.uk
+  acme:
+    config:
+    - domains:
+      - moic.service.justice.gov.uk
+      - allocation-manager-production.apps.live-1.cloud-platform.service.justice.gov.uk
+      dns01:
+        provider: route53-cloud-platform
