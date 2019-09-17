@@ -26,7 +26,7 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
   }
 
   data {
-    primary_endpoint_address = "${module.track_a_query_elasticache_redis.primary_endpoint_address}"
+    primary_endpoint_address = "redis://${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
     auth_token               = "${module.track_a_query_elasticache_redis.auth_token}"
   }
 }
