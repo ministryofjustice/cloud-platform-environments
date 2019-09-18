@@ -28,10 +28,10 @@ for _f in namespaces/${cluster}/*; do
           -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
           -backend-config="region=${PIPELINE_STATE_REGION}"
         terraform apply \
-          -auto-approve \
           -var="cluster_name=${cluster%%.*}" \
           -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
-          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate"
+          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate" \
+          -auto-approve
       )
     fi
   fi
