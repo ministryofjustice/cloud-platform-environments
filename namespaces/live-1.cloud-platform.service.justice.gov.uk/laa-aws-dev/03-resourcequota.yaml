@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: laa-aws-dev
+spec:
+  hard:
+    requests.cpu: 100m
+    requests.memory: 5000Mi
