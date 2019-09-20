@@ -1,6 +1,6 @@
 ################################################################################
 # Track a Query (Correspondence Tool Staff)
-# Application Elasticache for ReDiS (for sidekiq background job processing)
+# Application Elasticache for Redis (for Sidekiq background job processing)
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
@@ -26,7 +26,7 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
   }
 
   data {
-    primary_endpoint_address = "redis://${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
+    primary_endpoint_address = "rediss://${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
     auth_token               = "${module.track_a_query_elasticache_redis.auth_token}"
   }
 }
