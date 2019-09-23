@@ -49,6 +49,6 @@ resource "aws_route53_record" "route53_zone_mx" {
   name    = "prisoner-money.service.justice.gov.uk."
   zone_id = "${aws_route53_zone.route53_zone.zone_id}"
   type    = "MX"
-  records = ["mxa.eu.mailgun.org", "mxb.eu.mailgun.org"]
+  records = ["10 mxa.eu.mailgun.org", "10 mxb.eu.mailgun.org"]
   ttl     = "300"
 }
