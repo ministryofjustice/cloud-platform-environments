@@ -3,18 +3,25 @@
 #############################################
 
 module "rds_instance" {
-  application                = "${var.application}"
-  cluster_name               = "${var.cluster_name}"
-  cluster_state_bucket       = "${var.cluster_state_bucket}"
-  db_backup_retention_period = "${var.db_backup_retention_period}"
-  db_engine                  = "postgres"
-  db_engine_version          = "11"
-  db_name                    = "parliamentary_questions_dev"
-  environment-name           = "${var.environment-name}"
-  infrastructure-support     = "${var.infrastructure-support}"
-  is-production              = "${var.is-production}"
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
-  team_name                  = "${var.team_name}"
+  allow_major_version_upgrade = "true"
+  application                 = "${var.application}"
+  apply_method                = "pending-reboot"
+  cluster_name                = "${var.cluster_name}"
+  cluster_state_bucket        = "${var.cluster_state_bucket}"
+  db_backup_retention_period  = "${var.db_backup_retention_period}"
+  db_engine                   = "postgres"
+  db_engine_version           = "11"
+  db_name                     = "parliamentary_questions_dev"
+  environment-name            = "${var.environment-name}"
+  infrastructure-support      = "${var.infrastructure-support}"
+  is-production               = "${var.is-production}"
+  rds_family                  = "postgres11"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.6"
+  team_name                   = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "rds_instance" {
