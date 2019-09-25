@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: digital-prison-services-preprod
+spec:
+  limits:
+  - default:
+      cpu: 1000m
+      memory: 1000Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 100Mi
+    type: Container
