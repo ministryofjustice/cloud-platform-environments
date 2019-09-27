@@ -11,6 +11,10 @@ class Pod
     @containers = args.fetch(:containers)
   end
 end
+# TODO: show actual resource usage: kubectl -n court-probation-dev top pods --containers --no-headers
+# TODO: show namespace defaults (limit range)
+# TODO: show totals (requested, used)
+# TODO: pretty output
 
 class Container
   attr_reader :name, :requests
