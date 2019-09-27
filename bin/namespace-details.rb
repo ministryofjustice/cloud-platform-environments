@@ -3,14 +3,6 @@
 require "json"
 require "pry-byebug"
 
-class Pod
-  attr_reader :name, :containers
-
-  def initialize(args)
-    @name = args.fetch(:name)
-    @containers = args.fetch(:containers)
-  end
-end
 # TODO: show actual resource usage: kubectl -n court-probation-dev top pods --containers --no-headers
 # TODO: show namespace defaults (limit range)
 # TODO: show totals (requested, used)
@@ -25,6 +17,27 @@ class Container
   end
 end
 
+class Pod
+  attr_reader :name, :containers
+
+  def initialize(data)
+    @name = data.dig("metadata", "name")
+    @containers = containers(data)
+  end
+
+  private
+
+  def containers(data)
+    data.dig("spec", "containers").map do |c|
+      name = c.dig("name")
+      requests = c.dig("resources", "requests")
+      Container.new(name: name, requests: requests)
+    end
+  end
+end
+
+############################################################
+
 def main(namespace)
   usage if namespace.nil?
 
@@ -33,20 +46,9 @@ def main(namespace)
 end
 
 def pods(data)
-  pods = data.dig("items").filter { |i| i.dig("kind") == "Pod" }
-
-  pods.map do |pod|
-    name = pod.dig("metadata", "name")
-    Pod.new(name: name, containers: containers(pod))
-  end
-end
-
-def containers(pod)
-  pod.dig("spec", "containers").map do |c|
-    name = c.dig("name")
-    requests = c.dig("resources", "requests")
-    Container.new(name: name, requests: requests)
-  end
+  data.dig("items")
+    .filter { |i| i.dig("kind") == "Pod" }
+    .map { |pod| Pod.new(pod) }
 end
 
 def usage
