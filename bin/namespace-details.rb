@@ -5,7 +5,6 @@ require "pry-byebug"
 
 # TODO: show namespace defaults (limit range)
 # TODO: show totals (requested, used)
-# TODO: pretty output
 
 module KubernetesValues
   def cpu_value(str)
@@ -56,6 +55,14 @@ class Namespace
     self
   end
 
+  def to_s
+    <<EOF
+NAMESPACE: #{name}
+PODS:
+#{pods.map(&:to_s).join("\n")}
+EOF
+  end
+
   private
 
   def add_usage_data
@@ -88,6 +95,14 @@ class Container
     @requests = args.fetch(:requests)
   end
 
+  def to_s
+    <<EOF
+    #{name}
+      requested (cpu, memory):\t#{req_cpu}\t#{req_mem}
+      used (cpu, memory):\t#{used_cpu}\t#{used_mem}
+EOF
+  end
+
   private
 
   def req_mem
@@ -115,6 +130,13 @@ class Pod
     @containers = get_containers(data)
   end
 
+  def to_s
+    <<EOF
+  POD: #{name}
+#{containers.map(&:to_s).join("\n")}
+EOF
+  end
+
   private
 
   def get_containers(data)
@@ -130,7 +152,7 @@ end
 
 def main(namespace)
   usage if namespace.nil?
-  pp Namespace.new(namespace).get_data
+  puts Namespace.new(namespace).get_data
 end
 
 def usage
