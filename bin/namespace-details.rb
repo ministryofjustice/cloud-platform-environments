@@ -42,7 +42,9 @@ end
 
 
 class Namespace
-  attr_reader :name, :pods
+  attr_reader :name, :pods, :hard, :request
+
+  include KubernetesValues
 
   def initialize(name)
     @name = name
@@ -52,12 +54,16 @@ class Namespace
     data = JSON.parse `kubectl -n #{name} get all -o json`
     @pods = get_pods(data)
     add_usage_data
+    add_request_limits
     self
   end
 
   def to_s
     <<EOF
 NAMESPACE: #{name}
+  hard limit (cpu, memory):\t#{hard_cpu}\t#{hard_mem}
+  request limit (cpu, memory):\t#{req_cpu}\t#{req_mem}
+
 PODS:
 #{pods.map(&:to_s).join("\n")}
 EOF
@@ -68,6 +74,40 @@ EOF
   def add_usage_data
     usage_data = `kubectl -n #{name} top pods --containers --no-headers`.chomp
     usage_data.split("\n").each { |line| add_container_usage(line) }
+  end
+
+  def add_request_limits
+    data = JSON.parse(`kubectl -n #{name} get resourcequota -o json`)
+    status = data
+      .dig("items")
+      .first
+      .dig("status")
+
+    @hard = {
+      "cpu" => status.dig("hard", "limits.cpu"),
+      "memory" => status.dig("hard", "limits.memory")
+    }
+
+    @request = {
+      "cpu" => status.dig("hard", "requests.cpu"),
+      "memory" => status.dig("hard", "requests.memory")
+    }
+  end
+
+  def hard_mem
+    memory_value hard.dig("memory")
+  end
+
+  def hard_cpu
+    cpu_value hard.dig("cpu")
+  end
+
+  def req_cpu
+    cpu_value request.dig("cpu")
+  end
+
+  def req_mem
+    memory_value request.dig("memory")
   end
 
   def add_container_usage(line)
