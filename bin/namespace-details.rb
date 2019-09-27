@@ -7,6 +7,41 @@ require "pry-byebug"
 # TODO: show totals (requested, used)
 # TODO: pretty output
 
+module KubernetesValues
+  def cpu_value(str)
+    return nil if str.nil?
+
+    case str
+    when /^(\d+)$/
+      $1.to_i * 1000
+    when /^(\d+)m$/
+      $1.to_i
+    else
+      raise %[CPU value: "#{str}" was not in expected format]
+    end
+  end
+
+  def memory_value(str)
+    return nil if str.nil?
+
+    case str
+    when /^(\d+)$/
+      $1.to_i / 1_000
+    when /^(\d+)k$/, /^(\d+)Ki$/
+      $1.to_i / 1024
+    when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
+      $1.to_i / 1_000_000_000
+    when /^(\d+)Gi/
+      $1.to_i * 1000
+    when /^(\d+)Mi/
+      $1.to_i
+    else
+      raise %[Memory value: "#{str}" was not in expected format]
+    end
+  end
+end
+
+
 class Namespace
   attr_reader :name, :pods
 
@@ -46,9 +81,29 @@ class Container
   attr_reader :name, :requests
   attr_accessor :used
 
+  include KubernetesValues
+
   def initialize(args)
     @name = args.fetch(:name)
     @requests = args.fetch(:requests)
+  end
+
+  private
+
+  def req_mem
+    memory_value requests.dig("memory")
+  end
+
+  def req_cpu
+    cpu_value requests.dig("cpu")
+  end
+
+  def used_cpu
+    cpu_value used.dig("cpu")
+  end
+
+  def used_mem
+    memory_value used.dig("memory")
   end
 end
 
