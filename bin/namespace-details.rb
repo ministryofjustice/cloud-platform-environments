@@ -37,11 +37,25 @@ module KubernetesValues
   end
 end
 
+module FormatOutput
+
+  private
+
+  def format_line(title, col1, col2)
+    [
+      title.ljust(40),
+      col1.to_s.ljust(10),
+      col2.to_s.ljust(10),
+    ].join
+  end
+end
+
 
 class Namespace
   attr_reader :name, :pods, :hard, :request, :used, :limitrange
 
   include KubernetesValues
+  include FormatOutput
 
   def initialize(name)
     @name = name
@@ -59,10 +73,10 @@ class Namespace
   def to_s
     <<EOF
 NAMESPACE: #{name}
-  hard limit (cpu, memory):\t#{hard_cpu}\t#{hard_mem}
-  request limit (cpu, memory):\t#{req_cpu}\t#{req_mem}
-  used (cpu, memory):\t\t#{used_cpu}\t#{used_mem}
-  per-container\n  request (cpu, memory):\t#{limit_cpu}\t#{limit_mem}
+  #{format_line("hard limit (cpu, memory):", hard_cpu, hard_mem)}
+  #{format_line("request limit (cpu, memory):", req_cpu, req_mem)}
+  #{format_line("used (cpu, memory):", used_cpu, used_mem)}
+  #{format_line("per-container request (cpu, memory):", limit_cpu, limit_mem)}
 
 PODS:
 #{pods.map(&:to_s).join("\n")}
@@ -162,6 +176,7 @@ class Container
   attr_accessor :used
 
   include KubernetesValues
+  include FormatOutput
 
   def initialize(args)
     @name = args.fetch(:name)
@@ -171,8 +186,8 @@ class Container
   def to_s
     <<EOF
     #{name}
-      requested (cpu, memory):\t#{req_cpu}\t#{req_mem}
-      used (cpu, memory):\t#{used_cpu}\t#{used_mem}
+      #{format_line("requested (cpu, memory):", req_cpu, req_mem)}
+      #{format_line("used (cpu, memory):", used_cpu, used_mem)}
 EOF
   end
 
