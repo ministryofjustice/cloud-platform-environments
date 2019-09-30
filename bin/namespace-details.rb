@@ -205,7 +205,7 @@ class Pod
 
   def to_s
     <<EOF
-  POD: #{name}
+  #{name}
 #{containers.map(&:to_s).join("\n")}
 EOF
   end
