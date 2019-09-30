@@ -3,8 +3,6 @@
 require "json"
 require "pry-byebug"
 
-# TODO: show namespace defaults (limit range)
-
 module KubernetesValues
   def cpu_value(str)
     return nil if str.nil?
@@ -41,7 +39,7 @@ end
 
 
 class Namespace
-  attr_reader :name, :pods, :hard, :request, :used
+  attr_reader :name, :pods, :hard, :request, :used, :limitrange
 
   include KubernetesValues
 
@@ -54,6 +52,7 @@ class Namespace
     @pods = get_pods(data)
     add_usage_data
     add_request_limits
+    add_limit_range
     self
   end
 
@@ -63,6 +62,7 @@ NAMESPACE: #{name}
   hard limit (cpu, memory):\t#{hard_cpu}\t#{hard_mem}
   request limit (cpu, memory):\t#{req_cpu}\t#{req_mem}
   used (cpu, memory):\t\t#{used_cpu}\t#{used_mem}
+  per-container\n  request (cpu, memory):\t#{limit_cpu}\t#{limit_mem}
 
 PODS:
 #{pods.map(&:to_s).join("\n")}
@@ -102,6 +102,15 @@ EOF
     }
   end
 
+  def add_limit_range
+    data = JSON.parse(`kubectl -n #{name} get limitrange -o json`)
+    @limitrange = data.dig("items")
+      .first
+      .dig("spec", "limits")
+      .first
+      .dig("defaultRequest")
+  end
+
   def hard_mem
     memory_value hard.dig("memory")
   end
@@ -116,6 +125,14 @@ EOF
 
   def req_mem
     memory_value request.dig("memory")
+  end
+
+  def limit_cpu
+    cpu_value limitrange.dig("cpu")
+  end
+
+  def limit_mem
+    memory_value limitrange.dig("memory")
   end
 
   def add_container_usage(line)
