@@ -4,7 +4,6 @@ require "json"
 require "pry-byebug"
 
 # TODO: show namespace defaults (limit range)
-# TODO: show totals (requested, used)
 
 module KubernetesValues
   def cpu_value(str)
@@ -42,7 +41,7 @@ end
 
 
 class Namespace
-  attr_reader :name, :pods, :hard, :request
+  attr_reader :name, :pods, :hard, :request, :used
 
   include KubernetesValues
 
@@ -63,6 +62,7 @@ class Namespace
 NAMESPACE: #{name}
   hard limit (cpu, memory):\t#{hard_cpu}\t#{hard_mem}
   request limit (cpu, memory):\t#{req_cpu}\t#{req_mem}
+  used (cpu, memory):\t\t#{used_cpu}\t#{used_mem}
 
 PODS:
 #{pods.map(&:to_s).join("\n")}
@@ -74,6 +74,14 @@ EOF
   def add_usage_data
     usage_data = `kubectl -n #{name} top pods --containers --no-headers`.chomp
     usage_data.split("\n").each { |line| add_container_usage(line) }
+
+    add_used
+  end
+
+  def add_used
+    used_cpu = pods.map(&:containers).flatten.inject(0) { |sum, c| sum += cpu_value(c.used.dig("cpu")) }
+    used_mem = pods.map(&:containers).flatten.inject(0) { |sum, c| sum += memory_value(c.used.dig("memory")) }
+    @used = { "cpu" => used_cpu, "memory" => used_mem }
   end
 
   def add_request_limits
@@ -121,6 +129,14 @@ EOF
     data.dig("items")
       .filter { |i| i.dig("kind") == "Pod" }
       .map { |pod| Pod.new(pod) }
+  end
+
+  def used_cpu
+    used.dig("cpu")
+  end
+
+  def used_mem
+    used.dig("memory")
   end
 end
 
