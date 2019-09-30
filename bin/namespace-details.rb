@@ -181,6 +181,7 @@ class Container
   def initialize(args)
     @name = args.fetch(:name)
     @requests = args.fetch(:requests)
+    @used = { "cpu" => "0m", "memory" => "0Mi" }
   end
 
   def to_s
