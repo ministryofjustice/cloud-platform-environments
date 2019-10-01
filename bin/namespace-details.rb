@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require "json"
-require "pry-byebug"
 
 module KubernetesValues
   def cpu_value(str)
