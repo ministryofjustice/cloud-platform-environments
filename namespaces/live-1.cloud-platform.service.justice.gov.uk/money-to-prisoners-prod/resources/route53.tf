@@ -12,7 +12,7 @@ resource "aws_route53_zone" "route53_zone" {
 
 resource "kubernetes_secret" "route53_zone" {
   metadata {
-    name      = "route53-zone"
+    name      = "route53-app-domain"
     namespace = "${var.namespace}"
   }
 
@@ -50,5 +50,201 @@ resource "aws_route53_record" "route53_zone_mx" {
   zone_id = "${aws_route53_zone.route53_zone.zone_id}"
   type    = "MX"
   records = ["10 mxa.eu.mailgun.org", "10 mxb.eu.mailgun.org"]
+  ttl     = "300"
+}
+
+resource "aws_route53_zone" "send_money_prod" {
+  name = "send-money-to-prisoner.service.gov.uk."
+
+  tags {
+    application            = "${var.application}"
+    is-production          = "${var.is-production}"
+    environment-name       = "${var.environment-name}"
+    owner                  = "${var.team_name}"
+    infrastructure-support = "${var.email}"
+  }
+}
+
+resource "kubernetes_secret" "send_money_prod" {
+  metadata {
+    name      = "route53-send-money"
+    namespace = "${var.namespace}"
+  }
+
+  data {
+    short_zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_a_1" {
+  name    = "send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "prod.send-money-to-prisoner.service.gov.uk."
+    zone_id = "Z1B5UMPRQWDOO7"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_aaaa_1" {
+  name    = "send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "AAAA"
+
+  alias {
+    name    = "prod.send-money-to-prisoner.service.gov.uk."
+    zone_id = "Z1B5UMPRQWDOO7"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_a_2" {
+  name    = "prod.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "dualstack.money-to-p-elbprod-ozqwc618klrz-672796966.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_aaaa_2" {
+  name    = "prod.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "AAAA"
+
+  alias {
+    name    = "dualstack.money-to-p-elbprod-ozqwc618klrz-672796966.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_a_3" {
+  name    = "prod-b0884d3b.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "dualstack.money-to-p-elbprod-ozqwc618klrz-672796966.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_aaaa_3" {
+  name    = "prod-b0884d3b.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "AAAA"
+
+  alias {
+    name    = "dualstack.money-to-p-elbprod-ozqwc618klrz-672796966.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "send_money_prod_cname_1" {
+  name    = "email.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "CNAME"
+  records = ["mailgun.org"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "send_money_prod_txt_1" {
+  name    = "send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "TXT"
+  records = ["v=spf1 include:mailgun.org ~all"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "send_money_prod_txt_2" {
+  name    = "mailo._domainkey.send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "TXT"
+  records = ["k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuOs26XfsArjkmoN/tAy9OzgZi/ohE8JDaTZFoow6O+ft3ilrkfoWT+duiOUggwO4lPzQ0kFD5yqZeDUGyPOwHFyMRkeAHEruBXAS4hefUR+ZiTVCsKYPQJZ/NuUCU2tkVQ7muKUnLT90ggNu6q0PaTnxxaYUjSfdeyxLUVTxiwwIDAQAB"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "send_money_prod_mx" {
+  name    = "send-money-to-prisoner.service.gov.uk."
+  zone_id = "${aws_route53_zone.send_money_prod.zone_id}"
+  type    = "MX"
+  records = ["10 mxa.mailgun.org", "10 mxb.mailgun.org"]
+  ttl     = "300"
+}
+
+resource "aws_route53_zone" "start_page_prod" {
+  name = "sendmoneytoaprisoner.justice.gov.uk."
+
+  tags {
+    application            = "${var.application}"
+    is-production          = "${var.is-production}"
+    environment-name       = "${var.environment-name}"
+    owner                  = "${var.team_name}"
+    infrastructure-support = "${var.email}"
+  }
+}
+
+resource "kubernetes_secret" "start_page_prod" {
+  metadata {
+    name      = "route53-start-page"
+    namespace = "${var.namespace}"
+  }
+
+  data {
+    short_zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  }
+}
+
+resource "aws_route53_record" "start_page_prod_a_1" {
+  name    = "sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  type    = "A"
+  records = ["52.30.196.9"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "start_page_prod_cname_1" {
+  name    = "email.sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  type    = "CNAME"
+  records = ["mailgun.org"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "start_page_prod_txt_1" {
+  name    = "sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  type    = "TXT"
+  records = ["v=spf1 include:mailgun.org ~all"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "start_page_prod_txt_2" {
+  name    = "smtp._domainkey.sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  type    = "TXT"
+  records = ["k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCiKXT4bXJkdvmDtdogyzBSbT0r47xoUdAzKIGXWTpD4fcK73QZg1A/Mya3yOyatd1PQnS5qVCT15TYOBi446xHbGOaWwSrJJv0JfqcJF/oU4xoFVyb5RyEfDrtEVv3VAznjFDQwc8ji8AqKE3/Od0H86hmryF9zE7PfTne/T2uVQIDAQAB"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "start_page_prod_mx" {
+  name    = "sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = "${aws_route53_zone.start_page_prod.zone_id}"
+  type    = "MX"
+  records = ["10 mxa.mailgun.org", "10 mxb.mailgun.org"]
   ttl     = "300"
 }
