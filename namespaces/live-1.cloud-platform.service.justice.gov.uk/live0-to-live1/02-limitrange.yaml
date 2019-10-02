@@ -6,9 +6,9 @@ metadata:
 spec:
   limits:
   - default:
-      cpu: 125m
-      memory: 250Mi
+      cpu: 1000m
+      memory: 1000Mi
     defaultRequest:
-      cpu: 125m
-      memory: 250Mi
+      cpu: 10m
+      memory: 100Mi
     type: Container

@@ -5,5 +5,5 @@ metadata:
   namespace: live0-to-live1
 spec:
   hard:
-    requests.cpu: 3000m
-    requests.memory: 6Gi
+    requests.cpu: 100m
+    requests.memory: 100Mi
