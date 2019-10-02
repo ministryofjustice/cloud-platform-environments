@@ -83,7 +83,7 @@ resource "aws_route53_record" "send_money_a_root" {
 
   alias {
     name    = "prod.send-money-to-prisoner.service.gov.uk."
-    zone_id = "Z1B5UMPRQWDOO7"
+    zone_id = "${aws_route53_zone.send_money.zone_id}"
 
     evaluate_target_health = false
   }
@@ -96,7 +96,7 @@ resource "aws_route53_record" "send_money_aaaa_root" {
 
   alias {
     name    = "prod.send-money-to-prisoner.service.gov.uk."
-    zone_id = "Z1B5UMPRQWDOO7"
+    zone_id = "${aws_route53_zone.send_money.zone_id}"
 
     evaluate_target_health = false
   }
