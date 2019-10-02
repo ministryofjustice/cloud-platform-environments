@@ -18,6 +18,7 @@ resource "kubernetes_secret" "app_domain" {
 
   data {
     short_zone_id = "${aws_route53_zone.app_domain.zone_id}"
+    name_servers  = "${join("\n", aws_route53_zone.app_domain.name_servers)}"
   }
 }
 
@@ -73,6 +74,7 @@ resource "kubernetes_secret" "send_money" {
 
   data {
     short_zone_id = "${aws_route53_zone.send_money.zone_id}"
+    name_servers  = "${join("\n", aws_route53_zone.send_money.name_servers)}"
   }
 }
 
@@ -206,6 +208,7 @@ resource "kubernetes_secret" "start_page" {
 
   data {
     short_zone_id = "${aws_route53_zone.start_page.zone_id}"
+    name_servers  = "${join("\n", aws_route53_zone.start_page.name_servers)}"
   }
 }
 
