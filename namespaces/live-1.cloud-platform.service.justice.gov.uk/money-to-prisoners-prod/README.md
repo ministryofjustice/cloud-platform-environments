@@ -8,7 +8,7 @@ Architecture
 
 - each MTP namespace defines it’s own AWS resources that are not shared
     - currently, only RDS is terraform-managed
-- only the `money-to-prisoners-prod` namespace defines the Route 53 zone
+- only the `money-to-prisoners-prod` namespace defines the Route 53 zones
 - only the `money-to-prisoners-prod` namespace defines a single ECR shared by all MTP namespaces
     - the associated kubernetes secret is accessible from any namespace
     - this single ECR will store images for all MTP apps to simplify deployment
