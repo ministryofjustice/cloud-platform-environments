@@ -4,7 +4,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.6"
 
   providers = {
     aws = "aws.london"
@@ -18,10 +18,12 @@ module "rds" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.email}"
+  rds_family             = "postgres10"
   db_engine              = "postgres"
-  db_engine_version      = "10.6"
-  db_instance_class      = "db.m4.large"
-  db_allocated_storage   = "20"
+  db_engine_version      = "10.10"
+  db_instance_class      = "db.m5.large"
+  db_allocated_storage   = "50"
+  db_iops                = "2000"
   db_name                = "mtp_api"
 }
 
