@@ -43,6 +43,7 @@ spec:
                 --use_ssl \
                 --port 443 \
                 delete_indices \
+                --ignore_empty_list \
                 --filter_list '[
                   {
                     "filtertype":"age",
