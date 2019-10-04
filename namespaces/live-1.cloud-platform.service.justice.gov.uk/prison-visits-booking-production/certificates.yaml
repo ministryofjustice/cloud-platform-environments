@@ -1,0 +1,79 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prison-visits-public-cert
+  namespace: prison-visits-booking-production 
+spec:
+  secretName: prison-visits-public-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'prisonvisits.service.gov.uk'
+  dnsNames:
+  - prisonvisits.service.gov.uk
+  acme:
+    config:
+      - domains:
+        - 'prisonvisits.service.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prison-visits-public-www-cert
+  namespace: prison-visits-booking-production 
+spec:
+  secretName: prison-visits-public-www-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'www.prisonvisits.service.gov.uk'
+  dnsNames:
+   - www.prisonvisits.service.gov.uk
+  acme:
+    config:
+      - domains:
+        - 'www.prisonvisits.service.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prison-visits-staff-cert
+  namespace: prison-visits-booking-production
+spec:
+  secretName: prison-visits-staff-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staff.prisonvisits.service.gov.uk'
+  dnsNames:
+  - staff.prisonvisits.service.gov.uk
+  acme:
+    config:
+      - domains:
+        - 'staff.prisonvisits.service.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prison-visits-staff-justice-cert
+  namespace: prison-visits-booking-production 
+spec:
+  secretName: prison-visits-staff-justice-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staff.prisonvisits.service.justice.gov.uk'
+  dnsNames:
+  - staff.prisonvisits.service.justice.gov.uk
+  acme:
+    config:
+      - domains:
+        - 'staff.prisonvisits.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
