@@ -8,6 +8,6 @@ metadata:
   namespace: formbuilder-platform-test-staging
 spec:
   hard:
-    requests.cpu: 4000m
-    requests.memory: 8Gi
+    requests.cpu: 50m
+    requests.memory: 2500Mi
 
