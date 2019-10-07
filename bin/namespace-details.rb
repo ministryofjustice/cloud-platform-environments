@@ -157,7 +157,7 @@ EOF
 
   def get_pods(data)
     data.dig("items")
-      .filter { |i| i.dig("kind") == "Pod" }
+      .find_all { |i| i.dig("kind") == "Pod" }
       .map { |pod| Pod.new(pod) }
   end
 
