@@ -11,7 +11,7 @@ module "oc_elasticache_redis" {
   is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
-  number_cache_clusters  = "2"
+  number_cache_clusters  = "${var.number_cache_clusters}"
   node_type              = "cache.t2.small"
 }
 
