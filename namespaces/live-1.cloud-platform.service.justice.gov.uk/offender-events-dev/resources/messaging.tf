@@ -75,7 +75,7 @@ module "offender_events_subscriber_dead_letter_queue" {
 
 resource "kubernetes_secret" "offender_events" {
   metadata {
-    name      = "offender_events-topic-output"
+    name      = "offender-events-topic-output"
     namespace = "${var.namespace}"
   }
 
@@ -119,7 +119,7 @@ resource "kubernetes_secret" "offender_events_subscriber_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "offender_events-subscription" {
+resource "aws_sns_topic_subscription" "offender_events_subscription" {
   provider      = "aws.london"
   topic_arn     = "${module.offender_events.topic_arn}"
   protocol      = "sqs"
