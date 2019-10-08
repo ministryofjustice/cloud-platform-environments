@@ -17,7 +17,6 @@ module "offender_events_subscriber" {
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "offender_events_subscriber"
-  existing_user_name     = "${module.offender_events.user_name}"
 
   redrive_policy = <<EOF
   {
@@ -66,7 +65,6 @@ module "offender_events_subscriber_dead_letter_queue" {
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "offender_events_subscriber_dl"
-  existing_user_name     = "${module.offender_events.user_name}"
 
   providers = {
     aws = "aws.london"
