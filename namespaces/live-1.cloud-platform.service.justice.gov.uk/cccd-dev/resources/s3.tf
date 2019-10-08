@@ -20,7 +20,8 @@ module "cccd_s3_bucket" {
     "Sid": "",
     "Effect": "Allow",
     "Action": [
-      "s3:GetBucketLocation"
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
     ],
     "Resource": [
       "$${bucket_arn}",
