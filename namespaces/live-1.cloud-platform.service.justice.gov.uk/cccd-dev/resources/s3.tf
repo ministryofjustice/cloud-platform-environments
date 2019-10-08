@@ -32,7 +32,8 @@ module "cccd_s3_bucket" {
     "Sid": "",
     "Effect": "Allow",
     "Action": [
-      "s3:GetObject"
+      "s3:GetObject",
+      "s3:CopyObject"
     ],
     "Resource": [
       "$${bucket_arn}/*",
