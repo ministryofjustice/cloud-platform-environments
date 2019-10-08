@@ -51,7 +51,7 @@ end
 
 
 class Namespace
-  attr_reader :name, :pods, :hard, :request, :used, :limitrange
+  attr_reader :name, :pods, :hard, :request, :used, :limitrange, :total_requested
 
   include KubernetesValues
   include FormatOutput
@@ -74,6 +74,7 @@ class Namespace
 NAMESPACE: #{name}
   #{format_line("hard limit (cpu, memory):", hard_cpu, hard_mem)}
   #{format_line("request limit (cpu, memory):", req_cpu, req_mem)}
+  #{format_line("requested (cpu, memory):", requested_cpu, requested_mem)}
   #{format_line("used (cpu, memory):", used_cpu, used_mem)}
   #{format_line("per-container request (cpu, memory):", limit_cpu, limit_mem)}
 
@@ -113,6 +114,11 @@ EOF
       "cpu" => status.dig("hard", "requests.cpu"),
       "memory" => status.dig("hard", "requests.memory")
     }
+
+    @total_requested = {
+      "cpu" => status.dig("used", "requests.cpu"),
+      "memory" => status.dig("used", "requests.memory")
+    }
   end
 
   def add_limit_range
@@ -138,6 +144,14 @@ EOF
 
   def req_mem
     memory_value request.dig("memory")
+  end
+
+  def requested_cpu
+    cpu_value total_requested.dig("cpu")
+  end
+
+  def requested_mem
+    memory_value total_requested.dig("memory")
   end
 
   def limit_cpu
