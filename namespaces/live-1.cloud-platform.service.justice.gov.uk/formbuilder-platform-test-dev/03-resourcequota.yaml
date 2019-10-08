@@ -8,5 +8,5 @@ metadata:
   namespace: formbuilder-platform-test-dev
 spec:
   hard:
-    requests.cpu: 320m
+    requests.cpu: 2000m
     requests.memory: 5000Mi
