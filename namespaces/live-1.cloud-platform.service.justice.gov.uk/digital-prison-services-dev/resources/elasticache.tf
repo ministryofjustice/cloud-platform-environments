@@ -17,7 +17,7 @@ module "dps_redis" {
 
 resource "kubernetes_secret" "dps_redis" {
   metadata {
-    name      = "dps_redis"
+    name      = "dps-redis"
     namespace = "${var.namespace}"
   }
 
