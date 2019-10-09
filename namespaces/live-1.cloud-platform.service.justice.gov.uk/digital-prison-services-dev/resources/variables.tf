@@ -1,7 +1,3 @@
-variable "domain" {
-  default = "digital-dev.prison.service.justice.gov.uk"
-}
-
 variable "application" {
   default = "digital-prison-services-dev"
 }
