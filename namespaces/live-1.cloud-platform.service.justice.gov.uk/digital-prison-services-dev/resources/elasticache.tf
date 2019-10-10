@@ -13,10 +13,10 @@ module "dps_redis" {
   team_name              = "${var.team_name}"
   number_cache_clusters  = "${var.number_cache_clusters}"
   node_type              = "${var.node-type}"
-}
 
-providers = {
-  aws = "aws.london"
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "dps_redis" {
