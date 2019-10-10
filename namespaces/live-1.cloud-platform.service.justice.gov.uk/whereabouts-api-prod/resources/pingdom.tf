@@ -17,5 +17,5 @@ resource "pingdom_check" "dps-production-check" {
   port                     = 443
   tags                     = "dps,hmpps"
   probefilters             = "region:EU"
-  integrationids           = [96624,96628]
+  integrationids           = [96624, 96628]
 }
