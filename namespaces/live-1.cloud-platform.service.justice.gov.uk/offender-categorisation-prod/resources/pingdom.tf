@@ -2,6 +2,7 @@ provider "pingdom" {}
 
 # Integration IDs
 # 96624 = #dps_alerts
+# 91037 = #categorisation-tool
 # 96628 = DPS Pager duty
 
 resource "pingdom_check" "dps-production-check" {
@@ -17,5 +18,5 @@ resource "pingdom_check" "dps-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [91037, 96624, 96628]
 }
