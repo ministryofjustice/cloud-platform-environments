@@ -11,6 +11,37 @@ module "cccd_s3_bucket" {
   providers = {
     aws = "aws.london"
   }
+
+  user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}",
+      "arn:aws:s3:::adp-api-sandbox-documents"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:*"
+    ],
+    "Resource": [
+      "$${bucket_arn}/*",
+      "arn:aws:s3:::adp-api-sandbox-documents/*"
+    ]
+  }
+]
+}
+EOF
 }
 
 resource "kubernetes_secret" "cccd_s3_bucket" {
