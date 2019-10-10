@@ -15,6 +15,10 @@ module "dps_redis" {
   node_type              = "${var.node-type}"
 }
 
+providers = {
+  aws = "aws.london"
+}
+
 resource "kubernetes_secret" "dps_redis" {
   metadata {
     name      = "dps-redis"
