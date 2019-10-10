@@ -25,7 +25,7 @@ module "cccd_s3_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}",
-      "arn:aws:s3:::adp-staging-documents"
+      "arn:aws:s3:::adp-api-sandbox-documents"
     ]
   },
   {
@@ -36,7 +36,7 @@ module "cccd_s3_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}/*",
-      "arn:aws:s3:::adp-staging-documents/*"
+      "arn:aws:s3:::adp-api-sandbox-documents/*"
     ]
   }
 ]

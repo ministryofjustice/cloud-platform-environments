@@ -32,7 +32,7 @@ module "cccd_s3_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}",
-      "arn:aws:s3:::adp-staging-documents"
+      "arn:aws:s3:::adp-gamma-documents"
     ]
   },
   {
@@ -43,7 +43,7 @@ module "cccd_s3_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}/*",
-      "arn:aws:s3:::adp-staging-documents/*"
+      "arn:aws:s3:::adp-gamma-documents/*"
     ]
   }
 ]
