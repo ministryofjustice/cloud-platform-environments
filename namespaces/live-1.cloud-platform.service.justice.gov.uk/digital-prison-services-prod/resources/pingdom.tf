@@ -12,7 +12,7 @@ resource "pingdom_check" "dps-production-check-digital" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/https/digital.{var.domain}"
+  url                      = "/https/digital.${var.domain}"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
