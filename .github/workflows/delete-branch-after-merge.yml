@@ -1,0 +1,22 @@
+name: Delete branch on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: ministryofjustice/cloud-platform-tools:1.4-test
+
+    steps:
+      - uses: actions/checkout@master
+      - run: gem install octokit
+      - name: Delete branch after merge
+        if: github.event.pull_request.merged == true
+        run: ruby bin/delete-branch-after-merge.rb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
