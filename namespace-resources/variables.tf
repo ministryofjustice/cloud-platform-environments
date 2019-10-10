@@ -12,7 +12,7 @@ variable "business-unit" {
 
 variable "is-production" {
   description = "Is this a production namespace? (please answer true or false)"
-  default = "false"
+  default     = "false"
 }
 
 variable "environment" {
