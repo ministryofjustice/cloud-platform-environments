@@ -9,7 +9,7 @@ module "track_a_query_s3" {
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
-  is-production          = "true"
+  is-production          = "false"
   environment-name       = "staging"
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
 

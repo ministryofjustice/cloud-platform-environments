@@ -10,7 +10,7 @@ module "track_a_query_elasticache_redis" {
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
-  is-production          = "true"
+  is-production          = "false"
   environment-name       = "demo"
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
 

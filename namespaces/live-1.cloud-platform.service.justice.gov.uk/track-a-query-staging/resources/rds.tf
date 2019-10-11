@@ -10,7 +10,7 @@ module "track_a_query_rds" {
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "track-a-query"
-  is-production              = "true"
+  is-production              = "false"
   db_engine                  = "postgres"
   db_engine_version          = "9.5"
   db_backup_retention_period = "7"

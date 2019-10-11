@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: track-a-query-staging
   labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Central Digital"
