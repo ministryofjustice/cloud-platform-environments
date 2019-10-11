@@ -14,7 +14,7 @@ module "track_a_query_ecr_credentials" {
   }
 }
 
-resource "kubernetes  _secret" "track_a_query_ecr_credentials" {
+resource "kubernetes_secret" "track_a_query_ecr_credentials" {
   metadata {
     name      = "track-a-query-ecr-credentials-output"
     namespace = "track-a-query-development"
