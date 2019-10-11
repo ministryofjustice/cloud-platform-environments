@@ -1,0 +1,17 @@
+name: Run code formatters
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+
+jobs:
+  format-code:
+    runs-on: ubuntu-latest
+    container:
+      image: ministryofjustice/cloud-platform-tools:1.4-test
+    steps:
+      - uses: actions/checkout@master
+      - run: gem install octokit
+      - run: ruby bin/format-code.rb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
