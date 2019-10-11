@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ministryofjustice/cloud-platform-tools:1.4-test
+      image: ministryofjustice/cloud-platform-tools:1.4
 
     steps:
       - uses: actions/checkout@master
