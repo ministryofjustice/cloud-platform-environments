@@ -64,7 +64,6 @@ resource "aws_sqs_queue_policy" "offender_events_subscriber_policy" {
                             "aws:SourceArn": "${module.offender_events.topic_arn}"
                           }
                         }
-                  }
         }
       ]
   }
