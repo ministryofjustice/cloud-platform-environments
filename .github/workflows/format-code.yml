@@ -2,7 +2,7 @@ name: Run code formatters
 
 on:
   pull_request:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, synchronize]
 
 jobs:
   format-code:
