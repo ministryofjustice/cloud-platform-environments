@@ -4,7 +4,7 @@
 #################################################################################
 
 resource "aws_route53_zone" "track_a_query_route53_zone" {
-  name = "track-a-query-production.apps.live-1.cloud-platform.service.justice.gov.uk"
+  name = "track-a-query.service.justice.gov.uk"
 
   tags {
     business-unit          = "Central Digital"
