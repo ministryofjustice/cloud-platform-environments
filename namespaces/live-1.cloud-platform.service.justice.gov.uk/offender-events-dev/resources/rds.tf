@@ -26,11 +26,11 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data {
-    rds_instance_endpoint  = "${module.dps_rds.rds_instance_endpoint}"
-    database_name          = "${module.dps_rds.database_name}"
-    database_username      = "${module.dps_rds.database_username}"
-    database_password      = "${module.dps_rds.database_password}"
-    rds_instance_address   = "${module.dps_rds.rds_instance_address}"
-    risk_profiler_password = "${random_id.offender_events_role_password.b64}"
+    rds_instance_endpoint    = "${module.dps_rds.rds_instance_endpoint}"
+    database_name            = "${module.dps_rds.database_name}"
+    database_username        = "${module.dps_rds.database_username}"
+    database_password        = "${module.dps_rds.database_password}"
+    rds_instance_address     = "${module.dps_rds.rds_instance_address}"
+    offender_events_password = "${random_id.offender_events_role_password.b64}"
   }
 }
