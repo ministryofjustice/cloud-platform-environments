@@ -30,7 +30,6 @@ module "offender_events_subscriber" {
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "offender_events_subscriber"
-  existing_user_name     = "${module.offender_events.user_name}"
 
   redrive_policy = <<EOF
   {
@@ -78,7 +77,6 @@ module "offender_events_subscriber_dead_letter_queue" {
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "offender_events_subscriber_dl"
-  existing_user_name     = "${module.offender_events.user_name}"
 
   providers = {
     aws = "aws.london"
@@ -119,9 +117,8 @@ resource "kubernetes_secret" "offender_events_subscriber_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "offender_events_subscription" {
-  provider      = "aws.london"
-  topic_arn     = "${module.offender_events.topic_arn}"
-  protocol      = "sqs"
-  endpoint      = "${module.offender_events_subscriber.sqs_arn}"
-  filter_policy = "{\"eventType\": [\"BOOKING_NUMBER-CHANGED\", \"TRANSFER-FROMTOL\", \"PRISON-RELEASE\", \"OFFENDER_MOVEMENT-RECEPTION\", \"OFFENDER_MOVEMENT-DISCHARGE\"]}"
+  provider  = "aws.london"
+  topic_arn = "${module.offender_events.topic_arn}"
+  protocol  = "sqs"
+  endpoint  = "${module.offender_events_subscriber.sqs_arn}"
 }
