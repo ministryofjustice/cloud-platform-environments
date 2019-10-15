@@ -23,7 +23,7 @@ resource "kubernetes_secret" "offender_events" {
 }
 
 module "offender_events_subscriber" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.3"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
@@ -70,7 +70,7 @@ resource "aws_sqs_queue_policy" "offender_events_subscriber_policy" {
 }
 
 module "offender_events_subscriber_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.3"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
