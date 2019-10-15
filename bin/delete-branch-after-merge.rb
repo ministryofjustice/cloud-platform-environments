@@ -10,6 +10,7 @@ puts "Deleting branch: #{branch}"
 
 begin
   github.delete_branch(repo, branch)
-rescue Octokit::UnprocessableEntity
+rescue Octokit::UnprocessableEntity => e
   puts "Branch not found; already deleted?"
+  pp e
 end
