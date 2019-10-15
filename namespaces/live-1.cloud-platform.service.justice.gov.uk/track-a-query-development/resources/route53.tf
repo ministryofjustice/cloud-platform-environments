@@ -23,6 +23,6 @@ resource "kubernetes_secret" "track_a_query_route53_zone_sec" {
   }
 
   data {
-    zone_id   = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
+    zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   }
 }
