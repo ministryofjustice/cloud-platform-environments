@@ -117,8 +117,9 @@ resource "kubernetes_secret" "offender_events_subscriber_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "offender_events_subscription" {
-  provider  = "aws.london"
-  topic_arn = "${module.offender_events.topic_arn}"
-  protocol  = "sqs"
-  endpoint  = "${module.offender_events_subscriber.sqs_arn}"
+  provider      = "aws.london"
+  topic_arn     = "${module.offender_events.topic_arn}"
+  protocol      = "sqs"
+  endpoint      = "${module.offender_events_subscriber.sqs_arn}"
+  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"BOOKING_NUMBER-CHANGED\"]}"
 }
