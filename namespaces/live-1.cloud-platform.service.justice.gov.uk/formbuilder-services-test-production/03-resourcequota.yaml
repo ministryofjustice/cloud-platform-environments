@@ -9,5 +9,5 @@ metadata:
 spec:
   hard:
     requests.cpu: 500m
-    requests.memory: 6.4Gi
+    requests.memory: 5500Mi
 
