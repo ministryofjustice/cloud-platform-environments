@@ -8,6 +8,6 @@ metadata:
   namespace: formbuilder-platform-integration-production
 spec:
   hard:
-    requests.cpu: 5000m
-    requests.memory: 5000Miß
+    requests.cpu: 300m
+    requests.memory: 5000Mi
 
