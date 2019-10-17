@@ -5,5 +5,5 @@ metadata:
   namespace: use-of-force-preprod
 spec:
   hard:
-    requests.cpu: 3000m
+    requests.cpu: 300m
     requests.memory: 6Gi
