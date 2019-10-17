@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: offender-events-dev
+  namespace: offender-events-prod
 spec:
   hard:
     requests.cpu: 300m
