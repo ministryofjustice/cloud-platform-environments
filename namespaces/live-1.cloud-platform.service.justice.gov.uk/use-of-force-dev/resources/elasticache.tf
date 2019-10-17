@@ -13,7 +13,7 @@ module "uof_elasticache_redis" {
   team_name              = "${var.team_name}"
   number_cache_clusters  = "${var.number_cache_clusters}"
   node_type              = "cache.t2.small"
-  
+
   providers = {
     aws = "aws.london"
   }
