@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "Digital Prison Services"
 }
 
 variable "environment-name" {
@@ -23,9 +23,13 @@ variable "environment-name" {
 
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "matt.whittaker@digtal.justice.gov.uk"
+  default     = "dps-hmpps@digtal.justice.gov.uk"
 }
 
 variable "is-production" {
   default = "false"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
