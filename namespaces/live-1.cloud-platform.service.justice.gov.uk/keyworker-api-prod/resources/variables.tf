@@ -33,4 +33,3 @@ variable "infrastructure-support" {
 variable "is-production" {
   default = "true"
 }
-
