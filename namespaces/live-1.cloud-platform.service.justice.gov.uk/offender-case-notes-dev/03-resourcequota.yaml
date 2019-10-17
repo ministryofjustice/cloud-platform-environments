@@ -5,5 +5,5 @@ metadata:
   namespace: offender-case-notes-dev
 spec:
   hard:
-    requests.cpu: 3000m
+    requests.cpu: 600m
     requests.memory: 6Gi
