@@ -11,11 +11,11 @@ variable "team_name" {
 }
 
 variable "application" {
-  default = "LAA Legal Adviser API"
+  default = "Find A Legal Advisor"
 }
 
 variable "repo_name" {
-  default = "laa-legal-adviser-api"
+  default = "fala"
 }
 
 variable "email" {
