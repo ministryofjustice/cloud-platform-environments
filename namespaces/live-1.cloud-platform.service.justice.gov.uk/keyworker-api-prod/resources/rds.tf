@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
@@ -27,5 +27,7 @@ resource "kubernetes_secret" "dps_rds" {
     database_username     = "${module.dps_rds.database_username}"
     database_password     = "${module.dps_rds.database_password}"
     rds_instance_address  = "${module.dps_rds.rds_instance_address}"
+    access_key_id         = "${module.dps_rds.access_key_id}"
+    secret_access_key     = "${module.dps_rds.secret_access_key}"
   }
 }
