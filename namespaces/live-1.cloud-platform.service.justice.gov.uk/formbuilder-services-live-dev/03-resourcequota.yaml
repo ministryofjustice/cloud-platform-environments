@@ -8,6 +8,6 @@ metadata:
   namespace: formbuilder-services-live-dev
 spec:
   hard:
-    requests.cpu: 1000m
-    requests.memory: 12.8Gi
+    requests.cpu: 2500m
+    requests.memory: 12000Mi
 
