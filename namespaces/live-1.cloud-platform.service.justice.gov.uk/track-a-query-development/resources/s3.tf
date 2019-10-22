@@ -25,6 +25,18 @@ module "track_a_query_s3" {
     "Sid": "",
     "Effect": "Allow",
     "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}",
+      "arn:aws:s3:::correspondence-staff-case-uploads-dev"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
       "s3:*"
     ],
     "Resource": [
