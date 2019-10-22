@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-book-secure-move-api-staging
 subjects:
   - kind: Group
-    name: "github:pecs"
+    name: "github:book-a-secure-move"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
