@@ -5,5 +5,5 @@ metadata:
   namespace: offender-management-staging
 spec:
   hard:
-    requests.cpu: 3000m
+    requests.cpu: 1000m
     requests.memory: 7500Mi
