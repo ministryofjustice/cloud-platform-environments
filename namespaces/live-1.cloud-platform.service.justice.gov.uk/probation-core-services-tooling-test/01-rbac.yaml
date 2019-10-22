@@ -18,6 +18,12 @@ metadata:
   name: tiller
   namespace: probation-core-services-tooling-test
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: circleci
+  namespace: probation-core-services-tooling-test
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
@@ -26,6 +32,8 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: tiller
+  - kind: ServiceAccount
+    name: circleci
     namespace: probation-core-services-tooling-test
 roleRef:
   kind: ClusterRole
