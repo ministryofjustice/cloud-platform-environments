@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: circleci
-  namespace: court-probation-dev
+  namespace: court-probation-prod
 ---
 
 kind: RoleBinding
