@@ -33,7 +33,7 @@ module "keyworker_api_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.keyworker_api_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
+    "deadLetterTargetArn": "${module.keyworker_api_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
 
