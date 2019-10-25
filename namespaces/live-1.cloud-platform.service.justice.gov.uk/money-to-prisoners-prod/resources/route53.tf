@@ -135,14 +135,6 @@ resource "kubernetes_secret" "start_page" {
   }
 }
 
-resource "aws_route53_record" "start_page_a_root" {
-  name    = "sendmoneytoaprisoner.justice.gov.uk."
-  zone_id = "${aws_route53_zone.start_page.zone_id}"
-  type    = "A"
-  records = ["52.30.196.9"]
-  ttl     = "300"
-}
-
 resource "aws_route53_record" "start_page_cname_email" {
   name    = "email.sendmoneytoaprisoner.justice.gov.uk."
   zone_id = "${aws_route53_zone.start_page.zone_id}"
