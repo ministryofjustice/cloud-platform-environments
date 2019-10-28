@@ -22,6 +22,19 @@ resource "kubernetes_secret" "offender_events" {
   }
 }
 
+resource "kubernetes_secret" "offender_events" {
+  metadata {
+    name      = "offender-events-topic"
+    namespace = "offender-case-notes-prod"
+  }
+
+  data {
+    access_key_id     = "${module.offender_events.access_key_id}"
+    secret_access_key = "${module.offender_events.secret_access_key}"
+    topic_arn         = "${module.offender_events.topic_arn}"
+  }
+}
+
 module "keyworker_api_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.4"
 
