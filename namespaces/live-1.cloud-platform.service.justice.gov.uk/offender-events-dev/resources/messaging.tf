@@ -98,34 +98,31 @@ module "keyworker_api_dead_letter_queue" {
 
 resource "kubernetes_secret" "keyworker_api_queue" {
   metadata {
-    name      = "rp-sqs-instance-output"
-    namespace = "${var.namespace}"
+    name      = "kw-sqs-instance-output"
+    namespace = "keyworker-api-dev"
   }
 
   data {
     access_key_id     = "${module.keyworker_api_queue.access_key_id}"
     secret_access_key = "${module.keyworker_api_queue.secret_access_key}"
-    sqs_rpc_url       = "${module.keyworker_api_queue.sqs_id}"
-    sqs_rpc_arn       = "${module.keyworker_api_queue.sqs_arn}"
-    sqs_rpc_name      = "${module.keyworker_api_queue.sqs_name}"
-    sqs_rpc_dlq_url   = "${module.keyworker_api_queue.sqs_id}"
-    sqs_rpc_dlq_arn   = "${module.keyworker_api_queue.sqs_arn}"
-    sqs_rpc_dlq_name  = "${module.keyworker_api_queue.sqs_name}"
+    sqs_kw_url        = "${module.keyworker_api_queue.sqs_id}"
+    sqs_kw_arn        = "${module.keyworker_api_queue.sqs_arn}"
+    sqs_kw_name       = "${module.keyworker_api_queue.sqs_name}"
   }
 }
 
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
-    name      = "rp-sqs-dl-instance-output"
-    namespace = "${var.namespace}"
+    name      = "kw-sqs-dl-instance-output"
+    namespace = "keyworker-api-dev"
   }
 
   data {
     access_key_id     = "${module.keyworker_api_dead_letter_queue.access_key_id}"
     secret_access_key = "${module.keyworker_api_dead_letter_queue.secret_access_key}"
-    sqs_rpc_url       = "${module.keyworker_api_dead_letter_queue.sqs_id}"
-    sqs_rpc_arn       = "${module.keyworker_api_dead_letter_queue.sqs_arn}"
-    sqs_rpc_name      = "${module.keyworker_api_dead_letter_queue.sqs_name}"
+    sqs_kw_url        = "${module.keyworker_api_dead_letter_queue.sqs_id}"
+    sqs_kw_arn        = "${module.keyworker_api_dead_letter_queue.sqs_arn}"
+    sqs_kw_name       = "${module.keyworker_api_dead_letter_queue.sqs_name}"
   }
 }
 
