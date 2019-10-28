@@ -68,12 +68,9 @@ resource "kubernetes_secret" "case_note_poll_pusher_queue" {
   data {
     access_key_id     = "${module.case_note_poll_pusher_queue.access_key_id}"
     secret_access_key = "${module.case_note_poll_pusher_queue.secret_access_key}"
-    sqs_rpc_url       = "${module.case_note_poll_pusher_queue.sqs_id}"
-    sqs_rpc_arn       = "${module.case_note_poll_pusher_queue.sqs_arn}"
-    sqs_rpc_name      = "${module.case_note_poll_pusher_queue.sqs_name}"
-    sqs_rpc_dlq_url   = "${module.case_note_poll_pusher_queue.sqs_id}"
-    sqs_rpc_dlq_arn   = "${module.case_note_poll_pusher_queue.sqs_arn}"
-    sqs_rpc_dlq_name  = "${module.case_note_poll_pusher_queue.sqs_name}"
+    sqs_cnpp_url      = "${module.case_note_poll_pusher_queue.sqs_id}"
+    sqs_cnpp_arn      = "${module.case_note_poll_pusher_queue.sqs_arn}"
+    sqs_cnpp_name     = "${module.case_note_poll_pusher_queue.sqs_name}"
   }
 }
 
@@ -86,9 +83,9 @@ resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
   data {
     access_key_id     = "${module.case_note_poll_pusher_dead_letter_queue.access_key_id}"
     secret_access_key = "${module.case_note_poll_pusher_dead_letter_queue.secret_access_key}"
-    sqs_rpc_url       = "${module.case_note_poll_pusher_dead_letter_queue.sqs_id}"
-    sqs_rpc_arn       = "${module.case_note_poll_pusher_dead_letter_queue.sqs_arn}"
-    sqs_rpc_name      = "${module.case_note_poll_pusher_dead_letter_queue.sqs_name}"
+    sqs_cnpp_url      = "${module.case_note_poll_pusher_dead_letter_queue.sqs_id}"
+    sqs_cnpp_arn      = "${module.case_note_poll_pusher_dead_letter_queue.sqs_arn}"
+    sqs_cnpp_name     = "${module.case_note_poll_pusher_dead_letter_queue.sqs_name}"
   }
 }
 
