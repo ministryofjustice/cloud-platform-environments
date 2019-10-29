@@ -6,7 +6,7 @@ module "cccd_s3_bucket" {
   application            = "cccd"
   is-production          = "false"
   environment-name       = "api-sandbox"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  infrastructure-support = "crowncourtdefence@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"

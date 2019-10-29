@@ -7,7 +7,7 @@ module "authorized-keys" {
   application            = "laa-apply-for-legal-aid"
   is-production          = "true"
   environment-name       = "production"
-  infrastructure-support = "apply@digtal.justice.gov.uk"
+  infrastructure-support = "apply@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"

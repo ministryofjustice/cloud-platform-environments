@@ -11,7 +11,7 @@ module "becca_test_app_rds" {
   application            = "becca-test-app"
   is-production          = "false"
   environment-name       = "development"
-  infrastructure-support = "my-app-never-fails@digtal.justice.gov.uk"
+  infrastructure-support = "my-app-never-fails@digital.justice.gov.uk"
   aws_region             = "eu-west-2"
 }
 

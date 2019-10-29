@@ -14,7 +14,7 @@ module "check-financial-eligibility-rds" {
   application            = "check-financial-eligibility"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "apply@digtal.justice.gov.uk"
+  infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "11.2"
   db_name                = "check_financial_eligibility_staging"

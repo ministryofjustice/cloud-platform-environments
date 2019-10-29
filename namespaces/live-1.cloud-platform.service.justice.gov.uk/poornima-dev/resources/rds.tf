@@ -23,7 +23,7 @@ module "cp_team_test_rds" {
   application            = "cpteamtestapp"
   is-production          = "false"
   environment-name       = "development"
-  infrastructure-support = "poornima.krishnasamy@digtal.justice.gov.uk"
+  infrastructure-support = "poornima.krishnasamy@digital.justice.gov.uk"
   force_ssl              = "false"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine

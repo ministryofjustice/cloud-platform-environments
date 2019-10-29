@@ -15,5 +15,5 @@ variable "namespace" {
 }
 
 variable "infrastructure-support" {
-  default = "pvb-technical-support@digtal.justice.gov.uk"
+  default = "pvb-technical-support@digital.justice.gov.uk"
 }

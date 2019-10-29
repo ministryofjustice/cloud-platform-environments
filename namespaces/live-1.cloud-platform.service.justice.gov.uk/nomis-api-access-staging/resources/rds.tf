@@ -11,7 +11,7 @@ module "nomis-api-access_rds" {
   application            = "nomis-api-access"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "matt.whittaker@digtal.justice.gov.uk"
+  infrastructure-support = "matt.whittaker@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"

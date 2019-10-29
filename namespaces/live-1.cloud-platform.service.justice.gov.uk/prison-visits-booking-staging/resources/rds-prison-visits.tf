@@ -25,7 +25,7 @@ module "prison-visits-rds" {
   application            = "prison-visits-booking-staging"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "pvb-technical-support@digtal.justice.gov.uk"
+  infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "9.6"
   db_name                = "visits"

@@ -11,7 +11,7 @@ module "sentence-planning_rds" {
   application            = "sentence-planning"
   is-production          = "false"
   environment-name       = "preprod"
-  infrastructure-support = "michael.willis@digtal.justice.gov.uk"
+  infrastructure-support = "michael.willis@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"
