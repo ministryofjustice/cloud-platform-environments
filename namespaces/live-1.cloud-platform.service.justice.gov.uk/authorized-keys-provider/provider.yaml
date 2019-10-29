@@ -60,8 +60,10 @@ spec:
         app: authorized-keys-provider
     spec:
       containers:
-      - name: alpine
-        image: alpine
+      - name: cloud-platform-tools
+        image: ministryofjustice/cloud-platform-tools:1.4
+        securityContext:
+          runAsUser: 1000
         env:
         - name: GITHUB_TOKEN
           valueFrom:
@@ -91,9 +93,6 @@ spec:
         - /bin/sh
         - -c
         - |
-          apk add --no-cache python3 ca-certificates
-          pip3 install --upgrade pip
-          pip3 install pygithub boto3
           while true; do
             python3 /usr/local/bin/authorized-keys-generator
             sleep 60
