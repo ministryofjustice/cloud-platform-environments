@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: python-key-provider
+  namespace: authorized-keys-provider
+data:
+  authorized-keys-generator: |
+    #!/usr/bin/env python3
+
+    import os
+    import sys
+    import boto3
+    from github import Github
+
+    def getenv(var):
+        val = os.environ.get(var)
+        if val is None or val == '':
+            print('{} is not set, cannot continue'.format(var))
+            sys.exit(1)
+        return val
+
+    def main():
+        token = getenv('GITHUB_TOKEN')
+        org_name = getenv('GITHUB_ORG')
+        team_name = getenv('GITHUB_TEAM')
+        bucket = getenv('S3_BUCKET_NAME')
+
+        authorized_keys = ''
+        org = Github(token).get_organization(org_name)
+        for team in org.get_teams():
+            if team.name.lower() == team_name:
+                for member in team.get_members():
+                    authorized_keys += "# {}\n".format(member.name)
+                    for k in member.get_keys():
+                        authorized_keys += "{} @{}\n".format(k.key, member.login)
+                break
+        boto3.resource('s3').Bucket(bucket).Object('authorized_keys').put(
+            ACL='public-read', Body=authorized_keys, ContentType='text/plain')
+
+    if __name__ == '__main__':
+        main()
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: authorized-keys-provider
+  name: authorized-keys-provider
+  namespace: authorized-keys-provider
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorized-keys-provider
+  template:
+    metadata:
+      labels:
+        app: authorized-keys-provider
+    spec:
+      containers:
+      - name: alpine
+        image: alpine
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-token
+              key: token
+        - name: GITHUB_ORG
+          value: ministryofjustice
+        - name: GITHUB_TEAM
+          value: webops
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: s3-bucket-authorized-keys
+              key: access_key_id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-bucket-authorized-keys
+              key: secret_access_key
+        - name: S3_BUCKET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: s3-bucket-authorized-keys
+              key: bucket_name
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache python3 ca-certificates
+          pip3 install --upgrade pip
+          pip3 install pygithub boto3
+          while true; do
+            python3 /usr/local/bin/authorized-keys-generator
+            sleep 60
+          done;
+        resources:
+          requests:
+            cpu: 25m
+            memory: 256Mi
+          limits:
+            cpu: 100m
+            memory: 512Mi
+        volumeMounts:
+        - name: python-key-provider
+          mountPath: /usr/local/bin
+          readOnly: true
+      volumes:
+      - name: python-key-provider
+        configMap:
+          name: python-key-provider
