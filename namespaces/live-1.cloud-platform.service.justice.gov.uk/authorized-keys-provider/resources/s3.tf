@@ -9,7 +9,7 @@ module "authorized-keys" {
   infrastructure-support = "platforms@digital.justice.gov.uk"
 
   providers = {
-  aws = "aws.london"
+    aws = "aws.london"
   }
 }
 
