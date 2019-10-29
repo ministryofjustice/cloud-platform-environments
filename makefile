@@ -24,11 +24,13 @@ namespace:
 	@echo $${NAMESPACE_MESSAGE} | fmt
 	@echo
 
+# Set an env. var called APPDIR to the source code directory
+# you want to mount into your tools shell
 tools-shell:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
 	@docker run --rm -it \
-		-v $$(pwd):/app \
+		-v $${APPDIR}:/app \
 		-v $${HOME}/.kube:/app/.kube \
 		-e KUBECONFIG=/app/.kube/config \
 		-v $${HOME}/.aws:/root/.aws \
