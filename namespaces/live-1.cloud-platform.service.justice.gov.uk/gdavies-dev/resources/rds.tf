@@ -24,7 +24,7 @@ module "gdavies_dev_team_rds" {
   is-production          = "false"
   db_engine_version      = "10"
   environment-name       = "development"
-  infrastructure-support = "gareth.davies@digtal.justice.gov.uk"
+  infrastructure-support = "gareth.davies@digital.justice.gov.uk"
   force_ssl              = "true"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11

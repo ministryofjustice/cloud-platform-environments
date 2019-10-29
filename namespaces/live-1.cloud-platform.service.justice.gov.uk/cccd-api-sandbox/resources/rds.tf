@@ -15,7 +15,7 @@ module "cccd_rds" {
   application                 = "cccd"
   is-production               = "false"
   environment-name            = "api-sandbox"
-  infrastructure-support      = "crowncourtdefence@digtal.justice.gov.uk"
+  infrastructure-support      = "crowncourtdefence@digital.justice.gov.uk"
   db_engine_version           = "9.6"
   allow_major_version_upgrade = "true"
 

@@ -17,7 +17,7 @@ module "rds-staging" {
   application            = "correspondence-staff"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "mohammed.seedat@digtal.justice.gov.uk"
+  infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
 
   # Deprecated from the version 4.2 of this module
   #aws_region             = "eu-west-2"  

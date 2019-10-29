@@ -14,7 +14,7 @@ module "apply-for-legal-aid-rds" {
   application            = "laa-apply-for-legal-aid"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "apply@digtal.justice.gov.uk"
+  infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "11.4"
   db_name                = "apply_for_legal_aid_staging"
