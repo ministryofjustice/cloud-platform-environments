@@ -18,7 +18,7 @@ namespace:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
 	@echo "Creating namespace..."
-	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bash -c 'cd namespace-resources; terraform init; terraform apply -auto-approve'
+	@docker run --rm -it -v $$(pwd)/../:/repo -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bash -c 'cd namespace-resources; terraform init; terraform apply -auto-approve'
 	@git status --untracked-files=all
 	@echo
 	@echo $${NAMESPACE_MESSAGE} | fmt
