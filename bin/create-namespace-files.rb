@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "pry-byebug" # TODO: remove
+
 # TODO: default
 # TODO: question N of M
 # TODO: create the main.tf
@@ -9,6 +11,20 @@
 # TODO: remove old terraform stuff from namespace-resources/
 # TODO: accomodate the gitops work Jason & Raz are doing
 
+class TrueFalseValidator
+  attr_reader :error
+
+  def is_valid?(value)
+    if %w(true false).include?(value)
+      true
+    else
+      @error = "Answer must be 'true' or 'false'"
+      false
+    end
+  end
+end
+
+
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
 
@@ -16,6 +32,7 @@ QUESTIONS = [
   {
     variable: "namespace",
     description: "What is the name of your namespace? This should be of the form: <application>-<environment>. e.g. myapp-dev (lower-case letters and dashes only)",
+    validator: TrueFalseValidator,
   },
 
   {
@@ -95,7 +112,16 @@ end
 
 def ask_question(answers, question)
   var = question.fetch(:variable)
-  answers[var] = prompt(question)
+  answer = prompt(question)
+  if validator_class = question[:validator]
+    validator = validator_class.new
+    if validator.is_valid?(answer)
+      answers[var] = answer
+    else
+      puts "Bad answer: #{validator.error}"
+      exit
+    end
+  end
 end
 
 def prompt(question)
@@ -111,3 +137,17 @@ end
 ############################################################
 
 create_namespace_files get_answers
+
+answers = {
+  "namespace"=>"foobar",
+  "github_team"=>"ghteam",
+  "business-unit"=>"bu",
+  "is-production"=>"prod",
+  "environment"=>"dev",
+  "application"=>"myapp",
+  "owner"=>"myteam",
+  "contact_email"=>"foo@gbar.com",
+  "source_code_url"=>"https://foobar"
+}
+
+create_namespace_files answers
