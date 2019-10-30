@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: helloworld-rubyapp-ingress
+  namespace: ${namespace}
+spec:
+  tls:
+  - hosts:
+    - ${namespace}.${hostname}
+  rules:
+  - host: ${namespace}.${hostname}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rubyapp-service
+          servicePort: 4567
