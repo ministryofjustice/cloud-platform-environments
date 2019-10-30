@@ -2,10 +2,12 @@
 
 # TODO: default
 # TODO: question N of M
-# TODO: create the yaml files
 # TODO: create the main.tf
 # TODO: validate answers
+# TODO: block progress until a good answer is provided
 # TODO: check namespace name is available
+# TODO: remove old terraform stuff from namespace-resources/
+# TODO: accomodate the gitops work Jason & Raz are doing
 
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
@@ -66,9 +68,19 @@ def create_namespace_files(answers)
 end
 
 def create_file(template, dir, answers)
-  content = File.read(template) # TODO: interpolate variables
+  content = interpolate(File.read(template), answers)
   outfile = File.join(dir, File.basename(template))
   File.write(outfile, content)
+end
+
+def interpolate(content, answers)
+  answers.each { |key, value| content = replace_var(content, key, value) }
+  content
+end
+
+def replace_var(content, key, value)
+  str = "${#{key}}"
+  content.gsub(str, value)
 end
 
 def yaml_templates
