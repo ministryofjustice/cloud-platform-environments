@@ -1,5 +1,6 @@
 locals {
-  cluster = "live-1.cloud-platform.service.justice.gov.uk"
+  cluster    = "live-1.cloud-platform.service.justice.gov.uk"
+  repository = "/repo/${element(split("/", var.source_code_url),4)}"
 }
 
 data "template_file" "namespace" {
@@ -78,4 +79,52 @@ resource "local_file" "04-networkpolicy" {
 resource "local_file" "resources-main-tf" {
   content  = "${file("${path.module}/resources-main-tf")}"
   filename = "../namespaces/${local.cluster}/${var.namespace}/resources/main.tf"
+}
+
+data "template_file" "deployment" {
+  template = "${file("./kubectl_deploy/deployment.yaml")}"
+
+  vars {
+    namespace = "${var.namespace}"
+  }
+}
+
+resource "local_file" "deployment" {
+  content  = "${data.template_file.deployment.rendered}"
+  filename = "${local.repository}/cloud-platform-deploy/${var.namespace}/deployment.yaml"
+}
+
+data "template_file" "ingress" {
+  template = "${file("./kubectl_deploy/ingress.yaml")}"
+
+  vars {
+    namespace = "${var.namespace}"
+    hostname  = "${local.cluster}"
+  }
+}
+
+resource "local_file" "ingress" {
+  content  = "${data.template_file.ingress.rendered}"
+  filename = "${local.repository}/cloud-platform-deploy/${var.namespace}/ingress.yaml"
+}
+
+data "template_file" "service" {
+  template = "${file("./kubectl_deploy/service.yaml")}"
+
+  vars {
+    namespace = "${var.namespace}"
+  }
+}
+
+resource "local_file" "service" {
+  content  = "${data.template_file.service.rendered}"
+  filename = "${local.repository}/cloud-platform-deploy/${var.namespace}/service.yaml"
+}
+
+resource "null_resource" "chmod_repository" {
+  depends_on = ["local_file.service"]
+
+  provisioner "local-exec" {
+    command = "chmod 666 ${local.repository}/cloud-platform-deploy/${var.namespace}/*yaml"
+  }
 }
