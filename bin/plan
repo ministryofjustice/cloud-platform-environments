@@ -27,6 +27,7 @@ if [ -n "$changed_dirs" ]; then
         terraform init \
           -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
           -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
+          -backend-config="dynamodb_table=${PIPELINE_TERRAFORM_STATE_LOCK_TABLE}" \
           -backend-config="region=${PIPELINE_STATE_REGION}"
         terraform plan \
           -var="cluster_name=${cluster%%.*}" \
