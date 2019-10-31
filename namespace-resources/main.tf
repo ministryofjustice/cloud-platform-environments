@@ -128,3 +128,18 @@ resource "null_resource" "chmod_repository" {
     command = "chmod 666 ${local.repository}/cloud-platform-deploy/${var.namespace}/*yaml"
   }
 }
+
+data "template_file" "gitops" {
+  template = "${file("./gitops.tf.tpl")}"
+
+  vars {
+    github_team = "${var.github_team}"
+    namespace   = "${var.namespace}"
+  }
+}
+
+resource "local_file" "gitops" {
+  content  = "${data.template_file.gitops.rendered}"
+  filename = "../namespaces/${local.cluster}/${var.namespace}/resources/gitops.tf"
+}
+
