@@ -142,4 +142,3 @@ resource "local_file" "gitops" {
   content  = "${data.template_file.gitops.rendered}"
   filename = "../namespaces/${local.cluster}/${var.namespace}/resources/gitops.tf"
 }
-
