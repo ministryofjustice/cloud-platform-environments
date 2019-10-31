@@ -112,14 +112,23 @@ end
 
 def ask_question(answers, question)
   var = question.fetch(:variable)
-  answer = prompt(question)
-  if validator_class = question[:validator]
-    validator = validator_class.new
-    if validator.is_valid?(answer)
-      answers[var] = answer
+  validator_class = question[:validator]
+  good_answer = false
+
+  while !good_answer
+    answer = prompt(question)
+
+    if validator_class
+      validator = validator_class.new
+      if validator.is_valid?(answer)
+        answers[var] = answer
+        good_answer = true
+      else
+        puts "Bad answer: #{validator.error}"
+      end
     else
-      puts "Bad answer: #{validator.error}"
-      exit
+      # No validation for this question
+      good_answer = true
     end
   end
 end
