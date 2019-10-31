@@ -6,9 +6,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - ${namespace}.${hostname}
+    - ${namespace}.apps.${hostname}
   rules:
-  - host: ${namespace}.${hostname}
+  - host: ${namespace}.apps.${hostname}
     http:
       paths:
       - path: /
