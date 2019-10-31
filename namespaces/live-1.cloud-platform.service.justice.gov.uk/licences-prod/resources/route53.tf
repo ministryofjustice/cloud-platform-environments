@@ -19,6 +19,6 @@ resource "kubernetes_secret" "route53_zone_sec" {
 
   data {
     zone_id      = "${aws_route53_zone.route53_zone.zone_id}"
-    name_servers = "${aws_route53_zone.route53_zone.name_servers}"
+    name_servers = "${join(", ", aws_route53_zone.route53_zone.name_servers)}"
   }
 }
