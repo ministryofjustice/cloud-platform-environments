@@ -121,16 +121,10 @@ resource "local_file" "service" {
   filename = "${local.repository}/cloud-platform-deploy/${var.namespace}/service.yaml"
 }
 
-resource "null_resource" "chmod_repository" {
-  depends_on = ["local_file.service"]
 
-  provisioner "local-exec" {
-    command = "chmod 666 ${local.repository}/cloud-platform-deploy/${var.namespace}/*yaml"
-  }
-}
-
+# Gitops pipeline build
 data "template_file" "gitops" {
-  template = "${file("./gitops.tf.tpl")}"
+  template = "${file("./gitops-templates/gitops.tf.tpl")}"
 
   vars {
     github_team = "${var.github_team}"
@@ -141,4 +135,21 @@ data "template_file" "gitops" {
 resource "local_file" "gitops" {
   content  = "${data.template_file.gitops.rendered}"
   filename = "../namespaces/${local.cluster}/${var.namespace}/resources/gitops.tf"
+}
+
+# Change permission on the directory
+resource "null_resource" "chmod_repository" {
+  depends_on = ["local_file.service"]
+
+  provisioner "local-exec" {
+    command = "chmod 666 ${local.repository}/cloud-platform-deploy/${var.namespace}/*yaml"
+  }
+}
+
+resource "null_resource" "chmod_environment" {
+  depends_on = ["local_file.service"]
+
+  provisioner "local-exec" {
+    command = "chmod 666 ../namespaces/${local.cluster}/${var.namespace}/."
+  }
 }
