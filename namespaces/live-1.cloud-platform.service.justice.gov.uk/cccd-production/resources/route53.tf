@@ -24,25 +24,12 @@ resource "kubernetes_secret" "cccd_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "cccd_route53_A_record_1" {
-  name    = "gamma.advocatedefencepayments.dsd.io."
+  name    = "claim-crown-court-defence.service.gov.uk."
   zone_id = "${aws_route53_zone.cccd_route53_zone.zone_id}"
   type    = "A"
 
   alias {
-    name    = "advocated-elbgamma-17de5vdfln9zg-1726434105.eu-west-1.elb.amazonaws.com."
-    zone_id = "Z32O12XQLNTSW2"
-
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "cccd_route53_A_record_2" {
-  name    = "gamma-a17d94fe.advocatedefencepayments.dsd.io."
-  zone_id = "${aws_route53_zone.cccd_route53_zone.zone_id}"
-  type    = "A"
-
-  alias {
-    name    = "advocated-elbgamma-17de5vdfln9zg-1726434105.eu-west-1.elb.amazonaws.com."
+    name    = "dualstack.advocated-elbgamma-17de5vdfln9zg-1726434105.eu-west-1.elb.amazonaws.com."
     zone_id = "Z32O12XQLNTSW2"
 
     evaluate_target_health = false
