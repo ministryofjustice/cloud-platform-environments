@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "claim-crown-court-defence.service.gov.uk"
+}
+
 variable "application" {
   default = "cccd"
 }
