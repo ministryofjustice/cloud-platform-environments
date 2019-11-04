@@ -121,7 +121,6 @@ resource "local_file" "service" {
   filename = "${local.repository}/cloud-platform-deploy/${var.namespace}/service.yaml"
 }
 
-
 # Gitops pipeline build
 data "template_file" "gitops" {
   template = "${file("./gitops-templates/gitops.tf.tpl")}"

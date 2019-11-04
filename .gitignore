@@ -35,3 +35,6 @@ Temporary Items
 
 # Ignore IDEs
 .idea/
+
+# Ignore variables
+*namespace-resources/variables.tf
