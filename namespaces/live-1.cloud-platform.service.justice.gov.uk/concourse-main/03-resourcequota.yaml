@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: concourse-main
-spec:
-  hard:
-    requests.cpu: 1m
-    requests.memory: 1Mi

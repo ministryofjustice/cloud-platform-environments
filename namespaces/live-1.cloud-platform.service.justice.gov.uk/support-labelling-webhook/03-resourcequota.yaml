@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: support-labelling-webhook
-spec:
-  hard:
-    requests.cpu: 10m
-    requests.memory: 100Mi

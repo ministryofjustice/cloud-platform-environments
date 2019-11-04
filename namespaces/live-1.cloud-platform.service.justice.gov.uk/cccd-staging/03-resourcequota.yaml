@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: cccd-staging
-spec:
-  hard:
-    requests.cpu: 300m
-    requests.memory: 6Gi

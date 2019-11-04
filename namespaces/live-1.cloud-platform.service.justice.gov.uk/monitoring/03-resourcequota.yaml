@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: monitoring
-spec:
-  hard:
-    requests.cpu: 2500m
-    requests.memory: 18Gi
