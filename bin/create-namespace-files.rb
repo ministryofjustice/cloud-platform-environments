@@ -6,6 +6,7 @@
 # TODO: check namespace name is available
 # TODO: remove old terraform stuff from namespace-resources/
 # TODO: accomodate the gitops work Jason & Raz are doing
+# TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
 
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
