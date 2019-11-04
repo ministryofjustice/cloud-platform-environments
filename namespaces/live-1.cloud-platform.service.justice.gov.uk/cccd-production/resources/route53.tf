@@ -19,6 +19,7 @@ resource "kubernetes_secret" "cccd_route53_zone_sec" {
 
   data {
     zone_id = "${aws_route53_zone.cccd_route53_zone.zone_id}"
+    name_servers = "${join("\n", aws_route53_zone.cccd_route53_zone.name_servers)}"
   }
 }
 
