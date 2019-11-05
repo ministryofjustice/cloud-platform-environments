@@ -13,10 +13,13 @@ provider "aws" {
  *
  */
 
- /* commented out below module as it is failing pipeline*/
- 
+
+/* commented out below module as it is failing pipeline*/
+
+
 # module "court_case_dynamodb" {
 #   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=2.0"
+
 
 #   team_name              = "${var.team_name}"
 #   application            = "Court Case Service"
@@ -25,15 +28,18 @@ provider "aws" {
 #   infrastructure-support = "${var.infrastructure-support}"
 #   is-production          = "false"
 
+
 #   hash_key  = "pk"
 #   range_key = "sk"
 # }
+
 
 # resource "kubernetes_secret" "court_case_dynamodb" {
 #   metadata {
 #     name      = "court-case-dynamodb-output"
 #     namespace = "${var.namespace}"
 #   }
+
 
 #   data {
 #     table_name        = "${module.court_case_dynamodb.table_name}"
@@ -42,3 +48,4 @@ provider "aws" {
 #     secret_access_key = "${module.court_case_dynamodb.secret_access_key}"
 #   }
 # }
+
