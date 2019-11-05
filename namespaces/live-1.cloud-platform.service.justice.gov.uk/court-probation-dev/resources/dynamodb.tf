@@ -28,7 +28,7 @@ module "court_case_dynamodb" {
 
 resource "kubernetes_secret" "court_case_dynamodb" {
   metadata {
-    name      = "court_case_dynamodb-output"
+    name      = "court-case-dynamodb-output"
     namespace = "${var.namespace}"
   }
 
