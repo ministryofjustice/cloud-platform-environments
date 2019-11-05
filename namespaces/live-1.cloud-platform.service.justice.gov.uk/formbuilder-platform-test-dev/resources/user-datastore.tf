@@ -1,8 +1,5 @@
-# auto-generated from fb-cloud-platforms-environments
-##################################################
-# User Datastore RDS
 module "user-datastore-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
 
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
@@ -14,6 +11,7 @@ module "user-datastore-rds-instance" {
   team_name                  = "${var.team_name}"
   force_ssl                  = true
   db_engine_version          = "10.9"
+  apply_method               = "immediate"
 
   providers = {
     aws = "aws.london"
