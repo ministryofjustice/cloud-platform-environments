@@ -8,11 +8,11 @@ module "auth_rds" {
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
   business-unit          = "${var.business-unit}"
-  application            = "${var.application}"
-  is-production          = "${var.is-production}"
+  application            = "delius oauth2 server"
+  is-production          = "false"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
-  rds_family             = "${var.rds-family}"
+  rds_family             = "postgres10"
   force_ssl              = "true"
 
   providers = {
