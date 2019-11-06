@@ -29,7 +29,7 @@ resource "kubernetes_secret" "track_a_query_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_production" {
-  name    = "track-a-query.service.gov.uk."
+  name    = "."
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
