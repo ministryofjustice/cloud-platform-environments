@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'json'
-require 'yaml'
-require 'pry-byebug'
+require "json"
+require "yaml"
+require "pry-byebug"
 
 # Output a list of all certificate objects in the cluster, for which there is no
 # matching certificate definition yaml file in the environments repo.
@@ -17,7 +17,7 @@ def main
   certificates = get_certificate_objects
   definitions = get_certificate_definitions
 
-  puts %[#{"NAMESPACE".ljust(50)} #{"CERT. SECRETNAME".ljust(50)}]
+  puts %(#{"NAMESPACE".ljust(50)} #{"CERT. SECRETNAME".ljust(50)})
   (certificates - definitions).map do |s|
     namespace, name = s.split(":")
     puts "#{namespace.ljust(50)} #{name.ljust(50)}"
@@ -25,7 +25,7 @@ def main
 end
 
 def get_certificate_objects
-  get_data("certificates").map { |s| [ get_namespace(s), s.dig("spec", "secretName") ].join(":") }
+  get_data("certificates").map { |s| [get_namespace(s), s.dig("spec", "secretName")].join(":") }
 end
 
 def get_certificate_definitions
@@ -38,7 +38,7 @@ def get_certificate_definitions
 end
 
 def certificate_definitions(yaml_file)
-  YAML.load_stream(File.read yaml_file)
+  YAML.load_stream(File.read(yaml_file))
     .compact
     .find_all { |item| item.is_a?(Hash) }
     .find_all { |hash| hash.fetch("kind", "") == "Certificate" }
