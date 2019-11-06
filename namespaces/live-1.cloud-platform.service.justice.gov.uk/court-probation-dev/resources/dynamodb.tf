@@ -15,7 +15,7 @@ provider "aws" {
 module "court_case_dynamodb" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=2.0"
 
-  team_name              = "${var.team_name}"
+  team_name              = "court-probation-team"
   application            = "Court Case Service"
   business-unit          = "${var.business-unit}"
   environment-name       = "${var.environment-name}"
