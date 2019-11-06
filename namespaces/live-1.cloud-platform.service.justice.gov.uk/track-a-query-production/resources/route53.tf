@@ -42,7 +42,7 @@ resource "aws_route53_record" "track_a_query_route53_A_record_production" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_development" {
-  name    = "development"
+  name    = "dev"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
