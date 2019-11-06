@@ -5,5 +5,4 @@ metadata:
   namespace: probation-core-services-tooling
 spec:
   hard:
-    requests.cpu: 1000m
-    requests.memory: 5000Mi
+    pods: "100"
