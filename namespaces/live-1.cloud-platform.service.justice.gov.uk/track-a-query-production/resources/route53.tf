@@ -29,7 +29,46 @@ resource "kubernetes_secret" "track_a_query_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_production" {
-  name    = "track-a-query.service.gov.uk."
+  name    = "."
+  zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "haproxy-track-a-query-1357848984.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "track_a_query_route53_A_record_development" {
+  name    = "dev"
+  zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "haproxy-track-a-query-1357848984.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "track_a_query_route53_A_record_staging" {
+  name    = "staging"
+  zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
+  type    = "A"
+
+  alias {
+    name    = "haproxy-track-a-query-1357848984.eu-west-1.elb.amazonaws.com."
+    zone_id = "Z32O12XQLNTSW2"
+
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "track_a_query_route53_A_record_demo" {
+  name    = "demo"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
