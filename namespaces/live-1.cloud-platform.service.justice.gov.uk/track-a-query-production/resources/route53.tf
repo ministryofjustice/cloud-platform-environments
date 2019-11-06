@@ -42,7 +42,7 @@ resource "aws_route53_record" "track_a_query_route53_A_record_production" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_development" {
-  name    = "development.track-a-query.service.gov.uk."
+  name    = "development"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
@@ -55,7 +55,7 @@ resource "aws_route53_record" "track_a_query_route53_A_record_development" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_staging" {
-  name    = "staging.track-a-query.service.gov.uk."
+  name    = "staging"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
@@ -68,7 +68,7 @@ resource "aws_route53_record" "track_a_query_route53_A_record_staging" {
 }
 
 resource "aws_route53_record" "track_a_query_route53_A_record_demo" {
-  name    = "demo.track-a-query.service.gov.uk."
+  name    = "demo"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
   type    = "A"
 
