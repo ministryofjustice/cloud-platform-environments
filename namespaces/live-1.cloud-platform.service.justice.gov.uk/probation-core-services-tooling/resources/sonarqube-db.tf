@@ -20,6 +20,7 @@ module "pcs_sonarqube_rds" {
   db_engine_version           = "9.6"
   rds_family                  = "postgres9.6"
   allow_major_version_upgrade = "true"
+  apply_method                = "pending-reboot"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
