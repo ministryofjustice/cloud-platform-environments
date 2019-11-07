@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'json'
+require "json"
 
 # Output a list of all TLS secrets in the cluster, for which there is no
 # matching (i.e. with the same name) certificate object in the same namespace.
@@ -13,7 +13,7 @@ def main
   secrets = get_certificate_secrets
   certificates = get_certificate_objects
 
-  puts %[#{"NAMESPACE".ljust(50)} #{"SECRET".ljust(50)}]
+  puts %(#{"NAMESPACE".ljust(50)} #{"SECRET".ljust(50)})
   (secrets - certificates).map do |s|
     namespace, name = s.split(":")
     puts "#{namespace.ljust(50)} #{name.ljust(50)}"
@@ -30,7 +30,7 @@ def get_certificate_secrets
 end
 
 def get_certificate_objects
-  get_data("certificates").map { |s| [ get_namespace(s), s.dig("spec", "secretName") ].join(":") }
+  get_data("certificates").map { |s| [get_namespace(s), s.dig("spec", "secretName")].join(":") }
 end
 
 def get_data(object_type)
