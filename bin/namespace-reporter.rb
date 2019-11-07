@@ -112,9 +112,9 @@ class Namespace
     if quota.nil?
       {
         hard_request_limit: {cpu: nil, memory: nil},
-        hard_limit: {cpu: nil, memory: nil},
+        hard_limit: {cpu: nil, memory: nil, pods: nil},
         requested: {cpu: nil, memory: nil},
-        hard_limit_used: {cpu: nil, memory: nil}
+        hard_limit_used: {cpu: nil, memory: nil, pods: nil},
       }
     else
       data = quota.dig("status")
@@ -126,12 +126,14 @@ class Namespace
 
       hard_limit = {
         cpu: cpu_value(data.dig("hard", "limits.cpu")),
-        memory: memory_value(data.dig("hard", "limits.memory"))
+        memory: memory_value(data.dig("hard", "limits.memory")),
+        pods: integer_value(data.dig("hard", "pods")),
       }
 
       hard_limit_used = {
         cpu: cpu_value(data.dig("used", "limits.cpu")),
-        memory: memory_value(data.dig("used", "limits.memory"))
+        memory: memory_value(data.dig("used", "limits.memory")),
+        pods: integer_value(data.dig("used", "pods")),
       }
 
       requested = {
@@ -169,6 +171,10 @@ class Namespace
     else
       raise %[CPU value: "#{str}" was not in expected format]
     end
+  end
+
+  def integer_value(str)
+    str.nil? ? nil : str.to_i
   end
 
   def memory_value(str)
