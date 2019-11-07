@@ -6,8 +6,8 @@
  */
 module "hmpps-core-services_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
-  repo_name = "digital-probation-tooling"
-  team_name = "hmpps-core-services"
+  repo_name = "${var.repo_name}"
+  team_name = "${var.team_name}"
 
   providers = {
     aws = "aws.london"
@@ -16,8 +16,8 @@ module "hmpps-core-services_ecr_credentials" {
 
 resource "kubernetes_secret" "hmpps-core-services_ecr_credentials" {
   metadata {
-    name      = "hmpps-core-services-ecr-credentials-output"
-    namespace = "probation-core-services-tooling"
+    name      = "${var.team_name}-ecr-credentials-output"
+    namespace = "${var.namespace}"
   }
 
   data {
