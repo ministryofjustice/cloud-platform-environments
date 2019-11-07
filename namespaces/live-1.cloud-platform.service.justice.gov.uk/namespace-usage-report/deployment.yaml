@@ -14,6 +14,8 @@ spec:
         - name: usage-report
           image: ministryofjustice/cloud-platform-namespace-usage-report:1.6
           env:
+            - name: RACK_ENV
+              value: "production"
             - name: API_KEY
               valueFrom:
                 secretKeyRef:
