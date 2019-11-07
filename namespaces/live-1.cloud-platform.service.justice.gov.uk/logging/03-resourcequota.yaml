@@ -5,5 +5,4 @@ metadata:
   namespace: logging
 spec:
   hard:
-    requests.cpu: 3000m
-    requests.memory: 12Gi
+    pods: "100"
