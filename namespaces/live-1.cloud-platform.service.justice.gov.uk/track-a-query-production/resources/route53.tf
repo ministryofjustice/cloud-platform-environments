@@ -54,12 +54,6 @@ resource "aws_route53_record" "track_a_query_route53_A_record_development" {
   }
 }
 
-resource "aws_route53_record" "track_a_query_route53_A_record_staging" {
-  name    = "staging"
-  zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
-  type    = "A"
-}
-
 resource "aws_route53_record" "track_a_query_route53_A_record_demo" {
   name    = "demo"
   zone_id = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
