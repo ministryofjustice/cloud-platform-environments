@@ -29,7 +29,7 @@ module "pcs_sonarqube_rds" {
 
 resource "kubernetes_secret" "pcs_sonarqube_rds" {
   metadata {
-    name      = "pcs_sonarqube_rds"
+    name      = "pcs-sonarqube-rds"
     namespace = "${var.namespace}"
   }
 
