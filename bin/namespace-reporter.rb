@@ -75,7 +75,7 @@ class Namespace
     cpu = hash[:cpu].inject(0) { |sum, c| sum += cpu_value(c) }
     memory = hash[:memory].inject(0) { |sum, c| sum += memory_value(c) }
 
-    {cpu: cpu, memory: memory}
+    { cpu: cpu, memory: memory, pods: lines.count }
   end
 
   def default_request(limits)
@@ -113,7 +113,7 @@ class Namespace
         hard_request_limit: {cpu: nil, memory: nil},
         hard_limit: {cpu: nil, memory: nil, pods: nil},
         requested: {cpu: nil, memory: nil},
-        hard_limit_used: {cpu: nil, memory: nil, pods: nil},
+        hard_limit_used: {cpu: nil, memory: nil},
       }
     else
       data = quota.dig("status")
@@ -132,7 +132,6 @@ class Namespace
       hard_limit_used = {
         cpu: cpu_value(data.dig("used", "limits.cpu")),
         memory: memory_value(data.dig("used", "limits.memory")),
-        pods: integer_value(data.dig("used", "pods")),
       }
 
       requested = {
@@ -206,7 +205,7 @@ def text_output(ns)
   puts "  Num. containers:\t#{ns[:container_count]}"
   puts "  Req. per-container:\tCPU: #{ns[:default_request][:cpu]},\tMemory: #{ns[:default_request][:memory]}"
   puts
-  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]}"
+  puts "  Resources in-use:\tCPU: #{ns[:resources_used][:cpu]},\tMemory: #{ns[:resources_used][:memory]},\tPods: #{ns[:resources_used][:pods]}"
   puts
   puts "CPU values are in millicores (m). Memory values are in mebibytes (Mi)."
   puts
