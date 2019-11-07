@@ -75,7 +75,7 @@ class Namespace
     cpu = hash[:cpu].inject(0) { |sum, c| sum += cpu_value(c) }
     memory = hash[:memory].inject(0) { |sum, c| sum += memory_value(c) }
 
-    { cpu: cpu, memory: memory, pods: lines.count }
+    {cpu: cpu, memory: memory, pods: lines.count}
   end
 
   def default_request(limits)
