@@ -21,8 +21,8 @@
 #     cat namespaces.json | jq '.items[].container_count' | paste -sd+ - | bc
 # https://stackoverflow.com/a/18141152/794111
 
-require 'json'
-require 'optparse'
+require "json"
+require "optparse"
 
 # Output formats
 TEXT_OUTPUT = "text"
@@ -48,13 +48,13 @@ class Namespace
       hard_limit: ns_quota.fetch(:hard_limit),
       hard_limit_used: ns_quota.fetch(:hard_limit_used),
       resources_requested: ns_quota.fetch(:requested),
-      container_count: container_count(name)
+      container_count: container_count(name),
     }
   end
 
   def self.names(pattern)
     `kubectl get ns -o jsonpath='{.items[*].metadata.name}'`.chomp
-      .split(' ')
+      .split(" ")
       .grep(/#{pattern}/)
   end
 
@@ -66,17 +66,16 @@ class Namespace
     lines = usage.split("\n")
     lines.shift
 
-    hash = lines.inject({ cpu: [], memory: [] }) do |h, l|
+    hash = lines.each_with_object({cpu: [], memory: []}) { |l, h|
       fields = l.split(" ")
       h[:cpu] << fields[1]
       h[:memory] << fields[2]
-      h
-    end
+    }
 
-    cpu = hash[:cpu].inject(0) {|sum, c| sum += cpu_value(c)}
-    memory = hash[:memory].inject(0) {|sum, c| sum += memory_value(c)}
+    cpu = hash[:cpu].inject(0) { |sum, c| sum += cpu_value(c) }
+    memory = hash[:memory].inject(0) { |sum, c| sum += memory_value(c) }
 
-    { cpu: cpu, memory: memory }
+    {cpu: cpu, memory: memory}
   end
 
   def default_request(limits)
@@ -93,12 +92,12 @@ class Namespace
 
     {
       cpu: cpu_value(data.fetch("cpu", nil)),
-      memory: memory_value(data.fetch("memory", nil))
+      memory: memory_value(data.fetch("memory", nil)),
     }
   rescue
     {
       cpu: nil,
-      memory: nil
+      memory: nil,
     }
   end
 
@@ -121,7 +120,7 @@ class Namespace
 
       hard_request_limit = {
         cpu: cpu_value(data.dig("hard", "requests.cpu")),
-        memory: memory_value(data.dig("hard", "requests.memory"))
+        memory: memory_value(data.dig("hard", "requests.memory")),
       }
 
       hard_limit = {
@@ -138,21 +137,21 @@ class Namespace
 
       requested = {
         cpu: cpu_value(data.dig("used", "requests.cpu")),
-        memory: memory_value(data.dig("used", "requests.memory"))
+        memory: memory_value(data.dig("used", "requests.memory")),
       }
 
       {
         hard_request_limit: hard_request_limit,
         hard_limit: hard_limit,
         hard_limit_used: hard_limit_used,
-        requested: requested
+        requested: requested,
       }
     end
   end
 
   def container_count(name)
     data = kubectl_get("pods")
-    data.collect {|i| i.dig("spec", "containers")}.flatten.compact.count
+    data.collect { |i| i.dig("spec", "containers") }.flatten.compact.count
   end
 
   def kubectl_get(obj)
@@ -169,7 +168,7 @@ class Namespace
     when /^(\d+)m$/
       $1.to_i
     else
-      raise %[CPU value: "#{str}" was not in expected format]
+      raise %(CPU value: "#{str}" was not in expected format)
     end
   end
 
@@ -192,7 +191,7 @@ class Namespace
     when /^(\d+)Mi/
       $1.to_i
     else
-      raise %[Memory value: "#{str}" was not in expected format]
+      raise %(Memory value: "#{str}" was not in expected format)
     end
   end
 end
@@ -214,9 +213,9 @@ def text_output(ns)
 end
 
 def parse_options
-  options = { format: TEXT_OUTPUT }
+  options = {format: TEXT_OUTPUT}
 
-  OptionParser.new do |opts|
+  OptionParser.new { |opts|
     opts.on("-n", "--namespace NAMESPACE", "Namespace name pattern (required)") do |ns|
       options[:namespace] = ns
     end
@@ -229,7 +228,7 @@ def parse_options
       puts opts
       exit
     end
-  end.parse!
+  }.parse!
 
   options
 end
@@ -242,7 +241,7 @@ pattern = options.fetch(:namespace)
 reports = Namespace.names(pattern).map { |name| Namespace.new(name).report }
 
 if options.fetch(:format) == JSON_OUTPUT
-  puts({ items: reports, last_updated: Time.now }.to_json)
+  puts({items: reports, last_updated: Time.now}.to_json)
 else
   reports.each { |report| text_output(report) }
 end
