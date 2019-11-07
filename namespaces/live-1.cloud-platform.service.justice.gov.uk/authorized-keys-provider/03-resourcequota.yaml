@@ -5,6 +5,4 @@ metadata:
   namespace: authorized-keys-provider
 spec:
   hard:
-    requests.cpu: 1000m
-    requests.memory: 1000Mi
-
+    pods: "5"
