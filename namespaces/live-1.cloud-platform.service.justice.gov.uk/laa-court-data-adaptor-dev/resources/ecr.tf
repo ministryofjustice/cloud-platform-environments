@@ -8,6 +8,10 @@ module "laa_crime_apps_team_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
   repo_name = "laa-court-data-adaptor"
   team_name = "laa-crime-apps-team"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "laa_crime_apps_team_ecr_credentials" {
