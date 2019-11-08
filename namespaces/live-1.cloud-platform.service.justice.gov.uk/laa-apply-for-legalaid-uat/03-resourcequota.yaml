@@ -5,5 +5,4 @@ metadata:
   namespace: laa-apply-for-legalaid-uat
 spec:
   hard:
-    requests.cpu: 700m
-    requests.memory: 20Gi
+    pods: "50"
