@@ -14,10 +14,10 @@ log green "applying for cluster ${cluster}"
 log blue "applying cluster-level resources for ${cluster}"
 ( set -x; kubectl apply -f "namespaces/${cluster}" ) || log blue "no global resources to apply"
 for _f in namespaces/${cluster}/*; do
+  git pull  # In case any PRs were merged since the pipeline started
   if [ -d "${_f}" ]; then
     namespace="$(basename ${_f})"
     log blue "applying resources for namespace ${namespace} in ${cluster}"
-    git pull  # In case any PRs were merged since the pipeline started
     ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
     terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
     if [ -d "${terraform_resources_path}" ]; then
