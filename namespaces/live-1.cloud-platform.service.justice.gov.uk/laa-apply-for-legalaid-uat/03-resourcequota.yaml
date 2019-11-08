@@ -5,4 +5,4 @@ metadata:
   namespace: laa-apply-for-legalaid-uat
 spec:
   hard:
-    pods: "50"
+    pods: "100"
