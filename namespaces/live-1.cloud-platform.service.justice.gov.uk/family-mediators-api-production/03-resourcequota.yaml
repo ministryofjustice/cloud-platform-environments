@@ -5,5 +5,4 @@ metadata:
   namespace: family-mediators-api-production
 spec:
   hard:
-    requests.cpu: 500m
-    requests.memory: 6Gi
+    pods: "50"

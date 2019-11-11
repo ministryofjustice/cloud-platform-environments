@@ -5,5 +5,4 @@ metadata:
   namespace: licences-prod
 spec:
   hard:
-    requests.cpu: 300m
-    requests.memory: 6Gi
+    pods: "50"

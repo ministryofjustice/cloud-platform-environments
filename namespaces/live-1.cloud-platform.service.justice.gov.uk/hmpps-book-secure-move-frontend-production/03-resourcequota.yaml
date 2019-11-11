@@ -5,5 +5,4 @@ metadata:
   namespace: hmpps-book-secure-move-frontend-production
 spec:
   hard:
-    requests.cpu: 500m
-    requests.memory: 6Gi
+    pods: "50"

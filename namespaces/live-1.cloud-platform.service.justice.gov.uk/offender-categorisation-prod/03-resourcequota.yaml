@@ -5,5 +5,4 @@ metadata:
   namespace: offender-categorisation-prod
 spec:
   hard:
-    requests.cpu: 600m
-    requests.memory: 6Gi
+    pods: "50"

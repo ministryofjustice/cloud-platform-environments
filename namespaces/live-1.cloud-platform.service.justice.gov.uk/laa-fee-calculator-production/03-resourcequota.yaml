@@ -5,5 +5,4 @@ metadata:
   namespace: laa-fee-calculator-production
 spec:
   hard:
-    requests.cpu: 500m
-    requests.memory: 3000Mi
+    pods: "50"

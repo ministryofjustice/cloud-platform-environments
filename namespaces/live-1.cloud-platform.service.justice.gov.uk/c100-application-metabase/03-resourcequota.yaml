@@ -5,5 +5,4 @@ metadata:
   namespace: c100-application-metabase
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 2Gi
+    pods: "50"

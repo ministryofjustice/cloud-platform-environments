@@ -5,5 +5,4 @@ metadata:
   namespace: concourse-main
 spec:
   hard:
-    requests.cpu: 1m
-    requests.memory: 1Mi
+    pods: "50"
