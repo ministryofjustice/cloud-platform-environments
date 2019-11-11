@@ -11,7 +11,7 @@ resource "pingdom_check" "laa-legal-adviser-api-search" {
   url                      = "/ping.json"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application},component_ping,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_${var.application}"
+  tags                     = "businessunit_${lower(var.business-unit)},application_${lower(var.application)},component_ping,isproduction_${var.is-production},environment_${lower(var.environment-name)},infrastructuresupport_${lower(var.application)}"
   probefilters             = "region:EU"
   integrationids           = [87631]
 }
