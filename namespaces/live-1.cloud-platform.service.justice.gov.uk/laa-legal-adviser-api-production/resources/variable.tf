@@ -11,7 +11,7 @@ variable "team_name" {
 }
 
 variable "application" {
-  default = "LAA Legal Adviser API"
+  default = "LAA-Legal-Adviser-API"
 }
 
 variable "repo_name" {
