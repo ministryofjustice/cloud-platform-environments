@@ -13,7 +13,7 @@ module "rds_instance" {
   environment-name           = "${var.environment-name}"
   infrastructure-support     = "${var.infrastructure-support}"
   is-production              = "${var.is-production}"
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
   team_name                  = "${var.team_name}"
 }
 
