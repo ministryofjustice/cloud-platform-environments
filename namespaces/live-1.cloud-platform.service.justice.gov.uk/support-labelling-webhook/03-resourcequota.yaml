@@ -5,5 +5,4 @@ metadata:
   namespace: support-labelling-webhook
 spec:
   hard:
-    requests.cpu: 10m
-    requests.memory: 100Mi
+    pods: "50"

@@ -6,5 +6,3 @@ metadata:
 spec:
   hard:
     pods: "50"
-    requests.cpu: 100m
-    requests.memory: 5000Mi
