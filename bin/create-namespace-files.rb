@@ -85,7 +85,10 @@ end
 
 def replace_var(content, key, value)
   str = "${#{key}}"
-  content.gsub(str, value)
+  lower_str = "${lower(#{key})}"
+  content
+    .gsub(str, value)
+    .gsub(lower_str, value.downcase)
 end
 
 def yaml_templates
