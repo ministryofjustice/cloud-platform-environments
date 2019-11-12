@@ -184,17 +184,3 @@ QUESTIONS = [
 ]
 
 create_namespace_files get_answers
-
-answers = {
-  "namespace"=>"foobar",
-  "github_team"=>"ghteam",
-  "business-unit"=>"bu",
-  "is-production"=>"prod",
-  "environment"=>"dev",
-  "application"=>"myapp",
-  "owner"=>"myteam",
-  "contact_email"=>"foo@gbar.com",
-  "source_code_url"=>"https://foobar"
-}
-
-create_namespace_files answers
