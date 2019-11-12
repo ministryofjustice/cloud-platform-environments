@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
 
   team_name              = "correspondence"
   business-unit          = "Central Digital"
@@ -17,7 +17,7 @@ module "track_a_query_s3" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://track-a-query.service.justice.gov.uk", "https://track-a-query-production.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://track-a-query.service.justice.gov.uk", "https://track-a-query.apps.live-1.cloud-platform.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
