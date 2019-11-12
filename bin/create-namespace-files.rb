@@ -112,7 +112,6 @@ def ask_question(answers, question)
     if validator_class
       validator = validator_class.new
       if validator.is_valid?(answer)
-        answers[var] = answer
         good_answer = true
       else
         puts "Bad answer: #{validator.error}"
@@ -121,6 +120,8 @@ def ask_question(answers, question)
       # No validation for this question
       good_answer = true
     end
+
+    answers[var] = answer
   end
 end
 
