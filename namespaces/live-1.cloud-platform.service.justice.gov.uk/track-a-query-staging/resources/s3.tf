@@ -75,6 +75,6 @@ resource "kubernetes_secret" "track_a_query_s3" {
       allowed_methods = ["GET"]
       allowed_origins = ["*"]
       max_age_seconds = 3000
-    }
+    },
   ]
 }
