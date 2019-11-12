@@ -59,6 +59,8 @@ def copy_terraform_files(namespace)
   render_templates(Dir["#{TEMPLATES_DIR}/*.yaml"], dir, answers)
   create_terraform_files(namespace, answers)
   create_cloud_platform_deploy(answers)
+
+  output_message(answers)
 end
 
 def create_cloud_platform_deploy(answers)
@@ -140,6 +142,21 @@ def prompt(question)
   puts
   print "  #{var}: "
   gets.strip
+end
+
+def output_message(answers)
+  dir = working_copy_directory(answers)
+
+  puts <<EOF
+
+  The directory #{DEPLOYMENT_DIR} has been added to your
+  application working copy at #{dir}.
+
+  Please commit and push this directory and its contents
+  to enable automated deployment to the cluster
+  #{CLUSTER_NAME}.
+
+EOF
 end
 
 ############################################################
