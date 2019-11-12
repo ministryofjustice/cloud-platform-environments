@@ -16,6 +16,7 @@ TEMPLATES_DIR = "namespace-resources"
 DEPLOY_TEMPLATES_DIR = "namespace-resources/kubectl_deploy"
 CLUSTER_NAME = "live-1.cloud-platform.service.justice.gov.uk"
 NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
+WORKING_COPY = "/appsrc" # This is where we mount the user's working copy of their application
 DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
@@ -64,7 +65,7 @@ def copy_terraform_files(namespace)
 end
 
 def create_cloud_platform_deploy(answers)
-  dir = File.join(working_copy_directory(answers), DEPLOYMENT_DIR)
+  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR)
   FileUtils.mkdir_p(dir)
   # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
   # up to date with any changes.
@@ -72,17 +73,24 @@ def create_cloud_platform_deploy(answers)
 end
 
 def render_templates(files, dir, answers)
-  pp [files, dir, answers]
   files.each { |template| create_file(template, dir, answers) }
 end
 
-def working_copy_directory(answers)
-  # TODO: this assumes the user's working copy of their application code is in a
-  # directory at the same level as their working copy of the environments repo.
-  # This assumption may not be correct, and we should fix it so that we ask the
-  # user for the path to their source code before launching the docker container.
-  dir = answers.fetch("source_code_url").split("/").last
-  File.join("..", dir)
+def create_terraform_files(namespace, answers)
+  dir = File.join(NAMESPACES_DIR, namespace, "resources")
+  FileUtils.mkdir_p(dir)
+  create_main_tf(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.tf"], dir, answers)
+end
+
+# The environments checker process expects to find the resources-main-tf
+# file, so we're copying that with a new name, rather than just having
+# a main.tf file in the TEMPLATES_DIR.
+# TODO: Adjust the environments checker so that we can just have main.tf
+def create_main_tf(dir)
+  main_tf = File.read(File.join(TEMPLATES_DIR, "resources-main-tf"))
+  outfile = File.join(dir, "main.tf")
+  File.write(outfile, main_tf)
 end
 
 def create_file(template, dir, answers)
@@ -145,12 +153,10 @@ def prompt(question)
 end
 
 def output_message(answers)
-  dir = working_copy_directory(answers)
-
   puts <<EOF
 
   The directory #{DEPLOYMENT_DIR} has been added to your
-  application working copy at #{dir}.
+  application working copy.
 
   Please commit and push this directory and its contents
   to enable automated deployment to the cluster
