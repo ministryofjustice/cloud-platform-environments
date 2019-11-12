@@ -61,29 +61,20 @@ resource "kubernetes_secret" "track_a_query_s3" {
     bucket_arn        = "${module.track_a_query_s3.bucket_arn}"
     bucket_name       = "${module.track_a_query_s3.bucket_name}"
   }
-}
 
-resource "track_a_query_dropzone_cors" "track_a_query_s3" {
-  bucket = "${module.track_a_query_s3.bucket_name}"
-  acl    = "bucket-owner-full-control"
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["GET", "POST", "PUT"]
-    allowed_origins = ["https://staging.track-a-query.service.justice.gov.uk", "https://track-a-query-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-}
-
-resource "track_a_query_other_cors" "track_a_query_s3" {
-  bucket = "${module.track_a_query_s3.bucket_name}"
-  acl    = "public-read"
-
-  cors_rule {
-    allowed_headers = ["Authorization"]
-    allowed_methods = ["GET"]
-    allowed_origins = ["*"]
-    max_age_seconds = 3000
-  }
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET", "POST", "PUT"]
+      allowed_origins = ["https://staging.track-a-query.service.justice.gov.uk", "https://track-a-query-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    },
+    {
+      allowed_headers = ["Authorization"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      max_age_seconds = 3000
+    }
+  ]
 }
