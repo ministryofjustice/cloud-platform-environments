@@ -56,7 +56,7 @@ def create_namespace_files(answers)
 end
 
 def create_cloud_platform_deploy(answers)
-  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR)
+  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR, answers.fetch("namespace"))
   FileUtils.mkdir_p(dir)
   # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
   # up to date with any changes.
