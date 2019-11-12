@@ -8,8 +8,8 @@ namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platfor
 define NAMESPACE_MESSAGE
 Please create a new branch of this repository, add the files above and raise a
 pull request.  Once the PR has been approved by the cloud platform team, please
-merge it and delete the branch.  Shortly after that, your new namespace will be
-created via the build pipeline.
+merge it.  Shortly after that, your new namespace will be created via the build
+pipeline.
 endef
 export NAMESPACE_MESSAGE
 
