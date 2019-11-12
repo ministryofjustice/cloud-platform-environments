@@ -11,7 +11,10 @@
 require "fileutils"
 
 TEMPLATES_DIR = "namespace-resources"
-NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
+DEPLOY_TEMPLATES_DIR = "namespace-resources/kubectl_deploy"
+CLUSTER_NAME = "live-1.cloud-platform.service.justice.gov.uk"
+NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
+DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
   attr_reader :error
@@ -43,36 +46,49 @@ end
 def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
-  yaml_templates.each { |template| create_file(template, dir, answers) }
-  create_main_tf(namespace)
   FileUtils.mkdir_p(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.yaml"], dir, answers)
+  create_terraform_files(namespace, answers)
+  create_cloud_platform_deploy(answers)
 end
 
-def create_main_tf(namespace)
-  main_tf = <<~EOF
-    terraform {
-      backend "s3" {}
-    }
+def create_cloud_platform_deploy(answers)
+  dir = File.join(working_copy_directory(answers), DEPLOYMENT_DIR)
+  FileUtils.mkdir_p(dir)
+  # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
+  # up to date with any changes.
+  render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
+end
 
-    provider "aws" {
-      region = "eu-west-2"
-    }
+def render_templates(files, dir, answers)
+  pp [files, dir, answers]
+  files.each { |template| create_file(template, dir, answers) }
+end
 
-    provider "aws" {
-      alias  = "london"
-      region = "eu-west-2"
-    }
-
-    provider "aws" {
-      alias  = "ireland"
-      region = "eu-west-1"
-    }
-  EOF
-
+def create_terraform_files(namespace, answers)
   dir = File.join(NAMESPACES_DIR, namespace, "resources")
   FileUtils.mkdir_p(dir)
+  create_main_tf(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.tf"], dir, answers)
+end
+
+# The environments checker process expects to find the resources-main-tf
+# file, so we're copying that with a new name, rather than just having
+# a main.tf file in the TEMPLATES_DIR.
+# TODO: Adjust the environments checker so that we can just have main.tf
+def create_main_tf(dir)
+  main_tf = File.read(File.join(TEMPLATES_DIR, "resources-main-tf"))
   outfile = File.join(dir, "main.tf")
   File.write(outfile, main_tf)
+end
+
+def working_copy_directory(answers)
+  # TODO: this assumes the user's working copy of their application code is in a
+  # directory at the same level as their working copy of the environments repo.
+  # This assumption may not be correct, and we should fix it so that we ask the
+  # user for the path to their source code before launching the docker container.
+  dir = answers.fetch("source_code_url").split("/").last
+  File.join("..", dir)
 end
 
 def create_file(template, dir, answers)
@@ -92,10 +108,6 @@ def replace_var(content, key, value)
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
-end
-
-def yaml_templates
-  Dir["#{TEMPLATES_DIR}/*.yaml"]
 end
 
 def get_answers
