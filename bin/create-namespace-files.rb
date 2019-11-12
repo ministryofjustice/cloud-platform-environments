@@ -21,7 +21,7 @@ end
 
 class TrueFalseValidator < Validator
   def is_valid?(value)
-    return true if %w(true false).include?(value)
+    return true if %w[true false].include?(value)
 
     @error = "Answer must be 'true' or 'false'"
     false
@@ -30,7 +30,7 @@ end
 
 class NamespaceNameValidator < Validator
   def is_valid?(value)
-    return true if (/^[a-z\-]+$/.match?(value) && value.count("-") > 0)
+    return true if /^[a-z\-]+$/.match?(value) && value.count("-") > 0
     @error = "Value must consist of lower-case letters and dashes only"
     false
   end
@@ -47,25 +47,25 @@ def create_namespace_files(answers)
 end
 
 def create_main_tf(namespace)
-  main_tf = <<EOF
-terraform {
-  backend "s3" {}
-}
+  main_tf = <<~EOF
+    terraform {
+      backend "s3" {}
+    }
 
-provider "aws" {
-  region = "eu-west-2"
-}
+    provider "aws" {
+      region = "eu-west-2"
+    }
 
-provider "aws" {
-  alias  = "london"
-  region = "eu-west-2"
-}
+    provider "aws" {
+      alias  = "london"
+      region = "eu-west-2"
+    }
 
-provider "aws" {
-  alias  = "ireland"
-  region = "eu-west-1"
-}
-EOF
+    provider "aws" {
+      alias  = "ireland"
+      region = "eu-west-1"
+    }
+  EOF
 
   dir = File.join(NAMESPACES_DIR, namespace, "resources")
   system("mkdir #{dir}")
@@ -107,7 +107,7 @@ def ask_question(answers, question)
   validator_class = question[:validator]
   good_answer = false
 
-  while !good_answer
+  until good_answer
     answer = prompt(question)
 
     if validator_class
