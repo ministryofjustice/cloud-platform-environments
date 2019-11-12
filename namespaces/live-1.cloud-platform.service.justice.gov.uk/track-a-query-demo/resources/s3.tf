@@ -13,6 +13,22 @@ module "track_a_query_s3" {
   environment-name       = "demo"
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
 
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET", "POST", "PUT"]
+      allowed_origins = ["https://demo.track-a-query.service.justice.gov.uk", "https://track-a-query-demo.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    },
+    {
+      allowed_headers = ["Authorization"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      max_age_seconds = 3000
+    },
+  ]
+
   providers = {
     aws = "aws.london"
   }
