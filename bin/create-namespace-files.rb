@@ -1,12 +1,8 @@
 #!/usr/bin/env ruby
 
-require "pry-byebug" # TODO: remove
-
 # TODO: default
 # TODO: question N of M
-# TODO: create the main.tf
 # TODO: validate answers
-# TODO: block progress until a good answer is provided
 # TODO: check namespace name is available
 # TODO: remove old terraform stuff from namespace-resources/
 # TODO: accomodate the gitops work Jason & Raz are doing
