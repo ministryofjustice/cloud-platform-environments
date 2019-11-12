@@ -23,8 +23,12 @@ namespace:
 	@read -p "path: " working_copy_path; docker run --rm -it -v $$(pwd)/$${working_copy_path}:/appsrc -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
-	@echo "Creating namespace..."
-	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb
+	@echo
+	@echo "A deployment directory will be created in your application source code tree, "
+	@echo "as part of the namespace creation process."
+	@echo "Please provide the RELATIVE path to your working copy of your application source code."
+	@echo
+	@read -p "path: " working_copy_path; docker run --rm -it -v $$(pwd)/$${working_copy_path}:/appsrc -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb
 	@git status --untracked-files=all
 	@echo
 	@echo $${NAMESPACE_MESSAGE} | fmt

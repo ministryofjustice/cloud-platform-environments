@@ -18,7 +18,8 @@ for _f in namespaces/${cluster}/*; do
   if [ -d "${_f}" ]; then
     namespace="$(basename ${_f})"
     log blue "applying resources for namespace ${namespace} in ${cluster}"
-    ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
+    # TODO figure out how to edit 2 namespaces (for Concourse)
+    ( set -x; kubectl apply -f "${_f}" )
     terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
     if [ -d "${terraform_resources_path}" ]; then
       (
