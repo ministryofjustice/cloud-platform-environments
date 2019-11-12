@@ -10,6 +10,7 @@ require "yaml"
 # TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
 # TODO: Restructure this code and add tests
 
+require "fileutils"
 
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
@@ -44,7 +45,6 @@ end
 def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
-  system("mkdir #{dir}")
   yaml_templates.each { |template| create_file(template, dir, answers) }
   copy_terraform_files(namespace)
 end
