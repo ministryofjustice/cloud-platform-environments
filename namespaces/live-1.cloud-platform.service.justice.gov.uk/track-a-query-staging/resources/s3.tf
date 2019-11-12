@@ -65,7 +65,7 @@ resource "kubernetes_secret" "track_a_query_s3" {
 
 resource "track_a_query_dropzone_cors" "track_a_query_s3" {
   bucket = "${module.track_a_query_s3.bucket_name}"
-  acl    = "public-read"
+  acl    = "bucket-owner-full-control"
 
   cors_rule {
     allowed_headers = ["*"]
