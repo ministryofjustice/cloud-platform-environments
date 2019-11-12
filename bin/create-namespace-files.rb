@@ -13,7 +13,10 @@ require "yaml"
 require "fileutils"
 
 TEMPLATES_DIR = "namespace-resources"
-NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
+DEPLOY_TEMPLATES_DIR = "namespace-resources/kubectl_deploy"
+CLUSTER_NAME = "live-1.cloud-platform.service.justice.gov.uk"
+NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
+DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
   attr_reader :error
@@ -52,6 +55,32 @@ end
 def copy_terraform_files(namespace)
   dir = File.join(NAMESPACES_DIR, namespace)
   system("cp -r namespace-resources/resources #{dir}")
+  FileUtils.mkdir_p(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.yaml"], dir, answers)
+  create_terraform_files(namespace, answers)
+  create_cloud_platform_deploy(answers)
+end
+
+def create_cloud_platform_deploy(answers)
+  dir = File.join(working_copy_directory(answers), DEPLOYMENT_DIR)
+  FileUtils.mkdir_p(dir)
+  # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
+  # up to date with any changes.
+  render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
+end
+
+def render_templates(files, dir, answers)
+  pp [files, dir, answers]
+  files.each { |template| create_file(template, dir, answers) }
+end
+
+def working_copy_directory(answers)
+  # TODO: this assumes the user's working copy of their application code is in a
+  # directory at the same level as their working copy of the environments repo.
+  # This assumption may not be correct, and we should fix it so that we ask the
+  # user for the path to their source code before launching the docker container.
+  dir = answers.fetch("source_code_url").split("/").last
+  File.join("..", dir)
 end
 
 def create_file(template, dir, answers)
@@ -71,10 +100,6 @@ def replace_var(content, key, value)
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
-end
-
-def yaml_templates
-  Dir["#{TEMPLATES_DIR}/*.yaml"]
 end
 
 def get_answers
