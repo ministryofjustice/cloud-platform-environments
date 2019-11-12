@@ -13,6 +13,22 @@ module "track_a_query_s3" {
   environment-name       = "staging"
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
 
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET", "POST", "PUT"]
+      allowed_origins = ["https://staging.track-a-query.service.justice.gov.uk", "https://track-a-query-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    },
+    {
+      allowed_headers = ["Authorization"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      max_age_seconds = 3000
+    },
+  ]
+
   providers = {
     aws = "aws.london"
   }
@@ -61,20 +77,4 @@ resource "kubernetes_secret" "track_a_query_s3" {
     bucket_arn        = "${module.track_a_query_s3.bucket_arn}"
     bucket_name       = "${module.track_a_query_s3.bucket_name}"
   }
-
-  cors_rule = [
-    {
-      allowed_headers = ["*"]
-      allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://staging.track-a-query.service.justice.gov.uk", "https://track-a-query-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
-      expose_headers  = ["ETag"]
-      max_age_seconds = 3000
-    },
-    {
-      allowed_headers = ["Authorization"]
-      allowed_methods = ["GET"]
-      allowed_origins = ["*"]
-      max_age_seconds = 3000
-    },
-  ]
 }
