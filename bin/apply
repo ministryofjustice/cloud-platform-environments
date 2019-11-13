@@ -1,40 +1,122 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-set -o errexit
-set -o pipefail
-set -o nounset
+require "open3"
 
-# shellcheck source=common.sh
-source "$(dirname ${BASH_SOURCE[0]})/common.sh"
+def main(cluster)
+  log("green", "applying for cluster #{cluster}")
 
-cluster="${PIPELINE_CLUSTER}"
+  set_kube_context(cluster)
+  apply_cluster_level_resources(cluster)
+  apply_namespaces(cluster)
 
-log green "applying for cluster ${cluster}"
-( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && exit 1; }
-log blue "applying cluster-level resources for ${cluster}"
-( set -x; kubectl apply -f "namespaces/${cluster}" ) || log blue "no global resources to apply"
-for _f in namespaces/${cluster}/*; do
-  git pull  # In case any PRs were merged since the pipeline started
-  if [ -d "${_f}" ]; then
-    namespace="$(basename ${_f})"
-    log blue "applying resources for namespace ${namespace} in ${cluster}"
-    ( set -x; kubectl -n "${namespace}" apply -f "${_f}" )
-    terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-    if [ -d "${terraform_resources_path}" ]; then
-      (
-        cd "${terraform_resources_path}"
-        log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
-        terraform init \
-          -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
-          -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
-          -backend-config="dynamodb_table=${PIPELINE_TERRAFORM_STATE_LOCK_TABLE}" \
-          -backend-config="region=${PIPELINE_STATE_REGION}"
-        terraform apply \
-          -var="cluster_name=${cluster%%.*}" \
-          -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
-          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate" \
-          -auto-approve
-      )
-    fi
-  fi
-done
+  log("green", "Done.")
+end
+
+def set_kube_context(cluster)
+  execute("kubectl config use-context #{cluster}")
+end
+
+def apply_cluster_level_resources(cluster)
+  log("blue", "applying cluster-level resources for #{cluster}")
+  _, _, status = execute("kubectl apply -f namespaces/#{cluster}", can_fail: true)
+  log("blue", "no global resources to apply") unless status.success?
+end
+
+def apply_namespaces(cluster)
+  Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
+    # TODO execute("git pull") # In case any PRs were merged since the pipeline started
+    apply_namespace_dir(cluster, namespace_dir)
+  end
+end
+
+def apply_namespace_dir(cluster, dir)
+  return unless FileTest.directory?(dir)
+
+  namespace = File.basename(dir)
+  apply_kubernetes_files(cluster, namespace, dir)
+  apply_terraform(cluster, namespace, dir)
+end
+
+def apply_kubernetes_files(_cluster, namespace, dir)
+  log("green", "applying #{namespace}")
+  execute("kubectl -n #{namespace} apply -f #{dir}")
+end
+
+def apply_terraform(cluster, namespace, dir)
+  tf_dir = File.join(dir, "resources")
+  return unless FileTest.directory?(tf_dir)
+
+  log("blue", "applying terraform resources for namespace #{namespace} in #{cluster}")
+  tf_init(cluster, namespace, tf_dir)
+  tf_apply(cluster, namespace, tf_dir)
+end
+
+def tf_init(cluster, namespace, dir)
+  bucket = ENV.fetch("PIPELINE_STATE_BUCKET")
+  key_prefix = ENV.fetch("PIPELINE_STATE_KEY_PREFIX")
+  lock_table = ENV.fetch("PIPELINE_TERRAFORM_STATE_LOCK_TABLE")
+  region = ENV.fetch("PIPELINE_STATE_REGION")
+  key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
+
+  cmd = [
+    %(terraform init),
+    %(-backend-config="bucket=#{bucket}"),
+    %(-backend-config="key=#{key}"),
+    %(-backend-config="dynamodb_table=#{lock_table}"),
+    %(-backend-config="region=#{region}"),
+  ].join(" ")
+
+  execute("cd #{dir}; #{cmd}")
+end
+
+def tf_apply(cluster, namespace, dir)
+  bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
+  key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
+
+  name = cluster.split(".").first
+  key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
+
+  cmd = [
+    %(terraform apply),
+    %(-var="cluster_name=#{name}"),
+    %(-var="cluster_state_bucket=#{bucket}"),
+    %(-var="cluster_state_key=#{key}"),
+    %(-auto-approve),
+  ].join(" ")
+
+  execute("cd #{dir}; #{cmd}")
+end
+
+def execute(cmd, can_fail: false)
+  log("blue", "executing: #{cmd}")
+  stdout, stderr, status = Open3.capture3(cmd)
+
+  unless can_fail || status.success?
+    log("red", "Command: #{cmd} failed.")
+    puts stderr
+    raise
+  end
+
+  puts stdout
+
+  [stdout, stderr, status]
+end
+
+def log(colour, message)
+  colour_code = case colour
+  when "red"
+    31
+  when "blue"
+    34
+  when "green"
+    32
+  else
+    raise "Unknown colour #{colour} passed to 'log' method"
+  end
+
+  puts "\e[#{colour_code}m#{message}\e[0m"
+end
+
+############################################################
+
+main ENV.fetch("PIPELINE_CLUSTER")
