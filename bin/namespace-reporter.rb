@@ -63,21 +63,21 @@ class Namespace
   private
 
   def resources_requested(data)
-    cpu = data.inject(0) do |sum, item|
-      requested = item.dig("spec", "containers").inject(0) do |total, container|
+    cpu = data.inject(0) { |sum, item|
+      requested = item.dig("spec", "containers").inject(0) { |total, container|
         total += cpu_value(container.dig("resources", "requests", "cpu")).to_i
-      end
+      }
       sum += requested
-    end
+    }
 
-    memory = data.inject(0) do |sum, item|
-      requested = item.dig("spec", "containers").inject(0) do |total, container|
+    memory = data.inject(0) { |sum, item|
+      requested = item.dig("spec", "containers").inject(0) { |total, container|
         total += memory_value(container.dig("resources", "requests", "memory")).to_i
-      end
+      }
       sum += requested
-    end
+    }
 
-    { cpu: cpu, memory: memory, pods: data.count }
+    {cpu: cpu, memory: memory, pods: data.count}
   end
 
   def resources_used
