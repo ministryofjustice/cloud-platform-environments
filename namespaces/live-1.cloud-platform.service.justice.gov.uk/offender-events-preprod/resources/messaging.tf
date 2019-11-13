@@ -36,13 +36,14 @@ resource "kubernetes_secret" "offender_case_notes" {
 }
 
 module "keyworker_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "keyworker_api_queue"
+  encrypt_sqs_kms        = "true"
 
   redrive_policy = <<EOF
   {
@@ -83,13 +84,14 @@ resource "aws_sqs_queue_policy" "keyworker_api_queue_policy" {
 }
 
 module "keyworker_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "keyworker_api_queue_dl"
+  encrypt_sqs_kms        = "true"
 
   providers = {
     aws = "aws.london"

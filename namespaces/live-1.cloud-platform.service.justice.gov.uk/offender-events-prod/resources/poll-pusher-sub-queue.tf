@@ -1,11 +1,12 @@
 module "case_note_poll_pusher_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "case_note_poll_pusher_queue"
+  encrypt_sqs_kms        = "true"
 
   redrive_policy = <<EOF
   {
@@ -46,13 +47,14 @@ resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
 }
 
 module "case_note_poll_pusher_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "case_note_poll_pusher_queue_dl"
+  encrypt_sqs_kms        = "true"
 
   providers = {
     aws = "aws.london"

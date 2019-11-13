@@ -1,11 +1,12 @@
 module "risk_profiler_change" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "risk_profiler_change"
+  encrypt_sqs_kms        = "false"
 
   redrive_policy = <<EOF
   {
@@ -39,13 +40,14 @@ resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
 }
 
 module "risk_profiler_change_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
 
   environment-name       = "${var.environment-name}"
   team_name              = "${var.team_name}"
   infrastructure-support = "${var.infrastructure-support}"
   application            = "${var.application}"
   sqs_name               = "risk_profiler_change_dl"
+  encrypt_sqs_kms        = "false"
 
   providers = {
     aws = "aws.london"
