@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "dev.case-notes-to-probation.service.justice.gov.uk"
+  default = "case-notes-to-probation-dev.prison.service.justice.gov.uk"
 }
 
 variable "application" {
