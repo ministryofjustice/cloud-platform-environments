@@ -39,6 +39,8 @@ class Namespace
     ns_quota = quota
     ns_limits = limits
 
+    pod_data = kubectl_get("pods")
+
     {
       name: name,
       resources_used: resources_used,
@@ -47,8 +49,8 @@ class Namespace
       max_requests: ns_quota.fetch(:hard_request_limit),
       hard_limit: ns_quota.fetch(:hard_limit),
       hard_limit_used: ns_quota.fetch(:hard_limit_used),
-      resources_requested: resources_requested,
-      container_count: container_count(name),
+      resources_requested: resources_requested(pod_data),
+      container_count: container_count(pod_data, name),
     }
   end
 
@@ -60,9 +62,7 @@ class Namespace
 
   private
 
-  def resources_requested
-    data = kubectl_get("pods")
-
+  def resources_requested(data)
     cpu = data.inject(0) do |sum, item|
       requested = item.dig("spec", "containers").inject(0) do |total, container|
         total += cpu_value(container.dig("resources", "requests", "cpu")).to_i
@@ -168,8 +168,7 @@ class Namespace
     end
   end
 
-  def container_count(name)
-    data = kubectl_get("pods")
+  def container_count(data, name)
     data.collect { |i| i.dig("spec", "containers") }.flatten.compact.count
   end
 
