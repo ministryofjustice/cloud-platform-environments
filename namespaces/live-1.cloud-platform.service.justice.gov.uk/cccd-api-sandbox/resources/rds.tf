@@ -6,18 +6,21 @@
  */
 
 module "cccd_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.3"
-
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
   cluster_name                = "${var.cluster_name}"
   cluster_state_bucket        = "${var.cluster_state_bucket}"
-  team_name                   = "laa-get-paid"
-  business-unit               = "legal-aid-agency"
-  application                 = "cccd"
-  is-production               = "false"
-  environment-name            = "api-sandbox"
-  infrastructure-support      = "crowncourtdefence@digital.justice.gov.uk"
+  team_name                   = "${var.team_name}"
+  business-unit               = "${var.business-unit}"
+  application                 = "${var.application}"
+  is-production               = "${var.is-production}"
+  environment-name            = "${var.environment-name}"
+  infrastructure-support      = "${var.infrastructure-support}"
+  db_allocated_storage        = "50"
+  db_instance_class           = "db.t3.medium"
   db_engine_version           = "9.6"
+  rds_family                  = "postgres9.6"
   allow_major_version_upgrade = "true"
+  force_ssl                   = "false"
 
   providers = {
     aws = "aws.london"
@@ -27,7 +30,7 @@ module "cccd_rds" {
 resource "kubernetes_secret" "cccd_rds" {
   metadata {
     name      = "cccd-rds"
-    namespace = "cccd-api-sandbox"
+    namespace = "${var.namespace}"
   }
 
   data {
