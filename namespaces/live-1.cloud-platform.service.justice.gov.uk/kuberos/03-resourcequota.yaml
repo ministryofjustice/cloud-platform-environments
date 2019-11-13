@@ -5,5 +5,4 @@ metadata:
   namespace: kuberos
 spec:
   hard:
-    requests.cpu: 20m
-    requests.memory: 400Mi
+    pods: "50"

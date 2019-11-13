@@ -5,5 +5,4 @@ metadata:
   namespace: fj-cait-production
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 1Gi
+    pods: "50"

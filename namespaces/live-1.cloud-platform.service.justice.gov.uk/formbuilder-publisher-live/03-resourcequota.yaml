@@ -1,6 +1,3 @@
----
-# Source: formbuilder-publisher/templates/03-resourcequota.yaml
-# auto-generated from fb-cloud-platforms-environments
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -8,6 +5,4 @@ metadata:
   namespace: formbuilder-publisher-live
 spec:
   hard:
-    requests.cpu: 300m
-    requests.memory: 2000Mi
-
+    pods: "50"

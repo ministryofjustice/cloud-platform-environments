@@ -5,5 +5,4 @@ metadata:
   namespace: monitoring
 spec:
   hard:
-    requests.cpu: 2500m
-    requests.memory: 18Gi
+    pods: "100"

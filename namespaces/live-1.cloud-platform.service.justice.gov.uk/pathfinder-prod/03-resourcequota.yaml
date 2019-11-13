@@ -5,5 +5,4 @@ metadata:
   namespace: pathfinder-prod
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 6Gi
+    pods: "50"

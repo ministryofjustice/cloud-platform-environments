@@ -5,5 +5,4 @@ metadata:
   namespace: track-a-query-production
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 5000Mi
+    pods: "50"
