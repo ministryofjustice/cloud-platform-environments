@@ -24,7 +24,7 @@ end
 
 def apply_namespaces(cluster)
   Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
-    # TODO execute("git pull") # In case any PRs were merged since the pipeline started
+    execute("git pull") # In case any PRs were merged since the pipeline started
     apply_namespace_dir(cluster, namespace_dir)
   end
 end
