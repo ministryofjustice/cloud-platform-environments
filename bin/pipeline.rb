@@ -4,12 +4,26 @@
 
 require "open3"
 
-def changed_namespace_dirs(cluster)
-  namespace_regex = %r[namespaces.#{cluster}]
+def changed_namespace_dirs_for_plan(cluster)
+  # these env vars are provided by the github-pull-request concourse resource.
+  master_base_sha = ENV.fetch("master_base_sha")
+  branch_head_sha = ENV.fetch("branch_head_sha")
 
+  (changed_files, _, _) = execute("git diff --no-commit-id --name-only -r #{master_base_sha}...#{branch_head_sha}")
+
+  namespace_dirs_from_changed_files(cluster, changed_files)
+end
+
+def changed_namespace_dirs(cluster)
   (changed_files, _, _) = execute("git diff --no-commit-id --name-only -r HEAD~1..HEAD")
 
-  changed_files
+  namespace_dirs_from_changed_files(cluster, changed_files)
+end
+
+def namespace_dirs_from_changed_files(cluster, files)
+  namespace_regex = %r[namespaces.#{cluster}]
+
+  files
     .split("\n")
     .grep(namespace_regex)  # ignore changes outside namespace directories
     .map { |f| File.dirname(f) }
@@ -41,6 +55,13 @@ def apply_namespace_dir(cluster, dir)
   apply_terraform(cluster, namespace, dir)
 end
 
+def plan_namespace_dir(cluster, dir)
+  return unless FileTest.directory?(dir)
+
+  namespace = File.basename(dir)
+  plan_terraform(cluster namespace, dir)
+end
+
 def apply_kubernetes_files(_cluster, namespace, dir)
   log("green", "applying #{namespace}")
   execute("kubectl -n #{namespace} apply -f #{dir}")
@@ -53,6 +74,15 @@ def apply_terraform(cluster, namespace, dir)
   log("blue", "applying terraform resources for namespace #{namespace} in #{cluster}")
   tf_init(cluster, namespace, tf_dir)
   tf_apply(cluster, namespace, tf_dir)
+end
+
+def plan_terraform(cluster, namespace, dir)
+  tf_dir = File.join(dir, "resources")
+  return unless FileTest.directory?(tf_dir)
+
+  log("blue", "planning terraform resources for namespace #{namespace} in #{cluster}")
+  tf_init(cluster, namespace, tf_dir)
+  tf_plan(cluster, namespace, tf_dir)
 end
 
 def tf_init(cluster, namespace, dir)
@@ -86,6 +116,24 @@ def tf_apply(cluster, namespace, dir)
     %(-var="cluster_state_bucket=#{bucket}"),
     %(-var="cluster_state_key=#{key}"),
     %(-auto-approve),
+  ].join(" ")
+
+  execute("cd #{dir}; #{cmd}")
+end
+
+def tf_plan(cluster, namespace, dir)
+  bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
+  key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
+
+  name = cluster.split(".").first
+  key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
+
+  cmd = [
+    %(terraform plan),
+    %(-var="cluster_name=#{name}"),
+    %(-var="cluster_state_bucket=#{bucket}"),
+    %(-var="cluster_state_key=#{key}"),
+    %( | grep -vE '^(\x1b\[0m)?\s{3,}'),
   ].join(" ")
 
   execute("cd #{dir}; #{cmd}")
