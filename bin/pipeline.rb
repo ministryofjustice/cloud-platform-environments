@@ -4,6 +4,21 @@
 
 require "open3"
 
+def changed_namespace_dirs(cluster)
+  namespace_regex = %r[namespaces.#{cluster}]
+
+  (changed_files, _, _) = execute("git diff --no-commit-id --name-only -r HEAD~1..HEAD")
+
+  changed_files
+    .split("\n")
+    .grep(namespace_regex)  # ignore changes outside namespace directories
+    .map { |f| File.dirname(f) }
+    .map { |f| f.split("/") }
+    .map { |arr| File.join(arr[0..2]) } # discard the ".../resources" part of the path
+    .sort
+    .uniq
+end
+
 def all_namespace_dirs(cluster)
   Dir["namespaces/#{cluster}/*"].sort
 end

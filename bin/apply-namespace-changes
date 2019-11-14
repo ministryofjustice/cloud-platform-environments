@@ -1,48 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-set -o errexit
-set -o pipefail
-set -o nounset
+require File.join(".", File.dirname(__FILE__), "pipeline")
 
-# shellcheck source=common.sh
-source "$(dirname ${BASH_SOURCE[0]})/common.sh"
+def main(cluster)
+  log("green", "applying for cluster #{cluster}")
 
-cluster="${PIPELINE_CLUSTER}"
+  set_kube_context(cluster)
+  apply_namespaces(cluster)
 
-# This gets list of namespaces changed by checking differences between the HEAD's (merge commit) first parent and the HEAD.
-changed_namespaces=$(git diff --no-commit-id --name-only -r HEAD~1..HEAD | grep "${cluster}" | awk 'BEGIN{FS=OFS="/"}/\/'"${cluster}"'\//{NF-=1; print $3}' | sort | uniq) || true
+  log("green", "Done.")
+end
 
-log green "applying for cluster ${cluster}"
-( set -x; kubectl config use-context "${cluster}" ) || { log red "no context found, skipping ${cluster}" && exit 1; }
-if [ -n "$changed_namespaces" ]; then
-  for _f in ${changed_namespaces}; do 
-    namespace="$(basename ${_f})"
-    kubernetes_resources_path="namespaces/${cluster}"
-    if [ -d "${kubernetes_resources_path}" ]; then
-      (
-        cd "${kubernetes_resources_path}"
-        log blue "applying kubernetes resources for namespace ${namespace} in ${cluster}"
-        ( set -x; kubectl -n "${namespace}" apply -f "${namespace}" )
-      )
-    fi
-    terraform_resources_path="namespaces/${cluster}/${namespace}/resources"
-    if [ -d "${terraform_resources_path}" ]; then
-      (
-        cd "${terraform_resources_path}"
-        log blue "applying terraform resources for namespace ${namespace} in ${cluster}"
-        terraform init \
-          -backend-config="bucket=${PIPELINE_STATE_BUCKET}" \
-          -backend-config="key=${PIPELINE_STATE_KEY_PREFIX}${cluster}/${namespace}/terraform.tfstate" \
-          -backend-config="dynamodb_table=${PIPELINE_TERRAFORM_STATE_LOCK_TABLE}" \
-          -backend-config="region=${PIPELINE_STATE_REGION}"
-        terraform apply \
-          -var="cluster_name=${cluster%%.*}" \
-          -var="cluster_state_bucket=${PIPELINE_CLUSTER_STATE_BUCKET}" \
-          -var="cluster_state_key=${PIPELINE_CLUSTER_STATE_KEY_PREFIX}${cluster%%.*}/terraform.tfstate" \
-          -auto-approve
-      )
-    fi
-  done
-else
-  log blue "No namespace changes in this PR"
-fi
+def apply_namespaces(cluster)
+  changed_namespace_dirs(cluster).each do |namespace_dir|
+    execute("git pull") # In case any PRs were merged since the pipeline started
+    apply_namespace_dir(cluster, namespace_dir)
+  end
+end
+
+main ENV.fetch("PIPELINE_CLUSTER")
