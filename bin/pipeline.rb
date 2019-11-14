@@ -4,6 +4,10 @@
 
 require "open3"
 
+def all_namespace_dirs(cluster)
+  Dir["namespaces/#{cluster}/*"].sort
+end
+
 def set_kube_context(cluster)
   execute("kubectl config use-context #{cluster}")
 end
