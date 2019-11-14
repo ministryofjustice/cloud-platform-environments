@@ -2,17 +2,17 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: licences.prison.service.justice.gov.uk
+  name: licences.service.hmpps.dsd.io
   namespace: licences-prod
 spec:
-  secretName: licences-cert
+  secretName: licences-cert-dsd
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'licences.prison.service.justice.gov.uk'
+  commonName: 'licences.service.hmpps.dsd.io'
   acme:
     config:
     - domains:
-      - 'licences.prison.service.justice.gov.uk'
+      - 'licences.service.hmpps.dsd.io'
       dns01:
         provider: route53-cloud-platform
