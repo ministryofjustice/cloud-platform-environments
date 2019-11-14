@@ -104,39 +104,46 @@ def tf_init(cluster, namespace, dir)
 end
 
 def tf_apply(cluster, namespace, dir)
-  bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
-  key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
-
-  name = cluster.split(".").first
-  key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
-
-  cmd = [
-    %(terraform apply),
-    %(-var="cluster_name=#{name}"),
-    %(-var="cluster_state_bucket=#{bucket}"),
-    %(-var="cluster_state_key=#{key}"),
-    %(-auto-approve),
-  ].join(" ")
+  cmd = tf_cmd(
+    cluster: cluster,
+    operation: "apply",
+    namespace: namespace,
+    last: %(-auto-approve),
+  )
 
   execute("cd #{dir}; #{cmd}")
 end
 
 def tf_plan(cluster, namespace, dir)
+  cmd = tf_cmd(
+    cluster: cluster,
+    operation: "plan",
+    namespace: namespace,
+    last: %( | grep -vE '^(\x1b\[0m)?\s{3,}'),
+  )
+
+  execute("cd #{dir}; #{cmd}")
+end
+
+def tf_cmd(opts)
+  operation = opts.fetch(:operation)
+  cluster = opts.fetch(:cluster)
+  namespace = opts.fetch(:namespace)
+  last = opts.fetch(:last)
+
   bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
   key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
 
   name = cluster.split(".").first
   key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
 
-  cmd = [
-    %(terraform plan),
+  [
+    %(terraform #{operation}),
     %(-var="cluster_name=#{name}"),
     %(-var="cluster_state_bucket=#{bucket}"),
     %(-var="cluster_state_key=#{key}"),
-    %( | grep -vE '^(\x1b\[0m)?\s{3,}'),
+    last,
   ].join(" ")
-
-  execute("cd #{dir}; #{cmd}")
 end
 
 def execute(cmd, can_fail: false)
