@@ -21,11 +21,11 @@ def changed_namespace_dirs(cluster)
 end
 
 def namespace_dirs_from_changed_files(cluster, files)
-  namespace_regex = %r[namespaces.#{cluster}]
+  namespace_regex = %r{namespaces.#{cluster}}
 
   files
     .split("\n")
-    .grep(namespace_regex)  # ignore changes outside namespace directories
+    .grep(namespace_regex) # ignore changes outside namespace directories
     .map { |f| File.dirname(f) }
     .map { |f| f.split("/") }
     .map { |arr| File.join(arr[0..2]) } # discard the ".../resources" part of the path
@@ -59,7 +59,7 @@ def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
-  plan_terraform(cluster namespace, dir)
+  plan_terraform(cluster, namespace, dir)
 end
 
 def apply_kubernetes_files(_cluster, namespace, dir)
@@ -104,39 +104,43 @@ def tf_init(cluster, namespace, dir)
 end
 
 def tf_apply(cluster, namespace, dir)
-  bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
-  key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
-
-  name = cluster.split(".").first
-  key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
-
-  cmd = [
-    %(terraform apply),
-    %(-var="cluster_name=#{name}"),
-    %(-var="cluster_state_bucket=#{bucket}"),
-    %(-var="cluster_state_key=#{key}"),
-    %(-auto-approve),
-  ].join(" ")
+  cmd = tf_cmd(
+    cluster: cluster,
+    operation: "apply",
+    last: %(-auto-approve),
+  )
 
   execute("cd #{dir}; #{cmd}")
 end
 
 def tf_plan(cluster, namespace, dir)
+  cmd = tf_cmd(
+    cluster: cluster,
+    operation: "plan",
+    last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
+  )
+
+  execute("cd #{dir}; #{cmd}")
+end
+
+def tf_cmd(opts)
+  operation = opts.fetch(:operation)
+  cluster = opts.fetch(:cluster)
+  last = opts.fetch(:last)
+
   bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
   key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
 
   name = cluster.split(".").first
   key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
 
-  cmd = [
-    %(terraform plan),
+  [
+    %(terraform #{operation}),
     %(-var="cluster_name=#{name}"),
     %(-var="cluster_state_bucket=#{bucket}"),
     %(-var="cluster_state_key=#{key}"),
-    %( | grep -vE '^(\x1b\[0m)?\s{3,}'),
+    last,
   ].join(" ")
-
-  execute("cd #{dir}; #{cmd}")
 end
 
 def execute(cmd, can_fail: false)
