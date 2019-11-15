@@ -11,10 +11,6 @@
  *
  */
 
- variable "cluster_name" {}
-
-variable "cluster_state_bucket" {}
-
 module "elasticsearch" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=2.0"
   cluster_name           = "${var.cluster_name}"
