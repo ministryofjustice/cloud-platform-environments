@@ -10,7 +10,6 @@
  * releases page of this repository.
  *
  */
-
 module "elasticsearch" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=2.0"
   cluster_name           = "${var.cluster_name}"
