@@ -21,11 +21,11 @@ def changed_namespace_dirs(cluster)
 end
 
 def namespace_dirs_from_changed_files(cluster, files)
-  namespace_regex = %r[namespaces.#{cluster}]
+  namespace_regex = %r{namespaces.#{cluster}}
 
   files
     .split("\n")
-    .grep(namespace_regex)  # ignore changes outside namespace directories
+    .grep(namespace_regex) # ignore changes outside namespace directories
     .map { |f| File.dirname(f) }
     .map { |f| f.split("/") }
     .map { |arr| File.join(arr[0..2]) } # discard the ".../resources" part of the path
