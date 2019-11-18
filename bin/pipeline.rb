@@ -107,7 +107,6 @@ def tf_apply(cluster, namespace, dir)
   cmd = tf_cmd(
     cluster: cluster,
     operation: "apply",
-    namespace: namespace,
     last: %(-auto-approve),
   )
 
@@ -118,7 +117,6 @@ def tf_plan(cluster, namespace, dir)
   cmd = tf_cmd(
     cluster: cluster,
     operation: "plan",
-    namespace: namespace,
     last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
   )
 
@@ -128,7 +126,6 @@ end
 def tf_cmd(opts)
   operation = opts.fetch(:operation)
   cluster = opts.fetch(:cluster)
-  namespace = opts.fetch(:namespace)
   last = opts.fetch(:last)
 
   bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
