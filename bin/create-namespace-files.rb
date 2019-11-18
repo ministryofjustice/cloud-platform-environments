@@ -66,7 +66,6 @@ end
 
 def render_templates(files, dir, answers)
   files.each { |template| create_file(template, dir, answers) }
-  files.each { |template| create_file(template, "#{dir}/gitops-resources", answers) }
 end
 
 def create_terraform_files(namespace, answers)
