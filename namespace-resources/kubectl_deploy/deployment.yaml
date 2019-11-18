@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld-rubyapp
+  namespace: ${namespace}
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: helloworld-rubyapp
+    spec:
+      containers:
+      - name: rubyapp
+        image: json0/ruby-helloworld
+        ports:
+        - containerPort: 4567

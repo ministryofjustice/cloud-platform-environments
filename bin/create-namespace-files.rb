@@ -5,11 +5,17 @@
 # TODO: validate answers
 # TODO: check namespace name is available
 # TODO: remove old terraform stuff from namespace-resources/
-# TODO: accomodate the gitops work Jason & Raz are doing
 # TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
+# TODO: Restructure this code and add tests
+
+require "fileutils"
 
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/gitops-test.cloud-platform.service.justice.gov.uk"
+DEPLOY_TEMPLATES_DIR = "namespace-resources/kubectl_deploy"
+CLUSTER_NAME = "live-1.cloud-platform.service.justice.gov.uk"
+WORKING_COPY = "/appsrc" # This is where we mount the user's working copy of their application
+DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
   attr_reader :error
@@ -41,34 +47,39 @@ end
 def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
-  system("mkdir #{dir}")
-  yaml_templates.each { |template| create_file(template, dir, answers) }
-  create_main_tf(namespace)
+  FileUtils.mkdir_p(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.yaml"], dir, answers)
+  create_terraform_files(namespace, answers)
+  create_cloud_platform_deploy(answers)
+
+  output_message(answers)
 end
 
-def create_main_tf(namespace)
-  main_tf = <<~EOF
-    terraform {
-      backend "s3" {}
-    }
+def create_cloud_platform_deploy(answers)
+  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR, answers.fetch("namespace"))
+  FileUtils.mkdir_p(dir)
+  # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
+  # up to date with any changes.
+  render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
+end
 
-    provider "aws" {
-      region = "eu-west-2"
-    }
+def render_templates(files, dir, answers)
+  files.each { |template| create_file(template, dir, answers) }
+end
 
-    provider "aws" {
-      alias  = "london"
-      region = "eu-west-2"
-    }
-
-    provider "aws" {
-      alias  = "ireland"
-      region = "eu-west-1"
-    }
-  EOF
-
+def create_terraform_files(namespace, answers)
   dir = File.join(NAMESPACES_DIR, namespace, "resources")
-  system("mkdir #{dir}")
+  FileUtils.mkdir_p(dir)
+  create_main_tf(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/*.tf"], dir, answers)
+end
+
+# The environments checker process expects to find the resources-main-tf
+# file, so we're copying that with a new name, rather than just having
+# a main.tf file in the TEMPLATES_DIR.
+# TODO: Adjust the environments checker so that we can just have main.tf
+def create_main_tf(dir)
+  main_tf = File.read(File.join(TEMPLATES_DIR, "resources-main-tf"))
   outfile = File.join(dir, "main.tf")
   File.write(outfile, main_tf)
 end
@@ -90,10 +101,6 @@ def replace_var(content, key, value)
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
-end
-
-def yaml_templates
-  Dir["#{TEMPLATES_DIR}/*.yaml"]
 end
 
 def get_answers
@@ -134,6 +141,19 @@ def prompt(question)
   puts
   print "  #{var}: "
   gets.strip
+end
+
+def output_message(answers)
+  puts <<EOF
+
+  The directory #{DEPLOYMENT_DIR} has been added to your
+  application working copy.
+
+  Please commit and push this directory and its contents
+  to enable automated deployment to the cluster
+  #{CLUSTER_NAME}.
+
+EOF
 end
 
 ############################################################
