@@ -119,7 +119,7 @@ def tf_plan(cluster, namespace, dir)
     cluster: cluster,
     operation: "plan",
     namespace: namespace,
-    last: %( | grep -vE '^(\x1b\[0m)?\s{3,}'),
+    last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
   )
 
   execute("cd #{dir}; #{cmd}")
