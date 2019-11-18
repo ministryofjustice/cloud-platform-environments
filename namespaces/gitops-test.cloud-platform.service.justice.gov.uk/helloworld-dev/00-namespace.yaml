@@ -10,8 +10,3 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cp"
     cloud-platform.justice.gov.uk/owner: "cp: cp"
     cloud-platform.justice.gov.uk/source-code: "cp"
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: concourse-${team_name}
