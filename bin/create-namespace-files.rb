@@ -9,7 +9,7 @@
 # TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
 
 TEMPLATES_DIR = "namespace-resources"
-NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
+NAMESPACES_DIR = "namespaces/gitops-test.cloud-platform.service.justice.gov.uk"
 
 class Validator
   attr_reader :error
