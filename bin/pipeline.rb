@@ -19,6 +19,7 @@ def apply_namespace_dir(cluster, dir)
 
   namespace = File.basename(dir)
   apply_kubernetes_files(cluster, namespace, dir)
+  apply_kubernetes_files(cluster, namespace, "#{dir}/gitops-resources")
   apply_terraform(cluster, namespace, dir)
 end
 
