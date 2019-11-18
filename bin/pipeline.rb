@@ -59,7 +59,7 @@ def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
-  plan_terraform(cluster namespace, dir)
+  plan_terraform(cluster, namespace, dir)
 end
 
 def apply_kubernetes_files(_cluster, namespace, dir)
