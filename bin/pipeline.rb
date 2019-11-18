@@ -26,6 +26,7 @@ end
 def apply_kubernetes_files(_cluster, namespace, dir)
   log("green", "applying #{namespace}")
   execute("kubectl -n #{namespace} apply -f #{dir}")
+  execute("kubectl apply -f #{dir}/gitops-resources")
 end
 
 def apply_terraform(cluster, namespace, dir)
