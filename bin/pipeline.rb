@@ -19,7 +19,13 @@ def apply_namespace_dir(cluster, dir)
 
   namespace = File.basename(dir)
   apply_kubernetes_files(cluster, namespace, dir)
+  deploy_serviceaccount(cluster, namespace, dir)
   apply_terraform(cluster, namespace, dir)
+end
+
+def deploy_serviceaccount(_cluster, namespace, dir)
+  log("green", "creating #{namespace} deploy user")
+  execute("kubectl apply -f #{dir}/05-deploy-serviceaccount")
 end
 
 def apply_kubernetes_files(_cluster, namespace, dir)
