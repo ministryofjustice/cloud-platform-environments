@@ -22,7 +22,12 @@ describe "pipeline" do
     }
   }
 
-  context "set_kube_context" do
+  it "sets kube context" do
+    cmd = "kubectl config use-context #{cluster}"
+    expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
+    expect($stdout).to receive(:puts).at_least(:once)
+
+    set_kube_context(cluster)
   end
 
   it "applies cluster-level kubernetes files" do
@@ -194,6 +199,5 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
         }.to raise_error(RuntimeError, "Unknown colour puce passed to 'log' method")
       }
     end
-
   end
 end
