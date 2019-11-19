@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require File.join(".", File.dirname(__FILE__), "pipeline")
+require yaml
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
@@ -16,7 +17,26 @@ def apply_namespaces(cluster)
   Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
     execute("git pull") # In case any PRs were merged since the pipeline started
     apply_namespace_dir(cluster, namespace_dir)
+    create_gpg()
   end
+end
+  
+def create_gpg
+  team_name = parse_team_name()
+  print team_name
+  #execute("gpg create")
+  #pass_to_secret(team_name)
+end
+
+def parse_team_name
+  yaml = YAML.load(File.read("01-rbac.yaml"))
+  team = yaml['subjects'][0].dig('name').split(':')[1]
+  team.nil? && abort("team not found")
+  return team
+end
+
+def pass_to_secret
+  pass private key to k8s secret
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
