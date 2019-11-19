@@ -25,7 +25,12 @@ describe "pipeline" do
   context "set_kube_context" do
   end
 
-  context "apply_cluster_level_resources" do
+  it "applies cluster-level kubernetes files" do
+    cmd = "kubectl apply -f namespaces/#{cluster}"
+    expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
+    expect($stdout).to receive(:puts).at_least(:once)
+
+    apply_cluster_level_resources(cluster)
   end
 
   it "lists namespace dirs" do
