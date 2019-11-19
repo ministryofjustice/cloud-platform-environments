@@ -23,15 +23,14 @@ end
   
 def create_gpg(namespace_dir)
   team_name = parse_team_name(namespace_dir)
-  print team_name
-  #execute("gpg create")
-  #pass_to_secret(team_name)
+  execute ("./bin/create-gpg.sh concourse-#{team_name} #{namespace_dir}")
+  pass_to_secret(team_name)
 end
 
 def parse_team_name(namespace_dir)
   yaml = YAML.load(File.read("#{namespace_dir}/01-rbac.yaml"))
   team = yaml['subjects'][0].dig('name').split(':')[1]
-  team.nil? && abort("team not found")
+  team.nil? && abort("Team name not found")
   return team
 end
 

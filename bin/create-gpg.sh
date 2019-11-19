@@ -1,9 +1,8 @@
 #!/bin/bash
 set -e
 
-ns="concourse-webops"
-ctx="z"
-code="../my-app-dir/"
+team_ns=$1
+application_ns=$2
 
 # Create a temporary keychain
 homedir="$(mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX")"
@@ -101,19 +100,20 @@ generate
 pub=`cat "${pubkey}" | base64`
 priv=`cat "${seckey}" | base64`
 
-cat <<SEC | kubectl --context ${ctx} -n ${ns} apply -f -
+cat <<SEC | kubectl -n ${application_ns} apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
   name: git-crypt-key
-  namespace: ${ns}
 data:
-  private: ${priv}
   public: ${pub}
 SEC
 
-ksec=`kubectl --context ${ctx} -n ${ns} get secret git-crypt-key -o json | jq -r '.data.public | @base64d'`
-
-id=`echo "${ksec}" | gpg --import 2>&1 | grep "gitops" | awk -F' |:' '{print $4}'`
-
-echo -e "you must now run in ${code} the command \n git-crypt add-gpg-user --trusted ${id}"
+cat <<SEC | kubectl -n ${team_ns} apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-crypt-key
+data:
+  private: ${priv}
+SEC
