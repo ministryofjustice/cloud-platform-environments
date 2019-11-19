@@ -11,6 +11,17 @@ describe "pipeline" do
   let(:success) { double(success?: true) }
   let(:failure) { double(success?: false) }
 
+  let(:env_vars) {
+    {
+      "PIPELINE_STATE_BUCKET" => "bucket",
+      "PIPELINE_STATE_KEY_PREFIX" => "key-prefix/",
+      "PIPELINE_TERRAFORM_STATE_LOCK_TABLE" => "lock-table",
+      "PIPELINE_STATE_REGION" => "region",
+      "PIPELINE_CLUSTER_STATE_BUCKET" => "cluster-bucket",
+      "PIPELINE_CLUSTER_STATE_KEY_PREFIX" => "state-key-prefix/",
+    }
+  }
+
   context "set_kube_context" do
   end
 
@@ -21,6 +32,58 @@ describe "pipeline" do
   end
 
   context "apply_namespace_dir" do
+    let(:namespace) { "mynamespace" }
+    let(:dir) { "namespaces/#{cluster}/#{namespace}" }
+
+    context "when called with a filename" do
+      let(:dir) { $0 } # $0 == name of this specfile
+
+      before do
+        allow(FileTest).to receive(:directory?).and_return(false)
+      end
+
+      it "does nothing" do
+        expect(Open3).to_not receive(:capture3)
+        apply_namespace_dir(cluster, dir)
+      end
+    end
+
+    context "when called with a directory" do
+      before do
+        allow(FileTest).to receive(:directory?).and_return(true)
+      end
+
+      it "runs kubectl apply" do
+        allow_any_instance_of(Object).to receive(:apply_terraform)
+
+        cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
+
+        expect_execute(cmd, "", success)
+        expect($stdout).to receive(:puts)
+
+        apply_namespace_dir(cluster, dir)
+      end
+
+      it "applies terraform files" do
+        allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)
+
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).and_return(val)
+        end
+
+        tf_dir = "namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/resources"
+
+        tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+        tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
+
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_apply, "", success)
+        expect($stdout).to receive(:puts)
+
+        apply_namespace_dir(cluster, dir)
+      end
+    end
   end
 
   context "changed_namespace_dirs" do
