@@ -92,7 +92,7 @@ EOF
 chmod 700 "$homedir"
 pubkey="${homedir}/gitops.asc"
 seckey="${homedir}/gitops.pgp"
-comment="gitops-${ns}"
+comment="gitops-${application_ns}"
 passwd=no
 
 generate
@@ -100,7 +100,7 @@ generate
 pub=`cat "${pubkey}" | base64`
 priv=`cat "${seckey}" | base64`
 
-cat <<SEC | kubectl -n ${application_ns} apply -f -
+cat <<SEC 
 apiVersion: v1
 kind: Secret
 metadata:
@@ -109,7 +109,7 @@ data:
   public: ${pub}
 SEC
 
-cat <<SEC | kubectl -n ${team_ns} apply -f -
+cat <<SEC 
 apiVersion: v1
 kind: Secret
 metadata:
