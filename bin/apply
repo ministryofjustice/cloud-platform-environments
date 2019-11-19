@@ -23,8 +23,8 @@ end
   
 def create_gpg(namespace_dir)
   team_name = parse_team_name(namespace_dir)
-  execute ("./bin/create-gpg.sh concourse-#{team_name} #{namespace_dir}")
-  pass_to_secret(team_name)
+  namespace = File.basename(namespace_dir)
+  execute ("./bin/create-gpg.sh concourse-#{team_name} #{namespace}")
 end
 
 def parse_team_name(namespace_dir)
