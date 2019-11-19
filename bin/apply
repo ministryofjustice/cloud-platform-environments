@@ -17,19 +17,19 @@ def apply_namespaces(cluster)
   Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
     execute("git pull") # In case any PRs were merged since the pipeline started
     apply_namespace_dir(cluster, namespace_dir)
-    create_gpg()
+    create_gpg(namespace_dir)
   end
 end
   
-def create_gpg
-  team_name = parse_team_name()
+def create_gpg(namespace_dir)
+  team_name = parse_team_name(namespace_dir)
   print team_name
   #execute("gpg create")
   #pass_to_secret(team_name)
 end
 
-def parse_team_name
-  yaml = YAML.load(File.read("01-rbac.yaml"))
+def parse_team_name(namespace_dir)
+  yaml = YAML.load(File.read("#{namespace_dir}/01-rbac.yaml"))
   team = yaml['subjects'][0].dig('name').split(':')[1]
   team.nil? && abort("team not found")
   return team
