@@ -32,16 +32,18 @@ namespaces/#{cluster}/offender-management-preprod/resources/elasticache.tf
 namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
   }
 
-  let(:namespaces) { [
-    "court-probation-preprod",
-    "licences-prod",
-    "offender-management-preprod",
-    "offender-management-staging",
-    "pecs-move-platform-backend-staging",
-    "poornima-dev",
-  ] }
+  let(:namespaces) {
+    [
+      "court-probation-preprod",
+      "licences-prod",
+      "offender-management-preprod",
+      "offender-management-staging",
+      "pecs-move-platform-backend-staging",
+      "poornima-dev",
+    ]
+  }
 
-  let(:namespace_dirs) { namespaces.map {|namespace| "namespaces/#{cluster}/#{namespace}"} }
+  let(:namespace_dirs) { namespaces.map { |namespace| "namespaces/#{cluster}/#{namespace}" } }
 
   it "runs terraform plan" do
     env_vars.each do |key, val|
@@ -177,7 +179,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     end
 
     context "on failure" do
-
       it "raises an error" do
         expect_execute(cmd, "", failure)
         expect($stdout).to receive(:puts).with("\e[31mCommand: #{cmd} failed.\e[0m")
