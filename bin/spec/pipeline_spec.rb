@@ -28,7 +28,12 @@ describe "pipeline" do
   context "apply_cluster_level_resources" do
   end
 
-  context "all_namespace_dirs" do
+  it "lists namespace dirs" do
+    dirs = double(Array)
+    expect(Dir).to receive(:[]).with("namespaces/#{cluster}/*").and_return(dirs)
+    expect(dirs).to receive(:sort)
+
+    all_namespace_dirs(cluster)
   end
 
   context "apply_namespace_dir" do
