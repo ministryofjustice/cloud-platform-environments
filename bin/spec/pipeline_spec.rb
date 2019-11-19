@@ -1,5 +1,11 @@
 require "spec_helper"
 
+def expect_execute(cmd, stdout, status)
+  expect(Open3).to receive(:capture3).with(cmd).and_return([stdout, "", status])
+  allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
+  allow($stdout).to receive(:puts).with("")
+end
+
 describe "pipeline" do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
   let(:success) { double(success?: true) }
@@ -39,13 +45,9 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       "namespaces/#{cluster}/poornima-dev",
     ] }
 
-
     it "gets dirs from latest commit" do
-      expect(Open3).to receive(:capture3).with(cmd).and_return([files, "", success])
-      allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-      allow($stdout).to receive(:puts).with("")
-      allow($stdout).to receive(:puts).with(files)
-
+      expect_execute(cmd, files, success)
+      expect($stdout).to receive(:puts).with(files)
       expect(changed_namespace_dirs(cluster)).to eq(namespace_dirs)
     end
   end
@@ -54,41 +56,26 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     let(:cmd) { "ls" }
 
     it "executes and returns status" do
-      expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
-      allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-      allow($stdout).to receive(:puts).with("")
-
+      expect_execute(cmd, "", success)
       execute(cmd)
     end
 
     it "logs" do
-      allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
-      expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-      expect($stdout).to receive(:puts).with("")
-
+      expect_execute(cmd, "", success)
       execute(cmd)
     end
 
     context "on failure" do
 
       it "raises an error" do
-        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", failure])
-        expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
+        expect_execute(cmd, "", failure)
         expect($stdout).to receive(:puts).with("\e[31mCommand: #{cmd} failed.\e[0m")
-        expect($stdout).to receive(:puts).with("")
-
-        expect {
-          execute(cmd)
-        }.to raise_error(RuntimeError)
+        expect { execute(cmd) }.to raise_error(RuntimeError)
       end
 
       it "does not raise if can_fail is set" do
-        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", failure])
-        expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-        expect($stdout).to receive(:puts).with("")
-        expect {
-          execute(cmd, can_fail: true)
-        }.to_not raise_error
+        expect_execute(cmd, "", failure)
+        expect { execute(cmd, can_fail: true) }.to_not raise_error
       end
     end
   end
