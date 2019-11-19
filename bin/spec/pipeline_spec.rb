@@ -22,6 +22,29 @@ describe "pipeline" do
     }
   }
 
+  let(:files) {
+    "bin/namespace-reporter.rb
+namespaces/#{cluster}/court-probation-preprod/resources/dynamodb.tf
+namespaces/#{cluster}/offender-management-staging/resources/elasticache.tf
+namespaces/#{cluster}/licences-prod/07-certificates.yaml
+namespaces/#{cluster}/pecs-move-platform-backend-staging/00-namespace.yaml
+namespaces/#{cluster}/offender-management-preprod/resources/elasticache.tf
+namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
+  }
+
+  let(:namespaces) { [
+    "court-probation-preprod",
+    "licences-prod",
+    "offender-management-preprod",
+    "offender-management-staging",
+    "pecs-move-platform-backend-staging",
+    "poornima-dev",
+  ] }
+
+  let(:namespace_dirs) { namespaces.map {|namespace| "namespaces/#{cluster}/#{namespace}"} }
+
+  it "plan_namespace_dir"
+
   it "sets kube context" do
     cmd = "kubectl config use-context #{cluster}"
     expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
@@ -101,27 +124,10 @@ describe "pipeline" do
     end
   end
 
+
+
   context "changed_namespace_dirs" do
     let(:cmd) { "git diff --no-commit-id --name-only -r HEAD~1..HEAD" }
-
-    let(:files) {
-      "bin/namespace-reporter.rb
-namespaces/#{cluster}/court-probation-preprod/resources/dynamodb.tf
-namespaces/#{cluster}/offender-management-staging/resources/elasticache.tf
-namespaces/#{cluster}/licences-prod/07-certificates.yaml
-namespaces/#{cluster}/pecs-move-platform-backend-staging/00-namespace.yaml
-namespaces/#{cluster}/offender-management-preprod/resources/elasticache.tf
-namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
-    }
-
-    let(:namespace_dirs) { [
-      "namespaces/#{cluster}/court-probation-preprod",
-      "namespaces/#{cluster}/licences-prod",
-      "namespaces/#{cluster}/offender-management-preprod",
-      "namespaces/#{cluster}/offender-management-staging",
-      "namespaces/#{cluster}/pecs-move-platform-backend-staging",
-      "namespaces/#{cluster}/poornima-dev",
-    ] }
 
     it "gets dirs from latest commit" do
       expect_execute(cmd, files, success)
