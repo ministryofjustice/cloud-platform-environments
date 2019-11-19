@@ -43,7 +43,25 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
   let(:namespace_dirs) { namespaces.map {|namespace| "namespaces/#{cluster}/#{namespace}"} }
 
-  it "plan_namespace_dir"
+  it "runs terraform plan" do
+    env_vars.each do |key, val|
+      expect(ENV).to receive(:fetch).with(key).and_return(val)
+    end
+    allow(FileTest).to receive(:directory?).and_return(true)
+
+    dir = "namespaces/#{cluster}/mynamespace"
+    tf_dir = "#{dir}/resources"
+
+    tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+    tf_plan = "cd #{tf_dir}; terraform plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+
+    expect_execute(tf_init, "", success)
+    expect_execute(tf_plan, "", success)
+    expect($stdout).to receive(:puts)
+
+    plan_namespace_dir(cluster, dir)
+  end
 
   it "sets kube context" do
     cmd = "kubectl config use-context #{cluster}"
