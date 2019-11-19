@@ -132,7 +132,7 @@ def tf_cmd(opts)
   key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
 
   name = cluster.split(".").first
-  key = "cluster_state_key=#{key_prefix}#{name}/terraform.tfstate"
+  key = "#{key_prefix}#{name}/terraform.tfstate"
 
   [
     %(terraform #{operation}),
