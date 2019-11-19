@@ -124,7 +124,16 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     end
   end
 
+  it "get namespaces changed by pr" do
+    expect(ENV).to receive(:fetch).with("master_base_sha").and_return("master")
+    expect(ENV).to receive(:fetch).with("branch_head_sha").and_return("branch")
 
+    cmd = "git diff --no-commit-id --name-only -r master...branch"
+    expect_execute(cmd, files, success)
+    expect($stdout).to receive(:puts).at_least(:once)
+
+    expect(changed_namespace_dirs_for_plan(cluster)).to eq(namespace_dirs)
+  end
 
   context "changed_namespace_dirs" do
     let(:cmd) { "git diff --no-commit-id --name-only -r HEAD~1..HEAD" }
