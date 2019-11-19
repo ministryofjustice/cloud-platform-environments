@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe "pipeline" do
+  let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
   let(:success) { double(success?: true) }
   let(:failure) { double(success?: false) }
 
@@ -17,7 +18,36 @@ describe "pipeline" do
   end
 
   context "changed_namespace_dirs" do
+    let(:cmd) { "git diff --no-commit-id --name-only -r HEAD~1..HEAD" }
 
+    let(:files) {
+      "bin/namespace-reporter.rb
+namespaces/#{cluster}/court-probation-preprod/resources/dynamodb.tf
+namespaces/#{cluster}/offender-management-staging/resources/elasticache.tf
+namespaces/#{cluster}/licences-prod/07-certificates.yaml
+namespaces/#{cluster}/pecs-move-platform-backend-staging/00-namespace.yaml
+namespaces/#{cluster}/offender-management-preprod/resources/elasticache.tf
+namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
+    }
+
+    let(:namespace_dirs) { [
+      "namespaces/#{cluster}/court-probation-preprod",
+      "namespaces/#{cluster}/licences-prod",
+      "namespaces/#{cluster}/offender-management-preprod",
+      "namespaces/#{cluster}/offender-management-staging",
+      "namespaces/#{cluster}/pecs-move-platform-backend-staging",
+      "namespaces/#{cluster}/poornima-dev",
+    ] }
+
+
+    it "gets dirs from latest commit" do
+      expect(Open3).to receive(:capture3).with(cmd).and_return([files, "", success])
+      allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
+      allow($stdout).to receive(:puts).with("")
+      allow($stdout).to receive(:puts).with(files)
+
+      expect(changed_namespace_dirs(cluster)).to eq(namespace_dirs)
+    end
   end
 
   context "execute" do
