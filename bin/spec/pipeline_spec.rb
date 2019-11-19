@@ -1,6 +1,9 @@
 require "spec_helper"
 
 describe "pipeline" do
+  let(:success) { double(success?: true) }
+  let(:failure) { double(success?: false) }
+
   context "set_kube_context" do
   end
 
@@ -19,10 +22,9 @@ describe "pipeline" do
 
   context "execute" do
     let(:cmd) { "ls" }
-    let(:status) { double(success?: true) }
 
     it "executes and returns status" do
-      expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", status])
+      expect(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
       allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
       allow($stdout).to receive(:puts).with("")
 
@@ -30,7 +32,7 @@ describe "pipeline" do
     end
 
     it "logs" do
-      allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", status])
+      allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", success])
       expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
       expect($stdout).to receive(:puts).with("")
 
@@ -38,10 +40,9 @@ describe "pipeline" do
     end
 
     context "on failure" do
-      let(:status) { double(success?: false) }
 
       it "raises an error" do
-        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", status])
+        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", failure])
         expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
         expect($stdout).to receive(:puts).with("\e[31mCommand: #{cmd} failed.\e[0m")
         expect($stdout).to receive(:puts).with("")
@@ -52,7 +53,7 @@ describe "pipeline" do
       end
 
       it "does not raise if can_fail is set" do
-        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", status])
+        allow(Open3).to receive(:capture3).with(cmd).and_return(["", "", failure])
         expect($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
         expect($stdout).to receive(:puts).with("")
         expect {
