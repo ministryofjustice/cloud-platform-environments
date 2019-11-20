@@ -37,6 +37,10 @@ def parse_team_name(namespace_dir)
 end
 
 def generate_gpg_key(namespace, team_name)
+  `kubectl -n concourse-#{team_name} get secret gitops-key -ojson | jq -r '.data.key | @base64d' | gpg >/dev/null 2>&1`
+  return if $?.success?
+  #secret = `kubectl get secret -n concourse-#{team_name} gitops-key`
+  #if secret.nil?
   homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
   open("#{homedir}/gpgconf", 'w+') do |f|
     f << "%no-protection\n" 
@@ -52,12 +56,10 @@ def generate_gpg_key(namespace, team_name)
   create_key(homedir)
   export_private_key(homedir, comment, seckey)
   export_public_key(homedir, comment, pubkey)
-  pub=Base64.strict_encode64(File.open(pubkey, "rb").read)
-  sec=Base64.strict_encode64(File.open(seckey, "rb").read)
+  pub = Base64.strict_encode64(File.open(pubkey, "rb").read)
+  sec = Base64.strict_encode64(File.open(seckey, "rb").read)
   pass_to_secret("concourse-#{team_name}", "gitops-key", sec)
   pass_to_secret(namespace, "gitops-key", pub)
-  key_id=`gpg --import ${pubkey} 2>&1 | grep "gitops" | awk -F' |:' '{print $4}'`
-  print "you must now add the Gitops key to your repo with \n git-crypt add-gpg-user --trusted #{key_id} \n"
 end
 
 def create_key(homedir) 
