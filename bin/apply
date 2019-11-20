@@ -44,14 +44,14 @@ def generate_gpg_key(namespace, team_name)
     f << "Name-Email: platforms@digital.justice.gov.uk\n"
     f << "Expire-Date: 0\n"
   end
-  execute("cat #{homedir}/gpgconf")
   pubkey = "#{homedir}/gitops.asc"
   seckey = "#{homedir}/gitops.pgp"
   comment = "gitops-#{namespace}"
   create_key(homedir)
   export_private_key(homedir, comment, seckey)
   export_public_key(homedir, comment, pubkey)
-  pass_to_secret(pubkey, seckey)
+  pass_to_secret(namespace, pubkey)
+  pass_to_secret(team_name, seckey)
 end
 
 def create_key(homedir) 
@@ -69,8 +69,24 @@ def export_public_key(homedir, comment, pubkey)
   export_public
 end
   
-def pass_to_secret(pubkey, seckey)
-  puts "#{pubkey}, #{seckey}"
+def pass_to_secret(namespace, key)
+  json = <<~EOF
+  {
+    "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": {
+      "name": "gitops-key",
+      "namespace": "#{namespace}"
+    },
+    "data":
+      "public": #{key}
+  }
+  EOF
+
+  jsn = JSON.parse(json).to_json
+
+  cmd = %[echo '#{jsn}' | kubectl -n #{namespace} apply -f -]
+  `#{cmd}`
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
