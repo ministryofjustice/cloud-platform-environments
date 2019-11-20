@@ -36,7 +36,7 @@ end
 
 def generate_gpg_key(namespace, team_name)
   homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`
-  open("#{homedir}/gpgconf", 'w') do |f|
+  open("#{homedir}/gpgconf", 'w+') do |f|
     f << "%no-protection\n" 
   end
   pubkey = `#{homedir}/gitops.asc`
