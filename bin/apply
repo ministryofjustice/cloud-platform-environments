@@ -3,6 +3,7 @@
 require File.join(".", File.dirname(__FILE__), "pipeline")
 require 'yaml'
 require 'json'
+require 'base64'
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
@@ -51,8 +52,10 @@ def generate_gpg_key(namespace, team_name)
   create_key(homedir)
   export_private_key(homedir, comment, seckey)
   export_public_key(homedir, comment, pubkey)
-  pass_to_secret(namespace, pubkey)
-  pass_to_secret(team_name, seckey)
+  pub=Base64.encode64(File.open(pubkey, "rb").read)
+  sec=Base64.encode64(File.open(seckey, "rb").read)
+  pass_to_secret(team_name, sec)
+  pass_to_secret(namespace, pub)
 end
 
 def create_key(homedir) 
