@@ -56,7 +56,7 @@ def generate_gpg_key(namespace, team_name)
   sec=Base64.strict_encode64(File.open(seckey, "rb").read)
   pass_to_secret("concourse-#{team_name}", "gitops-key", sec)
   pass_to_secret(namespace, "gitops-key", pub)
-  key_id=`gpg --import ${pubkey} 2>&1 | grep "gitops" | awk -F' |:' '{print $4}'`
+  key_id=`gpg --import #{pubkey} 2>&1 | grep "gitops" | awk -F' |:' '{print $4}'`
   print "you must now add the Gitops key to your repo with \n git-crypt add-gpg-user --trusted #{key_id} \n"
 end
 
