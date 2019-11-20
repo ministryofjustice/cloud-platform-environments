@@ -82,8 +82,9 @@ def pass_to_secret(namespace, key)
       "name": "gitops-key",
       "namespace": "#{namespace}"
     },
-    "data":
-      "public": #{key}
+    "data": {
+      "key": "#{key}"
+    }
   }
   EOF
 
