@@ -54,8 +54,10 @@ def generate_gpg_key(namespace, team_name)
   export_public_key(homedir, comment, pubkey)
   pub=Base64.strict_encode64(File.open(pubkey, "rb").read)
   sec=Base64.strict_encode64(File.open(seckey, "rb").read)
-  pass_to_secret("concourse-#{team_name}", sec)
-  pass_to_secret(namespace, pub)
+  pass_to_secret("concourse-#{team_name}", "gitops-key", sec)
+  pass_to_secret(namespace, "gitops-key", pub)
+  key_id=`gpg --import ${pubkey} 2>&1 | grep "gitops" | awk -F' |:' '{print $4}'`
+  print "you must now add the Gitops key to your repo with \n git-crypt add-gpg-user --trusted #{key_id} \n"
 end
 
 def create_key(homedir) 
@@ -73,13 +75,13 @@ def export_public_key(homedir, comment, pubkey)
   export_public
 end
   
-def pass_to_secret(namespace, key)
+def pass_to_secret(namespace, name, key)
   json = <<~EOF
   {
     "apiVersion": "v1",
     "kind": "Secret",
     "metadata": {
-      "name": "gitops-key",
+      "name": "#{name}",
       "namespace": "#{namespace}"
     },
     "data": {
@@ -91,7 +93,7 @@ def pass_to_secret(namespace, key)
   jsn = JSON.parse(json).to_json
 
   cmd = %[echo '#{jsn}' | kubectl -n #{namespace} apply -f -]
-  `#{cmd}`
+  print "secret #{name} created in #{namespace}" if `#{cmd}`
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
