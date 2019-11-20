@@ -35,13 +35,10 @@ def parse_team_name(namespace_dir)
 end
 
 def generate_gpg_key(namespace, team_name)
-  homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`
-  #open("#{homedir}/gpgconf", 'w+') do |f|
-  #  f << "%no-protection\n" 
-  #end
-  f = File.new("#{homedir}/gpgconf", 'w')
-  f.write("%no-protection\n")
-  f.close
+  homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
+  open("#{homedir}/gpgconf", 'w+') do |f|
+    f << "%no-protection\n" 
+  end
   pubkey = `#{homedir}/gitops.asc`
   seckey = `#{homedir}/gitops.pgp`
   comment = `gitops-#{namespace}`
