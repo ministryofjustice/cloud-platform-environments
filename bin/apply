@@ -2,6 +2,7 @@
 
 require File.join(".", File.dirname(__FILE__), "pipeline")
 require 'yaml'
+require 'json'
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
