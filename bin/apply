@@ -24,7 +24,7 @@ end
 def create_gpg(namespace_dir)
   team_name = parse_team_name(namespace_dir)
   namespace = File.basename(namespace_dir)
-  execute ("./bin/create-gpg.sh concourse-#{team_name} #{namespace}")
+  generate_gpg_key(namespace, team_name)
 end
 
 def parse_team_name(namespace_dir)
@@ -34,8 +34,37 @@ def parse_team_name(namespace_dir)
   return team
 end
 
-def pass_to_secret
-  pass private key to k8s secret
+def generate_gpg_key(namespace, team_name)
+  homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`
+  open("#{homedir}/gpgconf", 'w') do |f|
+    f << "%no-protection\n" 
+  end
+  pubkey = `#{homedir}/gitops.asc`
+  seckey = `#{homedir}/gitops.pgp`
+  comment = `gitops-#{namespace}`
+  create_key(homedir, comment)
+  export_private_key(homedir, comment, seckey)
+  export_public_key(homedir, comment, pubkey)
+  pass_to_secret(pubkey, seckey)
+end
+
+def create_key(homedir, comment) 
+  generate_key = `gpg --quiet --homedir #{homedir} --batch --lock-never --quick-generate-key #{comment} rsa4096 encrypt never 2>/dev/null #{homedir}/gpgconf`
+  generate_key 
+end 
+
+def export_private_key(homedir, comment, seckey)
+  export_private = `gpg --quiet --homedir #{homedir} --batch --lock-never --pinentry-mode loopback --armor --comment #{comment} --export-secret-keys --output #{seckey}`
+  export_private
+end
+
+def export_public_key(homedir, comment, pubkey)
+  export_public = `gpg --quiet --homedir #{homedir} --batch --lock-never --armor --comment #{comment} --export --output #{pubkey}`
+  export_public
+end
+  
+def pass_to_secret(pubkey, seckey)
+  puts "#{pubkey}, #{seckey}"
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")

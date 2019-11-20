@@ -100,14 +100,14 @@ generate
 pub=`cat "${pubkey}" | base64`
 priv=`cat "${seckey}" | base64`
 
-cat <<SEC kubectl -n ${application_ns} apply -f -
+cat <<PUB | kubectl -n ${application_ns} apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
   name: git-crypt-key
 data:
   public: ${pub}
-SEC
+PUB
 
 cat <<SEC | kubectl -n ${team_ns} apply -f -
 apiVersion: v1
