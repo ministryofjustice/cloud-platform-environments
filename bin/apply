@@ -38,12 +38,13 @@ def generate_gpg_key(namespace, team_name)
   homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
   open("#{homedir}/gpgconf", 'w+') do |f|
     f << "%no-protection\n" 
-    f << "Key-Type: rsa4096\n"
+    f << "Key-Type: default\n"
     f << "Key-Usage: encrypt\n"
     f << "Name-Real: Cloud Platform\n"
     f << "Name-Email: platforms@digital.justice.gov.uk\n"
     f << "Expire-Date: 0\n"
   end
+  execute("cat #{homedir}/gpgconf")
   pubkey = "#{homedir}/gitops.asc"
   seckey = "#{homedir}/gitops.pgp"
   comment = "gitops-#{namespace}"
