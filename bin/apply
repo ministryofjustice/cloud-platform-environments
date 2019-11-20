@@ -49,7 +49,7 @@ def generate_gpg_key(namespace, team_name)
 end
 
 def create_key(homedir, comment) 
-  generate_key = `gpg --quiet --homedir #{homedir} --batch --lock-never --quick-generate-key #{comment} rsa4096 encrypt never 2>/dev/null #{homedir}/gpgconf`
+  generate_key = `gpg --quiet --homedir #{homedir} --batch --lock-never --quick-generate-key #{comment} rsa4096 encrypt never #{homedir}/gpgconf`
   generate_key 
 end 
 
