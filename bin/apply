@@ -52,10 +52,8 @@ def generate_gpg_key(namespace, team_name)
   create_key(homedir)
   export_private_key(homedir, comment, seckey)
   export_public_key(homedir, comment, pubkey)
-  pub=Base64.encode64(File.open(pubkey, "rb").read)
-  sec=Base64.encode64(File.open(seckey, "rb").read)
-  print pub
-  abort "bla"
+  pub=Base64.strict_encode64(File.open(pubkey, "rb").read)
+  sec=Base64.strict_encode64(File.open(seckey, "rb").read)
   pass_to_secret(team_name, sec)
   pass_to_secret(namespace, pub)
 end
