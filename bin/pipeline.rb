@@ -39,11 +39,15 @@ class Terraform
 
   private
 
+  def terraform_executable
+    "terraform"
+  end
+
   def tf_init
     key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
 
     cmd = [
-      %(terraform init),
+      %(#{terraform_executable} init),
       %(-backend-config="bucket=#{bucket}"),
       %(-backend-config="key=#{key}"),
       %(-backend-config="dynamodb_table=#{lock_table}"),
@@ -86,7 +90,7 @@ class Terraform
     key = "#{cluster_key_prefix}#{name}/terraform.tfstate"
 
     [
-      %(terraform #{operation}),
+      %(#{terraform_executable} #{operation}),
       %(-var="cluster_name=#{name}"),
       %(-var="cluster_state_bucket=#{cluster_bucket}"),
       %(-var="cluster_state_key=#{key}"),
