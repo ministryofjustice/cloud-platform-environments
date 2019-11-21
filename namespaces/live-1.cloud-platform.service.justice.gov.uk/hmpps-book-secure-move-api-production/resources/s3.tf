@@ -9,8 +9,8 @@ module "book_a_secure_move_documents_s3_bucket" {
   application            = "${var.application}"
   infrastructure-support = "${var.infrastructure-support}"
 
-  is-production          = "${var.is-production}"
-  environment-name       = "${var.environment-name}"
+  is-production    = "${var.is-production}"
+  environment-name = "${var.environment-name}"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
