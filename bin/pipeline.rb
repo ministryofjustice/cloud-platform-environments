@@ -40,7 +40,9 @@ class Terraform
   private
 
   def terraform_executable
-    "terraform"
+    # The `terraform 0.12upgrade` creates a `versions.tf` file, so we can
+    # use the existence of that file to identify terraform 0.12 source code
+    FileTest.exists?("#{tf_dir}/versions.tf") ? "terraform12" : "terraform"
   end
 
   def tf_init
