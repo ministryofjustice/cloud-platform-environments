@@ -47,7 +47,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
   it "runs terraform plan" do
     env_vars.each do |key, val|
-      expect(ENV).to receive(:fetch).with(key).and_return(val)
+      expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
     end
     allow(FileTest).to receive(:directory?).and_return(true)
 
@@ -126,7 +126,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
         allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)
 
         env_vars.each do |key, val|
-          expect(ENV).to receive(:fetch).with(key).and_return(val)
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
         end
 
         tf_dir = "namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/resources"

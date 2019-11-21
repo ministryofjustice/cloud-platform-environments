@@ -4,6 +4,77 @@
 
 require "open3"
 
+class Terraform
+  attr_reader :cluster, :namespace, :dir
+  attr_reader :bucket, :cluster_bucket, :key_prefix, :cluster_key_prefix, :lock_table, :region
+
+  def initialize(args)
+    @cluster = args.fetch(:cluster)
+    @namespace = args.fetch(:namespace)
+    @dir = args.fetch(:dir)
+
+    @bucket = ENV.fetch("PIPELINE_STATE_BUCKET")
+    @cluster_bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
+    @key_prefix = ENV.fetch("PIPELINE_STATE_KEY_PREFIX")
+    @cluster_key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
+    @lock_table = ENV.fetch("PIPELINE_TERRAFORM_STATE_LOCK_TABLE")
+    @region = ENV.fetch("PIPELINE_STATE_REGION")
+  end
+
+  def tf_init
+    key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
+
+    cmd = [
+      %(terraform init),
+      %(-backend-config="bucket=#{bucket}"),
+      %(-backend-config="key=#{key}"),
+      %(-backend-config="dynamodb_table=#{lock_table}"),
+      %(-backend-config="region=#{region}"),
+    ].join(" ")
+
+    execute("cd #{dir}; #{cmd}")
+  end
+
+  def tf_apply
+    cmd = tf_cmd(
+      cluster: cluster,
+      operation: "apply",
+      last: %(-auto-approve),
+    )
+
+    execute("cd #{dir}; #{cmd}")
+  end
+
+  def tf_plan
+    cmd = tf_cmd(
+      cluster: cluster,
+      operation: "plan",
+      last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
+    )
+
+    execute("cd #{dir}; #{cmd}")
+  end
+
+  private
+
+  def tf_cmd(opts)
+    operation = opts.fetch(:operation)
+    cluster = opts.fetch(:cluster)
+    last = opts.fetch(:last)
+
+    name = cluster.split(".").first
+    key = "#{cluster_key_prefix}#{name}/terraform.tfstate"
+
+    [
+      %(terraform #{operation}),
+      %(-var="cluster_name=#{name}"),
+      %(-var="cluster_state_bucket=#{cluster_bucket}"),
+      %(-var="cluster_state_key=#{key}"),
+      last,
+    ].join(" ")
+  end
+end
+
 def changed_namespace_dirs_for_plan(cluster)
   # these env vars are provided by the github-pull-request concourse resource.
   master_base_sha = ENV.fetch("master_base_sha")
@@ -72,8 +143,8 @@ def apply_terraform(cluster, namespace, dir)
   return unless FileTest.directory?(tf_dir)
 
   log("blue", "applying terraform resources for namespace #{namespace} in #{cluster}")
-  tf_init(cluster, namespace, tf_dir)
-  tf_apply(cluster, namespace, tf_dir)
+  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_init
+  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_apply
 end
 
 def plan_terraform(cluster, namespace, dir)
@@ -81,66 +152,8 @@ def plan_terraform(cluster, namespace, dir)
   return unless FileTest.directory?(tf_dir)
 
   log("blue", "planning terraform resources for namespace #{namespace} in #{cluster}")
-  tf_init(cluster, namespace, tf_dir)
-  tf_plan(cluster, namespace, tf_dir)
-end
-
-def tf_init(cluster, namespace, dir)
-  bucket = ENV.fetch("PIPELINE_STATE_BUCKET")
-  key_prefix = ENV.fetch("PIPELINE_STATE_KEY_PREFIX")
-  lock_table = ENV.fetch("PIPELINE_TERRAFORM_STATE_LOCK_TABLE")
-  region = ENV.fetch("PIPELINE_STATE_REGION")
-  key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
-
-  cmd = [
-    %(terraform init),
-    %(-backend-config="bucket=#{bucket}"),
-    %(-backend-config="key=#{key}"),
-    %(-backend-config="dynamodb_table=#{lock_table}"),
-    %(-backend-config="region=#{region}"),
-  ].join(" ")
-
-  execute("cd #{dir}; #{cmd}")
-end
-
-def tf_apply(cluster, namespace, dir)
-  cmd = tf_cmd(
-    cluster: cluster,
-    operation: "apply",
-    last: %(-auto-approve),
-  )
-
-  execute("cd #{dir}; #{cmd}")
-end
-
-def tf_plan(cluster, namespace, dir)
-  cmd = tf_cmd(
-    cluster: cluster,
-    operation: "plan",
-    last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
-  )
-
-  execute("cd #{dir}; #{cmd}")
-end
-
-def tf_cmd(opts)
-  operation = opts.fetch(:operation)
-  cluster = opts.fetch(:cluster)
-  last = opts.fetch(:last)
-
-  bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
-  key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
-
-  name = cluster.split(".").first
-  key = "#{key_prefix}#{name}/terraform.tfstate"
-
-  [
-    %(terraform #{operation}),
-    %(-var="cluster_name=#{name}"),
-    %(-var="cluster_state_bucket=#{bucket}"),
-    %(-var="cluster_state_key=#{key}"),
-    last,
-  ].join(" ")
+  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_init
+  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_plan
 end
 
 def execute(cmd, can_fail: false)
