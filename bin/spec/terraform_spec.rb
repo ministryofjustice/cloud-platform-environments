@@ -13,8 +13,9 @@ describe Terraform do
       "PIPELINE_STATE_KEY_PREFIX" => "key-prefix/",
       "PIPELINE_TERRAFORM_STATE_LOCK_TABLE" => "lock-table",
       "PIPELINE_STATE_REGION" => "region",
-      "PIPELINE_CLUSTER_STATE_BUCKET" => "cluster-bucket",
-      "PIPELINE_CLUSTER_STATE_KEY_PREFIX" => "state-key-prefix/",
+      "TF_VAR_cluster_name" => cluster,
+      "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
+      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
     }
   }
 
@@ -44,7 +45,7 @@ describe Terraform do
 
         tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_plan = "cd #{tf_dir}; terraform plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+        tf_plan = "cd #{tf_dir}; terraform plan  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_plan, "", success)
@@ -65,7 +66,7 @@ describe Terraform do
 
         tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
+        tf_apply = "cd #{tf_dir}; terraform apply -auto-approve"
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_apply, "", success)
@@ -91,7 +92,7 @@ describe Terraform do
 
           tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-          tf_plan = "cd #{tf_dir}; terraform12 plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+          tf_plan = "cd #{tf_dir}; terraform12 plan  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
 
           expect_execute(tf_init, "", success)
           expect_execute(tf_plan, "", success)
@@ -112,7 +113,7 @@ describe Terraform do
 
           tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-          tf_apply = "cd #{tf_dir}; terraform12 apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
+          tf_apply = "cd #{tf_dir}; terraform12 apply -auto-approve"
 
           expect_execute(tf_init, "", success)
           expect_execute(tf_apply, "", success)
