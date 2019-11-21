@@ -14,11 +14,24 @@ class Terraform
     @dir = args.fetch(:dir)
 
     @bucket = ENV.fetch("PIPELINE_STATE_BUCKET")
-    @cluster_bucket = ENV.fetch("PIPELINE_CLUSTER_STATE_BUCKET")
     @key_prefix = ENV.fetch("PIPELINE_STATE_KEY_PREFIX")
-    @cluster_key_prefix = ENV.fetch("PIPELINE_CLUSTER_STATE_KEY_PREFIX")
     @lock_table = ENV.fetch("PIPELINE_TERRAFORM_STATE_LOCK_TABLE")
     @region = ENV.fetch("PIPELINE_STATE_REGION")
+
+    # These env vars must exist, in case any terraform modules need them.
+    # Not all modules need them, but we have no way of knowing in advance
+    # which do and which don't.
+    # Terraform prior to 0.12 would allow us to pass these via command-line
+    # flags, and just ignore them if they weren't used, but terraform 0.12
+    # raises an error if you pass an unused variable on the command-line.
+    # However, it's not so strict about environment variables, so we can
+    # ensure that our pipelines always set these env. vars. This check is
+    # here so that we get a sensible error if we ever fail to do that.
+    %w(
+      TF_VAR_cluster_name
+      TF_VAR_cluster_state_bucket
+      TF_VAR_cluster_state_key
+    ).each { |var| ENV.fetch(var) }
   end
 
   def plan
@@ -61,7 +74,6 @@ class Terraform
 
   def tf_apply
     cmd = tf_cmd(
-      cluster: cluster,
       operation: "apply",
       last: %(-auto-approve),
     )
@@ -71,7 +83,6 @@ class Terraform
 
   def tf_plan
     cmd = tf_cmd(
-      cluster: cluster,
       operation: "plan",
       last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
     )
@@ -85,19 +96,9 @@ class Terraform
 
   def tf_cmd(opts)
     operation = opts.fetch(:operation)
-    cluster = opts.fetch(:cluster)
     last = opts.fetch(:last)
 
-    name = cluster.split(".").first
-    key = "#{cluster_key_prefix}#{name}/terraform.tfstate"
-
-    [
-      %(#{terraform_executable} #{operation}),
-      %(-var="cluster_name=#{name}"),
-      %(-var="cluster_state_bucket=#{cluster_bucket}"),
-      %(-var="cluster_state_key=#{key}"),
-      last,
-    ].join(" ")
+    "#{terraform_executable} #{operation} #{last}"
   end
 end
 
