@@ -26,45 +26,51 @@ describe Terraform do
 
   subject(:tf) { described_class.new(params) }
 
-  describe "plan" do
-    it "runs terraform plan" do
-      env_vars.each do |key, val|
-        expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
-      end
-      allow(FileTest).to receive(:directory?).and_return(true)
-
-      tf_dir = "#{dir}/resources"
-
-      tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-      tf_plan = "cd #{tf_dir}; terraform plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
-
-      expect_execute(tf_init, "", success)
-      expect_execute(tf_plan, "", success)
-      expect($stdout).to receive(:puts)
-
-      tf.plan
+  context "terraform 0.11" do
+    before do
+      allow(FileTest).to receive(:exists?).with("#{dir}/resources/versions.tf").and_return(false)
     end
-  end
 
-  describe "apply" do
-    it "applies terraform files" do
-      env_vars.each do |key, val|
-        expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+    describe "plan" do
+      it "runs terraform plan" do
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        end
+        allow(FileTest).to receive(:directory?).and_return(true)
+
+        tf_dir = "#{dir}/resources"
+
+        tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+        tf_plan = "cd #{tf_dir}; terraform plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_plan, "", success)
+        expect($stdout).to receive(:puts)
+
+        tf.plan
       end
-      allow(FileTest).to receive(:directory?).and_return(true)
+    end
 
-      tf_dir = "#{dir}/resources"
+    describe "apply" do
+      it "applies terraform files" do
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        end
+        allow(FileTest).to receive(:directory?).and_return(true)
 
-      tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_dir = "#{dir}/resources"
 
-      tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
+        tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      expect_execute(tf_init, "", success)
-      expect_execute(tf_apply, "", success)
-      expect($stdout).to receive(:puts)
+        tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
 
-      tf.apply
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_apply, "", success)
+        expect($stdout).to receive(:puts)
+
+        tf.apply
+      end
     end
 
   end
