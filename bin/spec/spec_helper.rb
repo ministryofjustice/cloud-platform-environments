@@ -100,3 +100,10 @@ end
 require "pry-byebug"
 
 require "./pipeline"
+
+def expect_execute(cmd, stdout, status)
+  expect(Open3).to receive(:capture3).with(cmd).and_return([stdout, "", status])
+  allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
+  allow($stdout).to receive(:puts).with("")
+end
+

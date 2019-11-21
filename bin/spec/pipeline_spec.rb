@@ -1,11 +1,5 @@
 require "spec_helper"
 
-def expect_execute(cmd, stdout, status)
-  expect(Open3).to receive(:capture3).with(cmd).and_return([stdout, "", status])
-  allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-  allow($stdout).to receive(:puts).with("")
-end
-
 describe "pipeline" do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
   let(:success) { double(success?: true) }
