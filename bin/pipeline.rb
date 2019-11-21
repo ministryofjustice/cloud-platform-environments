@@ -21,6 +21,24 @@ class Terraform
     @region = ENV.fetch("PIPELINE_STATE_REGION")
   end
 
+  def plan
+    return unless FileTest.directory?(tf_dir)
+
+    log("blue", "planning terraform resources for namespace #{namespace} in #{cluster}")
+    tf_init
+    tf_plan
+  end
+
+  def apply
+    return unless FileTest.directory?(tf_dir)
+
+    log("blue", "applying terraform resources for namespace #{namespace} in #{cluster}")
+    tf_init
+    tf_apply
+  end
+
+  private
+
   def tf_init
     key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
 
@@ -32,7 +50,7 @@ class Terraform
       %(-backend-config="region=#{region}"),
     ].join(" ")
 
-    execute("cd #{dir}; #{cmd}")
+    execute("cd #{tf_dir}; #{cmd}")
   end
 
   def tf_apply
@@ -42,7 +60,7 @@ class Terraform
       last: %(-auto-approve),
     )
 
-    execute("cd #{dir}; #{cmd}")
+    execute("cd #{tf_dir}; #{cmd}")
   end
 
   def tf_plan
@@ -52,10 +70,12 @@ class Terraform
       last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
     )
 
-    execute("cd #{dir}; #{cmd}")
+    execute("cd #{tf_dir}; #{cmd}")
   end
 
-  private
+  def tf_dir
+    File.join(dir, "resources")
+  end
 
   def tf_cmd(opts)
     operation = opts.fetch(:operation)
@@ -139,21 +159,11 @@ def apply_kubernetes_files(_cluster, namespace, dir)
 end
 
 def apply_terraform(cluster, namespace, dir)
-  tf_dir = File.join(dir, "resources")
-  return unless FileTest.directory?(tf_dir)
-
-  log("blue", "applying terraform resources for namespace #{namespace} in #{cluster}")
-  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_init
-  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_apply
+  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
 end
 
 def plan_terraform(cluster, namespace, dir)
-  tf_dir = File.join(dir, "resources")
-  return unless FileTest.directory?(tf_dir)
-
-  log("blue", "planning terraform resources for namespace #{namespace} in #{cluster}")
-  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_init
-  Terraform.new(cluster: cluster, namespace: namespace, dir: tf_dir).tf_plan
+  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
 def execute(cmd, can_fail: false)
