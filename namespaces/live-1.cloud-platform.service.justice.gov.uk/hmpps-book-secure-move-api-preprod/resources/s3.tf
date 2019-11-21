@@ -20,7 +20,7 @@ module "book_a_secure_move_documents_s3_bucket" {
 
 resource "kubernetes_secret" "book_a_secure_move_documents_s3_bucket" {
   metadata {
-    name      = "book_a_secure_move_documents_s3_bucket"
+    name      = "book-a-secure-move-documents-s3-bucket"
     namespace = "${var.namespace}"
   }
 
