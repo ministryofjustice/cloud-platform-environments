@@ -150,7 +150,7 @@ def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
-  plan_terraform(cluster, namespace, dir)
+  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
 def apply_kubernetes_files(_cluster, namespace, dir)
@@ -160,10 +160,6 @@ end
 
 def apply_terraform(cluster, namespace, dir)
   Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
-end
-
-def plan_terraform(cluster, namespace, dir)
-  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
 def execute(cmd, can_fail: false)
