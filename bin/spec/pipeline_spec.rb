@@ -111,19 +111,9 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       it "applies terraform files" do
         allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)
 
-        env_vars.each do |key, val|
-          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
-        end
-
-        tf_dir = "namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/resources"
-
-        tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-        tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
-
-        expect_execute(tf_init, "", success)
-        expect_execute(tf_apply, "", success)
-        expect($stdout).to receive(:puts)
+        allow(FileTest).to receive(:directory?).and_return(true)
+        expect(Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
+        expect(tf).to receive(:apply)
 
         apply_namespace_dir(cluster, dir)
       end
