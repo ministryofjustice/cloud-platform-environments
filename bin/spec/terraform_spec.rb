@@ -74,5 +74,53 @@ describe Terraform do
         tf.apply
       end
     end
+
+    context "terraform 0.12" do
+      before do
+        allow(FileTest).to receive(:exists?).with("#{dir}/resources/versions.tf").and_return(true)
+      end
+
+      describe "plan" do
+        it "runs terraform plan" do
+          env_vars.each do |key, val|
+            expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+          end
+          allow(FileTest).to receive(:directory?).and_return(true)
+
+          tf_dir = "#{dir}/resources"
+
+          tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+          tf_plan = "cd #{tf_dir}; terraform12 plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+
+          expect_execute(tf_init, "", success)
+          expect_execute(tf_plan, "", success)
+          expect($stdout).to receive(:puts)
+
+          tf.plan
+        end
+      end
+
+      describe "apply" do
+        it "applies terraform files" do
+          env_vars.each do |key, val|
+            expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+          end
+          allow(FileTest).to receive(:directory?).and_return(true)
+
+          tf_dir = "#{dir}/resources"
+
+          tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+          tf_apply = "cd #{tf_dir}; terraform12 apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
+
+          expect_execute(tf_init, "", success)
+          expect_execute(tf_apply, "", success)
+          expect($stdout).to receive(:puts)
+
+          tf.apply
+        end
+      end
+    end
   end
 end
