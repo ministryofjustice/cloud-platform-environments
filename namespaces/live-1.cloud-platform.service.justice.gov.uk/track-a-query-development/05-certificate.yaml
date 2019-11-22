@@ -8,10 +8,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'dev.track-a-query.service.justice.gov.uk'
+  commonName: 'development.track-a-query.service.justice.gov.uk'
   acme:
     config:
     - domains:
-      - 'dev.track-a-query.service.justice.gov.uk'
+      - 'development.track-a-query.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
