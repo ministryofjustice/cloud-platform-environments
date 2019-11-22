@@ -19,7 +19,6 @@ module "track_a_query_s3" {
       allowed_methods = ["GET", "POST", "PUT"]
 
       allowed_origins = [
-        "https://dev.track-a-query.service.justice.gov.uk",
         "https://development.track-a-query.service.justice.gov.uk",
         "https://track-a-query-development.apps.live-1.cloud-platform.service.justice.gov.uk",
       ]
