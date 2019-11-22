@@ -37,6 +37,8 @@ resource "kubernetes_secret" "apply-for-legal-aid-rds" {
     database_username     = "${module.apply-for-legal-aid-rds.database_username}"
     database_password     = "${module.apply-for-legal-aid-rds.database_password}"
     rds_instance_address  = "${module.apply-for-legal-aid-rds.rds_instance_address}"
+    access_key_id         = "${module.apply-for-legal-aid-rds.access_key_id}"
+    secret_access_key     = "${module.apply-for-legal-aid-rds.secret_access_key}"
 
     url = "postgres://${module.apply-for-legal-aid-rds.database_username}:${module.apply-for-legal-aid-rds.database_password}@${module.apply-for-legal-aid-rds.rds_instance_endpoint}/${module.apply-for-legal-aid-rds.database_name}"
   }
