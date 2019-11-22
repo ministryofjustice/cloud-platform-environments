@@ -106,4 +106,3 @@ def expect_execute(cmd, stdout, status)
   allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
   allow($stdout).to receive(:puts).with("")
 end
-

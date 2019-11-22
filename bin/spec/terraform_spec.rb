@@ -18,11 +18,13 @@ describe Terraform do
     }
   }
 
-  let(:params) { {
-    cluster: cluster,
-    namespace: namespace,
-    dir: dir
-  } }
+  let(:params) {
+    {
+      cluster: cluster,
+      namespace: namespace,
+      dir: dir,
+    }
+  }
 
   subject(:tf) { described_class.new(params) }
 
@@ -66,6 +68,5 @@ describe Terraform do
 
       tf.apply
     end
-
   end
 end
