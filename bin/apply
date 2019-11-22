@@ -8,6 +8,7 @@ require 'base64'
 # TODO: Create more descriptive names for gpg key creation
 # TODO: Move everything GPG to its own file and require it above
 # TODO: Make generate_gpg_key method smaller
+# TODO: GPG has to create a new key per namespace so make the name more specific, i.e. helloworld-dev-gpg-key
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
@@ -53,6 +54,7 @@ def generate_gpg_key(namespace, team_name)
   pubkey = "#{homedir}/gitops.asc"
   seckey = "#{homedir}/gitops.pgp"
   comment = "gitops-#{namespace}"
+  create_config(homedir)
 
   # Create key
   create_key(homedir)
@@ -97,7 +99,7 @@ def pass_to_secret(namespace, name, key)
     "apiVersion": "v1",
     "kind": "Secret",
     "metadata": {
-      "name": "#{name}",
+      "name": "#{namespace}-#{name}",
       "namespace": "#{namespace}"
     },
     "data": {
