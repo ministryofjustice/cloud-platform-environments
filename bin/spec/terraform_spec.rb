@@ -108,9 +108,7 @@ describe Terraform do
             expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
           end
           allow(FileTest).to receive(:directory?).and_return(true)
-
           tf_dir = "#{dir}/resources"
-
           tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
           tf_apply = "cd #{tf_dir}; terraform12 apply -auto-approve"
