@@ -64,7 +64,7 @@ module "case_note_poll_pusher_dead_letter_queue" {
 resource "kubernetes_secret" "case_note_poll_pusher_queue" {
   metadata {
     name      = "cnpp-sqs-instance-output"
-    namespace = "${var.namespace}"
+    namespace = "case-notes-to-probation-preprod"
   }
 
   data {
@@ -79,7 +79,7 @@ resource "kubernetes_secret" "case_note_poll_pusher_queue" {
 resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
   metadata {
     name      = "cnpp-sqs-dl-instance-output"
-    namespace = "${var.namespace}"
+    namespace = "case-notes-to-probation-preprod"
   }
 
   data {
