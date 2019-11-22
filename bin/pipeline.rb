@@ -6,7 +6,7 @@ require "open3"
 
 class Terraform
   attr_reader :cluster, :namespace, :dir
-  attr_reader :bucket, :cluster_bucket, :key_prefix, :cluster_key_prefix, :lock_table, :region
+  attr_reader :bucket, :key_prefix, :lock_table, :region
 
   def initialize(args)
     @cluster = args.fetch(:cluster)
