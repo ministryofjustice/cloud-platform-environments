@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require File.join(".", File.dirname(__FILE__), "pipeline")
+require File.join(".", File.dirname(__FILE__), "name")
 require 'yaml'
 require 'json'
 require 'base64'
@@ -8,7 +9,6 @@ require 'base64'
 # TODO: Create more descriptive names for gpg key creation
 # TODO: Move everything GPG to its own file and require it above
 # TODO: Make generate_gpg_key method smaller
-# TODO: GPG has to create a new key per namespace so make the name more specific, i.e. helloworld-dev-gpg-key
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
@@ -32,7 +32,9 @@ end
 
 
 # Move everything below this line into its own file and reference above
+# create_gpg_key_pair
 def create_gpg(namespace_dir)
+  # Get rather than parse
   team_name = parse_team_name(namespace_dir)
   namespace = File.basename(namespace_dir)
   generate_gpg_key(namespace, team_name)
@@ -45,10 +47,20 @@ def parse_team_name(namespace_dir)
   return team
 end
 
+# Bulk out
+def gpg_key_already_exists?(namespace)
+  system("kubectl -n #{namespace} get secret #{namespace}-gitops-key")
+  return if $?.success?
+
+ _, _, status = execute(cmd)
+ status.sucess?
+end
+
 def generate_gpg_key(namespace, team_name)
   # Check key exists and prepare
-  system("kubectl -n #{namespace} get secret gitops-key")
-  return if $?.success?
+  # wrap in a method and add a return if exists
+  return if gpg_key_already_exists?
+
 
   homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
   pubkey = "#{homedir}/gitops.asc"
@@ -66,8 +78,8 @@ def generate_gpg_key(namespace, team_name)
   # Create Kubernetes secrets
   pub = Base64.strict_encode64(File.open(pubkey, "rb").read)
   sec = Base64.strict_encode64(File.open(seckey, "rb").read)
-  pass_to_secret("concourse-#{team_name}", "gitops-key", sec)
-  pass_to_secret(namespace, "gitops-key", pub)
+  pass_to_secret("concourse-#{team_name}", "#{namespace}-gpg-key", sec)
+  pass_to_secret(namespace, "#{namespace}-gpg-key", pub)
 end
 
 def create_config(homedir)
@@ -99,7 +111,7 @@ def pass_to_secret(namespace, name, key)
     "apiVersion": "v1",
     "kind": "Secret",
     "metadata": {
-      "name": "#{namespace}-#{name}",
+      "name": "#{name}",
       "namespace": "#{namespace}"
     },
     "data": {
