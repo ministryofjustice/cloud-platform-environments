@@ -1,11 +1,5 @@
 require "spec_helper"
 
-def expect_execute(cmd, stdout, status)
-  expect(Open3).to receive(:capture3).with(cmd).and_return([stdout, "", status])
-  allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
-  allow($stdout).to receive(:puts).with("")
-end
-
 describe "pipeline" do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
   let(:success) { double(success?: true) }
@@ -44,23 +38,15 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
   }
 
   let(:namespace_dirs) { namespaces.map { |namespace| "namespaces/#{cluster}/#{namespace}" } }
+  let(:namespace) { "mynamespace" }
+  let(:dir) { "namespaces/#{cluster}/#{namespace}" }
+
+  let(:tf) { double(Terraform) }
 
   it "runs terraform plan" do
-    env_vars.each do |key, val|
-      expect(ENV).to receive(:fetch).with(key).and_return(val)
-    end
     allow(FileTest).to receive(:directory?).and_return(true)
-
-    dir = "namespaces/#{cluster}/mynamespace"
-    tf_dir = "#{dir}/resources"
-
-    tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-    tf_plan = "cd #{tf_dir}; terraform plan -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\"  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
-
-    expect_execute(tf_init, "", success)
-    expect_execute(tf_plan, "", success)
-    expect($stdout).to receive(:puts)
+    expect(Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
+    expect(tf).to receive(:plan)
 
     plan_namespace_dir(cluster, dir)
   end
@@ -125,19 +111,9 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       it "applies terraform files" do
         allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)
 
-        env_vars.each do |key, val|
-          expect(ENV).to receive(:fetch).with(key).and_return(val)
-        end
-
-        tf_dir = "namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/resources"
-
-        tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-        tf_apply = "cd #{tf_dir}; terraform apply -var=\"cluster_name=live-1\" -var=\"cluster_state_bucket=cluster-bucket\" -var=\"cluster_state_key=state-key-prefix/live-1/terraform.tfstate\" -auto-approve"
-
-        expect_execute(tf_init, "", success)
-        expect_execute(tf_apply, "", success)
-        expect($stdout).to receive(:puts)
+        allow(FileTest).to receive(:directory?).and_return(true)
+        expect(Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
+        expect(tf).to receive(:apply)
 
         apply_namespace_dir(cluster, dir)
       end
