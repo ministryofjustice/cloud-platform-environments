@@ -50,7 +50,6 @@ def generate_gpg_key(namespace, team_name)
   return if $?.success?
 
   homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
-  create_config(homedir)
   pubkey = "#{homedir}/gitops.asc"
   seckey = "#{homedir}/gitops.pgp"
   comment = "gitops-#{namespace}"
@@ -89,8 +88,7 @@ def export_private_key(homedir, comment, seckey)
 end
 
 def export_public_key(homedir, comment, pubkey)
-  export_public = `gpg --quiet --homedir #{homedir} --batch --lock-never --armor --comment #{comment} --export --output #{pubkey}`
-  export_public
+  execute("gpg --quiet --homedir #{homedir} --batch --lock-never --armor --comment #{comment} --export --output #{pubkey}")
 end
   
 def pass_to_secret(namespace, name, key)
