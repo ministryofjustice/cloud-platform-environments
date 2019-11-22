@@ -1,14 +1,10 @@
 #!/usr/bin/env ruby
 
-require File.join(".", File.dirname(__FILE__), "pipeline")
-require File.join(".", File.dirname(__FILE__), "name")
 require 'yaml'
-require 'json'
-require 'base64'
 
-# TODO: Create more descriptive names for gpg key creation
-# TODO: Move everything GPG to its own file and require it above
-# TODO: Make generate_gpg_key method smaller
+require File.join(".", File.dirname(__FILE__), "pipeline")
+require File.join(".", File.dirname(__FILE__), "..", "lib", "gpg_keypair")
+require File.join(".", File.dirname(__FILE__), "..", "lib", "gitops_gpg_keypair")
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
@@ -22,109 +18,19 @@ end
 
 def apply_namespaces(cluster)
   Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
+    team_name = get_team_name(namespace_dir)
     execute("git pull") # In case any PRs were merged since the pipeline started
     apply_namespace_dir(cluster, namespace_dir)
-    create_gpg(namespace_dir)
+    namespace = File.basename(namespace_dir)
+    GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
   end
 end
-  
 
-
-
-# Move everything below this line into its own file and reference above
-# create_gpg_key_pair
-def create_gpg(namespace_dir)
-  # Get rather than parse
-  team_name = parse_team_name(namespace_dir)
-  namespace = File.basename(namespace_dir)
-  generate_gpg_key(namespace, team_name)
-end
-
-def parse_team_name(namespace_dir)
+def get_team_name(namespace_dir)
   yaml = YAML.load(File.read("#{namespace_dir}/01-rbac.yaml"))
   team = yaml['subjects'][0].dig('name').split(':')[1]
-  team.nil? && abort("Team name not found")
-  return team
-end
-
-# Bulk out
-def gpg_key_already_exists?(namespace)
-  system("kubectl -n #{namespace} get secret #{namespace}-gitops-key")
-  return if $?.success?
-
- _, _, status = execute(cmd)
- status.sucess?
-end
-
-def generate_gpg_key(namespace, team_name)
-  # Check key exists and prepare
-  # wrap in a method and add a return if exists
-  return if gpg_key_already_exists?
-
-
-  homedir = `mktemp -d "${TMPDIR:-/tmp}/simplegpg-XXXXXX"`.chomp
-  pubkey = "#{homedir}/gitops.asc"
-  seckey = "#{homedir}/gitops.pgp"
-  comment = "gitops-#{namespace}"
-  create_config(homedir)
-
-  # Create key
-  create_key(homedir)
-
-  # Export key
-  export_private_key(homedir, comment, seckey)
-  export_public_key(homedir, comment, pubkey)
-
-  # Create Kubernetes secrets
-  pub = Base64.strict_encode64(File.open(pubkey, "rb").read)
-  sec = Base64.strict_encode64(File.open(seckey, "rb").read)
-  pass_to_secret("concourse-#{team_name}", "#{namespace}-gpg-key", sec)
-  pass_to_secret(namespace, "#{namespace}-gpg-key", pub)
-end
-
-def create_config(homedir)
-  open("#{homedir}/gpgconf", 'w+') do |f|
-    f << "%no-protection\n" 
-    f << "Key-Type: default\n"
-    f << "Key-Usage: encrypt\n"
-    f << "Name-Real: Cloud Platform\n"
-    f << "Name-Email: platforms@digital.justice.gov.uk\n"
-    f << "Expire-Date: 0\n"
-  end
-end
-
-def create_key(homedir) 
-  execute("gpg --quiet --homedir #{homedir} --batch --lock-never --gen-key  #{homedir}/gpgconf")
-end 
-
-def export_private_key(homedir, comment, seckey)
-  execute("gpg --quiet --homedir #{homedir} --batch --lock-never --pinentry-mode loopback --armor --comment #{comment} --export-secret-keys --output #{seckey}")
-end
-
-def export_public_key(homedir, comment, pubkey)
-  execute("gpg --quiet --homedir #{homedir} --batch --lock-never --armor --comment #{comment} --export --output #{pubkey}")
-end
-  
-def pass_to_secret(namespace, name, key)
-  json = <<~EOF
-  {
-    "apiVersion": "v1",
-    "kind": "Secret",
-    "metadata": {
-      "name": "#{name}",
-      "namespace": "#{namespace}"
-    },
-    "data": {
-      "key": "#{key}"
-    }
-  }
-  EOF
-
-  jsn = JSON.parse(json).to_json
-
-  cmd = %[echo '#{jsn}' | kubectl -n #{namespace} apply -f -]
-  # Find a better way to execute the above
-  print "secret #{name} created in #{namespace}" if `#{cmd}`
+  abort("Team name not found") if team.nil?
+  team
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
