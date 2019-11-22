@@ -27,11 +27,11 @@ class Terraform
     # However, it's not so strict about environment variables, so we can
     # ensure that our pipelines always set these env. vars. This check is
     # here so that we get a sensible error if we ever fail to do that.
-    %w(
+    %w[
       TF_VAR_cluster_name
       TF_VAR_cluster_state_bucket
       TF_VAR_cluster_state_key
-    ).each { |var| ENV.fetch(var) }
+    ].each { |var| ENV.fetch(var) }
   end
 
   def plan
