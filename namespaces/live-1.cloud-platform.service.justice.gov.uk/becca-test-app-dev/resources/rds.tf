@@ -3,7 +3,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "becca_test_app_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "tactical-products"
@@ -12,7 +12,11 @@ module "becca_test_app_rds" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "my-app-never-fails@digital.justice.gov.uk"
-  aws_region             = "eu-west-2"
+  force_ssl              = "false"
+  
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "becca_test_app_rds" {
