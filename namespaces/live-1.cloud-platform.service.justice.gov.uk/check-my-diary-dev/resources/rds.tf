@@ -7,7 +7,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "checkmydiary_dev_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -18,6 +18,7 @@ module "checkmydiary_dev_rds" {
   environment-name       = "development"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
   rds_family             = "postgres10"
+  force_ssl              = "false"
 
   providers = {
     aws = "aws.london"
