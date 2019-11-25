@@ -3,7 +3,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "nomis-api-access_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "Digital Prison Services/New Nomis"
@@ -12,6 +12,7 @@ module "nomis-api-access_rds" {
   is-production          = "false"
   environment-name       = "staging"
   infrastructure-support = "dps-hmpps@digital.justice.gov.uk"
+  force_ssl              = "false"
 
   providers = {
     aws = "aws.london"
