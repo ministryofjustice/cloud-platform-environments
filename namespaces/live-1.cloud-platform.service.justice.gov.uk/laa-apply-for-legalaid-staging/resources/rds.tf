@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
