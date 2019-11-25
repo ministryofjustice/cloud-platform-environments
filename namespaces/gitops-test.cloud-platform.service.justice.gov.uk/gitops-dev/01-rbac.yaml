@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cloud-platform-gitops-test-admin
-  namespace: cloud-platform-gitops-test
+  name: gitops-dev-admin
+  namespace: gitops-dev
 subjects:
   - kind: Group
     name: "github:webops"
