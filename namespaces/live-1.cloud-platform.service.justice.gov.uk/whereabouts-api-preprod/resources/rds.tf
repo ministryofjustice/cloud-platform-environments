@@ -3,7 +3,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
