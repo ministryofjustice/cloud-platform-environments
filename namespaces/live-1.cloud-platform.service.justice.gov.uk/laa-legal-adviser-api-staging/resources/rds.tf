@@ -17,7 +17,7 @@ module "rds" {
   db_instance_class      = "db.t2.small"
   db_allocated_storage   = "5"
   db_name                = "laalaa"
-  force_ssl              = "false"	
+  force_ssl              = "false"
   rds_family             = "postgres9.4"
 
   providers = {
