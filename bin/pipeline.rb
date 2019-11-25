@@ -166,7 +166,7 @@ def apply_kubernetes_files(_cluster, namespace, dir)
   execute("kubectl -n #{namespace} apply -f #{dir}")
 end
 
-def apply_gitops_kubernetes_files(_cluster, namespace, dir)
+def apply_gitops_kubernetes_files(_cluster, team_name, dir)
   log("green", "applying concourse-#{team_name}")
   execute("kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources")
 end
