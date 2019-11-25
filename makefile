@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:concourse
 
 namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml
 	./bin/namespace-reporter.rb -o json -n '.*' > namespace-report.json
@@ -37,12 +37,11 @@ namespace:
 # Set an env. var called APPDIR to the source code directory
 # you want to mount into your tools shell
 tools-shell:
-	@echo "Pulling Cloud Platform Tools docker image..."
-	@docker pull $(TOOLS_IMAGE) > /dev/null
 	@docker run --rm -it \
-		-v $${APPDIR}:/app \
+		-v $$(pwd):/app \
 		-v $${HOME}/.kube:/app/.kube \
 		-e KUBECONFIG=/app/.kube/config \
 		-v $${HOME}/.aws:/root/.aws \
 		-v $${HOME}/.gnupg:/root/.gnupg \
-		-w /app $(TOOLS_IMAGE) bash
+		-w /app \
+		$(TOOLS_IMAGE) bash

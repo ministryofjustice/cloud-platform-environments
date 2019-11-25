@@ -8,13 +8,13 @@ class GpgKeypair
   def generate
     pubkey = seckey = nil
 
-
     Dir.mktmpdir do |dir|
       @tmpdir = dir
       generate_config
       generate_keypair
       pubkey = File.read(pubkeyfile)
       seckey = File.read(seckeyfile)
+      @tmpdir = nil
     end
     {
       public: pubkey,
@@ -42,21 +42,19 @@ class GpgKeypair
 
   def generate_keypair
     execute("gpg --quiet --homedir #{tmpdir} --batch --lock-never --gen-key  #{gpgconf}", silent: true)
-    `ls -latr /tmp/*`
     export_public_key
     export_private_key
+    execute("rm -fv #{tmpdir}/S.gpg-agent.extra")
   end
 
   def export_private_key
     cmd = %(gpg --quiet --homedir #{tmpdir} --batch --lock-never --pinentry-mode loopback --armor --comment "#{COMMENT}" --export-secret-keys --output #{seckeyfile})
     execute(cmd)
-    `ls -latr /tmp/*`
   end
 
   def export_public_key
     cmd = %(gpg --quiet --homedir #{tmpdir} --batch --lock-never --armor --comment "#{COMMENT}" --export --output #{pubkeyfile})
     execute(cmd)
-    `ls -latr /tmp/*`
   end
 
   def pubkeyfile
