@@ -10,10 +10,11 @@
  * releases page of this repository.
  *
  */
+
 module "example_team_es" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=TF12-DO-NOT-USE"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   application            = "exampleapp"
   business-unit          = "example-bu"
   environment-name       = "dev"
