@@ -13,10 +13,20 @@ def main(cluster)
 end
 
 def apply_namespaces(cluster)
-  all_namespace_dirs(cluster).each do |namespace_dir|
+  Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
+    team_name = get_team_name(namespace_dir)
     execute("git pull") # In case any PRs were merged since the pipeline started
     apply_namespace_dir(cluster, namespace_dir)
+    namespace = File.basename(namespace_dir)
+    GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
   end
+end
+
+def get_team_name(namespace_dir)
+  yaml = YAML.load(File.read("#{namespace_dir}/01-rbac.yaml"))
+  team = yaml['subjects'][0].dig('name').split(':')[1]
+  abort("Team name not found") if team.nil?
+  team
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
