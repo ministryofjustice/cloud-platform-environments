@@ -4,7 +4,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
 
   providers = {
     aws = "aws.london"
