@@ -2,7 +2,7 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: case-notes-to-probation.prison.service.justice.gov.uk
+  name: case-notes-to-probation-cert
   namespace: case-notes-to-probation-prod
 spec:
   secretName: case-notes-to-probation-cert
