@@ -22,7 +22,7 @@ class GitopsGpgKeypair
   private
 
   def copy_public_key
-    execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -")
+    execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
   end
 
   def public_key_exists?
