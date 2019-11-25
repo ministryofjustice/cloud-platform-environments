@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 class GpgKeypair
   attr_reader :tmpdir
 
