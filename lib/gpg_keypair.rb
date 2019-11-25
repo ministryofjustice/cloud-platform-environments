@@ -10,12 +10,12 @@ class GpgKeypair
 
 
     Dir.mktmpdir do |dir|
+      @tmpdir = nil
       @tmpdir = dir
       generate_config
       generate_keypair
       pubkey = File.read(pubkeyfile)
       seckey = File.read(seckeyfile)
-      @tmpdir = nil
     end
     {
       public: pubkey,
