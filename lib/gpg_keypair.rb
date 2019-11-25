@@ -44,7 +44,7 @@ class GpgKeypair
     execute("gpg --quiet --homedir #{tmpdir} --batch --lock-never --gen-key  #{gpgconf}", silent: true)
     export_public_key
     export_private_key
-    execute("rm -fv #{tmpdir}/S.gpg-agent.extra")
+    execute("killall gpg-agent")
   end
 
   def export_private_key
