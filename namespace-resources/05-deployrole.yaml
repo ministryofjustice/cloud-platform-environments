@@ -1,10 +1,4 @@
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: deploy
-  namespace: concourse-${github_team}
----
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
