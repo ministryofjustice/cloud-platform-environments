@@ -2,7 +2,7 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: prison-data-compliance-dev.prison.service.justice.gov.uk
+  name: data-compliance-dev.prison.service.justice.gov.uk
   namespace: prison-data-compliance-dev
 spec:
   secretName: prison-data-compliance-cert
