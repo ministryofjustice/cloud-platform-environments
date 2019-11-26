@@ -1,6 +1,7 @@
 terraform {
-  required_version = "0.11.14"
-  backend          "s3"             {}
+  required_version = "0.12.13"
+  backend "s3" {
+  }
 }
 
 provider "aws" {
@@ -16,3 +17,4 @@ provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
 }
+
