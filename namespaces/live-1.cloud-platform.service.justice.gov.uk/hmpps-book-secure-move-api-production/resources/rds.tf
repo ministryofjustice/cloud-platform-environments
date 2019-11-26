@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
 
   cluster_name         = "${var.cluster_name}"
   cluster_state_bucket = "${var.cluster_state_bucket}"
@@ -18,7 +18,8 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data {
-    # postgres://USER:PASSWORD@HOST:PORT/NAME
+    access_key_id         = "${module.example_team_rds.access_key_id}"
+    secret_access_key     = "${module.example_team_rds.secret_access_key}"
     url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
