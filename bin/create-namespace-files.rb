@@ -108,7 +108,7 @@ end
 
 def replace_var(content, key, value)
   str = "${#{key}}"
-  lower_str = "${lower(#{key})}"
+  lower_str = "lower(#{key})"
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
