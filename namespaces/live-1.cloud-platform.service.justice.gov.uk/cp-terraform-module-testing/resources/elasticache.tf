@@ -11,9 +11,9 @@
  *
  */
 module "example_team_ec_cluster" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.1"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=TF12-DO-NOT-USE"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "example-repo"
   business-unit          = "example-bu"
   application            = "cptf11app"
@@ -22,7 +22,7 @@ module "example_team_ec_cluster" {
   infrastructure-support = "example-team@digtal.justice.gov.uk"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -32,9 +32,10 @@ resource "kubernetes_secret" "example_team_ec_cluster" {
     namespace = "cp-terraform-module-testing"
   }
 
-  data {
-    primary_endpoint_address = "${module.example_team_ec_cluster.primary_endpoint_address}"
-    member_clusters          = "${jsonencode(module.example_team_ec_cluster.member_clusters)}"
-    auth_token               = "${module.example_team_ec_cluster.auth_token}"
+  data = {
+    primary_endpoint_address = module.example_team_ec_cluster.primary_endpoint_address
+    member_clusters          = jsonencode(module.example_team_ec_cluster.member_clusters)
+    auth_token               = module.example_team_ec_cluster.auth_token
   }
 }
+

@@ -11,9 +11,9 @@
  *
  */
 module "example_team_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name         = "${var.cluster_name}"
-  cluster_state_bucket = "${var.cluster_state_bucket}"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=TF12-DO_NOT-USE"
+  cluster_name         = var.cluster_name
+  cluster_state_bucket = var.cluster_state_bucket
   team_name            = "example-repo"
   business-unit        = "example-bu"
   application          = "cptf11app"
@@ -37,7 +37,7 @@ module "example_team_rds" {
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -47,20 +47,20 @@ resource "kubernetes_secret" "example_team_rds" {
     namespace = "cp-terraform-module-testing"
   }
 
-  data {
-    rds_instance_endpoint = "${module.example_team_rds.rds_instance_endpoint}"
-    database_name         = "${module.example_team_rds.database_name}"
-    database_username     = "${module.example_team_rds.database_username}"
-    database_password     = "${module.example_team_rds.database_password}"
-    rds_instance_address  = "${module.example_team_rds.rds_instance_address}"
-    access_key_id         = "${module.example_team_rds.access_key_id}"
-    secret_access_key     = "${module.example_team_rds.secret_access_key}"
-
-    /* You can replace all of the above with the following, if you prefer to
+  data = {
+    rds_instance_endpoint = module.example_team_rds.rds_instance_endpoint
+    database_name         = module.example_team_rds.database_name
+    database_username     = module.example_team_rds.database_username
+    database_password     = module.example_team_rds.database_password
+    rds_instance_address  = module.example_team_rds.rds_instance_address
+    access_key_id         = module.example_team_rds.access_key_id
+    secret_access_key     = module.example_team_rds.secret_access_key
+  }
+  /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
      * url = "postgres://${module.example_team_rds.database_username}:${module.example_team_rds.database_password}@${module.example_team_rds.rds_instance_endpoint}/${module.example_team_rds.database_name}"
      *
      */
-  }
 }
+
