@@ -1,5 +1,0 @@
-[0m[1mvar.cluster_name[0m
-  [1mEnter a value:[0m [0mInterrupt received.
-Please wait for Terraform to exit or data loss may occur.
-Gracefully shutting down...
-
