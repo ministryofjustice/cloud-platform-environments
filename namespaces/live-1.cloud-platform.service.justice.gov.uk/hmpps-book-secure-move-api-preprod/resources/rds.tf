@@ -9,6 +9,12 @@ module "rds-instance" {
   is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
+  force_ssl              = "false"
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "rds-instance" {
@@ -18,8 +24,8 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data {
-    access_key_id         = "${module.rds-instance.access_key_id}"
-    secret_access_key     = "${module.rds-instance.secret_access_key}"
-    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    access_key_id     = "${module.rds-instance.access_key_id}"
+    secret_access_key = "${module.rds-instance.secret_access_key}"
+    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
