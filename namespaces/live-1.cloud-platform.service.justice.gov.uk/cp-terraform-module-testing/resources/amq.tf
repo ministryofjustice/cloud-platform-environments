@@ -6,7 +6,7 @@
  */
 
 module "example_team_broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=2.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=TF12-DO-NOT-USE"
   team_name              = "example-team"
   business-unit          = "example-bu"
   application            = "cptf11app"
@@ -17,7 +17,7 @@ module "example_team_broker" {
   providers = {
     # Can be either 'aws.london' or 'aws.ireland'
     # It requires the two providers to be defined. see example/main.tf
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -27,10 +27,11 @@ resource "kubernetes_secret" "example_team_broker" {
     namespace = "cp-terraform-module-testing"
   }
 
-  data {
-    primary_amqp_ssl_endpoint  = "${module.example_team_broker.primary_amqp_ssl_endpoint}"
-    primary_stomp_ssl_endpoint = "${module.example_team_broker.primary_stomp_ssl_endpoint}"
-    username                   = "${module.example_team_broker.username}"
-    password                   = "${module.example_team_broker.password}"
+  data = {
+    primary_amqp_ssl_endpoint  = module.example_team_broker.primary_amqp_ssl_endpoint
+    primary_stomp_ssl_endpoint = module.example_team_broker.primary_stomp_ssl_endpoint
+    username                   = module.example_team_broker.username
+    password                   = module.example_team_broker.password
   }
 }
+

@@ -5,7 +5,7 @@
  *
  */
 module "example_team_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=TF12-DO-NOT-USE"
 
   team_name              = "cloudplatform"
   business-unit          = "mojdigital"
@@ -16,10 +16,8 @@ module "example_team_s3_bucket" {
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
-    aws = "aws.london"
-  }
-
-  /*
+    aws = aws.london
+    /*
    * The following example can be used if you need to define CORS rules for your s3 bucket. 
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *  
@@ -80,13 +78,13 @@ module "example_team_s3_bucket" {
 
   */
 
-  /*
+    /*
    * The following are exampls of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-  /*
+    /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
@@ -113,7 +111,7 @@ EOF
 
 */
 
-  /*
+    /*
  * Override the default policy for the generated machine user of this bucket.
  *
 
@@ -142,6 +140,7 @@ user_policy = <<EOF
 EOF
 
 */
+  }
 }
 
 resource "kubernetes_secret" "example_team_s3_bucket" {
@@ -150,10 +149,11 @@ resource "kubernetes_secret" "example_team_s3_bucket" {
     namespace = "cp-terraform-module-testing"
   }
 
-  data {
-    access_key_id     = "${module.example_team_s3_bucket.access_key_id}"
-    secret_access_key = "${module.example_team_s3_bucket.secret_access_key}"
-    bucket_arn        = "${module.example_team_s3_bucket.bucket_arn}"
-    bucket_name       = "${module.example_team_s3_bucket.bucket_name}"
+  data = {
+    access_key_id     = module.example_team_s3_bucket.access_key_id
+    secret_access_key = module.example_team_s3_bucket.secret_access_key
+    bucket_arn        = module.example_team_s3_bucket.bucket_arn
+    bucket_name       = module.example_team_s3_bucket.bucket_name
   }
 }
+
