@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: gitops-dev-admin
-  namespace: gitops-dev
+  name: gitops-staging-admin
+  namespace: gitops-staging
 subjects:
   - kind: Group
     name: "github:webops"

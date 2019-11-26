@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: gitops-dev
+  namespace: gitops-staging
 spec:
   hard:
     pods: "50"
