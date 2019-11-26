@@ -7,7 +7,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
 
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
@@ -16,6 +16,11 @@ module "checkmydiary_rds" {
   is-production          = "true"
   environment-name       = "prod"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
+  force_ssl              = "false"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "checkmydiary_rds" {
