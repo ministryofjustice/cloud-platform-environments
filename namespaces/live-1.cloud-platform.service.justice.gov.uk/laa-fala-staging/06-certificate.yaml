@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: fala-staging-cert
+  namespace: laa-fala-staging
+spec:
+  secretName: fala-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staging.find-legal-advice.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'staging.find-legal-advice.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
