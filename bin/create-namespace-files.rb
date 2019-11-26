@@ -77,11 +77,9 @@ def create_terraform_files(namespace, answers)
 end
 
 # The environments checker process expects to find the resources-main-tf
-# file, so we're copying that with a new name, rather than just having
-# a main.tf file in the TEMPLATES_DIR.
 # TODO: Adjust the environments checker so that we can just have main.tf
 def create_main_tf(dir)
-  main_tf = File.read(File.join(TEMPLATES_DIR, "resources-main-tf"))
+  main_tf = File.read(File.join(TEMPLATES_DIR, "main.tf"))
   outfile = File.join(dir, "main.tf")
   File.write(outfile, main_tf)
 end
@@ -99,7 +97,7 @@ end
 
 def replace_var(content, key, value)
   str = "${#{key}}"
-  lower_str = "${lower(#{key})}"
+  lower_str = "lower(#{key})"
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
