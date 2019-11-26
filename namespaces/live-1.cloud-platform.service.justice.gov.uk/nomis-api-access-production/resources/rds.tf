@@ -3,7 +3,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "nomis-api-access_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "${var.team_name}"
@@ -12,6 +12,7 @@ module "nomis-api-access_rds" {
   is-production          = "${var.is-production}"
   environment-name       = "${var.environment-name}"
   infrastructure-support = "${var.infrastructure-support}"
+  force_ssl              = "false"
 
   providers = {
     aws = "aws.london"
