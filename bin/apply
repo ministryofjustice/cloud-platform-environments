@@ -13,7 +13,7 @@ def main(cluster)
 end
 
 def apply_namespaces(cluster)
-  Dir["namespaces/#{cluster}/*"].each do |namespace_dir|
+  all_namespace_dirs(cluster).each do |namespace_dir|
     team_name = get_team_name(namespace_dir)
     namespace = File.basename(namespace_dir)
     execute("git pull") # In case any PRs were merged since the pipeline started
