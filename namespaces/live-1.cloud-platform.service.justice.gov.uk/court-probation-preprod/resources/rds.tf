@@ -35,5 +35,3 @@ resource "kubernetes_secret" "auth_rds" {
     url                   = "postgres://${module.auth_rds.database_username}:${module.auth_rds.database_password}@${module.auth_rds.rds_instance_endpoint}/${module.auth_rds.database_name}"
   }
 }
-
-
