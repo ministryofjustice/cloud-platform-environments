@@ -14,7 +14,7 @@ module "apply-for-legal-aid-elasticache" {
   application            = "laa-apply-for-legal-aid"
   is-production          = "true"
   environment-name       = "production"
-  infrastructure-support = "apply@digtal.justice.gov.uk"
+  infrastructure-support = "apply@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"

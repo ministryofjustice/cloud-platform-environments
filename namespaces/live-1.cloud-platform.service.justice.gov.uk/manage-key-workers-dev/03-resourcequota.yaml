@@ -2,8 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: manage-key-workers-dev 
+  namespace: manage-key-workers-dev
 spec:
   hard:
-    requests.cpu: 100m
-    requests.memory: 5000Mi
+    pods: "50"

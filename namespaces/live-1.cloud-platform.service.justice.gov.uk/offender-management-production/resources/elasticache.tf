@@ -23,5 +23,6 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
   data {
     primary_endpoint_address = "${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}"
     auth_token               = "${module.ec-cluster-offender-management-allocation-manager.auth_token}"
+    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }

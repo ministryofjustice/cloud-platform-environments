@@ -1,12 +1,12 @@
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
 
   team_name              = "laa-get-paid"
   business-unit          = "legal-aid-agency"
   application            = "cccd"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "crowncourtdefence@digtal.justice.gov.uk"
+  infrastructure-support = "crowncourtdefence@digital.justice.gov.uk"
 
   providers = {
     aws = "aws.london"

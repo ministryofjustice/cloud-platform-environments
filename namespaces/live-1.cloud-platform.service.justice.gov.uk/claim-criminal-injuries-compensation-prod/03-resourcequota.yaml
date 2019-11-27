@@ -5,5 +5,4 @@ metadata:
   namespace: claim-criminal-injuries-compensation-prod
 spec:
   hard:
-    requests.cpu: 600m
-    requests.memory: 5000Mi
+    pods: "50"

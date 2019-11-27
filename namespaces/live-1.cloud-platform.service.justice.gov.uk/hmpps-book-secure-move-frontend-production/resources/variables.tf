@@ -1,5 +1,5 @@
 variable "team_name" {
-  default = "pecs"
+  default = "book-a-secure-move"
 }
 
 variable "environment-name" {
@@ -11,7 +11,7 @@ variable "is-production" {
 }
 
 variable "infrastructure-support" {
-  default = "PECS: pecs-team@digital.justice.gov.uk"
+  default = "bookasecuremove@digital.justice.gov.uk"
 }
 
 variable "application" {

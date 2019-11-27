@@ -9,7 +9,7 @@ variable "cluster_state_bucket" {}
  *
  */
 module "rds-staging" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
   cluster_name           = "${var.cluster_name}"
   cluster_state_bucket   = "${var.cluster_state_bucket}"
   team_name              = "Correspondence Staff"
@@ -17,7 +17,8 @@ module "rds-staging" {
   application            = "correspondence-staff"
   is-production          = "false"
   environment-name       = "staging"
-  infrastructure-support = "mohammed.seedat@digtal.justice.gov.uk"
+  infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
+  force_ssl              = "false"
 
   # Deprecated from the version 4.2 of this module
   #aws_region             = "eu-west-2"  

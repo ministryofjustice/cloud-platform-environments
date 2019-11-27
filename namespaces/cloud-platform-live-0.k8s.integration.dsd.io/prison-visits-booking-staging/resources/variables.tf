@@ -15,7 +15,7 @@ variable "namespace" {
 }
 
 variable "infrastructure-support" {
-  default = "pvb-technical-support@digtal.justice.gov.uk"
+  default = "pvb-technical-support@digital.justice.gov.uk"
 }
 
 // The following two variables are provided at runtime by the pipeline.

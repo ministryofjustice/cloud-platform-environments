@@ -5,5 +5,4 @@ metadata:
   namespace: check-my-diary-prod
 spec:
   hard:
-    requests.cpu: 3000m
-    requests.memory: 6Gi
+    pods: "50"

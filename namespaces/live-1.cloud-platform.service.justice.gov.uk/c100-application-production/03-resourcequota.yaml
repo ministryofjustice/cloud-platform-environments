@@ -5,6 +5,4 @@ metadata:
   namespace: c100-application-production
 spec:
   hard:
-    requests.cpu: 3000m
-    requests.memory: 12Gi
-    
+    pods: "50"

@@ -27,9 +27,13 @@ variable "environment-name" {
 
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "matt.whittaker@digtal.justice.gov.uk"
+  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is-production" {
   default = "true"
+}
+
+variable "number_cache_clusters" {
+  default = "3"
 }

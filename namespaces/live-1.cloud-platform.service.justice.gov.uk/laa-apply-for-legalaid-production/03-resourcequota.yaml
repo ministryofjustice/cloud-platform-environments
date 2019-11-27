@@ -5,5 +5,4 @@ metadata:
   namespace: laa-apply-for-legalaid-production
 spec:
   hard:
-    requests.cpu: 200m
-    requests.memory: 8Gi
+    pods: "50"

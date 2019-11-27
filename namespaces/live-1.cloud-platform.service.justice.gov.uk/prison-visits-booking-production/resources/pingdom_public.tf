@@ -1,5 +1,6 @@
 terraform {
-  backend "s3" {}
+  required_version = "0.11.14"
+  backend          "s3"             {}
 }
 
 provider "pingdom" {}

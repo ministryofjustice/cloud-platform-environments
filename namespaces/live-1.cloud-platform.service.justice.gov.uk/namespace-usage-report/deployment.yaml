@@ -12,8 +12,10 @@ spec:
     spec:
       containers:
         - name: usage-report
-          image: ministryofjustice/cloud-platform-namespace-usage-report:1.4
+          image: ministryofjustice/cloud-platform-namespace-usage-report:1.8
           env:
+            - name: RACK_ENV
+              value: "production"
             - name: API_KEY
               valueFrom:
                 secretKeyRef:

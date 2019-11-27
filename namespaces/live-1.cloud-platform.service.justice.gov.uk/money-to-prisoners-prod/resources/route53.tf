@@ -135,14 +135,6 @@ resource "kubernetes_secret" "start_page" {
   }
 }
 
-resource "aws_route53_record" "start_page_a_root" {
-  name    = "sendmoneytoaprisoner.justice.gov.uk."
-  zone_id = "${aws_route53_zone.start_page.zone_id}"
-  type    = "A"
-  records = ["52.30.196.9"]
-  ttl     = "300"
-}
-
 resource "aws_route53_record" "start_page_cname_email" {
   name    = "email.sendmoneytoaprisoner.justice.gov.uk."
   zone_id = "${aws_route53_zone.start_page.zone_id}"
@@ -173,4 +165,28 @@ resource "aws_route53_record" "start_page_mx" {
   type    = "MX"
   records = ["10 mxa.mailgun.org", "10 mxb.mailgun.org"]
   ttl     = "300"
+}
+
+resource "aws_route53_zone" "start_page_alias" {
+  name = "sendmoneytoaprisoner.service.justice.gov.uk."
+
+  tags {
+    application            = "${var.application}"
+    is-production          = "${var.is-production}"
+    environment-name       = "${var.environment-name}"
+    owner                  = "${var.team_name}"
+    infrastructure-support = "${var.email}"
+  }
+}
+
+resource "kubernetes_secret" "start_page_alias" {
+  metadata {
+    name      = "route53-start-page-alias"
+    namespace = "${var.namespace}"
+  }
+
+  data {
+    zone_id      = "${aws_route53_zone.start_page_alias.zone_id}"
+    name_servers = "${join("\n", aws_route53_zone.start_page_alias.name_servers)}"
+  }
 }

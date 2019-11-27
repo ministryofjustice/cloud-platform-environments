@@ -15,5 +15,5 @@ variable "namespace" {
 }
 
 variable "infrastructure-support" {
-  default = "omic@digtal.justice.gov.uk"
+  default = "omic@digital.justice.gov.uk"
 }

@@ -5,5 +5,4 @@ metadata:
   namespace: prison-visits-booking-staging
 spec:
   hard:
-    requests.cpu: 600m
-    requests.memory: 8500Mi
+    pods: "50"

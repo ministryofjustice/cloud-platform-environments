@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.6"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
   cluster_name               = "${var.cluster_name}"
   cluster_state_bucket       = "${var.cluster_state_bucket}"
   team_name                  = "correspondence"
@@ -16,7 +16,7 @@ module "track_a_query_rds" {
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_poc"
   environment-name           = "development"
-  infrastructure-support     = "mohammed.seedat@digtal.justice.gov.uk"
+  infrastructure-support     = "mohammed.seedat@digital.justice.gov.uk"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best

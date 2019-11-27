@@ -4,18 +4,70 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
 
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
   is-production          = "false"
   environment-name       = "development"
-  infrastructure-support = "mohammed.seedat@digtal.justice.gov.uk"
+  infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
+
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET", "POST", "PUT"]
+
+      allowed_origins = [
+        "https://development.track-a-query.service.justice.gov.uk",
+        "https://track-a-query-development.apps.live-1.cloud-platform.service.justice.gov.uk",
+      ]
+
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    },
+    {
+      allowed_headers = ["Authorization"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      max_age_seconds = 3000
+    },
+  ]
 
   providers = {
     aws = "aws.london"
   }
+
+  user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}",
+      "arn:aws:s3:::correspondence-staff-case-uploads-dev"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:*"
+    ],
+    "Resource": [
+      "$${bucket_arn}/*",
+      "arn:aws:s3:::correspondence-staff-case-uploads-dev/*"
+    ]
+  }
+]
+}
+EOF
 }
 
 resource "kubernetes_secret" "track_a_query_s3" {

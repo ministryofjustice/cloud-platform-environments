@@ -1,8 +1,5 @@
-# auto-generated from fb-cloud-platforms-environments
-########################################################
-# Service Token Cache Elasticache Redis (for resque + job logging)
 module "service-token-cache-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.2"
 
   cluster_name         = "${var.cluster_name}"
   cluster_state_bucket = "${var.cluster_state_bucket}"
@@ -12,6 +9,10 @@ module "service-token-cache-elasticache" {
   is-production          = "${var.is-production}"
   infrastructure-support = "${var.infrastructure-support}"
   team_name              = "${var.team_name}"
+
+  providers = {
+    aws = "aws.london"
+  }
 }
 
 resource "kubernetes_secret" "service-token-cache-elasticache" {

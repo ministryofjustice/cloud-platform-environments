@@ -1,7 +1,5 @@
 # cloud-platform-environments
 
-[![CircleCI](https://circleci.com/gh/ministryofjustice/cloud-platform-environments.svg?style=svg)](https://circleci.com/gh/ministryofjustice/cloud-platform-environments)
-
 ## Intro
 This repository is where kubernetes namespaces are managed, across all the clusters. Kubernetes namespaces and resources are defined in the `namespaces` directory in this repository under the corresponding `cluster` name.
 
