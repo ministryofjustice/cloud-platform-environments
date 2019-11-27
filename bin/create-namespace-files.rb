@@ -43,34 +43,12 @@ def create_namespace_files(answers)
   dir = File.join(NAMESPACES_DIR, namespace)
   system("mkdir #{dir}")
   yaml_templates.each { |template| create_file(template, dir, answers) }
-  create_main_tf(namespace)
+  copy_terraform_files(namespace)
 end
 
-def create_main_tf(namespace)
-  main_tf = <<~EOF
-    terraform {
-      backend "s3" {}
-    }
-
-    provider "aws" {
-      region = "eu-west-2"
-    }
-
-    provider "aws" {
-      alias  = "london"
-      region = "eu-west-2"
-    }
-
-    provider "aws" {
-      alias  = "ireland"
-      region = "eu-west-1"
-    }
-  EOF
-
-  dir = File.join(NAMESPACES_DIR, namespace, "resources")
-  system("mkdir #{dir}")
-  outfile = File.join(dir, "main.tf")
-  File.write(outfile, main_tf)
+def copy_terraform_files(namespace)
+  dir = File.join(NAMESPACES_DIR, namespace)
+  system("cp -r namespace-resources/resources #{dir}")
 end
 
 def create_file(template, dir, answers)
