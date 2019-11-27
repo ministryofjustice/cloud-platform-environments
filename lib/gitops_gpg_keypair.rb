@@ -11,18 +11,19 @@ class GitopsGpgKeypair
 
   def generate_and_store
     if secret_key_exists?
-      return if public_key_exists?
       copy_public_key
-      return
+    else
+      pubkey, seckey = generate_keypair
+      store_in_namespace_secrets(pubkey: pubkey, seckey: seckey)
     end
-    pubkey, seckey = generate_keypair
-    store_in_namespace_secrets(pubkey: pubkey, seckey: seckey)
   end
 
   private
 
   def copy_public_key
-    execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
+    if public_key_exists?
+      execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
+    end
   end
 
   def public_key_exists?
