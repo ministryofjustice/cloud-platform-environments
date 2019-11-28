@@ -70,6 +70,10 @@ def create_cloud_platform_deploy(answers)
   render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
 end
 
+def render_templates(files, dir, answers)
+  files.each { |template| create_file(template, dir, answers) }
+end
+
 def create_file(template, dir, answers)
   content = interpolate(File.read(template), answers)
   outfile = File.join(dir, File.basename(template))
