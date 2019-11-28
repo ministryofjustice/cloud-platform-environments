@@ -54,12 +54,19 @@ def create_namespace_files(answers)
   gitops_yaml_templates.each { |template| create_file(template, gitops_dir, answers) }
   copy_terraform_files(namespace)
 
+  create_gitops_module(namespace, answers)
   create_cloud_platform_deploy(answers)
 end
 
 def copy_terraform_files(namespace)
   dir = File.join(NAMESPACES_DIR, namespace)
   system("cp -r namespace-resources/resources #{dir}")
+end
+
+def create_gitops_module(namespace, answers)
+  dir = File.join(NAMESPACES_DIR, namespace, "resources")
+  FileUtils.mkdir_p(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/gitops-resources/*.tf"], dir, answers)
 end
 
 def create_cloud_platform_deploy(answers)
