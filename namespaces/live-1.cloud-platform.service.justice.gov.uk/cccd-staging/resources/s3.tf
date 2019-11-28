@@ -1,5 +1,5 @@
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
   team_name              = "laa-get-paid"
   business-unit          = "legal-aid-agency"
@@ -9,7 +9,7 @@ module "cccd_s3_bucket" {
   infrastructure-support = "crowncourtdefence@digital.justice.gov.uk"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 
   user_policy = <<EOF
@@ -42,6 +42,7 @@ module "cccd_s3_bucket" {
 ]
 }
 EOF
+
 }
 
 resource "kubernetes_secret" "cccd_s3_bucket" {
@@ -50,10 +51,11 @@ resource "kubernetes_secret" "cccd_s3_bucket" {
     namespace = "cccd-staging"
   }
 
-  data {
-    access_key_id     = "${module.cccd_s3_bucket.access_key_id}"
-    secret_access_key = "${module.cccd_s3_bucket.secret_access_key}"
-    bucket_arn        = "${module.cccd_s3_bucket.bucket_arn}"
-    bucket_name       = "${module.cccd_s3_bucket.bucket_name}"
+  data = {
+    access_key_id     = module.cccd_s3_bucket.access_key_id
+    secret_access_key = module.cccd_s3_bucket.secret_access_key
+    bucket_arn        = module.cccd_s3_bucket.bucket_arn
+    bucket_name       = module.cccd_s3_bucket.bucket_name
   }
 }
+

@@ -1,15 +1,15 @@
 terraform {
-  required_version = "0.11.14"
-  backend          "s3"             {}
+  backend "s3" {
+  }
 }
 
 module "cccd_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "cccd"
   team_name = "laa-get-paid"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -19,10 +19,11 @@ resource "kubernetes_secret" "cccd_ecr_credentials" {
     namespace = "cccd-dev"
   }
 
-  data {
-    access_key_id     = "${module.cccd_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.cccd_ecr_credentials.secret_access_key}"
-    repo_arn          = "${module.cccd_ecr_credentials.repo_arn}"
-    repo_url          = "${module.cccd_ecr_credentials.repo_url}"
+  data = {
+    access_key_id     = module.cccd_ecr_credentials.access_key_id
+    secret_access_key = module.cccd_ecr_credentials.secret_access_key
+    repo_arn          = module.cccd_ecr_credentials.repo_arn
+    repo_url          = module.cccd_ecr_credentials.repo_url
   }
 }
+
