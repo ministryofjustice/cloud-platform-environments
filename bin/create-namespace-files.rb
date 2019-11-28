@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "yaml"
+require 'fileutils'
 
 # TODO: default
 # TODO: question N of M
