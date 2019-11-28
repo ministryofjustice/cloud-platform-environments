@@ -5,14 +5,14 @@
  *
  */
 module "markberridge-dev-ecr-credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "markberridge-dev-repo"
   team_name = "markberridge-dev-team"
 
   # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -22,10 +22,11 @@ resource "kubernetes_secret" "markberridge-dev-ecr-credentials" {
     namespace = "markberridge-dev"
   }
 
-  data {
-    access_key_id     = "${module.markberridge-dev-ecr-credentials.access_key_id}"
-    secret_access_key = "${module.markberridge-dev-ecr-credentials.secret_access_key}"
-    repo_arn          = "${module.markberridge-dev-ecr-credentials.repo_arn}"
-    repo_url          = "${module.markberridge-dev-ecr-credentials.repo_url}"
+  data = {
+    access_key_id     = module.markberridge-dev-ecr-credentials.access_key_id
+    secret_access_key = module.markberridge-dev-ecr-credentials.secret_access_key
+    repo_arn          = module.markberridge-dev-ecr-credentials.repo_arn
+    repo_url          = module.markberridge-dev-ecr-credentials.repo_url
   }
 }
+
