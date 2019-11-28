@@ -15,7 +15,7 @@ resource "kubernetes_secret" "ecr-repo" {
     namespace = "${var.namespace}"
   }
 
-  data {
+  data = {
     repo_url          = "${module.ecr-repo.repo_url}"
     access_key_id     = "${module.ecr-repo.access_key_id}"
     secret_access_key = "${module.ecr-repo.secret_access_key}"
