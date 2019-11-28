@@ -2,19 +2,19 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
-  team_name              = "${var.team_name}"
+  team_name              = var.team_name
   acl                    = "private"
   versioning             = false
   business-unit          = "transformed-department"
   application            = "formbuilderuserfilestore"
-  is-production          = "${var.is-production}"
-  environment-name       = "${var.environment-name}"
-  infrastructure-support = "${var.infrastructure-support}"
+  is-production          = var.is-production
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 
   user_policy = <<EOF
@@ -63,19 +63,18 @@ module "user-filestore-s3-bucket" {
 }
 EOF
 
+
   lifecycle_rule = [
     {
       enabled                                = true
       id                                     = "expire-28d"
       prefix                                 = "28d/"
       abort_incomplete_multipart_upload_days = 28
-
       expiration = [
         {
           days = 28
         },
       ]
-
       noncurrent_version_expiration = [
         {
           days = 28
@@ -91,10 +90,11 @@ resource "kubernetes_secret" "user-filestore-s3-bucket" {
     namespace = "formbuilder-platform-${var.environment-name}"
   }
 
-  data {
-    access_key_id     = "${module.user-filestore-s3-bucket.access_key_id}"
-    bucket_arn        = "${module.user-filestore-s3-bucket.bucket_arn}"
-    bucket_name       = "${module.user-filestore-s3-bucket.bucket_name}"
-    secret_access_key = "${module.user-filestore-s3-bucket.secret_access_key}"
+  data = {
+    access_key_id     = module.user-filestore-s3-bucket.access_key_id
+    bucket_arn        = module.user-filestore-s3-bucket.bucket_arn
+    bucket_name       = module.user-filestore-s3-bucket.bucket_name
+    secret_access_key = module.user-filestore-s3-bucket.secret_access_key
   }
 }
+

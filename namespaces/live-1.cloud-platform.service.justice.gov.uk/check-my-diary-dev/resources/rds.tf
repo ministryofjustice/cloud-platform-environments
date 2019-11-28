@@ -3,14 +3,17 @@
  * two variables are automatically supplied by the pipeline.
  */
 
-variable "cluster_name" {}
-variable "cluster_state_bucket" {}
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
 
 module "checkmydiary_dev_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "check-my-diary"
   business-unit          = "HMPPS"
   application            = "check-my-diary"
@@ -21,7 +24,7 @@ module "checkmydiary_dev_rds" {
   force_ssl              = "false"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -31,12 +34,13 @@ resource "kubernetes_secret" "checkmydiary_dev_rds" {
     namespace = "check-my-diary-dev"
   }
 
-  data {
-    rds_instance_endpoint = "${module.checkmydiary_dev_rds.rds_instance_endpoint}"
-    database_name         = "${module.checkmydiary_dev_rds.database_name}"
-    rds_instance_port     = "${module.checkmydiary_dev_rds.rds_instance_port}"
-    database_username     = "${module.checkmydiary_dev_rds.database_username}"
-    database_password     = "${module.checkmydiary_dev_rds.database_password}"
-    rds_instance_address  = "${module.checkmydiary_dev_rds.rds_instance_address}"
+  data = {
+    rds_instance_endpoint = module.checkmydiary_dev_rds.rds_instance_endpoint
+    database_name         = module.checkmydiary_dev_rds.database_name
+    rds_instance_port     = module.checkmydiary_dev_rds.rds_instance_port
+    database_username     = module.checkmydiary_dev_rds.database_username
+    database_password     = module.checkmydiary_dev_rds.database_password
+    rds_instance_address  = module.checkmydiary_dev_rds.rds_instance_address
   }
 }
+

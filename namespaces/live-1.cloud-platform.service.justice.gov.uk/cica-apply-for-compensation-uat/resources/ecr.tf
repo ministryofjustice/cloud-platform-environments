@@ -5,13 +5,13 @@
  *
  */
 module "cica-repo" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "cica"
   team_name = "cica"
 
   providers = {
-    aws = "aws.london"
-  } # this overwrite the region from the provider defined above.
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "ecr-repo" {
@@ -20,9 +20,10 @@ resource "kubernetes_secret" "ecr-repo" {
     namespace = "cica-apply-for-compensation-uat"
   }
 
-  data {
-    access_key_id     = "${module.cica-repo.access_key_id}"
-    secret_access_key = "${module.cica-repo.secret_access_key}"
-    repo_url          = "${module.cica-repo.repo_url}"
+  data = {
+    access_key_id     = module.cica-repo.access_key_id
+    secret_access_key = module.cica-repo.secret_access_key
+    repo_url          = module.cica-repo.repo_url
   }
 }
+
