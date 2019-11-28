@@ -4,9 +4,11 @@
  *
  */
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 /*
  * Make sure that you use the latest version of the module by changing the
@@ -15,9 +17,9 @@ variable "cluster_state_bucket" {}
  *
  */
 module "laa_crime_apps_team_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name         = "${var.cluster_name}"
-  cluster_state_bucket = "${var.cluster_state_bucket}"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name         = var.cluster_name
+  cluster_state_bucket = var.cluster_state_bucket
   team_name            = "laa-crime-apps-team"
   business-unit        = "Crime Apps"
   application          = "laa-court-data-adaptor"
@@ -41,7 +43,7 @@ module "laa_crime_apps_team_rds" {
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -51,7 +53,8 @@ resource "kubernetes_secret" "laa_crime_apps_team_rds" {
     namespace = "laa-court-data-adaptor-dev"
   }
 
-  data {
+  data = {
     url = "postgres://${module.laa_crime_apps_team_rds.database_username}:${module.laa_crime_apps_team_rds.database_password}@${module.laa_crime_apps_team_rds.rds_instance_endpoint}/${module.laa_crime_apps_team_rds.database_name}"
   }
 }
+
