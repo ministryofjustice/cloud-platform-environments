@@ -11,9 +11,9 @@
  *
  */
 module "elasticsearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=2.0"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   application            = "pk-dev-app"
   business-unit          = "pk-dev-bu"
   environment-name       = "dev"
@@ -26,3 +26,4 @@ module "elasticsearch" {
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
 }
+

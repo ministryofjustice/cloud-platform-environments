@@ -5,7 +5,7 @@
  *
  */
 module "example_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=TF12-DO-NOT-USE"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "cptf11-module"
   team_name = "cptf11-team"
 

@@ -4,9 +4,11 @@
  *
  */
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 /*
  * Make sure that you use the latest version of the module by changing the
@@ -15,9 +17,9 @@ variable "cluster_state_bucket" {}
  *
  */
 module "cp_team_test_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "cp-team-test-repo"
   business-unit          = "cp-team-test-bu"
   application            = "cpteamtestapp"
@@ -31,7 +33,7 @@ module "cp_team_test_rds" {
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -41,7 +43,8 @@ resource "kubernetes_secret" "cp_team_test_rds" {
     namespace = "poornima-dev"
   }
 
-  data {
+  data = {
     url = "postgres://${module.cp_team_test_rds.database_username}:${module.cp_team_test_rds.database_password}@${module.cp_team_test_rds.rds_instance_endpoint}/${module.cp_team_test_rds.database_name}"
   }
 }
+

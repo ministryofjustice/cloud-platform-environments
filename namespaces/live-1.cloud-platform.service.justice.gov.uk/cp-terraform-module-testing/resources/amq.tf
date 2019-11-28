@@ -6,7 +6,7 @@
  */
 
 module "example_team_broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=TF12-DO-NOT-USE"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.0"
   team_name              = "example-team"
   business-unit          = "example-bu"
   application            = "cptf11app"

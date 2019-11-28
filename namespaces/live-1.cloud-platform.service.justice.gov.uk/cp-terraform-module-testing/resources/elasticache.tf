@@ -11,7 +11,7 @@
  *
  */
 module "example_team_ec_cluster" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=TF12-DO-NOT-USE"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.0"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "example-repo"
