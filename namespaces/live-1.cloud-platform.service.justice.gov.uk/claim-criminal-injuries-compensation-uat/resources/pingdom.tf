@@ -1,9 +1,10 @@
 terraform {
-  required_version = "0.11.14"
-  backend          "s3"             {}
+  backend "s3" {
+  }
 }
 
-provider "pingdom" {}
+provider "pingdom" {
+}
 
 resource "pingdom_check" "claim-criminal-injuries-compensation-uat" {
   type                     = "http"
@@ -20,3 +21,4 @@ resource "pingdom_check" "claim-criminal-injuries-compensation-uat" {
   probefilters             = "region:EU"
   publicreport             = "true"
 }
+
