@@ -11,7 +11,7 @@
  *
  */
 module "example_team_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=TF12-DO-NOT-USE"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.0"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   application            = "cptf11app"

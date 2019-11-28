@@ -5,7 +5,7 @@
  *
  */
 module "example_team_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=TF12-DO-NOT-USE"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
   team_name              = "cloudplatform"
   business-unit          = "mojdigital"
