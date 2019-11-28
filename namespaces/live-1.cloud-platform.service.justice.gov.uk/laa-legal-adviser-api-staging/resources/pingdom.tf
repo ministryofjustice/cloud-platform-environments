@@ -1,4 +1,5 @@
-provider "pingdom" {}
+provider "pingdom" {
+}
 
 resource "pingdom_check" "laa-legal-adviser-api-search" {
   type                     = "http"
@@ -15,3 +16,4 @@ resource "pingdom_check" "laa-legal-adviser-api-search" {
   probefilters             = "region:EU"
   integrationids           = [87631]
 }
+
