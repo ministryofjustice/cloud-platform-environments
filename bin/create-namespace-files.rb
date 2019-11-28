@@ -52,11 +52,21 @@ def create_namespace_files(answers)
   yaml_templates.each { |template| create_file(template, dir, answers) }
   gitops_yaml_templates.each { |template| create_file(template, gitops_dir, answers) }
   copy_terraform_files(namespace)
+
+  create_cloud_platform_deploy(answers)
 end
 
 def copy_terraform_files(namespace)
   dir = File.join(NAMESPACES_DIR, namespace)
   system("cp -r namespace-resources/resources #{dir}")
+end
+
+def create_cloud_platform_deploy(answers)
+  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR, answers.fetch("namespace"))
+  FileUtils.mkdir_p(dir)
+  # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
+  # up to date with any changes.
+  render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
 end
 
 def create_file(template, dir, answers)
