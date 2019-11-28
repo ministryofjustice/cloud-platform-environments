@@ -2,12 +2,12 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: monitoring
+  namespace: peoplefinder-development
 spec:
   limits:
   - default:
-      cpu: 1600m
-      memory: 24Gi
+      cpu: 1000m
+      memory: 1000Mi
     defaultRequest:
       cpu: 10m
       memory: 100Mi
