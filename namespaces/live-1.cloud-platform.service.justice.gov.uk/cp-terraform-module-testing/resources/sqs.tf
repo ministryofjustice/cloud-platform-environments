@@ -1,5 +1,5 @@
 module "example_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=TF12-DO_NOT-USE"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
   environment-name       = "test"
   team_name              = "cp"
