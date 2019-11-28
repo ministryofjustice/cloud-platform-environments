@@ -1,7 +1,3 @@
-terraform {
-  backend "s3" {
-  }
-}
 
 module "cccd_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
