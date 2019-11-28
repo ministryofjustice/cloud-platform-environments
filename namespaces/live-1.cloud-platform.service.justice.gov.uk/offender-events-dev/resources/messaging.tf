@@ -236,4 +236,3 @@ resource "aws_sns_topic_subscription" "offender_categorisation_subscription" {
   endpoint      = "${module.offender_categorisation_events_queue.sqs_arn}"
   filter_policy = "{\"eventType\":[\"ALERT-INSERTED\", \"ALERT-UPDATED\", \"ALERT-DELETED\"]}"
 }
-
