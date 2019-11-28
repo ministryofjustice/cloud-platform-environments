@@ -1,11 +1,13 @@
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 module "becca_test_app_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "tactical-products"
   business-unit          = "central-digital"
   application            = "becca-test-app"
@@ -15,7 +17,7 @@ module "becca_test_app_rds" {
   force_ssl              = "false"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -25,7 +27,8 @@ resource "kubernetes_secret" "becca_test_app_rds" {
     namespace = "becca-test-app-dev"
   }
 
-  data {
+  data = {
     url = "postgres://${module.becca_test_app_rds.database_username}:${module.becca_test_app_rds.database_password}@${module.becca_test_app_rds.rds_instance_endpoint}/${module.becca_test_app_rds.database_name}"
   }
 }
+
