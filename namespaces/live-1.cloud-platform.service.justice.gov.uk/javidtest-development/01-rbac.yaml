@@ -1,15 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: keyworker-api-prod-admin
-  namespace: keyworker-api-prod
+  name: javidtest-development-admin
+  namespace: javidtest-development
 subjects:
   - kind: Group
-    name: "github:dps-shared"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-core"
+    name: "github:correspondence"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

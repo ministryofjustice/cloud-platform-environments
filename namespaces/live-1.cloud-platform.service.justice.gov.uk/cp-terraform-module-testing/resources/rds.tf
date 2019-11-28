@@ -11,7 +11,7 @@
  *
  */
 module "example_team_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=TF12-DO_NOT-USE"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = "example-repo"

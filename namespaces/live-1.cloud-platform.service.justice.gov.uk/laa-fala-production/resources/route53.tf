@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "route53_zone" {
-  name = "find-legal-advice.service.justice.gov.uk"
+  name = "find-legal-advice.justice.gov.uk"
 
   tags {
     business-unit    = "${var.business-unit}"

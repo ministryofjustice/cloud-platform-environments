@@ -5,7 +5,7 @@
  *
  */
 module "example_team_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=TF12-DO-NOT-USE"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.0"
 
   team_name              = "example-team"
   business-unit          = "example-bu"
