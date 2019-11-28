@@ -1,6 +1,6 @@
 terraform {
-  required_version = "0.11.14"
-  backend          "s3"             {}
+  backend "s3" {
+  }
 }
 
 provider "aws" {
@@ -18,6 +18,9 @@ provider "aws" {
  *
  */
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
+
