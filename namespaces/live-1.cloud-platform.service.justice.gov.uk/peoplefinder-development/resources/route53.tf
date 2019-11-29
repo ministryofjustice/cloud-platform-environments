@@ -83,8 +83,8 @@ resource "aws_route53_record" "peoplefinder_route53_sendgrid_mail" {
   records = ["u1495674.wl.sendgrid.net"]
 }
 
-# Sendgrid records copied from template deploy - Do we need this one? Get rid?
-resource "aws_route53_record" "peoplefinder_route53_sendgrid_mail" {
+# Other records copied from template deploy - Do we need this one? Get rid?
+resource "aws_route53_record" "peoplefinder_route53_mx" {
   zone_id = "${aws_route53_zone.peoplefinder_route53_zone.zone_id}"
   name    = "peoplefinder.service.gov.uk."
   type    = "MX"
