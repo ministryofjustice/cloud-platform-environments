@@ -39,6 +39,9 @@ variable "is-production" {
 }
 
 // The following two variables are provided at runtime by the pipeline.
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
+
