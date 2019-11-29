@@ -83,6 +83,14 @@ resource "aws_route53_record" "peoplefinder_route53_sendgrid_mail" {
   records = ["u1495674.wl.sendgrid.net"]
 }
 
+resource "aws_route53_record" "peoplefinder_route53_sendgrid_dmarc" {
+  zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
+  name    = "_dmarc.peoplefinder.service.gov.uk."
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DMARC1; p=none; rua=mailto:yl0zvgmk@ag.dmarcian.com; ruf=mailto:yl0zvgmk@fr.dmarcian.com;"]
+}
+
 # Other records copied from template deploy - Do we need this one? Get rid?
 resource "aws_route53_record" "peoplefinder_route53_mx" {
   zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
