@@ -1,1 +1,3 @@
-provider "pingdom" {}
+provider "pingdom" {
+}
+
