@@ -52,17 +52,11 @@ class Terraform
 
   private
 
-  def terraform_executable
-    # The `terraform 0.12upgrade` creates a `versions.tf` file, so we can
-    # use the existence of that file to identify terraform 0.12 source code
-    FileTest.exists?("#{tf_dir}/versions.tf") ? "terraform12" : "terraform"
-  end
-
   def tf_init
     key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
 
     cmd = [
-      %(#{terraform_executable} init),
+      %(terraform init),
       %(-backend-config="bucket=#{bucket}"),
       %(-backend-config="key=#{key}"),
       %(-backend-config="dynamodb_table=#{lock_table}"),
@@ -98,7 +92,7 @@ class Terraform
     operation = opts.fetch(:operation)
     last = opts.fetch(:last)
 
-    "#{terraform_executable} #{operation} #{last}"
+    "terraform #{operation} #{last}"
   end
 end
 
