@@ -190,4 +190,3 @@ resource "kubernetes_secret" "start_page_alias" {
     name_servers = join("\n", aws_route53_zone.start_page_alias.name_servers)
   }
 }
-
