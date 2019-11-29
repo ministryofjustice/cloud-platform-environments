@@ -6,17 +6,17 @@
  */
 
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
-  team_name              = "${var.team_name}"
-  business-unit          = "${var.business-unit}"
-  application            = "${var.application}"
-  is-production          = "${var.is-production}"
-  environment-name       = "${var.environment-name}"
-  infrastructure-support = "${var.infrastructure-support}"
+  team_name              = var.team_name
+  business-unit          = var.business-unit
+  application            = var.application
+  is-production          = var.is-production
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 
   user_policy = <<EOF
@@ -49,18 +49,20 @@ module "cccd_s3_bucket" {
 ]
 }
 EOF
+
 }
 
 resource "kubernetes_secret" "cccd_s3_bucket" {
   metadata {
     name      = "cccd-s3-bucket"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
-  data {
-    access_key_id     = "${module.cccd_s3_bucket.access_key_id}"
-    secret_access_key = "${module.cccd_s3_bucket.secret_access_key}"
-    bucket_arn        = "${module.cccd_s3_bucket.bucket_arn}"
-    bucket_name       = "${module.cccd_s3_bucket.bucket_name}"
+  data = {
+    access_key_id     = module.cccd_s3_bucket.access_key_id
+    secret_access_key = module.cccd_s3_bucket.secret_access_key
+    bucket_arn        = module.cccd_s3_bucket.bucket_arn
+    bucket_name       = module.cccd_s3_bucket.bucket_name
   }
 }
+
