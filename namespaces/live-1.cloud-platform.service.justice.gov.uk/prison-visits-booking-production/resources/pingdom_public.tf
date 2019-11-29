@@ -1,9 +1,6 @@
-terraform {
-  required_version = "0.11.14"
-  backend          "s3"             {}
-}
 
-provider "pingdom" {}
+provider "pingdom" {
+}
 
 resource "pingdom_check" "prison-visits-booking-public-production" {
   type                     = "http"
@@ -21,3 +18,4 @@ resource "pingdom_check" "prison-visits-booking-public-production" {
   publicreport             = "true"
   integrationids           = [94618]
 }
+
