@@ -10,9 +10,11 @@ variable "namespace" {
   default = "digital-prison-services-prod"
 }
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
@@ -45,3 +47,4 @@ variable "node-type" {
 variable "is-production" {
   default = "true"
 }
+
