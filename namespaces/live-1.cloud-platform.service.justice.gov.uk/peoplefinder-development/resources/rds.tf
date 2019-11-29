@@ -58,8 +58,8 @@ resource "kubernetes_secret" "peoplefinder_rds" {
     database_password     = module.peoplefinder_rds.database_password
     rds_instance_address  = module.peoplefinder_rds.rds_instance_address
 
-    access_key_id     = module.example_team_rds.access_key_id
-    secret_access_key = module.example_team_rds.secret_access_key
+    access_key_id     = module.peoplefinder_rds.access_key_id
+    secret_access_key = module.peoplefinder_rds.secret_access_key
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
