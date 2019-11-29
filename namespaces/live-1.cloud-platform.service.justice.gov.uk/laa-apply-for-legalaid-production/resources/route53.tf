@@ -1,7 +1,7 @@
 resource "aws_route53_zone" "apply_for_legal_aid_route53_zone" {
   name = "apply-for-legal-aid.service.justice.gov.uk"
 
-  tags {
+  tags = {
     business-unit          = "laa"
     application            = "laa-apply-for-legal-aid"
     is-production          = "true"
@@ -17,7 +17,8 @@ resource "kubernetes_secret" "apply_for_legal_aid_route_53_zone_sec" {
     namespace = "laa-apply-for-legalaid-production"
   }
 
-  data {
-    zone_id = "${aws_route53_zone.apply_for_legal_aid_route53_zone.zone_id}"
+  data = {
+    zone_id = aws_route53_zone.apply_for_legal_aid_route53_zone.zone_id
   }
 }
+
