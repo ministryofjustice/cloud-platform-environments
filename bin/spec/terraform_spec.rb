@@ -40,7 +40,7 @@ describe Terraform do
 
       tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_plan = "cd #{tf_dir}; terraform plan  | grep -vE '^(\\x1b\\[0m)?\\s{3,}'"
+      tf_plan = "cd #{tf_dir}; terraform plan  "
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_plan, "", success)

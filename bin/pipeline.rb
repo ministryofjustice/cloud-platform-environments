@@ -78,7 +78,7 @@ class Terraform
   def tf_plan
     cmd = tf_cmd(
       operation: "plan",
-      last: %( | grep -vE '^(\\x1b\\[0m)?\\s{3,}'),
+      last: " ",
     )
 
     execute("cd #{tf_dir}; #{cmd}")
