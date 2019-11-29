@@ -1,4 +1,5 @@
-provider "pingdom" {}
+provider "pingdom" {
+}
 
 resource "pingdom_check" "laa-legal-adviser-api-search" {
   type                     = "http"
@@ -33,3 +34,4 @@ resource "pingdom_check" "laa-legal-adviser-api-admin" {
   publicreport             = "true"
   integrationids           = [87631, 83320]
 }
+

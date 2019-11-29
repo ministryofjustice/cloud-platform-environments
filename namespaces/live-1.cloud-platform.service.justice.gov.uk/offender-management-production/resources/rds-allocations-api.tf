@@ -4,9 +4,11 @@
  *
  */
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 /*
  * Make sure that you use the latest version of the module by changing the
@@ -15,10 +17,10 @@ variable "cluster_state_bucket" {}
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   db_instance_class      = "db.m4.large"
   team_name              = "offender-management"
   business-unit          = "HMPPS"
@@ -32,7 +34,7 @@ module "allocation-rds" {
   force_ssl              = "false"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -42,15 +44,16 @@ resource "kubernetes_secret" "allocation-rds" {
     namespace = "offender-management-production"
   }
 
-  data {
-    rds_instance_endpoint = "${module.allocation-rds.rds_instance_endpoint}"
-    rds_instance_address  = "${module.allocation-rds.rds_instance_address}"
-    database_name         = "${module.allocation-rds.database_name}"
-    database_username     = "${module.allocation-rds.database_username}"
-    database_password     = "${module.allocation-rds.database_password}"
-    postgres_name         = "${module.allocation-rds.database_name}"
-    postgres_host         = "${module.allocation-rds.rds_instance_address}"
-    postgres_user         = "${module.allocation-rds.database_username}"
-    postgres_password     = "${module.allocation-rds.database_password}"
+  data = {
+    rds_instance_endpoint = module.allocation-rds.rds_instance_endpoint
+    rds_instance_address  = module.allocation-rds.rds_instance_address
+    database_name         = module.allocation-rds.database_name
+    database_username     = module.allocation-rds.database_username
+    database_password     = module.allocation-rds.database_password
+    postgres_name         = module.allocation-rds.database_name
+    postgres_host         = module.allocation-rds.rds_instance_address
+    postgres_user         = module.allocation-rds.database_username
+    postgres_password     = module.allocation-rds.database_password
   }
 }
+
