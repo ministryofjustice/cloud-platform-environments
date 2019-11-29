@@ -6,7 +6,7 @@
 resource "aws_route53_zone" "peoplefinder_route53_zone" {
   name = var.domain
 
-  tags {
+  tags = {
     business-unit          = "Central Digital"
     application            = "peoplefinder"
     is-production          = var.is-production
@@ -22,7 +22,7 @@ resource "kubernetes_secret" "peoplefinder_route53_zone_sec" {
     namespace = var.namespace
   }
 
-  data {
+  data = {
     zone_id      = aws_route53_zone.peoplefinder_route53_zone.zone_id
     name_servers = join("\n", aws_route53_zone.peoplefinder_route53_zone.name_servers)
   }
