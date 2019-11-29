@@ -1,38 +1,41 @@
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
-  team_name              = "${var.team_name}"
-  business-unit          = "${var.business-unit}"
-  application            = "${var.application}"
-  is-production          = "${var.is-production}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
+  team_name              = var.team_name
+  business-unit          = var.business-unit
+  application            = var.application
+  is-production          = var.is-production
   db_engine_version      = "11.4"
-  environment-name       = "${var.environment-name}"
-  infrastructure-support = "${var.infrastructure-support}"
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
   force_ssl              = "true"
   rds_family             = "postgres11"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
 resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "dps-rds-instance-output"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
-  data {
-    rds_instance_endpoint = "${module.dps_rds.rds_instance_endpoint}"
-    database_name         = "${module.dps_rds.database_name}"
-    database_username     = "${module.dps_rds.database_username}"
-    database_password     = "${module.dps_rds.database_password}"
-    rds_instance_address  = "${module.dps_rds.rds_instance_address}"
+  data = {
+    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
+    database_name         = module.dps_rds.database_name
+    database_username     = module.dps_rds.database_username
+    database_password     = module.dps_rds.database_password
+    rds_instance_address  = module.dps_rds.rds_instance_address
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
+

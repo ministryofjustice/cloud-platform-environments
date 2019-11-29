@@ -4,9 +4,9 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=3.1"
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
@@ -15,7 +15,7 @@ module "track_a_query_elasticache_redis" {
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -25,9 +25,10 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
     namespace = "track-a-query-qa"
   }
 
-  data {
-    primary_endpoint_address = "${module.track_a_query_elasticache_redis.primary_endpoint_address}"
-    auth_token               = "${module.track_a_query_elasticache_redis.auth_token}"
+  data = {
+    primary_endpoint_address = module.track_a_query_elasticache_redis.primary_endpoint_address
+    auth_token               = module.track_a_query_elasticache_redis.auth_token
     url                      = "rediss://appuser:${module.track_a_query_elasticache_redis.auth_token}@${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
+
