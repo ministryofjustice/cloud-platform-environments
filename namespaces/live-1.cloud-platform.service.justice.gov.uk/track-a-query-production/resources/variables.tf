@@ -3,8 +3,11 @@
  * two variables are automatically supplied by the pipeline.
  */
 
-variable "cluster_name" {}
-variable "cluster_state_bucket" {}
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
 
 variable "namespace" {
   default = "track-a-query-production"
@@ -21,3 +24,4 @@ variable "is-production" {
 variable "environment-name" {
   default = "production"
 }
+

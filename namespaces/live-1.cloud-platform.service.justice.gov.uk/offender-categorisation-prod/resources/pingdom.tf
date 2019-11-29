@@ -1,4 +1,5 @@
-provider "pingdom" {}
+provider "pingdom" {
+}
 
 # Integration IDs
 # 96624 = #dps_alerts
@@ -20,3 +21,4 @@ resource "pingdom_check" "dps-production-check" {
   probefilters             = "region:EU"
   integrationids           = [91037, 96624, 96628]
 }
+
