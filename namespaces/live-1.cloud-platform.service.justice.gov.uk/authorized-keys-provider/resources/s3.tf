@@ -1,5 +1,5 @@
 module "authorized-keys" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
   team_name              = "cloudplatform"
   business-unit          = "mojdigital"
@@ -9,7 +9,7 @@ module "authorized-keys" {
   infrastructure-support = "platforms@digital.justice.gov.uk"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -19,10 +19,11 @@ resource "kubernetes_secret" "s3_bucket_credentials" {
     namespace = "authorized-keys-provider"
   }
 
-  data {
-    bucket_name       = "${module.authorized-keys.bucket_name}"
-    access_key_id     = "${module.authorized-keys.access_key_id}"
-    bucket_arn        = "${module.authorized-keys.bucket_arn}"
-    secret_access_key = "${module.authorized-keys.secret_access_key}"
+  data = {
+    bucket_name       = module.authorized-keys.bucket_name
+    access_key_id     = module.authorized-keys.access_key_id
+    bucket_arn        = module.authorized-keys.bucket_arn
+    secret_access_key = module.authorized-keys.secret_access_key
   }
 }
+
