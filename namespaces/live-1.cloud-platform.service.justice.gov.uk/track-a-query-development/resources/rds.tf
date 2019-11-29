@@ -3,6 +3,17 @@
 # Application RDS (PostgreSQL)
 #################################################################################
 
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * two variables are automatically supplied by the pipeline.
+ *
+ */
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
+
 module "track_a_query_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
   cluster_name               = var.cluster_name
