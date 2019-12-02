@@ -11,7 +11,7 @@ module "example_team_ecr_credentials" {
   }
 }
 
-resource "kubernetes_secret" "example_team_ecr_credentials" {
+resource "kubernetes_secret" "matttei-wordpress-av-demo-ecr-credentials" {
   metadata {
     name      = "matttei-wordpress-av-demo-ecr-credentials-output"
     namespace = "matttei-wordpress-av-demo"
