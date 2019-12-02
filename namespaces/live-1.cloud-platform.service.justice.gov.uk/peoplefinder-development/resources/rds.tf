@@ -14,8 +14,8 @@ module "peoplefinder_rds" {
   db_engine                  = "postgres"
   db_engine_version          = "9.5"
   db_backup_retention_period = "7"
-  db_name                    = "peoplefinder-production"
-  environment-name           = "production"
+  db_name                    = "peoplefinder_development"
+  environment-name           = "development"
   infrastructure-support     = "people-finder-support@digital.justice.gov.uk"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
