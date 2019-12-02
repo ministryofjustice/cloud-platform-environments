@@ -1,8 +1,8 @@
 
 module "example_team_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
-  repo_name = "example-module"
-  team_name = "example-team"
+  repo_name = "wp-av"
+  team_name = "form-builder"
 
   # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
 
@@ -13,8 +13,8 @@ module "example_team_ecr_credentials" {
 
 resource "kubernetes_secret" "example_team_ecr_credentials" {
   metadata {
-    name      = "example-team-ecr-credentials-output"
-    namespace = "my-namespace"
+    name      = "matttei-wordpress-av-demo-ecr-credentials-output"
+    namespace = "matttei-wordpress-av-demo"
   }
 
   data = {
