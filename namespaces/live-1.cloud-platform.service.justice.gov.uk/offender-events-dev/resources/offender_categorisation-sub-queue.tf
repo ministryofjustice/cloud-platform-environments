@@ -32,7 +32,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_events_queue_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.offender_categorisation_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",f
+          "Action": "SQS:SendMessage",
           "Condition":
                       {
                         "ArnEquals":
