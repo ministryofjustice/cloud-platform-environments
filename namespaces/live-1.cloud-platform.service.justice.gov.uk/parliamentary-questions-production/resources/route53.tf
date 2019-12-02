@@ -1,6 +1,6 @@
 
 resource "aws_route53_zone" "parliamentary_questions" {
-  name = "var.domain"
+  name = var.domain
 
   tags = {
     business-unit          = var.team_name
