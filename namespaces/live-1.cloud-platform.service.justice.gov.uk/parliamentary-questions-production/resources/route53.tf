@@ -1,6 +1,7 @@
 
 resource "aws_route53_zone" "parliamentary_questions" {
-  name = var.domain
+  name = "var.domain"
+
   tags = {
     business-unit          = var.team_name
     application            = var.application
@@ -13,7 +14,7 @@ resource "aws_route53_zone" "parliamentary_questions" {
 
 resource "kubernetes_secret" "parliamentary_questions_route53" {
   metadata {
-    name      = "parliamentary_questions_route53"
+    name      = "parliamentary-questions-route53"
     namespace = var.namespace
   }
 
