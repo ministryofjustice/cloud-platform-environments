@@ -5,10 +5,10 @@
  *
  */
 module "check-financial-eligibility-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "apply-for-legal-aid"
   business-unit          = "laa"
   application            = "check-financial-eligibility"
@@ -22,7 +22,7 @@ module "check-financial-eligibility-rds" {
   rds_family             = "postgres11"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -32,11 +32,12 @@ resource "kubernetes_secret" "check-financial-eligibility-rds" {
     namespace = "check-financial-eligibility-production"
   }
 
-  data {
-    rds_instance_endpoint = "${module.check-financial-eligibility-rds.rds_instance_endpoint}"
-    database_name         = "${module.check-financial-eligibility-rds.database_name}"
-    database_username     = "${module.check-financial-eligibility-rds.database_username}"
-    database_password     = "${module.check-financial-eligibility-rds.database_password}"
-    rds_instance_address  = "${module.check-financial-eligibility-rds.rds_instance_address}"
+  data = {
+    rds_instance_endpoint = module.check-financial-eligibility-rds.rds_instance_endpoint
+    database_name         = module.check-financial-eligibility-rds.database_name
+    database_username     = module.check-financial-eligibility-rds.database_username
+    database_password     = module.check-financial-eligibility-rds.database_password
+    rds_instance_address  = module.check-financial-eligibility-rds.rds_instance_address
   }
 }
+

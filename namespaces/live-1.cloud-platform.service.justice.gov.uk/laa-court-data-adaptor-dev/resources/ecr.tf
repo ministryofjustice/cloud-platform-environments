@@ -5,12 +5,12 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=3.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "laa-court-data-adaptor"
   team_name = "laa-crime-apps-team"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -20,10 +20,11 @@ resource "kubernetes_secret" "laa_crime_apps_team_ecr_credentials" {
     namespace = "laa-court-data-adaptor-dev"
   }
 
-  data {
-    access_key_id     = "${module.laa_crime_apps_team_ecr_credentials.access_key_id}"
-    secret_access_key = "${module.laa_crime_apps_team_ecr_credentials.secret_access_key}"
-    repo_arn          = "${module.laa_crime_apps_team_ecr_credentials.repo_arn}"
-    repo_url          = "${module.laa_crime_apps_team_ecr_credentials.repo_url}"
+  data = {
+    access_key_id     = module.laa_crime_apps_team_ecr_credentials.access_key_id
+    secret_access_key = module.laa_crime_apps_team_ecr_credentials.secret_access_key
+    repo_arn          = module.laa_crime_apps_team_ecr_credentials.repo_arn
+    repo_url          = module.laa_crime_apps_team_ecr_credentials.repo_url
   }
 }
+

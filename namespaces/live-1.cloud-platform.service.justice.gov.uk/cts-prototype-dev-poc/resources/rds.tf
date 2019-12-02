@@ -4,9 +4,9 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
-  cluster_name               = "${var.cluster_name}"
-  cluster_state_bucket       = "${var.cluster_state_bucket}"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name               = var.cluster_name
+  cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "track-a-query"
@@ -30,7 +30,7 @@ module "track_a_query_rds" {
   allow_major_version_upgrade = "true"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -40,12 +40,13 @@ resource "kubernetes_secret" "track_a_query_rds" {
     namespace = "cts-prototype-dev-poc"
   }
 
-  data {
-    rds_instance_endpoint = "${module.track_a_query_rds.rds_instance_endpoint}"
-    database_name         = "${module.track_a_query_rds.database_name}"
-    database_username     = "${module.track_a_query_rds.database_username}"
-    database_password     = "${module.track_a_query_rds.database_password}"
-    rds_instance_address  = "${module.track_a_query_rds.rds_instance_address}"
+  data = {
+    rds_instance_endpoint = module.track_a_query_rds.rds_instance_endpoint
+    database_name         = module.track_a_query_rds.database_name
+    database_username     = module.track_a_query_rds.database_username
+    database_password     = module.track_a_query_rds.database_password
+    rds_instance_address  = module.track_a_query_rds.rds_instance_address
     url                   = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
 }
+

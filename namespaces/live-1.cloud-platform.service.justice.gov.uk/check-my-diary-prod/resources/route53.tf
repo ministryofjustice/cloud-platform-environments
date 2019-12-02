@@ -1,7 +1,7 @@
 resource "aws_route53_zone" "check-my-diary-prod" {
   name = "checkmydiary.service.justice.gov.uk"
 
-  tags {
+  tags = {
     business-unit          = "Check My Diary"
     application            = "Check My Diary"
     is-production          = "true"
@@ -17,7 +17,8 @@ resource "kubernetes_secret" "check-my-diary-prod_sec" {
     namespace = "check-my-diary-prod"
   }
 
-  data {
-    zone_id = "${aws_route53_zone.check-my-diary-prod.zone_id}"
+  data = {
+    zone_id = aws_route53_zone.check-my-diary-prod.zone_id
   }
 }
+

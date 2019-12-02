@@ -5,10 +5,10 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "apply-for-legal-aid"
   business-unit          = "laa"
   application            = "laa-apply-for-legal-aid"
@@ -21,7 +21,7 @@ module "apply-for-legal-aid-rds" {
   rds_family             = "postgres11"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -31,15 +31,15 @@ resource "kubernetes_secret" "apply-for-legal-aid-rds" {
     namespace = "laa-apply-for-legalaid-staging"
   }
 
-  data {
-    rds_instance_endpoint = "${module.apply-for-legal-aid-rds.rds_instance_endpoint}"
-    database_name         = "${module.apply-for-legal-aid-rds.database_name}"
-    database_username     = "${module.apply-for-legal-aid-rds.database_username}"
-    database_password     = "${module.apply-for-legal-aid-rds.database_password}"
-    rds_instance_address  = "${module.apply-for-legal-aid-rds.rds_instance_address}"
-    access_key_id         = "${module.apply-for-legal-aid-rds.access_key_id}"
-    secret_access_key     = "${module.apply-for-legal-aid-rds.secret_access_key}"
-
-    url = "postgres://${module.apply-for-legal-aid-rds.database_username}:${module.apply-for-legal-aid-rds.database_password}@${module.apply-for-legal-aid-rds.rds_instance_endpoint}/${module.apply-for-legal-aid-rds.database_name}"
+  data = {
+    rds_instance_endpoint = module.apply-for-legal-aid-rds.rds_instance_endpoint
+    database_name         = module.apply-for-legal-aid-rds.database_name
+    database_username     = module.apply-for-legal-aid-rds.database_username
+    database_password     = module.apply-for-legal-aid-rds.database_password
+    rds_instance_address  = module.apply-for-legal-aid-rds.rds_instance_address
+    access_key_id         = module.apply-for-legal-aid-rds.access_key_id
+    secret_access_key     = module.apply-for-legal-aid-rds.secret_access_key
+    url                   = "postgres://${module.apply-for-legal-aid-rds.database_username}:${module.apply-for-legal-aid-rds.database_password}@${module.apply-for-legal-aid-rds.rds_instance_endpoint}/${module.apply-for-legal-aid-rds.database_name}"
   }
 }
+

@@ -9,9 +9,11 @@ variable "environment-name" {
 }
 
 // The following two variables are provided at runtime by the pipeline.
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 variable "db_backup_retention_period_hmcts_complaints_adapter" {
   default = "2"
@@ -25,3 +27,4 @@ variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "Form Builder form-builder-team@digital.justice.gov.uk"
 }
+

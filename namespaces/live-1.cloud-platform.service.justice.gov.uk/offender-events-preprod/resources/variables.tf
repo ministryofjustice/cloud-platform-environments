@@ -6,9 +6,11 @@ variable "namespace" {
   default = "offender-events-preprod"
 }
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
@@ -33,3 +35,4 @@ variable "infrastructure-support" {
 variable "is-production" {
   default = "false"
 }
+

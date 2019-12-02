@@ -1,10 +1,10 @@
 module "case_note_poll_pusher_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name       = "${var.environment-name}"
-  team_name              = "${var.team_name}"
-  infrastructure-support = "${var.infrastructure-support}"
-  application            = "${var.application}"
+  environment-name       = var.environment-name
+  team_name              = var.team_name
+  infrastructure-support = var.infrastructure-support
+  application            = var.application
   sqs_name               = "case_note_poll_pusher_queue"
   encrypt_sqs_kms        = "true"
 
@@ -12,15 +12,17 @@ module "case_note_poll_pusher_queue" {
   {
     "deadLetterTargetArn": "${module.case_note_poll_pusher_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  EOF
+  
+EOF
+
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
 resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
-  queue_url = "${module.case_note_poll_pusher_queue.sqs_id}"
+  queue_url = module.case_note_poll_pusher_queue.sqs_id
 
   policy = <<EOF
   {
@@ -43,21 +45,23 @@ resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
         }
       ]
   }
-   EOF
+   
+EOF
+
 }
 
 module "case_note_poll_pusher_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=3.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name       = "${var.environment-name}"
-  team_name              = "${var.team_name}"
-  infrastructure-support = "${var.infrastructure-support}"
-  application            = "${var.application}"
+  environment-name       = var.environment-name
+  team_name              = var.team_name
+  infrastructure-support = var.infrastructure-support
+  application            = var.application
   sqs_name               = "case_note_poll_pusher_queue_dl"
   encrypt_sqs_kms        = "true"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -67,12 +71,12 @@ resource "kubernetes_secret" "case_note_poll_pusher_queue" {
     namespace = "case-notes-to-probation-preprod"
   }
 
-  data {
-    access_key_id     = "${module.case_note_poll_pusher_queue.access_key_id}"
-    secret_access_key = "${module.case_note_poll_pusher_queue.secret_access_key}"
-    sqs_cnpp_url      = "${module.case_note_poll_pusher_queue.sqs_id}"
-    sqs_cnpp_arn      = "${module.case_note_poll_pusher_queue.sqs_arn}"
-    sqs_cnpp_name     = "${module.case_note_poll_pusher_queue.sqs_name}"
+  data = {
+    access_key_id     = module.case_note_poll_pusher_queue.access_key_id
+    secret_access_key = module.case_note_poll_pusher_queue.secret_access_key
+    sqs_cnpp_url      = module.case_note_poll_pusher_queue.sqs_id
+    sqs_cnpp_arn      = module.case_note_poll_pusher_queue.sqs_arn
+    sqs_cnpp_name     = module.case_note_poll_pusher_queue.sqs_name
   }
 }
 
@@ -82,19 +86,20 @@ resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
     namespace = "case-notes-to-probation-preprod"
   }
 
-  data {
-    access_key_id     = "${module.case_note_poll_pusher_dead_letter_queue.access_key_id}"
-    secret_access_key = "${module.case_note_poll_pusher_dead_letter_queue.secret_access_key}"
-    sqs_cnpp_url      = "${module.case_note_poll_pusher_dead_letter_queue.sqs_id}"
-    sqs_cnpp_arn      = "${module.case_note_poll_pusher_dead_letter_queue.sqs_arn}"
-    sqs_cnpp_name     = "${module.case_note_poll_pusher_dead_letter_queue.sqs_name}"
+  data = {
+    access_key_id     = module.case_note_poll_pusher_dead_letter_queue.access_key_id
+    secret_access_key = module.case_note_poll_pusher_dead_letter_queue.secret_access_key
+    sqs_cnpp_url      = module.case_note_poll_pusher_dead_letter_queue.sqs_id
+    sqs_cnpp_arn      = module.case_note_poll_pusher_dead_letter_queue.sqs_arn
+    sqs_cnpp_name     = module.case_note_poll_pusher_dead_letter_queue.sqs_name
   }
 }
 
 resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
-  provider      = "aws.london"
-  topic_arn     = "${module.offender_events.topic_arn}"
+  provider      = aws.london
+  topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
-  endpoint      = "${module.case_note_poll_pusher_queue.sqs_arn}"
+  endpoint      = module.case_note_poll_pusher_queue.sqs_arn
   filter_policy = "{\"eventType\":[ \"PRISON-RELEASE\", \"TRANSFER+FROMTOL\", \"GEN-OBS\", {\"prefix\": \"OMIC\"}, {\"prefix\": \"OMIC_OPD\"}, {\"prefix\": \"ALERT\"}, {\"prefix\": \"KA\"} ] }"
 }
+

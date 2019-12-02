@@ -4,9 +4,11 @@
  *
  */
 
-variable "cluster_name" {}
+variable "cluster_name" {
+}
 
-variable "cluster_state_bucket" {}
+variable "cluster_state_bucket" {
+}
 
 /*
  * Make sure that you use the latest version of the module by changing the
@@ -16,10 +18,10 @@ variable "cluster_state_bucket" {}
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
 
-  cluster_name           = "${var.cluster_name}"
-  cluster_state_bucket   = "${var.cluster_state_bucket}"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "prison-visits-booking"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-staging"
@@ -33,7 +35,7 @@ module "prison-visits-rds" {
   rds_family             = "postgres9.6"
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -43,7 +45,8 @@ resource "kubernetes_secret" "prison-visits-rds" {
     namespace = "prison-visits-booking-staging"
   }
 
-  data {
+  data = {
     url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
+

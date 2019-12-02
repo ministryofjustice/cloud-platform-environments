@@ -4,13 +4,13 @@
 #################################################################################
 
 resource "aws_route53_zone" "track_a_query_route53_zone" {
-  name = "${var.domain}"
+  name = var.domain
 
-  tags {
+  tags = {
     business-unit          = "Central Digital"
     application            = "track-a-query"
-    is-production          = "${var.is-production}"
-    environment-name       = "${var.environment-name}"
+    is-production          = var.is-production
+    environment-name       = var.environment-name
     owner                  = "staff-services"
     infrastructure-support = "correspondence-support@digital.justice.gov.uk"
   }
@@ -19,11 +19,15 @@ resource "aws_route53_zone" "track_a_query_route53_zone" {
 resource "kubernetes_secret" "track_a_query_route53_zone_sec" {
   metadata {
     name      = "track-a-query-route53-zone-output"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
-  data {
-    zone_id      = "${aws_route53_zone.track_a_query_route53_zone.zone_id}"
-    name_servers = "${join("\n", aws_route53_zone.track_a_query_route53_zone.name_servers)}"
+  data = {
+    zone_id = aws_route53_zone.track_a_query_route53_zone.zone_id
+    name_servers = join(
+      "\n",
+      aws_route53_zone.track_a_query_route53_zone.name_servers,
+    )
   }
 }
+

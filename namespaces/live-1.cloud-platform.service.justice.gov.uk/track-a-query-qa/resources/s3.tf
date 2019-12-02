@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
 
   team_name              = "correspondence"
   business-unit          = "Central Digital"
@@ -30,7 +30,7 @@ module "track_a_query_s3" {
   ]
 
   providers = {
-    aws = "aws.london"
+    aws = aws.london
   }
 }
 
@@ -40,10 +40,11 @@ resource "kubernetes_secret" "track_a_query_s3" {
     namespace = "track-a-query-qa"
   }
 
-  data {
-    access_key_id     = "${module.track_a_query_s3.access_key_id}"
-    secret_access_key = "${module.track_a_query_s3.secret_access_key}"
-    bucket_arn        = "${module.track_a_query_s3.bucket_arn}"
-    bucket_name       = "${module.track_a_query_s3.bucket_name}"
+  data = {
+    access_key_id     = module.track_a_query_s3.access_key_id
+    secret_access_key = module.track_a_query_s3.secret_access_key
+    bucket_arn        = module.track_a_query_s3.bucket_arn
+    bucket_name       = module.track_a_query_s3.bucket_name
   }
 }
+
