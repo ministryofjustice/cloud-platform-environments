@@ -49,7 +49,7 @@ module "keyworker_api_queue" {
   {
     "deadLetterTargetArn": "${module.keyworker_api_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
+
 EOF
 
 
@@ -82,7 +82,7 @@ resource "aws_sqs_queue_policy" "keyworker_api_queue_policy" {
         }
       ]
   }
-   
+
 EOF
 
 }
