@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.join(File.dirname(__FILE__), "..", "lib", "cp_env")
+require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 def main(cluster)
   log("green", "planning for cluster #{cluster}")
