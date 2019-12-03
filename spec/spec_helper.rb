@@ -99,7 +99,7 @@ end
 
 require "pry-byebug"
 
-require "./pipeline"
+require File.join(File.dirname(__FILE__), "..", "lib", "cp_env")
 
 def expect_execute(cmd, stdout, status)
   expect(Open3).to receive(:capture3).with(cmd).and_return([stdout, "", status])
