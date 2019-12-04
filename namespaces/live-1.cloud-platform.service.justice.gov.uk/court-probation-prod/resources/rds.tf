@@ -4,7 +4,7 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
-module "auth_rds" {
+module "court_case_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -22,19 +22,19 @@ module "auth_rds" {
   }
 }
 
-resource "kubernetes_secret" "auth_rds" {
+resource "kubernetes_secret" "court_case_rds" {
   metadata {
-    name      = "auth-rds-instance-output"
+    name      = "court-case-rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.auth_rds.rds_instance_endpoint
-    database_name         = module.auth_rds.database_name
-    database_username     = module.auth_rds.database_username
-    database_password     = module.auth_rds.database_password
-    rds_instance_address  = module.auth_rds.rds_instance_address
-    url                   = "postgres://${module.auth_rds.database_username}:${module.auth_rds.database_password}@${module.auth_rds.rds_instance_endpoint}/${module.auth_rds.database_name}"
+    rds_instance_endpoint = module.court_case_rds.rds_instance_endpoint
+    database_name         = module.court_case_rds.database_name
+    database_username     = module.court_case_rds.database_username
+    database_password     = module.court_case_rds.database_password
+    rds_instance_address  = module.court_case_rds.rds_instance_address
+    url                   = "postgres://${module.court_case_rds.database_username}:${module.court_case_rds.database_password}@${module.court_case_rds.rds_instance_endpoint}/${module.court_case_rds.database_name}"
   }
 }
 
