@@ -1,8 +1,20 @@
 require "spec_helper"
 
 describe CpEnv::NamespaceDeleter do
-  let(:metadata_prod) { double(Kubeclient::Resource, name: "prod", labels: { "cloud-platform.justice.gov.uk/is-production" => "true" }) }
-  let(:metadata_nonprod) { double(Kubeclient::Resource, name: "nonprod", labels: { "cloud-platform.justice.gov.uk/is-production" => "false" }) }
+
+  let(:metadata_prod) {
+    double(Kubeclient::Resource,
+           name: "prod",
+           labels: { "cloud-platform.justice.gov.uk/is-production" => "true" }
+          )
+  }
+
+  let(:metadata_nonprod) {
+    double(Kubeclient::Resource,
+           name: "nonprod",
+           labels: { "cloud-platform.justice.gov.uk/is-production" => "false" }
+          )
+  }
 
   let(:prod) { double(Kubeclient::Resource, metadata: metadata_prod) }
   let(:nonprod) { double(Kubeclient::Resource, metadata: metadata_nonprod) }
@@ -11,7 +23,10 @@ describe CpEnv::NamespaceDeleter do
 
   let(:namespace) { "nonprod" }
 
-  let(:terraform_apply) { "cd namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/resources; terraform apply -auto-approve" }
+  let(:terraform_apply) {
+    "cd namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/resources; terraform apply -auto-approve"
+  }
+
   let(:k8s_client) { double(Kubeclient::Client, get_namespaces: namespaces) }
 
   let(:params) { {
