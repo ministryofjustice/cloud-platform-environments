@@ -11,12 +11,15 @@ describe CpEnv::NamespaceDeleter do
 
   let(:namespace) { "nonprod" }
 
-  let(:params) { { namespace: namespace } }
-
-  subject(:deleter) { described_class.new(params) }
-
   let(:terraform_apply) { "cd namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/resources; terraform apply -auto-approve" }
   let(:k8s_client) { double(Kubeclient::Client, get_namespaces: namespaces) }
+
+  let(:params) { {
+    namespace: namespace,
+    k8s_client: k8s_client,
+  } }
+
+  subject(:deleter) { described_class.new(params) }
 
   let(:success) { double(success?: true) }
 
