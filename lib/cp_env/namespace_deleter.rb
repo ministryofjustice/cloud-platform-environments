@@ -100,19 +100,19 @@ class CpEnv
         s3client: Aws::S3::Client.new(
           region: KUBECONFIG_AWS_REGION,
           credentials: Aws::Credentials.new(
-            env('KUBECONFIG_AWS_ACCESS_KEY_ID'),
-            env('KUBECONFIG_AWS_SECRET_ACCESS_KEY')
+            env("KUBECONFIG_AWS_ACCESS_KEY_ID"),
+            env("KUBECONFIG_AWS_SECRET_ACCESS_KEY")
           )
         ),
-        bucket:       env('KUBECONFIG_S3_BUCKET'),
-        key:          env('KUBECONFIG_S3_KEY'),
-        local_target: env('KUBE_CONFIG'),
+        bucket: env("KUBECONFIG_S3_BUCKET"),
+        key: env("KUBECONFIG_S3_KEY"),
+        local_target: env("KUBE_CONFIG"),
       }
       config_file = Kubeconfig.new(kubeconfig).fetch_and_store
 
       config = Kubeclient::Config.read(config_file)
 
-      ctx = config.context(env('KUBE_CTX'))
+      ctx = config.context(env("KUBE_CTX"))
 
       @k8s_client = Kubeclient::Client.new(
         ctx.api_endpoint,
