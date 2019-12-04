@@ -29,8 +29,8 @@ resource "aws_route53_record" "pq_route53_a_record" {
   name    = "."
   type    = "A"
   alias {
-    name    = "dualstack.pq-prod-a7-elbprod-x639p15np7yz-345805924.eu-west-1.elb.amazonaws.com."
-    zone_id = "Z32O12XQLNTSW2"
+    name                   = "dualstack.pq-prod-a7-elbprod-x639p15np7yz-345805924.eu-west-1.elb.amazonaws.com."
+    zone_id                = "Z32O12XQLNTSW2"
     evaluate_target_health = true
   }
 }
