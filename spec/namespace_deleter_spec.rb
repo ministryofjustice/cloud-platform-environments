@@ -44,6 +44,7 @@ describe CpEnv::NamespaceDeleter do
     allow(Kubeclient::Client).to receive(:new).and_return(k8s_client)
     allow($stdout).to receive(:puts).at_least(:once) # suppress output from 'log' method
     allow(Terraform).to receive(:new).and_return(terraform)
+    allow(ENV).to receive(:fetch).and_return("dummy")
   end
 
   context "when the namespace does not exist in the cluster" do
