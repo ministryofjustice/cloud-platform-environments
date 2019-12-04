@@ -98,16 +98,35 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
         allow(FileTest).to receive(:directory?).and_return(true)
       end
 
-      it "runs kubectl apply" do
-        allow_any_instance_of(Object).to receive(:apply_terraform)
+      context "with no kubernetes files" do
+        it "does not run kubectl apply" do
+          allow_any_instance_of(Object).to receive(:apply_terraform)
 
-        cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
+          cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
+          expect(Open3).to_not receive(:capture3).with(cmd)
 
-        expect_execute(cmd, "", success)
-        expect($stdout).to receive(:puts)
-
-        apply_namespace_dir(cluster, dir)
+          apply_namespace_dir(cluster, dir)
+        end
       end
+
+      context "with kubernetes files" do
+        before do
+          allow(Dir).to receive(:glob).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/*.{yaml,yml,json}")
+            .and_return([1,2,3])
+        end
+
+        it "runs kubectl apply" do
+          allow_any_instance_of(Object).to receive(:apply_terraform)
+
+          cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
+
+          expect_execute(cmd, "", success)
+          expect($stdout).to receive(:puts)
+
+          apply_namespace_dir(cluster, dir)
+        end
+      end
+
 
       it "applies terraform files" do
         allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)

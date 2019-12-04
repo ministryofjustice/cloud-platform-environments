@@ -61,8 +61,14 @@ def plan_namespace_dir(cluster, dir)
 end
 
 def apply_kubernetes_files(_cluster, namespace, dir)
-  log("green", "applying #{namespace}")
-  execute("kubectl -n #{namespace} apply -f #{dir}")
+  if contains_kubernetes_files?(dir)
+    log("green", "applying #{namespace}")
+    execute("kubectl -n #{namespace} apply -f #{dir}")
+  end
+end
+
+def contains_kubernetes_files?(dir)
+  Dir.glob("#{dir}/*.{yaml,yml,json}").any?
 end
 
 def apply_terraform(cluster, namespace, dir)
