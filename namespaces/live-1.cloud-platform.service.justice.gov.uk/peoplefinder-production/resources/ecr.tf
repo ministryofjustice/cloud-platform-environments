@@ -19,7 +19,7 @@ module "peoplefinder_ecr_credentials" {
 resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
   metadata {
     name      = "peoplefinder-ecr-credentials-output"
-    namespace = "peoplefinder-development"
+    namespace = "peoplefinder-production"
   }
 
   data = {
