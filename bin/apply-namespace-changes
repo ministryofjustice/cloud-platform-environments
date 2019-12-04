@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.join(".", File.dirname(__FILE__), "pipeline")
+require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
