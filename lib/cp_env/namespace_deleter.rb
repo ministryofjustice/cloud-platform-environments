@@ -25,7 +25,7 @@ class CpEnv
     def initialize(args)
       @namespace = args.fetch(:namespace)
       @k8s_client = args.fetch(:k8s_client) { initialise_k8s_client }
-      # check_prerequisites # TODO
+      check_prerequisites
     end
 
     def delete
