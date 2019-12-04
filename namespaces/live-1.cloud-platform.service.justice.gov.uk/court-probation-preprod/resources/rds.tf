@@ -11,7 +11,6 @@ module "court_case_rds" {
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
-  is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
