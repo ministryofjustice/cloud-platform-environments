@@ -13,7 +13,7 @@ class CpEnv
     # Assumption: The script which invokes this class is being called from the
     # root of an up to date working copy of the environments repo.
 
-    attr_reader :namespace, :k8sclient
+    attr_reader :namespace
 
     CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
     KUBECONFIG_AWS_REGION = "eu-west-2"
