@@ -62,7 +62,6 @@ describe CpEnv::NamespaceDeleter do
   end
 
   context "when the namespace source code folder exists" do
-
     before do
       allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(true)
     end
