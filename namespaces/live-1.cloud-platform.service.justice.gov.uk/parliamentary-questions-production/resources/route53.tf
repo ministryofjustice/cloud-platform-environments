@@ -51,14 +51,6 @@ resource "aws_route53_record" "pq_route53_cname1_record" {
   records = ["0E5EAFF1A065B0971AC304F6FA5D36D8.8B8E82AD41E05EE9A7DFDCEBFFA99B8C.comodoca.com."]
 }
 
-resource "aws_route53_record" "pq_route53_cname2_record" {
-  zone_id = aws_route53_zone.parliamentary_questions.zone_id
-  name    = "_c282d3c53501f377a7c87b02b1f5e30a."
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["0E5EAFF1A065B0971AC304F6FA5D36D8.8B8E82AD41E05EE9A7DFDCEBFFA99B8C.comodoca.com."]
-}
-
 resource "aws_route53_record" "pq_route53_dmarc_record" {
   zone_id = aws_route53_zone.parliamentary_questions.zone_id
   name    = "_dmarc"
