@@ -23,8 +23,9 @@ class CpEnv
     EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/master/namespace-resources/resources/main.tf"
 
     def initialize(args)
-      @namespace= args.fetch(:namespace)
-      # check_prerequisites
+      @namespace = args.fetch(:namespace)
+      @k8s_client = args.fetch(:k8s_client) { initialise_k8s_client }
+      # check_prerequisites # TODO
     end
 
     def delete
@@ -92,34 +93,34 @@ class CpEnv
     end
 
     def kubeclient
-      if @k8s_client.nil?
-        kubeconfig = {
-          s3client: Aws::S3::Client.new(
-            region: KUBECONFIG_AWS_REGION,
-            credentials: Aws::Credentials.new(
-              env('KUBECONFIG_AWS_ACCESS_KEY_ID'),
-              env('KUBECONFIG_AWS_SECRET_ACCESS_KEY')
-            )
-          ),
-          bucket:       env('KUBECONFIG_S3_BUCKET'),
-          key:          env('KUBECONFIG_S3_KEY'),
-          local_target: env('KUBE_CONFIG'),
-        }
-        config_file = Kubeconfig.new(kubeconfig).fetch_and_store
+      @k8s_client ||= initialise_k8s_client
+    end
 
-        config = Kubeclient::Config.read(config_file)
+    def initialise_k8s_client
+      kubeconfig = {
+        s3client: Aws::S3::Client.new(
+          region: KUBECONFIG_AWS_REGION,
+          credentials: Aws::Credentials.new(
+            env('KUBECONFIG_AWS_ACCESS_KEY_ID'),
+            env('KUBECONFIG_AWS_SECRET_ACCESS_KEY')
+          )
+        ),
+        bucket:       env('KUBECONFIG_S3_BUCKET'),
+        key:          env('KUBECONFIG_S3_KEY'),
+        local_target: env('KUBE_CONFIG'),
+      }
+      config_file = Kubeconfig.new(kubeconfig).fetch_and_store
 
-        ctx = config.context(env('KUBE_CTX'))
+      config = Kubeclient::Config.read(config_file)
 
-        @k8s_client = Kubeclient::Client.new(
-          ctx.api_endpoint,
-          "v1",
-          ssl_options: ctx.ssl_options,
-          auth_options: ctx.auth_options
-        )
-      end
+      ctx = config.context(env('KUBE_CTX'))
 
-      @k8s_client
+      @k8s_client = Kubeclient::Client.new(
+        ctx.api_endpoint,
+        "v1",
+        ssl_options: ctx.ssl_options,
+        auth_options: ctx.auth_options
+      )
     end
 
     def create_empty_main_tf
