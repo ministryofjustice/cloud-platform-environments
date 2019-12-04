@@ -36,11 +36,14 @@ describe CpEnv::NamespaceDeleter do
 
   subject(:deleter) { described_class.new(params) }
 
+  let(:terraform) { double(Terraform) }
+
   let(:success) { double(success?: true) }
 
   before do
     allow(Kubeclient::Client).to receive(:new).and_return(k8s_client)
     allow($stdout).to receive(:puts).at_least(:once) # suppress output from 'log' method
+    allow(Terraform).to receive(:new).and_return(terraform)
   end
 
   context "when the namespace does not exist in the cluster" do
@@ -91,21 +94,21 @@ describe CpEnv::NamespaceDeleter do
   context "when the namespace should be deleted" do
     before do
       allow(Open3).to receive(:capture3).at_least(:once).and_return(["", "", success])
-      allow(Open3).to receive(:capture3).with("mkdir -p namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources").and_return(["", "", success])
+      expect(Open3).to receive(:capture3).with("mkdir -p namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources").and_return(["", "", success])
       allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(false, true)
-      allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/resources").and_return(true)
-      expect(File).to receive(:open).with("/tmp/kubeconfig", "w").at_least(:once)
       expect(File).to receive(:open).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources/main.tf", "w").at_least(:once)
     end
 
     it "deletes AWS resources" do
       allow(k8s_client).to receive(:delete_namespace)
 
-      expect(Open3).to receive(:capture3).with(terraform_apply).at_least(:once)
+      expect(terraform).to receive(:apply)
       deleter.delete
     end
 
     it "deletes the namespace" do
+      allow(terraform).to receive(:apply)
+
       expect(k8s_client).to receive(:delete_namespace).with(namespace)
       deleter.delete
     end
