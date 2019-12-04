@@ -112,7 +112,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       context "with kubernetes files" do
         before do
           allow(Dir).to receive(:glob).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/*.{yaml,yml,json}")
-            .and_return([1,2,3])
+            .and_return([1, 2, 3])
         end
 
         it "runs kubectl apply" do
@@ -126,7 +126,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
           apply_namespace_dir(cluster, dir)
         end
       end
-
 
       it "applies terraform files" do
         allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)

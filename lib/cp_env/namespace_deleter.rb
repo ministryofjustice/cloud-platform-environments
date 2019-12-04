@@ -1,6 +1,5 @@
 class CpEnv
   class NamespaceDeleter
-
     # Class to delete a namespace's AWS resources, and then the namespace
     # itself. The order is important, because deleting the AWS resources is
     # more likely to fail than deleting the namespace, and if the namespace is
@@ -41,7 +40,7 @@ class CpEnv
     def check_prerequisites
       raise "No namespace supplied" if namespace.to_s.empty?
 
-      %w(
+      %w[
         KUBECONFIG_AWS_ACCESS_KEY_ID
         KUBECONFIG_AWS_SECRET_ACCESS_KEY
         KUBECONFIG_S3_BUCKET
@@ -50,7 +49,7 @@ class CpEnv
         KUBE_CTX
         PIPELINE_TERRAFORM_STATE_LOCK_TABLE
         PIPELINE_STATE_BUCKET
-      ).each do |var|
+      ].each do |var|
         env(var)
       end
     end
@@ -126,9 +125,9 @@ class CpEnv
     def create_empty_main_tf
       dir = File.join(namespace_dir, "resources")
       execute("mkdir -p #{dir}")
-      content = URI::open(EMPTY_MAIN_TF_URL).read
+      content = URI.open(EMPTY_MAIN_TF_URL).read
       file = File.join(dir, "main.tf")
-      File.open(file, 'w') { |f| f.puts(content) }
+      File.open(file, "w") { |f| f.puts(content) }
     end
 
     # Remove the empty main.tf we created, along
