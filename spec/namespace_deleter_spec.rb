@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe CpEnv::NamespaceDeleter do
-  let(:metadata_prod) { double(Kubeclient::Resource, name: "prod", labels: { "cloud-platform.justice.gov.uk/is-production" => "true" }) }
-  let(:metadata_nonprod) { double(Kubeclient::Resource, name: "nonprod", labels: { "cloud-platform.justice.gov.uk/is-production" => "false" }) }
+  let(:metadata_prod) { double(Kubeclient::Resource, name: "prod", labels: {"cloud-platform.justice.gov.uk/is-production" => "true"}) }
+  let(:metadata_nonprod) { double(Kubeclient::Resource, name: "nonprod", labels: {"cloud-platform.justice.gov.uk/is-production" => "false"}) }
 
   let(:prod) { double(Kubeclient::Resource, metadata: metadata_prod) }
   let(:nonprod) { double(Kubeclient::Resource, metadata: metadata_nonprod) }
@@ -11,7 +11,7 @@ describe CpEnv::NamespaceDeleter do
 
   let(:namespace) { "nonprod" }
 
-  let(:params) { { namespace: namespace } }
+  let(:params) { {namespace: namespace} }
 
   subject(:deleter) { described_class.new(params) }
 
@@ -40,7 +40,6 @@ describe CpEnv::NamespaceDeleter do
   end
 
   context "when the namespace source code folder exists" do
-
     before do
       allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(true)
     end
