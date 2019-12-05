@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe CpEnv::NamespaceDeleter do
-
   let(:metadata_prod) {
     double(Kubeclient::Resource,
       name: "prod",

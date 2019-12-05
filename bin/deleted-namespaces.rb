@@ -5,7 +5,7 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 require "slack-notify"
 
 def send_notification(msg)
-  webhook_url = "https://hooks.slack.com/services/#{ENV.fetch('SLACK_WEBHOOK')}"
+  webhook_url = "https://hooks.slack.com/services/#{ENV.fetch("SLACK_WEBHOOK")}"
 
   SlackNotify::Client.new(
     channel: "#cloud-platform",
@@ -19,13 +19,13 @@ namespaces = deleted_namespaces("live-1.cloud-platform.service.justice.gov.uk")
 
 if namespaces.any?
   msg = <<~EOF
-  The following namespaces have been removed from the environments repository:
+    The following namespaces have been removed from the environments repository:
 
-    - #{namespaces.join("\n  - ")}
+      - #{namespaces.join("\n  - ")}
 
-  Please delete them:
+    Please delete them:
 
-  https://runbooks.cloud-platform.service.justice.gov.uk/manually-delete-namespace-resources.html#manually-delete-namespace-resources
+    https://runbooks.cloud-platform.service.justice.gov.uk/manually-delete-namespace-resources.html#manually-delete-namespace-resources
 
   EOF
 
