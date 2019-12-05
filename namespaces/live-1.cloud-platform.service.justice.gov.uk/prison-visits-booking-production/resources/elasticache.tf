@@ -23,6 +23,6 @@ resource "kubernetes_secret" "ec-cluster-prison-visits-booking-staff" {
   data = {
     primary_endpoint_address = module.ec-cluster-prison-visits-booking-staff.primary_endpoint_address
     auth_token               = module.ec-cluster-prison-visits-booking-staff.auth_token
+    url                      = "rediss://dummyuser:${module.ec-cluster-prison-visits-booking-staff.auth_token}@${module.ec-cluster-prison-visits-booking-staff.primary_endpoint_address}:6379"
   }
 }
-
