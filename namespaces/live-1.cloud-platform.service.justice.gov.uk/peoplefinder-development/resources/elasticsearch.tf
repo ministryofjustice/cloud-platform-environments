@@ -1,9 +1,8 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
+################################################################################
+# Peoplefinder
+# Application Elasticsearch cluster
+#################################################################################
+
 module "peoplefinder_es" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.0"
   cluster_name           = var.cluster_name
