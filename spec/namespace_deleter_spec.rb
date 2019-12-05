@@ -22,10 +22,6 @@ describe CpEnv::NamespaceDeleter do
 
   let(:namespace) { "nonprod" }
 
-  let(:terraform_apply) {
-    "cd namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/resources; terraform apply -auto-approve"
-  }
-
   let(:k8s_client) { double(Kubeclient::Client, get_namespaces: namespaces) }
 
   let(:params) { {
@@ -50,7 +46,7 @@ describe CpEnv::NamespaceDeleter do
     let(:namespace) { "mynamespace" }
 
     it "does not delete AWS resources" do
-      expect(Open3).to_not receive(:capture3).with(terraform_apply)
+      expect(terraform).to_not receive(:apply)
       deleter.delete
     end
 
@@ -66,7 +62,7 @@ describe CpEnv::NamespaceDeleter do
     end
 
     it "does not delete AWS resources" do
-      expect(Open3).to_not receive(:capture3).with(terraform_apply)
+      expect(terraform).to_not receive(:apply)
       deleter.delete
     end
 
@@ -80,7 +76,7 @@ describe CpEnv::NamespaceDeleter do
     let(:namespace) { "prod" }
 
     it "does not delete AWS resources" do
-      expect(Open3).to_not receive(:capture3).with(terraform_apply)
+      expect(terraform).to_not receive(:apply)
       deleter.delete
     end
 
