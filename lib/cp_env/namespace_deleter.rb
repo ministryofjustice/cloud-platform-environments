@@ -12,7 +12,7 @@ class CpEnv
     # Assumption: The script which invokes this class is being called from the
     # root of an up to date working copy of the environments repo.
 
-    attr_reader :namespace
+    attr_reader :namespace, :k8s_client
 
     CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
     KUBECONFIG_AWS_REGION = "eu-west-2"
@@ -61,7 +61,7 @@ class CpEnv
         return false
       end
 
-      ns = kubeclient.get_namespaces.find { |n| n.metadata.name == namespace }
+      ns = k8s_client.get_namespaces.find { |n| n.metadata.name == namespace }
 
       if ns.nil?
         log("red", "Namespace #{namespace} not found in #{CLUSTER}. Will not delete.")
@@ -88,11 +88,7 @@ class CpEnv
 
     def delete_namespace
       log("green", "Deleting namespace #{namespace}...")
-      kubeclient.delete_namespace(namespace)
-    end
-
-    def kubeclient
-      @k8s_client ||= initialise_k8s_client
+      k8s_client.delete_namespace(namespace)
     end
 
     def initialise_k8s_client
@@ -114,7 +110,7 @@ class CpEnv
 
       ctx = config.context(env('KUBE_CTX'))
 
-      @k8s_client = Kubeclient::Client.new(
+      Kubeclient::Client.new(
         ctx.api_endpoint,
         "v1",
         ssl_options: ctx.ssl_options,
