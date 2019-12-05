@@ -160,6 +160,24 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     end
   end
 
+  context "deleted namespaces" do
+    let(:cmd) { "git diff --no-commit-id --name-only -r HEAD~1..HEAD" }
+
+    let(:deleted) { "poornima-dev" }
+
+    before do
+      allow(FileTest).to receive(:directory?).and_return(true)
+      allow(FileTest).to receive(:directory?)
+        .with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{deleted}").and_return(false)
+    end
+
+    it "gets deleted namespaces" do
+      expect_execute(cmd, files, success)
+      expect($stdout).to receive(:puts).with(files)
+      expect(deleted_namespaces(cluster)).to eq([deleted])
+    end
+  end
+
   context "execute" do
     let(:cmd) { "ls" }
 

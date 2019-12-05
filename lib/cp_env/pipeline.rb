@@ -18,6 +18,12 @@ def changed_namespace_dirs(cluster)
   namespace_dirs_from_changed_files(cluster, changed_files)
 end
 
+def deleted_namespaces(cluster)
+  changed_namespace_dirs(cluster)
+    .find_all { |dir| !FileTest.directory?(dir) }
+    .map { |dir| dir.split("/").last  }
+end
+
 def namespace_dirs_from_changed_files(cluster, files)
   namespace_regex = %r{namespaces.#{cluster}}
 
