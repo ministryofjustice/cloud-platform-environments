@@ -3,16 +3,14 @@ require "spec_helper"
 describe CpEnv::NamespaceDeleter do
   let(:metadata_prod) {
     double(Kubeclient::Resource,
-           name: "prod",
-           labels: { "cloud-platform.justice.gov.uk/is-production" => "true" }
-          )
+      name: "prod",
+      labels: {"cloud-platform.justice.gov.uk/is-production" => "true"})
   }
 
   let(:metadata_nonprod) {
     double(Kubeclient::Resource,
-           name: "nonprod",
-           labels: { "cloud-platform.justice.gov.uk/is-production" => "false" }
-          )
+      name: "nonprod",
+      labels: {"cloud-platform.justice.gov.uk/is-production" => "false"})
   }
 
   let(:prod) { double(Kubeclient::Resource, metadata: metadata_prod) }
@@ -24,10 +22,12 @@ describe CpEnv::NamespaceDeleter do
 
   let(:k8s_client) { double(Kubeclient::Client, get_namespaces: namespaces) }
 
-  let(:params) { {
-    namespace: namespace,
-    k8s_client: k8s_client,
-  } }
+  let(:params) {
+    {
+      namespace: namespace,
+      k8s_client: k8s_client,
+    }
+  }
 
   subject(:deleter) { described_class.new(params) }
 
