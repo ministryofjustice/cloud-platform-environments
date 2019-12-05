@@ -13,7 +13,7 @@ module "peoplefinder_es" {
   infrastructure-support = "people-finder-support@digital.justice.gov.uk"
   is-production          = "false"
   team_name              = "peoplefinder"
-  elasticsearch-domain   = "peoplefinder-development-es"
+  elasticsearch-domain   = "es"
   namespace              = "peoplefinder-development"
   elasticsearch_version  = "1.5"
 }
