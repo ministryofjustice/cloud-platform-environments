@@ -3,10 +3,6 @@
 # Pingdom check for uptime monitoring
 #################################################################################
 
-terraform {
-  backend "s3" {}
-}
-
 provider "pingdom" {}
 
 resource "pingdom_check" "track-a-query-development-healthcheck" {
