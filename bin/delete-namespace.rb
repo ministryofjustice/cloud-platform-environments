@@ -18,9 +18,6 @@
 #
 #   # Env vars to enable kubectl to operate on the cluster by grabbing the kubeconfig
 #   # file from S3
-#   export KUBECONFIG_AWS_ACCESS_KEY_ID=[redacted]
-#   export KUBECONFIG_AWS_SECRET_ACCESS_KEY=[redacted]
-#   export KUBECONFIG_AWS_REGION=eu-west-2
 #   export KUBECONFIG_S3_BUCKET=cloud-platform-concourse-kubeconfig
 #   export KUBECONFIG_S3_KEY=kubeconfig
 #   export KUBE_CONFIG=/tmp/kubeconfig

@@ -15,7 +15,7 @@ class CpEnv
     attr_reader :namespace, :k8s_client
 
     CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
-    KUBECONFIG_AWS_REGION = "eu-west-2"
+    AWS_REGION = "eu-west-2"
     NAMEPACES_DIR = "namespaces/#{CLUSTER}"
     PRODUCTION_LABEL = "cloud-platform.justice.gov.uk/is-production"
     LABEL_TRUE = "true"
@@ -41,8 +41,8 @@ class CpEnv
       raise "No namespace supplied" if namespace.to_s.empty?
 
       %w[
-        KUBECONFIG_AWS_ACCESS_KEY_ID
-        KUBECONFIG_AWS_SECRET_ACCESS_KEY
+        AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY
         KUBECONFIG_S3_BUCKET
         KUBECONFIG_S3_KEY
         KUBE_CONFIG
@@ -94,10 +94,10 @@ class CpEnv
     def initialise_k8s_client
       kubeconfig = {
         s3client: Aws::S3::Client.new(
-          region: KUBECONFIG_AWS_REGION,
+          region: AWS_REGION,
           credentials: Aws::Credentials.new(
-            env("KUBECONFIG_AWS_ACCESS_KEY_ID"),
-            env("KUBECONFIG_AWS_SECRET_ACCESS_KEY")
+            env("AWS_ACCESS_KEY_ID"),
+            env("AWS_SECRET_ACCESS_KEY")
           )
         ),
         bucket: env("KUBECONFIG_S3_BUCKET"),
