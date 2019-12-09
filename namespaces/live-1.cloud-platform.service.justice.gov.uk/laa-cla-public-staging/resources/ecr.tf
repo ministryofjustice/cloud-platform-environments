@@ -11,7 +11,7 @@ module "ecr-repo" {
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-laa-fala"
+    name      = "ecr-repo-laa-cla-public"
     namespace = var.namespace
   }
 
