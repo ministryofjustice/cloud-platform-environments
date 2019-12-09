@@ -6,7 +6,7 @@ metadata:
   namespace: pathfinder-prod
 subjects:
   - kind: Group
-    name: "github:dps-pathfinder-tech"
+    name: "github:dps-pathfinder-production-releases"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
