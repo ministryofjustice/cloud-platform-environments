@@ -15,4 +15,3 @@ spec:
           - 'offender-search.prison.service.justice.gov.uk'
         dns01:
           provider: route53-cloud-platform
-

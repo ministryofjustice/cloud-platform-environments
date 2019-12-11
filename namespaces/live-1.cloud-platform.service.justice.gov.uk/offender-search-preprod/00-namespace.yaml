@@ -4,7 +4,7 @@ metadata:
   name: offender-search-preprod
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "dev"
+    cloud-platform.justice.gov.uk/environment-name: "preprod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "offender-search"
