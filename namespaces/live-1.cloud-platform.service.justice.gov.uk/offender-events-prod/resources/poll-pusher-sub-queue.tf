@@ -100,6 +100,6 @@ resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.case_note_poll_pusher_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"PRISON-RELEASE\", \"TRANSFER+FROMTOL\", \"GEN-OBS\", {\"prefix\": \"OMIC\"}, {\"prefix\": \"OMIC_OPD\"}, {\"prefix\": \"ALERT\"}, {\"prefix\": \"KA\"} ] }"
+  filter_policy = "{\"eventType\":[ \"PRISON-RELEASE\", \"TRANSFER-FROMTOL\", \"GEN-OSE\", \"ALERT-ACTIVE\", \"ALERT-INACTIVE\", {\"prefix\": \"OMIC\"}, {\"prefix\": \"OMIC_OPD\"}, {\"prefix\": \"KA\"} ] }"
 }
 
