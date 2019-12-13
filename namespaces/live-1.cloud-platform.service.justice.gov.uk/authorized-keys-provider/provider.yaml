@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: cloud-platform-tools
-        image: ministryofjustice/cloud-platform-tools:1.4
+        image: ministryofjustice/cloud-platform-tools:1.9
         securityContext:
           runAsUser: 1000
         env:
