@@ -1,0 +1,36 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: dps-monitor 
+  namespace: dps-toolkit
+spec:
+  secretName: dps-monitor-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'dps-monitor.prison.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'dps-monitor.prison.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: healthkick 
+  namespace: dps-toolkit
+spec:
+  secretName: healthkick-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'healthkick.prison.service.justice.gov.uk'
+  acme:
+    config:
+      - domains:
+          - 'healthkick.prison.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
