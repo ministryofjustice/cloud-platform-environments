@@ -64,7 +64,7 @@ module "offender_case_notes_events_dead_letter_queue" {
 resource "kubernetes_secret" "offender_case_notes_events_queue" {
   metadata {
     name      = "ocn-events-sqs-instance-output"
-    namespace = "offender-case_notes-preprod"
+    namespace = "offender-case-notes-prod"
   }
 
   data = {
@@ -79,7 +79,7 @@ resource "kubernetes_secret" "offender_case_notes_events_queue" {
 resource "kubernetes_secret" "offender_case_notes_events_dead_letter_queue" {
   metadata {
     name      = "ocn-events-sqs-dl-instance-output"
-    namespace = "offender-case_notes-preprod"
+    namespace = "offender-case-notes-prod"
   }
 
   data = {
