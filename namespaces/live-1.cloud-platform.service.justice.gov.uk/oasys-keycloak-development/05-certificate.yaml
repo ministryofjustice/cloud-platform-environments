@@ -5,7 +5,7 @@ metadata:
   name: oasys-keycloak-development.service.justice.gov.uk
   namespace: oasys-keycloak-development
 spec:
-  secretName: oasys-keycloakcert
+  secretName: oasys-keycloak-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
