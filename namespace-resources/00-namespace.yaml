@@ -10,3 +10,8 @@ metadata:
     cloud-platform.justice.gov.uk/application: "${application}"
     cloud-platform.justice.gov.uk/owner: "${owner}: ${contact_email}"
     cloud-platform.justice.gov.uk/source-code: "${source_code_url}"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: concourse-${github_team}
