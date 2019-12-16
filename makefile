@@ -33,7 +33,7 @@ gitops-namespace:
 	@echo "as part of the namespace creation process."
 	@echo "Please provide the RELATIVE path to your working copy of your application source code."
 	@echo
-	@read -p "path: " working_copy_path; docker run --rm -it -v $$(pwd)/$${working_copy_path}:/appsrc -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb $${ANSWERS_FILE}
+	@read -p "path: " working_copy_path; docker run --rm -it -v $$(pwd)/$${working_copy_path}:/appsrc -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-gitops-namespace-files.rb $${ANSWERS_FILE}
 	@git status --untracked-files=all
 	@echo
 	@echo $${NAMESPACE_MESSAGE} | fmt

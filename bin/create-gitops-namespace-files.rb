@@ -1,17 +1,21 @@
 #!/usr/bin/env ruby
 
 require "yaml"
+require 'fileutils'
 
 # TODO: default
 # TODO: question N of M
 # TODO: validate answers
 # TODO: check namespace name is available
 # TODO: remove old terraform stuff from namespace-resources/
-# TODO: accomodate the gitops work Jason & Raz are doing
 # TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
 
 TEMPLATES_DIR = "namespace-resources"
-NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
+DEPLOY_TEMPLATES_DIR = "namespace-resources/kubectl_deploy"
+CLUSTER_NAME = "gitops-test.cloud-platform.service.justice.gov.uk"
+NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
+WORKING_COPY = "/appsrc" # This is where we mount the user's working copy of their application
+DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
   attr_reader :error
@@ -43,14 +47,38 @@ end
 def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
+  gitops_dir = File.join(NAMESPACES_DIR, namespace, "gitops-resources")
   system("mkdir #{dir}")
+  system("mkdir #{gitops_dir}")
   yaml_templates.each { |template| create_file(template, dir, answers) }
+  gitops_yaml_templates.each { |template| create_file(template, gitops_dir, answers) }
   copy_terraform_files(namespace)
+
+  create_gitops_module(namespace, answers)
+  create_cloud_platform_deploy(answers)
 end
 
 def copy_terraform_files(namespace)
   dir = File.join(NAMESPACES_DIR, namespace)
   system("cp -r namespace-resources/resources #{dir}")
+end
+
+def create_gitops_module(namespace, answers)
+  dir = File.join(NAMESPACES_DIR, namespace, "resources")
+  FileUtils.mkdir_p(dir)
+  render_templates(Dir["#{TEMPLATES_DIR}/gitops-resources/*.tf"], dir, answers)
+end
+
+def create_cloud_platform_deploy(answers)
+  dir = File.join(WORKING_COPY, DEPLOYMENT_DIR, answers.fetch("namespace"))
+  FileUtils.mkdir_p(dir)
+  # TODO: get the helloworld deployment files from the helloworld repo, so that we stay
+  # up to date with any changes.
+  render_templates(Dir["#{DEPLOY_TEMPLATES_DIR}/*.yaml"], dir, answers.merge("hostname" => CLUSTER_NAME))
+end
+
+def render_templates(files, dir, answers)
+  files.each { |template| create_file(template, dir, answers) }
 end
 
 def create_file(template, dir, answers)
@@ -66,7 +94,7 @@ end
 
 def replace_var(content, key, value)
   str = "${#{key}}"
-  lower_str = "${lower(#{key})}"
+  lower_str = "lower(#{key})"
   content
     .gsub(str, value)
     .gsub(lower_str, value.downcase)
@@ -74,6 +102,10 @@ end
 
 def yaml_templates
   Dir["#{TEMPLATES_DIR}/*.yaml"]
+end
+
+def gitops_yaml_templates
+  Dir["#{TEMPLATES_DIR}/gitops-resources/*.yaml"]
 end
 
 def get_answers
