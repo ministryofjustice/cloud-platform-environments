@@ -145,12 +145,20 @@ def apply_cluster_level_resources(cluster)
   log("blue", "no global resources to apply") unless status.success?
 end
 
-def apply_namespace_dir(cluster, dir, team_name)
+def apply_gitops_namespace_dir(cluster, dir, team_name)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
   apply_kubernetes_files(cluster, namespace, dir)
   apply_gitops_kubernetes_files(cluster, team_name, dir)
+  apply_terraform(cluster, namespace, dir)
+end
+
+def apply_namespace_dir(cluster, dir)
+  return unless FileTest.directory?(dir)
+
+  namespace = File.basename(dir)
+  apply_kubernetes_files(cluster, namespace, dir)
   apply_terraform(cluster, namespace, dir)
 end
 
