@@ -48,8 +48,8 @@ def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
   gitops_dir = File.join(NAMESPACES_DIR, namespace, "gitops-resources")
-  system("mkdir #{dir}")
-  system("mkdir #{gitops_dir}")
+  system("mkdir -p #{dir}")
+  system("mkdir -p #{gitops_dir}")
   yaml_templates.each { |template| create_file(template, dir, answers) }
   gitops_yaml_templates.each { |template| create_file(template, gitops_dir, answers) }
   copy_terraform_files(namespace)
