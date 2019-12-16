@@ -14,12 +14,22 @@ end
 
 def apply_namespaces(cluster)
   all_namespace_dirs(cluster).each do |namespace_dir|
-    team_name = get_team_name(namespace_dir)
-    namespace = File.basename(namespace_dir)
     execute("git pull") # In case any PRs were merged since the pipeline started
-    apply_namespace_dir(cluster, namespace_dir, team_name)
-    GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
+
+    namespace = File.basename(namespace_dir)
+
+    if gitops_namespace?(namespace)
+      team_name = get_team_name(namespace_dir)
+      apply_gitops_namespace_dir(cluster, namespace_dir, team_name)
+      GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
+    else
+      apply_namespace_dir(cluster, namespace_dir)
+    end
   end
+end
+
+def gitops_namespace?(namespace)
+  # TODO
 end
 
 def get_team_name(namespace_dir)
