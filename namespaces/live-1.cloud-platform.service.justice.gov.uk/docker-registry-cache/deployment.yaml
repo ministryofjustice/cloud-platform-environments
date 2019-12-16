@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: docker-registry-cache
+  namespace: docker-cache
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: docker-registry-cache
+    spec:
+      containers:
+      - name: registry
+        image: ministryofjustice/docker-registry-cache:1.4
+        ports:
+        - containerPort: 5000
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /usr/local/bin/disk-usage-high
+          initialDelaySeconds: 60
+          periodSeconds: 1800

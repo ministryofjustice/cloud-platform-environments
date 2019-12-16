@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docker-registry-cache-ingress
+  namespace: docker-cache
+spec:
+  tls:
+  - hosts:
+    - docker-registry-cache.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: docker-registry-cache.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: docker-registry-cache-service
+          servicePort: 5000
