@@ -1,7 +1,3 @@
-variable "domain" {
-  default = "sentence-planning-development.service.justice.gov.uk"
-}
-
 variable "application" {
   default = "sentence-planning"
 }
