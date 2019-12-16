@@ -24,7 +24,7 @@ module "sentence-planning_rds" {
 resource "kubernetes_secret" "sentence-planning_rds" {
   metadata {
     name      = "sentence-planning-rds-instance-output"
-    namespace = "sentence-planning-development"
+    namespace = "sentence-planning-prod"
   }
 
   data = {
