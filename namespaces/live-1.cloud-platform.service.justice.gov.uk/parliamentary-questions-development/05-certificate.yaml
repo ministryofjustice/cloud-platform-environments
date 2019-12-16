@@ -9,10 +9,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'development.trackparliamentaryquestions.service.justice.gov.uk'
+  commonName: 'development.trackparliamentaryquestions.service.gov.uk'
   acme:
     config:
     - domains:
-      - 'development.trackparliamentaryquestions.service.justice.gov.uk'
+      - 'development.trackparliamentaryquestions.service.gov.uk'
       dns01:
         provider: route53-cloud-platform
