@@ -1,7 +1,3 @@
-variable "domain" {
-  default = "oasys-auth-development.service.justice.gov.uk"
-}
-
 variable "application" {
   default = "oasys-keycloak"
 }
