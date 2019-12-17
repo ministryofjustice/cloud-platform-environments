@@ -2,6 +2,9 @@
 
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
+# TODO: move to a shared library
+GITOPS_RESOURCES_DIR = "gitops-resources"
+
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
 
@@ -26,6 +29,11 @@ def apply_namespaces(cluster)
       apply_namespace_dir(cluster, namespace_dir)
     end
   end
+end
+
+# TODO: move to a shared library
+def gitops_namespace?(namespace_dir)
+  FileTest.exists?(File.join(namespace_dir, GITOPS_RESOURCES_DIR))
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")
