@@ -25,6 +25,7 @@ namespace:
 	@echo
 
 # Create a new namespace with 'gitops' continuous deployment
+# TODO: ask for absolute, not relative, directory path
 gitops-namespace:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
