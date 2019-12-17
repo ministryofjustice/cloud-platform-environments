@@ -1,8 +1,7 @@
 require "spec_helper"
 
 def make_namespace(filename)
-  # cmd = "ANSWERS_FILE=#{filename} make namespace > /dev/null"
-  cmd = "ANSWERS_FILE=#{filename} make namespace"
+  cmd = "./bin/create-namespace-files.rb #{filename}"
   system(cmd)
 end
 
