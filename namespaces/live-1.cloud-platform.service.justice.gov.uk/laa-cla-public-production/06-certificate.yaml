@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: cla-public-production-cert
+  namespace: laa-cla-public-production
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'checklegalaid.service.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'checklegalaid.service.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
