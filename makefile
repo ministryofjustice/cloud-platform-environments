@@ -18,7 +18,7 @@ namespace:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
 	@echo "Creating namespace..."
-	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb
+	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb $${ANSWERS_FILE}
 	@git status --untracked-files=all
 	@echo
 	@echo $${NAMESPACE_MESSAGE} | fmt

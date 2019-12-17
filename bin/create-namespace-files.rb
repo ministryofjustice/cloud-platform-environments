@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "yaml"
+
 # TODO: default
 # TODO: question N of M
 # TODO: validate answers
@@ -166,4 +168,13 @@ QUESTIONS = [
   },
 ]
 
-create_namespace_files get_answers
+# For testing, we can supply on the command-line the name of a YAML
+# file containing the answers to the questions above. This enables us
+# to run `make namespace` non-interactively, and compare the results
+# with a fixture file.
+if (filename = ARGV.shift) && FileTest.exists?(filename)
+  hash = YAML.load(File.read(filename))
+  create_namespace_files hash.fetch("answers")
+else
+  create_namespace_files get_answers
+end
