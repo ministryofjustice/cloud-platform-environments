@@ -14,7 +14,7 @@ TEMPLATES_DIR = "gitops-namespace-resources"
 DEPLOY_TEMPLATES_DIR = "#{TEMPLATES_DIR}/kubectl_deploy"
 CLUSTER_NAME = "gitops-test.cloud-platform.service.justice.gov.uk"
 NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
-WORKING_COPY = "/appsrc" # This is where we mount the user's working copy of their application
+WORKING_COPY = FileTest.directory?("/appsrc") ? "/appsrc" : "/tmp"  # Use /tmp for tests. /appsrc when in a docker container.
 DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
 class Validator
