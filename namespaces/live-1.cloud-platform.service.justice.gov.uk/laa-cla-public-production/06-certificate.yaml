@@ -13,5 +13,6 @@ spec:
     config:
     - domains:
       - 'checklegalaid.service.gov.uk'
+      - 'live1.checklegalaid.service.gov.uk'
       dns01:
         provider: route53-cloud-platform
