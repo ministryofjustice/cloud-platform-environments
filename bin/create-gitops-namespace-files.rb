@@ -11,7 +11,7 @@ require 'fileutils'
 # TODO: mount user's home directory into the tools image, so we can write deployment files to their working copy of their app.
 
 TEMPLATES_DIR = "gitops-namespace-resources"
-DEPLOY_TEMPLATES_DIR = "gitops-namespace-resources/kubectl_deploy"
+DEPLOY_TEMPLATES_DIR = "#{TEMPLATES_DIR}/kubectl_deploy"
 CLUSTER_NAME = "gitops-test.cloud-platform.service.justice.gov.uk"
 NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
 WORKING_COPY = "/appsrc" # This is where we mount the user's working copy of their application
@@ -60,7 +60,7 @@ end
 
 def copy_terraform_files(namespace)
   dir = File.join(NAMESPACES_DIR, namespace)
-  system("cp -r namespace-resources/resources #{dir}")
+  system("cp -r #{TEMPLATES_DIR}/resources #{dir}")
 end
 
 def create_gitops_module(namespace, answers)
