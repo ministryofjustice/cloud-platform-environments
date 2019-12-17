@@ -178,4 +178,3 @@ if (filename = ARGV.shift) && FileTest.exists?(filename)
 else
   create_namespace_files get_answers
 end
-

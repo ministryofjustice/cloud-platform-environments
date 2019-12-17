@@ -41,13 +41,12 @@ describe "make namespace" do
       fixture_file = File.join(fixture_dir, file)
       namespace_file = File.join(namespace_dir, file)
 
-      unless(FileTest.directory?(fixture_file))
+      unless FileTest.directory?(fixture_file)
         fixture = File.read(fixture_file)
         namespace = File.read(namespace_file)
 
         expect(fixture).to eq(namespace)
       end
     end
-
   end
 end
