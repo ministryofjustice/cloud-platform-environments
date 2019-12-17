@@ -5,7 +5,7 @@ metadata:
   namespace: ${namespace}
 subjects:
   - kind: Group
-    name: "github:${lower(github_team)}"
+    name: "github:${github_team}"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
