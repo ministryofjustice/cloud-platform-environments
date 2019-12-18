@@ -106,3 +106,30 @@ def expect_execute(cmd, stdout, status)
   allow($stdout).to receive(:puts).with("\e[34mexecuting: #{cmd}\e[0m")
   allow($stdout).to receive(:puts).with("")
 end
+
+def expect_same_files(expected_dir, actual_dir)
+  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }
+  actual_files = Dir["#{actual_dir}/**/*"].map { |f| f.sub(actual_dir, "") }
+
+  expect(expected_files).to eq(actual_files)
+end
+
+def expect_directories_to_match(expected_dir, actual_dir)
+  expect_same_files(fixture_deploy_dir, deploy_dir)
+
+  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }
+
+  expected_files.each do |file|
+    expected_file = File.join(expected_dir, file)
+    actual_file = File.join(actual_dir, file)
+
+    unless FileTest.directory?(expected_file)
+      expected = File.read(expected_file)
+      actual = File.read(actual_file)
+
+      expect(expected).to eq(actual)
+    end
+  end
+end
+
+
