@@ -13,8 +13,12 @@ describe "make gitops namespace" do
 
   let(:fixture_dir) { "spec/fixtures/make-gitops-namespace-test-dev" }
 
+  let(:deploy_dir) { "/tmp/cloud-platform-deploy/#{namespace}" }
+  let(:fixture_deploy_dir) { "spec/fixtures/gitops-deploy-files" }
+
   after do
     system("rm -rf #{namespace_dir}")
+    system("rm -rf #{deploy_dir}")
   end
 
   it "creates namespace directory" do
@@ -32,7 +36,7 @@ describe "make gitops namespace" do
     expect(created_files).to eq(fixture_files)
   end
 
-  it "creates files with correct contents" do
+  it "creates env repo files with correct contents" do
     make_gitops_namespace(answers_file)
 
     files = Dir["#{fixture_dir}/**/*"].map { |f| f.sub(fixture_dir, "") }
@@ -46,6 +50,38 @@ describe "make gitops namespace" do
         namespace = File.read(namespace_file)
 
         expect(fixture).to eq(namespace)
+      end
+    end
+  end
+
+  it "create deployment directory" do
+    expect {
+      make_gitops_namespace(answers_file)
+    }.to change { FileTest.directory?(deploy_dir) }.from(false).to(true)
+  end
+
+  it "create deployment files" do
+    make_gitops_namespace(answers_file)
+    fixture_files = Dir["#{fixture_deploy_dir}/**/*"].map { |f| f.sub(fixture_deploy_dir, "") }
+    created_files = Dir["#{deploy_dir}/**/*"].map { |f| f.sub(deploy_dir, "") }
+
+    expect(created_files).to eq(fixture_files)
+  end
+
+  it "create deployment files with correct contents" do
+    make_gitops_namespace(answers_file)
+
+    files = Dir["#{fixture_deploy_dir}/**/*"].map { |f| f.sub(fixture_deploy_dir, "") }
+
+    files.each do |file|
+      fixture_file = File.join(fixture_deploy_dir, file)
+      deploy_file = File.join(deploy_dir, file)
+
+      unless FileTest.directory?(fixture_file)
+        fixture = File.read(fixture_file)
+        deploy = File.read(deploy_file)
+
+        expect(fixture).to eq(deploy)
       end
     end
   end
