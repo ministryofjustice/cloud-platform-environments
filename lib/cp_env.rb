@@ -11,3 +11,6 @@ require File.join(File.dirname(__FILE__), "cp_env", "pipeline")
 require File.join(File.dirname(__FILE__), "cp_env", "terraform")
 require File.join(File.dirname(__FILE__), "cp_env", "namespace_deleter")
 require File.join(File.dirname(__FILE__), "cp_env", "kubeconfig")
+
+# TODO: Move GitopsGpgKeypair into CpEnv
+require File.join(File.dirname(__FILE__), "gitops_gpg_keypair")
