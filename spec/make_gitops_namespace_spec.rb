@@ -5,6 +5,31 @@ def make_gitops_namespace(filename)
   system(cmd)
 end
 
+def expect_same_files(expected_dir, actual_dir)
+  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }
+  actual_files = Dir["#{actual_dir}/**/*"].map { |f| f.sub(actual_dir, "") }
+
+  expect(expected_files).to eq(actual_files)
+end
+
+def expect_directories_to_match(expected_dir, actual_dir)
+  expect_same_files(fixture_deploy_dir, deploy_dir)
+
+  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }
+
+  expected_files.each do |file|
+    expected_file = File.join(expected_dir, file)
+    actual_file = File.join(actual_dir, file)
+
+    unless FileTest.directory?(expected_file)
+      expected = File.read(expected_file)
+      actual = File.read(actual_file)
+
+      expect(expected).to eq(actual)
+    end
+  end
+end
+
 describe "make gitops namespace" do
   let(:answers_file) { "spec/fixtures/make-gitops-namespace-answers.yaml" }
   let(:namespace) { "make-gitops-namespace-test-dev" } # Defined in the answers_file
@@ -27,31 +52,9 @@ describe "make gitops namespace" do
     }.to change { FileTest.directory?(namespace_dir) }.from(false).to(true)
   end
 
-  it "creates all the namespace files" do
-    make_gitops_namespace(answers_file)
-
-    fixture_files = Dir["#{fixture_dir}/**/*"].map { |f| f.sub(fixture_dir, "") }
-    created_files = Dir["#{namespace_dir}/**/*"].map { |f| f.sub(namespace_dir, "") }
-
-    expect(created_files).to eq(fixture_files)
-  end
-
   it "creates env repo files with correct contents" do
     make_gitops_namespace(answers_file)
-
-    files = Dir["#{fixture_dir}/**/*"].map { |f| f.sub(fixture_dir, "") }
-
-    files.each do |file|
-      fixture_file = File.join(fixture_dir, file)
-      namespace_file = File.join(namespace_dir, file)
-
-      unless FileTest.directory?(fixture_file)
-        fixture = File.read(fixture_file)
-        namespace = File.read(namespace_file)
-
-        expect(fixture).to eq(namespace)
-      end
-    end
+    expect_directories_to_match(fixture_dir, namespace_dir)
   end
 
   it "create deployment directory" do
@@ -60,29 +63,8 @@ describe "make gitops namespace" do
     }.to change { FileTest.directory?(deploy_dir) }.from(false).to(true)
   end
 
-  it "create deployment files" do
+  it "creates deployment files with correct contents" do
     make_gitops_namespace(answers_file)
-    fixture_files = Dir["#{fixture_deploy_dir}/**/*"].map { |f| f.sub(fixture_deploy_dir, "") }
-    created_files = Dir["#{deploy_dir}/**/*"].map { |f| f.sub(deploy_dir, "") }
-
-    expect(created_files).to eq(fixture_files)
-  end
-
-  it "create deployment files with correct contents" do
-    make_gitops_namespace(answers_file)
-
-    files = Dir["#{fixture_deploy_dir}/**/*"].map { |f| f.sub(fixture_deploy_dir, "") }
-
-    files.each do |file|
-      fixture_file = File.join(fixture_deploy_dir, file)
-      deploy_file = File.join(deploy_dir, file)
-
-      unless FileTest.directory?(fixture_file)
-        fixture = File.read(fixture_file)
-        deploy = File.read(deploy_file)
-
-        expect(fixture).to eq(deploy)
-      end
-    end
+    expect_directories_to_match(fixture_deploy_dir, deploy_dir)
   end
 end
