@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "sentence-planning-prod.service.justice.gov.uk"
+  default = "sentence-planning.service.justice.gov.uk"
 }
 
 variable "application" {
