@@ -1,6 +1,3 @@
-require 'base64'
-require 'json'
-
 class CpEnv
   class GitopsGpgKeypair
     attr_reader :namespace, :team_name
@@ -48,7 +45,7 @@ class CpEnv
     end
 
     def generate_keypair
-      hash = GpgKeypair.new.generate
+      hash = CpEnv::GpgKeypair.new.generate
 
       [
         Base64.strict_encode64(hash.fetch(:public)),
