@@ -12,6 +12,9 @@ describe CpEnv::GitopsGpgKeypair do
     }
   }
 
+  let(:pubkey64) { "cHVia2V5" } # Base64.encode64("pubkey").strip
+  let(:privkey64) { "cHJpdmtleQ==" } # Base64.encode64("privkey").strip
+
   let(:team_name) { "my-team" }
   let(:namespace) { "my-namespace" }
 
@@ -44,10 +47,50 @@ describe CpEnv::GitopsGpgKeypair do
       gpg.generate_and_store
     end
 
-    # TODO: Fix these. I can't figure out how to make these tests work correctly.
-    # it "stores public key in app namespace"
-    # it "stores public key in concourse team namespace"
-    # it "stores private key in concourse team namespace"
+    it "stores public key in app namespace" do
+      allow(executor).to receive(:execute).and_return(sec_response)
+      allow(key_generator).to receive(:generate).and_return(keypair)
+
+      gpg.generate_and_store
+
+      expect(executor).to have_received(:execute).with(/pubkey.*kubectl -n my-namespace apply/m, silent: true) do |args|
+        expect(args).to match /"kind": "Secret"/
+        expect(args).to match /"namespace": "#{namespace}"/
+        expect(args).to match /"name": "#{team_name}-gpg-pubkey"/
+        expect(args).to match /"key": "#{pubkey64}"/
+        expect(args).to match /kubectl -n #{namespace} apply -f -/
+      end
+    end
+
+    it "stores public key in concourse team namespace" do
+      allow(executor).to receive(:execute).and_return(sec_response)
+      allow(key_generator).to receive(:generate).and_return(keypair)
+
+      gpg.generate_and_store
+
+      expect(executor).to have_received(:execute).with(/pubkey.*kubectl -n concourse-my-team apply/m, silent: true) do |args|
+        expect(args).to match /"kind": "Secret"/
+        expect(args).to match /"namespace": "concourse-#{team_name}"/
+        expect(args).to match /"name": "#{team_name}-gpg-pubkey"/
+        expect(args).to match /"key": "#{pubkey64}"/
+        expect(args).to match /kubectl -n concourse-#{team_name} apply -f -/
+      end
+    end
+
+    it "stores private key in concourse team namespace" do
+      allow(executor).to receive(:execute).and_return(sec_response)
+      allow(key_generator).to receive(:generate).and_return(keypair)
+
+      gpg.generate_and_store
+
+      expect(executor).to have_received(:execute).with(/seckey.*kubectl -n concourse-my-team apply/m, silent: true) do |args|
+        expect(args).to match /"kind": "Secret"/
+        expect(args).to match /"namespace": "concourse-#{team_name}"/
+        expect(args).to match /"name": "#{team_name}-gpg-seckey"/
+        expect(args).to match /"key": "#{privkey64}"/
+        expect(args).to match /kubectl -n concourse-#{team_name} apply -f -/
+      end
+    end
   end
 
   context "when secret key exists" do
