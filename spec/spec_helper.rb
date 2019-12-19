@@ -131,5 +131,3 @@ def expect_directories_to_match(expected_dir, actual_dir)
     end
   end
 end
-
-
