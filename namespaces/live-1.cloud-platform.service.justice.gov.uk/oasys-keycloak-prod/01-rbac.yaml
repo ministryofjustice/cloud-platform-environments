@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: oasys-keycloak-development-admin
-  namespace: oasys-keycloak-development
+  name: oasys-keycloak-prod-admin
+  namespace: oasys-keycloak-prod
 subjects:
   - kind: Group
     name: "github:sentencing-and-oasys-development-team"
