@@ -25,7 +25,7 @@ def apply_namespaces(cluster)
     if gitops_namespace?(namespace_dir)
       team_name = get_team_name(namespace_dir)
       apply_gitops_namespace_dir(cluster, namespace_dir, team_name)
-      GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
+      CpEnv::GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
     else
       apply_namespace_dir(cluster, namespace_dir)
     end

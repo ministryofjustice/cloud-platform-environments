@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe GitopsGpgKeypair do
+describe CpEnv::GitopsGpgKeypair do
   let(:params) { {
     namespace: "my-namespace",
     team_name: "my-team",
@@ -9,7 +9,7 @@ describe GitopsGpgKeypair do
   subject(:gpg) { described_class.new(params) }
 
   it "instantiates" do
-    expect(gpg).to be_a(GitopsGpgKeypair)
+    expect(gpg).to be_a(CpEnv::GitopsGpgKeypair)
   end
 
   specify { expect(gpg).to respond_to(:generate_and_store) }
