@@ -1,17 +1,16 @@
 require "spec_helper"
 
-describe GpgKeypair do
-  subject(:keypair) { described_class.new }
+describe GitopsGpgKeypair do
+  let(:params) { {
+    namespace: "my-namespace",
+    team_name: "my-team",
+  } }
+
+  subject(:gpg) { described_class.new(params) }
 
   it "instantiates" do
-    expect(keypair).to be_a(GpgKeypair)
+    expect(gpg).to be_a(GitopsGpgKeypair)
   end
 
-  specify { expect(keypair).to respond_to(:generate) }
-
-  it "generates a keypair" do
-    result = keypair.generate
-    expect(result).to have_key(:public)
-    expect(result).to have_key(:private)
-  end
+  specify { expect(gpg).to respond_to(:generate_and_store) }
 end
