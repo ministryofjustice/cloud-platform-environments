@@ -1,4 +1,4 @@
-require 'tmpdir'
+require "tmpdir"
 
 class CpEnv
   class GpgKeypair
@@ -35,14 +35,14 @@ class CpEnv
 
     def generate_config
       File.write(gpgconf, <<~EOF
-      %no-protection
-      Key-Type: default
-      Key-Usage: encrypt
-      Name-Real: Cloud Platform
-      Name-Email: platforms@digital.justice.gov.uk
-      Expire-Date: 0
-                 EOF
-                )
+        %no-protection
+        Key-Type: default
+        Key-Usage: encrypt
+        Name-Real: Cloud Platform
+        Name-Email: platforms@digital.justice.gov.uk
+        Expire-Date: 0
+      EOF
+      )
     end
 
     def generate_keypair

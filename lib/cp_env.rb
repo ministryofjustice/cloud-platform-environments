@@ -3,9 +3,9 @@ require "aws-sdk-s3"
 require "kubeclient"
 require "open-uri"
 require "open3"
-require 'base64'
-require 'json'
-require 'tmpdir'
+require "base64"
+require "json"
+require "tmpdir"
 
 class CpEnv
 end
