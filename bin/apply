@@ -2,46 +2,18 @@
 
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
-# TODO: move to a shared library
-GITOPS_RESOURCES_DIR = "gitops-resources"
-
 def main(cluster)
   log("green", "applying for cluster #{cluster}")
 
   set_kube_context(cluster)
+
   apply_cluster_level_resources(cluster)
-  apply_namespaces(cluster)
+
+  all_namespace_dirs(cluster).each do |namespace_dir|
+    CpEnv::NamespaceDir.new(cluster: cluster, dir: namespace_dir).apply
+  end
 
   log("green", "Done.")
-end
-
-def apply_namespaces(cluster)
-  all_namespace_dirs(cluster).each do |namespace_dir|
-    # TODO: duplicated in bin/apply-namespace-changes - DRY it up
-    execute("git pull") # In case any PRs were merged since the pipeline started
-
-    namespace = File.basename(namespace_dir)
-
-    if gitops_namespace?(namespace_dir)
-      team_name = get_team_name(namespace_dir)
-      apply_gitops_namespace_dir(cluster, namespace_dir, team_name)
-      CpEnv::GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
-    else
-      apply_namespace_dir(cluster, namespace_dir)
-    end
-  end
-end
-
-# TODO: move to a shared library
-def gitops_namespace?(namespace_dir)
-  FileTest.exists?(File.join(namespace_dir, GITOPS_RESOURCES_DIR))
-end
-
-def get_team_name(namespace_dir)
-  yaml = YAML.load(File.read("#{namespace_dir}/01-rbac.yaml"))
-  team = yaml['subjects'][0].dig('name').split(':')[1]
-  abort("Team name not found") if team.nil?
-  team
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")

@@ -13,6 +13,7 @@ end
 require File.join(File.dirname(__FILE__), "cp_env", "executor")
 require File.join(File.dirname(__FILE__), "cp_env", "pipeline")
 require File.join(File.dirname(__FILE__), "cp_env", "terraform")
+require File.join(File.dirname(__FILE__), "cp_env", "namespace_dir")
 require File.join(File.dirname(__FILE__), "cp_env", "namespace_deleter")
 require File.join(File.dirname(__FILE__), "cp_env", "kubeconfig")
 require File.join(File.dirname(__FILE__), "cp_env", "gpg_keypair")

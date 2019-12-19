@@ -51,48 +51,11 @@ def apply_cluster_level_resources(cluster)
   log("blue", "no global resources to apply") unless status.success?
 end
 
-def apply_namespace_dir(cluster, dir)
-  return unless FileTest.directory?(dir)
-
-  namespace = File.basename(dir)
-  apply_kubernetes_files(cluster, namespace, dir)
-  apply_terraform(cluster, namespace, dir)
-end
-
-def apply_gitops_namespace_dir(cluster, dir, team_name)
-  return unless FileTest.directory?(dir)
-
-  namespace = File.basename(dir)
-  apply_kubernetes_files(cluster, namespace, dir)
-  apply_gitops_kubernetes_files(cluster, team_name, dir)
-  apply_terraform(cluster, namespace, dir)
-end
-
 def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
   Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
-end
-
-def apply_kubernetes_files(_cluster, namespace, dir)
-  if contains_kubernetes_files?(dir)
-    log("green", "applying #{namespace}")
-    execute("kubectl -n #{namespace} apply -f #{dir}")
-  end
-end
-
-def apply_gitops_kubernetes_files(_cluster, team_name, dir)
-  log("green", "applying concourse-#{team_name}")
-  execute("kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources")
-end
-
-def contains_kubernetes_files?(dir)
-  Dir.glob("#{dir}/*.{yaml,yml,json}").any?
-end
-
-def apply_terraform(cluster, namespace, dir)
-  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
 end
 
 def execute(cmd, can_fail: false, silent: false)
