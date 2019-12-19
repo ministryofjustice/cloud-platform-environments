@@ -1,10 +1,13 @@
 class CpEnv
   class GitopsGpgKeypair
     attr_reader :namespace, :team_name
+    attr_reader :executor, :key_generator
 
     def initialize(args)
       @namespace = args.fetch(:namespace)
       @team_name = args.fetch(:team_name)
+      @executor = args.fetch(:executor) { CpEnv::Executor.new }
+      @key_generator = args.fetch(:key_generator) { CpEnv::GpgKeypair.new }
     end
 
     def generate_and_store
@@ -20,20 +23,20 @@ class CpEnv
 
     def copy_public_key
       unless public_key_exists?
-        execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
+        executor.execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
       end
     end
 
     def public_key_exists?
-     stdout, _, _ = execute("kubectl -n #{namespace} get secrets -o json", silent: true)
+     stdout, _, _ = executor.execute("kubectl -n #{namespace} get secrets -o json", silent: true)
      names = JSON.parse(stdout)["items"].map {|i| i.dig("metadata", "name")}
      names.include?(pubkey_secret_name)
     end
 
     def secret_key_exists?
-     stdout, _, _ = execute("kubectl -n concourse-#{team_name} get secrets -o json", silent: true)
-     names = JSON.parse(stdout)["items"].map {|i| i.dig("metadata", "name")}
-     names.include?(seckey_secret_name)
+      stdout, _, _ = executor.execute("kubectl -n concourse-#{team_name} get secrets -o json", silent: true)
+      names = JSON.parse(stdout)["items"].map {|i| i.dig("metadata", "name")}
+      names.include?(seckey_secret_name)
     end
 
     def pubkey_secret_name
@@ -45,7 +48,7 @@ class CpEnv
     end
 
     def generate_keypair
-      hash = CpEnv::GpgKeypair.new.generate
+      hash = key_generator.generate
 
       [
         Base64.strict_encode64(hash.fetch(:public)),
@@ -94,7 +97,7 @@ class CpEnv
     }
       EOF
 
-      _, stderr, status = execute("echo '#{json}' | kubectl -n #{args.fetch(:namespace)} apply -f - ", silent: true)
+      _, stderr, status = executor.execute("echo '#{json}' | kubectl -n #{args.fetch(:namespace)} apply -f - ", silent: true)
       raise "Failed to create secret #{name} in namespace #{namespace}\n#{stderr}" unless status.success?
       puts "secret #{name} created in namespace #{namespace}"
     end
