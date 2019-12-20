@@ -7,8 +7,8 @@ def main(cluster)
 
   set_kube_context(cluster)
 
-  changed_namespace_dirs(cluster).each do |namespace_dir|
-    CpEnv::NamespaceDir.new(cluster: cluster, dir: namespace_dir).apply
+  changed_namespace_dirs(cluster).each do |dir|
+    CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
   end
 
   log("green", "Done.")

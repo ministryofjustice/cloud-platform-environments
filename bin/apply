@@ -9,8 +9,8 @@ def main(cluster)
 
   apply_cluster_level_resources(cluster)
 
-  all_namespace_dirs(cluster).each do |namespace_dir|
-    CpEnv::NamespaceDir.new(cluster: cluster, dir: namespace_dir).apply
+  all_namespace_dirs(cluster).each do |dir|
+    CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
   end
 
   log("green", "Done.")
