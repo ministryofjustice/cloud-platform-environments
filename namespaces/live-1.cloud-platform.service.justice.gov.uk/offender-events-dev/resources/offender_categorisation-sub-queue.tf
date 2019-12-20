@@ -96,5 +96,5 @@ resource "aws_sns_topic_subscription" "offender_categorisation_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.offender_categorisation_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"ALERT-INSERTED\", \"ALERT-UPDATED\", \"ALERT-DELETED\"]}"
+  filter_policy = "{\"eventType\":[\"ALERT-INSERTED\", \"ALERT-UPDATED\", \"ALERT-DELETED\", \"INCIDENT-INSERTED\", \"INCIDENT-CHANGED-CASES\", \"INCIDENT-CHANGED-PARTIES\", \"INCIDENT-CHANGED-RESPONSES\", \"INCIDENT-CHANGED-REQUIREMENTS\"]}"
 }
