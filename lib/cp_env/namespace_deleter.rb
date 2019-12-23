@@ -79,7 +79,7 @@ class CpEnv
     def destroy_aws_resources
       create_empty_main_tf
       log("green", "Destroying AWS resources for namespace #{namespace}...")
-      apply_namespace_dir(CLUSTER, namespace_dir)
+      NamespaceDir.new(cluster: CLUSTER, dir: namespace_dir).apply
     end
 
     def namespace_dir

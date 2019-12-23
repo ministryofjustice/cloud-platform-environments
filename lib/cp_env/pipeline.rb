@@ -45,10 +45,6 @@ def set_kube_context(cluster)
   execute("kubectl config use-context #{cluster}")
 end
 
-def apply_namespace_dir(cluster, dir)
-  CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
-end
-
 def apply_cluster_level_resources(cluster)
   log("blue", "applying cluster-level resources for #{cluster}")
   _, _, status = execute("kubectl apply -f namespaces/#{cluster}", can_fail: true)
