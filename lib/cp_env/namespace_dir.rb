@@ -12,6 +12,8 @@ class CpEnv
     end
 
     def apply
+      return unless FileTest.directory?(dir)
+
       executor.execute("git pull") # In case any PRs were merged since the pipeline started
 
       if gitops_namespace?
@@ -43,10 +45,8 @@ class CpEnv
     end
 
     def apply_namespace_dir
-      return unless FileTest.directory?(dir)
-
       apply_kubernetes_files
-      apply_terraform(cluster, namespace, dir)
+      apply_terraform
     end
 
     def apply_kubernetes_files
@@ -69,7 +69,7 @@ class CpEnv
 
       apply_kubernetes_files(cluster, namespace, dir)
       apply_gitops_kubernetes_files(cluster, team_name, dir)
-      apply_terraform(cluster, namespace, dir)
+      apply_terraform
     end
 
     def apply_gitops_kubernetes_files(_cluster, team_name, dir)
