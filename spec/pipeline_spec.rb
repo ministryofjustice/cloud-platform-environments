@@ -76,69 +76,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     all_namespace_dirs(cluster)
   end
 
-  context "apply_namespace_dir" do
-    let(:namespace) { "mynamespace" }
-    let(:dir) { "namespaces/#{cluster}/#{namespace}" }
-
-    context "when called with a filename" do
-      let(:dir) { $0 } # $0 == name of this specfile
-
-      before do
-        allow(FileTest).to receive(:directory?).and_return(false)
-      end
-
-      it "does nothing" do
-        expect(Open3).to_not receive(:capture3)
-        apply_namespace_dir(cluster, dir)
-      end
-    end
-
-    context "when called with a directory" do
-      before do
-        allow(FileTest).to receive(:directory?).and_return(true)
-      end
-
-      context "with no kubernetes files" do
-        it "does not run kubectl apply" do
-          allow_any_instance_of(Object).to receive(:apply_terraform)
-
-          cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
-          expect(Open3).to_not receive(:capture3).with(cmd)
-
-          apply_namespace_dir(cluster, dir)
-        end
-      end
-
-      context "with kubernetes files" do
-        before do
-          allow(Dir).to receive(:glob).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/mynamespace/*.{yaml,yml,json}")
-            .and_return([1, 2, 3])
-        end
-
-        it "runs kubectl apply" do
-          allow_any_instance_of(Object).to receive(:apply_terraform)
-
-          cmd = "kubectl -n #{namespace} apply -f namespaces/#{cluster}/#{namespace}"
-
-          expect_execute(cmd, "", success)
-          expect($stdout).to receive(:puts)
-
-          apply_namespace_dir(cluster, dir)
-        end
-      end
-
-      it "applies terraform files" do
-        allow_any_instance_of(Object).to receive(:apply_kubernetes_files).and_return(nil)
-
-        allow(FileTest).to receive(:directory?).and_return(true)
-        expect(Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
-        expect(tf).to receive(:apply)
-
-        apply_namespace_dir(cluster, dir)
-      end
-    end
-  end
-
   it "get namespaces changed by pr" do
     expect(ENV).to receive(:fetch).with("master_base_sha").and_return("master")
     expect(ENV).to receive(:fetch).with("branch_head_sha").and_return("branch")
