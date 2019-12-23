@@ -31,7 +31,6 @@ namespace:
 	@make namespace-message
 
 # Create a new namespace with 'gitops' continuous deployment
-# TODO: ask for absolute, not relative, directory path
 gitops-namespace:
 	@make pull-tools
 	@echo
