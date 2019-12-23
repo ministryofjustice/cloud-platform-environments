@@ -42,11 +42,11 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
   let(:namespace) { "mynamespace" }
   let(:dir) { "namespaces/#{cluster}/#{namespace}" }
 
-  let(:tf) { double(Terraform) }
+  let(:tf) { double(CpEnv::Terraform) }
 
   it "runs terraform plan" do
     allow(FileTest).to receive(:directory?).and_return(true)
-    expect(Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
+    expect(CpEnv::Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
     expect(tf).to receive(:plan)
 
     plan_namespace_dir(cluster, dir)

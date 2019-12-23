@@ -45,6 +45,10 @@ def set_kube_context(cluster)
   execute("kubectl config use-context #{cluster}")
 end
 
+def apply_namespace_dir(cluster, dir)
+  CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
+end
+
 def apply_cluster_level_resources(cluster)
   log("blue", "applying cluster-level resources for #{cluster}")
   _, _, status = execute("kubectl apply -f namespaces/#{cluster}", can_fail: true)
@@ -55,7 +59,7 @@ def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
-  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
+  CpEnv::Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
 def execute(cmd, can_fail: false, silent: false)

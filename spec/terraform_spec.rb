@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Terraform do
+describe CpEnv::Terraform do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
   let(:namespace) { "mynamespace" }
   let(:dir) { "namespaces/#{cluster}/#{namespace}" }
