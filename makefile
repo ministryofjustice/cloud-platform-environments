@@ -13,10 +13,13 @@ pipeline.
 endef
 export NAMESPACE_MESSAGE
 
-# Create a new namespace
-namespace:
+pull-tools:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
+
+# Create a new namespace
+namespace:
+	@make pull-tools
 	@echo "Creating namespace..."
 	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb $${ANSWERS_FILE}
 	@git status --untracked-files=all
@@ -27,8 +30,7 @@ namespace:
 # Create a new namespace with 'gitops' continuous deployment
 # TODO: ask for absolute, not relative, directory path
 gitops-namespace:
-	@echo "Pulling Cloud Platform Tools docker image..."
-	@docker pull $(TOOLS_IMAGE) > /dev/null
+	@make pull-tools
 	@echo
 	@echo "A deployment directory will be created in your application source code tree, "
 	@echo "as part of the namespace creation process."
@@ -43,8 +45,7 @@ gitops-namespace:
 # Set an env. var called APPDIR to the source code directory
 # you want to mount into your tools shell
 tools-shell:
-	@echo "Pulling Cloud Platform Tools docker image..."
-	@docker pull $(TOOLS_IMAGE) > /dev/null
+	@make pull-tools
 	@docker run --rm -it \
 		-v $${APPDIR}:/app \
 		-v $${HOME}/.kube:/app/.kube \
