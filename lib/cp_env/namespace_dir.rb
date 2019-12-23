@@ -17,7 +17,6 @@ class CpEnv
       executor.execute("git pull") # In case any PRs were merged since the pipeline started
 
       if gitops_namespace?
-        team_name = get_team_name
         apply_gitops_namespace_dir
         GitopsGpgKeypair.new(namespace: namespace, team_name: team_name).generate_and_store
       else
@@ -67,12 +66,12 @@ class CpEnv
     def apply_gitops_namespace_dir
       return unless FileTest.directory?(dir)
 
-      apply_kubernetes_files(cluster, namespace, dir)
-      apply_gitops_kubernetes_files(cluster, team_name, dir)
+      apply_kubernetes_files
+      apply_gitops_kubernetes_files
       apply_terraform
     end
 
-    def apply_gitops_kubernetes_files(_cluster, team_name, dir)
+    def apply_gitops_kubernetes_files
       log("green", "applying concourse-#{team_name}")
       executor.execute("kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources")
     end
