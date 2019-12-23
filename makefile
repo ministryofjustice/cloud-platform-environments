@@ -53,3 +53,5 @@ tools-shell:
 		-v $${HOME}/.aws:/root/.aws \
 		-v $${HOME}/.gnupg:/root/.gnupg \
 		-w /app $(TOOLS_IMAGE) bash
+
+.PHONY: pull-tools namespace namespace-message gitops-namespace tools-shell
