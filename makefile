@@ -17,15 +17,18 @@ pull-tools:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
 
+namespace-message:
+	@git status --untracked-files=all
+	@echo
+	@echo $${NAMESPACE_MESSAGE} | fmt
+	@echo
+
 # Create a new namespace
 namespace:
 	@make pull-tools
 	@echo "Creating namespace..."
 	@docker run --rm -it -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-namespace-files.rb $${ANSWERS_FILE}
-	@git status --untracked-files=all
-	@echo
-	@echo $${NAMESPACE_MESSAGE} | fmt
-	@echo
+	@make namespace-message
 
 # Create a new namespace with 'gitops' continuous deployment
 # TODO: ask for absolute, not relative, directory path
@@ -37,10 +40,7 @@ gitops-namespace:
 	@echo "Please provide the RELATIVE path to your working copy of your application source code."
 	@echo
 	@read -p "path: " working_copy_path; docker run --rm -it -v $$(pwd)/$${working_copy_path}:/appsrc -v $$(pwd):/app -w /app $(TOOLS_IMAGE) bin/create-gitops-namespace-files.rb $${ANSWERS_FILE}
-	@git status --untracked-files=all
-	@echo
-	@echo $${NAMESPACE_MESSAGE} | fmt
-	@echo
+	@make namespace-message
 
 # Set an env. var called APPDIR to the source code directory
 # you want to mount into your tools shell
