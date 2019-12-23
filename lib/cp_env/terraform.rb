@@ -23,9 +23,9 @@ class CpEnv
       # ensure that our pipelines always set these env. vars. This check is
       # here so that we get a sensible error if we ever fail to do that.
       %w[
-      TF_VAR_cluster_name
-      TF_VAR_cluster_state_bucket
-      TF_VAR_cluster_state_key
+        TF_VAR_cluster_name
+        TF_VAR_cluster_state_bucket
+        TF_VAR_cluster_state_key
       ].each { |var| ENV.fetch(var) }
     end
 

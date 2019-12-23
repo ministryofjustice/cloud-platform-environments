@@ -37,7 +37,7 @@ class CpEnv
     def team_name
       @team_name ||= begin
         yaml = YAML.load(File.read("#{dir}/01-rbac.yaml"))
-        team = yaml['subjects'][0].dig('name').split(':')[1]
+        team = yaml["subjects"][0].dig("name").split(":")[1]
         abort("Team name not found") if team.nil?
         team
       end
@@ -75,6 +75,5 @@ class CpEnv
       log("green", "applying concourse-#{team_name}")
       executor.execute("kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources")
     end
-
   end
 end

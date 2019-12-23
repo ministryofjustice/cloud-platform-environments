@@ -28,19 +28,19 @@ class CpEnv
     end
 
     def public_key_exists?
-     stdout, _, _ = executor.execute("kubectl -n #{namespace} get secrets -o json", silent: true)
-     names = JSON.parse(stdout)["items"].map {|i| i.dig("metadata", "name")}
-     names.include?(pubkey_secret_name)
+      stdout, _, _ = executor.execute("kubectl -n #{namespace} get secrets -o json", silent: true)
+      names = JSON.parse(stdout)["items"].map { |i| i.dig("metadata", "name") }
+      names.include?(pubkey_secret_name)
     end
 
     def secret_key_exists?
       stdout, _, _ = executor.execute("kubectl -n concourse-#{team_name} get secrets -o json", silent: true)
-      names = JSON.parse(stdout)["items"].map {|i| i.dig("metadata", "name")}
+      names = JSON.parse(stdout)["items"].map { |i| i.dig("metadata", "name") }
       names.include?(seckey_secret_name)
     end
 
     def pubkey_secret_name
-     "#{team_name}-gpg-pubkey"
+      "#{team_name}-gpg-pubkey"
     end
 
     def seckey_secret_name
@@ -84,17 +84,17 @@ class CpEnv
       namespace = args.fetch(:namespace)
 
       json = <<~EOF
-    {
-      "apiVersion": "v1",
-      "kind": "Secret",
-      "metadata": {
-        "name": "#{name}",
-        "namespace": "#{namespace}"
-      },
-      "data": {
-        "key": "#{args.fetch(:data)}"
-      }
-    }
+        {
+          "apiVersion": "v1",
+          "kind": "Secret",
+          "metadata": {
+            "name": "#{name}",
+            "namespace": "#{namespace}"
+          },
+          "data": {
+            "key": "#{args.fetch(:data)}"
+          }
+        }
       EOF
 
       _, stderr, status = executor.execute("echo '#{json}' | kubectl -n #{args.fetch(:namespace)} apply -f - ", silent: true)
