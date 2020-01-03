@@ -50,7 +50,7 @@ resource "kubernetes_secret" "wplearndev_rds" {
     access_key_id     = module.wplearndev_rds.access_key_id
     secret_access_key = module.wplearndev_rds.secret_access_key
 
-    url = "postgres://${module.wplearndev_rds.database_username}:${module.wplearndev_rds.database_password}@${module.wplearndev_rds.rds_instance_endpoint}/${module.wplearndev_rds.database_name}"
+    #url = "mysql://${module.wplearndev_rds.database_username}:${module.wplearndev_rds.database_password}@${module.wplearndev_rds.rds_instance_endpoint}/${module.wplearndev_rds.database_name}"
   }
 }
 
