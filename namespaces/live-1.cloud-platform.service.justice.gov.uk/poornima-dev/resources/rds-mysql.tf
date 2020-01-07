@@ -36,17 +36,17 @@ module "wplearndev_rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
-  
+
 
   db_parameter = [
     {
-      name  = "character_set_client"
-      value = "utf8"
+      name         = "character_set_client"
+      value        = "utf8"
       apply_method = "immediate"
     },
     {
-      name  = "character_set_server"
-      value = "utf8"
+      name         = "character_set_server"
+      value        = "utf8"
       apply_method = "immediate"
     }
   ]
