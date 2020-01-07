@@ -18,9 +18,19 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 #
 # The script requires the following environment variables:
 #
-#   export KUBECONFIG_S3_BUCKET=cloud-platform-concourse-kubeconfig
-#   export KUBECONFIG_S3_KEY=kubeconfig
-#   export KUBE_CONFIG=/tmp/kubeconfig
-#   export KUBE_CTX=live-1.cloud-platform.service.justice.gov.uk
+#   export PIPELINE_CLUSTER=live-1.cloud-platform.service.justice.gov.uk
+#
+# It also needs to be able to run:
+#
+#   kubectl config use-context #{cluster}
+#
+
+cluster = ENV.fetch("PIPELINE_CLUSTER")
+
+log("green", "Deleting manually created pods in #{cluster}")
+
+set_kube_context(cluster)
 
 CpEnv::ManuallyCreatedPodDeleter.new.run
+
+log("green", "Done.")
