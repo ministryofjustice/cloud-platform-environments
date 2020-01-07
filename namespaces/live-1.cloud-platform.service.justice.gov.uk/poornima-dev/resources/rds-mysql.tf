@@ -59,7 +59,7 @@ module "wplearndev_rds" {
 resource "kubernetes_secret" "wplearndev_rds" {
   metadata {
     name      = "wplearndev-rds-output"
-    namespace = "wplearndev"
+    namespace = "poornima-dev"
   }
 
   data = {
