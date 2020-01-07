@@ -1,40 +1,3 @@
-module "offender_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.0"
-
-  team_name          = var.team_name
-  topic_display_name = "offender-events"
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "offender_events" {
-  metadata {
-    name      = "offender-events-topic"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.offender_events.access_key_id
-    secret_access_key = module.offender_events.secret_access_key
-    topic_arn         = module.offender_events.topic_arn
-  }
-}
-
-resource "kubernetes_secret" "offender_case_notes" {
-  metadata {
-    name      = "offender-events-topic"
-    namespace = "offender-case-notes-preprod"
-  }
-
-  data = {
-    access_key_id     = module.offender_events.access_key_id
-    secret_access_key = module.offender_events.secret_access_key
-    topic_arn         = module.offender_events.topic_arn
-  }
-}
-
 module "keyworker_api_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
@@ -49,7 +12,7 @@ module "keyworker_api_queue" {
   {
     "deadLetterTargetArn": "${module.keyworker_api_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
+
 EOF
 
 
@@ -82,7 +45,7 @@ resource "aws_sqs_queue_policy" "keyworker_api_queue_policy" {
         }
       ]
   }
-   
+
 EOF
 
 }
@@ -105,7 +68,7 @@ module "keyworker_api_dead_letter_queue" {
 resource "kubernetes_secret" "keyworker_api_queue" {
   metadata {
     name      = "kw-sqs-instance-output"
-    namespace = "keyworker-api-preprod"
+    namespace = "keyworker-api-prod"
   }
 
   data = {
@@ -120,7 +83,7 @@ resource "kubernetes_secret" "keyworker_api_queue" {
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
     name      = "kw-sqs-dl-instance-output"
-    namespace = "keyworker-api-preprod"
+    namespace = "keyworker-api-prod"
   }
 
   data = {
@@ -137,6 +100,5 @@ resource "aws_sns_topic_subscription" "keyworker_api_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.keyworker_api_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"BOOKING_NUMBER-CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"BOOKING_NUMBER-CHANGED\", \"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
 }
-
