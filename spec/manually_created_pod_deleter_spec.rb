@@ -2,12 +2,14 @@ require "spec_helper"
 
 describe CpEnv::ManuallyCreatedPodDeleter do
   let(:executor) { double(CpEnv::Executor) }
-  let(:params) { {
-    executor: executor
-  } }
+  let(:params) {
+    {
+      executor: executor,
+    }
+  }
   subject(:deleter) { described_class.new(params) }
 
-  let(:json) { %[{"items": []}] }
+  let(:json) { %({"items": []}) }
 
   before do
     allow(executor).to receive(:execute).with("kubectl get pods --all-namespaces -o json", silent: true).and_return(json)
@@ -23,7 +25,7 @@ describe CpEnv::ManuallyCreatedPodDeleter do
     let(:startTime) { (Date.today - 3).to_s }
 
     let(:pod) {
-      %[
+      %(
          {
            "metadata": {
              "name": "mypod",
@@ -33,12 +35,12 @@ describe CpEnv::ManuallyCreatedPodDeleter do
              "startTime": "#{startTime}"
            }
          }
-       ]
+       )
     }
 
-    let(:json) { %[{"items": [ #{pod} ]}] }
+    let(:json) { %({"items": [ #{pod} ]}) }
 
-    context  "but the pod is 1 day old" do
+    context "but the pod is 1 day old" do
       let(:startTime) { (Date.today - 1).to_s }
 
       it "does not delete the pod" do

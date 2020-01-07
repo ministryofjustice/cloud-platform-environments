@@ -24,7 +24,7 @@ class CpEnv
 
     def run
       pods_to_delete = get_all_pods
-        .reject { |pod| pod.fetch("metadata").has_key?("ownerReferences") }
+        .reject { |pod| pod.fetch("metadata").key?("ownerReferences") }
         .reject { |pod| pod.dig("metadata", "namespace") == SYSTEM_NAMESPACE }
         .reject { |pod| seconds_running(pod) < MAX_AGE_IN_SECONDS }
 
