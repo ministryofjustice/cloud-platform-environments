@@ -11,6 +11,10 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 # Such pods prevent the node-recycler from draining a node to
 # replace it.
 #
+# NB: The script has a 'dry-run' mode, in which pods will be listed
+# but not deleted. To use this, pass the string `--dry-run` as the
+# first and only argument.
+#
 # Developers need to run manual pods for tasks such as port-forwarding
 # to a database, but there's no good reason for such a pod to still be
 # running after 48 hours. If pods should always be running, they should
@@ -27,10 +31,16 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 cluster = ENV.fetch("PIPELINE_CLUSTER")
 
-log("green", "Deleting manually created pods in #{cluster}")
+dry_run = ARGV.shift == "--dry-run"
+
+if dry_run
+  log("green", "Dry run: detecting manually created pods in #{cluster}")
+else
+  log("green", "Deleting manually created pods in #{cluster}")
+end
 
 set_kube_context(cluster)
 
-CpEnv::ManuallyCreatedPodDeleter.new.run
+CpEnv::ManuallyCreatedPodDeleter.new(dry_run: dry_run).run
 
 log("green", "Done.")
