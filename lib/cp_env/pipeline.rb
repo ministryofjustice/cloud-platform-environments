@@ -81,19 +81,8 @@ def apply_terraform(cluster, namespace, dir)
   Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
 end
 
-def execute(cmd, can_fail: false)
-  log("blue", "executing: #{cmd}")
-  stdout, stderr, status = Open3.capture3(cmd)
-
-  unless can_fail || status.success?
-    log("red", "Command: #{cmd} failed.")
-    puts stderr
-    raise
-  end
-
-  puts stdout
-
-  [stdout, stderr, status]
+def execute(cmd, can_fail: false, silent: false)
+  CpEnv::Executor.new.execute(cmd, can_fail: can_fail, silent: silent)
 end
 
 def log(colour, message)
