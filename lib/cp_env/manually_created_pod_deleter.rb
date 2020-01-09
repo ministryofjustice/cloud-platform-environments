@@ -12,14 +12,18 @@ class CpEnv
   # to a database, but there's no good reason for such a pod to still be
   # running after 48 hours. If pods should always be running, they should
   # be part of a deployment (and hence a ReplicaSet).
+  #
+  # To see a list of pods that *would be* deleted, without actually
+  # deleting any, pass `dry_run: true` to the `initialize` method.
   class ManuallyCreatedPodDeleter
-    attr_reader :executor
+    attr_reader :executor, :dry_run
 
     SYSTEM_NAMESPACE = "kube-system"
     MAX_AGE_IN_SECONDS = 2 * 24 * 60 * 60 # 2 days
 
     def initialize(args = {})
       @executor = args.fetch(:executor) { Executor.new }
+      @dry_run = args.fetch(:dry_run, false)
     end
 
     def run
@@ -45,7 +49,11 @@ class CpEnv
     def delete_pod(pod)
       namespace = pod.dig("metadata", "namespace")
       name = pod.dig("metadata", "name")
-      executor.execute("kubectl -n #{namespace} delete pod #{name}")
+      if dry_run
+        log("blue", "dry run: would delete pod #{name} from namespace #{namespace}")
+      else
+        executor.execute("kubectl -n #{namespace} delete pod #{name}")
+      end
     end
   end
 end

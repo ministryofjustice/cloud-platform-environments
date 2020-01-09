@@ -57,6 +57,20 @@ describe CpEnv::ManuallyCreatedPodDeleter do
         deleter.run
       end
 
+      context "in dry-run mode" do
+        let(:params) { super().merge(dry_run: true) }
+
+        # suppress log output
+        before do
+          allow($stdout).to receive(:puts).with("\e[34mdry run: would delete pod mypod from namespace mynamespace\e[0m")
+        end
+
+        it "does not delete the pod" do
+          expect(executor).to_not receive(:execute).with("kubectl -n mynamespace delete pod mypod")
+          deleter.run
+        end
+      end
+
       context "but the pod is in kube-system" do
         let(:namespace) { "kube-system" }
 
