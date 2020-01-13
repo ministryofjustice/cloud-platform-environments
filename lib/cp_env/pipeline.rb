@@ -66,7 +66,6 @@ def apply_terraform(cluster, namespace, dir)
   Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
 end
 
-
 def execute(cmd, can_fail: false, silent: false)
   CpEnv::Executor.new.execute(cmd, can_fail: can_fail, silent: silent)
 end
