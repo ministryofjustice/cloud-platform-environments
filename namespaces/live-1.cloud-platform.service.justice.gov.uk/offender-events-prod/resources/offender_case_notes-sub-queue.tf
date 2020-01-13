@@ -96,5 +96,5 @@ resource "aws_sns_topic_subscription" "offender_case_notes_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.offender_case_notes_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"BOOKING_NUMBER-CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"BOOKING_NUMBER-CHANGED\",\"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
 }

@@ -58,6 +58,15 @@ def plan_namespace_dir(cluster, dir)
   CpEnv::Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
+def contains_kubernetes_files?(dir)
+  Dir.glob("#{dir}/*.{yaml,yml,json}").any?
+end
+
+def apply_terraform(cluster, namespace, dir)
+  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).apply
+end
+
+
 def execute(cmd, can_fail: false, silent: false)
   CpEnv::Executor.new.execute(cmd, can_fail: can_fail, silent: silent)
 end
