@@ -12,7 +12,7 @@ require "fileutils"
 
 TEMPLATES_DIR = "gitops-namespace-resources"
 DEPLOY_TEMPLATES_DIR = "#{TEMPLATES_DIR}/kubectl_deploy"
-CLUSTER_NAME = "gitops-test.cloud-platform.service.justice.gov.uk"
+CLUSTER_NAME = "live-1.cloud-platform.service.justice.gov.uk"
 NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
 WORKING_COPY = FileTest.directory?("/appsrc") ? "/appsrc" : "/tmp" # Use /tmp for tests. /appsrc when in a docker container.
 DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
