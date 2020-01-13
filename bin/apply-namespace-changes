@@ -6,16 +6,12 @@ def main(cluster)
   log("green", "applying for cluster #{cluster}")
 
   set_kube_context(cluster)
-  apply_namespaces(cluster)
+
+  changed_namespace_dirs(cluster).each do |dir|
+    CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
+  end
 
   log("green", "Done.")
-end
-
-def apply_namespaces(cluster)
-  changed_namespace_dirs(cluster).each do |namespace_dir|
-    execute("git pull") # In case any PRs were merged since the pipeline started
-    apply_namespace_dir(cluster, namespace_dir)
-  end
 end
 
 main ENV.fetch("PIPELINE_CLUSTER")

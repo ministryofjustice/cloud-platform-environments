@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: helloworld-rubyapp-ingress
+  namespace: make-gitops-namespace-test-dev
+spec:
+  tls:
+  - hosts:
+    - make-gitops-namespace-test-dev.apps.gitops-test.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: make-gitops-namespace-test-dev.apps.gitops-test.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rubyapp-service
+          servicePort: 4567

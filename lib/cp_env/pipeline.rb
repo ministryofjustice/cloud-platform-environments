@@ -51,26 +51,11 @@ def apply_cluster_level_resources(cluster)
   log("blue", "no global resources to apply") unless status.success?
 end
 
-def apply_namespace_dir(cluster, dir)
-  return unless FileTest.directory?(dir)
-
-  namespace = File.basename(dir)
-  apply_kubernetes_files(cluster, namespace, dir)
-  apply_terraform(cluster, namespace, dir)
-end
-
 def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
-  Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
-end
-
-def apply_kubernetes_files(_cluster, namespace, dir)
-  if contains_kubernetes_files?(dir)
-    log("green", "applying #{namespace}")
-    execute("kubectl -n #{namespace} apply -f #{dir}")
-  end
+  CpEnv::Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
 def contains_kubernetes_files?(dir)

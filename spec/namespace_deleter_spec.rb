@@ -31,14 +31,14 @@ describe CpEnv::NamespaceDeleter do
 
   subject(:deleter) { described_class.new(params) }
 
-  let(:terraform) { double(Terraform) }
+  let(:terraform) { double(CpEnv::Terraform) }
 
   let(:success) { double(success?: true) }
 
   before do
     allow(Kubeclient::Client).to receive(:new).and_return(k8s_client)
     allow($stdout).to receive(:puts).at_least(:once) # suppress output from 'log' method
-    allow(Terraform).to receive(:new).and_return(terraform)
+    allow(CpEnv::Terraform).to receive(:new).and_return(terraform)
     allow(ENV).to receive(:fetch).and_return("dummy")
   end
 
