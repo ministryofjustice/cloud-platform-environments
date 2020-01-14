@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe CpEnv::GitopsGpgKeypair do
+xdescribe CpEnv::GitopsGpgKeypair do
   let(:executor) { double(CpEnv::Executor) }
   let(:key_generator) { double(CpEnv::GpgKeypair) }
   let(:success) { double(success?: true) }
@@ -39,7 +39,7 @@ describe CpEnv::GitopsGpgKeypair do
   context "when secret key does not exist" do
     let(:sec_key_name) { "wibble" }
 
-    xit "generates a keypair" do
+    it "generates a keypair" do
       allow(executor).to receive(:execute).and_return(sec_response)
 
       expect(key_generator).to receive(:generate).and_return(keypair)
@@ -47,7 +47,7 @@ describe CpEnv::GitopsGpgKeypair do
       gpg.generate_and_store
     end
 
-    xit "stores public key in app namespace" do
+    it "stores public key in app namespace" do
       allow(executor).to receive(:execute).and_return(sec_response)
       allow(key_generator).to receive(:generate).and_return(keypair)
 
@@ -62,7 +62,7 @@ describe CpEnv::GitopsGpgKeypair do
       end
     end
 
-    xit "stores public key in concourse team namespace" do
+    it "stores public key in concourse team namespace" do
       allow(executor).to receive(:execute).and_return(sec_response)
       allow(key_generator).to receive(:generate).and_return(keypair)
 
@@ -77,7 +77,7 @@ describe CpEnv::GitopsGpgKeypair do
       end
     end
 
-    xit "stores private key in concourse team namespace" do
+    it "stores private key in concourse team namespace" do
       allow(executor).to receive(:execute).and_return(sec_response)
       allow(key_generator).to receive(:generate).and_return(keypair)
 
@@ -96,7 +96,7 @@ describe CpEnv::GitopsGpgKeypair do
   context "when secret key exists" do
     let(:sec_key_name) { "#{team_name}-gpg-seckey" }
 
-    xit "does not generate a keypair" do
+    it "does not generate a keypair" do
       allow(executor).to receive(:execute).and_return(sec_response)
 
       expect(key_generator).to_not receive(:generate)
@@ -107,7 +107,7 @@ describe CpEnv::GitopsGpgKeypair do
     context "when public key does not exist in app namespace" do
       let(:pub_key_name) { "does-not-match" }
 
-      xit "copies public key from concourse-team namespace" do
+      it "copies public key from concourse-team namespace" do
         allow(executor).to receive(:execute).and_return(
           sec_response,
           pub_response,
@@ -124,7 +124,7 @@ describe CpEnv::GitopsGpgKeypair do
     context "when public key exists in app namespace" do
       let(:pub_key_name) { "#{team_name}-gpg-pubkey" }
 
-      xit "does not copy the public key from the concourse-team namespace" do
+      it "does not copy the public key from the concourse-team namespace" do
         allow(executor).to receive(:execute).and_return(
           sec_response,
           pub_response,
