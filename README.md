@@ -1,5 +1,5 @@
 # cloud-platform-environments
-
+Testing the test specs. 
 ## Intro
 This repository is where kubernetes namespaces are managed, across all the clusters. Kubernetes namespaces and resources are defined in the `namespaces` directory in this repository under the corresponding `cluster` name.
 
