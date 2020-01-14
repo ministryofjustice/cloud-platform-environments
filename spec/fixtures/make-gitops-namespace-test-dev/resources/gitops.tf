@@ -1,5 +1,5 @@
 module "concourse-gitops" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-gitops?ref=tf12"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-gitops"
   source_code_url               = "https://foo.bar.baz"
   github_team                   = "webops"
   namespace                     = "make-gitops-namespace-test-dev"
