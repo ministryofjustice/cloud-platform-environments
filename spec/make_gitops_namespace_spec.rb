@@ -8,7 +8,7 @@ end
 describe "make gitops namespace" do
   let(:answers_file) { "spec/fixtures/make-gitops-namespace-answers.yaml" }
   let(:namespace) { "make-gitops-namespace-test-dev" } # Defined in the answers_file
-  let(:namespace_dir) { "namespaces/gitops-test.cloud-platform.service.justice.gov.uk/#{namespace}" }
+  let(:namespace_dir) { "namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}" }
   let(:fixture_dir) { "spec/fixtures/make-gitops-namespace-test-dev" }
 
   let(:fixture_dir) { "spec/fixtures/make-gitops-namespace-test-dev" }
