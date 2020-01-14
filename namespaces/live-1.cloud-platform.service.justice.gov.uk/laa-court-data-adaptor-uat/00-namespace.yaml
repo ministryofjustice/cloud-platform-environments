@@ -4,7 +4,7 @@ metadata:
   name: laa-court-data-adaptor-uat
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "user acceptance testing"
+    cloud-platform.justice.gov.uk/environment-name: "uat"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Legal Aid Agency"
     cloud-platform.justice.gov.uk/application: "LAA Court Data Adaptor"
