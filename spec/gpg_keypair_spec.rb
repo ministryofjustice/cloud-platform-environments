@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe CpEnv::GpgKeypair do
+xdescribe CpEnv::GpgKeypair do
   subject(:keypair) { described_class.new }
 
   it "instantiates" do

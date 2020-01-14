@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe CpEnv::GitopsGpgKeypair do
+xdescribe CpEnv::GitopsGpgKeypair do
   let(:executor) { double(CpEnv::Executor) }
   let(:key_generator) { double(CpEnv::GpgKeypair) }
   let(:success) { double(success?: true) }
