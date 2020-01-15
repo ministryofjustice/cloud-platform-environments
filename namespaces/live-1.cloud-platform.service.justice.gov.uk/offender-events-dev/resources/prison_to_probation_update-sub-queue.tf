@@ -7,7 +7,7 @@ module "prison_to_probation_update_queue" {
   application               = var.application
   sqs_name                  = "prison_to_probation_update_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 604800
+  message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {
