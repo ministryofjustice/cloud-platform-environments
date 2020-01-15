@@ -7,7 +7,7 @@ module "pathfinder_events_queue" {
   application               = var.application
   sqs_name                  = "pathfinder_events_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 604800
+  message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {
