@@ -15,5 +15,5 @@ module "peoplefinder_es" {
   team_name              = "peoplefinder"
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-development"
-  elasticsearch_version  = "1.5"
+  elasticsearch_version  = "6.8"
 }
