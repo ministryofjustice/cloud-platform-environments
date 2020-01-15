@@ -7,6 +7,7 @@ module "case_note_poll_pusher_queue" {
   application            = var.application
   sqs_name               = "case_note_poll_pusher_queue"
   encrypt_sqs_kms        = "true"
+  message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {

@@ -7,6 +7,7 @@ module "offender_categorisation_events_queue" {
   application            = var.application
   sqs_name               = "offender_categorisation_events_queue"
   encrypt_sqs_kms        = "true"
+  message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {
