@@ -14,4 +14,5 @@ resource "pingdom_check" "peoplefinder-production-cloud-platform-healthcheck" {
   tags                     = "businessunit_central_digital,application_peoplefinder,component_healthcheck,isproduction_true,environment_prod,infrastructuresupport_staff_tools_and_services"
   probefilters             = "region:EU"
   publicreport             = "true"
+  integrationids           = [98671, 98672]
 }
