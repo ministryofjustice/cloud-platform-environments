@@ -75,12 +75,14 @@ class CpEnv
     def create_gitops_kubeconfig
       log("green", "creating kubeconfig file inside concourse-#{team_name}")
       # grab kubeconfig file from s3
+      # base64 encode contents of file
       # create k8s secret with contents of kubeconfig
 
-      s3 = Aws::S3::Client.new
-      resp = s3.get_object(bucket:'cloud-platform-concourse-kubeconfig', key:'gitops-config')
+      #s3 = Aws::S3::Client.new
+      #obj = s3.get_object(bucket:'cloud-platform-concourse-kubeconfig', key:'gitops-config')
 
-      return resp
+      #config = obj.read
+      executor.execute("kubectl -n concourse-#{team_name} generic kubectl-config --from-file=/tmp/kubeconfig")
     end
 
     def apply_gitops_kubernetes_files
