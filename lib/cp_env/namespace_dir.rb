@@ -82,7 +82,7 @@ class CpEnv
       #obj = s3.get_object(bucket:'cloud-platform-concourse-kubeconfig', key:'gitops-config')
 
       #config = obj.read
-      executor.execute("kubectl -n concourse-#{team_name} generic kubectl-config --from-file=/tmp/kubeconfig")
+      executor.execute("kubectl -n concourse-#{team_name} create secret generic kubectl-config --from-file=/tmp/kubeconfig")
     end
 
     def apply_gitops_kubernetes_files
