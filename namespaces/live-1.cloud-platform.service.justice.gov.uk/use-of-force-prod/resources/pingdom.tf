@@ -8,7 +8,7 @@ provider "pingdom" {
 resource "pingdom_check" "dps-production-check" {
   type                     = "http"
   name                     = "DPS - ${var.application}"
-  host                     = "health-kick.hmpps.dsd.io"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6

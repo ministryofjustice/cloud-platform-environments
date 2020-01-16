@@ -8,7 +8,7 @@ provider "pingdom" {
 resource "pingdom_check" "dps-production-check-digital" {
   type                     = "http"
   name                     = "DPS - digital.${var.domain}"
-  host                     = "health-kick.hmpps.dsd.io"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -24,7 +24,7 @@ resource "pingdom_check" "dps-production-check-digital" {
 resource "pingdom_check" "dps-production-check-whereabouts" {
   type                     = "http"
   name                     = "DPS - whereabouts.${var.domain}"
-  host                     = "health-kick.hmpps.dsd.io"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
