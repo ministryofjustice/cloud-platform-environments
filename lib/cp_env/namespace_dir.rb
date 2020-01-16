@@ -68,7 +68,19 @@ class CpEnv
 
       apply_kubernetes_files
       apply_gitops_kubernetes_files
+      create_gitops_kubeconfig
       apply_terraform
+    end
+
+    def create_gitops_kubeconfig
+      log("green", "creating kubeconfig file inside concourse-#{team_name}")
+      # grab kubeconfig file from s3
+      # create k8s secret with contents of kubeconfig
+
+      s3 = Aws::S3::Client.new
+      resp = s3.get_object(bucket:'cloud-platform-concourse-kubeconfig', key:'gitops-config')
+
+      return resp
     end
 
     def apply_gitops_kubernetes_files
