@@ -11,3 +11,23 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: laa-court-data-adaptor-stage
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller
+  namespace: laa-court-data-adaptor-stage
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: laa-court-data-adaptor-stage
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
