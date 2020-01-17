@@ -36,3 +36,24 @@ resource "kubernetes_secret" "cp_team_test_rds" {
   }
 }
 
+module "cp_team_test_rds_testing" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
+  team_name              = "cp-team-test-repo2"
+  business-unit          = "cp-team-test-bu2"
+  application            = "cpteamtestapp2"
+  is-production          = "false"
+  environment-name       = "development"
+  infrastructure-support = "poornima.krishnasamy@digital.justice.gov.uk"
+  force_ssl              = "false"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "true"
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+}
+
