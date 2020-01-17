@@ -17,8 +17,8 @@ variable "team_name" {
 }
 
 variable "repo_name" {
-  description = 'The name of github repo AND ecr repo'
-  default = "laa-court-data-ui"
+  description = "The name of github repo AND ecr repo"
+  default     = "laa-court-data-ui"
 }
 
 variable "environment-name" {
