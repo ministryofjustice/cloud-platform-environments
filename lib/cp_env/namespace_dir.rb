@@ -68,7 +68,20 @@ class CpEnv
 
       apply_kubernetes_files
       apply_gitops_kubernetes_files
+      create_gitops_kubeconfig
       apply_terraform
+    end
+
+    def create_gitops_kubeconfig
+      log("green", "creating kubeconfig secret inside concourse-#{team_name}")
+      # The kubeconfig file is pulled down locally as part of the build pipeline.
+      unless secret_exists?
+        executor.execute("kubectl -n concourse-#{team_name} create secret generic kubectl-conf --from-file=$KUBECONFIG")
+      end
+    end
+
+    def secret_exists?
+      system("kubectl -n concourse-#{team_name} get secret kubectl-conf")
     end
 
     def apply_gitops_kubernetes_files
