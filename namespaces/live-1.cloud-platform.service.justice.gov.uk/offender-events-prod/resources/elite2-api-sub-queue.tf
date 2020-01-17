@@ -7,7 +7,7 @@ module "elite2_api_events_queue" {
   application                = var.application
   sqs_name                   = "elite2_api_events_queue"
   encrypt_sqs_kms            = "true"
-  visibility_timeout_seconds = "300"
+  visibility_timeout_seconds = 300
   message_retention_seconds  = 1209600
 
   redrive_policy = <<EOF
