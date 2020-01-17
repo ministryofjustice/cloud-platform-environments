@@ -11,30 +11,3 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: use-of-force-prod
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: circleci 
-  namespace: use-of-force-prod
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: tiller
-  namespace: use-of-force-prod
-subjects:
-- kind: ServiceAccount
-  name: tiller
-- kind: ServiceAccount
-  name: circleci
-roleRef:
-  kind: ClusterRole
-  name: admin
-  apiGroup: rbac.authorization.k8s.io
