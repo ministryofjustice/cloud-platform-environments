@@ -15,26 +15,6 @@ module "jason-lab-rds-instance" {
   }
 }
 
-
-module "jason-lab-rds-instance2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
-
-  cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
-  application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is-production
-  infrastructure-support = var.infrastructure-support
-  team_name              = var.team_name
-  force_ssl              = "false"
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-
-
 resource "kubernetes_secret" "jason-lab-rds-instance" {
   metadata {
     name      = "jason-lab-${var.environment-name}"
