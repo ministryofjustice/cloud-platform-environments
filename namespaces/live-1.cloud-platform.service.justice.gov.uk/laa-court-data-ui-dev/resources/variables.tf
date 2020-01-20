@@ -6,6 +6,10 @@ variable "namespace" {
   default = "laa-court-data-ui-dev"
 }
 
+variable "domain" {
+  default = "view-court-data.service.justice.gov.uk"
+}
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
