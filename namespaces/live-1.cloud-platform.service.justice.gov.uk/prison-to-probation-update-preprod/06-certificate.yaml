@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prison-to-probation-update-cert
+  namespace: prison-to-probation-update-preprod
+spec:
+  secretName: prison-to-probation-update-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'prison-to-probation-update-preprod.prison.service.justice.gov.uk'
+  acme:
+    config:
+      - domains:
+          - 'prison-to-probation-update-preprod.prison.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
