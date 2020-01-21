@@ -27,18 +27,18 @@ spec:
           component: ingress-controllers
 ---
 kind: NetworkPolicy
-  apiVersion: networking.k8s.io/v1
-  metadata:
-    name: allow-prometheus-scraping
-    namespace: peoplefinder-development
-  spec:
-    podSelector:
-      matchLabels:
-        app: peoplefinder
-    policyTypes:
-    - Ingress
-    ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            component: monitoring
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: peoplefinder-development
+spec:
+  podSelector:
+    matchLabels:
+      app: peoplefinder
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
