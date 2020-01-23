@@ -10,3 +10,8 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Cloud platform namespace usage report"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-namespace-usage-report"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: concourse-webops
