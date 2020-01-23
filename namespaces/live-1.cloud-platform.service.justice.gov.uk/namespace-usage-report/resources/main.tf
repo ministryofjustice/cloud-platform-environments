@@ -7,6 +7,9 @@ provider "aws" {
   region = "eu-west-2"
 }
 
+provider "concourse" {
+}
+
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
