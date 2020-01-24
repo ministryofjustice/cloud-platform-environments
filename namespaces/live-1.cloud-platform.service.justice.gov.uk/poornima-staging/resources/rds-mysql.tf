@@ -11,7 +11,7 @@
 # Application RDS (MySQL)
 #################################################################################
 
-module "wplearnprod_rds" {
+module "wplearndev_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
@@ -56,21 +56,21 @@ module "wplearnprod_rds" {
   }
 }
 
-resource "kubernetes_secret" "wplearnprod_rds" {
+resource "kubernetes_secret" "wplearndev_rds" {
   metadata {
-    name      = "wplearnprod-rds-output"
-    namespace = "poornima-staging"
+    name      = "wplearndev-rds-output"
+    namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.wplearnprod_rds.rds_instance_endpoint
-    database_name         = module.wplearnprod_rds.database_name
-    database_username     = module.wplearnprod_rds.database_username
-    database_password     = module.wplearnprod_rds.database_password
-    rds_instance_address  = module.wplearnprod_rds.rds_instance_address
+    rds_instance_endpoint = module.wplearndev_rds.rds_instance_endpoint
+    database_name         = module.wplearndev_rds.database_name
+    database_username     = module.wplearndev_rds.database_username
+    database_password     = module.wplearndev_rds.database_password
+    rds_instance_address  = module.wplearndev_rds.rds_instance_address
 
-    access_key_id     = module.wplearnprod_rds.access_key_id
-    secret_access_key = module.wplearnprod_rds.secret_access_key
+    access_key_id     = module.wplearndev_rds.access_key_id
+    secret_access_key = module.wplearndev_rds.secret_access_key
 
     #url = "mysql://${module.wplearndev_rds.database_username}:${module.wplearndev_rds.database_password}@${module.wplearndev_rds.rds_instance_endpoint}/${module.wplearndev_rds.database_name}"
   }
