@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
 
   team_name              = "peoplefinder"
   business-unit          = "Central Digital"
@@ -81,4 +81,3 @@ resource "kubernetes_secret" "peoplefinder_s3" {
     bucket_name       = module.peoplefinder_s3.bucket_name
   }
 }
-
