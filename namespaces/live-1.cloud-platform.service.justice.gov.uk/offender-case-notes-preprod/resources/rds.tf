@@ -51,6 +51,8 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     database_name         = module.dps_rds.database_name
     database_username     = module.dps_rds.database_username
     database_password     = module.dps_rds.database_password
+    access_key_id         = module.dps_rds.access_key_id
+    secret_access_key     = module.dps_rds.secret_access_key
     rds_instance_address  = module.dps_rds.rds_instance_address
   }
 }
