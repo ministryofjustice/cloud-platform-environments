@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: digital-prison-services-prod
-spec:
-  hard:
-    pods: "50"
