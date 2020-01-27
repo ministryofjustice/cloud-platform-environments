@@ -1,5 +1,5 @@
 module "concourse-gitops" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-gitops:add/gitops-manager"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-gitops?ref=add/gitops-manager"
   source_code_url               = "https://github.com/ministryofjustice/cloud-platform-namespace-usage-report"
   github_team                   = "webops"
   namespace                     = "namespace-usage-report"
