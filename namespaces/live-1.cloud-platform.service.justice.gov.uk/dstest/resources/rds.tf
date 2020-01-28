@@ -23,8 +23,8 @@ module "dstest_rds" {
 
 resource "kubernetes_secret" "dstest_rds_secret" {
   metadata {
-    name      = "dstest_rds_secret"
-    namespace = "dstest"
+    name      = "dstest-rds-instance-output"
+    namespace = var.namespace
   }
 
   data = {
