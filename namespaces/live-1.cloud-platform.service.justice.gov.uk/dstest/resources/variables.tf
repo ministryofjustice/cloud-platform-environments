@@ -2,6 +2,10 @@ variable "team_name" {
   default = "webops"
 }
 
+variable "namespace" {
+  default = "dstest"
+}
+
 variable "is-production" {
   default = "true"
 }
