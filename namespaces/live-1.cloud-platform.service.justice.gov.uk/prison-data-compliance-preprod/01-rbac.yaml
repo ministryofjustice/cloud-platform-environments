@@ -9,6 +9,6 @@ subjects:
     name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: admin
   apiGroup: rbac.authorization.k8s.io
