@@ -48,7 +48,7 @@ module "peoplefinder_s3" {
     ],
     "Resource": [
       "$${bucket_arn}",
-      "arn:aws:s3:::pf-staging-assets"
+      "arn:aws:s3:::peoplefinder-staging-assets"
     ]
   },
   {
@@ -59,7 +59,7 @@ module "peoplefinder_s3" {
     ],
     "Resource": [
       "$${bucket_arn}/*",
-      "arn:aws:s3:::pf-staging-assets/*"
+      "arn:aws:s3:::peoplefinder-staging-assets/*"
     ]
   }
 ]
