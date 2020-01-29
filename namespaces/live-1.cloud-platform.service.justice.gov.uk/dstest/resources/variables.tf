@@ -7,7 +7,7 @@ variable "namespace" {
 }
 
 variable "is-production" {
-  default = "true"
+  default = "false"
 }
 
 variable "business-unit" {
