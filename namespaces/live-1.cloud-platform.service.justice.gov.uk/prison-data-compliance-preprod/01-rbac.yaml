@@ -12,3 +12,35 @@ roleRef:
   kind: Role
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin 
+  namespace: prison-data-compliance-preprod 
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "pods/portforward"
+      - "deployment"
+      - "secrets"
+      - "services"
+      - "pods"
+    verbs:
+      - "patch"
+      - "get"
+      - "create"
+      - "delete"
+      - "list"
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "deployments"
+      - "ingresses"
+    verbs:
+      - "get"
+      - "update"
+      - "delete"
+      - "create"
+      - "patch"
