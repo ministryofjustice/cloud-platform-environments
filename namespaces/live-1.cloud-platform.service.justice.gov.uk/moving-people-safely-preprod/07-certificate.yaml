@@ -13,6 +13,6 @@ spec:
   acme:
     config:
     - domains:
-      - 'moving-people-safely-preprod.service.justice.gov.uk'
+      - 'moving-people-safely-preprod.prison.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
