@@ -29,5 +29,5 @@ subjects:
   namespace: check-financial-eligibility-uat
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: admin
   apiGroup: rbac.authorization.k8s.io

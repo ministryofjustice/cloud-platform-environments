@@ -30,5 +30,5 @@ subjects:
   namespace: live0-to-live1
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: admin
   apiGroup: rbac.authorization.k8s.io
