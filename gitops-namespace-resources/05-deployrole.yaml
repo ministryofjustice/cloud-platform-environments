@@ -1,3 +1,10 @@
+# This service account will be used to impersonate user privileges
+# and deploy user applications in a Gitops pipeline.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deploy
+  namespace: ${namespace}
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -13,6 +20,7 @@ rules:
       - "secrets"
       - "services"
       - "pods"
+      - "cronjobs"
     verbs:
       - "patch"
       - "get"
