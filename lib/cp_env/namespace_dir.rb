@@ -4,6 +4,7 @@ class CpEnv
     attr_reader :executor
 
     GITOPS_RESOURCES_DIR = "gitops-resources"
+    MANAGER_CLUSTER = "arn:aws:eks:eu-west-2:754256621582:cluster/manager"
 
     def initialize(args)
       @dir = args.fetch(:dir)
@@ -72,12 +73,23 @@ class CpEnv
       apply_terraform
     end
 
+    # Creates a concourse-<team-name> namespace and a kubeconfig secret inside. 
+    # The kubeconfig file is pulled down locally as part of the build pipeline.
     def create_gitops_kubeconfig
       log("green", "creating kubeconfig secret inside concourse-#{team_name}")
-      # The kubeconfig file is pulled down locally as part of the build pipeline.
+      set_kube_context(MANAGER_CLUSTER)
+      unless team_namespace_exists?
+        executor.execute("kubectl create ns concourse-#{team_name}")
+      end
+
       unless secret_exists?
         executor.execute("kubectl -n concourse-#{team_name} create secret generic kubectl-conf --from-file=$KUBECONFIG")
       end
+      set_kube_context(cluster)
+    end
+
+    def team_namespace_exists?
+      system("kubectl get ns | grep concourse-#{team_name}")
     end
 
     def secret_exists?
