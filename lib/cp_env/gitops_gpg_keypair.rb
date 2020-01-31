@@ -33,7 +33,10 @@ class CpEnv
     end
 
     def delete_pubkey_secret
-      stdout, _, _ = executor.execute("kubectl -n #{namespace} delete secret #{pubkey_secret_name}", silent: true)
+      log("green", "Unable to find secret gpg key, removing leftover public keys.")
+      if secret_key_exists?
+        executor.execute("kubectl -n #{namespace} delete secret #{pubkey_secret_name}")
+      end
     end
 
     def pubkey_secret_name
