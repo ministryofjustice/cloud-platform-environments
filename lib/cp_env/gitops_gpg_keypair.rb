@@ -12,6 +12,7 @@ class CpEnv
 
     def generate_and_store
       unless gpg_key_exists?(seckey_secret_name)
+        log("blue", "Unable to find secret gpg key, removing leftover public keys.")
         delete_pubkey_secret
         pubkey, seckey = generate_keypair
         store_in_namespace_secrets(pubkey: pubkey, seckey: seckey)
@@ -27,7 +28,6 @@ class CpEnv
     end
 
     def delete_pubkey_secret
-      log("blue", "Unable to find secret gpg key, removing leftover public keys.")
       if gpg_key_exists?(pubkey_secret_name)
         executor.execute("kubectl -n #{namespace} delete secret #{pubkey_secret_name}")
       end
