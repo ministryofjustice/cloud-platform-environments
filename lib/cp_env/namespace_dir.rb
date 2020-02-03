@@ -73,7 +73,7 @@ class CpEnv
       apply_terraform
     end
 
-    # Creates a concourse-<team-name> namespace and a kubeconfig secret inside. 
+    # Creates a concourse-<team-name> namespace and a kubeconfig secret inside.
     # The kubeconfig file is pulled down locally as part of the build-environments pipeline.
     def create_gitops_kubeconfig
       log("green", "creating kubeconfig secret inside concourse-#{team_name}")
