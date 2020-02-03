@@ -4,6 +4,7 @@ class CpEnv
     attr_reader :executor
 
     GITOPS_RESOURCES_DIR = "gitops-resources"
+    # An ARN is required to switch context to the manager EKS cluster
     MANAGER_CLUSTER = "arn:aws:eks:eu-west-2:754256621582:cluster/manager"
 
     def initialize(args)
