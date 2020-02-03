@@ -11,7 +11,7 @@ class CpEnv
     end
 
     def generate_and_store
-      unless gpg_key_exists?(seckey_secret_name)
+      unless gpg_key_exists(seckey_secret_name)
         log("blue", "Unable to find secret gpg key, removing leftover public keys.")
         delete_pubkey_secret
         pubkey, seckey = generate_keypair
@@ -21,14 +21,14 @@ class CpEnv
 
     private
 
-    def gpg_key_exists?(gpg_key_name)
+    def gpg_key_exists(gpg_key_name)
       stdout, _, _ = executor.execute("kubectl -n #{namespace} get secrets -o json", silent: true)
       names = JSON.parse(stdout)["items"].map { |i| i.dig("metadata", "name") }
       names.include?(gpg_key_name)
     end
 
     def delete_pubkey_secret
-      if gpg_key_exists?(pubkey_secret_name)
+      if gpg_key_exists(pubkey_secret_name)
         executor.execute("kubectl -n #{namespace} delete secret #{pubkey_secret_name}")
       end
     end
