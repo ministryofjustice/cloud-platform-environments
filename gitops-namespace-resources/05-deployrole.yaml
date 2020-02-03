@@ -6,71 +6,16 @@ metadata:
   name: deploy
   namespace: ${namespace}
 ---
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: deploy
-  namespace: ${namespace}
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - "pods/portforward"
-      - "deployment"
-      - "secrets"
-      - "services"
-      - "pods"
-      - "cronjobs"
-    verbs:
-      - "patch"
-      - "get"
-      - "create"
-      - "delete"
-      - "list"
-  - apiGroups:
-      - "extensions"
-    resources:
-      - "deployments"
-      - "ingresses"
-      - "networkpolicies"
-    verbs:
-      - "get"
-      - "update"
-      - "delete"
-      - "create"
-      - "patch"
-      - "list"
-  - apiGroups:
-      - "monitoring.coreos.com"
-    resources:
-      - "service-monitor"
-      - "servicemonitors"
-      - "prometheusrules"
-    verbs:
-      - "*"
-  - apiGroups:
-      - "networking.k8s.io"
-    resources:
-      - "networkpolicies"
-    verbs:
-      - "get"
-      - "update"
-      - "delete"
-      - "create"
-      - "patch"
-      - "list"
-
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: deploy
-  namespace: ${namespace}
+  name: namespace-usage-report-admin
+  namespace: namespace-usage-report
 subjects:
 - kind: ServiceAccount
   name: deploy
-  namespace: concourse-${github_team}
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: Role
-  name: deploy
+  kind: ClusterRole
+  name: admin
   apiGroup: rbac.authorization.k8s.io
