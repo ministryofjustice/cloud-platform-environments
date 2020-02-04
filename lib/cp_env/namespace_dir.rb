@@ -3,7 +3,7 @@ class CpEnv
     attr_reader :cluster, :dir
     attr_reader :executor
 
-    GITOPS_RESOURCES_DIR = "gitops-resources"
+    GITOPS_RESOURCES_FILE = "resources/gitops.tf"
     # An ARN is required to switch context to the manager EKS cluster
     MANAGER_CLUSTER = "arn:aws:eks:eu-west-2:754256621582:cluster/manager"
 
@@ -33,7 +33,7 @@ class CpEnv
     end
 
     def gitops_namespace?
-      FileTest.exists?(File.join(dir, GITOPS_RESOURCES_DIR))
+      FileTest.exists?(File.join(dir, GITOPS_RESOURCES_FILE))
     end
 
     def team_name
