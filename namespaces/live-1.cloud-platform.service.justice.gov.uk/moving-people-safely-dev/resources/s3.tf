@@ -16,7 +16,7 @@ module "mps_storage_s3_bucket" {
 
 resource "kubernetes_secret" "mps_storage_s3_bucket" {
   metadata {
-    name      = "risk-profiler-s3-bucket-output"
+    name      = "mps-storage-s3-bucket-output"
     namespace = var.namespace
   }
 
