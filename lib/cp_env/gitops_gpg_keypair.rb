@@ -11,9 +11,9 @@ class CpEnv
     end
 
     def generate_and_store
-      if secret_key_exists?
-        copy_public_key
-      else
+      unless gpg_key_exists?(seckey_secret_name)
+        log("blue", "Unable to find secret gpg key, removing leftover public keys.")
+        delete_pubkey_secret
         pubkey, seckey = generate_keypair
         store_in_namespace_secrets(pubkey: pubkey, seckey: seckey)
       end
@@ -21,22 +21,16 @@ class CpEnv
 
     private
 
-    def copy_public_key
-      unless public_key_exists?
-        executor.execute("kubectl -n concourse-#{team_name} get secrets #{pubkey_secret_name} -o yaml | sed 's/namespace: concourse-#{team_name}/namespace: #{namespace}/'  | kubectl create -f -", silent: true)
-      end
-    end
-
-    def public_key_exists?
+    def gpg_key_exists?(gpg_key_name)
       stdout, _, _ = executor.execute("kubectl -n #{namespace} get secrets -o json", silent: true)
       names = JSON.parse(stdout)["items"].map { |i| i.dig("metadata", "name") }
-      names.include?(pubkey_secret_name)
+      names.include?(gpg_key_name)
     end
 
-    def secret_key_exists?
-      stdout, _, _ = executor.execute("kubectl -n concourse-#{team_name} get secrets -o json", silent: true)
-      names = JSON.parse(stdout)["items"].map { |i| i.dig("metadata", "name") }
-      names.include?(seckey_secret_name)
+    def delete_pubkey_secret
+      if gpg_key_exists?(pubkey_secret_name)
+        executor.execute("kubectl -n #{namespace} delete secret #{pubkey_secret_name}")
+      end
     end
 
     def pubkey_secret_name
@@ -67,13 +61,7 @@ class CpEnv
       )
 
       create_secret(
-        namespace: "concourse-#{team_name}",
-        secret_name: pubkey_secret_name,
-        data: pubkey,
-      )
-
-      create_secret(
-        namespace: "concourse-#{team_name}",
+        namespace: namespace,
         secret_name: seckey_secret_name,
         data: seckey,
       )
