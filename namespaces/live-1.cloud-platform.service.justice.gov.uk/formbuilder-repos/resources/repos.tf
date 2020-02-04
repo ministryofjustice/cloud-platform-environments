@@ -375,3 +375,25 @@ resource "kubernetes_secret" "ecr-repo-fb-submit-product" {
     secret_access_key = module.ecr-repo-fb-pdf-generator.secret_access_key
   }
 }
+
+##################################################
+
+module "ecr-repo-fb-pre-init-runner-container" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+
+  team_name = "formbuilder"
+  repo_name = "fb-pre-init-runner-container"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-pre-init-runner-container" {
+  metadata {
+    name      = "ecr-repo-fb-pre-init-runner-container"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-pre-init-runner-container.repo_url
+    access_key_id     = module.ecr-repo-fb-pre-init-runner-container.access_key_id
+    secret_access_key = module.ecr-repo-fb-pre-init-runner-container.secret_access_key
+  }
+}
