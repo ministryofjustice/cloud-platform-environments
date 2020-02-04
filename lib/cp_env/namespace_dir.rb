@@ -69,7 +69,6 @@ class CpEnv
       return unless FileTest.directory?(dir)
 
       apply_kubernetes_files
-      apply_gitops_kubernetes_files
       create_gitops_kubeconfig
       apply_terraform
     end
@@ -95,11 +94,6 @@ class CpEnv
 
     def secret_exists?
       system("kubectl -n concourse-#{team_name} get secret kubectl-conf")
-    end
-
-    def apply_gitops_kubernetes_files
-      log("green", "applying concourse-#{team_name}")
-      executor.execute("kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources")
     end
   end
 end
