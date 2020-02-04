@@ -77,7 +77,7 @@ describe CpEnv::NamespaceDir do
       end
     end
 
-    context "with a gitops namespace" do
+    xcontext "with a gitops namespace" do
       let(:team_name) { "webops" }
       let(:kubectl_apply_gitops) { "kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources" }
       let(:yaml) { <<~YAML
