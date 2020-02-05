@@ -47,11 +47,8 @@ end
 def create_namespace_files(answers)
   namespace = answers.fetch("namespace")
   dir = File.join(NAMESPACES_DIR, namespace)
-  gitops_dir = File.join(NAMESPACES_DIR, namespace, "gitops-resources")
   system("mkdir -p #{dir}")
-  system("mkdir -p #{gitops_dir}")
   yaml_templates.each { |template| create_file(template, dir, answers) }
-  gitops_yaml_templates.each { |template| create_file(template, gitops_dir, answers) }
   copy_terraform_files(namespace)
 
   create_gitops_module(namespace, answers)
@@ -66,7 +63,7 @@ end
 def create_gitops_module(namespace, answers)
   dir = File.join(NAMESPACES_DIR, namespace, "resources")
   FileUtils.mkdir_p(dir)
-  render_templates(Dir["#{TEMPLATES_DIR}/gitops-resources/*.tf"], dir, answers)
+  render_templates(Dir["#{TEMPLATES_DIR}/resources/gitops.tf"], dir, answers)
 end
 
 def create_cloud_platform_deploy(answers)
@@ -102,10 +99,6 @@ end
 
 def yaml_templates
   Dir["#{TEMPLATES_DIR}/*.yaml"]
-end
-
-def gitops_yaml_templates
-  Dir["#{TEMPLATES_DIR}/gitops-resources/*.yaml"]
 end
 
 def get_answers

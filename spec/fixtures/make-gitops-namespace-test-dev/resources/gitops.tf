@@ -8,4 +8,3 @@ module "concourse-gitops" {
   concourse_url                 = var.concourse_url
   concourse_basic_auth_password = var.concourse_basic_auth_password
 }
-

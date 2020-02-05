@@ -10,8 +10,3 @@ metadata:
     cloud-platform.justice.gov.uk/application: "gitops-test-app"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: david.salgado@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://foo.bar.baz"
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: concourse-webops
