@@ -94,7 +94,7 @@ resource "kubernetes_secret" "whereabouts_api_dead_letter_queue" {
 
 resource "aws_sns_topic_subscription" "whereabouts_api_subscription" {
   provider      = aws.london
-  topic_arn     = module.whereabouts_api_queue.topic_arn
+  topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.whereabouts_api_queue.sqs_arn
   filter_policy = "{\"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
