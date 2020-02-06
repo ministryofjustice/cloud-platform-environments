@@ -24,8 +24,8 @@ resource "kubernetes_secret" "cp_test_queue" {
   data = {
     access_key_id     = module.cp_test_queue.access_key_id
     secret_access_key = module.cp_test_queue.secret_access_key
-    sqs_id   = module.cp_test_queue.sqs_id
-    sqs_arn  = module.cp_test_queue.sqs_arn
-    sqs_name = module.cp_test_queue.sqs_name
+    sqs_id            = module.cp_test_queue.sqs_id
+    sqs_arn           = module.cp_test_queue.sqs_arn
+    sqs_name          = module.cp_test_queue.sqs_name
   }
 }
