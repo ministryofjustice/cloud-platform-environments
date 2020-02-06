@@ -17,10 +17,7 @@ module "peoplefinder_s3" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = [
-        "https://demo.peoplefinder.service.gov.uk",
-        "https://peoplefinder-demo.apps.live-1.cloud-platform.service.justice.gov.uk"
-      ]
+      allowed_origins = ["https://demo.peoplefinder.service.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
