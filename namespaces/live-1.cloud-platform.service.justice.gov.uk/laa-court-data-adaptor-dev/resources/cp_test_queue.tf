@@ -25,10 +25,27 @@ resource "aws_sqs_queue_policy" "cp_test_queue" {
     "Statement":
       [
         {
+          "Sid": "first"
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.cp_test_queue.sqs_arn}",
           "Action": "SQS:*"
+        },
+        {
+          "Sid": "Second",
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "902837325998"
+              ]
+          }
+          "Action": "sqs:ReceiveMessage",
+          "Resource": "arn:aws:sqs:eu-west-2:754256621582:crimeapps-development-cp-test-queue",
+          "Condition": {
+              "ArnEquals": {
+                   "aws:SourceArn": "arn:aws:sqs:us-east-1:111045819866:test-queue"
+                     }
+              }
         }
       ]
   }
