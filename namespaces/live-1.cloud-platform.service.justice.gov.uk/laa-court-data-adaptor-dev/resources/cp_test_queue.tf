@@ -1,13 +1,12 @@
 module "cp_test_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name       = "development"
-  team_name              = "crimeapps"
-  infrastructure-support = "praveen.raju@digtal.justice.gov.uk"
-  application            = "crimeapps"
-  sqs_name               = "cp-test-queue"
-
-  encrypt_sqs_kms = "false"
+  environment-name          = "development"
+  team_name                 = "crimeapps"
+  application               = "crimeapps"
+  sqs_name                  = "cp-test-queue"
+  encrypt_sqs_kms           = "false"
+  message_retention_seconds = 1209600
 
 
   providers = {
@@ -15,10 +14,30 @@ module "cp_test_queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "cp_test_queue" {
+  queue_url = module.cp_test_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.cp_test_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.cp_test_queue.sqs_arn}",
+          "Action": "SQS:*"
+        }
+      ]
+  }
+   EOF
+}
+
 resource "kubernetes_secret" "cp_test_queue" {
   metadata {
     name      = "cp-test-instance-output"
-    namespace = "laa-court-adaptor-dev"
+    namespace = "laa-court-data-adaptor-dev"
   }
 
   data = {
