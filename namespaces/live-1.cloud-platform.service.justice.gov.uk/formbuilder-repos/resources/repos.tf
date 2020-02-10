@@ -311,29 +311,6 @@ resource "kubernetes_secret" "ecr-repo-fb-builder" {
 
 ##################################################
 
-# fb-runner-init-containers - docker image used to initialise runner containers
-module "ecr-repo-fb-runner-init-containers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
-
-  team_name = "formbuilder"
-  repo_name = "fb-runner-init-containers"
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-runner-init-containers" {
-  metadata {
-    name      = "ecr-repo-fb-runner-init-containers"
-    namespace = "formbuilder-repos"
-  }
-
-  data = {
-    repo_url          = module.ecr-repo-fb-runner-init-containers.repo_url
-    access_key_id     = module.ecr-repo-fb-runner-init-containers.access_key_id
-    secret_access_key = module.ecr-repo-fb-runner-init-containers.secret_access_key
-  }
-}
-
-##################################################
-
 module "ecr-repo-fb-pdf-generator" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
 
@@ -373,27 +350,5 @@ resource "kubernetes_secret" "ecr-repo-fb-submit-product" {
     repo_url          = module.ecr-repo-fb-pdf-generator.repo_url
     access_key_id     = module.ecr-repo-fb-pdf-generator.access_key_id
     secret_access_key = module.ecr-repo-fb-pdf-generator.secret_access_key
-  }
-}
-
-##################################################
-
-module "ecr-repo-fb-pre-init-runner-container" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
-
-  team_name = "formbuilder"
-  repo_name = "fb-pre-init-runner-container"
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-pre-init-runner-container" {
-  metadata {
-    name      = "ecr-repo-fb-pre-init-runner-container"
-    namespace = "formbuilder-repos"
-  }
-
-  data = {
-    repo_url          = module.ecr-repo-fb-pre-init-runner-container.repo_url
-    access_key_id     = module.ecr-repo-fb-pre-init-runner-container.access_key_id
-    secret_access_key = module.ecr-repo-fb-pre-init-runner-container.secret_access_key
   }
 }
