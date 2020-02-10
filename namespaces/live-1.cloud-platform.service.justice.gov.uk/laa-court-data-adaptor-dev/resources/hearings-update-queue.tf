@@ -45,7 +45,7 @@ resource "aws_sqs_queue_policy" "hearings_update_queue_policy" {
               ]
           },
           "Resource": "${module.hearings_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage",
+          "Action": "sqs:ReceiveMessage"
         }
       ]
   }
