@@ -7,32 +7,32 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default = "crime-apps-team"
+  default     = "crime-apps-team"
 }
 
 variable "namespace" {
   description = "The name of your development team"
-  default = "laa-court-data-adaptor-dev"
+  default     = "laa-court-data-adaptor-dev"
 }
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default = "dev"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default = "example-team@digtal.justice.gov.uk"
+  default     = "example-team@digtal.justice.gov.uk"
 }
 
 variable "sqs_queue_name" {
   description = ""
-  default = "hearings-update-queue"
+  default     = "hearings-update-queue"
 }
 
 variable "sqs_queue_name_dl" {
   description = ""
-  default = "hearings-update-queue-dl"
+  default     = "hearings-update-queue-dl"
 }
 
 variable "is_production" {
