@@ -10,11 +10,6 @@ variable "team_name" {
   default     = "crime-apps-team"
 }
 
-variable "namespace" {
-  description = "The name of your development team"
-  default     = "laa-court-data-adaptor-dev"
-}
-
 variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"

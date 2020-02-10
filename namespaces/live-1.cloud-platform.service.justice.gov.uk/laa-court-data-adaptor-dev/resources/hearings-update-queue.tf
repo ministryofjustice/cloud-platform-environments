@@ -4,7 +4,6 @@ module "hearings_update_queue" {
   environment-name          = var.environment_name
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
-  namespace                 = var.namespace
   application               = var.application
   sqs_name                  = var.sqs_queue_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
@@ -58,7 +57,6 @@ module "hearings_update_dead_letter_queue" {
 
   environment-name       = var.environment_name
   team_name              = var.team_name
-  namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = var.sqs_queue_name_dl
@@ -72,7 +70,7 @@ module "hearings_update_dead_letter_queue" {
 resource "kubernetes_secret" "hearings_update_queue" {
   metadata {
     name      = "hearings_update-sqs-instance-output"
-    namespace = module.hearings_update_queue.namespace
+    namespace = "laa-court-data-adaptor-dev"
   }
 
   data = {
@@ -87,7 +85,7 @@ resource "kubernetes_secret" "hearings_update_queue" {
 resource "kubernetes_secret" "hearings_update_dead_letter_queue" {
   metadata {
     name      = "hearings_update-sqs-dl-instance-output"
-    namespace = module.hearings_update_dead_letter_queue.namespace
+    namespace = "laa-court-data-adaptor-dev"
   }
 
   data = {
