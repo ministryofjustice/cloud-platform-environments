@@ -4,6 +4,7 @@ module "hearings_update_queue" {
   environment-name          = var.environment_name
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
+  namespace                 = var.namespace
   application               = var.application
   sqs_name                  = var.sqs_queue_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
@@ -55,7 +56,7 @@ resource "aws_sqs_queue_policy" "hearings_update_queue_policy" {
 module "hearings_update_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment_name       = var.environment_name
+  environment-name       = var.environment_name
   team_name              = var.team_name
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
