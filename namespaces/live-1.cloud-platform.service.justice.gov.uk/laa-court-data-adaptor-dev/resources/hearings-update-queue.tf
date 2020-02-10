@@ -69,7 +69,7 @@ module "hearings_update_dead_letter_queue" {
 
 resource "kubernetes_secret" "hearings_update_queue" {
   metadata {
-    name      = "hearings_update-sqs-instance-output"
+    name      = "hearings-update-sqs-instance-output"
     namespace = "laa-court-data-adaptor-dev"
   }
 
@@ -84,7 +84,7 @@ resource "kubernetes_secret" "hearings_update_queue" {
 
 resource "kubernetes_secret" "hearings_update_dead_letter_queue" {
   metadata {
-    name      = "hearings_update-sqs-dl-instance-output"
+    name      = "hearings-update-sqs-dl-instance-output"
     namespace = "laa-court-data-adaptor-dev"
   }
 
