@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: learning-cloud-deployments-dev
+spec:
+  hard:
+    pods: "50"
+    requests.cpu: 100m
+    requests.memory: 5000Mi
