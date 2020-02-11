@@ -347,8 +347,8 @@ resource "kubernetes_secret" "ecr-repo-fb-submit-product" {
   }
 
   data = {
-    repo_url          = module.ecr-repo-fb-pdf-generator.repo_url
-    access_key_id     = module.ecr-repo-fb-pdf-generator.access_key_id
-    secret_access_key = module.ecr-repo-fb-pdf-generator.secret_access_key
+    repo_url          = module.ecr-repo-fb-submit-product.repo_url
+    access_key_id     = module.ecr-repo-fb-submit-product.access_key_id
+    secret_access_key = module.ecr-repo-fb-submit-product.secret_access_key
   }
 }
