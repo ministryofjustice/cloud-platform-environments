@@ -5,7 +5,7 @@ metadata:
   namespace: learning-cloud-deployments-dev
 subjects:
   - kind: Group
-    name: "github:minstryofjustice"
+    name: "github:dps-shared"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
