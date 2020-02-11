@@ -88,3 +88,24 @@ spec:
       volumes:
       tolerations:
         []
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: oauth2-proxy
+    release: kibana-proxy
+  name: kibana-proxy-oauth2-proxy
+  namespace: monitoring
+spec:
+  tls:
+  - hosts:
+    - kibana.cloud-platform.service.justice.gov.uk
+  rules:
+    - host: kibana.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kibana-proxy-oauth2-proxy
+              servicePort: 80
