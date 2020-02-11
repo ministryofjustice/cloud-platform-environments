@@ -1,0 +1,113 @@
+---
+# Source: oauth2-proxy/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
+  namespace: monitoring
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: oauth2-proxy
+    release: kibana-audit-proxy
+---
+# Source: oauth2-proxy/templates/deployment.yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+      release: kibana-audit-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+        release: "kibana-audit-proxy"
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: "quay.io/pusher/oauth2_proxy:v3.2.0"
+        imagePullPolicy: IfNotPresent
+        args:
+          - --cookie-expire=7h
+          - --email-domain=*
+          - --http-address=0.0.0.0:4180
+          - --oidc-issuer-url=https://justice-cloud-platform.eu.auth0.com/
+          - --provider=oidc
+          - --skip-provider-button=true
+          - --upstream=https://search-cloud-platform-audit-dq5bdnjokj4yt7qozshmifug6e.eu-west-2.es.amazonaws.com
+          - --pass-host-header=false
+          - --pass-basic-auth=false
+        env:
+        - name: OAUTH2_PROXY_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name:  oidc-components-secret
+              key: client-id
+        - name: OAUTH2_PROXY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name:  oidc-components-secret
+              key: client-secret
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name:  oidc-components-secret
+              key: cookie-secret
+        ports:
+          - containerPort: 4180
+            name: http
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+        resources:
+          {}
+
+        volumeMounts:
+      volumes:
+      tolerations:
+        []
+---
+# Source: oauth2-proxy/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: oauth2-proxy
+    release: kibana-audit-proxy
+  name: kibana-audit-proxy-oauth2-proxy
+  namespace: monitoring
+spec:
+  tls:
+  - hosts:
+    - kibana-audit.cloud-platform.service.justice.gov.uk
+  rules:
+    - host: kibana-audit.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kibana-audit-proxy-oauth2-proxy
+              servicePort: 80
