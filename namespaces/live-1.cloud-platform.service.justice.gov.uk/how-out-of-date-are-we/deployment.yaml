@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: how-out-of-date-are-we
+  namespace: how-out-of-date-are-we
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: how-out-of-date-are-we-app
+    spec:
+      containers:
+        - name: how-out-of-date-are-we
+          image: ministryofjustice/cloud-platform-how-out-of-date-are-we:0.1
+          env:
+            - name: RACK_ENV
+              value: "production"
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: how-out-of-date-are-we-api-key
+                  key: token
+          ports:
+          - containerPort: 4567

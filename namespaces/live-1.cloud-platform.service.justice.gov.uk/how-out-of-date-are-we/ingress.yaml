@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: how-out-of-date-are-we-app-ingress
+  namespace: how-out-of-date-are-we
+spec:
+  tls:
+  - hosts:
+    - how-out-of-date-are-we.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+    - host: how-out-of-date-are-we.apps.live-1.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: how-out-of-date-are-we-service
+            servicePort: 4567
