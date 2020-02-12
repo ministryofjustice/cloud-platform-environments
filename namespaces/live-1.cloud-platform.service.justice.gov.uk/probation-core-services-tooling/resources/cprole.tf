@@ -17,7 +17,7 @@ resource "aws_iam_role" "pcst-role" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::754256621582:role/kiam-server"
+        "AWS": "arn:aws:iam::754256621582:role/nodes.live-1.cloud-platform.service.justice.gov.uk"
       },
       "Action": "sts:AssumeRole"
     }
