@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Probation Core Services Tooling"
     cloud-platform.justice.gov.uk/owner: "Probation Core Services: pcs-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/digital-probation-tooling"
+    iam.amazonaws.com/permitted: "probation-core-services-tooling-role"
