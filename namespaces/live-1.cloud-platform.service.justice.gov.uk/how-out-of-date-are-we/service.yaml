@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: how-out-of-date-are-we-service
+  labels:
+    app: how-out-of-date-are-we-service
+spec:
+  ports:
+  - port: 4567
+    name: https
+    targetPort: 4567
+  selector:
+    app: how-out-of-date-are-we-app
