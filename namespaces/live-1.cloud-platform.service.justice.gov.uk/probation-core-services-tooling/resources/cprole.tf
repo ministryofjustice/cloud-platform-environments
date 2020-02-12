@@ -1,6 +1,6 @@
 resource "aws_iam_role" "pcst-role" {
-  name = "probation-core-services-tooling-role"
-  description = "A service-specific role which can be assumed by a suitably configured pod/namespace"
+  name               = "probation-core-services-tooling-role"
+  description        = "A service-specific role which can be assumed by a suitably configured pod/namespace"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -30,7 +30,7 @@ EOF
 resource "aws_iam_policy" "pcst-policy" {
   name        = "probation-core-services-tooling-policy"
   description = "Allows the role to assume any role in the hmpps-sandpit account"
-  policy = <<EOF
+  policy      = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
