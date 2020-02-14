@@ -25,6 +25,7 @@ module "wplearndev_rds" {
   db_name                    = "wordpress"
   environment-name           = "development"
   infrastructure-support     = "cloud-platform@digital.justice.gov.uk"
+  snapshot_identifier        = "rds:cloud-platform-f38f3202975b4afe-2020-02-08-04-23"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
