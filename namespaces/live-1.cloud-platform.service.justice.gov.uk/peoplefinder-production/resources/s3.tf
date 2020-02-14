@@ -59,6 +59,29 @@ module "peoplefinder_s3" {
       "$${bucket_arn}/*",
       "arn:aws:s3:::peoplefinder-production-assets/*"
     ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}",
+      "arn:aws:s3:::people-finder-production"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:*"
+    ],
+    "Resource": [
+      "$${bucket_arn}/*",
+      "arn:aws:s3:::people-finder-production/*"
+    ]
   }
 ]
 }
