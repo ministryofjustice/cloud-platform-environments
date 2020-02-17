@@ -17,3 +17,8 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+provider "helm" {
+  version = "0.10.4"
+  kubernetes {
+  }
+}

@@ -25,3 +25,19 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+ 
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-scraping
+  namespace: poornima-dev
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
+  podSelector: {}
+  policyTypes:
+  - Ingress

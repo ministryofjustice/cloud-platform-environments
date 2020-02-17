@@ -26,4 +26,28 @@ resource "kubernetes_secret" "jason-lab-rds-instance" {
     url = "postgres://${module.jason-lab-rds-instance.database_username}:${module.jason-lab-rds-instance.database_password}@${module.jason-lab-rds-instance.rds_instance_endpoint}/${module.jason-lab-rds-instance.database_name}"
   }
 }
-
+resource "helm_release" "postgres_exporter" {
+  name = "postgres-exporter-namespace"
+  chart     = "stable/prometheus-postgres-exporter"
+  namespace = "jason-lab"
+  values = [
+    <<EOF
+config:
+  datasource:
+    host: ${module.jason-lab-rds-instance.rds_instance_address}
+    user: ${module.jason-lab-rds-instance.database_username}
+    password: ${module.jason-lab-rds-instance.database_password}
+    database:  ${module.jason-lab-rds-instance.database_name}
+    sslmode: disable
+rbac:
+  pspEnabled: false
+serviceMonitor:
+  enabled: true
+securityContext:
+  runAsUser: 65534
+EOF
+  ]
+  lifecycle {
+    ignore_changes = [keyring]
+  }
+}

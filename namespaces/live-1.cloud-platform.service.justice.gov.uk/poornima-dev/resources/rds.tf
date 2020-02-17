@@ -35,4 +35,28 @@ resource "kubernetes_secret" "cp_team_test_rds" {
     url = "postgres://${module.cp_team_test_rds.database_username}:${module.cp_team_test_rds.database_password}@${module.cp_team_test_rds.rds_instance_endpoint}/${module.cp_team_test_rds.database_name}"
   }
 }
-
+resource "helm_release" "postgres_exporter" {
+  name = "postgres-exporter"
+  chart     = "stable/prometheus-postgres-exporter"
+  namespace = "poornima-dev"
+  values = [
+    <<EOF
+config:
+  datasource:
+    host: ${module.cp_team_test_rds.rds_instance_address}
+    user: ${module.cp_team_test_rds.database_username}
+    password: ${module.cp_team_test_rds.database_password}
+    database:  ${module.cp_team_test_rds.database_name}
+    sslmode: disable
+rbac:
+  pspEnabled: false
+serviceMonitor:
+  enabled: true
+securityContext:
+  runAsUser: 65534
+EOF
+  ]
+  lifecycle {
+    ignore_changes = [keyring]
+  }
+}
