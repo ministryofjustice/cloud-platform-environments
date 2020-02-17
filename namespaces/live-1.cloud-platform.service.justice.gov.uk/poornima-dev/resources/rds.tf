@@ -36,7 +36,7 @@ resource "kubernetes_secret" "cp_team_test_rds" {
   }
 }
 resource "helm_release" "postgres_exporter" {
-  name = "postgres-exporter"
+  name      = "postgres-exporter"
   chart     = "stable/prometheus-postgres-exporter"
   namespace = "poornima-dev"
   values = [

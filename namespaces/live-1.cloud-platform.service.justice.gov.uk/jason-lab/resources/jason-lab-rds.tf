@@ -27,7 +27,7 @@ resource "kubernetes_secret" "jason-lab-rds-instance" {
   }
 }
 resource "helm_release" "postgres_exporter" {
-  name = "postgres-exporter-namespace"
+  name      = "postgres-exporter-namespace"
   chart     = "stable/prometheus-postgres-exporter"
   namespace = "jason-lab"
   values = [
