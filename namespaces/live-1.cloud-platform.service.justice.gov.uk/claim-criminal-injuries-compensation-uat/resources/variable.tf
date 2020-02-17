@@ -36,3 +36,32 @@ variable "db_backup_retention_period" {
   default     = "35"
 }
 
+variable "acl" {
+  description = "The bucket ACL to set"
+  default     = "private"
+}
+
+variable "bucket_policy" {
+  description = "The S3 bucket policy to set. If empty, no policy will be set"
+  default     = ""
+}
+
+variable "user_policy" {
+  description = "The IAM policy to assign to the generated user. If empty, the default policy is used"
+  default     = ""
+}
+
+variable "versioning" {
+  description = "Enable object versioning for the bucket"
+  default     = false
+}
+
+variable "lifecycle_rule" {
+  description = "lifecycle"
+  default     = []
+}
+
+variable "cors_rule" {
+  description = "cors rule"
+  default     = []
+}
