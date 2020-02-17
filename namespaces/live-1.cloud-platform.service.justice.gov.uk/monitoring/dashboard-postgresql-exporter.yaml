@@ -2112,7 +2112,7 @@ data:
         ]
       },
       "timezone": "",
-      "title": "PostgreSQL Statistics",
+      "title": "PostgreSQL exporter metrics",
       "uid": "yok15cwWk",
       "version": 1
     }
