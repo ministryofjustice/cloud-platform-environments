@@ -11,3 +11,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "money-to-prisoners"
     cloud-platform.justice.gov.uk/owner: "Prisoner Money Team: money-to-prisoners@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/money-to-prisoners"
+    iam.amazonaws.com/permitted: "money-to-prisoners-prod-iam-role-.*"
