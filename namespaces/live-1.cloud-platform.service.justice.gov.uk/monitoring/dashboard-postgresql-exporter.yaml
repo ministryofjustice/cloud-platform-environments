@@ -5,7 +5,7 @@ metadata:
   name: dashboard-postgresql-exporter-metrics
   namespace: monitoring
   labels:
-    grafana_dashboard: "PostgreSQL exporter metrics"
+    grafana_dashboard: "PostgreSQL-exporter-metrics"
 data:
   postgresql-exporter-metrics-dashboard.json: |
     {
@@ -2112,7 +2112,7 @@ data:
         ]
       },
       "timezone": "",
-      "title": "PostgreSQL Statistics",
+      "title": "PostgreSQL exporter metrics",
       "uid": "yok15cwWk",
       "version": 1
     }
