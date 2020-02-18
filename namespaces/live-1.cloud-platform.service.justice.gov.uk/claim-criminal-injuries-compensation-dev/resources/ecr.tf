@@ -9,8 +9,9 @@ module "cica_ecr_credentials" {
   repo_name = "cica-repo-dev"
   team_name = "cica"
 
-  providers = {
-    aws = aws.london
+  
+  provider "aws" {
+    region = "eu-west-2"
   }
 }
 
