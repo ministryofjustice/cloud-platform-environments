@@ -8,16 +8,9 @@ module "cica_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
   repo_name = "cica-repo-dev"
   team_name = "cica"
-
-<<<<<<< HEAD
   
   providers = {
     aws = aws.london
-=======
-
-  provider "aws" {
-    region = "eu-west-2"
->>>>>>> c1389a252915c9d96c3a422558f2cea8bfd74423
   }
 }
 
