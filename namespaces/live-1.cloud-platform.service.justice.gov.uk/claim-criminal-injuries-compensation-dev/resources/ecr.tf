@@ -9,7 +9,7 @@ module "cica_ecr_credentials" {
   repo_name = "cica-repo-dev"
   team_name = "cica"
 
-  
+
   provider "aws" {
     region = "eu-west-2"
   }
