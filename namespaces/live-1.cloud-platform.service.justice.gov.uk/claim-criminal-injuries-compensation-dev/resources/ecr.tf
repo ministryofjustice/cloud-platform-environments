@@ -10,8 +10,8 @@ module "cica_ecr_credentials" {
   team_name = "cica"
 
   
-  provider "aws" {
-    region = "eu-west-2"
+  providers = {
+    aws = aws.london
   }
 }
 
