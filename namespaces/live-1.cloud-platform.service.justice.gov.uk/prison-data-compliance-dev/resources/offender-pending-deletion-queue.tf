@@ -66,7 +66,7 @@ module "offender_pending_deletion_dead_letter_queue" {
 
 resource "kubernetes_secret" "offender_pending_deletion_queue" {
   metadata {
-    name      = "offender-pending-deletion-sqs-instance-output"
+    name      = "off-pend-del-sqs-instance-output"
     namespace = var.namespace
   }
 
@@ -81,7 +81,7 @@ resource "kubernetes_secret" "offender_pending_deletion_queue" {
 
 resource "kubernetes_secret" "offender_pending_deletion_dead_letter_queue" {
   metadata {
-    name      = "offender-pending-deletion-sqs-dl-instance-output"
+    name      = "off-pend-del-sqs-dl-instance-output"
     namespace = var.namespace
   }
 
