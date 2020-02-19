@@ -33,6 +33,7 @@ variable "repo_name" {
 variable "team_name" {
   default = "pq-team"
 }
+
 variable "domain" {
   default = "trackparliamentaryquestions.service.gov.uk"
 }
@@ -43,4 +44,3 @@ variable "cluster_name" {
 
 variable "cluster_state_bucket" {
 }
-
