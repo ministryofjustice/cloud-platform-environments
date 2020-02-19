@@ -146,7 +146,7 @@ EOF
 resource "kubernetes_secret" "example_team_s3_bucket" {
   metadata {
     name      = "example-team-s3-bucket-output"
-    namespace = "cliam-criminal-injuries-compensation-dev"
+    namespace = "claim-criminal-injuries-compensation-dev"
   }
 
   data = {
