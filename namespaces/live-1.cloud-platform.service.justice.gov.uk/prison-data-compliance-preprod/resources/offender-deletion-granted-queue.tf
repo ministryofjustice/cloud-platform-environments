@@ -38,7 +38,7 @@ module "offender_deletion_granted_dead_letter_queue" {
 
 resource "kubernetes_secret" "offender_deletion_granted_queue" {
   metadata {
-    name      = "off-del-grant-sqs"
+    name      = "offender-deletion-granted-sqs"
     namespace = var.namespace
   }
 
@@ -53,7 +53,7 @@ resource "kubernetes_secret" "offender_deletion_granted_queue" {
 
 resource "kubernetes_secret" "offender_deletion_granted_dead_letter_queue" {
   metadata {
-    name      = "off-del-grant-sqs-dl"
+    name      = "offender-deletion-granted-sqs-dl"
     namespace = var.namespace
   }
 
