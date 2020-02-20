@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: check-my-diary-dev
+  namespace: check-my-diary-dev
+spec:
+  secretName: check-my-diary-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'check-my-diary-dev.prison.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'check-my-diary-dev.prison.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
