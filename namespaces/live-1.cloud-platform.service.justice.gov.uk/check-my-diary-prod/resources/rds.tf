@@ -26,6 +26,22 @@ module "checkmydiary_rds" {
   }
 }
 
+resource "kubernetes_secret" "checkmydiary_rds_secrets" {
+  metadata {
+    name      = "check-my-diary-rds"
+    namespace = "check-my-diary-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.checkmydiary_rds.rds_instance_endpoint
+    database_name         = module.checkmydiary_rds.database_name
+    database_username     = module.checkmydiary_rds.database_username
+    database_password     = module.checkmydiary_rds.database_password
+    rds_instance_address  = module.checkmydiary_rds.rds_instance_address
+  }
+}
+
+# For deletion...
 resource "kubernetes_secret" "checkmydiary_rds" {
   metadata {
     name      = "check-my-diary-rds-prod"
