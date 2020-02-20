@@ -28,20 +28,6 @@ resource "kubernetes_secret" "peoplefinder_route53_zone_sec" {
   }
 }
 
-# Production alias to the template deploy loadbalancer
-resource "aws_route53_record" "peoplefinder_route53_A_record_production" {
-  name    = "."
-  zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
-  type    = "A"
-
-  alias {
-    name    = "dualstack.peoplefind-elbprod-cymganexsxxq-1650047565.eu-west-1.elb.amazonaws.com."
-    zone_id = "Z32O12XQLNTSW2"
-
-    evaluate_target_health = true
-  }
-}
-
 # Sendgrid records copied from template deploy - to keep until switch to Notify
 resource "aws_route53_record" "peoplefinder_route53_sendgrid_1495674" {
   zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
