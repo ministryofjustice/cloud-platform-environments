@@ -1,4 +1,7 @@
-variable "application" {}
+variable "application" {
+  description = "Application name"
+  default     = "crimeapps"
+}
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
