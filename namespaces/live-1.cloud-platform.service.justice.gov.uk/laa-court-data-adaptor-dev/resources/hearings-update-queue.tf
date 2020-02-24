@@ -5,7 +5,7 @@ module "hearings_update_queue" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
-  sqs_name                  = var.sqs_queue_name
+  sqs_name                  = "hearings-update-queue"
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
@@ -59,7 +59,7 @@ module "hearings_update_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = var.sqs_queue_name_dl
+  sqs_name               = "hearings-update-queue-dl"
   encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
