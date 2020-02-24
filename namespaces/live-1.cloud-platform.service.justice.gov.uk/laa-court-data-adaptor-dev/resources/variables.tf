@@ -23,16 +23,6 @@ variable "infrastructure_support" {
   default     = "example-team@digtal.justice.gov.uk"
 }
 
-variable "sqs_queue_name" {
-  description = ""
-  default     = "hearings-update-queue"
-}
-
-variable "sqs_queue_name_dl" {
-  description = ""
-  default     = "hearings-update-queue-dl"
-}
-
 variable "is_production" {
   default = "false"
 }
