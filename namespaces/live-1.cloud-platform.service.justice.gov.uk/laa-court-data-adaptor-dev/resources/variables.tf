@@ -1,4 +1,7 @@
-variable "application" {}
+variable "application" {
+  description = "Application name"
+  default     = "crimeapps"
+}
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
@@ -18,16 +21,6 @@ variable "environment_name" {
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "example-team@digtal.justice.gov.uk"
-}
-
-variable "sqs_queue_name" {
-  description = ""
-  default     = "hearings-update-queue"
-}
-
-variable "sqs_queue_name_dl" {
-  description = ""
-  default     = "hearings-update-queue-dl"
 }
 
 variable "is_production" {
