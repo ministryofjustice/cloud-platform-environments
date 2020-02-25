@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: estate.prison.service.justice.gov.uk
+  namespace: prison-estate-prod
+spec:
+  secretName: prison-estate-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'estate.prison.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'estate.prison.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
