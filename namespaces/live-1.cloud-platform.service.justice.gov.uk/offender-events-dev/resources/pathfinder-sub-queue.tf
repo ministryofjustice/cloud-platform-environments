@@ -300,6 +300,6 @@ resource "aws_sns_topic_subscription" "pathfinder_tact_events_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
-  endpoint      = module.pathfinder_offender_events_queue.sqs_arn
+  endpoint      = module.pathfinder_tact_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"OFFENDER_ALIAS-CHANGED\"]}"
 }
