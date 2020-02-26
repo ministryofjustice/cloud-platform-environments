@@ -20,24 +20,6 @@ spec:
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: videolink-preprod
-  namespace: digital-prison-services-preprod
-spec:
-  secretName: videolink-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  commonName: 'videolink-preprod.prison.service.justice.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'videolink-preprod.prison.service.justice.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
----
-apiVersion: certmanager.k8s.io/v1alpha1
-kind: Certificate
-metadata:
   name: digital-preprod.prison.service.justice.gov.uk
   namespace: digital-prison-services-preprod
 spec:
