@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: laa-court-data-ui-staging-cert
+  namespace: laa-court-data-ui-staging
+spec:
+  secretName: laa-court-data-ui-staging-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staging.view-court-data.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'staging.view-court-data.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
