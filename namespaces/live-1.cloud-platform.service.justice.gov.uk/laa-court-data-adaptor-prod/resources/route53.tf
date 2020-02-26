@@ -21,3 +21,11 @@ resource "kubernetes_secret" "laa_crime_apps_route53_zone_sec" {
     zone_id = aws_route53_zone.laa_crime_apps_team_route53_zone.zone_id
   }
 }
+
+resource "aws_route53_record" "laa_crime_apps_team_route53_a_record" {
+  zone_id = aws_route53_zone.laa_crime_apps_team_route53_zone.zone_id
+  name    = "court-data-adaptor.service.justice.gov.uk"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_route53_zone.laa_crime_apps_team_route53_zone.public_ip}"]
+}
