@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: estate-dev
+  namespace: prison-estate-dev
 spec:
   hard:
     pods: "50"

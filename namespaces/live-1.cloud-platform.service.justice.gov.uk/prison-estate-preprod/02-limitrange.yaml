@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: estate-preprod
+  namespace: prison-estate-preprod
 spec:
   limits:
   - default:

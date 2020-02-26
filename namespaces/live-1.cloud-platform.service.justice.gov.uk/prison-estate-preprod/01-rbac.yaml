@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: estate-preprod-admin
-  namespace: estate-preprod
+  name: prison-estate-preprod-admin
+  namespace: prison-estate-preprod
 subjects:
   - kind: Group
     name: "github:dps-shared"

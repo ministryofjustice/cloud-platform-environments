@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "estate-preprod"
+  default = "prison-estate-preprod"
 }
 
 variable "cluster_name" {
