@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: laa-court-data-ui-staging
+  namespace: laa-court-data-ui-prod
 spec:
   limits:
   - default:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-court-data-ui-staging
+  namespace: laa-court-data-ui-prod
 spec:
   hard:
     pods: "50"

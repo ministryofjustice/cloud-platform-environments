@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-court-data-ui-staging-admin
-  namespace: laa-court-data-ui-staging
+  name: laa-court-data-ui-prod-admin
+  namespace: laa-court-data-ui-prod
 subjects:
   - kind: Group
     name: "github:laa-get-paid"
