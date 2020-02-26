@@ -27,7 +27,7 @@ variable "repo_name" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "staging"
 }
 
 variable "infrastructure-support" {
