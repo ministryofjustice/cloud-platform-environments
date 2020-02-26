@@ -9,6 +9,7 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   force_ssl              = "true"
+  rds_family             = "postgres11"
   db_engine_version      = "11"
 
   providers = {
