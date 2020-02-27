@@ -144,14 +144,14 @@ resource "kubernetes_secret" "link_queue_messaging" {
     sqs_url_unlink    = module.unlink_queue.sqs_id
     sqs_arn_unlink    = module.unlink_queue.sqs_arn
     sqs_name_unlink   = module.unlink_queue.sqs_name
-    sqs_url_d_unlink    = module.unlink_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_unlink    = module.unlink_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_unlink   = module.unlink_queue_dead_letter_queue.sqs_name
-    sqs_url_link        = module.create_link_queue.sqs_id
-    sqs_arn_link        = module.create_link_queue.sqs_arn
-    sqs_name_link       = module.create_link_queue.sqs_name
-    sqs_url_d_link      = module.create_link_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_link      = module.create_link_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_link     = module.create_link_queue_dead_letter_queue.sqs_name
+    sqs_url_d_unlink  = module.unlink_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_unlink  = module.unlink_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_unlink = module.unlink_queue_dead_letter_queue.sqs_name
+    sqs_url_link      = module.create_link_queue.sqs_id
+    sqs_arn_link      = module.create_link_queue.sqs_arn
+    sqs_name_link     = module.create_link_queue.sqs_name
+    sqs_url_d_link    = module.create_link_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_link    = module.create_link_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_link   = module.create_link_queue_dead_letter_queue.sqs_name
   }
 }
