@@ -153,5 +153,6 @@ resource "kubernetes_secret" "link_queue_messaging" {
     sqs_url_d_link      = module.create_link_queue_m_dead_letter_queue.sqs_id
     sqs_arn_d_link      = module.create_link_queue_m_dead_letter_queue.sqs_arn
     sqs_name_d_link     = module.create_link_queue_m_dead_letter_queue.sqs_name
+
   }
 }
