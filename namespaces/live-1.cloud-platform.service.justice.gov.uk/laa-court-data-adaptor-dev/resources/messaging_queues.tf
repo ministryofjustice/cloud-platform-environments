@@ -132,7 +132,7 @@ module "unlink_queue_m_dead_letter_queue" {
 }
 
 
-resource "kubernetes_secret" "link_queue_messaging" {
+resource "kubernetes_secret" "create_link_queue_m" {
   metadata {
     name      = "link-unlink-output"
     namespace = "laa-court-data-adaptor-dev"
