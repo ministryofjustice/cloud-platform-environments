@@ -10,8 +10,8 @@ module "create_link_queue_m" {
   message_retention_seconds = var.message_retention_seconds
 
 
-
   providers = {
     aws = aws.london
   }
+
 }
