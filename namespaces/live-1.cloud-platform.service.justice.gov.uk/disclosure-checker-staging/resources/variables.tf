@@ -15,7 +15,7 @@ variable "infrastructure-support" {
 }
 
 variable "application" {
-  default = "Disclosure Checker"
+  default = "Check when to disclose cautions or convictions"
 }
 
 variable "namespace" {
