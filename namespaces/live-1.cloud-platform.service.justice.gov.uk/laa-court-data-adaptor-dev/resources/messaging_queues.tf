@@ -64,7 +64,6 @@ module "create_link_queue_m_dead_letter_queue" {
   }
 }
 
-
 module "unlink_queue_m" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
@@ -131,6 +130,7 @@ module "unlink_queue_m_dead_letter_queue" {
     aws = aws.london
   }
 }
+
 
 resource "kubernetes_secret" "link_queue_messaging" {
   metadata {
