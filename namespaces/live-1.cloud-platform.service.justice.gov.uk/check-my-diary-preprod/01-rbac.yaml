@@ -8,28 +8,8 @@ subjects:
     name: "github:check-my-diary"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:digital-studio-sheffield"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: admin
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: check-my-diary-preprod
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: tiller
-  namespace: check-my-diary-preprod
-subjects:
-- kind: ServiceAccount
-  name: tiller
-  namespace: check-my-diary-preprod
 roleRef:
   kind: ClusterRole
   name: admin
