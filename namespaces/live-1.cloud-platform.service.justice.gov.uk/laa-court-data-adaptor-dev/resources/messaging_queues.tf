@@ -139,8 +139,8 @@ resource "kubernetes_secret" "create_link_queue_m" {
   }
 
   data = {
-    access_key_id     = module.unlink_queue_m.access_key_id
-    secret_access_key = module.unlink_queue_m.secret_access_key
+    access_key_id     = module.create_link_queue_m.access_key_id
+    secret_access_key = module.create_link_queue_m.access_key_id
     sqs_url_unlink    = module.unlink_queue_m.sqs_id
     sqs_arn_unlink    = module.unlink_queue_m.sqs_arn
     sqs_name_unlink   = module.unlink_queue_m.sqs_name
