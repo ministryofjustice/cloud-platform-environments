@@ -2,7 +2,7 @@ provider "pingdom" {}
 
 locals {
   forms = {
-    cica                   = "www.gov.uk/claim-compensation-criminal-injury/victim-lived-with-attacker-before-october-1979",
+    cica                   = "same-roof-rule.form.service.justice.gov.uk",
     childrens-funeral-fund = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     hmcts-complaints       = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
     leavers-form           = "leavers.form.service.justice.gov.uk",
