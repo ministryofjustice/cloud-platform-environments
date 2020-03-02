@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "route53_zone" {
-  name = "check-when-to-disclose-cautions-convictions.service.justice.gov.uk"
+  name = "check-when-to-disclose-caution-conviction.service.justice.gov.uk"
 
   tags = {
     application            = var.application

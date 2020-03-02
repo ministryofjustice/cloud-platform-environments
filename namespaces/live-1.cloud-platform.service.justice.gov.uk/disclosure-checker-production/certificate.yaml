@@ -8,10 +8,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'check-when-to-disclose-cautions-convictions.service.justice.gov.uk'
+  commonName: 'check-when-to-disclose-caution-conviction.service.justice.gov.uk'
   acme:
     config:
     - domains:
-      - 'check-when-to-disclose-cautions-convictions.service.justice.gov.uk'
+      - 'check-when-to-disclose-caution-conviction.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
