@@ -30,7 +30,7 @@ apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
   name: allow-prometheus-scraping
-  namespace: jason-lab
+  namespace: paul-tfmask
 spec:
   ingress:
   - from:
