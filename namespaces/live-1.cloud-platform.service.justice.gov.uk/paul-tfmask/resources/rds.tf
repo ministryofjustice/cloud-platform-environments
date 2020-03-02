@@ -17,7 +17,7 @@ module "paul-tfmask-rds" {
   infrastructure-support = ""
   db_engine              = "postgres"
   db_engine_version      = "11.4"
-  db_name                = "paul-tfmask"
+  db_name                = "paultfmask"
   rds_family             = "postgres11"
 
   providers = {
