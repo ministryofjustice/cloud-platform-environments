@@ -20,7 +20,7 @@ variable "environment_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "example-team@digtal.justice.gov.uk"
+  default     = "crimeapps-laa@digtal.justice.gov.uk"
 }
 
 variable "is_production" {
