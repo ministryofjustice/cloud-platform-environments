@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "laa-court-data-ui-prod"
+  default = "laa-court-data-ui-production"
 }
 
 variable "domain" {
@@ -27,7 +27,7 @@ variable "repo_name" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "prod"
+  default     = "production"
 }
 
 variable "infrastructure-support" {
