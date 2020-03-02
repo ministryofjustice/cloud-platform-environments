@@ -54,18 +54,6 @@ spec:
       annotations:
         message: Namespace `{{ $labels.namespace }}` is missing.
 
-    - alert: FJ-ContainerNotSeen
-      expr: >-
-        (time() - container_last_seen{container_name="webapp"})
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"}
-        > 45
-      for: 1m
-      labels:
-        severity: family-justice
-      annotations:
-        summary: This usually is the consequence of a deploy, where old pods are replaced with new ones.
-        message: Pod `{{ $labels.pod_name }}` not seen for a while in `{{ $labels.namespace }}` namespace.
-
     - alert: FJ-ContainerRestarting
       expr: >-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[5m])
