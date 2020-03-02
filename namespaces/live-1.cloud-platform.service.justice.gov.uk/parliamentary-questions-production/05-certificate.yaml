@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: parliamentary-questions
+  namespace: parliamentary-questions-production
+spec:
+  secretName: parliamentary-questions-production-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'trackparliamentaryquestions.service.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'trackparliamentaryquestions.service.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
