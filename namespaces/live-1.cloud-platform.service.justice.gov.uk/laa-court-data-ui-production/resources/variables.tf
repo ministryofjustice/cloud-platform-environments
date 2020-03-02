@@ -36,7 +36,7 @@ variable "infrastructure-support" {
 }
 
 variable "is-production" {
-  default = "false"
+  default = "true"
 }
 
 /*
