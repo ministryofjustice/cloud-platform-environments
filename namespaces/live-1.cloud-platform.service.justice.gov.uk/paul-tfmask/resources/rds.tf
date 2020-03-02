@@ -32,14 +32,14 @@ resource "kubernetes_secret" "paul-tfmask" {
   }
 
   data = {
-    rds_instance_endpoint = module.paul-tfmask.rds_instance_endpoint
-    database_name         = module.paul-tfmask.database_name
-    database_username     = module.paul-tfmask.database_username
-    database_password     = module.paul-tfmask.database_password
-    rds_instance_address  = module.paul-tfmask.rds_instance_address
-    access_key_id         = module.paul-tfmask.access_key_id
-    secret_access_key     = module.paul-tfmask.secret_access_key
-    url                   = "postgres://${module.paul-tfmask.database_username}:${module.paul-tfmask.database_password}@${module.paul-tfmask.rds_instance_endpoint}/${module.paul-tfmask.database_name}"
+    rds_instance_endpoint = module.paul-tfmask-rds.rds_instance_endpoint
+    database_name         = module.paul-tfmask-rds.database_name
+    database_username     = module.paul-tfmask-rds.database_username
+    database_password     = module.paul-tfmask-rds.database_password
+    rds_instance_address  = module.paul-tfmask-rds.rds_instance_address
+    access_key_id         = module.paul-tfmask-rds.access_key_id
+    secret_access_key     = module.paul-tfmask-rds.secret_access_key
+    url                   = "postgres://${module.paul-tfmask-rds.database_username}:${module.paul-tfmask-rds.database_password}@${module.paul-tfmask-rds.rds_instance_endpoint}/${module.paul-tfmask-rds.database_name}"
   }
 }
 
