@@ -21,4 +21,3 @@ resource "kubernetes_secret" "live0_to_live1_ecr_cred" {
     repo_url          = module.live0_to_live1_ecr_cred.repo_url
   }
 }
-

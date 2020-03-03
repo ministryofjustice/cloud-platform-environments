@@ -25,3 +25,18 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-test
+  namespace: live0-to-live1
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
+  podSelector: {}
+  policyTypes:
+  - Ingress
