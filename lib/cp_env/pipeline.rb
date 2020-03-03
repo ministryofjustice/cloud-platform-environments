@@ -55,6 +55,18 @@ def plan_namespace_dir(cluster, dir)
   return unless FileTest.directory?(dir)
 
   namespace = File.basename(dir)
+  dryrun_kubernetes_files(cluster, namespace, dir)
+  plan_terraform(cluster, namespace, dir)
+end
+
+def dryrun_kubernetes_files(_cluster, namespace, dir)
+  if contains_kubernetes_files?(dir)
+    log("green", "Dry-run #{namespace}")
+    execute("kubectl -n #{namespace} apply --server-dry-run -f #{dir}")
+  end
+end
+
+def plan_terraform(cluster, namespace, dir)
   CpEnv::Terraform.new(cluster: cluster, namespace: namespace, dir: dir).plan
 end
 
