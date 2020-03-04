@@ -55,7 +55,7 @@ class CpEnv
         %(-backend-config="bucket=#{bucket}"),
         %(-backend-config="key=#{key}"),
         %(-backend-config="dynamodb_table=#{lock_table}"),
-        %(-backend-config="region=#{region}"),
+        %(-backend-config="region=#{region}")
       ].join(" ")
 
       execute("cd #{tf_dir}; #{cmd}")
@@ -64,7 +64,7 @@ class CpEnv
     def tf_apply
       cmd = tf_cmd(
         operation: "apply",
-        last: %(-auto-approve),
+        last: %(-auto-approve)
       )
 
       execute("cd #{tf_dir}; #{cmd} | grep -v password")
@@ -73,10 +73,10 @@ class CpEnv
     def tf_plan
       cmd = tf_cmd(
         operation: "plan",
-        last: " ",
+        last: " "
       )
 
-      execute("cd #{tf_dir}; #{cmd} | grep -v password") 
+      execute("cd #{tf_dir}; #{cmd} | grep -v password")
     end
 
     def tf_dir

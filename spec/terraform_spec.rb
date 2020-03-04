@@ -15,7 +15,7 @@ describe CpEnv::Terraform do
       "PIPELINE_STATE_REGION" => "region",
       "TF_VAR_cluster_name" => cluster,
       "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
-      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate",
+      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
     }
   }
 
@@ -23,7 +23,7 @@ describe CpEnv::Terraform do
     {
       cluster: cluster,
       namespace: namespace,
-      dir: dir,
+      dir: dir
     }
   }
 
