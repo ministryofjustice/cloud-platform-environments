@@ -15,7 +15,7 @@ describe CpEnv::Terraform do
       "PIPELINE_STATE_REGION" => "region",
       "TF_VAR_cluster_name" => cluster,
       "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
-      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate",
+      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
     }
   }
 
@@ -23,7 +23,7 @@ describe CpEnv::Terraform do
     {
       cluster: cluster,
       namespace: namespace,
-      dir: dir,
+      dir: dir
     }
   }
 
@@ -40,7 +40,7 @@ describe CpEnv::Terraform do
 
       tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_plan = "cd #{tf_dir}; terraform plan  "
+      tf_plan = "cd #{tf_dir}; terraform plan   | grep -v password"
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_plan, "", success)
@@ -59,7 +59,7 @@ describe CpEnv::Terraform do
       tf_dir = "#{dir}/resources"
       tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_apply = "cd #{tf_dir}; terraform apply -auto-approve"
+      tf_apply = "cd #{tf_dir}; terraform apply -auto-approve | grep -v password"
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_apply, "", success)
