@@ -74,7 +74,7 @@ resource "aws_route53_record" "peoplefinder_route53_sendgrid_dmarc" {
   name    = "_dmarc"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=none; rua=mailto:yl0zvgmk@ag.dmarcian.com; ruf=mailto:yl0zvgmk@fr.dmarcian.com;"]
+  records = ["v=DMARC1; p=none; rua=mailto:dmarc-rua@dmarc.service.gov.uk,mailto:yl0zvgmk@ag.dmarcian.com; ruf=mailto:yl0zvgmk@fr.dmarcian.com;"]
 }
 
 # Other records copied from template deploy - Do we need this one? Get rid?
