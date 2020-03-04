@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.1"
 
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
@@ -49,6 +49,8 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     rds_instance_port     = module.rds.rds_instance_port
+    access_key_id         = module.rds.access_key_id
+    secret_access_key     = module.rds.secret_access_key
   }
 }
 
