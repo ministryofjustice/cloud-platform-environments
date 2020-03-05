@@ -23,6 +23,11 @@ variable "infrastructure_support" {
   default     = "crimeapps-laa@digital.justice.gov.uk"
 }
 
+variable "namespace" {
+  description = "The kubernetes namespace within the resource will be created."
+  default     = "laa-court-data-adaptor-dev"
+}
+
 variable "is_production" {
   default = "false"
 }
