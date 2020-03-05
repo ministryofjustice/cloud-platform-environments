@@ -1,3 +1,8 @@
+variable "domain" {
+  default = "personescortrecord.service.justice.gov.uk"
+}
+
+
 variable "application" {
   default = "moving-people-safely"
 }
