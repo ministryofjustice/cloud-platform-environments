@@ -20,6 +20,7 @@ module "create_link_queue_m" {
   }
 }
 
+
 resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
   queue_url = module.create_link_queue_m.sqs_id
 
