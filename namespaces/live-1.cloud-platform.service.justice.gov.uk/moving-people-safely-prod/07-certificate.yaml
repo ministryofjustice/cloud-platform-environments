@@ -2,17 +2,17 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: moving-people-safely-prod
+  name: moving-people-safely
   namespace: moving-people-safely-prod
 spec:
-  secretName: moving-people-safely-cert
+  secretName: mps-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'moving-people-safely-prod.prison.service.justice.gov.uk'
+  commonName: 'personescortrecord.service.justice.gov.uk'
   acme:
     config:
     - domains:
-      - 'moving-people-safely-prod.prison.service.justice.gov.uk'
+      - 'personescortrecord.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
