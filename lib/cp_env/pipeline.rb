@@ -62,7 +62,7 @@ end
 def dryrun_kubernetes_files(_cluster, namespace, dir)
   if contains_kubernetes_files?(dir)
     log("green", "Dry-run #{namespace}")
-    execute("kubectl -n #{namespace} apply --server-dry-run -f #{dir}")
+    execute("kubectl -n #{namespace} apply --dry-run -f #{dir}")
   end
 end
 
