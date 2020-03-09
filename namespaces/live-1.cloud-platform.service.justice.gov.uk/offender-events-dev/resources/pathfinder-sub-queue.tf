@@ -399,9 +399,9 @@ resource "aws_sns_topic_subscription" "pathfinder_offender_events_subscription" 
 }
 
 resource "aws_sns_topic_subscription" "pathfinder_probation_offender_events_subscription" {
-  provider  = aws.london
-  topic_arn = module.probation_offender_events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.pathfinder_probation_offender_events_queue.sqs_arn
+  provider      = aws.london
+  topic_arn     = module.probation_offender_events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.pathfinder_probation_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\"]}"
 }
