@@ -51,7 +51,7 @@ def replace_pods(namespace, delay = 90)
 end
 
 def get_pods(namespace)
-  cmd = %[kubectl -n #{namespace} get pods | grep Running | cut -f 1 -d' ']
+  cmd = %(kubectl -n #{namespace} get pods | grep Running | cut -f 1 -d' ')
   `#{cmd}`.split("\n")
 end
 
@@ -63,11 +63,11 @@ end
 
 def tfinit(namespace)
   tfinit = [
-    %[terraform init],
-    %[-backend-config="bucket=#{TF_STATE_BUCKET}"],
-    %[-backend-config="key=cloud-platform-environments/#{CLUSTER}/#{namespace}/terraform.tfstate"],
-    %[-backend-config="region=#{TF_STATE_REGION}"],
-    %[-backend-config="dynamodb_table=#{TF_STATE_LOCK_TABLE}"]
+    %(terraform init),
+    %(-backend-config="bucket=#{TF_STATE_BUCKET}"),
+    %(-backend-config="key=cloud-platform-environments/#{CLUSTER}/#{namespace}/terraform.tfstate"),
+    %(-backend-config="region=#{TF_STATE_REGION}"),
+    %(-backend-config="dynamodb_table=#{TF_STATE_LOCK_TABLE}")
   ].join(" ")
 
   system "cd #{tfdir(namespace)}; #{tfinit}"
