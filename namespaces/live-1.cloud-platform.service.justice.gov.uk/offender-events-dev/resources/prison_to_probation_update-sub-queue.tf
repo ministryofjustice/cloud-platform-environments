@@ -101,6 +101,6 @@ resource "aws_sns_topic_subscription" "prison_to_probation_update_subscription" 
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prison_to_probation_update_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"IMPRISONMENT_STATUS-CHANGED\", \"SENTENCE_CALCULATION_DATES-CHANGED\", \"OFFENDER_BOOKING-REASSIGNED\", \"BOOKING_NUMBER-CHANGED\"] }"
+  filter_policy = "{\"eventType\":[ \"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"IMPRISONMENT_STATUS-CHANGED\", \"SENTENCE_DATES-CHANGED\", \"BOOKING_NUMBER-CHANGED\"] }"
 }
 
