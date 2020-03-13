@@ -38,7 +38,7 @@ module "track_a_query_rds_restore" {
 
 resource "kubernetes_secret" "track_a_query_rds_restore" {
   metadata {
-    name      = "track-a-query-rds-output"
+    name      = "track-a-query-rds-output-restore"
     namespace = "track-a-query-production"
   }
 
