@@ -15,7 +15,7 @@
 # database password has been updated.
 
 REQUIRED_ENV_VARS = %w[AWS_PROFILE TF_VAR_cluster_name TF_VAR_cluster_state_bucket TF_VAR_cluster_state_key]
-REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep sed which]
+REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep sed which hub]
 REQUIRED_AWS_PROFILES = %w[moj-cp]
 
 CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
@@ -35,6 +35,7 @@ def main(namespace)
   update_rds_module(namespace)
   if terraform_apply(namespace)
     replace_pods(namespace)
+    raise_pr(namespace)
   end
 end
 
@@ -60,6 +61,29 @@ def terraform_apply(namespace)
   true
 end
 
+# When replacing pods, it's worth going slowly. Any open connection to the db
+# whose password we rotated will still work fine until it is dropped. So as
+# long as we leave enough time for a new pod to become ready, using the new
+# password, before we kill the next one, we should be able to replace all the
+# pods with no application downtime.
+def replace_pods(namespace, delay = 90)
+  get_pods(namespace).each do |pod|
+    system "kubectl -n #{namespace} delete pod #{pod}"
+    sleep delay # This could be optimised, because there's no need to sleep after deleting the last pod
+  end
+end
+
+# Create a PR to put the RDS module change into the environments repo.
+def raise_pr(namespace)
+  branch = "update-rds-module-#{namespace}"
+  message = "Update RDS module for #{namespace}"
+  system "git checkout -b #{branch}"
+  system "git add #{tfdir(namespace)}"
+  system %[git commit -m "#{message}"]
+  system %[git push origin #{branch}]
+  system %[hub pull-request -m "#{message}"]
+end
+
 def tfinit(namespace)
   cmd = [
     %(terraform init),
@@ -72,18 +96,6 @@ def tfinit(namespace)
   puts cmd
 
   system "cd #{tfdir(namespace)}; #{cmd}"
-end
-
-# When replacing pods, it's worth going slowly. Any open connection to the db
-# whose password we rotated will still work fine until it is dropped. So as
-# long as we leave enough time for a new pod to become ready, using the new
-# password, before we kill the next one, we should be able to replace all the
-# pods with no application downtime.
-def replace_pods(namespace, delay = 90)
-  get_pods(namespace).each do |pod|
-    system "kubectl -n #{namespace} delete pod #{pod}"
-    sleep delay # This could be optimised, because there's no need to sleep after deleting the last pod
-  end
 end
 
 def get_pods(namespace)
