@@ -24,17 +24,6 @@ resource "kubernetes_secret" "parliamentary_questions_route53" {
   }
 }
 
-resource "aws_route53_record" "pq_route53_a_record" {
-  zone_id = aws_route53_zone.parliamentary_questions.zone_id
-  name    = "."
-  type    = "A"
-  alias {
-    name                   = "dualstack.pq-prod-a7-elbprod-x639p15np7yz-345805924.eu-west-1.elb.amazonaws.com."
-    zone_id                = "Z32O12XQLNTSW2"
-    evaluate_target_health = true
-  }
-}
-
 resource "aws_route53_record" "pq_route53_cname0_record" {
   zone_id = aws_route53_zone.parliamentary_questions.zone_id
   name    = "_c282d3c53501f377a7c87b02b1f5e30a."
