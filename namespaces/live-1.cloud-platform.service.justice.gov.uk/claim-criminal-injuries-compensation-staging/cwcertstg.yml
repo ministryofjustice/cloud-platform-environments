@@ -8,7 +8,7 @@ spec:
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
-  commonName: staging.claim-criminal-injuries-compensation.service.justice.gov.uk
+  commonName: claim-criminal-injuries-compensation.service.justice.gov.uk
   acme:
     config:
       - dns01:
@@ -16,4 +16,3 @@ spec:
         domains:
           - claim-criminal-injuries-compensation.service.justice.gov.uk
           - staging.claim-criminal-injuries-compensation.service.justice.gov.uk
-    commonName: claim-criminal-injuries-compensation.service.justice.gov.uk
