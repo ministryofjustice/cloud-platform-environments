@@ -14,4 +14,6 @@ spec:
       - dns01:
           provider: route53-cloud-platform
         domains:
+          - claim-criminal-injuries-compensation.service.justice.gov.uk
           - staging.claim-criminal-injuries-compensation.service.justice.gov.uk
+    commonName: claim-criminal-injuries-compensation.service.justice.gov.uk
