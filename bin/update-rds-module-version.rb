@@ -15,7 +15,7 @@
 # database password has been updated.
 
 REQUIRED_ENV_VARS = %w[AWS_PROFILE TF_VAR_cluster_name TF_VAR_cluster_state_bucket TF_VAR_cluster_state_key]
-REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep sed which hub]
+REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep sed which hub git]
 REQUIRED_AWS_PROFILES = %w[moj-cp]
 
 CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
