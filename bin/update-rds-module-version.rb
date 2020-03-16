@@ -49,8 +49,6 @@ def terraform_apply(namespace)
   dir = tfdir(namespace)
   updated_files = `git status --porcelain=1 #{dir}`.split("\n")
 
-  pp updated_files
-
   # We don't want to run terraform apply and replace all the pods if nothing
   # changed (i.e. this namespace doesn't use the RDS module, or it was already
   # using the latest version.
