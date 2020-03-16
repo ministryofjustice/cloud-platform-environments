@@ -40,7 +40,7 @@ def main(namespace)
 end
 
 def update_rds_module(namespace)
-  cmd = %[cd #{tfdir(namespace)}; sed -i '' 's/#{RDS_MODULE_REGEX}/#{LATEST_RDS_MODULE}/' *.tf]
+  cmd = %(cd #{tfdir(namespace)}; sed -i '' 's/#{RDS_MODULE_REGEX}/#{LATEST_RDS_MODULE}/' *.tf)
   puts cmd
   system cmd
 end
@@ -77,9 +77,9 @@ def raise_pr(namespace)
   message = "Update RDS module for #{namespace}"
   system "git checkout -b #{branch}"
   system "git add #{tfdir(namespace)}"
-  system %[git commit -m "#{message}"]
-  system %[git push origin #{branch}]
-  system %[hub pull-request -m "#{message}"]
+  system %(git commit -m "#{message}")
+  system %(git push origin #{branch})
+  system %(hub pull-request -m "#{message}")
 end
 
 def tfinit(namespace)
