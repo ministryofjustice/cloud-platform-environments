@@ -30,6 +30,8 @@ module "rds" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine 
   allow_major_version_upgrade = "true"
 
+  snapshot_identifier = "manual-snapshot-12-03-2020-1448"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland" 
     aws = aws.london
