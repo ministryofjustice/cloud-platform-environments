@@ -14,6 +14,8 @@
 # were created with the 'old' password should continue to work, even after the
 # database password has been updated.
 
+require "open3"
+
 REQUIRED_ENV_VARS = %w[AWS_PROFILE TF_VAR_cluster_name TF_VAR_cluster_state_bucket TF_VAR_cluster_state_key]
 REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep sed which hub git]
 REQUIRED_AWS_PROFILES = %w[moj-cp]
@@ -32,11 +34,17 @@ LATEST_RDS_MODULE = "github.com\\/ministryofjustice\\/cloud-platform-terraform-r
 
 def main(namespace)
   check_prerequisites(namespace)
+  checkout_master
   update_rds_module(namespace)
   if terraform_apply(namespace)
     replace_pods(namespace)
     raise_pr(namespace)
   end
+end
+
+def checkout_master
+  _, _, status = Open3.capture3 "git checkout master"
+  raise "Failed to checkout master branch" unless status.success?
 end
 
 def update_rds_module(namespace)
