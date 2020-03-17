@@ -140,6 +140,12 @@ def check_software_installed
     # echoing so much output to stdout
     raise "ERROR Required executable #{exe} not found." unless system("which #{exe}")
   end
+
+  # Ensure we have the correct pingdom terraform provider plugin
+  plugin = File.join(ENV["HOME"], ".terraform.d/plugins/terraform-provider-pingdom_v1.1.1")
+  if !FileTest.executable?(plugin)
+    raise "ERROR Required executable #{plugin} not found."
+  end
 end
 
 def check_aws_profiles
