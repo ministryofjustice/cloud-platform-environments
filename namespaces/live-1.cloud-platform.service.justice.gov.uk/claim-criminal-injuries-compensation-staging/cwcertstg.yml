@@ -6,13 +6,13 @@ metadata:
 spec:
   secretName: staging-claim-criminal-injuries-compensation-cert-secret
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: claim-criminal-injuries-compensation.service.justice.gov.uk
+  commonName: 'claim-criminal-injuries-compensation.service.justice.gov.uk'
   acme:
     config:
-      - dns01:
-          provider: route53-cloud-platform
-        domains:
-          - claim-criminal-injuries-compensation.service.justice.gov.uk
-          - staging.claim-criminal-injuries-compensation.service.justice.gov.uk
+    - domains:
+      - 'staging.claim-criminal-injuries-compensation.service.justice.gov.uk'
+      - 'claim-criminal-injuries-compensation.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
