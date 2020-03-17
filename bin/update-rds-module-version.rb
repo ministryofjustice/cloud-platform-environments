@@ -140,7 +140,7 @@ def check_software_installed
 
   # Ensure we have the correct pingdom terraform provider plugin
   plugin = File.join(ENV["HOME"], ".terraform.d/plugins/terraform-provider-pingdom_v1.1.1")
-  if !FileTest.executable?(plugin)
+  unless FileTest.executable?(plugin)
     raise "ERROR Required executable #{plugin} not found."
   end
 end
