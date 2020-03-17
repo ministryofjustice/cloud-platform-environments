@@ -43,19 +43,17 @@ def main(namespace)
 end
 
 def checkout_master
-  _, _, status = Open3.capture3 "git checkout master"
-  raise "Failed to checkout master branch" unless status.success?
+  execute "git checkout master"
 end
 
 def update_rds_module(namespace)
-  cmd = %(cd #{tfdir(namespace)}; sed -i '' 's/#{RDS_MODULE_REGEX}/#{LATEST_RDS_MODULE}/' *.tf)
-  puts cmd
-  system cmd
+  execute %(cd #{tfdir(namespace)}; sed -i '' 's/#{RDS_MODULE_REGEX}/#{LATEST_RDS_MODULE}/' *.tf)
 end
 
 def terraform_apply(namespace)
   dir = tfdir(namespace)
-  updated_files = `git status --porcelain=1 #{dir}`.split("\n")
+  stdout, _, _ = execute "git status --porcelain=1 #{dir}"
+  updated_files = stdout.split("\n")
 
   # We don't want to run terraform apply and replace all the pods if nothing
   # changed (i.e. this namespace doesn't use the RDS module, or it was already
@@ -63,7 +61,7 @@ def terraform_apply(namespace)
   return false if updated_files.empty?
 
   tfinit(namespace)
-  system "cd #{dir}; terraform apply -auto-approve"
+  execute "cd #{dir}; terraform apply -auto-approve"
   true
 end
 
@@ -77,7 +75,7 @@ def replace_pods(namespace, delay = 90)
 
   while pods.any?
     pod = pods.shift
-    system "kubectl -n #{namespace} delete pod #{pod}"
+    execute "kubectl -n #{namespace} delete pod #{pod}"
     sleep delay if pods.any?
   end
 end
@@ -86,11 +84,11 @@ end
 def raise_pr(namespace)
   branch = "update-rds-module-#{namespace}"
   message = "Update RDS module for #{namespace}"
-  system "git checkout -b #{branch}"
-  system "git add #{tfdir(namespace)}"
-  system %(git commit -m "#{message}")
-  system %(git push origin #{branch})
-  system %(hub pull-request -m "#{message}")
+  execute "git checkout -b #{branch}"
+  execute "git add #{tfdir(namespace)}"
+  execute %(git commit -m "#{message}")
+  execute %(git push origin #{branch})
+  execute %(hub pull-request -m "#{message}")
 end
 
 def tfinit(namespace)
@@ -104,12 +102,13 @@ def tfinit(namespace)
 
   puts cmd
 
-  system "cd #{tfdir(namespace)}; #{cmd}"
+  execute "cd #{tfdir(namespace)}; #{cmd}"
 end
 
 def get_pods(namespace)
   cmd = %(kubectl -n #{namespace} get pods | grep Running | cut -f 1 -d' ')
-  `#{cmd}`.split("\n")
+  stdout, _, _ = execute(cmd)
+  stdout.split("\n")
 end
 
 def check_prerequisites(namespace)
@@ -129,16 +128,20 @@ def check_env_vars
 end
 
 def check_cluster_info
-  unless system "kubectl cluster-info | grep #{CLUSTER}"
-    raise "ERROR: kubectl cluster-info does not match #{CLUSTER}"
-  end
+  execute "kubectl cluster-info | grep #{CLUSTER}"
 end
 
 def check_software_installed
   REQUIRED_EXECUTABLES.each do |exe|
     # TODO: find a reliable way to test for the presence of an executable without
     # echoing so much output to stdout
-    raise "ERROR Required executable #{exe} not found." unless system("which #{exe}")
+    execute "which #{exe}"
+  end
+
+  # Ensure we have the correct pingdom terraform provider plugin
+  plugin = File.join(ENV["HOME"], ".terraform.d/plugins/terraform-provider-pingdom_v1.1.1")
+  unless FileTest.executable?(plugin)
+    raise "ERROR Required executable #{plugin} not found."
   end
 end
 
@@ -152,6 +155,22 @@ end
 
 def tfdir(namespace)
   "namespaces/#{CLUSTER}/#{namespace}/resources"
+end
+
+def execute(cmd)
+  puts "executing: #{cmd}"
+
+  stdout, stderr, status = Open3.capture3(cmd)
+
+  unless status.success?
+    puts "Command: #{cmd} failed."
+    puts stderr
+    raise
+  end
+
+  puts stdout
+
+  [stdout, stderr, status]
 end
 
 ############################################################
