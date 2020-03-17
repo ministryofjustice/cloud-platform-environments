@@ -65,9 +65,12 @@ end
 # password, before we kill the next one, we should be able to replace all the
 # pods with no application downtime.
 def replace_pods(namespace, delay = 90)
-  get_pods(namespace).each do |pod|
+  pods = get_pods(namespace)
+
+  while pods.any?
+    pod = pods.shift
     system "kubectl -n #{namespace} delete pod #{pod}"
-    sleep delay # This could be optimised, because there's no need to sleep after deleting the last pod
+    sleep delay if pods.any?
   end
 end
 
