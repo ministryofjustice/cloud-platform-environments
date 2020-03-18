@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "digital-prison-services-dev"
+  default = "manage-key-workers-dev"
 }
 
 variable "business-unit" {
