@@ -1,5 +1,5 @@
 variable "application" {
-  default = "digital-prison-services-dev"
+  default = "manage-key-workers-dev"
 }
 
 variable "namespace" {
