@@ -43,13 +43,13 @@ class Namespace
   end
 
   def self.all
-    cmd = %[kubectl get namespaces --no-headers | cut -f 1 -d' ']
+    cmd = %(kubectl get namespaces --no-headers | cut -f 1 -d' ')
     stdout, _, _ = Open3.capture3(cmd)
     stdout.split("\n").map { |ns| new(name: ns) }
   end
 
   def containers
-    cmd = %[kubectl -n #{name} top pods --containers --no-headers]
+    cmd = %(kubectl -n #{name} top pods --containers --no-headers)
     stdout, _, _ = Open3.capture3(cmd)
     stdout.split("\n").map do |line|
       pod, cont = line.split(" ")
