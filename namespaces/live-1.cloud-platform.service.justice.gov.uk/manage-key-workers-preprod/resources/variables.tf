@@ -1,19 +1,9 @@
-variable "domain" {
-  default = "manage-key-workers.service.justice.gov.uk"
-}
-
 variable "application" {
-  default = "manage-key-workers"
+  default = "manage-key-workers-preprod"
 }
 
 variable "namespace" {
-  default = "manage-key-workers-prod"
-}
-
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
+  default = "manage-key-workers-preprod"
 }
 
 variable "business-unit" {
@@ -23,12 +13,12 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital-Prison-Services"
+  default     = "Digital Prison Services/New Nomis"
 }
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "prod"
+  default     = "preprod"
 }
 
 variable "infrastructure-support" {
@@ -45,6 +35,5 @@ variable "node-type" {
 }
 
 variable "is-production" {
-  default = "true"
+  default = "false"
 }
-
