@@ -11,20 +11,6 @@ module "rds-instance" {
   team_name              = var.team_name
 }
 
-resource "postgresql_role" "readonly_role" {
-  login    = true
-  name     = "ro-${module.rds-instance.database_username}"
-  password = "ro-${module.rds-instance.database_password}"
-}
-
-resource "postgresql_grant" "readonly_tables" {
-  database    = "${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
-  role        = postgresql_role.readonly_role.name
-  schema      = "public"
-  object_type = "table"
-  privileges  = ["SELECT"]
-}
-
 resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-instance-hmpps-book-secure-move-api-production"
@@ -35,7 +21,6 @@ resource "kubernetes_secret" "rds-instance" {
     access_key_id     = module.rds-instance.access_key_id
     secret_access_key = module.rds-instance.secret_access_key
     url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
-    readonly_url      = "postgres://${postgresql_role.readonly_role.name}:${postgresql_role.readonly_role.password}}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
 

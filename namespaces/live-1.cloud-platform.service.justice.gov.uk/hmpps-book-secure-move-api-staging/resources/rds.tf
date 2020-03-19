@@ -16,10 +16,15 @@ module "rds-instance" {
   }
 }
 
+resource "random_password" "readonly-password" {
+  length  = 16
+  special = false
+}
+
 resource "postgresql_role" "readonly_role" {
   login    = true
-  name     = "ro-${module.rds-instance.database_username}"
-  password = "ro-${module.rds-instance.database_password}"
+  name     = "readonly-ddatabase-user"
+  password = random_password.readonly-password.result
 }
 
 resource "postgresql_grant" "readonly_tables" {
