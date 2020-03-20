@@ -22,6 +22,10 @@ variable "namespace" {
   default = "hmpps-book-secure-move-api-staging"
 }
 
+variable "dev_namespace" {
+  default = "hmpps-book-secure-move-api-dev"
+}
+
 variable "repo_name" {
   default = "hmpps-book-secure-move-api"
 }
