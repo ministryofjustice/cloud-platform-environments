@@ -17,13 +17,13 @@ module "rds-instance" {
 }
 
 provider "postgresql" {
-  host            = module.rds-instance.rds_instance_endpoint
-  database        = module.rds-instance.database_name
-  username        = module.rds-instance.database_username
-  password        = module.rds-instance.database_password
+  host             = module.rds-instance.rds_instance_endpoint
+  database         = module.rds-instance.database_name
+  username         = module.rds-instance.database_username
+  password         = module.rds-instance.database_password
   expected_version = "10.6"
-  sslmode         = "require"
-  connect_timeout = 15
+  sslmode          = "require"
+  connect_timeout  = 15
 }
 
 resource "random_password" "readonly-password" {
