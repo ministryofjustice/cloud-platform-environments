@@ -8,14 +8,15 @@ require "open3"
 
 def main(process)
   Namespace.all.map do |namespace|
-    puts
-    puts namespace.name
-
-    namespace
-      .containers
+    containers = namespace.containers
       .find_all { |c| c.is_running?(process) }
-      .map { |c| puts "    #{c.pod}  #{c.name}" }
+    output(namespace, containers) if containers.any?
   end
+end
+
+def output(namespace, containers)
+  puts namespace.name
+  containers.map { |c| puts "    #{c.pod}  #{c.name}" }
   puts
 end
 
