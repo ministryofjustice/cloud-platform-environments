@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "token-verification-dev"
+  default = "token-verification-api-dev"
 }
 
 variable "cluster_name" {
