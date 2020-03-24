@@ -48,6 +48,19 @@ resource "kubernetes_secret" "rds-instance" {
   }
 }
 
+resource "kubernetes_secret" "rds-snapshot" {
+  metadata {
+    name      = "rds-snapshot-staging"
+    namespace = var.dev_namespace
+  }
+
+  data = {
+    access_key_id     = module.rds-instance.access_key_id
+    secret_access_key = module.rds-instance.secret_access_key
+    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+  }
+}
+
 resource "kubernetes_secret" "ro-rds-access" {
   metadata {
     name      = "rds-instance-hmpps-book-secure-move-api-staging-ro"
