@@ -4,3 +4,4 @@ metadata:
   name: kube-system
   labels: 
     openpolicyagent.org/webhook: "ignore"
+    component: kube-system
