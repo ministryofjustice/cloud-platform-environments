@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: token-verification-api-prod-admin
+  namespace: token-verification-api-prod
+subjects:
+  - kind: Group
+    name: "github:dps-shared"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-core"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
