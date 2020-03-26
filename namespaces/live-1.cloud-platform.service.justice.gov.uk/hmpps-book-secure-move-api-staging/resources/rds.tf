@@ -77,11 +77,7 @@ resource "kubernetes_secret" "rds-snapshot" {
   data = {
     access_key_id     = module.rds-instance.access_key_id
     secret_access_key = module.rds-instance.secret_access_key
-    username          = module.rds-instance.database_username
-    password          = module.rds-instance.database_password
-    endpoint          = module.rds-snapshot.rds_instance_endpoint
-    database_name     = module.rds-snapshot.database_name
-    url               = "postgres://${username}:${password}@${endpoint}/${database_name}"
+    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-snapshot.rds_instance_endpoint}/${module.rds-snapshot.database_name}"
   }
 }
 
