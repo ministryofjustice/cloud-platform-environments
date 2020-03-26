@@ -57,8 +57,7 @@ data "aws_iam_policy_document" "policy" {
     ]
 
     resources = [
-      module.dps_rds.arn,
-      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:snapshot:*",
+      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:db:*",
       "${module.pathfinder_reporting_s3_bucket.bucket_arn}:${module.pathfinder_reporting_s3_bucket.bucket_name}",
       "${module.pathfinder_reporting_s3_bucket.bucket_arn}:${module.pathfinder_reporting_s3_bucket.bucket_name}/*"
     ]
