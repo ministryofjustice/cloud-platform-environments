@@ -78,16 +78,16 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
-    database_name         = module.dps_rds.database_name
-    database_username     = module.dps_rds.database_username
-    database_password     = module.dps_rds.database_password
-    rds_instance_address  = module.dps_rds.rds_instance_address
-    access_key_id         = module.dps_rds.access_key_id
-    secret_access_key     = module.dps_rds.secret_access_key
-    url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
-    rds_to_s3_user_arn    = aws_iam_user.user.arn
-    rds_to_s3_access_key_id = aws_iam_access_key.user.id
+    rds_instance_endpoint       = module.dps_rds.rds_instance_endpoint
+    database_name               = module.dps_rds.database_name
+    database_username           = module.dps_rds.database_username
+    database_password           = module.dps_rds.database_password
+    rds_instance_address        = module.dps_rds.rds_instance_address
+    access_key_id               = module.dps_rds.access_key_id
+    secret_access_key           = module.dps_rds.secret_access_key
+    url                         = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+    rds_to_s3_user_arn          = aws_iam_user.user.arn
+    rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
   }
 }
