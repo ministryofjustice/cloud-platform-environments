@@ -1,18 +1,17 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: staging-claim-criminal-injuries-compensation-cert
+  name: stg-claim-criminal-injuries-compensation-cert
   namespace: claim-criminal-injuries-compensation-staging
 spec:
-  secretName: staging-claim-criminal-injuries-compensation-cert-secret
+  secretName: stg-claim-criminal-injuries-compensation-cert-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'claim-criminal-injuries-compensation.service.justice.gov.uk'
+  commonName: stg.claim-criminal-injuries-compensation.service.justice.gov.uk
   acme:
     config:
     - domains:
-      - 'staging.claim-criminal-injuries-compensation.service.justice.gov.uk'
-      - 'claim-criminal-injuries-compensation.service.justice.gov.uk'
+      - stg.claim-criminal-injuries-compensation.service.justice.gov.uk
       dns01:
         provider: route53-cloud-platform
