@@ -41,22 +41,9 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy-document" {
   }
 }
 
-variable "pathfinder-dev-tags" {
-  type = map(string)
-  default = {
-    business-unit          = var.business-unit
-    application            = var.application
-    is-production          = var.is-production
-    environment-name       = var.environment-name
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
-  }
-}
-
 resource "aws_iam_role" "pathfinder-dev-rds-to-s3-role" {
   name               = "pathfinder-dev-rds-to-s3-iam-role"
   description        = "IAM role for pathfinder-dev rds to s3 export"
-  tags               = var.pathfinder-dev-tags
   assume_role_policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-policy-document.json
 }
 
