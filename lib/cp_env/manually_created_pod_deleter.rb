@@ -19,7 +19,7 @@ class CpEnv
     attr_reader :executor, :dry_run
 
     SYSTEM_NAMESPACE = "kube-system"
-    MAX_AGE_IN_SECONDS = 2 * 24 * 60 * 60 # 2 days
+    MAX_AGE_IN_SECONDS = 24 * 60 * 60 # 1 day
 
     def initialize(args = {})
       @executor = args.fetch(:executor) { Executor.new }
