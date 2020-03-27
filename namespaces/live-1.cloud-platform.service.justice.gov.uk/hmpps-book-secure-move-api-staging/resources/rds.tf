@@ -68,22 +68,6 @@ module "rds-snapshot" {
   }
 }
 
-variable "snapshotdb_username" {
-  default = module.rds-instance.database_username
-}
-
-variable "snapshotdb_password" {
-  default = module.rds-instance.database_password
-}
-
-variable "snapshotdb_endpoint" {
-  default = module.rds-snapshot.rds_instance_endpoint
-}
-
-variable "snapshotdb_instance" {
-  default = module.rds-snapshot.database_name
-}
-
 resource "kubernetes_secret" "rds-snapshot" {
   metadata {
     name      = "rds-snapshot-staging"
@@ -93,7 +77,7 @@ resource "kubernetes_secret" "rds-snapshot" {
   data = {
     access_key_id     = module.rds-instance.access_key_id
     secret_access_key = module.rds-instance.secret_access_key
-    url               = "postgres://${var.snapshotdb_username}:${var.snapshotdb_password}@${var.snapshotdb_endpoint}/${var.snapshotdb_instance}"
+    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-snapshot.rds_instance_endpoint}/${module.rds-snapshot.database_name}"
   }
 }
 
