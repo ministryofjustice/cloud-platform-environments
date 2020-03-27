@@ -4,7 +4,7 @@ describe CpEnv::ManuallyCreatedPodDeleter do
   let(:executor) { double(CpEnv::Executor) }
   let(:params) {
     {
-      executor: executor,
+      executor: executor
     }
   }
   subject(:deleter) { described_class.new(params) }
