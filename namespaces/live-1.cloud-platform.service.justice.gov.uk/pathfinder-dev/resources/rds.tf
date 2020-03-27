@@ -31,6 +31,79 @@ module "dps_rds" {
   }
 }
 
+data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy-document" {
+  statement {
+    principals {
+      type        = "Service"
+      identifiers = ["export.rds.amazonaws.com"]
+    }
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "pathfinder-dev-rds-to-s3-role" {
+  name               = "pathfinder-dev-rds-to-s3-iam-role"
+  description        = "IAM role for pathfinder-dev rds to s3 export"
+  assume_role_policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-policy-document.json
+}
+
+data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy" {
+  statement {
+    actions = [
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
+    ]
+
+    resources = [
+      "arn:aws:s3:::*"
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject*",
+      "s3:GetObject*",
+      "s3:DeleteObject*",
+    ]
+
+    resources = [
+      "${module.pathfinder_reporting_s3_bucket.bucket_arn}",
+      "${module.pathfinder_reporting_s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "pathfinder_rds_to_s3_policy" {
+  name   = "pathfinder_rds_to_s3_policy"
+  policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "pathfinder_rds_to_s3_policy-attach" {
+  role       = aws_iam_role.pathfinder-dev-rds-to-s3-role.name
+  policy_arn = aws_iam_policy.pathfinder_rds_to_s3_policy.arn
+}
+
+data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
+
+  statement {
+    actions = [
+      "rds:CopyDBSnapshot",
+      "rds:DeleteDBSnapshot",
+      "rds:DescribeDBInstances",
+      "rds:DescribeDBSnapshots",
+      "rds:DescribeExportTasks",
+      "rds:StartExportTask",
+      "rds:CancelExportTask"
+    ]
+
+    resources = [
+      "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:db:*",
+      "arn:aws:rds:eu-west-1:${data.aws_caller_identity.current.account_id}:snapshot:*",
+      "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:snapshot:*"
+    ]
+  }
+}
+
 resource "aws_iam_user" "user" {
   name = "pathfinder-rds-to-s3-snapshots-user-${random_id.id.hex}"
   path = "/system/pathfinder-rds-to-s3-snapshots-user/"
@@ -40,34 +113,9 @@ resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 }
 
-data "aws_iam_policy_document" "policy" {
-  statement {
-    actions = [
-      "rds:DescribeDBClusterSnapshots",
-      "rds:DescribeDBClusters",
-      "rds:DescribeDBInstances",
-      "rds:DescribeDBSnapshots",
-      "rds:DescribeExportTasks",
-      "rds:StartExportTask",
-      "s3:PutObject*",
-      "s3:GetObject*",
-      "s3:ListBucket",
-      "s3:DeleteObject*",
-      "s3:GetBucketLocation"
-    ]
-
-    resources = [
-      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:db:*",
-      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:snapshot:*",
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}",
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}/*"
-    ]
-  }
-}
-
 resource "aws_iam_user_policy" "policy" {
   name   = "pathfinder-rds-to-s3-snapshots-read-write"
-  policy = data.aws_iam_policy_document.policy.json
+  policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-export-policy.json
   user   = aws_iam_user.user.name
 }
 
