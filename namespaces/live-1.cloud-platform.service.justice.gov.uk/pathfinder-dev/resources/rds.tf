@@ -87,6 +87,8 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
 
   statement {
     actions = [
+      "rds:CopyDBSnapshot",
+      "rds:DeleteDBSnapshot",
       "rds:DescribeDBInstances",
       "rds:DescribeDBSnapshots",
       "rds:DescribeExportTasks",
@@ -96,6 +98,7 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
 
     resources = [
       "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:db:*",
+      "arn:aws:rds:eu-west-1:${data.aws_caller_identity.current.account_id}:snapshot:*",
       "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:snapshot:*"
     ]
   }
