@@ -67,8 +67,8 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy" {
     ]
 
     resources = [
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}",
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}/*"
+      "${module.pathfinder_analytics_s3_bucket.bucket_arn}",
+      "${module.pathfinder_analytics_s3_bucket.bucket_arn}/*"
     ]
   }
 }
@@ -87,19 +87,27 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
 
   statement {
     actions = [
-      "rds:CopyDBSnapshot",
-      "rds:DeleteDBSnapshot",
-      "rds:DescribeDBInstances",
       "rds:DescribeDBSnapshots",
+      "rds:CancelExportTask",
       "rds:DescribeExportTasks",
       "rds:StartExportTask",
-      "rds:CancelExportTask"
+      "rds:DescribeDBInstances",
+      "kms:CreateGrant",
+      "kms:DescribeKey"
     ]
 
     resources = [
-      "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:db:*",
-      "arn:aws:rds:eu-west-1:${data.aws_caller_identity.current.account_id}:snapshot:*",
-      "arn:aws:rds:eu-west-2:${data.aws_caller_identity.current.account_id}:snapshot:*"
+      "*"
+    ]
+  },
+  statement {
+    actions = [
+      "rds:CopyDBSnapshot",
+      "rds:DeleteDBSnapshot"
+    ]
+
+    resources = [
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:snapshot:*"
     ]
   }
 }
@@ -117,6 +125,11 @@ resource "aws_iam_user_policy" "policy" {
   name   = "pathfinder-rds-to-s3-snapshots-read-write"
   policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-export-policy.json
   user   = aws_iam_user.user.name
+}
+
+resource "aws_kms_key" "pathfinder-rds-to-s3-export-key" {
+  description = "Pathfinder RDS TO S3 Export Key"
+  provider    = aws.ireland
 }
 
 resource "kubernetes_secret" "dps_rds" {
@@ -137,6 +150,7 @@ resource "kubernetes_secret" "dps_rds" {
     rds_to_s3_user_arn          = aws_iam_user.user.arn
     rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
+    rds_to_s3_cmk_key_id        = aws_kms_key.pathfinder-rds-to-s3-export-key.key_id
   }
 }
 
