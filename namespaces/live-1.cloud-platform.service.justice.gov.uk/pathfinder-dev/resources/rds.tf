@@ -93,7 +93,8 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
       "rds:StartExportTask",
       "rds:DescribeDBInstances",
       "kms:CreateGrant",
-      "kms:DescribeKey"
+      "kms:DescribeKey",
+      "iam:PassRole"
     ]
 
     resources = [
