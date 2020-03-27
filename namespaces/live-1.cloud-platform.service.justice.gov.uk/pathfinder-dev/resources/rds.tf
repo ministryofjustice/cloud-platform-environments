@@ -99,7 +99,8 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
     resources = [
       "*"
     ]
-  },
+  }
+
   statement {
     actions = [
       "rds:CopyDBSnapshot",
