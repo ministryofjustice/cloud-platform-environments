@@ -4,7 +4,7 @@ describe CpEnv::ManuallyCreatedPodDeleter do
   let(:executor) { double(CpEnv::Executor) }
   let(:params) {
     {
-      executor: executor,
+      executor: executor
     }
   }
   subject(:deleter) { described_class.new(params) }
@@ -40,8 +40,8 @@ describe CpEnv::ManuallyCreatedPodDeleter do
 
     let(:json) { %({"items": [ #{pod} ]}) }
 
-    context "but the pod is 1 day old" do
-      let(:startTime) { (Date.today - 1).to_s }
+    context "but the pod is 23 hours old" do
+      let(:startTime) { (Time.now - (23 * 3600)).to_s }
 
       it "does not delete the pod" do
         expect(executor).to_not receive(:execute).with("kubectl -n mynamespace delete pod mypod")
@@ -49,8 +49,8 @@ describe CpEnv::ManuallyCreatedPodDeleter do
       end
     end
 
-    context "and the pod is 3 days old" do
-      let(:startTime) { (Date.today - 3).to_s }
+    context "and the pod is 2 days old" do
+      let(:startTime) { (Date.today - 2).to_s }
 
       it "deletes pod" do
         expect(executor).to receive(:execute).with("kubectl -n mynamespace delete pod mypod")
