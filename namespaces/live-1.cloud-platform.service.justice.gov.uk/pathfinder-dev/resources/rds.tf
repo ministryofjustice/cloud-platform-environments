@@ -31,7 +31,7 @@ module "dps_rds" {
   }
 }
 
-data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy-document" {
+data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_policy_document" {
   statement {
     principals {
       type        = "Service"
@@ -41,13 +41,7 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy-document" {
   }
 }
 
-resource "aws_iam_role" "pathfinder-dev-rds-to-s3-role" {
-  name               = "pathfinder-dev-rds-to-s3-iam-role-${random_id.id.hex}"
-  description        = "IAM role for pathfinder-dev rds to s3 export"
-  assume_role_policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-policy-document.json
-}
-
-data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy" {
+data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_policy" {
   statement {
     sid = "AllowRdsToListS3Buckets"
     actions = [
@@ -75,17 +69,23 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy" {
   }
 }
 
+resource "aws_iam_role" "pathfinder_dev_rds_to_s3_role" {
+  name               = "pathfinder-dev-rds-to-s3-iam-role-${random_id.id.hex}"
+  description        = "IAM role for pathfinder-dev rds to s3 export"
+  assume_role_policy = data.aws_iam_policy_document.pathfinder_dev_rds_to_s3_policy_document.json
+}
+
 resource "aws_iam_policy" "pathfinder_rds_to_s3_policy" {
   name   = "pathfinder_rds_to_s3_policy"
-  policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-policy.json
+  policy = data.aws_iam_policy_document.pathfinder_dev_rds_to_s3_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "pathfinder_rds_to_s3_policy_attach" {
-  role       = aws_iam_role.pathfinder-dev-rds-to-s3-role.name
+  role       = aws_iam_role.pathfinder_dev_rds_to_s3_role.name
   policy_arn = aws_iam_policy.pathfinder_rds_to_s3_policy.arn
 }
 
-data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-export-policy" {
+data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
 
   statement {
     actions = [
@@ -127,11 +127,11 @@ resource "aws_iam_access_key" "user" {
 
 resource "aws_iam_user_policy" "policy" {
   name   = "pathfinder-rds-to-s3-snapshots-read-write"
-  policy = data.aws_iam_policy_document.pathfinder-dev-rds-to-s3-export-policy.json
+  policy = data.aws_iam_policy_document.pathfinder_dev_rds_to_s3_export_policy.json
   user   = aws_iam_user.user.name
 }
 
-resource "aws_kms_key" "pathfinder-rds-to-s3-export-key" {
+resource "aws_kms_key" "pathfinder_rds_to_s3_export_key" {
   description = "Pathfinder RDS TO S3 Export Key"
   provider    = aws.ireland
 }
@@ -154,7 +154,7 @@ resource "kubernetes_secret" "dps_rds" {
     rds_to_s3_user_arn          = aws_iam_user.user.arn
     rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
-    rds_to_s3_cmk_key_id        = aws_kms_key.pathfinder-rds-to-s3-export-key.key_id
+    rds_to_s3_cmk_key_id        = aws_kms_key.pathfinder_rds_to_s3_export_key.key_id
   }
 }
 
