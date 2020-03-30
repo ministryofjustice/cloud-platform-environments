@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "pathfinder-dev-rds-to-s3-policy" {
     actions = [
       "s3:PutObject*",
       "s3:GetObject*",
-      "s3:DeleteObject*"
+      "s3:DeleteObject*",
     ]
 
     resources = [
