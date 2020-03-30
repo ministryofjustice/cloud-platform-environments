@@ -1,6 +1,6 @@
 # Prometheus Alerts
 #
-# https://user-guide.cloud-platform.service.justice.gov.uk/tasks.html#creating-your-own-custom-alerts
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html#overview
 #
 # To see the current alerts in this namespace:
 #   kubectl describe prometheusrule -n hmpps-book-secure-move-api-staging
@@ -25,4 +25,4 @@ spec:
       expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
-        severity: warning
+        severity: hmpps-book-secure-move
