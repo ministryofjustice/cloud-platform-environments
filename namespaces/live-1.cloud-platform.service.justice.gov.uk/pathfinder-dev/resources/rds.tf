@@ -124,7 +124,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
     ]
 
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/${aws_kms_key.pathfinder_rds_to_s3_export_key.key_id}"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
   }
 
