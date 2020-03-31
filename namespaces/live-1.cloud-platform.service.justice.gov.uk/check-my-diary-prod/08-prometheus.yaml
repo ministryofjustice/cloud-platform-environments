@@ -85,3 +85,11 @@ spec:
       for: 1h
       labels:
         severity: check-my-diary
+    - alert: shift-notify-job-failed
+      annotations:
+        message:  Shift notification job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+      expr: max((kube_job_status_failed{namespace="check-my-diary-prod"} > 0) + ((time() - kube_job_status_start_time) < 60 * 10)) by (job_name,namespace)
+      for: 1m
+      labels:
+        severity: check-my-diary
