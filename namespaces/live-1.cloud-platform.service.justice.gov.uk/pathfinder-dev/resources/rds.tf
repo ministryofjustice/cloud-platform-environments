@@ -94,7 +94,10 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
 
   statement {
     actions = [
-      "iam:PassRole"
+      "iam:PassRole",
+      "rds:StartExportTask",
+      "rds:CancelExportTask",
+      "rds:DescribeExportTasks"
     ]
 
     resources = [
@@ -105,14 +108,11 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
   statement {
     actions = [
       "rds:DescribeDBSnapshots",
-      "rds:DescribeDBInstances",
-      "rds:StartExportTask",
-      "rds:CancelExportTask",
-      "rds:DescribeExportTasks"
+      "rds:DescribeDBInstances"
     ]
 
     resources = [
-      "*"
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:db:${element(split(".", module.dps_rds.rds_instance_endpoint),0)}"
     ]
   }
 
