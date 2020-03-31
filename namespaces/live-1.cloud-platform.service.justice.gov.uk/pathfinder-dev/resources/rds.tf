@@ -107,6 +107,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
 
   statement {
     actions = [
+      "rds:CreateDBSnapshot",
       "rds:DescribeDBSnapshots",
       "rds:DescribeDBInstances"
     ]
