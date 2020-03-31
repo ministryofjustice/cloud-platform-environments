@@ -203,6 +203,7 @@ resource "kubernetes_secret" "dps_rds" {
     rds_to_s3_user_arn          = aws_iam_user.user.arn
     rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
+    rds_to_s3_role_arn          = aws_iam_role.pathfinder_dev_rds_to_s3_role.arn
     rds_to_s3_cmk_key_id        = aws_kms_key.pathfinder_rds_to_s3_export_key.key_id
   }
 }
