@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_policy" {
     sid = "AllowRdsToListS3Buckets"
     actions = [
       "s3:ListBucket",
-      "s3:GetBucketLocation",
+      "s3:GetBucketLocation"
     ]
 
     resources = [
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_policy" {
     actions = [
       "s3:PutObject*",
       "s3:GetObject*",
-      "s3:DeleteObject*",
+      "s3:DeleteObject*"
     ]
 
     resources = [
@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
       "rds:DescribeDBInstances",
       "rds:StartExportTask",
       "rds:CancelExportTask",
-      "rds:DescribeExportTasks",
+      "rds:DescribeExportTasks"
     ]
 
     resources = [
@@ -132,7 +132,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
     sid = "AllowRdsToListS3Buckets"
     actions = [
       "s3:ListBucket",
-      "s3:GetBucketLocation",
+      "s3:GetBucketLocation"
     ]
 
     resources = [
@@ -146,7 +146,7 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
       "s3:PutObject*",
       "s3:PutObjectAcl",
       "s3:GetObject*",
-      "s3:DeleteObject*",
+      "s3:DeleteObject*"
     ]
 
     resources = [
