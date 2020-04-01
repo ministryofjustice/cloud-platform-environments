@@ -13,6 +13,8 @@ module "tva_elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
+  engine_version         = "5.0.6"
+  parameter_group_name   = aws_elasticache_parameter_group.token_store.name
 
   providers = {
     aws = aws.london
@@ -32,3 +34,13 @@ resource "kubernetes_secret" "tva_elasticache_redis" {
   }
 }
 
+resource "aws_elasticache_parameter_group" "token_store" {
+  name   = "tva-token-store-parameter-group"
+  family = "redis5.0"
+
+  # Needed in order to get spring boot to expire items from the redis cache
+  parameter {
+    name  = "notify-keyspace-events"
+    value = "Ex"
+  }
+}
