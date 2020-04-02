@@ -1,5 +1,5 @@
 module "offender_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
 
   team_name          = var.team_name
   topic_display_name = "offender-events"
@@ -36,7 +36,7 @@ resource "kubernetes_secret" "offender_case_notes" {
 }
 
 module "probation_offender_events" {
-  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.0"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
   team_name          = var.team_name
   topic_display_name = "probation-offender-events"
   providers = {
