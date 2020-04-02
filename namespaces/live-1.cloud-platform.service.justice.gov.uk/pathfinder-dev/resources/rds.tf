@@ -113,7 +113,8 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
     ]
 
     resources = [
-      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:db:${element(split(".", module.dps_rds.rds_instance_endpoint), 0)}"
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:db:${element(split(".", module.dps_rds.rds_instance_endpoint), 0)}",
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:snapshot:*",
     ]
   }
 
@@ -151,10 +152,12 @@ data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
     ]
 
     resources = [
+      "${module.pathfinder_rds_export_s3_bucket.bucket_arn}",
+      "${module.pathfinder_rds_export_s3_bucket.bucket_arn}/*",
       "${module.pathfinder_analytics_s3_bucket.bucket_arn}",
       "${module.pathfinder_analytics_s3_bucket.bucket_arn}/*",
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}",
-      "${module.pathfinder_reporting_s3_bucket.bucket_arn}/*"
+      "arn:aws:s3:::mojap-land/hmpps/pathfinder/",
+      "arn:aws:s3:::mojap-land/hmpps/pathfinder/*"
     ]
   }
 
