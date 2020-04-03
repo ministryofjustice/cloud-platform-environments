@@ -11,6 +11,7 @@ require "tmpdir"
 class CpEnv
 end
 
+require File.join(File.dirname(__FILE__), "cp_env", "logger")
 require File.join(File.dirname(__FILE__), "cp_env", "executor")
 require File.join(File.dirname(__FILE__), "cp_env", "pipeline")
 require File.join(File.dirname(__FILE__), "cp_env", "terraform")
