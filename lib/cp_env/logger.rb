@@ -1,12 +1,11 @@
 class CpEnv
   class Logger
-
-    FILTER_LIST = %w(
+    FILTER_LIST = %w[
       password
       secret
       token
       key
-    )
+    ]
 
     def log(colour, message)
       colour_code = case colour
@@ -18,7 +17,7 @@ class CpEnv
                       32
                     else
                       raise "Unknown colour #{colour} passed to 'log' method"
-                    end
+      end
 
       redacted_message(message).split("\n").each do |line|
         puts "\e[#{colour_code}m#{line}\e[0m"

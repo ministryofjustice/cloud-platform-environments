@@ -55,7 +55,7 @@ class CpEnv
         %(-backend-config="bucket=#{bucket}"),
         %(-backend-config="key=#{key}"),
         %(-backend-config="dynamodb_table=#{lock_table}"),
-        %(-backend-config="region=#{region}")
+        %(-backend-config="region=#{region}"),
       ].join(" ")
 
       execute("cd #{tf_dir}; #{cmd}")
