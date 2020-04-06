@@ -36,7 +36,6 @@ module "rds-snapshot" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   force_ssl              = "false"
-  snapshot_identifier    = "rds:cloud-platform-fb1739914b873b00-2020-03-24-02-28"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
