@@ -83,16 +83,5 @@ def execute(cmd, can_fail: false, silent: false)
 end
 
 def log(colour, message)
-  colour_code = case colour
-  when "red"
-    31
-  when "blue"
-    34
-  when "green"
-    32
-  else
-    raise "Unknown colour #{colour} passed to 'log' method"
-  end
-
-  puts "\e[#{colour_code}m#{message}\e[0m"
+  CpEnv::Logger.new.log(colour, message)
 end

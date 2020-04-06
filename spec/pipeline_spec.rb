@@ -13,7 +13,7 @@ describe "pipeline" do
       "PIPELINE_STATE_REGION" => "region",
       "TF_VAR_cluster_name" => cluster,
       "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
-      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate",
+      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
     }
   }
 
@@ -34,7 +34,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       "offender-management-preprod",
       "offender-management-staging",
       "pecs-move-platform-backend-staging",
-      "poornima-dev",
+      "poornima-dev"
     ]
   }
 
@@ -43,6 +43,10 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
   let(:dir) { "namespaces/#{cluster}/#{namespace}" }
 
   let(:tf) { double(CpEnv::Terraform) }
+
+  before do
+    allow($stdout).to receive(:puts)
+  end
 
   it "runs terraform plan" do
     allow(FileTest).to receive(:directory?).and_return(true)
@@ -92,7 +96,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
     it "gets dirs from latest commit" do
       expect_execute(cmd, files, success)
-      expect($stdout).to receive(:puts).with(files)
       expect(changed_namespace_dirs(cluster)).to eq(namespace_dirs)
     end
   end
@@ -110,7 +113,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
     it "gets deleted namespaces" do
       expect_execute(cmd, files, success)
-      expect($stdout).to receive(:puts).with(files)
       expect(deleted_namespaces(cluster)).to eq([deleted])
     end
   end
