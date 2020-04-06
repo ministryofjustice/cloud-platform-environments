@@ -13,7 +13,7 @@ describe "pipeline" do
       "PIPELINE_STATE_REGION" => "region",
       "TF_VAR_cluster_name" => cluster,
       "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
-      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate",
+      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
     }
   }
 
@@ -34,7 +34,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
       "offender-management-preprod",
       "offender-management-staging",
       "pecs-move-platform-backend-staging",
-      "poornima-dev",
+      "poornima-dev"
     ]
   }
 
