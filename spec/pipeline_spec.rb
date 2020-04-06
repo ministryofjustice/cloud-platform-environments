@@ -44,6 +44,10 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
   let(:tf) { double(CpEnv::Terraform) }
 
+  before do
+    allow($stdout).to receive(:puts)
+  end
+
   it "runs terraform plan" do
     allow(FileTest).to receive(:directory?).and_return(true)
     expect(CpEnv::Terraform).to receive(:new).with(cluster: cluster, namespace: namespace, dir: dir).and_return(tf)
@@ -92,7 +96,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
     it "gets dirs from latest commit" do
       expect_execute(cmd, files, success)
-      expect($stdout).to receive(:puts).with(files)
       expect(changed_namespace_dirs(cluster)).to eq(namespace_dirs)
     end
   end
@@ -110,7 +113,6 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
 
     it "gets deleted namespaces" do
       expect_execute(cmd, files, success)
-      expect($stdout).to receive(:puts).with(files)
       expect(deleted_namespaces(cluster)).to eq([deleted])
     end
   end
