@@ -93,9 +93,9 @@ resource "kubernetes_secret" "delius_intervention_update_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "delius_intervention_update_subscription" {
-  provider      = aws.london
-  topic_arn     = module.intervention_reference_data_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.delius_intervention_update_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.intervention_reference_data_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.delius_intervention_update_queue.sqs_arn
 }
 
