@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rubyapp-service
+  namespace: cp-dummy-gitops-dev
+  labels:
+    app: rubyapp-service
+spec:
+  ports:
+  - port: 4567
+    name: http
+    targetPort: 4567
+  selector:
+    app: helloworld-rubyapp
