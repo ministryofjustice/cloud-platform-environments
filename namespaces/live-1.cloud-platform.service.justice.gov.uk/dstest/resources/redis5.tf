@@ -10,7 +10,7 @@ module "dstest_elasticache_redis5" {
   team_name              = var.team_name
 
   engine_version        = "5.0.6"
-  parameter_group_name  = "default.redis5.0.6"
+  parameter_group_name  = "default.redis5.0"
   number_cache_clusters = "2"
   node_type             = "cache.t2.micro"
 }
