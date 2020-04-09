@@ -2,6 +2,10 @@ variable "team_name" {
   default = "webops"
 }
 
+variable "application" {
+  default = "dstest"
+}
+
 variable "namespace" {
   default = "dstest"
 }
@@ -25,4 +29,10 @@ variable "environment-name" {
 
 variable "infrastructure-support" {
   default = "platforms@digital.justice.gov.uk"
+}
+
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
 }
