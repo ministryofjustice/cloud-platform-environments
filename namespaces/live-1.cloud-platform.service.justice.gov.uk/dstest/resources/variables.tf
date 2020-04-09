@@ -2,10 +2,6 @@ variable "team_name" {
   default = "webops"
 }
 
-variable "application" {
-  default = "dstest"
-}
-
 variable "namespace" {
   default = "dstest"
 }
@@ -20,7 +16,7 @@ variable "business-unit" {
 }
 
 variable "application" {
-  default = "RDS Module Test"
+  default = "Elasticache Module Test"
 }
 
 variable "environment-name" {
