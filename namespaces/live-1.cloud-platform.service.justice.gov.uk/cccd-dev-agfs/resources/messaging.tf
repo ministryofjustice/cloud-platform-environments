@@ -115,16 +115,16 @@ module "cccd_claims_submitted" {
 
 # }
 
-# module "responses_for_cccd" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+module "responses_for_cccd" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-#   environment-name       = var.environment-name
-#   team_name              = var.team_name
-#   infrastructure-support = var.infrastructure-support
-#   application            = var.application
-#   sqs_name               = "responses-for-cccd"
-#   existing_user_name     = module.cccd_claims_submitted.user_name
-#   encrypt_sqs_kms        = "false"
+  environment-name       = var.environment-name
+  team_name              = var.team_name
+  infrastructure-support = var.infrastructure-support
+  application            = var.application
+  sqs_name               = "responses-for-cccd"
+  existing_user_name     = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms        = "false"
 
 #   redrive_policy = <<EOF
 #   {
@@ -134,10 +134,10 @@ module "cccd_claims_submitted" {
 # EOF
 
 
-#   providers = {
-#     aws = aws.london
-#   }
-# }
+  providers = {
+    aws = aws.london
+  }
+}
 
 # module "ccr_dead_letter_queue" {
 #   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
