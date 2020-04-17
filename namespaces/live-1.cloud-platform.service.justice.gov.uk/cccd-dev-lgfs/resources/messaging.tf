@@ -1,4 +1,4 @@
-module "cccd_claims_submitted" {
+module "cccd_claims_submitted_agfs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
 
   team_name          = var.team_name
@@ -17,7 +17,7 @@ module "claims_for_ccr" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "cccd-claims-for-ccr"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   redrive_policy = <<EOF
@@ -51,7 +51,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
             {
               "ArnEquals":
                 {
-                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
+                  "aws:SourceArn": "${module.cccd_claims_submitted_agfs.topic_arn}"
                 }
               }
         }
@@ -70,7 +70,7 @@ module "claims_for_cclf" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "cccd-claims-for-cclf"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   redrive_policy = <<EOF
@@ -104,7 +104,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
             {
               "ArnEquals":
                 {
-                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
+                  "aws:SourceArn": "${module.cccd_claims_submitted_agfs.topic_arn}"
                 }
               }
         }
@@ -123,7 +123,7 @@ module "responses_for_cccd" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "responses-for-cccd"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   redrive_policy = <<EOF
@@ -147,7 +147,7 @@ module "ccr_dead_letter_queue" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "cccd-claims-submitted-ccr-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   providers = {
@@ -163,7 +163,7 @@ module "cclf_dead_letter_queue" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "cccd-claims-submitted-cclf-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   providers = {
@@ -179,7 +179,7 @@ module "cccd_response_dead_letter_queue" {
   infrastructure-support = var.infrastructure-support
   application            = var.application
   sqs_name               = "reponses-for-cccd-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
+  existing_user_name     = module.cccd_claims_submitted_agfs.user_name
   encrypt_sqs_kms        = "false"
 
   providers = {
@@ -187,16 +187,16 @@ module "cccd_response_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "cccd_claims_submitted" {
+resource "kubernetes_secret" "cccd_claims_submitted_agfs" {
   metadata {
     name      = "cccd-messaging"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.cccd_claims_submitted.access_key_id
-    secret_access_key = module.cccd_claims_submitted.secret_access_key
-    topic_arn         = module.cccd_claims_submitted.topic_arn
+    access_key_id     = module.cccd_claims_submitted_agfs.access_key_id
+    secret_access_key = module.cccd_claims_submitted_agfs.secret_access_key
+    topic_arn         = module.cccd_claims_submitted_agfs.topic_arn
     sqs_ccr_name      = module.claims_for_ccr.sqs_name
     sqs_ccr_url       = module.claims_for_ccr.sqs_id
     sqs_ccr_arn       = module.claims_for_ccr.sqs_arn
@@ -220,7 +220,7 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
 
 resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
   provider      = aws.london
-  topic_arn     = module.cccd_claims_submitted.topic_arn
+  topic_arn     = module.cccd_claims_submitted_agfs.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_ccr.sqs_arn
   filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\"]}"
@@ -228,7 +228,7 @@ resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
 
 resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
   provider      = aws.london
-  topic_arn     = module.cccd_claims_submitted.topic_arn
+  topic_arn     = module.cccd_claims_submitted_agfs.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_cclf.sqs_arn
   filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\"]}"
