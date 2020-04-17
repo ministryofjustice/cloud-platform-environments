@@ -126,12 +126,12 @@ module "responses_for_cccd" {
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
 
-#   redrive_policy = <<EOF
-#   {
-#     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
-#   }
+  #   redrive_policy = <<EOF
+  #   {
+  #     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
+  #   }
 
-# EOF
+  # EOF
 
 
   providers = {
