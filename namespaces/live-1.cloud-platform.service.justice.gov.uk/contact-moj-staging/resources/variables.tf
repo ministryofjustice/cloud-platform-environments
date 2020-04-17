@@ -8,11 +8,11 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 variable "namespace" {
-  default = "contact-moj-production"
+  default = "contact-moj-staging"
 }
 
 variable "domain" {
-  default = "contact-moj.service.gov.uk"
+  default = "staging.contact-moj.service.gov.uk"
 }
 
 variable "is-production" {
