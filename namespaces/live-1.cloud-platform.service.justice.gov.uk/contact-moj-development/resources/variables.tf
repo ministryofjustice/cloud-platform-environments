@@ -12,7 +12,7 @@ variable "namespace" {
 }
 
 variable "domain" {
-  default = "development.contact-moj.service.gov.uk"
+  default = "development.contact-moj.service.justice.gov.uk"
 }
 
 variable "is-production" {
