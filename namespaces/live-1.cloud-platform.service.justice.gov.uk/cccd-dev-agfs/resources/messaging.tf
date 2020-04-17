@@ -20,7 +20,6 @@ module "claims_for_ccr" {
   sqs_name               = "cccd-claims-for-ccr"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -74,7 +73,6 @@ module "claims_for_cclf" {
   sqs_name               = "cccd-claims-for-cclf"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -128,7 +126,6 @@ module "responses_for_cccd" {
   sqs_name               = "responses-for-cccd"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -153,7 +150,6 @@ module "ccr_dead_letter_queue" {
   sqs_name               = "cccd-claims-submitted-ccr-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -170,7 +166,6 @@ module "cclf_dead_letter_queue" {
   sqs_name               = "cccd-claims-submitted-cclf-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -187,7 +182,6 @@ module "cccd_response_dead_letter_queue" {
   sqs_name               = "reponses-for-cccd-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name
   encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
 
   providers = {
     aws = aws.london
