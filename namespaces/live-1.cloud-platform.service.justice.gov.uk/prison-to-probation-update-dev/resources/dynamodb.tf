@@ -9,10 +9,10 @@ module "message_dynamodb" {
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
 
-  hash_key  = "id"
-  range_key = "bookingId"
+  hash_key       = "id"
+  range_key      = "bookingId"
   range_key_type = "N"
-  ttl_attribute = "deleteBy"
+  ttl_attribute  = "deleteBy"
 }
 
 resource "kubernetes_secret" "message_dynamodb" {
