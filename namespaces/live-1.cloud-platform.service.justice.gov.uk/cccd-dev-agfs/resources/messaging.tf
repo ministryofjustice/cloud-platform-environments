@@ -3,7 +3,6 @@ module "cccd_claims_submitted" {
 
   team_name          = var.team_name
   topic_display_name = "cccd-claims-submitted"
-  namespace          = var.namespace
 
   providers = {
     aws = aws.london
@@ -225,7 +224,6 @@ resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
   protocol      = "sqs"
   endpoint      = module.claims_for_ccr.sqs_arn
   filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\"]}"
-  namespace     = var.namespace
 }
 
 resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
@@ -234,6 +232,5 @@ resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
   protocol      = "sqs"
   endpoint      = module.claims_for_cclf.sqs_arn
   filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\"]}"
-  namespace     = var.namespace
 }
 
