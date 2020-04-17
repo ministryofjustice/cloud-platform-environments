@@ -17,7 +17,7 @@ module "message_dynamodb" {
 
 resource "kubernetes_secret" "message_dynamodb" {
   metadata {
-    name      = "message_dynamodb-output"
+    name      = "message-dynamodb-output"
     namespace = var.namespace
   }
 
