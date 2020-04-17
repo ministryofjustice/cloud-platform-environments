@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: cccd-dev-agfs-cert
+  namespace: cccd-dev-agfs
+spec:
+  secretName: cccd-dev-agfs-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'dev-lgfs.claim-crown-court-defence.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'dev-lgfs.claim-crown-court-defence.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform

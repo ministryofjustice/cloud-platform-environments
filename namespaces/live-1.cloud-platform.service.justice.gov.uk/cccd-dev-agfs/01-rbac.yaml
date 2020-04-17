@@ -1,0 +1,16 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cccd-dev-admin
+  namespace: cccd-dev
+subjects:
+  - kind: Group
+    name: "github:crime-billing-online"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-get-paid"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
