@@ -3,8 +3,8 @@ kind: Namespace
 metadata:
   name: contact-moj-development
   labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
-    cloud-platform.justice.gov.uk/environment-name: "production"
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Central Digital"
     cloud-platform.justice.gov.uk/application: "Contact MOJ"

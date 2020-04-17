@@ -16,9 +16,9 @@ variable "domain" {
 }
 
 variable "is-production" {
-  default = "true"
+  default = "false"
 }
 
 variable "environment-name" {
-  default = "production"
+  default = "development"
 }
