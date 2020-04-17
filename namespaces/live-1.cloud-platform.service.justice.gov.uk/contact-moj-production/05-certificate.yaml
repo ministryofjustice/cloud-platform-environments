@@ -8,10 +8,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'contact-moj.service.gov.uk'
+  commonName: 'contact-moj.service.justice.gov.uk'
   acme:
     config:
     - domains:
-      - 'contact-moj.service.gov.uk'
+      - 'contact-moj.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
