@@ -8,10 +8,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'dev-lgfs.claim-crown-court-defence.service.justice.gov.uk'
+  commonName: 'dev-agfs.claim-crown-court-defence.service.justice.gov.uk'
   acme:
     config:
     - domains:
-      - 'dev-lgfs.claim-crown-court-defence.service.justice.gov.uk'
+      - 'dev-agfs.claim-crown-court-defence.service.justice.gov.uk'
       dns01:
         provider: route53-cloud-platform
