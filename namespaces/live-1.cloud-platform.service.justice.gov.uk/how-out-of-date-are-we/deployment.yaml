@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: how-out-of-date-are-we
-          image: ministryofjustice/cloud-platform-how-out-of-date-are-we:1.2
+          image: ministryofjustice/cloud-platform-how-out-of-date-are-we:1.3
           env:
             - name: RACK_ENV
               value: "production"
