@@ -8,7 +8,7 @@ module "prisoner_offender_search_es" {
   infrastructure-support = var.infrastructure-support
   is-production          = var.is-production
   team_name              = var.team_name
-  elasticsearch-domain   = "es"
+  elasticsearch-domain   = "prisoner-search"
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
 }
