@@ -40,7 +40,7 @@ module "schedule_dynamodb" {
   is-production          = "false"
 
   hash_key  = "_id"
-  range_key = "_id"
+  range_key = "lockedBy"
 }
 
 resource "kubernetes_secret" "schedule_dynamodb" {
