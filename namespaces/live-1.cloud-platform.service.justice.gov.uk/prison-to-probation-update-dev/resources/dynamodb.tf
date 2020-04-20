@@ -39,8 +39,8 @@ module "schedule_dynamodb" {
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
 
-  hash_key       = "_id"
-  range_key      = "_id"
+  hash_key  = "_id"
+  range_key = "_id"
 }
 
 resource "kubernetes_secret" "schedule_dynamodb" {
