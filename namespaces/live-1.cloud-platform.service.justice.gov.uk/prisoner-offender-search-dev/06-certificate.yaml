@@ -1,0 +1,18 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prisoner-offender-search-cert
+  namespace: prisoner-offender-search-dev
+spec:
+  secretName: prisoner-offender-search-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'prisoner-offender-search-dev.prison.service.justice.gov.uk'
+  acme:
+    config:
+      - domains:
+          - 'prisoner-offender-search-dev.prison.service.justice.gov.uk'
+        dns01:
+          provider: route53-cloud-platform
