@@ -21,18 +21,18 @@ resource "kubernetes_namespace" "team-resources" {
   }
 }
 
+
 data "helm_repository" "cloud-platform" {
   name = "cloud-platform"
   url  = "https://ministryofjustice.github.io/cloud-platform-helm-charts"
 }
 
-resource "helm_release" "cloud-platform" {
+resource "helm_release" "team-resources" {
   name          = "team-resources"
-  chart         = "cloud-platform"
+  chart         = "team-resources"
   repository    = data.helm_repository.cloud-platform.metadata[0].name
-  namespace     = "team-resources"
+  namespace     = var.namespace
   version       = local.team-resources
-  recreate_pods = true
 
   values = [
     <<EOF

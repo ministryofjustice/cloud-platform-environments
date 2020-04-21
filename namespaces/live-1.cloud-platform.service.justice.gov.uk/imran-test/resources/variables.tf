@@ -19,7 +19,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "imran-test"
+  default = "team-resources"
 }
 
 variable "repo_name" {
