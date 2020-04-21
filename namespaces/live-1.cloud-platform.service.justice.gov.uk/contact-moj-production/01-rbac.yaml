@@ -5,7 +5,7 @@ metadata:
   namespace: contact-moj-production
 subjects:
   - kind: Group
-    name: "github:contact-moj"
+    name: "github:correspondence"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
