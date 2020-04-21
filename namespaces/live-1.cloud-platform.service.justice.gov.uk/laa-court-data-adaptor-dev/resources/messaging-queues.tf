@@ -303,6 +303,5 @@ resource "kubernetes_secret" "create_link_queue_m" {
     sqs_url_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_id
     sqs_arn_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_arn
     sqs_name_d_hearing_resulted = module.hearing_resulted_dead_letter_queue.sqs_name
-
   }
 }
