@@ -19,15 +19,3 @@ module "rds-instance" {
     aws = aws.london
   }
 }
-
-resource "kubernetes_secret" "rds-instance" {
-  metadata {
-    name      = "rds-instance-ia"
-    namespace = var.namespace
-  }
-
-  data = {
-    # postgres://USER:PASSWORD@HOST:PORT/NAME
-    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
-  }
-}
