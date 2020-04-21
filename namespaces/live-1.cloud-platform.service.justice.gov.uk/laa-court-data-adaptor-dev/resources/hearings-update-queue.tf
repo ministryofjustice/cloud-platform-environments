@@ -91,5 +91,6 @@ resource "kubernetes_secret" "hearings_update_dead_letter_queue" {
     sqs_arn           = module.hearings_update_dead_letter_queue.sqs_arn
     sqs_name          = module.hearings_update_dead_letter_queue.sqs_name
   }
+  
 }
 
