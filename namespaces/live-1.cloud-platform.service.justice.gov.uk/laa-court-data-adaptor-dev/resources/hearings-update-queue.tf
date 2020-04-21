@@ -39,11 +39,7 @@ resource "aws_sqs_queue_policy" "hearings_update_queue_policy" {
         {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "902837325998"
-              ]
-          },
+          "Principal": {"AWS": "*"},
           "Resource": "${module.hearings_update_queue.sqs_arn}",
           "Action": "sqs:ReceiveMessage"
         }
@@ -95,5 +91,6 @@ resource "kubernetes_secret" "hearings_update_dead_letter_queue" {
     sqs_arn           = module.hearings_update_dead_letter_queue.sqs_arn
     sqs_name          = module.hearings_update_dead_letter_queue.sqs_name
   }
+  
 }
 
