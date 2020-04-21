@@ -44,5 +44,6 @@ resource "helm_release" "team-resources" {
 
   depends_on = [
     kubernetes_namespace.team-resources,
+    module.rds-instance.database_name,
   ]
 }
