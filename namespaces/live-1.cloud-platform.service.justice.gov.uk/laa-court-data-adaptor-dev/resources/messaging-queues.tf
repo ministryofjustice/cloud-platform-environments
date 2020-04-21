@@ -279,7 +279,7 @@ resource "kubernetes_secret" "create_link_queue_m" {
   data = {
     access_key_id               = module.create_link_queue_m.access_key_id
     secret_access_key           = module.create_link_queue_m.secret_access_key
-    sqs_url_link                =  module.create_link_queue_m.sqs_id
+    sqs_url_link                = module.create_link_queue_m.sqs_id
     sqs_arn_link                = module.create_link_queue_m.sqs_arn
     sqs_name_link               = module.create_link_queue_m.sqs_name
     sqs_url_d_link              = module.create_link_queue_m_dead_letter_queue.sqs_id
