@@ -23,7 +23,7 @@ variable "namespace" {
 }
 
 variable "repo_name" {
-  default = "test"
+  default = "helm-test"
 }
 
 // The following two variables are provided at runtime by the pipeline.
