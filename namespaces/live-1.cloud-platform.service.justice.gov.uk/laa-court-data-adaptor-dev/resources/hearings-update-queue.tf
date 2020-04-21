@@ -39,11 +39,7 @@ resource "aws_sqs_queue_policy" "hearings_update_queue_policy" {
         {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "902837325998"
-              ]
-          },
+          "Principal": {"AWS": "*"},
           "Resource": "${module.hearings_update_queue.sqs_arn}",
           "Action": "sqs:ReceiveMessage"
         }
