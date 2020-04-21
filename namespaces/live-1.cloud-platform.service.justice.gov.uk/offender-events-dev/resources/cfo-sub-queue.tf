@@ -40,7 +40,7 @@ resource "aws_sqs_queue_policy" "cfo_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${module.offender_events.topic_arn}"
+                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${module.probation_offender_events.topic_arn}"]
                           }
                         }
         }
