@@ -9,8 +9,8 @@ module "message_dynamodb" {
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
 
-  hash_key       = "id"
-  ttl_attribute  = "deleteBy"
+  hash_key      = "id"
+  ttl_attribute = "deleteBy"
 }
 
 resource "kubernetes_secret" "message_dynamodb" {
