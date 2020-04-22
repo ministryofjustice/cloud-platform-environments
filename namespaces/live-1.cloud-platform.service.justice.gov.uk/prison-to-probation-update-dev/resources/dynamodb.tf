@@ -1,6 +1,6 @@
 
 module "message_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1"
 
   team_name              = var.team_name
   application            = var.application
@@ -30,7 +30,7 @@ resource "kubernetes_secret" "message_dynamodb" {
 }
 
 module "schedule_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1"
 
   team_name              = var.team_name
   application            = var.application
@@ -40,7 +40,6 @@ module "schedule_dynamodb" {
   is-production          = "false"
 
   hash_key  = "_id"
-  range_key = "lockedBy"
 }
 
 resource "kubernetes_secret" "schedule_dynamodb" {
