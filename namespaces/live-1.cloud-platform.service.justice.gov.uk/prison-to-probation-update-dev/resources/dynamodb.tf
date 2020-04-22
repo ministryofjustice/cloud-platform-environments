@@ -10,8 +10,6 @@ module "message_dynamodb" {
   is-production          = "false"
 
   hash_key       = "id"
-  range_key      = "bookingId"
-  range_key_type = "N"
   ttl_attribute  = "deleteBy"
 }
 
