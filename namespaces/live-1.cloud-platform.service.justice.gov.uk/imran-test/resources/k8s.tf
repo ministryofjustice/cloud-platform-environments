@@ -33,13 +33,16 @@ resource "helm_release" "team-resources" {
   namespace  = var.namespace
   version    = local.team-resources
 
-  values = [
-    <<EOF
-        namespace: team-resources
-        rds.url: "${base64encode("postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}")}"
-    EOF
-    ,
-  ]
+  set {
+    name  = "namespace"
+    value = "team-resources"
+  }
+
+  set {
+    name  = "rds.url"
+    value = "${base64encode("postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}")}"
+  }
+
   depends_on = [
     kubernetes_namespace.team-resources,
     module.rds-instance.database_name,
