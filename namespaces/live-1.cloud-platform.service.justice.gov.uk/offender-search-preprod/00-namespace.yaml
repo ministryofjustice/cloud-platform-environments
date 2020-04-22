@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "offender-search"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offender-search.git"
+    iam.amazonaws.com/permitted: "offender-search-elastic-search-delius-pre-prod"
