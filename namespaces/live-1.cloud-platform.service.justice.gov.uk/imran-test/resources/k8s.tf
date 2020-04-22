@@ -21,7 +21,6 @@ resource "kubernetes_namespace" "team-resources" {
   }
 }
 
-
 data "helm_repository" "cloud-platform" {
   name = "cloud-platform"
   url  = "https://ministryofjustice.github.io/cloud-platform-helm-charts"
@@ -37,11 +36,10 @@ resource "helm_release" "team-resources" {
   values = [
     <<EOF
         namespace: team-resources
-        rds.secret: "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+        rds.url: "${base64encode("postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}")}"
     EOF
     ,
   ]
-
   depends_on = [
     kubernetes_namespace.team-resources,
     module.rds-instance.database_name,
