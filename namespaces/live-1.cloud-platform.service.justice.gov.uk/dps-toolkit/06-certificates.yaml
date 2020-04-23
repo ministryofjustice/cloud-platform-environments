@@ -1,23 +1,17 @@
----
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: dps-monitor 
+  name: dps-monitor
   namespace: dps-toolkit
 spec:
   secretName: dps-monitor-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'dps-monitor.prison.service.justice.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'dps-monitor.prison.service.justice.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - dps-monitor.prison.service.justice.gov.uk
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: dps-grafana
@@ -27,28 +21,18 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'dps-grafana.prison.service.justice.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'dps-grafana.prison.service.justice.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - dps-grafana.prison.service.justice.gov.uk
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: health-kick 
+  name: health-kick
   namespace: dps-toolkit
 spec:
   secretName: health-kick-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'health-kick.prison.service.justice.gov.uk'
-  acme:
-    config:
-      - domains:
-          - 'health-kick.prison.service.justice.gov.uk'
-        dns01:
-          provider: route53-cloud-platform
+  dnsNames:
+  - health-kick.prison.service.justice.gov.uk

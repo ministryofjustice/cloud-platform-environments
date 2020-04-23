@@ -1,4 +1,4 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: track-a-query-demo-certificate
@@ -8,10 +8,5 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'demo.track-a-query.service.justice.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'demo.track-a-query.service.justice.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - demo.track-a-query.service.justice.gov.uk

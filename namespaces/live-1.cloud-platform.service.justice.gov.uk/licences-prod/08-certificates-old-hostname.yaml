@@ -1,5 +1,4 @@
----
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: licences.service.hmpps.dsd.io
@@ -9,10 +8,5 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'licences.service.hmpps.dsd.io'
-  acme:
-    config:
-    - domains:
-      - 'licences.service.hmpps.dsd.io'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - licences.service.hmpps.dsd.io
