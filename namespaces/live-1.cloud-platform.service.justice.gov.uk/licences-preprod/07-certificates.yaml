@@ -1,5 +1,4 @@
----
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: licences-preprod.prison.service.justice.gov.uk
@@ -9,15 +8,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'licences-preprod.prison.service.justice.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'licences-preprod.prison.service.justice.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - licences-preprod.prison.service.justice.gov.uk
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: probation-teams-preprod
@@ -27,10 +21,5 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'probation-teams-preprod.prison.service.justice.gov.uk'
-  acme:
-    config:
-      - domains:
-          - 'probation-teams-preprod.prison.service.justice.gov.uk'
-        dns01:
-          provider: route53-cloud-platform
+  dnsNames:
+  - probation-teams-preprod.prison.service.justice.gov.uk
