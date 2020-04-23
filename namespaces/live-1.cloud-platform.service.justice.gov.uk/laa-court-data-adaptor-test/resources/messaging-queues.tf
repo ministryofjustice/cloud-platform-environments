@@ -50,7 +50,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 
 resource "kubernetes_secret" "create_link_queue" {
   metadata {
-    name = "cda-messaging-queues-output"
+    name = "ca-messaging-queues-output"
     namespace = var.namespace
   }
 
