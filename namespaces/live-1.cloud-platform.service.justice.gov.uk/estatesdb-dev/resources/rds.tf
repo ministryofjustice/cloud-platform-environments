@@ -30,7 +30,7 @@ module "programmeandperformance_rds" {
   is-production        = "false"
 
   # enable performance insights
-  performance_insights_enabled = true  
+  performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
