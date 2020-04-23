@@ -10,7 +10,7 @@ module "pict_cpmg_ecr_credentials" {
 
 resource "kubernetes_secret" "pict_cpmg_ecr_credentials" {
   metadata {
-    name      = "pict_cpmg_ecr_credentials_output"
+    name      = "pict-cpmg-ecr-credentials-output"
     namespace = "crime-portal-mirror-gateway-dev"
   }
 
