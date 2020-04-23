@@ -1,12 +1,12 @@
 module "create_link_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "create-link-queue"
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "create-link-queue"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
   redrive_policy = <<EOF
@@ -57,13 +57,13 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 module "create_link_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
+  environment-name       = var.environment_name
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "create-link-queue-dl"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  application            = var.application
+  sqs_name               = "create-link-queue-dl"
+  existing_user_name     = module.create_link_queue.user_name
+  encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
     aws = aws.london
@@ -73,13 +73,13 @@ module "create_link_queue_dead_letter_queue" {
 module "unlink_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "unlink-queue"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "unlink-queue"
+  existing_user_name        = module.create_link_queue.user_name
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
   redrive_policy = <<EOF
@@ -128,13 +128,13 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
 module "unlink_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
+  environment-name       = var.environment_name
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "unlink-queue-dl"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  application            = var.application
+  sqs_name               = "unlink-queue-dl"
+  existing_user_name     = module.create_link_queue.user_name
+  encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
     aws = aws.london
@@ -144,13 +144,13 @@ module "unlink_queue_dead_letter_queue" {
 module "laa_status_update_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "laa-status-update-queue"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "laa-status-update-queue"
+  existing_user_name        = module.create_link_queue.user_name
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
   redrive_policy = <<EOF
@@ -199,13 +199,13 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
 module "laa_status_update_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
+  environment-name       = var.environment_name
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "laa-status-update-queue-dl"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  application            = var.application
+  sqs_name               = "laa-status-update-queue-dl"
+  existing_user_name     = module.create_link_queue.user_name
+  encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
     aws = aws.london
@@ -216,13 +216,13 @@ module "laa_status_update_dead_letter_queue" {
 module "hearing_resulted_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "hearing-resulted-queue"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "hearing-resulted-queue"
+  existing_user_name        = module.create_link_queue.user_name
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
   redrive_policy = <<EOF
@@ -271,13 +271,13 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 module "hearing_resulted_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
 
-  environment-name = var.environment_name
-  team_name = var.team_name
+  environment-name       = var.environment_name
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
-  application = var.application
-  sqs_name = "hearing-resulted-queue-dl"
-  existing_user_name = module.create_link_queue.user_name
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  application            = var.application
+  sqs_name               = "hearing-resulted-queue-dl"
+  existing_user_name     = module.create_link_queue.user_name
+  encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
     aws = aws.london
@@ -287,36 +287,36 @@ module "hearing_resulted_dead_letter_queue" {
 
 resource "kubernetes_secret" "create_link_queue" {
   metadata {
-    name = "ca-messaging-queues-output"
+    name      = "ca-messaging-queues-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id = module.create_link_queue.access_key_id
-    secret_access_key = module.create_link_queue.secret_access_key
-    sqs_url_link = module.create_link_queue.sqs_id
-    sqs_arn_link = module.create_link_queue.sqs_arn
-    sqs_name_link = module.create_link_queue.sqs_name
-    sqs_url_d_link = module.create_link_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_link = module.create_link_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_link = module.create_link_queue_dead_letter_queue.sqs_name
-    sqs_url_unlink = module.unlink_queue.sqs_id
-    sqs_arn_unlink = module.unlink_queue.sqs_arn
-    sqs_name_unlink = module.unlink_queue.sqs_name
-    sqs_url_d_unlink = module.unlink_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_unlink = module.unlink_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_unlink = module.unlink_queue_dead_letter_queue.sqs_name
-    sqs_url_laa_status = module.laa_status_update_queue.sqs_id
-    sqs_arn_laa_status = module.laa_status_update_queue.sqs_arn
-    sqs_name_laa_status = module.laa_status_update_queue.sqs_name
-    sqs_url_d_laa_status = module.laa_status_update_dead_letter_queue.sqs_id
-    sqs_arn_d_laa_status = module.laa_status_update_dead_letter_queue.sqs_arn
-    sqs_name_d_laa_status = module.laa_status_update_dead_letter_queue.sqs_name
-    sqs_url_hearing_resulted = module.hearing_resulted_queue.sqs_id
-    sqs_arn_hearing_resulted = module.hearing_resulted_queue.sqs_arn
-    sqs_name_hearing_resulted = module.hearing_resulted_queue.sqs_name
-    sqs_url_d_hearing_resulted = module.hearing_resulted_dead_letter_queue.sqs_id
-    sqs_arn_d_hearing_resulted = module.hearing_resulted_dead_letter_queue.sqs_arn
+    access_key_id               = module.create_link_queue.access_key_id
+    secret_access_key           = module.create_link_queue.secret_access_key
+    sqs_url_link                = module.create_link_queue.sqs_id
+    sqs_arn_link                = module.create_link_queue.sqs_arn
+    sqs_name_link               = module.create_link_queue.sqs_name
+    sqs_url_d_link              = module.create_link_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_link              = module.create_link_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_link             = module.create_link_queue_dead_letter_queue.sqs_name
+    sqs_url_unlink              = module.unlink_queue.sqs_id
+    sqs_arn_unlink              = module.unlink_queue.sqs_arn
+    sqs_name_unlink             = module.unlink_queue.sqs_name
+    sqs_url_d_unlink            = module.unlink_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_unlink            = module.unlink_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_unlink           = module.unlink_queue_dead_letter_queue.sqs_name
+    sqs_url_laa_status          = module.laa_status_update_queue.sqs_id
+    sqs_arn_laa_status          = module.laa_status_update_queue.sqs_arn
+    sqs_name_laa_status         = module.laa_status_update_queue.sqs_name
+    sqs_url_d_laa_status        = module.laa_status_update_dead_letter_queue.sqs_id
+    sqs_arn_d_laa_status        = module.laa_status_update_dead_letter_queue.sqs_arn
+    sqs_name_d_laa_status       = module.laa_status_update_dead_letter_queue.sqs_name
+    sqs_url_hearing_resulted    = module.hearing_resulted_queue.sqs_id
+    sqs_arn_hearing_resulted    = module.hearing_resulted_queue.sqs_arn
+    sqs_name_hearing_resulted   = module.hearing_resulted_queue.sqs_name
+    sqs_url_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_id
+    sqs_arn_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_arn
     sqs_name_d_hearing_resulted = module.hearing_resulted_dead_letter_queue.sqs_name
   }
 }
