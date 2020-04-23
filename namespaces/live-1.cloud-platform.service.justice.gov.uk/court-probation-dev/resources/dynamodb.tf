@@ -10,7 +10,7 @@ provider "aws" {
  *
  */
 module "court_case_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.1"
 
   team_name              = "court-probation-team"
   application            = "Court Case Service"
