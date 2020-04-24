@@ -8,7 +8,7 @@ subjects:
     name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-production-releases"
+    name: "github:moving-people-safely-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
