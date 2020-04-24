@@ -1,6 +1,6 @@
 
 module "message_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
 
   team_name              = var.team_name
   application            = var.application
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "message_dynamodb" {
 }
 
 module "schedule_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
 
   team_name              = var.team_name
   application            = var.application
