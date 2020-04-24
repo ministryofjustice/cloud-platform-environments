@@ -7,12 +7,12 @@ module "offender_deletion_granted_queue" {
   application                = var.application
   sqs_name                   = "offender_deletion_granted_queue"
   encrypt_sqs_kms            = "true"
-  visibility_timeout_seconds = 300
+  visibility_timeout_seconds = 1000
   message_retention_seconds  = 1209600
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.offender_deletion_granted_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.offender_deletion_granted_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
   EOF
 
