@@ -28,6 +28,16 @@ variable "namespace" {
   default     = "laa-court-data-adaptor-dev"
 }
 
+variable "sqs_queue_name" {
+  description = ""
+  default     = "hearings-update-queue"
+}
+
+variable "sqs_queue_name_dl" {
+  description = ""
+  default     = "hearings-update-queue-dl"
+}
+
 variable "is_production" {
   default = "false"
 }
