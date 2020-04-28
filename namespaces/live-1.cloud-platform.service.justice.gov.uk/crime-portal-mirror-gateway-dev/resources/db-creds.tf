@@ -15,9 +15,9 @@ resource "kubernetes_secret" "pict_cpmg_db_credentials" {
   }
 
   data = {
-    owner          = "cpmg-db-owner"
+    owner          = "cpmg_db_owner"
     owner-password = random_password.owner_password.result
-    user           = "cpmg-db-user"
+    user           = "cpmg_db_user"
     user-password  = random_password.user_password.result
   }
 }
