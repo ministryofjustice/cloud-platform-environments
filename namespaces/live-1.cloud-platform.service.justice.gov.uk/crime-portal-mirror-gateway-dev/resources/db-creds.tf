@@ -1,10 +1,10 @@
 resource "random_password" "owner_password" {
-  length = 16
+  length  = 16
   special = true
 }
 
 resource "random_password" "user_password" {
-  length = 16
+  length  = 16
   special = true
 }
 
@@ -15,9 +15,9 @@ resource "kubernetes_secret" "pict_cpmg_db_credentials" {
   }
 
   data = {
-    owner               = "cpmg-db-owner"
-    owner-password      = random_password.owner_password.result
-    user                = "cpmg-db-user"
-    user-password       = random_password.user_password.result
+    owner          = "cpmg_db_owner"
+    owner_password = random_password.owner_password.result
+    user           = "cpmg_db_user"
+    user_password  = random_password.user_password.result
   }
 }
