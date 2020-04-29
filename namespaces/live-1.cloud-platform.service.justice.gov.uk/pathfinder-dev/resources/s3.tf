@@ -8,6 +8,7 @@ module "pathfinder_document_s3_bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  user_policy            = var.document_bucket_user_policy
 
   providers = {
     aws = aws.london

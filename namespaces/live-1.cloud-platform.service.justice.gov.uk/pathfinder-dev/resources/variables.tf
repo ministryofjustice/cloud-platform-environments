@@ -34,3 +34,31 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
+variable "document_bucket_user_policy" = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetLifecycleConfiguration",
+        "s3:PutLifecycleConfiguration"
+      ],
+      "Resource": "$${bucket_arn}"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+        "s3:DeleteObject",
+        "s3:PutObject"
+      ],
+      "Resource": "$${bucket_arn}/*"
+    }
+  ]
+}
+EOF
+
