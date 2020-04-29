@@ -14,7 +14,7 @@ module "contact-moj_rds" {
   db_engine                  = "postgres"
   db_engine_version          = "9.5"
   db_backup_retention_period = "7"
-  db_name                    = "contact-moj_development"
+  db_name                    = "contact_moj_development"
   environment-name           = "development"
   infrastructure-support     = "staffservices@digital.justice.gov.uk"
 
