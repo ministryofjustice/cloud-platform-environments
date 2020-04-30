@@ -8,11 +8,39 @@ module "pathfinder_document_s3_bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  user_policy            = var.document_bucket_user_policy
 
   providers = {
     aws = aws.london
   }
+
+  user_policy            = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow", 
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetLifecycleConfiguration",
+        "s3:PutLifecycleConfiguration"
+      ],
+      "Resource": "$${bucket_arn}"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+        "s3:DeleteObject",
+        "s3:PutObject"
+      ],
+      "Resource": "$${bucket_arn}/*"
+    }
+  ]
+}
+EOF
+
 }
 
 module "pathfinder_rds_export_s3_bucket" {
