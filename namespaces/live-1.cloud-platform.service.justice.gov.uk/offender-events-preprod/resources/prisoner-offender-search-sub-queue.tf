@@ -66,35 +66,6 @@ module "prisoner_offender_search_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "prisoner_offender_search_queue" {
-  metadata {
-    name      = "pos-sqs-instance-output"
-    namespace = "prisoner-offender-search-preprod"
-  }
-
-  data = {
-    access_key_id     = module.prisoner_offender_search_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_queue.secret_access_key
-    sqs_pos_url       = module.prisoner_offender_search_queue.sqs_id
-    sqs_pos_arn       = module.prisoner_offender_search_queue.sqs_arn
-    sqs_pos_name      = module.prisoner_offender_search_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "prisoner_offender_search_dead_letter_queue" {
-  metadata {
-    name      = "pos-sqs-dl-instance-output"
-    namespace = "prisoner-offender-search-preprod"
-  }
-
-  data = {
-    access_key_id     = module.prisoner_offender_search_dead_letter_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_dead_letter_queue.secret_access_key
-    sqs_pos_url       = module.prisoner_offender_search_dead_letter_queue.sqs_id
-    sqs_pos_arn       = module.prisoner_offender_search_dead_letter_queue.sqs_arn
-    sqs_pos_name      = module.prisoner_offender_search_dead_letter_queue.sqs_name
-  }
-}
 
 resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
   provider      = aws.london
