@@ -13,31 +13,31 @@ module "pathfinder_document_s3_bucket" {
     aws = aws.london
   }
 
-  user_policy            = <<EOF
+  user_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow", 
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetLifecycleConfiguration",
-        "s3:PutLifecycleConfiguration"
-      ],
-      "Resource": "$${bucket_arn}"
-    },
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-        "s3:DeleteObject",
-        "s3:PutObject"
-      ],
-      "Resource": "$${bucket_arn}/*"
-    }
-  ]
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow", 
+    "Action": [
+      "s3:ListBucket",
+      "s3:GetLifecycleConfiguration",
+      "s3:PutLifecycleConfiguration"
+    ],
+    "Resource": "$${bucket_arn}"
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObject"
+    ],
+    "Resource": "$${bucket_arn}/*"
+  }
+]
 }
 EOF
 
