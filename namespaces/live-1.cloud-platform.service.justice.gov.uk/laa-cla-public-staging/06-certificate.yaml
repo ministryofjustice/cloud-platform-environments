@@ -1,4 +1,4 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: cla-public-staging-cert
@@ -8,10 +8,5 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: 'staging.checklegalaid.service.gov.uk'
-  acme:
-    config:
-    - domains:
-      - 'staging.checklegalaid.service.gov.uk'
-      dns01:
-        provider: route53-cloud-platform
+  dnsNames:
+  - staging.checklegalaid.service.gov.uk

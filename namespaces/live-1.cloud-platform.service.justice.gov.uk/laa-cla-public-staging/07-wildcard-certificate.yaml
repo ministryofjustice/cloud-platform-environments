@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: cla-public-wildcard-staging-cert
+  namespace: laa-cla-public-staging
+spec:
+  secretName: tls-wildcard-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - '*.staging.checklegalaid.service.gov.uk'

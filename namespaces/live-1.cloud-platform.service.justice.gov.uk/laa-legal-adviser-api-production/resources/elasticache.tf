@@ -1,5 +1,5 @@
 module "celery-broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
@@ -8,6 +8,8 @@ module "celery-broker" {
   node_type              = "cache.t2.medium"
   environment-name       = var.environment-name
   infrastructure-support = var.email
+  engine_version         = "4.0.10"
+  parameter_group_name   = "default.redis4.0"
 
   providers = {
     aws = aws.london

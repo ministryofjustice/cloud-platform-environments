@@ -16,7 +16,7 @@ variable "business-unit" {
 }
 
 variable "application" {
-  default = "RDS Module Test"
+  default = "Elasticache Module Test"
 }
 
 variable "environment-name" {
@@ -25,4 +25,10 @@ variable "environment-name" {
 
 variable "infrastructure-support" {
   default = "platforms@digital.justice.gov.uk"
+}
+
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
 }

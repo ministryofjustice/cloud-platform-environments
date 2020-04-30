@@ -1,0 +1,77 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: api
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-api
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - api-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: cashbook
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-cashbook
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - cashbook-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: bank-admin
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-bank-admin
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - bank-admin-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: noms-ops
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-noms-ops
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - noms-ops-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: send-money
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-send-money
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - send-money-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: start-page
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-start-page
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+  - start-page-test.prisoner-money.service.justice.gov.uk

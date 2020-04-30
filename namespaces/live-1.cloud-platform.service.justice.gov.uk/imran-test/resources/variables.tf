@@ -19,11 +19,11 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "imran-test"
+  default = "team-resources"
 }
 
 variable "repo_name" {
-  default = "test"
+  default = "helm-test"
 }
 
 // The following two variables are provided at runtime by the pipeline.

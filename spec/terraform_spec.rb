@@ -40,11 +40,11 @@ describe CpEnv::Terraform do
 
       tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_plan = "cd #{tf_dir}; terraform plan   | grep -v password | grep -v auth_token |  grep -v secret | grep -v token | grep -v key"
+      tf_plan = "cd #{tf_dir}; terraform plan  "
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_plan, "", success)
-      expect($stdout).to receive(:puts)
+      expect($stdout).to receive(:puts).at_least(:once)
 
       tf.plan
     end
@@ -59,11 +59,11 @@ describe CpEnv::Terraform do
       tf_dir = "#{dir}/resources"
       tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_apply = "cd #{tf_dir}; terraform apply -auto-approve | grep -v password | grep -v auth_token |  grep -v secret | grep -v token | grep -v key"
+      tf_apply = "cd #{tf_dir}; terraform apply -auto-approve"
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_apply, "", success)
-      expect($stdout).to receive(:puts)
+      expect($stdout).to receive(:puts).at_least(:once)
 
       tf.apply
     end

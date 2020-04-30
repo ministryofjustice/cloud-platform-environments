@@ -3,7 +3,7 @@
 ################################################################################
 
 module "tva_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   application            = var.application
@@ -35,7 +35,7 @@ resource "kubernetes_secret" "tva_elasticache_redis" {
 }
 
 resource "aws_elasticache_parameter_group" "token_store" {
-  name   = "tva-token-store-parameter-group"
+  name   = "tva-token-store-parameter-group-preprod"
   family = "redis5.0"
 
   # Needed in order to get spring boot to expire items from the redis cache

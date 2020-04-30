@@ -67,7 +67,7 @@ class CpEnv
         last: %(-auto-approve)
       )
 
-      execute("cd #{tf_dir}; #{cmd} | grep -v password | grep -v auth_token |  grep -v secret | grep -v token | grep -v key")
+      execute("cd #{tf_dir}; #{cmd}")
     end
 
     def tf_plan
@@ -76,7 +76,7 @@ class CpEnv
         last: " "
       )
 
-      execute("cd #{tf_dir}; #{cmd} | grep -v password | grep -v auth_token |  grep -v secret | grep -v token | grep -v key")
+      execute("cd #{tf_dir}; #{cmd}")
     end
 
     def tf_dir
