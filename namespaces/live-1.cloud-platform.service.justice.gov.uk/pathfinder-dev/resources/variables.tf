@@ -34,7 +34,7 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "document_bucket_user_policy" = <<EOF
+variable "document_bucket_user_policy" <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
