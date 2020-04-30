@@ -29,7 +29,7 @@ module "dps_rds" {
 
 data "aws_iam_policy_document" "pathfinder_dev_rds_to_s3_export_policy" {
 
- statement {
+  statement {
     sid = "AllowRdsExportUserToListS3Buckets"
     actions = [
       "s3:ListBucket",
