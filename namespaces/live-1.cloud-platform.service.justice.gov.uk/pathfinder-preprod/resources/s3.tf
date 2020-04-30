@@ -12,6 +12,55 @@ module "pathfinder_document_s3_bucket" {
   providers = {
     aws = aws.london
   }
+
+  user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+      "s3:ListBucketMultipartUploads",
+      "s3:GetLifecycleConfiguration",
+      "s3:PutLifecycleConfiguration"
+    ],
+    "Resource": "$${bucket_arn}"
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetObject",
+      "s3:GetObjectVersionTagging",
+      "s3:GetObjectTagging",
+      "s3:GetObjectVersionAcl",
+      "s3:GetObjectAcl",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionTorrent",
+      "s3:GetObjectTorrent",
+      "s3:DeleteObject",
+      "s3:DeleteObjectVersion",
+      "s3:DeleteObjectVersionTagging",
+      "s3:DeleteObjectTagging",
+      "s3:RestoreObject",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObjectVersionTagging",
+      "s3:PutObjectTagging",
+      "s3:PutObjectVersionAcl",
+      "s3:PutObjectAcl",
+      "s3:PutObject"
+    ],
+    "Resource": "$${bucket_arn}/*"
+  }
+]
+}
+EOF
+
 }
 
 module "pathfinder_reporting_s3_bucket" {
