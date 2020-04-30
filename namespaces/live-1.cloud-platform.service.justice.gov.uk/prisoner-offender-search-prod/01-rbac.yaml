@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: prison-to-nhs-update-prod-admin
-  namespace: prison-to-nhs-update-prod
+  name: prisoner-offender-search-prod-admin
+  namespace: prisoner-offender-search-prod
 subjects:
   - kind: Group
     name: "github:dps-production-releases"
