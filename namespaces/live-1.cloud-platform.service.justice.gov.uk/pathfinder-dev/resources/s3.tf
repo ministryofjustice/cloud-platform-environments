@@ -19,7 +19,7 @@ module "pathfinder_document_s3_bucket" {
 "Statement": [
   {
     "Sid": "",
-    "Effect": "Allow", 
+    "Effect": "Allow",
     "Action": [
       "s3:ListBucket",
       "s3:GetLifecycleConfiguration",
