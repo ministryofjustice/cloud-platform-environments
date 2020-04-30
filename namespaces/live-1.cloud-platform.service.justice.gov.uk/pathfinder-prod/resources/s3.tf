@@ -14,7 +14,7 @@ module "pathfinder_document_s3_bucket" {
   }
 }
 
-module "pathfinder_reporting_s3_bucket" {
+module "pathfinder_rds_export_s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
   team_name              = var.team_name
   acl                    = "private"
@@ -44,16 +44,16 @@ resource "kubernetes_secret" "pathfinder_document_s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "pathfinder_reporting_s3_bucket" {
+resource "kubernetes_secret" "pathfinder_rds_export_s3_bucket" {
   metadata {
-    name      = "pathfinder-reporting-s3-bucket-output"
+    name      = "pathfinder-rds-export-s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.pathfinder_reporting_s3_bucket.access_key_id
-    secret_access_key = module.pathfinder_reporting_s3_bucket.secret_access_key
-    bucket_arn        = module.pathfinder_reporting_s3_bucket.bucket_arn
-    bucket_name       = module.pathfinder_reporting_s3_bucket.bucket_name
+    access_key_id     = module.pathfinder_rds_export_s3_bucket.access_key_id
+    secret_access_key = module.pathfinder_rds_export_s3_bucket.secret_access_key
+    bucket_arn        = module.pathfinder_rds_export_s3_bucket.bucket_arn
+    bucket_name       = module.pathfinder_rds_export_s3_bucket.bucket_name
   }
 }
