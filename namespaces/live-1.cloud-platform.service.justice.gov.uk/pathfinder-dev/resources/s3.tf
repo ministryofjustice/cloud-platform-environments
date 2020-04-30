@@ -13,7 +13,7 @@ module "pathfinder_document_s3_bucket" {
     aws = aws.london
   }
 
-  user_policy            = <<EOF
+  user_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
