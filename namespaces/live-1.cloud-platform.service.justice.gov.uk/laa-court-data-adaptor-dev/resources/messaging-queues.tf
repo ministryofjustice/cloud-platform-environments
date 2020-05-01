@@ -272,7 +272,7 @@ module "hearing_resulted_dead_letter_queue" {
 
 resource "kubernetes_secret" "create_link_queue_m" {
   metadata {
-    name      = "ca-messaging-queues-output"
+    name      = "cda-messaging-queues-output"
     namespace = var.namespace
   }
 
