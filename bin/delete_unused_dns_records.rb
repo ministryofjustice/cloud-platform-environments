@@ -7,7 +7,6 @@
 
 require "open3"
 require "json"
-require "enumerator"
 require "optparse"
 
 LIVE1_ZONE_ID = "Z28AFU7GYHT7R4"
@@ -19,10 +18,10 @@ SPECIAL_A_RECORD_NAMES = [
   "bastion.#{CLUSTER}",
   "api.#{CLUSTER}",
   "api.internal.#{CLUSTER}",
-  "apps.#{CLUSTER}",
+  "apps.#{CLUSTER}"
 ]
 
-BATCH_FILE = "batch.json"  # We will rewrite this file before each route53 API call to delete records
+BATCH_FILE = "batch.json" # We will rewrite this file before each route53 API call to delete records
 
 def main(options)
   recordsets = fetch_resource_recordsets(LIVE1_ZONE_ID)
@@ -43,9 +42,9 @@ end
 def fetch_resource_recordsets(zoneid)
   next_token, recordsets = fetch_resource_recordsets_page(zoneid)
 
-  while !next_token.nil?
+  until next_token.nil?
     next_token, list = fetch_resource_recordsets_page(zoneid, next_token)
-    recordsets = recordsets + list
+    recordsets += list
     sleep 2 # Don't spam the route53 API - we can only make 5 calls/second total
   end
 
@@ -55,13 +54,13 @@ end
 def fetch_resource_recordsets_page(zoneid, starting_token = nil, page_size = 500)
   token = starting_token.nil? ? "" : "--starting-token #{starting_token}"
   cmd = "aws route53 list-resource-record-sets --hosted-zone-id #{zoneid} --max-items #{page_size} #{token}"
-  $stderr.puts cmd
+  warn cmd
   json, stderr, status = Open3.capture3(cmd)
   if status.success?
     data = JSON.parse(json)
-    [ data["NextToken"], data["ResourceRecordSets"] ]
+    [data["NextToken"], data["ResourceRecordSets"]]
   else
-    $stderr.puts stderr
+    warn stderr
     raise
   end
 end
@@ -79,7 +78,7 @@ end
 
 # Any TXT record without a matching ingress hostname is not needed
 def unneeded_txt_records(recordsets, keepers)
-  recordsets.filter {|r| r["Type"] == "TXT"}.filter do |record|
+  recordsets.filter { |r| r["Type"] == "TXT" }.filter do |record|
     name = record["Name"]
       .sub(/\.$/, "") # remove extra "." from the end of the DNS record name
       .sub(/^_external_dns\./, "") # remove leading '_external_dns.'
@@ -89,7 +88,7 @@ end
 
 # Any A record without a matching ingress hostname is not needed
 def unneeded_a_records(recordsets, keepers)
-  recordsets.filter {|r| r["Type"] == "A"}.filter do |record|
+  recordsets.filter { |r| r["Type"] == "A" }.filter do |record|
     name = record["Name"].sub(/\.$/, "") # remove extra "." from the end of the DNS record name
     !keepers.include?(name)
   end
@@ -114,7 +113,7 @@ end
 
 def record_delete_batch(records)
   changes = records.map { |r| record_delete_change(r) }
-  { "Changes" => changes }
+  {"Changes" => changes}
 end
 
 def record_delete_change(record)
@@ -142,4 +141,3 @@ end
 ############################################################
 
 main(parse_options)
-
