@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: contact-moj-staging-certificate
+  namespace: contact-moj-staging
+spec:
+  secretName: contact-moj-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: 'staging.contact-moj.service.justice.gov.uk'
+  acme:
+    config:
+    - domains:
+      - 'staging.contact-moj.service.justice.gov.uk'
+      dns01:
+        provider: route53-cloud-platform
