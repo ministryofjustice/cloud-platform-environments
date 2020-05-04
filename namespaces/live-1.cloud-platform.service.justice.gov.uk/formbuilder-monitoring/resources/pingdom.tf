@@ -2,6 +2,7 @@ provider "pingdom" {}
 
 locals {
   forms = {
+    apply-financial-deputy = "apply-financial-deputy.form.service.justice.gov.uk",
     childrens-funeral-fund = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     cica                   = "same-roof-rule.form.service.justice.gov.uk",
     contact-us-form        = "contact.form.service.justice.gov.uk",
