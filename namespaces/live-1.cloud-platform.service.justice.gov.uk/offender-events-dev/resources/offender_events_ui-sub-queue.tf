@@ -97,9 +97,9 @@ resource "kubernetes_secret" "offender_events_ui_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "offender_events_ui_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.offender_events_ui_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.offender_events_ui_queue.sqs_arn
 }
 
