@@ -28,14 +28,18 @@ def main(options)
   keepers = required_dns_records
   records_to_delete = unneeded_txt_records(recordsets, keepers) + unneeded_a_records(recordsets, keepers)
 
-  if options[:list_only]
-    records_to_delete.each { |record| puts [record["Type"], record["Name"]].join(", ") }
-  else
+  log_records(records_to_delete)
+
+  unless options[:list_only]
     records_to_delete.each_slice(100) do |records|
       delete_records(records)
       sleep 2
     end
   end
+end
+
+def log_records(records)
+  records.each { |record| puts [record["Type"], record["Name"]].join(", ") }
 end
 
 # Fetch all of the resource recordsets in a zone, a page at a time
