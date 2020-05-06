@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: offender-events-ui-dev.prison.service.justice.gov.uk
+  namespace: offender-events-dev
+spec:
+  secretName: offender-events-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - offender-events-ui-dev.prison.service.justice.gov.uk
