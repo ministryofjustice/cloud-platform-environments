@@ -68,5 +68,6 @@ resource "kubernetes_secret" "crime_portal_mirror_gateway_rds" {
     rds_instance_address  = module.crime_portal_mirror_gateway_rds.rds_instance_address
     access_key_id         = module.crime_portal_mirror_gateway_rds.access_key_id
     secret_access_key     = module.crime_portal_mirror_gateway_rds.secret_access_key
+    database_url = "postgres://${module.crime_portal_mirror_gateway_rds.rds_instance_endpoint}/${module.crime_portal_mirror_gateway_rds.database_name}"
   }
 }
