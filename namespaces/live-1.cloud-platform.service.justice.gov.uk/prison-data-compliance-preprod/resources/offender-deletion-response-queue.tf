@@ -45,9 +45,9 @@ resource "kubernetes_secret" "offender_deletion_response_queue" {
   data = {
     access_key_id     = module.offender_deletion_response_queue.access_key_id
     secret_access_key = module.offender_deletion_response_queue.secret_access_key
-    sqs_opd_url       = module.offender_deletion_response_queue.sqs_id
-    sqs_opd_arn       = module.offender_deletion_response_queue.sqs_arn
-    sqs_opd_name      = module.offender_deletion_response_queue.sqs_name
+    sqs_od_resp_url   = module.offender_deletion_response_queue.sqs_id
+    sqs_od_resp_arn   = module.offender_deletion_response_queue.sqs_arn
+    sqs_od_resp_name  = module.offender_deletion_response_queue.sqs_name
   }
 }
 
@@ -60,8 +60,8 @@ resource "kubernetes_secret" "offender_deletion_response_dead_letter_queue" {
   data = {
     access_key_id     = module.offender_deletion_response_dead_letter_queue.access_key_id
     secret_access_key = module.offender_deletion_response_dead_letter_queue.secret_access_key
-    sqs_opd_url       = module.offender_deletion_response_dead_letter_queue.sqs_id
-    sqs_opd_arn       = module.offender_deletion_response_dead_letter_queue.sqs_arn
-    sqs_opd_name      = module.offender_deletion_response_dead_letter_queue.sqs_name
+    sqs_od_resp_url   = module.offender_deletion_response_dead_letter_queue.sqs_id
+    sqs_od_resp_arn   = module.offender_deletion_response_dead_letter_queue.sqs_arn
+    sqs_od_resp_name  = module.offender_deletion_response_dead_letter_queue.sqs_name
   }
 }
