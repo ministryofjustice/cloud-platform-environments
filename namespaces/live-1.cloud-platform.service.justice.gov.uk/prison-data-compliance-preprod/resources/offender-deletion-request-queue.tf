@@ -7,7 +7,7 @@ module "offender_deletion_request_queue" {
   application                = var.application
   sqs_name                   = "offender_deletion_request_queue"
   encrypt_sqs_kms            = "true"
-  visibility_timeout_seconds = 1000
+  visibility_timeout_seconds = 1200
   message_retention_seconds  = 1209600
 
   redrive_policy = <<EOF
