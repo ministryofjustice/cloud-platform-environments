@@ -26,6 +26,8 @@ module "redis_elasticache" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  engine_version         = "5.0.6"
+  parameter_group_name   = "default.redis5.0"
 
   providers = {
     aws = aws.london
@@ -42,5 +44,6 @@ resource "kubernetes_secret" "redis_elasticache" {
     primary_endpoint_address = module.redis_elasticache.primary_endpoint_address
     member_clusters          = jsonencode(module.redis_elasticache.member_clusters)
     auth_token               = module.redis_elasticache.auth_token
+    url                      = "rediss://:${module.redis_elasticache.auth_token}@${module.redis_elasticache.primary_endpoint_address}:6379"
   }
 }
