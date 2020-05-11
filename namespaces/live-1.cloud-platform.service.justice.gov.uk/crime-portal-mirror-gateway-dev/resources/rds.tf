@@ -11,21 +11,21 @@ variable "cluster_state_bucket" {
 }
 
 module "crime_portal_mirror_gateway_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
-  cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
-  team_name            = "probation-in-court"
-  business-unit        = "hmpps"
-  application          = "crime-portal-mirror-gateway"
-  is-production        = "false"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  cluster_name                 = var.cluster_name
+  cluster_state_bucket         = var.cluster_state_bucket
+  team_name                    = "probation-in-court"
+  business-unit                = "hmpps"
+  application                  = "crime-portal-mirror-gateway"
+  is-production                = "false"
   performance_insights_enabled = true
-  db_engine_version      = "10"
-  environment-name       = "development"
-  infrastructure-support = "john.evans@digital.justice.gov.uk"
-  rds_family = "postgres10"
-  apply_method = "pending-reboot"
-  allow_major_version_upgrade = "true"
-  force_ssl = true
+  db_engine_version            = "10"
+  environment-name             = "development"
+  infrastructure-support       = "john.evans@digital.justice.gov.uk"
+  rds_family                   = "postgres10"
+  apply_method                 = "pending-reboot"
+  allow_major_version_upgrade  = "true"
+  force_ssl                    = true
 
   providers = {
     aws = aws.london
