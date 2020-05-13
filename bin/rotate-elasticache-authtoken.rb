@@ -12,6 +12,8 @@
 # around 15 minutes - half to tear down the old cluster, and half to build a
 # new one. Any data in the original elasticache cluster is presumed to be lost.
 
+require "open3"
+
 REQUIRED_ENV_VARS = %w[AWS_PROFILE TF_VAR_cluster_name TF_VAR_cluster_state_bucket TF_VAR_cluster_state_key]
 REQUIRED_EXECUTABLES = %w[terraform kubectl cut grep which]
 REQUIRED_AWS_PROFILES = %w[moj-cp]
@@ -31,17 +33,14 @@ end
 def replace_credentials(namespace, cluster_name)
   tfinit(namespace)
   taint_auth_token(namespace, cluster_name)
-  system "cd #{tfdir(namespace)}; terraform apply -auto-approve"
+  execute "cd #{tfdir(namespace)}; terraform apply -auto-approve"
 end
 
-# When replacing pods, it's worth going slowly. Any open connection to the db
-# whose password we rotated will still work fine until it is dropped. So as
-# long as we leave enough time for a new pod to become ready, using the new
-# password, before we kill the next one, we should be able to replace all the
-# pods with no application downtime.
-def replace_pods(namespace, delay = 90)
+# For elasticache, the app will be broken until the pods are replaced, so we should do that as
+# quickly as possible. The 5 second sleep may not be useful.
+def replace_pods(namespace, delay = 5)
   get_pods(namespace).each do |pod|
-    system "kubectl -n #{namespace} delete pod #{pod}"
+    execute "kubectl -n #{namespace} delete pod #{pod}"
     sleep delay # This could be optimised, because there's no need to sleep after deleting the last pod
   end
 end
@@ -51,10 +50,10 @@ def get_pods(namespace)
   `#{cmd}`.split("\n")
 end
 
-# e.g. for cluster module = service-token-elasticache, we taint "module.service-token-elasticache.auth_token"
+# e.g. for cluster module = service-token-elasticache, we taint "module.service-token-elasticache.random_id.auth_token"
 def taint_auth_token(namespace, cluster_name)
-  target = "module.#{cluster_name}.auth_token"
-  system "cd #{tfdir(namespace)}; terraform taint #{target}"
+  target = "module.#{cluster_name}.random_id.auth_token"
+  execute "cd #{tfdir(namespace)}; terraform taint #{target}"
 end
 
 def tfinit(namespace)
@@ -66,7 +65,7 @@ def tfinit(namespace)
     %(-backend-config="dynamodb_table=#{TF_STATE_LOCK_TABLE}")
   ].join(" ")
 
-  system "cd #{tfdir(namespace)}; #{tfinit}"
+  execute "cd #{tfdir(namespace)}; #{tfinit}"
 end
 
 def tfdir(namespace)
@@ -101,6 +100,22 @@ def check_aws_profiles
     raise "ERROR Required AWS Profile #{profile} not found." \
       unless creds.grep(/\[#{profile}\]/).any?
   end
+end
+
+def execute(cmd)
+  puts "executing: #{cmd}"
+
+  stdout, stderr, status = Open3.capture3(cmd)
+
+  unless status.success?
+    puts "Command: #{cmd} failed."
+    puts stderr
+    raise
+  end
+
+  puts stdout
+
+  [stdout, stderr, status]
 end
 
 ############################################################
