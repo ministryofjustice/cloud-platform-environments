@@ -26,8 +26,6 @@ module "redis_elasticache" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
 
   providers = {
     aws = aws.london
