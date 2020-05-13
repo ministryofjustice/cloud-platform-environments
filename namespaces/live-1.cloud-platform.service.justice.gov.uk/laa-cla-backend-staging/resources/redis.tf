@@ -44,6 +44,6 @@ resource "kubernetes_secret" "redis_elasticache" {
     primary_endpoint_address = module.redis_elasticache.primary_endpoint_address
     member_clusters          = jsonencode(module.redis_elasticache.member_clusters)
     auth_token               = module.redis_elasticache.auth_token
-    url                      = "redis://:${module.redis_elasticache.auth_token}@${module.redis_elasticache.primary_endpoint_address}:6379"
+    url                      = "redis://${module.redis_elasticache.auth_token}@${module.redis_elasticache.primary_endpoint_address}:6379"
   }
 }
