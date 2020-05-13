@@ -3,8 +3,8 @@ resource "random_id" "id" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "data-compliance-ap-user-${random_id.id.hex}"
-  path = "/system/data-compliance-ap-user/"
+  name = "data-compliance-preprod-ap-user-${random_id.id.hex}"
+  path = "/system/data-compliance-ap-users/"
 }
 
 resource "aws_iam_access_key" "user" {
@@ -13,7 +13,7 @@ resource "aws_iam_access_key" "user" {
 
 resource "kubernetes_secret" "data_compliance_ap_user" {
   metadata {
-    name      = "data_compliance_ap_user"
+    name      = "data-compliance-ap-user"
     namespace = var.namespace
   }
 
