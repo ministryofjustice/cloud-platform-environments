@@ -12,6 +12,22 @@ module "cla_backend_private_reports_bucket" {
   providers = {
     aws = aws.london
   }
+
+  user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:*"
+    ],
+    "Resource": "$${bucket_arn}"
+  }
+]
+}
+EOF
 }
 
 resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
