@@ -21,13 +21,27 @@ module "cla_backend_private_reports_bucket" {
     "Sid": "",
     "Effect": "Allow",
     "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
       "s3:*"
     ],
-    "Resource": "$${bucket_arn}"
+    "Resource": [
+      "$${bucket_arn}/*"
+    ]
   }
 ]
 }
 EOF
+
 }
 
 resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
