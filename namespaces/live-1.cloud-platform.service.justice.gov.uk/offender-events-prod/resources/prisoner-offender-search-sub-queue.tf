@@ -96,4 +96,11 @@ resource "kubernetes_secret" "prisoner_offender_search_dead_letter_queue" {
   }
 }
 
+resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
+  provider      = aws.london
+  topic_arn     = module.offender_events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.prisoner_offender_search_queue.sqs_arn
+  filter_policy = "{\"eventType\":[ \"OFFENDER-UPDATED\", \"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"ASSESSMENT-CHANGED\", \"OFFENDER_BOOKING-REASSIGNED\", \"OFFENDER_BOOKING-CHANGED\", \"OFFENDER_DETAILS-CHANGED\", \"BOOKING_NUMBER-CHANGED\", \"SENTENCE_DATES-CHANGED\", \"IMPRISONMENT_STATUS-CHANGED\", \"BED_ASSIGNMENT_HISTORY-INSERTED\", \"CONFIRMED_RELEASE_DATE-CHANGED\", \"ALERT-INSERTED\", \"ALERT-UPDATED\"] }"
+}
 
