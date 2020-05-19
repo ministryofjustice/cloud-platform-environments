@@ -21,10 +21,3 @@ resource "kubernetes_secret" "example_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "add_cname_email" {
-  name    = var.zone-name
-  zone_id = aws_route53_zone.example_team_route53_zone.zone_id
-  type    = "CNAME"
-  records = ["test.org"]
-  ttl     = "300"
-}
