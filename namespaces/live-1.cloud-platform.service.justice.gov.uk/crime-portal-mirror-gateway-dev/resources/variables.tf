@@ -21,6 +21,10 @@ variable "environment-name" {
   default     = "dev"
 }
 
+variable "zone-name" {
+  default = "crime-portal-mirror-gateway.service.justice.gov.uk"
+}
+
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "probation-in-court-team@digital.justice.gov.uk"
@@ -33,4 +37,5 @@ variable "is-production" {
 variable "rds-family" {
   default = "postgres10"
 }
+
 
