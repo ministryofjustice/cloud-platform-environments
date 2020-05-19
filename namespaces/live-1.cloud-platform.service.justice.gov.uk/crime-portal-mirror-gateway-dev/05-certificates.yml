@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - crime-portal-mirror-gateway-dev.service.justice.gov.uk
+  - dev.crime-portal-mirror-gateway.service.justice.gov.uk
