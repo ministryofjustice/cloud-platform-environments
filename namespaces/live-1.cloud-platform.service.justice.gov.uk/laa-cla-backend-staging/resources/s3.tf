@@ -97,11 +97,11 @@ resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
   }
 
   data = {
-    access_key_id     = module.cla_backend_private_reports_bucket.access_key_id
-    secret_access_key = module.cla_backend_private_reports_bucket.secret_access_key
-    reports_bucket_arn        = module.cla_backend_private_reports_bucket.bucket_arn
-    reports_bucket_name       = module.cla_backend_private_reports_bucket.bucket_name
-    deleted_objects_bucket_arn        = module.cla_backend_deleted_objects_bucket.bucket_arn
-    deleted_objects_bucket_name       = module.cla_backend_deleted_objects_bucket.bucket_name
+    access_key_id               = module.cla_backend_private_reports_bucket.access_key_id
+    secret_access_key           = module.cla_backend_private_reports_bucket.secret_access_key
+    reports_bucket_arn          = module.cla_backend_private_reports_bucket.bucket_arn
+    reports_bucket_name         = module.cla_backend_private_reports_bucket.bucket_name
+    deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
+    deleted_objects_bucket_name = module.cla_backend_deleted_objects_bucket.bucket_name
   }
 }
