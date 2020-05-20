@@ -25,7 +25,8 @@ module "cla_backend_private_reports_bucket" {
       "s3:ListBucket"
     ],
     "Resource": [
-      "$${bucket_arn}"
+      "$${bucket_arn}",
+      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5"
     ]
   },
   {
@@ -35,7 +36,8 @@ module "cla_backend_private_reports_bucket" {
       "s3:*"
     ],
     "Resource": [
-      "$${bucket_arn}/*"
+      "$${bucket_arn}/*",
+      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5/*"
     ]
   }
 ]
