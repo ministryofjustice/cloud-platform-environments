@@ -44,6 +44,52 @@ EOF
 
 }
 
+module "cla_backend_deleted_objects_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  acl    = "private"
+
+  team_name              = var.team_name
+  business-unit          = var.business-unit
+  application            = var.application
+  is-production          = var.is-production
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
+
+  providers = {
+    aws = aws.london
+  }
+
+  user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ],
+    "Resource": [
+      "$${bucket_arn}"
+    ]
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:*"
+    ],
+    "Resource": [
+      "$${bucket_arn}/*"
+    ]
+  }
+]
+}
+EOF
+
+}
+
 resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
   metadata {
     name      = "s3"
@@ -51,9 +97,11 @@ resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
   }
 
   data = {
-    access_key_id     = module.cla_backend_private_reports_bucket.access_key_id
-    secret_access_key = module.cla_backend_private_reports_bucket.secret_access_key
-    bucket_arn        = module.cla_backend_private_reports_bucket.bucket_arn
-    bucket_name       = module.cla_backend_private_reports_bucket.bucket_name
+    access_key_id               = module.cla_backend_private_reports_bucket.access_key_id
+    secret_access_key           = module.cla_backend_private_reports_bucket.secret_access_key
+    reports_bucket_arn          = module.cla_backend_private_reports_bucket.bucket_arn
+    reports_bucket_name         = module.cla_backend_private_reports_bucket.bucket_name
+    deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
+    deleted_objects_bucket_name = module.cla_backend_deleted_objects_bucket.bucket_name
   }
 }
