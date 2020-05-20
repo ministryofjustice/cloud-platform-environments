@@ -27,11 +27,12 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 1,
-      "id": 47,
+      "id": 2,
       "links": [],
       "panels": [
         {
           "collapsed": false,
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -65,12 +66,14 @@ data:
           "styles": [
             {
               "alias": "Time",
+              "align": "auto",
               "dateFormat": "YYYY-MM-DD HH:mm:ss",
               "pattern": "Time",
               "type": "hidden"
             },
             {
               "alias": "Available",
+              "align": "auto",
               "colorMode": "cell",
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -88,6 +91,7 @@ data:
             },
             {
               "alias": "Desired",
+              "align": "auto",
               "colorMode": "value",
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -107,6 +111,7 @@ data:
             },
             {
               "alias": "Deployment",
+              "align": "auto",
               "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -158,12 +163,14 @@ data:
           "datasource": "Prometheus",
           "decimals": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 14,
             "x": 10,
             "y": 1
           },
+          "hiddenSeries": false,
           "id": 15,
           "interval": "1m",
           "legend": {
@@ -182,6 +189,9 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -251,12 +261,14 @@ data:
           "datasource": "Prometheus",
           "decimals": 2,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 24,
             "x": 0,
             "y": 7
           },
+          "hiddenSeries": false,
           "id": 17,
           "interval": "30s",
           "legend": {
@@ -275,6 +287,9 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -365,12 +380,14 @@ data:
           "datasource": "Prometheus",
           "decimals": 2,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
             "y": 14
           },
+          "hiddenSeries": false,
           "id": 16,
           "interval": "30s",
           "legend": {
@@ -389,6 +406,9 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -477,12 +497,14 @@ data:
           "datasource": "Prometheus",
           "decimals": 2,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
             "y": 20
           },
+          "hiddenSeries": false,
           "id": 19,
           "legend": {
             "alignAsTable": true,
@@ -500,6 +522,9 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -568,12 +593,14 @@ data:
           "datasource": "Prometheus",
           "decimals": 2,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
             "y": 26
           },
+          "hiddenSeries": false,
           "id": 18,
           "legend": {
             "alignAsTable": true,
@@ -591,6 +618,9 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -663,7 +693,7 @@ data:
         }
       ],
       "refresh": false,
-      "schemaVersion": 16,
+      "schemaVersion": 22,
       "style": "dark",
       "tags": [],
       "templating": {
@@ -701,5 +731,8 @@ data:
       "timezone": "browser",
       "title": "contact-moj production",
       "uid": "urj2fVsWz",
-      "version": 6
+      "variables": {
+        "list": []
+      },
+      "version": 176663
     }
