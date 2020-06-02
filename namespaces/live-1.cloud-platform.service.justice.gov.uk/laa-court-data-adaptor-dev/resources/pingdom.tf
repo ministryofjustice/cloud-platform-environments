@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-court-data-adaptor-dev" {
   url                      = "/status"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_court-data-adaptor,component_ping,isproduction_false,environment_dev,owner_crimeapps-laa@digital.justice.gov.uk"
+  tags                     = "businessunit_laa,application_court-data-adaptor,component_ping,isproduction_false,environment_dev"
   probefilters             = "region:EU"
   publicreport             = "true"
 }
