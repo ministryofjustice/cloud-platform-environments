@@ -47,6 +47,7 @@ resource "kubernetes_secret" "cla_backend_rds" {
   }
 
   data = {
+    endpoint = module.cla_backend_rds.rds_instance_endpoint
     host     = module.cla_backend_rds.rds_instance_address
     port     = module.cla_backend_rds.rds_instance_port
     name     = module.cla_backend_rds.database_name
