@@ -17,9 +17,6 @@ module "cla_backend_rds" {
   application          = var.application
   is-production        = var.is-production
 
-  # enable performance insights
-  performance_insights_enabled = true
-
   db_name = "cla_backend"
   # change the postgres version as you see fit.
   db_engine_version      = "9.6"
