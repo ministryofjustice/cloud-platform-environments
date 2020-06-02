@@ -34,3 +34,9 @@ variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "civil-legal-advice@digital.justice.gov.uk"
 }
+
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
