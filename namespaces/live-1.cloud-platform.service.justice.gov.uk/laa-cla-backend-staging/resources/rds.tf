@@ -28,7 +28,7 @@ module "cla_backend_rds" {
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres96"
+  rds_family = "postgres9.6"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
