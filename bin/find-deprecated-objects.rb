@@ -9,6 +9,15 @@
 require "json"
 require "open3"
 
+OBJECT_TYPES = %w[
+  DaemonSet
+  Deployment
+  Ingress
+  NetworkPolicy
+  PodSecurityPolicy
+  ReplicaSet
+].join(",")
+
 DEPRECATED_API_VERSIONS = %w[extensions/v1beta1 apps/v1beta1 apps/v1beta2]
 
 def main
@@ -71,7 +80,7 @@ end
 def deprecated_api_objects
   # NB: double backslashes, compared to running the command from a terminal
   cmd = %(
-    kubectl get NetworkPolicy,PodSecurityPolicy,DaemonSet,Deployment,ReplicaSet --all-namespaces
+    kubectl get #{OBJECT_TYPES} --all-namespaces
     -o 'jsonpath={range.items[*]}{.metadata.annotations.kubectl\\.kubernetes\\.io/last-applied-configuration}{"\\n"}{end}'
   ).tr("\n", " ").strip
 
