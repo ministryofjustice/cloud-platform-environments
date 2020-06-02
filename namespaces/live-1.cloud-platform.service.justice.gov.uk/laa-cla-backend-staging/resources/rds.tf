@@ -50,11 +50,11 @@ resource "kubernetes_secret" "cla_backend_rds" {
   }
 
   data = {
-    host = module.cla_backend_rds.rds_instance_address
-    port = module.cla_backend_rds.rds_instance_address
-    name         = module.cla_backend_rds.database_name
+    host     = module.cla_backend_rds.rds_instance_address
+    port     = module.cla_backend_rds.rds_instance_address
+    name     = module.cla_backend_rds.database_name
     user     = module.cla_backend_rds.database_username
-    password     = module.cla_backend_rds.database_password
+    password = module.cla_backend_rds.database_password
   }
 
 }
