@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "correspondence"
@@ -13,6 +13,8 @@ module "track_a_query_elasticache_redis" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "correspondence-support@digital.justice.gov.uk"
+  engine_version         = "4.0.10"
+  parameter_group_name   = "default.redis4.0"
 
   providers = {
     aws = aws.london

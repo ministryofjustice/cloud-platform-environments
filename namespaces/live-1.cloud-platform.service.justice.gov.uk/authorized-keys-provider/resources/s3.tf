@@ -1,5 +1,5 @@
 module "authorized-keys" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
 
   team_name              = "cloudplatform"
   business-unit          = "mojdigital"

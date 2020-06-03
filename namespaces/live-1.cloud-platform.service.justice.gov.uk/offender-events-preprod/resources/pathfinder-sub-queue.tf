@@ -293,7 +293,7 @@ resource "aws_sns_topic_subscription" "pathfinder_offender_events_subscription" 
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.pathfinder_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"OFFENDER_BOOKING-REASSIGNED\"]}"
+  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"OFFENDER_BOOKING-REASSIGNED\", \"SENTENCE_DATES-CHANGED\", \"BED_ASSIGNMENT_HISTORY-INSERTED\", \"BOOKING_NUMBER-CHANGED\", \"CONFIRMED_RELEASE_DATE-CHANGED\"]}"
 }
 
 resource "aws_sns_topic_subscription" "pathfinder_probation_offender_events_subscription" {

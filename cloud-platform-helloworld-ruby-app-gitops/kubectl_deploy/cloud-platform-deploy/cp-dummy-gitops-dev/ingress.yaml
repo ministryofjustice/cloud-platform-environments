@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: helloworld-rubyapp-ingress
+  namespace: cp-dummy-gitops-dev
+spec:
+  tls:
+  - hosts:
+    - cp-dummy-gitops-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: cp-dummy-gitops-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rubyapp-service
+          servicePort: 4567

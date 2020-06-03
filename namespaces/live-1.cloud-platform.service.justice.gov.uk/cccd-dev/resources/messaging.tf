@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
 
   team_name          = var.team_name
   topic_display_name = "cccd-claims-submitted"
@@ -24,7 +24,7 @@ module "claims_for_ccr" {
   {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-  
+
 EOF
 
 
@@ -47,9 +47,9 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_ccr.sqs_arn}",
           "Action": "SQS:SendMessage",
-          "Condition": 
+          "Condition":
             {
-              "ArnEquals": 
+              "ArnEquals":
                 {
                   "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
                 }
@@ -57,7 +57,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
         }
       ]
   }
-  
+
 EOF
 
 }
@@ -77,7 +77,7 @@ module "claims_for_cclf" {
   {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-  
+
 EOF
 
 
@@ -100,9 +100,9 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_cclf.sqs_arn}",
           "Action": "SQS:SendMessage",
-          "Condition": 
+          "Condition":
             {
-              "ArnEquals": 
+              "ArnEquals":
                 {
                   "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
                 }
@@ -110,7 +110,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
         }
       ]
   }
-  
+
 EOF
 
 }
@@ -130,7 +130,7 @@ module "responses_for_cccd" {
   {
     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-  
+
 EOF
 
 
@@ -223,7 +223,7 @@ resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
   topic_arn     = module.cccd_claims_submitted.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_ccr.sqs_arn
-  filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\"]}"
+  filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\", \"Claim::AdvocateHardshipClaim\"]}"
 }
 
 resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
@@ -231,6 +231,6 @@ resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
   topic_arn     = module.cccd_claims_submitted.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_cclf.sqs_arn
-  filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\"]}"
+  filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\", \"Claim::LitigatorHardshipClaim\"]}"
 }
 

@@ -7,11 +7,11 @@ class CpEnv
 
       unless can_fail || status.success?
         log("red", "Command: #{cmd} failed.")
-        puts stderr
+        log("red", stderr)
         raise
       end
 
-      puts stdout unless silent
+      log("green", stdout) unless silent
 
       [stdout, stderr, status]
     end

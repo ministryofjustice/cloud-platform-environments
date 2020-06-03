@@ -13,9 +13,7 @@ module "delius_intervention_update_queue" {
   {
     "deadLetterTargetArn": "${module.delius_intervention_update_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
-EOF
-
+  EOF
 
   providers = {
     aws = aws.london
@@ -46,9 +44,7 @@ resource "aws_sqs_queue_policy" "delius_intervention_update_queue_policy" {
         }
       ]
   }
-   
-EOF
-
+  EOF
 }
 
 module "delius_intervention_update_dead_letter_queue" {
