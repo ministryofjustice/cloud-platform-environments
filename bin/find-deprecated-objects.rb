@@ -79,20 +79,12 @@ end
 
 def deprecated_api_objects
   # NB: double backslashes, compared to running the command from a terminal
-  cmd = %(
-    kubectl get #{OBJECT_TYPES} --all-namespaces
-    -o 'jsonpath={range.items[*]}{.metadata.annotations.kubectl\\.kubernetes\\.io/last-applied-configuration}{"\\n"}{end}'
-  ).tr("\n", " ").strip
+  cmd = "kubectl get #{OBJECT_TYPES} --all-namespaces -o json"
 
   stdout, _, _ = Open3.capture3(cmd)
-  # stdout = File.read("objects.json")
 
-  objects = stdout.split("\n").map { |line|
-    next if line == ""
-    JSON.parse(line)
-  }.compact
-
-  objects.filter { |obj| DEPRECATED_API_VERSIONS.include?(obj.fetch("apiVersion")) }
+  JSON.parse(stdout).fetch("items")
+    .filter { |obj| DEPRECATED_API_VERSIONS.include?(obj.fetch("apiVersion")) }
 end
 
 # Given a hash representing a kubernetes object, return a csv of the fields we
@@ -106,7 +98,7 @@ def object_csv(hash, namespaces)
     hash.dig("metadata", "name"),
     namespace,
     team,
-    repo
+    repo,
   ].join(", ")
 end
 
@@ -119,7 +111,7 @@ def tiller_csv(pod, namespaces)
     pod.dig("metadata", "name"),
     namespace,
     team,
-    repo
+    repo,
   ].join(", ")
 end
 
