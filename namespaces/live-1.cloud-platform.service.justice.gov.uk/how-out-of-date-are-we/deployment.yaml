@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: how-out-of-date-are-we
   namespace: how-out-of-date-are-we
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: how-out-of-date-are-we-app
   template:
     metadata:
       labels:
