@@ -16,9 +16,9 @@ module "drupal_rds" {
   infrastructure-support = var.infrastructure-support
   force_ssl              = "true"
 
-  db_engine              = "mariadb"
-  db_engine_version      = "10.4"
-  rds_family             = "mariadb10.4"
+  db_engine         = "mariadb"
+  db_engine_version = "10.4"
+  rds_family        = "mariadb10.4"
 
   providers = {
     aws = aws.london
