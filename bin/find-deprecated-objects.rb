@@ -107,7 +107,7 @@ def object_csv(hash, namespaces)
     hash.dig("metadata", "name"),
     namespace,
     team,
-    repo,
+    repo
   ].join(", ")
 end
 
@@ -120,7 +120,7 @@ def tiller_csv(pod, namespaces)
     pod.dig("metadata", "name"),
     namespace,
     team,
-    repo,
+    repo
   ].join(", ")
 end
 
