@@ -84,7 +84,17 @@ def deprecated_api_objects
   stdout, _, _ = Open3.capture3(cmd)
 
   JSON.parse(stdout).fetch("items")
-    .filter { |obj| DEPRECATED_API_VERSIONS.include?(obj.fetch("apiVersion")) }
+    .filter { |obj| uses_deprecated_apis?(obj) }
+end
+
+def uses_deprecated_apis?(obj)
+  api_version = last_applied_api_version(obj) || obj.fetch("apiVersion")
+  DEPRECATED_API_VERSIONS.include?(api_version)
+end
+
+def last_applied_api_version(obj)
+  json = obj.dig("metadata", "annotations", "kubectl.kubernetes.io/last-applied-configuration")
+  json.nil? ? false : JSON.parse(json).fetch("apiVersion")
 end
 
 # Given a hash representing a kubernetes object, return a csv of the fields we
