@@ -39,7 +39,7 @@ resource "kubernetes_secret" "drupal_rds" {
     rds_instance_address  = module.drupal_rds.rds_instance_address
     access_key_id         = module.drupal_rds.access_key_id
     secret_access_key     = module.drupal_rds.secret_access_key
-    url                   = "postgres://${module.drupal_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+    url                   = "postgres://${module.drupal_rds.database_username}:${module.drupal_rds.database_password}@${module.drupal_rds.rds_instance_endpoint}/${module.drupal_rds.database_name}"
   }
 }
 
