@@ -15,7 +15,6 @@ OBJECT_TYPES = %w[
   Ingress
   NetworkPolicy
   PodSecurityPolicy
-  ReplicaSet
 ].join(",")
 
 DEPRECATED_API_VERSIONS = %w[extensions/v1beta1 apps/v1beta1 apps/v1beta2]
