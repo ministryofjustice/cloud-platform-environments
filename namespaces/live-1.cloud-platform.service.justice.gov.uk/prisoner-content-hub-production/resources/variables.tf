@@ -1,13 +1,13 @@
 variable "domain" {
-  default = "whereabouts-api.service.justice.gov.uk"
+  default = "content-hub.prisoner.service.justice.gov.uk/ "
 }
 
 variable "application" {
-  default = "whereabouts-api"
+  default = "prisoner-content-hub"
 }
 
 variable "namespace" {
-  default = "whereabouts-api-prod"
+  default = "prisoner-content-hub-production"
 }
 
 variable "business-unit" {
@@ -17,17 +17,17 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "Prisoner Facing Services"
 }
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "prod"
+  default     = "production"
 }
 
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "thehub@digital.justice.gov.uk"
 }
 
 variable "is-production" {
