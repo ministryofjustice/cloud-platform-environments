@@ -24,7 +24,7 @@ def main
 
   namespaces = namespace_details
 
-  deprecated_api_objects.each { |obj| puts object_csv(obj, namespaces) }
+  kubectl_api_objects.each { |obj| puts object_csv(obj, namespaces) }
 
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
@@ -32,6 +32,19 @@ def main
 
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
   output_helm2_object_data(tiller_pods)
+  output_helm3_object_data(namespaces)
+end
+
+def helm3_deprecated_objects(namespace)
+  cmd = pluto_command(namespace, "3")
+  parsed_json_output(cmd).fetch("items", [])
+end
+
+def output_helm3_object_data(namespaces)
+  namespaces.keys.each do |namespace|
+    helm3_deprecated_objects(namespace)
+      .each { |object| puts helm_object_csv(object, namespaces) }
+  end
 end
 
 def output_helm2_object_data(tiller_pods)
@@ -109,7 +122,7 @@ def namespace_details
   rtn
 end
 
-def deprecated_api_objects
+def kubectl_api_objects
   # NB: double backslashes, compared to running the command from a terminal
   cmd = "kubectl get #{OBJECT_TYPES} --all-namespaces -o json"
 
