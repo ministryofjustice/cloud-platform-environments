@@ -128,8 +128,12 @@ def namespace_team_repo(namespace, namespaces)
 end
 
 def parsed_json_output(cmd)
-  stdout, _, _ = Open3.capture3(cmd)
+  stdout, stderr, status = Open3.capture3(cmd)
+  $stderr.puts(stderr) unless status.success?
   JSON.parse(stdout)
+rescue JSON::ParserError
+  $stderr.puts("JSON::ParserError parsing:\n#{stdout}")
+  {}
 end
 
 
