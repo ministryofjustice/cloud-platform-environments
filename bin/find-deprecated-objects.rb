@@ -51,12 +51,18 @@ def output_helm2_object_data(tiller_pods)
 end
 
 def helm_object_csv(object, namespaces)
-  team, repo = namespace_team_repo(object[:namespace], namespaces)
+  team, repo = namespace_team_repo(object["namespace"], namespaces)
+
+  # 'name' is often something like "check-financial-eligibility/check-financial-eligibility"
+  # so if it matches that pattern, simplify it.
+  name = object.fetch("name")
+  /(.*)\/\1/.match(name) && name = $1
+
   [
-    object[:kind],
-    object[:api_version],
-    object[:name],
-    object[:namespace],
+    object.dig("api", "kind"),
+    object.dig("api", "version"),
+    name,
+    object.fetch("namespace"),
     team,
     repo
   ].join(", ")
@@ -65,19 +71,7 @@ end
 def helm2_deprecated_objects(namespace)
   # NB: takes approx 40 seconds to run
   cmd = pluto_command(namespace, "2")
-  parsed_json_output(cmd).fetch("items", []).map do |obj|
-    # 'name' is often something like "check-financial-eligibility/check-financial-eligibility"
-    # so if it matches that pattern, simplify it.
-    name = obj.fetch("name")
-    /(.*)\/\1/.match(name) && name = $1
-
-    {
-      name: name,
-      namespace: obj.fetch("namespace"),
-      api_version: obj.dig("api", "version"),
-      kind: obj.dig("api", "kind"),
-    }
-  end
+  parsed_json_output(cmd).fetch("items", [])
 end
 
 def pluto_command(namespace, helm_version)
