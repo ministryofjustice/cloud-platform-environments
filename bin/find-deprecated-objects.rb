@@ -92,7 +92,8 @@ end
 # Given a hash representing a kubernetes object, return a csv of the fields we
 # care about wrt. the API deprecation
 def object_csv(hash, namespaces)
-  namespace, team, repo = namespace_team_repo(hash, namespaces)
+  namespace = hash.dig("metadata", "namespace")
+  team, repo = namespace_team_repo(namespace, namespaces)
 
   [
     hash.fetch("kind"),
@@ -105,7 +106,8 @@ def object_csv(hash, namespaces)
 end
 
 def tiller_csv(pod, namespaces)
-  namespace, team, repo = namespace_team_repo(pod, namespaces)
+  namespace = pod.dig("metadata", "namespace")
+  team, repo = namespace_team_repo(namespace, namespaces)
 
   [
     "tiller",
@@ -117,14 +119,12 @@ def tiller_csv(pod, namespaces)
   ].join(", ")
 end
 
-def namespace_team_repo(hash, namespaces)
-  namespace = hash.dig("metadata", "namespace")
-
+def namespace_team_repo(namespace, namespaces)
   ns = namespaces[namespace]
   team = ns.nil? ? "" : ns[:team]
   repo = ns.nil? ? "" : ns[:repo]
 
-  [namespace, team, repo]
+  [team, repo]
 end
 
 def parsed_json_output(cmd)
