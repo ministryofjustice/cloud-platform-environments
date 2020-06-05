@@ -45,17 +45,21 @@ def output_helm2_object_data(tiller_pods)
 
   tiller_pod_namespaces.each do |ns|
     helm2_deprecated_objects(ns).each do |obj|
-      team, repo = namespace_team_repo(obj[:namespace], namespaces)
-      puts [
-        obj[:kind],
-        obj[:api_version],
-        obj[:name],
-        obj[:namespace],
-        team,
-        repo
-      ].join(", ")
+      puts helm_object_csv(obj, namespaces)
     end
   end
+end
+
+def helm_object_csv(object, namespaces)
+  team, repo = namespace_team_repo(object[:namespace], namespaces)
+  [
+    object[:kind],
+    object[:api_version],
+    object[:name],
+    object[:namespace],
+    team,
+    repo
+  ].join(", ")
 end
 
 def helm2_deprecated_objects(namespace)
