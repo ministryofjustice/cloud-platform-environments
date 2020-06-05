@@ -28,13 +28,12 @@ def main
     puts object_csv(obj, namespaces)
   end
 
-  stdout, _, _ = Open3.capture3("kubectl get pods --all-namespaces -o json")
-  # stdout = File.read("pods.json")
 
   # TODO filter for tiller < 2.16.3
-  JSON.parse(stdout).fetch("items")
+  tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items")
     .filter { |pod| tiller?(pod) }
     .map { |pod| puts tiller_csv(pod, namespaces) }
+  tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
 end
 
 def tiller?(pod)
@@ -51,21 +50,16 @@ end
 # Pre-fetch namespace details: owning team & github repo
 # returns a hash: namespace_name => { team: team, repo: repo }
 def namespace_details
-  stdout, _, _ = Open3.capture3("kubectl get namespaces -o json")
-  # stdout = File.read("namespaces.json")
-
   # build a hash of namespaces & their github repos
-  rtn = JSON.parse(stdout).fetch("items").each_with_object({}) { |ns, hash|
-    name = ns.dig("metadata", "name")
-    repo = ns.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/source-code")
-    hash[name] = {repo: repo}
-  }
+  rtn = parsed_json_output("kubectl get namespaces -o json")
+    .fetch("items").each_with_object({}) { |ns, hash|
+      name = ns.dig("metadata", "name")
+      repo = ns.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/source-code")
+      hash[name] = {repo: repo}
+    }
 
   # add owning teams, from rolebindings
-  stdout, _, _ = Open3.capture3("kubectl get rolebindings --all-namespaces -o json")
-  # stdout = File.read("rolebindings.json")
-
-  JSON.parse(stdout).fetch("items").each do |rb|
+  parsed_json_output("kubectl get rolebindings --all-namespaces -o json").fetch("items").each do |rb|
     namespace = rb.dig("metadata", "namespace")
     team = rb.fetch("subjects").first.fetch("name")
     if /github:/.match?(team)
@@ -80,9 +74,7 @@ def deprecated_api_objects
   # NB: double backslashes, compared to running the command from a terminal
   cmd = "kubectl get #{OBJECT_TYPES} --all-namespaces -o json"
 
-  stdout, _, _ = Open3.capture3(cmd)
-
-  JSON.parse(stdout).fetch("items")
+  parsed_json_output(cmd).fetch("items")
     .filter { |obj| last_applied_api_version(obj) }
     .filter { |obj| uses_deprecated_apis?(obj) }
 end
@@ -134,6 +126,12 @@ def namespace_team_repo(hash, namespaces)
 
   [namespace, team, repo]
 end
+
+def parsed_json_output(cmd)
+  stdout, _, _ = Open3.capture3(cmd)
+  JSON.parse(stdout)
+end
+
 
 ############################################################
 
