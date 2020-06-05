@@ -24,14 +24,12 @@ def main
 
   namespaces = namespace_details
 
-  deprecated_api_objects.each do |obj|
-    puts object_csv(obj, namespaces)
-  end
-
+  deprecated_api_objects.each { |obj| puts object_csv(obj, namespaces) }
 
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
     .filter { |pod| tiller?(pod) }
+
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
   output_helm2_object_data(tiller_pods)
 end
@@ -41,7 +39,6 @@ def output_helm2_object_data(tiller_pods)
     .map { |pod| pod.dig("metadata", "namespace") }
     .sort
     .uniq
-
 
   tiller_pod_namespaces.each do |ns|
     helm2_deprecated_objects(ns).each do |obj|
