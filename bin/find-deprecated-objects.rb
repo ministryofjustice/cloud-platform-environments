@@ -64,7 +64,7 @@ end
 
 def helm2_deprecated_objects(namespace)
   # NB: takes approx 40 seconds to run
-  cmd = %(pluto detect-helm --namespace #{namespace} --helm-version 2 -o json)
+  cmd = pluto_command(namespace, "2")
   parsed_json_output(cmd).fetch("items", []).map do |obj|
     # 'name' is often something like "check-financial-eligibility/check-financial-eligibility"
     # so if it matches that pattern, simplify it.
@@ -78,6 +78,10 @@ def helm2_deprecated_objects(namespace)
       kind: obj.dig("api", "kind"),
     }
   end
+end
+
+def pluto_command(namespace, helm_version)
+  %(pluto detect-helm --namespace #{namespace} --helm-version #{helm_version} -o json)
 end
 
 def tiller?(pod)
