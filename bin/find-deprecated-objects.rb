@@ -15,7 +15,6 @@ OBJECT_TYPES = %w[
   Ingress
   NetworkPolicy
   PodSecurityPolicy
-  ReplicaSet
 ].join(",")
 
 DEPRECATED_API_VERSIONS = %w[extensions/v1beta1 apps/v1beta1 apps/v1beta2]
@@ -79,20 +78,22 @@ end
 
 def deprecated_api_objects
   # NB: double backslashes, compared to running the command from a terminal
-  cmd = %(
-    kubectl get #{OBJECT_TYPES} --all-namespaces
-    -o 'jsonpath={range.items[*]}{.metadata.annotations.kubectl\\.kubernetes\\.io/last-applied-configuration}{"\\n"}{end}'
-  ).tr("\n", " ").strip
+  cmd = "kubectl get #{OBJECT_TYPES} --all-namespaces -o json"
 
   stdout, _, _ = Open3.capture3(cmd)
-  # stdout = File.read("objects.json")
 
-  objects = stdout.split("\n").map { |line|
-    next if line == ""
-    JSON.parse(line)
-  }.compact
+  JSON.parse(stdout).fetch("items")
+    .filter { |obj| uses_deprecated_apis?(obj) }
+end
 
-  objects.filter { |obj| DEPRECATED_API_VERSIONS.include?(obj.fetch("apiVersion")) }
+def uses_deprecated_apis?(obj)
+  api_version = last_applied_api_version(obj) || obj.fetch("apiVersion")
+  DEPRECATED_API_VERSIONS.include?(api_version)
+end
+
+def last_applied_api_version(obj)
+  json = obj.dig("metadata", "annotations", "kubectl.kubernetes.io/last-applied-configuration")
+  json.nil? ? false : JSON.parse(json).fetch("apiVersion")
 end
 
 # Given a hash representing a kubernetes object, return a csv of the fields we
