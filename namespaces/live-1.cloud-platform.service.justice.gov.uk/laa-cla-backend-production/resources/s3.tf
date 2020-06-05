@@ -93,7 +93,6 @@ EOF
 
 module "cla_backend_static_files_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
-  acl    = "private"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -152,5 +151,6 @@ resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
     deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
     deleted_objects_bucket_name = module.cla_backend_deleted_objects_bucket.bucket_name
     static_files_bucket_name    = module.cla_backend_static_files_bucket.bucket_name
+    static_files_bucket_arn    = module.cla_backend_static_files_bucket.bucket_arn
   }
 }
