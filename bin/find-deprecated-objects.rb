@@ -30,7 +30,7 @@ def main
 
 
   # TODO filter for tiller < 2.16.3
-  tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items")
+  tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
     .filter { |pod| tiller?(pod) }
     .map { |pod| puts tiller_csv(pod, namespaces) }
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
@@ -52,14 +52,14 @@ end
 def namespace_details
   # build a hash of namespaces & their github repos
   rtn = parsed_json_output("kubectl get namespaces -o json")
-    .fetch("items").each_with_object({}) { |ns, hash|
+    .fetch("items", []).each_with_object({}) { |ns, hash|
       name = ns.dig("metadata", "name")
       repo = ns.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/source-code")
       hash[name] = {repo: repo}
     }
 
   # add owning teams, from rolebindings
-  parsed_json_output("kubectl get rolebindings --all-namespaces -o json").fetch("items").each do |rb|
+  parsed_json_output("kubectl get rolebindings --all-namespaces -o json").fetch("items", []).each do |rb|
     namespace = rb.dig("metadata", "namespace")
     team = rb.fetch("subjects").first.fetch("name")
     if /github:/.match?(team)
@@ -74,7 +74,7 @@ def deprecated_api_objects
   # NB: double backslashes, compared to running the command from a terminal
   cmd = "kubectl get #{OBJECT_TYPES} --all-namespaces -o json"
 
-  parsed_json_output(cmd).fetch("items")
+  parsed_json_output(cmd).fetch("items", [])
     .filter { |obj| last_applied_api_version(obj) }
     .filter { |obj| uses_deprecated_apis?(obj) }
 end
