@@ -83,11 +83,12 @@ def deprecated_api_objects
   stdout, _, _ = Open3.capture3(cmd)
 
   JSON.parse(stdout).fetch("items")
+    .filter { |obj| last_applied_api_version(obj) }
     .filter { |obj| uses_deprecated_apis?(obj) }
 end
 
 def uses_deprecated_apis?(obj)
-  api_version = last_applied_api_version(obj) || obj.fetch("apiVersion")
+  api_version = last_applied_api_version(obj)
   DEPRECATED_API_VERSIONS.include?(api_version)
 end
 
