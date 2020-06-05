@@ -95,7 +95,6 @@ EOF
 
 module "cla_backend_static_files_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
-  acl    = "private"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -107,35 +106,6 @@ module "cla_backend_static_files_bucket" {
   providers = {
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*"
-    ]
-  }
-]
-}
-EOF
 
 }
 
@@ -154,5 +124,6 @@ resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
     deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
     deleted_objects_bucket_name = module.cla_backend_deleted_objects_bucket.bucket_name
     static_files_bucket_name    = module.cla_backend_static_files_bucket.bucket_name
+    static_files_bucket_arn     = module.cla_backend_static_files_bucket.bucket_arn
   }
 }
