@@ -32,8 +32,48 @@ def main
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
     .filter { |pod| tiller?(pod) }
-    .map { |pod| puts tiller_csv(pod, namespaces) }
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
+  output_helm2_object_data(tiller_pods)
+end
+
+def output_helm2_object_data(tiller_pods)
+  tiller_pod_namespaces = tiller_pods
+    .map { |pod| pod.dig("metadata", "namespace") }
+    .sort
+    .uniq
+
+
+  tiller_pod_namespaces.each do |ns|
+    helm2_deprecated_objects(ns).each do |obj|
+      team, repo = namespace_team_repo(obj[:namespace], namespaces)
+      puts [
+        obj[:kind],
+        obj[:api_version],
+        obj[:name],
+        obj[:namespace],
+        team,
+        repo
+      ].join(", ")
+    end
+  end
+end
+
+def helm2_deprecated_objects(namespace)
+  # NB: takes approx 40 seconds to run
+  cmd = %(pluto detect-helm --namespace #{namespace} --helm-version 2 -o json)
+  parsed_json_output(cmd).fetch("items", []).map do |obj|
+    # 'name' is often something like "check-financial-eligibility/check-financial-eligibility"
+    # so if it matches that pattern, simplify it.
+    name = obj.fetch("name")
+    /(.*)\/\1/.match(name) && name = $1
+
+    {
+      name: name,
+      namespace: obj.fetch("namespace"),
+      api_version: obj.dig("api", "version"),
+      kind: obj.dig("api", "kind"),
+    }
+  end
 end
 
 def tiller?(pod)
