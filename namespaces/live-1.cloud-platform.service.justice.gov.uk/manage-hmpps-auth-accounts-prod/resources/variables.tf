@@ -1,19 +1,13 @@
 variable "domain" {
-  default = "prisoner-offender-search.prison.service.justice.gov.uk"
+  default = "manage-hmpps-auth-accounts.prison.service.justice.gov.uk"
 }
 
 variable "application" {
-  default = "prisoner-offender-search"
+  default = "manage-hmpps-auth-accounts-prod"
 }
 
 variable "namespace" {
-  default = "prisoner-offender-search-prod"
-}
-
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
+  default = "manage-hmpps-auth-accounts-prod"
 }
 
 variable "business-unit" {
@@ -23,12 +17,12 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps"
+  default     = "Digital Prison Services"
 }
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "prod"
+  default     = "preprod"
 }
 
 variable "infrastructure-support" {
@@ -36,7 +30,14 @@ variable "infrastructure-support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "node-type" {
+  default = "cache.t2.small"
+}
+
 variable "is-production" {
   default = "true"
 }
-
