@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "prison-to-nhs-update-prod"
+  default = "prisoner-offender-search-prod"
 }
 
 variable "cluster_name" {
