@@ -5,6 +5,8 @@
 #
 # https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 # https://www.ibm.com/cloud/blog/announcements/kubernetes-version-1-16-removes-deprecated-apis
+#
+# Requires [pluto](https://github.com/FairwindsOps/pluto)
 
 require "json"
 require "open3"
