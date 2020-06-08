@@ -2,9 +2,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   labels:
-    app: manage-hmpps-auth-accounts-prod
+    app: prisoner-offender-search-prod
   name: dps-prometheus-rules
-  namespace: manage-hmpps-auth-accounts-prod
+  namespace: prisoner-offender-search-prod
 spec:
   groups:
   - name: DPS-apps
