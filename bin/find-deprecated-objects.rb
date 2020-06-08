@@ -33,7 +33,7 @@ def main
     .filter { |pod| tiller?(pod) }
 
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
-  output_helm2_object_data(tiller_pods)
+  output_helm2_object_data(tiller_pods, namespaces)
   output_helm3_object_data(namespaces)
 end
 
@@ -49,7 +49,7 @@ def output_helm3_object_data(namespaces)
   end
 end
 
-def output_helm2_object_data(tiller_pods)
+def output_helm2_object_data(tiller_pods, namespaces)
   tiller_pod_namespaces = tiller_pods
     .map { |pod| pod.dig("metadata", "namespace") }
     .sort
