@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "prisoner-offender-search-prod.prison.service.justice.gov.uk"
+  default = "prisoner-offender-search.prison.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "prisoner-offender-search-prod"
+  default = "prison-to-nhs-update-prod"
 }
 
 variable "cluster_name" {
