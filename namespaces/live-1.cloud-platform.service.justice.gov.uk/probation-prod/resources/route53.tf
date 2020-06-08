@@ -18,7 +18,7 @@ resource "kubernetes_secret" "probation" {
   }
 
   data = {
-    zone_id   = aws_route53_zone.probation.zone_id
+    zone_id = aws_route53_zone.probation.zone_id
   }
 }
 
