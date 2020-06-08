@@ -14,7 +14,7 @@ resource "aws_route53_zone" "probation" {
 resource "kubernetes_secret" "probation" {
   metadata {
     name      = "probation-zone-output"
-    namespace = "probation-production"
+    namespace = "probation-prod"
   }
 
   data = {
