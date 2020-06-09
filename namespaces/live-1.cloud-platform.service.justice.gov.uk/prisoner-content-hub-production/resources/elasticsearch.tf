@@ -10,5 +10,5 @@ module "content_hub_elasticsearch" {
   team_name              = var.team_name
   elasticsearch-domain   = "prisoner-content-hub-search"
   namespace              = var.namespace
-  elasticsearch_version  = "5.6"
+  elasticsearch_version  = "7.1"
 }
