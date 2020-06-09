@@ -13,8 +13,8 @@ module "drupal_rds" {
   db_engine         = "mariadb"
   db_engine_version = "10.4"
 
-  # We need to explicitly set this to an empty list, otherwise the module will
-  # add `rds.force_ssl`, which MariaDB doesn't support
+  # We need to explicitly set this to an empty list, otherwise the module 
+  # will add `rds.force_ssl`, which MariaDB doesn't support
   db_parameter = []
 }
 
