@@ -97,7 +97,7 @@ EOF
 
 module "cla_backend_static_files_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
-
+  acl                    = "public-read"
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
@@ -108,11 +108,10 @@ module "cla_backend_static_files_bucket" {
   providers = {
     aws = aws.london
   }
-
 }
 
 
-resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
+resource "kubernetes_secret" "cla_backend_s3" {
   metadata {
     name      = "s3"
     namespace = var.namespace
