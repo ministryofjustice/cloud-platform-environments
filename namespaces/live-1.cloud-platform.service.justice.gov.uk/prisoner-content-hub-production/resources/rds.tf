@@ -15,7 +15,7 @@ module "drupal_rds" {
 
   # We need to explicitly set this to an empty list, otherwise the module will
   # add `rds.force_ssl`, which MariaDB doesn't support
-  db_parameter      = []
+  db_parameter = []
 }
 
 resource "kubernetes_secret" "drupal_rds" {
