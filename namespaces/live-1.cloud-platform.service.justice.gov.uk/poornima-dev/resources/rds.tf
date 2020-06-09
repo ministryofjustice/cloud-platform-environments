@@ -31,7 +31,7 @@ module "poornima_test_postgres_rds" {
     {
       name         = "rds.force_ssl"
       value        = "true"
-      apply_method = "pending_reboot"
+      apply_method = "pending-reboot"
     }
   ]
 
