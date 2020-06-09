@@ -7,14 +7,14 @@ module "poornima_test_postgres_rds" {
   team_name            = "Cloud Platform"
   business-unit        = "MOJ Digital"
   application          = "testapp"
-  is-production        = "false" 
+  is-production        = "false"
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name             = "poornima-pg-rds" 
+  rds_name = "poornima-pg-rds"
 
   # enable performance insights
-  performance_insights_enabled = true  
+  performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "10"
@@ -27,13 +27,13 @@ module "poornima_test_postgres_rds" {
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate). 
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  db_parameter = [ 
-    { 
-      name = "rds.force_ssl" 
-      value = "true" 
-      apply_method = "pending_reboot" 
-      } 
-    ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "true"
+      apply_method = "pending_reboot"
+    }
+  ]
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
