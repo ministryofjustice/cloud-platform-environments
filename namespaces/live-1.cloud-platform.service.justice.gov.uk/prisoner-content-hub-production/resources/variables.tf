@@ -10,14 +10,21 @@ variable "namespace" {
   default = "prisoner-content-hub-production"
 }
 
+# this is injected by Cloud Platform automatically so we do not need to populate it here
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
 
 variable "team_name" {
-  description = "The name of your development team"
-  default     = "Prisoner Facing Services"
+  description = "DNS compliant name of the development team"
+  default     = "prisoner-facing-services"
 }
 
 variable "environment-name" {
