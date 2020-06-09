@@ -51,13 +51,13 @@ resource "kubernetes_secret" "poornima_test_pg_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.poornima_test_pg_rds.rds_instance_endpoint
-    database_name         = module.poornima_test_pg_rds.database_name
-    database_username     = module.poornima_test_pg_rds.database_username
-    database_password     = module.poornima_test_pg_rds.database_password
-    rds_instance_address  = module.poornima_test_pg_rds.rds_instance_address
-    access_key_id         = module.poornima_test_pg_rds.access_key_id
-    secret_access_key     = module.poornima_test_pg_rds.secret_access_key
+    rds_instance_endpoint = module.poornima_test_postgres_rds.rds_instance_endpoint
+    database_name         = module.poornima_test_postgres_rds.database_name
+    database_username     = module.poornima_test_postgres_rds.database_username
+    database_password     = module.poornima_test_postgres_rds.database_password
+    rds_instance_address  = module.poornima_test_postgres_rds.rds_instance_address
+    access_key_id         = module.poornima_test_postgres_rds.access_key_id
+    secret_access_key     = module.poornima_test_postgres_rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
