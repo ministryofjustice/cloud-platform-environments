@@ -8,7 +8,7 @@ module "content_hub_elasticsearch" {
   infrastructure-support = var.infrastructure-support
   is-production          = var.is-production
   team_name              = var.team_name
-  elasticsearch-domain   = "prisoner-content-hub-search"
+  elasticsearch-domain   = "hub-search"
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
 }
