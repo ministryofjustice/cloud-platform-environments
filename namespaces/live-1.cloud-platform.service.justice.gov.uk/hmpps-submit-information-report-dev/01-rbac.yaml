@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-submit-information-report-dev
 subjects:
   - kind: Group
-    name: "github:dps-hmpps-submit-information-report-tech"
+    name: "github:dps-soct-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
