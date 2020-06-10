@@ -10,14 +10,24 @@ variable "namespace" {
   default = "prisoner-content-hub-production"
 }
 
+# this is injected by Cloud Platform automatically so we do not need to populate it here
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
 
+# We chose pfs because this variable is used to create domain names for resources
+# e.g. ElasticSearch. When concatenated with the environment name and unique name,
+# this only leaves a handful of characters for the team_name.
 variable "team_name" {
-  description = "The name of your development team"
-  default     = "Prisoner Facing Services"
+  description = "DNS compliant name of the development team"
+  default     = "pfs"
 }
 
 variable "environment-name" {
