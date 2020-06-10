@@ -22,9 +22,12 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
+# We chose pfs because this variable is used to create domain names for resources
+# e.g. ElasticSearch. When concatenated with the environment name and unique name,
+# this only leaves a handful of characters for the team_name.
 variable "team_name" {
   description = "DNS compliant name of the development team"
-  default     = "prisoner-facing-services"
+  default     = "pfs"
 }
 
 variable "environment-name" {
