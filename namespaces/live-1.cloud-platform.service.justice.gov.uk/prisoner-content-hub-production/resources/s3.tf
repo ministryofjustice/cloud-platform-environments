@@ -8,6 +8,12 @@ module "drupal_content_storage" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+
+  # S3 was provisioned before we changed the default region to London
+  # so if this isn't set we get a 301 error when it tries to rebuild it
+  providers = {
+    aws = aws.ireland
+  }
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
