@@ -109,7 +109,7 @@ module "cla_backend_static_files_bucket" {
     aws = aws.london
   }
   cors_rule = [
-      {
+    {
       allowed_headers = ["*"]
       allowed_methods = ["GET"]
       allowed_origins = ["https://*.apps.live-1.cloud-platform.service.justice.gov.uk"]
