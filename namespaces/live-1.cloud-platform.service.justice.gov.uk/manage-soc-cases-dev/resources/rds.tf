@@ -27,7 +27,7 @@ module "dps_rds" {
   }
 }
 
-data "aws_iam_policy_document" "hmpps_socu_dev_rds_to_s3_export_policy" {
+data "aws_iam_policy_document" "manage_soc_cases_dev_rds_to_s3_export_policy" {
 
   statement {
     sid = "AllowRdsExportUserToListS3Buckets"
@@ -51,17 +51,17 @@ data "aws_iam_policy_document" "hmpps_socu_dev_rds_to_s3_export_policy" {
     ]
 
     resources = [
-      "${module.hmpps_socu_rds_to_s3_bucket.bucket_arn}",
-      "${module.hmpps_socu_rds_to_s3_bucket.bucket_arn}/*",
-      "arn:aws:s3:::mojap-land/hmpps/socu/",
-      "arn:aws:s3:::mojap-land/hmpps/socu/*"
+      "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}",
+      "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}/*",
+      "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/",
+      "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/*"
     ]
   }
 }
 
 resource "aws_iam_user" "user" {
-  name = "hmpps-socu-rds-to-s3-snapshots-user-${random_id.id.hex}"
-  path = "/system/hmpps-socu-rds-to-s3-snapshots-user/"
+  name = "manage_soc_cases-rds-to-s3-snapshots-user-${random_id.id.hex}"
+  path = "/system/manage-soc-cases-rds-to-s3-snapshots-user/"
 }
 
 resource "aws_iam_access_key" "user" {
@@ -69,8 +69,8 @@ resource "aws_iam_access_key" "user" {
 }
 
 resource "aws_iam_user_policy" "policy" {
-  name   = "hmpps-socu-rds-to-s3-snapshots-read-write"
-  policy = data.aws_iam_policy_document.hmpps_socu_dev_rds_to_s3_export_policy.json
+  name   = "manage-soc-cases-rds-to-s3-snapshots-read-write"
+  policy = data.aws_iam_policy_document.manage_soc_cases_dev_rds_to_s3_export_policy.json
   user   = aws_iam_user.user.name
 }
 

@@ -1,9 +1,9 @@
 variable "application" {
-  default = "hmpps-socu"
+  default = "manage-soc-cases"
 }
 
 variable "namespace" {
-  default = "hmpps-socu-dev"
+  default = "manage-soc-cases-dev"
 }
 
 variable "business-unit" {

@@ -1,8 +1,8 @@
 ################################################################################
-# Pathfinder Application Elasticache for ReDiS
+# Manage SOC cases Application Elasticache for ReDiS
 ################################################################################
 
-module "hmpps_socu_elasticache_redis" {
+module "manage_soc_cases_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -21,16 +21,16 @@ module "hmpps_socu_elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_socu_elasticache_redis" {
+resource "kubernetes_secret" "manage_soc_cases_elasticache_redis" {
   metadata {
-    name      = "hmpps-socu-elasticache-redis"
+    name      = "manage-soc-cases-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.hmpps_socu_elasticache_redis.primary_endpoint_address
-    auth_token               = module.hmpps_socu_elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.hmpps_socu_elasticache_redis.member_clusters)
+    primary_endpoint_address = module.manage_soc_cases_elasticache_redis.primary_endpoint_address
+    auth_token               = module.manage_soc_cases_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.manage_soc_cases_elasticache_redis.member_clusters)
   }
 }
 

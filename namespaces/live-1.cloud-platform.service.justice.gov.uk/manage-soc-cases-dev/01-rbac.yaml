@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-socu-dev-admin
-  namespace: hmpps-socu-dev
+  name: manage-soc-cases-dev-admin
+  namespace: manage-soc-cases-dev
 subjects:
   - kind: Group
     name: "github:dps-pathfinder-tech"

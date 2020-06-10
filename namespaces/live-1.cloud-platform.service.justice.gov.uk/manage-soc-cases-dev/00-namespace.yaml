@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hmpps-socu-dev
+  name: manage-soc-cases-dev
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "dev"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/application: "hmpps-socu"
+    cloud-platform.justice.gov.uk/application: "manage-soc-cases"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-socu.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-soc-cases.git"
