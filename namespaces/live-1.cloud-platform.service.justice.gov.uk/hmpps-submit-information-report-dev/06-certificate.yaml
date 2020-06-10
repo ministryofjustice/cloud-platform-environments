@@ -1,0 +1,13 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: dev.hmpps-submit-information-report.service.justice.gov.uk
+  namespace: hmpps-submit-information-report-dev
+spec:
+  secretName: hmpps-submit-information-report-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-submit-information-report.service.justice.gov.uk
