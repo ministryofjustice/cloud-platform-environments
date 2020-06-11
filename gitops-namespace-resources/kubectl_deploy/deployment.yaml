@@ -5,6 +5,9 @@ metadata:
   namespace: ${namespace}
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: helloworld-rubyapp
   template:
     metadata:
       labels:
