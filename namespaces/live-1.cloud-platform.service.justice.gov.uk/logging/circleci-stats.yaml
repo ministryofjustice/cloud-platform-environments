@@ -5,6 +5,9 @@ metadata:
   namespace: logging
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: circleci-stats
   template:
     metadata:
       labels:
