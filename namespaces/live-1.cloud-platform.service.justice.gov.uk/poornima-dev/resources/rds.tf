@@ -85,16 +85,6 @@ module "poornima_test_postgres_rds_read_replica" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres10"
-
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate). 
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "true"
-      apply_method = "immediate"
-    }
-  ]
   
   # replicate_source_db = module.poornima_test_postgres_rds.db_identifier
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
