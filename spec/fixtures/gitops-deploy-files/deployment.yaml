@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helloworld-rubyapp
   namespace: make-gitops-namespace-test-dev
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: helloworld-rubyapp
   template:
     metadata:
       labels:
