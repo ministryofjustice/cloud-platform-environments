@@ -60,7 +60,6 @@ resource "kubernetes_secret" "poornima_test_pg_rds" {
      */
 }
 
-
 module "poornima_test_postgres_rds_read_replica" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance"
   cluster_name         = var.cluster_name
@@ -72,7 +71,7 @@ module "poornima_test_postgres_rds_read_replica" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name = "poornima-pg-rds"
+  rds_name = "poornima-pg-rds-read-replica"
 
   # enable performance insights
   performance_insights_enabled = true
@@ -98,7 +97,7 @@ module "poornima_test_postgres_rds_read_replica" {
 
 resource "kubernetes_secret" "poornima_test_pg_rds_read_replica" {
   metadata {
-    name      = "poornima-test-pg-rds-instance-output"
+    name      = "poornima-test-pg-rds-read-replica-instance-output"
     namespace = "poornima-dev"
   }
 
