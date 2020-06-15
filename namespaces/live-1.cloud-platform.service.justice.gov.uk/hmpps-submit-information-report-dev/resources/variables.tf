@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "hmpps-submit-information-report-dev.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "hmpps-submit-information-report"
 }
