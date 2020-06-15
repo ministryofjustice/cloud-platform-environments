@@ -10,7 +10,7 @@ module "prisoner_offender_search_es" {
   team_name                  = var.team_name
   elasticsearch-domain       = "prisoner-search"
   namespace                  = var.namespace
-  elasticsearch_version      = "7.1"
+  elasticsearch_version      = "7.4"
   aws-es-proxy-replica-count = 2
   instance_type              = "t2.medium.elasticsearch"
 }
