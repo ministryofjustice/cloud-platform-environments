@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-# concourse pipleline "destroy-deleted-namespaces" run this script to detect deleted namespaces 
-# and delete all AWS resources belonging to the deleted namespace, 
+# concourse pipleline "destroy-deleted-namespaces" run this script to detect deleted namespaces
+# and delete all AWS resources belonging to the deleted namespace,
 # and will then delete the namespace itself from the live-1 cluster.
 #
 # The script requires the following environment variables:
@@ -24,7 +24,6 @@
 #   export KUBE_CONFIG=/tmp/kubeconfig
 #   export KUBE_CTX=live-1.cloud-platform.service.justice.gov.uk
 
-
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 def main(cluster)
@@ -39,10 +38,10 @@ def main(cluster)
         - #{namespaces.join("\n  - ")}
   
     EOF
-  
+
     puts msg
     deleted_namespaces(cluster).each do |namespace|
-        CpEnv::NamespaceDeleter.new(namespace: namespace).delete
+      CpEnv::NamespaceDeleter.new(namespace: namespace).delete
     end
 
   else
