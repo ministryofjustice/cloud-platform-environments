@@ -12,4 +12,5 @@ module "prisoner_offender_search_es" {
   namespace                  = var.namespace
   elasticsearch_version      = "7.1"
   aws-es-proxy-replica-count = 2
+  instance_type              = "t2.medium.elasticsearch"
 }
