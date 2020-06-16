@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: prepareacase.probation.service.justice.gov.uk
+  name: prepare-case-probation.service.justice.gov.uk
   namespace: prepare-a-case-prod
 spec:
   secretName: prepare-a-case-cert
@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prepareacase.probation.service.justice.gov.uk
+    - prepare-case-probation.service.justice.gov.uk

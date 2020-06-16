@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "prepare-case-probation.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "prepare-a-case"
 }
