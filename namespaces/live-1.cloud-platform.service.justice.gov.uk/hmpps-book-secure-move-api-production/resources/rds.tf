@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.5"
 
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
@@ -9,6 +9,14 @@ module "rds-instance" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds-instance" {
