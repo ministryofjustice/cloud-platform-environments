@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-# This script takes a action and option
-# act: list, update
+# This script takes two inputs, `action` and `option`
+# action: list, replace
 # option: force_ssl_true, force_ssl_false, apply_pending_reboot
 # 
-# This script can do 2 things based on the action
+# This script can do 2 things based on the `action`
 # - list all terraform files inside all directories inside NAMESPACE_DIR
 #    which has force_ssl = "true", force_ssl = "false" or apply_method = "pending-reboot"
 # - Replace all terraform files inside all directories inside NAMESPACE_DIR which has
@@ -24,9 +24,9 @@ DB_PARAMETER_FALSE = 'db_parameter = [{ name = \"rds.force_ssl\", value = \"0\",
 DB_PARAMETER_TRUE = 'db_parameter = [{ name = \"rds.force_ssl\", value = \"1\", apply_method = \"pending-reboot\" } ]'
 
 
-def main(act, option)
+def main(action, option)
   checkout_master
-  case act
+  case action
   when "list"
     namespaces.each { |ns| puts list_ns_force_ssl(ns,option) }
   when "replace"
@@ -94,6 +94,5 @@ def tfdir(namespace)
 end
 
 ############################################################
-# a = force_ssl = true, b = force_ssl = "true", c = force_ssl = "false"
-act, option = ARGV
-main(act,option)
+action, option = ARGV
+main(action,option)
