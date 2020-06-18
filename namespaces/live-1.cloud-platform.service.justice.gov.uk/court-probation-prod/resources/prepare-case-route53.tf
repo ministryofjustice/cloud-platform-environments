@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "route53_zone" {
-  name = var.domain
+  name = var.prepare-case-domain
 
   tags = {
     business-unit          = var.business-unit

@@ -1,5 +1,9 @@
-variable "domain" {
+variable "prepare-case-domain" {
   default = "prepare-case-probation.service.justice.gov.uk"
+}
+
+variable "crime-portal-mirror-gateway-domain" {
+  default = "crime-portal-mirror-gateway-probation.service.justice.gov.uk"
 }
 
 variable "application" {
