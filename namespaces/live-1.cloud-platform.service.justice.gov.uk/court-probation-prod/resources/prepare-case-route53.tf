@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "route53_zone" {
+resource "aws_route53_zone" "prepare_case_route53_zone" {
   name = var.prepare-case-domain
 
   tags = {
@@ -11,7 +11,7 @@ resource "aws_route53_zone" "route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "route53_zone_sec" {
+resource "kubernetes_secret" "prepare_case_route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
     namespace = var.namespace
