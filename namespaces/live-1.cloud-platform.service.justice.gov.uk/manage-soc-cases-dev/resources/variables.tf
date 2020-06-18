@@ -2,6 +2,10 @@ variable "application" {
   default = "manage-soc-cases"
 }
 
+variable "domain" {
+  default = "manage-soc-cases-dev.service.justice.gov.uk"
+}
+
 variable "namespace" {
   default = "manage-soc-cases-dev"
 }
