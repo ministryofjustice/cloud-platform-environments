@@ -10,7 +10,7 @@
 # - Replace all terraform files inside all directories inside NAMESPACE_DIR which has
 #    force_ssl = "true" to remove that line
 #    force_ssl = "false" to 'db_parameter = [{ name = \"rds.force_ssl\", value = \"0\", apply_method = \"immediate\" } ]'
-#    apply_method = "pending-reboot" to 'db_parameter = [{ name = \"rds.force_ssl\", value = \"1\", apply_method = \"immediate\" } ]' 
+#    apply_method = "pending-reboot" to 'db_parameter = [{ name = \"rds.force_ssl\", value = \"1\", apply_method = \"immediate\" } ]'
 
 require "open3"
 require "yaml"
@@ -28,12 +28,11 @@ def main(action, option)
   checkout_master
   case action
   when "list"
-    namespaces.each { |ns| puts list_ns_force_ssl(ns,option) }
+    namespaces.each { |ns| puts list_ns_force_ssl(ns, option) }
   when "replace"
-    namespaces.each { |ns| puts update_ns_force_ssl(ns,option) }
+    namespaces.each { |ns| puts update_ns_force_ssl(ns, option) }
   end
 end
-
 
 def checkout_master
   execute "git checkout master"
@@ -52,7 +51,7 @@ end
 def list_ns_force_ssl(namespace, option)
   case option
   when "force_ssl_true"
-    stdout, _stderr, _status  = Open3.capture3("egrep -l 'force_ssl.*=.*true.*' #{tfdir(namespace)}/*")
+    stdout, _stderr, _status = Open3.capture3("egrep -l 'force_ssl.*=.*true.*' #{tfdir(namespace)}/*")
     stdout.split("\n")
   when "force_ssl_false"
     stdout, _stderr, _status = Open3.capture3("egrep -l 'force_ssl.*=.*false.*' #{tfdir(namespace)}/*")
@@ -64,12 +63,12 @@ def list_ns_force_ssl(namespace, option)
 end
 
 # Return an array of lines, one for each module resource defined in the
-# namespace resources folder which has 
+# namespace resources folder which has
 # strings mentioned in the egrep and replace with the respective replacement required
 def update_ns_force_ssl(namespace, option)
   case option
   when "force_ssl_true"
-    stdout, _stderr, _status  = Open3.capture3("egrep -l 'force_ssl.*=.*true.*' #{tfdir(namespace)}/*")
+    stdout, _stderr, _status = Open3.capture3("egrep -l 'force_ssl.*=.*true.*' #{tfdir(namespace)}/*")
     if stdout != ""
       `sed -i '' "s/force_ssl.*=.*true.*/ /" #{stdout}`
     end
