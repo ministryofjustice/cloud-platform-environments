@@ -12,12 +12,12 @@ resource "aws_route53_zone" "route53_zone" {
 }
 
 resource "kubernetes_secret" "route53_zone_sec" {
-  metadata {  
+  metadata {
     name      = "route53-zone-output"
     namespace = var.namespace
   }
-  
-  data = {    
+
+  data = {
     zone_id = aws_route53_zone.route53_zone.zone_id
   }
 }
