@@ -10,6 +10,10 @@ variable "is-production" {
   default = "false"
 }
 
+variable "is-test" {
+  default = "false"
+}
+
 variable "infrastructure-support" {
   default = "test"
 }
