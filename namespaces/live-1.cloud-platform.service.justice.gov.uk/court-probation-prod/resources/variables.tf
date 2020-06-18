@@ -1,5 +1,9 @@
+variable "domain" {
+  default = "prepare-case-probation.service.justice.gov.uk"
+}
+
 variable "application" {
-  default = "court-case-service"
+  default = "prepare-a-case"
 }
 
 variable "namespace" {
@@ -13,7 +17,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "probation-services"
+  default     = "Probation in court"
 }
 
 variable "environment-name" {
