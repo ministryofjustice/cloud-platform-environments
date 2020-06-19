@@ -13,7 +13,7 @@ resource "aws_route53_zone" "crime_portal_mirror_gateway_route53_zone" {
 
 resource "kubernetes_secret" "crime_portal_mirror_gateway_route53_zone_sec" {
   metadata {
-    name      = "route53-zone-output"
+    name      = "crime-portal-mirror-gateway-route53-zone-output"
     namespace = var.namespace
   }
 

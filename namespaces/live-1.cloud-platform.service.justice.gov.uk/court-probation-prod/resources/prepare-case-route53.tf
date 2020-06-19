@@ -13,7 +13,7 @@ resource "aws_route53_zone" "prepare_case_route53_zone" {
 
 resource "kubernetes_secret" "prepare_case_route53_zone_sec" {
   metadata {
-    name      = "route53-zone-output"
+    name      = "prepare-case-route53-zone-output"
     namespace = var.namespace
   }
 
