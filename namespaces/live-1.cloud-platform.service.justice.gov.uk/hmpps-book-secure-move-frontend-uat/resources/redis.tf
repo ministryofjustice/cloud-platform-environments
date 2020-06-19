@@ -19,7 +19,7 @@ module "redis-elasticache" {
 
 resource "kubernetes_secret" "redis-elasticache" {
   metadata {
-    name      = "elasticache-hmpps-book-secure-move-frontend-${var.namespace}"
+    name      = "elasticache-hmpps-book-secure-move-frontend-${var.environment-name}"
     namespace = var.namespace
   }
 
