@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "court_case_service_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
@@ -14,7 +14,7 @@ module "court_case_service_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
-  force_ssl              = "true"
+
 
   providers = {
     aws = aws.london
