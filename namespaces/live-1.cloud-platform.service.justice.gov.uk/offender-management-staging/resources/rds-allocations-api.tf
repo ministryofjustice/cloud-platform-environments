@@ -17,7 +17,7 @@ variable "cluster_state_bucket" {
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -30,7 +30,7 @@ module "allocation-rds" {
   db_engine              = "postgres"
   db_engine_version      = "10"
   db_name                = "allocations"
-  force_ssl              = "false"
+  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {
     aws = aws.london
