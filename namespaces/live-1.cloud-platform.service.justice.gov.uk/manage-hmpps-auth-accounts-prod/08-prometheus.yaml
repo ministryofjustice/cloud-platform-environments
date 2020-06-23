@@ -9,6 +9,15 @@ spec:
   groups:
   - name: DPS-apps
     rules:
+    - alert: ModSecurityBlocking
+      annotations:
+        message: modsecurity is blocking ingress {{ $labels.ingress }}
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="manager-hmpps-auth-accounts-prod", status="406"}[1m]) * 60 > 0) by (ingress)
+      for: 1m
+      labels:
+        severity: digital-prison-service
     - alert: ErrorResponses
       annotations:
         message: ingress {{ $labels.ingress }} is serving 5XX responses
