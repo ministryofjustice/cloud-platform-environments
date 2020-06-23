@@ -18,6 +18,6 @@ resource "kubernetes_secret" "crime_portal_mirror_gateway_route53_zone_sec" {
   }
 
   data = {
-    zone_id = aws_route53_zone.route53_zone.zone_id
+    sone_id = aws_route53_zone.crime_portal_mirror_gateway_route53_zone.zone_id
   }
 }

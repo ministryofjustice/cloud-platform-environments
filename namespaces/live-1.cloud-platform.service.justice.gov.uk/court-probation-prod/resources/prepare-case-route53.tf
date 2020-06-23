@@ -18,6 +18,6 @@ resource "kubernetes_secret" "prepare_case_route53_zone_sec" {
   }
 
   data = {
-    zone_id = aws_route53_zone.route53_zone.zone_id
+    zone_id = aws_route53_zone.prepare_case_route53_zone.zone_id
   }
 }
