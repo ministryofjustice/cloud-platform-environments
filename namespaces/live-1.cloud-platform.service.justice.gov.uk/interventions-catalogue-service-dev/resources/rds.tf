@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "interventions_catalogue_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
@@ -15,8 +15,8 @@ module "interventions_catalogue_rds" {
   db_engine_version      = "11.6"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  force_ssl              = "true"
-  rds_family             = "postgres11"
+
+  rds_family = "postgres11"
 
   providers = {
     aws = aws.london
