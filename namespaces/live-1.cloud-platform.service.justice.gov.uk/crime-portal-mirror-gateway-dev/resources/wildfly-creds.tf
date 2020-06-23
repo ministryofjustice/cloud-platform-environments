@@ -15,7 +15,7 @@ resource "kubernetes_secret" "pict_cpmg_wildfly_credentials" {
   }
 
   data = {
-    admin          = "appuser"
+    adminuser      = "adminuser"
     owner-password = random_password.adminuser_password.result
     jmsuser        = "jmsuser"
     user-password  = random_password.jmsuser_password.result
