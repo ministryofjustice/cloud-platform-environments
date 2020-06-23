@@ -10,7 +10,7 @@ resource "random_password" "jmsuser_password" {
 
 resource "kubernetes_secret" "pict_cpmg_wildfly_credentials" {
   metadata {
-    name      = "pict_cpmg_wildfly_credentials"
+    name      = "pict-cpmg-wildfly-credentials"
     namespace = "crime-portal-mirror-gateway-dev"
   }
 
