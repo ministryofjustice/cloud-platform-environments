@@ -98,6 +98,7 @@ EOF
 module "cla_backend_static_files_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
 
+  acl                    = "public-read"
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
@@ -108,7 +109,15 @@ module "cla_backend_static_files_bucket" {
   providers = {
     aws = aws.london
   }
-
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["https://laa-cla-backend-production.apps.live-1.cloud-platform.service.justice.gov.uk", "https://fox.civillegaladvice.service.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    }
+  ]
 }
 
 
