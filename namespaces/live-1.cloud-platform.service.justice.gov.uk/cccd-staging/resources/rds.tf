@@ -6,7 +6,7 @@
  */
 
 module "cccd_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name                = var.cluster_name
   cluster_state_bucket        = var.cluster_state_bucket
   team_name                   = var.team_name
@@ -20,7 +20,7 @@ module "cccd_rds" {
   db_engine_version           = "9.6"
   rds_family                  = "postgres9.6"
   allow_major_version_upgrade = "true"
-  force_ssl                   = "false"
+  db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
