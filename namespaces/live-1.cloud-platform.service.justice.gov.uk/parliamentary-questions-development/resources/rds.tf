@@ -14,7 +14,7 @@ module "rds_instance" {
   infrastructure-support     = var.infrastructure-support
   is-production              = var.is-production
   rds_family                 = "postgres11"
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   team_name                  = var.team_name
 }
 
