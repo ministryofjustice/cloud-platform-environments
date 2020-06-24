@@ -49,7 +49,12 @@ module "rds-read-replica" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
 
+  db_name             = module.rds-instance.database_name
   replicate_source_db = module.rds-instance.db_identifier
+
+  # Set to true for replica database. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
