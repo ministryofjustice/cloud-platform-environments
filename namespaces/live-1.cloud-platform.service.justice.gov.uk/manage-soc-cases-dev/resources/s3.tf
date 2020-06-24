@@ -1,5 +1,5 @@
 module "manage_soc_cases_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -64,7 +64,7 @@ EOF
 }
 
 module "manage_soc_cases_rds_to_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

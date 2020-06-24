@@ -1,5 +1,5 @@
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
 
   team_name              = "laa-get-paid"
   business-unit          = "legal-aid-agency"
