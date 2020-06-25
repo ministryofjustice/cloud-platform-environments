@@ -9,13 +9,20 @@ spec:
   groups:
   - name: DPS-apps
     rules:
+    - alert: RatelimitBlocking
+      annotations:
+        message: Rate limit is being applied on ingress {{ $labels.ingress }}
+        runbook_url: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#rate-limiting
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="manage-hmpps-auth-accounts-prod", status="429"}[1m]) * 60 > 0) by (ingress)
+      labels:
+        severity: digital-prison-service
     - alert: ModSecurityBlocking
       annotations:
         message: modsecurity is blocking ingress {{ $labels.ingress }}
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps
       expr: |-
         avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="manage-hmpps-auth-accounts-prod", status="406"}[1m]) * 60 > 0) by (ingress)
-      for: 1m
       labels:
         severity: digital-prison-service
     - alert: ErrorResponses
