@@ -100,7 +100,7 @@ resource "aws_sns_topic_subscription" "cfo_prison_subscription_perf" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
-  endpoint      = module.cfo_queue.sqs_arn
+  endpoint      = module.cfo_queue_perf.sqs_arn
   filter_policy = "{\"eventType\":[ \"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"OFFENDER_PROFILE_DETAILS-UPDATED\", \"ADDRESS-DELETED\", \"ADDRESS-UPDATED\", \"ALERT-DELETED\", \"ALERT-INSERTED\", \"ALERT-UPDATED\", \"BOOKING_NUMBER-CHANGED\", \"COURT_SENTENCE-CHANGED\", \"EXTERNAL_MOVEMENT_RECORD-DELETED\", \"EXTERNAL_MOVEMENT_RECORD-UPDATED\", \"IMPRISONMENT_STATUS-CHANGED\", \"OFFENDER_ADDRESS-DELETED\", \"OFFENDER_ADDRESS-UPDATED\", \"OFFENDER_ALIAS-CHANGED\", \"OFFENDER_BOOKING-CHANGED\", \"OFFENDER_BOOKING-INSERTED\", \"OFFENDER_BOOKING-REASSIGNED\", \"OFFENDER_DETAILS-CHANGED\", \"OFFENDER_IDENTIFIER-DELETED\", \"OFFENDER_IDENTIFIER-INSERTED\", \"OFFENDER_MOVEMENT-DISCHARGE\", \"OFFENDER_MOVEMENT-RECEPTION\", \"OFFENDER_PROFILE_DETAILS-INSERTED\", \"OFFENDER-UPDATED\", \"PERSON_ADDRESS-DELETED\", \"PERSON_ADDRESS-INSERTED\", \"PERSON_ADDRESS-UPDATED\", \"PHONE-DELETED\", \"PHONE-INSERTED\", \"PHONE-UPDATED\", \"RISK_SCORE-CHANGED\", \"RISK_SCORE-DELETED\", \"SENTENCE_CALCULATION_DATES-CHANGED\" ] }"
 }
 
@@ -109,6 +109,6 @@ resource "aws_sns_topic_subscription" "cfo_probation_subscription_perf" {
   provider      = aws.london
   topic_arn     = module.probation_offender_events_perf.topic_arn
   protocol      = "sqs"
-  endpoint      = module.cfo_queue.sqs_arn
+  endpoint      = module.cfo_queue_perf.sqs_arn
   filter_policy = "{\"eventType\":[ \"OFFENDER_CHANGED\"] }"
 }
