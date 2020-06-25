@@ -18,7 +18,7 @@ module "wplearndev_rds" {
   application                = "wplearndev"
   is-production              = "false"
   db_engine                  = "mysql"
-  db_engine_version          = "5.7.19"
+  db_engine_version          = "5.7.26"
   db_backup_retention_period = "7"
   db_name                    = "wordpress"
   environment-name           = "development"
