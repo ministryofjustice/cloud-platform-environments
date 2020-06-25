@@ -43,7 +43,7 @@ QUESTIONS = [
 
   {
     variable: "slack_channel",
-    description: "What is the best slack channel to use if we need to contact your team? (If you don't have a team slack channel, please create one)",
+    description: "What is the best slack channel (without the '#') to use if we need to contact your team?\n(If you don't have a team slack channel, please create one)",
   },
 
   {
