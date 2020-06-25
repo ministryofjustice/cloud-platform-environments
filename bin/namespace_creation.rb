@@ -1,8 +1,34 @@
-# These questions are used in the namespace creation process by:
+# These questions and classes are used in the namespace creation process by:
 #
 #   create-namespace-files.rb
 #   create-gitops-namespace-files.rb
 #
+
+class Validator
+  attr_reader :error
+
+  def is_valid?(_value)
+    raise "Validator sub-class #{self.class} did not define 'is_valid?' method"
+  end
+end
+
+class TrueFalseValidator < Validator
+  def is_valid?(value)
+    return true if %w[true false].include?(value)
+
+    @error = "Answer must be 'true' or 'false'"
+    false
+  end
+end
+
+class NamespaceNameValidator < Validator
+  def is_valid?(value)
+    return true if /^[a-z\-]+$/.match?(value) && value.count("-") > 0
+    @error = "Value must consist of lower-case letters and dashes only"
+    false
+  end
+end
+
 QUESTIONS = [
   {
     variable: "namespace",
@@ -13,6 +39,11 @@ QUESTIONS = [
   {
     variable: "github_team",
     description: "What is the name of your Github team? (this must be an exact match, or you will not have access to your namespace)",
+  },
+
+  {
+    variable: "slack_channel",
+    description: "What is the best slack channel to use if we need to contact your team? (If you don't have a team slack channel, please create one)",
   },
 
   {

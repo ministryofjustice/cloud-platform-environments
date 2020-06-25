@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "yaml"
-require_relative "./namespace_questions.rb"
+require_relative "./namespace_creation.rb"
 
 # TODO: default
 # TODO: question N of M
@@ -13,31 +13,6 @@ require_relative "./namespace_questions.rb"
 
 TEMPLATES_DIR = "namespace-resources"
 NAMESPACES_DIR = "namespaces/live-1.cloud-platform.service.justice.gov.uk"
-
-class Validator
-  attr_reader :error
-
-  def is_valid?(_value)
-    raise "Validator sub-class #{self.class} did not define 'is_valid?' method"
-  end
-end
-
-class TrueFalseValidator < Validator
-  def is_valid?(value)
-    return true if %w[true false].include?(value)
-
-    @error = "Answer must be 'true' or 'false'"
-    false
-  end
-end
-
-class NamespaceNameValidator < Validator
-  def is_valid?(value)
-    return true if /^[a-z\-]+$/.match?(value) && value.count("-") > 0
-    @error = "Value must consist of lower-case letters and dashes only"
-    false
-  end
-end
 
 ############################################################
 

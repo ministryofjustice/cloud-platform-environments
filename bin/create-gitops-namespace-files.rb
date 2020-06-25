@@ -18,31 +18,6 @@ NAMESPACES_DIR = "namespaces/#{CLUSTER_NAME}"
 WORKING_COPY = FileTest.directory?("/appsrc") ? "/appsrc" : "/tmp" # Use /tmp for tests. /appsrc when in a docker container.
 DEPLOYMENT_DIR = "cloud-platform-deploy" # will be created in user's app. working copy
 
-class Validator
-  attr_reader :error
-
-  def is_valid?(_value)
-    raise "Validator sub-class #{self.class} did not define 'is_valid?' method"
-  end
-end
-
-class TrueFalseValidator < Validator
-  def is_valid?(value)
-    return true if %w[true false].include?(value)
-
-    @error = "Answer must be 'true' or 'false'"
-    false
-  end
-end
-
-class NamespaceNameValidator < Validator
-  def is_valid?(value)
-    return true if /^[a-z\-]+$/.match?(value) && value.count("-") > 0
-    @error = "Value must consist of lower-case letters and dashes only"
-    false
-  end
-end
-
 ############################################################
 
 def create_namespace_files(answers)
