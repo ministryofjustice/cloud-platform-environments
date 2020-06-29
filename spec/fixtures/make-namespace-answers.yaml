@@ -2,6 +2,7 @@ answers:
   namespace: make-namespace-test-dev
   github_team: webops
   business-unit: MoJD
+  slack-channel: my-team-slack
   is-production: "false"
   environment: development
   application: wibble

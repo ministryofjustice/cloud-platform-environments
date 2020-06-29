@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "${environment}"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "${business-unit}"
-    cloud-platform.justice.gov.uk/slack-channel: "${slack_channel}"
+    cloud-platform.justice.gov.uk/slack-channel: "${slack-channel}"
     cloud-platform.justice.gov.uk/application: "${application}"
     cloud-platform.justice.gov.uk/owner: "${owner}: ${contact_email}"
     cloud-platform.justice.gov.uk/source-code: "${source_code_url}"

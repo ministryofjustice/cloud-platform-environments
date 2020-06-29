@@ -3,6 +3,7 @@ answers:
   namespace: make-gitops-namespace-test-dev
   github_team: webops
   business-unit: MoJD
+  slack-channel: my-team-slack
   is-production: "false"
   environment: development
   application: gitops-test-app
