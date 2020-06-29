@@ -2,7 +2,7 @@
 
 require "yaml"
 require "fileutils"
-require_relative "./namespace_questions.rb"
+require_relative "./namespace_creation.rb"
 
 # TODO: default
 # TODO: question N of M
