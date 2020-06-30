@@ -20,8 +20,8 @@ module "crime_portal_mirror_gateway_rds" {
   is-production                = "false"
   performance_insights_enabled = true
   db_engine_version            = "10"
-  environment-name             = "development"
-  infrastructure-support       = "john.evans@digital.justice.gov.uk"
+  environment-name             = var.environment-name
+  infrastructure-support       = "probation-in-court-team@digital.justice.gov.uk"
   rds_family                   = "postgres10"
 
   allow_major_version_upgrade = "true"
