@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: crime-portal-mirror-gateway-dev.service.justice.gov.uk
+  namespace: crime-portal-mirror-gateway-preprod
+spec:
+  secretName: crime-portal-mirror-gateway-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - preprod.crime-portal-mirror-gateway.service.justice.gov.uk
