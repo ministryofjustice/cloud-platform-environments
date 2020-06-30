@@ -5,7 +5,6 @@ locals {
     apply-financial-deputy = "apply-financial-deputy.form.service.justice.gov.uk",
     childrens-funeral-fund = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     cica                   = "same-roof-rule.form.service.justice.gov.uk",
-    contact-us-form        = "contact.form.service.justice.gov.uk",
     hmcts-complaints       = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
     leavers-form           = "leavers.form.service.justice.gov.uk",
     let-us-know            = "let-us-know.form.service.justice.gov.uk"
