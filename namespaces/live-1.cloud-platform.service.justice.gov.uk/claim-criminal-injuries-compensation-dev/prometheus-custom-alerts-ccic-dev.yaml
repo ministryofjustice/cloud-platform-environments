@@ -45,7 +45,7 @@ spec:
     - alert: cica-dev-Node-Disk-Space-Low
       annotations:
         message: A node is reporting low disk space below 10%. Action is required on a node.
-        runbook_url: https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/resources/prometheusrule-alerts/Custom-Alerts.md#node-disk-space-low
+        runbook_url: https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/main/terraform/cloud-platform-components/resources/prometheusrule-alerts/Custom-Alerts.md#node-disk-space-low
       expr: ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) < 10
       for: 30m
       labels:
