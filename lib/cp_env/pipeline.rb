@@ -4,10 +4,10 @@
 
 def changed_namespace_dirs_for_plan(cluster)
   # these env vars are provided by the github-pull-request concourse resource.
-  master_base_sha = ENV.fetch("master_base_sha")
+  main_base_sha = ENV.fetch("main_base_sha")
   branch_head_sha = ENV.fetch("branch_head_sha")
 
-  (changed_files, _, _) = execute("git diff --no-commit-id --name-only -r #{master_base_sha}...#{branch_head_sha}")
+  (changed_files, _, _) = execute("git diff --no-commit-id --name-only -r #{main_base_sha}...#{branch_head_sha}")
 
   namespace_dirs_from_changed_files(cluster, changed_files)
 end
