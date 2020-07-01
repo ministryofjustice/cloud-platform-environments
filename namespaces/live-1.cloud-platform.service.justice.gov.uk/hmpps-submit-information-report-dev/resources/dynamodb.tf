@@ -14,8 +14,7 @@ module "submit_information_report_dynamodb" {
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
 
-  hash_key  = "pk"
-  range_key = "sk"
+  hash_key  = "id"
 }
 
 resource "kubernetes_secret" "submit_information_report_dynamodb" {
