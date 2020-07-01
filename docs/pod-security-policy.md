@@ -37,7 +37,7 @@ To see this in a working environment, please see the [test-1 cluster](https://gi
 Once complete, please run a Kops update to apply your amended manifest file. 
 
 ## Step two: Create your Pod Security Policy
-Using the [cloud-platform-environments](https://github.com/ministryofjustice/cloud-platform-environments/tree/master/namespaces/cloud-platform-test-1.k8s.integration.dsd.io) repository, copy the `pod-security-policy.yaml` to the root of your cluster directory, as shown on the [test-1 cluster](https://github.com/ministryofjustice/cloud-platform-environments/tree/master/namespaces/cloud-platform-test-1.k8s.integration.dsd.io/) and merge to master. A [concourse](https://github.com/ministryofjustice/cloud-platform-concourse/tree/master/pipelines) pipeline will complete every 15 minutes and apply the Pod Security Policy to your desired cluster.
+Using the [cloud-platform-environments](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/cloud-platform-test-1.k8s.integration.dsd.io) repository, copy the `pod-security-policy.yaml` to the root of your cluster directory, as shown on the [test-1 cluster](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/cloud-platform-test-1.k8s.integration.dsd.io/) and merge to main. A [concourse](https://github.com/ministryofjustice/cloud-platform-concourse/tree/main/pipelines) pipeline will complete every 15 minutes and apply the Pod Security Policy to your desired cluster.
 
 The `pod-security-policy.yaml` consists of a:
 #### Privileged Policy

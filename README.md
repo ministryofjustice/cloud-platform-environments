@@ -11,7 +11,7 @@ The pipeline will for each defined `cluster`:
 3) Create any kubernetes resource that is defined under namespaces/`custer`/`namespace`
 
 ### Namespaces
-The `namespaces/` directory contains sub directories named after the existing cluster names, and inside, sub directories named after each of the desired namespaces you want to create for each cluster. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the Repositories master branch by the AWS code pipeline.
+The `namespaces/` directory contains sub directories named after the existing cluster names, and inside, sub directories named after each of the desired namespaces you want to create for each cluster. Placed inside are the kubernetes resource files you want to create in the kubernetes format. Those will be created automatically after a push is made to the Repositories main branch by the AWS code pipeline.
 
 ### AWS resources
 In a similar fashion as namespaces, you can create AWS resources in your desired namespace. The file structure for that is namespaces/`cluster`/`namespace`/terraform/ and Terraform files should be placed in that route for the pipeline to be triggered and create those AWS resources. Different terraform modules exist, for example: [ECR credentials](https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials), [S3 bucket](https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket), and should be used to create these resources as follows:
