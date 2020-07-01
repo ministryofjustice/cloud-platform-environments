@@ -18,7 +18,7 @@ In a similar fashion as namespaces, you can create AWS resources in your desired
 
 ### Changes within namespaces
 
-Changes within namespaces directory are managed by the `build-environments` concourse job configured [here](https://github.com/ministryofjustice/cloud-platform-concourse/tree/master/pipelines/cloud-platform-live-0/main/build-environments.yaml).
+Changes within namespaces directory are managed by the `build-environments` concourse job configured [here](https://github.com/ministryofjustice/cloud-platform-concourse/tree/main/pipelines/cloud-platform-live-0/main/build-environments.yaml).
 GitHub triggers the build process using [webhook](https://github.com/ministryofjustice/cloud-platform-environments/settings/hooks/32085881). Build itself runs script `whichNamespace.sh` checking for last commit changes, and if it detects any within namespace folder it executes `namespace.py` with appropriate cluster(s) parameter.
 
 #### Example terraform file
