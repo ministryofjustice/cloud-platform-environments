@@ -24,7 +24,7 @@ DB_PARAMETER_FALSE = 'db_parameter = [{ name = \"rds.force_ssl\", value = \"0\",
 DB_PARAMETER_TRUE = 'db_parameter = [{ name = \"rds.force_ssl\", value = \"1\", apply_method = \"pending-reboot\" } ]'
 
 def main(action, option)
-  checkout_master
+  checkout_main
   case action
   when "list"
     namespaces.each { |ns| puts list_ns_force_ssl(ns, option) }
@@ -33,8 +33,8 @@ def main(action, option)
   end
 end
 
-def checkout_master
-  execute "git checkout master"
+def checkout_main
+  execute "git checkout main"
 end
 
 # Returns a list of namespace directory names. This relies on our

@@ -19,7 +19,7 @@ class CpEnv
     NAMEPACES_DIR = "namespaces/#{CLUSTER}"
     PRODUCTION_LABEL = "cloud-platform.justice.gov.uk/is-production"
     LABEL_TRUE = "true"
-    EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/master/namespace-resources/resources/main.tf"
+    EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/main/namespace-resources/resources/main.tf"
 
     def initialize(args)
       @namespace = args.fetch(:namespace)

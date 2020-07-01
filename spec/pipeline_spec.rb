@@ -84,7 +84,7 @@ namespaces/#{cluster}/poornima-dev/resources/elasticsearch.tf"
     expect(ENV).to receive(:fetch).with("master_base_sha").and_return("master")
     expect(ENV).to receive(:fetch).with("branch_head_sha").and_return("branch")
 
-    cmd = "git diff --no-commit-id --name-only -r master...branch"
+    cmd = "git diff --no-commit-id --name-only -r main...branch"
     expect_execute(cmd, files, success)
     expect($stdout).to receive(:puts).at_least(:once)
 

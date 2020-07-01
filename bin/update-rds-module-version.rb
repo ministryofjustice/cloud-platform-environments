@@ -42,7 +42,7 @@ LATEST_RDS_MODULE = "github.com\\/ministryofjustice\\/cloud-platform-terraform-r
 
 def main(namespace)
   check_prerequisites(namespace)
-  checkout_master
+  checkout_main
   update_rds_module(namespace)
   if terraform_apply(namespace)
     replace_pods(namespace)
@@ -50,8 +50,8 @@ def main(namespace)
   end
 end
 
-def checkout_master
-  execute "git checkout master"
+def checkout_main
+  execute "git checkout main"
 end
 
 def update_rds_module(namespace)
