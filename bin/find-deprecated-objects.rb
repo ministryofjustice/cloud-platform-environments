@@ -25,11 +25,11 @@ def main
 
   namespaces = namespace_details
 
-  kubectl_api_objects.each { |obj|
+  kubectl_api_objects.each do |obj|
     if obj.fetch("apiVersion") == last_applied_api_version(obj)
       puts object_csv(obj, namespaces)
     end
-  }
+  end
 
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
