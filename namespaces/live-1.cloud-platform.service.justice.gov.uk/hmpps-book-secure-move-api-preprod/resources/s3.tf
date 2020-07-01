@@ -1,5 +1,5 @@
 /*
- Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
+ Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/main/example
  */
 module "book_a_secure_move_documents_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
