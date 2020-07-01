@@ -14,7 +14,7 @@ resource "aws_route53_zone" "route53_zone_hmpps" {
 
 
 # prod zone delegated to Azure based Nomis API
-resource "aws_route53_record" "hmpps-auth" {
+resource "aws_route53_record" "hmpps-auth-prod" {
   zone_id = "${aws_route53_zone.route53_zone_hmpps.zone_id}"
   name    = "sign-in-dev.hmpps.service.justice.gov.uk"
   type    = "NS"
@@ -29,7 +29,7 @@ resource "aws_route53_record" "hmpps-auth" {
 }
 
 # dev zone delegated to Azure based Nomis API
-resource "aws_route53_record" "hmpps-auth" {
+resource "aws_route53_record" "hmpps-auth-dev" {
   zone_id = "${aws_route53_zone.route53_zone_hmpps.zone_id}"
   name    = "sign-in.hmpps.service.justice.gov.uk"
   type    = "NS"
