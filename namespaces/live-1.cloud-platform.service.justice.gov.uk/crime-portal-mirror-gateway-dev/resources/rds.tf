@@ -55,3 +55,22 @@ resource "kubernetes_secret" "crime_portal_mirror_gateway_rds" {
     database_url          = "jdbc:postgresql://${module.crime_portal_mirror_gateway_rds.rds_instance_endpoint}/${module.crime_portal_mirror_gateway_rds.database_name}?ssl=true&sslmode=require"
   }
 }
+
+
+resource "kubernetes_secret" "crime_portal_mirror_gateway_rds" {
+  metadata {
+    name      = "crime-portal-mirror-gateway-rds-instance-output"
+    namespace = "court-probation-dev"
+  }
+
+  data = {
+    rds_instance_endpoint = module.crime_portal_mirror_gateway_rds.rds_instance_endpoint
+    database_name         = module.crime_portal_mirror_gateway_rds.database_name
+    database_username     = module.crime_portal_mirror_gateway_rds.database_username
+    database_password     = module.crime_portal_mirror_gateway_rds.database_password
+    rds_instance_address  = module.crime_portal_mirror_gateway_rds.rds_instance_address
+    access_key_id         = module.crime_portal_mirror_gateway_rds.access_key_id
+    secret_access_key     = module.crime_portal_mirror_gateway_rds.secret_access_key
+    database_url          = "jdbc:postgresql://${module.crime_portal_mirror_gateway_rds.rds_instance_endpoint}/${module.crime_portal_mirror_gateway_rds.database_name}?ssl=true&sslmode=require"
+  }
+}
