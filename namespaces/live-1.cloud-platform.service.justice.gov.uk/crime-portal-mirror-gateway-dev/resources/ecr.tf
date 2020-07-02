@@ -45,3 +45,31 @@ resource "kubernetes_secret" "pict_cpmg_wildfly_ecr_credentials" {
     repo_url          = module.pict_cpmg_wildfly_ecr_credentials.repo_url
   }
 }
+
+resource "kubernetes_secret" "pict_cpmg_database_ecr_credentials_court_probation_dev" {
+  metadata {
+    name      = "pict-cpmg-ecr-database-credentials-output"
+    namespace = "court-probation-dev"
+  }
+
+  data = {
+    access_key_id     = module.pict_cpmg_database_ecr_credentials.access_key_id
+    secret_access_key = module.pict_cpmg_database_ecr_credentials.secret_access_key
+    repo_arn          = module.pict_cpmg_database_ecr_credentials.repo_arn
+    repo_url          = module.pict_cpmg_database_ecr_credentials.repo_url
+  }
+}
+
+resource "kubernetes_secret" "pict_cpmg_wildfly_ecr_credentials_court_probation_dev" {
+  metadata {
+    name      = "pict-cpmg-ecr-wildfly-credentials-output"
+    namespace = "court-probation-dev"
+  }
+
+  data = {
+    access_key_id     = module.pict_cpmg_wildfly_ecr_credentials.access_key_id
+    secret_access_key = module.pict_cpmg_wildfly_ecr_credentials.secret_access_key
+    repo_arn          = module.pict_cpmg_wildfly_ecr_credentials.repo_arn
+    repo_url          = module.pict_cpmg_wildfly_ecr_credentials.repo_url
+  }
+}
