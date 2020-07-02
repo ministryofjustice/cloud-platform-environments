@@ -25,8 +25,8 @@ class NamespaceAddition
 end
 
 ADD_FILE = "new" # DiffFile.type == "new" when adding a file
-NAMESPACE_REGEX = %r[^namespaces/live-1.cloud-platform.service.justice.gov.uk/(.*)/00-namespace.yaml$]
-MERGE_REGEX = %r[^Merge ]
+NAMESPACE_REGEX = %r{^namespaces/live-1.cloud-platform.service.justice.gov.uk/(.*)/00-namespace.yaml$}
+MERGE_REGEX = %r{^Merge }
 
 def main
   namespaces_added = []
@@ -42,12 +42,12 @@ def main
 
     namespace = namespace_added_by_commit(git, commit)
 
-    if !namespace.nil?
+    unless namespace.nil?
       namespaces_added << NamespaceAddition.new(
         date: commit.date,
         author: commit.author.email,
         namespace: namespace,
-        commit_id: commit.objectish,
+        commit_id: commit.objectish
       )
     end
   rescue ArgumentError
@@ -63,7 +63,7 @@ def main
 end
 
 def is_production?(namespace)
-  obj = YAML.load(File.read "namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/00-namespace.yaml")
+  obj = YAML.load(File.read("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/00-namespace.yaml"))
   obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
 rescue
   false
@@ -84,7 +84,6 @@ def namespace_added_by_commit(git, commit)
   diff = git.diff(commit.parent.objectish, commit.objectish)
 
   diff.each do |diff_file|
-
     # This may also be true for deletions. It's unclear, but checking the
     # output of the script, it only reports additions, so probably some
     # other part of the filtering is suppressing commits that *delete*
