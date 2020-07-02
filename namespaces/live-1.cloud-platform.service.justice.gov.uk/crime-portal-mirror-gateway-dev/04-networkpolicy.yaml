@@ -39,4 +39,4 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: court-probation-dev
+          cloud-platform.justice.gov.uk/namespace: "court-probation-dev"
