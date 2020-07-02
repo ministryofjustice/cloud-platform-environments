@@ -25,7 +25,9 @@ module "cla_backend_private_reports_bucket" {
       "s3:ListBucket"
     ],
     "Resource": [
-      "$${bucket_arn}"
+      "$${bucket_arn}",
+      "$${module.cla_backend_static_files_bucket.bucket_arn}",
+      "$${module.cla_backend_deleted_objects_bucket.bucket_arn}"
     ]
   },
   {
@@ -36,6 +38,8 @@ module "cla_backend_private_reports_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}/*"
+      "$${module.cla_backend_static_files_bucket.bucket_arn}/*",
+      "$${module.cla_backend_deleted_objects_bucket.bucket_arn}/*"
     ]
   }
 ]
