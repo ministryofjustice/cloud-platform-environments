@@ -26,8 +26,8 @@ module "cla_backend_private_reports_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}",
-      "arn:aws:s3:::cloud-platform-3cb9c51daea32a805bae8367968d0543",
-      "arn:aws:s3:::cloud-platform-fdc5e4b70a599d8ea84b4ffd31a832b3"
+      "${module.cla_backend_deleted_objects_bucket.bucket_arn}",
+      "${module.cla_backend_static_files_bucket.bucket_arn}"
     ]
   },
   {
@@ -38,8 +38,8 @@ module "cla_backend_private_reports_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}/*",
-      "arn:aws:s3:::cloud-platform-3cb9c51daea32a805bae8367968d0543/*",
-      "arn:aws:s3:::cloud-platform-fdc5e4b70a599d8ea84b4ffd31a832b3/*"
+      "${module.cla_backend_deleted_objects_bucket.bucket_arn}/*",
+      "${module.cla_backend_static_files_bucket.bucket_arn}/*"
     ]
   }
 ]
