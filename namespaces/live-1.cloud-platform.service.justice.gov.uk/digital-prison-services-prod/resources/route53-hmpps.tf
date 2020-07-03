@@ -16,7 +16,23 @@ resource "aws_route53_zone" "route53_zone_hmpps" {
 # prod zone delegated to Azure based Nomis API
 resource "aws_route53_record" "hmpps-auth-prod" {
   zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
-  name    = "sign-in-dev.hmpps.service.justice.gov.uk"
+  name    = "sign-in.hmpps.service.justice.gov.uk"
+  type    = "NS"
+  ttl     = "30"
+
+  records = [
+    "ns1-04.azure-dns.com.",
+    "ns2-04.azure-dns.net.",
+    "ns3-04.azure-dns.org.",
+    "ns4-04.azure-dns.info."
+  ]
+}
+
+
+# preprod zone delegated to Azure based Nomis API
+resource "aws_route53_record" "hmpps-auth-preprod" {
+  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
+  name    = "sign-in-preprod.hmpps.service.justice.gov.uk"
   type    = "NS"
   ttl     = "30"
 
@@ -24,21 +40,36 @@ resource "aws_route53_record" "hmpps-auth-prod" {
     "ns1-05.azure-dns.com.",
     "ns2-05.azure-dns.net.",
     "ns3-05.azure-dns.org.",
-    "ns4-05.azure-dns.info.",
+    "ns4-05.azure-dns.info."
   ]
 }
 
 # dev zone delegated to Azure based Nomis API
 resource "aws_route53_record" "hmpps-auth-dev" {
   zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
-  name    = "sign-in.hmpps.service.justice.gov.uk"
+  name    = "sign-in-dev.hmpps.service.justice.gov.uk"
   type    = "NS"
   ttl     = "30"
 
   records = [
-    "ns1-02.azure-dns.com.",
-    "ns2-02.azure-dns.net.",
-    "ns3-02.azure-dns.org.",
-    "ns4-02.azure-dns.info.",
+    "ns1-01.azure-dns.com.",
+    "ns2-01.azure-dns.net.",
+    "ns3-01.azure-dns.org.",
+    "ns4-01.azure-dns.info."
+  ]
+}
+
+# stage zone delegated to Azure based Nomis API
+resource "aws_route53_record" "hmpps-auth-stage" {
+  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
+  name    = "sign-in-stage.hmpps.service.justice.gov.uk"
+  type    = "NS"
+  ttl     = "30"
+
+  records = [
+    "ns1-07.azure-dns.com.",
+    "ns2-07.azure-dns.net.",
+    "ns3-07.azure-dns.org.",
+    "ns4-07.azure-dns.info."
   ]
 }
