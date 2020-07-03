@@ -59,7 +59,7 @@ resource "kubernetes_secret" "crime_portal_mirror_gateway_rds" {
 
 resource "kubernetes_secret" "crime_portal_mirror_gateway_rds" {
   metadata {
-    name      = "crime-portal-mirror-gateway-rds-instance-output"
+    name      = "crime-portal-mirror-gateway-rds-instance-output-court-probation-dev"
     namespace = "court-probation-dev"
   }
 
