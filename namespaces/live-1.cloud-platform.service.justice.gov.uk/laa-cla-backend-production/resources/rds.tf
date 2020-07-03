@@ -46,7 +46,7 @@ module "cla_backend_rds" {
 
 resource "kubernetes_secret" "cla_backend_rds" {
   metadata {
-    name      = "db"
+    name      = "database"
     namespace = var.namespace
   }
 
