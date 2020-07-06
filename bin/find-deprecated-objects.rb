@@ -25,18 +25,28 @@ def main
 
   namespaces = namespace_details
 
+  puts "Kubectl Data ------------------------------------------------------"
+
   kubectl_api_objects.each { |obj|
     if obj.fetch("apiVersion") == last_applied_api_version(obj)
       puts object_csv(obj, namespaces)
     end
   }
 
+  puts "Tiller pods -------------------------------------------------------"
+
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
     .filter { |pod| tiller?(pod) }
 
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
+
+  puts "Helm2 data -------------------------------------------------------"
+
   output_helm2_object_data(tiller_pods, namespaces)
+
+  puts "Helm3 data -------------------------------------------------------"
+
   output_helm3_object_data(namespaces)
 end
 
