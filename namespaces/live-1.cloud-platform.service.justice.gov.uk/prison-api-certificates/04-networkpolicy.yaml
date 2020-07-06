@@ -1,8 +1,8 @@
 ---
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-  name: allow-ingress-controllers
+  name: default
   namespace: prison-api-certificates
 spec:
   podSelector: {}
@@ -10,6 +10,4 @@ spec:
   - Ingress
   ingress:
   - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+    - podSelector: {}
