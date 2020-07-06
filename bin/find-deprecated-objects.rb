@@ -28,7 +28,7 @@ def main
 
   puts "Kubectl Data ------------------------------------------------------"
 
-  kubectl_api_objects.each { |obj|
+  kubectl_api_objects.each do |obj|
     if obj.fetch("apiVersion") == last_applied_api_version(obj)
       puts object_csv(obj, namespaces)
     end
