@@ -12,6 +12,7 @@ require "json"
 require "open3"
 
 OBJECT_TYPES = %w[
+  Ingress
   DaemonSet
   Deployment
   NetworkPolicy
