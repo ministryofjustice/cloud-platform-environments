@@ -32,7 +32,7 @@ def main
     if obj.fetch("apiVersion") == last_applied_api_version(obj)
       puts object_csv(obj, namespaces)
     end
-  }
+  end
 
   puts "Tiller pods -------------------------------------------------------"
 
