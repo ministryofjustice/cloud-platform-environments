@@ -12,9 +12,9 @@ require "json"
 require "open3"
 
 OBJECT_TYPES = %w[
+  Ingress
   DaemonSet
   Deployment
-  Ingress
   NetworkPolicy
   PodSecurityPolicy
 ].join(",")
@@ -26,15 +26,34 @@ def main
 
   namespaces = namespace_details
 
-  kubectl_api_objects.each { |obj| puts object_csv(obj, namespaces) }
+  puts "Kubectl Data ------------------------------------------------------"
+
+  kubectl_api_objects.each do |obj|
+    if obj.fetch("apiVersion") == last_applied_api_version(obj)
+      puts object_csv(obj, namespaces)
+    end
+  end
+
+  puts "Tiller pods -------------------------------------------------------"
 
   # TODO filter for tiller < 2.16.3
   tiller_pods = parsed_json_output("kubectl get pods --all-namespaces -o json").fetch("items", [])
     .filter { |pod| tiller?(pod) }
 
   tiller_pods.map { |pod| puts tiller_csv(pod, namespaces) }
+
+  puts "Helm2 data -------------------------------------------------------"
+
   output_helm2_object_data(tiller_pods, namespaces)
+
+  puts "Helm3 data -------------------------------------------------------"
+
   output_helm3_object_data(namespaces)
+end
+
+def last_applied_api_version(obj)
+  json = obj.dig("metadata", "annotations", "kubectl.kubernetes.io/last-applied-configuration")
+  JSON.parse(json)["apiVersion"]
 end
 
 def helm3_deprecated_objects(namespace)
