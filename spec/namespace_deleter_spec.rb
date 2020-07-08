@@ -47,12 +47,16 @@ describe CpEnv::NamespaceDeleter do
 
     it "does not delete AWS resources" do
       expect(terraform).to_not receive(:apply)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
 
     it "does not delete the namespace" do
       expect(k8s_client).to_not receive(:delete_namespace)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
   end
 
@@ -63,12 +67,16 @@ describe CpEnv::NamespaceDeleter do
 
     it "does not delete AWS resources" do
       expect(terraform).to_not receive(:apply)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
 
     it "does not delete the namespace" do
       expect(k8s_client).to_not receive(:delete_namespace)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
   end
 
@@ -77,12 +85,16 @@ describe CpEnv::NamespaceDeleter do
 
     it "does not delete AWS resources" do
       expect(terraform).to_not receive(:apply)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
 
     it "does not delete the namespace" do
       expect(k8s_client).to_not receive(:delete_namespace)
-      deleter.delete
+      expect {
+        deleter.delete
+      }.to raise_error("ERROR: Unable to delete namespace #{namespace}")
     end
   end
 
