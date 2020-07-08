@@ -102,7 +102,7 @@ class CpEnv
         ),
         bucket: env("KUBECONFIG_S3_BUCKET"),
         key: env("KUBECONFIG_S3_KEY"),
-        local_target: env("KUBE_CONFIG"),
+        local_target: env("KUBE_CONFIG")
       }
       config_file = Kubeconfig.new(kubeconfig).fetch_and_store
 
