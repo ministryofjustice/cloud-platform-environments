@@ -5,16 +5,16 @@ on:
     branches:
       - 'main'
     paths:
-      - bin
-      - lib
-      - spec
+      - "bin/*"
+      - "lib/**"
+      - "spec/*"
   push:
     branches:
       - 'main'
     paths:
-      - bin
-      - lib
-      - spec
+      - "bin/*"
+      - "lib/**"
+      - "spec/*"
 
 jobs:
   build:
