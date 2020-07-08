@@ -28,11 +28,13 @@ class CpEnv
     end
 
     def delete
-      if safe_to_delete?
-        destroy_aws_resources
-        delete_namespace
-        clean_up
+      unless safe_to_delete?
+        raise "ERROR: Unable to delete namespace #{namespace}"
       end
+
+      destroy_aws_resources
+      delete_namespace
+      clean_up
     end
 
     private
