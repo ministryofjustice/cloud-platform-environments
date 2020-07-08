@@ -72,17 +72,16 @@ data "aws_iam_policy_document" "policy" {
       "s3:GetObjectVersionAcl",
       "s3:GetObjectVersionTagging",
       "s3:GetObjectVersionTorrent",
-      "s3:ListMultipartUploadParts",
     ]
 
     resources = [
-      module.book_a_secure_move_reporting_s3_bucket.bucket_arn
+      "${module.book_a_secure_move_reporting_s3_bucket.bucket_arn}/*"
     ]
   }
 }
 
 resource "aws_iam_user_policy" "policy" {
-  name   = "s3-bucket-read-write"
+  name   = "s3-bucket-read-only"
   policy = data.aws_iam_policy_document.policy.json
   user   = aws_iam_user.user.name
 }
