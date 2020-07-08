@@ -21,3 +21,15 @@ resource "kubernetes_secret" "pict_cpmg_wildfly_credentials" {
     user-password  = random_password.jmsuser_password.result
   }
 }
+
+resource "kubernetes_secret" "pict_cpmg_wildfly_credentials_court_probation_prod" {
+  metadata {
+    name      = "pict-cpmg-wildfly-credentials"
+    namespace = "court-probation-prod"
+  }
+
+  data = {
+    jmsuser        = "jmsuser"
+    user-password  = random_password.jmsuser_password.result
+  }
+}
