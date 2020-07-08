@@ -30,7 +30,7 @@ resource "kubernetes_secret" "pict_cpmg_wildfly_credentials_court_probation_prep
   }
 
   data = {
-    jmsuser        = "jmsuser"
-    user-password  = random_password.jmsuser_password.result
+    jmsuser       = "jmsuser"
+    user-password = random_password.jmsuser_password.result
   }
 }
