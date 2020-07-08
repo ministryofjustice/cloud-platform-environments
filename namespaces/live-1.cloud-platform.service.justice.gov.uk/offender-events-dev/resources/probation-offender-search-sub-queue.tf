@@ -58,7 +58,7 @@ module "probation_offender_search_event_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "probation_offender_search_event_dead_letter_queue_dl"
+  sqs_name               = "probation_offender_search_event_dl_queue"
   encrypt_sqs_kms        = "true"
 
   providers = {
@@ -75,9 +75,9 @@ resource "kubernetes_secret" "probation_offender_search_event_queue" {
   data = {
     access_key_id     = module.probation_offender_search_event_queue.access_key_id
     secret_access_key = module.probation_offender_search_event_queue.secret_access_key
-    sqs_pos_url       = module.probation_offender_search_event_queue.sqs_id
-    sqs_pos_arn       = module.probation_offender_search_event_queue.sqs_arn
-    sqs_pos_name      = module.probation_offender_search_event_queue.sqs_name
+    sqs_id            = module.probation_offender_search_event_queue.sqs_id
+    sqs_arn           = module.probation_offender_search_event_queue.sqs_arn
+    sqs_name          = module.probation_offender_search_event_queue.sqs_name
   }
 }
 
@@ -90,9 +90,9 @@ resource "kubernetes_secret" "probation_offender_search_event_dead_letter_queue"
   data = {
     access_key_id     = module.probation_offender_search_event_dead_letter_queue.access_key_id
     secret_access_key = module.probation_offender_search_event_dead_letter_queue.secret_access_key
-    sqs_pos_url       = module.probation_offender_search_event_dead_letter_queue.sqs_id
-    sqs_pos_arn       = module.probation_offender_search_event_dead_letter_queue.sqs_arn
-    sqs_pos_name      = module.probation_offender_search_event_dead_letter_queue.sqs_name
+    sqs_id            = module.probation_offender_search_event_dead_letter_queue.sqs_id
+    sqs_arn           = module.probation_offender_search_event_dead_letter_queue.sqs_arn
+    sqs_name          = module.probation_offender_search_event_dead_letter_queue.sqs_name
   }
 }
 
