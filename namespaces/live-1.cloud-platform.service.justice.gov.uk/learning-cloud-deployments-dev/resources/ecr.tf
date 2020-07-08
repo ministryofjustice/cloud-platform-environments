@@ -1,5 +1,5 @@
 module "example_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "cloud-platform-environments"
   team_name = "hmpps-dev-test"
 
