@@ -25,7 +25,7 @@ describe CpEnv::NamespaceDeleter do
   let(:params) {
     {
       namespace: namespace,
-      k8s_client: k8s_client,
+      k8s_client: k8s_client
     }
   }
 
