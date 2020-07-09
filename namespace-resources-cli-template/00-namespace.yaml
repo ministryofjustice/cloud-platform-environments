@@ -4,7 +4,7 @@ metadata:
   name: {{ .Namespace }}
   labels:
     cloud-platform.justice.gov.uk/is-production: "{{ .IsProduction }}"
-    cloud-platform.justice.gov.uk/environment-name: "{{ .EnvironmentName }}"
+    cloud-platform.justice.gov.uk/environment-name: "{{ .Environment }}"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "{{ .BusinessUnit }}"
     cloud-platform.justice.gov.uk/slack-channel: "{{ .SlackChannel }}"
