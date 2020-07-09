@@ -69,7 +69,7 @@ module "cla_backend_replica" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres9.6"
   # change the postgres version as you see fit.
-  db_engine_version      = "9.6"
+  db_engine_version = "9.6"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
