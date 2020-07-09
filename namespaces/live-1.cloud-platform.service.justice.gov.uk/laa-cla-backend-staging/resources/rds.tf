@@ -65,6 +65,11 @@ module "cla_backend_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # Pick the one that defines the postgres version the best
+  rds_family        = "postgres9.6"
+  db_engine_version = "9.6"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -79,12 +84,14 @@ resource "kubernetes_secret" "cla_backend_rds" {
   }
 
   data = {
-    endpoint = module.cla_backend_rds.rds_instance_endpoint
-    host     = module.cla_backend_rds.rds_instance_address
-    port     = module.cla_backend_rds.rds_instance_port
-    name     = module.cla_backend_rds.database_name
-    user     = module.cla_backend_rds.database_username
-    password = module.cla_backend_rds.database_password
+    endpoint         = module.cla_backend_rds.rds_instance_endpoint
+    host             = module.cla_backend_rds.rds_instance_address
+    port             = module.cla_backend_rds.rds_instance_port
+    name             = module.cla_backend_rds.database_name
+    user             = module.cla_backend_rds.database_username
+    password         = module.cla_backend_rds.database_password
+    replica_host     = module.cla_backend_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_replica.rds_instance_endpoint
   }
 
 }
