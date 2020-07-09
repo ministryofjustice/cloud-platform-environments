@@ -57,6 +57,9 @@ module "cla_backend_replica" {
 
   # Set the database_name of the source db
   db_name = module.cla_backend_rds.database_name
+  rds_family = "postgres9.6"
+  db_engine_version      = "9.6"
+  
 
   # Set the db_identifier of the source db
   replicate_source_db = module.cla_backend_rds.db_identifier
