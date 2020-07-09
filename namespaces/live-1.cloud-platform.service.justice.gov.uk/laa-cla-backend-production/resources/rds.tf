@@ -47,12 +47,12 @@ module "cla_backend_rds" {
 module "cla_backend_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
-  cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
-  team_name            = var.team_name
-  business-unit        = var.business-unit
-  application          = var.application
-  is-production        = var.is-production
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
+  team_name              = var.team_name
+  business-unit          = var.business-unit
+  application            = var.application
+  is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
@@ -63,11 +63,11 @@ module "cla_backend_replica" {
   db_name = module.cla_backend_rds.database_name
 
   # Set the db_identifier of the source db
-  replicate_source_db         = module.cla_backend_rds.db_identifier
+  replicate_source_db = module.cla_backend_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
-  skip_final_snapshot         = "true"
-  db_backup_retention_period  = 0
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
