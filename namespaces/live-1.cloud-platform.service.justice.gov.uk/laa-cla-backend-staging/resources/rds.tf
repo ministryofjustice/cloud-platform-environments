@@ -68,7 +68,6 @@ module "cla_backend_replica" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres9.6"
-  # change the postgres version as you see fit.
   db_engine_version = "9.6"
 
   providers = {
