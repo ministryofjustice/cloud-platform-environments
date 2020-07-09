@@ -2,7 +2,7 @@
 // This registry is used in the dev, preprod and prod namespaces which all deploy the same image from this ECR
 
 module "pict_cpmg_database_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "cpmg-database"
   team_name = "probation-in-court"
 
@@ -12,7 +12,7 @@ module "pict_cpmg_database_ecr_credentials" {
 }
 
 module "pict_cpmg_wildfly_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "cpmg-wildfly"
   team_name = "probation-in-court"
 

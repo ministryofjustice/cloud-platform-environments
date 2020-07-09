@@ -1,5 +1,5 @@
 module "checkmydiary-service-dev" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "check-my-diary-dev"
   team_name = "check-my-diary"
 
@@ -23,7 +23,7 @@ resource "kubernetes_secret" "checkmydiary_ecr_credentials" {
 }
 
 module "checkmydiary-notification-service-dev" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "check-my-diary-notification-service-dev"
   team_name = "check-my-diary"
 }
