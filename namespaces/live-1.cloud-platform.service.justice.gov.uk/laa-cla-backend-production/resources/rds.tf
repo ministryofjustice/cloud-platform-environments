@@ -57,6 +57,16 @@ module "cla_backend_replica" {
   infrastructure-support = var.infrastructure-support
 
 
+   # Settings from current setup
+  db_instance_class    = "db.t2.medium"
+  db_allocated_storage = "100"
+
+  # change the postgres version as you see fit.
+  db_engine_version      = "9.6"
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # Pick the one that defines the postgres version the best
+  rds_family = "postgres9.6"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
@@ -68,7 +78,7 @@ module "cla_backend_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-
+  
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
