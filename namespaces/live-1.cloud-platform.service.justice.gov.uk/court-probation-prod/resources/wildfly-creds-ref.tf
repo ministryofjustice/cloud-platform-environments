@@ -12,7 +12,7 @@ resource "kubernetes_secret" "pict-cpmg-wildfly-credentials" {
   }
 
   data = {
-    jmsuser        = data.kubernetes_secret.pict-cpmg-wildfly-credentials.data["jmsuser"]
-    user-password  = data.kubernetes_secret.pict-cpmg-wildfly-credentials.data["user-password"]
+    jmsuser       = data.kubernetes_secret.pict-cpmg-wildfly-credentials.data["jmsuser"]
+    user-password = data.kubernetes_secret.pict-cpmg-wildfly-credentials.data["user-password"]
   }
 }
