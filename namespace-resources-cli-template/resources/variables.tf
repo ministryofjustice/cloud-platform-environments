@@ -23,7 +23,7 @@ variable "team-name" {
   default     = "{{ .TeamName }}"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "{{ .Environment }}"
 }
@@ -34,6 +34,6 @@ variable "infrastructure-support" {
 }
 
 variable "is-production" {
-  default = "false"
+  default = "{{ .IsProduction }}"
 }
 
