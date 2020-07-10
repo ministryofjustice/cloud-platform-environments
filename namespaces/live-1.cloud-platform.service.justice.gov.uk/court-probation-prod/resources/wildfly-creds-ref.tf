@@ -1,14 +1,14 @@
 data "kubernetes_secret" "pict-cpmg-wildfly-credentials" {
   metadata {
     name      = "pict-cpmg-wildfly-credentials"
-    namespace = "crime-portal-mirror-gateway-dev"
+    namespace = "crime-portal-mirror-gateway-prod"
   }
 }
 
 resource "kubernetes_secret" "pict-cpmg-wildfly-credentials" {
   metadata {
     name      = "pict-cpmg-wildfly-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-prod"
   }
 
   data = {
