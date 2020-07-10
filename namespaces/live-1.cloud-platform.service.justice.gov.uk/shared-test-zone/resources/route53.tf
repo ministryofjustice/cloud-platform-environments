@@ -13,7 +13,7 @@ resource "aws_route53_zone" "shared" {
 
 resource "kubernetes_secret" "example_route53_zone_sec" {
   metadata {
-    name      = "example-route53-zone-output"
+    name      = "route53"
     namespace = "shared-test-zone"
   }
 
