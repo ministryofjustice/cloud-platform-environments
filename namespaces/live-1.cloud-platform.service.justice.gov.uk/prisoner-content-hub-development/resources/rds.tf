@@ -1,6 +1,6 @@
 module "drupal_rds" {
   # We need to use at least 5.4, which introduces support for MariaDB by making `custom_parameters` overridable.
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
@@ -14,7 +14,7 @@ module "drupal_rds" {
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
 
-  # We need to explicitly set this to an empty list, otherwise the module 
+  # We need to explicitly set this to an empty list, otherwise the module
   # will add `rds.force_ssl`, which MariaDB doesn't support
   db_parameter = []
 }
