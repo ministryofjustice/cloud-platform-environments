@@ -1,0 +1,78 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prison-api-certificates
+  name: dps-prometheus-rules
+  namespace: prison-api-certificates
+spec:
+  groups:
+  - name: DPS-apps
+    rules:
+    - alert: ErrorResponses
+      annotations:
+        message: ingress {{ $labels.ingress }} is serving 5XX responses
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prison-api-certificates", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+      for: 1m
+      labels:
+        severity: digital-prison-service
+    - alert: KubeQuotaExceeded
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
+          }}% of its {{ $labels.resource }} quota.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
+      expr: |-
+        100 * kube_resourcequota{namespace="prison-api-certificates", job="kube-state-metrics", type="used"}
+          / ignoring(instance, job, type)
+        (kube_resourcequota{namespace="prison-api-certificates", job="kube-state-metrics", type="hard"} > 0)
+          > 90
+      for: 15m
+      labels:
+        severity: digital-prison-service
+    - alert: KubePodCrashLooping
+      annotations:
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
+          }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
+      expr: rate(kube_pod_container_status_restarts_total{namespace="prison-api-certificates", job="kube-state-metrics"}[15m])
+        * 60 * 5 > 0
+      for: 1h
+      labels:
+        severity: digital-prison-service
+    - alert: KubePodNotReady
+      annotations:
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
+          state for longer than an hour.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps
+      expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="prison-api-certificates", job="kube-state-metrics",
+        phase=~"Pending|Unknown"}) > 0
+      for: 1h
+      labels:
+        severity: digital-prison-service
+    - alert: KubeDeploymentGenerationMismatch
+      annotations:
+        message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
+          }} does not match, this indicates that the Deployment has failed but has
+          not been rolled back.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
+      expr: |-
+        kube_deployment_status_observed_generation{namespace="prison-api-certificates", job="kube-state-metrics"}
+          !=
+        kube_deployment_metadata_generation{namespace="prison-api-certificates", job="kube-state-metrics"}
+      for: 15m
+      labels:
+        severity: digital-prison-service
+    - alert: KubeDeploymentReplicasMismatch
+      annotations:
+        message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
+          matched the expected number of replicas for longer than an hour.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
+      expr: |-
+        kube_deployment_spec_replicas{namespace="prison-api-certificates", job="kube-state-metrics"}
+          !=
+        kube_deployment_status_replicas_available{namespace="prison-api-certificates", job="kube-state-metrics"}
+      for: 1h
+      labels:
+        severity: digital-prison-service

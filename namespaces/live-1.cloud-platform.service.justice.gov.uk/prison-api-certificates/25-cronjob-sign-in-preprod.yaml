@@ -1,0 +1,48 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: export-cert-sign-in-preprod
+spec:
+  schedule: "0 10 * * 1-5"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 1200
+      template:
+        spec:
+          containers:
+          - name: dps-tools
+            image: quay.io/hmpps/dps-tools
+            command:
+            - /bin/export-cert.sh
+            args:
+            - "sign-in-preprod" # k8s secret name where letsencrypt cert is stored
+            - "nomisapi-preprod-certs" # azure keyvault name
+            - "sign-in" # azure keyvault certificate name
+            volumeMounts:
+            - name: export-cert-script
+              mountPath: /bin/export-cert.sh
+              readOnly: true
+              subPath: export-cert.sh
+            - name: azure-sp
+              mountPath: "/azure/azure-sp"
+              readOnly: true
+            - name: sign-in-preprod
+              mountPath: "/certs/sign-in-preprod"
+              readOnly: true
+          restartPolicy: "Never"
+          volumes:
+          - name: export-cert-script
+            configMap:
+              name: export-cert-script
+              defaultMode: 0755
+          - name: azure-sp
+            secret:
+              secretName: azure-sp-preprod
+          - name: sign-in-preprod
+            secret:
+              secretName: sign-in-preprod
