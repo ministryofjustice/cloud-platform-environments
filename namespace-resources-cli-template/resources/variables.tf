@@ -6,6 +6,7 @@ variable "cluster_state_bucket" {
 }
 
 variable "application" {
+  description = "Name of Application you are deploying"
   default = "{{ .Application }}"
 }
 
@@ -20,7 +21,7 @@ variable "business-unit" {
 
 variable "team-name" {
   description = "The name of your development team"
-  default     = "{{ .TeamName }}"
+  default     = "{{ .GithubTeam }}"
 }
 
 variable "environment" {
@@ -37,3 +38,7 @@ variable "is-production" {
   default = "{{ .IsProduction }}"
 }
 
+variable "is-production" {
+  description = "Team slack channel to use if we need to contact your team"
+  default = "{{ .SlackChannel }}"
+}
