@@ -7,7 +7,7 @@ variable "cluster_state_bucket" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default = "{{ .Application }}"
+  default     = "{{ .Application }}"
 }
 
 variable "namespace" {
@@ -40,5 +40,5 @@ variable "is-production" {
 
 variable "is-production" {
   description = "Team slack channel to use if we need to contact your team"
-  default = "{{ .SlackChannel }}"
+  default     = "{{ .SlackChannel }}"
 }
