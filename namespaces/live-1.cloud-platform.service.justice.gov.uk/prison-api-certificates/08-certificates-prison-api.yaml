@@ -24,4 +24,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - api-dev.prison.service.justice.gov.uk
-
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-preprod
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-preprod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-preprod.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-prod
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-prod.prison.service.justice.gov.uk

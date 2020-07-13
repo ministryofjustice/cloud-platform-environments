@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: export-cert-script
+data:
+  export-cert.sh: |-
+    #!/bin/bash
+    set -e
+    
+    # Login azure cli
+    az login --service-principal --username $(cat /azure/azure-sp/app_id) --password $(cat /azure/azure-sp/password) --tenant $(cat /azure/azure-sp/tenant_id) --allow-no-subscriptions
+    
+    set -x
+    
+    k8s_secret=$1
+    azure_keyvault_name=$2
+    azure_keyvault_certificate=$3
+    
+    # Download Azure cert
+    az keyvault certificate download --vault-name $azure_keyvault_name -n $azure_keyvault_certificate -f /tmp/$azure_keyvault_certificate.crt
+
+    # Compare Azure cert with K8s cert, and if there is a new cert upload to Azure Keyvault
+    retVal=0
+    diff <(openssl x509 -in /tmp/$azure_keyvault_certificate.crt -inform PEM  -noout -sha1 -fingerprint) <(openssl x509 -in /certs/$k8s_secret/tls.crt -inform PEM  -noout -sha1 -fingerprint) || retVal=$?
+    if [ $retVal -eq 1 ]; then
+      echo "New certificate issued by cert-manager. Exporting the new cert to Azure Key Vault"
+      openssl pkcs12 -export -out /tmp/$azure_keyvault_certificate.p12 -inkey /certs/$k8s_secret/tls.key -in /certs/$k8s_secret/tls.crt -passout pass:
+      az keyvault certificate import --vault-name $azure_keyvault_name -n $azure_keyvault_certificate -f /tmp/$azure_keyvault_certificate.p12 --query sid
+    else
+      echo "No new certificate found, exiting"
+      exit 0
+    fi
