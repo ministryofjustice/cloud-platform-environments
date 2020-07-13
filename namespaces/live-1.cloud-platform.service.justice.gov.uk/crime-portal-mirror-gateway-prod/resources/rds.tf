@@ -17,7 +17,7 @@ module "crime_portal_mirror_gateway_rds" {
   team_name                    = "probation-in-court"
   business-unit                = "hmpps"
   application                  = "crime-portal-mirror-gateway"
-  is-production                = "false"
+  is-production                = "true"
   performance_insights_enabled = true
   db_engine_version            = "10"
   environment-name             = var.environment-name
