@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: probation-offender-search-preprod
+  namespace: probation-offender-search-preprod
+spec:
+  secretName: probation-offender-search-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - probation-offender-search-preprod.prison.service.justice.gov.uk
