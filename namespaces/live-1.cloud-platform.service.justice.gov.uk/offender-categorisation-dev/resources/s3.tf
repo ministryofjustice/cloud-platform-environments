@@ -1,5 +1,5 @@
 module "risk_profiler_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
