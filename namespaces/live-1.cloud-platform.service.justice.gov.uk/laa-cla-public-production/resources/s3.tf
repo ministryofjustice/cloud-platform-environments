@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
