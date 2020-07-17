@@ -1,12 +1,14 @@
 module "authorized-keys" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
 
-  team_name              = "cloudplatform"
-  business-unit          = "mojdigital"
-  application            = "cloud-platform-authorized-keys"
-  is-production          = "true"
-  environment-name       = "production"
-  infrastructure-support = "platforms@digital.justice.gov.uk"
+  team_name                     = "cloudplatform"
+  business-unit                 = "mojdigital"
+  application                   = "cloud-platform-authorized-keys"
+  is-production                 = "true"
+  environment-name              = "production"
+  infrastructure-support        = "platforms@digital.justice.gov.uk"
+  acl                           = "public-read"
+  enable_allow_block_pub_access = false
 
   providers = {
     aws = aws.london
