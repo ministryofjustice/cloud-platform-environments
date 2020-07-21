@@ -70,7 +70,6 @@ module "rds-read-replica" {
   ]
 }
 
-
 resource "kubernetes_secret" "rds-read-replica" {
   metadata {
     name      = "read-rds-instance-hmpps-book-secure-move-api-dev"
