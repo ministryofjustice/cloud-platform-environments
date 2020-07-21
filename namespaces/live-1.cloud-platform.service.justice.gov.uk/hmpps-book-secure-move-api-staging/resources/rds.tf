@@ -23,24 +23,9 @@ module "rds-instance" {
   ]
 }
 
-provider "postgresql" {
-  host             = module.rds-instance.rds_instance_endpoint
-  database         = module.rds-instance.database_name
-  username         = module.rds-instance.database_username
-  password         = module.rds-instance.database_password
-  expected_version = "10.6"
-  sslmode          = "require"
-  connect_timeout  = 15
-}
-
-resource "random_password" "readonly-password" {
-  length  = 16
-  special = false
-}
-
 resource "kubernetes_secret" "rds-instance" {
   metadata {
-    name      = "rds-instance-hmpps-book-secure-move-api-staging"
+    name      = "rds-instance-hmpps-book-secure-move-api-${var.environment-name}"
     namespace = var.namespace
   }
 
@@ -87,7 +72,7 @@ module "rds-read-replica" {
 
 resource "kubernetes_secret" "rds-read-replica" {
   metadata {
-    name      = "read-rds-instance-hmpps-book-secure-move-api-staging"
+    name      = "read-rds-instance-hmpps-book-secure-move-api-${var.environment-name}"
     namespace = var.namespace
   }
 
