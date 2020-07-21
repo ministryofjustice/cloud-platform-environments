@@ -42,3 +42,8 @@ variable "is-production" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "#cloud-platform"
 }
+
+variable "domain" {
+  description = "Domain to be created"
+  default     = "mogaal-test.cloud-platform.service.justice.gov.uk"
+}
