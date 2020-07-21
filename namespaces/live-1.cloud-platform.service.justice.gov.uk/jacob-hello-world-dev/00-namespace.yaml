@@ -10,4 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "${slack-channel}"
     cloud-platform.justice.gov.uk/application: "jacob_hello_world"
     cloud-platform.justice.gov.uk/owner: "data-engineering: jacob.browning@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "cloud-platform-helloworld-ruby-app"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
