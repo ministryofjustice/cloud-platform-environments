@@ -68,7 +68,7 @@ resource "kubernetes_config_map" "poornima_test_pg_rds" {
 
   data = {
     database_name = module.poornima_test_postgres_rds.database_name
-    rds_name      = module.poornima_test_postgres_rds.rds_name
+    db_identifier = module.poornima_test_postgres_rds.db_identifier
 
   }
 }
