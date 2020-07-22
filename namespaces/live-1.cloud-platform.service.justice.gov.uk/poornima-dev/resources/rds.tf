@@ -60,6 +60,19 @@ resource "kubernetes_secret" "poornima_test_pg_rds" {
      */
 }
 
+resource "kubernetes_config_map" "poornima_test_pg_rds" {
+   metadata {
+    name      = "poornima-test-pg-rds-output"
+    namespace = "poornima-dev"
+  }
+
+  data = {
+    database_name = module.poornima_test_postgres_rds.database_name
+    rds_name = module.poornima_test_postgres_rds.database_name
+ 
+  }
+}
+
 module "poornima_test_postgres_rds_read_replica" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name         = var.cluster_name
