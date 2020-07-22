@@ -61,15 +61,15 @@ resource "kubernetes_secret" "poornima_test_pg_rds" {
 }
 
 resource "kubernetes_config_map" "poornima_test_pg_rds" {
-   metadata {
+  metadata {
     name      = "poornima-test-pg-rds-output"
     namespace = "poornima-dev"
   }
 
   data = {
     database_name = module.poornima_test_postgres_rds.database_name
-    rds_name = module.poornima_test_postgres_rds.rds_name
- 
+    rds_name      = module.poornima_test_postgres_rds.rds_name
+
   }
 }
 
