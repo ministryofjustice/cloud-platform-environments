@@ -14,14 +14,11 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-ingress-controllers
+  name: allow-ingress-traffic
   namespace: mogaal-test
 spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
+  podSelector:
+    matchLabels:
+      app: nginx-ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+  - from: []
