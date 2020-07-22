@@ -18,6 +18,6 @@ resource "kubernetes_secret" "content_hub_route53_zone_secret" {
   }
 
   data = {
-    zone_id   = aws_route53_zone.content_hub_route53_zone.zone_id
+    zone_id = aws_route53_zone.content_hub_route53_zone.zone_id
   }
 }
