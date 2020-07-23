@@ -17,8 +17,11 @@ metadata:
   name: allow-ingress-traffic
   namespace: mogaal-test
 spec:
-  podSelector:
-    matchLabels:
-      app: nginx-ingress
+  podSelector: {}
+  policyTypes:
+  - Ingress
   ingress:
-  - from: []
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
