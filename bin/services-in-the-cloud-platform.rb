@@ -40,7 +40,7 @@ stdout, _, _ = Open3.capture3(cmd)
 production_namespaces = stdout.split("\n")
 
 filtered = production_namespaces
-  .map { |ns| ns.sub(/.*gov.uk./, '').sub(/\/.*/, '') }
+  .map { |ns| ns.sub(/.*gov.uk./, "").sub(/\/.*/, "") }
   .map { |ns| ns.sub(/formbuilder.*/, "formbuilder") } # formbuilder is a special case
 
 SUFFIXES.each do |suffixre|
