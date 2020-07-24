@@ -21,7 +21,7 @@ module "checkmydiary_dev_rds" {
   environment-name       = "development"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
   rds_family             = "postgres10"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
 
   providers = {
     aws = aws.london
