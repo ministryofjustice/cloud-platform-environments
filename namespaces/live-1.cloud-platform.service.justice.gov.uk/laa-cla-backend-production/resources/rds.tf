@@ -19,8 +19,9 @@ module "cla_backend_rds" {
 
   db_name = "cla_backend"
   # Settings from current setup
-  db_instance_class    = "db.t2.medium"
-  db_allocated_storage = "250"
+  db_instance_class    = "db.t2.2xlarge"
+  db_allocated_storage = "100"
+  db_iops              = "3000"
 
   # change the postgres version as you see fit.
   db_engine_version      = "9.6"
@@ -58,8 +59,9 @@ module "cla_backend_replica" {
 
 
   # Settings from current setup
-  db_instance_class    = "db.t2.medium"
+  db_instance_class    = "db.t2.2xlarge"
   db_allocated_storage = "100"
+  db_iops              = "3000"
 
   # change the postgres version as you see fit.
   db_engine_version = "9.6"
