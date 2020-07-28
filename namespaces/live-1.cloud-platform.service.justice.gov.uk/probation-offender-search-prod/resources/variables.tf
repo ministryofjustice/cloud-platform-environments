@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "probation-search-indexer.hmpps.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "probation-offender-search-indexer"
 }
