@@ -50,7 +50,7 @@ metadata:
   name: authorized-keys-provider
   namespace: authorized-keys-provider
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: authorized-keys-provider
