@@ -7,7 +7,7 @@ module "message_dynamodb" {
   business-unit          = var.business-unit
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  is-production          = "true"
+  is-production          = "false"
 
   hash_key      = "id"
   ttl_attribute = "deleteBy"
@@ -35,7 +35,7 @@ module "schedule_dynamodb" {
   business-unit          = var.business-unit
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  is-production          = "true"
+  is-production          = "false"
 
   hash_key = "_id"
 }
