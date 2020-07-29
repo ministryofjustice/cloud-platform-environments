@@ -19,7 +19,7 @@ module "checkmydiary_rds" {
   is-production          = "false"
   environment-name       = "preprod"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
 
   providers = {
     aws = aws.london
