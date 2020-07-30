@@ -1,3 +1,7 @@
+variable "domain" {
+    default = "prison-data-compliance.prison.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "prison-data-compliance"
 }
