@@ -55,3 +55,16 @@ resource "kubernetes_secret" "probation_offender_events" {
     topic_arn         = module.probation_offender_events.topic_arn
   }
 }
+
+resource "kubernetes_secret" "prison_data_compliance" {
+  metadata {
+    name      = "offender-events-topic"
+    namespace = "prison-data-compliance-prod"
+  }
+
+  data = {
+    access_key_id     = module.offender_events.access_key_id
+    secret_access_key = module.offender_events.secret_access_key
+    topic_arn         = module.offender_events.topic_arn
+  }
+}
