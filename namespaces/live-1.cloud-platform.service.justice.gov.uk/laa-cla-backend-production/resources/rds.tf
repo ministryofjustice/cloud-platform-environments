@@ -103,6 +103,9 @@ resource "kubernetes_secret" "cla_backend_rds" {
     password         = module.cla_backend_rds.database_password
     replica_host     = module.cla_backend_replica.rds_instance_address
     replica_endpoint = module.cla_backend_replica.rds_instance_endpoint
+    access_key_id     = module.cla_backend_rds.access_key_id
+    secret_access_key = module.cla_backend_rds.secret_access_key
+    db_identifier     = module.cla_backend_rds.db_identifier
   }
 
 }
