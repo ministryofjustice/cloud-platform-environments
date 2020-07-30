@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - probation-offender-search.prison.service.justice.gov.uk
+  - probation-offender-search.hmpps.service.justice.gov.uk
