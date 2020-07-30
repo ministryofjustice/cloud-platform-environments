@@ -27,9 +27,16 @@ BRANCH = SecureRandom.alphanumeric
 # Lastly create a Pull Request against the newly created branch and the commit.
 
 def main
-  encoded_authorized_keys = build_authorized_keys
-  create_new_branch_commit(encoded_authorized_keys)
-  puts create_pull_request
+  authorized_keys = build_authorized_keys
+
+  content_sha, encoded_authorized_keys = compare_with_existing_keys(authorized_keys)
+  
+  if(encoded_authorized_keys == nil)
+    puts "No new publicKeys to raise PR"
+  else
+    create_new_branch_commit(content_sha, encoded_authorized_keys)
+    puts create_pull_request
+  end
 end
 
 def build_authorized_keys
@@ -48,35 +55,51 @@ def build_authorized_keys
       authorized_keys += node["node"]["key"] + " @" + format(member["login"]) + "\n"
     end
   end
-
-  encoded_authorized_keys = Base64.strict_encode64(authorized_keys)
+  
+  authorized_keys  
 end
 
-def create_new_branch_commit(encoded_authorized_keys)
-  # Get the main branch sha
-  json = get_query(
-    token: ENV.fetch("GITHUB_TOKEN"),
-    api_url: GITHUB_REST_API_URL + "/git/ref/heads/main"
-  )
+def compare_with_existing_keys(authorized_keys)
 
-  sha = JSON.parse(json).dig("object", "sha")
+    # Get the latest blob for the content
+    api_url = GITHUB_REST_API_URL + "/contents/files/authorized_keys.txt"
 
-  # Create a reference which is basically creating a branch
-  json = post_query(
-    json: get_create_branch_query(sha),
-    token: ENV.fetch("GITHUB_TOKEN"),
-    api_url: GITHUB_REST_API_URL + "/git/refs"
-  )
+    json = get_query(
+      token: ENV.fetch("GITHUB_TOKEN"),
+      api_url: api_url
+    )
 
-  # Get the latest sha for the content
-  api_url = GITHUB_REST_API_URL + "/contents/files/authorized_keys.txt"
+    content = JSON.parse(json).dig("content")
+    
+    decoded_authorized_keys = Base64.decode64(content) 
+    
+    if(decoded_authorized_keys == authorized_keys)
+      return nil
+    else
+      content_sha = JSON.parse(json).dig("sha")
+      encoded_authorized_keys = Base64.strict_encode64(authorized_keys)
+      return encoded_authorized_keys, content_sha
+    end
 
-  json = get_query(
-    token: ENV.fetch("GITHUB_TOKEN"),
-    api_url: api_url
-  )
+end
 
-  content_sha = JSON.parse(json).dig("sha")
+def create_new_branch_commit(content_sha, encoded_authorized_keys)
+
+    # Get the main branch sha
+    json = get_query(
+      token: ENV.fetch("GITHUB_TOKEN"),
+      api_url: GITHUB_REST_API_URL + "/git/ref/heads/main"
+    )
+  
+    sha = JSON.parse(json).dig("object", "sha")
+  
+    # Create a reference which is basically creating a branch
+    json = post_query(
+      json: get_create_branch_query(sha),
+      token: ENV.fetch("GITHUB_TOKEN"),
+      api_url: GITHUB_REST_API_URL + "/git/refs"
+    )
+
 
   # Send the PUT request with the encoded authorized_key content
   content = get_update_content_query(content_sha, encoded_authorized_keys)
