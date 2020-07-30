@@ -91,14 +91,14 @@ def create_new_branch_commit(content_sha, encoded_authorized_keys)
   sha = JSON.parse(json).dig("object", "sha")
 
   # Create a reference which is basically creating a branch
-  json = post_query(
+  post_query(
     json: get_create_branch_query(sha),
     token: ENV.fetch("GITHUB_TOKEN"),
     api_url: GITHUB_REST_API_URL + "/git/refs"
   )
 
   # Send the PUT request with the encoded authorized_key content
-  json = put_query(
+  put_query(
     json: get_update_content_query(content_sha, encoded_authorized_keys),
     token: ENV.fetch("GITHUB_TOKEN"),
     api_url: api_url
