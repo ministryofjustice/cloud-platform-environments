@@ -23,3 +23,4 @@ require File.join(File.dirname(__FILE__), "cp_env", "gpg_keypair")
 require File.join(File.dirname(__FILE__), "cp_env", "gitops_gpg_keypair")
 
 require File.join(File.dirname(__FILE__), "cp_env", "manually_created_pod_deleter")
+require File.join(File.dirname(__FILE__), "cp_env", "completed_job_deleter")
