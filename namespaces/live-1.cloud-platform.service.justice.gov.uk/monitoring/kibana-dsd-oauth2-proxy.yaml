@@ -102,9 +102,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dsd-kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - dsd-kibana.cloud-platform.service.justice.gov.uk
   rules:
-    - host: dsd-kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: dsd-kibana.cloud-platform.service.justice.gov.uk
       http:
         paths:
           - path: /
