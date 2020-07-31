@@ -7,7 +7,7 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 #   * not part of a Cronjobs
 #   * and job not set with ttlSecondsAfterFinished
 #
-# These completed jobs pods are taking up pod counts on each node 
+# These completed jobs pods are taking up pod counts on each node
 # creating too many pods per node get alerts as (limit set by KOPS is 100 per node)
 #
 # NB: The script has a 'dry-run' mode, in which jobs will be listed

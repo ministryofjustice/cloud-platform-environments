@@ -4,7 +4,7 @@ class CpEnv
   #   * not part of a Cronjobs
   #   * and job not set with ttlSecondsAfterFinished
   #
-  # These completed jobs pods are taking up pod count on each node 
+  # These completed jobs pods are taking up pod count on each node
   # creating too many pods per node get alerts (limit set by KOPS is 100 per node)
   #
   # To see a list of jobs that *would be* deleted, without actually
