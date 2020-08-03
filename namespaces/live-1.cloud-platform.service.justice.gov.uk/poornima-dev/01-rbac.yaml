@@ -11,32 +11,3 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller-dev
-  namespace: poornima-dev
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: circleci-dev
-  namespace: poornima-dev
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: tiller-dev
-  namespace: poornima-dev
-subjects:
-- kind: ServiceAccount
-  name: tiller-dev
-  namespace: poornima-dev
-- kind: ServiceAccount
-  name: circleci-dev
-  namespace: poornima-dev
-roleRef:
-  kind: ClusterRole
-  name: admin
-  apiGroup: rbac.authorization.k8s.io
