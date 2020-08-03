@@ -3,11 +3,11 @@ on:
     types: [opened, edited, reopened, synchronize]
 
 jobs:
-  reject-outdated-modules-yaml:
+  reject-outdated-modules:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: ministryofjustice/github-actions/reject-outdated-modules-yaml@outdated-module
+      - uses: ministryofjustice/github-actions/reject-outdated-modules@outdated-module
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
