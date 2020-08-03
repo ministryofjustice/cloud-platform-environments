@@ -3,7 +3,7 @@ on:
     types: [opened, edited, reopened, synchronize]
 
 jobs:
-  reject-escalated-privileges-yaml:
+  reject-outdated-modules-yaml:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
