@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS Digital"
-    cloud-platform.justice.gov.uk/slack-channel: "${slack-channel}"
+    cloud-platform.justice.gov.uk/slack-channel: "#hello-world-test"
     cloud-platform.justice.gov.uk/application: "Hello World Cloud Platform Test"
     cloud-platform.justice.gov.uk/owner: "Sentencing and Oasys Development: natalie.wood@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: ""
