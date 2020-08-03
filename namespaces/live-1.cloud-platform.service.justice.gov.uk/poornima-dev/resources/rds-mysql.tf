@@ -10,7 +10,7 @@
 #################################################################################	
 
 module "wplearndev_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.4"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "cloud-platform"
