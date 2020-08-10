@@ -1,5 +1,9 @@
-variable "domain" {
+variable "domain_psi" {
   default = "probation-search-indexer.hmpps.service.justice.gov.uk"
+}
+
+variable "domain_pos" {
+  default = "probation-offender-search.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
