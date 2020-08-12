@@ -1,5 +1,5 @@
 module "authorized-keys" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
 
   team_name              = "apply-for-legal-aid"
   acl                    = "private"
