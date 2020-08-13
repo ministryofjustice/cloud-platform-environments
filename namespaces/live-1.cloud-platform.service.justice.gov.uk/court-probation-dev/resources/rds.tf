@@ -14,7 +14,7 @@ module "court_case_service_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
-
+  db_engine_version      = var.db_engine_version
 
   providers = {
     aws = aws.london
