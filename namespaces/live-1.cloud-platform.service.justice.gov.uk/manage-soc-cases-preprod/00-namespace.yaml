@@ -10,3 +10,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "manage-soc-cases"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-soc-cases.git"
+    cloud-platform.justice.gov.uk/slack-channel: "#pathfinder-service"
+    cloud-platform.justice.gov.uk/team-name: "dps-soct-tech"
