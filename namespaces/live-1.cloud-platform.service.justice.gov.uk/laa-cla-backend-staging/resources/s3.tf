@@ -1,5 +1,5 @@
 module "cla_backend_private_reports_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
   acl    = "private"
 
   team_name              = var.team_name
@@ -49,7 +49,7 @@ EOF
 }
 
 module "cla_backend_deleted_objects_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
   acl    = "private"
 
   team_name              = var.team_name
@@ -96,15 +96,15 @@ EOF
 
 
 module "cla_backend_static_files_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.3"
-  acl                    = "public-read"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  acl                           = "public-read"
   enable_allow_block_pub_access = false
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  team_name                     = var.team_name
+  business-unit                 = var.business-unit
+  application                   = var.application
+  is-production                 = var.is-production
+  environment-name              = var.environment-name
+  infrastructure-support        = var.infrastructure-support
 
   providers = {
     aws = aws.london
