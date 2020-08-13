@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: anasir_test_hello_world
-spec:
-  hard:
-    pods: "50"
