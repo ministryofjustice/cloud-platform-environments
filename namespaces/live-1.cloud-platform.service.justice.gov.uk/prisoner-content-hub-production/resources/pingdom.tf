@@ -3,8 +3,8 @@ provider "pingdom" {
 
 resource "pingdom_check" "prisoner-content-hub-production-checks-1" {
   for_each = {
-    drupal-cms  = "manage.content-hub.prisoner.service.justice.gov.uk",
-    berwyn      = "berwyn.content-hub.prisoner.service.justice.gov.uk"
+    drupal-cms = "manage.content-hub.prisoner.service.justice.gov.uk",
+    berwyn     = "berwyn.content-hub.prisoner.service.justice.gov.uk"
   }
 
   type                     = "http"
