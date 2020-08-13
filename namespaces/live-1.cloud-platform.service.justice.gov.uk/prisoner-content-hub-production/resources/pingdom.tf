@@ -3,10 +3,10 @@ provider "pingdom" {
 
 resource "pingdom_check" "prisoner-content-hub-production-checks" {
   for_each = {
-    drupal-cms = "manage.content-hub.prisoner.service.justice.gov.uk",
-    berwyn = "berwyn.content-hub.prisoner.service.justice.gov.uk",
+    drupal-cms  = "manage.content-hub.prisoner.service.justice.gov.uk",
+    berwyn      = "berwyn.content-hub.prisoner.service.justice.gov.uk",
     cookhamwood = "cookhamwood.content-hub.prisoner.service.justice.gov.uk",
-    wayland = "wayland.content-hub.prisoner.service.justice.gov.uk",
+    wayland     = "wayland.content-hub.prisoner.service.justice.gov.uk",
   }
 
   type                     = "http"
@@ -23,7 +23,7 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
   probefilters             = "region:EU"
   publicreport             = "true"
 
-  integrationids           = [
+  integrationids = [
     106307, # #pfs_dev channel
     106310, # #pfs_alerts channel
   ]
