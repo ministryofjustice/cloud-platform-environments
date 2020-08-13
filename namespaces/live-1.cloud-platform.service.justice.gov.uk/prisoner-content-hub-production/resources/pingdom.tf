@@ -19,7 +19,7 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application},component_healthcheck,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_${var.infrastructure-support}"
+  tags                     = "businessunit_${var.business-unit},application_${var.application},component_healthcheck,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_${var.team_name}"
   probefilters             = "region:EU"
   publicreport             = "true"
 
