@@ -42,3 +42,7 @@ variable "rds-family" {
   default = "postgres11"
 }
 
+variable "db-engine-version" {
+  default = "11"
+}
+
