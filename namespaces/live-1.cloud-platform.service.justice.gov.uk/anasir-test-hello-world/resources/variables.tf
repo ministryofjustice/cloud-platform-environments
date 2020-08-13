@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "anasir_test_hello_world"
+  default = "anasir-test-hello-world"
 }
 
 variable "business-unit" {
