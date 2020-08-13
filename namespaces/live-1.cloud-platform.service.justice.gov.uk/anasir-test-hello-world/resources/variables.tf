@@ -24,9 +24,15 @@ variable "team-name" {
   default     = "check-my-diary"
 }
 
+
+variable "repo-name" {
+  description = "The name of your repository"
+  default     = "check-my-diary"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "developemnt"
+  default     = "development"
 }
 
 variable "infrastructure-support" {
