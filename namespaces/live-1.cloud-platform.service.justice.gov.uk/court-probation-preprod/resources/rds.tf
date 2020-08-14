@@ -5,15 +5,17 @@ variable "cluster_state_bucket" {
 }
 
 module "court_case_service_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
-  cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  rds_family             = var.rds-family
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  cluster_name                = var.cluster_name
+  cluster_state_bucket        = var.cluster_state_bucket
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  rds_family                  = var.rds-family
+  db_engine_version           = var.db_engine_version
+  allow_major_version_upgrade = true
 
 
   providers = {
