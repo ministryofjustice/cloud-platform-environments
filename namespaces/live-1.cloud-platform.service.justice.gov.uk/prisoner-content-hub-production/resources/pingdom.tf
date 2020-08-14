@@ -6,8 +6,8 @@ provider "pingdom" {
 #
 resource "pingdom_check" "prisoner-content-hub-production-checks-drupal-cms" {
 
-  name                     = "Prisoner Content Hub Production – Drupal CMS"
-  host                     = "manage.content-hub.prisoner.service.justice.gov.uk"
+  name = "Prisoner Content Hub Production – Drupal CMS"
+  host = "manage.content-hub.prisoner.service.justice.gov.uk"
 
   type                     = "http"
   resolution               = 1
@@ -33,8 +33,8 @@ resource "pingdom_check" "prisoner-content-hub-production-checks-drupal-cms" {
 
 resource "pingdom_check" "prisoner-content-hub-production-checks-berwyn" {
 
-  name                     = "Prisoner Content Hub Production – Berwyn"
-  host                     = "berwyn.content-hub.prisoner.service.justice.gov.uk"
+  name = "Prisoner Content Hub Production – Berwyn"
+  host = "berwyn.content-hub.prisoner.service.justice.gov.uk"
 
   type                     = "http"
   resolution               = 1
@@ -56,8 +56,8 @@ resource "pingdom_check" "prisoner-content-hub-production-checks-berwyn" {
 
 resource "pingdom_check" "prisoner-content-hub-production-checks-cookhamwood" {
 
-  name                     = "Prisoner Content Hub Production – Cookham Wood"
-  host                     = "cookhamwood.content-hub.prisoner.service.justice.gov.uk"
+  name = "Prisoner Content Hub Production – Cookham Wood"
+  host = "cookhamwood.content-hub.prisoner.service.justice.gov.uk"
 
   type                     = "http"
   resolution               = 1
@@ -79,8 +79,8 @@ resource "pingdom_check" "prisoner-content-hub-production-checks-cookhamwood" {
 
 resource "pingdom_check" "prisoner-content-hub-production-checks-wayland" {
 
-  name                     = "Prisoner Content Hub Production – Wayland"
-  host                     = "wayland.content-hub.prisoner.service.justice.gov.uk"
+  name = "Prisoner Content Hub Production – Wayland"
+  host = "wayland.content-hub.prisoner.service.justice.gov.uk"
 
   type                     = "http"
   resolution               = 1
