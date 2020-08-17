@@ -26,7 +26,7 @@ func main() {
 	if compare(original, hashNs) {
 		fmt.Println("true")
 	} else {
-		fmt.Println("false")
+		log.Fatalln("Checksums do not match. Exiting")
 	}
 }
 
