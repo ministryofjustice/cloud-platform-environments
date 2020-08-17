@@ -35,8 +35,6 @@ jobs:
 
       - name: echo env
         run: |
-          # echo $(go env GOPATH)
-          # echo $(go env GOROOT)
           echo $PATH
           echo $PWD
       - name: Go Get
