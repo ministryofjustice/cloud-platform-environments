@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: ${{ github.ref }}
-          path: ./src/github.com/${{ github.repository }}
+          # path: ./src/github.com/${{ github.repository }}
 
       - name: echo env
         run: |
