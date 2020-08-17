@@ -24,7 +24,9 @@ func main() {
 	fmt.Println(hashNs)
 
 	if compare(original, hashNs) {
-		fmt.Println("They match !!!")
+		fmt.Println("true")
+	} else {
+		fmt.Println("false")
 	}
 }
 
