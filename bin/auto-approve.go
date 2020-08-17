@@ -17,16 +17,14 @@ func main() {
 	var DefaultHash dir.Hash = dir.Hash1
 
 	original, namespace := readAutoApprove(fileName)
-	fmt.Println(original)
 
 	nsDir := base + "/" + namespace
 	hashNs, _ := dir.HashDir(nsDir, namespace, DefaultHash)
-	fmt.Println(hashNs)
 
 	if compare(original, hashNs) {
-		fmt.Println("true")
+		fmt.Println("Checksums match. Approve PR.")
 	} else {
-		log.Fatalln("Checksums do not match. Exiting")
+		log.Fatalln("Checksums do not match. Exiting.")
 	}
 }
 
