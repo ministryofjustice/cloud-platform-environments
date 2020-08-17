@@ -43,7 +43,7 @@ jobs:
       #     go get -v -u -t -d ./...
 
       - name: Run
-        run: go run ./auto-approve.go
+        run: go run ./bin/auto-approve.go
 
   auto-approve:
     # See https://github.com/hmarr/auto-approve-action
