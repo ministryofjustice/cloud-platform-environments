@@ -3,19 +3,6 @@ name: Auto-approve a pull request
 on:
   push
 
-# jobs:
-#   checksum-compare:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: test go
-#         uses: actions/setup-go@v1
-#         with:
-#           go-version: '1.14.7' 
-#       - run: go get ./...
-#       - run: go run ./bin/auto-approve.go
-
-
 
 jobs:
   # See https://github.com/mvdan/github-actions-golang
@@ -56,12 +43,5 @@ jobs:
         run:
           go get -v -u -t -d ./...
 
-      - name: Go Vet
-        run: go vet ./...
-
-      - name: Lint
-        run: |
-          go get -u golang.org/x/lint/golint
-          golint ./...
       - name: Run
         run: go run ./auto-approve.go
