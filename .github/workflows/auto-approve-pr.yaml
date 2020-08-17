@@ -3,10 +3,9 @@ name: Auto-approve a pull request
 on:
   push
 
-
 jobs:
   # See https://github.com/mvdan/github-actions-golang
-  checksum:
+  checksum-compare:
     env:
       GOPATH: ${{ github.workspace }}
       GO111MODULE: off
@@ -45,3 +44,11 @@ jobs:
 
       - name: Run
         run: go run ./auto-approve.go
+
+  auto-approve:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/auto-approve-action@v2.0.0
+      if: success()
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN  }}"
