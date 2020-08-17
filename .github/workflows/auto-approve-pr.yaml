@@ -7,7 +7,7 @@ jobs:
   # See https://github.com/mvdan/github-actions-golang
   checksum-compare:
     env:
-      GOPATH: ${{ github.workspace }}
+      # GOPATH: ${{ github.workspace }}
       GO111MODULE: off
 
     runs-on: ${{ matrix.os }}
@@ -31,12 +31,12 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: ${{ github.ref }}
-          # path: ./src/github.com/${{ github.repository }}
+          path: ./src/github.com/${{ github.repository }}
 
       - name: echo env
         run: |
-          echo $(go env GOPATH)
-          echo $(go env GOROOT)
+          # echo $(go env GOPATH)
+          # echo $(go env GOROOT)
           echo $PATH
           echo $PWD
       - name: Go Get
