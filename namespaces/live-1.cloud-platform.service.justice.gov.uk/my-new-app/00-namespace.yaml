@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-new-app
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "staging"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "team1"
+    cloud-platform.justice.gov.uk/application: "my-new-app"
+    cloud-platform.justice.gov.uk/owner: "team1: team1@digital.com"
+    cloud-platform.justice.gov.uk/source-code: "https://team1-app.com"
+    cloud-platform.justice.gov.uk/team-name: "team1" 
