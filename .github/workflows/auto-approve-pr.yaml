@@ -28,8 +28,9 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
         with:
+          ref: ${{ github.ref }}
           path: ./src/github.com/${{ github.repository }}
 
       - name: echo env
@@ -50,6 +51,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/auto-approve-action@v2.0.0
-      if: success()
+      if: ${{ success() }}
       with:
         github-token: "${{ secrets.GITHUB_TOKEN  }}"
