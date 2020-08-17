@@ -4,17 +4,12 @@ on:
   pull_request
 
 jobs:
-  # See https://github.com/mvdan/github-actions-golang
   checksum-compare:
     env:
       GOPATH: ${{ github.workspace }}
       GO111MODULE: off
 
     runs-on: ${{ matrix.os }}
-
-    # defaults:
-    #   run:
-    #     working-directory: ./src/github.com/${{ github.repository }}/bin
 
     strategy:
       matrix:
@@ -29,15 +24,10 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@master
-        # with:
-        #   path: ./src/github.com/${{ github.repository }}
 
-      - name: echo env
+      - name: Go get
         run: |
           go get golang.org/x/mod/sumdb/dirhash
-      # - name: Go Get
-      #   run:
-      #     go get -v -u -t -d ./...
 
       - name: Run
         run: go run ./bin/auto-approve.go
