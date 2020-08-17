@@ -39,7 +39,6 @@ jobs:
           # echo $(go env GOROOT)
           echo $PATH
           echo $PWD
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: Go Get
         run:
           go get -u ./...
