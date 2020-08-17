@@ -11,4 +11,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "David Test"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: david.salgado@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-environments"
-    cloud-platform.justice.gov.uk/team-name: "WebOps" 
+    cloud-platform.justice.gov.uk/team-name: "webops" 

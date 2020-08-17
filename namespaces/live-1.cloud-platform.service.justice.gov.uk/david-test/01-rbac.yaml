@@ -5,7 +5,7 @@ metadata:
   namespace: david-test
 subjects:
   - kind: Group
-    name: "github:WebOps"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
