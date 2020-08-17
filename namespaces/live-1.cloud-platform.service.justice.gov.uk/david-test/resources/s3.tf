@@ -6,8 +6,8 @@ module "s3_bucket" {
   business-unit          = var.business-unit
   application            = var.application
   is-production          = var.is-production
-  environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  environment-name       = var.environment
 
   providers = {
     aws = aws.london
