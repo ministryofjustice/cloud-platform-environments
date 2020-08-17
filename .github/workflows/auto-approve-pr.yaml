@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ${{ github.repository }}/bin
+        working-directory: ./src/github.com/${{ github.repository }}/bin
 
     strategy:
       matrix:
@@ -30,16 +30,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
         with:
-          ref: ${{ github.ref }}
           path: ./src/github.com/${{ github.repository }}
 
       - name: echo env
         run: |
+          echo $(go env GOPATH)
+          echo $(go env GOROOT)
           echo $PATH
           echo $PWD
       - name: Go Get
         run:
-          go get -u ./...
+          go get -v -u -t -d ./...
 
       - name: Run
         run: go run ./auto-approve.go
