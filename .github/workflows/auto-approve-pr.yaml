@@ -38,7 +38,7 @@ jobs:
           echo $(go env GOROOT)
           echo $PATH
           echo $PWD
-          git status
+          git branch -a
       - name: Go Get
         run:
           go get -v -u -t -d ./...
