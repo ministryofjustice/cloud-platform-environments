@@ -38,7 +38,7 @@ jobs:
           echo $(go env GOROOT)
           echo $PATH
           echo $PWD
-          git branch -a
+          git switch -
       - name: Go Get
         run:
           go get -v -u -t -d ./...
