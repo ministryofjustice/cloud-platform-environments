@@ -48,10 +48,10 @@ jobs:
 
   auto-approve:
     # See https://github.com/hmarr/auto-approve-action
+    needs: [checksum-compare]
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/auto-approve-action@v2.0.0
-      needs: [checksum-compare]
       if: ${{ success() }}
       with:
         github-token: "${{ secrets.GITHUB_TOKEN  }}"
