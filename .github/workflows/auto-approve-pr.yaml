@@ -32,12 +32,9 @@ jobs:
         # with:
         #   path: ./src/github.com/${{ github.repository }}
 
-      # - name: echo env
-      #   run: |
-      #     echo $(go env GOPATH)
-      #     echo $(go env GOROOT)
-      #     echo $PATH
-      #     echo $PWD
+      - name: echo env
+        run: |
+          go get golang.org/x/mod/sumdb/dirhash
       # - name: Go Get
       #   run:
       #     go get -v -u -t -d ./...
