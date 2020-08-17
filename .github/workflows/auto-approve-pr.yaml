@@ -12,9 +12,9 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    defaults:
-      run:
-        working-directory: ./src/github.com/${{ github.repository }}/bin
+    # defaults:
+    #   run:
+    #     working-directory: ./src/github.com/${{ github.repository }}/bin
 
     strategy:
       matrix:
@@ -29,19 +29,18 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@master
-        with:
-          path: ./src/github.com/${{ github.repository }}
+        # with:
+        #   path: ./src/github.com/${{ github.repository }}
 
-      - name: echo env
-        run: |
-          echo $(go env GOPATH)
-          echo $(go env GOROOT)
-          echo $PATH
-          echo $PWD
-          git switch -
-      - name: Go Get
-        run:
-          go get -v -u -t -d ./...
+      # - name: echo env
+      #   run: |
+      #     echo $(go env GOPATH)
+      #     echo $(go env GOROOT)
+      #     echo $PATH
+      #     echo $PWD
+      # - name: Go Get
+      #   run:
+      #     go get -v -u -t -d ./...
 
       - name: Run
         run: go run ./auto-approve.go
