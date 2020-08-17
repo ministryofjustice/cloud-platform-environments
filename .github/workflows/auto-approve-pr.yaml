@@ -11,4 +11,4 @@ jobs:
       - id: step1
         uses: actions/checkout@master
         uses: actions/setup-go@v2
-        run: go run ./bin/auto-approve
+      - run: go run ./bin/auto-approve
