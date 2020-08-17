@@ -54,7 +54,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_config_map" "rds" {
   metadata {
-    name      = "rds-instance_output"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
