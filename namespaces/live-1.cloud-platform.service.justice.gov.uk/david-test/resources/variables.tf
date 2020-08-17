@@ -14,6 +14,39 @@ variable "namespace" {
   default = "david-test"
 }
 
+variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
+  default     = "Platforms"
+}
+
+variable "team_name" {
+  description = "The name of your development team"
+  default     = "WebOps"
+}
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "development"
+}
+
+variable "infrastructure_support" {
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "david.salgado@digital.justice.gov.uk"
+}
+
+variable "is_production" {
+  default = "false"
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "cloud-platform"
+}
+
+# DEPRECATED: snake-case variables are the default. The definitions below
+# have been left in place until all code has been updated to use snake-case
+# variable names.
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "Platforms"
@@ -22,11 +55,6 @@ variable "business-unit" {
 variable "team-name" {
   description = "The name of your development team"
   default     = "WebOps"
-}
-
-variable "environment" {
-  description = "The type of environment you're deploying to."
-  default     = "development"
 }
 
 variable "infrastructure-support" {
@@ -42,3 +70,4 @@ variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "cloud-platform"
 }
+
