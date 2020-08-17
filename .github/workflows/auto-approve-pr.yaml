@@ -3,7 +3,7 @@ name: Auto-approve a pull request
 on:
   pull_request:
     branches:
-      - main
+      - push
 
 jobs:
   checksum-compare:
