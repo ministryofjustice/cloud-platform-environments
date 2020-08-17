@@ -1,0 +1,14 @@
+name: Auto-approve a pull request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checksum-compare:
+    steps:
+      - id: step1
+        uses: actions/checkout@master
+        uses: actions/setup-go@v2
+        run: go run ./bin/auto-approve
