@@ -7,7 +7,7 @@ jobs:
   # See https://github.com/mvdan/github-actions-golang
   checksum-compare:
     env:
-      # GOPATH: ${{ github.workspace }}
+      GOPATH: ${{ github.workspace }}
       GO111MODULE: off
 
     runs-on: ${{ matrix.os }}
@@ -35,10 +35,11 @@ jobs:
 
       - name: echo env
         run: |
-          # echo $(go env GOPATH)
-          # echo $(go env GOROOT)
+          echo $(go env GOPATH)
+          echo $(go env GOROOT)
           echo $PATH
           echo $PWD
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: Go Get
         run:
           go get -v -u -t -d ./...
