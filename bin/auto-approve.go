@@ -9,8 +9,8 @@ import (
 	dir "golang.org/x/mod/sumdb/dirhash"
 )
 
-const fileName string = "../.checksum"
-const base string = "../namespaces/live-1.cloud-platform.service.justice.gov.uk"
+const fileName string = "./.checksum"
+const base string = "./namespaces/live-1.cloud-platform.service.justice.gov.uk"
 
 func main() {
 	// DefaultHash is the default hash function used in new go.sum entries.
