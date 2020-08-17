@@ -6,7 +6,6 @@ on:
 jobs:
   checksum-compare:
     runs-on: ubuntu-latest
-    strategy:
     steps:
       - uses: actions/checkout@v2
       - name: test go
