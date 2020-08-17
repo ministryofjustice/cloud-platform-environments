@@ -5,8 +5,10 @@ on:
 
 jobs:
   checksum-compare:
+    runs-on: ubuntu-latest
+    strategy:
     steps:
-      - id: step1
-        uses: actions/checkout@master
-        uses: actions/setup-go@v2
+      - uses: actions/checkout@v2
+      - name: test go
+        uses: actions/setup-go@v1
       - run: go run ./bin/auto-approve
