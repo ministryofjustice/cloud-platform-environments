@@ -41,5 +41,3 @@ variable "rds-family" {
 variable "db_engine_version" {
   default = "11"
 }
-
-
