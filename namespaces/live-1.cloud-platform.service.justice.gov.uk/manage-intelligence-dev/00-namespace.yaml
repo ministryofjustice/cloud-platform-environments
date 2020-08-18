@@ -8,5 +8,6 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "manage-intelligence"
+    cloud-platform.justice.gov.uk/slack-channel: "artemis-dev"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-intelligence.git"
