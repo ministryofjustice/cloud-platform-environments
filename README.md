@@ -6,7 +6,7 @@ This repository is where kubernetes namespaces are managed, across all the clust
 ### Functionality
 The pipeline will for each defined `cluster`:
 
-1) Create a namespace defined the namespaces/`cluster` directory. If the namespace already exists on the cluster it will be ignored.
+1) Create a namespace as defined in the namespaces/`cluster` directory. If the namespace already exists on the cluster it will be ignored.
 2) Delete any namespaces that exist in the cluster but are not defined in the repository.
 3) Create any kubernetes resource that is defined under namespaces/`cluster`/`namespace`
 
