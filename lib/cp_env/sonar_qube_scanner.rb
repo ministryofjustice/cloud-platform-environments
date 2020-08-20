@@ -28,11 +28,7 @@ class CpEnv
         each_repo_url_list = each_repo_url.split('/')
         repo_name = each_repo_url_list.last
         puts `git clone #{each_repo_url}`
-        puts `sonar-scanner \
-        -Dsonar.projectKey=#{repo_name} \
-        -Dsonar.sources=#{repo_name} \
-        -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} \
-        -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]}`
+        puts `sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=#{repo_name} -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]}`
       end
       puts `rm -rf cloud-platform-*`
     end
