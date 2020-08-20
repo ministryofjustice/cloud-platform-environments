@@ -2,5 +2,5 @@ projectKey=cloud-platform-helloworld-ruby-app
 serverUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk
 serverVersion=8.2.0.32929
 dashboardUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk/dashboard?id=cloud-platform-helloworld-ruby-app
-ceTaskId=AXQNmn-v0Me46hy7lFCn
-ceTaskUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk/api/ce/task?id=AXQNmn-v0Me46hy7lFCn
+ceTaskId=AXQNt7wZ0Me46hy7lFDU
+ceTaskUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk/api/ce/task?id=AXQNt7wZ0Me46hy7lFDU
