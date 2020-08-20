@@ -292,7 +292,7 @@ module "cp_laa_status_job_queue" {
   infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "cp-laa-status-job-queue"
-  existing_user_name        =  module.create_link_queue.user_name
+  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
@@ -343,7 +343,7 @@ module "cp_laa_status_job_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cp-laa-status-job-queue-dl"
-  existing_user_name     =  module.create_link_queue.user_name
+  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
@@ -358,32 +358,32 @@ resource "kubernetes_secret" "create_link_queue" {
   }
 
   data = {
-    access_key_id               = module.create_link_queue.access_key_id
-    secret_access_key           = module.create_link_queue.secret_access_key
-    sqs_url_link                = module.create_link_queue.sqs_id
-    sqs_arn_link                = module.create_link_queue.sqs_arn
-    sqs_name_link               = module.create_link_queue.sqs_name
-    sqs_url_d_link              = module.create_link_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_link              = module.create_link_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_link             = module.create_link_queue_dead_letter_queue.sqs_name
-    sqs_url_unlink              = module.unlink_queue.sqs_id
-    sqs_arn_unlink              = module.unlink_queue.sqs_arn
-    sqs_name_unlink             = module.unlink_queue.sqs_name
-    sqs_url_d_unlink            = module.unlink_queue_dead_letter_queue.sqs_id
-    sqs_arn_d_unlink            = module.unlink_queue_dead_letter_queue.sqs_arn
-    sqs_name_d_unlink           = module.unlink_queue_dead_letter_queue.sqs_name
-    sqs_url_laa_status          = module.laa_status_update_queue.sqs_id
-    sqs_arn_laa_status          = module.laa_status_update_queue.sqs_arn
-    sqs_name_laa_status         = module.laa_status_update_queue.sqs_name
-    sqs_url_d_laa_status        = module.laa_status_update_dead_letter_queue.sqs_id
-    sqs_arn_d_laa_status        = module.laa_status_update_dead_letter_queue.sqs_arn
-    sqs_name_d_laa_status       = module.laa_status_update_dead_letter_queue.sqs_name
-    sqs_url_hearing_resulted    = module.hearing_resulted_queue.sqs_id
-    sqs_arn_hearing_resulted    = module.hearing_resulted_queue.sqs_arn
-    sqs_name_hearing_resulted   = module.hearing_resulted_queue.sqs_name
-    sqs_url_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_id
-    sqs_arn_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_arn
-    sqs_name_d_hearing_resulted = module.hearing_resulted_dead_letter_queue.sqs_name
+    access_key_id                = module.create_link_queue.access_key_id
+    secret_access_key            = module.create_link_queue.secret_access_key
+    sqs_url_link                 = module.create_link_queue.sqs_id
+    sqs_arn_link                 = module.create_link_queue.sqs_arn
+    sqs_name_link                = module.create_link_queue.sqs_name
+    sqs_url_d_link               = module.create_link_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_link               = module.create_link_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_link              = module.create_link_queue_dead_letter_queue.sqs_name
+    sqs_url_unlink               = module.unlink_queue.sqs_id
+    sqs_arn_unlink               = module.unlink_queue.sqs_arn
+    sqs_name_unlink              = module.unlink_queue.sqs_name
+    sqs_url_d_unlink             = module.unlink_queue_dead_letter_queue.sqs_id
+    sqs_arn_d_unlink             = module.unlink_queue_dead_letter_queue.sqs_arn
+    sqs_name_d_unlink            = module.unlink_queue_dead_letter_queue.sqs_name
+    sqs_url_laa_status           = module.laa_status_update_queue.sqs_id
+    sqs_arn_laa_status           = module.laa_status_update_queue.sqs_arn
+    sqs_name_laa_status          = module.laa_status_update_queue.sqs_name
+    sqs_url_d_laa_status         = module.laa_status_update_dead_letter_queue.sqs_id
+    sqs_arn_d_laa_status         = module.laa_status_update_dead_letter_queue.sqs_arn
+    sqs_name_d_laa_status        = module.laa_status_update_dead_letter_queue.sqs_name
+    sqs_url_hearing_resulted     = module.hearing_resulted_queue.sqs_id
+    sqs_arn_hearing_resulted     = module.hearing_resulted_queue.sqs_arn
+    sqs_name_hearing_resulted    = module.hearing_resulted_queue.sqs_name
+    sqs_url_d_hearing_resulted   = module.hearing_resulted_dead_letter_queue.sqs_id
+    sqs_arn_d_hearing_resulted   = module.hearing_resulted_dead_letter_queue.sqs_arn
+    sqs_name_d_hearing_resulted  = module.hearing_resulted_dead_letter_queue.sqs_name
     sqs_url_cp_laa_status_job    = module.cp_laa_status_job_queue.sqs_id
     sqs_arn_cp_laa_status_job    = module.cp_laa_status_job_queue.sqs_arn
     sqs_name_cp_laa_status_job   = module.cp_laa_status_job_queue.sqs_name
