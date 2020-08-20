@@ -27,10 +27,10 @@ class CpEnv
       get_repos.each do |each_repo_url|
         each_repo_url_list = each_repo_url.split('/')
         repo_name = each_repo_url_list.last
-        puts `git clone #{each_repo_url}`
-        puts `sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=#{repo_name} -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]}`
+        system("(git clone #{each_repo_url})")
+        system("(sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=#{repo_name} -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
       end
-      puts `rm -rf cloud-platform-*`
+      system("(rm -rf cloud-platform-*)")
     end
 
 
