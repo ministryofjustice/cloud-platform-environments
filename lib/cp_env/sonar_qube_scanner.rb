@@ -8,9 +8,8 @@ class CpEnv
       @dry_run = args.fetch(:dry_run, false)
     end
 
-    def scan_repos
-     # scan
-      pp 'HELLO'
+    def scan_all_repos
+      scan
     end
 
     private
@@ -29,12 +28,17 @@ class CpEnv
         each_repo_url_list = each_repo_url.split('/')
         repo_name = each_repo_url_list.last
         puts `git clone #{each_repo_url}`
-        puts `sonar-scanner \
-          -Dsonar.projectKey=#{repo_name} \
-          -Dsonar.sources=#{repo_name} \
-          -Dsonar.host.url=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk \
-          -Dsonar.login=c8ddc0be091641a0986127b100c2327c117e7070`
+        sonar_qube_scanner(repo_name, ENV["SONARQUBE_HOST_URL"] ,ENV["SONARQUBE_TOKEN"])
       end
+      puts `rm -rf cloud-platform-*`
+    end
+
+    def sonar_qube_scanner(repo_name, sonar_qube_host, sonar_qube_token)
+      puts `sonar-scanner \
+      -Dsonar.projectKey=#{repo_name} \
+      -Dsonar.sources=#{repo_name} \
+      -Dsonar.host.url=#{sonar_qube_host} \
+      -Dsonar.login=#{sonar_qube_token}`
     end
   end
 end
