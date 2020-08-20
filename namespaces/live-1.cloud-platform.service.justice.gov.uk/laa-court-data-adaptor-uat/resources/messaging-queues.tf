@@ -410,7 +410,7 @@ module "cp_laa_status_job_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cp-laa-status-job-queue-dl"
-  existing_user_name     =  module.create_link_queue.user_name
+  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
 
   providers = {
