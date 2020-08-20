@@ -10,7 +10,7 @@ dry_run = ARGV.shift == "--dry-run"
 
 set_kube_context(cluster)
 
-CpEnv::SonarQubeScanner.new(dry_run: dry_run).scan_repos
+CpEnv::SonarQubeScanner.new(dry_run: dry_run).scan_all_repos
 #binding.pry
 
 log("green", "Done.")
