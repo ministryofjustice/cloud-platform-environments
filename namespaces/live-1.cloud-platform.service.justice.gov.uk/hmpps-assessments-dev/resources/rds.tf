@@ -1,8 +1,3 @@
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
-}
 
 module "hmpps_assessments_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
@@ -24,7 +19,7 @@ module "hmpps_assessments_rds" {
 
 resource "kubernetes_secret" "hmpps_assessments_rds" {
   metadata {
-    name      = "hmpps_assessments-rds-instance-output"
+    name      = "hmpps-assessments-rds-instance-output"
     namespace = var.namespace
   }
 
