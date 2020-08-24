@@ -18,7 +18,7 @@ variable "team_name" {
   default     = "hmpps-assessments"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "development"
 }
@@ -35,6 +35,9 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps-assessments-dev"
+}
+variable "rds_family" {
+  default = "postgres10"
 }
 
 # DEPRECATED: snake-case variables are the default. The definitions below
@@ -63,5 +66,9 @@ variable "is-production" {
 variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps-assessments-dev"
+}
+
+variable "rds-family" {
+  default = "postgres10"
 }
 

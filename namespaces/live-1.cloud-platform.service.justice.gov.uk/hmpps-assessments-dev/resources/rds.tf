@@ -9,12 +9,12 @@ module "hmpps_assessments_rds" {
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  rds_family             = var.rds-family
+  is-production          = var.is_production
+  environment-name       = var.environment_name
+  infrastructure-support = var.infrastructure_support
+  rds_family             = var.rds_family
 
 
   providers = {
