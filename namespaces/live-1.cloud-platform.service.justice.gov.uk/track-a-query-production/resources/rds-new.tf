@@ -36,7 +36,7 @@ module "track_a_query_rds_new" {
 
 resource "kubernetes_secret" "track_a_query_rds_new" {
   metadata {
-    name      = "track-a-query-rds-b-output"
+    name      = "track-a-query-rds-new-output"
     namespace = "track-a-query-production"
   }
 
