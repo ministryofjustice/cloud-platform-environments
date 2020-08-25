@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: helloworld-rubyapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: dstest
+spec:
+  tls:
+  - hosts:
+    - helloworld-dstest.live-1.cloud-platform.service.justice.gov.uk
+    secretName: dstest-ssl-cert
+  rules:
+  - host: helloworld-dstest.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rubyapp-service
+          servicePort: 4567
