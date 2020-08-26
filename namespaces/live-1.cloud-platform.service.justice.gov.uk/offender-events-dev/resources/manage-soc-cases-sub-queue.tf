@@ -182,7 +182,7 @@ module "manage_soc_cases_probation_offender_events_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "manage_soc_cases_probation_offender_events_queue_dl"
+  sqs_name               = "manage_soc_cases_probation_offender_events_dlq"
   encrypt_sqs_kms        = "true"
 
   providers = {
