@@ -19,7 +19,7 @@ class CpEnv
     NAMEPACES_DIR = "namespaces/#{CLUSTER}"
     PRODUCTION_LABEL = "cloud-platform.justice.gov.uk/is-production"
     LABEL_TRUE = "true"
-    EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/master/namespace-resources/resources/main.tf"
+    EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/main/namespace-resources-cli-template/resources/main.tf"
 
     def initialize(args)
       @namespace = args.fetch(:namespace)
@@ -28,11 +28,13 @@ class CpEnv
     end
 
     def delete
-      if safe_to_delete?
-        destroy_aws_resources
-        delete_namespace
-        clean_up
+      unless safe_to_delete?
+        raise "ERROR: Unable to delete namespace #{namespace}"
       end
+
+      destroy_aws_resources
+      delete_namespace
+      clean_up
     end
 
     private
@@ -102,7 +104,7 @@ class CpEnv
         ),
         bucket: env("KUBECONFIG_S3_BUCKET"),
         key: env("KUBECONFIG_S3_KEY"),
-        local_target: env("KUBE_CONFIG"),
+        local_target: env("KUBE_CONFIG")
       }
       config_file = Kubeconfig.new(kubeconfig).fetch_and_store
 

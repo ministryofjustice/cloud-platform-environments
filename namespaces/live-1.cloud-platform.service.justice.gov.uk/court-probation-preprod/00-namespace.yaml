@@ -5,6 +5,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "preprod"
+    cloud-platform.justice.gov.uk/namespace: "court-probation-preprod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "Prepare a case"

@@ -108,8 +108,8 @@ def expect_execute(cmd, stdout, status)
 end
 
 def expect_same_files(expected_dir, actual_dir)
-  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }
-  actual_files = Dir["#{actual_dir}/**/*"].map { |f| f.sub(actual_dir, "") }
+  expected_files = Dir["#{expected_dir}/**/*"].map { |f| f.sub(expected_dir, "") }.sort
+  actual_files = Dir["#{actual_dir}/**/*"].map { |f| f.sub(actual_dir, "") }.sort
 
   expect(expected_files).to eq(actual_files)
 end

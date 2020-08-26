@@ -1,5 +1,13 @@
+variable "prepare-case-domain" {
+  default = "prepare-case-probation.service.justice.gov.uk"
+}
+
+variable "crime-portal-mirror-gateway-domain" {
+  default = "crime-portal-mirror-gateway-probation.service.justice.gov.uk"
+}
+
 variable "application" {
-  default = "court-case-service"
+  default = "prepare-a-case"
 }
 
 variable "namespace" {
@@ -13,7 +21,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "probation-services"
+  default     = "Probation in court"
 }
 
 variable "environment-name" {
@@ -31,6 +39,10 @@ variable "is-production" {
 }
 
 variable "rds-family" {
-  default = "postgres10"
+  default = "postgres11"
+}
+
+variable "db_engine_version" {
+  default = "11"
 }
 

@@ -1,5 +1,5 @@
 module "nomis-api-access_ecr" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
   repo_name = "nomis-api-access-staging"
   team_name = "digital-prison-services"
 

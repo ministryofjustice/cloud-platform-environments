@@ -20,7 +20,7 @@ spec:
     release: kibana-audit-proxy
 ---
 # Source: oauth2-proxy/templates/deployment.yaml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -91,7 +91,7 @@ spec:
         []
 ---
 # Source: oauth2-proxy/templates/ingress.yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   labels:

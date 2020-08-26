@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-product-portfolio-prod
 subjects:
   - kind: Group
-    name: "github:@ministryofjustice/hmpps-product-portfolio"
+    name: "github:hmpps-product-portfolio"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

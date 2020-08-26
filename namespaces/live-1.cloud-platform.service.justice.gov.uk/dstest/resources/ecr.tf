@@ -1,24 +1,19 @@
-module "dstest_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
-  repo_name = "dstest"
-  team_name = "webops"
+module "ecr-repo" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
-  providers = {
-    aws = aws.london
-  }
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr"
 }
 
-resource "kubernetes_secret" "dstest_ecr_credentials" {
+resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "dstest-ecr-credentials"
-    namespace = "dstest"
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.dstest_ecr_credentials.access_key_id
-    secret_access_key = module.dstest_ecr_credentials.secret_access_key
-    repo_arn          = module.dstest_ecr_credentials.repo_arn
-    repo_url          = module.dstest_ecr_credentials.repo_url
+    repo_url          = module.ecr-repo.repo_url
+    access_key_id     = module.ecr-repo.access_key_id
+    secret_access_key = module.ecr-repo.secret_access_key
   }
 }
-

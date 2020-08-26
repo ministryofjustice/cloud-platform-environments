@@ -1,5 +1,5 @@
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
@@ -10,7 +10,6 @@ module "publisher-rds-instance" {
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
   db_engine_version          = "10.9"
-  apply_method               = "immediate"
 
   providers = {
     aws = aws.london

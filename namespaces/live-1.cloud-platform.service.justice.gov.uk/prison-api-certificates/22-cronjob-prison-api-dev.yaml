@@ -1,0 +1,48 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: export-cert-prison-api-dev
+spec:
+  schedule: "0 10 * * 1-5"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 1200
+      template:
+        spec:
+          containers:
+          - name: dps-tools
+            image: quay.io/hmpps/dps-tools
+            command:
+            - /bin/export-cert.sh
+            args:
+            - "prison-api-dev" # k8s secret name where letsencrypt cert is stored
+            - "nomisapi-t3-certs" # azure keyvault name
+            - "prison-api" # azure keyvault certificate name
+            volumeMounts:
+            - name: export-cert-script
+              mountPath: /bin/export-cert.sh
+              readOnly: true
+              subPath: export-cert.sh
+            - name: azure-sp
+              mountPath: "/azure/azure-sp"
+              readOnly: true
+            - name: prison-api-dev
+              mountPath: "/certs/prison-api-dev"
+              readOnly: true
+          restartPolicy: "Never"
+          volumes:
+          - name: export-cert-script
+            configMap:
+              name: export-cert-script
+              defaultMode: 0755
+          - name: azure-sp
+            secret:
+              secretName: azure-sp-t3
+          - name: prison-api-dev
+            secret:
+              secretName: prison-api-dev

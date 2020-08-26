@@ -3,10 +3,19 @@ name: Rspec Tests for bin directory
 on:
   pull_request:
     branches:
-      - 'master'
+      - 'main'
+    paths:
+      - "bin/**"
+      - "lib/**"
+      - "spec/**"
+
   push:
     branches:
-      - 'master'
+      - 'main'
+    paths:
+      - "bin/**"
+      - "lib/**"
+      - "spec/**"
 
 jobs:
   build:

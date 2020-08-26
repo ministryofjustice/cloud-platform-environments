@@ -1,5 +1,5 @@
 module "cla_backend_private_reports_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
   acl    = "private"
 
   team_name              = var.team_name
@@ -26,7 +26,8 @@ module "cla_backend_private_reports_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}",
-      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5"
+      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5",
+      "arn:aws:s3:::cloud-platform-9025c5a1a81bca7eaefd78a38df7d7de"
     ]
   },
   {
@@ -37,7 +38,8 @@ module "cla_backend_private_reports_bucket" {
     ],
     "Resource": [
       "$${bucket_arn}/*",
-      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5/*"
+      "arn:aws:s3:::cloud-platform-b88610a8f07bc115d7d038d15f6170c5/*",
+      "arn:aws:s3:::cloud-platform-9025c5a1a81bca7eaefd78a38df7d7de/*"
     ]
   }
 ]
@@ -47,7 +49,7 @@ EOF
 }
 
 module "cla_backend_deleted_objects_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
   acl    = "private"
 
   team_name              = var.team_name
@@ -92,7 +94,34 @@ EOF
 
 }
 
-resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
+
+module "cla_backend_static_files_bucket" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  acl                           = "public-read"
+  enable_allow_block_pub_access = false
+  team_name                     = var.team_name
+  business-unit                 = var.business-unit
+  application                   = var.application
+  is-production                 = var.is-production
+  environment-name              = var.environment-name
+  infrastructure-support        = var.infrastructure-support
+
+  providers = {
+    aws = aws.london
+  }
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET"]
+      allowed_origins = ["https://*.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    }
+  ]
+}
+
+
+resource "kubernetes_secret" "cla_backend_s3" {
   metadata {
     name      = "s3"
     namespace = var.namespace
@@ -105,5 +134,7 @@ resource "kubernetes_secret" "cla_backend_private_reports_bucket" {
     reports_bucket_name         = module.cla_backend_private_reports_bucket.bucket_name
     deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
     deleted_objects_bucket_name = module.cla_backend_deleted_objects_bucket.bucket_name
+    static_files_bucket_name    = module.cla_backend_static_files_bucket.bucket_name
+    static_files_bucket_arn     = module.cla_backend_static_files_bucket.bucket_arn
   }
 }

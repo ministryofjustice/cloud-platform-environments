@@ -5,7 +5,7 @@
  *
  */
 module "check-financial-eligibility-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -18,7 +18,7 @@ module "check-financial-eligibility-rds" {
   db_engine              = "postgres"
   db_engine_version      = "11.2"
   db_name                = "check_financial_eligibility_staging"
-  force_ssl              = "false"
+  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres11"
 
   providers = {

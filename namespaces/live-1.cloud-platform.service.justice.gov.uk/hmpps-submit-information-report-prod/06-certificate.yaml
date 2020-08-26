@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: submit-information-report.prison.service.justice.gov.uk
+  namespace: hmpps-submit-information-report-prod
+spec:
+  secretName: hmpps-submit-information-report-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - submit-information-report.prison.service.justice.gov.uk

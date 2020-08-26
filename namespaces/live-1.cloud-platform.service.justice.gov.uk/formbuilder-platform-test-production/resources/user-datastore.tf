@@ -1,5 +1,5 @@
 module "user-datastore-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
@@ -9,9 +9,7 @@ module "user-datastore-rds-instance" {
   is-production              = var.is-production
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
-  force_ssl                  = true
   db_engine_version          = "10.9"
-  apply_method               = "immediate"
 
   providers = {
     aws = aws.london

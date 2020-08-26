@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: dps-cert-export-cronjob
+  name: dps-cert-export-cronjob
+spec:
+  groups:
+  - name: kubernetes-apps
+    rules:
+    - alert: cert-export-job-failed
+      annotations:
+        message: LetsEncrypt certificate export job failed {{ $labels.namespace }}/{{ $labels.job_name }}. Fix this ASAP otherwise the Azure Applications Gateways TLS cert may expire and cause an outage for prison-api or hmpps-auth.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+      expr: kube_job_status_failed{namespace="prison-api-certificates",job_name=~"export-cert.*"} > 0
+      for: 1m
+      labels:
+        severity: digital-prison-service
+
