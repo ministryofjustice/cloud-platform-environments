@@ -25,7 +25,10 @@ resource "kubernetes_secret" "cla_backend_route53_zone_sec" {
 resource "aws_route53_record" "add_a_record" {
   name    = "fox.civillegaladvice.service.gov.uk"
   zone_id = aws_route53_zone.cla_backend_fox_admin_route53_zone.zone_id
-  type    = "CNAME"
-  records = ["dualstack.cla-backe-elbprodb-raqb3vvnvbvy-464626966.eu-west-1.elb.amazonaws.com."]
-  ttl     = "300"
+  type    = "A"
+  alias {
+    name                   = "dualstack.cla-backe-elbprodb-raqb3vvnvbvy-464626966.eu-west-1.elb.amazonaws.com."
+    zone_id                = "Z32O12XQLNTSW2"
+    evaluate_target_health = true
+  }
 }
