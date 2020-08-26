@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "hmpps-book-secure-move-api"
     cloud-platform.justice.gov.uk/owner: "bookasecuremove@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-book-secure-move-api"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps_dev"
