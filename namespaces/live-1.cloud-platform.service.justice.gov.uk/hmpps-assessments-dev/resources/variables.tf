@@ -47,6 +47,12 @@ variable "rds_family" {
   default = "postgres10"
 }
 
+variable "domain" {
+  default = "hmpps-assessments.service.justice.gov.uk"
+}
+
+
+
 # DEPRECATED: snake-case variables are the default. The definitions below
 # have been left in place until all code has been updated to use snake-case
 # variable names.
