@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: crime-portal-mirror-gateway-dev.service.justice.gov.uk
+  name: "*.apps.live-1.cloud-platform.service.justice.gov.uk"
   namespace: court-probation-dev
 spec:
   secretName: court-probation-dev-wildcard-certificate
