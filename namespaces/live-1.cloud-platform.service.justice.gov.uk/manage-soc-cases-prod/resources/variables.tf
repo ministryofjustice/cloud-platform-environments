@@ -2,10 +2,6 @@ variable "application" {
   default = "manage-soc-cases"
 }
 
-variable "domain" {
-  default = "manage-soc-cases.hmpps.service.justice.gov.uk"
-}
-
 variable "namespace" {
   default = "manage-soc-cases-prod"
 }
@@ -31,6 +27,25 @@ variable "infrastructure-support" {
 }
 
 variable "is-production" {
+  default = "true"
+}
+
+variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
+  default     = "HMPPS"
+}
+
+variable "environment_name" {
+  description = "The type of environment you're deploying to."
+  default     = "prod"
+}
+
+variable "infrastructure_support" {
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "dps-hmpps@digital.justice.gov.uk"
+}
+
+variable "is_production" {
   default = "true"
 }
 

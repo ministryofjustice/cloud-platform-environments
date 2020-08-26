@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = "sentencing-and-oasys-development-team"
 }
 
 variable "environment" {
@@ -54,7 +54,7 @@ variable "business-unit" {
 
 variable "team-name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = "sentencing-and-oasys-development-team"
 }
 
 variable "infrastructure-support" {

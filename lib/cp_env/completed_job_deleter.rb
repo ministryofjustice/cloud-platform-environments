@@ -19,10 +19,15 @@ class CpEnv
 
     def delete
       jobs_to_delete = get_completed_jobs
-        .reject { |job| job.fetch("metadata").key?("ownerReferences") }
         .reject { |job| job.fetch("spec").key?("ttlSecondsAfterFinished") }
 
-      jobs_to_delete.map { |job| delete_job(job) }
+      jobs_to_delete.map do |job|
+        delete_job(job)
+      rescue Exception => e
+        # Job might have been deleted since we read the list
+        puts "Caught error #{e}:\n#{e.message}"
+        puts "Continuing..."
+      end
     end
 
     private
