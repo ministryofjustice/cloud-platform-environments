@@ -1,6 +1,0 @@
-projectKey=c100-application
-serverUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk
-serverVersion=8.2.0.32929
-dashboardUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk/dashboard?id=c100-application
-ceTaskId=AXQwU1bxnz5XSMDtTLUH
-ceTaskUrl=https://sonarqube.apps.sq-pipeline.cloud-platform.service.justice.gov.uk/api/ce/task?id=AXQwU1bxnz5XSMDtTLUH
