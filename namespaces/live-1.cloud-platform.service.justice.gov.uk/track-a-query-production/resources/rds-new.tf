@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds_new" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "correspondence"
@@ -21,10 +21,6 @@ module "track_a_query_rds_new" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres9.5"
-
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  apply_method = "pending-reboot"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
