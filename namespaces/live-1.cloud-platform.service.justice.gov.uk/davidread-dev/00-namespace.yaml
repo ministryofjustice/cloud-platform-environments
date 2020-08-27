@@ -8,7 +8,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "davidread"
-    cloud-platform.justice.gov.uk/application: "Playing about with it"
-    cloud-platform.justice.gov.uk/owner: "Cloud Platform: david.read@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/application: "David test"
+    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-multi-container-demo-app"
     cloud-platform.justice.gov.uk/team-name: "cloud-platform-test" 
