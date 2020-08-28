@@ -34,31 +34,30 @@ class CpEnv
       return repo_urls_ministry_org_only
     end
 
-    def scantest
-      pp get_repos_ministryofjustice_org
-    end
-
     def scan
       get_repos_ministryofjustice_org.each do |each_repo_url|
         each_repo_url_list = each_repo_url.split('/')
-        folder_name = ""
-        folder_name = each_repo_url_list.last
+        repo_name = ""
+        repo_name = each_repo_url_list.last
         # some repo urls have .git at the end. So we need to strip it out if it exists.
-        repo_name_with_git_suffix = folder_name.split('.')
+        repo_name_with_git_suffix = repo_name.split('.')
         if repo_name_with_git_suffix.count > 1 # then this repo url has .file_format (e.g .git, .tf etc) suffixed in the end
-          folder_name = repo_name_with_git_suffix.first
+          repo_name = repo_name_with_git_suffix.first
           # If the suffix is anything other than .git then skip to next iteration as it is an invalid url
           if repo_name_with_git_suffix[1] != 'git'
             next
           end
         end
-        puts 'REPO NAME: '+folder_name
-        if File.exists?(folder_name)
-          puts folder_name+': This repo is already scanned'
+        puts 'REPO NAME: '+repo_name
+        if File.exists?(repo_name)
+          puts repo_name+': This repo is already scanned'
         else
-          system("(git clone #{each_repo_url})")
-          system("(sonar-scanner -Dsonar.projectKey=#{folder_name} -Dsonar.sources=#{folder_name} -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
-          system("(rm -rf #{folder_name})") 
+          repo_url_with_token = 'https://'+ENV["GITHUB_TOKEN"]+'@github.com/ministryofjustice/'+repo_name+'.git'
+          system("(git clone #{repo_url_with_token})")
+          system("(cd #{repo_name})")
+          system("(sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=. -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
+          system("(cd ..)")
+          system("(rm -rf #{repo_name})") 
         end
       end
     end
