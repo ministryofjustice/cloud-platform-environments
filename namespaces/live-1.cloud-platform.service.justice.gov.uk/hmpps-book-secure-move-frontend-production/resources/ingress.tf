@@ -11,7 +11,7 @@ controller:
   name: ic
   replicaCount: 2
   ingressClass: hmpps-book-secure-move-frontend-production
-  electionID: ingress-controller-leader-hmpps-book-secure-move-api-production
+  electionID: ingress-controller-leader-hmpps-book-secure-move-frontend-production
   config:
     enable-modsecurity: "true"
     custom-http-errors: 413,502,503,504
