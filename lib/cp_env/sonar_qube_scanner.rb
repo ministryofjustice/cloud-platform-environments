@@ -40,7 +40,7 @@ class CpEnv
         end 
         puts 'REPO NAME: '+repo_name
         repo_url_with_token = 'https://'+ENV["GITHUB_TOKEN_PUB_ONLY"]+'@github.com/ministryofjustice/'+repo_name+'.git'
-        system("(git clone #{each_repo_url})")
+        system("(git clone #{repo_url_with_token})")
         if $?.exitstatus != 0 # If exit code is anything other than 0 then the reop is invalid, private or already cloned. Skip to next.
           pp 'INVALID REPO'
           pp 'The repo '+repo_name+' is private, invalid or already cloned'
