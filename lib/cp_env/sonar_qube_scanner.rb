@@ -45,10 +45,10 @@ class CpEnv
           pp 'INVALID REPO'
           pp 'The repo '+repo_name+' is private, invalid or already cloned'
         else
-          system("(cd #{repo_name})")
           puts 'SCANNING REPO: '+repo_name
-          system("(sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=. -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
-          system("(cd ..)")
+          Dir.chdir(repo_name) do
+            system("(sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=. -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
+          end
           system("(rm -rf #{repo_name})") 
         end
       end
