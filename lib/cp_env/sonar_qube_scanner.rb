@@ -52,8 +52,8 @@ class CpEnv
         if File.exists?(repo_name)
           puts repo_name+': This repo is already scanned'
         else
-          repo_url_with_token = 'https://'+ENV["GITHUB_TOKEN"]+'@github.com/ministryofjustice/'+repo_name+'.git'
-          system("(git clone #{repo_url_with_token})")
+          #repo_url_with_token = 'https://'+ENV["GITHUB_TOKEN"]+'@github.com/ministryofjustice/'+repo_name+'.git'
+          system("(git clone #{each_repo_url})")
           system("(cd #{repo_name})")
           system("(sonar-scanner -Dsonar.projectKey=#{repo_name} -Dsonar.sources=. -Dsonar.host.url=#{ENV["SONARQUBE_HOST_URL"]} -Dsonar.login=#{ENV["SONARQUBE_TOKEN"]})")
           system("(cd ..)")
