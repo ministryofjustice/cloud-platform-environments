@@ -2,10 +2,6 @@ variable "application" {
   default = "manage-soc-cases"
 }
 
-variable "domain" {
-  default = "manage-soc-cases.hmpps.service.justice.gov.uk"
-}
-
 variable "namespace" {
   default = "manage-soc-cases-prod"
 }
@@ -31,6 +27,10 @@ variable "infrastructure-support" {
 }
 
 variable "is-production" {
+  default = "true"
+}
+
+variable "is_production" {
   default = "true"
 }
 

@@ -10,6 +10,10 @@ variable "is-production" {
   default = "true"
 }
 
+variable "is_production" {
+  default = "true"
+}
+
 variable "infrastructure-support" {
   default = "bookasecuremove@digital.justice.gov.uk"
 }
