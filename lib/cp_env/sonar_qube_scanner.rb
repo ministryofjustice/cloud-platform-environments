@@ -2,7 +2,7 @@ class CpEnv
   class SonarQubeScanner
     attr_reader :executor, :dry_run, :sonar_qube_host, :sonar_qube_token
 
-    REPO_REGEXP = %r[^https://github.com/[^\s,]+$]
+    REPO_REGEXP = %r{^https://github.com/[^\s,]+$}
 
     def initialize(args = {})
       @sonar_qube_host = args.fetch(:sonar_qube_host, ENV.fetch("SONARQUBE_HOST_URL"))
