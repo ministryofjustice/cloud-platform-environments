@@ -8,6 +8,7 @@ module "information_report_submissions_queue" {
   sqs_name                  = "information_report_submissions_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
+  
 
   redrive_policy = <<EOF
   {
