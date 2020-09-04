@@ -1,0 +1,170 @@
+
+
+
+
+What is Helm?
+
+Helm is a Package Manager for Kubernetes
+• package multiple K8s resources into a single logical deployment unit: Chart
+
+but it’s not just a Package Manager
+• Helm does Deployment Management for Kubernetes
+• Allows for repeatable deployment
+• Manage dependencies: include other Charts
+• Manage multiple configurations/environments
+• Update, rollback and test application deployments (Releases)
+
+...it is a command line tool
+...works with any type of K8S cluster
+
+
+Why it helps?
+
+Move to microservice architecture
+- Lots of applications
+- an application consists of multiple components
+- each component has its own set of K8S resources
+- Many K8S resources to manage:
+  - pods, ingresses, deployments, services, configmaps secret,
+    cronjobs, jobs, network policies, service accounts
+    etc.... 
+
+- K8S is complex and hard to learn
+
+ 
+
+Example K8S Resource
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-dps-helm-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dps-helm-demo
+      app.kubernetes.io/instance: test
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dps-helm-demo
+        app.kubernetes.io/instance: test
+    spec:
+      serviceAccountName: test-dps-helm-demo
+      containers:
+        - name: dps-helm-demo
+          image: "nginx:1.16.0"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+
+
+Example Deploying to Kubernetes without Helm
+$ kubectl apply -f ./mariadb-secret.yaml
+secret "mariadb" configured
+$ kubectl apply -f ./mariadb-deployment.yaml
+deployment "mariadb" configured
+$ kubectl apply -f ./mariadb-service.yaml
+service "mariadb" configured
+$ kubectl apply -f ./application-configmap.yaml
+configmap "application" configured
+$ kubectl apply -f ./application-deployment.yaml
+deployment "application" configured
+$ kubectl apply -f ./application-service.yaml
+service "application" configured
+$ kubectl apply -f ./nginx-deployment.yaml
+deployment "nginx" configured
+$ kubectl apply -f ./nginx-service.yaml
+service "nginx" configured
+
+- Copy paste all those yaml file
+- Update config to suit each environment
+  (dev,test,stage,preprod,prod etc)
+- Repeat kubectl apply...
+- Cross fingers
+
+
+Without helm it is hard to:
+• manage, edit and update multiple K8s resources
+• deploy multiple K8s resources as a SINGLE application
+• share and reuse K8s config and applications
+• parametise and support multiple environments
+• manage application releases: rollout, rollback, history
+• define deployment lifecycles hooks
+• validate release state after deployment
+
+
+
+
+
+
+
+
+Helm Dictionary
+Chart - a package; bundle of Kubernetes resources
+Release - a chart instance is loaded into Kubernetes
+  - same chart can be installed several times into the same
+cluster; each will have it’s own Release
+Repository - a repository of published Charts
+Template - a K8s configuration file mixed with Go/Sprig
+template
+
+
+Dependency Management
+• Helm subcharts
+• requirements.yaml
+• helm dependency --help
+
+
+
+Templates
+The Go Template language: {{.foo | quote}}
+Variables, simple control structures (looping, conditionals,
+nesting)
+Pipelines - chain together templates functions
+50+ functions from Go/Sprig Template libraries
+date, string, conversions, encoding, reflection, data
+structures (list, dict), math, crypto, semver
+
+
+Values
+Specify values that should be injected into templates
+Simple YAML with “namespaces”
+Each subchart can have its own values.yaml file
+Can use multiple Values files
+Can override individual value for install/update
+
+
+Helm Hooks
+Perform "operation" at specific point of release lifecycle
+"Operation" can be any K8s resource: job, config-map, secret, pod, ...
+The resources that a hook creates are not tracked or managed as part of the release
+
+
+Demo.
+
+Create a basic chart, for a hello world app
+Deploy it
+Update it
+Break it
+Roll it back
+
+
+Helm hub
+
+https://hub.helm.sh/ - many pre-built Charts.
+
+
+
+

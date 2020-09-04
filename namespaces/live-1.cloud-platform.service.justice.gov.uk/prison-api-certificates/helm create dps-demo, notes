@@ -1,0 +1,51 @@
+helm create dps-demo
+
+
+issues, unprived, no ingress
+
+
+https://github.com/nginxinc/docker-nginx-unprivileged
+
+updates 
+
+
+line 8:
+  repository: nginxinc/nginx-unprivileged
+
+templates/deployment.yaml
+  containerPort: 8080
+
+ingress line 44
+
+<   enabled: true
+<   annotations:
+<     kubernetes.io/ingress.class: nginx
+
+<     - host: dps-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+<       paths: ["/"]
+
+
+
+helm -n dps-toolkit install matt-release dps-demo
+
+
+break it, switch back to unprived
+
+          livenessProbe:
+            httpGet:
+              path: /boo
+              port: http
+            failureThreshold: 1
+            periodSeconds: 1
+
+
+helm -n dps-toolkit upgrade matt-release dps-demo
+
+helm -n dps-toolkit list
+
+helm -n dps-toolkit history matt-release
+
+helm -n dps-toolkit rollback matt-release 1
+
+
+helm -n dps-toolkit uninstall matt-release
