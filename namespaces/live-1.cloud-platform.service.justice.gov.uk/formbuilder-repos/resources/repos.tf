@@ -177,30 +177,6 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-api" {
   }
 }
 
-module "ecr-repo-fb-submitter-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
-
-  team_name = "formbuilder"
-  repo_name = "fb-submitter-worker"
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "ecr-repo-fb-submitter-worke" {
-  metadata {
-    name      = "ecr-repo-fb-submitter-worker"
-    namespace = "formbuilder-repos"
-  }
-
-  data = {
-    repo_url          = module.ecr-repo-fb-submitter-worker.repo_url
-    access_key_id     = module.ecr-repo-fb-submitter-worker.access_key_id
-    secret_access_key = module.ecr-repo-fb-submitter-worker.secret_access_key
-  }
-}
-
 module "ecr-repo-fb-submitter-workers" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
