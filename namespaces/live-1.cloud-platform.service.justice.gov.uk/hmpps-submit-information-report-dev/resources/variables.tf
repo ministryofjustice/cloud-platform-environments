@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "Digital-Prison-Services"
 }
 
 variable "environment-name" {
