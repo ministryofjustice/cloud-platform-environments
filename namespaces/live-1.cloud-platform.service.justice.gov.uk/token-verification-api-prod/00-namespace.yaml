@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/application: "token-verification-api"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/token-verification-api.git"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
     cloud-platform.justice.gov.uk/slack-channel: "dps_tech_team"
     cloud-platform.justice.gov.uk/team-name: "dps-tech-team"
