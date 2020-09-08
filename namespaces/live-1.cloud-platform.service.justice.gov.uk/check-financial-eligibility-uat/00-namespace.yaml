@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "check-financial-eligibility"
     cloud-platform.justice.gov.uk/owner: "Apply For Legal Aid dev team: apply@digital.justice.gov.uk: apply@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/check-financial-eligibility"
+    cloud-platform.justice.gov.uk/slack-channel: "apply-alerts-prod"

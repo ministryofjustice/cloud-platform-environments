@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "pecs-move-platform-backend"
     cloud-platform.justice.gov.uk/owner: "bookasecuremove@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pecs-move-platform-backend"
+    cloud-platform.justice.gov.uk/slack-channel: "pecs-alert"

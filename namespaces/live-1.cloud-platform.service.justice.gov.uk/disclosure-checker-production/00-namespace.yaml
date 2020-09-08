@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Check if you need to disclose your criminal record"
     cloud-platform.justice.gov.uk/owner: "Family Justice: family-justice-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/disclosure-checker"
+    cloud-platform.justice.gov.uk/slack-channel: "disclosure-checker"

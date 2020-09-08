@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "hmpps-submit-information-report"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-submit-information-report.git"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps_dev"

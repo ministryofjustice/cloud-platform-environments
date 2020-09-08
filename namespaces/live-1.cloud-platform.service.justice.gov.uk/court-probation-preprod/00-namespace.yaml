@@ -11,4 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Prepare a case"
     cloud-platform.justice.gov.uk/owner: "Probation In Court Team: probation-in-court-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prepare-a-case"
+    cloud-platform.justice.gov.uk/slack-channel: "probation_in_court_alerts"
     

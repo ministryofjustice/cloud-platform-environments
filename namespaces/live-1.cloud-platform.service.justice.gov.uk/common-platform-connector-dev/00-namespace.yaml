@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMCTS Common Platform Connector"
     cloud-platform.justice.gov.uk/owner: "Crime Apps: laa@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-common-platform-connector"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-court-data-ui-dev"

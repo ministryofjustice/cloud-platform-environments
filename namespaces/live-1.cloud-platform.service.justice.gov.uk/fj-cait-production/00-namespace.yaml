@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Get help with child arrangements"
     cloud-platform.justice.gov.uk/owner: "Family Justice: family-justice-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pflr-cait"
+    cloud-platform.justice.gov.uk/slack-channel: "cross_justice_team"
