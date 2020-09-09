@@ -60,6 +60,7 @@ module "probation_offender_search_event_dead_letter_queue" {
   application            = var.application
   sqs_name               = "probation_offender_search_event_dl_queue"
   encrypt_sqs_kms        = "true"
+  message_retention_seconds = 1209600
 
   providers = {
     aws = aws.london
