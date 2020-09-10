@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: pathfinder-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: pathfinder-prod
 spec:

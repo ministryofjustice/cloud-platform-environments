@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: offender-categorisation-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: offender-categorisation-prod
 spec:

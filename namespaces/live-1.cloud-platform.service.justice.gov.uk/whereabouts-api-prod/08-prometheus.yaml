@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: whereabouts-api-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: whereabouts-api-prod
 spec:

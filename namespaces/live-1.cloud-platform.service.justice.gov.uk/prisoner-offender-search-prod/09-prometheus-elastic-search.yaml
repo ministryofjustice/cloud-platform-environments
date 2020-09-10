@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: prisoner-offender-search-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules-elasticsearch
   namespace: prisoner-offender-search-prod
 spec:
