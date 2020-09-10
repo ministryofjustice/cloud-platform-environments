@@ -4,6 +4,8 @@ kind: PrometheusRule
 metadata:
   name: fluentd-es
   namespace: logging
+  labels:
+    prometheus: cloud-platform
 spec:
   groups:
   - name: fluentd

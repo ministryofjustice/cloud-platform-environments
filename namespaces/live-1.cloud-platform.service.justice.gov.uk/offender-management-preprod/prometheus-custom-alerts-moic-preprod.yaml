@@ -3,6 +3,8 @@ kind: PrometheusRule
 metadata:
   name: offender-management-alerting-preprod
   namespace: offender-management-preprod
+  labels:
+    prometheus: cloud-platform
 spec:
   groups:
   - name: moic-preprod
