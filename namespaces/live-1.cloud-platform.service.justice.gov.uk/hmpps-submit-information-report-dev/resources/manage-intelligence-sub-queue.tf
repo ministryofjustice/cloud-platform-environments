@@ -51,10 +51,40 @@ resource "kubernetes_secret" "information_report_submissions_queue" {
   }
 }
 
+resource "kubernetes_secret" "ir_submissions_queue" {
+  metadata {
+    name      = "information-report-submission-sqs"
+    namespace = "manage-intelligence-dev"
+  }
+
+  data = {
+    access_key_id     = module.information_report_submissions_queue.access_key_id
+    secret_access_key = module.information_report_submissions_queue.secret_access_key
+    sqs_dc_req_url    = module.information_report_submissions_queue.sqs_id
+    sqs_dc_req_arn    = module.information_report_submissions_queue.sqs_arn
+    sqs_dc_req_name   = module.information_report_submissions_queue.sqs_name
+  }
+}
+
 resource "kubernetes_secret" "information_report_submissions_dead_letter_queue" {
   metadata {
     name      = "information-report-submission-sqs-dl"
     namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.information_report_submissions_dead_letter_queue.access_key_id
+    secret_access_key = module.information_report_submissions_dead_letter_queue.secret_access_key
+    sqs_dc_req_url    = module.information_report_submissions_dead_letter_queue.sqs_id
+    sqs_dc_req_arn    = module.information_report_submissions_dead_letter_queue.sqs_arn
+    sqs_dc_req_name   = module.information_report_submissions_dead_letter_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "ir_submissions_dead_letter_queue" {
+  metadata {
+    name      = "information-report-submission-sqs-dl"
+    namespace = "manage-intelligence-dev"
   }
 
   data = {
