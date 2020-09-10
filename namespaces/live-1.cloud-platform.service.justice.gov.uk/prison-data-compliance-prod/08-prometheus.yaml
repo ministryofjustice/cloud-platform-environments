@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: prison-data-compliance-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: prison-data-compliance-prod
 spec:

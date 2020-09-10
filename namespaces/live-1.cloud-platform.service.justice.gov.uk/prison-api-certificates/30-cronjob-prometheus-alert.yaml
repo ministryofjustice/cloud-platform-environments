@@ -4,6 +4,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: dps-cert-export-cronjob
+    prometheus: cloud-platform
   name: dps-cert-export-cronjob
 spec:
   groups:
