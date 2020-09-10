@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: prison-to-nhs-update-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: prison-to-nhs-update-prod
 spec:

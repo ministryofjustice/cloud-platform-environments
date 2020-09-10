@@ -3,6 +3,8 @@ kind: PrometheusRule
 metadata:
   name: prison-visits-booking-alerting-staging
   namespace: prison-visits-booking-staging
+  labels:
+    prometheus: cloud-platform
 spec:
   groups:
   - name: pvb-staging
