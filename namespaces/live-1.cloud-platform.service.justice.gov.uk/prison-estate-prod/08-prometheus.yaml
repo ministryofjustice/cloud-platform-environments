@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: prison-estate-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: prison-estate-prod
 spec:

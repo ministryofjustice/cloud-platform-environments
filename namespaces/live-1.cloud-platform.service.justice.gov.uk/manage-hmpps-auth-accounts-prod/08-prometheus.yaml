@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: manage-hmpps-auth-accounts-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: manage-hmpps-auth-accounts-prod
 spec:

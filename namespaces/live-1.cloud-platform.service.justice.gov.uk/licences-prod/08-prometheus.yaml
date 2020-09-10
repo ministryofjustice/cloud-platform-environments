@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: licences-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: licences-prod
 spec:
