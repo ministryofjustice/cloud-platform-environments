@@ -18,6 +18,7 @@ metadata:
   namespace: c100-application-production
   labels:
     role: alert-rules
+    prometheus: cloud-platform
 spec:
   groups:
   - name: application-rules
