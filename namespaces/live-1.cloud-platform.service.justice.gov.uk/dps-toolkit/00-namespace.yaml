@@ -9,4 +9,8 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "dps-toolkit"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/health-kick.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/health-kick.git,https://github.com/ministryofjustice/dps-monitor.git,https://github.com/ministryofjustice/hmpps-template-kotlin.git,https://github.com/ministryofjustice/dps-grafana.git"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
+    cloud-platform.justice.gov.uk/slack-channel: "dps_tech_team"
+    cloud-platform.justice.gov.uk/team-name: "dps-tech-team"
+
