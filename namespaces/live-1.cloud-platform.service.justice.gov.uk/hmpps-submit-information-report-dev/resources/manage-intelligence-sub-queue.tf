@@ -45,9 +45,9 @@ resource "kubernetes_secret" "information_report_submissions_queue" {
   data = {
     access_key_id     = module.information_report_submissions_queue.access_key_id
     secret_access_key = module.information_report_submissions_queue.secret_access_key
-    sqs_url    = module.information_report_submissions_queue.sqs_id
-    sqs_arn    = module.information_report_submissions_queue.sqs_arn
-    sqs_name   = module.information_report_submissions_queue.sqs_name
+    sqs_url           = module.information_report_submissions_queue.sqs_id
+    sqs_arn           = module.information_report_submissions_queue.sqs_arn
+    sqs_name          = module.information_report_submissions_queue.sqs_name
   }
 }
 
@@ -60,9 +60,9 @@ resource "kubernetes_secret" "ir_submissions_queue" {
   data = {
     access_key_id     = module.information_report_submissions_queue.access_key_id
     secret_access_key = module.information_report_submissions_queue.secret_access_key
-    sqs_url    = module.information_report_submissions_queue.sqs_id
-    sqs_arn    = module.information_report_submissions_queue.sqs_arn
-    sqs_name   = module.information_report_submissions_queue.sqs_name
+    sqs_url           = module.information_report_submissions_queue.sqs_id
+    sqs_arn           = module.information_report_submissions_queue.sqs_arn
+    sqs_name          = module.information_report_submissions_queue.sqs_name
   }
 }
 
@@ -75,9 +75,9 @@ resource "kubernetes_secret" "information_report_submissions_dead_letter_queue" 
   data = {
     access_key_id     = module.information_report_submissions_dead_letter_queue.access_key_id
     secret_access_key = module.information_report_submissions_dead_letter_queue.secret_access_key
-    sqs_url    = module.information_report_submissions_dead_letter_queue.sqs_id
-    sqs_arn    = module.information_report_submissions_dead_letter_queue.sqs_arn
-    sqs_name   = module.information_report_submissions_dead_letter_queue.sqs_name
+    sqs_url           = module.information_report_submissions_dead_letter_queue.sqs_id
+    sqs_arn           = module.information_report_submissions_dead_letter_queue.sqs_arn
+    sqs_name          = module.information_report_submissions_dead_letter_queue.sqs_name
   }
 }
 
@@ -90,8 +90,8 @@ resource "kubernetes_secret" "ir_submissions_dead_letter_queue" {
   data = {
     access_key_id     = module.information_report_submissions_dead_letter_queue.access_key_id
     secret_access_key = module.information_report_submissions_dead_letter_queue.secret_access_key
-    sqs_url    = module.information_report_submissions_dead_letter_queue.sqs_id
-    sqs_arn    = module.information_report_submissions_dead_letter_queue.sqs_arn
-    sqs_name   = module.information_report_submissions_dead_letter_queue.sqs_name
+    sqs_url           = module.information_report_submissions_dead_letter_queue.sqs_id
+    sqs_arn           = module.information_report_submissions_dead_letter_queue.sqs_arn
+    sqs_name          = module.information_report_submissions_dead_letter_queue.sqs_name
   }
 }
