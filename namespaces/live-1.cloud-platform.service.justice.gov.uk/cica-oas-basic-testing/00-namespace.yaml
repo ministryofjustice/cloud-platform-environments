@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cica-oas-datacapture-test"
     cloud-platform.justice.gov.uk/owner: "Daniel Thornton: daniel.thornton@informed.com"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/CriminalInjuriesCompensationAuthority/data-capture-service.git"
+    cloud-platform.justice.gov.uk/slack-channel: "ccic_alpha_assessment"
