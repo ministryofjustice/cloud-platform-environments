@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-submit-information-report-prod
+  namespace: ryanforsyth-dev
 spec:
   hard:
     pods: "50"

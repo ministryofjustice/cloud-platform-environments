@@ -2,13 +2,13 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hmpps-submit-information-report-prod
+  namespace: ryanforsyth-dev
 spec:
   limits:
   - default:
       cpu: 1000m
-      memory: 1024Mi
+      memory: 1000Mi
     defaultRequest:
       cpu: 10m
-      memory: 1024Mi
+      memory: 100Mi
     type: Container

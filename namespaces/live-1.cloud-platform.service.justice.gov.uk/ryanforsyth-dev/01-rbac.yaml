@@ -1,12 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-submit-information-report-prod-admin
-  namespace: hmpps-submit-information-report-prod
+  name: ryanforsyth-dev-admin
+  namespace: ryanforsyth-dev
 subjects:
   - kind: Group
-    name: "github:dps-soct-tech"
+    name: "github:hmpps-access"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
