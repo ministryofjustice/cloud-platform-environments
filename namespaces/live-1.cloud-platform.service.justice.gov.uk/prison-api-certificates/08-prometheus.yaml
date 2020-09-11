@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: prison-api-certificates
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: prison-api-certificates
 spec:

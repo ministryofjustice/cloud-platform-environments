@@ -9,4 +9,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "case-notes-to-probation"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/case-notes-poll-push.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/case-notes-to-probation.git"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
+    cloud-platform.justice.gov.uk/slack-channel: "dps_tech_team"
+    cloud-platform.justice.gov.uk/team-name: "dps-tech-team"

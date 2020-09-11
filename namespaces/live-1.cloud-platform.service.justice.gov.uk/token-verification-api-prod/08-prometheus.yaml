@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: token-verification-api-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: token-verification-api-prod
 spec:

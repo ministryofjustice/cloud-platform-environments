@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Backend API for the Civil Legal Aid applications"
     cloud-platform.justice.gov.uk/owner: "LAA Get Access: laa-get-access@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cla_backend"
+    cloud-platform.justice.gov.uk/slack-channel: "cla-alerts"

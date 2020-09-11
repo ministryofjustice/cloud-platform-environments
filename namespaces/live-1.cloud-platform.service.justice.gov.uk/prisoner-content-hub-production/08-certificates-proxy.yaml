@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prisoner-content-hub-production-proxy-certificate
+  namespace: prisoner-content-hub-production
+spec:
+  secretName: prisoner-content-hub-proxy-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - proxy.content-hub.prisoner.service.justice.gov.uk

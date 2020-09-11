@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: offender-events-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules-sqs
   namespace: offender-events-prod
 spec:
@@ -14,8 +15,8 @@ spec:
         message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthly.  https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSQS000/dps-aws-sqs?orgId=1&from=now-6h&to=now&var-env=prod&var-queue_name={{ $labels.queue_name }}
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps 
       expr: |-
-        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name=~"Digital-Prison-Services-prod.*", queue_name!~".*_dl"} offset 15m) by (queue_name) > 15 * 60
-      for: 1m
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name=~"Digital-Prison-Services-prod.*", queue_name!~".*_dl"}) by (queue_name) > 15 * 60
+      for: 10m
       labels:
         severity: digital-prison-service
     - alert: SQS-number-of-messages
@@ -23,8 +24,8 @@ spec:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthly.  https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSQS000/dps-aws-sqs?orgId=1&from=now-6h&to=now&var-env=prod&var-queue_name={{ $labels.queue_name }}
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod.*", queue_name!~".*_dl"} offset 15m) by (queue_name) > 100
-      for: 1m
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod.*", queue_name!~".*_dl"}) by (queue_name) > 100
+      for: 10m
       labels:
         severity: digital-prison-service
     - alert: SNS-no-messages-published
@@ -32,7 +33,7 @@ spec:
         message: "SNS - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthly. https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1514766438/DPS+CloudPlatform+Apps
       expr: |-
-        absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-160f3.*"} offset 15m) == 1
+        absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-160f3.*"}) == 1
       for: 20m
       labels:
         severity: digital-prison-service

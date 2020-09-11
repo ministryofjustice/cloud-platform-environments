@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "moving-people-safely"
     cloud-platform.justice.gov.uk/owner: "bookasecuremove@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/moving-people-safely.git"
+    cloud-platform.justice.gov.uk/slack-channel: "moving-people-safely"

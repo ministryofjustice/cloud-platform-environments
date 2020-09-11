@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "data-capture-service"
     cloud-platform.justice.gov.uk/owner: "cica: infrastructure@cica.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/pkpaulk/claim-criminal-injuries-compensation-staging"
+    cloud-platform.justice.gov.uk/slack-channel: "ccic_alpha_assessment"

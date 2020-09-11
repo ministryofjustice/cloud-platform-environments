@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: manage-key-workers-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: manage-key-workers-prod
 spec:

@@ -41,3 +41,7 @@ variable "node-type" {
 variable "is-production" {
   default = "true"
 }
+
+variable "is_production" {
+  default = "true"
+}

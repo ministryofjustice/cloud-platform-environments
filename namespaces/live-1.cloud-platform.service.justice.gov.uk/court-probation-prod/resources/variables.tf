@@ -38,7 +38,15 @@ variable "is-production" {
   default = "true"
 }
 
+variable "is_production" {
+  default = "true"
+}
+
 variable "rds-family" {
-  default = "postgres10"
+  default = "postgres11"
+}
+
+variable "db_engine_version" {
+  default = "11"
 }
 

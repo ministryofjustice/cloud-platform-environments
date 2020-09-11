@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Family Mediators API"
     cloud-platform.justice.gov.uk/owner: "Family Justice: family-justice-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/family-mediators-api"
+    cloud-platform.justice.gov.uk/slack-channel: "cross_justice_team"

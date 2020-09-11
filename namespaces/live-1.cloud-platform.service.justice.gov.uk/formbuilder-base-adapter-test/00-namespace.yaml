@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Form Builder Base Adapter API Endpoint"
     cloud-platform.justice.gov.uk/owner: "Form Builder: form-builder-developers@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/fb-base-adapter"
+    cloud-platform.justice.gov.uk/slack-channel: "form-builder-alerts"

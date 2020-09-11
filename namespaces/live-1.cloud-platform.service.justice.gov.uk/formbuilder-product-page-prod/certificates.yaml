@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: moj-online-product-page-prod-cert
+  namespace: formbuilder-product-page-prod
+spec:
+  secretName: moj-online-product-page-prod-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - moj-online.service.justice.gov.uk
