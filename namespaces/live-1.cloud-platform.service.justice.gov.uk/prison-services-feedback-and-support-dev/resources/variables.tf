@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-feedback-and-support-dev"
+  default = "prison-services-feedback-and-support-dev"
 }
 
 variable "business_unit" {
