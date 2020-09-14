@@ -40,7 +40,7 @@ class CpEnv
     end
 
     def checkout_repo(url)
-      system("GIT_TERMINAL_PROMPT=0 git clone --depth 1 #{url}")
+      system("GIT_TERMINAL_PROMPT=0 git clone #{url}")
       $?.success? # If the command failed then the reop is invalid, private or already cloned. Skip to next.
     end
 
