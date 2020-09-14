@@ -26,6 +26,9 @@ class CpEnv
     def repo_urls
       get_namespaces
         .map { |namespace| namespace.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/source-code") }
+        .map { |str| str.to_s.split(",") }
+        .flatten
+        .map(&:strip)
         .compact
         .uniq
         .find_all { |url| REPO_REGEXP.match?(url) }
