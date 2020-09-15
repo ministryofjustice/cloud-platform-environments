@@ -23,9 +23,9 @@ resource "kubernetes_secret" "hoodaw_dynamodb" {
   }
 
   data = {
-    table_name        = module.message_dynamodb.table_name
-    table_arn         = module.message_dynamodb.table_arn
-    access_key_id     = module.message_dynamodb.access_key_id
-    secret_access_key = module.message_dynamodb.secret_access_key
+    table_name        = module.hoodaw_dynamodb.table_name
+    table_arn         = module.hoodaw_dynamodb.table_arn
+    access_key_id     = module.hoodaw_dynamodb.access_key_id
+    secret_access_key = module.hoodaw_dynamodb.secret_access_key
   }
 }
