@@ -374,7 +374,7 @@ module "create_link_cp_status_job_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "create-link-cp-status-job-queue_policy" {
+resource "aws_sqs_queue_policy" "create-link-cp-queue_policy" {
   queue_url = module.create_link_cp_status_job_queue.sqs_id
 
   policy = <<EOF
