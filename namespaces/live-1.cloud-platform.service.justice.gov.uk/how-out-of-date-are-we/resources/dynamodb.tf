@@ -9,11 +9,11 @@ module "hoodaw_dynamodb" {
   infrastructure-support = var.infrastructure_support
   is-production          = "false"
 
-  hash_key = "filename"
-  range_key = "filename"
+  hash_key          = "filename"
+  range_key         = "filename"
   enable_encryption = "false"
   enable_autoscaler = "false"
-  aws_region = "eu-west-2"
+  aws_region        = "eu-west-2"
 }
 
 resource "kubernetes_secret" "hoodaw_dynamodb" {
