@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: how-out-of-date-are-we
-          image: ministryofjustice/cloud-platform-how-out-of-date-are-we:2.20
+          image: ministryofjustice/cloud-platform-how-out-of-date-are-we:2.21
           env:
             - name: RACK_ENV
               value: "production"
@@ -24,5 +24,22 @@ spec:
                 secretKeyRef:
                   name: how-out-of-date-are-we-api-key
                   key: token
+            - name: DYNAMODB_REGION
+              value: "eu-west-2"
+            - name: DYNAMODB_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: hoodaw-dynamodb-output
+                  key: access_key_id
+            - name: DYNAMODB_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hoodaw-dynamodb-output
+                  key: secret_access_key
+            - name: DYNAMODB_TABLE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: hoodaw-dynamodb-output
+                  key: table_name
           ports:
           - containerPort: 4567
