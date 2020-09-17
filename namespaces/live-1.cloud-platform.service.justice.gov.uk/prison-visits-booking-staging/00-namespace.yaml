@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "prison-visits-booking-staging"
     cloud-platform.justice.gov.uk/owner: "PVB Team: pvb-technical-support@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prison-visits-2, https://github.com/ministryofjustice/prison-visits-public"
+    cloud-platform.justice.gov.uk/slack-channel: "prison-visits"

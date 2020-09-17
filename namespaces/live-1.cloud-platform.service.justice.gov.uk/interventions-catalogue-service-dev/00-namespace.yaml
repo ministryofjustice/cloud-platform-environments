@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Interventions Catalogue"
     cloud-platform.justice.gov.uk/owner: "Interventions Catalogue: interventions-catalogue-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/interventions-catalogue-service"
+    cloud-platform.justice.gov.uk/slack-channel: "interventions"

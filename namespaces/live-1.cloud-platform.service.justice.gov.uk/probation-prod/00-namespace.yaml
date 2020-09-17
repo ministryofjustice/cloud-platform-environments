@@ -10,3 +10,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "probation route53"
     cloud-platform.justice.gov.uk/owner: "webops: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "n/a"
+    cloud-platform.justice.gov.uk/team-name: "webops"
+    cloud-platform.justice.gov.uk/slack-channel: "webops"

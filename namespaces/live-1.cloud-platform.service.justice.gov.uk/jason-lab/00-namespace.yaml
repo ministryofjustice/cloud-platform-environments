@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Jason-lab"
     cloud-platform.justice.gov.uk/owner: "Cloud-Platforms: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/jasonBirchall/ruby-reference-app"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
