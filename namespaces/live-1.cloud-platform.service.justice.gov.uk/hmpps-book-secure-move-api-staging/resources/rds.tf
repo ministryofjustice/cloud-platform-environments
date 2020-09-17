@@ -10,6 +10,9 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
 
+  # enable performance insights
+  performance_insights_enabled = true
+
   providers = {
     aws = aws.london
   }
