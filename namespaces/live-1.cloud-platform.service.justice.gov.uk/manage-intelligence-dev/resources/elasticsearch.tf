@@ -8,7 +8,7 @@ module "manage_intelligence_elasticsearch" {
   infrastructure-support     = var.infrastructure-support
   is-production              = var.is-production
   team_name                  = var.team_name
-  elasticsearch-domain       = "manage-intelligence-search"
+  elasticsearch-domain       = "manage-intelligence"
   namespace                  = var.namespace
   elasticsearch_version      = "7.7"
   aws-es-proxy-replica-count = 2
