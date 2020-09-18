@@ -10,5 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "support-labelling-webhook"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-support-labelling-webhook/"
-    cloud-platform.justice.gov.uk/team-name: "cloud-platform"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
