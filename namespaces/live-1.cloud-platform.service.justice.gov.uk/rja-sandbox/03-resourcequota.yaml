@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-access-user-mapping-service-dev
+  namespace: rja-sandbox
 spec:
   hard:
     pods: "50"
