@@ -10,10 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/application: "keyworker-api"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/keyworker-api.git"
-<<<<<<< HEAD
-    cloud-platform.justice.gov.uk/slack-channel: "digital-prisons"
-=======
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
     cloud-platform.justice.gov.uk/slack-channel: "contact_dps_core"
     cloud-platform.justice.gov.uk/team-name: "dps-core"
->>>>>>> main
