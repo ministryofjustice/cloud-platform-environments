@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cts-prototype-dev"
     cloud-platform.justice.gov.uk/owner: "Development: mohammed.seedat@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_staff/"
+    cloud-platform.justice.gov.uk/slack-channel: "central-digital"

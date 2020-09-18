@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Contact MOJ"
     cloud-platform.justice.gov.uk/owner: "Staff Tools and Services: staffservices@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_public"
+    cloud-platform.justice.gov.uk/slack-channel: "staff-strategy-team"

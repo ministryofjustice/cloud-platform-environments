@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cloud-platform-terraform-aws-module"
     cloud-platform.justice.gov.uk/owner: "Cloud platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-environments"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

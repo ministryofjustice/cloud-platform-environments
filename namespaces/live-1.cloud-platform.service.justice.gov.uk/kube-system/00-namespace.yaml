@@ -5,3 +5,4 @@ metadata:
   labels: 
     openpolicyagent.org/webhook: "ignore"
     component: kube-system
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

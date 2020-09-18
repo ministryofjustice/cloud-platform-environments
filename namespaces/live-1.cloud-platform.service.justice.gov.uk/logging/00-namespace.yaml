@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     iam.amazonaws.com/permitted: ".*"
     cloud-platform.justice.gov.uk/can-tolerate-master-taints: "true"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

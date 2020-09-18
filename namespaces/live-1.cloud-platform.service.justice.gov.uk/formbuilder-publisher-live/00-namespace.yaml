@@ -15,3 +15,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "formbuilder-publisher"
     cloud-platform.justice.gov.uk/owner: "Form Builder: formbuilder@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/fb-publisher"
+    cloud-platform.justice.gov.uk/slack-channel: "moj-online-devs"

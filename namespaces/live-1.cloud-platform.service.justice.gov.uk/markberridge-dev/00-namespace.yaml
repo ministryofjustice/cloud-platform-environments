@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "markberridge-dev-app"
     cloud-platform.justice.gov.uk/owner: "Mark Berridge: mark.berridge@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "git@github.com:ministryofjustice/cloud-platform-reference-app.git"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

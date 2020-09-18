@@ -11,3 +11,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "KIAM"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/kiam.tf"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

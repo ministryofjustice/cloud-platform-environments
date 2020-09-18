@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMCTS Mock API"
     cloud-platform.justice.gov.uk/owner: "Crime Apps: laa@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmcts-common-platform-mock-api"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-crime-apps"
