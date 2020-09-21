@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: support.hmpps.service.justice.gov.uk
+  namespace: prison-services-feedback-and-support-prod
+spec:
+  secretName: prison-services-feedback-and-support-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - support.hmpps.service.justice.gov.uk
