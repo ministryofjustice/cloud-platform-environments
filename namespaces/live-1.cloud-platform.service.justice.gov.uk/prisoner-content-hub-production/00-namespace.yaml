@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "prisoner-content-hub"
     cloud-platform.justice.gov.uk/owner: "Prisoner Facing Services: thehub@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prisoner-content-hub.git,https://github.com/ministryofjustice/prisoner-content-hub-backend.git,https://github.com/ministryofjustice/prisoner-content-hub-frontend.git"
+    cloud-platform.justice.gov.uk/slack-channel: "pfs_dev"

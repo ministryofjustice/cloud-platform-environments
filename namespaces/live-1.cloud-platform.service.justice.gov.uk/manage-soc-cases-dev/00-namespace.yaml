@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "manage-soc-cases"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-soc-cases.git"
+    cloud-platform.justice.gov.uk/slack-channel: "digital-prisons"

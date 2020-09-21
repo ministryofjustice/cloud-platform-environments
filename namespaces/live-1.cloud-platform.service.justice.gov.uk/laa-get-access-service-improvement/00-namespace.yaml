@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "laa-get-access-service-improvement"
     cloud-platform.justice.gov.uk/owner: "LAA Get Access Service Improvement: get-access-service-improvement@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "none"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-ops-team"

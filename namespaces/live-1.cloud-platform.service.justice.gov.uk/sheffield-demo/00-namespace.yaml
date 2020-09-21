@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "sheffield-demo"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: david.salgado@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "dummy"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

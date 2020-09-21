@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Cloud Platform How Out Of Date Are We"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"

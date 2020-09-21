@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "LAA Development Environment"
     cloud-platform.justice.gov.uk/owner: "LAA AWS Development: laa-role-sre@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/orgs/ministryofjustice/teams/laa-aws-infrastructure"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-ops-team"

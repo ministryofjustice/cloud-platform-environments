@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-access-user-mapping-service-dev
+  namespace: prison-services-feedback-and-support-preprod
 spec:
   hard:
     pods: "50"

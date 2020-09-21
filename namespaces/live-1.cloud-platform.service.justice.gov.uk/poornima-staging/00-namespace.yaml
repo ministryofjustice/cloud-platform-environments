@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "poornima-test-application"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/poornima-moj/wordpressapp"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
