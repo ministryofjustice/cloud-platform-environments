@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-court-data-ui-uat" {
   type                     = "http"
   name                     = "View court data UAT - ping"
-  host                     = "staging.${var.domain}"
+  host                     = "uat.${var.domain}"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
