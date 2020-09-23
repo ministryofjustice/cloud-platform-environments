@@ -81,18 +81,11 @@ module "cla_backend_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  parameter {
-    name  = "max_standby_archive_delay"
-    value = "3600000"
-  }
-  parameter {
-    name  = "max_standby_streaming_delay"
-    value = "3600000"
-  }
-  parameter {
-    name  = "log_statement"
-    value = "all"
-  }
+  db_parameter = [
+    { name = "max_standby_archive_delay", value = "3600000", apply_method = "immediate" },
+    { name = "max_standby_streaming_delay", value = "3600000", apply_method = "immediate" },
+    { name = "log_statement", value = "all", apply_method = "immediate" }
+  ]
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
