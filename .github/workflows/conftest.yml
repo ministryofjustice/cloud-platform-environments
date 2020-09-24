@@ -1,0 +1,11 @@
+on: push
+name: Validate
+jobs:
+  conftest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test
+      uses: instrumenta/conftest-action@master
+      with:
+        files: namespaces/*/*/*.y*ml
