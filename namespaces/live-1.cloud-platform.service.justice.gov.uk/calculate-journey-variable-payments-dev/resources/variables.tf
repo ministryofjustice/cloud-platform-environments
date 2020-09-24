@@ -24,9 +24,14 @@ variable "team_name" {
   default     = "calculate-journey-variable-payments"
 }
 
-variable "environment" {
+variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
+}
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "development"
 }
 
 variable "infrastructure_support" {
