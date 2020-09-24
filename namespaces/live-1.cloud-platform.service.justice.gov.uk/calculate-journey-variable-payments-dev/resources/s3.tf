@@ -64,6 +64,37 @@ data "aws_iam_policy_document" "policy" {
       "$${bucket_arn}/*"
     ]
   }
+
+  statement {
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:ListBucketVersions",
+    ]
+
+    resources = [
+      "arn:aws:s3:::cloud-platform-0ca42ca2f8c46427f4fe217398336ab5"
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionAcl",
+      "s3:GetObjectVersionTagging",
+    ]
+
+    resources = [
+      "arn:aws:s3:::cloud-platform-0ca42ca2f8c46427f4fe217398336ab5/*"
+    ]
+  }
+
+
+
 }
 
 resource "kubernetes_secret" "calculate_journey_payments_s3_bucket" {
