@@ -1,11 +1,13 @@
-on: push
-name: Validate
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+name: Conftest YAML files
 jobs:
-  conftest:
+  format-code:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: test
-      uses: instrumenta/conftest-action@master
-      with:
-        files: namespaces/*/*/*.y*ml
+      - uses: actions/checkout@v2
+      - uses: digitalronin/github-actions/conftest-yaml@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
