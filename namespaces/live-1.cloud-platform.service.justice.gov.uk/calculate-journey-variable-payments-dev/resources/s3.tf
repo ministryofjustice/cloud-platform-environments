@@ -1,6 +1,10 @@
 /*
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/main/example
  */
+
+/* COMMENTING OUT TO FIX THE APPLY PIPELINE
+https://concourse.cloud-platform.service.justice.gov.uk/teams/main/pipelines/environments-terraform/jobs/apply-live-1/builds/1191
+
 module "calculate_journey_payments_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
 
@@ -110,3 +114,6 @@ resource "kubernetes_secret" "calculate_journey_payments_s3_bucket" {
     bucket_name       = module.calculate_journey_payments_s3_bucket.bucket_name
   }
 }
+     
+*/
+
