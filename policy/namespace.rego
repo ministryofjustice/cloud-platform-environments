@@ -4,88 +4,58 @@ package main
 
 # Annotations
 
+has_cp_annotation(annotation) {
+  cp_annotation := concat("/", ["cloud-platform.justice.gov.uk", annotation])
+  input.metadata.annotations[cp_annotation]
+  input.metadata.annotations[cp_annotation] != ""
+}
+
+has_cp_label(label) {
+  cp_label := concat("/", ["cloud-platform.justice.gov.uk", label])
+  input.metadata.labels[cp_label]
+  input.metadata.labels[cp_label] != ""
+}
+
 deny[msg] {
   input.kind == "Namespace"
-  not input.metadata.annotations["cloud-platform.justice.gov.uk/business-unit"]
+  not has_cp_annotation("business-unit")
   msg := "Namespace must have business-unit annotation"
 }
 
 deny[msg] {
   input.kind == "Namespace"
-  input.metadata.annotations["cloud-platform.justice.gov.uk/business-unit"] == ""
-  msg := "Namespace business-unit annotation must not be empty string"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  not input.metadata.annotations["cloud-platform.justice.gov.uk/application"]
+  not has_cp_annotation("application")
   msg := "Namespace must have application annotation"
 }
 
 deny[msg] {
   input.kind == "Namespace"
-  input.metadata.annotations["cloud-platform.justice.gov.uk/application"] == ""
-  msg := "Namespace application annotation must not be empty string"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  not input.metadata.annotations["cloud-platform.justice.gov.uk/owner"]
+  not has_cp_annotation("owner")
   msg := "Namespace must have owner annotation"
 }
 
 deny[msg] {
   input.kind == "Namespace"
-  input.metadata.annotations["cloud-platform.justice.gov.uk/owner"] == ""
-  msg := "Namespace owner annotation must not be empty string"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  not input.metadata.annotations["cloud-platform.justice.gov.uk/source-code"]
+  not has_cp_annotation("source-code")
   msg := "Namespace must have source-code annotation"
 }
 
 deny[msg] {
   input.kind == "Namespace"
-  input.metadata.annotations["cloud-platform.justice.gov.uk/source-code"] == ""
-  msg := "Namespace source-code annotation must not be empty string"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  not input.metadata.annotations["cloud-platform.justice.gov.uk/slack-channel"]
+  not has_cp_annotation("slack-channel")
   msg := "Namespace must have slack-channel annotation"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  input.metadata.annotations["cloud-platform.justice.gov.uk/slack-channel"] == ""
-  msg := "Namespace slack-channel annotation must not be empty string"
 }
 
 # Labels
 
 deny[msg] {
   input.kind == "Namespace"
-  not input.metadata.labels["cloud-platform.justice.gov.uk/is-production"]
+  not has_cp_label("is-production")
   msg := "Namespace must have is-production label"
 }
 
 deny[msg] {
   input.kind == "Namespace"
-  input.metadata.labels["cloud-platform.justice.gov.uk/is-production"] == ""
-  msg := "Namespace is-production label must not be empty string"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  not input.metadata.labels["cloud-platform.justice.gov.uk/environment-name"]
+  not has_cp_label("environment-name")
   msg := "Namespace must have environment-name label"
-}
-
-deny[msg] {
-  input.kind == "Namespace"
-  input.metadata.labels["cloud-platform.justice.gov.uk/environment-name"] == ""
-  msg := "Namespace environment-name label must not be empty string"
 }
