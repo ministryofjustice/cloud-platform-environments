@@ -10,5 +10,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "calculate-journey-payments"
     cloud-platform.justice.gov.uk/application: "Calculate Journey Variable Payments"
     cloud-platform.justice.gov.uk/owner: "PECS"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/calculate-people-move-prices"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/calculate-journey-variable-payments"
     cloud-platform.justice.gov.uk/team-name: "calculate-journey-variable-payments"
