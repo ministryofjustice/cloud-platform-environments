@@ -59,6 +59,6 @@ spec:
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
         (absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-c2d99.*"}) == 1) and ((day_of_week() >= 1 and day_of_week() <= 5) and (hour() >= 8 and hour() <= 17))
-      for: 20m
+      for: 30m
       labels:
         severity: digital-prison-service
