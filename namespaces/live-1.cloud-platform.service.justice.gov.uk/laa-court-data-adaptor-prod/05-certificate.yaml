@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - court-data-adaptor.service.justice.gov.uk
+  - cjscp.court-data-adaptor.service.justice.gov.uk
