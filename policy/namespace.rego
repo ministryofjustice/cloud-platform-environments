@@ -2,6 +2,16 @@ package main
 
 # Policy definitions that all namespaces defined in this repository should comply with.
 
+allowed_business_units := [
+  "CICA",
+  "HMCTS",
+  "HMPPS",
+  "HQ",
+  "LAA",
+  "OPG",
+  "Platforms"
+]
+
 # Annotations
 
 has_cp_annotation(annotation) {
@@ -20,6 +30,13 @@ deny[msg] {
   input.kind == "Namespace"
   not has_cp_annotation("business-unit")
   msg := "Namespace must have business-unit annotation"
+}
+
+deny[msg] {
+  input.kind == "Namespace"
+  annotation := input.metadata.annotations["cloud-platform.justice.gov.uk/business-unit"]
+  not array_contains(allowed_business_units, annotation)
+  msg := sprintf("Invalid business-unit annotation: %s", [annotation])
 }
 
 deny[msg] {
