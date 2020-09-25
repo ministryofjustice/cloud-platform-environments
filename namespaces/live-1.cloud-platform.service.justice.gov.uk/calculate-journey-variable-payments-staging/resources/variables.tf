@@ -29,6 +29,12 @@ variable "environment" {
   default     = "staging"
 }
 
+variable "environment-name" {
+  description = "The environment name identifier."
+  default     = "staging"
+}
+
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "calculatejourneypayments@digital.justice.gov.uk"
