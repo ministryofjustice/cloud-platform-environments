@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: probation-offender-events
+  namespace: offender-events-dev
+spec:
+  selector:
+    matchLabels:
+      app: probation-offender-events
+  namespaceSelector:
+    matchNames:
+      - offender-events-dev
+  endpoints:
+    - port: http
+      interval: 15s
