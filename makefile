@@ -54,4 +54,8 @@ tools-shell-in-cluster:
 conftest:
 	ls -1 namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml | xargs -n 200 conftest test
 
-.PHONY: pull-tools tools-shell tools-shell-in-cluster conftest
+# Run the rego policy tests
+policy-tests:
+	opa test ./policy
+
+.PHONY: pull-tools tools-shell tools-shell-in-cluster conftest policy-tests
