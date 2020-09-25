@@ -13,4 +13,5 @@ module "probation_offender_search_es" {
   elasticsearch_version      = "7.4"
   aws-es-proxy-replica-count = 2
   instance_type              = "t2.medium.elasticsearch"
+  ebs_volume_size            = 15
 }
