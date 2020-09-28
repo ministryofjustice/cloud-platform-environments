@@ -11,7 +11,7 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
 
   type                     = "http"
   name                     = "Prisoner Content Hub Production ${each.key}"
-  host                     = "https://health-kick.prison.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -19,7 +19,7 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
   url                      = "/https/${each.value}"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application},component_healthcheck,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_${var.infrastructure-support}"
+  tags                     = "businessunit_${var.business-unit},application_prisoner_content_hub,component_healthcheck,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_platforms"
   probefilters             = "region:EU"
   publicreport             = "true"
 
