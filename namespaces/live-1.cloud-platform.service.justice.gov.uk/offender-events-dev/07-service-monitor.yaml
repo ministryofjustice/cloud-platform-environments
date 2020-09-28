@@ -12,4 +12,5 @@ spec:
       - offender-events-dev
   endpoints:
     - port: http
+      path: /prometheus
       interval: 15s
