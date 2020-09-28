@@ -12,5 +12,4 @@ spec:
       - hmpps-book-secure-move-api-production
   endpoints:
     - port: metrics
-      path: /prometheus
       interval: 15s
