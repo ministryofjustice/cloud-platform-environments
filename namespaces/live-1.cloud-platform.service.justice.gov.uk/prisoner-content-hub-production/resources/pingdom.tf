@@ -11,7 +11,7 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
 
   type                     = "http"
   name                     = "Prisoner Content Hub Production ${each.key}"
-  host                     = "https://health-kick.prison.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
