@@ -29,7 +29,7 @@ metadata:
   name: kibana-dsd-proxy-oauth2-proxy
   namespace: monitoring
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: oauth2-proxy
