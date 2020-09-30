@@ -11,19 +11,20 @@ variable "cluster_state_bucket" {
  *
  */
 module "rds-staging" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "Correspondence Staff"
   business-unit          = "Central Digital"
   application            = "correspondence-staff"
   is-production          = "false"
+  namespace              = var.namespace
   environment-name       = "staging"
   infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   # Deprecated from the version 4.2 of this module
-  #aws_region             = "eu-west-2"  
+  #aws_region             = "eu-west-2"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
