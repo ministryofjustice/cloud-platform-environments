@@ -10,6 +10,10 @@ variable "application" {
   default     = "HMPPS EMS Platform"
 }
 
+variable "domain" {
+  default = "electronic-monitoring.service.justice.gov.uk"
+}
+
 variable "namespace" {
   default = "hmpps-ems-prod"
 }
