@@ -4,13 +4,14 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "track-a-query"
   is-production              = "true"
+  namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "9.5"
   db_backup_retention_period = "7"
