@@ -36,7 +36,7 @@ spec:
             severity: hmpps-book-secure-move
         - alert: ServiceAVGLatencytooHigh
           annotations:
-            message: Service {{ $labels.service }} average request time is over 1s for the last 5 minutes.
+            message: Service {{ $labels.service }} average request time is over 2.5s for the last 5 minutes.
           expr: (sum(rate(nginx_ingress_controller_request_duration_seconds_sum{ingress="hmpps-book-secure-move-api-ingress-production"}[5m]))) /(sum(rate(nginx_ingress_controller_request_duration_seconds_count{ingress="hmpps-book-secure-move-api-ingress-production"}[5m]))) > 2.5
           for: 5m
           labels:
