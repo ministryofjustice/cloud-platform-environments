@@ -9,13 +9,14 @@ resource "random_id" "id" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
   is-production          = var.is-production
+  namespace              = var.namespace
   db_engine_version      = "11.4"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
