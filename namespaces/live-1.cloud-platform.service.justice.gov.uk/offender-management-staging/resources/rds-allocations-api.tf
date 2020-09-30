@@ -17,7 +17,7 @@ variable "cluster_state_bucket" {
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -25,6 +25,7 @@ module "allocation-rds" {
   business-unit          = "HMPPS"
   application            = "offender-management-allocation-manager"
   is-production          = "false"
+  namespace              = var.namespace
   environment-name       = "staging"
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
