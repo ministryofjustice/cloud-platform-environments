@@ -1,12 +1,13 @@
 
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = var.team_name
   business-unit        = var.business_unit
   application          = var.application
   is-production        = var.is_production
+  namespace            = var.namespace
 
   # enable performance insights
   performance_insights_enabled = true
