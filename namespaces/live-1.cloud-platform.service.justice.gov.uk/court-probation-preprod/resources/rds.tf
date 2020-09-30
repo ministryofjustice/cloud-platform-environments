@@ -5,11 +5,12 @@ variable "cluster_state_bucket" {
 }
 
 module "court_case_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name                = var.cluster_name
   cluster_state_bucket        = var.cluster_state_bucket
   team_name                   = var.team_name
   business-unit               = var.business-unit
+  namespace                   = var.namespace
   application                 = var.application
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
