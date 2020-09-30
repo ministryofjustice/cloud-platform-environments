@@ -1,5 +1,5 @@
 
-module "grafana_rds" {
+module "rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
@@ -30,38 +30,38 @@ module "grafana_rds" {
   }
 }
 
-resource "kubernetes_secret" "grafana_rds" {
+resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "grafana-rds-instance"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.grafana_rds.rds_instance_endpoint
-    database_name         = module.grafana_rds.database_name
-    database_username     = module.grafana_rds.database_username
-    database_password     = module.grafana_rds.database_password
-    rds_instance_address  = module.grafana_rds.rds_instance_address
-    access_key_id         = module.grafana_rds.access_key_id
-    secret_access_key     = module.grafana_rds.secret_access_key
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    access_key_id         = module.rds.access_key_id
+    secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
-     * url = "postgres://${module.grafana_rds.database_username}:${module.grafana_rds.database_password}@${module.grafana_rds.rds_instance_endpoint}/${module.grafana_rds.database_name}"
+     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
      *
      */
 }
 
-resource "kubernetes_config_map" "grafana_rds" {
+resource "kubernetes_config_map" "rds" {
   metadata {
-    name      = "grafana-rds-instance"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.grafana_rds.database_name
-    db_identifier = module.grafana_rds.db_identifier
+    database_name = module.rds.database_name
+    db_identifier = module.rds.db_identifier
 
   }
 }

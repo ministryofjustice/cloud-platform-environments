@@ -7,12 +7,13 @@ resource "pingdom_check" "laa-cla-backend-pingdom" {
   host                     = "fox.civillegaladvice.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 3
   notifyagainevery         = 0
-  url                      = "/admin"
+  url                      = "/status/"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${var.business-unit},application_cla-backend,component_ping,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_cla-backend"
   probefilters             = "region:EU"
   publicreport             = "true"
+  integrationids           = [107761]
 }
