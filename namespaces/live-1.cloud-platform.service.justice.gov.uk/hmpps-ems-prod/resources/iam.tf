@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "grafana_platform" {
     sid       = "AWSSESSendEmail"
     effect    = "Allow"
     actions   = ["ses:SendEmail", "ses:SendRawEmail"]
-    resources = [aws_ses_domain_identity.grafana_platform.arn]
+    resources = ["*"]
     condition {
       test     = "StringEquals"
       variable = "ses:FromAddress"
