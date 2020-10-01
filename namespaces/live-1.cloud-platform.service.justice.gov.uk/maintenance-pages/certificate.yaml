@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: maintenance-pages-cert
+  namespace: maintenance-pages
+spec:
+  secretName: maintenance-pages-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - "*.decisions.tribunals.gov.uk"
+  - "*.reports.tribunals.gov.uk"
+  - "*.venues.tribunals.gov.uk"

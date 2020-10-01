@@ -5,9 +5,33 @@ metadata:
 spec:
   tls:
   - hosts:
+    - "*.decisions.tribunals.gov.uk"
+    - "*.reports.tribunals.gov.uk"
+    - "*.venues.tribunals.gov.uk"
     - maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+    secretName: maintenance-pages-cert-secret
   rules:
+  - host: adminappeals.reports.tribunals.gov.uk
+  - host: administrativeappeals.decisions.tribunals.gov.uk
+  - host: carestandards.decisions.tribunals.gov.uk
+  - host: charity.decisions.tribunals.gov.uk
+  - host: cicap.decisions.tribunals.gov.uk
+  - host: claimsmanagement.decisions.tribunals.gov.uk
+  - host: consumercreditappeals.decisions.tribunals.gov.uk
+  - host: employmentappeals.decisions.tribunals.gov.uk
+  - host: estateagentappeals.decisions.tribunals.gov.uk
+  - host: financeandtax.decisions.tribunals.gov.uk
+  - host: immigrationservices.decisions.tribunals.gov.uk
+  - host: informationrights.decisions.tribunals.gov.uk
+  - host: landregistrationdivision.decisions.tribunals.gov.uk
+  - host: landschamber.decisions.tribunals.gov.uk
   - host: maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+  - host: phl.decisions.tribunals.gov.uk
+  - host: siac.decisions.tribunals.gov.uk
+  - host: sscs.venues.tribunals.gov.uk
+  - host: tax.decisions.tribunals.gov.uk
+  - host: taxandchancery_ut.decisions.tribunals.gov.uk
+  - host: transportappeals.decisions.tribunals.gov.uk
     http:
       paths:
       - path: /
