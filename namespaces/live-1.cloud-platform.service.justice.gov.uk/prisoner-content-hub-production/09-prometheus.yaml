@@ -1,0 +1,113 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prisoner-content-hub-production
+    prometheus: cloud-platform
+  name: prisoner-content-hub-production-prometheus-rules
+  namespace: prisoner-content-hub-production
+spec:
+  groups:
+    - name: prisoner-content-hub-production
+      rules:
+        - alert: ModSecurityBlocking
+          annotations:
+            message: modsecurity is blocking ingress {{ $labels.ingress }}
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: |-
+            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prisoner-content-hub-production", status="406"}[1m]) * 60 > 0) by (ingress)
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: ErrorResponses
+          annotations:
+            message: ingress {{ $labels.ingress }} is serving 5XX responses
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: |-
+            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prisoner-content-hub-production", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: KubeQuotaExceeded
+          annotations:
+            message:
+              Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
+              }}% of its {{ $labels.resource }} quota.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: |-
+            100 * kube_resourcequota{namespace="prisoner-content-hub-production", job="kube-state-metrics", type="used"}
+              / ignoring(instance, job, type)
+            (kube_resourcequota{namespace="prisoner-content-hub-production", job="kube-state-metrics", type="hard"} > 0)
+              > 90
+          for: 15m
+          labels:
+            severity: pfs-hub
+        - alert: KubePodCrashLooping
+          annotations:
+            message:
+              Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
+              }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr:
+            rate(kube_pod_container_status_restarts_total{namespace="prisoner-content-hub-production", job="kube-state-metrics"}[15m])
+            * 60 * 5 > 0
+          for: 1h
+          labels:
+            severity: pfs-hub
+        - alert: KubePodNotReady
+          annotations:
+            message:
+              Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
+              state for longer than an hour.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr:
+            sum by (namespace, pod) (kube_pod_status_phase{namespace="prisoner-content-hub-production", job="kube-state-metrics",
+            phase=~"Pending|Unknown"}) > 0
+          for: 1h
+          labels:
+            severity: pfs-hub
+        - alert: KubeDeploymentGenerationMismatch
+          annotations:
+            message:
+              Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
+              }} does not match, this indicates that the Deployment has failed but has
+              not been rolled back.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: |-
+            kube_deployment_status_observed_generation{namespace="prisoner-content-hub-production", job="kube-state-metrics"}
+              !=
+            kube_deployment_metadata_generation{namespace="prisoner-content-hub-production", job="kube-state-metrics"}
+          for: 15m
+          labels:
+            severity: pfs-hub
+        - alert: KubeDeploymentReplicasMismatch
+          annotations:
+            message:
+              Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
+              matched the expected number of replicas for longer than an hour.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: |-
+            kube_deployment_spec_replicas{namespace="prisoner-content-hub-production", job="kube-state-metrics"}
+              !=
+            kube_deployment_status_replicas_available{namespace="prisoner-content-hub-production", job="kube-state-metrics"}
+          for: 1h
+          labels:
+            severity: pfs-hub
+        - alert: KubeCronJobRunning
+          annotations:
+            message:
+              CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more
+              than 1h to complete.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: time() - kube_cronjob_next_schedule_time{namespace="prisoner-content-hub-production"} > 3600
+          for: 1h
+          labels:
+            severity: pfs-hub
+        - alert: KubeJobFailed
+          annotations:
+            message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: kube_job_status_failed{namespace="prisoner-content-hub-production"}  > 0
+          for: 1h
+          labels:
+            severity: pfs-hub

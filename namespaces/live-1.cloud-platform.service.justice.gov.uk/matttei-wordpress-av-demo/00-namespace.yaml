@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "CentralDigital"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "Wordpress Antivirus Microservice Demo"
     cloud-platform.justice.gov.uk/owner: "Justice on the Web: matt.tei@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/mattempty/wp-av"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

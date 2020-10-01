@@ -9,6 +9,7 @@ metadata:
   namespace: claim-criminal-injuries-compensation-prod
   labels:
     role: alert-rules
+    prometheus: cloud-platform
   name: prometheus-custom-rules-data-prod
 spec:
   groups:

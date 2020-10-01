@@ -10,7 +10,7 @@ variable "cluster_state_bucket" {
 }
 
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -19,7 +19,7 @@ module "checkmydiary_rds" {
   is-production          = "false"
   environment-name       = "preprod"
   infrastructure-support = "checkmydiary@digital.justice.gov.uk"
-  force_ssl              = "false"
+  db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
 
   providers = {
     aws = aws.london

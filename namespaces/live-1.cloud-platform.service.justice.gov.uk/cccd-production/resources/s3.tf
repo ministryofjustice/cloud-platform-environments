@@ -6,7 +6,7 @@
  */
 
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
 
   team_name              = var.team_name
   business-unit          = var.business-unit

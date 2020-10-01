@@ -11,6 +11,7 @@ metadata:
   namespace: claim-criminal-injuries-compensation-dev
   labels:
     role: alert-rules
+    prometheus: cloud-platform
   name: prometheus-custom-rules-data-dev
 spec:
   groups:

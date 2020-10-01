@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: manage-soc-cases-preprod.hmpps.service.justice.gov.uk
+  namespace: manage-soc-cases-preprod
+spec:
+  secretName: manage-soc-cases-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-soc-cases-preprod.hmpps.service.justice.gov.uk

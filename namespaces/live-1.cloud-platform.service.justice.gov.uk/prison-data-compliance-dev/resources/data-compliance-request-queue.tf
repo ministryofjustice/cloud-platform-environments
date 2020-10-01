@@ -12,7 +12,7 @@ module "data_compliance_request_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.data_compliance_request_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
+    "deadLetterTargetArn": "${module.data_compliance_request_dead_letter_queue.sqs_arn}","maxReceiveCount": 2
   }
   EOF
 

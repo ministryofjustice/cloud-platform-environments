@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Digital and Technology"
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "pecs-move-platform-backend"
     cloud-platform.justice.gov.uk/owner: "bookasecuremove@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pecs-move-platform-backend"
+    cloud-platform.justice.gov.uk/slack-channel: "pecs-alert"

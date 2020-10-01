@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/owner: "Probation in court: christopher.faulkner@digital-justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app.git"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

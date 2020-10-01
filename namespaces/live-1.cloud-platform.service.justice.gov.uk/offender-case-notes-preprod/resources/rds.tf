@@ -5,17 +5,18 @@ variable "cluster_state_bucket" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
   is-production          = var.is-production
+  namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
-  force_ssl              = "true"
+
 
   providers = {
     aws = aws.london
