@@ -19,7 +19,7 @@ resource "aws_iam_user" "grafana_platform" {
 resource "aws_iam_user_policy" "grafana_platform" {
   name   = "hmpps-ems-prod-grafana-platform"
   user   = aws_iam_user.grafana_platform.name
-  policy = data.aws_iam_policy_document.grafana_platform
+  policy = data.aws_iam_policy_document.grafana_platform.json
 }
 
 resource "aws_iam_access_key" "grafana_platform" {
