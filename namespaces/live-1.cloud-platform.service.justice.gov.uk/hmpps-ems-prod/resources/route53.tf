@@ -11,6 +11,23 @@ resource "aws_route53_zone" "route53_zone" {
   }
 }
 
+resource "aws_route53_record" "grafana_platform_amazonses_verification_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "_amazonses.grafana.platform.${var.domain}"
+  type    = "TXT"
+  ttl     = "600"
+  records = [aws_ses_domain_identity.grafana_platform.verification_token]
+}
+
+resource "aws_route53_record" "grafana_platform_amazonses_dkim_record" {
+  count   = 3
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "${element(aws_ses_domain_dkim.grafana_platform.dkim_tokens, count.index)}._domainkey.grafana.platform.${var.domain}"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["${element(aws_ses_domain_dkim.grafana_platform.dkim_tokens, count.index)}.dkim.amazonses.com"]
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
