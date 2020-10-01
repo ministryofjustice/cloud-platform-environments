@@ -30,3 +30,6 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
+variable "namespace" {
+  default = "formbuilder-platform-live-production"
+}
