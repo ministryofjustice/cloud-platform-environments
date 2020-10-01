@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintenance-pages-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: maintenance-pages-app
+  template:
+    metadata:
+      labels:
+        app: maintenance-pages-app
+    spec:
+      containers:
+      - name: sinatra-app
+        image: ministryofjustice/cloud-platform-maintenance-pages:0.2
+        ports:
+        - containerPort: 4567
