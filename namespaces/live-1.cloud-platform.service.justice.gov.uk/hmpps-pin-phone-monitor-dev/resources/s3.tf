@@ -30,7 +30,8 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     "Effect": "Allow",
     "Action": [
       "s3:GetObject",
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:DeleteObject"
     ],
     "Resource": "$${bucket_arn}/*"
   }
