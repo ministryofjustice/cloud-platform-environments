@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "grafana_platform" {
     effect    = "Allow"
     actions   = ["ses:SendEmail", "ses:SendRawEmail"]
     resources = [aws_ses_domain_identity.grafana_platform.arn]
-    condition = {
+    condition {
       test     = "StringEquals"
       variable = "ses:FromAddress"
       values   = ["noreply@grafana.platform.${var.domain}"]
