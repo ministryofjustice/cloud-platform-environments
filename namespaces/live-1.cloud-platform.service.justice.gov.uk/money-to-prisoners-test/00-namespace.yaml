@@ -10,5 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "money-to-prisoners"
     cloud-platform.justice.gov.uk/owner: "Prisoner Money Team: money-to-prisoners@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/money-to-prisoners"
+    cloud-platform.justice.gov.uk/slack-channel: "prisoner-money"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "prisoner-money-alerts"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/money-to-prisoners-common,https://github.com/ministryofjustice/money-to-prisoners-api,https://github.com/ministryofjustice/money-to-prisoners-cashbook,https://github.com/ministryofjustice/money-to-prisoners-bank-admin,https://github.com/ministryofjustice/money-to-prisoners-noms-ops,https://github.com/ministryofjustice/money-to-prisoners-transaction-uploader,https://github.com/ministryofjustice/money-to-prisoners-send-money,https://github.com/ministryofjustice/money-to-prisoners-start-page"
     iam.amazonaws.com/permitted: "money-to-prisoners-test-iam-role-.*"

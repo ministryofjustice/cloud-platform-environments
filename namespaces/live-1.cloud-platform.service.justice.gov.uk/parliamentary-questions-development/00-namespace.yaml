@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Parliamentary Branch"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "Parliamentary Questions Tracker"
     cloud-platform.justice.gov.uk/owner: "Tactical Products Team: pqsupport@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/parliamentary-questions"
+    cloud-platform.justice.gov.uk/slack-channel: "tactical_products_in_the_ether"

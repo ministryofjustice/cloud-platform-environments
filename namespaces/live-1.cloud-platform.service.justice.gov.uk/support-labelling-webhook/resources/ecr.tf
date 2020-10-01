@@ -1,5 +1,5 @@
 module "ecr-repo-support-labelling" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
   team_name = "webops"
   repo_name = "support-labelling-webhooks"

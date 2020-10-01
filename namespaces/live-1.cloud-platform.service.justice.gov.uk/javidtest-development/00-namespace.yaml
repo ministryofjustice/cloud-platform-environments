@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Javid Test"
     cloud-platform.justice.gov.uk/owner: "STAS: javid.ali@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_staff"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

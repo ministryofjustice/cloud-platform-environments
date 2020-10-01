@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: manage-intelligence-api-dev.hmpps.service.justice.gov.uk
+  namespace: manage-intelligence-dev
+spec:
+  secretName: manage-intelligence-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-intelligence-api-dev.hmpps.service.justice.gov.uk

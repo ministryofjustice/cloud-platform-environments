@@ -9,3 +9,6 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
+variable "namespace" {
+  default = "cts-prototype-dev-poc"
+}

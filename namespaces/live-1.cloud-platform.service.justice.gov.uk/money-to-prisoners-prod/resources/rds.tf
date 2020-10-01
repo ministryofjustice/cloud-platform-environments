@@ -4,7 +4,7 @@ variable "cluster_name" {}
 variable "cluster_state_bucket" {}
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   providers = {
     aws = aws.london
@@ -28,7 +28,6 @@ module "rds" {
   db_name              = "mtp_api"
 
   allow_major_version_upgrade = false
-  apply_method                = "pending-reboot"
 }
 
 resource "kubernetes_secret" "rds" {

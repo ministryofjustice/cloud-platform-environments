@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "qa"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "staff-services-tech"
     cloud-platform.justice.gov.uk/application: "Track a Query"
     cloud-platform.justice.gov.uk/owner: "Staff Services: correspondence-support@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_staff"

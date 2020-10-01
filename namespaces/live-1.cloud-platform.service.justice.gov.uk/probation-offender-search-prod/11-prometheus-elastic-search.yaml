@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: probation-offender-search-prod
+    prometheus: cloud-platform
+  name: dps-prometheus-rules-elasticsearch
+  namespace: probation-offender-search-prod
+spec:
+  groups:
+  - name: DPS-apps-elasticsearch
+    rules:
+    - alert: ElasticSearchClusterStateRed
+      annotations:
+        message: ElasticSearch cluster status is RED {{ $labels.domain_name }}. https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_cluster_status_red_maximum{domain_name=~"^dps-prod.*"} >= 1
+      labels:
+        severity: digital-prison-service
+    - alert: ElasticSearchClusterStateYellow
+      annotations:
+        message: ElasticSearch cluster status is Yellow {{ $labels.domain_name }}. https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_cluster_status_yellow_maximum{domain_name=~"^dps-prod.*"} >= 1
+      labels:
+        severity: digital-prison-service
+    - alert: ElasticSearchClusterFreeStorageSpace
+      annotations:
+        message: ElasticSearch cluster {{ $labels.domain_name }} is running low on storage space. https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }} 
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_free_storage_space_maximum{domain_name=~"^dps-prod.*"} <= 3072
+      for: 1m
+      labels:
+        severity: digital-prison-service
+    - alert: ElasticSearchIndexWritesBlocked
+      annotations:
+        message: ElasticSearch cluster index writes blocked {{ $labels.domain_name }}. https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_cluster_index_writes_blocked_maximum{domain_name=~"^dps-prod.*"} >= 1
+      for: 5m
+      labels:
+        severity: digital-prison-service
+    - alert: ElasticSearchAutomatedSnapshotFailure
+      annotations:
+        message: ElasticSearch {{ $labels.domain_name }}. An automated snapshot failed. This failure is often the result of a red cluster health status.  https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_automated_snapshot_failure_maximum{domain_name=~"^dps-prod.*"} >= 1
+      for: 1m
+      labels:
+        severity: digital-prison-service
+    - alert: ElasticSearchJVMMemoryPressure
+      annotations:
+        message: ElasticSearch {{ $labels.domain_name }}. The cluster could encounter out of memory errors if usage increases.  https://grafana.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
+        runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
+      expr: aws_es_jvmmemory_pressure_maximum{domain_name=~"^dps-prod.*"} >= 80
+      for: 15m
+      labels:
+        severity: digital-prison-service

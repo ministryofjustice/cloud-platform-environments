@@ -223,7 +223,7 @@ resource "aws_sns_topic_subscription" "ccr-queue-subscription" {
   topic_arn     = module.cccd_claims_submitted.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_ccr.sqs_arn
-  filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\"]}"
+  filter_policy = "{\"claim_type\": [\"Claim::AdvocateClaim\", \"Claim::AdvocateInterimClaim\", \"Claim::AdvocateSupplementaryClaim\", \"Claim::AdvocateHardshipClaim\"]}"
 }
 
 resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
@@ -231,6 +231,6 @@ resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
   topic_arn     = module.cccd_claims_submitted.topic_arn
   protocol      = "sqs"
   endpoint      = module.claims_for_cclf.sqs_arn
-  filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\"]}"
+  filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\", \"Claim::LitigatorHardshipClaim\"]}"
 }
 

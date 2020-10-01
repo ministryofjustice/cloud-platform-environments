@@ -78,45 +78,5 @@ describe CpEnv::NamespaceDir do
         namespace_dir.apply
       end
     end
-
-    xcontext "with a gitops namespace" do
-      let(:team_name) { "webops" }
-      let(:kubectl_apply_gitops) { "kubectl -n concourse-#{team_name} apply -f #{dir}/gitops-resources" }
-      let(:yaml) {
-        <<~YAML
-          subjects:
-            - kind: Group
-              name: "github:#{team_name}"
-              apiGroup: rbac.authorization.k8s.io
-        YAML
-      }
-
-      let(:keypair) { double(CpEnv::GitopsGpgKeypair, generate_and_store: nil) }
-
-      before do
-        allow(FileTest).to receive(:exists?).with("#{dir}/gitops-resources").and_return(true)
-        allow(File).to receive(:read).with("#{dir}/01-rbac.yaml").and_return(yaml)
-        allow(CpEnv::GitopsGpgKeypair).to receive(:new).and_return(keypair)
-      end
-
-      context "with kubernetes files" do
-        let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
-
-        it "applies kubernetes files" do
-          expect(executor).to receive(:execute).with(kubectl_apply)
-          namespace_dir.apply
-        end
-
-        it "calls terraform apply" do
-          expect(terraform).to receive(:apply)
-          namespace_dir.apply
-        end
-
-        it "applies gitops kubernetes files" do
-          expect(executor).to receive(:execute).with(kubectl_apply_gitops)
-          namespace_dir.apply
-        end
-      end
-    end
   end
 end

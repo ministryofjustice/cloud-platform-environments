@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "Contact MOJ"
     cloud-platform.justice.gov.uk/owner: "Staff Tools and Services: staffservices@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_public"
+    cloud-platform.justice.gov.uk/slack-channel: "staff-strategy-team"

@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Crime Portal Mirror Gateway"
     cloud-platform.justice.gov.uk/owner: "probation-in-court: christopher.faulkner@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/crime-portal-mirror-gateway"
+    cloud-platform.justice.gov.uk/slack-channel: "probation_in_court_alerts"

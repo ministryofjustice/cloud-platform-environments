@@ -10,6 +10,18 @@ resource "aws_route53_zone" "route53_zone" {
   }
 }
 
+resource "aws_route53_zone" "route53_zone_gds" {
+  name = "check-when-to-disclose-caution-conviction.service.gov.uk"
+
+  tags = {
+    application            = var.application
+    is-production          = var.is-production
+    environment-name       = var.environment-name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure-support
+  }
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
@@ -17,6 +29,7 @@ resource "kubernetes_secret" "route53_zone_sec" {
   }
 
   data = {
-    zone_id = aws_route53_zone.route53_zone.zone_id
+    zone_id     = aws_route53_zone.route53_zone.zone_id
+    gds_zone_id = aws_route53_zone.route53_zone_gds.zone_id
   }
 }

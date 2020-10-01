@@ -2,7 +2,7 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
 
   team_name              = var.team_name
   acl                    = "private"

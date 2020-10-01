@@ -40,7 +40,7 @@ resource "aws_sqs_queue_policy" "offender_events_ui_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${module.offender_events.topic_arn}"
+                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${module.probation_offender_events.topic_arn}"]
                           }
                         }
         }
@@ -96,10 +96,16 @@ resource "kubernetes_secret" "offender_events_ui_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "offender_events_ui_subscription" {
+resource "aws_sns_topic_subscription" "ou_events_ui_prison_subscription" {
   provider  = aws.london
   topic_arn = module.offender_events.topic_arn
   protocol  = "sqs"
   endpoint  = module.offender_events_ui_queue.sqs_arn
 }
 
+resource "aws_sns_topic_subscription" "ou_events_ui_probation_subscription" {
+  provider  = aws.london
+  topic_arn = module.probation_offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.offender_events_ui_queue.sqs_arn
+}

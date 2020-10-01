@@ -2,13 +2,15 @@ provider "pingdom" {}
 
 locals {
   forms = {
-    apply-financial-deputy = "apply-financial-deputy.form.service.justice.gov.uk",
-    childrens-funeral-fund = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
-    cica                   = "same-roof-rule.form.service.justice.gov.uk",
-    contact-us-form        = "contact.form.service.justice.gov.uk",
-    hmcts-complaints       = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
-    leavers-form           = "leavers.form.service.justice.gov.uk",
-    let-us-know            = "let-us-know.form.service.justice.gov.uk"
+    apply-financial-deputy   = "apply-financial-deputy.form.service.justice.gov.uk",
+    childrens-funeral-fund   = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
+    cica                     = "same-roof-rule.form.service.justice.gov.uk",
+    fix-my-court             = "fix-my-court.form.service.justice.gov.uk",
+    hmcts-complaints         = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
+    leavers-form             = "leavers.form.service.justice.gov.uk",
+    let-us-know              = "let-us-know.form.service.justice.gov.uk",
+    publisher                = "fb-publisher-live.apps.live-1.cloud-platform.service.justice.gov.uk",
+    report-security-incident = "report-security-incident.form.service.justice.gov.uk"
   }
   names = keys(local.forms)
   hosts = values(local.forms)

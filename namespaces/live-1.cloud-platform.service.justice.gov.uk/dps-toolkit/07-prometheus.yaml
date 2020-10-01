@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: dps-toolkit
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: dps-toolkit
 spec:

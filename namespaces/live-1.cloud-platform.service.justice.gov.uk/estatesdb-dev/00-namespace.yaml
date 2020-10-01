@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Estates"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "Estates Database"
     cloud-platform.justice.gov.uk/owner: "Programmes and Portfolios: matthew.stainsby@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/estatesprojects.git"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

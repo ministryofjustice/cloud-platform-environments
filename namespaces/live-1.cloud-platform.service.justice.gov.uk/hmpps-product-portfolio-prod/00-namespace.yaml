@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Product Portfolio Application"
     cloud-platform.justice.gov.uk/owner: "Probation: hmppsproductportfolio@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/product-portfolio-app-frontend"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps_dev"

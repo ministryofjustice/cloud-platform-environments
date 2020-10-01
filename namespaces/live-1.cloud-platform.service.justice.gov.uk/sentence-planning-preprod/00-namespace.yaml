@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "sentence-planning"
     cloud-platform.justice.gov.uk/owner: "Sentence Planning Team: sentence-plan-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/sentence-planning.git"
+    cloud-platform.justice.gov.uk/slack-channel: "peoplefinder"

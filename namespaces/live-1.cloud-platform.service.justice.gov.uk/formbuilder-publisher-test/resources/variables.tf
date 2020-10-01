@@ -7,6 +7,10 @@ variable "team_name" {
   default = "formbuilder"
 }
 
+variable "namespace" {
+  default = "formbuilder-publisher-test"
+}
+
 variable "is-production" {
   default = "false"
 }

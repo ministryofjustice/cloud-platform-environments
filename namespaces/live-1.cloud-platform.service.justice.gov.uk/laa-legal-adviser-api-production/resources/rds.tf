@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -20,7 +20,7 @@ module "rds" {
   db_instance_class      = "db.t2.small"
   db_allocated_storage   = "5"
   db_name                = "laalaa"
-  force_ssl              = "false"
+  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres9.4"
 
   providers = {
