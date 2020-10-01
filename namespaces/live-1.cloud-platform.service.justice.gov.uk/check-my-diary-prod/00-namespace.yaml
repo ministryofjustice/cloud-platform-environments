@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "check-my-diary"
     cloud-platform.justice.gov.uk/owner: "Check My Diary: checkmydiary@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "git@github.com:ministryofjustice/check-my-diary.git"
+    cloud-platform.justice.gov.uk/slack-channel: "check-my-diary"

@@ -1,6 +1,6 @@
 variable "application" {
   description = "Application name"
-  default     = "crimeapps"
+  default     = "LAA Court Data Adaptor"
 }
 
 variable "business_unit" {
@@ -42,4 +42,6 @@ variable "message_retention_seconds" {
   default     = "1209600"
 }
 
-
+variable "domain" {
+  default = "test.court-data-adaptor.service.justice.gov.uk"
+}

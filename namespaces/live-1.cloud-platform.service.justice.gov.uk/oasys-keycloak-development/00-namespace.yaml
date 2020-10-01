@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "oasys-keycloak"
     cloud-platform.justice.gov.uk/owner: "Sentence Planning Team: sentence-plan-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/oasys-keycloak.git"
+    cloud-platform.justice.gov.uk/slack-channel: "oasys_support"

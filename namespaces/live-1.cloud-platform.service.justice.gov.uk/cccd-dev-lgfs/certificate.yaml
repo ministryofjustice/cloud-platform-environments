@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - dev-lgfs.claim-crown-court-defence.service.justice.gov.uk
+  - dev-clar.claim-crown-court-defence.service.justice.gov.uk

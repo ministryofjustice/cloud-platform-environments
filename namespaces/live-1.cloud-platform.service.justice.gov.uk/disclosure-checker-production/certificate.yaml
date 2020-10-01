@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - check-when-to-disclose-caution-conviction.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: disclosure-checker-certificate-production-gds
+  namespace: disclosure-checker-production
+spec:
+  secretName: disclosure-checker-tls-certificate-gds
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - check-when-to-disclose-caution-conviction.service.gov.uk

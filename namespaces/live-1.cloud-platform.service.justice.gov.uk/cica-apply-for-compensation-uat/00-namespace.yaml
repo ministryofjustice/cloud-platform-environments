@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "cica-mvp-uat"
     cloud-platform.justice.gov.uk/owner: "cica: ermias.worku@cica.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ermiasworku/cica-apply-for-compensation-uat"
+    cloud-platform.justice.gov.uk/slack-channel: "ccic_alpha_assessment"

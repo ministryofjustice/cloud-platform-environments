@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "learning cloud deployment"
     cloud-platform.justice.gov.uk/owner: "HDC licences: gurnank.cheema@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/"
+    cloud-platform.justice.gov.uk/slack-channel: "development"

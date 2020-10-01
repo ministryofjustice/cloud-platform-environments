@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Legal Aid Agency"
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/application: "laa-court-data-adaptor"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-crimeapps-core"
     cloud-platform.justice.gov.uk/owner: "Crime Apps Team: laa-crime-apps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-court-data-adaptor"

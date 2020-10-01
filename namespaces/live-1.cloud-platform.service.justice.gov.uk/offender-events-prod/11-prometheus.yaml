@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: offender-events-prod
+    prometheus: cloud-platform
+  name: dps-prometheus-rules
+  namespace: offender-events-prod
+spec:
+  groups:
+  - name: offender-events-prod
+    rules:
+    - alert: ProbationOffenderEventSlowProcessing
+      annotations:
+        message: A probation offender event has taken a long time to process
+        runbook_url: https://github.com/ministryofjustice/probation-offender-events/blob/main/README.md#slow-processing
+      expr: |-
+        offender_update_age_seconds_max{namespace="offender-events-prod"} > 60
+      for: 1m
+      labels:
+        severity: digital-prison-service

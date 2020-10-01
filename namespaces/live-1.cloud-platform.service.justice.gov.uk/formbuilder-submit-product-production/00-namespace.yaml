@@ -6,7 +6,8 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "transformed-department"
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "submit-product"
     cloud-platform.justice.gov.uk/owner: "Form Builder: form-builder-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/moj-form-builder-product-prototype"
+    cloud-platform.justice.gov.uk/slack-channel: "form-builder-alerts"

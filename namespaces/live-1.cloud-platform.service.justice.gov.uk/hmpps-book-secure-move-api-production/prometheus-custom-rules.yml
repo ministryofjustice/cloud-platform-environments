@@ -1,0 +1,43 @@
+# Prometheus Alerts
+#
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html#overview
+#
+# To see the current alerts in this namespace:
+#   kubectl describe prometheusrule -n hmpps-book-secure-move-api-staging
+#
+# Alerts will be sent to the slack channel: #pecs-alerts
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: hmpps-book-secure-move-api-alerting-production
+  namespace: hmpps-book-secure-move-api-production
+  labels:
+    role: alert-rules
+    prometheus: cloud-platform
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: KubePodCrashLooping
+          annotations:
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+          expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="hmpps-book-secure-move-api-production"}[15m]) * 60 * 5 > 0
+          for: 1h
+          labels:
+            severity: hmpps-book-secure-move
+        - alert: Service5XXCountHigh
+          annotations:
+            message: Service {{ $labels.service }} HTTP error rate is too high.
+          expr: sum(rate(nginx_ingress_controller_requests{status =~ "5..", exported_namespace="hmpps-book-secure-move-api-production", exported_service="hmpps-book-secure-move-api-service-production", }[15m])) * 60 > 10
+          for: 15m
+          labels:
+            severity: hmpps-book-secure-move
+        - alert: ServiceAVGLatencytooHigh
+          annotations:
+            message: Service {{ $labels.service }} average request time is over 2.5s for the last 5 minutes.
+          expr: (sum(rate(nginx_ingress_controller_request_duration_seconds_sum{ingress="hmpps-book-secure-move-api-ingress-production"}[5m]))) /(sum(rate(nginx_ingress_controller_request_duration_seconds_count{ingress="hmpps-book-secure-move-api-ingress-production"}[5m]))) > 2.5
+          for: 5m
+          labels:
+            severity: hmpps-book-secure-move
