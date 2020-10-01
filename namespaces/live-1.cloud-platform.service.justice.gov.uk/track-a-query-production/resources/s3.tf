@@ -32,38 +32,6 @@ module "track_a_query_s3" {
   providers = {
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}",
-      "arn:aws:s3:::correspondence-staff-case-uploads-prod"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*",
-      "arn:aws:s3:::correspondence-staff-case-uploads-prod/*"
-    ]
-  }
-]
-}
-EOF
-
 }
 
 resource "kubernetes_secret" "track_a_query_s3" {
