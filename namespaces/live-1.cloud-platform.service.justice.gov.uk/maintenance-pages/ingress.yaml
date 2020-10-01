@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: maintenance-pages-ingress
+spec:
+  tls:
+  - hosts:
+    - maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
