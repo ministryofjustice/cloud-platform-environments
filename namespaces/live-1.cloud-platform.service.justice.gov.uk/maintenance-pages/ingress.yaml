@@ -26,6 +26,7 @@ spec:
     - tax.decisions.tribunals.gov.uk
     - taxandchancery_ut.decisions.tribunals.gov.uk
     - transportappeals.decisions.tribunals.gov.uk
+    secretName: maintenance-pages-cert-secret
   rules:
   - host: adminappeals.reports.tribunals.gov.uk
   - host: administrativeappeals.decisions.tribunals.gov.uk
