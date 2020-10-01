@@ -28,3 +28,6 @@ variable "infrastructure-support" {
   default     = "Form Builder form-builder-team@digital.justice.gov.uk"
 }
 
+variable "namespace" {
+  default = "hmcts-complaints-formbuilder-adapter-production"
+}
