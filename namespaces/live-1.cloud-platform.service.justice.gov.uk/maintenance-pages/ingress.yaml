@@ -30,7 +30,7 @@ spec:
   - host: siac.decisions.tribunals.gov.uk
   - host: sscs.venues.tribunals.gov.uk
   - host: tax.decisions.tribunals.gov.uk
-  - host: taxandchancery_ut.decisions.tribunals.gov.uk
+  - host: taxandchancery-ut.decisions.tribunals.gov.uk
   - host: transportappeals.decisions.tribunals.gov.uk
     http:
       paths:
