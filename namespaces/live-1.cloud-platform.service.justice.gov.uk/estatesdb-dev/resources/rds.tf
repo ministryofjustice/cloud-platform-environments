@@ -21,13 +21,14 @@ variable "cluster_state_bucket" {
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "programmeandperformance_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = "estatesprojects"
   business-unit        = "Estates"
   application          = "pdsdata"
   is-production        = "false"
+  namespace            = var.namespace
 
   # enable performance insights
   performance_insights_enabled = true
@@ -41,9 +42,9 @@ module "programmeandperformance_rds" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres11"
 
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate). 
+  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  apply_method = "pending-reboot"
+
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"

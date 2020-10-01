@@ -20,7 +20,7 @@ spec:
     release: kibana-dsd-proxy
 ---
 # Source: oauth2-proxy/templates/deployment.yaml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -29,7 +29,7 @@ metadata:
   name: kibana-dsd-proxy-oauth2-proxy
   namespace: monitoring
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: oauth2-proxy
@@ -91,7 +91,7 @@ spec:
         []
 ---
 # Source: oauth2-proxy/templates/ingress.yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   labels:
@@ -102,9 +102,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dsd-kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - dsd-kibana.cloud-platform.service.justice.gov.uk
   rules:
-    - host: dsd-kibana.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: dsd-kibana.cloud-platform.service.justice.gov.uk
       http:
         paths:
           - path: /

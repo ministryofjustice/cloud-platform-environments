@@ -3,6 +3,7 @@ provider "pingdom" {
 
 # Integration IDs
 # 100724 =  #check-my-diary-alerts
+# 107200 =  check my diary - pagerduty
 
 resource "pingdom_check" "dps-production-check-check-my-diary" {
   type                     = "http"
@@ -17,6 +18,6 @@ resource "pingdom_check" "dps-production-check-check-my-diary" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [100724]
+  integrationids           = [100724, 107200]
 }
 

@@ -3,6 +3,7 @@ kind: PrometheusRule
 metadata:
   labels:
     app: use-of-force-prod
+    prometheus: cloud-platform
   name: dps-prometheus-rules
   namespace: use-of-force-prod
 spec:

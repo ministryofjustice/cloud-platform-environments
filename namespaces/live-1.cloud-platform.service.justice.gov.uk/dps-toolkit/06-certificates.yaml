@@ -36,3 +36,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - health-kick.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: hmpps-template-kotlin-cert
+  namespace: dps-toolkit
+spec:
+  secretName: hmpps-template-kotlin-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - hmpps-template-kotlin-dev.hmpps.service.justice.gov.uk
+

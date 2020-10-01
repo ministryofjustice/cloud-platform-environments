@@ -4,13 +4,14 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.3"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "contact-moj"
   is-production              = "false"
+  namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "9.5"
   db_backup_retention_period = "7"
@@ -24,7 +25,7 @@ module "contact-moj_rds" {
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  apply_method = "pending-reboot"
+
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"

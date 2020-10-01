@@ -5,8 +5,10 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "dev"
+    cloud-platform.justice.gov.uk/namespace: "court-probation-dev"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "court-probation"
     cloud-platform.justice.gov.uk/owner: "andy.marke@digital.justice.gov.uk: andy.marke@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/court-probation-service"
+    cloud-platform.justice.gov.uk/slack-channel: "probation_in_court_alerts"

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: data-compliance-prod
+  namespace: prison-data-compliance-prod
+spec:
+  secretName: prison-data-compliance-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prison-data-compliance.prison.service.justice.gov.uk

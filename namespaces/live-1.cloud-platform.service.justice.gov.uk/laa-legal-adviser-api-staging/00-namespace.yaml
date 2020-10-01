@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "LAA Legal Adviser API"
     cloud-platform.justice.gov.uk/owner: "LAA Get Access: laa-get-access@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-legal-adviser-api"
+    cloud-platform.justice.gov.uk/slack-channel: "cla-alerts"

@@ -10,3 +10,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Civil Legal Advice Public"
     cloud-platform.justice.gov.uk/owner: "LAA Get Access: civil-legal-advice@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cla_public"
+    cloud-platform.justice.gov.uk/slack-channel: "cla-alerts"

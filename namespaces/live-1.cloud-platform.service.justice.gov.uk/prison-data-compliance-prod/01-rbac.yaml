@@ -1,0 +1,20 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: prison-data-compliance-prod-admin
+  namespace: prison-data-compliance-prod
+subjects:
+  - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-shared"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-production-releases"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
