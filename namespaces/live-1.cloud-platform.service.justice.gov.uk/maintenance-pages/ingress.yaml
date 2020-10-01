@@ -5,9 +5,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - *.decisions.tribunals.gov.uk
-    - *.reports.tribunals.gov.uk
-    - *.venues.tribunals.gov.uk
+    - "*.decisions.tribunals.gov.uk"
+    - "*.reports.tribunals.gov.uk"
+    - "*.venues.tribunals.gov.uk"
     - maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
     secretName: maintenance-pages-cert-secret
   rules:

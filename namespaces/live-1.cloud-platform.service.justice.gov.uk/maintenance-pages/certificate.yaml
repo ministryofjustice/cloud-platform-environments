@@ -9,6 +9,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - *.decisions.tribunals.gov.uk
-  - *.reports.tribunals.gov.uk
-  - *.venues.tribunals.gov.uk
+  - "*.decisions.tribunals.gov.uk"
+  - "*.reports.tribunals.gov.uk"
+  - "*.venues.tribunals.gov.uk"
