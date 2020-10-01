@@ -1,0 +1,305 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: laa-apply-nginx-errors-dashboard
+  namespace: laa-apply-for-legalaid-production
+  labels:
+    grafana_dashboard: ""
+data:
+  laa-apply-nginx-errors-dashboard.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "limit": 100,
+            "name": "Annotations & Alerts",
+            "showIn": 0,
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "id": 36,
+      "iteration": 1554823669442,
+      "links": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$datasource",
+          "fill": 1,
+          "gridPos": {
+            "h": 11,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", status=\"$status\"}[5m]))*270",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "rate(5m) | $status | $namespace",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "columns": [],
+          "datasource": "$datasource",
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 11
+          },
+          "id": 6,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 5,
+            "desc": true
+          },
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "expr": "nginx_ingress_controller_requests{status=\"$status\", exported_namespace=\"$namespace\"}",
+              "format": "table",
+              "hide": false,
+              "interval": "5m",
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "title": "$status | $namespace",
+          "transform": "table",
+          "type": "table"
+        }
+      ],
+      "refresh": false,
+      "schemaVersion": 16,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": true,
+              "text": "Prometheus",
+              "value": "Prometheus"
+            },
+            "hide": 0,
+            "label": null,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": true,
+              "text": "laa-apply-for-legalaid-uat",
+              "value": "laa-apply-for-legalaid-uat"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "namespace",
+            "options": [
+              {
+                "selected": true,
+                "text": "laa-apply-for-legalaid-uat",
+                "value": "laa-apply-for-legalaid-uat"
+              },
+              {
+                "selected": false,
+                "text": "laa-apply-for-legalaid-staging",
+                "value": "laa-apply-for-legalaid-staging"
+              },
+              {
+                "selected": false,
+                "text": "laa-apply-for-legalaid-production",
+                "value": "laa-apply-for-legalaid-production"
+              }
+            ],
+            "query": "laa-apply-for-legalaid-uat,  laa-apply-for-legalaid-staging,  laa-apply-for-legalaid-production",
+            "skipUrlSync": false,
+            "type": "custom"
+          },
+          {
+            "allValue": null,
+            "current": {
+              "text": "500",
+              "value": "500"
+            },
+            "datasource": "$datasource",
+            "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", status=~\"5..\"}, status)",
+            "hide": 0,
+            "includeAll": false,
+            "label": "status",
+            "multi": false,
+            "name": "status",
+            "options": [],
+            "query": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", status=~\"5..\"}, status)",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 3,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now/d",
+        "to": "now/d"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timezone": "browser",
+      "title": "LAA Apply / HTTP 5xx Nginx Ingress Errors",
+      "uid": "147f7f8a4e81465bb8727edd1548b87ab0230a0c",
+      "version": 5
+    }
