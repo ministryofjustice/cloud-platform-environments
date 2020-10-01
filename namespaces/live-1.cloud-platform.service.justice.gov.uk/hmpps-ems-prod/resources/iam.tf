@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "grafana_platform" {
 
 resource "aws_iam_user" "grafana_platform" {
   name = "hmpps-ems-prod-grafana-platform"
+  path = "/cloud-platform/hmpps-ems-prod/"
 }
 
 resource "aws_iam_user_policy" "grafana_platform" {
