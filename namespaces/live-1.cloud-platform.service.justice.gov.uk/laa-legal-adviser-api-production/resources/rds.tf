@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -13,6 +13,7 @@ module "rds" {
   business-unit          = var.business-unit
   application            = var.application
   is-production          = var.is-production
+  namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.email
   db_engine              = "postgres"

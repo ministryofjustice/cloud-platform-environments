@@ -1,5 +1,5 @@
 module "submitter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
 
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
@@ -7,6 +7,7 @@ module "submitter-rds-instance" {
   application                = "formbuildersubmitter"
   environment-name           = var.environment-name
   is-production              = var.is-production
+  namespace                  = var.namespace
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
 

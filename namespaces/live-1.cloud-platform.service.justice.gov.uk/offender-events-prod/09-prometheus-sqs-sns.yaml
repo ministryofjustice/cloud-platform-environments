@@ -58,7 +58,7 @@ spec:
         message: "SNS topic for Probation Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy. https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-c2d99.*"}) == 1
-      for: 20m
+        (absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-c2d99.*"}) == 1) and ((day_of_week() >= 1 and day_of_week() <= 5) and (hour() >= 8 and hour() <= 17))
+      for: 30m
       labels:
         severity: digital-prison-service

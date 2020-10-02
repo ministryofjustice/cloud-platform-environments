@@ -13,3 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
     cloud-platform.justice.gov.uk/slack-channel: "dps_tech_team"
     cloud-platform.justice.gov.uk/team-name: "dps-tech-team"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-environments"

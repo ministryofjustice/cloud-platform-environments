@@ -9,6 +9,7 @@ locals {
     hmcts-complaints         = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
     leavers-form             = "leavers.form.service.justice.gov.uk",
     let-us-know              = "let-us-know.form.service.justice.gov.uk",
+    publisher                = "fb-publisher-live.apps.live-1.cloud-platform.service.justice.gov.uk",
     report-security-incident = "report-security-incident.form.service.justice.gov.uk"
   }
   names = keys(local.forms)

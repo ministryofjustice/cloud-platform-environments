@@ -9,13 +9,14 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = var.team_name
   business-unit        = var.business-unit
   application          = var.application
   is-production        = var.is-production
+  namespace            = var.namespace
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
@@ -34,6 +35,15 @@ module "cla_backend_rds" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
+
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -41,7 +51,7 @@ module "cla_backend_rds" {
 }
 
 module "cla_backend_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket

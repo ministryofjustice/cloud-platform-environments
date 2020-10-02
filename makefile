@@ -47,4 +47,15 @@ tools-shell-in-cluster:
 		--env="AWS_DEFAULT_REGION=eu-west-2" \
 		bash
 
-.PHONY: pull-tools tools-shell tools-shell-in-cluster
+
+### Conftest
+
+# Test all the kubernetes yaml files against all the policies defined in the `policy` directory
+conftest:
+	ls -1 namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml | xargs -n 200 conftest test
+
+# Run the rego policy tests
+policy-tests:
+	opa test ./policy
+
+.PHONY: pull-tools tools-shell tools-shell-in-cluster conftest policy-tests

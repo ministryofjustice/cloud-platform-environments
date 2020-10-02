@@ -377,50 +377,50 @@ resource "kubernetes_secret" "ecr-repo-fb-base-adapter" {
 
 ##################################################
 
-module "ecr-repo-fb-hmcts-complaints-adapter-api" {
+module "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
   team_name = "formbuilder"
-  repo_name = "ecr-repo-fb-hmcts-complaints-adapter-api"
+  repo_name = "hmcts-complaints-formbuilder-adapter-api"
 
   providers = {
     aws = aws.london
   }
 }
 
-resource "kubernetes_secret" "ecr-repo-fb-hmcts-complaints-adapter-api" {
+resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
   metadata {
-    name      = "ecr-repo-fb-hmcts-complaints-adapter-api"
+    name      = "ecr-repo-hmcts-complaints-formbuilder-adapter-api"
     namespace = "formbuilder-repos"
   }
 
   data = {
-    repo_url          = module.ecr-repo-fb-hmcts-complaints-adapter-api.repo_url
-    access_key_id     = module.ecr-repo-fb-hmcts-complaints-adapter-api.access_key_id
-    secret_access_key = module.ecr-repo-fb-hmcts-complaints-adapter-api.secret_access_key
+    repo_url          = module.ecr-repo-hmcts-complaints-formbuilder-adapter-api.repo_url
+    access_key_id     = module.ecr-repo-hmcts-complaints-formbuilder-adapter-api.access_key_id
+    secret_access_key = module.ecr-repo-hmcts-complaints-formbuilder-adapter-api.secret_access_key
   }
 }
 
-module "ecr-repo-fb-hmcts-complaints-adapter-workers" {
+module "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
   team_name = "formbuilder"
-  repo_name = "ecr-repo-fb-hmcts-complaints-adapter-workers"
+  repo_name = "hmcts-complaints-formbuilder-adapter-worker"
 
   providers = {
     aws = aws.london
   }
 }
 
-resource "kubernetes_secret" "ecr-repo-fb-hmcts-complaints-adapter-workers" {
+resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
   metadata {
-    name      = "ecr-repo-fb-hmcts-complaints-adapter-workers"
+    name      = "ecr-repo-hmcts-complaints-formbuilder-adapter-worker"
     namespace = "formbuilder-repos"
   }
 
   data = {
-    repo_url          = module.ecr-repo-fb-hmcts-complaints-adapter-workers.repo_url
-    access_key_id     = module.ecr-repo-fb-hmcts-complaints-adapter-workers.access_key_id
-    secret_access_key = module.ecr-repo-fb-hmcts-complaints-adapter-workers.secret_access_key
+    repo_url          = module.ecr-repo-hmcts-complaints-formbuilder-adapter-worker.repo_url
+    access_key_id     = module.ecr-repo-hmcts-complaints-formbuilder-adapter-worker.access_key_id
+    secret_access_key = module.ecr-repo-hmcts-complaints-formbuilder-adapter-worker.secret_access_key
   }
 }
