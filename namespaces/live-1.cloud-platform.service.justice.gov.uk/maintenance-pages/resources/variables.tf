@@ -90,8 +90,6 @@ variable "domains" {
     "informationrights.decisions.tribunals.gov.uk",
     "landregistrationdivision.decisions.tribunals.gov.uk",
     "landschamber.decisions.tribunals.gov.uk",
-    "maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk",
-    "maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk",
     "phl.decisions.tribunals.gov.uk",
     "siac.decisions.tribunals.gov.uk",
     "sscs.venues.tribunals.gov.uk",
