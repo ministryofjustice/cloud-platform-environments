@@ -9,5 +9,17 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - administrativeappeals.decisions.tribunals.gov.uk
   - maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: administrativeappeals-cert
+  namespace: maintenance-pages
+spec:
+  secretName: administrativeappeals-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - administrativeappeals.decisions.tribunals.gov.uk
