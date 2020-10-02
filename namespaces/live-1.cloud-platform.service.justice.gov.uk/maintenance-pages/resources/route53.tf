@@ -1,6 +1,6 @@
 resource "aws_route53_zone" "tribunals" {
 
-    name = "tribunals.gov.uk"
+  name = "tribunals.gov.uk"
 
   tags = {
     business-unit          = "webops"
