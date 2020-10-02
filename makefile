@@ -52,7 +52,8 @@ tools-shell-in-cluster:
 
 # Test all the kubernetes yaml files against all the policies defined in the `policy` directory
 conftest:
-	ls -1 namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.y*ml | xargs -n 200 conftest test
+	ls -1 namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.y*ml \
+		| xargs -n 200 conftest test
 
 # Run the rego policy tests
 policy-tests:
