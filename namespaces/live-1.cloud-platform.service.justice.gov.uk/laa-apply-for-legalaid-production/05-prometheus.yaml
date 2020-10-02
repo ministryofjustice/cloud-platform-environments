@@ -1,0 +1,97 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-apply-for-legalaid-production
+  labels:
+    prometheus: cloud-platform
+    role: alert-rules
+  name: prometheus-custom-rules-laa-apply-for-legal-aid
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: Instance-Down
+      expr: absent(up{namespace="laa-apply-for-legalaid-production"}) == 1
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+    - alert: Quota-Exceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-apply-for-legalaid-production"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-apply-for-legalaid-production"} > 0) > 90
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+    - alert: NotFound-Threshold-Reached
+      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-apply-for-legalaid-production"}[86400s])) * 86400 > 100
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: More than one hundred 404 errors in one day
+        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,key:kubernetes.namespace_name,negate:!f,params:(query:laa-apply-for-legalaid-production,type:phrase),type:phrase,value:laa-apply-for-legalaid-production),query:(match:(kubernetes.namespace_name:(query:laa-apply-for-legalaid-production,type:phrase))))),index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,interval:auto,query:(language:lucene,query:'log:%22RoutingError%22'),sort:!('@timestamp',desc))
+    - alert: nginx-5xx-error
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-production", status=~"5.."}[5m]))*270 > 0
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: An HTTP 5xx error has occurred
+        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'71644ed0-d648-11ea-b6f0-6bf964cd13a4',key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase,value:laa-apply-for-legalaid-production),query:(match:(log_processed.kubernetes_namespace:(query:laa-apply-for-legalaid-production,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'71644ed0-d648-11ea-b6f0-6bf964cd13a4',key:log_processed.status,negate:!f,params:(query:'500'),type:phrase,value:'500'),query:(match:(log_processed.status:(query:'500',type:phrase))))),index:'71644ed0-d648-11ea-b6f0-6bf964cd13a4',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
+    - alert: SidekiqQueueSize-Threshold-Reached
+      expr: sum(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-production"}) > 10
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Sidekiq queue size is more than 10
+    - alert: SidekiqQueue-absent
+      expr: absent(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-production"})
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
+    - alert: DiskSpace-Threshold-Reached
+      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"} / 1024 / 1024 > 150 or absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"})
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Container disk space usage is more than 150Mb or is not reported
+    - alert: Long-Request
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production"} > 2
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Request is taking more than 2 seconds
+    - alert: Address lookup service
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/address_selections"}[30m])) * 1800 > 1
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-production
+      annotations:
+        message: Address lookup service request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: Benefit Checker
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/check_benefits"}[30m])) * 1800 > 1
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-production
+      annotations:
+        message: Benefit Checker request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: Provider Details API
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/saml/sign_in"}[30m])) * 1800 > 1
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-production
+      annotations:
+        message: Provider Details API request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: CCMS Submission
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="check_merits_answers/continue"}[30m])) * 1800 > 1
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-production
+      annotations:
+        message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
