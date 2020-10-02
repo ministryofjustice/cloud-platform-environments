@@ -74,7 +74,7 @@ variable "slack-channel" {
 
 variable "domains" {
   description = "List of domains to be put in maintenance"
-  type = any
+  type        = any
   default = [
     "adminappeals.reports.tribunals.gov.uk",
     "administrativeappeals.decisions.tribunals.gov.uk",
