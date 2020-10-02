@@ -71,3 +71,32 @@ variable "slack-channel" {
   default     = "cloud-platform"
 }
 
+
+variable "domains" {
+  description = "List of domains to be put in maintenance"
+  type = any
+  default = [
+    "adminappeals.reports.tribunals.gov.uk",
+    "administrativeappeals.decisions.tribunals.gov.uk",
+    "carestandards.decisions.tribunals.gov.uk",
+    "charity.decisions.tribunals.gov.uk",
+    "cicap.decisions.tribunals.gov.uk",
+    "claimsmanagement.decisions.tribunals.gov.uk",
+    "consumercreditappeals.decisions.tribunals.gov.uk",
+    "employmentappeals.decisions.tribunals.gov.uk",
+    "estateagentappeals.decisions.tribunals.gov.uk",
+    "financeandtax.decisions.tribunals.gov.uk",
+    "immigrationservices.decisions.tribunals.gov.uk",
+    "informationrights.decisions.tribunals.gov.uk",
+    "landregistrationdivision.decisions.tribunals.gov.uk",
+    "landschamber.decisions.tribunals.gov.uk",
+    "maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk",
+    "maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk",
+    "phl.decisions.tribunals.gov.uk",
+    "siac.decisions.tribunals.gov.uk",
+    "sscs.venues.tribunals.gov.uk",
+    "tax.decisions.tribunals.gov.uk",
+    "taxandchancery_ut.decisions.tribunals.gov.uk",
+    "transportappeals.decisions.tribunals.gov.uk"
+  ]
+}
