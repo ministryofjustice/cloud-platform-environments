@@ -2,8 +2,9 @@
 #
 # https://user-guide.cloud-platform.service.justice.gov.uk/tasks.html#creating-your-own-custom-alerts
 #
-# Note: we are using the `cloud-platform.justice.gov.uk/business-unit` namespace annotation
-# to filter and trigger alerts in all our (Family Justice) services.
+# Note: we are using the `cloud-platform.justice.gov.uk/team-name` namespace annotation
+# to filter and trigger alerts in all our services (UCPD Cross Justice Delivery Team).
+# If the `team-name` changes, this file needs to be updated as well.
 # This file needs to be applied in just one namespace.
 #
 # To see the current alerts in this namespace:
@@ -26,7 +27,7 @@ spec:
     - alert: FJ-DeploymentReplicasMismatch
       expr: >-
         kube_deployment_spec_replicas{job="kube-state-metrics"}
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"}
+        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
         != kube_deployment_status_replicas_available{job="kube-state-metrics"}
       for: 30m
       labels:
@@ -37,7 +38,7 @@ spec:
     - alert: FJ-JobFailed
       expr: >-
         kube_job_status_failed{job="kube-state-metrics"}
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"}
+        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
         > 0
       for: 1h
       labels:
@@ -48,7 +49,7 @@ spec:
     - alert: FJ-NamespaceMissing
       expr: >-
         absent(kube_namespace_created)
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"}
+        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
       for: 1m
       labels:
         severity: family-justice
@@ -58,7 +59,7 @@ spec:
     - alert: FJ-ContainerRestarting
       expr: >-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[5m])
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"}
+        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
         > 0
       for: 1m
       labels:
@@ -76,7 +77,7 @@ spec:
         * sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace=~".*-production$", status=~"400|40[2-9]|4[1-8][0-9]|49[0-8]|5.."}[5m]))
         / sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace=~".*-production$"}[5m]))
         * on(exported_namespace) group_left() label_replace(
-          kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_business_unit="Family Justice"},
+          kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"},
           "exported_namespace", "$1", "namespace", "(.+)"
         ) > 3
       for: 10m
