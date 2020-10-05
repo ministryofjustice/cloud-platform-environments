@@ -12,16 +12,3 @@ resource "aws_route53_zone" "legacy" {
     infrastructure-support = "platforms@digital.service.justice.gov.uk"
   }
 }
-
-
-resource "kubernetes_secret" "tribunals_zone_sec" {
-  metadata {
-    name      = "route53"
-    namespace = "maintenance-pages"
-  }
-
-  data = {
-    zone_id = aws_route53_zone.tribunals.zone_id
-  }
-}
-
