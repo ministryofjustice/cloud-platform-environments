@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-      - calculate-journey-variable-payments-dev.hmpps.service.justice.gov.uk
+      - calculate-journey-payments-dev.hmpps.service.justice.gov.uk
