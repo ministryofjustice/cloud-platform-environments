@@ -4,7 +4,7 @@ metadata:
   name: calculate-journey-variable-payments-dev
   namespace: calculate-journey-variable-payments-dev
 spec:
-  secretName: calculate-journey-variable-payments
+  secretName: calculate-journey-variable-payments-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
