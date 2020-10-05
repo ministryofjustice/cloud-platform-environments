@@ -7,7 +7,7 @@ resource "pingdom_check" "laa-cla-backend-pingdom" {
   host                     = "fox.civillegaladvice.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 3
+  sendnotificationwhendown = 1
   notifyagainevery         = 0
   url                      = "/status/"
   encryption               = true
