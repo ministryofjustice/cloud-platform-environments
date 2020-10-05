@@ -1,31 +1,23 @@
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: maintenance-pages-ingress
+  name: domains-ingress
 spec:
   tls:
   - hosts:
-    - maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
-    secretName: maintenance-pages-cert-secret
+    - "*.decisions.tribunals.gov.uk"
+    - "*.reports.tribunals.gov.uk"
+    - "*.venues.tribunals.gov.uk"
+    secretName: domains-secret
   rules:
-  - host: maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+  - host: adminappeals.reports.tribunals.gov.uk
     http:
       paths:
       - path: /
         backend:
           serviceName: maintenance-pages-service
           servicePort: 4567
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: administrativeappeals-ingress
-spec:
-  tls:
-  - hosts:
-    - administrativeappeals.decisions.tribunals.gov.uk
-    secretName: administrativeappeals-secret
-  rules:
   - host: administrativeappeals.decisions.tribunals.gov.uk
     http:
       paths:
@@ -33,4 +25,129 @@ spec:
         backend:
           serviceName: maintenance-pages-service
           servicePort: 4567
- 
+  - host: carestandards.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: charity.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: cicap.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: claimsmanagement.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: consumercreditappeals.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: employmentappeals.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: estateagentappeals.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: financeandtax.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: immigrationservices.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: informationrights.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: landregistrationdivision.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: landschamber.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: phl.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: siac.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: sscs.venues.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: tax.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: transportappeals.decisions.tribunals.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
