@@ -20,28 +20,6 @@ data "aws_iam_policy_document" "upload_policy" {
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.xml"
     ]
   }
-
-  statement {
-    effect = "Deny"
-
-    actions = ["s3:*"]
-
-    resources = [
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}",
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"
-    ]
-
-    condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values   = ["false"]
-    }
-
-    principals {
-      type        = "*"
-      identifiers = ["*"]
-    }
-  }
 }
 
 resource "aws_iam_user_policy" "upload_policy" {
