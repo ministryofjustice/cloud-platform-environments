@@ -10,7 +10,7 @@ module "publisher-rds-instance" {
   namespace                  = var.namespace
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
-  db_engine_version          = "10.9"
+  db_engine_version          = "10"
 
   providers = {
     aws = aws.london
