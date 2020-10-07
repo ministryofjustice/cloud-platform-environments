@@ -11,7 +11,7 @@ module "user-datastore-rds-instance" {
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
 
-  db_engine_version = "10"
+  db_engine_version = "10.13"
 
   providers = {
     aws = aws.london
