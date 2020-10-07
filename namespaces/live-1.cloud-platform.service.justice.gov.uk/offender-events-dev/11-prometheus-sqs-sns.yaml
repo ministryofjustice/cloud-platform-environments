@@ -15,7 +15,7 @@ spec:
         message: TESTING IN DEV - SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="dps-dev-prisoner_offender_index_queue_dl",queue_name="dps-dev-prisoner_offender_search_index_dl_queue"}) by (queue_name) > 15 * 60
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="dps-dev-prisoner_offender_index_queue_dl",queue_name=Digital-Prison-Services-dev-prisoner_offender_search_queue_dl"}) by (queue_name) > 15 * 60
       for: 10m
       labels:
         severity: digital-prison-service
