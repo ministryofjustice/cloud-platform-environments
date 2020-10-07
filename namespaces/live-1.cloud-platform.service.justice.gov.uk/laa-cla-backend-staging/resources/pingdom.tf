@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-cla-backend-pingdom" {
   type                     = "http"
   name                     = "cla-backend - staging - cloud-platform"
-  host                     = "laa-cla-backend-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
+  host                     = "staging.fox.civillegaladvice.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
