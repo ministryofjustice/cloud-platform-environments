@@ -113,7 +113,7 @@ spec:
             severity: pfs-hub
         - alert: RDSLowStorage
           annotations:
-            message: Job {{ $labels.namespace }}/{{ $labels.job_name }} RDS storage below 5GB.
+            message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
           expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} offset 10m < 5000000000
           for: 5m
@@ -121,9 +121,65 @@ spec:
             severity: pfs-hub
         - alert: RDSCPUUtilization
           annotations:
-            message: Job {{ $labels.namespace }}/{{ $labels.job_name }} RDS CPU utilization above 80%.
+            message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
           expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} > 80
+          for: 15m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterRedStatus
+          annotations:
+            message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-red-cluster-status
+          expr: aws_es_cluster_status_red_average{domain_name="pfs-production-hub-search"} >= 1
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterYellowStatus
+          annotations:
+            message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-yellow-cluster-status
+          expr: aws_es_cluster_status_yellow_average{domain_name="pfs-production-hub-search"} >= 1
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterFreeStorageSpace
+          annotations:
+            message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
+          expr: aws_es_free_storage_space_maximum{domain_name="pfs-production-hub-search"} <= 3072
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterIndexWritesBlocked
+          annotations:
+            message: "[{{ $labels.domain_name }}] The ElasticSearch cluster is blocking write requests"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#troubleshooting-cluster-block
+          expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="pfs-production-hub-search"} >= 1
+          for: 5m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterAutomatedSnapshotFailure
+          annotations:
+            message: "[{{ $labels.domain_name }}] An automated snapshot for the ElasticSearch cluster failed"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+          expr: aws_es_automated_snapshot_failure_maximum{domain_name="pfs-production-hub-search"} >= 1
+          for: 1m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterJVMMemoryPressure
+          annotations:
+            message: "[{{ $labels.domain_name }}] The ElasticSearch cluster could encounter out of memory errors if usage increases"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+          expr: aws_es_jvmmemory_pressure_maximum{domain_name="pfs-production-hub-search"} >= 80
+          for: 15m
+          labels:
+            severity: pfs-hub
+        - alert: ElasticSearchClusterCPUUtilization
+          annotations:
+            message: "[{{ $labels.domain_name }}] The ElasticSearch cluster has sustained high CPU usage"
+            runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+          expr: aws_es_cpuutilization_maximum{domain_name="pfs-production-hub-search"} >= 80
           for: 15m
           labels:
             severity: pfs-hub
