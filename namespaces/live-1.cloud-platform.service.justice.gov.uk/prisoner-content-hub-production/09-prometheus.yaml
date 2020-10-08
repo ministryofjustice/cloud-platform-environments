@@ -111,3 +111,19 @@ spec:
           for: 1h
           labels:
             severity: pfs-hub
+        - alert: RDSLowStorage
+          annotations:
+            message: Job {{ $labels.namespace }}/{{ $labels.job_name }} RDS storage below 10GB.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} offset 10m < 5000000000
+          for: 5m
+          labels:
+            severity: pfs-hub
+        - alert: RDSCPUUtilization
+          annotations:
+            message: Job {{ $labels.namespace }}/{{ $labels.job_name }} RDS CPU utilization above 80%.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
+          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} > 80
+          for: 15m
+          labels:
+            severity: pfs-hub
