@@ -67,7 +67,7 @@ spec:
         message: SQS - {{ $labels.queue_name }} has message(s) older than 15m
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum by(queue_name) aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod-probation_offender_search_event_dl_queue|dps-prod-probation_offender_search_index_dl_queue"} > 0
+        sum by(queue_name) (aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod-probation_offender_search_event_dl_queue|dps-prod-probation_offender_search_index_dl_queue"}) > 0
       for: 15m
       labels:
         severity: digital-prison-service
