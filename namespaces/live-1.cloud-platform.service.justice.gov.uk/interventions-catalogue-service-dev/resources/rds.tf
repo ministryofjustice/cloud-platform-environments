@@ -13,7 +13,7 @@ module "interventions_catalogue_rds" {
   application            = var.application
   is-production          = var.is-production
   namespace              = var.namespace
-  db_engine_version      = "11.6"
+  db_engine_version      = "11"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
