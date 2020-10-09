@@ -23,7 +23,7 @@ module "hmpps_book_video_link_elasticache_redis" {
 
 resource "kubernetes_secret" "hmpps_book_video_link_elasticache_redis" {
   metadata {
-    name      = "hmpps_book_video_link_elasticache_redis"
+    name      = "hmpps-book-video-link-elasticache-redis"
     namespace = var.namespace
   }
 
