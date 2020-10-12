@@ -8,6 +8,7 @@ resource "aws_route53_zone" "laa_crime_apps_team_route53_zone" {
     environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
 }
 

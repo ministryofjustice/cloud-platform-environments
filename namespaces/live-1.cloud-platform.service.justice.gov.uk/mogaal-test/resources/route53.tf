@@ -8,6 +8,7 @@ resource "aws_route53_zone" "mogaal_test_route53_zone" {
     environment-name       = var.environment
     owner                  = var.team-name
     infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
   }
 }
 

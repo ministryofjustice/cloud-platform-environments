@@ -9,6 +9,7 @@ resource "aws_route53_zone" "parliamentary_questions" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
   }
 }
 

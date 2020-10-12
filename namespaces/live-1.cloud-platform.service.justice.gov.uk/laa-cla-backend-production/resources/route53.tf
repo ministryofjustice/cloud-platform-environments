@@ -8,6 +8,7 @@ resource "aws_route53_zone" "cla_backend_fox_admin_route53_zone" {
     is-production          = var.is-production
     environment-name       = var.environment-name
     infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
   }
 }
 
