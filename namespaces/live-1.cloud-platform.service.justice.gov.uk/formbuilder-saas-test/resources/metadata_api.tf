@@ -11,6 +11,7 @@ module "metadata-api-rds-instance" {
   infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
   db_engine_version          = "12"
+  rds_family             = "postgres12"
 
   providers = {
     aws = aws.london
