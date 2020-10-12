@@ -18,7 +18,7 @@ module "lcdui_rds" {
   infrastructure-support      = var.infrastructure-support
   db_allocated_storage        = "10"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "11.5"
+  db_engine_version           = "11"
   rds_family                  = "postgres11"
   allow_major_version_upgrade = "true"
 
