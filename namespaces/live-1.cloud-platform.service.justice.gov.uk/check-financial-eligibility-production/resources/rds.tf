@@ -17,7 +17,7 @@ module "check-financial-eligibility-rds" {
   environment-name       = "production"
   infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "11.2"
+  db_engine_version      = "11"
   db_name                = "check_financial_eligibility_production"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres11"
