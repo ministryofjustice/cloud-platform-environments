@@ -13,6 +13,7 @@ resource "aws_route53_zone" "track_a_query_route53_zone" {
     environment-name       = var.environment-name
     owner                  = "staff-services"
     infrastructure-support = "correspondence-support@digital.justice.gov.uk"
+    namespace = var.namespace
   }
 }
 

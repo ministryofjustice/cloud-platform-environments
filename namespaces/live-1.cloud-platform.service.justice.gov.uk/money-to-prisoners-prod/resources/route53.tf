@@ -8,6 +8,7 @@ resource "aws_route53_zone" "app_domain" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.email
+    namespace = var.namespace
   }
 }
 

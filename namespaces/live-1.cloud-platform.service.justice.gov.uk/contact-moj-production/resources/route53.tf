@@ -13,6 +13,7 @@ resource "aws_route53_zone" "contact-moj_route53_zone" {
     environment-name       = var.environment-name
     owner                  = "Staff Services"
     infrastructure-support = "staffservices@digital.justice.gov.uk"
+    namespace = var.namespace
   }
 }
 

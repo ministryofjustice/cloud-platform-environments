@@ -7,6 +7,7 @@ resource "aws_route53_zone" "route53_zone_short" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
+    namespace = var.namespace
   }
 }
 
@@ -19,6 +20,7 @@ resource "aws_route53_zone" "route53_zone_long" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
+    namespace = var.namespace
   }
 }
 

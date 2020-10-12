@@ -8,6 +8,7 @@ resource "aws_route53_zone" "laa_fee_calculator_route53_zone" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
+    namespace = var.namespace
   }
 }
 
