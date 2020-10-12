@@ -27,7 +27,7 @@ module "laa_crime_apps_team_rds" {
   namespace            = var.namespace
 
   # change the postgres version as you see fit.
-  db_engine_version      = "11.5"
+  db_engine_version      = "11"
   environment-name       = "uat"
   infrastructure-support = "laa@digital.justice.gov.uk"
 
