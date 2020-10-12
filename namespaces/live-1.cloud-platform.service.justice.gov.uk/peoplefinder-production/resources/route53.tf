@@ -13,7 +13,7 @@ resource "aws_route53_zone" "peoplefinder_route53_zone" {
     environment-name       = var.environment-name
     owner                  = "peoplefinder"
     infrastructure-support = "people-finder-support@digital.justice.gov.uk"
-    namespace = var.namespace
+    namespace              = var.namespace
   }
 }
 

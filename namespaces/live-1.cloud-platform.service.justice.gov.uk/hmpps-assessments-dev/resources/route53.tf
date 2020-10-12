@@ -8,7 +8,7 @@ resource "aws_route53_zone" "hmpps_assessments_route53_zone" {
     environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
-    namespace = var.namespace
+    namespace              = var.namespace
   }
 }
 
