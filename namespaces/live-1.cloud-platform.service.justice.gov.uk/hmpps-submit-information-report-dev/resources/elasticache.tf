@@ -23,7 +23,7 @@ module "submit_information_report_elasticache_redis" {
 
 resource "kubernetes_secret" "submit_information_report_elasticache_redis" {
   metadata {
-    name      = "manage-intelligence-elasticache-redis"
+    name      = "submit-information-report-elasticache-redis"
     namespace = var.namespace
   }
 
