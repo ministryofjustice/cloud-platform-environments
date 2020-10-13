@@ -424,3 +424,25 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-work
     secret_access_key = module.ecr-repo-hmcts-complaints-formbuilder-adapter-worker.secret_access_key
   }
 }
+
+##################################################
+
+module "ecr-repo-fb-metadata-api" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+
+  team_name = "formbuilder"
+  repo_name = "fb-metadata-api"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
+  metadata {
+    name      = "ecr-repo-fb-metadata-api"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-metadata-api.repo_url
+    access_key_id     = module.ecr-repo-fb-metadata-api.access_key_id
+    secret_access_key = module.ecr-repo-fb-metadata-api.secret_access_key
+  }
+}
