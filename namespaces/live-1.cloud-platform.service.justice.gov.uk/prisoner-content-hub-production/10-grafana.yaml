@@ -589,7 +589,34 @@ data:
         "prisoner-content-hub"
       ],
       "templating": {
-        "list": []
+        "list": [
+          {
+            "allValue": null,
+            "current": {
+              "selected": true,
+              "text": "prisoner-content-hub-production",
+              "value": "prisoner-content-hub-production"
+            },
+            "datasource": "${DS_PROMETHEUS}",
+            "definition": "label_values(kube_deployment_metadata_generation, namespace)",
+            "hide": 0,
+            "includeAll": false,
+            "label": "Namespace",
+            "multi": false,
+            "name": "namespace",
+            "options": [],
+            "query": "label_values(kube_deployment_metadata_generation, namespace)",
+            "refresh": 1,
+            "regex": "/^prisoner-content-hub-/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
       },
       "time": {
         "from": "now-30m",
@@ -620,7 +647,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Prisoner Content Hub Production",
+      "title": "Prisoner Content Hub",
       "uid": "Lg5ALTKGk",
       "version": 1
     }
