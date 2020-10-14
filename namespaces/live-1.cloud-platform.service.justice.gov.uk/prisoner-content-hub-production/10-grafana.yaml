@@ -5,9 +5,9 @@ metadata:
   name: prisoner-content-hub-production
   namespace: prisoner-content-hub-production
   labels:
-    grafana_dashboard: "prisoner-content-hub-production"
+    grafana_dashboard: "prisoner-content-hub"
 data:
-  prisoner-content-hub-production-dashboard.json: |
+  prisoner-content-hub-dashboard.json: |
     {
       "annotations": {
         "list": [
