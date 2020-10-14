@@ -5,9 +5,9 @@ metadata:
   name: prisoner-content-hub-production
   namespace: prisoner-content-hub-production
   labels:
-    grafana_dashboard: "prisoner-content-hub-production"
+    grafana_dashboard: "prisoner-content-hub"
 data:
-  prisoner-content-hub-production-dashboard.json: |
+  prisoner-content-hub-dashboard.json: |
     {
       "annotations": {
         "list": [
@@ -94,7 +94,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace=\"prisoner-content-hub-production\"}[5m]))) by (ingress)",
+              "expr": "avg(sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace='$namespace'}[5m]))) by (ingress)",
               "instant": false,
               "interval": "",
               "legendFormat": "{{ingress}}",
@@ -185,14 +185,14 @@ data:
           "pluginVersion": "7.0.2",
           "targets": [
             {
-              "expr": "max(kube_deployment_status_replicas{namespace=\"prisoner-content-hub-production\"}) by (deployment)",
+              "expr": "max(kube_deployment_status_replicas{namespace='$namespace'}) by (deployment)",
               "instant": true,
               "interval": "",
               "legendFormat": "{{deployment}}-actual",
               "refId": "A"
             },
             {
-              "expr": "max(kube_deployment_spec_replicas{namespace=\"prisoner-content-hub-production\"}) by (deployment)",
+              "expr": "max(kube_deployment_spec_replicas{namespace='$namespace'}) by (deployment)",
               "instant": true,
               "interval": "",
               "legendFormat": "{{deployment}}-desired",
@@ -253,7 +253,7 @@ data:
           "pluginVersion": "7.0.2",
           "targets": [
             {
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace=\"prisoner-content-hub-production\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace=\"prisoner-content-hub-production\"}[5m]) > 0) by (ingress)\n",
+              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace='$namespace'}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace='$namespace'}[5m]) > 0) by (ingress)\n",
               "instant": true,
               "interval": "",
               "legendFormat": "{{ingress}}",
@@ -312,7 +312,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"prisoner-content-hub-production\",container!=\"POD\",container!=\"\"}[5m])) by (container)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace='$namespace',container!=\"POD\",container!=\"\"}[5m])) by (container)",
               "interval": "",
               "legendFormat": "{{container}}",
               "refId": "A"
@@ -422,7 +422,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(sum by (ingress) (rate(nginx_ingress_controller_bytes_sent_sum{exported_namespace=\"prisoner-content-hub-production\"}[5m]))) by (ingress)",
+              "expr": "avg(sum by (ingress) (rate(nginx_ingress_controller_bytes_sent_sum{exported_namespace='$namespace'}[5m]))) by (ingress)",
               "instant": false,
               "interval": "",
               "legendFormat": "{{ingress}}",
@@ -534,7 +534,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_memory_usage_bytes{namespace=\"prisoner-content-hub-production\",container!=\"POD\",container!=\"\"}[5m]) / 1024 / 1024) by (container)",
+              "expr": "sum(rate(container_memory_usage_bytes{namespace='$namespace',container!=\"POD\",container!=\"\"}[5m]) / 1024 / 1024) by (container)",
               "interval": "",
               "legendFormat": "{{container}}",
               "refId": "A"
@@ -589,7 +589,33 @@ data:
         "prisoner-content-hub"
       ],
       "templating": {
-        "list": []
+        "list": [
+          {
+            "allValue": null,
+            "current": {
+              "selected": true,
+              "text": "prisoner-content-hub-production",
+              "value": "prisoner-content-hub-production"
+            },
+            "datasource": "${DS_PROMETHEUS}",
+            "definition": "label_values(kube_deployment_metadata_generation, namespace)",
+            "hide": 0,
+            "includeAll": false,
+            "label": "Namespace",
+            "multi": false,
+            "name": "namespace",
+            "options": [],
+            "query": "label_values(kube_deployment_metadata_generation, namespace)",
+            "refresh": 1,
+            "regex": "/^prisoner-content-hub-/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
       },
       "time": {
         "from": "now-30m",
@@ -620,7 +646,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Prisoner Content Hub Production",
+      "title": "Prisoner Content Hub",
       "uid": "Lg5ALTKGk",
       "version": 1
     }
