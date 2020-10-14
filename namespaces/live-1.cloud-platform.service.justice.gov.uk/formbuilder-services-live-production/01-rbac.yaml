@@ -31,6 +31,9 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-service-token-cache-live-production
     namespace: formbuilder-platform-live-production
+  - kind: ServiceAccount
+    name: formbuilder-service-token-cache-2-live-production
+    namespace: formbuilder-platform-live-production
 roleRef:
   kind: ClusterRole
   name: admin
