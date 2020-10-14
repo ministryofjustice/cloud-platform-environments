@@ -597,7 +597,7 @@ data:
               "text": "prisoner-content-hub-production",
               "value": "prisoner-content-hub-production"
             },
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "Prometheus",
             "definition": "label_values(kube_deployment_metadata_generation, namespace)",
             "hide": 0,
             "includeAll": false,
