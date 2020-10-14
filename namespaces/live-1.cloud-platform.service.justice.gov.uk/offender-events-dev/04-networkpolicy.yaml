@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: probation-offender-events
+      app.kubernetes.io/name: probation-offender-events
   policyTypes:
     - Ingress
   ingress:
