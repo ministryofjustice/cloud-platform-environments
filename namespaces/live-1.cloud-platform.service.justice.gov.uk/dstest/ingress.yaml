@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: helloworld-rubyapp-ingress
   annotations:
-    kubernetes.io/ingress.class: dstest
+    kubernetes.io/ingress.class: nginx
 spec:
   tls:
   - hosts:
