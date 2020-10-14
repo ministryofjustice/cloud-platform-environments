@@ -13,6 +13,18 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     aws = aws.london
   }
 
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "pin-phone-data-expiry"
+      expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
+  ]
+
   user_policy = <<EOF
 {
 "Version": "2012-10-17",
