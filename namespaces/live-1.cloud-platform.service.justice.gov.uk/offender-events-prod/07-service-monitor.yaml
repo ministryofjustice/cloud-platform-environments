@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: probation-offender-events
+      app.kubernetes.io/name: probation-offender-events
   namespaceSelector:
     matchNames:
       - offender-events-prod

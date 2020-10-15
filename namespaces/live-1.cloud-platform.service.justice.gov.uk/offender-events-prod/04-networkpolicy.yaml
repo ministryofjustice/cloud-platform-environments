@@ -32,9 +32,7 @@ metadata:
   name: allow-prometheus-scraping
   namespace: offender-events-prod
 spec:
-  podSelector:
-    matchLabels:
-      app: probation-offender-events
+  podSelector: {}
   policyTypes:
     - Ingress
   ingress:
