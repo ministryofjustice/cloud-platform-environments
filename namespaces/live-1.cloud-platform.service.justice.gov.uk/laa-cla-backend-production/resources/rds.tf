@@ -66,6 +66,7 @@ module "cla_backend_replica" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
 
   # Settings from current setup
