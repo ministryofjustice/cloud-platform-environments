@@ -59,8 +59,8 @@ def execute(cmd)
   # puts "executing: #{cmd}"
   stdout, stderr, status = Open3.capture3(cmd)
   unless status.success?
-    $stderr.puts "Command: #{cmd} failed."
-    $stderr.puts stderr
+    warn "Command: #{cmd} failed."
+    warn stderr
     raise
   end
   # puts stdout
