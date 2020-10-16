@@ -8,6 +8,7 @@ resource "aws_route53_zone" "probation" {
     environment-name       = "prod"
     owner                  = "cloud platform"
     infrastructure-support = "cloud platform"
+    namespace              = var.namespace
   }
 }
 
