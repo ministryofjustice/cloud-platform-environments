@@ -1,5 +1,5 @@
 module "crime_apps_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
 
   // The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   cluster_name           = var.cluster_name
@@ -10,6 +10,7 @@ module "crime_apps_ec_cluster" {
   is-production          = var.is_production
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
   providers = {
     aws = aws.london
   }

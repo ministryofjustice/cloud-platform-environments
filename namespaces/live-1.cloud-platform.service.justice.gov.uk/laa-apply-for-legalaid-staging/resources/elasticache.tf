@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -17,6 +17,7 @@ module "apply-for-legal-aid-elasticache" {
   infrastructure-support = "apply@digital.justice.gov.uk"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

@@ -4,7 +4,7 @@
 ################################################################################
 
 module "cccd_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -13,6 +13,7 @@ module "cccd_elasticache_redis" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  namespace              = var.namespace
 
   engine_version        = "4.0.10"
   parameter_group_name  = "default.redis4.0"

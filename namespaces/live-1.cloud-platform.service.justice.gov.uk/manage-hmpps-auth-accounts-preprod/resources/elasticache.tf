@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "dps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   application            = var.application
@@ -17,6 +17,7 @@ module "dps_redis" {
   node_type              = var.node-type
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
