@@ -3,7 +3,7 @@
 ################################################################################
 
 module "tva_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
   application            = var.application
@@ -15,6 +15,7 @@ module "tva_elasticache_redis" {
   node_type              = "cache.t2.small"
   engine_version         = "5.0.6"
   parameter_group_name   = aws_elasticache_parameter_group.token_store.name
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
