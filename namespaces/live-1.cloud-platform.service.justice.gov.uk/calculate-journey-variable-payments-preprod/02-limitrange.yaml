@@ -2,12 +2,12 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: calculate-journey-variable-payments-staging
+  namespace: calculate-journey-variable-payments-preprod
 spec:
   limits:
   - default:
       cpu: 1000m
-      memory: 1000Mi
+      memory: 2048Mi
     defaultRequest:
       cpu: 10m
       memory: 100Mi

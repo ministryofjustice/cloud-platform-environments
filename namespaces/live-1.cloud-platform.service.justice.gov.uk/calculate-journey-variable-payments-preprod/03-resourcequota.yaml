@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: calculate-journey-variable-payments-staging
+  namespace: calculate-journey-variable-payments-preprod
 spec:
   hard:
     pods: "50"

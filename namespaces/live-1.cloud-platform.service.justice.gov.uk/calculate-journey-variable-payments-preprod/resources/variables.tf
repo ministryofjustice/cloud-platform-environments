@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "calculate-journey-variable-payments-staging"
+  default = "calculate-journey-variable-payments-preprod"
 }
 
 variable "business_unit" {
@@ -26,12 +26,12 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "environment-name" {
   description = "The environment name identifier."
-  default     = "staging"
+  default     = "preprod"
 }
 
 

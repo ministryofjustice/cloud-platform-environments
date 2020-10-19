@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: calculate-journey-variable-payments-staging-admin
-  namespace: calculate-journey-variable-payments-staging
+  name: calculate-journey-variable-payments-preprod-admin
+  namespace: calculate-journey-variable-payments-preprod
 subjects:
   - kind: Group
     name: "github:calculate-journey-variable-payments"
