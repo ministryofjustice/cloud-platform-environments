@@ -15,6 +15,7 @@ module "oc_elasticache_redis" {
   node_type              = "cache.t2.small"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 }
 
 resource "kubernetes_secret" "oc_elasticache_redis" {

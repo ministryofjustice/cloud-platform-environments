@@ -11,6 +11,7 @@ module "dps_redis" {
   node_type              = var.node-type
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

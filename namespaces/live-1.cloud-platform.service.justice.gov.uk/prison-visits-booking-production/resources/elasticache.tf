@@ -10,6 +10,7 @@ module "ec-cluster-prison-visits-booking-staff" {
   infrastructure-support = var.infrastructure-support
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
