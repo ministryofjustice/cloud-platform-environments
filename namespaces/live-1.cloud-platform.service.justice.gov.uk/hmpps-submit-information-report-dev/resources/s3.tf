@@ -8,7 +8,7 @@ module "hmpps_submit_information_report_s3_bucket" {
 
   is-production    = var.is-production
   environment-name = var.environment-name
-  namespace              = var.namespace
+  namespace        = var.namespace
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

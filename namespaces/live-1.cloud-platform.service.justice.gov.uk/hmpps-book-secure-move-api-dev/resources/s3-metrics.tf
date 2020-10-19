@@ -11,7 +11,7 @@ module "book_a_secure_move_metrics_s3_bucket" {
 
   is-production    = var.is-production
   environment-name = var.environment-name
-  namespace              = var.namespace
+  namespace        = var.namespace
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
