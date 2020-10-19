@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/instance: laa-court-data-ui
+      app.kubernetes.io/instance: laa-court-data-ui-app-service
   namespaceSelector:
     matchNames:
       - laa-court-data-ui-dev
