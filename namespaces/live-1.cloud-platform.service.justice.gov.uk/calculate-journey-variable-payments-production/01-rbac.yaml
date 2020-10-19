@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: calculate-journey-variable-payments-production-admin
+  namespace: calculate-journey-variable-payments-production
+subjects:
+  - kind: Group
+    name: "github:calculate-journey-variable-payments"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
