@@ -19,7 +19,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
       id      = "pin-phone-data-expiry"
       expiration = [
         {
-          days = 1
+          days = 90
         },
       ]
     },
