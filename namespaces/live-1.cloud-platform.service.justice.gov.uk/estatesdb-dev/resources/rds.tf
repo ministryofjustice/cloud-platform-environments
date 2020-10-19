@@ -21,7 +21,7 @@ variable "cluster_state_bucket" {
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "programmeandperformance_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.9"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = "estatesprojects"
