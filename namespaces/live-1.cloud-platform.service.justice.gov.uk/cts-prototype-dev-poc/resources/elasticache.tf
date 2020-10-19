@@ -15,6 +15,7 @@ module "track_a_query_elasticache_redis" {
   infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

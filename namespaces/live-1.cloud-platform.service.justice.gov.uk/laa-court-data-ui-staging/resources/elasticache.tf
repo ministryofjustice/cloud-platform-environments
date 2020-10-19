@@ -8,6 +8,7 @@ module "lcdui_elasticache" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  namespace              = var.namespace
 
   engine_version        = "4.0.10"
   parameter_group_name  = "default.redis4.0"

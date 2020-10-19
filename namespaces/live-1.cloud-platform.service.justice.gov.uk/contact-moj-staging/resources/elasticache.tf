@@ -15,6 +15,7 @@ module "contact_moj_elasticache_redis" {
   infrastructure-support = "staffservices@digital.justice.gov.uk"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

@@ -15,6 +15,7 @@ module "tva_elasticache_redis" {
   node_type              = "cache.t2.small"
   engine_version         = "5.0.6"
   parameter_group_name   = aws_elasticache_parameter_group.token_store.name
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
