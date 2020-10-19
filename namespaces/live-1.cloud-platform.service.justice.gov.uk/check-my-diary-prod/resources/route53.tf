@@ -8,6 +8,7 @@ resource "aws_route53_zone" "check-my-diary-prod" {
     environment-name       = "prod"
     owner                  = "Lauren Darby"
     infrastructure-support = "digital-studio-operations-team@digital.justice.gov.uk"
+    namespace              = var.namespace
   }
 }
 

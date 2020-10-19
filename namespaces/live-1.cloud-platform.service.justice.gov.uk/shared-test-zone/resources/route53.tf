@@ -8,6 +8,7 @@ resource "aws_route53_zone" "shared" {
     environment-name       = "dev"
     owner                  = "webops"
     infrastructure-support = "platforms@digital.service.justice.gov.uk"
+    namespace              = var.namespace
   }
 }
 
