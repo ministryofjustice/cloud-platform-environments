@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -7,6 +7,7 @@ module "s3" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.email
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

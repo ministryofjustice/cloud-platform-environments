@@ -1,5 +1,5 @@
 module "pathfinder_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -8,6 +8,7 @@ module "pathfinder_document_s3_bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -64,7 +65,7 @@ EOF
 }
 
 module "pathfinder_rds_to_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

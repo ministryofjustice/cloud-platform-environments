@@ -2,7 +2,7 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/main/example
  */
 module "book_a_secure_move_reporting_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
   business-unit          = "Digital and Technology"
@@ -11,6 +11,7 @@ module "book_a_secure_move_reporting_s3_bucket" {
 
   is-production    = var.is-production
   environment-name = var.environment-name
+  namespace              = var.namespace
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

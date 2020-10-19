@@ -1,5 +1,5 @@
 module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
   versioning             = true
@@ -11,10 +11,12 @@ module "drupal_content_storage" {
 
   # S3 was provisioned before we changed the default region to London
   # so if this isn't set we get a 301 error when it tries to rebuild it
+  namespace              = var.namespace
+
   providers = {
-    aws = aws.ireland
+      aws = aws.ireland
+    }
   }
-}
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
   metadata {
