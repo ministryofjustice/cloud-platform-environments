@@ -14,7 +14,7 @@ module "drupal_rds" {
   snapshot_identifier = "rds:cloud-platform-2703fa2c8a00ad83-2020-10-16-04-52"
 
   db_engine         = "mariadb"
-  db_engine_version = "10.4"
+  db_engine_version = "10"
   rds_family        = "mariadb10.4"
 
   # We need to explicitly set this to an empty list, otherwise the module
