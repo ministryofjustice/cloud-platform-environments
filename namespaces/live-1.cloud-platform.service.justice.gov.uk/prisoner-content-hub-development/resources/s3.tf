@@ -1,5 +1,5 @@
 module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
   versioning             = true
@@ -8,6 +8,7 @@ module "drupal_content_storage" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {

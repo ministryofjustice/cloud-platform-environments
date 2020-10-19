@@ -1,5 +1,5 @@
 module "authorized-keys" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = "apply-for-legal-aid"
   acl                    = "private"
@@ -8,6 +8,7 @@ module "authorized-keys" {
   is-production          = "false"
   environment-name       = "staging"
   infrastructure-support = "apply@digital.justice.gov.uk"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
