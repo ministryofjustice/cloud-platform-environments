@@ -11,6 +11,8 @@ module "drupal_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
+  snapshot_identifier = "rds:cloud-platform-2703fa2c8a00ad83-2020-10-16-04-52"
+
   db_engine         = "mariadb"
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
