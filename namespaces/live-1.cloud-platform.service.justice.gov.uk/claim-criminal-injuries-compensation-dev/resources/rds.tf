@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.7"
+  source = "github.com/ministryofjustice/cloud-plat    form-terraform-rds-instance?ref=5.9"
 
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
