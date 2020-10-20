@@ -74,6 +74,7 @@ module "pathfinder_rds_to_s3_bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
