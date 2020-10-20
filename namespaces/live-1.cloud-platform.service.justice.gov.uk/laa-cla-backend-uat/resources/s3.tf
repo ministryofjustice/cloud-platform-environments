@@ -59,6 +59,7 @@ module "cla_backend_deleted_objects_bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -106,6 +107,7 @@ module "cla_backend_static_files_bucket" {
   is-production                 = var.is-production
   environment-name              = var.environment-name
   infrastructure-support        = var.infrastructure-support
+  namespace                     = var.namespace
 
   providers = {
     aws = aws.london
