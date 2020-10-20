@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: calculate-journey-variable-payments-prod
+  namespace: calculate-journey-variable-payments-prod
+spec:
+  secretName: calculate-journey-variable-payments-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - calculate-journey-variable-payments.hmpps.service.justice.gov.uk
