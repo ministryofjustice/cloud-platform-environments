@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hmpps-book-secure-move-frontend-preprod
+  namespace: hmpps-book-secure-move-frontend-preprod
+spec:
+  selector:
+    matchLabels:
+      app: hmpps-book-secure-move-frontend-web-preprod
+  namespaceSelector:
+    matchNames:
+      - hmpps-book-secure-move-frontend-preprod
+  endpoints:
+    - port: http
+      interval: 15s
