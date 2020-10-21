@@ -17,10 +17,22 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
+      id      = "pin-phone-data-expiry-tag-2"
+      tags = {
+        "expiry-days" = "2"
+      }
+      expiration = [
+        {
+          days = 2
+        },
+      ]
+    },
+    {
+      enabled = true
       id      = "pin-phone-data-expiry"
       expiration = [
         {
-          days = 90
+          days = 1
         },
       ]
     },
@@ -44,6 +56,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     "Action": [
       "s3:GetObject",
       "s3:CopyObject",
+      "s3:PutObjectTagging",
       "s3:DeleteObject"
     ],
     "Resource": "$${bucket_arn}/*"
