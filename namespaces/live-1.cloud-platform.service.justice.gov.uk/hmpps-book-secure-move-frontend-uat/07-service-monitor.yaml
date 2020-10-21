@@ -9,7 +9,7 @@ spec:
       app: hmpps-book-secure-move-frontend-web-uat
   namespaceSelector:
     matchNames:
-      - hmpps-book-secure-move-frontend-staging
+      - hmpps-book-secure-move-frontend-uat
   endpoints:
     - port: http
       interval: 15s
