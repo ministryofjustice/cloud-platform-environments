@@ -18,7 +18,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     {
       enabled = true
       id      = "pin-phone-data-expiry-tag-2"
-      tags {
+      tags = {
         "expiry-days" = "2"
       }
       expiration = [
