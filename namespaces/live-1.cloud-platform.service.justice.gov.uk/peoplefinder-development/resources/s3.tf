@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = "peoplefinder"
   business-unit          = "Central Digital"
@@ -30,6 +30,7 @@ module "peoplefinder_s3" {
       max_age_seconds = 3000
     },
   ]
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
