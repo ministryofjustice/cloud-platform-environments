@@ -61,7 +61,7 @@ module "prison_to_probation_update_dead_letter_queue" {
   application            = var.application
   sqs_name               = "prison_to_probation_update_queue_dl"
   encrypt_sqs_kms        = "true"
-  namespace                 = var.namespace
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
