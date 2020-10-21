@@ -16,8 +16,15 @@ S3_BUCKET_PATH = "s3://cloud-platform-terraform-state/cloud-platform-environment
 NAMESPACES_DIR = "./namespaces/live-1.cloud-platform.service.justice.gov.uk"
 
 def main
-  namespaces.each do |namespace|
-    rds_instances(namespace).each { |db| puts [namespace, db].join(", ") }
+  namespaces.map do |ns|
+    rds_instances(ns).map do |db|
+      puts [
+        db[:namespace],
+        db[:db_name],
+        db[:engine],
+        db[:engine_version],
+      ].join(", ")
+    end
   end
 end
 
@@ -35,8 +42,7 @@ def rds_instances(namespace)
     data.dig("resources")
       .filter { |r| r["type"] == "aws_db_instance" }
       .map { |rds| rds["instances"] }.flatten
-      .map { |i| i.dig("attributes", "address") }
-      .map { |name| name.sub(/\..*/, "") }
+      .map { |rds| instance_attributes(namespace, rds) }
   rescue
     # This probably means something went wrong with the `aws s3 cp` command.
     # Some namespaces don't have any terraform state, which will cause this
@@ -46,6 +52,18 @@ def rds_instances(namespace)
     file.close
     file.unlink
   end
+end
+
+def instance_attributes(namespace, rds)
+  db_name = rds.dig("attributes", "address").sub(/\..*/, "")
+  engine = rds.dig("attributes", "engine")
+  engine_version = rds.dig("attributes", "engine_version")
+  {
+    namespace: namespace,
+    db_name: db_name,
+    engine: engine,
+    engine_version: engine_version,
+  }
 end
 
 # Fetch the terraform state file for a namespace, and
