@@ -1,5 +1,5 @@
 module "create_link_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -8,6 +8,7 @@ module "create_link_queue" {
   sqs_name                  = "create-link-queue"
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -55,7 +56,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 
 
 module "create_link_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -64,6 +65,7 @@ module "create_link_queue_dead_letter_queue" {
   sqs_name               = "create-link-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -71,7 +73,7 @@ module "create_link_queue_dead_letter_queue" {
 }
 
 module "unlink_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -81,6 +83,7 @@ module "unlink_queue" {
   existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -126,7 +129,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
 }
 
 module "unlink_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -135,6 +138,7 @@ module "unlink_queue_dead_letter_queue" {
   sqs_name               = "unlink-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -142,7 +146,7 @@ module "unlink_queue_dead_letter_queue" {
 }
 
 module "laa_status_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -152,6 +156,7 @@ module "laa_status_update_queue" {
   existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -197,7 +202,7 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
 }
 
 module "laa_status_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -206,6 +211,7 @@ module "laa_status_update_dead_letter_queue" {
   sqs_name               = "laa-status-update-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -214,7 +220,7 @@ module "laa_status_update_dead_letter_queue" {
 
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -224,6 +230,7 @@ module "hearing_resulted_queue" {
   existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -269,7 +276,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -278,6 +285,7 @@ module "hearing_resulted_dead_letter_queue" {
   sqs_name               = "hearing-resulted-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -285,7 +293,7 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "create_link_cp_status_job_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -295,6 +303,7 @@ module "create_link_cp_status_job_queue" {
   existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -336,7 +345,7 @@ resource "aws_sqs_queue_policy" "create-link-cp-status-job-queue_policy" {
 }
 
 module "create_link_cp_status_job_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -345,6 +354,7 @@ module "create_link_cp_status_job_dead_letter_queue" {
   sqs_name               = "create-link-cp-status-job-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -352,7 +362,7 @@ module "create_link_cp_status_job_dead_letter_queue" {
 }
 
 module "cp_laa_status_job_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -362,6 +372,7 @@ module "cp_laa_status_job_queue" {
   existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -403,7 +414,7 @@ resource "aws_sqs_queue_policy" "cp_laa_status_job_queue_policy" {
 }
 
 module "cp_laa_status_job_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -412,6 +423,7 @@ module "cp_laa_status_job_dead_letter_queue" {
   sqs_name               = "cp-laa-status-job-queue-dl"
   existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
