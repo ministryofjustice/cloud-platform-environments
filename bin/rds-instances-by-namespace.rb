@@ -22,7 +22,7 @@ def main
         db[:namespace],
         db[:db_name],
         db[:engine],
-        db[:engine_version],
+        db[:engine_version]
       ].join(", ")
     end
   end
@@ -62,7 +62,7 @@ def instance_attributes(namespace, rds)
     namespace: namespace,
     db_name: db_name,
     engine: engine,
-    engine_version: engine_version,
+    engine_version: engine_version
   }
 end
 
