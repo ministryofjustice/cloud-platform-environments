@@ -1,5 +1,5 @@
 module "laa_cla_backend_staging_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -7,6 +7,7 @@ module "laa_cla_backend_staging_sqs" {
   application            = var.application
   sqs_name               = "cla_backend_staging_queue"
   encrypt_sqs_kms        = "false"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 module "cp_test_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = "development"
   team_name                 = "crimeapps"
@@ -8,7 +8,7 @@ module "cp_test_queue" {
   infrastructure-support    = "example-team@digtal.justice.gov.uk"
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
-
+  namespace                 = var.namespace
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 module "cfo_queue_perf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -8,6 +8,7 @@ module "cfo_queue_perf" {
   sqs_name                  = "cfo_queue_perf"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -52,7 +53,7 @@ EOF
 }
 
 module "cfo_dead_letter_queue_perf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -60,6 +61,7 @@ module "cfo_dead_letter_queue_perf" {
   application            = var.application
   sqs_name               = "cfo_queue_dl_perf"
   encrypt_sqs_kms        = "true"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

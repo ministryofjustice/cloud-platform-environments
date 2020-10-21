@@ -1,5 +1,5 @@
 module "probation_offender_index_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -9,6 +9,7 @@ module "probation_offender_index_queue" {
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 240
+  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -45,7 +46,7 @@ EOF
 }
 
 module "probation_offender_index_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -53,6 +54,7 @@ module "probation_offender_index_dead_letter_queue" {
   application            = var.application
   sqs_name               = "probation_offender_search_index_dl_queue"
   encrypt_sqs_kms        = "true"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
