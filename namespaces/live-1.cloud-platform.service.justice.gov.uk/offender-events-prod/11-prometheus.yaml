@@ -16,6 +16,6 @@ spec:
         runbook_url: https://github.com/ministryofjustice/probation-offender-events/blob/main/README.md#slow-processing
       expr: |-
         offender_update_age_seconds_max{namespace="offender-events-prod"} > 60
-      for: 1m
+      for: 5m
       labels:
         severity: digital-prison-service
