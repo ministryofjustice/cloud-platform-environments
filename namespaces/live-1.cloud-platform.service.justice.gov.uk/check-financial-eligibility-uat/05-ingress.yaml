@@ -5,3 +5,10 @@ metadata:
   namespace: check-financial-eligibility-uat
   annotations:
     nginx.org/server-tokens: "False"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector: {}
