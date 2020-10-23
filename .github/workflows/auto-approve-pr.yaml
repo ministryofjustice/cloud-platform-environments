@@ -31,7 +31,7 @@ jobs:
         uses: ministryofjustice/cloud-platform-directory-hash@main
 
       - name: Comment PR
-        uses: thollander/actions-comment-pull-request@master
+        uses: vinodsai-a/actions-comment-pull-request@master
 
         if: steps.dir_hash.outputs.checksum_match == 'true'
         with:
