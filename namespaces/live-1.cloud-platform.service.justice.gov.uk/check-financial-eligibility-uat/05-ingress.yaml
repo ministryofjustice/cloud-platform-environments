@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ingress-nginx-controller
-  namespace: check-financial-eligibility-uat
-data:
-  proxy-hide-headers: "Server"
-  server-tokens: "False"
