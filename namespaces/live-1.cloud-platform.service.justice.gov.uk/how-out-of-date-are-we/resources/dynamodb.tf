@@ -11,7 +11,7 @@ module "hoodaw_dynamodb" {
 
   hash_key          = "filename"
   enable_encryption = "false"
-  enable_autoscaler = "false"
+  enable_autoscaler = "true"
   aws_region        = "eu-west-2"
 }
 
