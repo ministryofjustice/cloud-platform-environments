@@ -12,7 +12,7 @@ resource "pingdom_check" "book-secure-move-api-check" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/ping.json"
+  url                      = "/health"
   encryption               = true
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
