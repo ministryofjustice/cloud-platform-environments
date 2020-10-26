@@ -2,7 +2,7 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
   acl                    = "private"
@@ -12,6 +12,7 @@ module "user-filestore-s3-bucket" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
