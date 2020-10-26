@@ -1,6 +1,6 @@
 
 module "message_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = var.team_name
   application            = var.application
@@ -8,6 +8,7 @@ module "message_dynamodb" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   is-production          = "true"
+  namespace              = var.namespace
 
   hash_key      = "id"
   ttl_attribute = "deleteBy"
@@ -28,7 +29,7 @@ resource "kubernetes_secret" "message_dynamodb" {
 }
 
 module "schedule_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = var.team_name
   application            = var.application
@@ -36,6 +37,7 @@ module "schedule_dynamodb" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   is-production          = "true"
+  namespace              = var.namespace
 
   hash_key = "_id"
 }
