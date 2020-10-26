@@ -1,12 +1,4 @@
-terraform {
-  backend "s3" {
-  }
-}
 
-provider "aws" {
-  alias  = "london"
-  region = "eu-west-2"
-}
 
 module "court_probation_service_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
