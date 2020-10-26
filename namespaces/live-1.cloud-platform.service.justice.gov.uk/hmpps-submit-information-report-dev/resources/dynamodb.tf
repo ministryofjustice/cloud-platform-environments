@@ -5,7 +5,7 @@
  *
  */
 module "submit_information_report_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = "digital-prison-services"
   application            = "HMPPS Submit Information Report"
@@ -13,6 +13,7 @@ module "submit_information_report_dynamodb" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
+  namespace              = var.namespace
 
   hash_key = "id"
 }
@@ -32,7 +33,7 @@ resource "kubernetes_secret" "submit_information_report_dynamodb" {
 }
 
 module "submit_information_report_reports_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = "digital-prison-services"
   application            = "HMPPS Submit Information Report"
@@ -40,6 +41,7 @@ module "submit_information_report_reports_dynamodb" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
+  namespace              = var.namespace
 
   hash_key = "email"
 }

@@ -1,6 +1,6 @@
 
 module "hoodaw_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = var.team_name
   application            = var.application
@@ -8,6 +8,7 @@ module "hoodaw_dynamodb" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   is-production          = "false"
+  namespace              = var.namespace
 
   hash_key          = "filename"
   enable_encryption = "false"

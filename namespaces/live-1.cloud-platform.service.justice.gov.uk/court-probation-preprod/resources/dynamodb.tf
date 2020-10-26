@@ -5,7 +5,7 @@
  *
  */
 module "court_case_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
   team_name              = "court-probation-team"
   application            = "Court Case Service"
@@ -13,6 +13,7 @@ module "court_case_dynamodb" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   is-production          = "false"
+  namespace              = var.namespace
 
   hash_key  = "pk"
   range_key = "sk"
