@@ -54,7 +54,7 @@ module "manage_soc_cases_probation_offender_events_queue" {
   sqs_name                  = "manage_soc_cases_probation_offender_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace              = var.namespace
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
