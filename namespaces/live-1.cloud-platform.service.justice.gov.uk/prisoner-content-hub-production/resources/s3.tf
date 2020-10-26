@@ -11,9 +11,9 @@ module "drupal_content_storage" {
 
   # S3 was provisioned before we changed the default region to London
   # so if this isn't set we get a 301 error when it tries to rebuild it
-  namespace              = var.namespace
+  namespace = var.namespace
 
-providers = {
+  providers = {
     aws = aws.ireland
   }
 }
