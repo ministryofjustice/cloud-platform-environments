@@ -43,4 +43,24 @@ resource "kubernetes_secret" "my_S3_bucket_creeds" {
   }
 }
 ```
+#### concourse-ci/status Check
 
+There are occasions where Terraform in the code/pipeline plan will return something like the following
+which appears to remove policy config. However examination of the plan will reveal that it has been re-added by terraform
+
+```
+      ~ policy = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = "dynamodb:*"
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:dynamodb:eu-west-2:1234567898:table/cp-abcdefghij123"
+                      - Sid      = ""
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> (known after apply)
+        user   = "cp-dynamo-"cp-abcdefghij123
+```
