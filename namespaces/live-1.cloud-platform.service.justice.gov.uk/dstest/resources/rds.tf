@@ -9,7 +9,7 @@ module "rds" {
   namespace            = var.namespace
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # change the postgres version as you see fit.
   db_engine_version      = "9.5"
