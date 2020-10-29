@@ -13,8 +13,9 @@
 # }
 
 module "aurora_db" {
-  source = "https://github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=main"
-
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=main"
+  cluster_name               = var.cluster_name
+  cluster_state_bucket       = var.cluster_state_bucket
   team_name              = "cloud-platform"
   business-unit          = "Platforms"
   application            = "testapp-aurora"
