@@ -13,7 +13,7 @@
 # }
 
 module "aurora_db" {
-  source = "https://github.com/ministryofjustice/cloud-platform-terraform-rds-aurora"
+  source = "https://github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=main"
 
   team_name              = "cloud-platform"
   business-unit          = "Platforms"
