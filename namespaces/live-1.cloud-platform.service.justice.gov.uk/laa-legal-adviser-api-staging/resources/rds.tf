@@ -68,6 +68,8 @@ resource "kubernetes_secret" "db" {
     host     = module.rds.rds_instance_address
     port     = module.rds.rds_instance_port
     url      = "postgis://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    access_key_id = module.rds.access_key_id
+    secret_access_key = module.rds.secret_access_key
   }
 }
 
@@ -85,5 +87,7 @@ resource "kubernetes_secret" "database" {
     host     = module.rds_11.rds_instance_address
     port     = module.rds_11.rds_instance_port
     url      = "postgis://${module.rds_11.database_username}:${module.rds_11.database_password}@${module.rds_11.rds_instance_endpoint}/${module.rds_11.database_name}"
+    access_key_id = module.rds.access_key_id
+    secret_access_key = module.rds.secret_access_key
   }
 }
