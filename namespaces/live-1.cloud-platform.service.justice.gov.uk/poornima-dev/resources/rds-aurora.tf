@@ -28,7 +28,7 @@ module "aurora_db" {
   engine = "aurora-postgresql"
 
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine_version
-  engine_version = "9.6.9"
+  engine_version = "10.7"
 
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine_mode
   # engine_mode            = "serverless"
