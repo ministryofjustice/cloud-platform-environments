@@ -3,6 +3,7 @@ provider "pingdom" {
 
 # Integration IDs
 # 94314 = #pecs-alerts
+# 108715 = PECS Pager Duty
 
 resource "pingdom_check" "book-secure-move-api-check" {
   type                     = "http"
@@ -17,5 +18,5 @@ resource "pingdom_check" "book-secure-move-api-check" {
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [94314]
+  integrationids           = [94314, 108715]
 }
