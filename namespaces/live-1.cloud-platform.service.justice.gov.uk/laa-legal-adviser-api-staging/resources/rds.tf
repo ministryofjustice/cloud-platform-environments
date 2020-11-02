@@ -48,6 +48,7 @@ module "rds_11" {
   db_name                = "laalaa"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres11"
+  snapshot_identifier    = "rds:cloud-platform-8240d8f0fcc9b4ae-2020-11-02-03-37"
 
   providers = {
     aws = aws.london
