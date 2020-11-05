@@ -16,6 +16,10 @@ module "dps_rds" {
   }
 }
 
+resource "random_id" "pin_phone_monitor_role_password" {
+  byte_length = 32
+}
+
 resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "dps-rds-instance-output"
@@ -30,5 +34,6 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.dps_rds.rds_instance_address
     access_key_id         = module.dps_rds.access_key_id
     secret_access_key     = module.dps_rds.secret_access_key
+    pin_phone_monitor_password = random_id.pin_phone_monitor_role_password.b64
   }
 }
