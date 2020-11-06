@@ -62,13 +62,13 @@ resource "kubernetes_secret" "db" {
 
   data = {
     db_identifier     = module.rds.db_identifier
-    endpoint = module.rds.rds_instance_endpoint
-    name     = module.rds.database_name
-    user     = module.rds.database_username
-    password = module.rds.database_password
-    host     = module.rds.rds_instance_address
-    port     = module.rds.rds_instance_port
-    url      = "postgis://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    endpoint          = module.rds.rds_instance_endpoint
+    name              = module.rds.database_name
+    user              = module.rds.database_username
+    password          = module.rds.database_password
+    host              = module.rds.rds_instance_address
+    port              = module.rds.rds_instance_port
+    url               = "postgis://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
     access_key_id     = module.rds.access_key_id
     secret_access_key = module.rds.secret_access_key
   }
