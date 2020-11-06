@@ -33,3 +33,7 @@ variable "cluster_state_bucket" {
 variable "namespace" {
   default = "formbuilder-platform-test-production"
 }
+
+variable "deletion_protection" {
+  default = false
+}
