@@ -11,6 +11,8 @@ module "user-datastore-rds-instance" {
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
   db_engine_version          = "10"
+  deletion_protection        = var.deletion_protection
+  backup_window              = "03:00-06:00"
 
   providers = {
     aws = aws.london

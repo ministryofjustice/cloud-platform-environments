@@ -8,11 +8,11 @@ variable "team_name" {
 }
 
 variable "db_backup_retention_period_submitter" {
-  default = "2"
+  default = "4"
 }
 
 variable "db_backup_retention_period_user_datastore" {
-  default = "2"
+  default = "4"
 }
 
 variable "is-production" {
@@ -32,4 +32,8 @@ variable "cluster_state_bucket" {
 
 variable "namespace" {
   default = "formbuilder-platform-live-production"
+}
+
+variable "deletion_protection" {
+  default = true
 }
