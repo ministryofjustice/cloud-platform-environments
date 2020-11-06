@@ -10,6 +10,8 @@ module "user-datastore-rds-instance" {
   namespace                  = var.namespace
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
+  deletion_protection        = var.deletion_protection
+  backup_window              = "03:00-06:00"
 
   db_engine_version = "10"
 
