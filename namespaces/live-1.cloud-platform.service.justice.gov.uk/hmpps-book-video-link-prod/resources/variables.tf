@@ -5,6 +5,10 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
+variable "domain" {
+  default = "book-video-link.prison.service.justice.gov.uk"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS Book video link"
