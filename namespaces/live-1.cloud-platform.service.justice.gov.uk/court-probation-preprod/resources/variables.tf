@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "probation-services"
+  default = "probation-in-court-team"
 }
 
 variable "environment-name" {
@@ -37,4 +37,3 @@ variable "rds-family" {
 variable "db_engine_version" {
   default = "11"
 }
-
