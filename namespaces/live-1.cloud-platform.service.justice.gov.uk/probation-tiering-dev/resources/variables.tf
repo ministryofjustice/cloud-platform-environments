@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "probation-tiering-dev"
+  default = "probation_tiering_dev"
 }
 
 variable "business-unit" {

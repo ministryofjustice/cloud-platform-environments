@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: dev.probation-tiering.service.justice.gov.uk
-  namespace: probation-tiering-dev
+  namespace: probation_tiering_dev
 spec:
   secretName: probation-tiering-cert
   issuerRef:
