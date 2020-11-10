@@ -11,7 +11,7 @@ variable "business-unit" {
 }
 
 variable "team_name" {
-  default = "Probation in Court Team"
+  default = "probation-in-court-team"
 }
 
 variable "environment-name" {
@@ -32,9 +32,5 @@ variable "rds-family" {
 
 variable "db_engine_version" {
   default = "11"
-}
-
-variable "team_name_hyphenated" {
-  default = "probation-in-court-team"
 }
 

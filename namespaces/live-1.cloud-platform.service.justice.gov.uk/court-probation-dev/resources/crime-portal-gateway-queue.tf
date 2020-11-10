@@ -2,7 +2,7 @@ module "crime-portal-gateway-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name       = var.environment-name
-  team_name              = var.team_name_hyphenated
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = "crime-portal-gateway"
   sqs_name               = "crime-portal-gateway-queue"
@@ -25,7 +25,7 @@ module "crime-portal-gateway-dead-letter-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
   environment-name          = var.environment-name
-  team_name                 = var.team_name_hyphenated
+  team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = "crime-portal-gateway"
   sqs_name                  = "crime-portal-gateway-dead-letter-queue"
