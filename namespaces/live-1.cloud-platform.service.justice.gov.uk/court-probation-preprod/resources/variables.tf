@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default = "probation-in-court-team"
+  default     = "probation-in-court-team"
 }
 
 variable "environment-name" {
