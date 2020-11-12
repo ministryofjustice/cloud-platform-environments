@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: probation_tiering_dev
+  namespace: probation-tiering-dev
 spec:
   hard:
     pods: "50"
