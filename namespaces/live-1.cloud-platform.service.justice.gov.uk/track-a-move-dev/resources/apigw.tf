@@ -6,27 +6,30 @@ resource "aws_api_gateway_rest_api" "apigw" {
   }
 }
 
-resource "aws_api_gateway_resource" "tracking" {
+# /positions
+resource "aws_api_gateway_resource" "positions" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
   parent_id   = aws_api_gateway_rest_api.apigw.root_resource_id
-  path_part   = "tracking"
+  path_part   = "positions"
 }
 
-resource "aws_api_gateway_method" "tracking_post" {
+# /positions POST
+resource "aws_api_gateway_method" "positions_post" {
   rest_api_id   = aws_api_gateway_rest_api.apigw.id
-  resource_id   = aws_api_gateway_resource.tracking.id
+  resource_id   = aws_api_gateway_resource.positions.id
   http_method   = "POST"
   authorization = "NONE"
 }
 
-resource "aws_api_gateway_integration" "tracking_get_integration" {
-  rest_api_id          = aws_api_gateway_rest_api.apigw.id
-  resource_id          = aws_api_gateway_resource.tracking.id
-  http_method          = aws_api_gateway_method.tracking_post.http_method
-  type                 = "AWS"
+# /positions POST -> firehose
+resource "aws_api_gateway_integration" "positions_post_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.apigw.id
+  resource_id             = aws_api_gateway_resource.positions.id
+  http_method             = aws_api_gateway_method.positions_post.http_method
+  type                    = "AWS"
   integration_http_method = "POST"
-  uri = "arn:aws:apigateway:eu-west-2:firehose:action/PutRecordBatch"
-  credentials = "arn:aws:iam::633837037006:role/APIGWTracking"
+  uri                     = "arn:aws:apigateway:eu-west-2:firehose:action/PutRecordBatch"
+  credentials             = "arn:aws:iam::633837037006:role/APIGWTracking"
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
 
@@ -34,12 +37,12 @@ resource "aws_api_gateway_integration" "tracking_get_integration" {
     "integration.request.header.Content-Type" = "'application/x-amx-json-1.1'"
   }
 
-   request_templates       = {
-     "application/json" = <<EOT
+  request_templates = {
+    "application/json" = <<EOT
 {
 #set( $newline = "
 ")
-"DeliveryStreamName": "${aws_kinesis_firehose_delivery_stream.extended_s3_stream.name}",
+"DeliveryStreamName": "$supplier",
 "Records": [
    #foreach($elem in $input.path('$'))
       {
@@ -50,25 +53,24 @@ resource "aws_api_gateway_integration" "tracking_get_integration" {
 ]
 }
 EOT
-}
+  }
 
 }
 
 resource "aws_api_gateway_method_response" "response_200" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
-  resource_id = aws_api_gateway_resource.tracking.id
-  http_method = aws_api_gateway_method.tracking_post.http_method
+  resource_id = aws_api_gateway_resource.positions.id
+  http_method = aws_api_gateway_method.positions_post.http_method
   status_code = "200"
   response_models = {
     "application/json" = "Empty"
   }
 }
 
-
 resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
-  resource_id = aws_api_gateway_resource.tracking.id
-  http_method = aws_api_gateway_method.tracking_post.http_method
+  resource_id = aws_api_gateway_resource.positions.id
+  http_method = aws_api_gateway_method.positions_post.http_method
   status_code = aws_api_gateway_method_response.response_200.status_code
 
   # Transforms the backend JSON response to XML
@@ -77,4 +79,8 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
   }
 }
 
-
+#deployment
+resource "aws_api_gateway_deployment" "live" {
+  rest_api_id = aws_api_gateway_rest_api.apigw.id
+  stage_name  = "live"
+}

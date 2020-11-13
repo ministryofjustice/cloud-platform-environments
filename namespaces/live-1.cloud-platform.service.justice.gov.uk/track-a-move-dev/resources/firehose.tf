@@ -1,5 +1,10 @@
+locals {
+  suppliers = ["geoamey", "serco"]
+}
+
 resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
-  name        = "terraform-kinesis-firehose"
+  count       = length(local.suppliers)
+  name        = local.suppliers[count.index]
   destination = "extended_s3"
 
   extended_s3_configuration {
@@ -7,11 +12,10 @@ resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
     bucket_arn          = module.track_a_move_s3_bucket.bucket_arn
     buffer_size         = 5
     buffer_interval     = 300
-    prefix              = "prefix1/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
+    prefix              = "${local.suppliers[count.index]}/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
     error_output_prefix = "error/"
   }
 }
-
 
 resource "aws_iam_role" "firehose_role" {
   name = "firehose_assume_role"
