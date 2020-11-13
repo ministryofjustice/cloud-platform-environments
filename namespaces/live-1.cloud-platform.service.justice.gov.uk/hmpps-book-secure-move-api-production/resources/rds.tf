@@ -10,6 +10,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_allocated_storage   = 20
 }
 
 resource "kubernetes_secret" "rds-instance" {
