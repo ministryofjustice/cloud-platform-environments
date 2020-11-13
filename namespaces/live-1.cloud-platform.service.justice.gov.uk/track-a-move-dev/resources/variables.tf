@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "track-a-move"
+  default = "track-a-move-dev"
 }
 
 variable "business_unit" {
@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "book-a-secure-move"
+  default     = "pecs"
 }
 
 variable "environment" {
@@ -41,4 +41,19 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps_dev"
+}
+
+variable "base_domain" {
+  description = "Base domain where to create the custom hostname"
+  default     = "bookasecuremove.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the FQDN"
+  default     = "data-dev"
+}
+
+variable "base_domain_route53_namespace" {
+  description = "Kubernetes namespace where the base domain was created"
+  default     = "hmpps-book-secure-move-api-production"
 }

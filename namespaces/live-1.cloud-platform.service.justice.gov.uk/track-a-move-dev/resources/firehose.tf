@@ -18,8 +18,7 @@ resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
 }
 
 resource "aws_iam_role" "firehose_role" {
-  name = "firehose_assume_role"
-
+  name               = "${var.namespace}-firehose"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
