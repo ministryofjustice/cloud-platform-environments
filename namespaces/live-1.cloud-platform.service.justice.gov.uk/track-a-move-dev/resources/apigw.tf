@@ -84,3 +84,16 @@ resource "aws_api_gateway_deployment" "live" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
   stage_name  = "live"
 }
+
+
+#Usage plan
+resource "aws_api_gateway_usage_plan" "usage_plan" {
+  name         = "track-a-move-plan"
+  description  = "Usage plan for track a move"
+  product_code = "TAM-DEV"
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.apigw.id
+    stage  = aws_api_gateway_deployment.live.stage_name
+  }
+}

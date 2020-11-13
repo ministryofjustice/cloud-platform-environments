@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: track-a-move
+  namespace: track-a-move-dev
 spec:
   podSelector: {}
   policyTypes:
