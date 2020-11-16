@@ -16,7 +16,6 @@ resource "aws_api_gateway_rest_api" "apigw" {
   }
 }
 
-
 resource "aws_iam_role" "apigw_role" {
   name               = "${var.namespace}-apigw"
   assume_role_policy = <<EOF
@@ -74,6 +73,7 @@ resource "aws_api_gateway_method" "positions_post" {
   resource_id   = aws_api_gateway_resource.positions.id
   http_method   = "POST"
   authorization = "NONE"
+  api_key_required = true
 }
 
 # /positions POST -> firehose
@@ -97,7 +97,7 @@ resource "aws_api_gateway_integration" "positions_post_integration" {
 {
 #set( $newline = "
 ")
-"DeliveryStreamName": "$input.params('supplier')",
+"DeliveryStreamName": "$context.identity.apiKey.split("-")[0]",
 "Records": [
    #foreach($elem in $input.path('$'))
       {
@@ -153,19 +153,47 @@ resource "aws_api_gateway_usage_plan" "usage_plan" {
   }
 }
 
-resource "aws_api_gateway_domain_name" "apigw_fqdn" {
-  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
-  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+resource "random_id" "id" {
+  count = length(local.suppliers)
+  byte_length = 16
+}
 
-  endpoint_configuration {
-    types = ["REGIONAL"]
+resource "aws_api_gateway_api_key" "api_keys" {
+  count = length(local.suppliers)
+  name  = "${local.suppliers[count.index]}-key"
+  value = "${local.suppliers[count.index]}-${random_id.id.*.hex[count.index]}"
+}
+
+resource "aws_api_gateway_usage_plan" "default" {
+  name = "track-a-move-dev"
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.apigw.id
+    stage  = aws_api_gateway_deployment.live.stage_name
   }
-
-  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
 }
 
-resource "aws_api_gateway_base_path_mapping" "dev" {
-  api_id      = aws_api_gateway_rest_api.apigw.id
-  stage_name  = aws_api_gateway_deployment.live.stage_name
-  domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
+resource "aws_api_gateway_usage_plan_key" "main" {
+  count = length(local.suppliers)
+
+  key_id        = aws_api_gateway_api_key.api_keys.*.id[count.index]
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
+
+#resource "aws_api_gateway_domain_name" "apigw_fqdn" {
+#  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
+#  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+
+#  endpoint_configuration {
+#    types = ["REGIONAL"]
+#  }
+
+#  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
+#}
+
+#resource "aws_api_gateway_base_path_mapping" "dev" {
+#  api_id      = aws_api_gateway_rest_api.apigw.id
+#  stage_name  = aws_api_gateway_deployment.live.stage_name
+#  domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
+#}

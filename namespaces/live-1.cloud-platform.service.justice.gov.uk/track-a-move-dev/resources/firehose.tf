@@ -1,7 +1,3 @@
-locals {
-  suppliers = ["geoamey", "serco"]
-}
-
 resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
   count       = length(local.suppliers)
   name        = local.suppliers[count.index]

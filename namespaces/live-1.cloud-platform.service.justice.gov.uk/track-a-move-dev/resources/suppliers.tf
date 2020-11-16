@@ -1,0 +1,3 @@
+locals {
+  suppliers = ["geoamey", "serco"]
+}
