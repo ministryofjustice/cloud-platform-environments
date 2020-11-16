@@ -11,5 +11,5 @@ spec:
     matchNames:
       - laa-court-data-ui-production
   endpoints:
-    - port: http
+    - port: metrics
       interval: 30s
