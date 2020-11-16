@@ -1,3 +1,9 @@
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
+
 module "rds_aurora" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.0"
 
