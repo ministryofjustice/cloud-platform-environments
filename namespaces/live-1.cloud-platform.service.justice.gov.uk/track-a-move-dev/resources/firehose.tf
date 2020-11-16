@@ -15,6 +15,16 @@ resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
     prefix              = "${local.suppliers[count.index]}/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
     error_output_prefix = "error/"
   }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_iam_role" "firehose_role" {
