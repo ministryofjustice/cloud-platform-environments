@@ -74,7 +74,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 ##################################################
 
-# Runner ECR Repos
+# Runner Node ECR Repos
 module "ecr-repo-fb-runner-node" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
@@ -466,5 +466,27 @@ resource "kubernetes_secret" "ecr-repo-fb-editor" {
     repo_url          = module.ecr-repo-fb-editor.repo_url
     access_key_id     = module.ecr-repo-fb-editor.access_key_id
     secret_access_key = module.ecr-repo-fb-editor.secret_access_key
+  }
+}
+
+##################################################
+
+module "ecr-repo-fb-runner" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+
+  team_name = "formbuilder"
+  repo_name = "fb-runner"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-runner" {
+  metadata {
+    name      = "ecr-repo-fb-runner"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-runner.repo_url
+    access_key_id     = module.ecr-repo-fb-runner.access_key_id
+    secret_access_key = module.ecr-repo-fb-runner.secret_access_key
   }
 }
