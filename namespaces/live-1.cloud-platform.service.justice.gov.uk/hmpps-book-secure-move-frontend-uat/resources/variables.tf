@@ -11,7 +11,7 @@ variable "is-production" {
 }
 
 variable "infrastructure-support" {
-  default = "bookasecuremove@digital.justice.gov.uk"
+  default = "pecs-digital-tech@digital.justice.gov.uk"
 }
 
 variable "application" {
