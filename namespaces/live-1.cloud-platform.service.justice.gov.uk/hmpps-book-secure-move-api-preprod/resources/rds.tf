@@ -10,6 +10,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_allocated_storage   = 20
 
   providers = {
     aws = aws.london
@@ -63,6 +64,7 @@ module "rds-read-replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_allocated_storage   = 20
 
   db_name             = module.rds-instance.database_name
   replicate_source_db = module.rds-instance.db_identifier
