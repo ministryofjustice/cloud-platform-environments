@@ -1,5 +1,5 @@
 ################################################################################
-# HMPPs Typescript Template Application Elasticache for ReDiS
+# HMPPs Typescript Template Application Elasticache
 ################################################################################
 
 module "hmpps_template_typescript_elasticache_redis" {
