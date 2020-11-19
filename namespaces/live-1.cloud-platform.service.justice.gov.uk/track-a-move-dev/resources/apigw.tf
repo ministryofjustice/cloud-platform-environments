@@ -164,21 +164,6 @@ resource "aws_api_gateway_api_key" "api_keys" {
   value = "${local.suppliers[count.index]}-${random_id.id.*.hex[count.index]}"
 }
 
-
-resource "kubernetes_secret" "apikeys" {
-  count = length(local.suppliers)
-
-  metadata {
-    name      = "apikeys"
-    namespace = var.namespace
-  }
-
-  data = {
-    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys.*.id[count.index]
-  }
-}
-
-
 resource "aws_api_gateway_usage_plan" "default" {
   name = "track-a-move-dev"
 
