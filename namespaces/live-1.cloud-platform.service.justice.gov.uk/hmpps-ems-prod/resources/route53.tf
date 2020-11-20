@@ -29,6 +29,14 @@ resource "aws_route53_record" "grafana_platform_amazonses_dkim_record" {
   records = ["${element(aws_ses_domain_dkim.grafana_platform.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
 
+resource "aws_route53_record" "hmpps_ems_platform_kube_notprod" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "kube.notprod.platform.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-694.awsdns-22.net.", "ns-1548.awsdns-01.co.uk.", "ns-1105.awsdns-10.org.", "ns-304.awsdns-38.com."]
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
