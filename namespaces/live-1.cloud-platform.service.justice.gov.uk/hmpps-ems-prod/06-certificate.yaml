@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
@@ -10,3 +11,21 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - grafana.platform.electronic-monitoring.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prometheus-prod
+  namespace: hmpps-ems-prod
+spec:
+  secretName: prometheus-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prometheus.platform.electronic-monitoring.service.justice.gov.uk
+    - alertmanager.platform.electronic-monitoring.service.justice.gov.uk
+    - pushgateway.platform.electronic-monitoring.service.justice.gov.uk
+    - pushgateway-admin.platform.electronic-monitoring.service.justice.gov.uk
+    - pushprox.platform.electronic-monitoring.service.justice.gov.uk
+    - pushprox-admin.platform.electronic-monitoring.service.justice.gov.uk
