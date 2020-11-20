@@ -26,7 +26,7 @@ resource "kubernetes_secret" "pq_ecr_credentials" {
   }
 }
 
-resource "kubernetes_secret" "pq_ecr_credentials" {
+resource "kubernetes_secret" "pq_ecr_credentials_production" {
   metadata {
     name      = "pq-ecr-credentials-output"
     namespace = "parliamentary-questions-production"
