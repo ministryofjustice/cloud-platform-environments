@@ -14,7 +14,7 @@ module "probation_offender_search_es" {
   aws-es-proxy-replica-count = 2
   instance_type              = "t2.medium.elasticsearch"
   ebs_volume_size            = 15
-  #s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
+  s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
 }
 
 module "es_snapshots_s3_bucket" {
