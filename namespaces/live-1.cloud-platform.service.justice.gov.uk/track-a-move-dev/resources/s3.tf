@@ -21,16 +21,16 @@ module "track_a_move_s3_bucket" {
   versioning = false
 }
 
-//resource "kubernetes_secret" "calculate-journey-variable-payments_s3_bucket" {
-//  metadata {
-//    name      = "calculate-journey-variable-payments-bucket"
-//    namespace = var.namespace
-//  }
-//
-//  data = {
-//    access_key_id     = module.calculate-journey-variable-payments_s3_bucket.access_key_id
-//    secret_access_key = module.calculate-journey-variable-payments_s3_bucket.secret_access_key
-//    bucket_arn        = module.calculate-journey-variable-payments_s3_bucket.bucket_arn
-//    bucket_name       = module.calculate-journey-variable-payments_s3_bucket.bucket_name
-//  }
-//}
+resource "kubernetes_secret" "track_a_move_s3_bucket" {
+  metadata {
+    name      = "track-a-move-s3-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.track_a_move_s3_bucket.access_key_id
+    secret_access_key = module.track_a_move_s3_bucket.secret_access_key
+    bucket_arn        = module.track_a_move_s3_bucket.bucket_arn
+    bucket_name       = module.track_a_move_s3_bucket.bucket_name
+  }
+}
