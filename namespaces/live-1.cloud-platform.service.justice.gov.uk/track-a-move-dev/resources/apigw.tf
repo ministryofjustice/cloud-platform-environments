@@ -141,6 +141,18 @@ resource "aws_api_gateway_deployment" "live" {
 }
 
 
+resource "kubernetes_secret" "apigw_details" {
+  metadata {
+    name      = "apigw"
+    namespace = var.namespace
+  }
+
+  data = {
+    invoke_url = aws_api_gateway_deployment.live.invoke_url
+  }
+}
+
+
 #Usage plan
 resource "aws_api_gateway_usage_plan" "usage_plan" {
   name         = "track-a-move-plan"
@@ -162,6 +174,19 @@ resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
   name  = "${local.suppliers[count.index]}-key"
   value = "${local.suppliers[count.index]}-${random_id.id.*.hex[count.index]}"
+}
+
+resource "kubernetes_secret" "apikeys" {
+  count = length(local.suppliers)
+
+  metadata {
+    name      = "apikey-${local.suppliers[count.index]}"
+    namespace = var.namespace
+  }
+
+  data = {
+    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys.*.id[count.index]
+  }
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
