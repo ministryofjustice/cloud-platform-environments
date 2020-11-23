@@ -141,6 +141,18 @@ resource "aws_api_gateway_deployment" "live" {
 }
 
 
+resource "kubernetes_secret" "apigw_details" {
+  metadata {
+    name      = "apigw"
+    namespace = var.namespace
+  }
+
+  data = {
+    invoke_url = aws_api_gateway_deployment.live.invoke_url
+  }
+}
+
+
 #Usage plan
 resource "aws_api_gateway_usage_plan" "usage_plan" {
   name         = "track-a-move-plan"
