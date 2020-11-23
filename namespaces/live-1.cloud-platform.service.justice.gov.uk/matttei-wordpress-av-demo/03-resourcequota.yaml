@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: matttei-wordpress-av-demo
-spec:
-  hard:
-    pods: "50"
