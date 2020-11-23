@@ -11,6 +11,8 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
 
+  db_instance_class      = "db.t3.medium"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
