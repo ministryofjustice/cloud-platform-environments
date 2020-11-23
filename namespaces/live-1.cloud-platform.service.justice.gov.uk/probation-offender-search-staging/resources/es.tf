@@ -33,3 +33,17 @@ module "es_snapshots_s3_bucket" {
     aws = aws.london
   }
 }
+
+resource "kubernetes_secret" "es_snapshots_s3_bucket" {
+  metadata {
+    name      = "es-snapshot-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+  }
+}
+
+
