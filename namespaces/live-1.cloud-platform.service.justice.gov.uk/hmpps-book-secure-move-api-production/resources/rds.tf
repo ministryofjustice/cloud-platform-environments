@@ -11,6 +11,7 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   db_allocated_storage   = 20
+  db_instance_class      = "db.t3.medium"
 
   # enable performance insights
   performance_insights_enabled = true
