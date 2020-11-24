@@ -11,6 +11,9 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   db_allocated_storage   = 20
+
+  # enable performance insights
+  performance_insights_enabled = true
 }
 
 resource "kubernetes_secret" "rds-instance" {
