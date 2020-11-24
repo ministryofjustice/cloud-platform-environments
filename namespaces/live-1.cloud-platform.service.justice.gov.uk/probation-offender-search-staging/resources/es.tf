@@ -1,5 +1,5 @@
 module "probation_offender_search_es" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.4"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.5"
   cluster_name                  = var.cluster_name
   cluster_state_bucket          = var.cluster_state_bucket
   application                   = var.application
@@ -34,15 +34,16 @@ module "es_snapshots_s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "es_snapshots_s3_bucket" {
+resource "kubernetes_secret" "es_snapshots" {
   metadata {
     name      = "es-snapshot-bucket"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
-    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+    bucket_arn        = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name       = module.es_snapshots_s3_bucket.bucket_name
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
   }
 }
 
