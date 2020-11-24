@@ -12,6 +12,9 @@ module "rds-instance" {
   team_name              = var.team_name
   db_allocated_storage   = 20
 
+  # enable performance insights
+  performance_insights_enabled = true
+
   providers = {
     aws = aws.london
   }
