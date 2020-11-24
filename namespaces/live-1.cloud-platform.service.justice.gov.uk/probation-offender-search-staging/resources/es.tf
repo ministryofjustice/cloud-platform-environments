@@ -41,8 +41,8 @@ resource "kubernetes_secret" "es_snapshots" {
   }
 
   data = {
-    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
-    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+    bucket_arn        = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name       = module.es_snapshots_s3_bucket.bucket_name
     snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
   }
 }
