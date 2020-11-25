@@ -14,37 +14,9 @@ module "probation_offender_search_es" {
   aws-es-proxy-replica-count    = 2
   instance_type                 = "t2.medium.elasticsearch"
   ebs_volume_size               = 15
-  s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
+  s3_manual_snapshot_repository = data.aws_s3_bucket.snapshot_bucket.arn
 }
 
-module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
-  team_name              = var.team_name
-  acl                    = "private"
-  versioning             = false
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
+data "aws_s3_bucket" "snapshot_bucket" {
+  bucket = "cloud-platform-b98efe046f8e2974726adda74c50890e"
 }
-
-resource "kubernetes_secret" "es_snapshots" {
-  metadata {
-    name      = "es-snapshot-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn        = module.es_snapshots_s3_bucket.bucket_arn
-    bucket_name       = module.es_snapshots_s3_bucket.bucket_name
-    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
-  }
-}
-
-
