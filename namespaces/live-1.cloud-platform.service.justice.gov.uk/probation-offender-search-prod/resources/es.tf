@@ -14,7 +14,7 @@ module "probation_offender_search_es" {
   aws-es-proxy-replica-count = 2
   instance_type              = "t2.medium.elasticsearch"
   ebs_volume_size            = 15
-  #s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
+  s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
 }
 
 module "es_snapshots_s3_bucket" {
@@ -43,6 +43,32 @@ resource "kubernetes_secret" "es_snapshots" {
   data = {
     bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
     bucket_name = module.es_snapshots_s3_bucket.bucket_name
-    #snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+  }
+}
+
+resource "kubernetes_secret" "es_snapshots_staging" {
+  metadata {
+    name      = "es-snapshot-bucket"
+    namespace = probation-offender-search-staging
+  }
+
+  data = {
+    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+  }
+}
+
+resource "kubernetes_secret" "es_snapshots_preprod" {
+  metadata {
+    name      = "es-snapshot-bucket"
+    namespace = probation-offender-search-preprod
+  }
+
+  data = {
+    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
   }
 }
