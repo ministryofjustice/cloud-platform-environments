@@ -50,7 +50,7 @@ resource "kubernetes_secret" "es_snapshots" {
 resource "kubernetes_secret" "es_snapshots_staging" {
   metadata {
     name      = "es-snapshot-bucket"
-    namespace = probation-offender-search-staging
+    namespace = "probation-offender-search-staging"
   }
 
   data = {
@@ -63,7 +63,7 @@ resource "kubernetes_secret" "es_snapshots_staging" {
 resource "kubernetes_secret" "es_snapshots_preprod" {
   metadata {
     name      = "es-snapshot-bucket"
-    namespace = probation-offender-search-preprod
+    namespace = "probation-offender-search-preprod"
   }
 
   data = {
