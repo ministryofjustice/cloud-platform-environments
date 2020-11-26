@@ -20,3 +20,14 @@ module "probation_offender_search_es" {
 data "aws_s3_bucket" "snapshot_bucket" {
   bucket = "cloud-platform-b98efe046f8e2974726adda74c50890e"
 }
+
+resource "kubernetes_secret" "es_snapshots_role" {
+  metadata {
+    name      = "es-snapshot-role"
+    namespace = var.namespace
+  }
+
+  data = {
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+  }
+}
