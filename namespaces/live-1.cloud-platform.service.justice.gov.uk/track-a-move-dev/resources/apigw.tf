@@ -93,21 +93,7 @@ resource "aws_api_gateway_integration" "positions_post_integration" {
   }
 
   request_templates = {
-    "application/json" = <<EOT
-{
-#set( $newline = "
-")
-"DeliveryStreamName": "$context.identity.apiKey.split("-")[0]",
-"Records": [
-   #foreach($elem in $input.path('$'))
-      {
-        #set($record = "$elem$newline")
-        "Data": "$util.base64Encode($record)"
-      }#if($foreach.hasNext),#end
-    #end
-]
-}
-EOT
+    "application/json" = file("mapping.vtl")
   }
 
 }
