@@ -125,8 +125,8 @@ resource "aws_api_gateway_deployment" "live" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
   stage_name  = "live"
 
-   #hack to force recreate of the deployment resource
-   stage_description = "${md5(file("apigw.tf"))}"
+  #hack to force recreate of the deployment resource
+  stage_description = "${md5(file("apigw.tf"))}"
 
   depends_on = [
     aws_api_gateway_method.tracks_post,
