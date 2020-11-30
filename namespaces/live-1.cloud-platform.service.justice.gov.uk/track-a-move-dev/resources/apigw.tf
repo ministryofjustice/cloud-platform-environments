@@ -126,6 +126,12 @@ resource "aws_api_gateway_deployment" "live" {
   stage_name  = "live"
 }
 
+resource "aws_api_gateway_stage" "live" {
+  stage_name    = "live"
+  rest_api_id   = aws_api_gateway_rest_api.apigw.id
+  deployment_id = aws_api_gateway_deployment.live.id
+}
+
 
 resource "kubernetes_secret" "apigw_details" {
   metadata {
