@@ -124,14 +124,12 @@ resource "aws_api_gateway_integration_response" "tracks_post_integration_respons
 resource "aws_api_gateway_deployment" "live" {
   rest_api_id = aws_api_gateway_rest_api.apigw.id
   stage_name  = "live"
-}
 
-resource "aws_api_gateway_stage" "live" {
-  stage_name    = "live"
-  rest_api_id   = aws_api_gateway_rest_api.apigw.id
-  deployment_id = aws_api_gateway_deployment.live.id
+  depends_on = [
+    aws_api_gateway_method.tracks_post,
+    aws_api_gateway_integration.tracks_post_integration
+  ]
 }
-
 
 resource "kubernetes_secret" "apigw_details" {
   metadata {
