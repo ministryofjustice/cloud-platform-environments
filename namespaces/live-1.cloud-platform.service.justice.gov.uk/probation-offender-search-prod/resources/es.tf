@@ -10,7 +10,7 @@ module "probation_offender_search_es" {
   team_name                     = var.team_name
   elasticsearch-domain          = "probation-search"
   namespace                     = var.namespace
-  elasticsearch_version         = "7.4"
+  elasticsearch_version         = "7.9"
   aws-es-proxy-replica-count    = 2
   instance_type                 = "t2.medium.elasticsearch"
   ebs_volume_size               = 15
