@@ -7,7 +7,6 @@ locals {
     cica                     = "same-roof-rule.form.service.justice.gov.uk",
     complain-about-a-court   = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
     fix-my-court             = "fix-my-court.form.service.justice.gov.uk",
-    hmcts-complaints         = "hmcts-complaints.form.service.justice.gov.uk",
     leavers-form             = "leavers.form.service.justice.gov.uk",
     let-us-know              = "let-us-know.form.service.justice.gov.uk",
     miscarriages-of-justice  = "miscarriages-of-justice.form.service.justice.gov.uk",
