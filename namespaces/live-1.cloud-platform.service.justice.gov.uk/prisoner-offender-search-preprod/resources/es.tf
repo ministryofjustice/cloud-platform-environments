@@ -27,6 +27,6 @@ resource "kubernetes_secret" "es_snapshots_role" {
   }
 
   data = {
-    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+    snapshot_role_arn = module.prisoner_offender_search_es.snapshot_role_arn
   }
 }
