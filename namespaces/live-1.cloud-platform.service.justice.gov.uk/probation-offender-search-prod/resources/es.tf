@@ -52,8 +52,10 @@ resource "kubernetes_secret" "es_snapshots" {
   }
 
   data = {
-    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
-    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+    bucket_arn        = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name       = module.es_snapshots_s3_bucket.bucket_name
+    access_key_id     = module.es_snapshots_s3_bucket.access_key_id
+    secret_access_key = module.es_snapshots_s3_bucket.secret_access_key
   }
 }
 
@@ -80,3 +82,4 @@ resource "kubernetes_secret" "es_snapshots_preprod" {
     bucket_name = module.es_snapshots_s3_bucket.bucket_name
   }
 }
+
