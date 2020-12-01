@@ -32,3 +32,26 @@ module "es_snapshots_s3_bucket" {
     aws = aws.london
   }
 }
+
+resource "kubernetes_secret" "es_snapshots_role" {
+  metadata {
+    name      = "es-snapshot-role"
+    namespace = var.namespace
+  }
+
+  data = {
+    snapshot_role_arn = module.probation_offender_search_es.snapshot_role_arn
+  }
+}
+
+resource "kubernetes_secret" "es_snapshots" {
+  metadata {
+    name      = "es-snapshot-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.es_snapshots_s3_bucket.bucket_arn
+    bucket_name = module.es_snapshots_s3_bucket.bucket_name
+  }
+}
