@@ -132,6 +132,10 @@ resource "aws_api_gateway_deployment" "live" {
     aws_api_gateway_method.tracks_post,
     aws_api_gateway_integration.tracks_post_integration
   ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "kubernetes_secret" "apigw_details" {
