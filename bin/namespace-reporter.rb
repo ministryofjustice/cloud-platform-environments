@@ -28,74 +28,148 @@ require "optparse"
 TEXT_OUTPUT = "text"
 JSON_OUTPUT = "json"
 
-class Namespace
-  attr_reader :name
+class Num
+  def self.cpu_value(str)
+    return nil if str.nil?
 
-  def initialize(name)
-    @name = name
+    case str
+    when /^(\d+)$/
+      $1.to_i * 1000
+    when /^(\d+)m$/
+      $1.to_i
+    else
+      raise %(CPU value: "#{str}" was not in expected format)
+    end
   end
 
-  def report
-    ns_quota = quota
-    ns_limits = limits
+  def self.integer_value(str)
+    str.nil? ? nil : str.to_i
+  end
 
-    pod_data = kubectl_get("pods")
+  def self.memory_value(str)
+    return nil if str.nil?
+
+    case str
+    when /^(\d+)$/
+      $1.to_i / 1_000
+    when /^(\d+)k$/, /^(\d+)Ki$/
+      $1.to_i / 1024
+    when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
+      $1.to_i / 1_000_000_000
+    when /^(\d+)Gi/
+      $1.to_i * 1000
+    when /^(\d+)Mi/
+      $1.to_i
+    else
+      raise %(Memory value: "#{str}" was not in expected format)
+    end
+  end
+end
+
+class TopPods
+  def for_namespace(namespace)
+    data[namespace] || {cpu: 0, memory: 0, pods: 0}
+  end
+
+  private
+
+  def data
+    @data ||= parse(raw_data)
+  end
+
+  def parse(txt)
+    lines = txt.split("\n")
+    lines.shift
+
+    tuples = lines.map do |l|
+      namespace, pod, cpu, memory = l.split(" ")
+      {
+        namespace: namespace,
+        pod: pod,
+        cpu: cpu,
+        memory: memory,
+      }
+    end
+
+    tuples.inject({}) do |hash, t|
+      namespace = t[:namespace]
+      hash[namespace] ||= {cpu: 0, memory: 0, pods: 0}
+      hash[namespace][:cpu] += Num.cpu_value(t[:cpu])
+      hash[namespace][:memory] += Num.memory_value(t[:memory])
+      hash[namespace][:pods] += 1
+      hash
+    end
+  end
+
+  def raw_data
+    @raw_data ||= `kubectl top pod --all-namespaces`
+  end
+end
+
+class NamespaceReporter
+  def names(pattern)
+    `kubectl get ns -o jsonpath='{.items[*].metadata.name}'`.chomp
+      .split(" ")
+      .grep(/#{pattern}/)
+  end
+
+  def reports(namespaces)
+    namespaces.map { |namespace| report(namespace) }
+  end
+
+  private
+
+  def all_quotas
+    @all_quotas ||= kubectl_get("quota")
+  end
+
+  def all_limits
+    @all_limits ||= kubectl_get("limits")
+  end
+
+  def all_pods
+    @all_pods ||= kubectl_get("pods")
+  end
+
+  def top_pods(namespace)
+    @top_pods ||= TopPods.new
+    @top_pods.for_namespace(namespace)
+  end
+
+  def report(namespace)
+    ns_quota = quota(namespace)
+    ns_limits = limits(namespace)
+    pod_data = pods(namespace)
 
     {
-      name: name,
-      resources_used: resources_used,
+      name: namespace,
+      resources_used: top_pods(namespace),
       default_request: default_request(ns_limits),
       default_limit: default_limit(ns_limits),
       max_requests: ns_quota.fetch(:hard_request_limit),
       hard_limit: ns_quota.fetch(:hard_limit),
       hard_limit_used: ns_quota.fetch(:hard_limit_used),
       resources_requested: resources_requested(pod_data),
-      container_count: container_count(pod_data, name),
+      container_count: container_count(pod_data),
     }
   end
-
-  def self.names(pattern)
-    `kubectl get ns -o jsonpath='{.items[*].metadata.name}'`.chomp
-      .split(" ")
-      .grep(/#{pattern}/)
-  end
-
-  private
 
   def resources_requested(data)
     cpu = data.inject(0) { |sum, item|
       requested = item.dig("spec", "containers").inject(0) { |total, container|
-        total += cpu_value(container.dig("resources", "requests", "cpu")).to_i
+        total += Num.cpu_value(container.dig("resources", "requests", "cpu")).to_i
       }
       sum += requested
     }
 
     memory = data.inject(0) { |sum, item|
       requested = item.dig("spec", "containers").inject(0) { |total, container|
-        total += memory_value(container.dig("resources", "requests", "memory")).to_i
+        total += Num.memory_value(container.dig("resources", "requests", "memory")).to_i
       }
       sum += requested
     }
 
     {cpu: cpu, memory: memory, pods: data.count}
-  end
-
-  def resources_used
-    usage = `kubectl --namespace=#{name} top pod`
-
-    lines = usage.split("\n")
-    lines.shift
-
-    hash = lines.each_with_object({cpu: [], memory: []}) { |l, h|
-      fields = l.split(" ")
-      h[:cpu] << fields[1]
-      h[:memory] << fields[2]
-    }
-
-    cpu = hash[:cpu].inject(0) { |sum, c| sum += cpu_value(c) }
-    memory = hash[:memory].inject(0) { |sum, c| sum += memory_value(c) }
-
-    {cpu: cpu, memory: memory, pods: lines.count}
   end
 
   def default_request(limits)
@@ -121,12 +195,16 @@ class Namespace
     }
   end
 
-  def limits
-    kubectl_get("limits")[0]
+  def limits(namespace)
+    all_limits.find { |l| l.dig("metadata", "namespace") == namespace }
   end
 
-  def quota
-    quota = kubectl_get("quota")[0]
+  def pods(namespace)
+    all_pods.filter { |p| p.dig("metadata", "namespace") == namespace }
+  end
+
+  def quota(namespace)
+    quota = all_quotas.find { |q| q.dig("metadata", "namespace") == namespace }
 
     if quota.nil?
       {
@@ -139,24 +217,24 @@ class Namespace
       data = quota.dig("status")
 
       hard_request_limit = {
-        cpu: cpu_value(data.dig("hard", "requests.cpu")),
-        memory: memory_value(data.dig("hard", "requests.memory")),
+        cpu: Num.cpu_value(data.dig("hard", "requests.cpu")),
+        memory: Num.memory_value(data.dig("hard", "requests.memory")),
       }
 
       hard_limit = {
-        cpu: cpu_value(data.dig("hard", "limits.cpu")),
-        memory: memory_value(data.dig("hard", "limits.memory")),
-        pods: integer_value(data.dig("hard", "pods")),
+        cpu: Num.cpu_value(data.dig("hard", "limits.cpu")),
+        memory: Num.memory_value(data.dig("hard", "limits.memory")),
+        pods: Num.integer_value(data.dig("hard", "pods")),
       }
 
       hard_limit_used = {
-        cpu: cpu_value(data.dig("used", "limits.cpu")),
-        memory: memory_value(data.dig("used", "limits.memory")),
+        cpu: Num.cpu_value(data.dig("used", "limits.cpu")),
+        memory: Num.memory_value(data.dig("used", "limits.memory")),
       }
 
       requested = {
-        cpu: cpu_value(data.dig("used", "requests.cpu")),
-        memory: memory_value(data.dig("used", "requests.memory")),
+        cpu: Num.cpu_value(data.dig("used", "requests.cpu")),
+        memory: Num.memory_value(data.dig("used", "requests.memory")),
       }
 
       {
@@ -168,49 +246,13 @@ class Namespace
     end
   end
 
-  def container_count(data, name)
+  def container_count(data)
     data.collect { |i| i.dig("spec", "containers") }.flatten.compact.count
   end
 
   def kubectl_get(obj)
-    JSON.parse(`kubectl --namespace=#{name} get #{obj} -o json`)
+    JSON.parse(`kubectl get #{obj} --all-namespaces -o json`)
       .fetch("items")
-  end
-
-  def cpu_value(str)
-    return nil if str.nil?
-
-    case str
-    when /^(\d+)$/
-      $1.to_i * 1000
-    when /^(\d+)m$/
-      $1.to_i
-    else
-      raise %(CPU value: "#{str}" was not in expected format)
-    end
-  end
-
-  def integer_value(str)
-    str.nil? ? nil : str.to_i
-  end
-
-  def memory_value(str)
-    return nil if str.nil?
-
-    case str
-    when /^(\d+)$/
-      $1.to_i / 1_000
-    when /^(\d+)k$/, /^(\d+)Ki$/
-      $1.to_i / 1024
-    when /^(\d+)m$/ # e.g. 6.4Gi in yaml => 6871947673600m in the JSON kubectl output
-      $1.to_i / 1_000_000_000
-    when /^(\d+)Gi/
-      $1.to_i * 1000
-    when /^(\d+)Mi/
-      $1.to_i
-    else
-      raise %(Memory value: "#{str}" was not in expected format)
-    end
   end
 end
 
@@ -256,10 +298,12 @@ end
 options = parse_options
 pattern = options.fetch(:namespace)
 
-reports = Namespace.names(pattern).map { |name| Namespace.new(name).report }
+r = NamespaceReporter.new
+names = r.names(pattern).map
+reports = r.reports(names)
 
 if options.fetch(:format) == JSON_OUTPUT
-  puts({items: reports, last_updated: Time.now}.to_json)
+  puts({data: reports, updated_at: Time.now}.to_json)
 else
   reports.each { |report| text_output(report) }
 end
