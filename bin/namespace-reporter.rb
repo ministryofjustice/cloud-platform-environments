@@ -303,7 +303,7 @@ names = r.names(pattern).map
 reports = r.reports(names)
 
 if options.fetch(:format) == JSON_OUTPUT
-  puts({data: reports, updated_at: Time.now}.to_json)
+  puts({data: reports, last_updated: Time.now}.to_json)
 else
   reports.each { |report| text_output(report) }
 end
