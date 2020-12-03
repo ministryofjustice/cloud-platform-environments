@@ -81,23 +81,22 @@ class TopPods
     lines = txt.split("\n")
     lines.shift
 
-    tuples = lines.map do |l|
+    tuples = lines.map { |l|
       namespace, pod, cpu, memory = l.split(" ")
       {
         namespace: namespace,
         pod: pod,
         cpu: cpu,
-        memory: memory,
+        memory: memory
       }
-    end
+    }
 
-    tuples.inject({}) do |hash, t|
+    tuples.each_with_object({}) do |t, hash|
       namespace = t[:namespace]
       hash[namespace] ||= {cpu: 0, memory: 0, pods: 0}
       hash[namespace][:cpu] += Num.cpu_value(t[:cpu])
       hash[namespace][:memory] += Num.memory_value(t[:memory])
       hash[namespace][:pods] += 1
-      hash
     end
   end
 
@@ -150,7 +149,7 @@ class NamespaceReporter
       hard_limit: ns_quota.fetch(:hard_limit),
       hard_limit_used: ns_quota.fetch(:hard_limit_used),
       resources_requested: resources_requested(pod_data),
-      container_count: container_count(pod_data),
+      container_count: container_count(pod_data)
     }
   end
 
@@ -186,12 +185,12 @@ class NamespaceReporter
 
     {
       cpu: cpu_value(data.fetch("cpu", nil)),
-      memory: memory_value(data.fetch("memory", nil)),
+      memory: memory_value(data.fetch("memory", nil))
     }
   rescue
     {
       cpu: nil,
-      memory: nil,
+      memory: nil
     }
   end
 
@@ -211,37 +210,37 @@ class NamespaceReporter
         hard_request_limit: {cpu: nil, memory: nil},
         hard_limit: {cpu: nil, memory: nil, pods: nil},
         requested: {cpu: nil, memory: nil},
-        hard_limit_used: {cpu: nil, memory: nil},
+        hard_limit_used: {cpu: nil, memory: nil}
       }
     else
       data = quota.dig("status")
 
       hard_request_limit = {
         cpu: Num.cpu_value(data.dig("hard", "requests.cpu")),
-        memory: Num.memory_value(data.dig("hard", "requests.memory")),
+        memory: Num.memory_value(data.dig("hard", "requests.memory"))
       }
 
       hard_limit = {
         cpu: Num.cpu_value(data.dig("hard", "limits.cpu")),
         memory: Num.memory_value(data.dig("hard", "limits.memory")),
-        pods: Num.integer_value(data.dig("hard", "pods")),
+        pods: Num.integer_value(data.dig("hard", "pods"))
       }
 
       hard_limit_used = {
         cpu: Num.cpu_value(data.dig("used", "limits.cpu")),
-        memory: Num.memory_value(data.dig("used", "limits.memory")),
+        memory: Num.memory_value(data.dig("used", "limits.memory"))
       }
 
       requested = {
         cpu: Num.cpu_value(data.dig("used", "requests.cpu")),
-        memory: Num.memory_value(data.dig("used", "requests.memory")),
+        memory: Num.memory_value(data.dig("used", "requests.memory"))
       }
 
       {
         hard_request_limit: hard_request_limit,
         hard_limit: hard_limit,
         hard_limit_used: hard_limit_used,
-        requested: requested,
+        requested: requested
       }
     end
   end
