@@ -34,20 +34,20 @@ resource "kubernetes_secret" "book_a_secure_move_metrics_s3_bucket" {
 }
 
 # Generate an additional IAM user with read-only access to the bucket
-resource "random_id" "id" {
+resource "random_id" "metrics_user_id" {
   byte_length = 16
 }
 
-resource "aws_iam_user" "user" {
-  name = "s3-bucket-user-${random_id.id.hex}"
+resource "aws_iam_user" "metrics_user" {
+  name = "s3-bucket-user-${random_id.metrics_user_id.hex}"
   path = "/system/s3-bucket-user/"
 }
 
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
+resource "aws_iam_access_key" "metrics_user" {
+  user = aws_iam_user.metrics_user.name
 }
 
-data "aws_iam_policy_document" "policy" {
+data "aws_iam_policy_document" "metrics_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -77,10 +77,10 @@ data "aws_iam_policy_document" "policy" {
   }
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "metrics_policy" {
   name   = "s3-bucket-read-only"
-  policy = data.aws_iam_policy_document.policy.json
-  user   = aws_iam_user.user.name
+  policy = data.aws_iam_policy_document.metrics_policy.json
+  user   = aws_iam_user.metrics_user.name
 }
 
 resource "kubernetes_secret" "book_a_secure_move_metrics_s3_bucket_ro" {
@@ -90,8 +90,8 @@ resource "kubernetes_secret" "book_a_secure_move_metrics_s3_bucket_ro" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.user.id
-    secret_access_key = aws_iam_access_key.user.secret
+    access_key_id     = aws_iam_access_key.metrics_user.id
+    secret_access_key = aws_iam_access_key.metrics_user.secret
     bucket_arn        = module.book_a_secure_move_metrics_s3_bucket.bucket_arn
     bucket_name       = module.book_a_secure_move_metrics_s3_bucket.bucket_name
   }
