@@ -7,7 +7,7 @@ module "hmpps_interventions_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment_name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds_family
 
@@ -18,7 +18,7 @@ module "hmpps_interventions_rds" {
 
 resource "kubernetes_secret" "hmpps_interventions_rds" {
   metadata {
-    name      = "hmpps-interventions-rds-instance-output"
+    name      = "postgres"
     namespace = var.namespace
   }
 
