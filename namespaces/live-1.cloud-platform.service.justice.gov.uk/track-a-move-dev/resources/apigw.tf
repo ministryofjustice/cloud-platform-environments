@@ -76,6 +76,11 @@ resource "aws_api_gateway_method" "tracks_post" {
   api_key_required = true
 }
 
+
+data "http" "template" {
+  url = "https://raw.githubusercontent.com/ministryofjustice/hmpps-track-a-move/main/mapping.vtl"
+}
+
 # /tracks POST -> firehose
 resource "aws_api_gateway_integration" "tracks_post_integration" {
   rest_api_id             = aws_api_gateway_rest_api.apigw.id
@@ -93,7 +98,7 @@ resource "aws_api_gateway_integration" "tracks_post_integration" {
   }
 
   request_templates = {
-    "application/json" = file("mapping.vtl")
+    "application/json" = data.http.template.body
   }
 
 }
