@@ -8,7 +8,7 @@ resource "aws_iam_user" "apigw-user" {
   path = "/system/apigw-user/"
 }
 
-resource "aws_iam_access_key" "user" {
+resource "aws_iam_access_key" "apigw-user" {
   user = aws_iam_user.apigw-user.name
 }
 
