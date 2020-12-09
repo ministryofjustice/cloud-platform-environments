@@ -13,3 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
     cloud-platform.justice.gov.uk/slack-channel: "pathfinder_comms"
     cloud-platform.justice.gov.uk/team-name: "pathfinder"
+    iam.amazonaws.com/permitted: "pathfinder-preprod-ap"
