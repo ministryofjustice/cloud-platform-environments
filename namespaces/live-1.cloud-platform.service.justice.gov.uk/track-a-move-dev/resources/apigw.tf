@@ -131,7 +131,7 @@ resource "aws_api_gateway_deployment" "live" {
   stage_name  = "live"
 
   #hack to force recreate of the deployment resource
-  stage_description = "${md5(file("apigw.tf"))}"
+  stage_description = md5(file("apigw.tf"))
 
   depends_on = [
     aws_api_gateway_method.tracks_post,
@@ -167,7 +167,7 @@ resource "aws_api_gateway_usage_plan" "usage_plan" {
   }
 }
 
-resource "random_id" "id" {
+resource "random_id" "key" {
   count       = length(local.suppliers)
   byte_length = 16
 }
@@ -175,7 +175,7 @@ resource "random_id" "id" {
 resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
   name  = "${local.suppliers[count.index]}-key"
-  value = "${local.suppliers[count.index]}-${random_id.id.*.hex[count.index]}"
+  value = "${local.suppliers[count.index]}-${random_id.key.*.hex[count.index]}"
 }
 
 resource "kubernetes_secret" "apikeys" {
