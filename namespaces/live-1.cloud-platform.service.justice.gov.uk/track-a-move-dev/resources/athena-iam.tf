@@ -1,4 +1,4 @@
-# Generate an additional IAM user to manage APIGW a
+# Generate an additional IAM user to manage APIGW
 resource "random_id" "athena-id" {
   byte_length = 16
 }
@@ -39,4 +39,16 @@ resource "aws_iam_user_policy" "athena-policy" {
   name   = "${var.namespace}-athena"
   policy = data.aws_iam_policy_document.athena.json
   user   = aws_iam_user.athena-user.name
+}
+
+resource "kubernetes_secret" "track_a_move_athena_iam" {
+  metadata {
+    name      = "athena-iam"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.athena-user.id
+    secret_access_key = aws_iam_access_key.athena-user.secret
+  }
 }
