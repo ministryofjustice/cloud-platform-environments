@@ -156,17 +156,6 @@ resource "kubernetes_secret" "apigw_details" {
 
 
 #Usage plan
-resource "aws_api_gateway_usage_plan" "usage_plan" {
-  name         = var.namespace
-  description  = "Usage plan for track a move"
-  product_code = "TAM-DEV"
-
-  api_stages {
-    api_id = aws_api_gateway_rest_api.apigw.id
-    stage  = aws_api_gateway_deployment.live.stage_name
-  }
-}
-
 resource "random_id" "key" {
   count       = length(local.suppliers)
   byte_length = 16
