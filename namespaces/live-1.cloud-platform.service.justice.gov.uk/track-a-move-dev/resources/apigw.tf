@@ -157,7 +157,7 @@ resource "kubernetes_secret" "apigw_details" {
 
 #Usage plan
 resource "aws_api_gateway_usage_plan" "usage_plan" {
-  name         = "track-a-move-plan"
+  name         = var.namespace
   description  = "Usage plan for track a move"
   product_code = "TAM-DEV"
 
