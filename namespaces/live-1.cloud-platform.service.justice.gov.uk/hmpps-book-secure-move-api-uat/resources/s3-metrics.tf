@@ -5,7 +5,7 @@ module "book_a_secure_move_metrics_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
 
   team_name              = var.team_name
-  business-unit          = "Digital and Technology"
+  business-unit          = "HMPPS"
   application            = var.application
   infrastructure-support = var.infrastructure-support
 
