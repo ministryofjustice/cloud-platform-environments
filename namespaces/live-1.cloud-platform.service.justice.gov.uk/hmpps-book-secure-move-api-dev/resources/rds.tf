@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
 
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
@@ -39,7 +39,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
 
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
