@@ -13,6 +13,6 @@ resource "aws_acm_certificate" "apigw_custom_hostname" {
   }
 }
 
-resource "aws_acm_certificate_validation" "apigw_custom_hostname" {
-  certificate_arn = aws_acm_certificate.apigw_custom_hostname.arn
-}
+# resource "aws_acm_certificate_validation" "apigw_custom_hostname" {
+#   certificate_arn = aws_acm_certificate.apigw_custom_hostname.arn
+# }
