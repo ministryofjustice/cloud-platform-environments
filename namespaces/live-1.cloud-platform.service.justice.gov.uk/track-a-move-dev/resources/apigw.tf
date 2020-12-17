@@ -212,7 +212,7 @@ resource "aws_api_gateway_domain_name" "apigw_fqdn" {
   depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
 }
 
-resource "aws_api_gateway_base_path_mapping" "dev" {
+resource "aws_api_gateway_base_path_mapping" "mapping" {
   api_id      = aws_api_gateway_rest_api.apigw.id
   stage_name  = aws_api_gateway_deployment.live.stage_name
   domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
