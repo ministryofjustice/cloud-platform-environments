@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "apigw" {
-  name = "track-a-move"
+  name = var.namespace
 
   endpoint_configuration {
     types = ["REGIONAL"]
