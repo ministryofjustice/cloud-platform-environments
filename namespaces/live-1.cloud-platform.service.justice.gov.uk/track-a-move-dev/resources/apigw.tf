@@ -78,7 +78,7 @@ resource "aws_api_gateway_method" "tracks_post" {
 
 
 data "http" "template" {
-  url = "https://raw.githubusercontent.com/ministryofjustice/hmpps-track-a-move/main/mapping.vtl"
+  url = "https://raw.githubusercontent.com/ministryofjustice/hmpps-track-a-move/dev/mapping.vtl"
 }
 
 # /tracks POST -> firehose
