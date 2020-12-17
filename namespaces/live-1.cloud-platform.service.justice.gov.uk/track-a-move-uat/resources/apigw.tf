@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "apigw" {
-  name = "track-a-move"
+  name = var.namespace
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -127,7 +127,6 @@ resource "aws_api_gateway_integration_response" "tracks_post_integration_respons
   depends_on = [
     aws_api_gateway_integration.tracks_post_integration
   ]
-
 }
 
 #deployment
