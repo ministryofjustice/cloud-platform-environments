@@ -123,6 +123,10 @@ resource "aws_api_gateway_integration_response" "tracks_post_integration_respons
   response_templates = {
     "application/json" = ""
   }
+
+  depends_on = [
+    aws_api_gateway_integration.tracks_post_integration
+  ]
 }
 
 #deployment
