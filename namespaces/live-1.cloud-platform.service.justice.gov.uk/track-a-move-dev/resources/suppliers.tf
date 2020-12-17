@@ -1,4 +1,4 @@
 locals {
-  suppliers = ["geoamey", "serco"]
+  suppliers = ["geoameydev", "sercodev"]
 }
 
