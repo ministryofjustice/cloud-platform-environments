@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.11"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = var.team_name
@@ -33,9 +33,10 @@ module "cla_backend_rds" {
 
   # Allow testing of  rds module upgrade to 5.12 https://github.com/ministryofjustice/cloud-platform-environments/pull/3951
   # Should be reverted afterwards to due to impact on cost
-  db_instance_class    = "db.m4.4xlarge"
-  db_allocated_storage = "1000"
-  db_iops              = "3000"
+  db_instance_class        = "db.m4.4xlarge"
+  db_allocated_storage     = "1000"
+  db_iops                  = "3000"
+  db_max_allocated_storage = "1000"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
