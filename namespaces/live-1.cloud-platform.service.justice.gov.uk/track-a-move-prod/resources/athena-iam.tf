@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "athena" {
     ]
 
     resources = [
-      "${aws_athena_workgroup.queries.arn}",
+      aws_athena_workgroup.queries.arn,
       "${aws_athena_workgroup.queries.arn}/*",
       module.track_a_move_s3_bucket.bucket_arn,
       "${module.track_a_move_s3_bucket.bucket_arn}/*",

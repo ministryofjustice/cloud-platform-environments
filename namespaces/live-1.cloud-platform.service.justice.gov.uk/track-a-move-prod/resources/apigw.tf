@@ -197,19 +197,19 @@ resource "aws_api_gateway_usage_plan_key" "main" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
-# resource "aws_api_gateway_domain_name" "apigw_fqdn" {
-#   domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
-#   regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
-#
-#   endpoint_configuration {
-#     types = ["REGIONAL"]
-#   }
-#
-#   depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
-# }
-#
-# resource "aws_api_gateway_base_path_mapping" "mapping" {
-#   api_id      = aws_api_gateway_rest_api.apigw.id
-#   stage_name  = aws_api_gateway_deployment.live.stage_name
-#   domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
-# }
+resource "aws_api_gateway_domain_name" "apigw_fqdn" {
+ domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
+ regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+
+ endpoint_configuration {
+   types = ["REGIONAL"]
+ }
+
+ depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
+}
+
+resource "aws_api_gateway_base_path_mapping" "mapping" {
+ api_id      = aws_api_gateway_rest_api.apigw.id
+ stage_name  = aws_api_gateway_deployment.live.stage_name
+ domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
+ }
