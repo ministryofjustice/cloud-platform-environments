@@ -1,5 +1,5 @@
 module "manage_intelligence_elasticsearch" {
-  source                     = "github.com/ministryofjustice/https://github.com/ministryofjustice/cloud-platform-terraform-elasticsearch/tree/add-es-domain-encryption-support"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.5.1-encryption-branch"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   application                = var.application
