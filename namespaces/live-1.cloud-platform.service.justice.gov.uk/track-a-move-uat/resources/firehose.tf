@@ -1,6 +1,6 @@
 resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
   count       = length(local.suppliers)
-  name        = local.suppliers[count.index]
+  name        = "${local.suppliers[count.index]}${var.environment_suffix}"
   destination = "extended_s3"
 
   extended_s3_configuration {
