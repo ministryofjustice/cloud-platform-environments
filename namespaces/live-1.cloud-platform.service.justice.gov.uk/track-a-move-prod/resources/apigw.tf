@@ -35,29 +35,29 @@ resource "aws_iam_role" "apigw_role" {
 EOF
 }
 
-# resource "aws_iam_role_policy" "api_gw_firehose_policy" {
-#
-#   count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
-#   name  = "apigw-firehose-${count.index}"
-#
-#   role = aws_iam_role.apigw_role.name
-#
-#   policy = <<EOF
-# {
-#   "Version" : "2012-10-17",
-#   "Statement" : [
-#     {
-#       "Effect": "Allow",
-#       "Action": "firehose:PutRecordBatch",
-#
-#       "Resource": [
-#         "${element(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn, count.index)}"
-#       ]
-#     }
-#   ]
-# }
-# EOF
-# }
+resource "aws_iam_role_policy" "api_gw_firehose_policy" {
+
+ count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
+ name  = "apigw-firehose-${count.index}"
+
+ role = aws_iam_role.apigw_role.name
+
+ policy = <<EOF
+{
+ "Version" : "2012-10-17",
+ "Statement" : [
+   {
+     "Effect": "Allow",
+     "Action": "firehose:PutRecordBatch",
+
+     "Resource": [
+       "${element(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn, count.index)}"
+     ]
+   }
+ ]
+}
+EOF
+}
 
 
 # /tracks
@@ -160,11 +160,10 @@ resource "random_id" "key" {
   count       = length(local.suppliers)
   byte_length = 16
 }
-
 resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
-  name  = "${local.suppliers[count.index]}-key"
-  value = "${local.suppliers[count.index]}-${random_id.key.*.hex[count.index]}"
+  name  = "${local.suppliers[count.index]}${var.environment_suffix}-key"
+  value = "${local.suppliers[count.index]}${var.environment_suffix}-${random_id.key.*.hex[count.index]}"
 }
 
 resource "kubernetes_secret" "apikeys" {
