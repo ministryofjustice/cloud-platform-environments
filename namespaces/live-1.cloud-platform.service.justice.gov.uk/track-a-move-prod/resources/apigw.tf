@@ -35,29 +35,29 @@ resource "aws_iam_role" "apigw_role" {
 EOF
 }
 
-# resource "aws_iam_role_policy" "api_gw_firehose_policy" {
-#
-#   count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
-#   name  = "apigw-firehose-${count.index}"
-#
-#   role = aws_iam_role.apigw_role.name
-#
-#   policy = <<EOF
-# {
-#   "Version" : "2012-10-17",
-#   "Statement" : [
-#     {
-#       "Effect": "Allow",
-#       "Action": "firehose:PutRecordBatch",
-#
-#       "Resource": [
-#         "${element(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn, count.index)}"
-#       ]
-#     }
-#   ]
-# }
-# EOF
-# }
+resource "aws_iam_role_policy" "api_gw_firehose_policy" {
+
+  count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
+  name  = "apigw-firehose-${count.index}"
+
+  role = aws_iam_role.apigw_role.name
+
+  policy = <<EOF
+{
+ "Version" : "2012-10-17",
+ "Statement" : [
+   {
+     "Effect": "Allow",
+     "Action": "firehose:PutRecordBatch",
+
+     "Resource": [
+       "${element(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn, count.index)}"
+     ]
+   }
+ ]
+}
+EOF
+}
 
 
 # /tracks
@@ -160,11 +160,10 @@ resource "random_id" "key" {
   count       = length(local.suppliers)
   byte_length = 16
 }
-
 resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
-  name  = "${local.suppliers[count.index]}-key"
-  value = "${local.suppliers[count.index]}-${random_id.key.*.hex[count.index]}"
+  name  = "${local.suppliers[count.index]}${var.environment_suffix}-key"
+  value = "${local.suppliers[count.index]}${var.environment_suffix}-${random_id.key.*.hex[count.index]}"
 }
 
 resource "kubernetes_secret" "apikeys" {
@@ -197,19 +196,19 @@ resource "aws_api_gateway_usage_plan_key" "main" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
-# resource "aws_api_gateway_domain_name" "apigw_fqdn" {
-#   domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
-#   regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
-#
-#   endpoint_configuration {
-#     types = ["REGIONAL"]
-#   }
-#
-#   depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
-# }
-#
-# resource "aws_api_gateway_base_path_mapping" "mapping" {
-#   api_id      = aws_api_gateway_rest_api.apigw.id
-#   stage_name  = aws_api_gateway_deployment.live.stage_name
-#   domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
-# }
+resource "aws_api_gateway_domain_name" "apigw_fqdn" {
+  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
+}
+
+resource "aws_api_gateway_base_path_mapping" "mapping" {
+  api_id      = aws_api_gateway_rest_api.apigw.id
+  stage_name  = aws_api_gateway_deployment.live.stage_name
+  domain_name = aws_api_gateway_domain_name.apigw_fqdn.domain_name
+}
