@@ -21,21 +21,34 @@ data "aws_iam_policy_document" "athena" {
       "athena:GetWorkGroup",
       "s3:PutObject",
       "s3:GetObject",
+      "s3:ListBucket",
+      "s3:DescribeJob",
       "s3:AbortMultipartUpload",
       "athena:CancelQueryExecution",
       "athena:StopQueryExecution",
       "athena:GetQueryExecution",
-      "s3:GetBucketLocation"
+      "glue:BatchCreatePartition",
+      "glue:GetDatabase",
+      "glue:GetDatabases",
+      "glue:GetTable",
+      "glue:CreateTable",
+      "glue:DeleteTable",
+      "glue:GetPartitions",
     ]
 
     resources = [
       "${aws_athena_workgroup.queries.arn}",
       "${aws_athena_workgroup.queries.arn}/*",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}/*",
       module.track_a_move_s3_bucket.bucket_arn,
       "${module.track_a_move_s3_bucket.bucket_arn}/*",
     ]
   }
 }
+
 
 resource "aws_iam_user_policy" "athena-policy" {
   name   = "${var.namespace}-athena"

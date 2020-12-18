@@ -34,6 +34,11 @@ variable "environment_name" {
   default     = "dev"
 }
 
+variable "environment_suffix" {
+  description = "The name of environment"
+  default     = "dev"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "pecs-digital-tech@digital.justice.gov.uk"
