@@ -37,12 +37,12 @@ EOF
 
 resource "aws_iam_role_policy" "api_gw_firehose_policy" {
 
- count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
- name  = "apigw-firehose-${count.index}"
+  count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
+  name  = "apigw-firehose-${count.index}"
 
- role = aws_iam_role.apigw_role.name
+  role = aws_iam_role.apigw_role.name
 
- policy = <<EOF
+  policy = <<EOF
 {
  "Version" : "2012-10-17",
  "Statement" : [
