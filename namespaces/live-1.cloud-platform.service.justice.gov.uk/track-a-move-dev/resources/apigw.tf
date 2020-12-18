@@ -164,11 +164,10 @@ resource "random_id" "key" {
   count       = length(local.suppliers)
   byte_length = 16
 }
-
 resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
-  name  = "${local.suppliers[count.index]}-key"
-  value = "${local.suppliers[count.index]}-${random_id.key.*.hex[count.index]}"
+  name  = "${local.suppliers[count.index]}${var.environment_suffix}-key"
+  value = "${local.suppliers[count.index]}${var.environment_suffix}-${random_id.key.*.hex[count.index]}"
 }
 
 resource "kubernetes_secret" "apikeys" {
