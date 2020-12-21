@@ -19,3 +19,9 @@ provider "aws" {
 
 provider "pingdom" {
 }
+
+provider "helm" {
+  kubernetes {
+    config_path = "/tmp/kubeconfig"
+  }
+}
