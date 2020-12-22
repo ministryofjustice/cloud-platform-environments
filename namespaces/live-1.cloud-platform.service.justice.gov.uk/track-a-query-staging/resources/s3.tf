@@ -28,7 +28,7 @@ module "track_a_query_s3" {
       max_age_seconds = 3000
     },
   ]
-  namespace              = var.namespace
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
