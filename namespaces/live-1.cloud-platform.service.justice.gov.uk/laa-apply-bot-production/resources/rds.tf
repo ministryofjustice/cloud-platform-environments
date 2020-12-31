@@ -18,7 +18,7 @@ module "rds" {
   infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "11"
-  db_name                = "laa-apply-bot-production"
+  db_name                = "laa_apply_bot_production"
   rds_family             = "postgres11"
 
   providers = {
