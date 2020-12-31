@@ -11,7 +11,7 @@ module "laa_apply_bot_ecr_credentials" {
 resource "kubernetes_secret" "laa_apply_bot_ecr_credentials" {
   metadata {
     name      = "ecr-credentials-output"
-    namespace = "laa-apply-bot-production"
+    namespace = var.namespace
   }
 
   data = {
