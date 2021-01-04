@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "court-probation-pods"
 data:
-  my-dashboard.json: |
+  court-probation-prod.json: |
     {
       "annotations": {
         "list": [
