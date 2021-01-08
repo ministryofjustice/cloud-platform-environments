@@ -1,9 +1,9 @@
 variable "application" {
-  default = "probation-tiering"
+  default = "hmpps-tier"
 }
 
 variable "namespace" {
-  default = "probation-tiering-dev"
+  default = "hmpps-tier-dev"
 }
 
 variable "business-unit" {
