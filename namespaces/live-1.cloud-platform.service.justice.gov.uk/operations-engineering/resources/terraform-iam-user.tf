@@ -10,6 +10,7 @@ resource "random_id" "id" {
 
 resource "aws_iam_user" "terraform_user" {
   name = "terraform-user-${random_id.id.hex}"
+  path = "/system/opsend-terraform-user"
 }
 
 resource "aws_iam_access_key" "terraform_user" {
