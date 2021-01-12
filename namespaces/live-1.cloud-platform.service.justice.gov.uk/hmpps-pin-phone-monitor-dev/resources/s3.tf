@@ -133,9 +133,9 @@ resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
   data = {
     access_key_id     = module.hmpps_pin_phone_monitor_s3_event_queue.access_key_id
     secret_access_key = module.hmpps_pin_phone_monitor_s3_event_queue.secret_access_key
-    sqs_kw_url        = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
-    sqs_kw_arn        = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    sqs_kw_name       = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
+    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
   }
 }
 
