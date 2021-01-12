@@ -18,7 +18,7 @@ provider "aws" {
 }
 
 provider "helm" {
-  version = "1.1.0"
+  version = "1.3.2"
   kubernetes {
   }
 }
