@@ -107,7 +107,7 @@ resource "aws_sqs_queue_policy" "mpps_pin_phone_monitor_s3_event_queue_policy" {
 }
 
 resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" {
-  bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.id
+  bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
 
   queue = [
     {
