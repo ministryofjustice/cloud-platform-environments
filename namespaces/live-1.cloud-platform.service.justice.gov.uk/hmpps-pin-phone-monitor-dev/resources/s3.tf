@@ -110,19 +110,19 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
   bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
 
   queue {
-    id = "metadata-upload-event"
+    id        = "metadata-upload-event"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_suffix = ".json"
     filter_prefix = "metadata/"
   }
 
   queue {
-    id = "recording-deletion-event"
+    id        = "recording-deletion-event"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-      "s3:ObjectRemoved:Delete"]
+    "s3:ObjectRemoved:Delete"]
     filter_suffix = ".flac"
     filter_prefix = "recordings/"
   }
