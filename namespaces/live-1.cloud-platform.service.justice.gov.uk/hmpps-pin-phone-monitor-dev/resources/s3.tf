@@ -84,7 +84,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "mpps_pin_phone_monitor_s3_event_queue_policy" {
+resource "aws_sqs_queue_policy" "hmpps_pin_phone_monitor_s3_event_queue_policy" {
   queue_url = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
 
   policy = <<EOF
