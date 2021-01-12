@@ -67,6 +67,83 @@ EOF
 
 }
 
+module "hmpps_pin_phone_monitor_s3_event_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
+
+  environment-name          = var.environment-name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure-support
+  application               = var.application
+  sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_dev"
+  encrypt_sqs_kms           = "true"
+  message_retention_seconds = 1209600
+  namespace                 = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "aws_sqs_queue_policy" "mpps_pin_phone_monitor_s3_event_queue_policy" {
+  queue_url = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "sqs:SendMessage",
+        "Resource": "arn:aws:sqs:*:*:s3-event-notification-queue",
+        "Condition": {
+          "ArnEquals": { "aws:SourceArn": "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}" }
+        }
+      }
+    ]
+  }
+    EOF
+}
+
+resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" {
+  bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
+
+  queue {
+    id        = "metadata-upload-event"
+    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    events = [
+    "s3:ObjectCreated:*"]
+    filter_suffix = ".json"
+    filter_prefix = "metadata/"
+  }
+
+  queue {
+    id        = "recording-deletion-event"
+    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    events = [
+    "s3:ObjectRemoved:Delete"]
+    filter_suffix = ".flac"
+    filter_prefix = "recordings/"
+  }
+
+}
+
+resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
+  metadata {
+    name      = "hmpps-pin-phone-monitor-sqs-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.hmpps_pin_phone_monitor_s3_event_queue.access_key_id
+    secret_access_key = module.hmpps_pin_phone_monitor_s3_event_queue.secret_access_key
+    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
+  }
+}
+
 resource "kubernetes_secret" "hmpps_pin_phone_monitor_document_s3_bucket" {
   metadata {
     name      = "hmpps-pin-phone-monitor-document-s3-bucket-output"
