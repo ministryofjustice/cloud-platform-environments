@@ -96,7 +96,7 @@ resource "aws_sqs_queue_policy" "hmpps_pin_phone_monitor_s3_event_queue_policy" 
         "Effect": "Allow",
         "Principal": "*",
         "Action": "sqs:SendMessage",
-        "Resource": "arn:aws:sqs:*:*:s3-event-notification-queue",
+        "Resource": "${module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn}",
         "Condition": {
           "ArnEquals": { "aws:SourceArn": "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}" }
         }
