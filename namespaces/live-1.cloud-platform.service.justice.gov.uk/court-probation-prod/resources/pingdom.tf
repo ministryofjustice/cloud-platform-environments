@@ -12,7 +12,7 @@ resource "pingdom_check" "prepare-a-case-production-check" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "hmpps, prepare-a-case, pic, cloudplatform-managed"
+  tags                     = "hmpps, prepare-a-case, cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [110432]
 }
