@@ -79,26 +79,31 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   message_retention_seconds = 1209600
   namespace                 = var.namespace
 
-  policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "sqs:SendMessage",
-      "Resource": "arn:aws:sqs:*:*:s3-event-notification-queue",
-      "Condition": {
-        "ArnEquals": { "aws:SourceArn": "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}" }
-      }
-    }
-  ]
-}
-POLICY
-
   providers = {
     aws = aws.london
   }
+}
+
+resource "aws_sqs_queue_policy" "mpps_pin_phone_monitor_s3_event_queue_policy" {
+  queue_url = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "sqs:SendMessage",
+        "Resource": "arn:aws:sqs:*:*:s3-event-notification-queue",
+        "Condition": {
+          "ArnEquals": { "aws:SourceArn": "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}" }
+        }
+      }
+    ]
+  }
+    EOF
 }
 
 resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" {
@@ -107,7 +112,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
   queue = [
     {
       id        = "metadata-upload-event"
-      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.arn
+      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
       events = [
       "s3:ObjectCreated:*"]
       filter_suffix = ".json"
@@ -115,7 +120,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     },
     {
       id        = "recording-deletion-event"
-      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.arn
+      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
       events = [
       "s3:ObjectRemoved:Delete"]
       filter_suffix = ".flac"
