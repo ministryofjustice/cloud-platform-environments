@@ -131,7 +131,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
 
 resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-sqs-bucket-output"
+    name      = "hmpps-pin-phone-monitor-sqs-output"
     namespace = var.namespace
   }
 
