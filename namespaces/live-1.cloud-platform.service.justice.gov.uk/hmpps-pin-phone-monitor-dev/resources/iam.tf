@@ -19,7 +19,8 @@ data "aws_iam_policy_document" "upload_policy" {
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.mp3",
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.flac",
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.wav",
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.xml"
+      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.xml",
+      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.json"
     ]
   }
 
