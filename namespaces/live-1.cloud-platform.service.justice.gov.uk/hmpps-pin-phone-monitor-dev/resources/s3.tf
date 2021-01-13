@@ -78,6 +78,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  encrypt_sqs_kms           = "false"
 
   providers = {
     aws = aws.london
@@ -112,19 +113,21 @@ resource "aws_sqs_queue_policy" "hmpps_pin_phone_monitor_s3_event_queue_policy" 
    bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
 
    queue {
-     id        = "metadata-upload-event"
+     id = "metadata-upload-event"
      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
      events = [
-     "s3:ObjectCreated:*"]
+       "s3:ObjectCreated:*"]
      filter_prefix = "metadata/"
+     filter_suffix = ".json"
    }
 
    queue {
-     id        = "recording-deletion-event"
+     id = "recording-deletion-event"
      queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
      events = [
-     "s3:ObjectRemoved:Delete"]
+       "s3:ObjectRemoved:Delete"]
      filter_prefix = "recordings/"
+     filter_suffix = ".flac"
    }
  }
 
