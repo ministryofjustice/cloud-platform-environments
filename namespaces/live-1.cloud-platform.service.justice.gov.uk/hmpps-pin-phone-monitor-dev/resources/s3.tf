@@ -78,7 +78,6 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
-  encrypt_sqs_kms           = "false"
 
   providers = {
     aws = aws.london
