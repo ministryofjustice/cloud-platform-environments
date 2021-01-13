@@ -75,7 +75,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   infrastructure-support    = var.infrastructure-support
   application               = var.application
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_dev"
-  encrypt_sqs_kms           = "true"
+  encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
 
