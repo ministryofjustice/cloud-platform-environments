@@ -9,7 +9,7 @@ resource "pingdom_check" "prepare-a-case-production-check" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/"
+  url                      = "/health"
   encryption               = true
   port                     = 443
   tags                     = "hmpps, prepare-a-case, cloudplatform-managed"
