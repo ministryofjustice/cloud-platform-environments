@@ -9,6 +9,29 @@ module "drupal_content_storage" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
+
+  bucket_policy = = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowHubDevelopmentS3Sync",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
