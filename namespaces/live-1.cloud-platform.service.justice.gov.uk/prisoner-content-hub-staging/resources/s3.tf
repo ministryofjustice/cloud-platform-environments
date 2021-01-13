@@ -10,7 +10,7 @@ module "drupal_content_storage" {
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
 
-  bucket_policy = = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
