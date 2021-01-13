@@ -16,6 +16,44 @@ module "drupal_content_storage" {
   providers = {
     aws = aws.ireland
   }
+
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowHubDevelopmentS3Sync",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AllowHubStagingS3Sync",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-c3b3fc90408e8f9501268e354d44f461"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {

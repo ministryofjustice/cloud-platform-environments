@@ -10,7 +10,7 @@ module "drupal_content_storage" {
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
 
-  # Adds staging S3 resource to user-policy to allow one-way sync
+  # Adds staging & production S3 resources to user-policy to allow one-way sync
   # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
   user_policy = <<EOF
 {
@@ -25,7 +25,8 @@ module "drupal_content_storage" {
       ],
       "Resource": [
         "$${bucket_arn}",
-        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461"
+        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461",
+        "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b"
       ]
     },
     {
@@ -36,7 +37,8 @@ module "drupal_content_storage" {
       ],
       "Resource": [
         "$${bucket_arn}/*",
-        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*"
+        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*",
+        "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b/*"
       ]
     }
   ]
