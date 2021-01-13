@@ -17,7 +17,7 @@ module "drupal_content_storage" {
     aws = aws.ireland
   }
 
-  bucket_policy = = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
