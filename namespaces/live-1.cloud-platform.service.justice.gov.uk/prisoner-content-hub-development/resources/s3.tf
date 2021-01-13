@@ -35,7 +35,7 @@ module "drupal_content_storage" {
         "s3:*"
       ],
       "Resource": [
-        "$${bucket_arn}/*"
+        "$${bucket_arn}/*",
         "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*"
       ]
     },
