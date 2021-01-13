@@ -131,7 +131,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-red-cluster-status
-          expr: aws_es_cluster_status_red_average{domain_name="pfs-production-hub-search"} >= 1
+          expr: aws_es_cluster_status_red_maximum{domain_name="pfs-production-hub-search"} >= 1
           for: 1m
           labels:
             severity: pfs-hub
@@ -139,7 +139,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-yellow-cluster-status
-          expr: aws_es_cluster_status_yellow_average{domain_name="pfs-production-hub-search"} >= 1
+          expr: aws_es_cluster_status_yellow_maximum{domain_name=~"pfs-production-hub-search"} >= 1
           for: 1m
           labels:
             severity: pfs-hub
