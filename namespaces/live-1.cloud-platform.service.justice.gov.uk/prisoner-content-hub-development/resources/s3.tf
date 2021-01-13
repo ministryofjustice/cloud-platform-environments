@@ -9,6 +9,40 @@ module "drupal_content_storage" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
+
+  # Adds staging S3 resource to user-policy to allow one-way sync
+  # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
+  user_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461"
+      ]
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*",
+        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*"
+      ]
+    }
+  ]
+}
+EOF
+
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
