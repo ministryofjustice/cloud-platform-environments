@@ -60,7 +60,7 @@ user_policy = <<EOF
       ],
       "Resource": [
         "$${bucket_arn}/*",
-        "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b"/*"
+        "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b/*"
       ]
     }
   ]
