@@ -94,7 +94,9 @@ resource "aws_sqs_queue_policy" "hmpps_pin_phone_monitor_s3_event_queue_policy" 
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": "*",
+         "Principal": {
+            "Service": "s3.amazonaws.com"
+         },
         "Action": "sqs:SendMessage",
         "Resource": "${module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn}",
         "Condition": {
