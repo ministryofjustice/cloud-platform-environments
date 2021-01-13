@@ -106,28 +106,28 @@ resource "aws_sqs_queue_policy" "hmpps_pin_phone_monitor_s3_event_queue_policy" 
     EOF
 }
 
-resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" {
-  bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
-
-  queue {
-    id        = "metadata-upload-event"
-    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    events = [
-    "s3:ObjectCreated:*"]
-    filter_suffix = ".json"
-    filter_prefix = "metadata/"
-  }
-
-  queue {
-    id        = "recording-deletion-event"
-    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    events = [
-    "s3:ObjectRemoved:Delete"]
-    filter_suffix = ".flac"
-    filter_prefix = "recordings/"
-  }
-
-}
+# resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" {
+#   bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
+#
+#   queue {
+#     id        = "metadata-upload-event"
+#     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+#     events = [
+#     "s3:ObjectCreated:*"]
+#     filter_suffix = ".json"
+#     filter_prefix = "metadata/"
+#   }
+#
+#   queue {
+#     id        = "recording-deletion-event"
+#     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+#     events = [
+#     "s3:ObjectRemoved:Delete"]
+#     filter_suffix = ".flac"
+#     filter_prefix = "recordings/"
+#   }
+#
+# }
 
 resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
   metadata {
