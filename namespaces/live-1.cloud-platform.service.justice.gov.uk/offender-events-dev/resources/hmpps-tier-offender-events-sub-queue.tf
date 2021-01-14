@@ -102,5 +102,6 @@ resource "aws_sns_topic_subscription" "hmpps_tier_offender_events_subscription" 
   topic_arn = module.probation_offender_events.topic_arn
   protocol  = "sqs"
   endpoint  = module.hmpps_tier_offender_events_queue.sqs_arn
+  filter_policy = "{\"eventType\":[\"OFFENDER_MANAGEMENT_TIER_EVENT_CHANGED\"]}"
 }
 
