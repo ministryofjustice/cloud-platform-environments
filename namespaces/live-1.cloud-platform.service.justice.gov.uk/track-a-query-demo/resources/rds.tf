@@ -19,7 +19,7 @@ module "track_a_query_rds" {
   environment-name           = "demo"
   infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
 
-  rds_family = "postgres12.3"
+  rds_family = "postgres12"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
