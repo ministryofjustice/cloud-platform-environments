@@ -11,4 +11,5 @@ module "content_hub_elasticsearch" {
   elasticsearch-domain   = "hub-search"
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
+  ebs_volume_size        = 50
 }
