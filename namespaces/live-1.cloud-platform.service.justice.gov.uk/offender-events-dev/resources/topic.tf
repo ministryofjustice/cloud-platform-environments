@@ -89,3 +89,24 @@ resource "kubernetes_secret" "offender_assessments_events" {
     topic_arn         = module.offender_assessments_events.topic_arn
   }
 }
+
+module "offender_nameoftable_change" {
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
+  team_name          = var.team_name
+  topic_display_name = "offender-nameoftable-change"
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "offender_nameoftable_change" {
+  metadata {
+    name      = "offender-nameoftable-change-topic"
+    namespace = var.namespace
+  }
+  data = {
+    access_key_id     = module.offender_nameoftable_change.access_key_id
+    secret_access_key = module.offender_nameoftable_change.secret_access_key
+    topic_arn         = module.offender_nameoftable_change.topic_arn
+  }
+}
