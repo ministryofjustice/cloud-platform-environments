@@ -89,3 +89,4 @@ resource "kubernetes_secret" "offender_assessments_events" {
     topic_arn         = module.offender_assessments_events.topic_arn
   }
 }
+
