@@ -7,7 +7,7 @@ module "case_note_poll_pusher_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1209600 # 14 days
+  message_retention_seconds = 1209600
   namespace                 = var.namespace
 
   redrive_policy = <<EOF
@@ -61,7 +61,7 @@ module "case_note_poll_pusher_dead_letter_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue_dl"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1296000 # 15 days
+  message_retention_seconds = 1296000
   namespace                 = var.namespace
 
   providers = {
