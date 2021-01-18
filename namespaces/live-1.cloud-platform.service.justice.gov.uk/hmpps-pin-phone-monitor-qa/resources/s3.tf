@@ -18,7 +18,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     {
       enabled = true
       id      = "pin-phone-recording-expiry"
-      prefix = "recordings/"
+      prefix  = "recordings/"
       expiration = [
         {
           days = 1
