@@ -67,7 +67,16 @@ spec:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"} offset 5m) by (queue_name) > 0
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name!="Digital-Prison-Services-prod-case_note_poll_pusher_queue_dl",queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"} offset 5m) by (queue_name) > 0
+      for: 10m
+      labels:
+        severity: digital-prison-service
+    - alert: SQS-events-dlq-not-empty-case-notes-probation
+      annotations:
+        message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
+        runbook_url: https://github.com/ministryofjustice/case-notes-to-probation#investigating-dead-letter-queue-dlq-messages
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-case_note_poll_pusher_queue_dl"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
         severity: digital-prison-service
