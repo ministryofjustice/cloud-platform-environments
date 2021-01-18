@@ -17,7 +17,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "pin-phone-data-expiry"
+      id      = "pin-phone-recording-expiry"
       prefix = "recordings/"
       expiration = [
         {
@@ -63,7 +63,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = var.application
-  sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_dev"
+  sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_qa"
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
   namespace                 = var.namespace

@@ -1,9 +1,19 @@
+variable "domain" {
+  default = "hmpps-pin-phone-monitor-qa.prison.service.justice.gov.uk"
+}
+
 variable "application" {
-  default = "manage-intelligence"
+  default = "hmpps-pin-phone-monitor"
 }
 
 variable "namespace" {
-  default = "manage-intelligence-dev"
+  default = "hmpps-pin-phone-monitor-qa"
+}
+
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
 }
 
 variable "business-unit" {
@@ -13,12 +23,12 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps"
+  default     = "Digital-Prison-Services"
 }
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "qa"
 }
 
 variable "infrastructure-support" {
@@ -32,14 +42,4 @@ variable "is-production" {
 
 variable "number_cache_clusters" {
   default = "2"
-}
-
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
-}
-
-variable "" {
-  encryption_at_rest
 }
