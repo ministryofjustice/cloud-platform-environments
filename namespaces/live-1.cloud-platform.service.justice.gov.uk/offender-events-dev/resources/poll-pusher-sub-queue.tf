@@ -7,7 +7,7 @@ module "case_note_poll_pusher_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1209600
+  message_retention_seconds = 1209600 # 14 days
   namespace                 = var.namespace
 
   redrive_policy = <<EOF
@@ -55,13 +55,14 @@ EOF
 module "case_note_poll_pusher_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
-  application            = var.application
-  sqs_name               = "case_note_poll_pusher_queue_dl"
-  encrypt_sqs_kms        = "true"
-  namespace              = var.namespace
+  environment-name          = var.environment-name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure-support
+  application               = var.application
+  sqs_name                  = "case_note_poll_pusher_queue_dl"
+  encrypt_sqs_kms           = "true"
+  message_retention_seconds = 1296000 # 15 days
+  namespace                 = var.namespace
 
   providers = {
     aws = aws.london
