@@ -39,7 +39,3 @@ variable "cluster_name" {
 
 variable "cluster_state_bucket" {
 }
-
-variable "" {
-  encryption_at_rest
-}
