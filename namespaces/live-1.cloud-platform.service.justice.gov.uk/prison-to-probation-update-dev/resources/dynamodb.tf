@@ -2,16 +2,17 @@
 module "message_dynamodb" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
-  team_name              = var.team_name
-  application            = var.application
-  business-unit          = var.business-unit
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  is-production          = "false"
-  namespace              = var.namespace
-
-  hash_key      = "id"
-  ttl_attribute = "deleteBy"
+  team_name                    = var.team_name
+  application                  = var.application
+  business-unit                = var.business-unit
+  environment-name             = var.environment-name
+  infrastructure-support       = var.infrastructure-support
+  is-production                = "false"
+  namespace                    = var.namespace
+  autoscale_max_read_capacity  = 40
+  autoscale_max_write_capacity = 40
+  hash_key                     = "id"
+  ttl_attribute                = "deleteBy"
 }
 
 resource "kubernetes_secret" "message_dynamodb" {
