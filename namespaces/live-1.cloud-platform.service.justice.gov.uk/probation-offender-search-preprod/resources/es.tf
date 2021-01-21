@@ -11,7 +11,7 @@ module "probation_offender_search_es" {
   elasticsearch-domain          = "probation-search"
   namespace                     = var.namespace
   elasticsearch_version         = "7.9"
-  aws-es-proxy-replica-count    = 2
+  aws-es-proxy-replica-count    = 4
   instance_type                 = "t2.medium.elasticsearch"
   ebs_volume_size               = 15
   s3_manual_snapshot_repository = data.aws_s3_bucket.snapshot_bucket.arn
