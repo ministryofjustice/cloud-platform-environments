@@ -30,6 +30,52 @@ module "rds" {
   }
 }
 
+# Add policy, user and user policy to allow cross-account access
+data "aws_iam_policy_document" "data_eng_rds_dev_policy" {
+
+  statement {
+    sid = "AllowRdsExportUserToListS3Buckets"
+    actions = [
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
+    ]
+
+    resources = [
+      "arn:aws:s3:::*"
+    ]
+  }
+
+  statement {
+    sid = "AllowRdsExportUserWriteToS3"
+    actions = [
+      "s3:PutObject*",
+      "s3:PutObjectAcl",
+      "s3:GetObject*",
+      "s3:DeleteObject*"
+    ]
+
+    resources = [
+      "arn:aws:s3:::mojap-land/hmpps/data-eng-rds-dev/dev/*",
+      "arn:aws:s3:::mojap-land/hmpps/data-eng-rds-dev/dev/"
+    ]
+  }
+}
+
+resource "aws_iam_user" "user" {
+  name = "data-eng-rds-to-s3-snapshots-user-${random_id.id.hex}"
+  path = "/system/data-eng-rds-to-s3-snapshots-user/"
+}
+
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
+
+resource "aws_iam_user_policy" "policy" {
+  name   = "data-eng-rds-to-s3-snapshots-read-write"
+  policy = data.aws_iam_policy_document.data_eng_rds_dev_policy.json
+  user   = aws_iam_user.user.name
+}
+
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-instance-output"
@@ -44,6 +90,9 @@ resource "kubernetes_secret" "rds" {
     rds_instance_address  = module.rds.rds_instance_address
     access_key_id         = module.rds.access_key_id
     secret_access_key     = module.rds.secret_access_key
+    rds_to_s3_user_arn          = aws_iam_user.user.arn
+    rds_to_s3_access_key_id     = aws_iam_access_key.user.id
+    rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
