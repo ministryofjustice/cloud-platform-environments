@@ -22,3 +22,7 @@ provider "aws" {
 provider "random" {
   version = ">= 2.3.0, < 3.0.0"
 }
+
+provider "kubernetes" {
+  version = "= 1.13.3"
+}
