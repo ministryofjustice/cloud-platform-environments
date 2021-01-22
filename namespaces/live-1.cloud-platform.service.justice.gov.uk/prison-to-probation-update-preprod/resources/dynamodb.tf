@@ -9,8 +9,8 @@ module "message_dynamodb" {
   infrastructure-support       = var.infrastructure-support
   is-production                = "false"
   namespace                    = var.namespace
-  autoscale_max_read_capacity  = 40
-  autoscale_max_write_capacity = 40
+  autoscale_max_read_capacity  = 150
+  autoscale_max_write_capacity = 20
 
   hash_key      = "id"
   ttl_attribute = "deleteBy"
