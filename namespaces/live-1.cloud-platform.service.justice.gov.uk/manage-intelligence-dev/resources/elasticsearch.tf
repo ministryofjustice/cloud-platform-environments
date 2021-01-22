@@ -1,6 +1,6 @@
 module "manage_intelligence_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.6.0"
-  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.6.0"
+
   cluster_name                    = var.cluster_name
   cluster_state_bucket            = var.cluster_state_bucket
   application                     = var.application
@@ -14,6 +14,6 @@ module "manage_intelligence_elasticsearch" {
   elasticsearch_version           = "7.9"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
-  encryption_at_rest              = "true"
-  node_to_node_encryption_enabled = "true"
+  encryption_at_rest              = true
+  node_to_node_encryption_enabled = true
 }
