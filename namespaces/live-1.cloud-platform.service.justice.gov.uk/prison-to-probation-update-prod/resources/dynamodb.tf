@@ -1,4 +1,3 @@
-
 module "message_dynamodb" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
