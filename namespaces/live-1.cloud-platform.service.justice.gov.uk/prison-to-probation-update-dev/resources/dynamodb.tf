@@ -12,8 +12,8 @@ module "message_dynamodb" {
   autoscale_max_read_capacity  = 150
   autoscale_max_write_capacity = 20
 
-  hash_key                     = "id"
-  ttl_attribute                = "deleteBy"
+  hash_key      = "id"
+  ttl_attribute = "deleteBy"
 }
 
 resource "kubernetes_secret" "message_dynamodb" {
