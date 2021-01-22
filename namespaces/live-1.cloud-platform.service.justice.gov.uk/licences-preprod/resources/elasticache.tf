@@ -1,5 +1,5 @@
 ################################################################################
-# Licences Application Elasticache for ReDiS
+# Licences application Elasticache for ReDiS
 ################################################################################
 
 module "licences_elasticache_redis" {
