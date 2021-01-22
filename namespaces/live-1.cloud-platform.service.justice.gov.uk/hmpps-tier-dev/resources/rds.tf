@@ -61,4 +61,3 @@ resource "kubernetes_secret" "hmpps_tier_dev_rds" {
     rds_instance_address  = module.hmpps_tier_dev_rds.rds_instance_address
   }
 }
-
