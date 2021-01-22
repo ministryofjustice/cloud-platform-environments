@@ -1,4 +1,3 @@
-
 module "message_dynamodb" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
 
@@ -9,8 +8,8 @@ module "message_dynamodb" {
   infrastructure-support       = var.infrastructure-support
   is-production                = "true"
   namespace                    = var.namespace
-  autoscale_max_read_capacity  = 40
-  autoscale_max_write_capacity = 40
+  autoscale_max_read_capacity  = 150
+  autoscale_max_write_capacity = 20
 
   hash_key      = "id"
   ttl_attribute = "deleteBy"
