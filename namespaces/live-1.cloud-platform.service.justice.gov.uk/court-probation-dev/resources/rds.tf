@@ -16,6 +16,7 @@ module "court_case_service_rds" {
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
   db_engine_version      = var.db_engine_version
+  db_backup_retention_period = 0
 
   providers = {
     aws = aws.london
