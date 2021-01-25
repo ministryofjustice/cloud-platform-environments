@@ -27,12 +27,13 @@ module "probation_offender_search_elasticsearch" {
   is-production                   = var.is-production
   team_name                       = var.team_name
   elasticsearch-domain            = "search-probation"
+  aws_es_proxy_service_name       = "es-proxy"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
   namespace                       = var.namespace
   elasticsearch_version           = "7.9"
   aws-es-proxy-replica-count      = 2
-  instance_type                   = "t2.medium.elasticsearch"
+  instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
 }
 
