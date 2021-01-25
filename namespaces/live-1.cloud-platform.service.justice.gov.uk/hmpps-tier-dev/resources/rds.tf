@@ -1,8 +1,6 @@
 
 module "rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
-  cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
   team_name            = var.team_name
   business-unit        = var.business_unit
   application          = var.application
@@ -14,7 +12,7 @@ module "rds" {
 
   # change the postgres version as you see fit.
   db_engine_version      = "10"
-  environment-name       = var.environment
+  environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
