@@ -83,6 +83,6 @@ resource "kubernetes_secret" "elasticsearch" {
   }
 
   data = {
-    aws_es_proxy_url  = module.probation_offender_search_elasticsearch.aws_es_proxy_url
+    aws_es_proxy_url = module.probation_offender_search_elasticsearch.aws_es_proxy_url
   }
 }
