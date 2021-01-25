@@ -26,7 +26,7 @@ module "probation_offender_search_elasticsearch" {
   infrastructure-support          = var.infrastructure-support
   is-production                   = var.is-production
   team_name                       = var.team_name
-  elasticsearch-domain            = "probation-offender-search"
+  elasticsearch-domain            = "search-probation"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
   namespace                       = var.namespace
