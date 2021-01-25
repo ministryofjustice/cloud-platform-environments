@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "data_eng_rds_dev_policy" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "data-eng-rds-to-s3-snapshots-user-${random_id.id.hex}"
+  name = "data-eng-rds-to-s3-snapshots-user"
   path = "/system/data-eng-rds-to-s3-snapshots-user/"
 }
 
@@ -83,13 +83,13 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
+    rds_instance_endpoint       = module.rds.rds_instance_endpoint
+    database_name               = module.rds.database_name
+    database_username           = module.rds.database_username
+    database_password           = module.rds.database_password
+    rds_instance_address        = module.rds.rds_instance_address
+    access_key_id               = module.rds.access_key_id
+    secret_access_key           = module.rds.secret_access_key
     rds_to_s3_user_arn          = aws_iam_user.user.arn
     rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
