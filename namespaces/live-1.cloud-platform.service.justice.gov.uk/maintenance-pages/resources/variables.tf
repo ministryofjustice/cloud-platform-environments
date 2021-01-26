@@ -75,5 +75,5 @@ variable "slack-channel" {
 variable "domains" {
   description = "List of domains to be put in maintenance"
   type        = any
-  default = []
+  default     = []
 }
