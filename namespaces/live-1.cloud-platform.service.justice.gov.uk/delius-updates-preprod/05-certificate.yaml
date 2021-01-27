@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: preprod.delius-updates.service.justice.gov.uk
+  namespace: delius-updates-preprod
+spec:
+  secretName: delius-updates-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - preprod.delius-updates.service.justice.gov.uk
