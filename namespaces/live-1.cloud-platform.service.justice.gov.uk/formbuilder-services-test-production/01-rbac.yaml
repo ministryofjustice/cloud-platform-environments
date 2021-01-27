@@ -14,8 +14,9 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
-  
+
 # Bind admin role for namespace to team group & publisher ServiceAccount
+# & editor ServiceAccount
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -27,6 +28,10 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-publisher-workers-test
     namespace: formbuilder-publisher-test
+  # allow platformenv Editor to deploy to this deploymentenv
+  - kind: ServiceAccount
+    name: formbuilder-editor-workers-test
+    namespace: formbuilder-saas-test
   # ...but only the dev service token cache can read the dev
   # service tokens
   - kind: ServiceAccount
