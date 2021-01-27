@@ -6,7 +6,7 @@ variable "namespace" {
   default = "hmpps-tier-prod"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
@@ -26,6 +26,6 @@ variable "infrastructure-support" {
   default     = "hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
