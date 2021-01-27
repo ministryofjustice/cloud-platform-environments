@@ -33,10 +33,10 @@ resource "kubernetes_secret" "nomis-delius-emulator-rds" {
   }
 
   data = {
-    postgres_name         = module.nomis-delius-emulator-rds.database_name
-    postgres_host         = module.nomis-delius-emulator-rds.rds_instance_address
-    postgres_user         = module.nomis-delius-emulator-rds.database_username
-    postgres_password     = module.nomis-delius-emulator-rds.database_password
+    postgres_name     = module.nomis-delius-emulator-rds.database_name
+    postgres_host     = module.nomis-delius-emulator-rds.rds_instance_address
+    postgres_user     = module.nomis-delius-emulator-rds.database_username
+    postgres_password = module.nomis-delius-emulator-rds.database_password
   }
 }
 
