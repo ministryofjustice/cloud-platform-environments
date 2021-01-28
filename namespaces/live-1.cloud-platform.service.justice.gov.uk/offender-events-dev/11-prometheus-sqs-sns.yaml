@@ -18,5 +18,5 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-dev-probation_offender_search_event_dl_queue|dps-dev-probation_offender_search_index_dl_queue"}) by (queue_name) > 0
       for: 15m
       labels:
-        severity: digital-prison-service
+        severity: digital-prison-service-dev
 
