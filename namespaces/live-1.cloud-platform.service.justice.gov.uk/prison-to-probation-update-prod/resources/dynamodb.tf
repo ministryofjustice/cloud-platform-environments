@@ -8,7 +8,7 @@ module "message_dynamodb" {
   infrastructure-support       = var.infrastructure-support
   is-production                = "true"
   namespace                    = var.namespace
-  autoscale_max_read_capacity  = 500
+  autoscale_max_read_capacity  = 5000
   autoscale_max_write_capacity = 20
 
   hash_key      = "id"
