@@ -25,7 +25,7 @@ module "hmpps_user_preferences_rds" {
 
 resource "kubernetes_secret" "hmpps_user_preferences_rds" {
   metadata {
-    name      = "hmpps_user_preferences-rds-instance-output"
+    name      = "hmpps-user-preferences-rds-instance-output"
     namespace = var.namespace
   }
 
