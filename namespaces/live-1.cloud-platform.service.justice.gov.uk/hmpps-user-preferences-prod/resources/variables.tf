@@ -42,3 +42,11 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "probation_in_court"
 }
+
+variable "rds_family" {
+  default = "postgres11"
+}
+
+variable "db_engine_version" {
+  default = "11"
+}
