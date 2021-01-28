@@ -1,10 +1,3 @@
-
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS user preferences"
@@ -41,4 +34,12 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "probation_in_court"
+}
+
+variable "rds-family" {
+  default = "postgres11"
+}
+
+variable "db_engine_version" {
+  default = "11"
 }
