@@ -13,11 +13,10 @@ module "hmpps_user_preferences_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "11"
+  db_engine_version      = var.db_engine_version
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-
-  rds_family = "postgres11"
+  rds_family             = var.rds_family
 
   providers = {
     aws = aws.london
