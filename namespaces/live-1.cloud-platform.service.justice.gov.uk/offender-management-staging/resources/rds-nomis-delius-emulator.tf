@@ -18,7 +18,7 @@ module "nomis-delius-emulator-rds" {
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10"
-  db_name                = "nomis-delius-emulator"
+  db_name                = "nomis_delius_emulator"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {
