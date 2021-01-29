@@ -42,3 +42,11 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "ask-operations-engineering"
 }
+
+variable "github_token" {
+  default = ""
+}
+
+variable "github_owner" {
+  default = ""
+}
