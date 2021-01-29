@@ -5,7 +5,7 @@
  *
  */
 module "cp_team_test_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
   repo_name = "cp-poornima-dev-module"
   team_name = "cp-team"
 
