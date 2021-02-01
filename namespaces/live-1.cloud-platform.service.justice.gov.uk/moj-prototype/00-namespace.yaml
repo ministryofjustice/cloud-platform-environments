@@ -10,5 +10,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "ask-operations-engineering"
     cloud-platform.justice.gov.uk/application: "MoJ Prototype Template"
     cloud-platform.justice.gov.uk/owner: "Operations Engineering: operations-engineering@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/digitalronin/moj-prototype-template"
-    cloud-platform.justice.gov.uk/team-name: "operations-engineering" 
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/moj-prototype-template"
+    cloud-platform.justice.gov.uk/team-name: "operations-engineering"
