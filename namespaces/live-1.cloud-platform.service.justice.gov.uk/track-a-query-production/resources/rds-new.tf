@@ -13,15 +13,13 @@ module "track_a_query_rds_new" {
   is-production              = "true"
   namespace                  = var.namespace
   db_engine                  = "postgres"
-  db_engine_version          = "9.5"
+  db_engine_version          = "12.3"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production_new"
   environment-name           = "production"
   infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
 
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres9.5"
+  rds_family = "postgres12.3"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
