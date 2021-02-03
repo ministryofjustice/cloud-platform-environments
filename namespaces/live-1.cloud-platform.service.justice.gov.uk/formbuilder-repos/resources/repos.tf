@@ -427,26 +427,45 @@ resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
 
 ##################################################
 
-module "ecr-repo-fb-editor" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
+module "ecr-repo-fb-editor-web" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
 
   team_name = "formbuilder"
-  repo_name = "fb-editor"
+  repo_name = "fb-editor-web"
 }
 
-resource "kubernetes_secret" "ecr-repo-fb-editor" {
+resource "kubernetes_secret" "ecr-repo-fb-editor-web" {
   metadata {
-    name      = "ecr-repo-fb-editor"
+    name      = "ecr-repo-fb-editor-web"
     namespace = "formbuilder-repos"
   }
 
   data = {
-    repo_url          = module.ecr-repo-fb-editor.repo_url
-    access_key_id     = module.ecr-repo-fb-editor.access_key_id
-    secret_access_key = module.ecr-repo-fb-editor.secret_access_key
+    repo_url          = module.ecr-repo-fb-editor-web.repo_url
+    access_key_id     = module.ecr-repo-fb-editor-web.access_key_id
+    secret_access_key = module.ecr-repo-fb-editor-web.secret_access_key
   }
 }
 
+module "ecr-repo-fb-editor-workers" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+
+  team_name = "formbuilder"
+  repo_name = "fb-editor-workers"
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
+  metadata {
+    name      = "ecr-repo-fb-editor-workers"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-editor-workers.repo_url
+    access_key_id     = module.ecr-repo-fb-editor-workers.access_key_id
+    secret_access_key = module.ecr-repo-fb-editor-workers.secret_access_key
+  }
+}
 ##################################################
 
 module "ecr-repo-fb-runner" {
