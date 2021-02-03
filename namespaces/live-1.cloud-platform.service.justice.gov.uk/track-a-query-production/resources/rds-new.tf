@@ -13,13 +13,13 @@ module "track_a_query_rds_new" {
   is-production              = "true"
   namespace                  = var.namespace
   db_engine                  = "postgres"
-  db_engine_version          = "12"
+  db_engine_version          = "12.3"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production_new"
   environment-name           = "production"
   infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
 
-  rds_family = "postgres12.3"
+  rds_family = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
