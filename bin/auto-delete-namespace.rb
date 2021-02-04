@@ -16,11 +16,14 @@
 #   export TF_VAR_cluster_name=live-1.cloud-platform.service.justice.gov.uk
 #   export TF_VAR_cluster_state_bucket=cloud-platform-terraform-state
 #   export TF_VAR_cluster_state_key=cloud-platform/live-1/terraform.tfstate
+#   export TF_VAR_github_owner="ministryofjustice"
+#   export TF_VAR_github_token=[redacted]
 #
 #   # Env vars to enable kubectl to operate on the cluster by grabbing the kubeconfig
 #   # file from S3
 #   export KUBECONFIG_S3_BUCKET=cloud-platform-concourse-kubeconfig
 #   export KUBECONFIG_S3_KEY=kubeconfig
+#   export KUBE_CONFIG_PATH=/tmp/kubeconfig
 #   export KUBE_CONFIG=/tmp/kubeconfig
 #   export KUBE_CTX=live-1.cloud-platform.service.justice.gov.uk
 
@@ -34,9 +37,9 @@ def main(cluster)
   if namespaces.any?
     msg = <<~EOF
       Deleting following namespaces which have been removed from the environments repository:
-  
+
         - #{namespaces.join("\n  - ")}
-  
+
     EOF
 
     puts msg
