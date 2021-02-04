@@ -1,5 +1,5 @@
 variable "application" {
-  default = "MoJ Onine Product Page"
+  default = "MOJ Forms Product Page"
 }
 
 variable "namespace" {
@@ -18,6 +18,10 @@ variable "environment_name" {
 
 variable "zone_name" {
   default = "moj-online.service.justice.gov.uk"
+}
+
+variable "zone_name_new" {
+  default = "moj-forms.service.justice.gov.uk"
 }
 
 variable "infrastructure_support" {
