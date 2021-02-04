@@ -11,7 +11,7 @@ resource "aws_route53_zone" "moj_online_route53_zone" {
   }
 }
 
-resource "aws_route53_zone" "moj_online_route53_zone" {
+resource "aws_route53_zone" "moj_forms_route53_zone" {
   name = var.zone_name_new
 
   tags = {
