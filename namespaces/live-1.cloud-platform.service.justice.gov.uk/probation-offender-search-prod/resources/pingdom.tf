@@ -7,7 +7,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "psi-production-check" {
   type                     = "http"
-  name                     = "DPS - ${var.application}"
+  name                     = "DPS - probation-offender-search-indexer"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -23,7 +23,7 @@ resource "pingdom_check" "psi-production-check" {
 
 resource "pingdom_check" "pos-production-check" {
   type                     = "http"
-  name                     = "DPS - ${var.application}"
+  name                     = "DPS - probation-offender-search"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
