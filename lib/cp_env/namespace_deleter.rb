@@ -19,7 +19,7 @@ class CpEnv
     NAMEPACES_DIR = "namespaces/#{CLUSTER}"
     PRODUCTION_LABEL = "cloud-platform.justice.gov.uk/is-production"
     LABEL_TRUE = "true"
-    EMPTY_MAIN_TF_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/main/namespace-resources-cli-template/resources/main.tf"
+    EMPTY_TF_DIR_URL = "https://raw.githubusercontent.com/ministryofjustice/cloud-platform-environments/main/namespace-resources-cli-template/resources"
 
     def initialize(args)
       @namespace = args.fetch(:namespace)
@@ -79,7 +79,7 @@ class CpEnv
     end
 
     def destroy_aws_resources
-      create_empty_main_tf
+      create_terraform_files_for_empty_namespace
       log("green", "Destroying AWS resources for namespace #{namespace}...")
       NamespaceDir.new(cluster: CLUSTER, dir: namespace_dir).apply
     end
@@ -120,12 +120,14 @@ class CpEnv
       )
     end
 
-    def create_empty_main_tf
+    def create_terraform_files_for_empty_namespace
       dir = File.join(namespace_dir, "resources")
       execute("mkdir -p #{dir}")
-      content = URI.open(EMPTY_MAIN_TF_URL).read
-      file = File.join(dir, "main.tf")
-      File.open(file, "w") { |f| f.puts(content) }
+      ["main.tf", "variables.tf", "versions.tf"].each do |tf_file|
+        content = URI.open(EMPTY_TF_DIR_URL + "/" + tf_file).read
+        file = File.join(dir, tf_file)
+        File.open(file, "w") { |f| f.puts(content) }
+      end
     end
 
     # Remove the empty main.tf we created, along

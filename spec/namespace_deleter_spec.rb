@@ -103,7 +103,9 @@ describe CpEnv::NamespaceDeleter do
       allow(Open3).to receive(:capture3).at_least(:once).and_return(["", "", success])
       expect(Open3).to receive(:capture3).with("mkdir -p namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources").and_return(["", "", success])
       allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(false, true)
-      expect(File).to receive(:open).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources/main.tf", "w").at_least(:once)
+      ["main.tf", "variables.tf", "versions.tf"].each do |tf_file|
+        expect(File).to receive(:open).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources/#{tf_file}", "w").at_least(:once)
+      end
     end
 
     it "deletes AWS resources" do
