@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - moj-online.service.justice.gov.uk
+  - moj-forms.service.justice.gov.uk
