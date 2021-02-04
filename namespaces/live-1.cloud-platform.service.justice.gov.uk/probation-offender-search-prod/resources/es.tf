@@ -35,6 +35,7 @@ module "probation_offender_search_elasticsearch" {
   elasticsearch_version           = "7.9"
   aws-es-proxy-replica-count      = 4
   instance_type                   = "m5.large.elasticsearch"
+  ebs_volume_size                 = 15
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
 }
 
