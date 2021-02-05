@@ -77,3 +77,14 @@ resource "kubernetes_secret" "es_snapshots" {
     bucket_name = module.es_snapshots_s3_bucket.bucket_name
   }
 }
+
+resource "kubernetes_secret" "elasticsearch" {
+  metadata {
+    name      = "elasticsearch"
+    namespace = var.namespace
+  }
+
+  data = {
+    aws_es_proxy_url = module.prisoner_offender_search_elasticsearch.aws_es_proxy_url
+  }
+}
