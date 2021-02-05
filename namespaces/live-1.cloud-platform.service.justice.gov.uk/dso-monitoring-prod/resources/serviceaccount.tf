@@ -16,7 +16,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "pods",
-        "serviceaccounts"
+        "serviceaccounts",
       ]
       verbs = [
         "patch",
@@ -32,10 +32,12 @@ module "serviceaccount" {
         "extensions",
         "apps",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
         "ingresses",
+        "servicemonitors",
       ]
       verbs = [
         "get",
