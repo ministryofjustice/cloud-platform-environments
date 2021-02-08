@@ -14,8 +14,9 @@ module "probation_offender_search_elasticsearch" {
   node_to_node_encryption_enabled = true
   namespace                       = var.namespace
   elasticsearch_version           = "7.9"
-  aws-es-proxy-replica-count      = 2
+  aws-es-proxy-replica-count      = 4
   instance_type                   = "t3.medium.elasticsearch"
+  ebs_volume_size                 = 15
   s3_manual_snapshot_repository   = data.aws_s3_bucket.snapshot_bucket.arn
 }
 
