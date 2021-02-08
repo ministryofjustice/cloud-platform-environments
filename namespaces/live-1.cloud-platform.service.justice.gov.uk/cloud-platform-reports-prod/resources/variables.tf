@@ -42,3 +42,13 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "cloud-platform"
 }
+
+variable "github_owner" {
+  description = "Required by the github terraform provider"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the github terraform provider"
+  default     = ""
+}
