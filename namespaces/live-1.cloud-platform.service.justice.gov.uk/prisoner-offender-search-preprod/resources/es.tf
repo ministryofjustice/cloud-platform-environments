@@ -53,3 +53,14 @@ resource "kubernetes_secret" "es_snapshots_role" {
     snapshot_role_arn2 = module.prisoner_offender_search_elasticsearch.snapshot_role_arn
   }
 }
+
+resource "kubernetes_secret" "elasticsearch" {
+  metadata {
+    name      = "elasticsearch"
+    namespace = var.namespace
+  }
+
+  data = {
+    aws_es_proxy_url = module.prisoner_offender_search_elasticsearch.aws_es_proxy_url
+  }
+}
