@@ -12,7 +12,7 @@ module "intervention_events" {
 resource "kubernetes_secret" "intervention_events_sns" {
   metadata {
     name      = "intervention-events-topic"
-    namespace = "hmpps-interventions-dev"
+    namespace = var.namespace
   }
 
   data = {
