@@ -428,7 +428,7 @@ resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
 ##################################################
 
 module "ecr-repo-fb-editor-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-web"
@@ -448,7 +448,7 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-web" {
 }
 
 module "ecr-repo-fb-editor-workers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-workers"
