@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
@@ -10,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - court-register-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-register-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-registers-dev
+spec:
+  secretName: prison-register-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-register-dev.hmpps.service.justice.gov.uk
