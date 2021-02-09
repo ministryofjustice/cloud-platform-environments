@@ -10,7 +10,11 @@ def main(cluster)
   apply_cluster_level_resources(cluster)
 
   all_namespace_dirs(cluster).each do |dir|
-    CpEnv::NamespaceDir.new(cluster: cluster, dir: dir).apply
+    CpEnv::NamespaceDir.new(
+      cluster: cluster,
+      dir: dir,
+      enable_skip_namespaces: true, # Honour any APPLY_PIPELINE_SKIP_THIS_NAMESPACE files
+    ).apply
   end
 
   log("green", "Done.")

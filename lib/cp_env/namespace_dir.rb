@@ -1,24 +1,41 @@
 class CpEnv
   class NamespaceDir
-    attr_reader :cluster, :dir
+    attr_reader :cluster, :dir, :enable_skip_namespaces
     attr_reader :executor
 
     # Hardcoded context is required to switch to the manager cluster
     MANAGER_CLUSTER = "manager.cloud-platform.service.justice.gov.uk"
 
+    # If this file exists in a namespace folder, and enable_skip_namespaces is
+    # `true`, calling `apply` on the namespace will do nothing.
+    SKIP_FILE = "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
+
     def initialize(args)
       @dir = args.fetch(:dir)
       @cluster = args.fetch(:cluster)
       @executor = args.fetch(:executor) { Executor.new }
+      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces) { true }
     end
 
     def apply
-      return unless FileTest.directory?(dir)
+      return if ignore_this_namespace?
+
       executor.execute("git pull") # In case any PRs were merged since the pipeline started
       apply_namespace_dir
     end
 
     private
+
+    def ignore_this_namespace?
+      return true unless FileTest.directory?(dir)
+
+      if enable_skip_namespaces && FileTest.exists?("#{dir}/#{SKIP_FILE}")
+        log("red", "#{namespace}/#{SKIP_FILE} file exists. Skipping this namespace.")
+        true
+      else
+        false
+      end
+    end
 
     def namespace
       File.basename(dir)

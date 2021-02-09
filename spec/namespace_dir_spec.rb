@@ -12,12 +12,14 @@ describe CpEnv::NamespaceDir do
   let(:terraform) { double(CpEnv::Terraform) }
   let(:kubectl_apply) { "kubectl -n #{namespace} apply -f #{dir}" }
   let(:yaml_files) { [] }
+  let(:enable_skip_namespaces) { true }
 
   let(:params) {
     {
       dir: dir,
       cluster: cluster,
       executor: executor,
+      enable_skip_namespaces: enable_skip_namespaces
     }
   }
 
@@ -76,6 +78,54 @@ describe CpEnv::NamespaceDir do
       it "does not run kubectl apply" do
         expect(executor).to_not receive(:execute).with(kubectl_apply)
         namespace_dir.apply
+      end
+    end
+
+    context "when enable_skip_namespaces is set" do
+      let(:enable_skip_namespaces) { true }
+
+      context "and a skip file is present" do
+        let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
+
+        before do
+          allow(FileTest).to receive(:exists?)
+            .with("#{dir}/#{CpEnv::NamespaceDir::SKIP_FILE}")
+            .and_return(true)
+        end
+
+        it "does not run kubectl apply" do
+          expect(executor).to_not receive(:execute).with(kubectl_apply)
+          namespace_dir.apply
+        end
+
+        it "does not run terraform apply" do
+          expect(terraform).to_not receive(:apply)
+          namespace_dir.apply
+        end
+      end
+    end
+
+    context "when enable_skip_namespaces is not set" do
+      let(:enable_skip_namespaces) { false }
+
+      context "and a skip file is present" do
+        let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
+
+        before do
+          allow(FileTest).to receive(:exists?)
+            .with("#{dir}/#{CpEnv::NamespaceDir::SKIP_FILE}")
+            .and_return(true)
+        end
+
+        it "runs kubectl apply" do
+          expect(executor).to receive(:execute).with(kubectl_apply)
+          namespace_dir.apply
+        end
+
+        it "runs terraform apply" do
+          expect(terraform).to receive(:apply)
+          namespace_dir.apply
+        end
       end
     end
   end
