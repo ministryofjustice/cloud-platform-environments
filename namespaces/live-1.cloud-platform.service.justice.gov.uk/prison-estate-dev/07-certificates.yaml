@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: estate-dev.prison.service.justice.gov.uk
+  namespace: prison-estate-dev
+spec:
+  secretName: prison-estate-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - estate-dev.prison.service.justice.gov.uk
