@@ -12,8 +12,8 @@ spec:
     - alert: offender-assessment-api-down
       expr: |-
         probe_http_status_code{instance="offender-assessment-api-prod"}!=200
-      for: 5m
+      for: 3m
       labels:
-        severity: <custom_severity_level>
+        severity: dso
       annotations:
-        message: Offender Assessment API has not responded in the last 5 minutes.        
+        message: Offender Assessment API has not responded in the last 5 minutes.
