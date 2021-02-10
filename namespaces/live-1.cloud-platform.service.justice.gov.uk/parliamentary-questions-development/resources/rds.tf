@@ -8,13 +8,13 @@ module "rds_instance" {
   cluster_state_bucket       = var.cluster_state_bucket
   db_backup_retention_period = var.db_backup_retention_period
   db_engine                  = "postgres"
-  db_engine_version          = "11"
+  db_engine_version          = "12.3"
   db_name                    = "parliamentary_questions_dev"
   environment-name           = var.environment-name
   infrastructure-support     = var.infrastructure-support
   is-production              = var.is-production
   namespace                  = var.namespace
-  rds_family                 = "postgres11"
+  rds_family                 = "postgres12"
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
   team_name                  = var.team_name
 }
