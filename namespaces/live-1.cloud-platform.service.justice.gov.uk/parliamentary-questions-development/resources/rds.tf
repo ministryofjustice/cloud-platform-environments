@@ -3,6 +3,7 @@
 #############################################
 
 module "rds_instance" {
+  allow_major_version_upgrade = "true"
   application                = var.application
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
