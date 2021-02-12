@@ -12,4 +12,3 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "{{ .Owner }}: {{ .InfrastructureSupport }}"
     cloud-platform.justice.gov.uk/source-code: "{{ .SourceCode }}"
     cloud-platform.justice.gov.uk/team-name: "{{ .GithubTeam }}"
-    # cloud-platform.justice.gov.uk/review-after: " .ReviewAfter "  # <-- uncomment and replace braces after CLI version 1.8.2 is live
