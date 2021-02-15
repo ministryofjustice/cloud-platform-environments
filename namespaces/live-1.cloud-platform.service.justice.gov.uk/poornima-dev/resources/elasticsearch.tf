@@ -1,6 +1,6 @@
 ################################################################################
-# Peoplefinder
-# Application Elasticsearch cluster
+# Cloud Platform
+# CP Test Elasticsearch cluster
 #################################################################################
 
 module "peoplefinder_es" {
