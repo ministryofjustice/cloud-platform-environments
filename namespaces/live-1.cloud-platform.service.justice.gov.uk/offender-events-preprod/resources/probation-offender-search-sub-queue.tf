@@ -103,6 +103,6 @@ resource "aws_sns_topic_subscription" "probation_offender_search_event_subscript
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.probation_offender_search_event_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\",\"OFFENDER_REGISTRATION_CHANGED\",\"OFFENDER_REGISTRATION_DEREGISTERED\",\"OFFENDER_REGISTRATION_DELETED\"]}"
 }
 

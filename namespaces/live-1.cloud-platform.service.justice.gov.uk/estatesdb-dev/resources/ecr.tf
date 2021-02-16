@@ -1,5 +1,5 @@
 module "ecr-repo-estatesdb-dev" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.3"
   repo_name = "estatesdb-dev"
   team_name = "programmeandperformance"
 
