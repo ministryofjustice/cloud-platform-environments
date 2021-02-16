@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: court-register.hmpps.service.justice.gov.uk
-  namespace: hmpps-registers-dev
+  namespace: hmpps-registers-prod
 spec:
   secretName: court-register-cert
   issuerRef:
