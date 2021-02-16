@@ -5,7 +5,7 @@
  *
  */
 module "proffe_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.2"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.3"
   repo_name = "proffe-repo"
   team_name = "hmpps-dev-test"
 
