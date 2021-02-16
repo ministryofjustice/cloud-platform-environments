@@ -40,7 +40,7 @@ module "test_es_2" {
 
 
 module "ns_annotation" {
-  source                 = "https://github.com/ministryofjustice/cloud-platform-terraform-ns-annotation"
+  source              = "https://github.com/ministryofjustice/cloud-platform-terraform-ns-annotation"
   ns_annotation_roles = [module.test_es_1.aws_iam_role_name, module.test_es_2.aws_iam_role_name]
   namespace           = var.namespace
 }
