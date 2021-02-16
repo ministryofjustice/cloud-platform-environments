@@ -16,6 +16,7 @@ module "test_es_1" {
   elasticsearch-domain   = "es-1"
   namespace              = var.namespace
   elasticsearch_version  = "6.8"
+  aws_es_proxy_service_name = "aws-es-proxy-es-1"
 }
 
 module "test_es_2" {
@@ -31,6 +32,7 @@ module "test_es_2" {
   elasticsearch-domain   = "es-2"
   namespace              = var.namespace
   elasticsearch_version  = "6.8"
+  aws_es_proxy_service_name = "aws-es-proxy-es-2"
 }
 
 
