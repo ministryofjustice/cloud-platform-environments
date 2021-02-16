@@ -2,12 +2,12 @@ resource "aws_route53_zone" "hmpps-tier-prod" {
   name = "hmpps-tier.hmpps.service.justice.gov.uk"
 
   tags = {
-    business-unit          = "Manage a Sentence"
-    application            = "HMPPS Tier"
-    is-production          = "true"
-    environment-name       = "prod"
-    owner                  = "Dawn Ramshaw"
-    infrastructure-support = "hmpps@digital.justice.gov.uk"
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment-name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure-support
     namespace              = var.namespace
   }
 }
