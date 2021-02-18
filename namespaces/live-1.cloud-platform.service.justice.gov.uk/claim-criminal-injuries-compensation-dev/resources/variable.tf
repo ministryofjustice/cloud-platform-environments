@@ -69,3 +69,8 @@ variable "cors_rule" {
   description = "cors rule"
   default     = []
 }
+
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape"
+  default     = true
+}
