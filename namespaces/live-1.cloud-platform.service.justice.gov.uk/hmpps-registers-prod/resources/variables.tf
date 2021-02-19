@@ -6,12 +6,20 @@ variable "domain_prison_register" {
   default = "prison-register.hmpps.service.justice.gov.uk"
 }
 
+variable "domain_hmpps_registers" {
+  default = "registers.hmpps.service.justice.gov.uk"
+}
+
 variable "court-application" {
   default = "court-register"
 }
 
 variable "prison-application" {
   default = "prison-register"
+}
+
+variable "hmpps-registers-application" {
+  default = "hmpps-registers"
 }
 
 variable "namespace" {
@@ -48,3 +56,6 @@ variable "is-production" {
   default = "true"
 }
 
+variable "number-cache-clusters" {
+  default = "2"
+}
