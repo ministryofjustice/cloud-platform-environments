@@ -1,5 +1,5 @@
 module "probation_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.7.0"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.0"
   cluster_name                    = var.cluster_name
   cluster_state_bucket            = var.cluster_state_bucket
   application                     = var.application
@@ -17,6 +17,12 @@ module "probation_offender_search_elasticsearch" {
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
+}
+
+module "ns_annotation" {
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.2"
+  ns_annotation_roles = [module.probation_offender_search_elasticsearch.aws_iam_role_name]
+  namespace           = var.namespace
 }
 
 module "es_snapshots_s3_bucket" {

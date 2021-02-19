@@ -4,7 +4,7 @@
 #################################################################################
 
 module "test_es_1" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=remove-ns-annotation"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.0"
   cluster_name              = var.cluster_name
   cluster_state_bucket      = var.cluster_state_bucket
   application               = "cloud-platform-esupg"
@@ -20,7 +20,7 @@ module "test_es_1" {
 }
 
 module "test_es_2" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=remove-ns-annotation"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.0"
   cluster_name              = var.cluster_name
   cluster_state_bucket      = var.cluster_state_bucket
   application               = "cloud-platform-esupg"
