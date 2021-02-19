@@ -28,7 +28,7 @@ spec:
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: hmpps-registers-dev.hmpps.service.justice.gov.uk
+  name: registers-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-registers-dev
 spec:
   secretName: hmpps-registers-cert
@@ -36,4 +36,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-registers-dev.hmpps.service.justice.gov.uk
+    - registers-dev.hmpps.service.justice.gov.uk
