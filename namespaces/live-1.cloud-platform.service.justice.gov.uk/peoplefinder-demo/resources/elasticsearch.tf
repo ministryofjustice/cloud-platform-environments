@@ -20,6 +20,6 @@ module "peoplefinder_es" {
 
 module "ns_annotation" {
   source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.2"
-  ns_annotation_roles = [module.manage_intelligence_elasticsearch.aws_iam_role_name]
+  ns_annotation_roles = [module.peoplefinder_es.aws_iam_role_name]
   namespace           = var.namespace
 }
