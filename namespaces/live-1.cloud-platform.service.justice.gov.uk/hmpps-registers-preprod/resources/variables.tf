@@ -6,6 +6,10 @@ variable "prison-application" {
   default = "prison-register"
 }
 
+variable "hmpps-registers-application" {
+  default = "hmpps-registers"
+}
+
 variable "namespace" {
   default = "hmpps-registers-preprod"
 }
@@ -40,3 +44,6 @@ variable "is-production" {
   default = "false"
 }
 
+variable "number-cache-clusters" {
+  default = "2"
+}
