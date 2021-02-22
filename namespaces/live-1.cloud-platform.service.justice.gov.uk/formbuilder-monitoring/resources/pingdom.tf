@@ -6,6 +6,8 @@ locals {
     childrens-funeral-fund   = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     cica                     = "same-roof-rule.form.service.justice.gov.uk",
     complain-about-a-court   = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
+    complain-to-the-cica     = "complain-to-the-cica.form.service.justice.gov.uk",
+    contact-the-cica         = "contact-the-cica.form.service.justice.gov.uk",
     fix-my-court             = "fix-my-court.form.service.justice.gov.uk",
     house-disrepair          = "check-how-to-get-repairs-done-in-your-rented-home.form.service.justice.gov.uk",
     leavers-form             = "leavers.form.service.justice.gov.uk",
