@@ -30,7 +30,7 @@ module "complexity-of-need-rds" {
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "10"
-  db_name                = "hmpps-complexity-of-need"
+  db_name                = "hmpps_complexity_of_need"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {
