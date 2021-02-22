@@ -1,5 +1,5 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.7.0"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.0"
   cluster_name                    = var.cluster_name
   cluster_state_bucket            = var.cluster_state_bucket
   application                     = var.application
@@ -19,6 +19,11 @@ module "prisoner_offender_search_elasticsearch" {
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
 }
 
+module "ns_annotation" {
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.2"
+  ns_annotation_roles = [module.prisoner_offender_search_elasticsearch.aws_iam_role_name]
+  namespace           = var.namespace
+}
 module "es_snapshots_s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
   team_name              = var.team_name
