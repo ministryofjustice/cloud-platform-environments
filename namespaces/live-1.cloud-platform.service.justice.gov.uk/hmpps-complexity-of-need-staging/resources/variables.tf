@@ -11,7 +11,7 @@ variable "is-production" {
 }
 
 variable "namespace" {
-  default = "offender-management-staging"
+  default = "hmpps-complexity-of-need-staging"
 }
 
 variable "infrastructure-support" {
