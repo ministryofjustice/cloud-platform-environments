@@ -1,5 +1,4 @@
 require "spec_helper"
-require 'tempfile'
 
 describe CpEnv::Terraform do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
