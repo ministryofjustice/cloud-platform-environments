@@ -27,11 +27,8 @@ describe CpEnv::Terraform do
     }
   }
 
-  
-
   subject(:tf) { described_class.new(params) }
   context "terraform 0.12" do
-
     let(:version_file) { "#{dir}/resources/versions.tf" }
     let(:content) {
       'terraform {
@@ -44,7 +41,6 @@ describe CpEnv::Terraform do
     end
 
     describe "plan" do
-
       it "runs terraform plan" do
         env_vars.each do |key, val|
           expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
@@ -63,82 +59,77 @@ describe CpEnv::Terraform do
         expect($stdout).to receive(:puts).at_least(:once)
         tf.plan
       end
+    end
+    describe "apply" do
+      it "applies terraform files" do
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        end
+        allow(FileTest).to receive(:directory?).and_return(true)
+        tf_dir = "#{dir}/resources"
+        tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-  end
-  describe "apply" do
+        tf_apply = "cd #{tf_dir}; terraform12 apply -auto-approve"
 
-    it "applies terraform files" do
-      env_vars.each do |key, val|
-        expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_apply, "", success)
+        expect($stdout).to receive(:puts).at_least(:once)
+
+        tf.apply
       end
-      allow(FileTest).to receive(:directory?).and_return(true)
-      tf_dir = "#{dir}/resources"
-      tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-      tf_apply = "cd #{tf_dir}; terraform12 apply -auto-approve"
-
-      expect_execute(tf_init, "", success)
-      expect_execute(tf_apply, "", success)
-      expect($stdout).to receive(:puts).at_least(:once)
-
-      tf.apply
     end
   end
-end
 
-context "terraform 0.13" do
-
-  let(:version_file) { "#{dir}/resources/versions.tf" }
-  let(:content) {
-    'terraform {
+  context "terraform 0.13" do
+    let(:version_file) { "#{dir}/resources/versions.tf" }
+    let(:content) {
+      'terraform {
       required_version = ">= 0.13"
     }'
-  }
-  before do
-    allow(FileTest).to receive(:exists?).with(version_file).and_return(true)
-    allow(File).to receive(:readlines).with(version_file).and_return([content])
-  end
+    }
+    before do
+      allow(FileTest).to receive(:exists?).with(version_file).and_return(true)
+      allow(File).to receive(:readlines).with(version_file).and_return([content])
+    end
 
-  describe "plan" do
+    describe "plan" do
+      it "runs terraform plan" do
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        end
+        allow(FileTest).to receive(:directory?).and_return(true)
 
-    it "runs terraform plan" do
-      env_vars.each do |key, val|
-        expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        tf_dir = "#{dir}/resources"
+
+        tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+        tf_plan = "cd #{tf_dir}; terraform13 plan  "
+
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_plan, "", success)
+        expect($stdout).to receive(:puts).at_least(:once)
+
+        tf.plan
       end
-      allow(FileTest).to receive(:directory?).and_return(true)
+    end
 
-      tf_dir = "#{dir}/resources"
+    describe "apply" do
+      it "applies terraform files" do
+        env_vars.each do |key, val|
+          expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
+        end
+        allow(FileTest).to receive(:directory?).and_return(true)
+        tf_dir = "#{dir}/resources"
+        tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_apply = "cd #{tf_dir}; terraform13 apply -auto-approve"
 
-      tf_plan = "cd #{tf_dir}; terraform13 plan  "
+        expect_execute(tf_init, "", success)
+        expect_execute(tf_apply, "", success)
+        expect($stdout).to receive(:puts).at_least(:once)
 
-      expect_execute(tf_init, "", success)
-      expect_execute(tf_plan, "", success)
-      expect($stdout).to receive(:puts).at_least(:once)
-
-      tf.plan
+        tf.apply
+      end
     end
   end
-
-  describe "apply" do
-    it "applies terraform files" do
-      env_vars.each do |key, val|
-        expect(ENV).to receive(:fetch).with(key).at_least(:once).and_return(val)
-      end
-      allow(FileTest).to receive(:directory?).and_return(true)
-      tf_dir = "#{dir}/resources"
-      tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
-
-      tf_apply = "cd #{tf_dir}; terraform13 apply -auto-approve"
-
-      expect_execute(tf_init, "", success)
-      expect_execute(tf_apply, "", success)
-      expect($stdout).to receive(:puts).at_least(:once)
-
-      tf.apply
-    end
-  end
-
-end
 end
