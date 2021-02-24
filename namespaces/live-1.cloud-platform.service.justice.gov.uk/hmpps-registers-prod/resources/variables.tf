@@ -10,6 +10,10 @@ variable "domain_hmpps_registers" {
   default = "registers.hmpps.service.justice.gov.uk"
 }
 
+variable "domain_hmpps_registers_to_delius" {
+  default = "registers-to-delius-update.hmpps.service.justice.gov.uk"
+}
+
 variable "court-application" {
   default = "court-register"
 }
