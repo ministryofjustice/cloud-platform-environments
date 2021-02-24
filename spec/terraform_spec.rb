@@ -49,10 +49,9 @@ describe CpEnv::Terraform do
 
         tf_dir = "#{dir}/resources"
 
-        # terraform_executable = "terraform12"
-        tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_init = "cd #{tf_dir}; terraform0.12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_plan = "cd #{tf_dir}; terraform12 plan  "
+        tf_plan = "cd #{tf_dir}; terraform0.12 plan  "
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_plan, "", success)
@@ -67,9 +66,9 @@ describe CpEnv::Terraform do
         end
         allow(FileTest).to receive(:directory?).and_return(true)
         tf_dir = "#{dir}/resources"
-        tf_init = "cd #{tf_dir}; terraform12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_init = "cd #{tf_dir}; terraform0.12 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_apply = "cd #{tf_dir}; terraform12 apply -auto-approve"
+        tf_apply = "cd #{tf_dir}; terraform0.12 apply -auto-approve"
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_apply, "", success)
@@ -101,9 +100,9 @@ describe CpEnv::Terraform do
 
         tf_dir = "#{dir}/resources"
 
-        tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_init = "cd #{tf_dir}; terraform0.13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_plan = "cd #{tf_dir}; terraform13 plan  "
+        tf_plan = "cd #{tf_dir}; terraform0.13 plan  "
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_plan, "", success)
@@ -120,9 +119,9 @@ describe CpEnv::Terraform do
         end
         allow(FileTest).to receive(:directory?).and_return(true)
         tf_dir = "#{dir}/resources"
-        tf_init = "cd #{tf_dir}; terraform13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+        tf_init = "cd #{tf_dir}; terraform0.13 init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-        tf_apply = "cd #{tf_dir}; terraform13 apply -auto-approve"
+        tf_apply = "cd #{tf_dir}; terraform0.13 apply -auto-approve"
 
         expect_execute(tf_init, "", success)
         expect_execute(tf_apply, "", success)

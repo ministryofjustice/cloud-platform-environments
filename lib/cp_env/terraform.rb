@@ -48,7 +48,7 @@ class CpEnv
     private
 
     def terraform_executable
-      tf_versions = ["12", "13", "14"]
+      tf_versions = ["0.12", "0.13", "0.14"]
 
       # check for the version number in  the versions.tf and choose the binary accordingly
       if FileTest.exists?("#{tf_dir}/versions.tf")
