@@ -18,5 +18,6 @@ resource "pingdom_check" "book-secure-move-api-check" {
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
+  publicreport             = "true"
   integrationids           = [94314, 108715]
 }
