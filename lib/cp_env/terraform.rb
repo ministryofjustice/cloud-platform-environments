@@ -46,24 +46,25 @@ class CpEnv
     end
 
     private
-
+    
     def terraform_executable
       tf_versions = ["0.12", "0.13", "0.14"]
+  
       # check for the version number in  the versions.tf and choose the binary accordingly
       if FileTest.exists?("#{tf_dir}/versions.tf") 
         File.readlines("#{tf_dir}/versions.tf").each do |line|
           if line.match(/required_version/)
-            tf_versions.each do |tf_version|
-              if line.match?tf_version
-                return "terraform#{tf_version}"
-              end
-            end
+              tf_versions.each_with_index{ |e,i| 
+                  if line.match?(e)
+                    return"terraform#{e}"
+                  end
+                }
           end
         end
       end
-    
     end
     
+
     def tf_init
       key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
 
