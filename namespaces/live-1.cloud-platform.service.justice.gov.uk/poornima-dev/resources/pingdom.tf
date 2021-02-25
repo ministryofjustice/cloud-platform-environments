@@ -3,7 +3,7 @@ provider "pingdom" {}
 resource "pingdom_check" "dev-pk-poornima-dev-pingdom-check" {
   type                     = "http"
   name                     = "poornima-dev - cloud-platform - Healthcheck"
-  host                     = "dev-pk.service.gov.uk"
+  host                     = "dev-pk.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 3
