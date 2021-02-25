@@ -50,3 +50,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - registers-to-delius-update-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: hmpps-registers-to-nomis-update-cert
+  namespace: hmpps-registers-preprod
+spec:
+  secretName: hmpps-registers-to-nomis-update-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - registers-to-nomis-update-preprod.hmpps.service.justice.gov.uk
