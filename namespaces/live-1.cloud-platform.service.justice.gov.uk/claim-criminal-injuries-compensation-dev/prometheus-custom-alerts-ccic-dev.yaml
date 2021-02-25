@@ -60,4 +60,3 @@ spec:
       for: 1h
       labels:
         severity: cica-dev-dev
-

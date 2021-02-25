@@ -18,5 +18,5 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
-        severity: digital-prison-service
+        severity: digital-prison-service-dev
 

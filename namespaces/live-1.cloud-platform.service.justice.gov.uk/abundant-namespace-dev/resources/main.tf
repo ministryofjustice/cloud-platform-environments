@@ -17,11 +17,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-provider "kubernetes" {
-  version = "~> 1.11"
-}
-
-provider "helm" {
-  kubernetes {
-  }
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
 }
