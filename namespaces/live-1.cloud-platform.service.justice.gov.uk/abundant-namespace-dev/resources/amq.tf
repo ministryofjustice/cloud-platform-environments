@@ -7,6 +7,7 @@ module "test_amq_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "platforms@digital.justice.gov.uk"
+  namespace              = "abundant-namespace-dev"
 
   providers = {
     aws = aws.london
