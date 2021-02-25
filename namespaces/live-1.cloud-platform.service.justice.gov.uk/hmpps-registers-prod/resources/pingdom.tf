@@ -69,3 +69,20 @@ resource "pingdom_check" "hmpps-registers-to-delius-production-check" {
   integrationids           = [96624, 96628]
 }
 
+
+resource "pingdom_check" "hmpps-registers-to-nomis-production-check" {
+  type                     = "http"
+  name                     = "DPS - hmpps-registers-to-nomis-update"
+  host                     = "health-kick.prison.service.justice.gov.uk"
+  resolution               = 1
+  notifywhenbackup         = true
+  sendnotificationwhendown = 6
+  notifyagainevery         = 0
+  url                      = "/https/${var.domain_hmpps_registers_to_nomis}"
+  encryption               = true
+  port                     = 443
+  tags                     = "dps,hmpps,cloudplatform-managed"
+  probefilters             = "region:EU"
+  integrationids           = [96624, 96628]
+}
+
