@@ -1,5 +1,5 @@
 module "test_amq_broker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.1"
 
   team_name              = "test-names"
   business-unit          = "HQ"
