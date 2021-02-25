@@ -8,6 +8,7 @@ module "test_dynamo_creation" {
   environment-name       = "development"
   infrastructure-support = "platforms@digtal.justice.gov.uk"
   aws_region             = "eu-west-2"
+  namespace              = "abundant-namespace-dev"
 
   hash_key  = "id"
   range_key = "deleteBy"
