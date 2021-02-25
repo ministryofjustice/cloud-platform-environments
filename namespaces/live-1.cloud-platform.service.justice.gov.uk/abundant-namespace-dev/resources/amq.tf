@@ -9,7 +9,7 @@ module "test_amq_broker" {
   infrastructure-support = "platforms@digital.justice.gov.uk"
 
   providers = {
-     aws = aws.london
+    aws = aws.london
   }
 }
 
