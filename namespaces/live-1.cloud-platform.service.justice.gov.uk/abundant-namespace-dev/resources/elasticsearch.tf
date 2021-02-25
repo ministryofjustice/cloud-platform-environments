@@ -16,7 +16,7 @@ module "example_team_es" {
   is-production          = "false"
   team_name              = "webops"
   elasticsearch-domain   = "cloud-p-test"
-  namespace              = "abundant-namespace-test"
+  namespace              = "abundant-namespace-dev"
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
