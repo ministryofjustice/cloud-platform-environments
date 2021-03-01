@@ -14,7 +14,7 @@ module "probation_offender_search_event_queue" {
   {
     "deadLetterTargetArn": "${module.probation_offender_search_event_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
+
 EOF
 
 
@@ -47,7 +47,7 @@ resource "aws_sqs_queue_policy" "probation_offender_search_event_queue_policy" {
         }
       ]
   }
-   
+
 EOF
 
 }
@@ -103,6 +103,6 @@ resource "aws_sns_topic_subscription" "probation_offender_search_event_subscript
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.probation_offender_search_event_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\",\"OFFENDER_REGISTRATION_CHANGED\",\"OFFENDER_REGISTRATION_DEREGISTERED\",\"OFFENDER_REGISTRATION_DELETED\"]}"
+  filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\",\"OFFENDER_REGISTRATION_CHANGED\",\"OFFENDER_REGISTRATION_DEREGISTERED\",\"OFFENDER_REGISTRATION_DELETED\",\"OFFENDER_REGISTRATION_DELETED\",\"SENTENCE_CHANGED\",\"CONVICTION_CHANGED\"]}"
 }
 
