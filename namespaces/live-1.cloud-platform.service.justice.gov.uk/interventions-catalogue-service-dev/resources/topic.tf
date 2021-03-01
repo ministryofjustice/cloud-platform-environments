@@ -1,5 +1,5 @@
 module "intervention_reference_data_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.2"
 
   team_name          = var.team_name
   topic_display_name = "intervention-reference-data-events"
