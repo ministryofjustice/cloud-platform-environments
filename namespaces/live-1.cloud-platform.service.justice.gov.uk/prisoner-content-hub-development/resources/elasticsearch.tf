@@ -14,7 +14,7 @@ module "content_hub_elasticsearch" {
 }
 
 module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.2"
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
   ns_annotation_roles = [module.content_hub_elasticsearch.aws_iam_role_name]
   namespace           = var.namespace
 }
