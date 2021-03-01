@@ -1,5 +1,5 @@
 module "opseng_reports" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.4"
 
   team_name              = var.team_name
   application            = var.application
