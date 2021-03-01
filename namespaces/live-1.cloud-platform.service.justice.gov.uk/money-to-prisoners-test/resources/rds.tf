@@ -29,6 +29,7 @@ module "rds" {
   db_name              = "mtp_api"
 
   allow_major_version_upgrade = false
+  deletion_protection         = true
 }
 
 resource "kubernetes_secret" "rds" {
