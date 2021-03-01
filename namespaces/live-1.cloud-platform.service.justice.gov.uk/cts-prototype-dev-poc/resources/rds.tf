@@ -13,7 +13,7 @@ module "track_a_query_rds" {
   is-production              = "false"
   namespace                  = var.namespace
   db_engine                  = "postgres"
-  db_engine_version          = "9.5"
+  db_engine_version          = "12.5"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_poc"
   environment-name           = "development"
