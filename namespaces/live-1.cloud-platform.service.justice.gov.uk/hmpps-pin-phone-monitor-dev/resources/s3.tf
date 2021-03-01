@@ -1,5 +1,5 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -68,7 +68,7 @@ EOF
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -91,7 +91,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
