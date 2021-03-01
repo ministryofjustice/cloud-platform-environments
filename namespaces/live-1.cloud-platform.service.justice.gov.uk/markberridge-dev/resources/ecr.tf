@@ -5,7 +5,7 @@
  *
  */
 module "markberridge-dev-ecr-credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.3"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.4"
   repo_name = "markberridge-dev-repo"
   team_name = "markberridge-dev-team"
 
