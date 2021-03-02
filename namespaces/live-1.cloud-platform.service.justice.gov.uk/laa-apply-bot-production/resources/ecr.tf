@@ -1,5 +1,5 @@
 module "laa_apply_bot_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.3"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.4"
   repo_name = "laa-apply-bot"
   team_name = "laa-apply-for-legal-aid"
 

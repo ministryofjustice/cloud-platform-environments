@@ -11,7 +11,7 @@ variable "cluster_state_bucket" {
 }
 
 module "crime_portal_mirror_gateway_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13"
   cluster_name                 = var.cluster_name
   cluster_state_bucket         = var.cluster_state_bucket
   team_name                    = "probation-in-court"
