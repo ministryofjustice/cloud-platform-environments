@@ -1,6 +1,6 @@
 ################################################################################
 # Track a Query (Correspondence Tool Staff)
-# Application RDS (new) (PostgreSQL)
+# Application RDS (PostgreSQL)
 #################################################################################
 
 module "track_a_query_rds" {
