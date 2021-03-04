@@ -8,9 +8,10 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
-    pingdom = {
     random = {
       source = "hashicorp/random"
+    }
+    pingdom = {
       source = "russellcardullo/pingdom"
       version = "1.1.3"
     }
