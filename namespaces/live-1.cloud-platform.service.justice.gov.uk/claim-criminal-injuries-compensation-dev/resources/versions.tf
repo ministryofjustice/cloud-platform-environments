@@ -8,7 +8,7 @@ terraform {
       source = "hashicorp/kubernetes"
     }
     pingdom = {
-      source = "russellcardullo/pingdom"
+      source  = "russellcardullo/pingdom"
       version = "1.1.3"
     }
   }
