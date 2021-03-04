@@ -13,6 +13,5 @@ resource "pingdom_check" "contact-moj-production-cloud-platform-healthcheck" {
   port                     = 443
   tags                     = "businessunit_central_digital,application_contact-moj,component_healthcheck,isproduction_true,environment_prod,infrastructuresupport_staff_tools_and_services"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [98672, 103373]
 }

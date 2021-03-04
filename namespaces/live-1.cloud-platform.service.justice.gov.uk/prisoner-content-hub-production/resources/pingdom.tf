@@ -21,7 +21,6 @@ resource "pingdom_check" "prisoner-content-hub-production-checks" {
   port                     = 443
   tags                     = "businessunit_${var.business-unit},application_prisoner_content_hub,component_healthcheck,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  publicreport             = "true"
 
   integrationids = [
     106307 # #pfs_dev channel

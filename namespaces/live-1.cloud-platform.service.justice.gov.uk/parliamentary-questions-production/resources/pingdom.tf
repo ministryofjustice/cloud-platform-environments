@@ -13,6 +13,5 @@ resource "pingdom_check" "parliamentary-questions-production-cloud-platform-heal
   port                     = 443
   tags                     = "businessunit_central_digital,application_parliamentary_questions,component_healthcheck,isproduction_true,environment_prod,infrastructuresupport_staff_tools_and_services"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [100563, 98672]
 }

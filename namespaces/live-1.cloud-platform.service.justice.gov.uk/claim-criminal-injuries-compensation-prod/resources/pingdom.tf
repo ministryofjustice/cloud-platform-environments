@@ -15,6 +15,5 @@ resource "pingdom_check" "claim-criminal-injuries-compensation-prod" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  publicreport             = "true"
 }
 

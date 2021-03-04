@@ -14,7 +14,6 @@ resource "pingdom_check" "laa-legal-adviser-api-search" {
   port                     = 443
   tags                     = "businessunit_${lower(var.business-unit)},application_${lower(var.application)},component_ping,isproduction_${var.is-production},environment_${lower(var.environment-name)},infrastructuresupport_${lower(var.application)}"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [87631, 83320]
 }
 
@@ -31,7 +30,6 @@ resource "pingdom_check" "laa-legal-adviser-api-admin" {
   port                     = 443
   tags                     = "businessunit_${lower(var.business-unit)},application_${lower(var.application)},component_ping,isproduction_${var.is-production},environment_${lower(var.environment-name)},infrastructuresupport_${lower(var.application)}"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [87631, 83320]
 }
 
