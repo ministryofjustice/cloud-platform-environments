@@ -28,3 +28,11 @@ variable "cluster_state_bucket" {
 variable "namespace" {
   default = "formbuilder-saas-live"
 }
+
+variable "application" {
+  default = "MOJ Forms Editor"
+}
+
+variable "zone_name" {
+  default = "moj-forms-editor.service.justice.gov.uk"
+}
