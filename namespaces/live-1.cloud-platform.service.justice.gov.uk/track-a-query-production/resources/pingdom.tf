@@ -18,6 +18,5 @@ resource "pingdom_check" "track-a-query-production-healthcheck" {
   port                     = 443
   tags                     = "businessunit_central_digital,application_track_a_query,component_ping,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_track_a_query"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [110157, 98672]
 }

@@ -35,6 +35,5 @@ resource "pingdom_check" "fb_services_pingdom" {
   port                     = 443
   tags                     = local.names[count.index]
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [100321]
 }

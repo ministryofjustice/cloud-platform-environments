@@ -13,6 +13,5 @@ resource "pingdom_check" "dev-pk-poornima-dev-pingdom-check" {
   port                     = 443
   tags                     = "businessunit_platforms,application_poornima_dev_app,component_healthcheck,isproduction_false,environment_dev,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [111647]
 }

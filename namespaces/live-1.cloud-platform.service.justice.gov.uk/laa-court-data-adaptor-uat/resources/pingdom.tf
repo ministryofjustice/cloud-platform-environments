@@ -14,6 +14,5 @@ resource "pingdom_check" "laa-court-data-adaptor-uat" {
   port                     = 443
   tags                     = "businessunit_laa,application_court-data-adaptor,component_ping,isproduction_false,environment_uat"
   probefilters             = "region:EU"
-  publicreport             = "true"
   integrationids           = [104018]
 }

@@ -11,7 +11,6 @@ resource "pingdom_check" "money-to-prisoners-prod-send-money" {
   encryption   = true
   port         = 443
   probefilters = "region:EU"
-  publicreport = "false"
 
   stringtoexpect = "version_number" # a key that appears in ping.json
 
@@ -32,7 +31,6 @@ resource "pingdom_check" "money-to-prisoners-prod-start-page" {
   encryption   = true
   port         = 443
   probefilters = "region:EU"
-  publicreport = "false"
 
   stringtoexpect = "version_number" # a key that appears in ping.json
 
