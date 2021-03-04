@@ -1,5 +1,5 @@
 module "probation_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.0"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.1"
   cluster_name                    = var.cluster_name
   cluster_state_bucket            = var.cluster_state_bucket
   application                     = var.application
@@ -21,13 +21,13 @@ module "probation_offender_search_elasticsearch" {
 }
 
 module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.2"
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
   ns_annotation_roles = [module.probation_offender_search_elasticsearch.aws_iam_role_name]
   namespace           = var.namespace
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
