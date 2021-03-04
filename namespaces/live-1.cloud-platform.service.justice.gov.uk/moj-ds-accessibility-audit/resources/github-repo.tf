@@ -40,13 +40,6 @@ resource "github_repository" "prototype" {
   }
 }
 
-resource "github_branch_protection" "default" {
-  repository_id          = github_repository.prototype.id
-  pattern                = "main"
-  enforce_admins         = true
-  require_signed_commits = true
-}
-
 resource "github_team_repository" "prototype" {
   for_each   = local.teams
   team_id    = each.value.id
