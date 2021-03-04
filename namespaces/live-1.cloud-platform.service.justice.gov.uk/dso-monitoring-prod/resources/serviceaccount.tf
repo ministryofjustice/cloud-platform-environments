@@ -20,6 +20,7 @@ module "serviceaccount" {
         "configmaps",
       ]
       verbs = [
+        "update",
         "patch",
         "get",
         "create",

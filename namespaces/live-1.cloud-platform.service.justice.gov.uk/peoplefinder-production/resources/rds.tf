@@ -13,7 +13,7 @@ module "peoplefinder_rds" {
   is-production              = "true"
   namespace                  = var.namespace
   db_engine                  = "postgres"
-  db_engine_version          = "12.3"
+  db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment-name           = "production"

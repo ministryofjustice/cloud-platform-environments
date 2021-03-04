@@ -5,14 +5,11 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
-    helm = {
-      source = "hashicorp/helm"
-    }
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
     pingdom = {
-      source = "russellcardullo/pingdom"
+      source  = "russellcardullo/pingdom"
       version = "1.1.3"
     }
   }

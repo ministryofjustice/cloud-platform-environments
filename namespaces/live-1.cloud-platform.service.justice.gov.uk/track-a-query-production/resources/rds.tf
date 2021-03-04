@@ -4,29 +4,25 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
   cluster_name               = var.cluster_name
   cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "track-a-query"
-  is-production              = "false"
+  is-production              = "true"
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
-  db_name                    = "track_a_query_demo"
-  environment-name           = "demo"
+  db_name                    = "track_a_query_production"
+  environment-name           = "production"
   infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
 
   rds_family = "postgres12"
 
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-
-
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
 
   providers = {
     aws = aws.london
@@ -36,7 +32,7 @@ module "track_a_query_rds" {
 resource "kubernetes_secret" "track_a_query_rds" {
   metadata {
     name      = "track-a-query-rds-output"
-    namespace = "track-a-query-demo"
+    namespace = "track-a-query-production"
   }
 
   data = {
