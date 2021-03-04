@@ -49,7 +49,7 @@ class CpEnv
       rescue
         if (retries += 1) < 2
           tf_state_replace
-          retry 
+          retry
         end
       end
       tf_apply
@@ -88,11 +88,11 @@ class CpEnv
       execute("cd #{tf_dir}; #{cmd}")
     end
 
-    #terraform state replace-provider registry.terraform.io/-/pingdom registry.terraform.io/russellcardullo/pingdom
+    # terraform state replace-provider registry.terraform.io/-/pingdom registry.terraform.io/russellcardullo/pingdom
     def tf_state_replace
-      if terraform_executable.match(/terraform0.13/) &&  Dir.glob("#{tf_dir}/*pingdom*.tf").size>0
+      if terraform_executable.match(/terraform0.13/) && Dir.glob("#{tf_dir}/*pingdom*.tf").size > 0
         cmd = "#{terraform_executable} state replace-provider -auto-approve registry.terraform.io/-/pingdom registry.terraform.io/russellcardullo/pingdom"
-        log("blue", "replacing pingdom provider for namespace #{namespace} in #{cluster}") 
+        log("blue", "replacing pingdom provider for namespace #{namespace} in #{cluster}")
         execute("cd #{tf_dir}; #{cmd}")
       end
     end
