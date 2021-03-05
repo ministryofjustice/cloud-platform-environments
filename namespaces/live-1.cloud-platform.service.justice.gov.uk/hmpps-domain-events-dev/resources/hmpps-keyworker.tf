@@ -7,7 +7,7 @@ module "keyworker_api_queue" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = var.application
-  sqs_name                  = "keyworker_api_queue"
+  sqs_name                  = "keyworker_api_queue_complexity_of_need"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
@@ -61,7 +61,7 @@ module "keyworker_api_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "keyworker_api_queue_dl"
+  sqs_name               = "keyworker_api_queue_dl_complexity_of_need"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
