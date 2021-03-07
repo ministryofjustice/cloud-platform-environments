@@ -40,7 +40,7 @@ spec:
         severity: form-builder
     - alert: RDSLowStorage
       annotations:
-        message: "[{{ environment|upper }}] RDS free storage space is less than 100GB"
+        message: "RDS free storage space is less than 100GB"
       expr:
         aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} offset 10m < 100000000000 # Alarm if metadata api db size is near to 80% used space
       for: 5m
