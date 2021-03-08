@@ -12,7 +12,7 @@ module "hmpps_tier_offender_events_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
