@@ -18,6 +18,11 @@ variable "team_name" {
   default     = "Digital-Prison-Services"
 }
 
+variable "application" {
+  description = "The name of the application"
+  default     = "HMPPS-Audit-Service"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
