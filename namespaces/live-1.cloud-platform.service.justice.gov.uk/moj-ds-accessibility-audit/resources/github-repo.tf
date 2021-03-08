@@ -16,7 +16,7 @@ resource "github_repository" "prototype" {
   name                   = var.namespace
   description            = "Gov.UK Prototype Kit. This repository is defined and managed in Terraform"
   visibility             = "public"
-  has_issues             = false
+  has_issues             = true
   has_projects           = false
   has_wiki               = false
   has_downloads          = false
