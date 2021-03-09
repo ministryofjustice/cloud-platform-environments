@@ -17,7 +17,7 @@ module "test_es_1" {
   namespace                     = var.namespace
   elasticsearch_version         = "6.8"
   aws_es_proxy_service_name     = "aws-es-proxy-es-1"
-  s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
+  #s3_manual_snapshot_repository = module.es_snapshots_s3_bucket.bucket_arn
 }
 
 
