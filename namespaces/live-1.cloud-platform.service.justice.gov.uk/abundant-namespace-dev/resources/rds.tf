@@ -14,7 +14,7 @@ module "rds" {
 
   # change the postgres version as you see fit.
   db_engine_version           = "10"
-  allow_minor_version_upgrade = false
+  allow_minor_version_upgrade = true
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
 
