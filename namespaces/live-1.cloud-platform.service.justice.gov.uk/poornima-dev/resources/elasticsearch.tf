@@ -4,7 +4,7 @@
 #################################################################################
 
 module "test_es_1" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=fix-resource-expression"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.1"
   cluster_name              = var.cluster_name
   cluster_state_bucket      = var.cluster_state_bucket
   application               = "cloud-platform-esupg"
