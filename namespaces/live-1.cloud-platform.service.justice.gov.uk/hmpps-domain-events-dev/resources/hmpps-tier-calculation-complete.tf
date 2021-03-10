@@ -72,7 +72,7 @@ module "hmpps_tier_calculation_complete_dead_letter_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
   metadata {
-    name      = "sqs-delius-update-secret"
+    name      = "sqs-tier-to-delius-update-secret"
     namespace = "hmpps-tier-to-delius-update-dev"
   }
 
@@ -87,7 +87,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue" {
   metadata {
-    name      = "sqs-delius-update-dl-secret"
+    name      = "sqs-tier-to-delius-update-dl-secret"
     namespace = "hmpps-tier-to-delius-update-dev"
   }
 
