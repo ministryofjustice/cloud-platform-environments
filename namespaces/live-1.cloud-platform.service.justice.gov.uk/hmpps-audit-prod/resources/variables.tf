@@ -17,6 +17,11 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
+variable "application" {
+  description = "The name of the application"
+  default     = "HMPPS-Audit-Service"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Digital-Prison-Services"
