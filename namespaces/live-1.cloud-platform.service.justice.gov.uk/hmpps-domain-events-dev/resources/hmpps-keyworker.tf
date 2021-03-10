@@ -106,7 +106,7 @@ resource "aws_sns_topic_subscription" "keyworker_api_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.keyworker_api_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"new-complexity-of-need-level\"]}"
+  filter_policy = "{\"eventType\":[\"complexity-of-need.level.changed\"]}"
 }
 
 
