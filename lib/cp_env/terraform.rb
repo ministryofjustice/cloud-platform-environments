@@ -47,28 +47,11 @@ class CpEnv
 
     private
 
-    def terraform_executable
-      tf_versions = ["0.12", "0.13", "0.14"]
-
-      # check for the version number in  the versions.tf and choose the binary accordingly
-      if FileTest.exists?("#{tf_dir}/versions.tf")
-        File.readlines("#{tf_dir}/versions.tf").each do |line|
-          if /required_version/.match?(line)
-            tf_versions.each_with_index do |e, i|
-              if line.match?(e)
-                return "terraform#{e}"
-              end
-            end
-          end
-        end
-      end
-    end
-
     def tf_init
       key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
 
       cmd = [
-        %(#{terraform_executable} init),
+        %(terraform init),
         %(-backend-config="bucket=#{bucket}"),
         %(-backend-config="key=#{key}"),
         %(-backend-config="dynamodb_table=#{lock_table}"),
@@ -104,7 +87,7 @@ class CpEnv
       operation = opts.fetch(:operation)
       last = opts.fetch(:last)
 
-      "#{terraform_executable} #{operation} #{last}"
+      "terraform #{operation} #{last}"
     end
   end
 end
