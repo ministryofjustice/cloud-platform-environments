@@ -29,6 +29,38 @@ resource "aws_route53_record" "grafana_platform_amazonses_dkim_record" {
   records = ["${element(aws_ses_domain_dkim.grafana_platform.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
 
+resource "aws_route53_record" "hmpps_ems_ac_dev_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "acquisitive-crime.dev.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["TBC", "TBC", "TBC", "TBC"]
+}
+
+resource "aws_route53_record" "hmpps_ems_ac_test_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "acquisitive-crime.test.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["TBC", "TBC", "TBC", "TBC"]
+}
+
+resource "aws_route53_record" "hmpps_ems_ac_preprod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "acquisitive-crime.preprod.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["TBC", "TBC", "TBC", "TBC"]
+}
+
+resource "aws_route53_record" "hmpps_ems_ac_prod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "acquisitive-crime.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["TBC", "TBC", "TBC", "TBC"]
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
