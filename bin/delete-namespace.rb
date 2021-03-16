@@ -21,7 +21,9 @@
 #   export KUBECONFIG_S3_BUCKET=cloud-platform-concourse-kubeconfig
 #   export KUBECONFIG_S3_KEY=kubeconfig
 #   export KUBE_CONFIG=/tmp/kubeconfig
+#   export KUBE_CONFIG_PATH=/tmp/kubeconfig
 #   export KUBE_CTX=live-1.cloud-platform.service.justice.gov.uk
+
 
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
