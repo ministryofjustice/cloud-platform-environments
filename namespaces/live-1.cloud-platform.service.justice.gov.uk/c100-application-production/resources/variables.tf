@@ -1,5 +1,5 @@
 variable "team_name" {
-  default = "family-justice"
+  default = "sustainingdevs"
 }
 
 variable "environment-name" {
@@ -11,7 +11,7 @@ variable "is-production" {
 }
 
 variable "infrastructure-support" {
-  default = "Family Justice: family-justice-team@digital.justice.gov.uk"
+  default = "sustainingaccountnotifications@hmcts.net"
 }
 
 variable "application" {
