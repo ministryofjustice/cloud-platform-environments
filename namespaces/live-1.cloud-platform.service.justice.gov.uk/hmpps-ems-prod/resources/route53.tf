@@ -34,7 +34,7 @@ resource "aws_route53_record" "hmpps_ems_ac_dev_zone" {
   name    = "acquisitive-crime.dev.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["TBC", "TBC", "TBC", "TBC"]
+  records = ["ns-1536.awsdns-00.co.uk.", "ns-0.awsdns-00.com.", "ns-1024.awsdns-00.org.", "ns-512.awsdns-00.net."]
 }
 
 resource "aws_route53_record" "hmpps_ems_ac_test_zone" {
@@ -42,7 +42,7 @@ resource "aws_route53_record" "hmpps_ems_ac_test_zone" {
   name    = "acquisitive-crime.test.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["TBC", "TBC", "TBC", "TBC"]
+  records = ["ns-1536.awsdns-00.co.uk.", "ns-0.awsdns-00.com.", "ns-1024.awsdns-00.org.", "ns-512.awsdns-00.net."]
 }
 
 resource "aws_route53_record" "hmpps_ems_ac_preprod_zone" {
@@ -50,7 +50,7 @@ resource "aws_route53_record" "hmpps_ems_ac_preprod_zone" {
   name    = "acquisitive-crime.preprod.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["TBC", "TBC", "TBC", "TBC"]
+  records = ["ns-1536.awsdns-00.co.uk.", "ns-0.awsdns-00.com.", "ns-1024.awsdns-00.org.", "ns-512.awsdns-00.net."]
 }
 
 resource "aws_route53_record" "hmpps_ems_ac_prod_zone" {
@@ -58,7 +58,7 @@ resource "aws_route53_record" "hmpps_ems_ac_prod_zone" {
   name    = "acquisitive-crime.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["TBC", "TBC", "TBC", "TBC"]
+  records = ["ns-1536.awsdns-00.co.uk.", "ns-0.awsdns-00.com.", "ns-1024.awsdns-00.org.", "ns-512.awsdns-00.net."]
 }
 
 resource "kubernetes_secret" "route53_zone_sec" {
