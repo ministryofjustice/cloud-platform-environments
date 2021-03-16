@@ -24,7 +24,6 @@
 #   export KUBE_CONFIG_PATH=/tmp/kubeconfig
 #   export KUBE_CTX=live-1.cloud-platform.service.justice.gov.uk
 
-
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 namespace = ARGV.shift
