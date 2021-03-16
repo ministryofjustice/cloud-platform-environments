@@ -1,11 +1,9 @@
 # Prometheus Alerts
 #
-# https://user-guide.cloud-platform.service.justice.gov.uk/tasks.html#creating-your-own-custom-alerts
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html
 #
-# Note: we are using the `cloud-platform.justice.gov.uk/team-name` namespace annotation
-# to filter and trigger alerts in all our services (UCPD Cross Justice Delivery Team).
-# If the `team-name` changes, this file needs to be updated as well.
-# This file needs to be applied in just one namespace.
+# Note: we are using a regex in the namespace to filter and trigger alerts
+# in both, staging and production environments.
 #
 # To see the current alerts in this namespace:
 #   kubectl describe prometheusrule -n c100-application-production
@@ -24,10 +22,9 @@ spec:
   groups:
   - name: application-rules
     rules:
-    - alert: FJ-DeploymentReplicasMismatch
+    - alert: C100-DeploymentReplicasMismatch
       expr: >-
-        kube_deployment_spec_replicas{job="kube-state-metrics"}
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
+        kube_deployment_spec_replicas{job="kube-state-metrics", namespace=~"^c100-application.*"}
         != kube_deployment_status_replicas_available{job="kube-state-metrics"}
       for: 30m
       labels:
@@ -35,32 +32,27 @@ spec:
       annotations:
         message: Deployment `{{ $labels.deployment }}` has not matched the expected number of replicas for more than 30 mins.
 
-    - alert: FJ-JobFailed
+    - alert: C100-JobFailed
       expr: >-
-        kube_job_status_failed{job="kube-state-metrics"}
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
-        > 0
+        kube_job_status_failed{job="kube-state-metrics", namespace=~"^c100-application.*"} > 0
       for: 1h
       labels:
         severity: family-justice
       annotations:
         message: Job `{{ $labels.job_name }}` failed to complete.
 
-    - alert: FJ-NamespaceMissing
+    - alert: C100-NamespaceMissing
       expr: >-
-        absent(kube_namespace_created)
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
+        absent(kube_namespace_created{namespace=~"^c100-application.*"})
       for: 1m
       labels:
         severity: family-justice
       annotations:
         message: Namespace `{{ $labels.namespace }}` is missing.
 
-    - alert: FJ-ContainerRestarting
+    - alert: C100-ContainerRestarting
       expr: >-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[5m])
-        * on(namespace) group_left() kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"}
-        > 0
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"^c100-application.*"}[5m]) > 0
       for: 1m
       labels:
         severity: family-justice
@@ -71,15 +63,12 @@ spec:
     # Filter out errors 499 caused by client dropping the connection as these are normal, and 401 due to many
     # namespaces having http auth credentials.
     #
-    - alert: FJ-IncreasedHTTPErrors
+    - alert: C100-IncreasedHTTPErrors
       expr: >-
         100
-        * sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace=~".*-production$", status=~"400|40[2-9]|4[1-8][0-9]|49[0-8]|5.."}[5m]))
-        / sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace=~".*-production$"}[5m]))
-        * on(exported_namespace) group_left() label_replace(
-          kube_namespace_annotations{annotation_cloud_platform_justice_gov_uk_team_name="family-justice"},
-          "exported_namespace", "$1", "namespace", "(.+)"
-        ) > 3
+        * sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace="c100-application-production", status=~"400|40[2-9]|4[1-8][0-9]|49[0-8]|5.."}[5m]))
+        / sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace="c100-application-production"}[5m]))
+        > 3
       for: 10m
       labels:
         severity: family-justice
