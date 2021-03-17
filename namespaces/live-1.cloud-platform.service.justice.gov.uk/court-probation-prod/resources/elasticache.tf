@@ -1,8 +1,8 @@
 ################################################################################
-# Use of force Application Elasticache for ReDiS
+# Prepare a case Application Elasticache for ReDiS
 ################################################################################
 
-module "uof_elasticache_redis" {
+module "pac_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
   cluster_name           = var.cluster_name
   cluster_state_bucket   = var.cluster_state_bucket
@@ -22,16 +22,16 @@ module "uof_elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "uof_elasticache_redis" {
+resource "kubernetes_secret" "pac_elasticache_redis" {
   metadata {
-    name      = "uof-elasticache-redis"
+    name      = "pac-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.uof_elasticache_redis.primary_endpoint_address
-    auth_token               = module.uof_elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.uof_elasticache_redis.member_clusters)
+    primary_endpoint_address = module.pac_elasticache_redis.primary_endpoint_address
+    auth_token               = module.pac_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.pac_elasticache_redis.member_clusters)
   }
 }
 
