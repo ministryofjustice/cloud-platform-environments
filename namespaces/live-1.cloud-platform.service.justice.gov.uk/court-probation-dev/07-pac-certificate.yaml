@@ -4,7 +4,7 @@ metadata:
   name: prepare-a-case-dev.service.justice.gov.uk
   namespace: court-probation-dev
 spec:
-  secretName: court-probation-preprod-cert-secret
+  secretName: court-probation-dev-cert-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
