@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prepare-a-case-preprod.service.justice.gov.uk
+    - prepare-a-case-preprod.apps.live-1.cloud-platform.service.justice.gov.uk
