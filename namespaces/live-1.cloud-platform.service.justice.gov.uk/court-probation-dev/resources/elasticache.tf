@@ -24,7 +24,7 @@ module "pac_elasticache_redis" {
 
 resource "kubernetes_secret" "pac_elasticache_redis" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "pac-elasticache-redis"
     namespace = var.namespace
   }
 
