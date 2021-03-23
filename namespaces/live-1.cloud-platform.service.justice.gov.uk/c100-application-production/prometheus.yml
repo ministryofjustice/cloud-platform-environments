@@ -28,7 +28,7 @@ spec:
         != kube_deployment_status_replicas_available{job="kube-state-metrics"}
       for: 30m
       labels:
-        severity: family-justice
+        severity: c100-application
       annotations:
         message: Deployment `{{ $labels.deployment }}` has not matched the expected number of replicas for more than 30 mins.
 
@@ -37,7 +37,7 @@ spec:
         kube_job_status_failed{job="kube-state-metrics", namespace=~"^c100-application.*"} > 0
       for: 1h
       labels:
-        severity: family-justice
+        severity: c100-application
       annotations:
         message: Job `{{ $labels.job_name }}` failed to complete.
 
@@ -46,7 +46,7 @@ spec:
         absent(kube_namespace_created{namespace=~"^c100-application.*"})
       for: 1m
       labels:
-        severity: family-justice
+        severity: c100-application
       annotations:
         message: Namespace `{{ $labels.namespace }}` is missing.
 
@@ -55,7 +55,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"^c100-application.*"}[5m]) > 0
       for: 1m
       labels:
-        severity: family-justice
+        severity: c100-application
       annotations:
         message: Pod `{{ $labels.pod }}` has been restarting in `{{ $labels.namespace }}` for the last 5 minutes.
 
@@ -71,6 +71,6 @@ spec:
         > 3
       for: 10m
       labels:
-        severity: family-justice
+        severity: c100-application
       annotations:
         message: '{{ printf "%0.0f" $value }}% HTTP error rate in `{{ $labels.exported_namespace }}` for the last 10 minutes.'
