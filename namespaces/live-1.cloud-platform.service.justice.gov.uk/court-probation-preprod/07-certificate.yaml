@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: prepare-a-case-preprod.service.justice.gov.uk
+  name: court-probation-preprod-cert
   namespace: court-probation-preprod
 spec:
   secretName: court-probation-preprod-cert-secret
