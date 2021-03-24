@@ -38,3 +38,20 @@ spec:
       for: 5m
       labels:
         severity: form-builder-low-severity
+    - alert: RDSLowStorage
+      annotations:
+        message: "RDS free storage space is less than 1GB"
+      expr:
+        aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-39a50b9fc8f3c40b"} offset 10m < 1000000000 # Alarm if metadata api db size is near to 80% used space
+      for: 5m
+      labels:
+        severity: form-builder
+    - alert: FailedDelayedJobs
+      annotations:
+        message: A failed Delayed job has occured in test
+        runbook_url: https://ministryofjustice.github.io/fb-guide-and-runbook/troubleshooting/find-a-failed-submission/#delayed-job-failures
+      expr: |-
+        avg(delayed_jobs_failed{namespace="formbuilder-saas-test"}) > 0
+      for: 1m
+      labels:
+        severity: form-builder
