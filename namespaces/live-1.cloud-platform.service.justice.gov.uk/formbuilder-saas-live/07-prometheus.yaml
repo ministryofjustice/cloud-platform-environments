@@ -57,10 +57,18 @@ spec:
         severity: form-builder
     - alert: FailedDelayedJobs
       annotations:
-        message: A failed Delayed job has occured in live
+        message: Failed Delayed Job in {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})
         runbook_url: https://ministryofjustice.github.io/fb-guide-and-runbook/troubleshooting/find-a-failed-submission/#delayed-job-failures
       expr: |-
         avg(delayed_jobs_failed{namespace="formbuilder-saas-live"}) > 0
       for: 1m
+      labels:
+        severity: form-builder
+    - alert: KubeJobFailed
+      annotations:
+        message: Failed Cron Job in {{ $labels.namespace }}/{{ $labels.job_name }}
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+      expr: kube_job_status_failed{job="kube-state-metrics", namespace="formbuilder-saas-live"}  > 0
+      for: 1h
       labels:
         severity: form-builder
