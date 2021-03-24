@@ -54,4 +54,4 @@ spec:
         avg(delayed_jobs_failed{namespace="formbuilder-saas-test"}) > 0
       for: 1m
       labels:
-        severity: form-builder
+        severity: form-builder-low-severity
