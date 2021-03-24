@@ -55,3 +55,12 @@ spec:
       for: 1m
       labels:
         severity: form-builder
+    - alert: FailedDelayedJobs
+      annotations:
+        message: A failed Delayed job has occured in live
+        runbook_url: https://ministryofjustice.github.io/fb-guide-and-runbook/troubleshooting/find-a-failed-submission/#delayed-job-failures
+      expr: |-
+        avg(delayed_jobs_failed{namespace="formbuilder-saas-live"}) > 0
+      for: 1m
+      labels:
+        severity: form-builder
