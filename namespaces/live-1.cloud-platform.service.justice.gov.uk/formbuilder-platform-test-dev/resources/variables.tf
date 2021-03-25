@@ -1,4 +1,9 @@
-# auto-generated from fb-cloud-platforms-environments
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
+
 variable "environment-name" {
   default = "test-dev"
 }
