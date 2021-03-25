@@ -10,9 +10,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - staging.apply-for-legal-aid.service.justice.gov.uk/
+    - staging.apply-for-legal-aid.service.justice.gov.uk
   rules:
-  - host: staging.apply-for-legal-aid.service.justice.gov.uk/
+  - host: staging.apply-for-legal-aid.service.justice.gov.uk
     http:
       paths:
       - path: /
