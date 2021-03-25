@@ -30,16 +30,16 @@ resource "kubernetes_secret" "user-datastore-rds-aurora" {
   }
 
   data = {
-    rds_cluster_endpoint                = module.mojforms_rds_aurora.rds_cluster_endpoint
-    rds_cluster_reader_endpoint         = module.mojforms_rds_aurora.rds_cluster_reader_endpoint
-    db_cluster_identifier               = module.mojforms_rds_aurora.db_cluster_identifier
-    database_name                       = module.mojforms_rds_aurora.database_name
-    database_username                   = module.mojforms_rds_aurora.database_username
-    database_password                   = module.mojforms_rds_aurora.database_password
+    rds_cluster_endpoint        = module.mojforms_rds_aurora.rds_cluster_endpoint
+    rds_cluster_reader_endpoint = module.mojforms_rds_aurora.rds_cluster_reader_endpoint
+    db_cluster_identifier       = module.mojforms_rds_aurora.db_cluster_identifier
+    database_name               = module.mojforms_rds_aurora.database_name
+    database_username           = module.mojforms_rds_aurora.database_username
+    database_password           = module.mojforms_rds_aurora.database_password
 
-    access_key_id                       = module.mojforms_rds_aurora.access_key_id
-    secret_access_key                   = module.mojforms_rds_aurora.secret_access_key
-    url                                 = "postgres://${module.mojforms_rds_aurora.database_username}:${module.mojforms_rds_aurora.database_password}@${module.mojforms_rds_aurora.rds_cluster_endpoint}/${module.mojforms_rds_aurora.database_name}"
+    access_key_id     = module.mojforms_rds_aurora.access_key_id
+    secret_access_key = module.mojforms_rds_aurora.secret_access_key
+    url               = "postgres://${module.mojforms_rds_aurora.database_username}:${module.mojforms_rds_aurora.database_password}@${module.mojforms_rds_aurora.rds_cluster_endpoint}/${module.mojforms_rds_aurora.database_name}"
   }
 }
 
