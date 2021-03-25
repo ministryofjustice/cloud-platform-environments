@@ -9,7 +9,7 @@ module "mojforms_rds_aurora" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   engine                 = "aurora-postgresql"
-  engine_version         = "12.4"
+  engine_version         = "10.12"
   engine_mode            = "serverless"
   instance_type          = "db.t3.medium"
   storage_encrypted      = true
