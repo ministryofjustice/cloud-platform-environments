@@ -7,7 +7,11 @@ variable "cluster_state_bucket" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Electronic Monitoring Service"
+  default     = "HMPPS EMS Platform"
+}
+
+variable "domain" {
+  default = "em.service.justice.gov.uk"
 }
 
 variable "namespace" {
