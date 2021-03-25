@@ -1,9 +1,3 @@
-variable "cluster_name" {
-}
-
-variable "cluster_state_bucket" {
-}
-
 variable "environment-name" {
   default = "test-dev"
 }
