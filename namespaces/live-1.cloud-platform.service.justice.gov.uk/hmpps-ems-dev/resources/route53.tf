@@ -22,7 +22,7 @@ resource "aws_route53_zone" "route53_zone" {
 # }
 
 # # Acquisitive Crime Test
-# resource "aws_route53_record" "hmpps_ems_ac_dev_zone" {
+# resource "aws_route53_record" "hmpps_ems_ac_test_zone" {
 #   zone_id = aws_route53_zone.route53_zone.zone_id
 #   name    = "ac.test.${var.domain}"
 #   type    = "NS"
@@ -31,7 +31,7 @@ resource "aws_route53_zone" "route53_zone" {
 # }
 
 # # Acquisitive Crime PreProd
-# resource "aws_route53_record" "hmpps_ems_ac_dev_zone" {
+# resource "aws_route53_record" "hmpps_ems_ac_preprod_zone" {
 #   zone_id = aws_route53_zone.route53_zone.zone_id
 #   name    = "ac.preprod.${var.domain}"
 #   type    = "NS"
