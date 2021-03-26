@@ -29,37 +29,37 @@ resource "aws_route53_record" "grafana_platform_amazonses_dkim_record" {
   records = ["${element(aws_ses_domain_dkim.grafana_platform.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
 
-# resource "aws_route53_record" "hmpps_ems_mapping_dev_zone" {
-#   zone_id = aws_route53_zone.route53_zone.zone_id
-#   name    = "mapping.dev.${var.domain}"
-#   type    = "NS"
-#   ttl     = "600"
-#   records = ["TBC", "TBC", "TBC", "TBC"]
-# }
+resource "aws_route53_record" "hmpps_ems_mapping_dev_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "mapping.dev.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1001.awsdns-61.net.", "ns-1963.awsdns-53.co.uk.", "ns-376.awsdns-47.com.", "ns-1139.awsdns-14.org."]
+}
 
-# resource "aws_route53_record" "hmpps_ems_mapping_test_zone" {
-#   zone_id = aws_route53_zone.route53_zone.zone_id
-#   name    = "mapping.test.${var.domain}"
-#   type    = "NS"
-#   ttl     = "600"
-#   records = ["TBC", "TBC", "TBC", "TBC"]
-# }
+resource "aws_route53_record" "hmpps_ems_mapping_test_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "mapping.test.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-745.awsdns-29.net.", "ns-1943.awsdns-50.co.uk.", "ns-318.awsdns-39.com.", "ns-1433.awsdns-51.org."]
+}
 
-# resource "aws_route53_record" "hmpps_ems_mapping_preprod_zone" {
-#   zone_id = aws_route53_zone.route53_zone.zone_id
-#   name    = "mapping.pp.${var.domain}"
-#   type    = "NS"
-#   ttl     = "600"
-#   records = ["TBC", "TBC", "TBC", "TBC"]
-# }
+resource "aws_route53_record" "hmpps_ems_mapping_preprod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "mapping.pp.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-736.awsdns-28.net.", "ns-1564.awsdns-03.co.uk.", "ns-293.awsdns-36.com.", "ns-1090.awsdns-08.org."]
+}
 
-# resource "aws_route53_record" "hmpps_ems_mapping_prod_zone" {
-#   zone_id = aws_route53_zone.route53_zone.zone_id
-#   name    = "mapping.${var.domain}"
-#   type    = "NS"
-#   ttl     = "600"
-#   records = ["TBC", "TBC", "TBC", "TBC"]
-# }
+resource "aws_route53_record" "hmpps_ems_mapping_prod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "mapping.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-785.awsdns-34.net.", "ns-1610.awsdns-09.co.uk.", "ns-230.awsdns-28.com.", "ns-1150.awsdns-15.org."]
+}
 
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
