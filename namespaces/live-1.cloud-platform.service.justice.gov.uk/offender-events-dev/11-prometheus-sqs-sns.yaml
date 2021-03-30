@@ -19,4 +19,13 @@ spec:
       for: 15m
       labels:
         severity: digital-prison-service-dev
+    - alert: DEV-SQS-oldest-message-CFO
+      annotations:
+        message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.  https://grafana.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+      expr: |-
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="Digital-Prison-Services-prod-cfo_queue", queue_name!~".*_dl"} offset 5m) by (queue_name) > 2 * 60
+      for: 1m
+      labels:
+        severity: digital-prison-service-dev
+
 
