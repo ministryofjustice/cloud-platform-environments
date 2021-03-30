@@ -17,9 +17,8 @@ variable "cluster_state_bucket" {
  *
  */
 module "laa_crime_apps_team_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
   cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
   team_name            = "laa-crime-apps-team"
   business-unit        = "Crime Apps"
   application          = "laa-court-data-adaptor"

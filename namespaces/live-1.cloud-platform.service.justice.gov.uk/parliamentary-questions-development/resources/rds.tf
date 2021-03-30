@@ -6,7 +6,6 @@ module "rds_instance" {
   allow_major_version_upgrade = "true"
   application                 = var.application
   cluster_name                = var.cluster_name
-  cluster_state_bucket        = var.cluster_state_bucket
   db_backup_retention_period  = var.db_backup_retention_period
   db_engine                   = "postgres"
   db_engine_version           = "12"
@@ -16,7 +15,7 @@ module "rds_instance" {
   is-production               = var.is-production
   namespace                   = var.namespace
   rds_family                  = "postgres12"
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
   team_name                   = var.team_name
 }
 

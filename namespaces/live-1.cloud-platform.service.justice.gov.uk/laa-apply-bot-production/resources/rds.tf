@@ -5,10 +5,9 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
 
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "apply-for-legal-aid"
   business-unit          = "laa"
   application            = "laa-apply-bot"
