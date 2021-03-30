@@ -21,7 +21,6 @@ module "prison-visits-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
 
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "prison-visits-booking"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-staging"

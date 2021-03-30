@@ -2,7 +2,6 @@ module "drupal_rds" {
   # We need to use at least 5.4, which introduces support for MariaDB by making `custom_parameters` overridable.
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application

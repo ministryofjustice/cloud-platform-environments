@@ -6,7 +6,6 @@
 module "peoplefinder_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
   cluster_name               = var.cluster_name
-  cluster_state_bucket       = var.cluster_state_bucket
   team_name                  = "peoplefinder"
   business-unit              = "Central Digital"
   application                = "peoplefinder"

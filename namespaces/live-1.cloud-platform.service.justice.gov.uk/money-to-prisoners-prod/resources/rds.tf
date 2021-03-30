@@ -11,7 +11,6 @@ module "rds" {
   }
 
   cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
 
   team_name              = var.team_name
   business-unit          = var.business-unit

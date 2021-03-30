@@ -2,7 +2,6 @@ module "rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
 
   cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
 
   application            = var.application
   environment-name       = var.environment-name
@@ -34,7 +33,6 @@ module "rds-read-replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
 
   cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
 
   application            = var.application
   environment-name       = var.environment-name

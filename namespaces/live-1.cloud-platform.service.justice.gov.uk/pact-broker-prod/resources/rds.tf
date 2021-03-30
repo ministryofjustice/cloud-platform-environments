@@ -2,7 +2,6 @@ module "pact_broker_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
 
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   namespace              = var.namespace
   application            = var.application
   business-unit          = var.business_unit
