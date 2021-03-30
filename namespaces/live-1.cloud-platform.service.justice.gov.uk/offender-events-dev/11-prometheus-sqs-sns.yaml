@@ -20,6 +20,7 @@ spec:
       labels:
         severity: digital-prison-service-dev
     - alert: DEV-SQS-oldest-message
+      annotations:
         message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
