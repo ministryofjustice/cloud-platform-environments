@@ -23,8 +23,8 @@ module "mojforms_rds_aurora" {
     seconds_until_auto_pause = 300
     timeout_action           = "ForceApplyCapacityChange"
   }
-  cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
+  cluster_name         = var.cluster_name
+  cluster_state_bucket = var.cluster_state_bucket
 
   providers = {
     aws = aws.london
