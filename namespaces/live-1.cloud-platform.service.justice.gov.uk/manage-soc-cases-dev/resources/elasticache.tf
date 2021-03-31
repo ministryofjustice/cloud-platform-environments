@@ -3,9 +3,8 @@
 ################################################################################
 
 module "manage_soc_cases_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is-production

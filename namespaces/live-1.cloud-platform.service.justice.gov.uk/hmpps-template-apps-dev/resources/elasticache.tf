@@ -3,9 +3,8 @@
 ################################################################################
 
 module "hmpps_template_typescript_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   application            = "hmpps-template-typescript"
   environment-name       = var.environment
   is-production          = var.is_production
