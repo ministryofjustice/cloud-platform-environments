@@ -1,7 +1,6 @@
 module "celery-broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   application            = var.application
   is-production          = var.is-production

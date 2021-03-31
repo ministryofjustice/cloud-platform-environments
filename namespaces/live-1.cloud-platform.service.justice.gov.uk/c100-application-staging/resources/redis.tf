@@ -3,10 +3,9 @@
 ########################################################
 
 module "redis-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
 
-  cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
+  cluster_name = var.cluster_name
 
   application            = var.application
   environment-name       = var.environment-name

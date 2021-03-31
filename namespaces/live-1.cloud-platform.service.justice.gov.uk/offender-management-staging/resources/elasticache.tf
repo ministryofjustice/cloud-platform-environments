@@ -1,8 +1,7 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
   node_type              = "cache.m4.xlarge"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
   is-production          = var.is-production
