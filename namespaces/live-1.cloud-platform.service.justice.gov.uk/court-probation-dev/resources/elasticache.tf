@@ -3,7 +3,7 @@
 ################################################################################
 
 module "pac_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=4.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
   cluster_name           = var.cluster_name
   application            = var.application
   environment-name       = var.environment-name
