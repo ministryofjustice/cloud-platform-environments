@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "dps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.0"
   cluster_name           = var.cluster_name
   application            = var.application
   environment-name       = var.environment-name

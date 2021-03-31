@@ -5,7 +5,7 @@
  *
  */
 module "redis_elasticache" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.0"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business-unit
