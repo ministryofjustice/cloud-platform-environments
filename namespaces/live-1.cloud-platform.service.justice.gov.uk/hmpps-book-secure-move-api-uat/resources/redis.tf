@@ -1,5 +1,5 @@
 module "redis-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
 
   cluster_name = var.cluster_name
 
