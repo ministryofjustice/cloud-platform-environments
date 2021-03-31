@@ -35,7 +35,7 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 module "publisher-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=remote-state-replace"
 
-  cluster_name         = var.cluster_name
+  cluster_name           = var.cluster_name
   application            = "formbuilderpublisher"
   environment-name       = var.environment-name
   is-production          = var.is-production
