@@ -16,15 +16,16 @@ module "mojforms_rds_aurora" {
   apply_immediately      = true
   replica_scale_enabled  = false
   replica_count          = 0
-  scaling_configuration = {
+  force_ssl              = true
+  scaling_configuration  = {
     auto_pause               = true
     min_capacity             = 2
     max_capacity             = 16
     seconds_until_auto_pause = 300
     timeout_action           = "ForceApplyCapacityChange"
   }
-  cluster_name         = var.cluster_name
-  cluster_state_bucket = var.cluster_state_bucket
+  cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
 
   providers = {
     aws = aws.london
