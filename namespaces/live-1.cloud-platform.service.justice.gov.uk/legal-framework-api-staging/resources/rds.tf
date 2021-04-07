@@ -1,6 +1,6 @@
 
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.13.1"
   cluster_name         = var.cluster_name
   cluster_state_bucket = var.cluster_state_bucket
   team_name            = var.team_name
@@ -13,13 +13,13 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "11"
+  db_engine_version      = "10"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres11"
+  rds_family = "postgres10"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
