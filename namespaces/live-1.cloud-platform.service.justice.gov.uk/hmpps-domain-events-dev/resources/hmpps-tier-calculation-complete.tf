@@ -102,7 +102,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue"
 
 resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
   metadata {
-    name      = "hmpps-tier-sqs-tool-dead-letter-queue"
+    name      = "hmpps-tier-sqs-tool-main-queue"
     namespace = "hmpps-tier-to-delius-update-dev"
   }
 
