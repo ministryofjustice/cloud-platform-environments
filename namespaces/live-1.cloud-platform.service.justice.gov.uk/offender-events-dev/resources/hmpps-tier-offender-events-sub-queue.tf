@@ -99,7 +99,7 @@ resource "kubernetes_secret" "hmpps_tier_offender_events_dead_letter_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
   metadata {
-    name      = "hmpps-tier-offender-events-sqs-instance-output-sqs-tool"
+    name      = "hmpps-tier-sqs-tool-main-queue"
     namespace = "hmpps-tier-dev"
   }
 
@@ -114,7 +114,7 @@ resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_sqs_tool_dead_letter_queue" {
   metadata {
-    name      = "hmpps-tier-offender-events-sqs-dl-instance-output-sqs-tool"
+    name      = "hmpps-tier-sqs-tool-dead-letter-queue"
     namespace = "hmpps-tier-dev"
   }
   data = {
