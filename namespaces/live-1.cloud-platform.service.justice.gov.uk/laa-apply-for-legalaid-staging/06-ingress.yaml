@@ -6,13 +6,7 @@ metadata:
     kubernetes.io/ingress.class: "modsec01"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      SecAction \
-      "id:900000,\
-        phase:1,\
-        nolog,\
-        pass,\
-        t:none,\
-        setvar:tx.paranoia_level=2"
+      SecRuleEngine On
 spec:
   tls:
   - hosts:
