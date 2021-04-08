@@ -99,7 +99,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue"
     sqs_queue_name    = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_name
   }
 }
-      
+
 resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
   metadata {
     name      = "sqs-tier-to-delius-update-secret-sqs-tool"
@@ -128,7 +128,7 @@ resource "kubernetes_secret" "hmpps_tier_sqs_tool_dead_letter_queue" {
     sqs_queue_arn     = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_name
   }
-}      
+}
 
 resource "aws_sns_topic_subscription" "hmpps_tier_calculation_complete_subscription" {
   provider      = aws.london
