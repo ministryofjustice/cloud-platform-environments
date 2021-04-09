@@ -133,11 +133,3 @@ resource "aws_sns_topic_subscription" "hmpps_tier_offender_events_subscription" 
   endpoint      = module.hmpps_tier_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_MANAGEMENT_TIER_CALCULATION_REQUIRED\"]}"
 }
-
-resource "aws_sns_topic_subscription" "hmpps_tier_offender_events_subscription" {
-  provider      = aws.london
-  topic_arn     = module.probation_offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_tier_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"OFFENDER_MANAGEMENT_TIER_CALCULATION_REQUIRED\"]}"
-}
