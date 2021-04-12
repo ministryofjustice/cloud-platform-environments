@@ -58,19 +58,3 @@ spec:
         severity: family-justice
       annotations:
         message: Pod `{{ $labels.pod }}` has been restarting in `{{ $labels.namespace }}` for the last 5 minutes.
-
-    # This alert is only for production namespaces, as staging envs will easily trigger it and cause noise
-    # Filter out errors 499 caused by client dropping the connection as these are normal, and 401 due to many
-    # namespaces having http auth credentials.
-    #
-    - alert: FJ-DC-IncreasedHTTPErrors
-      expr: >-
-        100
-        * sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace="disclosure-checker-production", status=~"400|40[2-9]|4[1-8][0-9]|49[0-8]|5.."}[5m]))
-        / sum by(exported_namespace) (increase(nginx_ingress_controller_requests{exported_namespace="disclosure-checker-production"}[5m]))
-        > 3
-      for: 10m
-      labels:
-        severity: family-justice
-      annotations:
-        message: '{{ printf "%0.0f" $value }}% HTTP error rate in `{{ $labels.exported_namespace }}` for the last 10 minutes.'
