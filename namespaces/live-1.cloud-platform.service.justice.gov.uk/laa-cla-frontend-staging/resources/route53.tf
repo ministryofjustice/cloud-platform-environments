@@ -28,6 +28,7 @@ resource "aws_route53_record" "add_a_record" {
   type    = "A"
   alias {
     name                   = "dualstack.cla-front-elbprodf-1o815cnz2w3lh-1554019512.eu-west-1.elb.amazonaws.com."
+    zone_id                = "Z24D9N37DW2MHW"
     evaluate_target_health = true
   }
 }
