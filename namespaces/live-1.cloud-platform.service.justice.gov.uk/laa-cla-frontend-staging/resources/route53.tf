@@ -18,7 +18,7 @@ resource "kubernetes_secret" "cla_frontend_route53_zone_sec" {
   }
 
   data = {
-    zone_id   = aws_route53_zone.cla_frontend_staging_route53_zone.zone_id
+    zone_id = aws_route53_zone.cla_frontend_staging_route53_zone.zone_id
   }
 }
 
