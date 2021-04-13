@@ -2,7 +2,7 @@ module "cla_frontend_app_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
 
   team_name = var.team_name
-  repo_name = cla_frontend
+  repo_name = "cla_frontend"
 
   providers = {
     aws = aws.london
@@ -26,7 +26,7 @@ module "cla_frontend_socket_server_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
 
   team_name = var.team_name
-  repo_name = cla_frontend_socket_server
+  repo_name = "cla_frontend_socket_server"
 
   providers = {
     aws = aws.london
