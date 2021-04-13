@@ -23,12 +23,12 @@ resource "kubernetes_secret" "cla_frontend_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "add_a_record" {
-  name    = "cases.civillegaladvice.service.gov.uk"
+  name    = "."
   zone_id = aws_route53_zone.cla_frontend_route53_zone.zone_id
   type    = "A"
   alias {
     name                   = "dualstack.cla-front-elbprodf-1o815cnz2w3lh-1554019512.eu-west-1.elb.amazonaws.com."
-    zone_id                = "Z24D9N37DW2MHW"
+    zone_id                = aws_route53_zone.cla_frontend_route53_zone.zone_id
     evaluate_target_health = true
   }
 }
