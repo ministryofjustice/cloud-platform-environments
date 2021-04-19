@@ -65,6 +65,6 @@ spec:
        message: RDS {{ $labels.namespace }} contains undexpected data or applications in an unexpected state.
        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/tree/master/pushgateway#alert-name-unexpected-data-retention
       expr: cleardown_check{namespace="claim-criminal-injuries-compensation-dev", job="applications_not_deleted"} > 0
-      for: 2h
+      for: 1m
       labels:
         severity: cica-dev-team
