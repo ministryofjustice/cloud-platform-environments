@@ -19,3 +19,13 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# For Push gateway
+provider "kubernetes" {
+  version = "~> 1.11"
+}
+
+# For Push gateway
+provider "helm" {
+  kubernetes {
+  }
+}
