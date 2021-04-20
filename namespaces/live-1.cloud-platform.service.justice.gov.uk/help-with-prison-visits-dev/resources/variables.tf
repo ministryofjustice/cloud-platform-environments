@@ -30,3 +30,8 @@ variable "is_production" {
   default = "false"
 }
 
+variable "cluster_name" {
+}
+
+variable "cluster_state_bucket" {
+}
