@@ -8,6 +8,11 @@ module "serviceaccount" {
   serviceaccount_rules = [
     {
       api_groups = [""]
+      resources  = ["pods/exec"]
+      verbs      = ["create"]
+    },
+    {
+      api_groups = [""]
       resources = [
         "pods/portforward",
         "deployment",
