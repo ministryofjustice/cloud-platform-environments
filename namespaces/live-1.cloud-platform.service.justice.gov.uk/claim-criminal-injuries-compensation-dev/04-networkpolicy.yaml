@@ -34,11 +34,11 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: claim-criminal-injuries-compensation-dev-pushgateway
+      app: prometheus-pushgateway
   policyTypes:
     - Ingress
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              component: monitoring
+      - namespaceSelector:
+          matchLabels:
+            component: monitoring
