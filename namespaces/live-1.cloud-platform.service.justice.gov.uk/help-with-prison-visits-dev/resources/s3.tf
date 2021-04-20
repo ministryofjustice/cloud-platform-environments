@@ -4,7 +4,7 @@ module "hwpv_document_s3_bucket" {
   acl                    = "private"
   business-unit          = var.business-unit
   application            = var.application
-  is_production          = var.is_production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
