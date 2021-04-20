@@ -69,3 +69,9 @@ variable "cors_rule" {
   description = "cors rule"
   default     = []
 }
+
+# For Push gateway
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape"
+  default     = true
+}
