@@ -60,7 +60,7 @@ resource "kubernetes_secret" "hwpv_rds" {
 
 resource "kubernetes_secret" "hwpv_rds_sqlserver" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-sqlserver-instance-output"
     namespace = var.namespace
   }
 
