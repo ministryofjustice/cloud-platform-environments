@@ -26,7 +26,8 @@ module "hwpv_rds_sqlserver" {
   is-production          = var.is_production
   namespace              = var.namespace
   db_engine              = "sqlserver-se"
-  db_engine_version      = "15.00.4073.23.v1"
+  db_engine_version      = "15.00"
+  db_instance_class      = "db.m5.large"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
