@@ -66,7 +66,6 @@ resource "kubernetes_secret" "hwpv_rds_sqlserver" {
 
   data = {
     rds_instance_endpoint = module.hwpv_rds_sqlserver.rds_instance_endpoint
-    database_name         = module.hwpv_rds_sqlserver.database_name
     database_username     = module.hwpv_rds_sqlserver.database_username
     database_password     = module.hwpv_rds_sqlserver.database_password
     rds_instance_address  = module.hwpv_rds_sqlserver.rds_instance_address
