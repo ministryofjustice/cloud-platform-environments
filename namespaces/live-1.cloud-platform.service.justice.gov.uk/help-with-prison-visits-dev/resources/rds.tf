@@ -18,7 +18,7 @@ module "hwpv_rds" {
 }
 
 module "hwpv_rds_sqlserver" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=support_sqlserver"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -32,6 +32,7 @@ module "hwpv_rds_sqlserver" {
   infrastructure-support = var.infrastructure-support
   rds_family             = "sqlserver-se-15.0"
   db_parameter           = []
+  license_model          = "license-included"
 
   providers = {
     aws = aws.london
