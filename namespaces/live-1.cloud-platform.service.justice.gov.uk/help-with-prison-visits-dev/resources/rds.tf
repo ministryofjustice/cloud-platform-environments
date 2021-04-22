@@ -28,6 +28,7 @@ module "hwpv_rds_sqlserver" {
   db_engine              = "sqlserver-se"
   db_engine_version      = "15.00"
   db_instance_class      = "db.m5.large"
+  db_allocated_storage   = "200"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = "sqlserver-se-15.0"
