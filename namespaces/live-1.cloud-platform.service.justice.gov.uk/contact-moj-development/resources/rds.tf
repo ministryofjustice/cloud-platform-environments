@@ -4,7 +4,7 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.2"
   cluster_name               = var.cluster_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
