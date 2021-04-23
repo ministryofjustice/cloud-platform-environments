@@ -25,3 +25,20 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: claim-criminal-injuries-compensation-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: prometheus-pushgateway
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring

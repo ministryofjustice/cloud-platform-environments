@@ -1,0 +1,14 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: help-with-prison-visits-preprod-admin
+  namespace: help-with-prison-visits-preprod
+subjects:
+  - kind: Group
+    name: "github:hmpps-help-with-prison-visits"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

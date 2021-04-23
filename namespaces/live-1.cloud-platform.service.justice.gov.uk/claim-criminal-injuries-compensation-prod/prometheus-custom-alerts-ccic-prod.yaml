@@ -58,3 +58,11 @@ spec:
       for: 1h
       labels:
         severity: cica-dev-team
+    - alert: cica--Unexpected-Data-Retention--prod
+      annotations:
+        message: RDS {{ $labels.namespace }} has retained application data older than 30 minutes.
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/tree/master/pushgateway#alert-name-unexpected-data-retention
+      expr: cleardown_check{namespace="claim-criminal-injuries-compensation-prod", job="applications_not_deleted"} > 0
+      for: 1m
+      labels:
+        severity: cica-dev-team

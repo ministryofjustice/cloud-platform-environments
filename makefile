@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:1.18
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:1.31
 
 namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml
 	./bin/namespace-reporter.rb -o json -n '.*' > namespace-report.json
@@ -9,17 +9,24 @@ pull-tools:
 	@echo "Pulling Cloud Platform Tools docker image..."
 	@docker pull $(TOOLS_IMAGE) > /dev/null
 
-# Set an env. var called APPDIR to the source code directory
-# you want to mount into your tools shell
+# This will mount the tools shell with the root folder of cloud-platform-environments
+# Make sure you have the below env variables set before launching the tools shell
+# AWS_PROFILE, AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, KOPS_STATE_STORE
 tools-shell:
-	@make pull-tools
-	@docker run --rm -it \
-		-v $${APPDIR}:/app \
-		-v $${HOME}/.kube:/app/.kube \
-		-e KUBECONFIG=/app/.kube/config \
+	docker pull $(TOOLS_IMAGE)
+	docker run --rm -it \
+    -e AWS_PROFILE=$${AWS_PROFILE} \
+    -e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
+    -e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
+    -e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
+    -e KOPS_STATE_STORE=$${KOPS_STATE_STORE} \
+	-e KUBE_CONFIG_PATH=~/.kube/config \
+		-v $$(pwd):/app \
 		-v $${HOME}/.aws:/root/.aws \
 		-v $${HOME}/.gnupg:/root/.gnupg \
-		-w /app $(TOOLS_IMAGE) bash
+		-v $${HOME}/.docker:/root/.docker \
+		-w /app \
+		$(TOOLS_IMAGE) bash
 
 # Launch a tools shell on a pod in the cluster. This can be useful if e.g. you
 # need to run terraform code that manipulates an RDS database instance, since
