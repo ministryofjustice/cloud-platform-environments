@@ -35,6 +35,8 @@ resource "kubernetes_secret" "cccd_rds" {
   }
 
   data = {
+    access_key_id         = module.cccd_rds.access_key_id
+    secret_access_key     = module.cccd_rds.secret_access_key
     rds_instance_endpoint = module.cccd_rds.rds_instance_endpoint
     database_name         = module.cccd_rds.database_name
     database_username     = module.cccd_rds.database_username
