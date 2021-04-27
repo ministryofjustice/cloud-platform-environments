@@ -2,6 +2,7 @@ module "hwpv_document_s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
   team_name              = var.team_name
   acl                    = "private"
+  versioning             = true
   business-unit          = var.business-unit
   application            = var.application
   is-production          = var.is_production
@@ -14,9 +15,9 @@ module "hwpv_document_s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "hwpv_document_s3_bucket" {
+resource "kubernetes_secret" "hwpv_document_s3_bucket_admin" {
   metadata {
-    name      = "hwpv-document-s3-bucket-output"
+    name      = "hwpv-document-s3-admin"
     namespace = var.namespace
   }
 
