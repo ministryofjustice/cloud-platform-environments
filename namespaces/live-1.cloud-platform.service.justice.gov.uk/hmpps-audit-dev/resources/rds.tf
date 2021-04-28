@@ -10,7 +10,7 @@ module "hmpps_audit_rds" {
   infrastructure-support = var.infrastructure-support
 
   rds_family        = "postgres13"
-  db_engine_version = "13.2"
+  db_engine_version = "13"
 
   providers = {
     aws = aws.london
