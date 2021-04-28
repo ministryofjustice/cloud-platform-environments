@@ -28,3 +28,17 @@ resource "aws_route53_record" "caseworker-cname" {
   records = ["e0e8c2cb-80cc-4087-a192-3b8fb4b49b2a.cloudapp.net"]
 }
 
+resource "kubernetes_secret" "route53_zone" {
+  metadata {
+    name      = "route53-dns-zone-nameservers"
+    namespace = var.namespace
+    labels = {
+      "app.kubernetes.io/managed-by" = "terraform"
+    }
+  }
+
+  data = {
+    zone_id      = aws_route53_zone.route53_zone_hwpv.zone_id
+    name_servers = join(", ", aws_route53_zone.route53_zone_hwpv.name_servers)
+  }
+}
