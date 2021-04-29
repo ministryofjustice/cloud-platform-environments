@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: court-probation-preprod-cert
-  namespace: court-probation-prod
+  namespace: court-probation-preprod
 spec:
   secretName: court-probation-preprod-cert-secret
   issuerRef:
