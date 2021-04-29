@@ -5,7 +5,7 @@ metadata:
   namespace: court-probation-prod
 subjects:
   - kind: Group
-    name: "github:ndelius"
+    name: "github:probation-in-court"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
