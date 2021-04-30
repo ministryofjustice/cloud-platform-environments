@@ -9,9 +9,10 @@ module "hmpps_audit_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
-  db_instance_class = "db.t3.small"
-  rds_family        = "postgres13"
-  db_engine_version = "13"
+  allow_major_version_upgrade = "true"
+  db_instance_class           = "db.t3.small"
+  rds_family                  = "postgres13"
+  db_engine_version           = "13"
 
   providers = {
     aws = aws.london
