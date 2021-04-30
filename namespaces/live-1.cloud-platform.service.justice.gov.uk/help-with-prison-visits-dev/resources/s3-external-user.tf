@@ -24,6 +24,24 @@ data "aws_iam_policy_document" "hwpv-external" {
       "${module.hwpv_document_s3_bucket.bucket_arn}/*"
     ]
   }
+  statement {
+    effect = "Deny"
+
+    actions = ["s3:*"]
+
+    resources = [
+      module.hwpv_document_s3_bucket.bucket_arn,
+      "${module.hwpv_document_s3_bucket.bucket_arn}/*"
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values = [
+        "payments/"
+      ]
+    }
+  }
 }
 
 resource "aws_iam_user_policy" "hwpv-external-policy" {
