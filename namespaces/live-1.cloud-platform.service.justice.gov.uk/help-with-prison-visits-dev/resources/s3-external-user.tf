@@ -18,29 +18,16 @@ data "aws_iam_policy_document" "hwpv-external" {
       "s3:PutObject",
       "s3:DeleteObject"
     ]
-
     resources = [
-      module.hwpv_document_s3_bucket.bucket_arn,
       "${module.hwpv_document_s3_bucket.bucket_arn}/*"
     ]
   }
   statement {
-    effect = "Deny"
-
+    effect  = "Deny"
     actions = ["s3:*"]
-
     resources = [
-      module.hwpv_document_s3_bucket.bucket_arn,
-      "${module.hwpv_document_s3_bucket.bucket_arn}/*"
+      "${module.hwpv_document_s3_bucket.bucket_arn}/payments/*"
     ]
-
-    condition {
-      test     = "StringLike"
-      variable = "s3:prefix"
-      values = [
-        "payments/"
-      ]
-    }
   }
 }
 
