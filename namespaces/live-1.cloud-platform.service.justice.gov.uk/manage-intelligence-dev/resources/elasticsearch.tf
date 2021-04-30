@@ -11,7 +11,7 @@ module "manage_intelligence_elasticsearch" {
   team_name                       = var.team_name
   elasticsearch-domain            = "manage-intelligence"
   namespace                       = var.namespace
-  elasticsearch_version           = "7.9"
+  elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
   encryption_at_rest              = true
