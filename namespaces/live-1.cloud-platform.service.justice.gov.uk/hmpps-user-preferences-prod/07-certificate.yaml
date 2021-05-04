@@ -4,7 +4,7 @@ metadata:
   name: hmpps-user-preferences-cert
   namespace: hmpps-user-preferences-prod
 spec:
-  secretName: hmpps-user-preferences-cert-secret
+  secretName: hmpps-user-preferences-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
