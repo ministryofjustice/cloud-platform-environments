@@ -58,13 +58,15 @@ def main
   end
 
   namespaces_added.each do |ns|
-    puts [ns.date, ns.namespace, ns.author, ns.commit_id, is_production?(ns.namespace)].join(", ")
+    puts [ns.date, ns.namespace, ns.author, ns.commit_id, query_namespace?(ns.namespace)].join(", ")
   end
 end
 
-def is_production?(namespace)
+def query_namespace?(namespace)
   obj = YAML.load(File.read("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/00-namespace.yaml"))
-  obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
+  is_prod = obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
+  app = obj.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/application")
+  return app, is_prod
 rescue
   false
 end
