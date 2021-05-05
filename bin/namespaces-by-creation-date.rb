@@ -66,7 +66,7 @@ def query_namespace?(namespace)
   obj = YAML.load(File.read("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/00-namespace.yaml"))
   is_prod = obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
   app = obj.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/application")
-  return app, is_prod
+  [app, is_prod]
 rescue
   false
 end
