@@ -36,7 +36,7 @@ def main
   raise "Please run this script in an up to date copy of the main branch" unless git.current_branch == "main"
 
   # TODO iterate through *full* history programmatically.
-  #      Currently we just look a the last 5000 commits.
+  #      Currently we just look a the last 10000 commits.
   git.log(10000).each do |commit|
     next if commit.parent.nil?
 
