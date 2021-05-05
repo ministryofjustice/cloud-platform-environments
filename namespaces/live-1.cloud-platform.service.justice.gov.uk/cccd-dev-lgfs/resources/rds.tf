@@ -45,7 +45,7 @@ module "cccd_rds_restored" {
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
-  snapshot_identifier = "rds:preupgrade-cloud-platform-a149a0c2b2575f5f-9-6-20-to-13-1-1619451553557"
+  # snapshot_identifier = "rds:preupgrade-cloud-platform-a149a0c2b2575f5f-9-6-20-to-13-1-1619451553557"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
