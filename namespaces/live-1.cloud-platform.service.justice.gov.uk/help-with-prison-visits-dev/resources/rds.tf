@@ -18,7 +18,7 @@ module "hwpv_rds" {
 }
 
 module "hwpv_sqlserver" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=support_sqlserver"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business-unit
