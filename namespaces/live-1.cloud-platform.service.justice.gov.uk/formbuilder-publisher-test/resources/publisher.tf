@@ -1,5 +1,5 @@
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16"
 
   cluster_name               = var.cluster_name
   db_backup_retention_period = var.db_backup_retention_period
