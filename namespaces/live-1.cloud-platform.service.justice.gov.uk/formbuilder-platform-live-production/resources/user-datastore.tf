@@ -10,6 +10,8 @@ module "user-datastore-rds-instance" {
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
   db_engine_version          = "10"
+  db_instance_class          = "db.t3.large"
+  db_allocated_storage       = "100"
 
   providers = {
     aws = aws.london
