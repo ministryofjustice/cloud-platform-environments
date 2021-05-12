@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.5"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -9,14 +9,14 @@ module "rds_aurora" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   engine                 = "aurora-postgresql"
-  engine_version         = "11.8"
+  engine_version         = "12.4"
   engine_mode            = "provisioned"
   replica_count          = 1
   instance_type          = "db.t3.medium"
   storage_encrypted      = true
   apply_immediately      = true
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
+  allow_major_version_upgrade = true
 
   providers = {
     aws = aws.london
