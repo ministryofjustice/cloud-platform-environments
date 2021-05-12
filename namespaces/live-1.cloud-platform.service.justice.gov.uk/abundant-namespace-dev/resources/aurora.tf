@@ -18,6 +18,7 @@ module "aurora_db" {
   environment-name       = "development"
   infrastructure-support = "platforms@digital.justice.gov.uk"
 
+  allow_major_version_upgrade = "true"
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine
   engine = "aurora-postgresql"
 
