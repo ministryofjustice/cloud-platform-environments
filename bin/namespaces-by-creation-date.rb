@@ -36,8 +36,8 @@ def main
   raise "Please run this script in an up to date copy of the main branch" unless git.current_branch == "main"
 
   # TODO iterate through *full* history programmatically.
-  #      Currently we just look a the last 5000 commits.
-  git.log(5000).each do |commit|
+  #      Currently we just look a the last 10000 commits.
+  git.log(10000).each do |commit|
     next if commit.parent.nil?
 
     namespace = namespace_added_by_commit(git, commit)
@@ -58,13 +58,15 @@ def main
   end
 
   namespaces_added.each do |ns|
-    puts [ns.date, ns.namespace, ns.author, ns.commit_id, is_production?(ns.namespace)].join(", ")
+    puts [ns.date, ns.namespace, ns.author, ns.commit_id, query_namespace?(ns.namespace)].join(", ")
   end
 end
 
-def is_production?(namespace)
+def query_namespace?(namespace)
   obj = YAML.load(File.read("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}/00-namespace.yaml"))
-  obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
+  is_prod = obj.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
+  app = obj.dig("metadata", "annotations", "cloud-platform.justice.gov.uk/application")
+  [app, is_prod]
 rescue
   false
 end

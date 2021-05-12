@@ -1,5 +1,5 @@
 module "hmcts-complaints-adapter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.14.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16"
 
   cluster_name               = var.cluster_name
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
@@ -10,8 +10,10 @@ module "hmcts-complaints-adapter-rds-instance" {
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
 
-  db_engine_version = "11"
-  rds_family        = "postgres11"
+  db_engine_version    = "11"
+  rds_family           = "postgres11"
+  db_instance_class    = "db.t3.medium"
+  db_allocated_storage = "100"
 
   providers = {
     aws = aws.london

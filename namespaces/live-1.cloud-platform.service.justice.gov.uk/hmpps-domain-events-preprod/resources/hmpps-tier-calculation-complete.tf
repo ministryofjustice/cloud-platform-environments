@@ -11,6 +11,7 @@ module "hmpps_tier_calculation_complete_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  delay_seconds             = 2
 
   redrive_policy = <<EOF
   {
