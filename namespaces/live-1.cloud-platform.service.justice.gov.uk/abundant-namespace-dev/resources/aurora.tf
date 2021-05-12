@@ -8,9 +8,8 @@
 
 
 module "aurora_db" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=gmd-add-var-to-allow-major-version-upgrade"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "webops"
   business-unit          = "HQ"
   application            = "cloud platform"
@@ -19,6 +18,7 @@ module "aurora_db" {
   environment-name       = "development"
   infrastructure-support = "platforms@digital.justice.gov.uk"
 
+  allow_major_version_upgrade = "true"
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine
   engine = "aurora-postgresql"
 
