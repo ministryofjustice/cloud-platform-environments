@@ -8,8 +8,9 @@
 
 
 module "aurora_db" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=main"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=gmd-add-var-to-allow-major-version-upgrade"
   cluster_name           = var.cluster_name
+  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = "webops"
   business-unit          = "HQ"
   application            = "cloud platform"
