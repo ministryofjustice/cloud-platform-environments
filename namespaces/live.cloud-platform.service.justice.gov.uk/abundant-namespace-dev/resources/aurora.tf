@@ -14,10 +14,10 @@ module "aurora_db" {
   engine = "aurora-postgresql"
 
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine_version
-  engine_version         = "12.4"
+  engine_version = "12.4"
 
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine_mode
-  engine_mode            = "serverless"
+  engine_mode = "serverless"
 
   # If the rds_name is not specified a random name will be generated ( cloud-platform-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
