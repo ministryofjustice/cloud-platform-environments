@@ -51,10 +51,10 @@ EOF
 }
 
 resource "aws_sns_topic_subscription" "court-case-matcher-topic-subscription" {
-  provider      = aws.london
-  topic_arn     = module.court-case-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.court-case-matcher-queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.court-case-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.court-case-matcher-queue.sqs_arn
 }
 
 module "court-case-matcher-dead-letter-queue" {
