@@ -64,3 +64,48 @@ resource "kubernetes_config_map" "rds" {
 
   }
 }
+
+module "borgsql" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+
+  cluster_name           = var.cluster_name
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  namespace              = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+
+  # enable performance insights
+  performance_insights_enabled = true
+
+  db_engine                   = "sqlserver-ex"
+  db_engine_version           = "15.00.4073.23.v1"
+  db_instance_class           = "db.t3.medium"
+  db_allocated_storage        = 32
+  rds_family                  = "sqlserver-ex-15.0"
+  allow_minor_version_upgrade = true
+  allow_major_version_upgrade = false
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "borgsql" {
+  metadata {
+    name      = "borgsql-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    access_key_id         = module.rds.access_key_id
+    secret_access_key     = module.rds.secret_access_key
+  }
+}
