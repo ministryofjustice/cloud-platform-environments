@@ -39,7 +39,7 @@ resource "aws_sqs_queue_policy" "court-case-matcher-queue-policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${module.court_case_events.topic_arn}"
+                            "aws:SourceArn": "${module.court-case-events.topic_arn}"
                           }
                         }
         }
