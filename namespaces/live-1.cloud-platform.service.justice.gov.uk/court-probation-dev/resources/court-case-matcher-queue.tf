@@ -5,7 +5,7 @@ module "court-case-matcher-queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = "court-case-matcher"
-  sqs_name               = "court-list-queue"
+  sqs_name               = "court-case-matcher-queue"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
@@ -69,7 +69,7 @@ module "court-case-matcher-dead-letter-queue" {
 
 resource "kubernetes_secret" "court-case-matcher-queue-secret" {
   metadata {
-    name      = "court-list-queue-credentials"
+    name      = "court-case-matcher-queue-credentials"
     namespace = var.namespace
   }
 
@@ -85,7 +85,7 @@ resource "kubernetes_secret" "court-case-matcher-queue-secret" {
 
 resource "kubernetes_secret" "court-case-matcher-dead-letter-queue-secret" {
   metadata {
-    name      = "court-list-dead-letter-queue-credentials"
+    name      = "court-case-matcher-queue-dead-letter-queue-credentials"
     namespace = var.namespace
   }
 
