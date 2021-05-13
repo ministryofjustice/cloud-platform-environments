@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=live-vpc"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
