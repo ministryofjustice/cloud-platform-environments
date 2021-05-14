@@ -101,11 +101,11 @@ resource "kubernetes_secret" "borgsql" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
+    rds_instance_endpoint = module.borgsql.rds_instance_endpoint
+    database_username     = module.borgsql.database_username
+    database_password     = module.borgsql.database_password
+    rds_instance_address  = module.borgsql.rds_instance_address
+    access_key_id         = module.borgsql.access_key_id
+    secret_access_key     = module.borgsql.secret_access_key
   }
 }
