@@ -21,7 +21,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
       prefix  = "recordings/"
       expiration = [
         {
-          days = 10
+          days = 90
         },
       ]
     },
