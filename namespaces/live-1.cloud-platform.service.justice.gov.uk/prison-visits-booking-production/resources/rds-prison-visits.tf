@@ -18,7 +18,7 @@ variable "cluster_state_bucket" {
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
 
   cluster_name           = var.cluster_name
   team_name              = "prison-visits-booking"
