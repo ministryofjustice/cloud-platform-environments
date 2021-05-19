@@ -17,8 +17,8 @@ module "cccd_rds" {
   infrastructure-support      = var.infrastructure-support
   db_allocated_storage        = "50"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "9.6"
-  rds_family                  = "postgres9.6"
+  db_engine_version           = "13"
+  rds_family                  = "postgres13"
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
