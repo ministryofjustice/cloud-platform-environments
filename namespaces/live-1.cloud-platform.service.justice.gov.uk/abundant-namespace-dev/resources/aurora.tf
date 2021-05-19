@@ -8,7 +8,7 @@
 
 
 module "aurora_db" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=main"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.5"
   cluster_name           = var.cluster_name
   team_name              = "webops"
   business-unit          = "HQ"
