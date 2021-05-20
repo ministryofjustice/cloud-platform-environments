@@ -13,6 +13,7 @@ module "manage_intelligence_elasticsearch" {
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
+  instance_count                  = 4
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
 }
