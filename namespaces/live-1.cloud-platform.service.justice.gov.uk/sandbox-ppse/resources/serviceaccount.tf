@@ -42,6 +42,7 @@ module "serviceaccount" {
         "ingresses",
         "servicemonitors",
         "prometheusrules",
+        "replicasets",
       ]
       verbs = [
         "get",
