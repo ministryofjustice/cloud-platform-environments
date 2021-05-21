@@ -1,14 +1,14 @@
 module "test_dynamo_creation" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=dynamodb-autoscaler"
 
-  team_name              = "test_team"
-  business-unit          = "HQ"
-  application            = "cloud platform"
-  is-production          = "false"
-  environment-name       = "development"
-  infrastructure-support = "platforms@digtal.justice.gov.uk"
-  aws_region             = "eu-west-2"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  aws_region             = "eu-west-2"
 
   hash_key  = "id"
   range_key = "deleteBy"
