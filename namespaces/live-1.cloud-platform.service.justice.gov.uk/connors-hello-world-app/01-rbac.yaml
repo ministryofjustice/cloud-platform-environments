@@ -5,7 +5,7 @@ metadata:
   namespace: connors-hello-world-app
 subjects:
   - kind: Group
-    name: "github:connormaglynn"
+    name: "github:connors-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
