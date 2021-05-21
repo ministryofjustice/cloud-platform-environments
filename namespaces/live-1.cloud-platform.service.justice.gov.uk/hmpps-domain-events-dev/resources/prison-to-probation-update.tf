@@ -7,7 +7,7 @@ module "prison_to_probation_update_queue" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = var.application
-  sqs_name                  = "prison_to_probation_update_queue"
+  sqs_name                  = "prison_to_probation_update_hmpps_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
@@ -61,7 +61,7 @@ module "prison_to_probation_update_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "prison_to_probation_update_dlq"
+  sqs_name               = "prison_to_probation_update_hmpps_dlq"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
