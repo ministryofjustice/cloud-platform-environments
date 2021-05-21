@@ -27,4 +27,3 @@ resource "kubernetes_secret" "example_team_dynamodb" {
     secret_access_key = module.test_dynamo_creation.secret_access_key
   }
 }
-
