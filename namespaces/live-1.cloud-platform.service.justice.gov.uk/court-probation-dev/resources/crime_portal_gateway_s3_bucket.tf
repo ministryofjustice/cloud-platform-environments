@@ -12,6 +12,25 @@ module "crime-portal-gateway-s3-bucket" {
   providers = {
     aws = aws.london
   }
+
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-2d"
+      prefix                                 = "2d/"
+      abort_incomplete_multipart_upload_days = 2
+      expiration = [
+        {
+          days = 2
+        },
+      ]
+      noncurrent_version_expiration = [
+        {
+          days = 2
+        },
+      ]
+    },
+  ]
 }
 
 resource "kubernetes_secret" "crime-portal-gateway-s3-secret" {
