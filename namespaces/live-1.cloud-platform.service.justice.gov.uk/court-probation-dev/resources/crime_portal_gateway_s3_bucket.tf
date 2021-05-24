@@ -16,17 +16,16 @@ module "crime-portal-gateway-s3-bucket" {
   lifecycle_rule = [
     {
       enabled                                = true
-      id                                     = "expire-2d"
-      prefix                                 = "2d/"
-      abort_incomplete_multipart_upload_days = 2
+      id                                     = "expire-1d"
+      abort_incomplete_multipart_upload_days = 1
       expiration = [
         {
-          days = 2
+          days = 1
         },
       ]
       noncurrent_version_expiration = [
         {
-          days = 2
+          days = 1
         },
       ]
     },
