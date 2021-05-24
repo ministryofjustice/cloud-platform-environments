@@ -36,13 +36,13 @@ resource "kubernetes_secret" "aurora_db" {
   }
 
   data = {
-    rds_cluster_endpoint        = module.aurora_db.rds_cluster_endpoint
-    rds_cluster_reader_endpoint = module.aurora_db.rds_cluster_reader_endpoint
-    db_cluster_identifier       = module.aurora_db.db_cluster_identifier
-    database_name               = module.aurora_db.database_name
-    database_username           = module.aurora_db.database_username
-    database_password           = module.aurora_db.database_password
-    access_key_id               = module.aurora_db.access_key_id
-    secret_access_key           = module.aurora_db.secret_access_key
+    rds_cluster_endpoint        = module.test_aurora_creation.rds_cluster_endpoint
+    rds_cluster_reader_endpoint = module.test_aurora_creation.rds_cluster_reader_endpoint
+    db_cluster_identifier       = module.test_aurora_creation.db_cluster_identifier
+    database_name               = module.test_aurora_creation.database_name
+    database_username           = module.test_aurora_creation.database_username
+    database_password           = module.test_aurora_creation.database_password
+    access_key_id               = module.test_aurora_creation.access_key_id
+    secret_access_key           = module.test_aurora_creation.secret_access_key
   }
 }
