@@ -36,3 +36,6 @@ variable "is-production" {
   default = "false"
 }
 
+variable "number-cache-clusters" {
+  default = "2"
+}
