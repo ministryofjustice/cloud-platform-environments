@@ -1,5 +1,5 @@
 module "test_dynamo_creation" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.1.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.0"
 
   team_name              = "test_team"
   business-unit          = "HQ"
