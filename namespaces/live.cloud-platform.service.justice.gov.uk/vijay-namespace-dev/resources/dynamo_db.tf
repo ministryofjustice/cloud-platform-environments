@@ -1,5 +1,5 @@
 module "test_dynamo_creation" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=dynamodb-autoscaler"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.0"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
