@@ -41,7 +41,7 @@ resource "aws_sqs_queue_policy" "offender_events_ui_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${module.probation_offender_events.topic_arn}", "${data.hmpps-domain-events.topic_arn.arn}"]
+                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${module.probation_offender_events.topic_arn}", "${data.aws_sns_topic.hmpps-domain-events.arn}"]
                           }
                         }
         }
@@ -111,13 +111,13 @@ resource "aws_sns_topic_subscription" "ou_events_ui_probation_subscription" {
   endpoint  = module.offender_events_ui_queue.sqs_arn
 }
 
-data "hmpps-domain-events" "topic_arn" {
+data "aws_sns_topic" "hmpps-domain-events" {
   name = "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"
 }
 
 resource "aws_sns_topic_subscription" "ou_events_ui_domain_subscription" {
   provider  = aws.london
-  topic_arn = data.hmpps-domain-events.topic_arn.arn
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.offender_events_ui_queue.sqs_arn
 }
