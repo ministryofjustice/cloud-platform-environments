@@ -20,11 +20,9 @@ resource "kubernetes_secret" "example_amq_broker" {
     namespace = var.namespace
   }
   data = {
-    access_key_id     = module.test_amq_broker_creation.access_key_id
-    secret_access_key = module.test_amq_broker_creation.secret_access_key
-    # the above will not be set if existing_user_name is defined
-    sqs_id   = module.test_amq_broker_creation.sqs_id
-    sqs_arn  = module.test_amq_broker_creation.sqs_arn
-    sqs_name = module.test_amq_broker_creation.sqs_name
+    password     = module.test_amq_broker_creation.password
+    primary_amqp_ssl_endpoint = module.test_amq_broker_creation.primary_amqp_ssl_endpoint
+    primary_stomp_ssl_endpoint   = module.test_amq_broker_creation.primary_stomp_ssl_endpoint
+    username  = module.test_amq_broker_creation.username
   }
 }
