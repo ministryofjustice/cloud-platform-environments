@@ -1,5 +1,5 @@
 module "test_aurora_creation" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=live-vpc"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.6"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business_unit
