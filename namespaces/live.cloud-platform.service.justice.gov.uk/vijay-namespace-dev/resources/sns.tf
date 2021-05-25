@@ -11,7 +11,7 @@ module "test_sns_topic_creation" {
 
 resource "kubernetes_secret" "example_sns_topic" {
   metadata {
-    name      = "test_sns_topic_creation"
+    name      = "test-sns-topic-creation"
     namespace = var.namespace
   }
 
