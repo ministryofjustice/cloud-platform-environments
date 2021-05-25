@@ -10,12 +10,13 @@ module "test_amq_broker_creation" {
   namespace              = var.namespace
 
   providers = {
-    # This can be either "aws.london" or "aws.ireland:
-     aws = aws.london
+    aws = aws.london
+  }
+}
 
 resource "kubernetes_secret" "example_amq_broker" {
   metadata {
-    name      = "test-amq-broker-creation""
+    name      = "test-amq-broker-creation"
     namespace = var.namespace
   }
   data = {
