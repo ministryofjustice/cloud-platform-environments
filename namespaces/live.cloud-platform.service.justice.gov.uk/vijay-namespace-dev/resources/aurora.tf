@@ -1,22 +1,13 @@
-
-
-/*
- * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
- *
- */
-
-
-module "aurora_db" {
+module "test_aurora_creation" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=live-vpc"
   cluster_name           = var.cluster_name
-  team_name              = "webops"
-  business-unit          = "HQ"
-  application            = "cloud platform"
-  is-production          = "false"
-  namespace              = "abundant-namespace-dev"
-  environment-name       = "development"
-  infrastructure-support = "platforms@digital.justice.gov.uk"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  namespace              = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "true"
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine
@@ -38,22 +29,20 @@ module "aurora_db" {
   apply_immediately = true
 
 }
-
-
 resource "kubernetes_secret" "aurora_db" {
   metadata {
     name      = "example-team-rds-cluster-output"
-    namespace = "abundant-namespace-dev"
+    namespace = var.namespace
   }
 
   data = {
-    rds_cluster_endpoint        = module.aurora_db.rds_cluster_endpoint
-    rds_cluster_reader_endpoint = module.aurora_db.rds_cluster_reader_endpoint
-    db_cluster_identifier       = module.aurora_db.db_cluster_identifier
-    database_name               = module.aurora_db.database_name
-    database_username           = module.aurora_db.database_username
-    database_password           = module.aurora_db.database_password
-    access_key_id               = module.aurora_db.access_key_id
-    secret_access_key           = module.aurora_db.secret_access_key
+    rds_cluster_endpoint        = module.test_aurora_creation.rds_cluster_endpoint
+    rds_cluster_reader_endpoint = module.test_aurora_creation.rds_cluster_reader_endpoint
+    db_cluster_identifier       = module.test_aurora_creation.db_cluster_identifier
+    database_name               = module.test_aurora_creation.database_name
+    database_username           = module.test_aurora_creation.database_username
+    database_password           = module.test_aurora_creation.database_password
+    access_key_id               = module.test_aurora_creation.access_key_id
+    secret_access_key           = module.test_aurora_creation.secret_access_key
   }
 }
