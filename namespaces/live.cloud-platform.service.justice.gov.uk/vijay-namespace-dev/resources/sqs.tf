@@ -20,7 +20,7 @@ module "test_sqs_creation" {
 
 resource "kubernetes_secret" "example_sqs" {
   metadata {
-    name      = "test-sqs-creation""
+    name      = "test-sqs-creation"
     namespace = var.namespace
   }
 
