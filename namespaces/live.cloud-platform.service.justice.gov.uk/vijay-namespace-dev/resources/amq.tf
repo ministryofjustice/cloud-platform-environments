@@ -20,9 +20,9 @@ resource "kubernetes_secret" "example_amq_broker" {
     namespace = var.namespace
   }
   data = {
-    password     = module.test_amq_broker_creation.password
-    primary_amqp_ssl_endpoint = module.test_amq_broker_creation.primary_amqp_ssl_endpoint
-    primary_stomp_ssl_endpoint   = module.test_amq_broker_creation.primary_stomp_ssl_endpoint
-    username  = module.test_amq_broker_creation.username
+    password                   = module.test_amq_broker_creation.password
+    primary_amqp_ssl_endpoint  = module.test_amq_broker_creation.primary_amqp_ssl_endpoint
+    primary_stomp_ssl_endpoint = module.test_amq_broker_creation.primary_stomp_ssl_endpoint
+    username                   = module.test_amq_broker_creation.username
   }
 }
