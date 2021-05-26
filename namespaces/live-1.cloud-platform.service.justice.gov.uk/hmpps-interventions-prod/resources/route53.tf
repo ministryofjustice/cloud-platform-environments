@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "hmpps-interventions-prod" {
-  name = "refer-and-monitor.service.justice.gov.uk"
+  name = "refer-monitor-intervention.service.justice.gov.uk"
 
   tags = {
     team-name              = var.team_name
