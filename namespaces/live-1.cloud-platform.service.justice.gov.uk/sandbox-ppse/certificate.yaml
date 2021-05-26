@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - ppse-sample-ui-dev.hmpps.service.justice.gov.uk
+    - ppse-sample-service-dev.hmpps.service.justice.gov.uk
