@@ -5,7 +5,7 @@ metadata:
   namespace: sandbox-ppse
 subjects:
   - kind: Group
-    name: "github:ppse-devs"
+    name: "github:ppud-replacement-dev"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
