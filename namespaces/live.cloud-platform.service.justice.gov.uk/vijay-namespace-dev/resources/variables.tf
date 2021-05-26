@@ -1,8 +1,7 @@
-
-variable "cluster_name" {
+variable "cluster_state_bucket" {
 }
 
-variable "cluster_state_bucket" {
+variable "cluster_name" {
 }
 
 variable "application" {
