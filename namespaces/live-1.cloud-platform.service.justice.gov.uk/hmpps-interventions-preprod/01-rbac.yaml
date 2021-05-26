@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-interventions-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-interventions"
+    name: "github:interventions-ops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
