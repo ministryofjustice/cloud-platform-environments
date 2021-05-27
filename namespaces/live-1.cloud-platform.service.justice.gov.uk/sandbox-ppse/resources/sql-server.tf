@@ -10,9 +10,9 @@ module "sql-server-main" {
   # enable performance insights
   performance_insights_enabled = true
 
-
-  rds_family             = "sqlserver-ex"
-  db_engine_version      = "11"
+  db_engine              = "sqlserver-ee"
+  db_engine_version      = "11.00"
+  rds_family             = "sqlserver-ee-11.0"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
