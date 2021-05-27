@@ -9,7 +9,7 @@ module "sql-server-main" {
 
   db_engine              = "sqlserver-ee"
   db_engine_version      = "11.00"
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t3.xlarge"
   db_allocated_storage   = "20"
   db_parameter           = []
   license_model          = "license-included"
