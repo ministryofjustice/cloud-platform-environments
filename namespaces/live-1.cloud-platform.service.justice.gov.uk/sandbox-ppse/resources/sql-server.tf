@@ -7,17 +7,15 @@ module "sql-server-main" {
   is-production = var.is_production
   namespace     = var.namespace
 
-  # enable performance insights
-  performance_insights_enabled = true
-
   db_engine              = "sqlserver-ee"
   db_engine_version      = "11.00"
+  db_instance_class      = "db.t3.small"
+  db_allocated_storage   = "20"
+  db_parameter           = []
+  license_model          = "license-included"
   rds_family             = "sqlserver-ee-11.0"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
