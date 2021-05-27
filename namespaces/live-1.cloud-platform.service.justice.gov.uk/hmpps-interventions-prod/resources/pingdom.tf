@@ -1,6 +1,9 @@
 provider "pingdom" {
 }
 
+# integration IDs:
+# 114225 = Slack #interventions-alerts
+
 resource "pingdom_check" "interventions-prod-check" {
   type                     = "http"
   name                     = "HMPPS - refer-monitor-intervention.service.justice.gov.uk"
@@ -14,5 +17,5 @@ resource "pingdom_check" "interventions-prod-check" {
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = []
+  integrationids           = [114225]
 }
