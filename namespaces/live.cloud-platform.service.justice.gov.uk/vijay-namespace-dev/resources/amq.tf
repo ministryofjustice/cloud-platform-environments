@@ -1,5 +1,5 @@
 module "test_amq_broker_creation" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=update-vpc-cluster-details"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.4"
 
   cluster_name           = var.cluster_name
   team_name              = var.team_name
