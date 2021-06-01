@@ -3,7 +3,7 @@
 ##
 
 module "sql-server-main" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -61,7 +61,7 @@ resource "kubernetes_config_map" "sql-server-main" {
 ##
 
 module "sql-server-rr" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
