@@ -13,6 +13,16 @@ module "drupal_content_storage" {
   # so if this isn't set we get a 301 error when it tries to rebuild it
   namespace = var.namespace
 
+  # Add CORS rule to allow direct s3 file uploading with progress bar (in Drupal CMS).
+  cors_rule = [
+    {
+      allowed_headers = ["Accept", "Content-Type", "Origin"]
+      allowed_methods = ["GET", "PUT", "POST", "DELETE"]
+      allowed_origins = ["https://manage.content-hub.prisoner.service.justice.gov.uk"]
+      max_age_seconds = 3000
+    }
+  ]
+
   providers = {
     aws = aws.ireland
   }
