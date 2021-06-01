@@ -12,6 +12,14 @@ resource "aws_route53_zone" "route53_zone_hmpps" {
   }
 }
 
+# Record to prove control of domain for Maven Central verification (see https://central.sonatype.org/faq/how-to-set-txt-record/)
+resource "aws_route53_record" "hmpps_ossrh_identifier" {
+  name    = "hmpps.service.justice.gov.uk."
+  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
+  type    = "TXT"
+  records = ["OSSRH-69688"]
+  ttl     = "300"
+}
 
 # prod DNS record for Azure based Prison API
 resource "aws_route53_record" "hmpps-auth-prod" {
