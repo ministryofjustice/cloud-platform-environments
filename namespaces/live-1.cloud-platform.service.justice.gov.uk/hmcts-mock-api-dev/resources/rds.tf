@@ -5,7 +5,7 @@ variable "cluster_state_bucket" {
 }
 
 module "hmcts_mock_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
 
   cluster_name           = var.cluster_name
   team_name              = "laa-crime-apps-team"

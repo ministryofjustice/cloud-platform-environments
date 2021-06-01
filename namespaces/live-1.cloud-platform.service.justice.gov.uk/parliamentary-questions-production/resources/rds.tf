@@ -16,7 +16,7 @@ module "rds_instance" {
   is-production              = var.is-production
   namespace                  = var.namespace
   rds_family                 = "postgres12"
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   team_name                  = var.team_name
 
   providers = {
