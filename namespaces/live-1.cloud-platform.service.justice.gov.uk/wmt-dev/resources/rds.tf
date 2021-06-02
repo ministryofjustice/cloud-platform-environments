@@ -13,13 +13,13 @@ module "rds" {
   performance_insights_enabled = false
 
   # RDS SQL Server
-  db_engine              = "sqlserver-web"
-  db_engine_version      = "15.00"
-  rds_family             = "sqlserver-web-15.00"
-  db_parameter           = []
-  db_instance_class      = "db.t3.small"
-  db_allocated_storage   = "10"
-  license_model          = "license-included"
+  db_engine            = "sqlserver-web"
+  db_engine_version    = "15.00"
+  rds_family           = "sqlserver-web-15.00"
+  db_parameter         = []
+  db_instance_class    = "db.t3.small"
+  db_allocated_storage = "10"
+  license_model        = "license-included"
 
   providers = {
     aws = aws.london
