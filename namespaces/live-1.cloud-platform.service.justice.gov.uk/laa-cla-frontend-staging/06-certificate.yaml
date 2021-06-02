@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - staging.cases.civillegaladvice.service.gov.uk
+  
