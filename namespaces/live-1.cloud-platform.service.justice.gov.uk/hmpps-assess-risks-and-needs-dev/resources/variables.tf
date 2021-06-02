@@ -48,5 +48,5 @@ variable "rds_family" {
 }
 
 variable "domain" {
- default = "hmpps-assess-risks-and-needs-dev.service.justice.gov.uk"
+  default = "hmpps-assess-risks-and-needs-dev.service.justice.gov.uk"
 }
