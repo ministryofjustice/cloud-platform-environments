@@ -15,7 +15,7 @@ module "rds" {
   # RDS SQL Server
   db_engine            = "sqlserver-web"
   db_engine_version    = "15.00"
-  rds_family           = "sqlserver-web-15.00"
+  rds_family           = "sqlserver-web-15.0"
   db_parameter         = []
   db_instance_class    = "db.t3.small"
   db_allocated_storage = "10"
