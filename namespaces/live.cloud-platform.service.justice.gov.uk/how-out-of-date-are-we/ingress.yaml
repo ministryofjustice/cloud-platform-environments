@@ -6,9 +6,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - how-out-of-date-are-we.apps.live-1.cloud-platform.service.justice.gov.uk
+    - how-out-of-date-are-we.apps.live.cloud-platform.service.justice.gov.uk
   rules:
-    - host: how-out-of-date-are-we.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: how-out-of-date-are-we.apps.live.cloud-platform.service.justice.gov.uk
       http:
         paths:
         - path: /
