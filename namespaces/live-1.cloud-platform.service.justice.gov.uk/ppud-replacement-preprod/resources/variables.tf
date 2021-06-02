@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "ppud-replacement-dev"
+  default = "ppud-replacement-preprod"
 }
 
 variable "business_unit" {
@@ -38,7 +38,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "ppud-replacement-preprod"
+  default     = "ppud-replacement-devs"
 }
 
 variable "github_owner" {
