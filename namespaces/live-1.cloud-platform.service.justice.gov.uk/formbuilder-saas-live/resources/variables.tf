@@ -22,8 +22,6 @@ variable "infrastructure_support" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "namespace" {
   default = "formbuilder-saas-live"

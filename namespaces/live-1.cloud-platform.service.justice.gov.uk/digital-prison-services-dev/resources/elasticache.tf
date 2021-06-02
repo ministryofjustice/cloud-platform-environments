@@ -1,8 +1,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 module "dps_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"

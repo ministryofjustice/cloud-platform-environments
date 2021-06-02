@@ -2,8 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "domain" {
   default = "book-video-link.prison.service.justice.gov.uk"

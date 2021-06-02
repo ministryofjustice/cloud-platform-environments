@@ -9,8 +9,6 @@ variable "domain_audit_api" {
   default = "audit-api.hmpps.service.justice.gov.uk"
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."

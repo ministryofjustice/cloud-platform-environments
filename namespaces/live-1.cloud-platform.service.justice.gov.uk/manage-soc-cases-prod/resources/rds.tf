@@ -1,8 +1,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 resource "random_id" "id" {
   byte_length = 8
