@@ -38,7 +38,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "ppud-replacement-devs"
+  default     = "ppud-replacement-preprod"
 }
 
 variable "github_owner" {
