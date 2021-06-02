@@ -1,8 +1,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 /*
  * Make sure that you use the latest version of the module by changing the

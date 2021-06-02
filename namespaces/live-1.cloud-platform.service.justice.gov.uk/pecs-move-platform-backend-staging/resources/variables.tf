@@ -34,6 +34,4 @@ variable "aws_region" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 

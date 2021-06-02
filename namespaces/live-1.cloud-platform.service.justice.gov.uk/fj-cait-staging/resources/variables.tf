@@ -34,6 +34,4 @@ variable "repo_name" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 

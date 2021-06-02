@@ -26,6 +26,4 @@ provider "aws" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 

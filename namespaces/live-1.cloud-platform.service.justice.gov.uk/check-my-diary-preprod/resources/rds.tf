@@ -6,8 +6,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 module "checkmydiary_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"

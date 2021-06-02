@@ -42,5 +42,3 @@ variable "domain" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
