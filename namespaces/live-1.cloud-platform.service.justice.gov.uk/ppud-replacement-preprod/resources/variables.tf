@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "ppud-replacement-dev"
+  default = "ppud-replacement-preprod"
 }
 
 variable "business_unit" {
