@@ -18,7 +18,7 @@ module "rds" {
   rds_family           = "sqlserver-web-15.0"
   db_parameter         = []
   db_instance_class    = "db.t3.small"
-  db_allocated_storage = "10"
+  db_allocated_storage = "20"
   license_model        = "license-included"
 
   providers = {
