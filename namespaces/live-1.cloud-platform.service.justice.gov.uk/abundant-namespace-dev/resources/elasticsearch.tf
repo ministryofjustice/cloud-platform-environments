@@ -14,7 +14,7 @@ module "example_team_es" {
   infrastructure-support = "cloud-platform@digital.justice.gov.uk"
   is-production          = "false"
   team_name              = "webops"
-  elasticsearch-domain   = "cloud-vj-test"
+  elasticsearch-domain   = "cloud-p-test"
   namespace              = "abundant-namespace-dev"
 
   # change the elasticsearch version as you see fit.

@@ -15,7 +15,7 @@ module "eks_team_es" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-  elasticsearch-domain   = "cloud-p-test"
+  elasticsearch-domain   = "vj-test"
   irsa_enabled           = "true"
   assume_enabled         = "false"
 
