@@ -16,6 +16,7 @@ data "aws_iam_policy_document" "hwpv-external" {
   statement {
     actions = [
       "s3:PutObject",
+      "s3:GetObject",
       "s3:DeleteObject"
     ]
     resources = [
