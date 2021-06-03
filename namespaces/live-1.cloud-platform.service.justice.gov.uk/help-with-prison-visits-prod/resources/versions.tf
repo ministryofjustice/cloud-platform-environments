@@ -11,5 +11,9 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
+    pingdom = {
+      source  = "russellcardullo/pingdom"
+      version = "1.1.3"
+    }
   }
 }
