@@ -8,6 +8,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "ppud-replacement-devs"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "ppud-replacement-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "PPUD Replacement"
     cloud-platform.justice.gov.uk/owner: "PPUD Replacement: ken.friesen@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-recalls"
