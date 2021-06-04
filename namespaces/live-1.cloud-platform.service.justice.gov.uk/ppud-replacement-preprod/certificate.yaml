@@ -9,5 +9,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - manage-recalls-preprod.hmpps.service.justice.gov.uk
     - manage-recalls-ui-preprod.hmpps.service.justice.gov.uk
     - manage-recalls-api-preprod.hmpps.service.justice.gov.uk
