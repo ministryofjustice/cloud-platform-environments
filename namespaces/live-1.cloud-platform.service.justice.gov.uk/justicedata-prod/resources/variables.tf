@@ -52,3 +52,16 @@ variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
 }
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_PROD_NAMESPACE"
+}
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_PROD_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_PROD_TOKEN"
+}
