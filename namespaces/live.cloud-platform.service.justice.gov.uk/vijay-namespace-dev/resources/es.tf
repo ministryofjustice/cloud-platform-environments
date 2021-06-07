@@ -11,4 +11,6 @@ module "test_elasticsearch" {
   elasticsearch-domain   = "vv-test"
   namespace              = var.namespace
   instance_type          = "m5.large.elasticsearch"
+  irsa_enabled           = "true"
+  assume_enabled         = "false"
 }
