@@ -3,12 +3,12 @@ module "test_elasticsearch" {
 
   cluster_name           = var.cluster_name
   application            = var.application
-  business-unit          = var.business-unit
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  business-unit          = var.business_unit
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
   is-production          = var.is_production
   team_name              = var.team_name
   elasticsearch-domain   = "vv-test"
   namespace              = var.namespace
-  elasticsearch_version  = "7.10"
+  instance_type          = "m5.large.elasticsearch"
 }
