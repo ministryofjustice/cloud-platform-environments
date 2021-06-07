@@ -17,7 +17,7 @@ spec:
         sum by (namespace, pod) (kube_pod_status_phase{namespace="hmpps-interventions-prod", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
       for: 15m
       labels:
-        severity: interventions-prod
+        severity: hmpps-interventions-prod
     - alert: KubePodCrashLooping
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
@@ -26,7 +26,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="hmpps-interventions-prod"}[10m]) * 60 * 10 > 3
       for: 10m
       labels:
-        severity: interventions-prod
+        severity: hmpps-interventions-prod
     - alert: ErrorResponses
       annotations:
         message: Ingress {{ $labels.namespace }}/{{ $labels.ingress }} is serving 5xx responses
@@ -35,7 +35,7 @@ spec:
         avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="hmpps-interventions-prod", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
       for: 1m
       labels:
-        severity: interventions-prod
+        severity: hmpps-interventions-prod
     - alert: KubeJobFailed
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete
@@ -44,4 +44,4 @@ spec:
         kube_job_status_failed{job="kube-state-metrics", namespace="hmpps-interventions-prod"} > 0
       for: 10m
       labels:
-        severity: interventions-prod
+        severity: hmpps-interventions-prod
