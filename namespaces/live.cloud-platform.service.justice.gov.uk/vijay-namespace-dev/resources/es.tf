@@ -10,4 +10,5 @@ module "test_elasticsearch" {
   team_name              = var.team_name
   elasticsearch-domain   = "vv-test"
   namespace              = var.namespace
+  instance_type          = "m5.large.elasticsearch"
 }
