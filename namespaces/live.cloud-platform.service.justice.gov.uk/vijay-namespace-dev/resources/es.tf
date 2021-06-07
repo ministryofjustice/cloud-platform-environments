@@ -10,5 +10,4 @@ module "test_elasticsearch" {
   team_name              = var.team_name
   elasticsearch-domain   = "vv-test"
   namespace              = var.namespace
-  elasticsearch_version  = "7.10"
 }
