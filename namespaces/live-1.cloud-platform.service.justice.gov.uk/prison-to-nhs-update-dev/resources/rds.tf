@@ -1,9 +1,6 @@
-
-
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.12"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name           = var.cluster_name
-  cluster_state_bucket   = var.cluster_state_bucket
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
@@ -12,6 +9,9 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
+  db_instance_class = "db.t3.small"
+  rds_family        = "postgres13"
+  db_engine_version = "13"
 
   providers = {
     aws = aws.london
