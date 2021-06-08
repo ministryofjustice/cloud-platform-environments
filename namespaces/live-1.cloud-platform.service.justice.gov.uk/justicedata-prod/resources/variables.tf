@@ -14,6 +14,10 @@ variable "namespace" {
   default = "justicedata-prod"
 }
 
+variable "domain" {
+  default = "data.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -36,6 +40,11 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "true"
+}
+
+variable "owner" {
+  description = "Required by the route53"
+  default     = "ministryofjustice"
 }
 
 variable "slack_channel" {
@@ -64,4 +73,8 @@ variable "github_actions_secret_kube_cert" {
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_PROD_TOKEN"
+}
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the serviceaccount cluster"
+  default     = "KUBE_PROD_CLUSTER"
 }
