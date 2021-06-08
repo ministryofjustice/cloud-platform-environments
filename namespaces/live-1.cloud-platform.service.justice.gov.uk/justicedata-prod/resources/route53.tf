@@ -23,3 +23,47 @@ resource "kubernetes_secret" "justicedata_route53_zone_sec" {
     zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
   }
 }
+
+resource "aws_route53_record" "justicedata_route53_zone_a_1" {
+  zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
+  name    = "data.justice.gov.uk"
+  type    = "A"
+  records = ["51.179.195.142"]
+  ttl     = "300"
+}
+
+resource "aws_route53_zone" "justicedata_route53_zone_ns" {
+  name = "data.justice.gov.uk"
+}
+
+resource "aws_route53_record" "justicedata_route53_zone_ns" {
+  allow_overwrite = true
+  name            = "data.justice.gov.uk"
+  ttl             = 172800
+  type            = "NS"
+  zone_id         = aws_route53_zone.justicedata_route53_zone.zone_id
+
+  records = [
+    ns-1190.awsdns-20.org,
+    ns-100.awsdns-12.com,
+    ns-1715.awsdns-22.co.uk,
+    ns-1012.awsdns-62.net,
+  ]
+}
+
+resource "aws_route53_record" "justicedata_route53_zone_a_cname_1" {
+  name    = "data.justice.gov.uk"
+  zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
+  type    = "CNAME"
+  records = ["_0202d4e448b9dc698a779ca6faa760a8.data.justice.gov.uk"]
+  ttl     = "300"
+}
+
+resource "aws_route53_record" "justicedata_route53_zone_a_cname_2" {
+  name    = "data.justice.gov.uk"
+  zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
+  type    = "CNAME"
+  records = ["_6e66bde5693afcf24e3c6f6f1eb5d62a.data.justice.gov.uk"]
+  ttl     = "300"
+}
+
