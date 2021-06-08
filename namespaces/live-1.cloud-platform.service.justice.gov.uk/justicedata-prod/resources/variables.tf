@@ -14,6 +14,10 @@ variable "namespace" {
   default = "justicedata-prod"
 }
 
+variable "domain" {
+  default = "data.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -36,6 +40,11 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "true"
+}
+
+variable "owner" {
+  description = "Required by the route53"
+  default     = "ministryofjustice"
 }
 
 variable "slack_channel" {
