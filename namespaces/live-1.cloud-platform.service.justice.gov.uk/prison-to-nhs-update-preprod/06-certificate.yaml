@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-to-nhs-update-cert
+  namespace: prison-to-nhs-update-preprod
+spec:
+  secretName: prison-to-nhs-update-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prison-to-nhs-update-preprod.prison.service.justice.gov.uk
