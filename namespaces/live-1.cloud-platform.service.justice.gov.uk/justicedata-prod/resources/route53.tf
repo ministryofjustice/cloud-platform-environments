@@ -42,28 +42,21 @@ resource "aws_route53_record" "justicedata_route53_zone_ns" {
   ttl             = 172800
   type            = "NS"
   zone_id         = aws_route53_zone.justicedata_route53_zone.zone_id
-
-  records = [
-    ns-1190.awsdns-20.org,
-    ns-100.awsdns-12.com,
-    ns-1715.awsdns-22.co.uk,
-    ns-1012.awsdns-62.net,
-  ]
 }
 
-resource "aws_route53_record" "justicedata_route53_zone_a_cname_1" {
-  name    = "data.justice.gov.uk"
+resource "aws_route53_record" "justicedata_route53_zone_cname0_record" {
+  name    = "_0202d4e448b9dc698a779ca6faa760a8.$var.domain"
   zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
   type    = "CNAME"
-  records = ["_0202d4e448b9dc698a779ca6faa760a8.data.justice.gov.uk"]
+  records = ["F5C15BF318A1459FA7FD064E46A8C336.4651BB299FC506838CC583D3533979EF.22ab6168adc1c019f687.comodoca.com."]
   ttl     = "300"
 }
 
-resource "aws_route53_record" "justicedata_route53_zone_a_cname_2" {
-  name    = "data.justice.gov.uk"
+resource "aws_route53_record" "justicedata_route53_zone_cname1_record" {
+  name    = "_6e66bde5693afcf24e3c6f6f1eb5d62a.$var.domain"
   zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
   type    = "CNAME"
-  records = ["_6e66bde5693afcf24e3c6f6f1eb5d62a.data.justice.gov.uk"]
+  records = ["27D48CD4FAA246277AD492FE0854993E.949CF41E1AFB5F686396AA072AB12A09.21c34fc0440021bd4f98.comodoca.com."]
   ttl     = "300"
 }
 
