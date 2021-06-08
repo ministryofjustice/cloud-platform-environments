@@ -20,6 +20,6 @@ resource "kubernetes_secret" "justicedata_route53_zone_sec" {
   }
 
   data = {
-    zone_id   = aws_route53_zone.justicedata_route53_zone.zone_id
+    zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
   }
 }
