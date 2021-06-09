@@ -18,6 +18,10 @@ module "dps_rds" {
   }
 }
 
+resource "random_id" "prison_to_nhs_role_password" {
+  byte_length = 32
+}
+
 resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "dps-rds-instance-output"
@@ -32,5 +36,6 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.dps_rds.rds_instance_address
     access_key_id         = module.dps_rds.access_key_id
     secret_access_key     = module.dps_rds.secret_access_key
+    prison_to_nhs_update_password = random_id.prison_to_nhs_role_password.b64_std
   }
 }
