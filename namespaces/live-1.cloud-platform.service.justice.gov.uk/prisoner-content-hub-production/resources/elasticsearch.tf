@@ -11,7 +11,7 @@ module "content_hub_elasticsearch" {
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
   ebs_volume_size        = 50
-  instance_type          = "t3.small.elasticsearch"
+  instance_type          = "t3.medium.elasticsearch"
 }
 
 module "ns_annotation" {
