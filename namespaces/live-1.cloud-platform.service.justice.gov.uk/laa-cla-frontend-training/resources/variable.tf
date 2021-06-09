@@ -27,7 +27,7 @@ variable "environment-name" {
 }
 
 variable "is-production" {
-  default = "false"
+  default = "true"
 }
 
 variable "infrastructure-support" {
