@@ -10,7 +10,7 @@ module "content_hub_elasticsearch" {
   elasticsearch-domain   = "hub-search"
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
-  instance_type          = "t3.small.elasticsearch"
+  instance_type          = "t2.small.elasticsearch"
 }
 
 module "ns_annotation" {

@@ -15,7 +15,7 @@ module "peoplefinder_es" {
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-production"
   elasticsearch_version  = "6.8"
-  instance_type          = "t3.small.elasticsearch"
+  instance_type          = "t2.small.elasticsearch"
 }
 
 module "ns_annotation" {
