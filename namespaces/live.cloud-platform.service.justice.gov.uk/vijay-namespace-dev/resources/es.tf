@@ -1,5 +1,5 @@
 module "test_elasticsearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=es-eks-irsa"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.0"
 
   cluster_name           = var.cluster_name
   application            = var.application
