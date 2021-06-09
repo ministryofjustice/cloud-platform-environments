@@ -7,12 +7,14 @@
 module "elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
 
-  cluster_name  = var.cluster_name
-  team_name     = var.team_name
-  business-unit = var.business_unit
-  application   = var.application
-  is-production = var.is_production
-  namespace     = var.namespace
+  cluster_name           = var.cluster_name
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  namespace              = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   providers = {
     aws = aws.london
