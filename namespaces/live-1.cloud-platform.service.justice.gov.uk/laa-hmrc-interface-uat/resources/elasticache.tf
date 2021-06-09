@@ -15,6 +15,8 @@ module "elasticache" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  engine_version         = "4.0.10"
+  parameter_group_name   = "default.redis4.0"
 
   providers = {
     aws = aws.london
@@ -31,6 +33,7 @@ resource "kubernetes_secret" "elasticache" {
     primary_endpoint_address = module.elasticache.primary_endpoint_address
     member_clusters          = jsonencode(module.elasticache.member_clusters)
     auth_token               = module.elasticache.auth_token
+    redis_url                = "rediss://:${module.elasticache.auth_token}@${module.elasticache.primary_endpoint_address}:6379"
   }
 }
 
