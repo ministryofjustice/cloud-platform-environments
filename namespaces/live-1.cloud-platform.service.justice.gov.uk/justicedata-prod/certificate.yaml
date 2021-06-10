@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: justicedata-certificate
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
     - data.justice.gov.uk
