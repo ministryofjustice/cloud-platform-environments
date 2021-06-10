@@ -33,9 +33,3 @@ variable "is_production" {
 variable "cluster_name" {
 }
 
-variable "number_cache_clusters" {
-  description = "The number of cache clusters (primary and replicas) this replication group will have. Default is 2"
-  type        = string
-  default     = "2"
-}
-
