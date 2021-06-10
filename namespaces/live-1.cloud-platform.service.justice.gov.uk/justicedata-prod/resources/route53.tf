@@ -24,14 +24,6 @@ resource "kubernetes_secret" "justicedata_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "justicedata_route53_zone_a_1" {
-  zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
-  name    = "data.justice.gov.uk"
-  type    = "A"
-  records = ["51.179.195.142"]
-  ttl     = "300"
-}
-
 resource "aws_route53_record" "justicedata_route53_zone_cname0_record" {
   name    = "_0202d4e448b9dc698a779ca6faa760a8.${var.domain}"
   zone_id = aws_route53_zone.justicedata_route53_zone.zone_id
