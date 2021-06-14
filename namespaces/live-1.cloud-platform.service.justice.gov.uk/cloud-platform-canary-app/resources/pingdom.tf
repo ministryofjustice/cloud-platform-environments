@@ -13,4 +13,3 @@ resource "pingdom_check" "cloud-platform-canary" {
   probefilters             = "region:EU"
   integrationids           = [90339]
 }
-
