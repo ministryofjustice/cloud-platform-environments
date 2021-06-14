@@ -9,6 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
+  description = "namespace name"
   default = "cloud-platform-reference-app"
 }
 
