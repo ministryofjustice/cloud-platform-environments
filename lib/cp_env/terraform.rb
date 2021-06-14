@@ -10,6 +10,7 @@ class CpEnv
 
       @bucket = ENV.fetch("PIPELINE_STATE_BUCKET")
       @key_prefix = ENV.fetch("PIPELINE_STATE_KEY_PREFIX")
+      @cluster_state = ENV.fetch("PIPELINE_CLUSTER_STATE")
       @lock_table = ENV.fetch("PIPELINE_TERRAFORM_STATE_LOCK_TABLE")
       @region = ENV.fetch("PIPELINE_STATE_REGION")
 
@@ -48,7 +49,7 @@ class CpEnv
     private
 
     def tf_init
-      key = "#{key_prefix}#{cluster}/#{namespace}/terraform.tfstate"
+      key = "#{key_prefix}#{cluster_state}/#{namespace}/terraform.tfstate"
 
       cmd = [
         %(terraform init),
