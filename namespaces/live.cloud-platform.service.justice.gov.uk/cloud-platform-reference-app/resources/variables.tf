@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default     = "cloud-platform-reference-app"
+  default = "cloud-platform-reference-app"
 }
 
 variable "business_unit" {
