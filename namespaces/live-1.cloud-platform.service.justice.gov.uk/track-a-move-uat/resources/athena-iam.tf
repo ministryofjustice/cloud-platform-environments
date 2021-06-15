@@ -17,10 +17,12 @@ data "aws_iam_policy_document" "athena" {
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
+      "s3:ListBucketMultipartUploads",
       "s3:ListMultipartUploadParts",
       "athena:GetWorkGroup",
       "s3:PutObject",
       "s3:GetObject",
+      "s3:GetBucketLocation",
       "s3:ListBucket",
       "s3:DescribeJob",
       "s3:AbortMultipartUpload",
