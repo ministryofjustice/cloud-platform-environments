@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "hmpps-pin-phone-monitor.prison.service.justice.gov.uk"
+  default = "pin-phone-monitor.prison.service.justice.gov.uk"
 }
 
 variable "application" {
