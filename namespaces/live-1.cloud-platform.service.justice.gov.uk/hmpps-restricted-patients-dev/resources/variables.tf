@@ -3,11 +3,11 @@ variable "domain" {
 }
 
 variable "application" {
-  default = "restricted-patients-api"
+  default = "hmpps-restricted-patients-api"
 }
 
 variable "namespace" {
-  default = "restricted-patients-api-dev"
+  default = "hmpps-restricted-patients-api-dev"
 }
 
 variable "business-unit" {
