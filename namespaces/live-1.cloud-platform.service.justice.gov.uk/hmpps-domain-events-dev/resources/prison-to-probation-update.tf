@@ -106,7 +106,7 @@ resource "aws_sns_topic_subscription" "prison_to_probation_update_subscription" 
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prison_to_probation_update_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"PRISONER_RELEASED\", \"PRISONER_RECEIVED\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
 }
 
 
