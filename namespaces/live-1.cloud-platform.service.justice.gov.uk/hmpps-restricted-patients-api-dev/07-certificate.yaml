@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: restricted-patients-api-dev.service.justice.gov.uk
-  namespace: restricted-patients-api-dev
+  namespace: hmpps-restricted-patients-api-dev
 spec:
   secretName: restricted-patients-api-cert
   issuerRef:
