@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "restricted-patients-api-dev.service.justice.gov.uk"
+  default = "restricted-patients-api.dev.service.justice.gov.uk"
 }
 
 variable "application" {
