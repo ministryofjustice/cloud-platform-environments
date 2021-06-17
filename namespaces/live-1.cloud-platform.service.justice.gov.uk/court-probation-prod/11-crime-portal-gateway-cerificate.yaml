@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: crime-portal-gateway-prod-cert
-  namespace: crime-portal-gateway-prod
+  namespace: court-probation-prod
 spec:
   secretName: crime-portal-gateway-cert
   issuerRef:
