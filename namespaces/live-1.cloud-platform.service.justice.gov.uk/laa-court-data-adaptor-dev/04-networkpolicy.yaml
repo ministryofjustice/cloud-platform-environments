@@ -32,7 +32,9 @@ metadata:
   name: allow-prometheus-scraping
   namespace: laa-court-data-adaptor-dev
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-court-data-adaptor
   policyTypes:
   - Ingress
   ingress:
