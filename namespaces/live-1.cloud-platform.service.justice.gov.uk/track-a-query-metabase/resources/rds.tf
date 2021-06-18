@@ -3,7 +3,7 @@
 # Application RDS (PostgreSQL)
 #################################################################################
 
-module "metabase_rds" {
+module "track_a_query_metabase_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name               = var.cluster_name
   team_name                  = "correspondence"
@@ -28,23 +28,23 @@ module "metabase_rds" {
   }
 }
 
-resource "kubernetes_secret" "metabase_rds" {
+resource "kubernetes_secret" "track_a_query_metabase_rds" {
   metadata {
-    name      = "metabase-rds-output"
-    namespace = "metabase-production"
+    name      = "track-a-query-metabase-rds-output"
+    namespace = "track-a-query-metabase"
   }
 
   data = {
-    rds_instance_endpoint = module.metabase_rds.rds_instance_endpoint
-    database_name         = module.metabase_rds.database_name
-    database_username     = module.metabase_rds.database_username
-    database_password     = module.metabase_rds.database_password
-    rds_instance_address  = module.metabase_rds.rds_instance_address
+    rds_instance_endpoint = module.track_a_query_metabase_rds.rds_instance_endpoint
+    database_name         = module.track_a_query_metabase_rds.database_name
+    database_username     = module.track_a_query_metabase_rds.database_username
+    database_password     = module.track_a_query_metabase_rds.database_password
+    rds_instance_address  = module.track_a_query_metabase_rds.rds_instance_address
 
-    access_key_id     = module.metabase_rds.access_key_id
-    secret_access_key = module.metabase_rds.secret_access_key
+    access_key_id     = module.track_a_query_metabase_rds.access_key_id
+    secret_access_key = module.track_a_query_metabase_rds.secret_access_key
 
-    url = "postgres://${module.metabase_rds.database_username}:${module.metabase_rds.database_password}@${module.metabase_rds.rds_instance_endpoint}/${module.metabase_rds.database_name}"
+    url = "postgres://${module.track_a_query_metabase_rds.database_username}:${module.track_a_query_metabase_rds.database_password}@${module.track_a_query_metabase_rds.rds_instance_endpoint}/${module.track_a_query_metabase_rds.database_name}"
   }
 }
 
