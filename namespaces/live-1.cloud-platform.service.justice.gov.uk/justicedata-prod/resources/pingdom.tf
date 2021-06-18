@@ -14,5 +14,5 @@ resource "pingdom_check" "justicedata-pingdom" {
   port                     = 443
   tags                     = "businessunit_$(var.business_unit),application_justicedata,component_ping,isproduction_$(var.is_production),environment_$(var.environment),$(var.infrastructure_support)"
   probefilters             = "region:EU"
-  integrationids           = []
+  integrationids           = [114774]
 }
