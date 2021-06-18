@@ -3,8 +3,8 @@ provider "pingdom" {
 
 resource "pingdom_check" "justicedata-pingdom" {
   type                     = "http"
-  name                     = "justicedata - production - cloud-platform"
-  host                     = "data.justice.gov.uk"
+  name                     = "justicedata - staging - cloud-platform"
+  host                     = "staging.data.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -12,7 +12,7 @@ resource "pingdom_check" "justicedata-pingdom" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_justicedata,component_ping,isproduction_true,environment_production,hubusers@justice.gov.uk"
+  tags                     = "businessunit_hmpps,application_justicedata,component_ping,isproduction_false,environment_staging,hubusers@justice.gov.uk"
   probefilters             = "region:EU"
   integrationids           = [114774]
 }
