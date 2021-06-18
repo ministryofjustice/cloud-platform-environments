@@ -12,7 +12,7 @@ resource "pingdom_check" "justicedata-pingdom" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_justicedata,component_ping,isproduction_true,environment_production,hubusers@justice.gov.uk"
+  tags                     = "businessunit_hmpps,application_justicedata,component_ping,isproduction_true,environment_production,performance_hub_dev"
   probefilters             = "region:EU"
   integrationids           = [114774]
 }
