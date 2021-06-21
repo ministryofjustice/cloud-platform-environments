@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "wmt-dev"
+  default = "hmpps-workload-dev"
 }
 
 variable "business_unit" {
