@@ -20,6 +20,7 @@ module "rds" {
   db_instance_class    = "db.t3.small"
   db_allocated_storage = "20"
   license_model        = "license-included"
+  db_name              = "hmpps_workload"
 
   providers = {
     aws = aws.london
