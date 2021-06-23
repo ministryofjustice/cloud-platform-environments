@@ -10,4 +10,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - court-list-splitter-dev.hmpps.service.justice.gov.uk
+    - court-hearing-event-receiver-dev.hmpps.service.justice.gov.uk
 
