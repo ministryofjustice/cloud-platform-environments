@@ -3,7 +3,7 @@ variable "prepare-case-domain" {
 }
 
 variable "crime-portal-mirror-gateway-domain" {
-  default = "crime-portal-mirror-gateway-probation.service.justice.gov.uk"
+  default = "crime-portal-mirror-gateway.service.justice.gov.uk"
 }
 
 variable "application" {
