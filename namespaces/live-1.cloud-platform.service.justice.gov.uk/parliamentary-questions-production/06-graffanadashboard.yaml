@@ -1,13 +1,13 @@
----
+#kubectl apply -f 06-graffanadashboard.yaml - or go through process
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pg-dashboard-provisioning
-  namespace: monitoring
+  name: parliamentary-questions-production
+  namespace: parliamentary-questions-production
   labels:
-    grafana_dashboard: ""
+    grafana_dashboard: "parliamentary-questions-production"
 data:
-  pg-container-provisioning-dashboard.json: |
+  parliamentary-questions-production-dashboard.json: |
     {
       "annotations": {
         "list": [
