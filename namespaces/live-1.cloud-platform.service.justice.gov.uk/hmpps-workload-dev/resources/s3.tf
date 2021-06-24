@@ -32,7 +32,7 @@ module "hmpps-workload-dev-s3-bucket" {
       ]
     }
   ]
-  
+
 }
 
 resource "kubernetes_secret" "hmpps-workload-dev-s3-bucket" {
