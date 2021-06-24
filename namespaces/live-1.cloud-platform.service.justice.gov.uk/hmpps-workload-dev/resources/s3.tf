@@ -1,6 +1,6 @@
 module "hmpps-workload-dev-s3-bucket" {
 
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -9,15 +9,15 @@ module "hmpps-workload-dev-s3-bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  versioning             = true
+  versioning = true
 
   providers = {
     aws = aws.london
   }
-  
+
 }
 
-resource "kubernetes_secret" "hmpps-workload-dev-s3-bucket"  {
+resource "kubernetes_secret" "hmpps-workload-dev-s3-bucket" {
   metadata {
     name      = "s3-bucket-output"
     namespace = var.namespace
