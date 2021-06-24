@@ -14,6 +14,24 @@ module "hmpps-workload-dev-s3-bucket" {
   providers = {
     aws = aws.london
   }
+
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "retire extracts after 30 days"
+      prefix  = "extract/"
+      noncurrent_version_expiration = [
+        {
+          days = 30
+        },
+      ]
+      expiration = [
+        {
+          days = 30
+        },
+      ]
+    }
+  ]
   
 }
 
