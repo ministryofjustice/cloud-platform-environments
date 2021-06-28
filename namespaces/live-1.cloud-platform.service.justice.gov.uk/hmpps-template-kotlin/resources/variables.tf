@@ -2,7 +2,6 @@
 variable "cluster_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS Template Apps"
