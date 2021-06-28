@@ -33,13 +33,13 @@ module "hmpps-workload-dev-s3-bucket" {
     }
   ]
 
-/*
+  /*
    * The following are exampls of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-    /*
+  /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
