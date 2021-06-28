@@ -23,6 +23,6 @@ spec:
     - Ingress
   ingress:
     - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+      - namespaceSelector:
+          matchLabels:
+            component: ingress-controllers
