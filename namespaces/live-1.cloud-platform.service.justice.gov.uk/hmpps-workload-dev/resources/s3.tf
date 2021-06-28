@@ -33,6 +33,62 @@ module "hmpps-workload-dev-s3-bucket" {
     }
   ]
 
+/*
+   * The following are exampls of bucket and user policies. They are treated as
+   * templates. Currently, the only available variable is `$${bucket_arn}`.
+   *
+   */
+
+    /*
+ * Allow a user (foobar) from another account (012345678901) to get objects from
+ * this bucket.
+ *
+   bucket_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "S3PutPolicy",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::${AWS_ACCOUNT_ID}:root"
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "$${bucket_arn}/*",
+                "$${bucket_arn}"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
+        },
+        {
+            "Sid": "S3ListPolicy",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::${AWS_ACCOUNT_ID}:root"
+            },
+            "Action": [
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:GetObject*",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "$${bucket_arn}/*",
+                "$${bucket_arn}"
+            ]
+        }
+    ]
+}
+EOF
+*/
+
 }
 
 resource "kubernetes_secret" "hmpps-workload-dev-s3-bucket" {
