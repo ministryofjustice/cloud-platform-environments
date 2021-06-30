@@ -11,7 +11,7 @@ module "ppud_replacement_dev_rds" {
   team_name              = var.team_name
 
   rds_name          = "ppud-replacement-dev"
-  rds_family        = "postgres12"
+  rds_family        = "postgres13"
   db_engine         = "postgres"
   db_engine_version = "13"
   db_instance_class = "db.t3.small"
