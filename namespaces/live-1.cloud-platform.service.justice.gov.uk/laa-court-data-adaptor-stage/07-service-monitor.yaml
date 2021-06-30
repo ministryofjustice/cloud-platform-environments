@@ -11,5 +11,5 @@ spec:
     matchNames:
       - laa-court-data-adaptor-stage
   endpoints:
-    - port: http
+    - port: metrics
       interval: 15s
