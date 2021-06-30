@@ -55,13 +55,6 @@ spec:
       annotations:
         message: Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: http_server_request_duration_seconds_bucket{namespace="laa-court-data-adaptor-dev", path=~"/api/.*"} > 30
-      for: 1m
-      labels:
-        severity: Crime-Apps-Team
-      annotations:
-        message: API request is taking more than 30 seconds
-    - alert: Long-Request
       expr: ruby_http_duration_seconds{namespace="laa-court-data-adaptor-dev", path=~"/api/.*"} > 30
       for: 1m
       labels:
