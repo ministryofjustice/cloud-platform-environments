@@ -7,7 +7,7 @@ module "ecr-repo" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["helloworld-ruby-app-davidread"]
+  github_repositories = ["helloworld-ruby-app-davidread"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
