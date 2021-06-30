@@ -14,7 +14,7 @@ module "ppud_replacement_dev_rds" {
   rds_family        = "postgres12"
   db_engine         = "postgres"
   db_engine_version = "13"
-  db_instance_class = "db.t2.small"
+  db_instance_class = "db.t3.small"
   db_name           = "manage-recalls"
 
   providers = {
