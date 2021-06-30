@@ -31,6 +31,14 @@ spec:
       annotations:
         message: More than one hundred 404 errors in one day
         runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,key:kubernetes.namespace_name,negate:!f,params:(query:laa-court-data-adaptor-stage,type:phrase),type:phrase,value:laa-court-data-adaptor-stage),query:(match:(kubernetes.namespace_name:(query:laa-court-data-adaptor-stage,type:phrase))))),index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,interval:auto,query:(language:lucene,query:'log:%22RoutingError%22'),sort:!('@timestamp',desc))
+    - alert: NotFound-Threshold-Reached
+      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-court-data-adaptor-stage"}[86400s])) * 86400 > 100
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: More than one hundred 404 errors in one day
+        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,key:kubernetes.namespace_name,negate:!f,params:(query:laa-court-data-adaptor-stage,type:phrase),type:phrase,value:laa-court-data-adaptor-stage),query:(match:(kubernetes.namespace_name:(query:laa-court-data-adaptor-stage,type:phrase))))),index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,interval:auto,query:(language:lucene,query:'log:%22RoutingError%22'),sort:!('@timestamp',desc))
     - alert: nginx-5xx-error
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-court-data-adaptor-stage", status=~"5.."}[5m]))*270 > 0
       for: 1m
@@ -47,7 +55,7 @@ spec:
       annotations:
         message: Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: http_server_request_duration_seconds_bucket{namespace="laa-court-data-adaptor-stage", path=~"/api/.*"} > 30
+      expr: ruby_http_duration_seconds{namespace="laa-court-data-adaptor-stage", path=~"/api/.*"} > 30
       for: 1m
       labels:
         severity: Crime-Apps-Team
@@ -55,6 +63,13 @@ spec:
         message: API request is taking more than 30 seconds
     - alert: Internal requests failing
       expr: sum(rate(http_server_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-stage", path=~"/api/internal/.*"}[30m])) * 1800 > 1
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: Requests to CDA internal interface has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: Internal requests failing
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-stage", path=~"/api/internal/.*"}[30m])) * 1800 > 1
       for: 1m
       labels:
         severity: Crime-Apps-Team
