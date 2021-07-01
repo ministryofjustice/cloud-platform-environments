@@ -6,7 +6,7 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/business-unit: "HQ-test"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
     cloud-platform.justice.gov.uk/application: "Namespace to test Terraform resources"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
