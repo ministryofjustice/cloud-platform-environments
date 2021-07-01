@@ -26,7 +26,10 @@ jobs:
         run: |
           echo "$PR_OWNER"
 
-      - name: Run git diff against repository
-        run: |
-          git --no-pager diff --name-only FETCH_HEAD $(git merge-base FETCH_HEAD main)
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - run: |
+        for changed_file in ${{ steps.files.outputs.all }}; do
+          echo "Do something with this ${changed_file}."
+        done
 
