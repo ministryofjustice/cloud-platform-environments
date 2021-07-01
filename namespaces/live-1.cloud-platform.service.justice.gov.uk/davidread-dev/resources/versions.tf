@@ -5,5 +5,8 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
+    github = {
+      source = "integrations/github"
+    }
   }
 }
