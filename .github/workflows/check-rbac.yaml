@@ -35,7 +35,7 @@ jobs:
           echo "${added_modified_files[@]}" > files
           # NAMESPACE_PATTERN="\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)"
           for added_modified_file in "${added_modified_files[@]}"; do
-            expr "${added_modified_files[@]}" : '\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)' >> files2
+            expr "${added_modified_file}" : '\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)' >> files2
           done
           echo "output of files"
           cat files
