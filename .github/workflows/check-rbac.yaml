@@ -32,6 +32,8 @@ jobs:
           format: 'csv'
       - run: |
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
+          echo "${added_modified_files[@]}" > files
+          cat files
           for added_modified_file in "${added_modified_files[@]}"; do
             echo "Do something with this ${added_modified_file}."
           done
