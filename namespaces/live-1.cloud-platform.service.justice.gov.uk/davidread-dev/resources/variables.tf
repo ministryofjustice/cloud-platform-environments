@@ -69,7 +69,3 @@ variable "slack-channel" {
   default     = "davidread"
 }
 
-variable "github_owner" {
-  description = "Required by the github terraform provider"
-  default     = "ministryofjustice"
-}
