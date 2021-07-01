@@ -28,5 +28,5 @@ jobs:
 
       - name: Run git diff against repository
         run: |
-          git --no-pager diff --name-only FETCH_HEAD $(git merge-base FETCH_HEAD master) > changes
+          git --no-pager diff --name-only FETCH_HEAD $(git merge-base FETCH_HEAD main)
 
