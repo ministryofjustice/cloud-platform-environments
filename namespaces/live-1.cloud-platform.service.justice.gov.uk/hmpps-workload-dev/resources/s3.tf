@@ -45,7 +45,8 @@ module "hmpps-workload-dev-s3-bucket" {
                 "AWS": "arn:aws:iam::050243167760:root"
             },
             "Action": [
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:PutObjectAcl"
             ],
             "Resource": [
                 "$${bucket_arn}/*",
