@@ -32,12 +32,10 @@ jobs:
           format: 'csv'
       - run: |
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
-          echo "${added_modified_files[@]}" > files
-          # NAMESPACE_PATTERN="\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)"
           for added_modified_file in "${added_modified_files[@]}"; do
-            expr "${added_modified_file}" : '\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)' >> files2
+            if [[ "${added_modified_file}" == *"live"* ]]; then
+              sub=$( IFS=/; set -- $dir; echo $4 ) >> files
+            fi
           done
           echo "output of files"
           cat files
-          echo "output of files2"
-          cat files2
