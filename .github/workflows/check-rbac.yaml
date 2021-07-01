@@ -33,7 +33,11 @@ jobs:
       - run: |
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
           echo "${added_modified_files[@]}" > files
-          cat files
+          # NAMESPACE_PATTERN="\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)"
           for added_modified_file in "${added_modified_files[@]}"; do
-            echo "Do something with this ${added_modified_file}."
+            expr "${added_modified_files[@]}" : '\.\/namespaces\/live-1.cloud-platform.service.justice.gov.uk\/\([^\/]*\)' >> files2
           done
+          echo "output of files"
+          cat files
+          echo "output of files2"
+          cat files2
