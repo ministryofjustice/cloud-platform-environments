@@ -57,6 +57,23 @@ module "hmpps-workload-dev-s3-bucket" {
                     "s3:x-amz-acl": "bucket-owner-full-control"
                 }
             }
+        },
+        {
+             "Sid": "S3ListPolicy",
+             "Effect": "Allow",
+             "Principal": {
+                 "AWS": "arn:aws:iam::050243167760:root"
+             },
+             "Action": [
+                  "s3:List*",
+                  "s3:DeleteObject*",
+                  "s3:GetObject*",
+                  "s3:GetBucketLocation"
+             ],
+             "Resource": [
+                  "$${bucket_arn}/*",
+                  "$${bucket_arn}"
+             ]
         }
     ]
 }
