@@ -8,6 +8,7 @@ on:
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
+  BRANCH: ${{ github.head_ref }}
   # GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
 
 jobs:
@@ -24,7 +25,7 @@ jobs:
 
       - name: owner of PR
         run: |
-          echo "$PR_OWNER"
+          echo "$PR_OWNER" && echo "$BRANCH"
 
       - id: files
         uses: jitterbit/get-changed-files@v1
