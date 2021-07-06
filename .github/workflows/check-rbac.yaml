@@ -12,7 +12,7 @@ env:
   GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
 
 jobs:
-  checksum-compare:
+  rbac-permissions-check:
     runs-on: ${{ matrix.os }}
 
     strategy:
