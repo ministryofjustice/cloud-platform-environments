@@ -39,3 +39,9 @@ jobs:
             fi
           done
           cat files
+
+      - name: Check the PR owner is in the correct rbac group
+        id: review_pr
+        uses: ministryofjustice/github-actions/env-permissions-check@add-rbac-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
