@@ -9,7 +9,7 @@ on:
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
   BRANCH: ${{ github.head_ref }}
-  # GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
+  GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
 
 jobs:
   checksum-compare:
