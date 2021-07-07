@@ -13,7 +13,7 @@ module "rds" {
 
   # change the postgres version as you see fit.
   db_engine              = "sqlserver-ex"
-  db_engine_version      = "15"
+  db_engine_version      = "15.00"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
