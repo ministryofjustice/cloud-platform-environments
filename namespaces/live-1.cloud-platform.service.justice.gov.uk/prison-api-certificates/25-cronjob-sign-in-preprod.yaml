@@ -15,8 +15,8 @@ spec:
       template:
         spec:
           containers:
-          - name: dps-tools
-            image: quay.io/hmpps/dps-tools
+          - name: hmpps-devops-tools
+            image: ghcr.io/ministryofjustice/hmpps-devops-tools
             command:
             - /bin/export-cert.sh
             args:
