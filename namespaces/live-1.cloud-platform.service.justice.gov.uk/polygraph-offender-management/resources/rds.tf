@@ -14,6 +14,9 @@ module "rds" {
   # change the postgres version as you see fit.
   db_engine              = "sqlserver-ex"
   db_engine_version      = "15.00"
+  db_instance_class      = "db.t3.medium"
+  db_allocated_storage   = 32
+  rds_family             = "sqlserver-ex-15.0"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
