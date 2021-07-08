@@ -89,3 +89,24 @@ spec:
         severity: Crime-Apps-Team
       annotations:
         message: Requests to CDA external interface has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: SidekiqQueueSize-Threshold-Reached
+      expr: ruby_sidekiq_queue_backlog_total{namespace="laa-court-data-adaptor-prod"} > 10
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: Sidekiq queue size is more than 10
+    - alert: SidekiqQueue-Failed-Jobs
+      expr: rate(ruby_sidekiq_failed_jobs_total{namespace="laa-court-data-adaptor-prod"}[10m]) > 1
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: "{{ $labels.job_name }} has failed jobs"
+    - alert: SidekiqQueue-Latency
+      expr: ruby_sidekiq_queue_latency_seconds{namespace="laa-court-data-adaptor-prod"} > 10
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: Sidekiq queue latency is over 10 seconds
