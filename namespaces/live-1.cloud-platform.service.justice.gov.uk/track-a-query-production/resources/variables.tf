@@ -23,3 +23,14 @@ variable "environment-name" {
   default = "production"
 }
 
+variable "application" {
+  default = "track-a-query"
+}
+
+variable "infrastructure-support" {
+  default = "correspondence-support@digital.justice.gov.uk"
+}
+
+variable "team_name" {
+  default = "correspondence"
+}

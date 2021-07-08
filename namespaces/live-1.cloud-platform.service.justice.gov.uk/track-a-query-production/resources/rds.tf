@@ -28,6 +28,29 @@ module "track_a_query_rds" {
   }
 }
 
+module "track_a_query_rds_replica" {
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+
+  cluster_name              = var.cluster_name
+
+  application               = var.application
+  environment-name          = var.environment-name
+  is-production             = var.is-production
+  infrastructure-support    = var.infrastructure-support
+  team_name                 = var.team_name
+
+  db_name             = module.track_a_query_rds.database_name
+  replicate_source_db = module.track_a_query_rds.db_identifier
+
+  # Set to true for replica database. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  providers = {
+    aws = aws.london
+  }
+}
+
 resource "kubernetes_secret" "track_a_query_rds" {
   metadata {
     name      = "track-a-query-rds-output"
@@ -46,5 +69,22 @@ resource "kubernetes_secret" "track_a_query_rds" {
 
     url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
+}
+
+resource "kubernetes_secret" "track_a_query_rds_replica" {
+  metadata {
+    name      = "track-a-query-rds-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.track_a_query_rds_replica.rds_instance_endpoint
+    rds_instance_address  = module.track_a_query_rds_replica.rds_instance_address
+    access_key_id         = module.track_a_query_rds_replica.access_key_id
+    secret_access_key     = module.track_a_query_rds_replica.secret_access_key
+
+    url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
+  }
+
 }
 
