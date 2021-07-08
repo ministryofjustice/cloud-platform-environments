@@ -29,15 +29,15 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
 
-  cluster_name              = var.cluster_name
+  cluster_name = var.cluster_name
 
-  application               = var.application
-  environment-name          = var.environment-name
-  is-production             = var.is-production
-  infrastructure-support    = var.infrastructure-support
-  team_name                 = var.team_name
+  application            = var.application
+  environment-name       = var.environment-name
+  is-production          = var.is-production
+  infrastructure-support = var.infrastructure-support
+  team_name              = var.team_name
 
   db_name             = module.track_a_query_rds.database_name
   replicate_source_db = module.track_a_query_rds.db_identifier
