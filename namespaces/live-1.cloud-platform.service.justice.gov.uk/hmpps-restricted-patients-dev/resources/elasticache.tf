@@ -1,0 +1,32 @@
+module "restricted_patients" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
+  cluster_name           = var.cluster_name
+  application            = var.application
+  environment-name       = var.environment-name
+  is-production          = var.is-production
+  infrastructure-support = var.infrastructure-support
+  team_name              = var.team_name
+  number_cache_clusters  = var.number_cache_clusters
+  node_type              = "cache.t2.small"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
+  namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "restricted_patients" {
+  metadata {
+    name      = "restricted-patients"
+    namespace = var.namespace
+  }
+
+  data = {
+    REDIS_HOST      = module.restricted_patients.primary_endpoint_address
+    REDIS_PASSWORD  = module.restricted_patients.auth_token
+    member_clusters = jsonencode(module.restricted_patients.member_clusters)
+  }
+}
+
