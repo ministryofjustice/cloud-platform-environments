@@ -11,6 +11,9 @@ variable "namespace" {
   default = "hmpps-restricted-patients-dev"
 }
 
+variable "cluster_name" {
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -19,6 +22,11 @@ variable "business_unit" {
 variable "team_name" {
   description = "The name of your development team"
   default     = "dps-core"
+}
+
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
 }
 
 variable "environment" {
@@ -66,5 +74,9 @@ variable "is-production" {
 variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "dps_core"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 
