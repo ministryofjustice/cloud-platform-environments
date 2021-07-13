@@ -1,4 +1,4 @@
-module "restricted_patients" {
+module "hmpps_restricted_patients" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
   cluster_name           = var.cluster_name
   application            = var.application
@@ -17,16 +17,16 @@ module "restricted_patients" {
   }
 }
 
-resource "kubernetes_secret" "restricted_patients" {
+resource "kubernetes_secret" "hmpps_restricted_patients" {
   metadata {
-    name      = "restricted-patients"
+    name      = "hmpps-restricted-patients"
     namespace = var.namespace
   }
 
   data = {
-    REDIS_HOST      = module.restricted_patients.primary_endpoint_address
-    REDIS_PASSWORD  = module.restricted_patients.auth_token
-    member_clusters = jsonencode(module.restricted_patients.member_clusters)
+    REDIS_HOST      = module.hmpps_restricted_patients.primary_endpoint_address
+    REDIS_PASSWORD  = module.hmpps_restricted_patients.auth_token
+    member_clusters = jsonencode(module.hmpps_restricted_patients.member_clusters)
   }
 }
 
