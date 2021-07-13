@@ -24,9 +24,9 @@ resource "kubernetes_secret" "hmpps_restricted_patients" {
   }
 
   data = {
-    REDIS_HOST      = module.hmpps_restricted_patients.primary_endpoint_address
-    REDIS_PASSWORD  = module.hmpps_restricted_patients.auth_token
-    member_clusters = jsonencode(module.hmpps_restricted_patients.member_clusters)
+    primary_endpoint_address = module.hmpps_restricted_patients.primary_endpoint_address
+    auth_token               = module.hmpps_restricted_patients.auth_token
+    member_clusters          = jsonencode(module.hmpps_restricted_patients.member_clusters)
   }
 }
 
