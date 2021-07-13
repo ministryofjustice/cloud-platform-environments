@@ -1,7 +1,7 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
 
-  namespace = var.namespace
+  namespace           = var.namespace
   serviceaccount_name = var.namespace
 
   # Uncomment and provide repository names to create github actions secrets
