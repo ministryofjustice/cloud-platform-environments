@@ -19,7 +19,7 @@ module "hmpps_restricted_patients" {
 
 resource "kubernetes_secret" "hmpps_restricted_patients" {
   metadata {
-    name      = "hmpps-restricted-patients"
+    name      = "elasticache-redis"
     namespace = var.namespace
   }
 
