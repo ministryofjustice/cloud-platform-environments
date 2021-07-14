@@ -1,28 +1,29 @@
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
-  cluster_name           = var.cluster_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+  cluster_name         = var.cluster_name
+  team_name            = var.team_name
+  business-unit        = var.business_unit
+  application          = var.application
+  is-production        = var.is_production
+  namespace            = var.namespace
 
-  # performance insights
-  performance_insights_enabled = false
+  # enable performance insights
+  performance_insights_enabled = true
 
-  # RDS SQL Server
-  db_engine            = "sqlserver-web"
-  db_engine_version    = "15.00"
-  rds_family           = "sqlserver-web-15.0"
-  db_parameter         = []
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = "20"
-  license_model        = "license-included"
-  db_name              = "hmpps_workload"
+  # change the postgres version as you see fit.
+  db_engine_version      = "11"
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # Pick the one that defines the postgres version the best
+  rds_family = "postgres11"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "true"
 
   providers = {
+    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 }
@@ -43,10 +44,11 @@ resource "kubernetes_secret" "rds" {
     secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
-   * use a single database URL value in your application code:
-   *
-   * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-   */
+     * use a single database URL value in your application code:
+     *
+     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+     *
+     */
 }
 
 resource "kubernetes_config_map" "rds" {
@@ -58,5 +60,6 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+
   }
 }
