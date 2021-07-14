@@ -4,7 +4,7 @@ resource "pingdom_check" "cloud-platform-canary" {
   host                     = "canary.apps.live-1.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 3
   notifyagainevery         = 0
   url                      = "/healthz"
   encryption               = true
