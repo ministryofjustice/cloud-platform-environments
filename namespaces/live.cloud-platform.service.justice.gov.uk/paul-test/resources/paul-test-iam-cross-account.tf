@@ -3,7 +3,7 @@ module "irsa" {
 
   namespace        = "paul-test"
   role_policy_arns = ["arn:aws:iam::754256621582:policy/paul-test-iam-policy"]
-  service_account  = "paul-test"
+  service_account  = "paul-test-irsa"
 }
 data "aws_iam_policy_document" "paul-test" {
   # "api" policy statements for "paul-test" namespace
