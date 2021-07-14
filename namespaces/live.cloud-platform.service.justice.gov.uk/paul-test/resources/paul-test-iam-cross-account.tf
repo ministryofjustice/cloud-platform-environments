@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.6.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa"
 
   namespace        = "paul-test"
   role_policy_arns = ["arn:aws:iam::754256621582:policy/paul-test-iam-policy"]
