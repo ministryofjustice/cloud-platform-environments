@@ -23,25 +23,32 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@master
 
-      - name: owner of PR
-        run: |
-          echo "$PR_OWNER" && echo "$BRANCH"
-
-      - id: files
+      - name: Get all files changed in PR
+        id: files
         uses: jitterbit/get-changed-files@v1
         with:
           format: 'csv'
-      - run: |
+
+      - name: Output all changes to a file
+        run: |
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
           for added_modified_file in "${added_modified_files[@]}"; do
             if [[ "${added_modified_file}" == *"live"* ]]; then
               echo "${added_modified_file}" | awk -F/ '{print $3}' >> files
             fi
           done
-          cat files
 
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
         uses: ministryofjustice/github-actions/env-permissions-check@add-rbac-check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v1
+
+        if: steps.review_pr.outputs.reviewOutput == 'false'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            The user ${PR_OWNER} isn't a member of the relevant rbac teams.
