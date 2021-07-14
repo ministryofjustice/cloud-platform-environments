@@ -38,6 +38,7 @@ module "track_a_query_rds_replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  rds_family             = "postgres12"
 
   db_name             = module.track_a_query_rds.database_name
   replicate_source_db = module.track_a_query_rds.db_identifier
