@@ -52,7 +52,11 @@ resource "aws_s3_bucket_policy" "manage_recalls_s3_bucket_policy_preprod" {
         Action = [
           "s3:GetObject*",
           "s3:PutObject*",
-          "s3:DeleteObject",
+          "s3:DeleteObject*",
+          "s3:ListObject*",
+          "s3:CopyObject*",
+          "s3:HeadObject*",
+          "s3:RestoreObject*",
         ]
         Resource = [
           module.manage_recalls_s3_bucket_preprod.bucket_arn,
