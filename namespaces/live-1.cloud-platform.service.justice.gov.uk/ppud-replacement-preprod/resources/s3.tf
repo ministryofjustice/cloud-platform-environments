@@ -49,7 +49,11 @@ resource "aws_s3_bucket_policy" "manage_recalls_s3_bucket_policy_preprod" {
         Sid       = "SourceIP"
         Effect    = "Deny"
         Principal = "*"
-        Action    = "s3:*"
+        Action = [
+          "s3:GetObject*",
+          "s3:PutObject*",
+          "s3:DeleteObject",
+        ]
         Resource = [
           module.manage_recalls_s3_bucket_preprod.bucket_arn,
           "${module.manage_recalls_s3_bucket_preprod.bucket_arn}/*",
