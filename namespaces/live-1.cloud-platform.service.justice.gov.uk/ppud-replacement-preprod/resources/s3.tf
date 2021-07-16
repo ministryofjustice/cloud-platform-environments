@@ -53,10 +53,6 @@ resource "aws_s3_bucket_policy" "manage_recalls_s3_bucket_policy_preprod" {
           "s3:GetObject*",
           "s3:PutObject*",
           "s3:DeleteObject*",
-          "s3:ListObject*",
-          "s3:CopyObject*",
-          "s3:HeadObject*",
-          "s3:RestoreObject*",
         ]
         Resource = [
           module.manage_recalls_s3_bucket_preprod.bucket_arn,
@@ -64,7 +60,10 @@ resource "aws_s3_bucket_policy" "manage_recalls_s3_bucket_policy_preprod" {
         ]
         Condition = {
           "NotIpAddress" = {
-            "aws:SourceIp" = [for s in data.aws_subnet.private : s.cidr_block]
+            # Live-1 IP addresses
+            "aws:SourceIp" = [
+              "35.178.209.113", "3.8.51.207", "35.177.252.54"
+            ]
           }
         }
       },
