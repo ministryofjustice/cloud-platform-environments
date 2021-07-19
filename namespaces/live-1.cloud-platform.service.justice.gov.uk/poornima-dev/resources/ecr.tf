@@ -1,32 +1,24 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "cp_team_test_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
-  repo_name = "cp-poornima-dev-module"
-  team_name = "cp-team"
+module "ecr-repo" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
 
-  # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr"
 
-  providers = {
-    aws = aws.london
-  }
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ECR name, AWS access key, and AWS secret key, for use in
+  # github actions CI/CD pipelines
+  github_repositories = ["https://github.com/ministryofjustice/helloworld-poornima-dev"]
 }
 
-resource "kubernetes_secret" "cp_team_test_ecr_credentials" {
+resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "cp-team-test-ecr-credentials-output"
-    namespace = "poornima-dev"
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.cp_team_test_ecr_credentials.access_key_id
-    secret_access_key = module.cp_team_test_ecr_credentials.secret_access_key
-    repo_arn          = module.cp_team_test_ecr_credentials.repo_arn
-    repo_url          = module.cp_team_test_ecr_credentials.repo_url
+    repo_url          = module.ecr-repo.repo_url
+    access_key_id     = module.ecr-repo.access_key_id
+    secret_access_key = module.ecr-repo.secret_access_key
   }
 }
-

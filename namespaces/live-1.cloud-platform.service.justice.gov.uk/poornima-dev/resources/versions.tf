@@ -12,5 +12,8 @@ terraform {
       source  = "russellcardullo/pingdom"
       version = "1.1.3"
     }
+    github = {
+      source = "integrations/github"
+    }
   }
 }
