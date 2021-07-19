@@ -1,23 +1,3 @@
-data "aws_vpc" "selected" {
-  filter {
-    name   = "tag:Name"
-    values = [var.cluster_name == "live" ? "live-1" : var.cluster_name]
-  }
-}
-
-data "aws_subnet_ids" "private" {
-  vpc_id = data.aws_vpc.selected.id
-
-  tags = {
-    SubnetType = "Private"
-  }
-}
-
-data "aws_subnet" "private" {
-  for_each = data.aws_subnet_ids.private.ids
-  id       = each.value
-}
-
 # Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
 module "manage_recalls_s3_bucket_preprod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
