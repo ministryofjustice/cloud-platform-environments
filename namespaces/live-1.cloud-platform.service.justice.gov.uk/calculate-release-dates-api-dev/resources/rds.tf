@@ -1,4 +1,4 @@
-module "create_and_vary_a_licence_api_rds" {
+module "calculate_release_dates_api_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
