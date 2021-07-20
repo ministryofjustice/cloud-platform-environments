@@ -13,6 +13,3 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/evidence-library.git"
     cloud-platform.justice.gov.uk/team-name: "evidencelibrary"
     cloud-platform.justice.gov.uk/review-after: ""
-
-
-sudo cp -i /Users/Sivaprasadsighakolli/.kube/cluster.config $HOME/.kube/config
