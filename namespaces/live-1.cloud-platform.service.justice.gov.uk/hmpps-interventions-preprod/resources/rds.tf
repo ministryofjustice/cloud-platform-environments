@@ -9,6 +9,7 @@ module "hmpps_interventions_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds_family
+  db_instance_class      = "db.m5.large"
 
   providers = {
     aws = aws.london
