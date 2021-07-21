@@ -1,4 +1,4 @@
-module "hmpps-workload-dev-s3-bucket" {
+module "hmpps-workload-dev-s3-extract-bucket" {
 
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
   team_name              = var.team_name
@@ -82,16 +82,16 @@ EOF
 
 }
 
-resource "kubernetes_secret" "hmpps-workload-dev-s3-bucket" {
+resource "kubernetes_secret" "hmpps-workload-dev-s3-extract-bucket" {
   metadata {
-    name      = "s3-bucket-output"
+    name      = "s3-extract-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.hmpps-workload-dev-s3-bucket.access_key_id
-    secret_access_key = module.hmpps-workload-dev-s3-bucket.secret_access_key
-    bucket_arn        = module.hmpps-workload-dev-s3-bucket.bucket_arn
-    bucket_name       = module.hmpps-workload-dev-s3-bucket.bucket_name
+    access_key_id     = module.hmpps-workload-dev-s3-extract-bucket.access_key_id
+    secret_access_key = module.hmpps-workload-dev-s3-extract-bucket.secret_access_key
+    bucket_arn        = module.hmpps-workload-dev-s3-extract-bucket.bucket_arn
+    bucket_name       = module.hmpps-workload-dev-s3-extract-bucket.bucket_name
   }
 }
