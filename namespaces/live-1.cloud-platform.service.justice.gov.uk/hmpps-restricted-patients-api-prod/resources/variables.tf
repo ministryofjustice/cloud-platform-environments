@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "restricted-patients-api-dev.hmpps.service.justice.gov.uk"
+  default = "restricted-patients-api.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-restricted-patients-api-dev"
+  default = "hmpps-restricted-patients-api-prod"
 }
 
 variable "business-unit" {
@@ -22,7 +22,7 @@ variable "team_name" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "prod"
 }
 
 variable "infrastructure-support" {
