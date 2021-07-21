@@ -83,3 +83,4 @@ resource "kubernetes_secret" "ppud_replica_preprod_rds_secrets" {
     password = module.ppud_replica_preprod_rds.database_password
   }
 }
+
