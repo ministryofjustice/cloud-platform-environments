@@ -62,6 +62,7 @@ module "ppud_replica_preprod_rds" {
   db_engine_version    = "11.00"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = "20"
+  db_name              = "PPUD_LIVE"
   license_model        = "license-included"
 
   providers = {
