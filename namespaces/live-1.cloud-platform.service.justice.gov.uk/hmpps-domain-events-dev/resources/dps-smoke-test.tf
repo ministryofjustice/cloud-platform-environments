@@ -6,7 +6,7 @@ module "dps_smoketest_queue" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = var.application
-  sqs_name                  = "dps_smoketest_queue"
+  sqs_name                  = "dps_smoketest_dev_hmpps_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 600
   namespace                 = var.namespace
@@ -48,7 +48,7 @@ EOF
 resource "kubernetes_secret" "dps_smoketest_queue" {
   metadata {
     name      = "sqs-hmpps-domain-events"
-    namespace = "dps-toolkit-dev"
+    namespace = "dps-toolkit"
   }
 
   data = {
