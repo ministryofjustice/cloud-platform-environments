@@ -151,7 +151,10 @@ resource "aws_route53_record" "start_page_txt_root" {
   zone_id = aws_route53_zone.start_page.zone_id
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 include:mailgun.org ~all"]
+  records = [
+    "v=spf1 include:mailgun.org ~all",
+    "google-site-verification=weAYdFuWe6PfocCiQ66wBE18XZP0vqC1_FRx5BLtr5o"
+  ]
 }
 
 resource "aws_route53_record" "start_page_txt_smtp_domainkey" {
@@ -159,7 +162,9 @@ resource "aws_route53_record" "start_page_txt_smtp_domainkey" {
   zone_id = aws_route53_zone.start_page.zone_id
   type    = "TXT"
   ttl     = "300"
-  records = ["k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCiKXT4bXJkdvmDtdogyzBSbT0r47xoUdAzKIGXWTpD4fcK73QZg1A/Mya3yOyatd1PQnS5qVCT15TYOBi446xHbGOaWwSrJJv0JfqcJF/oU4xoFVyb5RyEfDrtEVv3VAznjFDQwc8ji8AqKE3/Od0H86hmryF9zE7PfTne/T2uVQIDAQAB"]
+  records = [
+    "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCiKXT4bXJkdvmDtdogyzBSbT0r47xoUdAzKIGXWTpD4fcK73QZg1A/Mya3yOyatd1PQnS5qVCT15TYOBi446xHbGOaWwSrJJv0JfqcJF/oU4xoFVyb5RyEfDrtEVv3VAznjFDQwc8ji8AqKE3/Od0H86hmryF9zE7PfTne/T2uVQIDAQAB"
+  ]
 }
 
 resource "aws_route53_record" "start_page_mx" {
