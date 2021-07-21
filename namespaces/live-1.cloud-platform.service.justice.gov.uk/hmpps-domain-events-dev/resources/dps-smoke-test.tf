@@ -60,7 +60,7 @@ resource "kubernetes_secret" "dps_smoketest_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "prison_to_probation_update_subscription" {
+resource "aws_sns_topic_subscription" "dps_smoketest_subscription" {
   provider      = aws.london
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
