@@ -33,4 +33,3 @@ resource "kubernetes_secret" "parliamentary_questions_elasticache_redis" {
     url                      = "rediss://appuser:${module.parliamentary_questions_elasticache_redis.auth_token}@${module.parliamentary_questions_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
-
