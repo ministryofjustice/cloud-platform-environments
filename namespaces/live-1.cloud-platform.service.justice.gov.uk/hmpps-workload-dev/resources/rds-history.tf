@@ -1,4 +1,4 @@
-module "rds-archive" {
+module "rds-history" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
@@ -28,38 +28,38 @@ module "rds-archive" {
   }
 }
 
-resource "kubernetes_secret" "rds-archive" {
+resource "kubernetes_secret" "rds-history" {
   metadata {
-    name      = "rds-archive-instance-output"
+    name      = "rds-history-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds-archive.rds_instance_endpoint
-    database_name         = module.rds-archive.database_name
-    database_username     = module.rds-archive.database_username
-    database_password     = module.rds-archive.database_password
-    rds_instance_address  = module.rds-archive.rds_instance_address
-    access_key_id         = module.rds-archive.access_key_id
-    secret_access_key     = module.rds-archive.secret_access_key
+    rds_instance_endpoint = module.rds-history.rds_instance_endpoint
+    database_name         = module.rds-history.database_name
+    database_username     = module.rds-history.database_username
+    database_password     = module.rds-history.database_password
+    rds_instance_address  = module.rds-history.rds_instance_address
+    access_key_id         = module.rds-history.access_key_id
+    secret_access_key     = module.rds-history.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
-     * url = "postgres://${module.rds-archive.database_username}:${module.rds-archive.database_password}@${module.rds-archive.rds_instance_endpoint}/${module.rds-archive.database_name}"
+     * url = "postgres://${module.rds-history.database_username}:${module.rds-history.database_password}@${module.rds-history.rds_instance_endpoint}/${module.rds-history.database_name}"
      *
      */
 }
 
-resource "kubernetes_config_map" "rds-archive" {
+resource "kubernetes_config_map" "rds-history" {
   metadata {
-    name      = "rds-archive-instance-output"
+    name      = "rds-history-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds-archive.database_name
-    db_identifier = module.rds-archive.db_identifier
+    database_name = module.rds-history.database_name
+    db_identifier = module.rds-history.db_identifier
 
   }
 }
