@@ -1,4 +1,4 @@
-module "rds" {
+module "rds-live" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
@@ -28,38 +28,38 @@ module "rds" {
   }
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "rds-live" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-live-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
+    rds_instance_endpoint = module.rds-live.rds_instance_endpoint
+    database_name         = module.rds-live.database_name
+    database_username     = module.rds-live.database_username
+    database_password     = module.rds-live.database_password
+    rds_instance_address  = module.rds-live.rds_instance_address
+    access_key_id         = module.rds-live.access_key_id
+    secret_access_key     = module.rds-live.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+     * url = "postgres://${module.rds-live.database_username}:${module.rds-live.database_password}@${module.rds-live.rds_instance_endpoint}/${module.rds-live.database_name}"
      *
      */
 }
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "rds-live" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-live-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.rds-live.database_name
+    db_identifier = module.rds-live.db_identifier
 
   }
 }
