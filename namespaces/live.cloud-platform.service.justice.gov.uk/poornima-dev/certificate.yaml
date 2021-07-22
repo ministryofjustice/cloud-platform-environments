@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: myruby-app-cert
+  namespace: poornima-dev
+spec:
+  secretName: myruby-app-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dev-pk.service.justice.gov.uk
