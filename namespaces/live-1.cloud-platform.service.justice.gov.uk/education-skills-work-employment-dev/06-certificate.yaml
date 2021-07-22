@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - education-skills-work-employment-dev.prison.service.justice.gov.uk
+  - eswe-dev.prison.service.justice.gov.uk
