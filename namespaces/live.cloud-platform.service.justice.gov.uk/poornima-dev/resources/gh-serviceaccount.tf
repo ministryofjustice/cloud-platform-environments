@@ -7,7 +7,4 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = "KUBE_PROD_CERT"
   github_actions_secret_kube_token     = "KUBE_PROD_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_PROD_CLUSTER"
-    # Uncomment and provide repository names to create github actions secrets
-    # containing the ca.crt and token for use in github actions CI/CD pipelines
-  }
 }
