@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-workload-dev"
+  default = "hmpps-workload-preprod"
 }
 
 variable "business_unit" {
@@ -24,7 +24,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preproduction"
 }
 
 variable "infrastructure_support" {
@@ -49,8 +49,4 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
 }
