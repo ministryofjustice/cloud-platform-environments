@@ -7,4 +7,5 @@ module "serviceaccount_live" {
   github_actions_secret_kube_cert      = "KUBE_LIVE_CERT"
   github_actions_secret_kube_token     = "KUBE_LIVE_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_LIVE_CLUSTER"
+  serviceaccount_name = "cd-live-serviceaccount"
 }
