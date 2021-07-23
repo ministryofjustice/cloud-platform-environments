@@ -17,7 +17,7 @@ module "drupal_content_storage" {
   cors_rule = [
     {
       allowed_headers = ["Accept", "Content-Type", "Origin"]
-      allowed_methods = ["GET", "PUT", "POST", "DELETE"]
+      allowed_methods = ["GET", "PUT", "POST"]
       allowed_origins = ["https://manage.content-hub.prisoner.service.justice.gov.uk"]
       max_age_seconds = 3000
     }
