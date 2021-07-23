@@ -26,7 +26,8 @@ module "serviceaccount" {
         "create",
         "update",
         "delete",
-        "list"
+        "list",
+        "watch"
       ]
     },
     {
