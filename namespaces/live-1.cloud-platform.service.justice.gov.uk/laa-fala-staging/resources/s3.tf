@@ -54,3 +54,6 @@ resource "kubernetes_secret" "s3" {
     region            = "eu-west-2"
   }
 }
+
+
+
