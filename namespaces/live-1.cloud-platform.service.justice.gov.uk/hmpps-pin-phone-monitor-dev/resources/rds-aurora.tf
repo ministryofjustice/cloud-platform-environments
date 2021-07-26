@@ -18,6 +18,7 @@ module "rds_aurora" {
   apply_immediately           = true
   cluster_name                = var.cluster_name
   allow_major_version_upgrade = true
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
