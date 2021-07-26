@@ -81,7 +81,7 @@ resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events"
 
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   metadata {
-    name      = "restricted_patients_sub_queue_for_offender_events-dl_instance-output"
+    name      = "restricted_patients_sub_queue_for_offender_events_dl_instance_output"
     namespace = "restricted-patients-api-dev"
   }
 
