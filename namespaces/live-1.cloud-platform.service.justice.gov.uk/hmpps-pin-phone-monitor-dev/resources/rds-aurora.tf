@@ -34,7 +34,7 @@ resource "random_id" "pin_phone_monitor_read_role_password" {
 
 resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
   metadata {
-    name      = "pin-phone-monitor-rds-aurora-instance-output"
+    name      = "pin-phone-monitor-rds-aurora-output"
     namespace = var.namespace
   }
 
