@@ -1,0 +1,68 @@
+# description: |
+#               This GitHub Action will check every namespace amended in a PR, take the RBAC team name and confirm 
+#               the user is in that team.
+name: Check if user can amend namespace
+
+on:
+  pull_request
+
+env:
+  PR_OWNER: ${{ github.event.pull_request.user.login }}
+  BRANCH: ${{ github.head_ref }}
+
+  # GITHUB_OAUTH_TOKEN created manually by the cloud-platform-bot-user in last pass.
+  GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
+
+jobs:
+  rbac-permissions-check:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@master
+
+      # Grabs all files changed and displays them in csv format.
+      - name: Get all files changed in PR
+        id: files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: 'csv'
+
+      # Loop over all files changed:
+      # If the file path contains "live" then we assume it's a namespace change and requires an 
+      # RBAC check.
+      - name: Output all changes to a file
+        run: |
+          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
+          for added_modified_file in "${added_modified_files[@]}"; do
+            if [[ "${added_modified_file}" == *"live"* ]]; then
+              echo "${added_modified_file}" | awk -F/ '{print $3}' >> files
+            fi
+          done
+
+      # Runs custom script to check if the person who raised the PR is in the 
+      # correct GitHub team.
+      - name: Check the PR owner is in the correct rbac group
+        id: review_pr
+        uses: ministryofjustice/github-actions/rbac-permissions-check@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # If the user isn't permitted to make the change, write a comment in the issue.
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v1
+
+        if: steps.review_pr.outputs.reviewOutput == 'false'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            The user ${PR_OWNER} isn't a member of the relevant rbac teams.
+
+      # We need GitHub Actions to report a fail if the user isn't permitted.
+      - name: If user not in the rbac group; then fail
+        if: steps.review_pr.outputs.reviewOutput == 'false'
+        run: exit 1
