@@ -46,11 +46,11 @@ resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
     # refer to pin-phone-monitor-rds-aurora-migration secret for migrated db name and master user
     # database_name               = module.rds_aurora.database_name
     # database_username           = module.rds_aurora.database_username
-    database_password           = module.rds_aurora.database_password
-    database_update_password    = random_id.pin_phone_monitor_update_role_password.b64_url
-    database_read_password      = random_id.pin_phone_monitor_read_role_password.b64_url
-    access_key_id               = module.rds_aurora.access_key_id
-    secret_access_key           = module.rds_aurora.secret_access_key
+    database_password        = module.rds_aurora.database_password
+    database_update_password = random_id.pin_phone_monitor_update_role_password.b64_url
+    database_read_password   = random_id.pin_phone_monitor_read_role_password.b64_url
+    access_key_id            = module.rds_aurora.access_key_id
+    secret_access_key        = module.rds_aurora.secret_access_key
   }
 
 }
