@@ -28,9 +28,10 @@ jobs:
       # Grabs all files changed and displays them in csv format.
       - name: Get all files changed in PR
         id: files
-        uses: jitterbit/get-changed-files@v1
+        uses: Ana06/get-changed-files@v1.2
         with:
           format: 'csv'
+          filter: '*live*'
 
       # Loop over all files changed:
       # If the file path contains "live" then we assume it's a namespace change and requires an 
