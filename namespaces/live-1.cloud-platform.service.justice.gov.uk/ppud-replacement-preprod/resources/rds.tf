@@ -45,7 +45,7 @@ resource "kubernetes_secret" "ppud_replacement_preprod_rds_secrets" {
 ##
 
 module "ppud_replica_preprod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.4"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
@@ -64,9 +64,26 @@ module "ppud_replica_preprod_rds" {
   db_allocated_storage = "20"
   db_name              = "PPUD_LIVE"
   license_model        = "license-included"
+  option_group_name    = aws_db_option_group.ppud_replica_rds_option_group.name
 
   providers = {
     aws = aws.london
+  }
+}
+
+resource "aws_db_option_group" "ppud_replica_rds_option_group" {
+  name                     = "ppud-replica-preprod"
+  option_group_description = "Enable SQL Server Backup/Restore"
+  engine_name              = "sqlserver-web"
+  major_engine_version     = "11.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+
+    option_settings {
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.lumen_transfer_s3_iam_role.arn # see S3 config for role details
+    }
   }
 }
 
