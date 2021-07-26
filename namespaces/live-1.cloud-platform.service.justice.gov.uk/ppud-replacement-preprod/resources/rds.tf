@@ -62,7 +62,6 @@ module "ppud_replica_preprod_rds" {
   db_engine_version    = "11.00"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = "100"
-  db_name              = "PPUD_LIVE"
   license_model        = "license-included"
   option_group_name    = aws_db_option_group.ppud_replica_rds_option_group.name
 
@@ -95,7 +94,7 @@ resource "kubernetes_secret" "ppud_replica_preprod_rds_secrets" {
 
   data = {
     host     = module.ppud_replica_preprod_rds.rds_instance_address
-    name     = module.ppud_replica_preprod_rds.database_name
+    name     = "PPUD_LIVE"
     username = module.ppud_replica_preprod_rds.database_username
     password = module.ppud_replica_preprod_rds.database_password
   }
