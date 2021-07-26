@@ -18,6 +18,7 @@ module "rds_aurora" {
   apply_immediately           = true
   cluster_name                = var.cluster_name
   allow_major_version_upgrade = true
+  skip_final_snapshot         = true
 
   providers = {
     aws = aws.london
