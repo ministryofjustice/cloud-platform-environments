@@ -1,5 +1,5 @@
 module "rds-history" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.4"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
