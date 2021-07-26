@@ -1,24 +1,24 @@
 module "rds_aurora" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=skip-name-var"
 
-  team_name                     = var.team_name
-  business-unit                 = var.business-unit
-  application                   = var.application
-  is-production                 = var.is-production
-  namespace                     = var.namespace
-  environment-name              = var.environment-name
-  infrastructure-support        = var.infrastructure-support
-  engine                        = "aurora-postgresql"
-  engine_version                = "10.16"
-  engine_mode                   = "provisioned"
-  replica_count                 = 1
-  instance_type                 = "db.t3.medium"
-  snapshot_identifier           = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-dev-pre-migration-20210723-1436"
-  storage_encrypted             = true
-  apply_immediately             = true
-  cluster_name                  = var.cluster_name
-  allow_major_version_upgrade   = true
-  skip_setting_when_migrated    = true
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  engine                      = "aurora-postgresql"
+  engine_version              = "10.16"
+  engine_mode                 = "provisioned"
+  replica_count               = 1
+  instance_type               = "db.t3.medium"
+  snapshot_identifier         = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-dev-pre-migration-20210723-1436"
+  storage_encrypted           = true
+  apply_immediately           = true
+  cluster_name                = var.cluster_name
+  allow_major_version_upgrade = true
+  skip_setting_when_migrated  = true
 
   providers = {
     aws = aws.london
