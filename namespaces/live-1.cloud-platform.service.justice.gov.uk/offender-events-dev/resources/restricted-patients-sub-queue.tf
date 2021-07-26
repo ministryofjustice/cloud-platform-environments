@@ -67,7 +67,7 @@ module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events" {
   metadata {
     name      = "restricted-patients-sub-queue-for-offender-events-instance-output"
-    namespace = "restricted-patients-api-dev"
+    namespace = "hmpps-restricted-patients-api-dev"
   }
 
   data = {
@@ -82,7 +82,7 @@ resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events"
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   metadata {
     name      = "restricted-patients-sub-queue-for-offender-events-dl-instance-output"
-    namespace = "restricted-patients-api-dev"
+    namespace = "hmpps-restricted-patients-api-dev"
   }
 
   data = {
