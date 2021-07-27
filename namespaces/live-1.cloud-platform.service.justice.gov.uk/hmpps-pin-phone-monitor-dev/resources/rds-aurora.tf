@@ -12,6 +12,7 @@ module "rds_aurora" {
   engine_version              = "11.7"
   engine_mode                 = "provisioned"
   db_cluster_parameter_group_name = "default.aurora-postgresql11"
+  db_parameter_group_name         = "default.aurora-postgresql11"
   replica_count               = 1
   instance_type               = "db.t3.medium"
   snapshot_identifier         = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-dev-pre-migration-20210723-1436"
