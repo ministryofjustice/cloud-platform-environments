@@ -9,7 +9,9 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-
+  db_engine_version           = "12"
+  rds_family                  = "postgres12"
+  allow_major_version_upgrade = "true"
 
   providers = {
     aws = aws.london
