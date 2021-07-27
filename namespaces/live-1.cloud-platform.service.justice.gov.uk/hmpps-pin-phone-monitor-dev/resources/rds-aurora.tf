@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=skip-name-var"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.7"
 
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -43,7 +43,6 @@ resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
     rds_cluster_endpoint        = module.rds_aurora.rds_cluster_endpoint
     rds_cluster_reader_endpoint = module.rds_aurora.rds_cluster_reader_endpoint
     db_cluster_identifier       = module.rds_aurora.db_cluster_identifier
-    # refer to pin-phone-monitor-rds-aurora-migration secret for the migrated db name and master user
     database_name            = module.rds_aurora.database_name
     database_username        = module.rds_aurora.database_username
     database_password        = module.rds_aurora.database_password
