@@ -55,7 +55,7 @@ module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "restricted-patients-sub-queue-for-offender-events_dl"
+  sqs_name               = "restricted-patients-sub-queue-for-offender-events-dl"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
