@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=skip-name-var"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.7"
 
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -9,7 +9,7 @@ module "rds_aurora" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   engine                      = "aurora-postgresql"
-  engine_version              = "10.16"
+  engine_version              = "12.6"
   engine_mode                 = "provisioned"
   replica_count               = 1
   instance_type               = "db.t3.medium"
@@ -43,14 +43,13 @@ resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
     rds_cluster_endpoint        = module.rds_aurora.rds_cluster_endpoint
     rds_cluster_reader_endpoint = module.rds_aurora.rds_cluster_reader_endpoint
     db_cluster_identifier       = module.rds_aurora.db_cluster_identifier
-    # refer to pin-phone-monitor-rds-aurora-migration secret for the migrated db name and master user
-    database_name            = module.rds_aurora.database_name
-    database_username        = module.rds_aurora.database_username
-    database_password        = module.rds_aurora.database_password
-    database_update_password = random_id.pin_phone_monitor_update_role_password.b64_url
-    database_read_password   = random_id.pin_phone_monitor_read_role_password.b64_url
-    access_key_id            = module.rds_aurora.access_key_id
-    secret_access_key        = module.rds_aurora.secret_access_key
+    database_name               = module.rds_aurora.database_name
+    database_username           = module.rds_aurora.database_username
+    database_password           = module.rds_aurora.database_password
+    database_update_password    = random_id.pin_phone_monitor_update_role_password.b64_url
+    database_read_password      = random_id.pin_phone_monitor_read_role_password.b64_url
+    access_key_id               = module.rds_aurora.access_key_id
+    secret_access_key           = module.rds_aurora.secret_access_key
   }
 
 }
