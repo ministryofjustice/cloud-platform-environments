@@ -2,9 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Published evidence for both internal and external public viewing"
@@ -51,4 +48,12 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "rds-family" {
+  default = "postgres11"
+}
+
+variable "db_engine_version" {
+  default = "11"
 }
