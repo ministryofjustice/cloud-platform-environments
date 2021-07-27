@@ -5,7 +5,7 @@ module "restricted_patients_sub_queue_for_offender_events" {
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure-support
   application               = var.application
-  sqs_name                  = "restricted_patients_sub_queue_for_offender_events"
+  sqs_name                  = "rp_sub_queue_for_offender_events"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
@@ -55,7 +55,7 @@ module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "restricted_patients_sub_queue_for_offender_events_dl"
+  sqs_name               = "rp_sub_queue_for_offender_events_dl"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
