@@ -55,7 +55,7 @@ module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
   application            = var.application
-  sqs_name               = "rp_sub_queue-for_offender_events_dl"
+  sqs_name               = "rp-sub_queue-for_offender_events_dl"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
@@ -67,7 +67,7 @@ module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events" {
   metadata {
     name      = "restricted-patients-sub-queue-for-offender-events-instance-output"
-    namespace = "hmpps-restricted-patients-api-preprod"
+    namespace = "hmpps-restricted-patients-api-prod"
   }
 
   data = {
@@ -82,7 +82,7 @@ resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events"
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
   metadata {
     name      = "restricted-patients-sub-queue-for-offender-events-dl-instance-output"
-    namespace = "hmpps-restricted-patients-api-preprod"
+    namespace = "hmpps-restricted-patients-api-prod"
   }
 
   data = {
