@@ -43,13 +43,13 @@ resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
     rds_cluster_endpoint        = module.rds_aurora.rds_cluster_endpoint
     rds_cluster_reader_endpoint = module.rds_aurora.rds_cluster_reader_endpoint
     db_cluster_identifier       = module.rds_aurora.db_cluster_identifier
-    database_name            = module.rds_aurora.database_name
-    database_username        = module.rds_aurora.database_username
-    database_password        = module.rds_aurora.database_password
-    database_update_password = random_id.pin_phone_monitor_update_role_password.b64_url
-    database_read_password   = random_id.pin_phone_monitor_read_role_password.b64_url
-    access_key_id            = module.rds_aurora.access_key_id
-    secret_access_key        = module.rds_aurora.secret_access_key
+    database_name               = module.rds_aurora.database_name
+    database_username           = module.rds_aurora.database_username
+    database_password           = module.rds_aurora.database_password
+    database_update_password    = random_id.pin_phone_monitor_update_role_password.b64_url
+    database_read_password      = random_id.pin_phone_monitor_read_role_password.b64_url
+    access_key_id               = module.rds_aurora.access_key_id
+    secret_access_key           = module.rds_aurora.secret_access_key
   }
 
 }
