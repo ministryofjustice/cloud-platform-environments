@@ -34,8 +34,12 @@ variable "domain" {
   default = "bookasecuremove.service.justice.gov.uk"
 }
 
+variable "backup_window" {
+  default = "22:00-23:59"
+}
+
 variable "maintenance_window" {
-  default = "sat:23:00-sun:03:00"
+  default = "sun:00:00-sun:03:00"
 }
 
 // The following two variables are provided at runtime by the pipeline.
