@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: workload-measurement-dev.hmpps.service.justice.gov.uk
+  name: hmpps-workload-cert
   namespace: hmpps-workload-dev
 spec:
   secretName: hmpps-workload-cert
