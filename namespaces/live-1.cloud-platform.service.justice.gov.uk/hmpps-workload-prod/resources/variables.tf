@@ -40,3 +40,7 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "manage_a_workforce_dev"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
