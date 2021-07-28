@@ -3,7 +3,7 @@
 ##
 
 module "ppud_replacement_preprod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
@@ -45,7 +45,7 @@ resource "kubernetes_secret" "ppud_replacement_preprod_rds_secrets" {
 ##
 
 module "ppud_replica_preprod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
