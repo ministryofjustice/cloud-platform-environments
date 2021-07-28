@@ -1,7 +1,7 @@
 module "redis-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.2"
 
-  cluster_name         = var.cluster_name
+  cluster_name = var.cluster_name
 
   application            = var.application
   environment-name       = var.environment-name
@@ -11,6 +11,7 @@ module "redis-elasticache" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
+  maintenance_window     = "sat:23:00-sun:03:00"
 
   providers = {
     aws = aws.london
@@ -28,4 +29,3 @@ resource "kubernetes_secret" "redis-elasticache" {
     auth_token               = module.redis-elasticache.auth_token
   }
 }
-
