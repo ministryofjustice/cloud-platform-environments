@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  maintenance_window     = var.maintenance_window
 
   performance_insights_enabled = true
 
