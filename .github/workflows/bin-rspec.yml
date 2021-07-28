@@ -8,6 +8,7 @@ on:
       - "bin/**"
       - "lib/**"
       - "spec/**"
+      - ".github/workflows/bin-rspec.yml"
 
   push:
     branches:
@@ -16,6 +17,7 @@ on:
       - "bin/**"
       - "lib/**"
       - "spec/**"
+      - ".github/workflows/bin-rspec.yml"
 
 jobs:
   build:
