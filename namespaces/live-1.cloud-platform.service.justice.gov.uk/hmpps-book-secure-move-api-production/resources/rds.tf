@@ -11,6 +11,8 @@ module "rds-instance" {
   team_name              = var.team_name
   db_allocated_storage   = 50
   db_instance_class      = "db.t3.medium"
+  backup_window          = var.backup_window
+  maintenance_window     = var.maintenance_window
 
   # enable performance insights
   performance_insights_enabled = true
