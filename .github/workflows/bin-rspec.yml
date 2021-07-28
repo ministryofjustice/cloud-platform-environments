@@ -8,6 +8,7 @@ on:
       - "bin/**"
       - "lib/**"
       - "spec/**"
+      - ".github/workflows/bin-rspec.yml"
 
   push:
     branches:
@@ -16,23 +17,19 @@ on:
       - "bin/**"
       - "lib/**"
       - "spec/**"
+      - ".github/workflows/bin-rspec.yml"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
-
-    - name: Install gems
-      run: |
-        gem install bundler
-        bundle install
+        bundler-cache: true
 
     - name: Run specs
       run: |
