@@ -7,7 +7,7 @@ module "s3_bucket" {
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  infrastructure-support = "jason.test"
   namespace              = var.namespace
 
   providers = {
