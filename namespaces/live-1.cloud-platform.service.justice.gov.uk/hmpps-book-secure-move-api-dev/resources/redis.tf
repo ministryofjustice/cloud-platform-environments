@@ -11,6 +11,7 @@ module "redis-elasticache" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
+  maintenance_window     = var.maintenance_window
 
   providers = {
     aws = aws.london
