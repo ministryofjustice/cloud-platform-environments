@@ -5,7 +5,7 @@ metadata:
   namespace: dex-mi-production
 subjects:
   - kind: Group
-    name: "github:dex_mi_metabase"
+    name: "github:correspondence"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
