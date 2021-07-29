@@ -18,16 +18,16 @@ module "hmpps-workload-dev-s3-dashboard-bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "retire extracts after 14 days"
+      id      = "retire extracts after 180 days"
       prefix  = "extract/"
       noncurrent_version_expiration = [
         {
-          days = 14
+          days = 180
         },
       ]
       expiration = [
         {
-          days = 14
+          days = 180
         },
       ]
     }
