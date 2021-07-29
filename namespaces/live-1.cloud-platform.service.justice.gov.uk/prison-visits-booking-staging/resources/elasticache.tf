@@ -1,5 +1,5 @@
 module "ec-cluster-prison-visits-booking-staff" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   application            = "prison-visits-booking-staff"

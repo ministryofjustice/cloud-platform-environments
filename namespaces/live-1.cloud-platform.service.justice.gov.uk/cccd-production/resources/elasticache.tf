@@ -6,7 +6,7 @@
 ################################################################################
 
 module "cccd_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
 
   cluster_name           = var.cluster_name
   application            = var.application
