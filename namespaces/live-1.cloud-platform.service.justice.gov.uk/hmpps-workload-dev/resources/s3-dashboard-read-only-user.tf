@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "policy" {
 
     resources = [
       "${module.hmpps-workload-dev-s3-dashboard-bucket.bucket_arn}/*",
-      "${module.hmpps-workload-dev-s3-dashboard-bucket.bucket_arn}"
+      module.hmpps-workload-dev-s3-dashboard-bucket.bucket_arn
     ]
   }
 }
