@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: education-agg-prod.prison.service.justice.gov.uk
+  name: education-agg.prison.service.justice.gov.uk
   namespace: education-skills-work-employment-prod
 spec:
   secretName: education-agg-cert
@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - education-agg-prod.prison.service.justice.gov.uk
+  - education-agg.prison.service.justice.gov.uk
