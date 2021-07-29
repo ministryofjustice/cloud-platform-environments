@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: education-data-aggregation-preprod.prison.service.justice.gov.uk
+  namespace: education-skills-work-employment-preprod
+spec:
+  secretName: education-data-aggregation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - education-data-aggregation-preprod.prison.service.justice.gov.uk
