@@ -149,7 +149,7 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
   bucket = module.hmpps-workload-dev-s3-extract-bucket.bucket_name
 
   queue {
-    id        = "metadata-upload-event"
+    id        = "wmt-extract-upload-event"
     queue_arn = module.hmpps_workload_s3_extract_event_queue.sqs_arn
     events = [
     "s3:ObjectCreated:*"]
