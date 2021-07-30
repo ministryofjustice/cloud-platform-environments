@@ -9,7 +9,7 @@ module "parliamentary_questions_elasticache_redis" {
   team_name              = var.team_name
   business-unit          = "DEX uhura"
   application            = var.application
-  is-production          = "false"
+  is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   engine_version         = "4.0.10"
