@@ -19,7 +19,7 @@ module "hmpps-workload-preprod-s3-dashboard-bucket" {
     {
       enabled = true
       id      = "retire extracts after 180 days"
-      prefix  = "extract/"
+      prefix  = "generated-dashboards/"
       noncurrent_version_expiration = [
         {
           days = 180
