@@ -1,9 +1,3 @@
-# This IAM user enables operations engineering projects to use the S3 bucket
-# and dynamodb defined here to implement terraform state-locking. It is
-# required because the cloud platform S3 and DynamoDB modules both create
-# dedicated IAM users with access to their specific, single resource, but we
-# need an IAM user with access to both resources.
-
 resource "random_id" "id" {
   byte_length = 16
 }
