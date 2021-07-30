@@ -1,14 +1,14 @@
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
-  cluster_name           = var.cluster_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  cluster_name                = var.cluster_name
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
   db_engine_version           = "12"
   rds_family                  = "postgres12"
   allow_major_version_upgrade = "true"
