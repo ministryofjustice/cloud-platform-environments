@@ -152,7 +152,7 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
     id        = "metadata-upload-event"
     queue_arn = module.hmpps_workload_s3_extract_event_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_prefix = "extract/"
     filter_suffix = ".json"
   }
