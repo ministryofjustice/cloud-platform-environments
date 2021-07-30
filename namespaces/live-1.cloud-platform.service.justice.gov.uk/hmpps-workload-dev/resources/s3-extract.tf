@@ -96,7 +96,7 @@ module "hmpps_workload_s3_extract_event_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": module.hmpps_workload_s3_extract_event_dead_letter_queue.sqs_arn,"maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.hmpps_workload_s3_extract_event_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
 
