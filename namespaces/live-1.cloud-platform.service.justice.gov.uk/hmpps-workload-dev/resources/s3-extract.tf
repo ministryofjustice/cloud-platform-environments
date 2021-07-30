@@ -90,7 +90,7 @@ module "hmpps_workload_s3_extract_event_queue" {
   infrastructure-support    = var.infrastructure-support
   application               = var.application
   sqs_name                  = "hmpps_workload_s3_extract_event_queue"
-  encrypt_sqs_kms           = "false"
+  encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
 
