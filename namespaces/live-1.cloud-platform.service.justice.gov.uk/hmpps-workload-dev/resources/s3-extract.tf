@@ -85,9 +85,9 @@ EOF
 module "hmpps_workload_s3_extract_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "hmpps_workload_s3_extract_event_queue"
   encrypt_sqs_kms           = "true"
@@ -108,9 +108,9 @@ module "hmpps_workload_s3_extract_event_queue" {
 module "hmpps_workload_s3_extract_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_workload_s3_extract_event_dlq"
   encrypt_sqs_kms        = "true"
