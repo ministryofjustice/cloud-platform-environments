@@ -96,7 +96,7 @@ module "hmpps_workload_s3_extract_event_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.hmpps_workload_s3_extract_event_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": module.hmpps_workload_s3_extract_event_dead_letter_queue.sqs_arn,"maxReceiveCount": 3
   }
   EOF
 
@@ -135,9 +135,9 @@ resource "aws_sqs_queue_policy" "hmpps_workload_s3_extract_event_queue_policy" {
             "Service": "s3.amazonaws.com"
          },
         "Action": "sqs:SendMessage",
-        "Resource": "${module.hmpps_workload_s3_extract_event_queue.sqs_arn}",
+        "Resource": module.hmpps_workload_s3_extract_event_queue.sqs_arn,
         "Condition": {
-          "ArnEquals": { "aws:SourceArn": "${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}" }
+          "ArnEquals": { "aws:SourceArn": module.hmpps-workload-dev-s3-extract-bucket.bucket_arn }
         }
       }
     ]
