@@ -121,6 +121,43 @@ module "hmpps_workload_s3_extract_event_dead_letter_queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "hmpps_workload_s3_extract_event_queue_policy" {
+  queue_url = module.hmpps_workload_s3_extract_event_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_workload_s3_extract_event_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement": [
+      {
+        "Effect": "Allow",
+         "Principal": {
+            "Service": "s3.amazonaws.com"
+         },
+        "Action": "sqs:SendMessage",
+        "Resource": "${module.hmpps_workload_s3_extract_event_queue.sqs_arn}",
+        "Condition": {
+          "ArnEquals": { "aws:SourceArn": "${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}" }
+        }
+      }
+    ]
+  }
+    EOF
+}
+
+resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
+  bucket = module.hmpps-workload-dev-s3-extract-bucket.bucket_name
+
+  queue {
+    id        = "wmt-extract-upload-event"
+    queue_arn = module.hmpps_workload_s3_extract_event_queue.sqs_arn
+    events = [
+    "s3:ObjectCreated:*"]
+    filter_prefix = "extract/"
+  }
+
+}
+
 resource "kubernetes_secret" "hmpps_workload_s3_extract_event_queue" {
   metadata {
     name      = "hmpps-workload-s3-extract-sqs-output"
