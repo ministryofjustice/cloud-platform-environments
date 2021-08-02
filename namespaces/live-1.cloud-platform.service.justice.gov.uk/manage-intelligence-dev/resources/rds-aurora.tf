@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.7"
 
   team_name                   = var.team_name
   business-unit               = var.business-unit
