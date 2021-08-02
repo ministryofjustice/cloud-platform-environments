@@ -3,6 +3,8 @@ provider "pingdom" {}
 locals {
   forms = {
     apply-financial-deputy         = "apply-financial-deputy.form.service.justice.gov.uk",
+    apply-financial-deputy-upfront = "apply-financial-deputy-upfront.form.service.justice.gov.uk",
+    ccrc                           = "ccrc.form.service.justice.gov.uk",
     childrens-funeral-fund         = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     cica                           = "same-roof-rule.form.service.justice.gov.uk",
     complain-about-a-court         = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
@@ -13,12 +15,11 @@ locals {
     leavers-form                   = "leavers.form.service.justice.gov.uk",
     let-us-know                    = "let-us-know.form.service.justice.gov.uk",
     miscarriages-of-justice        = "miscarriages-of-justice.form.service.justice.gov.uk",
+    moj-user-research-consent      = "ministry-of-justice-user-research-consent-form.form.service.justice.gov.uk",
     money-claim-queries            = "money-claim-queries.form.service.justice.gov.uk",
     publisher                      = "fb-publisher-live.apps.live-1.cloud-platform.service.justice.gov.uk",
     report-security-incident       = "report-security-incident.form.service.justice.gov.uk",
-    using-moj-forms                = "usingmojforms.form.service.justice.gov.uk",
-    ccrc                           = "ccrc.form.service.justice.gov.uk",
-    apply-financial-deputy-upfront = "apply-financial-deputy-upfront.form.service.justice.gov.uk"
+    using-moj-forms                = "usingmojforms.form.service.justice.gov.uk"
   }
   names = keys(local.forms)
   hosts = values(local.forms)
