@@ -15,13 +15,13 @@ variable "cluster_name" {
  *
  */
 module "laa_crime_apps_team_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
-  cluster_name         = var.cluster_name
-  team_name            = "laa-crime-apps-team"
-  business-unit        = "Crime Apps"
-  application          = "laa-court-data-adaptor"
-  is-production        = "false"
-  namespace            = var.namespace
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  cluster_name  = var.cluster_name
+  team_name     = "laa-crime-apps-team"
+  business-unit = "Crime Apps"
+  application   = "laa-court-data-adaptor"
+  is-production = "false"
+  namespace     = var.namespace
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
