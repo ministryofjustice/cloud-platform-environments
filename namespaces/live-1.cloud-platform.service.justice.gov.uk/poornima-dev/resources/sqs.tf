@@ -8,6 +8,7 @@ module "pkdev_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  sqs_name               = "pkdev-test-sqs"
   encrypt_sqs_kms        = "false"
 
   providers = {
