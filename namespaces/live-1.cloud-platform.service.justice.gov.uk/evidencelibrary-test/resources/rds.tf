@@ -43,6 +43,6 @@ resource "kubernetes_secret" "evidencelibrary_rds" {
     rds_instance_address  = module.evidencelibrary_rds.rds_instance_address
     access_key_id         = module.evidencelibrary_rds.access_key_id
     secret_access_key     = module.evidencelibrary_rds.secret_access_key
-    url                   = "postgres://${module.evidencelibrary_rds.database_username}:${module.evidencelibrary_rds.database_password}@${module.evidencelibrary_rds.rds_instance_endpoint}/${module.evidencelibrary_rds.database_name}"
+    url                   = "Host=${module.evidencelibrary_rds.rds_instance_address};Port=5432;Database=${module.evidencelibrary_rds.database_name};Username=${module.evidencelibrary_rds.database_username};Password=${module.evidencelibrary_rds.database_password};"
   }
 }
