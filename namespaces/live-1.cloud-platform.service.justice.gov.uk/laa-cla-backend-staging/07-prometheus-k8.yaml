@@ -20,11 +20,11 @@ spec:
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
         - alert: KubePodNotReady
           expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",phase!~"Running|Succeeded", namespace="laa-cla-backend-staging"}) > 0
-          for: 1h
+          for: 15m
           labels:
             severity: laa-get-access
           annotations:
-            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-readystate for longer than an hr.
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-readystate for longer than fifteen minutes.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
         - alert: KubeDeploymentGenerationMismatch
           expr: |-
