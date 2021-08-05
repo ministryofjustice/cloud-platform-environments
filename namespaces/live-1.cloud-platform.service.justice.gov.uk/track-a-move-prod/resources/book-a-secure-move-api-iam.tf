@@ -15,17 +15,33 @@ resource "aws_iam_access_key" "book-a-secure-move-api-user" {
 data "aws_iam_policy_document" "book-a-secure-move-api" {
   statement {
     actions = [
-      "athena:GetQueryExecution",
-      "athena:StartQueryExecution",
-      "athena:StopQueryExecution",
       "athena:CancelQueryExecution",
+      "athena:GetQueryExecution",
       "athena:GetQueryResults",
       "athena:GetWorkGroup",
+      "athena:StartQueryExecution",
+      "athena:StopQueryExecution",
+      "s3:AbortMultipartUpload",
+      "s3:DescribeJob",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObject",
+      "glue:GetDatabase",
+      "glue:GetDatabases",
+      "glue:GetPartitions",
+      "glue:GetTable",
     ]
 
     resources = [
       "${aws_athena_workgroup.queries.arn}",
       "${aws_athena_workgroup.queries.arn}/*",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}/*",
+      module.track_a_move_s3_bucket.bucket_arn,
+      "${module.track_a_move_s3_bucket.bucket_arn}/*",
     ]
   }
 }
