@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -80,7 +80,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

@@ -1,5 +1,5 @@
 module "restricted_patients_sub_queue_for_offender_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "restricted_patients_sub_queue_for_offender_even
 }
 
 module "restricted_patients_sub_queue_for_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
