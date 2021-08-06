@@ -9,11 +9,10 @@ module "evidencelibrary_document_s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-
+  
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "evidencelibrary_document_s3_bucket" {
