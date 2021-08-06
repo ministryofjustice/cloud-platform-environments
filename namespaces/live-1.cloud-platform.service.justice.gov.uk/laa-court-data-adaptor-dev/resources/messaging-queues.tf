@@ -343,6 +343,56 @@ module "create_link_cp_status_job_dead_letter_queue" {
   }
 }
 
+module "prosecution_concluded_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
+
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "prosecution-concluded-queue"
+  existing_user_name        = module.create_link_queue_m.user_name
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
+  queue_url = module.prosecution_concluded_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.prosecution_concluded_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Sid": "PublishPolicy",
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
+          "Action": "sqs:SendMessage"
+        },
+        {
+          "Sid": "ConsumePolicy",
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "140455166311"
+              ]
+          },
+          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
+          "Action": "sqs:ReceiveMessage"
+        }
+      ]
+  }
+   EOF
+}
+
 resource "kubernetes_secret" "create_link_queue_m" {
   metadata {
     name      = "cda-messaging-queues-output"
@@ -370,6 +420,9 @@ resource "kubernetes_secret" "create_link_queue_m" {
     sqs_url_d_hearing_resulted           = module.hearing_resulted_dead_letter_queue.sqs_id
     sqs_arn_d_hearing_resulted           = module.hearing_resulted_dead_letter_queue.sqs_arn
     sqs_name_d_hearing_resulted          = module.hearing_resulted_dead_letter_queue.sqs_name
+    sqs_url_prosecution_concluded        = module.prosecution_concluded_queue.sqs_id
+    sqs_arn_prosecution_concluded        = module.prosecution_concluded_queue.sqs_arn
+    sqs_name_prosecution_concluded       = module.prosecution_concluded_queue.sqs_name
     sqs_url_cp_laa_status_job            = module.cp_laa_status_job_queue.sqs_id
     sqs_arn_cp_laa_status_job            = module.cp_laa_status_job_queue.sqs_arn
     sqs_name_cp_laa_status_job           = module.cp_laa_status_job_queue.sqs_name
@@ -382,6 +435,5 @@ resource "kubernetes_secret" "create_link_queue_m" {
     sqs_url_d_cp_create_link_status_job  = module.create_link_cp_status_job_dead_letter_queue.sqs_id
     sqs_arn_d_cp_create_link_status_job  = module.create_link_cp_status_job_dead_letter_queue.sqs_arn
     sqs_name_d_cp_create_link_status_job = module.create_link_cp_status_job_dead_letter_queue.sqs_name
-
   }
 }
