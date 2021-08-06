@@ -8,7 +8,7 @@ metadata:
   name: prometheus-custom-rules-laa-cla-backend-staging
 spec:
   groups:
-    - name: k8s-rules
+    - name: laa-cla-backend-staging-k8s-rules
       rules:
         - alert: KubeQuotaExceeded
           expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-cla-backend-staging"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-cla-backend-staging"} > 0) > 90
