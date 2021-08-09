@@ -375,7 +375,6 @@ module "prosecution_concluded_dl_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "prosecution-concluded-queue-dl"
-  existing_user_name     = module.create_link_queue_m.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
