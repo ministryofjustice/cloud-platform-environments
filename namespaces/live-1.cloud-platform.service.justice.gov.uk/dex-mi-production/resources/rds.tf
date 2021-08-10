@@ -9,13 +9,13 @@ module "dex_mi_production_rds" {
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "dex-mi-metabase"
-  is-production              = "true"
+  is-production              = var.is-production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
-  environment-name           = "production"
+  environment-name           = var.environment-name
   infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
 
   rds_family = "postgres12"
