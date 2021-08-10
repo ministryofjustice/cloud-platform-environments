@@ -89,9 +89,9 @@ module "pathfinder_reporting_s3_bucket" {
   application            = var.application
   infrastructure-support = var.infrastructure-support
   acl                    = "private"
-  is-production    = var.is_production
-  environment-name = var.environment-name
-  namespace        = var.namespace
+  is-production          = var.is_production
+  environment-name       = var.environment-name
+  namespace              = var.namespace
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
