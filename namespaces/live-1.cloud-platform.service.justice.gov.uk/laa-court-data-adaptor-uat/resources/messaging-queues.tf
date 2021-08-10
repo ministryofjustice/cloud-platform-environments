@@ -9,6 +9,7 @@ module "create_link_queue" {
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
+  visibility_timeout_seconds =var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -84,6 +85,7 @@ module "unlink_queue" {
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
+  visibility_timeout_seconds =var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -157,6 +159,7 @@ module "hearing_resulted_queue" {
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
+  visibility_timeout_seconds =var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -230,6 +233,7 @@ module "create_link_cp_status_job_queue" {
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
+  visibility_timeout_seconds =var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
