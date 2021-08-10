@@ -131,7 +131,7 @@ resource "kubernetes_secret" "pathfinder_rds_to_s3_bucket" {
 
 resource "kubernetes_secret" "pathfinder_reporting_s3_bucket" {
   metadata {
-    name      = "pathfinder_reporting_s3_bucket"
+    name      = "pathfinder-reporting-s3-bucket"
     namespace = var.namespace
   }
 
