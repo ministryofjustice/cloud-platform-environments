@@ -14,4 +14,6 @@ resource "aws_athena_workgroup" "queries" {
       output_location = "s3://${module.pathfinder_reporting_s3_bucket.bucket_name}/query_results/"
     }
   }
+
+  depends_on = [module.pathfinder_reporting_s3_bucket]
 }
