@@ -11,3 +11,4 @@ spec:
   dnsNames:
     - court-list-splitter-preprod.hmpps.service.justice.gov.uk
     - court-hearing-event-receiver-preprod.hmpps.service.justice.gov.uk
+    - court-case-test-app-preprod.hmpps.service.justice.gov.uk
