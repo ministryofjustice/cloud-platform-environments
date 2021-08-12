@@ -20,7 +20,6 @@ data "aws_iam_policy_document" "athena" {
       "athena:ListDataCatalogs",
       "athena:GetCatalogs",
       "athena:ListDatabases",
-      "athena:GetDatabase",
       "athena:ListTableMetadata",
       "athena:GetTableMetadata"
     ]
@@ -59,6 +58,7 @@ data "aws_iam_policy_document" "athena" {
       "athena:StartQueryExecution",
       "athena:StopQueryExecution",
       "athena:CancelQueryExecution",
+      "athena:GetDatabase",
       "glue:BatchCreatePartition",
       "glue:GetDatabase",
       "glue:GetDatabases",
