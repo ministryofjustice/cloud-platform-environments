@@ -12,6 +12,24 @@ resource "aws_iam_access_key" "pathfinder-athena-user" {
 }
 
 data "aws_iam_policy_document" "athena" {
+
+  statement {
+    actions = [
+      "athena:ListWorkGroups",
+      "athena:ListEngineVersions",
+      "athena:ListDataCatalogs",
+      "athena:GetCatalogs",
+      "athena:ListDatabases",
+      "athena:GetDatabase",
+      "athena:ListTableMetadata",
+      "athena:GetTableMetadata"
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+
   statement {
     actions = [
       "s3:ListMultipartUploadParts",
@@ -22,7 +40,6 @@ data "aws_iam_policy_document" "athena" {
       "s3:AbortMultipartUpload",
       "athena:BatchGetNamedQuery",
       "athena:BatchGetQueryExecution",
-      "athena:GetCatalogs",
       "athena:GetExecutionEngine",
       "athena:GetExecutionEngines",
       "athena:GetNamedQuery",
@@ -35,13 +52,10 @@ data "aws_iam_policy_document" "athena" {
       "athena:GetTable",
       "athena:GetTables",
       "athena:GetWorkGroup",
-      "athena:ListDatabases",
-      "athena:ListDataCatalogs",
       "athena:ListNamedQueries",
       "athena:ListQueryExecutions",
       "athena:ListTagsForResource",
       "athena:ListWorkGroups",
-      "athena:ListTableMetadata",
       "athena:StartQueryExecution",
       "athena:StopQueryExecution",
       "athena:CancelQueryExecution",
