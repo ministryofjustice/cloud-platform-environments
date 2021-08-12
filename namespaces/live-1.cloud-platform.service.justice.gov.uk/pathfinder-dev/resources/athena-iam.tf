@@ -44,6 +44,7 @@ data "aws_iam_policy_document" "athena" {
       "athena:ListTableMetadata",
       "athena:StartQueryExecution",
       "athena:StopQueryExecution",
+      "athena:CancelQueryExecution",
       "glue:BatchCreatePartition",
       "glue:GetDatabase",
       "glue:GetDatabases",
