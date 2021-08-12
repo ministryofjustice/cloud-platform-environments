@@ -41,15 +41,6 @@ spec:
       annotations:
         message: Job `{{ $labels.job_name }}` failed to complete.
 
-    - alert: FJ-DC-NamespaceMissing
-      expr: >-
-        absent(kube_namespace_created{namespace=~"^disclosure-checker.*"})
-      for: 1m
-      labels:
-        severity: family-justice
-      annotations:
-        message: Namespace `{{ $labels.namespace }}` is missing.
-
     - alert: FJ-DC-ContainerRestarting
       expr: >-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"^disclosure-checker.*"}[5m]) > 0
