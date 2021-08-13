@@ -52,7 +52,7 @@ spec:
               matched the expected number of replicas for longer than an hour.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
         - alert: KubePodCrashLooping
-          expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-cla-backend-staging"}[10m]) * 60 * 10 > 1
+          expr: round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-cla-backend-staging"}[10m]) * 60 * 10 > 1)
           for: 5m
           labels:
             severity: laa-get-access
