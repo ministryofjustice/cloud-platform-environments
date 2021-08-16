@@ -87,7 +87,7 @@ class CpEnv
     def kubernetes_cluster
       `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}' | cut -d'/' -f3`
     end
-    
+
     def tf_cmd(opts)
       operation = opts.fetch(:operation)
       last = opts.fetch(:last)
