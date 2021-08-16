@@ -1,5 +1,5 @@
 module "pkdev_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   business-unit          = var.business_unit
   application            = var.application
