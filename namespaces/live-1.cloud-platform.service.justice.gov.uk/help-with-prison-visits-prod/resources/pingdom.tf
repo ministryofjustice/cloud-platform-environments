@@ -2,12 +2,12 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# ????? =  #help-with-prison-visits-alerts
+# 116039 =  #help-with-prison-visits-alerts
 
 resource "pingdom_check" "help-with-prison-visits-external" {
   type                     = "http"
   name                     = "${var.application}-external"
-  host                     = "help-with-prison-visits.hmpps.service.justice.gov.uk"
+  host                     = "help-with-prison-visits.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -17,13 +17,13 @@ resource "pingdom_check" "help-with-prison-visits-external" {
   port                     = 443
   tags                     = "businessunit_${var.business-unit},application_${var.application}-external,isproduction_${var.is-production},owner_${var.infrastructure-support}"
   probefilters             = "region:EU"
-  integrationids           = []
+  integrationids           = [116039]
 }
 
 resource "pingdom_check" "help-with-prison-visits-internal" {
   type                     = "http"
   name                     = "${var.application}-internal"
-  host                     = "manage.hwpv.hmpps.service.justice.gov.uk"
+  host                     = "caseworker.help-with-prison-visits.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -33,5 +33,5 @@ resource "pingdom_check" "help-with-prison-visits-internal" {
   port                     = 443
   tags                     = "businessunit_${var.business-unit},application_${var.application}-internal,isproduction_${var.is-production},owner_${var.infrastructure-support}"
   probefilters             = "region:EU"
-  integrationids           = []
+  integrationids           = [116039]
 }
