@@ -7,8 +7,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 /*
  * Make sure that you use the latest version of the module by changing the
@@ -18,7 +16,7 @@ variable "cluster_state_bucket" {
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name           = var.cluster_name
   team_name              = "prison-visits-booking"

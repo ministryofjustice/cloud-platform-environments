@@ -2,8 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -71,3 +69,12 @@ variable "slack-channel" {
   default     = "davidread"
 }
 
+variable "github_owner" {
+  description = "Required by the github terraform provider"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the github terraform provider"
+  default     = ""
+}

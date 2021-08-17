@@ -1,5 +1,5 @@
 module "hmpps_interventions_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,6 +9,7 @@ module "hmpps_interventions_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds_family
+  db_instance_class      = "db.m5.large"
 
   providers = {
     aws = aws.london

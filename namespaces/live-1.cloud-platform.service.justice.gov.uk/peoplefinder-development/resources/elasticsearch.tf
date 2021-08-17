@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.0"
   cluster_name           = var.cluster_name
   application            = "peoplefinder"
   business-unit          = "Central Digital"
@@ -15,6 +15,7 @@ module "peoplefinder_es" {
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-development"
   elasticsearch_version  = "6.8"
+  instance_type          = "t2.small.elasticsearch"
 }
 
 module "ns_annotation" {

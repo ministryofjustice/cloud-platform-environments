@@ -2,8 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "domain" {
   default = "dev-pk.service.justice.gov.uk"
@@ -17,27 +15,36 @@ variable "application" {
   default = "test-app-poornima-dev"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "MOJ Digital"
   default     = "mojdigital"
 }
 
 variable "team_name" {
   default     = "cloud-platform"
-  description = "Cloud Platform"
+  description = "Cloud Platform team"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default     = "test"
   description = "Development/Test environment"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default     = "poornima.krishnasamy@digital.justice.gov.uk"
   description = "Cloud Platform"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
+variable "github_owner" {
+  description = "Required by the github terraform provider"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the github terraform provider"
+  default     = ""
+}

@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name = var.cluster_name
 
@@ -10,6 +10,8 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  backup_window          = var.backup_window
+  maintenance_window     = var.maintenance_window
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -29,4 +31,3 @@ resource "kubernetes_secret" "rds-instance" {
     url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
-

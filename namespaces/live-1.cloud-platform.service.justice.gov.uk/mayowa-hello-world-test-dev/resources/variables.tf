@@ -2,8 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "application" {
   description = "Name of Application you are deploying"

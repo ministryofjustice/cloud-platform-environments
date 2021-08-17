@@ -6,8 +6,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "namespace" {
   default = "track-a-query-production"
@@ -23,5 +21,17 @@ variable "is-production" {
 
 variable "environment-name" {
   default = "production"
+}
+
+variable "application" {
+  default = "track-a-query"
+}
+
+variable "infrastructure-support" {
+  default = "correspondence-support@digital.justice.gov.uk"
+}
+
+variable "team_name" {
+  default = "correspondence"
 }
 

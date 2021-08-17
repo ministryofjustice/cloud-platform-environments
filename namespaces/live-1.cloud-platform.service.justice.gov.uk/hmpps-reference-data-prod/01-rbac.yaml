@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-reference-data-prod-admin
+  namespace: hmpps-reference-data-prod
+subjects:
+  - kind: Group
+    name: "github:hmpps-reference-data"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

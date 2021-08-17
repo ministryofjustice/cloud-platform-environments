@@ -10,5 +10,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prepare-case-probation.service.justice.gov.uk
-    - crime-portal-mirror-gateway-probation.service.justice.gov.uk
     - court-list-splitter.hmpps.service.justice.gov.uk
+    - court-hearing-event-receiver.hmpps.service.justice.gov.uk

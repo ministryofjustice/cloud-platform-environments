@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: manage-restricted-patients-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-restricted-patients-dev
+spec:
+  secretName: hmpps-restricted-patients-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-restricted-patients-dev.hmpps.service.justice.gov.uk

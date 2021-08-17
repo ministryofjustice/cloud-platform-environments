@@ -17,7 +17,7 @@ module "cla_frontend_static_files_bucket" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET"]
-      allowed_origins = ["https://*.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://staging.cases.civillegaladvice.service.gov.uk", "https://*.apps.live-1.cloud-platform.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     }

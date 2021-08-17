@@ -1,5 +1,5 @@
 module "service-token-cache-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
 
   cluster_name = var.cluster_name
 

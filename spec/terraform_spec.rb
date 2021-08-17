@@ -13,6 +13,7 @@ describe CpEnv::Terraform do
       "PIPELINE_STATE_KEY_PREFIX" => "key-prefix/",
       "PIPELINE_TERRAFORM_STATE_LOCK_TABLE" => "lock-table",
       "PIPELINE_STATE_REGION" => "region",
+      "PIPELINE_CLUSTER_STATE" => cluster,
       "TF_VAR_cluster_name" => cluster,
       "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
       "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"

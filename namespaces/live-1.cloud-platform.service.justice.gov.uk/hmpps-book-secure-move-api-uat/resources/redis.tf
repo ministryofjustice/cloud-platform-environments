@@ -1,5 +1,5 @@
 module "redis-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
 
   cluster_name = var.cluster_name
 
@@ -11,6 +11,8 @@ module "redis-elasticache" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
+  snapshot_window        = var.backup_window
+  maintenance_window     = var.maintenance_window
 
   providers = {
     aws = aws.london

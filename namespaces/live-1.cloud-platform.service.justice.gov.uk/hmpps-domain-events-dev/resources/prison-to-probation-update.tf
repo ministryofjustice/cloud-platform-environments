@@ -1,7 +1,7 @@
 
 
 module "prison_to_probation_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -55,7 +55,7 @@ EOF
 }
 
 module "prison_to_probation_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -106,7 +106,7 @@ resource "aws_sns_topic_subscription" "prison_to_probation_update_subscription" 
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prison_to_probation_update_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"PRISONER_RELEASED\", \"PRISONER_RECEIVED\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
 }
 
 

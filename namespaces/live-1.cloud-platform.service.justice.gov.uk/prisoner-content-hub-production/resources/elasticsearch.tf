@@ -1,5 +1,5 @@
 module "content_hub_elasticsearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.0"
   cluster_name           = var.cluster_name
   application            = var.application
   business-unit          = var.business-unit
@@ -11,7 +11,7 @@ module "content_hub_elasticsearch" {
   namespace              = var.namespace
   elasticsearch_version  = "7.1"
   ebs_volume_size        = 50
-  instance_type          = "t3.small.elasticsearch"
+  instance_type          = "t3.medium.elasticsearch"
 }
 
 module "ns_annotation" {

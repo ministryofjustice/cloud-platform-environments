@@ -41,15 +41,6 @@ spec:
       annotations:
         message: Job `{{ $labels.job_name }}` failed to complete.
 
-    - alert: FJ-FMAPI-NamespaceMissing
-      expr: >-
-        absent(kube_namespace_created{namespace=~"^family-mediators-api.*"})
-      for: 1m
-      labels:
-        severity: family-justice
-      annotations:
-        message: Namespace `{{ $labels.namespace }}` is missing.
-
     - alert: FJ-FMAPI-ContainerRestarting
       expr: >-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"^family-mediators-api.*"}[5m]) > 0

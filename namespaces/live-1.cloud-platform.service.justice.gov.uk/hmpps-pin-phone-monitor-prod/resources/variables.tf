@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "hmpps-pin-phone-monitor.prison.service.justice.gov.uk"
+  default = "pin-phone-monitor.prison.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -13,8 +13,6 @@ variable "namespace" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."

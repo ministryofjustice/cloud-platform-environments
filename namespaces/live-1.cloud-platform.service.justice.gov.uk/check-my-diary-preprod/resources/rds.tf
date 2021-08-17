@@ -6,11 +6,9 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name           = var.cluster_name
   team_name              = "check-my-diary"

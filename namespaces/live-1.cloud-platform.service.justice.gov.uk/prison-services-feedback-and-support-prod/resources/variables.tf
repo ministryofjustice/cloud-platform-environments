@@ -2,8 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -40,7 +38,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "contact_dps_core"
+  default     = "dps_core"
 }
 
 # DEPRECATED: snake-case variables are the default. The definitions below
@@ -68,6 +66,6 @@ variable "is-production" {
 
 variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "contact_dps_core"
+  default     = "dps_core"
 }
 

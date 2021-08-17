@@ -9,7 +9,7 @@ spec:
       app.kubernetes.io/instance: laa-court-data-adaptor
   namespaceSelector:
     matchNames:
-      - court-data-adaptor-uat
+      - laa-court-data-adaptor-uat
   endpoints:
-    - port: http
+    - port: metrics
       interval: 15s

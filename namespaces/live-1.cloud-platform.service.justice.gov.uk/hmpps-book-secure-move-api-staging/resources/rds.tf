@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name = var.cluster_name
 
@@ -9,6 +9,8 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  backup_window          = var.backup_window
+  maintenance_window     = var.maintenance_window
 
   # enable performance insights
   performance_insights_enabled = true
@@ -41,7 +43,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name = var.cluster_name
 

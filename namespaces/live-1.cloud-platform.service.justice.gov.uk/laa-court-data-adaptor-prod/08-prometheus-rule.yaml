@@ -24,7 +24,7 @@ spec:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
     - alert: NotFound-Threshold-Reached
-      expr: sum(rate(http_server_requests_total{status="404", namespace="laa-court-data-adaptor-prod"}[86400s])) * 86400 > 100
+      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-court-data-adaptor-prod", path=~"/api/.*"}[86400s])) * 86400 > 100
       for: 1m
       labels:
         severity: Crime-Apps-Team
@@ -47,23 +47,44 @@ spec:
       annotations:
         message: Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: http_server_request_duration_seconds_bucket{namespace="laa-court-data-adaptor-prod", path=~"/api/.*"} > 30
+      expr: ruby_http_duration_seconds{namespace="laa-court-data-adaptor-prod", path=~"/api/.*"} > 30
       for: 1m
       labels:
         severity: Crime-Apps-Team
       annotations:
         message: API request is taking more than 30 seconds
     - alert: Internal requests failing
-      expr: sum(rate(http_server_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-prod", path=~"/api/internal/.*"}[30m])) * 1800 > 1
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-prod", path=~"/api/internal/.*"}[30m])) * 1800 > 1
       for: 1m
       labels:
         severity: Crime-Apps-Team
       annotations:
         message: Requests to CDA internal interface has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: External requests failing
-      expr: sum(rate(http_server_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-prod", path=~"/api/external/.*"}[30m])) * 1800 > 1
+      expr: sum(rate(ruby_http_server_requests_total{status=~"4..|5..", namespace="laa-court-data-adaptor-prod", path=~"/api/external/.*"}[30m])) * 1800 > 1
       for: 1m
       labels:
         severity: Crime-Apps-Team
       annotations:
         message: Requests to CDA external interface has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: SidekiqQueueSize-Threshold-Reached
+      expr: ruby_sidekiq_queue_backlog_total{namespace="laa-court-data-adaptor-prod"} > 10
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: Sidekiq queue size is more than 10
+    - alert: SidekiqQueue-Failed-Jobs
+      expr: rate(ruby_sidekiq_failed_jobs_total{namespace="laa-court-data-adaptor-prod"}[10m]) > 1
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: "{{ $labels.job_name }} has failed jobs"
+    - alert: SidekiqQueue-Latency
+      expr: ruby_sidekiq_queue_latency_seconds{namespace="laa-court-data-adaptor-prod"} > 10
+      for: 1m
+      labels:
+        severity: Crime-Apps-Team
+      annotations:
+        message: Sidekiq queue latency is over 10 seconds

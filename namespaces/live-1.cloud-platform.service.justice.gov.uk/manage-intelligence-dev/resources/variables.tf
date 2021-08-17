@@ -37,6 +37,4 @@ variable "number_cache_clusters" {
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 

@@ -1,5 +1,6 @@
+
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -21,7 +22,7 @@ module "rds" {
   rds_family = "postgres10"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -31,7 +32,7 @@ module "rds" {
 
 resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "example-rds-output"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
@@ -62,50 +63,5 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
 
-  }
-}
-
-module "borgsql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.1"
-
-  cluster_name           = var.cluster_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-
-  # enable performance insights
-  performance_insights_enabled = true
-
-  db_engine                   = "sqlserver-ex"
-  db_engine_version           = "15.00.4073.23.v1"
-  db_instance_class           = "db.t3.medium"
-  db_allocated_storage        = 32
-  rds_family                  = "sqlserver-ex-15.0"
-  allow_minor_version_upgrade = true
-  allow_major_version_upgrade = false
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "borgsql" {
-  metadata {
-    name      = "borgsql-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.borgsql.rds_instance_endpoint
-    database_username     = module.borgsql.database_username
-    database_password     = module.borgsql.database_password
-    rds_instance_address  = module.borgsql.rds_instance_address
-    access_key_id         = module.borgsql.access_key_id
-    secret_access_key     = module.borgsql.secret_access_key
   }
 }
