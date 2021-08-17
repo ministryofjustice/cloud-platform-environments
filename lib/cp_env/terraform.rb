@@ -85,7 +85,7 @@ class CpEnv
     end
 
     def kubernetes_cluster
-      `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}' | cut -d'/' -f3`.chomp.gsub(/^api\.(.*)/, '\1')
+      `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'`.chomp.gsub(/^https:\/\/(.*)/, '\1').gsub(/^api\.(.*)/, '\1')
     end
 
     def tf_cmd(opts)
