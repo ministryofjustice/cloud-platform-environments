@@ -15,7 +15,7 @@ resource "pingdom_check" "help-with-prison-visits-external" {
   url                      = "/status"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application}-external,isproduction_${var.is_production},owner_${var.infrastructure-support}"
+  tags                     = "businessunit_${var.business-unit},application_${var.application}-external,isproduction_${var.is_production},owner_prison-visits-booking"
   probefilters             = "region:EU"
   integrationids           = [116039]
 }
@@ -31,7 +31,7 @@ resource "pingdom_check" "help-with-prison-visits-internal" {
   url                      = "/status"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application}-internal,isproduction_${var.is_production},owner_${var.infrastructure-support}"
+  tags                     = "businessunit_${var.business-unit},application_${var.application}-internal,isproduction_${var.is_production},owner_prison-visits-booking"
   probefilters             = "region:EU"
   integrationids           = [116039]
 }
