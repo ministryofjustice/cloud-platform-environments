@@ -59,7 +59,7 @@ class CpEnv
         %(-backend-config="region=#{region}")
       ].join(" ")
 
-      execute("cd #{tf_dir}; #{cmd}")
+      execute("cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; #{cmd}")
     end
 
     def tf_apply
@@ -68,7 +68,7 @@ class CpEnv
         last: %(-auto-approve)
       )
 
-      execute("cd #{tf_dir}; #{cmd}")
+      execute("cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; #{cmd}")
     end
 
     def tf_plan
@@ -77,11 +77,15 @@ class CpEnv
         last: " "
       )
 
-      execute("cd #{tf_dir}; #{cmd}")
+      execute("cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; #{cmd}")
     end
 
     def tf_dir
       File.join(dir, "resources")
+    end
+
+    def kubernetes_cluster
+      `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'`.chomp.gsub(/^https:\/\/(.*)/, '\1').gsub(/^api\.(.*)/, '\1')
     end
 
     def tf_cmd(opts)

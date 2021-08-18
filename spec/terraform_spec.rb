@@ -38,10 +38,11 @@ describe CpEnv::Terraform do
       allow(FileTest).to receive(:directory?).and_return(true)
 
       tf_dir = "#{dir}/resources"
+      kubernetes_cluster = `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'`.chomp.gsub(/^https:\/\/(.*)/, '\1').gsub(/^api\.(.*)/, '\1')
 
-      tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+      tf_init = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_plan = "cd #{tf_dir}; terraform plan  "
+      tf_plan = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform plan  "
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_plan, "", success)
@@ -58,9 +59,11 @@ describe CpEnv::Terraform do
       end
       allow(FileTest).to receive(:directory?).and_return(true)
       tf_dir = "#{dir}/resources"
-      tf_init = "cd #{tf_dir}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+      kubernetes_cluster = `kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'`.chomp.gsub(/^https:\/\/(.*)/, '\1').gsub(/^api\.(.*)/, '\1')
 
-      tf_apply = "cd #{tf_dir}; terraform apply -auto-approve"
+      tf_init = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
+
+      tf_apply = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform apply -auto-approve"
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_apply, "", success)
