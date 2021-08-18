@@ -52,3 +52,13 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_LIVE_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_LIVE_TOKEN"
+}
+
