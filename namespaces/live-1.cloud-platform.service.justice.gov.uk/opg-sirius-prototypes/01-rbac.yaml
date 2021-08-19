@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: opg-sirius-prototype-admin
-  namespace: opg-sirius-prototype
+  name: opg-sirius-prototypes-admin
+  namespace: opg-sirius-prototypes
 subjects:
   - kind: Group
     name: "github:opg"

@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "opg-sirius-prototype"
+  default = "opg-sirius-prototypes"
 }
 
 variable "business_unit" {
