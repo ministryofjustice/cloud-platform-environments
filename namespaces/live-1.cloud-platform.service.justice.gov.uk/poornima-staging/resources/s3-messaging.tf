@@ -90,7 +90,6 @@ module "s3_bucket_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "reponses-for-cp-test-s3-bucket-dlq"
-  existing_user_name     = module.cp_test_s3_object_created_queue.user_name
   encrypt_sqs_kms        = "false"
   namespace              = var.namespace
 
@@ -160,8 +159,8 @@ resource "kubernetes_secret" "cp_test_s3_messaging" {
     access_key_id     = module.cp_test_s3_object_created_topic.access_key_id
     secret_access_key = module.cp_test_s3_object_created_topic.secret_access_key
     topic_arn         = module.cp_test_s3_object_created_topic.topic_arn
-    sqs_ccr_name      = module.cp_test_s3_object_created_queue.sqs_name
-    sqs_ccr_url       = module.cp_test_s3_object_created_queue.sqs_id
-    sqs_ccr_arn       = module.cp_test_s3_object_created_queue.sqs_arn
+    cp_test_sqs_name      = module.cp_test_s3_object_created_queue.sqs_name
+    cp_test_sqs_url       = module.cp_test_s3_object_created_queue.sqs_id
+    cp_test_sqs_arn       = module.cp_test_s3_object_created_queue.sqs_arn
   }
 }
