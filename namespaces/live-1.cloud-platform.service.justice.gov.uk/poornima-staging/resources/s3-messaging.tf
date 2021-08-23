@@ -57,12 +57,12 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 }
 
 
-module "s3_bucket_created_queue" {
+module "cp_test_s3_object_created_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cp-test-s3-bucket-created-queue"
   encrypt_sqs_kms        = "false"
@@ -85,9 +85,9 @@ EOF
 module "s3_bucket_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "reponses-for-cp-test-s3-bucket-dlq"
   existing_user_name     = module.s3_bucket_created_queue.user_name
@@ -100,18 +100,18 @@ module "s3_bucket_dead_letter_queue" {
 }
 
 resource "aws_sqs_queue_policy" "s3_bucket_created_queue_policy" {
-  queue_url = module.s3_bucket_created_queue.sqs_id
+  queue_url = module.cp_test_s3_object_created_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.s3_bucket_created_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.cp_test_s3_object_created_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.s3_bucket_created_queue.sqs_arn}",
+          "Resource": "${module.cp_test_s3_object_created_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
