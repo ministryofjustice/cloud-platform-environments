@@ -15,7 +15,7 @@ variable "application" {
   default = "test-app-poornima-staging"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "MOJ Digital"
   default     = "mojdigital"
 }
@@ -25,17 +25,17 @@ variable "team_name" {
   description = "Cloud Platform"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default     = "test"
   description = "Development/Test environment"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default     = "poornima.krishnasamy@digital.justice.gov.uk"
   description = "Cloud Platform"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
