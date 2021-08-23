@@ -45,7 +45,7 @@ resource "aws_sns_topic_policy" "cp_test_s3_object_created_policy" {
 }
 POLICY
 }
- 
+
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -130,10 +130,10 @@ EOF
 
 
 resource "aws_sns_topic_subscription" "cp_test_s3_object_created" {
-  provider      = aws.london
-  topic_arn     = module.cp_test_s3_object_created_topic.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.cp_test_s3_object_created_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.cp_test_s3_object_created_topic.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.cp_test_s3_object_created_queue.sqs_arn
 }
 
 
@@ -145,8 +145,8 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    access_key_id               = module.cp_test_s3_bucket.access_key_id
-    secret_access_key           = module.cp_test_s3_bucket.secret_access_key
+    access_key_id     = module.cp_test_s3_bucket.access_key_id
+    secret_access_key = module.cp_test_s3_bucket.secret_access_key
   }
 }
 
