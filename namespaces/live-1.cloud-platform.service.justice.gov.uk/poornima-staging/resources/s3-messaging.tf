@@ -21,7 +21,7 @@ module "cp_test_s3_object_created_topic" {
 
   team_name          = var.team_name
   topic_display_name = "cp-test-s3-object-created-topic"
-  encrypt_sns_kms = "true"
+  encrypt_sns_kms    = "true"
 
   providers = {
     aws = aws.london
