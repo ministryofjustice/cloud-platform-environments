@@ -37,7 +37,7 @@ resource "aws_sns_topic_policy" "cp_test_s3_object_created_policy" {
         "Effect": "Allow",
         "Principal": { "Service": "s3.amazonaws.com" },
         "Action": "SNS:Publish",
-        "Resource": "arn:aws:sns:*:*:"${module.cp_test_s3_object_created_topic.topic_arn}",
+        "Resource": "${module.cp_test_s3_object_created_topic.topic_arn}",
         "Condition":{
             "ArnLike":{"aws:SourceArn":"${module.cp_test_s3_bucket.bucket_arn}"}
         }
