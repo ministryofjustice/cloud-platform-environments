@@ -159,8 +159,8 @@ resource "kubernetes_secret" "cp_test_s3_messaging" {
     access_key_id     = module.cp_test_s3_object_created_topic.access_key_id
     secret_access_key = module.cp_test_s3_object_created_topic.secret_access_key
     topic_arn         = module.cp_test_s3_object_created_topic.topic_arn
-    cp_test_sqs_name      = module.cp_test_s3_object_created_queue.sqs_name
-    cp_test_sqs_url       = module.cp_test_s3_object_created_queue.sqs_id
-    cp_test_sqs_arn       = module.cp_test_s3_object_created_queue.sqs_arn
+    cp_test_sqs_name  = module.cp_test_s3_object_created_queue.sqs_name
+    cp_test_sqs_url   = module.cp_test_s3_object_created_queue.sqs_id
+    cp_test_sqs_arn   = module.cp_test_s3_object_created_queue.sqs_arn
   }
 }
