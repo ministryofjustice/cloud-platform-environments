@@ -90,7 +90,7 @@ module "s3_bucket_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "reponses-for-cp-test-s3-bucket-dlq"
-  existing_user_name     = module.s3_bucket_created_queue.user_name
+  existing_user_name     = module.cp_test_s3_object_created_queue.user_name
   encrypt_sqs_kms        = "false"
   namespace              = var.namespace
 
