@@ -39,7 +39,7 @@ module "s3_bucket_sqs_queue" {
   }
 }
 
-module "s3_bucket_dead_letter_queue" {
+module "s3_bucket_sqs_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
   environment-name       = var.environment
@@ -121,7 +121,7 @@ resource "kubernetes_secret" "s3_bucket_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "s3_bucket_for_sqs" {
   metadata {
     name      = "s3-bucket-output"
     namespace = var.namespace
