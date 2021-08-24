@@ -18,7 +18,7 @@ module "s3_bucket" {
 }
 
 module "s3_bucket_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=allow-s3"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -30,7 +30,7 @@ module "s3_bucket_sqs_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.s3_bucket_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.s3_bucket_sqs_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
 
@@ -40,7 +40,7 @@ module "s3_bucket_sqs_queue" {
 }
 
 module "s3_bucket_sqs_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=allow-s3"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -83,7 +83,6 @@ resource "aws_s3_bucket_notification" "s3_notification" {
   bucket = module.s3_bucket.bucket_name
 
   queue {
-    id        = "wmt-extract-upload-event"
     queue_arn = module.s3_bucket_sqs_queue.sqs_arn
     events = [
     "s3:ObjectCreated:*"]
@@ -106,18 +105,18 @@ resource "kubernetes_secret" "sqs_queue" {
   }
 }
 
-resource "kubernetes_secret" "s3_bucket_dead_letter_queue" {
+resource "kubernetes_secret" "s3_bucket_sqs_dead_letter_queue" {
   metadata {
     name      = "sqs-dl-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.s3_bucket_dead_letter_queue.access_key_id
-    secret_access_key = module.s3_bucket_dead_letter_queue.secret_access_key
-    sqs_url           = module.s3_bucket_dead_letter_queue.sqs_id
-    sqs_arn           = module.s3_bucket_dead_letter_queue.sqs_arn
-    sqs_name          = module.s3_bucket_dead_letter_queue.sqs_name
+    access_key_id     = module.s3_bucket_sqs_dead_letter_queue.access_key_id
+    secret_access_key = module.s3_bucket_sqs_dead_letter_queue.secret_access_key
+    sqs_url           = module.s3_bucket_sqs_dead_letter_queue.sqs_id
+    sqs_arn           = module.s3_bucket_sqs_dead_letter_queue.sqs_arn
+    sqs_name          = module.s3_bucket_sqs_dead_letter_queue.sqs_name
   }
 }
 
