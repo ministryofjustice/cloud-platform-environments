@@ -20,13 +20,13 @@ module "s3_bucket" {
 module "s3_bucket_sqs_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "s3_events_sqs_queue"
-  encrypt_sqs_kms           = "false"
-  namespace                 = var.namespace
+  environment-name       = var.environment_name
+  team_name              = var.team_name
+  infrastructure-support = var.infrastructure_support
+  application            = var.application
+  sqs_name               = "s3_events_sqs_queue"
+  encrypt_sqs_kms        = "false"
+  namespace              = var.namespace
 
   redrive_policy = <<EOF
   {
