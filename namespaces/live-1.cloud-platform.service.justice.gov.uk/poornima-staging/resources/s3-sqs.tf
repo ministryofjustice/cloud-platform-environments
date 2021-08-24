@@ -24,8 +24,8 @@ module "s3_bucket_sqs_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "s3_events_sqs_queue"
-  encrypt_sqs_kms        = "false"
+  sqs_name               = "s3-events-queue"
+  encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
   redrive_policy = <<EOF
@@ -46,8 +46,8 @@ module "s3_bucket_sqs_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "s3_events_dead_letter_queue"
-  encrypt_sqs_kms        = "false"
+  sqs_name               = "s3-events-dead-letter-queue"
+  encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
   providers = {
