@@ -47,7 +47,7 @@ EOF
 
 resource "kubernetes_secret" "dps_smoketest_queue" {
   metadata {
-    name      = "sqs-hmpps-domain-events"
+    name      = "dps-smoketest-queue-secret"
     namespace = "dps-toolkit"
   }
 
