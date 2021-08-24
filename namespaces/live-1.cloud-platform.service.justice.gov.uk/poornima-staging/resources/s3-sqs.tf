@@ -6,7 +6,7 @@ module "s3_bucket" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
 
   versioning = true
@@ -20,7 +20,7 @@ module "s3_bucket" {
 module "s3_bucket_sqs_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
-  environment-name          = var.environment
+  environment-name          = var.environment_name
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -42,7 +42,7 @@ module "s3_bucket_sqs_queue" {
 module "s3_bucket_sqs_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
 
-  environment-name       = var.environment
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
