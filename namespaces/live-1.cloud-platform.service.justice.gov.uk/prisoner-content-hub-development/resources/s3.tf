@@ -50,6 +50,16 @@ module "drupal_content_storage" {
         "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*",
         "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b/*"
       ]
+    },
+    {
+      "Sid": "AllowListBucketVersions",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${aws_s3_bucket.bucket.id}"
+      ]
     }
   ]
 }
