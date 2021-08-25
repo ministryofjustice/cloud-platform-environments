@@ -60,6 +60,16 @@ module "drupal_content_storage" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "AllowListBucketVersions",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "$${bucket_arn}"
+      ]
     }
   ]
 }
