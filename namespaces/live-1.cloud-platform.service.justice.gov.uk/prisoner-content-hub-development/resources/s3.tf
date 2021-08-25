@@ -58,7 +58,7 @@ module "drupal_content_storage" {
         "s3:ListBucketVersions"
       ],
       "Resource": [
-        "arn:aws:s3:::${aws_s3_bucket.bucket.id}"
+        "$${bucket_arn}"
       ]
     }
   ]
