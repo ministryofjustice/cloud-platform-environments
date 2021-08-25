@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.3"
 
   team_name          = "laa-get-paid"
   topic_display_name = "cccd-claims-submitted"

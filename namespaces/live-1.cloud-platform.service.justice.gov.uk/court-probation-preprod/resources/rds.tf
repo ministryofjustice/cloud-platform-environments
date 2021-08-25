@@ -14,6 +14,7 @@ module "court_case_service_rds" {
   rds_family                  = var.rds-family
   db_engine_version           = var.db_engine_version
   allow_major_version_upgrade = true
+  db_instance_class           = "db.t3.xlarge"
 
 
   providers = {
