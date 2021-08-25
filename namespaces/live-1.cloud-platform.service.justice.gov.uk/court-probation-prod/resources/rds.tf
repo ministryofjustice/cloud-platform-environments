@@ -16,6 +16,7 @@ module "court_case_service_rds" {
   db_engine_version            = var.db_engine_version
   allow_major_version_upgrade  = true
   performance_insights_enabled = true
+  db_instance_class           = "db.t3.xlarge"
 
   providers = {
     aws = aws.london
