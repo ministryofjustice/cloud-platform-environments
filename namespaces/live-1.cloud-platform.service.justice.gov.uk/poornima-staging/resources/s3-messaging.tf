@@ -59,7 +59,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 
 module "cp_test_s3_object_created_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -84,7 +84,7 @@ EOF
 
 
 module "s3_bucket_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
