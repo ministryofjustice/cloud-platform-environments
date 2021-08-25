@@ -5,7 +5,7 @@
  *
  */
 module "example_sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.3"
 
   team_name          = "webops"
   topic_display_name = "cloud-platform-test"
