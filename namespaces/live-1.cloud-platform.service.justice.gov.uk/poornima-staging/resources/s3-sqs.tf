@@ -18,7 +18,7 @@ module "s3_bucket" {
 }
 
 module "s3_bucket_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=allow-s3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4ow-s3"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -40,7 +40,7 @@ module "s3_bucket_sqs_queue" {
 }
 
 module "s3_bucket_sqs_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=allow-s3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4ow-s3"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
