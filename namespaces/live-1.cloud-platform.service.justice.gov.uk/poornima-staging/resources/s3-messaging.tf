@@ -17,7 +17,7 @@ module "cp_test_s3_bucket" {
 }
 
 module "cp_test_s3_object_created_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=add-test"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.3"
 
   team_name          = var.team_name
   topic_display_name = "cp-test-s3-object-created-topic"
