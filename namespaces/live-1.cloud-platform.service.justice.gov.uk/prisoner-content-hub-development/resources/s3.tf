@@ -64,7 +64,6 @@ module "drupal_content_storage" {
   ]
 }
 EOF
-
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
