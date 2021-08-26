@@ -78,6 +78,16 @@ EOF
       "Resource": [
         "$${bucket_arn}"
       ]
+    },
+    {
+      "Sid": "AllowGetObjectVersion",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObjectVersion"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
     }
   ]
 }
