@@ -60,7 +60,15 @@ module "drupal_content_storage" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
-    },
+    }
+  ]
+}
+EOF
+
+  user_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
       "Sid": "AllowListBucketVersions",
       "Effect": "Allow",
@@ -74,6 +82,7 @@ module "drupal_content_storage" {
   ]
 }
 EOF
+
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
