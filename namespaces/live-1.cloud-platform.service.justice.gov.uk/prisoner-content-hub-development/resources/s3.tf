@@ -19,6 +19,26 @@ module "drupal_content_storage" {
       max_age_seconds = 3000
     }
   ]
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowListBucketVersions",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
+      },
+      "Action": [
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "$${bucket_arn}"
+      ]
+    }
+  ]
+}
+EOF
 
   # Adds staging & production S3 resources to user-policy to allow one-way sync
   # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
@@ -49,16 +69,6 @@ module "drupal_content_storage" {
         "$${bucket_arn}/*",
         "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*",
         "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b/*"
-      ]
-    },
-    {
-      "Sid": "AllowListBucketVersions",
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucketVersions"
-      ],
-      "Resource": [
-        "$${bucket_arn}"
       ]
     }
   ]
