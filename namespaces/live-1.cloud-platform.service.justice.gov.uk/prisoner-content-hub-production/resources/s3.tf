@@ -64,25 +64,6 @@ module "drupal_content_storage" {
   ]
 }
 EOF
-
-  user_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowListBucketVersions",
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucketVersions"
-      ],
-      "Resource": [
-        "$${bucket_arn}"
-      ]
-    }
-  ]
-}
-EOF
-
 }
 
 resource "kubernetes_secret" "drupal_content_storage_secret" {
