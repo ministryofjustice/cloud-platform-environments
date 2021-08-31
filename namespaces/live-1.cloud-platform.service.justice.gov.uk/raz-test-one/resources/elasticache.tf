@@ -16,7 +16,7 @@ module "raz_test_ec_cluster" {
 
 resource "kubernetes_secret" "raz_test_ec_cluster" {
   metadata {
-    name      = "raz-test-ec-cluster"
+    name      = "raz-test-one-ec-cluster"
     namespace = var.namespace
   }
 

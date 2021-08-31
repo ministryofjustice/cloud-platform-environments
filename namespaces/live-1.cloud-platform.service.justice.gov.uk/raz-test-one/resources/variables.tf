@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "raz-test"
+  default = "raz-test-one"
 }
 
 variable "business_unit" {
