@@ -218,75 +218,6 @@ module "hearing_resulted_dead_letter_queue" {
   }
 }
 
-module "cp_laa_status_job_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
-
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "cp-laa-status-job-queue"
-  existing_user_name        = module.create_link_queue.user_name
-  encrypt_sqs_kms           = var.encrypt_sqs_kms
-  message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
-
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.cp_laa_status_job_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-  EOF
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-resource "aws_sqs_queue_policy" "cp_laa_status_job_queue_policy" {
-  queue_url = module.cp_laa_status_job_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.cp_laa_status_job_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cp_laa_status_job_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cp_laa_status_job_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
-}
-
-module "cp_laa_status_job_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
-
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "cp-laa-status-job-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
-  namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
-}
-
 module "prosecution_concluded_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -392,11 +323,5 @@ resource "kubernetes_secret" "create_link_queue" {
     sqs_url_d_prosecution_concluded  = module.prosecution_concluded_dead_letter_queue.sqs_id
     sqs_arn_d_prosecution_concluded  = module.prosecution_concluded_dead_letter_queue.sqs_arn
     sqs_name_d_prosecution_concluded = module.prosecution_concluded_dead_letter_queue.sqs_name
-    sqs_url_cp_laa_status_job        = module.cp_laa_status_job_queue.sqs_id
-    sqs_arn_cp_laa_status_job        = module.cp_laa_status_job_queue.sqs_arn
-    sqs_name_cp_laa_status_job       = module.cp_laa_status_job_queue.sqs_name
-    sqs_url_d_cp_laa_status_job      = module.cp_laa_status_job_dead_letter_queue.sqs_id
-    sqs_arn_d_cp_laa_status_job      = module.cp_laa_status_job_dead_letter_queue.sqs_arn
-    sqs_name_d_cp_laa_status_job     = module.cp_laa_status_job_dead_letter_queue.sqs_name
   }
 }
