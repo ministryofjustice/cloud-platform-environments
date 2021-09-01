@@ -39,4 +39,3 @@ variable "environment-name" {
 variable "is-production" {
   default = "true"
 }
-
