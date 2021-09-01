@@ -1,14 +1,6 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
 
-  namespace           = var.namespace
-  github_repositories = ["helloworld-poornima-dev"]
-}
-
-
-module "serviceaccount-live" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
-
   namespace                            = var.namespace
   github_repositories                  = ["helloworld-poornima-dev"]
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE_LIVE"
