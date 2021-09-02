@@ -13,4 +13,3 @@ module "serviceaccount" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER_LIVE"
 }
 
-}
