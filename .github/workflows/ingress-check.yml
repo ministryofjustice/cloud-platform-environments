@@ -26,6 +26,7 @@ jobs:
 
       - name: run jq
         run: |
-          curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")'
+          cmd=curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")'
 
+          ${#cmd} && exit 1
           # echo "${{ env.action_state }}" # This will output 'yellow'
