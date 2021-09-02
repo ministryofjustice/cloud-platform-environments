@@ -60,6 +60,19 @@ module "drupal_content_storage" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "AllowListBucketVersions",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-5e5f7ac99afe21a0181cbf50a850627b"
+      },
+      "Action": [
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "$${bucket_arn}"
+      ]
     }
   ]
 }
