@@ -24,4 +24,4 @@ jobs:
         with:
           filter: '*.live.cloud*'
       - run: |
-          echo ${{ steps.files.outputs.all }}
+          echo ${{ steps.files.outputs.all }} | awk -F/ '{print $3}'
