@@ -20,7 +20,9 @@ jobs:
         with:
           filter: '*.live.cloud*'
       - run: |
-          echo "action_state=${{ steps.files.outputs.all }} | awk -F/ '{print $3}'" >> $GITHUB_ENV
+          cmd=$(echo ${{ steps.files.outputs.all }} | awk -F/ '{print $3}')
+          
+          echo "action_state=${cmd}" >> $GITHUB_ENV
 
       - name: run jq
         run: |
