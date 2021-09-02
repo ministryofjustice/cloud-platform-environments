@@ -29,8 +29,6 @@ jobs:
         run: |
           cmd=$(curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")')
 
-            echo "final_state=${cmd}" >> $GITHUB_ENV
-
             [[ ${#cmd} -eq 0 ]] || echo "The following ingress resources need changing:" ${cmd} && exit 1
 
       - name: Create comment in the PR
@@ -40,5 +38,5 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Live-1 namespace "${{ env.action_state }}" contains an ingress resource that doesn't have the correct annotations: "${{ env.final_state }}"
+            Live-1 namespace "${{ env.action_state }}" contains an ingress resource that doesn't have the correct annotations. Please check: https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting
 
