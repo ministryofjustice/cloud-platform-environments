@@ -1,0 +1,27 @@
+name: Ingress checker
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      # Push events on main branch
+      - ingress-checker
+
+jobs:
+  rbac-permissions-check:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@master
+
+      - name: Get all files changed in PR
+        id: files
+        uses: Ana06/get-changed-files@v1.2
+        with:
+          filter: '*.live.cloud*'
+      - run: |
+          echo ${{ steps.files.outputs.all }}
