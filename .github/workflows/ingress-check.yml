@@ -1,0 +1,41 @@
+name: Ingress checker
+on:
+  pull_request
+
+jobs:
+  ingress-checker:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@master
+
+      - name: Get all files changed in PR
+        id: files
+        uses: Ana06/get-changed-files@v1.2
+        with:
+          filter: '*.live.cloud*'
+      - run: |
+          cmd=$(echo ${{ steps.files.outputs.all }} | awk -F/ '{print $3}')
+          
+          echo "action_state=${cmd}" >> $GITHUB_ENV
+
+      - name: Check if there are any ingresses that need changing
+        id: check
+        run: |
+          cmd=$(curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")')
+
+          [[ ${#cmd} -eq 0 ]] || echo "The following ingress resources need changing:" ${cmd} && exit 1
+
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v1
+
+        if: failure()
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Live-1 namespace "${{ env.action_state }}" contains an ingress resource that doesn't have the correct annotations. Please check: https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting
