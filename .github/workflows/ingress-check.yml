@@ -21,12 +21,14 @@ jobs:
           filter: '*.live.cloud*'
       - run: |
           cmd=$(echo ${{ steps.files.outputs.all }} | awk -F/ '{print $3}')
-          
+
           echo "action_state=${cmd}" >> $GITHUB_ENV
 
       - name: Check if there are any ingresses that need changing
         id: check
         run: |
+          [[ -z "${{ env.action_state }}"]] || echo "This PR doesn't contain changes in the live cluster." && exit 0
+
           cmd=$(curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")')
 
           [[ ${#cmd} -eq 0 ]] || echo "The following ingress resources need changing:" ${cmd} && exit 1
