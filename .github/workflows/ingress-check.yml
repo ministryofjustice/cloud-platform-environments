@@ -20,18 +20,16 @@ jobs:
         with:
           filter: '*.live.cloud*'
       - run: |
-          cmd=$(echo ${{ steps.files.outputs.all }} | awk -F/ '{print $3}')
+          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
+          for added_modified_file in "${added_modified_files[@]}"; do
+            namespace=$(echo added_modified_file | awk -F/ '{print $3}')
+            [[ ${#namespace} -eq 0 ]] && echo "This PR doesn't contain changes in the live cluster." && exit 0
 
-          echo "action_state=${cmd}" >> $GITHUB_ENV
+            cmd=$(curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${cmd}")')
+            [[ ${#cmd} -eq 0 ]] || echo "The following ingress resources need changing:" ${cmd} && echo "action_state=${namespace}" >> $GITHUB_ENV && exit 1
+          done
 
-      - name: Check if there are any ingresses that need changing
-        id: check
-        run: |
-          [[ -z "$action_state" ]] && echo "This PR doesn't contain changes in the live cluster." && exit 0
-
-          cmd=$(curl -s i -H "Accept: application/json" https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting  | jq -r '.weighting_ingress[] | select(.namespace=="${{ env.action_state }}")')
-
-          [[ ${#cmd} -eq 0 ]] || echo "The following ingress resources need changing:" ${cmd} && exit 1
+          echo "The namespace doesn't have any ingress annotation conflicts." && exit 0
 
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v1
