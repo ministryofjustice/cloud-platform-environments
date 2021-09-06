@@ -9,7 +9,7 @@ module "rds_instance" {
   cluster_name               = var.cluster_name
   db_backup_retention_period = var.db_backup_retention_period
   db_engine                  = "postgres"
-  db_engine_version          = "12.5"
+  db_engine_version          = "12"
   db_name                    = "parliamentary_questions_dev"
   environment-name           = var.environment-name
   infrastructure-support     = var.infrastructure-support
