@@ -3,6 +3,18 @@
 # Application Elasticsearch cluster
 #################################################################################
 
+# For logging elastic search on cloudwatch
+resource "aws_cloudwatch_log_group" "peoplefinder_cloudwatch_log_group" {
+  name              = "peoplefinder-cloudwatch-log-group"
+  retention_in_days = 365
+
+  tags = {
+    Environment = "development"
+    Application = "peoplefinder"
+  }
+}
+
+# Elastic search module
 module "peoplefinder_es" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.0"
   cluster_name           = var.cluster_name
