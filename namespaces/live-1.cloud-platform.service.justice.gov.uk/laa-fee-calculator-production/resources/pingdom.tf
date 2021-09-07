@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-fee-calculator-production" {
   type                     = "http"
   name                     = "LAA fee calculator production - ping"
-  host                     = "${var.domain}"
+  host                     = var.domain
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
