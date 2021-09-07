@@ -14,6 +14,6 @@ resource "pingdom_check" "laa-fee-calculator-staging" {
   port                     = 443
   tags                     = "businessunit_${var.business-unit},application_laa-fee-calculator,component_ping,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_laa-fee-calculator"
   probefilters             = "region:EU"
-  integrationids           = [94703]
+  integrationids           = [116478]
 }
 
