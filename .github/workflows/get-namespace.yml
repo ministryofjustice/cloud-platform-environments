@@ -1,0 +1,20 @@
+name: Get namespaces changed by PR
+
+on:
+  pull_request
+
+jobs:
+  checksum-compare:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@master
+
+      - name: get env vars
+        run: |
+          env
