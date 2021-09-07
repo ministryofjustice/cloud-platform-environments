@@ -166,6 +166,7 @@ resource "kubernetes_secret" "lumen_document_store" {
 # Extra user for Lumen to access the bucket
 resource "aws_iam_user" "lumen_document_store_user" {
   name = "lumen_legacy_ppud_doc_store_s3_access_${var.environment}"
+  path = "/user/cloud-platform"
 }
 
 resource "aws_iam_access_key" "lumen_document_store_user" {
