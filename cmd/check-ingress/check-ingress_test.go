@@ -13,9 +13,8 @@ func Test_checkAnnotation(t *testing.T) {
 	}
 
 	tests := []struct {
-		name string
-		args args
-		// want    *IngressReport
+		name    string
+		args    args
 		wantErr bool
 	}{
 		{
