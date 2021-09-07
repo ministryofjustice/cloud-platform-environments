@@ -5,7 +5,7 @@
 
 # For logging elastic search on cloudwatch
 resource "aws_cloudwatch_log_group" "peoplefinder_cloudwatch_log_group" {
-  name = "peoplefinder-cloudwatch-log-group"
+  name              = "peoplefinder-cloudwatch-log-group"
   retention_in_days = 365
 
   tags = {
@@ -30,7 +30,7 @@ module "peoplefinder_es" {
   instance_type          = "t2.small.elasticsearch"
 
   log_publishing_application_cloudwatch_log_group_arn = "aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn"
-  log_publishing_application_enabled = "true"
+  log_publishing_application_enabled                  = "true"
 }
 
 module "ns_annotation" {
