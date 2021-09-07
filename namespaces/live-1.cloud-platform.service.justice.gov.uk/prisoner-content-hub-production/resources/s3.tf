@@ -16,10 +16,10 @@ module "drupal_content_storage" {
   # Enable S3 logging to investigate issue with missing files.
   # See: https://trello.com/c/ZVSfPcz6/89-fix-the-mysterious-missing-file-issue
   # TODO: Remove this and clear out logs as soon as it's no longer required.
-  logging_enabled        = true
-  log_target_bucket      = "cloud-platform-5e5f7ac99afe21a0181cbf50a850627b"
-  log_path               = "log/production/"
-  acl                    = "log-delivery-write"
+  logging_enabled   = true
+  log_target_bucket = "cloud-platform-5e5f7ac99afe21a0181cbf50a850627b"
+  log_path          = "log/production/"
+  acl               = "log-delivery-write"
 
   # Add CORS rule to allow direct s3 file uploading with progress bar (in Drupal CMS).
   cors_rule = [
