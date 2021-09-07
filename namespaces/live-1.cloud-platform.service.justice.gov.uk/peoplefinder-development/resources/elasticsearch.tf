@@ -5,7 +5,7 @@
 
 # For logging elastic search on cloudwatch
 resource "aws_cloudwatch_log_group" "peoplefinder_cloudwatch_log_group" {
-  name = "peoplefinder-cloudwatch-log-group"
+  name              = "peoplefinder-cloudwatch-log-group"
   retention_in_days = 365
 
   tags = {
