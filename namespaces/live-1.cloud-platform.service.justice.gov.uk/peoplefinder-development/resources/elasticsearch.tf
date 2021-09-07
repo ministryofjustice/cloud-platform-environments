@@ -28,6 +28,9 @@ module "peoplefinder_es" {
   namespace              = "peoplefinder-development"
   elasticsearch_version  = "6.8"
   instance_type          = "t2.small.elasticsearch"
+
+  log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
+  log_publishing_application_enabled                  = true
 }
 
 module "ns_annotation" {
