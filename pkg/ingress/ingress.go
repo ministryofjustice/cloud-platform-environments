@@ -13,6 +13,7 @@ import (
 type IngressReport struct {
 	WeightingIngress []struct {
 		Namespace string
+		Resource  string
 	} `json:"weighting_ingress"`
 }
 
