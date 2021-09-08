@@ -7,8 +7,8 @@ module "rds" {
   is-production = var.is_production
   namespace     = var.namespace
 
-  # enable performance insights
-  performance_insights_enabled = true
+  # turn off performance insights
+  performance_insights_enabled = false
 
   # general options
   db_instance_class           = "db.t2.small"
