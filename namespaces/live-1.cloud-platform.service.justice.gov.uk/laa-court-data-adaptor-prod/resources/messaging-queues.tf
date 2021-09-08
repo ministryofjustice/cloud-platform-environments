@@ -1,38 +1,42 @@
+resource "random_id" "id" {
+  byte_length = 6
+}
+
 data "aws_iam_policy_document" "laa_crime_apps" {
   statement {
-    sid    = "PublishPolicy"
-    effect = "Allow"
-    action = "sqs:SendMessage"
+    sid     = "PublishPolicy"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
 
     resources = [
-      "${module.create_link_queue.sqs_arn}",
-      "${module.unlink_queue.sqs_arn}",
-      "${module.laa_status_update_queue.sqs_arn}",
-      "${module.hearing_resulted_queue.sqs_arn}",
-      "${module.prosecution_concluded_queue.sqs_arn}",
+      module.create_link_queue.sqs_arn,
+      module.unlink_queue.sqs_arn,
+      module.laa_status_update_queue.sqs_arn,
+      module.hearing_resulted_queue.sqs_arn,
+      module.prosecution_concluded_queue.sqs_arn,
     ]
 
-    principal {
-      type        = "AWS"
+    principals {
+      type = "AWS"
       identifiers = ["*"]
     }
   }
 
   statement {
-    sid    = "ConsumePolicy"
-    effect = "Allow"
-    action = "sqs:ReceiveMessage"
+    sid     = "ConsumePolicy"
+    effect  = "Allow"
+    actions = ["sqs:ReceiveMessage"]
 
     resources = [
-      "${module.create_link_queue.sqs_arn}",
-      "${module.unlink_queue.sqs_arn}",
-      "${module.laa_status_update_queue.sqs_arn}",
-      "${module.hearing_resulted_queue.sqs_arn}",
-      "${module.prosecution_concluded_queue.sqs_arn}",
+      module.create_link_queue.sqs_arn,
+      module.unlink_queue.sqs_arn,
+      module.laa_status_update_queue.sqs_arn,
+      module.hearing_resulted_queue.sqs_arn,
+      module.prosecution_concluded_queue.sqs_arn,
     ]
 
-    principal {
-      type        = "AWS"
+    principals {
+      type = "AWS"
       identifiers = ["842522700642"]
     }
   }
@@ -44,7 +48,12 @@ resource "aws_iam_policy" "laa_crime_apps" {
 }
 
 resource "aws_iam_user" "laa_crime_apps" {
-  name = "laa_crime_apps_user"
+  name  = "cp-sqs-${random_id.id.hex}"
+  path  = "/system/sqs-user/${var.team_name}/"
+}
+
+resource "aws_iam_access_key" "laa_crime_apps" {
+  user = aws_iam_user.laa_crime_apps.name
 }
 
 resource "aws_iam_user_policy_attachment" "laa_crime_apps" {
@@ -257,8 +266,8 @@ resource "kubernetes_secret" "create_link_queue" {
   }
 
   data = {
-    access_key_id                    = module.create_link_queue.access_key_id
-    secret_access_key                = module.create_link_queue.secret_access_key
+    access_key_id                    = aws_iam_access_key.laa_crime_apps.id
+    secret_access_key                = aws_iam_access_key.laa_crime_apps.secret
     sqs_url_link                     = module.create_link_queue.sqs_id
     sqs_arn_link                     = module.create_link_queue.sqs_arn
     sqs_name_link                    = module.create_link_queue.sqs_name
