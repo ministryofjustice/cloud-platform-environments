@@ -1,22 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
-	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
-	"time"
 
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/ingress"
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 )
-
-type IngressReport struct {
-	WeightingIngress []struct {
-		Namespace string
-	} `json:"weighting_ingress"`
-}
 
 var (
 	branch = flag.String("branch", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
@@ -36,7 +27,7 @@ func main() {
 	}
 
 	// Get a list of namespaces in live-1 that don't have an annotation
-	data, err := checkAnnotation(host)
+	data, err := ingress.CheckAnnotation(host)
 	if err != nil {
 		log.Fatalln("Error checking hoodaw API:", err)
 	}
@@ -49,44 +40,4 @@ func main() {
 			}
 		}
 	}
-}
-
-// checkAnnotation takes a http endpoint and generates an IngressReport
-// data type. IngressReport contains a collection of namespaces that contain
-// an ingress resource that don't have the required annoation.
-func checkAnnotation(host *string) (*IngressReport, error) {
-	client := &http.Client{
-		Timeout: time.Second * 2,
-	}
-
-	req, err := http.NewRequest("GET", *host, nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Add("User-Agent", "ingress-annotation-check")
-	req.Header.Set("Accept", "application/json")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.Body != nil {
-		defer resp.Body.Close()
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	namespaces := &IngressReport{}
-
-	err = json.Unmarshal(body, &namespaces)
-	if err != nil {
-		return nil, err
-	}
-
-	return namespaces, nil
 }
