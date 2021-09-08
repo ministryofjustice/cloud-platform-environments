@@ -4,7 +4,6 @@ package namespace
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -24,6 +23,9 @@ func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 
 	client := githubClient(token)
 
+	// branchRef is expected in the format:
+	// "refs/pull/<pull request number>/merge"
+	// This is usually populated by a GitHub action.
 	str := strings.Split(branchRef, "/")
 	prId, err := strconv.Atoi(str[2])
 	if err != nil {
@@ -34,12 +36,11 @@ func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 
 	var namespaceNames []string
 	for _, repo := range repos {
-		fmt.Println(*repo.Filename)
 		if strings.Contains(*repo.Filename, "live") {
 			// namespaces filepaths are assumed to come in
 			// the format: namespaces/live-1.cloud-platform.service.justice.gov.uk/<namespaceName>
 			s := strings.Split(*repo.Filename, "/")
-			namespaceNames = append(namespaceNames, s[3])
+			namespaceNames = append(namespaceNames, s[2])
 		}
 	}
 
