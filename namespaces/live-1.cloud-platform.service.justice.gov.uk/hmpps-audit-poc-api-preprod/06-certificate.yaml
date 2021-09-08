@@ -5,7 +5,7 @@ metadata:
   name: hmpps-audit-poc-api-preprod-cert
   namespace: hmpps-audit-poc-api-preprod
 spec:
-  secretName: hmpps-audit-poc-api-preprod-cert
+  secretName: hmpps-audit-poc-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
