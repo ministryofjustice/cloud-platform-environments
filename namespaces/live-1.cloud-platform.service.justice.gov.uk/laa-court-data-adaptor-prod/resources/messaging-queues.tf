@@ -1,8 +1,8 @@
 data "aws_iam_policy_document" "laa_crime_apps" {
   statement {
-    sid       = "PublishPolicy"
-    effect    = "Allow"
-    action    = "sqs:SendMessage"
+    sid    = "PublishPolicy"
+    effect = "Allow"
+    action = "sqs:SendMessage"
 
     resources = [
       "${module.create_link_queue.sqs_arn}",
@@ -13,15 +13,15 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principal {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
   }
 
   statement {
-    sid       = "ConsumePolicy"
-    effect    = "Allow"
-    action    = "sqs:ReceiveMessage"
+    sid    = "ConsumePolicy"
+    effect = "Allow"
+    action = "sqs:ReceiveMessage"
 
     resources = [
       "${module.create_link_queue.sqs_arn}",
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principal {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["842522700642"]
     }
   }
