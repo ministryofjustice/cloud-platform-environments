@@ -36,7 +36,7 @@ func main() {
 	for _, ingress := range data.WeightingIngress {
 		for _, namespace := range namespaces {
 			if ingress.Namespace == namespace {
-				log.Fatalln("Namespace:", namespace, "doesn't have the correct ingress annotation.")
+				log.Fatalln("Namespace:", namespace+"/"+ingress.Resource, "doesn't have the correct ingress annotation.")
 			}
 		}
 	}
