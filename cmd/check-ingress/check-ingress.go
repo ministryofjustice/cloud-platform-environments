@@ -21,7 +21,7 @@ func main() {
 	flag.Parse()
 
 	// Get list of namespaces to check from a pull request.
-	namespaces, err := namespace.ChangedInPR(branch, token, repo, org)
+	namespaces, err := namespace.ChangedInPR(*branch, *token, *repo, *org)
 	if err != nil {
 		log.Fatalln("Error getting files changed in PR:", err)
 	}
