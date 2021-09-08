@@ -18,7 +18,7 @@ module "rds" {
   infrastructure-support = var.infrastructure_support
 
   # rds_family
-  rds_family = "mysql"
+  rds_family = "mysql8.0"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
