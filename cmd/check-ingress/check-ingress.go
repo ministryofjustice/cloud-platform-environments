@@ -6,7 +6,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
+
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 )
 
 type IngressReport struct {
@@ -16,23 +19,34 @@ type IngressReport struct {
 }
 
 var (
-	nsToCompare = flag.String("namespace", "", "The namespace name of the service to check.")
-	host        = flag.String("host", "https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting", "hostname of hoodaw.")
+	branch = flag.String("branch", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
+	host   = flag.String("host", "https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting", "hostname of hoodaw.")
+	org    = flag.String("org", "ministryofjustice", "GitHub user or organisation.")
+	repo   = flag.String("repo", "cloud-platform-environments", "Repository to check the PR of.")
+	token  = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token for GitHub API.")
 )
 
 func main() {
 	flag.Parse()
 
-	// Grab all namespaces that don't have the required annotation.
-	namespaces, err := checkAnnotation(host)
+	// Get list of namespaces to check from a pull request.
+	namespaces, err := namespace.ChangedInPR(branch, token, repo, org)
 	if err != nil {
-		log.Fatalln("Error checking hoodaw:", err)
+		log.Fatalln("Error getting files changed in PR:", err)
 	}
 
-	// If the namespace passed as an argument is found in our datatype, fail.
-	for _, ingress := range namespaces.WeightingIngress {
-		if ingress.Namespace == *nsToCompare {
-			log.Println("Found: This namespace doesn't have the correct annotation.")
+	// Get a list of namespaces in live-1 that don't have an annotation
+	data, err := checkAnnotation(host)
+	if err != nil {
+		log.Fatalln("Error checking hoodaw API:", err)
+	}
+
+	// If the namespace amended by a PR doesn't have an ingress annotation: fail hard.
+	for _, ingress := range data.WeightingIngress {
+		for _, namespace := range namespaces {
+			if ingress.Namespace == namespace {
+				log.Fatalln("Namespace:", namespace, "doesn't have the correct ingress annotation.")
+			}
 		}
 	}
 }
