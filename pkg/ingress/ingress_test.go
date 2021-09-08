@@ -1,10 +1,10 @@
-package main
+package ingress
 
 import (
 	"testing"
 )
 
-func Test_checkAnnotation(t *testing.T) {
+func Test_CheckAnnotation(t *testing.T) {
 	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting"
 	badHost := "obviouslyFakeName"
 
@@ -34,9 +34,9 @@ func Test_checkAnnotation(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := checkAnnotation(tt.args.host)
+			_, err := CheckAnnotation(tt.args.host)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("checkAnnotation() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CheckAnnotation() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
