@@ -1,3 +1,57 @@
+data "aws_iam_policy_document" "laa_crime_apps" {
+  statement {
+    sid       = "PublishPolicy"
+    effect    = "Allow"
+    action    = "sqs:SendMessage"
+
+    resources = [
+      "${module.create_link_queue.sqs_arn}",
+      "${module.unlink_queue.sqs_arn}",
+      "${module.laa_status_update_queue.sqs_arn}",
+      "${module.hearing_resulted_queue.sqs_arn}",
+      "${module.prosecution_concluded_queue.sqs_arn}",
+    ]
+
+    principal {
+      type = "AWS"
+      identifiers = ["*"]
+    }
+  }
+
+  statement {
+    sid       = "ConsumePolicy"
+    effect    = "Allow"
+    action    = "sqs:ReceiveMessage"
+
+    resources = [
+      "${module.create_link_queue.sqs_arn}",
+      "${module.unlink_queue.sqs_arn}",
+      "${module.laa_status_update_queue.sqs_arn}",
+      "${module.hearing_resulted_queue.sqs_arn}",
+      "${module.prosecution_concluded_queue.sqs_arn}",
+    ]
+
+    principal {
+      type = "AWS"
+      identifiers = ["842522700642"]
+    }
+  }
+}
+
+resource "aws_iam_policy" "laa_crime_apps" {
+  name   = "laa_crime_apps_policy"
+  policy = data.aws_iam_policy_document.laa_crime_apps.json
+}
+
+resource "aws_iam_user" "laa_crime_apps" {
+  name = "laa_crime_apps_user"
+}
+
+resource "aws_iam_user_policy_attachment" "laa_crime_apps" {
+  user       = aws_iam_user.laa_crime_apps.name
+  policy_arn = aws_iam_policy.laa_crime_apps.arn
+}
+
 module "create_link_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -22,40 +76,6 @@ module "create_link_queue" {
   }
 }
 
-
-resource "aws_sqs_queue_policy" "create_link_queue_policy" {
-  queue_url = module.create_link_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.create_link_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "842522700642"
-              ]
-          },
-          "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
-}
-
-
 module "create_link_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -64,7 +84,6 @@ module "create_link_queue_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "create-link-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
@@ -81,7 +100,6 @@ module "unlink_queue" {
   infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "unlink-queue"
-  existing_user_name         = module.create_link_queue.user_name
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   namespace                  = var.namespace
@@ -98,38 +116,6 @@ module "unlink_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "unlink_queue_policy" {
-  queue_url = module.unlink_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.unlink_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "842522700642"
-              ]
-          },
-          "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
-}
-
 module "unlink_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -138,7 +124,6 @@ module "unlink_queue_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "unlink-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
@@ -155,7 +140,6 @@ module "laa_status_update_queue" {
   infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "laa-status-update-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
@@ -171,38 +155,6 @@ module "laa_status_update_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
-  queue_url = module.laa_status_update_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.laa_status_update_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "842522700642"
-              ]
-          },
-          "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
-}
-
 module "laa_status_update_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -211,7 +163,6 @@ module "laa_status_update_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "laa-status-update-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
@@ -228,7 +179,6 @@ module "hearing_resulted_queue" {
   infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "hearing-resulted-queue"
-  existing_user_name         = module.create_link_queue.user_name
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   namespace                  = var.namespace
@@ -245,38 +195,6 @@ module "hearing_resulted_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
-  queue_url = module.hearing_resulted_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.hearing_resulted_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "842522700642"
-              ]
-          },
-          "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
-}
-
 module "hearing_resulted_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
@@ -285,7 +203,6 @@ module "hearing_resulted_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hearing-resulted-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
@@ -302,7 +219,6 @@ module "prosecution_concluded_queue" {
   infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "prosecution-concluded-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
@@ -332,38 +248,6 @@ module "prosecution_concluded_dead_letter_queue" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
-  queue_url = module.prosecution_concluded_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.prosecution_concluded_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "140455166311"
-              ]
-          },
-          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
-        }
-      ]
-  }
-   EOF
 }
 
 resource "kubernetes_secret" "create_link_queue" {
