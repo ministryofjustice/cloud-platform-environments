@@ -10,14 +10,30 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
-  # using mysql
-  db_engine                   = "mysql"
-  db_engine_version           = "8.0.25"
+  # general options
   db_instance_class           = "db.t2.micro"
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
-  rds_family                  = "mysql8.0"
   allow_major_version_upgrade = "false"
+
+  # using mysql
+  db_engine         = "mysql"
+  db_engine_version = "8.0.25"
+  rds_family        = "mysql8.0"
+
+  # overwrite db_parameters
+  db_parameter = [
+    {
+      name         = "character_set_client"
+      value        = "utf8"
+      apply_method = "immediate"
+    },
+    {
+      name         = "character_set_server"
+      value        = "utf8"
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london
