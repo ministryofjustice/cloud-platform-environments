@@ -49,7 +49,7 @@ module "peoplefinder_es" {
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-production"
   elasticsearch_version  = "6.8"
-  instance_type          = "t2.small.elasticsearch"
+  instance_type          = "t2.medium.elasticsearch"
 
   log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
   log_publishing_application_enabled                  = true
