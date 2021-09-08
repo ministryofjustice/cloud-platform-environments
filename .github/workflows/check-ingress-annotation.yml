@@ -26,7 +26,7 @@ jobs:
 
       - name: Does live-1 namespace have ingress weighting
         id: review_pr
-        uses: ministryofjustice/cloud-platform-environments/cmd/check-ingress@add-ingress-gh-action
+        uses: ministryofjustice/cloud-platform-environments/cmd/check-ingress@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
