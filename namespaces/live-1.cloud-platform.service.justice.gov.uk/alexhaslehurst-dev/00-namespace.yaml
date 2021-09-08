@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: alexhaslehurst-dev
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "falsey"
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
