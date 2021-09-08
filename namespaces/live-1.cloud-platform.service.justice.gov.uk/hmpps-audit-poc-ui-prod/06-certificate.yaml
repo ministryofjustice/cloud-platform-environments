@@ -5,7 +5,7 @@ metadata:
   name: hmpps-audit-poc-ui-prod-cert
   namespace: hmpps-audit-poc-ui-prod
 spec:
-  secretName: hmpps-audit-poc-ui-prod-cert
+  secretName: hmpps-audit-poc-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
