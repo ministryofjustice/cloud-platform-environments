@@ -11,20 +11,15 @@ module "rds" {
   performance_insights_enabled = true
 
   # using mysql
-  db_engine              = "mysql"
-  db_engine_version      = "8.0.25"
-  db_instance_class      = "db.t2.micro"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-
-  # rds_family
-  rds_family = "mysql8.0"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  db_engine                   = "mysql"
+  db_engine_version           = "8.0.25"
+  db_instance_class           = "db.t2.micro"
+  environment-name            = var.environment
+  infrastructure-support      = var.infrastructure_support
+  rds_family                  = "mysql8.0"
   allow_major_version_upgrade = "false"
 
   providers = {
-    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 }
@@ -44,12 +39,6 @@ resource "kubernetes_secret" "rds" {
     access_key_id         = module.rds.access_key_id
     secret_access_key     = module.rds.secret_access_key
   }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
 }
 
 resource "kubernetes_config_map" "rds" {
