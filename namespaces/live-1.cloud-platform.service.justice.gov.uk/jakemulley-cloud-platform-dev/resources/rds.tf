@@ -10,7 +10,7 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
-  # change the postgres version as you see fit.
+  # using mysql
   db_engine              = "mysql"
   db_engine_version      = "8.0.25"
   db_instance_class      = "db.t2.micro"
