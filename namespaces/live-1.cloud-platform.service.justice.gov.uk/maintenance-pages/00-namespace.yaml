@@ -7,8 +7,8 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
-    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
+    cloud-platform.justice.gov.uk/slack-channel: "operations-egineering-team"
     cloud-platform.justice.gov.uk/application: "MoJ Maintenance Pages"
-    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Operations Engineering: operations-engineering@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-maintenance-pages"
-    cloud-platform.justice.gov.uk/team-name: "webops" 
+    cloud-platform.justice.gov.uk/team-name: "operations-engineering" 

@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = "operations-engineering"
 }
 
 variable "environment" {
@@ -29,7 +29,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "operations-engineering@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -38,7 +38,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform"
+  default     = "operations-engineering-team"
 }
 
 # DEPRECATED: snake-case variables are the default. The definitions below
@@ -52,12 +52,12 @@ variable "business-unit" {
 
 variable "team-name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = "operations-engineering"
 }
 
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "operations-engineering@digital.justice.gov.uk"
 }
 
 variable "is-production" {
@@ -66,7 +66,7 @@ variable "is-production" {
 
 variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform"
+  default     = "operations-engineering-team"
 }
 
 

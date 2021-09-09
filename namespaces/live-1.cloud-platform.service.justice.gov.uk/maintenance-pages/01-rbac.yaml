@@ -5,7 +5,7 @@ metadata:
   namespace: maintenance-pages
 subjects:
   - kind: Group
-    name: "github:webops"
+    name: "github:operations-engineering"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
