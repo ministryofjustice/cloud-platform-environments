@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "random_id" "id" {
   byte_length = 6
 }
@@ -37,7 +39,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
 
     principals {
       type = "AWS"
-      identifiers = ["842522700642"]
+      identifiers = [data.aws_caller_identity.current.account_id]
     }
   }
 }
