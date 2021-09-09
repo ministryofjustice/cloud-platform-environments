@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
   }
@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = [var.aws_account_id]
     }
   }
@@ -48,8 +48,8 @@ resource "aws_iam_policy" "laa_crime_apps" {
 }
 
 resource "aws_iam_user" "laa_crime_apps" {
-  name  = "cp-sqs-${random_id.id.hex}"
-  path  = "/system/sqs-user/${var.team_name}/"
+  name = "cp-sqs-${random_id.id.hex}"
+  path = "/system/sqs-user/${var.team_name}/"
 }
 
 resource "aws_iam_access_key" "laa_crime_apps" {
