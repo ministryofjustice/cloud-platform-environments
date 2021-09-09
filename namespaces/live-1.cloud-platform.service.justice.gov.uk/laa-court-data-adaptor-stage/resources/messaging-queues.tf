@@ -4,9 +4,9 @@ resource "random_id" "id" {
 
 data "aws_iam_policy_document" "laa_crime_apps" {
   statement {
-    sid       = "PublishPolicy"
-    effect    = "Allow"
-    actions   = ["sqs:SendMessage"]
+    sid     = "PublishPolicy"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
 
     resources = [
       module.create_link_queue.sqs_arn,
@@ -17,15 +17,15 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
   }
 
   statement {
-    sid       = "ConsumePolicy"
-    effect    = "Allow"
-    actions   = ["sqs:ReceiveMessage"]
+    sid     = "ConsumePolicy"
+    effect  = "Allow"
+    actions = ["sqs:ReceiveMessage"]
 
     resources = [
       module.create_link_queue.sqs_arn,
@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
     ]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = [var.aws_account_id]
     }
   }
@@ -48,8 +48,8 @@ resource "aws_iam_policy" "laa_crime_apps" {
 }
 
 resource "aws_iam_user" "laa_crime_apps" {
-  name  = "cp-sqs-${random_id.id.hex}"
-  path  = "/system/sqs-user/${var.team_name}/"
+  name = "cp-sqs-${random_id.id.hex}"
+  path = "/system/sqs-user/${var.team_name}/"
 }
 
 resource "aws_iam_access_key" "laa_crime_apps" {
@@ -64,14 +64,14 @@ resource "aws_iam_user_policy_attachment" "laa_crime_apps" {
 module "create_link_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
-  environment-name           = var.environment_name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
-  sqs_name                   = "create-link-queue"
-  encrypt_sqs_kms            = var.encrypt_sqs_kms
-  message_retention_seconds  = var.message_retention_seconds
-  namespace                  = var.namespace
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "create-link-queue"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -103,14 +103,14 @@ module "create_link_queue_dead_letter_queue" {
 module "unlink_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
-  environment-name           = var.environment_name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
-  sqs_name                   = "unlink-queue"
-  encrypt_sqs_kms            = var.encrypt_sqs_kms
-  message_retention_seconds  = var.message_retention_seconds
-  namespace                  = var.namespace
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "unlink-queue"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -181,14 +181,14 @@ module "laa_status_update_dead_letter_queue" {
 module "hearing_resulted_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
-  environment-name           = var.environment_name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
-  sqs_name                   = "hearing-resulted-queue"
-  encrypt_sqs_kms            = var.encrypt_sqs_kms
-  message_retention_seconds  = var.message_retention_seconds
-  namespace                  = var.namespace
+  environment-name          = var.environment_name
+  team_name                 = var.team_name
+  infrastructure-support    = var.infrastructure_support
+  application               = var.application
+  sqs_name                  = "hearing-resulted-queue"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.message_retention_seconds
+  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
