@@ -45,3 +45,7 @@ variable "message_retention_seconds" {
 variable "domain" {
   default = "stage.court-data-adaptor.service.justice.gov.uk"
 }
+
+variable "aws_account_id" {
+  default = "484221692666"
+}
