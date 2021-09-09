@@ -45,7 +45,12 @@ variable "message_retention_seconds" {
 variable "domain" {
   default = "court-data-adaptor.service.justice.gov.uk"
 }
+
 variable "visibility_timeout_seconds" {
   description = "Sets the length of time (seconds) that a message received from a queue will not be visible to the other message consumers."
   default     = "120"
+}
+
+variable "aws_account_id" {
+  default = "842522700642"
 }

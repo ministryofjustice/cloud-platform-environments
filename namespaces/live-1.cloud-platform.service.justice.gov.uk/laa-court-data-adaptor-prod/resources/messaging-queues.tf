@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "laa_crime_apps" {
 
     principals {
       type = "AWS"
-      identifiers = ["842522700642"]
+      identifiers = [var.aws_account_id]
     }
   }
 }
