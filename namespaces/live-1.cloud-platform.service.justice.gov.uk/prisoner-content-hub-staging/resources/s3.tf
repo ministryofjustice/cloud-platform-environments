@@ -9,10 +9,6 @@ module "drupal_content_storage" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
-  logging_enabled        = true
-  log_target_bucket      = "cloud-platform-c3b3fc90408e8f9501268e354d44f461"
-  log_path               = "log/staging/"
-  acl                    = "log-delivery-write"
 
   # Add CORS rule to allow direct s3 file uploading with progress bar (in Drupal CMS).
   cors_rule = [
