@@ -8,7 +8,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-manage-users-api"
+  default = "hmpps-manage-users-api-dev"
 }
 
 variable "business_unit" {
