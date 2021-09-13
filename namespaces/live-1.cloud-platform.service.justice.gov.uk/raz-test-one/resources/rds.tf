@@ -53,8 +53,8 @@ module "dms_test_source" {
   rds_family           = "sqlserver-web-13.0"
   db_engine            = "sqlserver-web"
   db_engine_version    = "13.00"
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = "100"
+  db_instance_class    = "db.t3.medium"
+  db_allocated_storage = "32"
   license_model        = "license-included"
 
   providers = {
@@ -69,9 +69,10 @@ resource "kubernetes_secret" "dms_test_source" {
   }
 
   data = {
-    host     = module.dms_test_source.rds_instance_address
-    name     = "dms-test-source"
+    endpoint = module.dms_test_source.rds_instance_endpoint
+    address  = module.dms_test_source.rds_instance_address
     username = module.dms_test_source.database_username
     password = module.dms_test_source.database_password
+    name     = "dms-test-source"
   }
 }
