@@ -4,7 +4,9 @@
 name: Check if user can amend namespace
 
 on:
-  pull_request
+  pull_request:
+    paths:
+      - '*live*'
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
