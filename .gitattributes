@@ -4,3 +4,4 @@
 *.gpg filter=git-crypt diff=git-crypt
 *.tfvars filter=git-crypt diff=git-crypt
 *secret* filter=git-crypt diff=git-crypt
+namespaces/live-1.cloud-platform.service.justice.gov.uk/polygraph-offender-management/resources/poms-secrets !filter !diff
