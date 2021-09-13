@@ -8,8 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-github/v38/github"
-	"golang.org/x/oauth2"
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 )
 
 // ChangedInPR takes a GitHub branch reference (usually provided by a GitHub Action), a
@@ -21,7 +20,10 @@ func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 		return nil, errors.New("You must have a valid GitHub token.")
 	}
 
-	client := githubClient(token)
+	client, err := authenticate.GitHubClient(token)
+	if err != nil {
+		return nil, err
+	}
 
 	// branchRef is expected in the format:
 	// "refs/pull/<pull request number>/merge"
@@ -60,18 +62,4 @@ func deduplicateList(s []string) (list []string) {
 	}
 
 	return
-}
-
-//githubClient returns a GitHub client to allow authenticated communications
-func githubClient(token string) github.Client {
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{
-			AccessToken: token,
-		},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-	client := github.NewClient(tc)
-
-	return *client
 }
