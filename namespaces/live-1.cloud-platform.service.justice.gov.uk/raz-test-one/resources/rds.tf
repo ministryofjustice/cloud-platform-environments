@@ -25,7 +25,7 @@ module "dms_test_destination" {
 
 resource "kubernetes_secret" "dms_test_destination" {
   metadata {
-    name      = "dms_test_destination"
+    name      = "dms-test-destination"
     namespace = var.namespace
   }
 
