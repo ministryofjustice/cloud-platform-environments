@@ -11,11 +11,11 @@ import (
 	"log"
 	"os"
 
+	"rbac-check/pkg/client"
 	"rbac-check/pkg/config"
 	"rbac-check/pkg/get"
 	"rbac-check/pkg/validate"
 
-	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 	ghaction "github.com/sethvargo/go-githubactions"
 )
@@ -44,11 +44,6 @@ func main() {
 		log.Fatalln("You need to specify a non-empty value for token, branch and username.")
 	}
 
-	client, err := authenticate.GitHubClient(*token)
-	if err != nil {
-		log.Fatalf("Unable to create GitHub client, error: %e", err)
-	}
-
 	user := config.User{
 		PrimaryCluster:   *primaryCluster,
 		SecondaryCluster: *secondaryCluster,
@@ -56,7 +51,7 @@ func main() {
 	}
 
 	opt := config.Options{
-		Client: client,
+		Client: client.GitHubClient(*token),
 		Ctx:    context.Background(),
 	}
 
