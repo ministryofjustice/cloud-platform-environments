@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-visitor-registry-dev-cert
+  name: hmpps-visitor-registry-cert
   namespace: hmpps-visitor-registry-dev
 spec:
   secretName: hmpps-visitor-registry-cert
