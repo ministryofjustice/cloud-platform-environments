@@ -6,7 +6,8 @@ name: Check if user can amend namespace
 on:
   pull_request:
     paths:
-      - '*live*'
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
+      - 'namespaces/live-1.cloud-platform.service.justice.gov.uk/**'
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
