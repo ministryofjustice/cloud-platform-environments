@@ -19,5 +19,7 @@ resource "kubernetes_secret" "dms_instance" {
 
   data = {
     replication_instance_arn = module.raz_test_dms.replication_instance_arn
+    access_key_id            = module.raz_test_dms.access_key_id
+    secret_access_key        = module.raz_test_dms.secret_access_key
   }
 }
