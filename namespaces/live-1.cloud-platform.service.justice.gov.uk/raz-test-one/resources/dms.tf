@@ -18,6 +18,6 @@ resource "kubernetes_secret" "dms_instance" {
   }
 
   data = {
-    replication_instance_arn  = module.raz_test_dms.replication_instance_arn
+    replication_instance_arn = module.raz_test_dms.replication_instance_arn
   }
 }
