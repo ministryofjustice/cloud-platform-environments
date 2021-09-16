@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=example"
 
   namespace = var.namespace
 
@@ -8,6 +8,7 @@ module "serviceaccount" {
 
   github_repositories = ["helloworld-poornima-dev"]
 
+  kubernetes_cluster = var.kubernetes_cluster
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE_LIVE_1"
   github_actions_secret_kube_cert      = "KUBE_CERT_LIVE_1"
   github_actions_secret_kube_token     = "KUBE_TOKEN_LIVE_1"
