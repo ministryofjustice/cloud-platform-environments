@@ -12,4 +12,4 @@ spec:
     - court-list-splitter-dev.hmpps.service.justice.gov.uk
     - court-hearing-event-receiver-dev.hmpps.service.justice.gov.uk
     - court-case-test-app-dev.hmpps.service.justice.gov.uk
-
+    - pre-sentence-service-dev.hmpps.service.justice.gov.uk
