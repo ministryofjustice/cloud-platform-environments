@@ -32,7 +32,7 @@ jobs:
       # correct GitHub team.
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
-        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@import-rbac-checker
+        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -44,7 +44,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            The user ${PR_OWNER} isn't a member of the relevant rbac teams.
+            The owner of this PR isn't a member of the relevant rbac teams.
 
       # We need GitHub Actions to report a fail if the user isn't permitted.
       - name: If user not in the rbac group; then fail
