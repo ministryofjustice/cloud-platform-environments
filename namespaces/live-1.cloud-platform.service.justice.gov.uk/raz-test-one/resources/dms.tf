@@ -10,3 +10,14 @@ module "raz_test_dms" {
   is-production          = var.is_production
   team_name              = var.team_name
 }
+
+resource "kubernetes_secret" "dms_instance" {
+  metadata {
+    name      = "dms-instance"
+    namespace = var.namespace
+  }
+
+  data = {
+    replication_instance_arn  = module.raz_test_dms.replication_instance_arn
+  }
+}
