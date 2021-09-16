@@ -33,24 +33,9 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@master
 
-      - name: Get all files changed in PR
-        id: files
-        uses: jitterbit/get-changed-files@v1
-        with:
-          format: 'csv'
-
-      - name: Output all changes to a file
-        run: |
-          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
-          for added_modified_file in "${added_modified_files[@]}"; do
-            if [[ "${added_modified_file}" == *"live"* ]]; then
-              echo "${added_modified_file}" | awk -F/ '{print $3}' >> files
-            fi
-          done
-
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
-        uses: ministryofjustice/github-actions/env-permissions-check@add-rbac-check
+        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -61,7 +46,7 @@ To run the application locally, you must have the following:
 - A personal access token, with permission to view your organisation (this will require you to setup and enable SSO).
 - An environment variable set called `GITHUB_OAUTH_TOKEN` with the value of your personal access token.
 - An environment variable set called `PR_OWNER` that contains the valid username of a GitHub user.
-- A file containing namespaces that exist i.e. `abundant-namespace-dev`.
+- An environment variable set called `BRANCH_REF` that contains the branch reference in the format of `refs/pull/<pull-request-number>/merge`.
 
 Then you can run:
 
