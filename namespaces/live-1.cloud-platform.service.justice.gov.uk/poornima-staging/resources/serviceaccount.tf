@@ -8,7 +8,7 @@ module "serviceaccount" {
 
   github_repositories = ["helloworld-poornima-dev"]
 
-  kubernetes_cluster = var.kubernetes_cluster
+  kubernetes_cluster                   = var.kubernetes_cluster
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE_LIVE_1"
   github_actions_secret_kube_cert      = "KUBE_CERT_LIVE_1"
   github_actions_secret_kube_token     = "KUBE_TOKEN_LIVE_1"
