@@ -2,6 +2,9 @@
 variable "cluster_name" {
 }
 
+variable "kubernetes_cluster" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "LAA-HMRC Interface Service API"
