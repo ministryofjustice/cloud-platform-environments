@@ -1,8 +1,3 @@
-// main is expected to run in a GitHub action. It will expect to receive a
-// file in its directory called `files` that contains a space seperated list of
-// MoJ Cloud Platform Kubernetes namespaces changed in a PR. Each namespace contains
-// an rbac file that contains a list of team names. If the PR owner (whoever raised the PR)
-// is a member of that list, the package returns true. If not, it'll return false.
 package main
 
 import (
@@ -11,10 +6,10 @@ import (
 	"log"
 	"os"
 
-	"rbac-check/pkg/client"
-	"rbac-check/pkg/config"
-	"rbac-check/pkg/get"
-	"rbac-check/pkg/validate"
+	"rbac-check/client"
+	"rbac-check/config"
+	"rbac-check/get"
+	"rbac-check/validate"
 
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 	ghaction "github.com/sethvargo/go-githubactions"
