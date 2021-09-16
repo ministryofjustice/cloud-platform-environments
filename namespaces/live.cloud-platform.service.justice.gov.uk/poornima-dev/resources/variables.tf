@@ -2,7 +2,8 @@
 variable "cluster_name" {
 }
 
-
+variable "kubernetes_cluster" {
+}
 variable "domain" {
   default = "dev-pk.service.justice.gov.uk"
 }

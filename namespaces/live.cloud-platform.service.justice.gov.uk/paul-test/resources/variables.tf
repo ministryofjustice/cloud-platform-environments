@@ -1,3 +1,5 @@
+variable "kubernetes_cluster" {
+}
 variable "namespace" {
   default = "paul-test"
 }

@@ -2,7 +2,8 @@
 variable "cluster_name" {
 }
 
-
+variable "kubernetes_cluster" {
+}
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Namespace to test Terraform resources"
