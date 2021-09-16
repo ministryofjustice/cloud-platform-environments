@@ -35,7 +35,7 @@ func main() {
 	// branch = the branch name of your PR
 	// username = the github username used to create the PR.
 	// All of these values will be passed upstream by a GitHub action.
-	if *token == "" || *branch == "" || *username == "" {
+	if *token == "" || *branch == "" || *username == "" || *branchRef == "" {
 		log.Fatalln("You need to specify a non-empty value for token, branch and username.")
 	}
 
