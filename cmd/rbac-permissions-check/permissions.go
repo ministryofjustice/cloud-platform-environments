@@ -23,7 +23,7 @@ import (
 var (
 	token            = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token from GitHub.")
 	branch           = flag.String("branch", os.Getenv("BRANCH"), "Branch of changes in GitHub.")
-	branchRef        = flag.String("branch", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
+	branchRef        = flag.String("branchRef", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
 	username         = flag.String("user", os.Getenv("PR_OWNER"), "Branch of changes in GitHub.")
 	repo             = flag.String("repository", "cloud-platform-environments", "The repository of the Cloud Platform repository.")
 	org              = flag.String("org", "ministryofjustice", "Name of the orgnanisation i.e. ministryofjustice.")
