@@ -3,9 +3,9 @@
 package validate
 
 import (
-	"rbac-check/pkg/config"
-
 	"github.com/google/go-github/v35/github"
+
+	"rbac-check/config"
 )
 
 // UserPermissions takes a map of strings containing the rbac team names of each MoJ Cloud Platform namespace,
