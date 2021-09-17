@@ -61,7 +61,7 @@ module "lumen_transfer_s3_bucket_dev" {
 
 resource "kubernetes_secret" "lumen_transfer_s3_bucket_dev" {
   metadata {
-    name      = "lumen-transfer-s3-bucket"
+    name      = "lumen-db-transfer-s3-bucket"
     namespace = var.namespace
   }
 
