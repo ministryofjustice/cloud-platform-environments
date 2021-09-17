@@ -44,3 +44,41 @@ func TestChangedInPR(t *testing.T) {
 		})
 	}
 }
+
+func TestGetAllNamespaces(t *testing.T) {
+	badHost := "https://obviouslyFakeURL/hosted_services"
+	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/hosted_services"
+
+	type args struct {
+		host *string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Pass faulty hostname",
+			args: args{
+				host: &badHost,
+			},
+			wantErr: true,
+		},
+		{
+			name: "Pass correct hostname",
+			args: args{
+				host: &goodHost,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := GetAllNamespaces(tt.args.host)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetAllNamespaces() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
