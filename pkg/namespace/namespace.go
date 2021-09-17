@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -14,6 +15,16 @@ import (
 
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 )
+
+type Namespace struct {
+	Application  string
+	BusinessUnit string
+	Cluster      string
+	GitHubTeams  []string
+	Name         string
+	SlackChannel string
+	TeamName     string
+}
 
 // HoodawReport contains the json to go struct of the hosted_services endpoint.
 type HoodawReport struct {
@@ -29,9 +40,27 @@ type HoodawReport struct {
 	} `json:"namespace_details"`
 }
 
+func (ns *Namespace) GetRbacGroup(token string) error {
+	client, err := authenticate.GitHubClient(token)
+	if err != nil {
+		return err
+	}
+
+	nsPath := fmt.Sprintf("namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01.rbac.yaml", ns.Cluster, ns.Name)
+
+	rbacGroups, _, _, err := client.Repositories.GetContents(context.Background(), "ministryofjustice", "cloud-platform-environments", nsPath, nil)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(rbacGroups)
+
+	return err
+}
+
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(host *string) (*HoodawReport, error) {
+func GetAllNamespaces(host *string) ([]Namespace, error) {
 	client := &http.Client{
 		Timeout: time.Second * 2,
 	}
@@ -58,11 +87,21 @@ func GetAllNamespaces(host *string) (*HoodawReport, error) {
 		return nil, err
 	}
 
-	namespaces := &HoodawReport{}
+	report := &HoodawReport{}
 
 	err = json.Unmarshal(body, &namespaces)
 	if err != nil {
 		return nil, err
+	}
+
+	var namespaces []Namespace
+	for _, namespace := range report.NamespaceDetails {
+		ns := Namespace{
+			Name:         namespace.Namespace,
+			SlackChannel: namespace.TeamSlackChannel,
+		}
+
+		namespaces = append(namespaces, ns)
 	}
 
 	return namespaces, nil
