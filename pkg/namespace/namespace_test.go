@@ -82,3 +82,52 @@ func TestGetAllNamespaces(t *testing.T) {
 		})
 	}
 }
+
+func TestGetNamespace(t *testing.T) {
+	badHost := "https://obviouslyFakeURL/hosted_services"
+	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/hosted_services"
+
+	type args struct {
+		s    string
+		host string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Call correct namespace",
+			args: args{
+				s:    "abundant-namespace-dev",
+				host: goodHost,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Call incorrect namespace",
+			args: args{
+				s:    "obviouslyFakeNamespace",
+				host: goodHost,
+			},
+			wantErr: true,
+		},
+		{
+			name: "Call incorrect hostname",
+			args: args{
+				s:    "abundant-namespace-dev",
+				host: badHost,
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := GetNamespace(tt.args.s, tt.args.host)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetNamespace() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
