@@ -15,30 +15,33 @@ import (
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 )
 
-// HoodawReport contains the json to go struct of the hosted_services endpoint.
-type HoodawReport struct {
-	NamespaceDetails []struct {
-		Namespace        string        `json:"namespace"`
-		Application      string        `json:"application"`
-		BusinessUnit     string        `json:"business_unit"`
-		TeamName         string        `json:"team_name"`
-		TeamSlackChannel string        `json:"team_slack_channel"`
-		GithubURL        string        `json:"github_url"`
-		DeploymentType   string        `json:"deployment_type"`
-		DomainNames      []interface{} `json:"domain_names"`
-	} `json:"namespace_details"`
+// Namespace describes a Cloud Platform namespace object.
+type Namespace struct {
+	Name             string        `json:"namespace"`
+	Application      string        `json:"application"`
+	BusinessUnit     string        `json:"business_unit"`
+	TeamName         string        `json:"team_name"`
+	TeamSlackChannel string        `json:"team_slack_channel"`
+	GithubURL        string        `json:"github_url"`
+	DeploymentType   string        `json:"deployment_type"`
+	DomainNames      []interface{} `json:"domain_names"`
+}
+
+// AllNamespaces contains the json to go struct of the hosted_services endpoint.
+type AllNamespaces struct {
+	Namespaces []Namespace `json:"namespace_details"`
 }
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(host *string) (*HoodawReport, error) {
+func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
 	client := &http.Client{
 		Timeout: time.Second * 2,
 	}
 
-	req, err := http.NewRequest("GET", *host, nil)
+	req, err := http.NewRequest(http.MethodGet, *host, nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	req.Header.Add("User-Agent", "environments-namespace-pkg")
@@ -46,7 +49,7 @@ func GetAllNamespaces(host *string) (*HoodawReport, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	if resp.Body != nil {
@@ -55,17 +58,15 @@ func GetAllNamespaces(host *string) (*HoodawReport, error) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return
 	}
-
-	namespaces := &HoodawReport{}
 
 	err = json.Unmarshal(body, &namespaces)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	return namespaces, nil
+	return
 }
 
 // ChangedInPR takes a GitHub branch reference (usually provided by a GitHub Action), a
