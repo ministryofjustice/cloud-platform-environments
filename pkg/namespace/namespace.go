@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -57,7 +56,7 @@ func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
 		Timeout: time.Second * 2,
 	}
 
-	req, err := http.NewRequest("GET", *host, nil)
+	req, err := http.NewRequest(http.MethodGet, *host, nil)
 	if err != nil {
 		return
 	}
@@ -83,8 +82,6 @@ func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
 	if err != nil {
 		return
 	}
-
-	fmt.Println(namespaces)
 
 	return
 }
