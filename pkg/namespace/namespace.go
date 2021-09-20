@@ -52,7 +52,7 @@ func (ns *Namespace) GetRbacGroup(token string) error {
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(host *string) ([]Namespace, error) {
+func GetAllNamespaces(host *string) (*AllNamespaces, error) {
 	client := &http.Client{
 		Timeout: time.Second * 2,
 	}
@@ -79,21 +79,11 @@ func GetAllNamespaces(host *string) ([]Namespace, error) {
 		return nil, err
 	}
 
-	namespaces := &HoodawReport{}
+	namespaces := &AllNamespaces{}
 
 	err = json.Unmarshal(body, &namespaces)
 	if err != nil {
 		return nil, err
-	}
-
-	var namespaces []Namespace
-	for _, namespace := range report.NamespaceDetails {
-		ns := Namespace{
-			Name:         namespace.Namespace,
-			SlackChannel: namespace.TeamSlackChannel,
-		}
-
-		namespaces = append(namespaces, ns)
 	}
 
 	return namespaces, nil
