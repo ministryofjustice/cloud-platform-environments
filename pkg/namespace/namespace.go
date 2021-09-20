@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,23 +32,23 @@ type AllNamespaces struct {
 	Namespace []struct{} `json:"namespace_details"`
 }
 
-func (ns *Namespace) GetRbacGroup(token string) error {
-	client, err := authenticate.GitHubClient(token)
-	if err != nil {
-		return err
-	}
+// func (ns *Namespace) GetRbacGroup(token string) error {
+// 	client, err := authenticate.GitHubClient(token)
+// 	if err != nil {
+// 		return err
+// 	}
 
-	nsPath := fmt.Sprintf("namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01.rbac.yaml", ns.Cluster, ns.Name)
+// 	nsPath := fmt.Sprintf("namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01.rbac.yaml", ns.Cluster, ns.Name)
 
-	rbacGroups, _, _, err := client.Repositories.GetContents(context.Background(), "ministryofjustice", "cloud-platform-environments", nsPath, nil)
-	if err != nil {
-		return err
-	}
+// 	rbacGroups, _, _, err := client.Repositories.GetContents(context.Background(), "ministryofjustice", "cloud-platform-environments", nsPath, nil)
+// 	if err != nil {
+// 		return err
+// 	}
 
-	fmt.Println(rbacGroups)
+// 	fmt.Println(rbacGroups)
 
-	return err
-}
+// 	return err
+// }
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
