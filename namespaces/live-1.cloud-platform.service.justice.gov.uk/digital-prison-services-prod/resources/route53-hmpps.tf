@@ -58,3 +58,11 @@ resource "aws_route53_record" "hmpps-tech-docs" {
   records = ["ministryofjustice.github.io."]
 }
 
+# Verify google search console
+resource "aws_route53_record" "google" {
+  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
+  name    = "hmpps.service.justice.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["google-site-verification=iTr6EZ5R2nbh-Uv8eo6VKOb_lkbaSFis63gO09GqxM0"]
+}

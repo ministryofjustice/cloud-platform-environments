@@ -4,7 +4,10 @@
 name: Check if user can amend namespace
 
 on:
-  pull_request
+  pull_request:
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
+      - 'namespaces/live-1.cloud-platform.service.justice.gov.uk/**'
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
@@ -25,31 +28,11 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@master
 
-      # Grabs all files changed and displays them in csv format.
-      - name: Get all files changed in PR
-        id: files
-        uses: Ana06/get-changed-files@v1.2
-        with:
-          format: 'csv'
-          filter: '*live*'
-
-      # Loop over all files changed:
-      # If the file path contains "live" then we assume it's a namespace change and requires an 
-      # RBAC check.
-      - name: Output all changes to a file
-        run: |
-          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.all }}')
-          for added_modified_file in "${added_modified_files[@]}"; do
-            if [[ "${added_modified_file}" == *"live"* ]]; then
-              echo "${added_modified_file}" | awk -F/ '{print $3}' >> files
-            fi
-          done
-
       # Runs custom script to check if the person who raised the PR is in the 
       # correct GitHub team.
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
-        uses: ministryofjustice/github-actions/rbac-permissions-check@main
+        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -61,7 +44,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            The user ${PR_OWNER} isn't a member of the relevant rbac teams.
+            The owner of this PR isn't a member of the relevant rbac teams.
 
       # We need GitHub Actions to report a fail if the user isn't permitted.
       - name: If user not in the rbac group; then fail

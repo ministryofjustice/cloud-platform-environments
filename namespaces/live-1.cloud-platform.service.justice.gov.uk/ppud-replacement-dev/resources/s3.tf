@@ -61,7 +61,7 @@ module "lumen_transfer_s3_bucket_dev" {
 
 resource "kubernetes_secret" "lumen_transfer_s3_bucket_dev" {
   metadata {
-    name      = "lumen-transfer-s3-bucket"
+    name      = "lumen-db-transfer-s3-bucket"
     namespace = var.namespace
   }
 
@@ -213,5 +213,7 @@ resource "kubernetes_secret" "lumen_document_store_user" {
   data = {
     access_key_id     = aws_iam_access_key.lumen_document_store_user.id
     secret_access_key = aws_iam_access_key.lumen_document_store_user.secret
+    bucket_arn        = module.lumen_document_store.bucket_arn
+    bucket_name       = module.lumen_document_store.bucket_name
   }
 }

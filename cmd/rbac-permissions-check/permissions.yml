@@ -1,0 +1,5 @@
+name: Check if user is a member of the namespace rbac team
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
