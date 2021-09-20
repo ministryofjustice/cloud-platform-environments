@@ -37,11 +37,10 @@ type AllNamespaces struct {
 
 // GetNamespace takes the name of a namespace as a string and returns
 // a Namespace data type.
-func GetNamespace(s string) (Namespace, error) {
+func GetNamespace(s string, h string) (Namespace, error) {
 	var namespace Namespace
-	host := "https://reports.service.justice.gov.uk/hosted_services"
 
-	allNamespaces, err := GetAllNamespaces(&host)
+	allNamespaces, err := GetAllNamespaces(&h)
 	if err != nil {
 		return namespace, err
 	}
