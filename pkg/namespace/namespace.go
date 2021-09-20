@@ -29,7 +29,7 @@ type Namespace struct {
 
 // HoodawReport contains the json to go struct of the hosted_services endpoint.
 type AllNamespaces struct {
-	Namespace []struct{} `json:"namespace_details"`
+	Namespaces []Namespace `json:"namespace_details"`
 }
 
 // func (ns *Namespace) GetRbacGroup(token string) error {
