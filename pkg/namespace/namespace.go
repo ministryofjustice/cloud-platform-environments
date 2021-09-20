@@ -24,7 +24,6 @@ type Namespace struct {
 	GithubURL        string        `json:"github_url"`
 	DeploymentType   string        `json:"deployment_type"`
 	DomainNames      []interface{} `json:"domain_names"`
-	Cluster          string
 }
 
 // HoodawReport contains the json to go struct of the hosted_services endpoint.
