@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - manage.bapv-dev.hmpps.service.justice.gov.uk
+    - manage-a-prison-visit-dev.hmpps.service.justice.gov.uk
