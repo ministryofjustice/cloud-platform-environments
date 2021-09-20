@@ -79,14 +79,14 @@ func GetAllNamespaces(host *string) (*AllNamespaces, error) {
 		return nil, err
 	}
 
-	namespaces := &AllNamespaces{}
+	ns := &AllNamespaces{}
 
-	err = json.Unmarshal(body, &namespaces)
+	err = json.Unmarshal(body, &ns)
 	if err != nil {
 		return nil, err
 	}
 
-	return namespaces, nil
+	return ns, nil
 }
 
 // ChangedInPR takes a GitHub branch reference (usually provided by a GitHub Action), a
