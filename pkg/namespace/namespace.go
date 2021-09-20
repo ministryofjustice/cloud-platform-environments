@@ -21,11 +21,11 @@ type Namespace struct {
 	Application      string        `json:"application"`
 	BusinessUnit     string        `json:"business_unit"`
 	DeploymentType   string        `json:"deployment_type"`
-	Cluster          string        `json:"omitempty"`
+	Cluster          string        `json:"cluster,omitempty"`
 	DomainNames      []interface{} `json:"domain_names"`
 	GithubURL        string        `json:"github_url"`
 	Name             string        `json:"namespace"`
-	RbacTeam         string        `json:"omitempty"`
+	RbacTeam         string        `json:"rbac_team,omitempty"`
 	TeamName         string        `json:"team_name"`
 	TeamSlackChannel string        `json:"team_slack_channel"`
 }
