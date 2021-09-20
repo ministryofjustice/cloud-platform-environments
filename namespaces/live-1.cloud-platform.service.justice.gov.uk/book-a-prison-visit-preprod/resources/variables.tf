@@ -18,7 +18,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  description = "The name of your preprodelopment team"
+  description = "The name of your development team"
   default     = "book-a-prison-visit"
 }
 
