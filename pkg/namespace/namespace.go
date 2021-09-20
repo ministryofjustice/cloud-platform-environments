@@ -51,14 +51,14 @@ type AllNamespaces struct {
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(host *string) (*AllNamespaces, error) {
+func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
 	client := &http.Client{
 		Timeout: time.Second * 2,
 	}
 
 	req, err := http.NewRequest("GET", *host, nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	req.Header.Add("User-Agent", "environments-namespace-pkg")
@@ -66,7 +66,7 @@ func GetAllNamespaces(host *string) (*AllNamespaces, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	if resp.Body != nil {
@@ -75,17 +75,15 @@ func GetAllNamespaces(host *string) (*AllNamespaces, error) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	ns := &AllNamespaces{}
-
-	err = json.Unmarshal(body, &ns)
+	err = json.Unmarshal(body, &namespaces)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	return ns, nil
+	return
 }
 
 // ChangedInPR takes a GitHub branch reference (usually provided by a GitHub Action), a
