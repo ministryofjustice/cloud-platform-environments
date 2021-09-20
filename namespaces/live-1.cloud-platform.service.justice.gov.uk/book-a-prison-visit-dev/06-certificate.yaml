@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: book-a-prison-visit-dev.hmpps.service.justice.gov.uk
+  name: book-a-prison-visit-cert
   namespace: book-a-prison-visit-dev
 spec:
   secretName: book-a-prison-visit-cert
@@ -15,7 +15,7 @@ spec:
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: book-a-prison-visit-staff-dev
+  name: book-a-prison-visit-staff-cert
   namespace: book-a-prison-visit-dev
 spec:
   secretName: book-a-prison-visit-staff-cert
