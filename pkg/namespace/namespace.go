@@ -17,27 +17,19 @@ import (
 )
 
 type Namespace struct {
-	Application  string
-	BusinessUnit string
-	Cluster      string
-	GitHubTeams  []string
-	Name         string
-	SlackChannel string
-	TeamName     string
+	Namespace        string        `json:"namespace"`
+	Application      string        `json:"application"`
+	BusinessUnit     string        `json:"business_unit"`
+	TeamName         string        `json:"team_name"`
+	TeamSlackChannel string        `json:"team_slack_channel"`
+	GithubURL        string        `json:"github_url"`
+	DeploymentType   string        `json:"deployment_type"`
+	DomainNames      []interface{} `json:"domain_names"`
 }
 
 // HoodawReport contains the json to go struct of the hosted_services endpoint.
-type HoodawReport struct {
-	NamespaceDetails []struct {
-		Namespace        string        `json:"namespace"`
-		Application      string        `json:"application"`
-		BusinessUnit     string        `json:"business_unit"`
-		TeamName         string        `json:"team_name"`
-		TeamSlackChannel string        `json:"team_slack_channel"`
-		GithubURL        string        `json:"github_url"`
-		DeploymentType   string        `json:"deployment_type"`
-		DomainNames      []interface{} `json:"domain_names"`
-	} `json:"namespace_details"`
+type AllNamespaces struct {
+	Namespace []struct{} `json:"namespace_details"`
 }
 
 func (ns *Namespace) GetRbacGroup(token string) error {
@@ -87,7 +79,7 @@ func GetAllNamespaces(host *string) ([]Namespace, error) {
 		return nil, err
 	}
 
-	report := &HoodawReport{}
+	namespaces := &HoodawReport{}
 
 	err = json.Unmarshal(body, &namespaces)
 	if err != nil {
