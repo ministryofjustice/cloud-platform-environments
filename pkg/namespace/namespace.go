@@ -15,6 +15,7 @@ import (
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 )
 
+// Namespace describes a Cloud Platform namespace object.
 type Namespace struct {
 	Name             string        `json:"namespace"`
 	Application      string        `json:"application"`
@@ -26,28 +27,10 @@ type Namespace struct {
 	DomainNames      []interface{} `json:"domain_names"`
 }
 
-// HoodawReport contains the json to go struct of the hosted_services endpoint.
+// AllNamespaces contains the json to go struct of the hosted_services endpoint.
 type AllNamespaces struct {
 	Namespaces []Namespace `json:"namespace_details"`
 }
-
-// func (ns *Namespace) GetRbacGroup(token string) error {
-// 	client, err := authenticate.GitHubClient(token)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	nsPath := fmt.Sprintf("namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01.rbac.yaml", ns.Cluster, ns.Name)
-
-// 	rbacGroups, _, _, err := client.Repositories.GetContents(context.Background(), "ministryofjustice", "cloud-platform-environments", nsPath, nil)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	fmt.Println(rbacGroups)
-
-// 	return err
-// }
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
