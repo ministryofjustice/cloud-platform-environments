@@ -56,9 +56,9 @@ resource "aws_dms_endpoint" "source" {
   }
 }
 
-resource "aws_dms_endpoint" "destination" {
+resource "aws_dms_endpoint" "target" {
   endpoint_id                 = "${var.team_name}-dst-${random_id.id.hex}"
-  endpoint_type               = "destination"
+  endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
   extra_connection_attributes = ""
   server_name                 = data.kubernetes_secret.dms_secret.data.dst_addr
@@ -83,7 +83,7 @@ resource "aws_dms_replication_task" "replication_task" {
   replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source.endpoint_arn
-  target_endpoint_arn = aws_dms_endpoint.destination.endpoint_arn
+  target_endpoint_arn = aws_dms_endpoint.target.endpoint_arn
 
   table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"%\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
   replication_task_settings = ""
