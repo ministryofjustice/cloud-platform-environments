@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: how-out-of-date-are-we-app-ingress
   namespace: how-out-of-date-are-we
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    external-dns.alpha.kubernetes.io/aws-weight: "0"
+    external-dns.alpha.kubernetes.io/set-identifier: how-out-of-date-are-we-app-ingress-how-out-of-date-are-we-blue
 spec:
   tls:
   - hosts:

@@ -37,7 +37,7 @@ kind: Ingress
 metadata:
   name: hello-wold
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: mogaal-test-live-1
+    external-dns.alpha.kubernetes.io/set-identifier: hello-wold-mogaal-test-blue
     external-dns.alpha.kubernetes.io/aws-weight: "50"
 spec:
   tls:

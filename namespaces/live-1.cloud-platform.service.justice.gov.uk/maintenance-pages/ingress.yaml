@@ -3,6 +3,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: domains-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: domains-ingress-maintenance-pages-blue
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
   tls:
   - hosts:
