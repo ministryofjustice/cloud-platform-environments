@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,19 +18,40 @@ import (
 
 // Namespace describes a Cloud Platform namespace object.
 type Namespace struct {
-	Name             string        `json:"namespace"`
 	Application      string        `json:"application"`
 	BusinessUnit     string        `json:"business_unit"`
+	DeploymentType   string        `json:"deployment_type"`
+	Cluster          string        `json:"cluster,omitempty"`
+	DomainNames      []interface{} `json:"domain_names"`
+	GithubURL        string        `json:"github_url"`
+	Name             string        `json:"namespace"`
+	RbacTeam         string        `json:"rbac_team,omitempty"`
 	TeamName         string        `json:"team_name"`
 	TeamSlackChannel string        `json:"team_slack_channel"`
-	GithubURL        string        `json:"github_url"`
-	DeploymentType   string        `json:"deployment_type"`
-	DomainNames      []interface{} `json:"domain_names"`
 }
 
 // AllNamespaces contains the json to go struct of the hosted_services endpoint.
 type AllNamespaces struct {
 	Namespaces []Namespace `json:"namespace_details"`
+}
+
+// GetNamespace takes the name of a namespace as a string and returns
+// a Namespace data type.
+func GetNamespace(s string, h string) (Namespace, error) {
+	var namespace Namespace
+
+	allNamespaces, err := GetAllNamespaces(&h)
+	if err != nil {
+		return namespace, err
+	}
+
+	for _, ns := range allNamespaces.Namespaces {
+		if s == ns.Name {
+			return ns, nil
+		}
+	}
+
+	return namespace, fmt.Errorf("Namespace %s is not found in the cluster.", s)
 }
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
