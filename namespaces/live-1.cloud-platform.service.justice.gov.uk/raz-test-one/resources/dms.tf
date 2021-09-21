@@ -26,7 +26,7 @@ resource "kubernetes_secret" "dms_instance" {
 
 data "kubernetes_secret" "dms_secret" {
   metadata {
-    name = "dms-secret"
+    name      = "dms-secret"
     namespace = var.namespace
   }
 }
@@ -50,9 +50,9 @@ resource "aws_dms_endpoint" "source" {
   tags = {
     Name        = "${var.team_name} Source Endpoint"
     Description = "Managed by Terraform"
-    Application = "${var.application}"
-    Owner       = "${var.team_name}"
-    Env         = "${var.environment-name}"
+    Application = var.application
+    Owner       = var.team_name
+    Env         = var.environment
   }
 }
 
@@ -69,10 +69,10 @@ resource "aws_dms_endpoint" "destination" {
   ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_tls
 
   tags = {
-    Name        = "${var.team_name} Source Endpoint"
+    Name        = "${var.team_name} Destination Endpoint"
     Description = "Managed by Terraform"
-    Application = "${var.application}"
-    Owner       = "${var.team_name}"
-    Env         = "${var.environment-name}"
+    Application = var.application
+    Owner       = var.team_name
+    Env         = var.environment
   }
 }
