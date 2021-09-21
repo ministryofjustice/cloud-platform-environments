@@ -1,4 +1,4 @@
-module "raz_test_dms" {
+module "test_dms" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=new-use"
 
   cluster_name           = var.cluster_name
@@ -18,9 +18,9 @@ resource "kubernetes_secret" "dms_instance" {
   }
 
   data = {
-    replication_instance_arn = module.raz_test_dms.replication_instance_arn
-    access_key_id            = module.raz_test_dms.access_key_id
-    secret_access_key        = module.raz_test_dms.secret_access_key
+    replication_instance_arn = module.test_dms.replication_instance_arn
+    access_key_id            = module.test_dms.access_key_id
+    secret_access_key        = module.test_dms.secret_access_key
   }
 }
 
@@ -70,6 +70,26 @@ resource "aws_dms_endpoint" "destination" {
 
   tags = {
     Name        = "${var.team_name} Destination Endpoint"
+    Description = "Managed by Terraform"
+    Application = var.application
+    Owner       = var.team_name
+    Env         = var.environment
+  }
+}
+
+resource "aws_dms_replication_task" "replication_task" {
+  migration_type           = "full-load-and-cdc"
+  replication_instance_arn = module.test_dms.replication_instance_arn
+  replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
+
+  source_endpoint_arn = aws_dms_endpoint.source.endpoint_arn
+  target_endpoint_arn = aws_dms_endpoint.destination.endpoint_arn
+
+  table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"%\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
+  replication_task_settings = ""
+
+  tags = {
+    Name        = "${var.team_name} Replication Task"
     Description = "Managed by Terraform"
     Application = var.application
     Owner       = var.team_name
