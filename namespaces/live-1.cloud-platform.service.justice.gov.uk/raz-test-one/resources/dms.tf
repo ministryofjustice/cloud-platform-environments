@@ -45,7 +45,7 @@ resource "aws_dms_endpoint" "source" {
   username                    = data.kubernetes_secret.dms_secret.data.src_user
   password                    = data.kubernetes_secret.dms_secret.data.src_pass
   port                        = data.kubernetes_secret.dms_secret.data.src_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_tls
+  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
@@ -66,7 +66,7 @@ resource "aws_dms_endpoint" "target" {
   username                    = data.kubernetes_secret.dms_secret.data.dst_user
   password                    = data.kubernetes_secret.dms_secret.data.dst_pass
   port                        = data.kubernetes_secret.dms_secret.data.dst_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_tls
+  ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_ssl
 
   tags = {
     Name        = "${var.team_name} Destination Endpoint"
