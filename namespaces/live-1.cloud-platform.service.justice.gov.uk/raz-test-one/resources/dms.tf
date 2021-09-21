@@ -26,7 +26,7 @@ resource "kubernetes_secret" "dms_instance" {
 
 data "kubernetes_secret" "dms_secret" {
   metadata {
-    name = "dms-secret"
+    name      = "dms-secret"
     namespace = var.namespace
   }
 }
