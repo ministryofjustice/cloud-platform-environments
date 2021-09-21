@@ -99,6 +99,9 @@ metadata:
     release: kibana-dsd-proxy
   name: kibana-dsd-proxy-oauth2-proxy
   namespace: monitoring
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: kibana-dsd-proxy-oauth2-proxy-monitoring-blue
 spec:
   tls:
   - hosts:
