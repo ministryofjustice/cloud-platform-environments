@@ -1,4 +1,3 @@
-// package namespace contains required code to interact with a Cloud Platform namespace.
 package namespace
 
 import (
