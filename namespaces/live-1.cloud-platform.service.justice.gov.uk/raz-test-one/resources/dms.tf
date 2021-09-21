@@ -78,7 +78,7 @@ resource "aws_dms_endpoint" "target" {
 }
 
 resource "aws_dms_replication_task" "replication_task" {
-  migration_type           = "full-load-and-cdc"
+  migration_type           = "full-load"
   replication_instance_arn = module.test_dms.replication_instance_arn
   replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
 
