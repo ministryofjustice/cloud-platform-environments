@@ -11,19 +11,6 @@ module "test_dms" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "dms_instance" {
-  metadata {
-    name      = "dms-instance"
-    namespace = var.namespace
-  }
-
-  data = {
-    replication_instance_arn = module.test_dms.replication_instance_arn
-    access_key_id            = module.test_dms.access_key_id
-    secret_access_key        = module.test_dms.secret_access_key
-  }
-}
-
 data "kubernetes_secret" "dms_secret" {
   metadata {
     name      = "dms-secret"
@@ -94,5 +81,21 @@ resource "aws_dms_replication_task" "replication_task" {
     Application = var.application
     Owner       = var.team_name
     Env         = var.environment
+  }
+}
+
+resource "kubernetes_secret" "dms_instance" {
+  metadata {
+    name      = "dms-instance"
+    namespace = var.namespace
+  }
+
+  data = {
+    replication_instance_arn = module.test_dms.replication_instance_arn
+    access_key_id            = module.test_dms.access_key_id
+    secret_access_key        = module.test_dms.secret_access_key
+    source                   = aws_dms_endpoint.source.endpoint_arn
+    destination              = aws_dms_endpoint.target.endpoint_arn
+    task                     = aws_dms_replication_task.replication_task.replication_task_arn
   }
 }
