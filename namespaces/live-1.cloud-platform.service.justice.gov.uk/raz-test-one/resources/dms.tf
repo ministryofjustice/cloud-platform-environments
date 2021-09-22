@@ -76,7 +76,7 @@ resource "aws_dms_replication_task" "replication_task" {
   replication_task_settings = ""
 
   # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
-  lifecycle { ignore_changes = ["replication_task_settings"] }
+  lifecycle { ignore_changes = [replication_task_settings] }
 
   tags = {
     Name        = "${var.team_name} Replication Task"
