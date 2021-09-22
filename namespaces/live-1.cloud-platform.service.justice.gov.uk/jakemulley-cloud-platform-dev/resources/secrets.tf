@@ -28,6 +28,6 @@ resource "kubernetes_secret" "salts" {
   }
 
   data = {
-    for item in local.salts : item => base64encode(random_password.salt[item])
+    for item in local.salts : item => base64encode(random_password.salt[item].result)
   }
 }
