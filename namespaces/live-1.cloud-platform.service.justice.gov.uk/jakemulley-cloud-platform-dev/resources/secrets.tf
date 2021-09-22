@@ -1,7 +1,7 @@
 # WordPress requires 8 salts, as below - we can randomly generate them using
 # Terraform and add them as Kubernetes secrets.
 locals {
-  salts = [
+  salts = toset([
     "WORDPRESS_AUTH_KEY",
     "WORDPRESS_SECURE_AUTH_KEY",
     "WORDPRESS_LOGGED_IN_KEY",
@@ -10,7 +10,7 @@ locals {
     "WORDPRESS_SECURE_AUTH_SALT",
     "WORDPRESS_LOGGED_IN_SALT",
     "WORDPRESS_NONCE_SALT",
-  ]
+  ])
 }
 
 resource "random_password" "salt" {
