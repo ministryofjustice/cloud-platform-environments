@@ -75,6 +75,9 @@ resource "aws_dms_replication_task" "replication_task" {
   table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"%\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
   replication_task_settings = ""
 
+  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
+  lifecycle { ignore_changes = [replication_task_settings] }
+
   tags = {
     Name        = "${var.team_name} Replication Task"
     Description = "Managed by Terraform"
