@@ -5,4 +5,3 @@
 *.tfvars filter=git-crypt diff=git-crypt
 *secret* filter=git-crypt diff=git-crypt
 namespaces/live-1.cloud-platform.service.justice.gov.uk/polygraph-offender-management/resources/poms-secrets !filter !diff
-namespaces/live-1.cloud-platform.service.justice.gov.uk/jakemulley-cloud-platform-dev/resources/secrets.tf !filter !diff
