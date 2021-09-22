@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: book-a-prison-visit-api-prod
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
