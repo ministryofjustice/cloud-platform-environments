@@ -44,7 +44,7 @@ resource "aws_dms_endpoint" "source" {
 }
 
 resource "aws_dms_endpoint" "target-mssql" {
-  endpoint_id                 = "${var.team_name}-dst-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-dstmssql-${random_id.dms_rand.hex}"
   endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_mssql_secret.data.dst_engine
   extra_connection_attributes = ""
