@@ -1,5 +1,5 @@
 module "test_dms" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=new-use"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.0"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
