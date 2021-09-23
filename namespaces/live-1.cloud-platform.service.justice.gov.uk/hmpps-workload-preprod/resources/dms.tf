@@ -11,9 +11,9 @@ module "hmpps-workload-dms" {
   team_name              = var.team_name
 }
 
-data "kubernetes_secret" "dms_secret" {
+data "kubernetes_secret" "dms_mssql_secret" {
   metadata {
-    name      = "dms-secret"
+    name      = "dms-mssql-secret"
     namespace = var.namespace
   }
 }
@@ -25,14 +25,14 @@ resource "random_id" "dms_rand" {
 resource "aws_dms_endpoint" "source" {
   endpoint_id                 = "${var.team_name}-src-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
+  engine_name                 = data.kubernetes_secret.dms_mssql_secret.data.src_engine
   extra_connection_attributes = ""
-  server_name                 = data.kubernetes_secret.dms_secret.data.src_addr
-  database_name               = data.kubernetes_secret.dms_secret.data.src_database
-  username                    = data.kubernetes_secret.dms_secret.data.src_user
-  password                    = data.kubernetes_secret.dms_secret.data.src_pass
-  port                        = data.kubernetes_secret.dms_secret.data.src_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
+  server_name                 = data.kubernetes_secret.dms_mssql_secret.data.src_addr
+  database_name               = data.kubernetes_secret.dms_mssql_secret.data.src_database
+  username                    = data.kubernetes_secret.dms_mssql_secret.data.src_user
+  password                    = data.kubernetes_secret.dms_mssql_secret.data.src_pass
+  port                        = data.kubernetes_secret.dms_mssql_secret.data.src_port
+  ssl_mode                    = data.kubernetes_secret.dms_mssql_secret.data.src_ssl
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
@@ -46,14 +46,14 @@ resource "aws_dms_endpoint" "source" {
 resource "aws_dms_endpoint" "target" {
   endpoint_id                 = "${var.team_name}-dst-${random_id.dms_rand.hex}"
   endpoint_type               = "target"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
+  engine_name                 = data.kubernetes_secret.dms_mssql_secret.data.dst_engine
   extra_connection_attributes = ""
-  server_name                 = data.kubernetes_secret.dms_secret.data.dst_addr
-  database_name               = data.kubernetes_secret.dms_secret.data.dst_database
-  username                    = data.kubernetes_secret.dms_secret.data.dst_user
-  password                    = data.kubernetes_secret.dms_secret.data.dst_pass
-  port                        = data.kubernetes_secret.dms_secret.data.dst_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_ssl
+  server_name                 = data.kubernetes_secret.dms_mssql_secret.data.dst_addr
+  database_name               = data.kubernetes_secret.dms_mssql_secret.data.dst_database
+  username                    = data.kubernetes_secret.dms_mssql_secret.data.dst_user
+  password                    = data.kubernetes_secret.dms_mssql_secret.data.dst_pass
+  port                        = data.kubernetes_secret.dms_mssql_secret.data.dst_port
+  ssl_mode                    = data.kubernetes_secret.dms_mssql_secret.data.dst_ssl
 
   tags = {
     Name        = "${var.team_name} Destination Endpoint"
