@@ -13,6 +13,8 @@ import (
 	"time"
 
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
+	"github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw"
+	"gopkg.in/yaml.v2"
 )
 
 // Namespace describes a Cloud Platform namespace object.
@@ -24,7 +26,7 @@ type Namespace struct {
 	DomainNames      []interface{} `json:"domain_names"`
 	GithubURL        string        `json:"github_url"`
 	Name             string        `json:"namespace"`
-	RbacTeam         string        `json:"rbac_team,omitempty"`
+	RbacTeam         []string      `json:"rbac_team,omitempty"`
 	TeamName         string        `json:"team_name"`
 	TeamSlackChannel string        `json:"team_slack_channel"`
 }
@@ -34,12 +36,31 @@ type AllNamespaces struct {
 	Namespaces []Namespace `json:"namespace_details"`
 }
 
+// RbacFile describes the rbac file in a users namespace
+type RbacFile struct {
+	Metadata struct {
+		Name      string `yaml:"name"`
+		Namespace string `yaml:"namespace"`
+	} `yaml:"metadata"`
+	Subjects []struct {
+		Kind     string `yaml:"kind"`
+		Name     string `yaml:"name"`
+		APIGroup string `yaml:"apiGroup"`
+	} `yaml:"subjects"`
+}
+
+// org and envRepo contain the GitHub user and repository respectively. They shouldn't ever change.
+const (
+	org     = "ministryofjustice"
+	envRepo = "cloud-platform-environments"
+)
+
 // GetNamespace takes the name of a namespace as a string and returns
 // a Namespace data type.
 func GetNamespace(s string, h string) (Namespace, error) {
 	var namespace Namespace
 
-	allNamespaces, err := GetAllNamespaces(&h)
+	allNamespaces, err := GetAllNamespaces(h)
 	if err != nil {
 		return namespace, err
 	}
@@ -55,29 +76,8 @@ func GetNamespace(s string, h string) (Namespace, error) {
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
-	client := &http.Client{
-		Timeout: time.Second * 2,
-	}
-
-	req, err := http.NewRequest(http.MethodGet, *host, nil)
-	if err != nil {
-		return
-	}
-
-	req.Header.Add("User-Agent", "environments-namespace-pkg")
-	req.Header.Set("Accept", "application/json")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return
-	}
-
-	if resp.Body != nil {
-		defer resp.Body.Close()
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
+func GetAllNamespaces(endPoint string) (namespaces AllNamespaces, err error) {
+	body, err := hoodaw.QueryApi(endPoint)
 	if err != nil {
 		return
 	}
@@ -88,6 +88,61 @@ func GetAllNamespaces(host *string) (namespaces AllNamespaces, err error) {
 	}
 
 	return
+}
+
+// SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
+// method value `RbacTeam`.
+// The function performs a HTTP GET request to GitHub, grabs the contents of the rbac yaml file and
+// interpolates the GitHub teams allowed to access a namespace.
+func (ns *Namespace) SetRbacTeam(cluster string) error {
+	client := &http.Client{
+		Timeout: time.Second * 2,
+	}
+
+	// It is assumed the rbac file will remain constant.
+	host := fmt.Sprintf("https://raw.githubusercontent.com/%s/%s/main/namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01-rbac.yaml", org, envRepo, cluster, ns.Name)
+
+	req, err := http.NewRequest(http.MethodGet, host, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Add("User-Agent", "moj-env-namespace-pkg")
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.Body != nil {
+		defer resp.Body.Close()
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	rbac := RbacFile{}
+
+	err = yaml.Unmarshal(body, &rbac)
+	if err != nil {
+		return err
+	}
+
+	for _, team := range rbac.Subjects {
+		if strings.Contains(team.Name, "github:") {
+			name := strings.Split(team.Name, ":")
+			ns.RbacTeam = append(ns.RbacTeam, name[1])
+		}
+	}
+
+	if ns.RbacTeam == nil {
+		return fmt.Errorf("Unable to find team names for %s.", ns.Name)
+	}
+
+	return nil
 }
 
 // ChangedInPR takes a GitHub branch reference (usually provided by a GitHub Action), a

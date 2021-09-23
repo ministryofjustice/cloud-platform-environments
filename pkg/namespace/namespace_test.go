@@ -44,51 +44,84 @@ func TestChangedInPR(t *testing.T) {
 	}
 }
 
-func TestGetAllNamespaces(t *testing.T) {
-	badHost := "https://obviouslyFakeURL/hosted_services"
-	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/hosted_services"
-
+func TestNamespace_SetRbacTeam(t *testing.T) {
+	type fields struct {
+		Application      string
+		BusinessUnit     string
+		DeploymentType   string
+		Cluster          string
+		DomainNames      []interface{}
+		GithubURL        string
+		Name             string
+		RbacTeam         []string
+		TeamName         string
+		TeamSlackChannel string
+	}
 	type args struct {
-		host *string
+		cluster string
 	}
 	tests := []struct {
 		name    string
+		fields  fields
 		args    args
 		wantErr bool
 	}{
 		{
-			name: "Pass faulty hostname",
+			name: "Find correct namespace",
+			fields: fields{
+				Name: "abundant-namespace-dev",
+			},
 			args: args{
-				host: &badHost,
+				cluster: "live-1",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Find fake namespace",
+			fields: fields{
+				Name: "FAKE-NAMESPACE",
+			},
+			args: args{
+				cluster: "live-1",
 			},
 			wantErr: true,
 		},
 		{
-			name: "Pass correct hostname",
-			args: args{
-				host: &goodHost,
+			name: "Use fake cluster name",
+			fields: fields{
+				Name: "abundant-namespace-dev",
 			},
-			wantErr: false,
+			args: args{
+				cluster: "FAKE-CLUSTER",
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := GetAllNamespaces(tt.args.host)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetAllNamespaces() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			ns := &Namespace{
+				Application:      tt.fields.Application,
+				BusinessUnit:     tt.fields.BusinessUnit,
+				DeploymentType:   tt.fields.DeploymentType,
+				Cluster:          tt.fields.Cluster,
+				DomainNames:      tt.fields.DomainNames,
+				GithubURL:        tt.fields.GithubURL,
+				Name:             tt.fields.Name,
+				RbacTeam:         tt.fields.RbacTeam,
+				TeamName:         tt.fields.TeamName,
+				TeamSlackChannel: tt.fields.TeamSlackChannel,
+			}
+			if err := ns.SetRbacTeam(tt.args.cluster); (err != nil) != tt.wantErr {
+				t.Errorf("Namespace.SetRbacTeam() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
 func TestGetNamespace(t *testing.T) {
-	badHost := "https://obviouslyFakeURL/hosted_services"
-	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/hosted_services"
-
 	type args struct {
-		s    string
-		host string
+		s string
+		h string
 	}
 	tests := []struct {
 		name    string
@@ -96,35 +129,62 @@ func TestGetNamespace(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Call correct namespace",
+			name: "Get real namespace",
 			args: args{
-				s:    "abundant-namespace-dev",
-				host: goodHost,
+				s: "abundant-namespace-dev",
+				h: "hosted_services",
 			},
 			wantErr: false,
 		},
 		{
-			name: "Call incorrect namespace",
+			name: "Get FAKE namespace",
 			args: args{
-				s:    "obviouslyFakeNamespace",
-				host: goodHost,
-			},
-			wantErr: true,
-		},
-		{
-			name: "Call incorrect hostname",
-			args: args{
-				s:    "abundant-namespace-dev",
-				host: badHost,
+				s: "FAKE_NAMESPACE",
+				h: "hosted_services",
 			},
 			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := GetNamespace(tt.args.s, tt.args.host)
+			_, err := GetNamespace(tt.args.s, tt.args.h)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetNamespace() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestGetAllNamespaces(t *testing.T) {
+	type args struct {
+		endPoint string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Successfully get all namespaces",
+			args: args{
+				endPoint: "hosted_services",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Fail to get all namespaces",
+			args: args{
+				endPoint: "%",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := GetAllNamespaces(tt.args.endPoint)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetAllNamespaces() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
