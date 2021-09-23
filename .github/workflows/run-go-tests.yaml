@@ -3,7 +3,7 @@ name: Test go code
 on:
   pull_request:
     paths:
-      - **.go
+      - '**.go'
 
 jobs:
   run-tests:
