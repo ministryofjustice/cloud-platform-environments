@@ -14,6 +14,7 @@ import (
 
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 	"github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw"
+	"gopkg.in/yaml.v2"
 )
 
 // Namespace describes a Cloud Platform namespace object.
@@ -89,12 +90,16 @@ func GetAllNamespaces(endPoint string) (namespaces AllNamespaces, err error) {
 	return
 }
 
-// SetRbacTeam takes a cluster name as a string in the format of `live-1` and sets the method value `RbacTeam`.
+// SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
+// method value `RbacTeam`.
+// The function performs a HTTP GET request to GitHub, grabs the contents of the rbac yaml file and
+// interpolates the GitHub teams allowed to access a namespace.
 func (ns *Namespace) SetRbacTeam(cluster string) error {
 	client := &http.Client{
 		Timeout: time.Second * 2,
 	}
 
+	// It is assumed the rbac file will remain constant.
 	host := fmt.Sprintf("https://raw.githubusercontent.com/%s/%s/main/namespaces/%s.cloud-platform.service.justice.gov.uk/%s/01-rbac.yaml", org, envRepo, cluster, ns.Name)
 
 	req, err := http.NewRequest(http.MethodGet, host, nil)
@@ -121,13 +126,20 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 
 	rbac := RbacFile{}
 
-	err = json.Unmarshal(body, &rbac)
+	err = yaml.Unmarshal(body, &rbac)
 	if err != nil {
 		return err
 	}
 
 	for _, team := range rbac.Subjects {
-		ns.RbacTeam = append(ns.RbacTeam, team.Name)
+		if strings.Contains(team.Name, "github:") {
+			name := strings.Split(team.Name, ":")
+			ns.RbacTeam = append(ns.RbacTeam, name[1])
+		}
+	}
+
+	if ns.RbacTeam == nil {
+		return fmt.Errorf("Unable to find team names for %s.", ns.Name)
 	}
 
 	return nil

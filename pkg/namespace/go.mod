@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate v0.0.0-20210922133252-853da5d598d8
 	github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw v0.0.0-20210922151029-a89dd7c838bb
+	gopkg.in/yaml.v2 v2.2.2
 )
 
 require (
