@@ -43,7 +43,7 @@ resource "aws_dms_endpoint" "source" {
   }
 }
 
-resource "aws_dms_endpoint" "target" {
+resource "aws_dms_endpoint" "target-mssql" {
   endpoint_id                 = "${var.team_name}-dst-${random_id.dms_rand.hex}"
   endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_mssql_secret.data.dst_engine
@@ -70,7 +70,7 @@ resource "aws_dms_replication_task" "replication_task" {
   replication_task_id      = "${var.team_name}-repl-${random_id.dms_rand.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source.endpoint_arn
-  target_endpoint_arn = aws_dms_endpoint.target.endpoint_arn
+  target_endpoint_arn = aws_dms_endpoint.target-mssql.endpoint_arn
 
   table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"app\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
   replication_task_settings = ""
@@ -98,7 +98,7 @@ resource "kubernetes_secret" "dms_instance" {
     access_key_id            = module.hmpps-workload-dms.access_key_id
     secret_access_key        = module.hmpps-workload-dms.secret_access_key
     source                   = aws_dms_endpoint.source.endpoint_arn
-    destination              = aws_dms_endpoint.target.endpoint_arn
+    destination              = aws_dms_endpoint.target-mssql.endpoint_arn
     task                     = aws_dms_replication_task.replication_task.replication_task_arn
   }
 }
