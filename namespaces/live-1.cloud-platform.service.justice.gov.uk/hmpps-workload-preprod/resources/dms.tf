@@ -26,7 +26,7 @@ resource "aws_dms_endpoint" "source" {
   endpoint_id                 = "${var.team_name}-src-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
   engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
-  extra_connection_attributes = " "
+  extra_connection_attributes = ""
   server_name                 = data.kubernetes_secret.dms_secret.data.src_addr
   database_name               = data.kubernetes_secret.dms_secret.data.src_database
   username                    = data.kubernetes_secret.dms_secret.data.src_user
