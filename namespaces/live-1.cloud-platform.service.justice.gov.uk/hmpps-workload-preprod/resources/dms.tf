@@ -1,4 +1,4 @@
-module "test_dms" {
+module "hmpps-workload-dms" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.0"
 
   cluster_name           = var.cluster_name
@@ -18,12 +18,12 @@ data "kubernetes_secret" "dms_secret" {
   }
 }
 
-resource "random_id" "id" {
+resource "random_id" "dms_rand" {
   byte_length = 8
 }
 
 resource "aws_dms_endpoint" "source" {
-  endpoint_id                 = "${var.team_name}-src-${random_id.id.hex}"
+  endpoint_id                 = "${var.team_name}-src-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
   engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
   extra_connection_attributes = ""
@@ -44,7 +44,7 @@ resource "aws_dms_endpoint" "source" {
 }
 
 resource "aws_dms_endpoint" "target" {
-  endpoint_id                 = "${var.team_name}-dst-${random_id.id.hex}"
+  endpoint_id                 = "${var.team_name}-dst-${random_id.dms_rand.hex}"
   endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
   extra_connection_attributes = ""
@@ -66,8 +66,8 @@ resource "aws_dms_endpoint" "target" {
 
 resource "aws_dms_replication_task" "replication_task" {
   migration_type           = "full-load"
-  replication_instance_arn = module.test_dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
+  replication_instance_arn = module.hmpps-workload-dms.replication_instance_arn
+  replication_task_id      = "${var.team_name}-repl-${random_id.dms_rand.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target.endpoint_arn
@@ -94,9 +94,9 @@ resource "kubernetes_secret" "dms_instance" {
   }
 
   data = {
-    replication_instance_arn = module.test_dms.replication_instance_arn
-    access_key_id            = module.test_dms.access_key_id
-    secret_access_key        = module.test_dms.secret_access_key
+    replication_instance_arn = module.hmpps-workload-dms.replication_instance_arn
+    access_key_id            = module.hmpps-workload-dms.access_key_id
+    secret_access_key        = module.hmpps-workload-dms.secret_access_key
     source                   = aws_dms_endpoint.source.endpoint_arn
     destination              = aws_dms_endpoint.target.endpoint_arn
     task                     = aws_dms_replication_task.replication_task.replication_task_arn
