@@ -38,3 +38,6 @@ variable "infrastructure-support" {
 variable "cluster_name" {
 }
 
+variable "cla-public-ecr-arn" {
+  default = "arn:aws:ecr:eu-west-2:754256621582:repository/laa-get-access/cla_public"
+}
