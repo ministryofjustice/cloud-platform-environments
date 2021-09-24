@@ -175,6 +175,29 @@ resource "aws_dms_replication_task" "replication_task_postgres" {
   }
 }
 
+resource "aws_dms_replication_task" "replication_task_postgres_cdc" {
+  migration_type           = "full-load-and-cdc"
+  replication_instance_arn = module.hmpps-workload-dms.replication_instance_arn
+  replication_task_id      = "${var.team_name}-replpostgrescdc-${random_id.dms_rand.hex}"
+
+  source_endpoint_arn = aws_dms_endpoint.source_sqlserver.endpoint_arn
+  target_endpoint_arn = aws_dms_endpoint.target_postgres.endpoint_arn
+
+  table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"app\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
+  replication_task_settings = ""
+
+  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
+  lifecycle { ignore_changes = [replication_task_settings] }
+
+  tags = {
+    Name        = "${var.team_name} Replication Task"
+    Description = "Managed by Terraform"
+    Application = var.application
+    Owner       = var.team_name
+    Env         = var.environment
+  }
+}
+
 resource "kubernetes_secret" "dms_instance_postgres" {
   metadata {
     name      = "dms-instance-postgres"
@@ -188,5 +211,6 @@ resource "kubernetes_secret" "dms_instance_postgres" {
     source                   = aws_dms_endpoint.source_sqlserver.endpoint_arn
     destination              = aws_dms_endpoint.target_postgres.endpoint_arn
     task                     = aws_dms_replication_task.replication_task_postgres.replication_task_arn
+    cdc_task                 = aws_dms_replication_task.replication_task_postgres_cdc.replication_task_arn
   }
 }
