@@ -14,6 +14,24 @@ module "s3_bucket" {
     aws = aws.london
   }
 
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "retire submission results after 7 days"
+      prefix  = "submission/result"
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
+        },
+      ]
+      expiration = [
+        {
+          days = 7
+        },
+      ]
+    }
+  ]
 }
 
 resource "kubernetes_secret" "s3_bucket" {
