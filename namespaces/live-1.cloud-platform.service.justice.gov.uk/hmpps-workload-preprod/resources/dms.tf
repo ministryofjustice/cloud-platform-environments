@@ -176,7 +176,7 @@ resource "aws_dms_replication_task" "replication_task_postgres" {
 }
 
 resource "aws_dms_replication_task" "replication_task_postgres_cdc" {
-  migration_type           = "cdc"
+  migration_type           = "full-load-and-cdc"
   replication_instance_arn = module.hmpps-workload-dms.replication_instance_arn
   replication_task_id      = "${var.team_name}-replpostgrescdc-${random_id.dms_rand.hex}"
 
