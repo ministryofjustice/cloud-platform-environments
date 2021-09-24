@@ -155,7 +155,7 @@ resource "aws_dms_endpoint" "target_postgres" {
 resource "aws_dms_replication_task" "replication_task_postgres" {
   migration_type           = "full-load"
   replication_instance_arn = module.hmpps-workload-dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-${random_id.dms_rand.hex}"
+  replication_task_id      = "${var.team_name}-replpostgres-${random_id.dms_rand.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source_sqlserver.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target_postgres.endpoint_arn
