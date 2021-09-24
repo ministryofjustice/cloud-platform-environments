@@ -19,6 +19,7 @@ locals {
     money-claim-queries            = "money-claim-queries.form.service.justice.gov.uk",
     publisher                      = "fb-publisher-live.apps.live-1.cloud-platform.service.justice.gov.uk",
     report-security-incident       = "report-security-incident.form.service.justice.gov.uk",
+    request-personal-info          = "request-personal-info.form.service.justice.gov.uk",
     using-moj-forms                = "usingmojforms.form.service.justice.gov.uk"
   }
   names = keys(local.forms)
