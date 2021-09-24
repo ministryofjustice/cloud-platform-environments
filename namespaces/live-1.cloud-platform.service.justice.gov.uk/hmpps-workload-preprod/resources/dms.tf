@@ -111,7 +111,7 @@ data "kubernetes_secret" "dms_postgres_secret" {
 }
 
 resource "aws_dms_endpoint" "source_sqlserver" {
-  endpoint_id                 = "${var.team_name}-src-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-srcsqlserver-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
   engine_name                 = data.kubernetes_secret.dms_postgres_secret.data.src_engine
   extra_connection_attributes = ""
