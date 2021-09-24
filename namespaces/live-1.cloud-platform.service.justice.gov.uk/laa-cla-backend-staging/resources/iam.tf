@@ -13,9 +13,9 @@ resource "aws_iam_access_key" "laa-cla-end-to-end-user" {
 data "aws_iam_policy_document" "laa-cla-end-to-end" {
   statement {
     actions = [
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:BatchGetImage",
-        "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
     ]
 
     resources = [
