@@ -4,37 +4,33 @@ import (
 	"testing"
 )
 
-func Test_CheckAnnotation(t *testing.T) {
-	goodHost := "https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting"
-	badHost := "obviouslyFakeName"
-
+func TestCheckAnnotation(t *testing.T) {
 	type args struct {
-		host *string
+		endPoint string
 	}
-
 	tests := []struct {
 		name    string
 		args    args
 		wantErr bool
 	}{
 		{
-			name: "GET valid json data",
+			name: "Fetch all annotations",
 			args: args{
-				host: &goodHost,
+				endPoint: "ingress_weighting",
 			},
 			wantErr: false,
 		},
 		{
-			name: "GET invalid json data",
+			name: "Fail to check annotations",
 			args: args{
-				host: &badHost,
+				endPoint: "%",
 			},
 			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := CheckAnnotation(tt.args.host)
+			_, err := CheckAnnotation(tt.args.endPoint)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CheckAnnotation() error = %v, wantErr %v", err, tt.wantErr)
 				return

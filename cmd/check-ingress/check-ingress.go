@@ -10,11 +10,11 @@ import (
 )
 
 var (
-	branch = flag.String("branch", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
-	host   = flag.String("host", "https://reports.cloud-platform.service.justice.gov.uk/ingress_weighting", "hostname of hoodaw.")
-	org    = flag.String("org", "ministryofjustice", "GitHub user or organisation.")
-	repo   = flag.String("repo", "cloud-platform-environments", "Repository to check the PR of.")
-	token  = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token for GitHub API.")
+	branch   = flag.String("branch", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
+	endpoint = flag.String("endpoint", "ingress_weighting", "Endpoint of hoodaw.")
+	org      = flag.String("org", "ministryofjustice", "GitHub user or organisation.")
+	repo     = flag.String("repo", "cloud-platform-environments", "Repository to check the PR of.")
+	token    = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token for GitHub API.")
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Get a list of namespaces in live-1 that don't have an annotation
-	data, err := ingress.CheckAnnotation(host)
+	data, err := ingress.CheckAnnotation(endpoint)
 	if err != nil {
 		log.Fatalln("Error checking hoodaw API:", err)
 	}
