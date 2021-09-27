@@ -17,8 +17,8 @@ module "rds-mssql" {
   db_engine_version    = "15.00"
   rds_family           = "sqlserver-se-15.0"
   db_parameter         = []
-  db_instance_class      = "db.t3.xlarge"
-  db_allocated_storage   = 32
+  db_instance_class    = "db.t3.xlarge"
+  db_allocated_storage = 32
   license_model        = "license-included"
 
   providers = {
