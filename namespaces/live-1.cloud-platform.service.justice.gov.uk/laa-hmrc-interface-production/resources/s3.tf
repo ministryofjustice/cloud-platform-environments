@@ -43,8 +43,8 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     access_key_id               = module.s3_bucket.access_key_id
     secret_access_key           = module.s3_bucket.secret_access_key
-    reports_bucket_arn          = module.s3_bucket.bucket_arn
-    reports_bucket_name         = module.s3_bucket.bucket_name
+    bucket_arn                  = module.s3_bucket.bucket_arn
+    bucket_name                 = module.s3_bucket.bucket_name
     deleted_objects_bucket_arn  = module.s3_bucket.bucket_arn
     deleted_objects_bucket_name = module.s3_bucket.bucket_name
     static_files_bucket_name    = module.s3_bucket.bucket_name
