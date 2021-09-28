@@ -2,7 +2,6 @@ name: Identify PRs that contain IAM Role and Policy changes
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
-id: review_pr
 env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
@@ -12,10 +11,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: ministryofjustice/github-actions/iam-role-policy-changes-check@iam-role-policy-changes-check
+      - name: Checkout PR code
+        uses: actions/checkout@master
+      - name: Run iam/role policy changes check
+        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@iam-role-policy-changes-check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
