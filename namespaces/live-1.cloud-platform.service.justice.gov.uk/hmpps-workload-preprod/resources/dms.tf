@@ -36,7 +36,7 @@ resource "aws_dms_endpoint" "source" {
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
-    Description = "Managed by Terraform"
+    Description = "Current WMT Live database"
     Application = var.application
     Owner       = var.team_name
     Env         = var.environment
@@ -57,7 +57,7 @@ resource "aws_dms_endpoint" "target-mssql" {
 
   tags = {
     Name        = "${var.team_name} Destination Endpoint"
-    Description = "Managed by Terraform"
+    Description = "Required RDS mssql for CDC"
     Application = var.application
     Owner       = var.team_name
     Env         = var.environment
