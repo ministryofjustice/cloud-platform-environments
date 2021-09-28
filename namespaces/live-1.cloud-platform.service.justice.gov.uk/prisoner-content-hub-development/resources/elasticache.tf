@@ -21,16 +21,16 @@ module "prisoner_content_hub_elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "prisoner_content_hub_elasticache_redis" {
+resource "kubernetes_secret" "drupal_redis" {
   metadata {
-    name      = "prisoner-content-hub-elasticache-redis"
+    name      = "drupal_redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.prisoner_content_hub_elasticache_redis.primary_endpoint_address
-    auth_token               = module.prisoner_content_hub_elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.prisoner_content_hub_elasticache_redis.member_clusters)
+    primary_endpoint_address = module.drupal_redis.primary_endpoint_address
+    auth_token               = module.drupal_redis.auth_token
+    member_clusters          = jsonencode(module.drupal_redis.member_clusters)
   }
 }
 
