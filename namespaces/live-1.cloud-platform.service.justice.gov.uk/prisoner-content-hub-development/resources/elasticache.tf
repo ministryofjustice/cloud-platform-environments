@@ -2,7 +2,7 @@
 # Prisoner content hub Elasticache for ReDiS
 ################################################################################
 
-module "prisoner_content_hub_elasticache_redis" {
+module "drupal_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
   cluster_name           = var.cluster_name
   application            = var.application
