@@ -50,10 +50,10 @@ module "dms_test_source" {
   team_name              = var.team_name
 
   rds_name             = "dms-test-source"
-  rds_family           = "sqlserver-web-13.0"
-  db_engine            = "sqlserver-web"
-  db_engine_version    = "13.00"
-  db_instance_class    = "db.t3.medium"
+  rds_family           = "sqlserver-se-15.0"
+  db_engine            = "sqlserver-se"
+  db_engine_version    = "15.00"
+  db_instance_class    = "db.t3.xlarge"
   db_allocated_storage = "32"
   license_model        = "license-included"
 
