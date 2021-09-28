@@ -23,7 +23,7 @@ module "drupal_redis" {
 
 resource "kubernetes_secret" "drupal_redis" {
   metadata {
-    name      = "drupal_redis"
+    name      = "drupal-redis"
     namespace = var.namespace
   }
 
