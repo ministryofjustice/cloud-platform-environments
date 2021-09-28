@@ -5,7 +5,7 @@ on:
 env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
-  iam-role-policy-changes-check.yml:
+  iam-role-policy-changes-check:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -15,6 +15,7 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@master
       - name: Run iam/role policy changes check
+        id: review_pr
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@iam-role-policy-changes-check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
