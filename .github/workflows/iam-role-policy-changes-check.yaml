@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
       - name: Run iam/role policy changes check
         id: review_pr
-        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@iam-role-policy-changes-check
+        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
