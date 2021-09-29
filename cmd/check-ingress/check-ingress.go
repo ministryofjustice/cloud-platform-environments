@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Get a list of namespaces in live-1 that don't have an annotation
-	data, err := ingress.CheckAnnotation(endpoint)
+	data, err := ingress.CheckAnnotation(*endpoint)
 	if err != nil {
 		log.Fatalln("Error checking hoodaw API:", err)
 	}
