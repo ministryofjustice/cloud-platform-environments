@@ -11,5 +11,5 @@ resource "pingdom_check" "manage-recalls" {
   port                     = 443
   tags                     = "hmpps,ppud-replacement,manage-recalls,prod,isproduction_true,cloudplatform-managed"
   probefilters             = "region:EU"
-  # integrationids           = [116724] # NOTE: disabled for now to prevent false alerts - we're not deployed in PROD yet.
+  integrationids           = [116724]
 }
