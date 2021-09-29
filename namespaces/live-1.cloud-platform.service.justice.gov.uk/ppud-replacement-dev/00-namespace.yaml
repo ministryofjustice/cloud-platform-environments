@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "ppud-replacement-devs"
     cloud-platform.justice.gov.uk/slack-alert-channel: "ppud-replacement-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "PPUD Replacement"
-    cloud-platform.justice.gov.uk/owner: "PPUD Replacement: ken.friesen@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "PPUD Replacement: ppud-replacement-tech@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-recalls"
     cloud-platform.justice.gov.uk/team-name: "ppud-replacement-devs"
     cloud-platform.justice.gov.uk/review-after: ""
