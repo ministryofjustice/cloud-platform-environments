@@ -10,6 +10,7 @@ module "drupal_redis" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t3.small"
   engine_version         = "5.0.6"
   parameter_group_name   = "default.redis5.0"
