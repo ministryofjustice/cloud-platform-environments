@@ -6,12 +6,12 @@ module "hmpps-delius-interventions-event-listener-queue" {
   application            = var.application
   infrastructure-support = var.infrastructure_support
 
-  is-production          = var.is_production
-  environment-name       = var.environment
-  namespace              = var.namespace
+  is-production    = var.is_production
+  environment-name = var.environment
+  namespace        = var.namespace
 
-  sqs_name               = "hmpps-delius-interventions-event-listener-queue"
-  encrypt_sqs_kms        = "true"
+  sqs_name        = "hmpps-delius-interventions-event-listener-queue"
+  encrypt_sqs_kms = "true"
 
   providers = {
     aws = aws.london
