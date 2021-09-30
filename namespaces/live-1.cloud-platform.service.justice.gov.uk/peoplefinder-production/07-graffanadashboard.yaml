@@ -27,31 +27,76 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 1,
-      "id": 47,
+      "id": 80,
       "links": [],
       "panels": [
         {
-          "collapsed": false,
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 0
-          },
-          "id": 12,
-          "panels": [],
-          "title": "Deployment Replicas",
-          "type": "row"
-        },
-        {
           "columns": [],
-          "datasource": "Prometheus",
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fontSize": "100%",
           "gridPos": {
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 1
+            "y": 0
+          },
+          "id": 6,
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "styles": [
+            {
+              "alias": "Time",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "title": "Panel Title",
+          "transform": "timeseries_to_columns",
+          "type": "table-old"
+        },
+        {
+          "columns": [],
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 0,
+            "y": 0
           },
           "id": 6,
           "links": [],
@@ -65,12 +110,14 @@ data:
           "styles": [
             {
               "alias": "Time",
+              "align": "auto",
               "dateFormat": "YYYY-MM-DD HH:mm:ss",
               "pattern": "Time",
               "type": "hidden"
             },
             {
               "alias": "Available",
+              "align": "auto",
               "colorMode": "cell",
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -88,6 +135,7 @@ data:
             },
             {
               "alias": "Desired",
+              "align": "auto",
               "colorMode": "value",
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -107,6 +155,7 @@ data:
             },
             {
               "alias": "Deployment",
+              "align": "auto",
               "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
@@ -133,6 +182,7 @@ data:
               "instant": true,
               "interval": "",
               "intervalFactor": 2,
+              "legendFormat": "",
               "refId": "A"
             },
             {
@@ -140,78 +190,100 @@ data:
               "format": "table",
               "hide": false,
               "instant": true,
+              "interval": "",
               "intervalFactor": 2,
+              "legendFormat": "",
               "refId": "B"
             }
           ],
           "title": "Currently Active",
           "transform": "table",
-          "type": "table"
+          "type": "table-old"
         },
         {
-          "aliasColors": {
-            "{status=\"404\"}": "#bf1b00"
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 6
           },
+          "id": 14,
+          "panels": [],
+          "title": "Kube Cluster (Pod/Container)",
+          "type": "row"
+        },
+        {
+          "aliasColors": {},
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
-          "decimals": null,
-          "fill": 1,
-          "gridPos": {
-            "h": 6,
-            "w": 14,
-            "x": 10,
-            "y": 1
+          "datasource": "Thanos",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
           },
-          "id": 15,
-          "interval": "1m",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 22,
+            "x": 0,
+            "y": 7
+          },
+          "hiddenSeries": false,
+          "id": 17,
           "legend": {
-            "alignAsTable": true,
             "avg": false,
-            "current": true,
+            "current": false,
             "max": false,
             "min": false,
-            "rightSide": true,
             "show": true,
-            "sideWidth": null,
             "total": false,
-            "values": true
+            "values": false
           },
           "lines": true,
           "linewidth": 1,
-          "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m])) by(status)",
-              "format": "time_series",
-              "hide": false,
-              "interval": "60s",
-              "intervalFactor": 5,
-              "legendFormat": "",
+              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"jobs\"}[2m]))",
+              "interval": "",
+              "legendFormat": "Jobs container",
               "refId": "A"
+            },
+            {
+              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"webapp\"}[2m]))",
+              "interval": "",
+              "legendFormat": "Webapp container",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Request HTTP Codes",
+          "title": "Restarts(2m) by container",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -222,20 +294,22 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:1815",
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": false
+              "show": true
             },
             {
+              "$$hashKey": "object:1816",
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": false
+              "show": true
             }
           ],
           "yaxis": {
@@ -248,33 +322,38 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
-          "decimals": 2,
-          "fill": 1,
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 7
+          "datasource": "Thanos",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
           },
-          "id": 17,
-          "interval": "30s",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 22,
+            "x": 0,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 15,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": false,
             "max": false,
-            "min": true,
-            "rightSide": true,
+            "min": false,
             "show": true,
-            "sideWidth": 500,
-            "total": true,
-            "values": true
+            "total": false,
+            "values": false
           },
           "lines": true,
           "linewidth": 1,
-          "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -285,32 +364,10 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='peoplefinder-production'}[5m]))",
-              "format": "time_series",
-              "hide": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "POD: {{ pod_name}}",
+              "expr": "avg by (container)(rate(container_cpu_usage_seconds_total{namespace=\"peoplefinder-production\"}[5m]))",
+              "interval": "",
+              "legendFormat": "{{ container }}",
               "refId": "A"
-            },
-            {
-              "expr": "avg(kube_pod_container_resource_requests_cpu_cores{namespace='peoplefinder-production'})  ",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "Requested (soft limit)",
-              "refId": "B"
-            },
-            {
-              "expr": "avg(kube_pod_container_resource_limits_cpu_cores{namespace='peoplefinder-production'})",
-              "format": "time_series",
-              "hide": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "Limit (Hard Limit)",
-              "refId": "C"
             }
           ],
           "thresholds": [],
@@ -323,7 +380,6 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -334,7 +390,8 @@ data:
           },
           "yaxes": [
             {
-              "format": "short",
+              "$$hashKey": "object:1911",
+              "format": "percent",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -342,6 +399,7 @@ data:
               "show": true
             },
             {
+              "$$hashKey": "object:1912",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -356,39 +414,43 @@ data:
           }
         },
         {
-          "aliasColors": {
-            "Limit (Hard Limit)": "#890f02"
-          },
+          "aliasColors": {},
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
-          "decimals": 2,
-          "fill": 1,
-          "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
-            "y": 14
+          "datasource": "Thanos",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
           },
-          "id": 16,
-          "interval": "30s",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 22,
+            "x": 0,
+            "y": 23
+          },
+          "hiddenSeries": false,
+          "id": 2,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
+            "avg": false,
+            "current": false,
+            "max": false,
             "min": false,
-            "rightSide": true,
             "show": true,
-            "sideWidth": 500,
             "total": false,
-            "values": true
+            "values": false
           },
           "lines": true,
           "linewidth": 1,
-          "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -399,31 +461,21 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='peoplefinder-production'})",
-              "format": "time_series",
-              "hide": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "POD: {{ pod_name}}",
+              "expr": "avg by (container)(container_memory_usage_bytes{namespace=\"peoplefinder-production\"})",
+              "interval": "",
+              "legendFormat": "{{ container}}",
               "refId": "A"
             },
             {
-              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='peoplefinder-production'})",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "Requested (soft limit)",
+              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace=\"peoplefinder-production\"})",
+              "interval": "",
+              "legendFormat": "Request limit",
               "refId": "B"
             },
             {
-              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='peoplefinder-production'})",
-              "format": "time_series",
-              "hide": false,
-              "interval": "60s",
-              "intervalFactor": 2,
-              "legendFormat": "Limit (Hard Limit)",
+              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace=\"peoplefinder-production\"})",
+              "interval": "",
+              "legendFormat": "hard limit",
               "refId": "C"
             }
           ],
@@ -437,7 +489,6 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -448,7 +499,8 @@ data:
           },
           "yaxes": [
             {
-              "format": "bytes",
+              "$$hashKey": "object:1960",
+              "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -456,6 +508,7 @@ data:
               "show": true
             },
             {
+              "$$hashKey": "object:1961",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -474,32 +527,39 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
-          "decimals": 2,
-          "fill": 1,
-          "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
-            "y": 20
+          "datasource": "Thanos",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
           },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 11,
+            "x": 0,
+            "y": 31
+          },
+          "hiddenSeries": false,
           "id": 19,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": false,
             "max": false,
-            "min": true,
-            "rightSide": true,
+            "min": false,
             "show": true,
-            "sideWidth": 500,
-            "total": true,
-            "values": true
+            "total": false,
+            "values": false
           },
           "lines": true,
           "linewidth": 1,
-          "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -507,14 +567,110 @@ data:
           "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m])) by(status)",
+              "interval": "",
+              "legendFormat": "{{status}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Ingress Controller Requests",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2058",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2059",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Thanos",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 11,
+            "x": 11,
+            "y": 31
+          },
+          "hiddenSeries": false,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
               "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m]) > 0)",
-              "format": "time_series",
               "interval": "30s",
               "intervalFactor": 2,
-              "legendFormat": "Recv",
+              "legendFormat": "Average Request Duration",
               "refId": "A"
             }
           ],
@@ -528,7 +684,6 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -539,6 +694,7 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:2009",
               "format": "s",
               "label": null,
               "logBase": 1,
@@ -547,12 +703,304 @@ data:
               "show": true
             },
             {
-              "format": "deckbytes",
+              "$$hashKey": "object:2010",
+              "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": false
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 39
+          },
+          "id": 12,
+          "panels": [],
+          "title": "AWS RDS",
+          "type": "row"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Cloudwatch",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 22,
+            "x": 0,
+            "y": 40
+          },
+          "hiddenSeries": false,
+          "id": 18,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "CPUUtilization",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "ReplicaLag",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPUUtilization/ReplicaLag",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2389",
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2390",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Cloudwatch",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "N/A",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 22,
+            "x": 0,
+            "y": 47
+          },
+          "hiddenSeries": false,
+          "id": 4,
+          "interval": null,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pluginVersion": "7.0.2",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "DatabaseConnections",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "DiskQueueDepth",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "DatabaseConnections/DiskQueueDepth",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2585",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2586",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
             }
           ],
           "yaxis": {
@@ -565,71 +1013,92 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
-          "decimals": 2,
-          "fill": 1,
-          "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
-            "y": 26
+          "datasource": "Cloudwatch",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
           },
-          "id": 18,
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 9,
+            "w": 22,
+            "x": 0,
+            "y": 55
+          },
+          "hiddenSeries": false,
+          "id": 16,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": false,
             "max": false,
-            "min": true,
-            "rightSide": true,
+            "min": false,
             "show": true,
-            "sideWidth": 500,
-            "total": true,
-            "values": true
+            "total": false,
+            "values": false
           },
           "lines": true,
           "linewidth": 1,
-          "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 2,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
-              "expr": "sort_desc(avg(sum by (pod_name) (rate(container_network_receive_bytes_total{namespace='peoplefinder-production'}[5m]))))",
-              "format": "time_series",
-              "interval": "30s",
-              "intervalFactor": 2,
-              "legendFormat": "Recv",
-              "refId": "A"
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "ReadIOPS",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
             },
             {
-              "expr": "sort_desc(avg(sum by (pod_name) (rate(container_network_transmit_bytes_total{namespace='peoplefinder-production'}[5m]))))",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "30s",
-              "intervalFactor": 2,
-              "legendFormat": "Sent",
-              "refId": "B"
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "WriteIOPS",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Network",
+          "title": "ReadIOPS/WriteIOPS",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -640,7 +1109,8 @@ data:
           },
           "yaxes": [
             {
-              "format": "deckbytes",
+              "$$hashKey": "object:2659",
+              "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -648,7 +1118,382 @@ data:
               "show": true
             },
             {
-              "format": "deckbytes",
+              "$$hashKey": "object:2660",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Cloudwatch",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 22,
+            "x": 0,
+            "y": 64
+          },
+          "hiddenSeries": false,
+          "id": 23,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "ReadLatency",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "WriteLatency",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "ReadLatency/WriteLatency",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2733",
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2734",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Cloudwatch",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 22,
+            "x": 0,
+            "y": 71
+          },
+          "hiddenSeries": false,
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "ReadThroughput",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "WriteThroughput",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "ReadThroughput/WriteThroughput",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2807",
+              "format": "Bps",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2808",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Cloudwatch",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 9,
+            "w": 22,
+            "x": 0,
+            "y": 79
+          },
+          "hiddenSeries": false,
+          "id": 22,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "NetworkReceiveThroughput",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "cloud-platform-0f0b5ea8e809e380"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricName": "NetworkTransmitThroughput",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "default",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "NetworkReceiveThroughput/NetworkTransmitThroughput",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2881",
+              "format": "Bps",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2882",
+              "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -663,19 +1508,18 @@ data:
         }
       ],
       "refresh": false,
-      "schemaVersion": 16,
+      "schemaVersion": 25,
       "style": "dark",
       "tags": [],
       "templating": {
         "list": []
       },
       "time": {
-        "from": "now-7d",
+        "from": "now-2d",
         "to": "now"
       },
       "timepicker": {
         "refresh_intervals": [
-          "5s",
           "10s",
           "30s",
           "1m",
@@ -699,7 +1543,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Peoplefinder production",
-      "uid": "urj2fVsWz",
-      "version": 6
+      "title": "Peoplefinder Production Dashboard",
+      "uid": "807d6936842a477f814313c5d09c5f1a",
+      "version": 1
     }
