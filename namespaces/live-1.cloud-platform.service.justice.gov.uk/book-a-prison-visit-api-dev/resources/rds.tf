@@ -9,8 +9,8 @@ module "visit_scheduler_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  rds_family        = "postgres11"
-  db_engine_version = "11"
+  rds_family        = "postgres13"
+  db_engine_version = "13"
 
   providers = {
     aws = aws.london
