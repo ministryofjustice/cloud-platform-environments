@@ -10,7 +10,6 @@ module "hmpps-delius-interventions-event-listener-queue" {
   environment-name       = var.environment
   namespace              = var.namespace
 
-  application            = "hmpps-delius-interventions-event-listener"
   sqs_name               = "hmpps-delius-interventions-event-listener-queue"
   encrypt_sqs_kms        = "true"
 
