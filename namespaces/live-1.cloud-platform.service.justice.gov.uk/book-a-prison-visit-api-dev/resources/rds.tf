@@ -10,9 +10,9 @@ module "visit_scheduler_rds" {
   infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "true"
-  db_instance_class = "db.t3.small"
-  rds_family        = "postgres13"
-  db_engine_version = "13"
+  db_instance_class           = "db.t3.small"
+  rds_family                  = "postgres13"
+  db_engine_version           = "13"
 
   providers = {
     aws = aws.london
