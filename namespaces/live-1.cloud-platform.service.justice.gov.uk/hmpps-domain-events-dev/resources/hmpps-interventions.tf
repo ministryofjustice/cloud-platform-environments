@@ -78,7 +78,7 @@ resource "aws_sns_topic_subscription" "hmpps-delius-interventions-event-listener
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps-delius-interventions-event-listener-queue.sqs_arn
-  filter_policy = "{\"eventType\": [{\"prefix\", \"intervention.\"}]}"
+  filter_policy = "{\"eventType\": [{\"prefix\": \"intervention.\"}]}"
 }
 
 resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-queue-secret" {
