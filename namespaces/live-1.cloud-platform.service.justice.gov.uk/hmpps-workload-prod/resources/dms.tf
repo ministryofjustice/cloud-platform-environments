@@ -23,7 +23,7 @@ resource "random_id" "dms_rand" {
 }
 
 resource "aws_dms_endpoint" "source-azure" {
-  endpoint_id                 = "${var.team_name}-src-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-srcazure-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
   engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
   extra_connection_attributes = ""
@@ -44,7 +44,7 @@ resource "aws_dms_endpoint" "source-azure" {
 }
 
 resource "aws_dms_endpoint" "target-postgres" {
-  endpoint_id                 = "${var.team_name}-dstmssql-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-dstpostgres-${random_id.dms_rand.hex}"
   endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
   extra_connection_attributes = ""
