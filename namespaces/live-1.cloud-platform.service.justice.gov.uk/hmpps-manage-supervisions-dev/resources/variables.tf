@@ -52,5 +52,5 @@ variable "github_token" {
 }
 
 variable "number_cache_clusters" {
-  default = "1"
+  default = "2"
 }
