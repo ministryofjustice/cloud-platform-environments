@@ -73,10 +73,7 @@ resource "aws_dms_replication_task" "replication_task" {
   target_endpoint_arn = aws_dms_endpoint.target-postgres.endpoint_arn
 
   table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"app\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
-  replication_task_settings = ""
-
-  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
-  lifecycle { ignore_changes = [replication_task_settings] }
+  replication_task_settings = trimspace(file("settings/dms-replication-task-settings.json"))
 
   tags = {
     Name        = "${var.team_name} Replication Task"
