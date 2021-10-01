@@ -41,7 +41,7 @@ module "hmpps-delius-interventions-event-listener-queue" {
 
   redrive_policy  = <<EOF
   {
-    "deadLetterTargetArn": "${module.hmpps-delius-interventions-event-listener-dead-letter-queue.sqs_arn}",
+    "deadLetterTargetArn": "${module.hmpps-delius-interventions-event-listener-dlq.sqs_arn}",
     "maxReceiveCount": 2
   }
 EOF
@@ -51,7 +51,7 @@ EOF
   }
 }
 
-module "hmpps-delius-interventions-event-listener-dead-letter-queue" {
+module "hmpps-delius-interventions-event-listener-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 
   team_name              = var.team_name
@@ -63,7 +63,7 @@ module "hmpps-delius-interventions-event-listener-dead-letter-queue" {
   environment-name = var.environment-name
   namespace        = var.namespace
 
-  sqs_name        = "hmpps-delius-interventions-event-listener-dead-letter-queue"
+  sqs_name        = "hmpps-delius-interventions-event-listener-dlq"
   encrypt_sqs_kms = "true"
 
   providers = {
@@ -124,18 +124,18 @@ resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-queue-se
   }
 }
 
-resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-dead-letter-queue-secret" {
+resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-dlq-secret" {
   metadata {
-    name      = "hmpps-delius-interventions-event-listener-dead-letter-queue"
+    name      = "hmpps-delius-interventions-event-listener-dlq"
     namespace = "hmpps-interventions-dev"
   }
 
   data = {
-    access_key_id     = module.hmpps-delius-interventions-event-listener-dead-letter-queue.access_key_id
-    secret_access_key = module.hmpps-delius-interventions-event-listener-dead-letter-queue.secret_access_key
-    sqs_id            = module.hmpps-delius-interventions-event-listener-dead-letter-queue.sqs_id
-    sqs_arn           = module.hmpps-delius-interventions-event-listener-dead-letter-queue.sqs_arn
-    user_name         = module.hmpps-delius-interventions-event-listener-dead-letter-queue.user_name
-    sqs_name          = module.hmpps-delius-interventions-event-listener-dead-letter-queue.sqs_name
+    access_key_id     = module.hmpps-delius-interventions-event-listener-dlq.access_key_id
+    secret_access_key = module.hmpps-delius-interventions-event-listener-dlq.secret_access_key
+    sqs_id            = module.hmpps-delius-interventions-event-listener-dlq.sqs_id
+    sqs_arn           = module.hmpps-delius-interventions-event-listener-dlq.sqs_arn
+    user_name         = module.hmpps-delius-interventions-event-listener-dlq.user_name
+    sqs_name          = module.hmpps-delius-interventions-event-listener-dlq.sqs_name
   }
 }
