@@ -39,7 +39,7 @@ module "hmpps-delius-interventions-event-listener-queue" {
   sqs_name        = "hmpps-delius-interventions-event-listener-queue"
   encrypt_sqs_kms = "true"
 
-  redrive_policy  = <<EOF
+  redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps-delius-interventions-event-listener-dead-letter-queue.sqs_arn}",
     "maxReceiveCount": 2
