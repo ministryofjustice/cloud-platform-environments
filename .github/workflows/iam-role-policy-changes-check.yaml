@@ -26,7 +26,8 @@ jobs:
       - name: Run iam/role policy changes check
         id: review_pr
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
-
+      - name: Approving PR
+        uses: hmarr/auto-approve-action@v2
         if: steps.approve_pr_check.outputs.review_pr == 'true'
         with:
           github-token: "${{ secrets.GITHUB_TOKEN  }}"
