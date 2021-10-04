@@ -14,9 +14,13 @@ jobs:
     steps:
       - name: Checkout PR code
         uses: actions/checkout@master
+      - run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: Run iam/role policy changes check
         id: review_pr
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
+        run: |
+          git diff origin/main HEAD > changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
