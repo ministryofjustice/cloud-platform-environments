@@ -28,8 +28,7 @@ jobs:
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v1
-          steps.review_pr.outputs.reviewOutput
-          #        if: steps.review_pr.outputs.reviewOutput == 'true'
+          if: steps.review_pr.outputs.reviewOutput == 'true'
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
