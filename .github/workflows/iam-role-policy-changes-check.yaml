@@ -1,0 +1,32 @@
+name: Identify PRs that contain IAM Role and Policy changes
+
+on:
+  pull_request
+
+env:
+  PR_OWNER: ${{ github.event.pull_request.user.login }}
+  GITHUB_OAUTH_TOKEN: ${{ secrets.DOCUMENT_REVIEW_GITHUB }}
+
+jobs:
+  check-diff:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v2
+      - run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+      - name: Run git diff against repository
+        run: |
+          git diff origin/main HEAD > changes
+      - name: Run iam/role policy changes check
+        id: review_pr
+        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
+
+        if: steps.approve_pr_check.outputs.review_pr == 'true'
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN  }}"
