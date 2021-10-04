@@ -21,6 +21,7 @@ jobs:
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
         run: |
           git diff origin/main HEAD > changes
+          cat changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
