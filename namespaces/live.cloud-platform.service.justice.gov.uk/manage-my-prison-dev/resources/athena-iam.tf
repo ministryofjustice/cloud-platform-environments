@@ -1,9 +1,5 @@
-resource "random_id" "athena-id" {
-  byte_length = 16
-}
-
 resource "aws_iam_user" "athena-user" {
-  name = "${var.namespace}-athena-user-${random_id.athena-id.hex}"
+  name = "${var.namespace}-athena-user"
   path = "/system/${var.namespace}/athena-user/"
 }
 
@@ -89,7 +85,7 @@ data "aws_iam_policy_document" "athena" {
 }
 
 resource "aws_iam_user_policy" "athena-policy" {
-  name   = "${var.namespace}-athena"
+  name   = "${var.namespace}-athena-policy"
   user   = aws_iam_user.athena-user.name
   policy = data.aws_iam_policy_document.athena.json
 }
