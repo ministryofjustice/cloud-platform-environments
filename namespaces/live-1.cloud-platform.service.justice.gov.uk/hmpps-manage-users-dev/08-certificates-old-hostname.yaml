@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: manage-hmpps-auth-accounts-dev.prison.service.justice.gov.uk
-  namespace: manage-hmpps-auth-accounts-dev
+  namespace: hmpps-manage-users-dev
 spec:
   secretName: manage-hmpps-auth-accounts-cert
   issuerRef:
