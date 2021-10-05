@@ -25,7 +25,7 @@ jobs:
           git diff origin/main HEAD > changes
       - name: Run iam/role policy changes check
         id: review_pr
-        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
+        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@set-file-name-for-github-diff
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
