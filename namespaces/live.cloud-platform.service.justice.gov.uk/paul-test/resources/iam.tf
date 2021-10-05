@@ -28,4 +28,4 @@ resource "aws_iam_user_policy" "paul-internal-policy" {
   name   = "${var.namespace}-paul-internal"
   policy = data.aws_iam_policy_document.paul-internal.json
   user   = aws_iam_user.paul-internal-user.name
-} 
+}
