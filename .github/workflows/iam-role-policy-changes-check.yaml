@@ -21,10 +21,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create comment in the PR
-        uses: peter-evans/create-or-update-comment@v1
+        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
 
         if: steps.review_pr.outputs.reviewOutput == 'false'
         with:
-          issue-number: ${{ github.event.pull_request.number }}
+          repo-token: "${{ secrets.GITHUB_TOKEN  }}"
+          event: REQUEST_CHANGES
           body: |
             There are potential IAM Role and/or policy Changes/additions.
