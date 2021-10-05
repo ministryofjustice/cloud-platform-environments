@@ -4,7 +4,7 @@ metadata:
   name: whereabouts-preprod.prison.service.justice.gov.uk
   namespace: digital-prison-services-preprod
 spec:
-  secretName: prison-staff-hub-cert
+  secretName: digital-prison-services-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
