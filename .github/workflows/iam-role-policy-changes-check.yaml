@@ -28,7 +28,7 @@ jobs:
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@set-file-name-for-github-diff
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v1
-        if: failure()
+        if: steps.review_pr.outputs.review_pr == ‘false’
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
