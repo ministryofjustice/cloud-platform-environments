@@ -26,12 +26,9 @@ jobs:
       - name: Run iam/role policy changes check
         id: review_pr
         uses: ministryofjustice/github-actions/iam-role-policy-changes-check@main
-      - name: Printing output
-        run: |
-          echo "${{ steps.approve_pr_check.outputs.review_pr }}"
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v1
-        if: steps.review_pr.outputs.reviewOutput == 'false'
+        if: failure()
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
