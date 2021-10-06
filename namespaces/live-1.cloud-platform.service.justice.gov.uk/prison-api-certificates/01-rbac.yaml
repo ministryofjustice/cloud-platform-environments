@@ -6,7 +6,10 @@ metadata:
   namespace: prison-api-certificates
 subjects:
   - kind: Group
-    name: "github:dps-production-releases"
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:studio-webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
