@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: manage-hmpps-auth-accounts-dev
+  namespace: hmpps-manage-users-dev
 spec:
   hard:
     pods: "50"

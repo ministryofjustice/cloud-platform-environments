@@ -1,9 +1,9 @@
 variable "application" {
-  default = "manage-hmpps-auth-accounts-dev"
+  default = "hmpps-manage-users-dev"
 }
 
 variable "namespace" {
-  default = "manage-hmpps-auth-accounts-dev"
+  default = "hmpps-manage-users-dev"
 }
 
 variable "business-unit" {
