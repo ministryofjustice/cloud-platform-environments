@@ -12,7 +12,7 @@ module "drupal_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t3.small"
-  engine_version         = "4.0.13"
+  engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
 
