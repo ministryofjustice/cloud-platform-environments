@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: socreporting-dev
+  namespace: soc-reporting-dev
 spec:
   limits:
   - default:

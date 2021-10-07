@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: socreporting-dev-admin
-  namespace: socreporting-dev
+  name: soc-reporting-dev-admin
+  namespace: soc-reporting-dev
 subjects:
   - kind: Group
     name: "github:dotnet"
