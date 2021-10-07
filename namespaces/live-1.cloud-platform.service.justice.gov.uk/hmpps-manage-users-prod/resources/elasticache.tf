@@ -12,8 +12,8 @@ module "hmpps_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = var.node-type
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   providers = {
