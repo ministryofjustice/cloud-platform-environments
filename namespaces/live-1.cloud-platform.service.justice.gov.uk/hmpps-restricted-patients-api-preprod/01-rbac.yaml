@@ -38,7 +38,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: dps-ingress-manager
-    namespace: rp-management-preprod
+    namespace: dps-management-dev
 roleRef:
   kind: ClusterRole
   name: dps-ingress-manager
