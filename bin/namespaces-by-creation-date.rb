@@ -37,7 +37,7 @@ def main
 
   # TODO iterate through *full* history programmatically.
   #      Currently we just look a the last 10000 commits.
-  git.log(10000).each do |commit|
+  git.log(12000).each do |commit|
     next if commit.parent.nil?
 
     namespace = namespace_added_by_commit(git, commit)
