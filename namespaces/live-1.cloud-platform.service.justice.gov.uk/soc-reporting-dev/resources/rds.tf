@@ -1,6 +1,8 @@
 
+variable "cluster_name" {}
+
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.3"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
   cluster_name         = var.cluster_name
   team_name            = var.team_name
   business-unit        = var.business_unit
@@ -12,7 +14,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "10"
+  db_engine_version      = "11"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
