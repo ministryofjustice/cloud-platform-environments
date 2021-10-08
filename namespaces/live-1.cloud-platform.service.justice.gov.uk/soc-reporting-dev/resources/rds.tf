@@ -1,6 +1,3 @@
-
-variable "cluster_name" {}
-
 module "rds" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
   cluster_name  = var.cluster_name
