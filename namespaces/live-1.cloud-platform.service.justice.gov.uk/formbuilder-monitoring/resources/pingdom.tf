@@ -7,6 +7,7 @@ locals {
     ccrc                           = "ccrc.form.service.justice.gov.uk",
     childrens-funeral-fund         = "claim-for-costs-of-a-childs-funeral.form.service.justice.gov.uk",
     cica                           = "same-roof-rule.form.service.justice.gov.uk",
+    cjsm-user-research-consent     = "cjsm-user-research-consent-form.form.service.justice.gov.uk"
     complain-about-a-court         = "complain-about-a-court-or-tribunal.form.service.justice.gov.uk",
     complain-to-the-cica           = "complain-to-the-cica.form.service.justice.gov.uk",
     contact-the-cica               = "contact-the-cica.form.service.justice.gov.uk",
