@@ -16,6 +16,7 @@ locals {
     leavers-form                   = "leavers.form.service.justice.gov.uk",
     let-us-know                    = "let-us-know.form.service.justice.gov.uk",
     miscarriages-of-justice        = "miscarriages-of-justice.form.service.justice.gov.uk",
+    moj-forms                      = "moj-forms.service.justice.gov.uk",
     moj-user-research-consent      = "ministry-of-justice-user-research-consent-form.form.service.justice.gov.uk",
     money-claim-queries            = "money-claim-queries.form.service.justice.gov.uk",
     publisher                      = "fb-publisher-live.apps.live-1.cloud-platform.service.justice.gov.uk",
