@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-users-api-prod-cert
+  namespace: hmpps-manage-users-prod
+spec:
+  secretName: hmpps-manage-users-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-users-api.hmpps.service.justice.gov.uk
