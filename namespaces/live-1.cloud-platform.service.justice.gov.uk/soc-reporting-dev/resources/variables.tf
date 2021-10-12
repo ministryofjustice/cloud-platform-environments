@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "socreporting-dev"
+  default = "soc-reporting-dev"
 }
 
 variable "business_unit" {
