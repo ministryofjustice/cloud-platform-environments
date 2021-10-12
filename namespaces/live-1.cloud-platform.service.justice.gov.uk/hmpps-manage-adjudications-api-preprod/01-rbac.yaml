@@ -12,8 +12,8 @@ subjects:
     name: "github:dps-production-releases"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-  name: "github:dps-core"
-  apiGroup: rbac.authorization.k8s.io
+    name: "github:dps-core"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
