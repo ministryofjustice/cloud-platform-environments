@@ -21,7 +21,7 @@ module "ma_rds" {
 
 resource "kubernetes_secret" "dps_rds" {
   metadata {
-    name      = "rp-rds-instance-output"
+    name      = "ma-rds-instance-output"
     namespace = var.namespace
   }
 
