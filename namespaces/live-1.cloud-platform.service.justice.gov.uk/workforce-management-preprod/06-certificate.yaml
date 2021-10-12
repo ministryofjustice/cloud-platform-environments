@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: workforce-management-preprod-cert
+  namespace: workforce-management-preprod
+spec:
+  secretName: workforce-management-preprod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - workforce-management-preprod.service.justice.gov.uk
