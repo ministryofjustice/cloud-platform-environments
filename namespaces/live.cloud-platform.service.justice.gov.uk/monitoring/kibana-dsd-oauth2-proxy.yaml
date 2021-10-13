@@ -101,7 +101,7 @@ metadata:
   namespace: monitoring
   annotations:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    external-dns.alpha.kubernetes.io/set-identifier: kibana-dsd-proxy-oauth2-proxy-monitoring-blue
+    external-dns.alpha.kubernetes.io/set-identifier: kibana-dsd-proxy-oauth2-proxy-monitoring-green
 spec:
   tls:
   - hosts:
