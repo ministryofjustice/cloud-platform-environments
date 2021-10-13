@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: workforce-management-dev-cert
+  name: manage-a-workforce-ui-cert
   namespace: workforce-management-dev
 spec:
-  secretName: workforce-management-dev-cert
+  secretName: manage-a-workforce-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
