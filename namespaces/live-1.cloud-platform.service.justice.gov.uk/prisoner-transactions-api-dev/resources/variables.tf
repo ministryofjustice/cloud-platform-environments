@@ -40,3 +40,6 @@ variable "slack_channel" {
   default     = "prisoner_transactions"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
