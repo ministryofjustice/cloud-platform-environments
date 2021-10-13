@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - workforce-management-preprod.service.justice.gov.uk
+    - workforce-management-preprod.hmpps.service.justice.gov.uk
