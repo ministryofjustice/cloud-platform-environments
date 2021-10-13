@@ -46,7 +46,6 @@ resource "kubernetes_secret" "rds-allocation" {
      * use a single database URL value in your application code:
      *
      * url = "postgres://${module.rds-allocation.database_username}:${module.rds-allocation.database_password}@${module.rds-allocation.rds_instance_endpoint}/${module.rds-allocation.database_name}"
-     *
      */
 }
 
