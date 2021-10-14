@@ -34,3 +34,22 @@ resource "kubernetes_secret" "hmpps_assess_risks_and_needs_preprod_rds_secret" {
     url                   = "postgres://${module.hmpps_assess_risks_and_needs_preprod_rds.database_username}:${module.hmpps_assess_risks_and_needs_preprod_rds.database_password}@${module.hmpps_assess_risks_and_needs_preprod_rds.rds_instance_endpoint}/${module.hmpps_assess_risks_and_needs_preprod_rds.database_name}"
   }
 }
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "hmpps_assess_risks_and_needs_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-instance"
+    namespace = "hmpps-assess-risks-and-needs-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_assess_risks_and_needs_preprod_rds.rds_instance_endpoint
+    database_name         = module.hmpps_assess_risks_and_needs_preprod_rds.database_name
+    database_username     = module.hmpps_assess_risks_and_needs_preprod_rds.database_username
+    database_password     = module.hmpps_assess_risks_and_needs_preprod_rds.database_password
+    rds_instance_address  = module.hmpps_assess_risks_and_needs_preprod_rds.rds_instance_address
+    access_key_id         = module.hmpps_assess_risks_and_needs_preprod_rds.access_key_id
+    secret_access_key     = module.hmpps_assess_risks_and_needs_preprod_rds.secret_access_key
+    url                   = "postgres://${module.hmpps_assess_risks_and_needs_preprod_rds.database_username}:${module.hmpps_assess_risks_and_needs_preprod_rds.database_password}@${module.hmpps_assess_risks_and_needs_preprod_rds.rds_instance_endpoint}/${module.hmpps_assess_risks_and_needs_preprod_rds.database_name}"
+  }
+}
