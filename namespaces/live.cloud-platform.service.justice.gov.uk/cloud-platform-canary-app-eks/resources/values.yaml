@@ -106,13 +106,14 @@ ingress:
     nginx.ingress.kubernetes.io/custom-http-errors: "404"
     external-dns.alpha.kubernetes.io/set-identifier: cloud-platform-canary-application-podinfo-cloud-platform-canary-app-blue
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    # kubernetes.io/tls-acme: "true"
   path: /
   hosts: 
-    - canary.apps.live-1.cloud-platform.service.justice.gov.uk
+    - canary.apps.live.cloud-platform.service.justice.gov.uk
   tls:
     - secretName:
       hosts:
-        - canary.apps.live-1.cloud-platform.service.justice.gov.uk
+        - canary.apps.live.cloud-platform.service.justice.gov.uk
 
 resources:
   limits:
