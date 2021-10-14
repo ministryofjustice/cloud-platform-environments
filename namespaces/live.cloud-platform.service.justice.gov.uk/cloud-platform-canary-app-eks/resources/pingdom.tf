@@ -11,6 +11,6 @@ resource "pingdom_check" "cloud-platform-canary" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_false,environment_dev,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integrationids           = [90334]
+  integrationids           = [117363]
 }
 
