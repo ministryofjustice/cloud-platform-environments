@@ -9,6 +9,8 @@ module "pre_sentence_service_rds" {
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
   db_engine_version      = var.db_engine_version
+  allow_major_version_upgrade  = true
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
