@@ -1,11 +1,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: contact-moj-service
+  name: contact-moj
+  namespace: contact-moj-production
 spec:
   selector:
     matchLabels:
       app: contact-moj-service
+  namespaceSelector:
+    matchNames:
+      - contact-moj-production
   endpoints:
-  - port: http
-    interval: 15s
+    - port: metrics
+      interval: 15s
