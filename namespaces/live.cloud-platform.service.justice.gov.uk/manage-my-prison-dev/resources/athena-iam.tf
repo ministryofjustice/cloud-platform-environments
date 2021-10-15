@@ -103,5 +103,8 @@ resource "kubernetes_secret" "athena-secret" {
     user_id           = aws_iam_user.athena-user.unique_id
     user_name         = aws_iam_user.athena-user.name
     policy_id         = aws_iam_user_policy.athena-policy.id
+    database_id       = aws_athena_database.database.id
+    database_name     = aws_athena_database.database.name
+    workgroup         = aws_athena_workgroup.queries.name
   }
 }
