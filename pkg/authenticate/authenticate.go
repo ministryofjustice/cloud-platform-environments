@@ -3,8 +3,8 @@ package authenticate
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io/ioutil"
-	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -20,7 +20,7 @@ import (
 // and returns a GitHub client to the caller.
 func GitHubClient(token string) (*github.Client, error) {
 	if token == "" {
-		return nil, errors.New("Personal access token is empty, unable to create GitHub client.")
+		return nil, errors.New("personal access token is empty, unable to create GitHub client")
 	}
 
 	ctx := context.Background()
@@ -37,14 +37,18 @@ func GitHubClient(token string) (*github.Client, error) {
 // KubeConfigFromS3Bucket takes four arguments:
 // bucket: The name of the s3 bucket to grab your kubeconfig file from.
 // s3FileName: The name of the kubeconfig file in the bucket.
-// clusterCtx: The cluster context name to use i.e. live.service.justice.gov.uk
 // region: The AWS region of the bucket.
-// It will return a Kubernetes clientset for use to query the cluster.
-func KubeConfigFromS3Bucket(bucket, s3FileName, clusterCtx, region string) (clientset *kubernetes.Clientset, err error) {
+// It will create a file in ~/.kube/config
+func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	buff := &aws.WriteAtBuffer{}
-	downloader := s3manager.NewDownloader(session.New(&aws.Config{
+	session, err := session.NewSession(&aws.Config{
 		Region: aws.String(region),
-	}))
+	})
+	if err != nil {
+		return err
+	}
+
+	downloader := s3manager.NewDownloader(session)
 
 	numBytes, err := downloader.Download(buff, &s3.GetObjectInput{
 		Bucket: aws.String(bucket),
@@ -52,22 +56,26 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, clusterCtx, region string) (clie
 	})
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 	if numBytes < 1 {
-		return nil, errors.New("The file downloaded is incorrect.")
+		return fmt.Errorf("error the kubecfg file downloaded is empty and must have failed")
 	}
 
 	data := buff.Bytes()
-	err = ioutil.WriteFile(s3FileName, data, 0644)
+	err = ioutil.WriteFile("~/.kube/config", data, 0644)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	defer os.Remove(s3FileName)
+	return nil
+}
 
+// KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
+// and returns a kubernetes clientset ready to use with the cluster in your context.
+func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
 	client, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		&clientcmd.ClientConfigLoadingRules{ExplicitPath: s3FileName},
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
 		&clientcmd.ConfigOverrides{
 			CurrentContext: clusterCtx,
 		}).ClientConfig()
@@ -76,6 +84,24 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, clusterCtx, region string) (clie
 	}
 
 	clientset, _ = kubernetes.NewForConfig(client)
+	if err != nil {
+		return nil, err
+	}
+
+	return
+}
+
+// CreateClientFromS3Bucket takes the bucket name, a config file, a region and a the context of a cluster and creates
+// i.e. live-1.cloud-platform.service.justice.gov.uk and calls two other functions in this package to return a client
+// Kubernetes clientset.
+func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
+	configFileLocation := "~/.kube/config"
+	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
+	if err != nil {
+		return nil, err
+	}
+
+	clientset, err = KubeClientFromConfig(configFileLocation, clusterCtx)
 	if err != nil {
 		return nil, err
 	}

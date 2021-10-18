@@ -45,7 +45,6 @@ func TestKubeConfigFromS3Bucket(t *testing.T) {
 	type args struct {
 		bucket     string
 		s3FileName string
-		clusterCtx string
 		region     string
 	}
 	tests := []struct {
@@ -59,7 +58,6 @@ func TestKubeConfigFromS3Bucket(t *testing.T) {
 			args: args{
 				bucket:     "realbucketname",
 				s3FileName: "doesntMatter",
-				clusterCtx: "irrelevantCluster",
 				region:     "eu-west-2",
 			},
 			wantErr: true,
@@ -67,9 +65,39 @@ func TestKubeConfigFromS3Bucket(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := KubeConfigFromS3Bucket(tt.args.bucket, tt.args.s3FileName, tt.args.clusterCtx, tt.args.region)
+			err := KubeConfigFromS3Bucket(tt.args.bucket, tt.args.s3FileName, tt.args.region)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("KubeConfigFromS3Bucket() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestKubeClientFromConfig(t *testing.T) {
+	type args struct {
+		configFile string
+		clusterCtx string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Fail to create clientset",
+			args: args{
+				configFile: "./noFile",
+				clusterCtx: "nope",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := KubeClientFromConfig(tt.args.configFile, tt.args.clusterCtx)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("KubeClientFromConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
