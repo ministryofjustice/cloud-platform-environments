@@ -3,8 +3,8 @@ package authenticate
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io/ioutil"
-	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -40,11 +40,16 @@ func GitHubClient(token string) (*github.Client, error) {
 // clusterCtx: The cluster context name to use i.e. live.service.justice.gov.uk
 // region: The AWS region of the bucket.
 // It will return a Kubernetes clientset for use to query the cluster.
-func KubeConfigFromS3Bucket(bucket, s3FileName, clusterCtx, region string) (clientset *kubernetes.Clientset, err error) {
+func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	buff := &aws.WriteAtBuffer{}
-	downloader := s3manager.NewDownloader(session.New(&aws.Config{
+	session, err := session.NewSession(&aws.Config{
 		Region: aws.String(region),
-	}))
+	})
+	if err != nil {
+		return err
+	}
+
+	downloader := s3manager.NewDownloader(session)
 
 	numBytes, err := downloader.Download(buff, &s3.GetObjectInput{
 		Bucket: aws.String(bucket),
@@ -52,22 +57,24 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, clusterCtx, region string) (clie
 	})
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 	if numBytes < 1 {
-		return nil, errors.New("The file downloaded is incorrect.")
+		return fmt.Errorf("error the kubecfg file downloaded is empty and must have failed")
 	}
 
 	data := buff.Bytes()
-	err = ioutil.WriteFile(s3FileName, data, 0644)
+	err = ioutil.WriteFile("~/.kube/config", data, 0644)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	defer os.Remove(s3FileName)
+	return nil
+}
 
+func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
 	client, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		&clientcmd.ClientConfigLoadingRules{ExplicitPath: s3FileName},
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
 		&clientcmd.ConfigOverrides{
 			CurrentContext: clusterCtx,
 		}).ClientConfig()
