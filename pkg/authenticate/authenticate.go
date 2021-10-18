@@ -20,7 +20,7 @@ import (
 // and returns a GitHub client to the caller.
 func GitHubClient(token string) (*github.Client, error) {
 	if token == "" {
-		return nil, errors.New("Personal access token is empty, unable to create GitHub client.")
+		return nil, errors.New("personal access token is empty, unable to create GitHub client")
 	}
 
 	ctx := context.Background()
