@@ -150,7 +150,7 @@ resource "kubernetes_secret" "read_replica" {
 resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
-    namespace = "my-namespace"
+    namespace = var.namespace
   }
 
   data = {
