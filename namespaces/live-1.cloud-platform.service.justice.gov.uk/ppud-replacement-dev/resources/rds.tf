@@ -135,12 +135,12 @@ resource "kubernetes_secret" "ppud_replacement_bandiera_rds" {
   }
 
   data = {
-    host         = module.ppud_replacement_dev_rds.rds_instance_address
-    port         = module.ppud_replacement_dev_rds.rds_instance_port
-    endpoint     = module.ppud_replacement_dev_rds.rds_instance_endpoint
-    dbname       = module.ppud_replacement_dev_rds.database_name
-    username     = module.ppud_replacement_dev_rds.database_username
-    password     = module.ppud_replacement_dev_rds.database_password
-    DATABASE_URL = "postgres://${module.ppud_replacement_dev_rds.database_username}:${module.ppud_replacement_dev_rds.database_password}@${module.ppud_replacement_dev_rds.rds_instance_endpoint}/${module.ppud_replacement_dev_rds.database_name}"
+    host         = module.ppud_replacement_bandiera_rds.rds_instance_address
+    port         = module.ppud_replacement_bandiera_rds.rds_instance_port
+    endpoint     = module.ppud_replacement_bandiera_rds.rds_instance_endpoint
+    dbname       = module.ppud_replacement_bandiera_rds.database_name
+    username     = module.ppud_replacement_bandiera_rds.database_username
+    password     = module.ppud_replacement_bandiera_rds.database_password
+    DATABASE_URL = "postgres://${module.ppud_replacement_bandiera_rds.database_username}:${module.ppud_replacement_bandiera_rds.database_password}@${module.ppud_replacement_bandiera_rds.rds_instance_endpoint}/${module.ppud_replacement_bandiera_rds.database_name}"
   }
 }
