@@ -30,9 +30,6 @@ module "rds" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres13"
 
-  # instance class
-  db_instance_class = "db.t3.small"
-
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
   # db_parameter = [
