@@ -5,13 +5,20 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
+variable "kubernetes_cluster" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Find relevant information about legal problems"
+  default     = "Search information about legal problems"
 }
 
 variable "namespace" {
   default = "elsa-relevant-search-staging"
+}
+
+variable "github_repo_name" {
+  default = "elsa-relevant-search"
 }
 
 variable "business_unit" {
@@ -24,7 +31,7 @@ variable "team_name" {
   default     = "family-justice"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "staging"
 }
