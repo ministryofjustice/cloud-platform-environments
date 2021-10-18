@@ -90,3 +90,21 @@ func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.
 
 	return
 }
+
+// CreateClientFromS3Bucket takes the bucket name, a config file, a region and a the context of a cluster and creates
+// i.e. live-1.cloud-platform.service.justice.gov.uk and calls two other functions in this package to return a client
+// Kubernetes clientset.
+func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
+	configFileLocation := "~/.kube/config"
+	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
+	if err != nil {
+		return nil, err
+	}
+
+	clientset, err = KubeClientFromConfig(configFileLocation, clusterCtx)
+	if err != nil {
+		return nil, err
+	}
+
+	return
+}
