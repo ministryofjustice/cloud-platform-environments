@@ -37,9 +37,8 @@ func GitHubClient(token string) (*github.Client, error) {
 // KubeConfigFromS3Bucket takes four arguments:
 // bucket: The name of the s3 bucket to grab your kubeconfig file from.
 // s3FileName: The name of the kubeconfig file in the bucket.
-// clusterCtx: The cluster context name to use i.e. live.service.justice.gov.uk
 // region: The AWS region of the bucket.
-// It will return a Kubernetes clientset for use to query the cluster.
+// It will create a file in ~/.kube/config
 func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	buff := &aws.WriteAtBuffer{}
 	session, err := session.NewSession(&aws.Config{
@@ -72,6 +71,8 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	return nil
 }
 
+// KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
+// and returns a kubernetes clientset ready to use with the cluster in your context.
 func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
 	client, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
 		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
