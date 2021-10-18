@@ -2,14 +2,14 @@ module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
 
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  repo_name = var.github_repo_name
 
   github_repositories = [var.github_repo_name]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name      = "ecr-repo-${var.github_repo_name}"
     namespace = var.namespace
   }
 
