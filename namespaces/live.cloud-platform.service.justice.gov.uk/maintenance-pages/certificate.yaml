@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: domains-cert
+  namespace: maintenance-pages
+spec:
+  secretName: domains-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - maintenance-page.cloud-platform.service.justice.gov.uk
