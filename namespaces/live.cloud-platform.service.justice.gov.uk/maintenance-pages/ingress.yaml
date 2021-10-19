@@ -4,8 +4,8 @@ kind: Ingress
 metadata:
   name: domains-ingress
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: domains-ingress-maintenance-pages-blue
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: domains-ingress-maintenance-pages-green
+    external-dns.alpha.kubernetes.io/aws-weight: "0"
 spec:
   tls:
   - hosts:
