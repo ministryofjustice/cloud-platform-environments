@@ -42,3 +42,6 @@ variable "db_instance_class" {
   default = "db.t3.small"
 }
 
+variable "db_engine_version" {
+  default = "13"
+}
