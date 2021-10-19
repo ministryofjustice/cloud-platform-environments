@@ -14,6 +14,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
   db_instance_class      = var.db_instance_class
+  db_engine_version      = var.db_engine_version
 
   providers = {
     aws = aws.london
