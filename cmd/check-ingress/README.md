@@ -55,10 +55,14 @@ To run the application locally, you must have the following:
 
 - An envvar named `GITHUB_REF` that contains the reference number of a PR e.g. 3321 (is the number of the PR).
 
+```bash
+export GITHUB_REF=refs/pull/5504/merge
+```
+
 - A GITHUB personal access token with permission to the MoJ org.
 
 Then you can run:
 
 ```bash
-go run main.go
+go run check-ingress.go
 ```
