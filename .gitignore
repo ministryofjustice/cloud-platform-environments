@@ -37,3 +37,5 @@ Temporary Items
 
 # Ignore IDEs
 .idea/
+
+dist/
