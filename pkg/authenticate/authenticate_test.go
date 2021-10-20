@@ -95,7 +95,7 @@ func TestKubeClientFromConfig(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := KubeClientFromConfig(tt.args.configFile, tt.args.clusterCtx)
+			_, err := CreateClientFromConfigFile(tt.args.configFile, tt.args.clusterCtx)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("KubeClientFromConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return

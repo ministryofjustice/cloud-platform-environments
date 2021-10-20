@@ -3,10 +3,10 @@ module github.com/ministryofjustice/cloud-platform-environments
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go v1.40.47
+	github.com/aws/aws-sdk-go v1.41.5
 	github.com/google/go-github v17.0.0+incompatible
-	github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw v0.0.0-20210922151029-a89dd7c838bb
-	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f
+	github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw v0.0.0-20211019105431-9b91450354e6
+	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/client-go v0.22.2
 )

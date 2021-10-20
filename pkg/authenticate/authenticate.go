@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -14,6 +15,7 @@ import (
 	"golang.org/x/oauth2"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/util/homedir"
 )
 
 // GitHubClient takes a GitHub personal access key as a string and builds
@@ -63,7 +65,7 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	}
 
 	data := buff.Bytes()
-	err = ioutil.WriteFile("~/.kube/config", data, 0644)
+	err = ioutil.WriteFile(filepath.Join(homedir.HomeDir(), ".kube", "config"), data, 0644)
 	if err != nil {
 		return err
 	}
@@ -73,7 +75,7 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 
 // KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
 // and returns a kubernetes clientset ready to use with the cluster in your context.
-func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
+func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
 	client, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
 		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
 		&clientcmd.ConfigOverrides{
@@ -95,13 +97,13 @@ func KubeClientFromConfig(configFile, clusterCtx string) (clientset *kubernetes.
 // i.e. live-1.cloud-platform.service.justice.gov.uk and calls two other functions in this package to return a client
 // Kubernetes clientset.
 func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
-	configFileLocation := "~/.kube/config"
+	configFileLocation := filepath.Join(homedir.HomeDir(), ".kube", "config")
 	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
 	if err != nil {
 		return nil, err
 	}
 
-	clientset, err = KubeClientFromConfig(configFileLocation, clusterCtx)
+	clientset, err = CreateClientFromConfigFile(configFileLocation, clusterCtx)
 	if err != nil {
 		return nil, err
 	}
