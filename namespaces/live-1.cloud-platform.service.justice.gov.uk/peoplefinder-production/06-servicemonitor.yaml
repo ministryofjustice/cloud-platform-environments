@@ -1,11 +1,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: peoplefinder-service
+  name: peoplefinder
+  namespace: peoplefinder-production
 spec:
   selector:
     matchLabels:
       app: peoplefinder-service
+  namespaceSelector:
+    matchNames:
+      - peoplefinder-production
   endpoints:
-  - port: http
-    interval: 15s
+    - port: metrics
+      interval: 15s
