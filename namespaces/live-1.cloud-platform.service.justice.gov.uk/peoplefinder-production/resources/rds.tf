@@ -6,17 +6,17 @@
 module "peoplefinder_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
   cluster_name               = var.cluster_name
-  team_name                  = "peoplefinder"
+  team_name                  = var.team_name
   business-unit              = "Central Digital"
-  application                = "peoplefinder"
-  is-production              = "true"
+  application                = var.application
+  is-production              = var.is-production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
-  environment-name           = "production"
-  infrastructure-support     = "people-finder-support@digital.justice.gov.uk"
+  environment-name           = var.environment-name
+  infrastructure-support     = var.infrastructure-support
 
   rds_family = "postgres12"
 
@@ -32,10 +32,35 @@ module "peoplefinder_rds" {
   }
 }
 
+module "peoplefinder_rds_replica" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+
+  cluster_name           = var.cluster_name
+
+  application            = var.application
+  environment-name       = var.environment-name
+  is-production          = var.is-production
+  infrastructure-support = var.infrastructure-support
+  team_name              = var.team_name
+  rds_family             = "postgres12"
+  db_engine_version      = "12"
+
+  db_name              = module.peoplefinder_rds.database_name
+  replicate_source_db  = module.peoplefinder_rds.db_identifier
+
+  # Set to true for replica database. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  providers = {
+    aws = aws.london
+  }
+}
+
 resource "kubernetes_secret" "peoplefinder_rds" {
   metadata {
     name      = "peoplefinder-rds-output"
-    namespace = "peoplefinder-production"
+    namespace = var.namespace
   }
 
   data = {
@@ -50,4 +75,21 @@ resource "kubernetes_secret" "peoplefinder_rds" {
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
+}
+
+resource "kubernetes_secret" "peoplefinder_rds_replica" {
+  metadata {
+    name      = "peoplefinder-rds-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.peoplefinder_rds_replica.rds_instance_endpoint
+    rds_instance_address  = module.peoplefinder_rds_replica.rds_instance_address
+    access_key_id         = module.peoplefinder_rds_replica.access_key_id
+    secret_access_key     = module.peoplefinder_rds_replica.secret_access_key
+
+    url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds_replica.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
+  }
+
 }
