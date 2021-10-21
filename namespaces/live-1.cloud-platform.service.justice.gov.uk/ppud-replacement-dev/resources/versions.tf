@@ -11,9 +11,5 @@ terraform {
     pingdom = {
       source = "russellcardullo/pingdom"
     }
-    postgresql = {
-      source  = "cyrilgdn/postgresql"
-      version = "~> 1.14.0"
-    }
   }
 }

@@ -189,37 +189,3 @@ resource "kubernetes_secret" "ppud_replacement_dashboards_rds" {
     DATABASE_URL = "postgres://${module.ppud_replacement_dashboards_rds.database_username}:${module.ppud_replacement_dashboards_rds.database_password}@${module.ppud_replacement_dashboards_rds.rds_instance_endpoint}/${module.ppud_replacement_dashboards_rds.database_name}"
   }
 }
-
-# TODO: delete the below once the state is clean
-
-module "ppud_replacement_utility_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
-
-  cluster_name           = var.cluster_name
-  namespace              = var.namespace
-  application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
-  team_name              = var.team_name
-
-  rds_name          = "ppud-replacement-utility-dev"
-  rds_family        = "postgres13"
-  db_engine         = "postgres"
-  db_engine_version = "13"
-  db_instance_class = "db.t3.small"
-  db_name           = "utility"
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-provider "postgresql" {
-  alias    = "utility"
-  host     = module.ppud_replacement_utility_rds.rds_instance_address
-  port     = module.ppud_replacement_utility_rds.rds_instance_port
-  username = module.ppud_replacement_utility_rds.database_username
-  password = module.ppud_replacement_utility_rds.database_password
-}
