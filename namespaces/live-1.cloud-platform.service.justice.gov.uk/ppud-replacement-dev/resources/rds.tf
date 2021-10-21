@@ -166,7 +166,7 @@ module "ppud_replacement_dashboards_rds" {
   db_engine         = "postgres"
   db_engine_version = "13"
   db_instance_class = "db.t3.small"
-  db_name           = "ppud-replacement-dashboards"
+  db_name           = "dashboards"
 
   providers = {
     aws = aws.london
