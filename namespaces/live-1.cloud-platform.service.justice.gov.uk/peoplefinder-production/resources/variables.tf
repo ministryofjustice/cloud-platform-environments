@@ -20,3 +20,15 @@ variable "is-production" {
 variable "environment-name" {
   default = "production"
 }
+
+variable "application" {
+  default = "peoplefinder"
+}
+
+variable "infrastructure-support" {
+  default = "people-finder-support@digital.justice.gov.uk"
+}
+
+variable "team_name" {
+  default = "peoplefinder"
+}
