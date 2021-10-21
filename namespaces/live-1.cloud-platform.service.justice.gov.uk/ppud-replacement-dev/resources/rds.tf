@@ -104,7 +104,7 @@ resource "kubernetes_secret" "ppud_replica_dev_rds_secrets" {
 ## PostgreSQL - Bandiera (Feature Flagging Server) Database
 ##
 
-module "ppud_replacement_utility_rds" {
+module "ppud_replacement_bandiera_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
 
   cluster_name           = var.cluster_name
@@ -116,77 +116,31 @@ module "ppud_replacement_utility_rds" {
   is-production          = var.is_production
   team_name              = var.team_name
 
-  rds_name          = "ppud-replacement-utility-dev"
+  rds_name          = "ppud-replacement-bandiera-dev"
   rds_family        = "postgres13"
   db_engine         = "postgres"
   db_engine_version = "13"
   db_instance_class = "db.t3.small"
-  db_name           = "utility"
+  db_name           = "bandiera"
 
   providers = {
     aws = aws.london
   }
 }
 
-provider "postgresql" {
-  alias    = "utility"
-  host     = module.ppud_replacement_utility_rds.rds_instance_address
-  port     = module.ppud_replacement_utility_rds.rds_instance_port
-  username = module.ppud_replacement_utility_rds.database_username
-  password = module.ppud_replacement_utility_rds.database_password
-}
-
-resource "random_string" "bandiera_password" {
-  length  = 24
-  special = false
-}
-
-resource "postgresql_role" "bandiera" {
-  provider = postgresql.utility
-  name     = "bandiera"
-  login    = true
-  password = random_string.bandiera_password.result
-}
-
-resource "postgresql_database" "bandiera" {
-  provider   = postgresql.utility
-  name       = "bandiera"
-  owner      = "bandiera"
-  depends_on = [postgresql_role.bandiera]
-}
-
-resource "random_string" "dashboard_password" {
-  length  = 24
-  special = false
-}
-
-resource "postgresql_role" "dashboard" {
-  provider = postgresql.utility
-  name     = "dashboard"
-  login    = true
-  password = random_string.dashboard_password.result
-}
-
-resource "postgresql_database" "dashboard" {
-  provider   = postgresql.utility
-  name       = "dashboard"
-  owner      = "dashboard"
-  depends_on = [postgresql_role.dashboard]
-}
-
-resource "kubernetes_secret" "ppud_replacement_utility_rds" {
+resource "kubernetes_secret" "ppud_replacement_bandiera_rds" {
   metadata {
-    name      = "utility-database"
+    name      = "bandiera-database"
     namespace = var.namespace
   }
 
   data = {
-    host                   = module.ppud_replacement_utility_rds.rds_instance_address
-    port                   = module.ppud_replacement_utility_rds.rds_instance_port
-    endpoint               = module.ppud_replacement_utility_rds.rds_instance_endpoint
-    admin_username         = module.ppud_replacement_utility_rds.database_username
-    admin_password         = module.ppud_replacement_utility_rds.database_password
-    BANDIERA_DATABASE_URL  = "postgres://bandiera:${random_string.bandiera_password.result}@${module.ppud_replacement_utility_rds.rds_instance_endpoint}/bandiera"
-    DASHBOARD_DATABASE_URL = "postgres://dashboard:${random_string.dashboard_password.result}@${module.ppud_replacement_utility_rds.rds_instance_endpoint}/dashboard"
+    host         = module.ppud_replacement_bandiera_rds.rds_instance_address
+    port         = module.ppud_replacement_bandiera_rds.rds_instance_port
+    endpoint     = module.ppud_replacement_bandiera_rds.rds_instance_endpoint
+    dbname       = module.ppud_replacement_bandiera_rds.database_name
+    username     = module.ppud_replacement_bandiera_rds.database_username
+    password     = module.ppud_replacement_bandiera_rds.database_password
+    DATABASE_URL = "postgres://${module.ppud_replacement_bandiera_rds.database_username}:${module.ppud_replacement_bandiera_rds.database_password}@${module.ppud_replacement_bandiera_rds.rds_instance_endpoint}/${module.ppud_replacement_bandiera_rds.database_name}"
   }
 }
