@@ -24,6 +24,3 @@ provider "github" {
 
 provider "pingdom" {
 }
-
-provider "random" {
-}
