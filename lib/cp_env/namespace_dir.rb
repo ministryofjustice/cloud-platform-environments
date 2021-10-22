@@ -6,9 +6,10 @@ class CpEnv
     # Hardcoded context is required to switch to the manager cluster
     MANAGER_CLUSTER = "manager.cloud-platform.service.justice.gov.uk"
 
-    # If this file exists in a namespace folder, and enable_skip_namespaces is
+    # If these file exists in a namespace folder, and enable_skip_namespaces is
     # `true`, calling `apply` on the namespace will do nothing.
     SKIP_FILE = "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
+    MIGRATE_SKIP_FILE = "MIGRATED_SKIP_APPLY_THIS_NAMESPACE"
 
     def initialize(args)
       @dir = args.fetch(:dir)
@@ -29,8 +30,8 @@ class CpEnv
     def ignore_this_namespace?
       return true unless FileTest.directory?(dir)
 
-      if enable_skip_namespaces && FileTest.exists?("#{dir}/#{SKIP_FILE}")
-        log("red", "#{namespace}/#{SKIP_FILE} file exists. Skipping this namespace.")
+      if enable_skip_namespaces && (FileTest.exist?("#{dir}/#{SKIP_FILE}") || FileTest.exist?("#{dir}/#{MIGRATE_SKIP_FILE}"))
+        log("red", "#{namespace}/#{SKIP_FILE} or #{namespace}/#{MIGRATE_SKIP_FILE} file exists. Skipping this namespace.")
         true
       else
         false
