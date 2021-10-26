@@ -57,9 +57,9 @@ module "ppud_replica_dev_rds" {
   team_name              = var.team_name
 
   rds_name             = "ppud-replica-dev"
-  rds_family           = "sqlserver-web-11.0"
+  rds_family           = "sqlserver-web-14.0"
   db_engine            = "sqlserver-web"
-  db_engine_version    = "11.00"
+  db_engine_version    = "14.00"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = "100"
   license_model        = "license-included"
@@ -74,7 +74,7 @@ resource "aws_db_option_group" "ppud_replica_rds_option_group" {
   name                     = "ppud-replica-dev"
   option_group_description = "Enable SQL Server Backup/Restore"
   engine_name              = "sqlserver-web"
-  major_engine_version     = "11.00"
+  major_engine_version     = "14.00"
 
   option {
     option_name = "SQLSERVER_BACKUP_RESTORE"
