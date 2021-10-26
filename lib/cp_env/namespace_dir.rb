@@ -30,7 +30,7 @@ class CpEnv
     def ignore_this_namespace?
       return true unless FileTest.directory?(dir)
 
-      if enable_skip_namespaces && (FileTest.exist?("#{dir}/#{SKIP_FILE}") || FileTest.exist?("#{dir}/#{MIGRATE_SKIP_FILE}"))
+      if (enable_skip_namespaces && FileTest.exist?("#{dir}/#{SKIP_FILE}")) || (FileTest.exist?("#{dir}/#{MIGRATE_SKIP_FILE}"))
         log("red", "#{namespace}/#{SKIP_FILE} or #{namespace}/#{MIGRATE_SKIP_FILE} file exists. Skipping this namespace.")
         true
       else
