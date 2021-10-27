@@ -1,14 +1,14 @@
 module "s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
 
-  team_name              = var.team_name
-  business-unit          = "LAA"
-  application            = var.application
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
-  acl                      = "public-read"
+  team_name                     = var.team_name
+  business-unit                 = "LAA"
+  application                   = var.application
+  is-production                 = var.is-production
+  environment-name              = var.environment-name
+  infrastructure-support        = var.infrastructure_support
+  namespace                     = var.namespace
+  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
   providers = {
