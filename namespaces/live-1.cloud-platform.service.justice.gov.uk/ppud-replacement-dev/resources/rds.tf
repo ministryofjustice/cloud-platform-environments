@@ -94,7 +94,7 @@ resource "kubernetes_secret" "ppud_replica_dev_rds_secrets" {
 
   data = {
     host     = module.ppud_replica_dev_rds.rds_instance_address
-    name     = "PPUD_LIVE"
+    name     = "PPUD_CDC_REPL"
     username = module.ppud_replica_dev_rds.database_username
     password = module.ppud_replica_dev_rds.database_password
   }
