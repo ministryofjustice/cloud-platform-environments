@@ -9,6 +9,7 @@ module "drupal_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  db_instance_class      = "db.t3.large"
 
   providers = {
     aws = aws.london

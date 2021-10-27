@@ -7,6 +7,10 @@ variable "application" {
   default     = "Book a prison visit"
 }
 
+variable "visit-scheduler-application" {
+  default = "visit-scheduler"
+}
+
 variable "namespace" {
   default = "book-a-prison-visit-api-dev"
 }

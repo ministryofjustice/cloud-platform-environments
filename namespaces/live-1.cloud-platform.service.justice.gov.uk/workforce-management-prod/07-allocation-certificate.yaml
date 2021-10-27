@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-allocations-cert
+  namespace: workforce-management-prod
+spec:
+  secretName: hmpps-allocations-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-allocations.hmpps.service.justice.gov.uk

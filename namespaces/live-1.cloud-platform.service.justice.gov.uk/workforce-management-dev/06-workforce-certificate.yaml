@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-a-workforce-ui-cert
+  namespace: workforce-management-dev
+spec:
+  secretName: manage-a-workforce-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - workforce-management-dev.hmpps.service.justice.gov.uk

@@ -56,6 +56,44 @@ EOF
 
 }
 
+# This policy restricts object level access to the bucket to applications running within the VPC and known MoJ VPNs.
+resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
+  bucket = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "SourceIP"
+        Effect    = "Deny"
+        Principal = "*"
+        Action = [
+          "s3:GetObject*",
+          "s3:DeleteObject*",
+        ]
+        Resource = [
+          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        ]
+        Condition = {
+          "NotIpAddress" = {
+            # Live-1 IP and MoJ VPN addresses
+            "aws:SourceIp" = [
+              "35.178.209.113",
+              "3.8.51.207",
+              "35.177.252.54",
+              "81.134.202.29/32",
+              "51.149.250.0/24",
+              "51.149.251.0/24",
+              "35.176.93.186/32"
+            ]
+          }
+        }
+      },
+    ]
+  })
+}
+
 module "hmpps_pin_phone_monitor_s3_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
 

@@ -17,7 +17,7 @@ metadata:
   name: digital-dev.prison.service.justice.gov.uk
   namespace: digital-prison-services-dev
 spec:
-  secretName: notm-cert
+  secretName: digital-prison-services-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

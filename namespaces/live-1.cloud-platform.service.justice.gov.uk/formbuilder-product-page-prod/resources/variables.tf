@@ -16,10 +16,6 @@ variable "environment_name" {
   default     = "prod"
 }
 
-variable "zone_name" {
-  default = "moj-online.service.justice.gov.uk"
-}
-
 variable "zone_name_new" {
   default = "moj-forms.service.justice.gov.uk"
 }

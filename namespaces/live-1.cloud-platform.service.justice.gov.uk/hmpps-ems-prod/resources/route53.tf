@@ -77,15 +77,14 @@ resource "aws_route53_record" "hmpps_ems_tagging_preprod_zone" {
   records = ["ns-967.awsdns-56.net.", "ns-1745.awsdns-26.co.uk.", "ns-153.awsdns-19.com.", "ns-1180.awsdns-19.org."]
 }
 
-/* Awaiting Lot 3 RFC00126
 resource "aws_route53_record" "hmpps_ems_tagging_prod_zone" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "tagging.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["ns-XX.awsdns-XX.net.", "ns-XX.awsdns-XX.co.uk.", "ns-XX.awsdns-XX.com.", "ns-XX.awsdns-XX.org."]
+  records = ["ns-1017.awsdns-63.net.", "ns-1682.awsdns-18.co.uk.", "ns-428.awsdns-53.com.", "ns-1300.awsdns-34.org."]
 }
-*/
+
 
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {

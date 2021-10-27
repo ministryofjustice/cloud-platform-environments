@@ -13,14 +13,13 @@ module "rds-mssql" {
   performance_insights_enabled = false
 
   # RDS SQL Server
-  db_engine            = "sqlserver-web"
+  db_engine            = "sqlserver-se"
   db_engine_version    = "15.00"
-  rds_family           = "sqlserver-web-15.0"
+  rds_family           = "sqlserver-se-15.0"
   db_parameter         = []
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = "20"
+  db_instance_class    = "db.t3.xlarge"
+  db_allocated_storage = 32
   license_model        = "license-included"
-  db_name              = "hmpps_workload"
 
   providers = {
     aws = aws.london

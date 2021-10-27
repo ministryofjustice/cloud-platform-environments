@@ -1,0 +1,30 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: domains-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: domains-ingress-maintenance-pages-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+spec:
+  tls:
+  - hosts:
+    - "*.decisions.tribunals.gov.uk"
+    - "*.reports.tribunals.gov.uk"
+    - "*.venues.tribunals.gov.uk"
+    secretName: domains-secret
+  rules:
+  - host: maintenance-pages-demo.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
+  - host: maintenance-page.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maintenance-pages-service
+          servicePort: 4567
