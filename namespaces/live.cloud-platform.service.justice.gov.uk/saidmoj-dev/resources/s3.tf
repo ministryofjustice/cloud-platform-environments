@@ -8,6 +8,8 @@ module "s3" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  acl                      = "public-read"
+  enable_allow_block_pub_access = false
 
   providers = {
     aws = aws.london
