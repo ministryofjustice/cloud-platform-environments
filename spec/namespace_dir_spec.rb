@@ -88,7 +88,7 @@ describe CpEnv::NamespaceDir do
         let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
 
         before do
-          allow(FileTest).to receive(:exists?)
+          allow(FileTest).to receive(:exist?)
             .with("#{dir}/#{CpEnv::NamespaceDir::SKIP_FILE}")
             .and_return(true)
         end
@@ -108,22 +108,22 @@ describe CpEnv::NamespaceDir do
     context "when enable_skip_namespaces is not set" do
       let(:enable_skip_namespaces) { false }
 
-      context "and a skip file is present" do
+      context "and a migrate skip file is present" do
         let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
 
         before do
-          allow(FileTest).to receive(:exists?)
-            .with("#{dir}/#{CpEnv::NamespaceDir::SKIP_FILE}")
+          allow(FileTest).to receive(:exist?)
+            .with("#{dir}/#{CpEnv::NamespaceDir::MIGRATE_SKIP_FILE}")
             .and_return(true)
         end
 
-        it "runs kubectl apply" do
-          expect(executor).to receive(:execute).with(kubectl_apply)
+        it "does not run kubectl apply" do
+          expect(executor).to_not receive(:execute).with(kubectl_apply)
           namespace_dir.apply
         end
 
-        it "runs terraform apply" do
-          expect(terraform).to receive(:apply)
+        it "does not run terraform apply" do
+          expect(terraform).to_not receive(:apply)
           namespace_dir.apply
         end
       end

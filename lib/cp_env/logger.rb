@@ -5,6 +5,10 @@ class CpEnv
       secret
       token
       key
+      user
+      arn
+      ssh-rsa
+      clientid
     ]
 
     def log(colour, message)
