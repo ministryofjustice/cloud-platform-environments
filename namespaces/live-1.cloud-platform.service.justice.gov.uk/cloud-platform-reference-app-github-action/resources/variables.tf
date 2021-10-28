@@ -7,7 +7,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "cloud-platform"
+  default     = "cloud-platform reference app using github-actions"
 }
 
 variable "namespace" {

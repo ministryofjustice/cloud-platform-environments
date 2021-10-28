@@ -6,7 +6,7 @@ variable "cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Namespace to test Terraform resources"
+  default     = "Namespace to test terraform resources"
 }
 
 variable "namespace" {
@@ -15,7 +15,7 @@ variable "namespace" {
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "HQ"
+  default     = "Platforms"
 }
 
 variable "team_name" {
