@@ -21,7 +21,7 @@ resource "pingdom_check" "dps-production-check" {
   integrationids           = [96624, 96628]
 }
 
-resource "pingdom_check" "dps-production-check" {
+resource "pingdom_check" "mu-production-check" {
   type                     = "http"
   name                     = "DPS - ${var.application-api}"
   host                     = "health-kick.prison.service.justice.gov.uk"
