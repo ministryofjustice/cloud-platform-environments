@@ -2,12 +2,20 @@ variable "application" {
   default = "hmpps-manage-users-prod"
 }
 
+variable "application-api" {
+  default = "hmpps-manage-users-api-prod"
+}
+
 variable "namespace" {
   default = "hmpps-manage-users-prod"
 }
 
 variable "domain_manage-users" {
   default = "manage-users.hmpps.service.justice.gov.uk"
+}
+
+variable "domain_manage-users-api" {
+  default = "manage-users-api.hmpps.service.justice.gov.uk"
 }
 
 variable "business-unit" {
