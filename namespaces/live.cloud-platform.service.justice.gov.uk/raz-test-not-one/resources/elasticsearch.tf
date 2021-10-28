@@ -9,7 +9,7 @@ module "raz_one_es" {
   is-production          = var.is_production
   team_name              = var.team_name
 
-  elasticsearch-domain               = "es"
+  elasticsearch-domain               = "not-one-es"
   elasticsearch_version              = "7.10"
   instance_type                      = "t2.medium.elasticsearch"
   log_publishing_application_enabled = false
