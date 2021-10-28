@@ -14,6 +14,6 @@ module "raz_one_es" {
   instance_type                      = "t2.medium.elasticsearch"
   log_publishing_application_enabled = false
 
-  irsa_enabled          = "true"
-  assume_enabled        = "false"
+  irsa_enabled   = "true"
+  assume_enabled = "false"
 }
