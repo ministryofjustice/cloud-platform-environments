@@ -75,3 +75,13 @@ variable "domains" {
   type        = any
   default     = []
 }
+
+variable "github_owner" {
+description = "The GitHub organization or individual user account containing the app's code repo."
+default     = "ministryofjustice"
+}
+
+variable "github_token" {
+description = "Required by the Github Terraform provider"
+default     = ""
+}
