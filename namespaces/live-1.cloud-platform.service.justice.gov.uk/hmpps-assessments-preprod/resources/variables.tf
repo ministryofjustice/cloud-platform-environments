@@ -2,36 +2,33 @@
 variable "cluster_name" {
 }
 
-variable "kubernetes_cluster" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "cloud-platform reference app using github-actions"
+  default     = "Assess risks and needs"
 }
 
 variable "namespace" {
-  default = "cloud-platform-reference-app-github-action"
+  default = "hmpps-assessments-preprod"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = "hmpps-assessments"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "assess-risks-and-needs@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -40,15 +37,13 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform"
+  default     = "hmpps-assessments-dev"
 }
 
-variable "github_owner" {
-  description = "Required by the github terraform provider"
-  default     = "ministryofjustice"
+variable "rds_family" {
+  default = "postgres10"
 }
 
-variable "github_token" {
-  description = "Required by the github terraform provider"
-  default     = ""
+variable "domain" {
+  default = "hmpps-assessments.service.justice.gov.uk"
 }
