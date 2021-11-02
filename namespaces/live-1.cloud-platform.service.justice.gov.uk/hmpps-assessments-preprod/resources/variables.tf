@@ -2,7 +2,6 @@
 variable "cluster_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Assess risks and needs"
@@ -24,7 +23,7 @@ variable "team_name" {
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -38,7 +37,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps-assessments-preprod"
+  default     = "hmpps-assessments-dev"
 }
 
 variable "rds_family" {
@@ -48,38 +47,3 @@ variable "rds_family" {
 variable "domain" {
   default = "hmpps-assessments.service.justice.gov.uk"
 }
-
-
-
-# DEPRECATED: snake-case variables are the default. The definitions below
-# have been left in place until all code has been updated to use snake-case
-# variable names.
-
-variable "business-unit" {
-  description = "Area of the MOJ responsible for the service."
-  default     = "HMPPS"
-}
-
-variable "team-name" {
-  description = "The name of your development team"
-  default     = "hmpps-assessments"
-}
-
-variable "infrastructure-support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "assess-risks-and-needs@digital.justice.gov.uk"
-}
-
-variable "is-production" {
-  default = "false"
-}
-
-variable "slack-channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps-assessments-preprod"
-}
-
-variable "rds-family" {
-  default = "postgres10"
-}
-
