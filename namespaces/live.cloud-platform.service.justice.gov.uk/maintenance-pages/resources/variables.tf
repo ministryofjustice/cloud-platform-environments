@@ -2,6 +2,8 @@
 variable "cluster_name" {
 }
 
+variable "kubernetes_cluster" {
+}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -74,4 +76,14 @@ variable "domains" {
   description = "List of domains to be put in maintenance"
   type        = any
   default     = []
+}
+
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo."
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the Github Terraform provider"
+  default     = ""
 }
