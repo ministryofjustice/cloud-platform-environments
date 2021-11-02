@@ -1,0 +1,28 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-pin-phone-monitor-qa-admin
+  namespace: hmpps-pin-phone-monitor-qa
+subjects:
+  - kind: Group
+    name: "github:dps-soct-tech"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: dps-ingress-manager
+  namespace: hmpps-pin-phone-monitor-qa
+subjects:
+  - kind: ServiceAccount
+    name: dps-ingress-manager
+    namespace: dps-management-qa
+roleRef:
+  kind: ClusterRole
+  name: dps-ingress-manager
+  apiGroup: rbac.authorization.k8s.io
