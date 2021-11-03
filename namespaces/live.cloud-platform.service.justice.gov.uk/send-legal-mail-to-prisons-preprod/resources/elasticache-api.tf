@@ -35,7 +35,7 @@ resource "kubernetes_secret" "slmtp_api_elasticache_redis" {
 }
 
 resource "aws_elasticache_parameter_group" "token_store" {
-  name   = "slmtp-api-token-store-parameter-group"
+  name   = "slmtp-api-preprod-token-store-parameter-group"
   family = "redis5.0"
 
   # Needed in order to get spring boot to expire items from the redis cache
