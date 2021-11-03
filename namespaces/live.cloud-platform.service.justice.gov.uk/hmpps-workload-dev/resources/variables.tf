@@ -1,4 +1,7 @@
 
+variable "kubernetes_cluster"{
+}
+
 variable "cluster_name" {
 }
 
