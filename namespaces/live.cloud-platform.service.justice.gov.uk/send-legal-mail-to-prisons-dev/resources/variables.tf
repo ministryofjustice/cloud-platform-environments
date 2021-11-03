@@ -39,3 +39,8 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "prisoner_transactions_team"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+

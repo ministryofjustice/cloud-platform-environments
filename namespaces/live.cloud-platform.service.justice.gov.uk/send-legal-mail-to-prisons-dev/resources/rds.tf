@@ -22,13 +22,13 @@ resource "kubernetes_secret" "slmtp_api_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.prisoner_transactions_api_rds.rds_instance_endpoint
-    database_name         = module.prisoner_transactions_api_rds.database_name
-    database_username     = module.prisoner_transactions_api_rds.database_username
-    database_password     = module.prisoner_transactions_api_rds.database_password
-    rds_instance_address  = module.prisoner_transactions_api_rds.rds_instance_address
-    access_key_id         = module.prisoner_transactions_api_rds.access_key_id
-    secret_access_key     = module.prisoner_transactions_api_rds.secret_access_key
+    rds_instance_endpoint = module.slmtp_api_rds.rds_instance_endpoint
+    database_name         = module.slmtp_api_rds.database_name
+    database_username     = module.slmtp_api_rds.database_username
+    database_password     = module.slmtp_api_rds.database_password
+    rds_instance_address  = module.slmtp_api_rds.rds_instance_address
+    access_key_id         = module.slmtp_api_rds.access_key_id
+    secret_access_key     = module.slmtp_api_rds.secret_access_key
   }
 }
 
