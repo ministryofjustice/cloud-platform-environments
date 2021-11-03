@@ -141,7 +141,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
   }
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
+resource "kubernetes_secret" "pcms_s3_event_queue" {
   metadata {
     name      = "hmpps-pin-phone-monitor-sqs-output"
     namespace = var.namespace
@@ -156,9 +156,9 @@ resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_document_s3_bucket" {
+resource "kubernetes_secret" "pcms_s3_bucket" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-document-s3-bucket-output"
+    name      = "pcms-s3-bucket-output"
     namespace = var.namespace
   }
 
@@ -170,9 +170,9 @@ resource "kubernetes_secret" "hmpps_pin_phone_monitor_document_s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
+resource "kubernetes_secret" "pcms_s3_event_dead_letter_queue" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-sqs-dl-output"
+    name      = "pcms-sqs-dl-output"
     namespace = var.namespace
   }
 
