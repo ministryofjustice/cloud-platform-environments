@@ -5,7 +5,7 @@ provider "pingdom" {
 resource "pingdom_check" "elsa-relevant-search-staging-pingdom" {
   type                     = "http"
   name                     = "ELSA Relevant Search - Staging"
-  host                     = "elsa-relevant-search-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
+  host                     = "elsa-relevant-search-staging.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 4
