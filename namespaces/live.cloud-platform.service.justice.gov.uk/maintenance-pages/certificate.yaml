@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - maintenance-page.cloud-platform.service.justice.gov.uk
+  - nomisqc.justice.gov.uk 
