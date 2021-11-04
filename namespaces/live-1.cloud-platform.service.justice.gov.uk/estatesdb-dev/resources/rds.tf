@@ -19,13 +19,13 @@ variable "cluster_name" {
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "programmeandperformance_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
-  cluster_name         = var.cluster_name
-  team_name            = "estatesprojects"
-  business-unit        = "Estates"
-  application          = "pdsdata"
-  is-production        = "false"
-  namespace            = var.namespace
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  cluster_name  = var.cluster_name
+  team_name     = "estatesprojects"
+  business-unit = "Estates"
+  application   = "pdsdata"
+  is-production = "false"
+  namespace     = var.namespace
 
   # enable performance insights
   performance_insights_enabled = true
