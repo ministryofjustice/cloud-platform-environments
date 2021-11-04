@@ -11,4 +11,4 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "Manage a Sentence Team"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-tier-to-delius-update.git"
     cloud-platform.justice.gov.uk/slack-channel: "manage_a_workforce_dev"
-      cloud-platform.justice.gov.uk/slack-alert-channel: "manage_a_workforce_dev"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "manage_a_workforce_dev"
