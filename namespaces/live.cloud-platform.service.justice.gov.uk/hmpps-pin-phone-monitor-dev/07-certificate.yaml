@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
-  name: hmpps-ppm-api-dev.prison.service.justice.gov.uk
+  name: pcms-api-dev
   namespace: hmpps-pin-phone-monitor-dev
 spec:
-  secretName: hmpps-pin-phone-monitor-api-cert
+  secretName: pcms-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - pin-phone-monitor-api-dev.prison.service.justice.gov.uk
+  - pcms-api-dev.prison.service.justice.gov.uk

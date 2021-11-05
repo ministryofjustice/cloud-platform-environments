@@ -41,8 +41,8 @@ module "track_a_query_rds_replica" {
   rds_family             = "postgres12"
   db_engine_version      = "12"
 
-  db_name              = module.track_a_query_rds.database_name
-  replicate_source_db  = module.track_a_query_rds.db_identifier
+  db_name             = module.track_a_query_rds.database_name
+  replicate_source_db = module.track_a_query_rds.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
