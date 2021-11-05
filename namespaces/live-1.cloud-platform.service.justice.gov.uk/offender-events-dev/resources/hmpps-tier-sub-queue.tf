@@ -68,36 +68,6 @@ module "hmpps_tier_event_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_tier_event_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_event_queue.access_key_id
-    secret_access_key = module.hmpps_tier_event_queue.secret_access_key
-    sqs_id            = module.hmpps_tier_event_queue.sqs_id
-    sqs_arn           = module.hmpps_tier_event_queue.sqs_arn
-    sqs_name          = module.hmpps_tier_event_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_event_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-dl-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_event_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_event_dead_letter_queue.secret_access_key
-    sqs_id            = module.hmpps_tier_event_dead_letter_queue.sqs_id
-    sqs_arn           = module.hmpps_tier_event_dead_letter_queue.sqs_arn
-    sqs_name          = module.hmpps_tier_event_dead_letter_queue.sqs_name
-  }
-}
-
 resource "aws_sns_topic_subscription" "hmpps_tier_event_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_assessments_events.topic_arn
