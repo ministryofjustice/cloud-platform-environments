@@ -74,6 +74,28 @@ func GetNamespace(s string, h string) (Namespace, error) {
 	return namespace, fmt.Errorf("Namespace %s is not found in the cluster.", s)
 }
 
+// GetProductionNamespaces returns a slice of all namespace names that are considered production
+func GetProductionNamespaces(cluster string) (namespaces []string, err error) {
+	req, err := http.NewRequest("GET", "https://api.github.com/repos/ministryofjustice/cloud-platform-environments/contents/namespaces/", nil)
+	if err != nil {
+		log.Panic(err)
+		// handle err
+	}
+	req.Header.Set("Accept", "application/vnd.github.v3+json")
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Panic(err)
+		// handle err
+	}
+	defer resp.Body.Close()
+
+	fmt.Println(resp.Body)
+
+	return nil, nil
+
+}
+
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
 func GetAllNamespaces(endPoint string) (namespaces AllNamespaces, err error) {

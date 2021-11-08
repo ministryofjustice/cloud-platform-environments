@@ -190,3 +190,36 @@ func TestGetAllNamespaces(t *testing.T) {
 		})
 	}
 }
+
+func TestGetProductionNamespaces(t *testing.T) {
+	type args struct {
+		endPoint string
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantNamespaces string
+		wantErr        bool
+	}{
+		{
+			name: "Get all production namespaces",
+			args: args{
+				endPoint: "hosted_services",
+			},
+			wantNamespaces: "abundant-namespace-dev",
+			wantErr:        false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotNamespaces, err := GetProductionNamespaces(tt.args.endPoint)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetProductionNamespaces() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotNamespaces, tt.wantNamespaces) {
+				t.Errorf("GetProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
+			}
+		})
+	}
+}
