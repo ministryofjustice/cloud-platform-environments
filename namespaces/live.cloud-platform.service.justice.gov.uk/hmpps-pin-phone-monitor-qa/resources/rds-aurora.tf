@@ -25,9 +25,9 @@ module "rds_aurora" {
   }
 }
 
-resource "kubernetes_secret" "pin_phone_monitor_rds_aurora" {
+resource "kubernetes_secret" "pcms_rds_aurora" {
   metadata {
-    name      = "pin-phone-monitor-rds-aurora-output"
+    name      = "pcms-rds-aurora-output"
     namespace = var.namespace
   }
 
