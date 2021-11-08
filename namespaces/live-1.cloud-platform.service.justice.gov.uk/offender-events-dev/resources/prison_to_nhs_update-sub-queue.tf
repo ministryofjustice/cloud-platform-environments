@@ -68,6 +68,36 @@ module "prison_to_nhs_update_dead_letter_queue" {
   }
 }
 
+resource "kubernetes_secret" "prison_to_nhs_update_queue" {
+  metadata {
+    name      = "ptnhs-sqs-instance-output"
+    namespace = "prison-to-nhs-update-dev"
+  }
+
+  data = {
+    access_key_id     = module.prison_to_nhs_update_queue.access_key_id
+    secret_access_key = module.prison_to_nhs_update_queue.secret_access_key
+    sqs_ptnhs_url     = module.prison_to_nhs_update_queue.sqs_id
+    sqs_ptnhs_arn     = module.prison_to_nhs_update_queue.sqs_arn
+    sqs_ptnhs_name    = module.prison_to_nhs_update_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "prison_to_nhs_update_dead_letter_queue" {
+  metadata {
+    name      = "ptnhs-sqs-dl-instance-output"
+    namespace = "prison-to-nhs-update-dev"
+  }
+
+  data = {
+    access_key_id     = module.prison_to_nhs_update_dead_letter_queue.access_key_id
+    secret_access_key = module.prison_to_nhs_update_dead_letter_queue.secret_access_key
+    sqs_ptnhs_url     = module.prison_to_nhs_update_dead_letter_queue.sqs_id
+    sqs_ptnhs_arn     = module.prison_to_nhs_update_dead_letter_queue.sqs_arn
+    sqs_ptnhs_name    = module.prison_to_nhs_update_dead_letter_queue.sqs_name
+  }
+}
+
 resource "aws_sns_topic_subscription" "prison_to_nhs_update_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
