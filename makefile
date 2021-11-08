@@ -13,20 +13,20 @@ pull-tools:
 # Make sure you have the below env variables set before launching the tools shell
 # AWS_PROFILE, AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, KOPS_STATE_STORE
 tools-shell:
-  docker pull --platform=linux/amd64 $(TOOLS_IMAGE)
-  docker run --platform=linux/amd64 --rm -it \
-    -e AWS_PROFILE=$${AWS_PROFILE} \
-    -e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
-    -e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
-    -e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
-    -e KOPS_STATE_STORE=$${KOPS_STATE_STORE} \
-    -e KUBE_CONFIG_PATH=~/.kube/config \
-    -v $$(pwd):/app \
-    -v $${HOME}/.aws:/root/.aws \
-    -v $${HOME}/.gnupg:/root/.gnupg \
-    -v $${HOME}/.docker:/root/.docker \
-    -w /app \
-    $(TOOLS_IMAGE) bash
+	docker pull --platform=linux/amd64 $(TOOLS_IMAGE)
+	docker run --platform=linux/amd64 --rm -it \
+		-e AWS_PROFILE=$${AWS_PROFILE} \
+		-e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
+		-e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
+		-e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
+		-e KOPS_STATE_STORE=$${KOPS_STATE_STORE} \
+		-e KUBE_CONFIG_PATH=~/.kube/config \
+		-v $$(pwd):/app \
+		-v $${HOME}/.aws:/root/.aws \
+		-v $${HOME}/.gnupg:/root/.gnupg \
+		-v $${HOME}/.docker:/root/.docker \
+		-w /app \
+		$(TOOLS_IMAGE) bash
 
 # Launch a tools shell on a pod in the cluster. This can be useful if e.g. you
 # need to run terraform code that manipulates an RDS database instance, since
