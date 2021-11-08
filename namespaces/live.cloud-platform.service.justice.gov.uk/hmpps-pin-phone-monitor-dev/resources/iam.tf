@@ -1,17 +1,13 @@
-resource "random_id" "upload" {
-  byte_length = 8
+resource "aws_iam_user" "bt_upload_user" {
+  name = "hmpps-pin-phone-monitor-dev-bt-upload-user"
+  path = "/system/hmpps-pin-phone-monitor-dev-upload-users/"
 }
 
-resource "aws_iam_user" "upload_user" {
-  name = "hmpps-pin-phone-monitor-upload-user-${random_id.upload.hex}"
-  path = "/system/hmpps-pin-phone-monitor-upload-users/"
+resource "aws_iam_access_key" "bt_upload_user_key" {
+  user = aws_iam_user.bt_upload_user.name
 }
 
-resource "aws_iam_access_key" "upload_user" {
-  user = aws_iam_user.upload_user.name
-}
-
-data "aws_iam_policy_document" "upload_policy" {
+data "aws_iam_policy_document" "bt_upload_policy" {
   statement {
     actions = ["s3:PutObject"]
 
@@ -19,7 +15,6 @@ data "aws_iam_policy_document" "upload_policy" {
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.mp3",
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.flac",
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.wav",
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.xml",
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*.json"
     ]
   }
@@ -42,28 +37,32 @@ data "aws_iam_policy_document" "upload_policy" {
   }
 }
 
-resource "aws_iam_user_policy" "upload_policy" {
-  name   = "hmpps-pin-phone-monitor-upload-policy"
-  policy = data.aws_iam_policy_document.upload_policy.json
-  user   = aws_iam_user.upload_user.name
+resource "aws_iam_user_policy" "bt_upload_policy" {
+  name   = "hmpps-pin-phone-monitor-bt-upload-policy-dev"
+  policy = data.aws_iam_policy_document.bt_upload_policy.json
+  user   = aws_iam_user.bt_upload_user.name
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_upload_user" {
+resource "kubernetes_secret" "pcms_bt_upload_user" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-upload-user"
+    name      = "pcms-bt-upload-user-dev"
     namespace = var.namespace
   }
 
   data = {
-    hmpps_pin_phone_monitor_upload_user_arn               = aws_iam_user.upload_user.arn
-    hmpps_pin_phone_monitor_upload_user_access_key_id     = aws_iam_access_key.upload_user.id
-    hmpps_pin_phone_monitor_upload_user_secret_access_key = aws_iam_access_key.upload_user.secret
+    arn               = aws_iam_user.bt_upload_user.arn
+    access_key_id     = aws_iam_access_key.bt_upload_user_key.id
+    secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
   }
 }
 
+resource "random_id" "upload" {
+  byte_length = 8
+}
+
 resource "aws_iam_user" "call_processing_user" {
-  name = "hmpps-pin-phone-monitor-call-processing-user-${random_id.upload.hex}"
-  path = "/system/hmpps-pin-phone-monitor-call-processing-users/"
+  name = "pcms-call-processing-user-${random_id.upload.hex}"
+  path = "/system/pcms-call-processing-users/"
 }
 
 resource "aws_iam_access_key" "call_processing_user_key" {
@@ -93,19 +92,19 @@ data "aws_iam_policy_document" "call_processing_policy" {
 }
 
 resource "aws_iam_user_policy" "call_processing_policy" {
-  name   = "hmpps-pin-phone-monitor-call-processing-policy"
+  name   = "pcms-call-processing-policy"
   policy = data.aws_iam_policy_document.call_processing_policy.json
   user   = aws_iam_user.call_processing_user.name
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_call_processing_user" {
+resource "kubernetes_secret" "pcms_call_processing_user" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-call-processing-user"
+    name      = "pcms-call-processing-user"
     namespace = var.namespace
   }
 
   data = {
-    hmpps_pin_phone_call_processing_user_access_key_id     = aws_iam_access_key.call_processing_user_key.id
-    hmpps_pin_phone_call_processing_user_secret_access_key = aws_iam_access_key.call_processing_user_key.secret
+    access_key_id     = aws_iam_access_key.call_processing_user_key.id
+    secret_access_key = aws_iam_access_key.call_processing_user_key.secret
   }
 }
