@@ -207,19 +207,35 @@ func TestGetProductionNamespaces(t *testing.T) {
 				ns: AllNamespaces{
 					Namespaces: []Namespace{
 						{
-							Name: "abundant-namespace-dev",
+							Name:           "namespace-dev",
+							DeploymentType: "dev",
 						},
 						{
-							Name: "abundant-namespace-prod",
+							Name:           "namespace-prod",
+							DeploymentType: "prod",
 						},
 						{
-							Name: "abundant-namespace-test",
+							Name:           "namespace-live",
+							DeploymentType: "live-ns",
+						},
+						{
+							Name:           "namespace-production",
+							DeploymentType: "PRoDucTion",
 						},
 					},
 				},
 			},
-			wantNamespaces: []string{"abundant-namespace-dev", "abundant-namespace-prod", "abundant-namespace-test"},
+			wantNamespaces: []string{"namespace-prod", "namespace-live", "namespace-production"},
 			wantErr:        false,
+		},
+		{
+			name: "Pass empty list of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{},
+				},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
@@ -246,7 +262,42 @@ func TestGetNonProductionNamespaces(t *testing.T) {
 		wantNamespaces []string
 		wantErr        bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Expect to return correct slice of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{
+						{
+							Name:           "namespace-dev",
+							DeploymentType: "dev",
+						},
+						{
+							Name:           "namespace-prod",
+							DeploymentType: "prod",
+						},
+						{
+							Name:           "namespace-test",
+							DeploymentType: "test",
+						},
+						{
+							Name:           "namespace-somethingelse",
+							DeploymentType: "RANdoMChAr",
+						},
+					},
+				},
+			},
+			wantNamespaces: []string{"namespace-dev", "namespace-test", "namespace-somethingelse"},
+			wantErr:        false,
+		},
+		{
+			name: "Pass empty list of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{},
+				},
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
