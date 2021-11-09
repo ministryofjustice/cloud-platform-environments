@@ -5,7 +5,7 @@ provider "pingdom" {
 # 96624 = #dps_alerts
 # 96628 = DPS Pager duty
 
-resource "pingdom_check" "hmpps-pin-phone-monitor-production-check" {
+resource "pingdom_check" "pcms-production-check" {
   type                     = "http"
   name                     = "DPS - ${var.application}"
   host                     = "health-kick.prison.service.justice.gov.uk"
