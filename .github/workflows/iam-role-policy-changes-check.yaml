@@ -31,5 +31,6 @@ jobs:
         if: steps.review_pr.outputs.review_pr_iam_check == 'false'
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN  }}"
+          event: COMMENT
           body: |
             There are potential IAM Role and/or policy Changes/additions. Reviewer - If satisfied with the changes/additions - dismiss this request
