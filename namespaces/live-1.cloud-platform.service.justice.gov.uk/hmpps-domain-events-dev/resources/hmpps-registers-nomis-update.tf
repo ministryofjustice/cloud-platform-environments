@@ -70,6 +70,37 @@ module "hmpps_registers_to_nomis_dead_letter_queue" {
   }
 }
 
+resource "kubernetes_secret" "hmpps_registers_to_nomis_queue" {
+  metadata {
+    name      = "sqs-nomis-update-secret"
+    namespace = "hmpps-registers-dev"
+  }
+
+  data = {
+    access_key_id     = module.hmpps_registers_to_nomis_queue.access_key_id
+    secret_access_key = module.hmpps_registers_to_nomis_queue.secret_access_key
+    sqs_queue_url     = module.hmpps_registers_to_nomis_queue.sqs_id
+    sqs_queue_arn     = module.hmpps_registers_to_nomis_queue.sqs_arn
+    sqs_queue_name    = module.hmpps_registers_to_nomis_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "hmpps_registers_to_nomis_dead_letter_queue" {
+  metadata {
+    name      = "sqs-nomis-update-dl-secret"
+    namespace = "hmpps-registers-dev"
+  }
+
+  data = {
+    access_key_id     = module.hmpps_registers_to_nomis_dead_letter_queue.access_key_id
+    secret_access_key = module.hmpps_registers_to_nomis_dead_letter_queue.secret_access_key
+    sqs_queue_url     = module.hmpps_registers_to_nomis_dead_letter_queue.sqs_id
+    sqs_queue_arn     = module.hmpps_registers_to_nomis_dead_letter_queue.sqs_arn
+    sqs_queue_name    = module.hmpps_registers_to_nomis_dead_letter_queue.sqs_name
+  }
+}
+
+
 resource "aws_sns_topic_subscription" "hmpps_registers_to_nomis_subscription" {
   provider      = aws.london
   topic_arn     = module.hmpps-domain-events.topic_arn
