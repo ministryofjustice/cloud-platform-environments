@@ -193,32 +193,70 @@ func TestGetAllNamespaces(t *testing.T) {
 
 func TestGetProductionNamespaces(t *testing.T) {
 	type args struct {
-		endPoint string
+		ns AllNamespaces
 	}
 	tests := []struct {
 		name           string
 		args           args
-		wantNamespaces string
+		wantNamespaces []string
 		wantErr        bool
 	}{
 		{
-			name: "Get all production namespaces",
+			name: "Expect to return correct slice of namespaces",
 			args: args{
-				endPoint: "hosted_services",
+				ns: AllNamespaces{
+					Namespaces: []Namespace{
+						{
+							Name: "abundant-namespace-dev",
+						},
+						{
+							Name: "abundant-namespace-prod",
+						},
+						{
+							Name: "abundant-namespace-test",
+						},
+					},
+				},
 			},
-			wantNamespaces: "abundant-namespace-dev",
+			wantNamespaces: []string{"abundant-namespace-dev", "abundant-namespace-prod", "abundant-namespace-test"},
 			wantErr:        false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotNamespaces, err := GetProductionNamespaces(tt.args.endPoint)
+			gotNamespaces, err := GetProductionNamespaces(tt.args.ns)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetProductionNamespaces() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotNamespaces, tt.wantNamespaces) {
 				t.Errorf("GetProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
+			}
+		})
+	}
+}
+
+func TestGetNonProductionNamespaces(t *testing.T) {
+	type args struct {
+		ns AllNamespaces
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantNamespaces []string
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotNamespaces, err := GetNonProductionNamespaces(tt.args.ns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetNonProductionNamespaces() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotNamespaces, tt.wantNamespaces) {
+				t.Errorf("GetNonProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
 			}
 		})
 	}
