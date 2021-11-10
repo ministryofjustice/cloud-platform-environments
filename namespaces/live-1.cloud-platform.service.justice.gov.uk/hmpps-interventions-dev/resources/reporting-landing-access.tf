@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "reporting_access" {
       "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/dfinterventions/dfi/*",
       "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/dfinterventions/dfi/",
       "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/exports/csv/reports/*",
-      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/exports/csv/reports/",
+      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/exports/csv/reports/"
     ]
   }
 }
