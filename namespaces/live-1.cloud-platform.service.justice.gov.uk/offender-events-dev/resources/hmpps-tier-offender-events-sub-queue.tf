@@ -9,6 +9,8 @@ module "hmpps_tier_offender_events_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  delay_seconds             = 2
+  receive_wait_time_seconds = 1
 
   redrive_policy = <<EOF
   {
