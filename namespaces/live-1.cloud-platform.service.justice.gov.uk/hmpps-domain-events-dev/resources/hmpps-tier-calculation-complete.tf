@@ -12,7 +12,7 @@ module "hmpps_tier_calculation_complete_queue" {
   message_retention_seconds = 1209600
   namespace                 = var.namespace
   delay_seconds             = 2
-  receive_wait_time_seconds = 20
+  receive_wait_time_seconds = 1
 
   redrive_policy = <<EOF
   {
