@@ -69,36 +69,6 @@ module "case_note_poll_pusher_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "case_note_poll_pusher_queue" {
-  metadata {
-    name      = "cnpp-sqs-instance-output"
-    namespace = "case-notes-to-probation-dev"
-  }
-
-  data = {
-    access_key_id     = module.case_note_poll_pusher_queue.access_key_id
-    secret_access_key = module.case_note_poll_pusher_queue.secret_access_key
-    sqs_cnpp_url      = module.case_note_poll_pusher_queue.sqs_id
-    sqs_cnpp_arn      = module.case_note_poll_pusher_queue.sqs_arn
-    sqs_cnpp_name     = module.case_note_poll_pusher_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
-  metadata {
-    name      = "cnpp-sqs-dl-instance-output"
-    namespace = "case-notes-to-probation-dev"
-  }
-
-  data = {
-    access_key_id     = module.case_note_poll_pusher_dead_letter_queue.access_key_id
-    secret_access_key = module.case_note_poll_pusher_dead_letter_queue.secret_access_key
-    sqs_cnpp_url      = module.case_note_poll_pusher_dead_letter_queue.sqs_id
-    sqs_cnpp_arn      = module.case_note_poll_pusher_dead_letter_queue.sqs_arn
-    sqs_cnpp_name     = module.case_note_poll_pusher_dead_letter_queue.sqs_name
-  }
-}
-
 resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
