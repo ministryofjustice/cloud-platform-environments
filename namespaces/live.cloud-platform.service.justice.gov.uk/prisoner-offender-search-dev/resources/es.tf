@@ -16,8 +16,6 @@ module "prisoner_offender_search_elasticsearch" {
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
-  irsa_enabled                    = true
-  assume_enabled                  = false
 }
 
 module "ns_annotation" {
