@@ -12,8 +12,8 @@ module "submit_information_report_elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version         = "6.x"
-  parameter_group_name   = "default.redis6.x"
+  engine_version         = "4.0.10"
+  parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
 
   providers = {
@@ -23,7 +23,7 @@ module "submit_information_report_elasticache_redis" {
 
 resource "kubernetes_secret" "submit_information_report_elasticache_redis" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "submit-information-report-elasticache-redis"
     namespace = var.namespace
   }
 
