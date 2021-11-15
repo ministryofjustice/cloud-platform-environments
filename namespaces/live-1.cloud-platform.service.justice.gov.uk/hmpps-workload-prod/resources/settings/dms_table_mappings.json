@@ -22,8 +22,8 @@
     },
     {
       "rule-type": "selection",
-      "rule-id": "2",
-      "rule-name": "2",
+      "rule-id": "3",
+      "rule-name": "3",
       "object-locator": {
         "schema-name": "app",
         "table-name": "user_role"
@@ -32,8 +32,8 @@
     },
     {
       "rule-type": "selection",
-      "rule-id": "3",
-      "rule-name": "3",
+      "rule-id": "4",
+      "rule-name": "4",
       "object-locator": {
         "schema-name": "app",
         "table-name": "roles"
