@@ -33,7 +33,7 @@
     {
       "rule-type": "selection",
       "rule-id": "4",
-      "rule-name": "5",
+      "rule-name": "4",
       "object-locator": {
         "schema-name": "app",
         "table-name": "roles"
