@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: visit-scheduler-cert
+  namespace: book-a-prison-visit-api-preprod
+spec:
+  secretName: visit-scheduler-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - visit-scheduler-preprod.hmpps.service.justice.gov.uk
