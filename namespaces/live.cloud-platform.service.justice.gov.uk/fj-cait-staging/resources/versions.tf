@@ -5,11 +5,8 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-    }
-    random = {
-      source = "hashicorp/random"
+    github = {
+      source = "integrations/github"
     }
   }
 }

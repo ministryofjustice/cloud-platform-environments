@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: check-my-diary-dev
+  namespace: fj-cait-staging
 spec:
   hard:
     pods: "50"
