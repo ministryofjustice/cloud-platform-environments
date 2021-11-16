@@ -1,4 +1,3 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -8,16 +7,8 @@ subjects:
   - kind: Group
     name: "github:form-builder"
     apiGroup: rbac.authorization.k8s.io
-  - kind: ServiceAccount
-    name: formbuilder-service-token-cache-live-dev
-    namespace: formbuilder-platform-live-dev
 roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
-
-# Further roles defined in:
-# - service-token-cache-service-account.yaml
-# - submitter-workers-service-account.yaml
-# - user-datastore-service-account.yaml
 
