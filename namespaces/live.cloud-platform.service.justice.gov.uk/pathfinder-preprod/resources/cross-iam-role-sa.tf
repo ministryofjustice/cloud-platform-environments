@@ -34,11 +34,11 @@ variable "pathfinder-preprod-tags" {
 }
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "irsa-output"
+    name      = "to-ap-s3-irsa"
     namespace = "pathfinder-preprod"
   }
   data = {
     role           = module.irsa.aws_iam_role_name
-    serviceaccount = module.irsa.service_account_name
+    serviceaccount = module.irsa.service_account_name.name
   }
 }
