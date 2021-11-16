@@ -8,9 +8,6 @@ subjects:
   - kind: Group
     name: "github:form-builder"
     apiGroup: rbac.authorization.k8s.io
-  - kind: ServiceAccount
-    name: formbuilder-service-token-cache-live-dev
-    namespace: formbuilder-platform-live-dev
 roleRef:
   kind: ClusterRole
   name: admin
