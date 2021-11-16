@@ -67,10 +67,13 @@ resource "kubernetes_secret" "ppud_replacement_bandiera_basic_auth" {
     namespace = var.namespace
   }
 
-  type = "kubernetes.io/basic-auth"
-
   data = {
     username = random_string.ppud_replacement_bandiera_basic_auth_username.result
     password = random_password.ppud_replacement_bandiera_basic_auth_password.result
+    auth     = "${random_string.ppud_replacement_bandiera_basic_auth_username.result}:${bcrypt(random_password.ppud_replacement_bandiera_basic_auth_password.result)}"
+  }
+
+  lifecycle {
+    ignore_changes = [data]
   }
 }
