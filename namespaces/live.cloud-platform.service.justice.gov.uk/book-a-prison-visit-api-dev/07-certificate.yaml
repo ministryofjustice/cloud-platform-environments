@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-contact-registry-cert
+  namespace: book-a-prison-visit-api-dev
+spec:
+  secretName: prisoner-contact-registry-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-contact-registry-dev.hmpps.service.justice.gov.uk
