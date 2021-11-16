@@ -24,12 +24,12 @@ resource "aws_iam_policy" "pathfinder_preprod_ap_policy" {
 variable "pathfinder-preprod-tags" {
   type = map(string)
   default = {
-    business-unit          = var.business-unit
-    application            = var.application
-    is-production          = var.is-production
-    environment-name       = var.environment-name
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    business-unit          = "HMPPS"
+    application            = "pathfinder"
+    is-production          = "false"
+    environment-name       = "preprod"
+    owner                  = "Digital Prison Services"
+    infrastructure-support = "dps-hmpps@digital.justice.gov.uk"
   }
 }
 resource "kubernetes_secret" "irsa" {
