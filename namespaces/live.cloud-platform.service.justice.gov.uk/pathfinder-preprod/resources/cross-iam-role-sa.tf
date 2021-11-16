@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "pathfinder_preprod_ap_policy" {
   # "api" policy statements for the namespace
   # allows direct access to "landing" S3 bucket
   statement {
-    actions   = [
+    actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
     ]
@@ -22,7 +22,7 @@ resource "aws_iam_policy" "pathfinder_preprod_ap_policy" {
   policy = data.aws_iam_policy_document.pathfinder_preprod_ap_policy.json
 }
 variable "pathfinder-preprod-tags" {
-  type    = map(string)
+  type = map(string)
   default = {
     business-unit          = var.business-unit
     application            = var.application
