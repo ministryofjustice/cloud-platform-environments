@@ -8,10 +8,10 @@ module "rds-instance" {
   cluster_name = var.cluster_name
 
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is-production
+  environment-name       = var.environment_name
+  is-production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
 
 
