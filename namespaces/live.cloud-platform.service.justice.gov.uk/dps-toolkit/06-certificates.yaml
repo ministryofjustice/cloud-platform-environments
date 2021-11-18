@@ -1,0 +1,51 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: dps-monitor
+  namespace: dps-toolkit
+spec:
+  secretName: dps-monitor-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dps-monitor.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: dps-grafana
+  namespace: dps-toolkit
+spec:
+  secretName: dps-grafana-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dps-grafana.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: health-kick
+  namespace: dps-toolkit
+spec:
+  secretName: health-kick-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - health-kick.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: dps-smoketest-cert
+  namespace: dps-toolkit
+spec:
+  secretName: dps-smoketest-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dps-smoketest-dev.hmpps.service.justice.gov.uk
