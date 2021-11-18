@@ -47,7 +47,7 @@ resource "aws_route53_record" "cacm1" {
   type    = "CNAME"
   ttl     = "300"
 
-  records        = ["_777ac8c816e5ac5599bf2a650e62a46f.acm-validations.aws"]
+  records = ["_777ac8c816e5ac5599bf2a650e62a46f.acm-validations.aws"]
 }
 
 resource "aws_route53_record" "cacm2" {
@@ -56,7 +56,7 @@ resource "aws_route53_record" "cacm2" {
   type    = "CNAME"
   ttl     = "300"
 
-  records        = ["_5681a198b9b9349021a6929d14afeb0e.acm-validations.aws"]
+  records = ["_5681a198b9b9349021a6929d14afeb0e.acm-validations.aws"]
 }
 
 resource "aws_route53_record" "www" {
@@ -65,7 +65,7 @@ resource "aws_route53_record" "www" {
   type    = "CNAME"
   ttl     = "300"
 
-  records        = ["civil-eligibility-calculator.justice.gov.uk"]
+  records = ["civil-eligibility-calculator.justice.gov.uk"]
 }
 
 resource "aws_route53_record" "www2" {
@@ -74,5 +74,5 @@ resource "aws_route53_record" "www2" {
   type    = "CNAME"
   ttl     = "300"
 
-  records        = ["civil-eligibility-calculator.justice.gov.uk"]
+  records = ["civil-eligibility-calculator.justice.gov.uk"]
 }
