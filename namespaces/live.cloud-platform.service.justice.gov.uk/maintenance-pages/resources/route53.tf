@@ -36,7 +36,7 @@ resource "aws_route53_record" "a" {
 
   alias {
     name                   = "dualstack.civileligibilitycalculatorprod-1846998240.eu-west-1.elb.amazonaws.com"
-    zone_id                = "eu-west-1"
+    zone_id                = aws_route53_zone.decom.zone_id
     evaluate_target_health = true
   }
 }
