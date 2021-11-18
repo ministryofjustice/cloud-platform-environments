@@ -35,8 +35,8 @@ resource "aws_route53_record" "a" {
   type    = "A"
 
   alias {
-    name                   = "dualstack.civileligibilitycalculatorprod-1846998240.eu-west-1.elb.amazonaws.com"
-    zone_id                = "eu-west-1"
+    name                   = "dualstack.civileligibilitycalculatorprod-1846998240.eu-west-1.elb.amazonaws.com."
+    zone_id                = "Z32O12XQLNTSW2"
     evaluate_target_health = true
   }
 }
