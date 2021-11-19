@@ -2,16 +2,16 @@ variable "team_name" {
   default = "family-justice"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default = "production"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
-variable "infrastructure-support" {
-  default = "Family Justice: family-justice-team@digital.justice.gov.uk"
+variable "infrastructure_support" {
+  default = "crossjusticedelivery@digital.justice.gov.uk"
 }
 
 variable "application" {
@@ -22,8 +22,8 @@ variable "namespace" {
   default = "fj-cait-production"
 }
 
-variable "business-unit" {
-  default = "Family Justice"
+variable "business_unit" {
+  default = "HQ"
 }
 
 variable "repo_name" {
