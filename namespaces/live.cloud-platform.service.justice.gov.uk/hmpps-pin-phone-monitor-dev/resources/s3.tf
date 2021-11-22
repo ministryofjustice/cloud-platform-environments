@@ -87,7 +87,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
               "51.149.251.0/24",
               "35.176.93.186/32"
             ]
-          }
+          },
+          "Bool" : { "aws:ViaAWSService" : "false" }
         }
       },
     ]
