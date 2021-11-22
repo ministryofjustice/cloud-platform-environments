@@ -7,7 +7,7 @@ module "poornima_staging_es" {
   infrastructure-support = var.infrastructure_support
   is-production          = var.is_production
   team_name              = var.team_name
-  elasticsearch-domain   = "poornima-staging-es"
+  elasticsearch-domain   = "pk-es"
   namespace              = var.namespace
   elasticsearch_version  = "6.8"
   instance_type          = "t2.small.elasticsearch"
