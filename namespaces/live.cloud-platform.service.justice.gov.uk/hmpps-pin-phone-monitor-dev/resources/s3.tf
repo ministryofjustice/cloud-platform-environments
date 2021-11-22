@@ -173,7 +173,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     id        = "transcript-creation-event-json"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_prefix = "transcripts/"
     filter_suffix = ".json"
   }
@@ -182,7 +182,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     id        = "transcript-creation-event-txt"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_prefix = "transcripts/"
     filter_suffix = ".txt"
   }
