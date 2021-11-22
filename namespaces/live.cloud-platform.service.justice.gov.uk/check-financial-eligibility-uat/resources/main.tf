@@ -25,5 +25,3 @@ provider "aws" {
 
 variable "cluster_name" {
 }
-
-
