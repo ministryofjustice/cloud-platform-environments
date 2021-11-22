@@ -1,5 +1,5 @@
 module "poornima_staging_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=update-roles"
   cluster_name           = var.cluster_name
   application            = var.application
   business-unit          = var.business_unit
