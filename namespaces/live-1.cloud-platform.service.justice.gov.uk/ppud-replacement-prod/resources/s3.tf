@@ -73,7 +73,7 @@ resource "kubernetes_secret" "manage_recalls_s3_bucket_prod" {
 ## Lumen Data Transfer - Used for the DB snapshot transfer
 ##
 
-module "lumen_db_transfer_s3_bucket" {
+module "lumen_transfer_s3_bucket_prod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
 
   team_name              = var.team_name
@@ -92,27 +92,27 @@ module "lumen_db_transfer_s3_bucket" {
   versioning = false
 }
 
-resource "kubernetes_secret" "lumen_db_transfer_s3_bucket" {
+resource "kubernetes_secret" "lumen_transfer_s3_bucket_prod" {
   metadata {
     name      = "lumen-db-transfer-s3-bucket"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.lumen_db_transfer_s3_bucket.access_key_id
-    secret_access_key = module.lumen_db_transfer_s3_bucket.secret_access_key
-    bucket_arn        = module.lumen_db_transfer_s3_bucket.bucket_arn
-    bucket_name       = module.lumen_db_transfer_s3_bucket.bucket_name
+    access_key_id     = module.lumen_transfer_s3_bucket_prod.access_key_id
+    secret_access_key = module.lumen_transfer_s3_bucket_prod.secret_access_key
+    bucket_arn        = module.lumen_transfer_s3_bucket_prod.bucket_arn
+    bucket_name       = module.lumen_transfer_s3_bucket_prod.bucket_name
   }
 }
 
-resource "aws_iam_instance_profile" "lumen_db_transfer_s3_iam_instance_profile" {
-  name = "lumen-db-transfer-s3-iam-instance-profile-${var.environment}"
-  role = aws_iam_role.lumen_db_transfer_s3_iam_role.id
+resource "aws_iam_instance_profile" "lumen_transfer_s3_iam_instance_profile" {
+  name = "lumen-transfer-s3-iam-instance-profile-prod"
+  role = aws_iam_role.lumen_transfer_s3_iam_role.id
 }
 
-resource "aws_iam_role" "lumen_db_transfer_s3_iam_role" {
-  name = "lumen-db-transfer-s3-iam-role-${var.environment}"
+resource "aws_iam_role" "lumen_transfer_s3_iam_role" {
+  name = "lumen-transfer-s3-iam-role-prod"
   path = "/"
 
   assume_role_policy = jsonencode({
@@ -129,9 +129,9 @@ resource "aws_iam_role" "lumen_db_transfer_s3_iam_role" {
   })
 }
 
-resource "aws_iam_role_policy" "lumen_db_transfer_s3_iam_role_policy" {
-  name = "lumen-db-transfer-s3-iam-role-policy-${var.environment}"
-  role = aws_iam_role.lumen_db_transfer_s3_iam_role.id
+resource "aws_iam_role_policy" "lumen_transfer_s3_iam_role_policy" {
+  name = "lumen-transfer-s3-iam-role-policy-prod"
+  role = aws_iam_role.lumen_transfer_s3_iam_role.id
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -142,7 +142,7 @@ resource "aws_iam_role_policy" "lumen_db_transfer_s3_iam_role_policy" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ],
-        Resource = module.lumen_db_transfer_s3_bucket.bucket_arn
+        Resource = module.lumen_transfer_s3_bucket_prod.bucket_arn
       },
       {
         Effect = "Allow",
@@ -152,7 +152,7 @@ resource "aws_iam_role_policy" "lumen_db_transfer_s3_iam_role_policy" {
           "s3:ListMultipartUploadParts",
           "s3:AbortMultipartUpload"
         ],
-        Resource = "${module.lumen_db_transfer_s3_bucket.bucket_arn}/*"
+        Resource = "${module.lumen_transfer_s3_bucket_prod.bucket_arn}/*"
       }
     ]
   })
