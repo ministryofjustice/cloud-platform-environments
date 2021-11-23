@@ -18,17 +18,3 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: dps-ingress-manager
-  namespace: hmpps-domain-events-preprod
-subjects:
-  - kind: ServiceAccount
-    name: dps-ingress-manager
-    namespace: dps-management-preprod
-roleRef:
-  kind: ClusterRole
-  name: dps-ingress-manager
-  apiGroup: rbac.authorization.k8s.io
