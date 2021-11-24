@@ -15,7 +15,7 @@ resource "random_id" "dms_rand" {
   byte_length = 8
 }
 
-# TODO: create this secret in preprod environment
+
 data "kubernetes_secret" "dms_impact_testing_secret" {
   metadata {
     name      = "dms-impact-testing-secret"
@@ -46,7 +46,7 @@ resource "aws_dms_endpoint" "source-prod-db" {
 
 resource "aws_dms_endpoint" "target-preprod-db" {
   endpoint_id                 = "${var.team_name}-target-wmt-preprod-${random_id.dms_rand.hex}"
-  endpoint_type               = "source"
+  endpoint_type               = "target"
   engine_name                 = data.kubernetes_secret.dms_impact_testing_secret.data.src_engine
   extra_connection_attributes = ""
   server_name                 = module.rds-live.rds_instance_address
@@ -118,5 +118,6 @@ resource "kubernetes_secret" "dms_impact_testing_instance" {
     source                   = aws_dms_endpoint.source-prod-db.endpoint_arn
     destination              = aws_dms_endpoint.target-preprod-db.endpoint_arn
     task                     = aws_dms_replication_task.replication_impact_testing_mastered_task.replication_task_arn
+    full_task                = aws_dms_replication_task.replication_impact_testing_full_task.replication_task_arn
   }
 }
