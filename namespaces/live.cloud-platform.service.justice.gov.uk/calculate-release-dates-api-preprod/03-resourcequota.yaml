@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: calculate-release-dates-api-preprod
+spec:
+  hard:
+    pods: "50"
