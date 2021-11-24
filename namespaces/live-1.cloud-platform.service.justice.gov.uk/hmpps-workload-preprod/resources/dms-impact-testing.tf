@@ -11,6 +11,10 @@ module "hmpps-workload-impact-testing-dms" {
   team_name              = var.team_name
 }
 
+resource "random_id" "dms_rand" {
+  byte_length = 8
+}
+
 # TODO: create this secret in preprod environment
 data "kubernetes_secret" "dms_impact_testing_secret" {
   metadata {
@@ -22,14 +26,14 @@ data "kubernetes_secret" "dms_impact_testing_secret" {
 resource "aws_dms_endpoint" "source-prod-db" {
   endpoint_id                 = "${var.team_name}-src-wmt-prod-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
+  engine_name                 = data.kubernetes_secret.dms_impact_testing_secret.data.src_engine
   extra_connection_attributes = ""
-  server_name                 = data.kubernetes_secret.dms_secret.data.src_addr
-  database_name               = data.kubernetes_secret.dms_secret.data.src_database
-  username                    = data.kubernetes_secret.dms_secret.data.src_user
-  password                    = data.kubernetes_secret.dms_secret.data.src_pass
-  port                        = data.kubernetes_secret.dms_secret.data.src_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
+  server_name                 = data.kubernetes_secret.dms_impact_testing_secret.data.src_addr
+  database_name               = data.kubernetes_secret.dms_impact_testing_secret.data.src_database
+  username                    = data.kubernetes_secret.dms_impact_testing_secret.data.src_user
+  password                    = data.kubernetes_secret.dms_impact_testing_secret.data.src_pass
+  port                        = data.kubernetes_secret.dms_impact_testing_secret.data.src_port
+  ssl_mode                    = data.kubernetes_secret.dms_impact_testing_secret.data.src_ssl
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
@@ -43,14 +47,14 @@ resource "aws_dms_endpoint" "source-prod-db" {
 resource "aws_dms_endpoint" "target-preprod-db" {
   endpoint_id                 = "${var.team_name}-target-wmt-preprod-${random_id.dms_rand.hex}"
   endpoint_type               = "source"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
+  engine_name                 = data.kubernetes_secret.dms_impact_testing_secret.data.src_engine
   extra_connection_attributes = ""
   server_name                 = module.rds-live.rds_instance_address
   database_name               = module.rds-live.database_name
   username                    = module.rds-live.database_username
   password                    = module.rds-live.database_password
   port                        = module.rds-live.rds_instance_port
-  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
+  ssl_mode                    = data.kubernetes_secret.dms_impact_testing_secret.data.src_ssl
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
