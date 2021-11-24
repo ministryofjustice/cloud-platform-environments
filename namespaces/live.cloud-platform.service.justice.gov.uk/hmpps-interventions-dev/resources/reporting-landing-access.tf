@@ -2,7 +2,7 @@ module "reporting_irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.2"
   namespace        = var.namespace
   role_policy_arns = [aws_iam_policy.ndmis_policy.arn]
-  service_account  = "to-ndmis-s3-service-account"
+  service_account  = "${var.namespace}-to-ndmis-s3"
 }
 
 resource "aws_iam_policy" "ndmis_policy" {
