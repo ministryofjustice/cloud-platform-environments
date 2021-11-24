@@ -1,3 +1,15 @@
+module "reporting_irsa" {
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.2"
+  namespace        = var.namespace
+  role_policy_arns = [aws_iam_policy.ndmis_policy.arn]
+  service_account  = "to-ndmis-s3-service-account"
+}
+
+resource "aws_iam_policy" "ndmis_policy" {
+  name   = "${var.namespace}-ndmis-policy"
+  policy = data.aws_iam_policy_document.reporting_access.json
+}
+
 data "aws_iam_policy_document" "reporting_access" {
   statement {
     sid = "AllowDataExportUserToListS3Buckets"
@@ -60,5 +72,17 @@ resource "kubernetes_secret" "reporting_aws_secret" {
     access_key_id      = aws_iam_access_key.reporting_user.id
     secret_access_key  = aws_iam_access_key.reporting_user.secret
     bucket_name        = "eu-west-2-delius-mis-dev-dfi-extracts"
+  }
+}
+
+resource "kubernetes_secret" "reporting_irsa" {
+  metadata {
+    name      = "to-ndmis-s3-irsa"
+    namespace = var.namespace
+  }
+
+  data = {
+    role           = module.reporting_irsa.aws_iam_role_name
+    serviceaccount = module.reporting_irsa.service_account_name.name
   }
 }
