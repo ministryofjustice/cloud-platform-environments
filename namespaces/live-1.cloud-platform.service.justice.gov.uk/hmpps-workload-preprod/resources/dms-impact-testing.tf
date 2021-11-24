@@ -68,7 +68,7 @@ resource "aws_dms_endpoint" "target-preprod-db" {
 resource "aws_dms_replication_task" "replication_impact_testing_mastered_task" {
   migration_type           = "full-load"
   replication_instance_arn = module.hmpps-workload-impact-testing-dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-${random_id.dms_rand.hex}"
+  replication_task_id      = "${var.team_name}-repl-impact-testing-${random_id.dms_rand.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source-prod-db.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target-preprod-db.endpoint_arn
@@ -88,7 +88,7 @@ resource "aws_dms_replication_task" "replication_impact_testing_mastered_task" {
 resource "aws_dms_replication_task" "replication_impact_testing_full_task" {
   migration_type           = "full-load"
   replication_instance_arn = module.hmpps-workload-impact-testing-dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-${random_id.dms_rand.hex}"
+  replication_task_id      = "${var.team_name}-repl-impact-full-${random_id.dms_rand.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source-prod-db.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target-preprod-db.endpoint_arn
