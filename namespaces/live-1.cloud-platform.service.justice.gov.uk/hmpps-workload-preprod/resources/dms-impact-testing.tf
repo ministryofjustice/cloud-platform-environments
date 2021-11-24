@@ -93,7 +93,7 @@ resource "aws_dms_replication_task" "replication_impact_testing_full_task" {
   source_endpoint_arn = aws_dms_endpoint.source-prod-db.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target-preprod-db.endpoint_arn
 
-  table_mappings            = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"app\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
+  table_mappings            = trimspace(file("settings/dms-table-mappings-full.json"))
   replication_task_settings = trimspace(file("settings/dms-replication-task-settings.json"))
 
   tags = {
