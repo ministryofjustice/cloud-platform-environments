@@ -41,7 +41,7 @@ resource "kubernetes_secret" "dps_rds" {
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
     name      = "dps-rds-instance-output-preprod"
-    namespace = "offender-case-notes-prod"
+    namespace = var.namespace
   }
 
   data = {
