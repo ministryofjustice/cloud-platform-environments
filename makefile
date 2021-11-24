@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:1.31
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:1.43
 
 namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml
 	./bin/namespace-reporter.rb -o json -n '.*' > namespace-report.json
@@ -13,14 +13,14 @@ pull-tools:
 # Make sure you have the below env variables set before launching the tools shell
 # AWS_PROFILE, AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, KOPS_STATE_STORE
 tools-shell:
-	docker pull $(TOOLS_IMAGE)
-	docker run --rm -it \
-    -e AWS_PROFILE=$${AWS_PROFILE} \
-    -e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
-    -e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
-    -e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
-    -e KOPS_STATE_STORE=$${KOPS_STATE_STORE} \
-	-e KUBE_CONFIG_PATH=~/.kube/config \
+	docker pull --platform=linux/amd64 $(TOOLS_IMAGE)
+	docker run --platform=linux/amd64 --rm -it \
+		-e AWS_PROFILE=$${AWS_PROFILE} \
+		-e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
+		-e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
+		-e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
+		-e KOPS_STATE_STORE=$${KOPS_STATE_STORE} \
+		-e KUBE_CONFIG_PATH=~/.kube/config \
 		-v $$(pwd):/app \
 		-v $${HOME}/.aws:/root/.aws \
 		-v $${HOME}/.gnupg:/root/.gnupg \

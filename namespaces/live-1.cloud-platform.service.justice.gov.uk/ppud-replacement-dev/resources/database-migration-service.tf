@@ -101,12 +101,16 @@ resource "aws_dms_endpoint" "target" {
   }
 }
 
+locals {
+  replication_task_id = "${var.team_name}-repl-${random_id.id.hex}"
+}
+
 resource "aws_dms_replication_task" "replication_task" {
   # two values make sense here: full-load or full-load-and-cdc; see https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html for details
   # most notably, Azure SQL does not support CDC
   migration_type           = "full-load-and-cdc"
   replication_instance_arn = module.ppud_dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
+  replication_task_id      = local.replication_task_id
 
   source_endpoint_arn = aws_dms_endpoint.source.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target.endpoint_arn
@@ -115,7 +119,9 @@ resource "aws_dms_replication_task" "replication_task" {
   replication_task_settings = ""
 
   # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
-  lifecycle { ignore_changes = ["replication_task_settings"] }
+  lifecycle {
+    ignore_changes = [replication_task_settings]
+  }
 
   tags = {
     Name        = "${var.team_name} Replication Task"
@@ -138,6 +144,7 @@ resource "kubernetes_secret" "dms_instance" {
     secret_access_key        = module.ppud_dms.secret_access_key
     source                   = aws_dms_endpoint.source.endpoint_arn
     destination              = aws_dms_endpoint.target.endpoint_arn
-    task                     = aws_dms_replication_task.replication_task.replication_task_arn
+    replication_task_arn     = aws_dms_replication_task.replication_task.replication_task_arn
+    replication_task_id      = local.replication_task_id
   }
 }

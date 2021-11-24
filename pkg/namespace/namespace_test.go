@@ -190,3 +190,125 @@ func TestGetAllNamespaces(t *testing.T) {
 		})
 	}
 }
+
+func TestGetProductionNamespaces(t *testing.T) {
+	type args struct {
+		ns AllNamespaces
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantNamespaces []string
+		wantErr        bool
+	}{
+		{
+			name: "Expect to return correct slice of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{
+						{
+							Name:           "namespace-dev",
+							DeploymentType: "dev",
+						},
+						{
+							Name:           "namespace-prod",
+							DeploymentType: "prod",
+						},
+						{
+							Name:           "namespace-live",
+							DeploymentType: "live-ns",
+						},
+						{
+							Name:           "namespace-production",
+							DeploymentType: "PRoDucTion",
+						},
+					},
+				},
+			},
+			wantNamespaces: []string{"namespace-prod", "namespace-live", "namespace-production"},
+			wantErr:        false,
+		},
+		{
+			name: "Pass empty list of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{},
+				},
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotNamespaces, err := GetProductionNamespaces(tt.args.ns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetProductionNamespaces() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotNamespaces, tt.wantNamespaces) {
+				t.Errorf("GetProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
+			}
+		})
+	}
+}
+
+func TestGetNonProductionNamespaces(t *testing.T) {
+	type args struct {
+		ns AllNamespaces
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantNamespaces []string
+		wantErr        bool
+	}{
+		{
+			name: "Expect to return correct slice of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{
+						{
+							Name:           "namespace-dev",
+							DeploymentType: "dev",
+						},
+						{
+							Name:           "namespace-prod",
+							DeploymentType: "prod",
+						},
+						{
+							Name:           "namespace-test",
+							DeploymentType: "test",
+						},
+						{
+							Name:           "namespace-somethingelse",
+							DeploymentType: "RANdoMChAr",
+						},
+					},
+				},
+			},
+			wantNamespaces: []string{"namespace-dev", "namespace-test", "namespace-somethingelse"},
+			wantErr:        false,
+		},
+		{
+			name: "Pass empty list of namespaces",
+			args: args{
+				ns: AllNamespaces{
+					Namespaces: []Namespace{},
+				},
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotNamespaces, err := GetNonProductionNamespaces(tt.args.ns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetNonProductionNamespaces() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotNamespaces, tt.wantNamespaces) {
+				t.Errorf("GetNonProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
+			}
+		})
+	}
+}

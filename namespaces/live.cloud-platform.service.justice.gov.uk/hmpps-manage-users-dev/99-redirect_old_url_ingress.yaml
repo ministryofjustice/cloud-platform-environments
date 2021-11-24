@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/custom-http-errors: "418"
+    nginx.ingress.kubernetes.io/rewrite-target: https://manage-users-dev.hmpps.service.justice.gov.uk/$1
+    external-dns.alpha.kubernetes.io/set-identifier: manage-users-redirect-old-url-dev-hmpps-manage-users-dev-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  labels:
+    app: hmpps-manage-users-dev
+  name: manage-users-redirect-old-url-dev
+  namespace: hmpps-manage-users-dev
+spec:
+  rules:
+  - host: manage-hmpps-auth-accounts-dev.prison.service.justice.gov.uk
+    http:
+      paths:
+      - backend:
+          serviceName: hmpps-manage-users-dev
+          servicePort: http
+        path: /(.*)
+  tls:
+  - hosts:
+    - manage-hmpps-auth-accounts-dev.prison.service.justice.gov.uk
+    secretName: manage-hmpps-auth-accounts-cert

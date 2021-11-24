@@ -1,0 +1,52 @@
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-stage
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-stage
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-stage.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-dev
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-dev
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-dev.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-preprod
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-preprod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-preprod.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-api-prod
+  namespace: prison-api-certificates
+spec:
+  secretName: prison-api-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api.prison.service.justice.gov.uk

@@ -9,6 +9,8 @@ module "hmpps_tier_event_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  delay_seconds             = 2
+  receive_wait_time_seconds = 20
 
   redrive_policy = <<EOF
   {
@@ -65,36 +67,6 @@ module "hmpps_tier_event_dead_letter_queue" {
 
   providers = {
     aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_event_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_event_queue.access_key_id
-    secret_access_key = module.hmpps_tier_event_queue.secret_access_key
-    sqs_id            = module.hmpps_tier_event_queue.sqs_id
-    sqs_arn           = module.hmpps_tier_event_queue.sqs_arn
-    sqs_name          = module.hmpps_tier_event_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_event_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-dl-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_event_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_event_dead_letter_queue.secret_access_key
-    sqs_id            = module.hmpps_tier_event_dead_letter_queue.sqs_id
-    sqs_arn           = module.hmpps_tier_event_dead_letter_queue.sqs_arn
-    sqs_name          = module.hmpps_tier_event_dead_letter_queue.sqs_name
   }
 }
 

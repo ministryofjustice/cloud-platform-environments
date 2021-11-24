@@ -9,6 +9,8 @@ module "hmpps_tier_offender_events_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  delay_seconds             = 2
+  receive_wait_time_seconds = 20
 
   redrive_policy = <<EOF
   {
@@ -65,64 +67,6 @@ module "hmpps_tier_offender_events_dead_letter_queue" {
 
   providers = {
     aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_offender_events_queue" {
-  metadata {
-    name      = "hmpps-tier-offender-events-sqs-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_offender_events_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_queue.secret_access_key
-    sqs_ptpu_url      = module.hmpps_tier_offender_events_queue.sqs_id
-    sqs_ptpu_arn      = module.hmpps_tier_offender_events_queue.sqs_arn
-    sqs_ptpu_name     = module.hmpps_tier_offender_events_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_offender_events_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-tier-offender-events-sqs-dl-instance-output"
-    namespace = "hmpps-tier-dev"
-  }
-  data = {
-    access_key_id     = module.hmpps_tier_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_dead_letter_queue.secret_access_key
-    sqs_ptpu_url      = module.hmpps_tier_offender_events_dead_letter_queue.sqs_id
-    sqs_ptpu_arn      = module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn
-    sqs_ptpu_name     = module.hmpps_tier_offender_events_dead_letter_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-tool-main-queue"
-    namespace = "hmpps-tier-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_offender_events_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_offender_events_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_offender_events_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_offender_events_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_sqs_tool_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-tool-dead-letter-queue"
-    namespace = "hmpps-tier-dev"
-  }
-  data = {
-    access_key_id     = module.hmpps_tier_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_offender_events_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_offender_events_dead_letter_queue.sqs_name
   }
 }
 

@@ -1,0 +1,27 @@
+---
+# Source: formbuilder-platform/templates/01-rbac.yaml
+# auto-generated from fb-cloud-platforms-environments
+# Bind admin role for namespace to team group
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: formbuilder-platform-test-dev-admins
+  namespace: formbuilder-platform-test-dev
+subjects:
+  - kind: Group
+    name: "github:form-builder"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: formbuilder-service-token-cache-test-dev
+    namespace: formbuilder-platform-test-dev
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+
+# Further roles defined in:
+# - service-token-cache-service-account.yaml
+# - submitter-workers-service-account.yaml
+# - user-datastore-service-account.yaml
+

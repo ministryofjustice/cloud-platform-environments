@@ -22,7 +22,9 @@ data "aws_iam_policy_document" "reporting_access" {
 
     resources = [
       "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/dfinterventions/dfi/*",
-      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/dfinterventions/dfi/"
+      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/dfinterventions/dfi/",
+      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/exports/csv/reports/*",
+      "arn:aws:s3:::eu-west-2-delius-mis-dev-dfi-extracts/exports/csv/reports/"
     ]
   }
 }
@@ -57,5 +59,6 @@ resource "kubernetes_secret" "reporting_aws_secret" {
     user_arn           = aws_iam_user.reporting_user.arn
     access_key_id      = aws_iam_access_key.reporting_user.id
     secret_access_key  = aws_iam_access_key.reporting_user.secret
+    bucket_name        = "eu-west-2-delius-mis-dev-dfi-extracts"
   }
 }

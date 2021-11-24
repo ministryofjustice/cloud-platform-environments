@@ -15,7 +15,6 @@ import (
 	"golang.org/x/oauth2"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
 )
 
 // GitHubClient takes a GitHub personal access key as a string and builds
@@ -65,7 +64,7 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	}
 
 	data := buff.Bytes()
-	err = ioutil.WriteFile(filepath.Join(homedir.HomeDir(), ".kube", "config"), data, 0644)
+	err = ioutil.WriteFile(filepath.Join("/", "tmp", "config"), data, 0644)
 	if err != nil {
 		return err
 	}
@@ -97,7 +96,7 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 // i.e. live-1.cloud-platform.service.justice.gov.uk and calls two other functions in this package to return a client
 // Kubernetes clientset.
 func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
-	configFileLocation := filepath.Join(homedir.HomeDir(), ".kube", "config")
+	configFileLocation := filepath.Join("/", "tmp", "config")
 	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
 	if err != nil {
 		return nil, err

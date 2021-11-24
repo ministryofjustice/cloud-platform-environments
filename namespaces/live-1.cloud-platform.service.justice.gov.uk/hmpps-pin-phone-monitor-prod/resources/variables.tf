@@ -1,9 +1,9 @@
 variable "domain" {
-  default = "pin-phone-monitor.prison.service.justice.gov.uk"
+  default = "pcms.prison.service.justice.gov.uk"
 }
 
 variable "application" {
-  default = "hmpps-pin-phone-monitor"
+  default = "hmpps-prisoner-communication-monitoring"
 }
 
 variable "namespace" {

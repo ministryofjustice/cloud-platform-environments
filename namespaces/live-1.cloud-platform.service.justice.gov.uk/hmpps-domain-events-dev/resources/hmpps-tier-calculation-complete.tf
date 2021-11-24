@@ -12,6 +12,7 @@ module "hmpps_tier_calculation_complete_queue" {
   message_retention_seconds = 1209600
   namespace                 = var.namespace
   delay_seconds             = 2
+  receive_wait_time_seconds = 20
 
   redrive_policy = <<EOF
   {
@@ -68,66 +69,6 @@ module "hmpps_tier_calculation_complete_dead_letter_queue" {
 
   providers = {
     aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
-  metadata {
-    name      = "sqs-tier-to-delius-update-secret"
-    namespace = "hmpps-tier-to-delius-update-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_calculation_complete_queue.access_key_id
-    secret_access_key = module.hmpps_tier_calculation_complete_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_calculation_complete_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_calculation_complete_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_calculation_complete_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue" {
-  metadata {
-    name      = "sqs-tier-to-delius-update-dl-secret"
-    namespace = "hmpps-tier-to-delius-update-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_calculation_complete_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_calculation_complete_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_sqs_tool_main_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-tool-main-queue"
-    namespace = "hmpps-tier-to-delius-update-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_calculation_complete_queue.access_key_id
-    secret_access_key = module.hmpps_tier_calculation_complete_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_calculation_complete_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_calculation_complete_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_calculation_complete_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_tier_sqs_tool_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-tier-sqs-tool-dead-letter-queue"
-    namespace = "hmpps-tier-to-delius-update-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps_tier_calculation_complete_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_calculation_complete_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_calculation_complete_dead_letter_queue.sqs_name
   }
 }
 

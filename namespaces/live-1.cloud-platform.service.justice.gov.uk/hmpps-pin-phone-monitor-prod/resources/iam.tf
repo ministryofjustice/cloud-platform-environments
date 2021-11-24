@@ -43,16 +43,16 @@ resource "aws_iam_user_policy" "bt_upload_policy" {
   user   = aws_iam_user.bt_upload_user.name
 }
 
-resource "kubernetes_secret" "hmpps_pin_phone_monitor_bt_upload_user" {
+resource "kubernetes_secret" "pcms_bt_upload_user" {
   metadata {
-    name      = "hmpps-pin-phone-monitor-bt-upload-user-prod"
+    name      = "pcms-bt-upload-user-prod"
     namespace = var.namespace
   }
 
   data = {
-    hmpps_pin_phone_monitor_upload_user_arn               = aws_iam_user.bt_upload_user.arn
-    hmpps_pin_phone_monitor_upload_user_access_key_id     = aws_iam_access_key.bt_upload_user_key.id
-    hmpps_pin_phone_monitor_upload_user_secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
+    arn               = aws_iam_user.bt_upload_user.arn
+    access_key_id     = aws_iam_access_key.bt_upload_user_key.id
+    secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
   }
 }
 
