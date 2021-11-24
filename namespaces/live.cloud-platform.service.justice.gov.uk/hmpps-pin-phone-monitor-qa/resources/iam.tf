@@ -55,7 +55,6 @@ resource "kubernetes_secret" "pcms_bt_upload_user" {
     secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
   }
 }
-
 resource "random_id" "upload" {
   byte_length = 8
 }
