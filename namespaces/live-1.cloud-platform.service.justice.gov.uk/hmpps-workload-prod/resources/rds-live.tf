@@ -20,7 +20,7 @@ module "rds-live" {
   rds_family    = "postgres11"
   backup_window = "02:00-03:00"
 
-  db_allocated_storage        = "59"
+  db_allocated_storage = "59"
 
   snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2021-11-25-02-13"
 
