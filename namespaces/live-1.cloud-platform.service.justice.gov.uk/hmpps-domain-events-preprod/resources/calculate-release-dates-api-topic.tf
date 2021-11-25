@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps-restricted-patients-api-topic" {
+resource "kubernetes_secret" "calculate-release-dates-api-topic" {
   metadata {
     name      = "hmpps-domain-events-topic"
     namespace = "calculate-release-dates-api-preprod"
