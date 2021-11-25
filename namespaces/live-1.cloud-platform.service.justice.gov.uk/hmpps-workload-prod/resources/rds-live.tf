@@ -20,6 +20,8 @@ module "rds-live" {
   rds_family    = "postgres11"
   backup_window = "02:00-03:00"
 
+  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2021-11-25-02-13"
+
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
