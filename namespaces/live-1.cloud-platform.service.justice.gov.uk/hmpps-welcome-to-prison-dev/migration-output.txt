@@ -1,0 +1,3 @@
+[0;32m
+Namespace hmpps-welcome-to-prison-dev was successfully migrated to live folder
+[0m
