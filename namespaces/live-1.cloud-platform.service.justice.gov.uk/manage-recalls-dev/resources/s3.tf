@@ -6,7 +6,6 @@
 module "manage_recalls_api_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
 
-  bucket_name            = "manage-recalls-${var.environment}-doc-store"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
