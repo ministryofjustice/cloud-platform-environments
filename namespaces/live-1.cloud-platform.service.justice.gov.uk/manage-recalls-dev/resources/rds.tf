@@ -19,7 +19,7 @@ module "manage_recalls_api_rds" {
   db_engine         = "postgres"
   db_engine_version = "13"
   db_instance_class = "db.t3.small"
-  db_name           = "manage-recalls"
+  db_name           = "manage_recalls"
 
   providers = {
     aws = aws.london
