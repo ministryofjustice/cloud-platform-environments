@@ -5,7 +5,7 @@ variable "cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Manage a Recall (MaR)"
+  default     = "Manage a Recall"
 }
 
 variable "namespace" {
