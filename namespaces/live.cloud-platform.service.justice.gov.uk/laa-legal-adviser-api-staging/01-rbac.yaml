@@ -1,12 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-welcome-to-prison-dev-admin
-  namespace: hmpps-welcome-to-prison-dev
+  name: laa-legal-adviser-api-staging-admin
+  namespace: laa-legal-adviser-api-staging
 subjects:
   - kind: Group
-    name: "github:dps-shared"
+    name: "github:laa-get-access"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

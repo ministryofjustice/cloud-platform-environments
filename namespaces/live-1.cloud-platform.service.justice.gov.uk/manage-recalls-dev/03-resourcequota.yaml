@@ -1,9 +1,8 @@
----
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-welcome-to-prison-dev
+  namespace: manage-recalls-dev
 spec:
   hard:
     pods: "50"

@@ -2,24 +2,29 @@
 variable "cluster_name" {
 }
 
+variable "cluster_state_bucket" {
+}
+
+variable "kubernetes_cluster" {
+}
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "hmpps-welcome-to-prison"
+  default     = "hello-world-ruby-app"
 }
 
 variable "namespace" {
-  default = "hmpps-welcome-to-prison-dev"
+  default = "dex-alistair-helloworld"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "HMPPS"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps_shared"
+  default     = "dex-engage"
 }
 
 variable "environment" {
@@ -29,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "dex-engage@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -38,9 +43,15 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps_shared"
+  default     = "dex-engage"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the Github Terraform provider"
+  default     = ""
 }
