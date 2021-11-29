@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "dex-engage"
     cloud-platform.justice.gov.uk/application: "hello-cloud-app"
     cloud-platform.justice.gov.uk/owner: "dex-engage: dex-engage@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/roncitrus/hello-cloud-testapp"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/team-name: "dex-engage"
     cloud-platform.justice.gov.uk/review-after: "2022-02-26"
