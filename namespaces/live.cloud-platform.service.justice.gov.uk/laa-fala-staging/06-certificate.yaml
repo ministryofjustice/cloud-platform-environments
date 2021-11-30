@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: fala-staging-cert
+  namespace: laa-fala-staging
+spec:
+  secretName: fala-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staging.find-legal-advice.justice.gov.uk
