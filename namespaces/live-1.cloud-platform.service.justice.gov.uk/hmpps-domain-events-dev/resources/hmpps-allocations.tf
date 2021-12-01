@@ -79,33 +79,3 @@ resource "aws_sns_topic_subscription" "hmpps_allocation_required_subscription" {
   filter_policy = "{\"eventType\":[\"ALLOCATION_REQUIRED\"]}"
 }
 
-
-resource "kubernetes_secret" "hmpps_allocation_required_queue_for_domain_events" {
-  metadata {
-    name      = "hmpps-allocation-required-queue-for-domain-events-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.hmpps_allocation_required_queue.access_key_id
-    secret_access_key = module.hmpps_allocation_required_queue.secret_access_key
-    sqs_queue_url        = module.hmpps_allocation_required_queue.sqs_id
-    sqs_queue_arn        = module.hmpps_allocation_required_queue.sqs_arn
-    sqs_queue_name       = module.hmpps_allocation_required_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "hmpps_allocation_required_queue_for_domain_events_dead_letter_queue" {
-  metadata {
-    name      = "hmpps-allocation-required-queue-for-domain-events-dl-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.hmpps_allocation_required_queue_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_allocation_required_queue_dead_letter_queue.secret_access_key
-    sqs_queue_url        = module.hmpps_allocation_required_queue_dead_letter_queue.sqs_id
-    sqs_queue_arn        = module.hmpps_allocation_required_queue_dead_letter_queue.sqs_arn
-    sqs_queue_name       = module.hmpps_allocation_required_queue_dead_letter_queue.sqs_name
-  }
-}
