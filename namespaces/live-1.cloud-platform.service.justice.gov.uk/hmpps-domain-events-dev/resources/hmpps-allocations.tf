@@ -78,3 +78,4 @@ resource "aws_sns_topic_subscription" "hmpps_allocation_required_subscription" {
   endpoint      = module.hmpps_allocation_required_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"ALLOCATION_REQUIRED\"]}"
 }
+
