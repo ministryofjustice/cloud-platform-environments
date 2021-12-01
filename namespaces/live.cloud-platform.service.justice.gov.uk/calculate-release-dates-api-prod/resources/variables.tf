@@ -24,7 +24,7 @@ variable "team_name" {
   default     = "farsight-devs"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
