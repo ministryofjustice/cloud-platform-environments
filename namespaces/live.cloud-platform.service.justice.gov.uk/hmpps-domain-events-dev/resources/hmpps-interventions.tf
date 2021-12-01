@@ -1,9 +1,7 @@
 resource "kubernetes_secret" "intervention_global_events_sns" {
   metadata {
     name      = "hmpps-domain-events-topic"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-interventions-dev"
+    namespace = "hmpps-interventions-dev"
   }
 
   data = {
@@ -100,9 +98,7 @@ resource "aws_sns_topic_subscription" "hmpps-delius-interventions-event-listener
 resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-queue-secret" {
   metadata {
     name      = "hmpps-delius-interventions-event-listener-queue"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-interventions-dev"
+    namespace = "hmpps-interventions-dev"
   }
 
   data = {
@@ -118,9 +114,7 @@ resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-queue-se
 resource "kubernetes_secret" "hmpps-delius-interventions-event-listener-dlq-secret" {
   metadata {
     name      = "hmpps-delius-interventions-event-listener-dlq"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-interventions-dev"
+    namespace = "hmpps-interventions-dev"
   }
 
   data = {
