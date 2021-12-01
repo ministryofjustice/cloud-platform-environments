@@ -25,7 +25,7 @@ resource "kubernetes_secret" "offender_events" {
 resource "kubernetes_secret" "offender_case_notes" {
   metadata {
     name      = "offender-events-topic"
-    namespace = "offender-case-notes-dev"
+    namespace = "offender-case-notes-preprod"
   }
 
   data = {
@@ -41,7 +41,7 @@ resource "kubernetes_secret" "prison-data-compliance" {
     namespace = var.namespace
     # Remove when namespace has been migrated
     # name      = "offender-events-topic"
-    # namespace = "prison-data-compliance-dev"
+    # namespace = "prison-data-compliance-preprod"
   }
 
   data = {
@@ -92,4 +92,3 @@ resource "kubernetes_secret" "offender_assessments_events" {
     topic_arn         = module.offender_assessments_events.topic_arn
   }
 }
-
