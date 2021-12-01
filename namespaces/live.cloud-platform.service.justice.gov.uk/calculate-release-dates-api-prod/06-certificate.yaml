@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: calculate-release-dates-api-prod-cert
+  namespace: calculate-release-dates-api-prod
+spec:
+  secretName: calculate-release-dates-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - calculate-release-dates-api.hmpps.service.justice.gov.uk
