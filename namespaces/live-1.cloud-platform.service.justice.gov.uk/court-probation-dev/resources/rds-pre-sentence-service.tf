@@ -9,7 +9,8 @@ module "pre_sentence_service_rds" {
   infrastructure-support      = var.infrastructure-support
   rds_family                  = "postgres13"
   db_engine_version           = "13.3"
-  allow_major_version_upgrade = true
+  db_instance_class           = "db.t3.small"
+  allow_major_version_upgrade = false
 
   providers = {
     aws = aws.london
