@@ -1,8 +1,9 @@
 resource "kubernetes_secret" "hmpps-allocations" {
   metadata {
-    name      = "hmpps-domain-events-topic"
+    name      = "hmpps-domain-events-topic-hmpps-allocations"
     namespace = var.namespace
     # Remove when namespace has been migrated
+    # name      = "hmpps-domain-events-topic"
     # namespace = "workforce-management-preprod"
   }
 

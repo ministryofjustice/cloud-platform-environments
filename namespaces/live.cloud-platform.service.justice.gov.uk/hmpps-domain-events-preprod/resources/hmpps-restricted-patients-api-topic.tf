@@ -1,8 +1,9 @@
 resource "kubernetes_secret" "hmpps-restricted-patients-api-topic" {
   metadata {
-    name      = "hmpps-domain-events-topic"
+    name      = "hmpps-domain-events-topic-hmpps-restricted-patients-api"
     namespace = var.namespace
     # Remove when namespace has been migrated
+    # name      = "hmpps-domain-events-topic"
     # namespace = "hmpps-restricted-patients-api-preprod"
   }
 
