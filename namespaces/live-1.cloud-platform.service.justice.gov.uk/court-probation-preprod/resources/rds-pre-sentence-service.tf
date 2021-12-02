@@ -1,14 +1,16 @@
 module "pre_sentence_service_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
-  cluster_name           = var.cluster_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  namespace              = var.namespace
-  application            = "pre-sentence-service"
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  rds_family             = var.rds-family
-  db_engine_version      = var.db_engine_version
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  cluster_name                = var.cluster_name
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  namespace                   = var.namespace
+  application                 = "pre-sentence-service"
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  rds_family                  = "postgres13"
+  db_instance_class           = "db.t3.small"
+  db_engine_version           = "13.3"
+  allow_major_version_upgrade = false
 
   providers = {
     aws = aws.london
@@ -32,5 +34,3 @@ resource "kubernetes_secret" "pre_sentence_service_rds" {
     secret_access_key     = module.pre_sentence_service_rds.secret_access_key
   }
 }
-
-
