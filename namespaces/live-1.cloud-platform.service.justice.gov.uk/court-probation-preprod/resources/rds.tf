@@ -11,10 +11,10 @@ module "court_case_service_rds" {
   application                 = var.application
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
-  rds_family                  = var.rds-family
-  db_engine_version           = var.db_engine_version
-  allow_major_version_upgrade = true
-  db_instance_class           = "db.t3.xlarge"
+  allow_major_version_upgrade = false
+  db_engine_version           = "13.3"
+  db_instance_class           = "db.t3.small"
+  rds_family                  = "postgres13"
 
 
   providers = {
