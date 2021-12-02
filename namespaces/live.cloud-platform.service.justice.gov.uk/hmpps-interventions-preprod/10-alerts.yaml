@@ -27,15 +27,6 @@ spec:
       for: 10m
       labels:
         severity: hmpps-interventions-non-prod
-    - alert: ErrorResponses
-      annotations:
-        message: Ingress {{ $labels.namespace }}/{{ $labels.ingress }} is serving 5xx responses
-        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/IC/pages/3386179786/Recovery+scenarios#AlertManager-says-ingress-is-serving-5xx-responses
-      expr: |-
-        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="hmpps-interventions-preprod", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
-      for: 1m
-      labels:
-        severity: hmpps-interventions-non-prod
     - alert: KubeJobFailed
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete
