@@ -81,7 +81,7 @@ resource "aws_sns_topic_subscription" "hmpps_tier_calculation_allocation_subscri
 
 resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain_events" {
   metadata {
-    name      = "hmpps-tier-calculation-allocation-queue-for-domain-events-instance-output"
+    name = "hmpps-tier-calculation-allocation-queue-for-domain-events-instance-output"
     # Remove once domain events migrated. Not Migrated to live yet. Remove name above when migrating
     #name = "sqs-tier-calculation-secret"
     # namespace = "workforce-management-preprod"
@@ -99,7 +99,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain
 
 resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain_events_dead_letter_queue" {
   metadata {
-    name      = "hmpps-tier-calculation-allocation-queue-for-domain-events-dl-instance-output"
+    name = "hmpps-tier-calculation-allocation-queue-for-domain-events-dl-instance-output"
     # Remove once domain events migrated. Not Migrated to live yet. Remove name above when migrating
     #name = "sqs-tier-calculation-dl-secret"
     # namespace = "workforce-management-preprod"
