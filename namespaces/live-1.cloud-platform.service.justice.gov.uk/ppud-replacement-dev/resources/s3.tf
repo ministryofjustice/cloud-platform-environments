@@ -4,7 +4,7 @@
 
 # Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
 module "manage_recalls_s3_bucket_dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -41,7 +41,7 @@ resource "kubernetes_secret" "manage_recalls_s3_bucket_dev" {
 ##
 
 module "lumen_transfer_s3_bucket_dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -131,7 +131,7 @@ resource "aws_iam_role_policy" "lumen_transfer_s3_iam_role_policy" {
 ##
 
 module "lumen_document_store" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
 
   team_name              = var.team_name
   business-unit          = var.business_unit

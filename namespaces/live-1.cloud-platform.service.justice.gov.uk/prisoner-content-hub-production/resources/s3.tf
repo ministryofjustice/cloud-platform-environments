@@ -1,5 +1,5 @@
 module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
 
   team_name              = var.team_name
   versioning             = true

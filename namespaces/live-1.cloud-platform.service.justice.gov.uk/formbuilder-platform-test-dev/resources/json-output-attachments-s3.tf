@@ -1,5 +1,5 @@
 module "json-output-attachments-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
 
   team_name              = var.team_name
   acl                    = "private"
