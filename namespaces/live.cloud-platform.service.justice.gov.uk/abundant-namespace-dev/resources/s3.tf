@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=fix-policy-change"
   acl    = "private"
 
   team_name              = var.team_name
@@ -9,6 +9,7 @@ module "s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = true
 
   providers = {
     aws = aws.london
