@@ -33,7 +33,7 @@ module "ppud_replica_dev_rds" {
   providers = {
     aws = aws.london
   }
-  
+
 }
 
 resource "aws_db_option_group" "ppud_replica_rds_option_group" {
