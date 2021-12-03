@@ -7,7 +7,7 @@ metadata:
   labels:
     grafana_dashboard: "hmpps-assessments"
 data:
-  arn-dashboard.json: |
+  hmpps-assessments-dashboard.json: |
     {
       "annotations": {
         "list": [
@@ -569,7 +569,9 @@ data:
       "refresh": "30s",
       "schemaVersion": 25,
       "style": "dark",
-      "tags": [],
+      "tags": [
+        "hmpps-assess-risks-and-needs"
+      ],
       "templating": {
         "list": [
           {
