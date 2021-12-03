@@ -3,7 +3,7 @@
 ##
 
 module "manage_recalls_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
