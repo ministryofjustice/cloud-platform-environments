@@ -45,7 +45,7 @@ resource "kubernetes_secret" "ppud_replacement_prod_rds_secrets" {
 ##
 
 module "ppud_replica_prod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
@@ -65,6 +65,13 @@ module "ppud_replica_prod_rds" {
   license_model        = "license-included"
   option_group_name    = aws_db_option_group.ppud_replica_rds_option_group.name
 
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
   providers = {
     aws = aws.london
   }

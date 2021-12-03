@@ -1,6 +1,6 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -26,6 +26,14 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
