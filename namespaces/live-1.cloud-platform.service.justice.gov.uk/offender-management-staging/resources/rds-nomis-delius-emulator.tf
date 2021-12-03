@@ -5,7 +5,7 @@
  *
  */
 module "nomis-delius-emulator-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
 
   cluster_name           = var.cluster_name
   team_name              = var.team_name

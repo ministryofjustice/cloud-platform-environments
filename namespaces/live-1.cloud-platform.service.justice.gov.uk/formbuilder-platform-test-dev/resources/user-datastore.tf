@@ -1,5 +1,5 @@
 module "user-datastore-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
 
   cluster_name               = var.cluster_name
   db_backup_retention_period = var.db_backup_retention_period_user_datastore
