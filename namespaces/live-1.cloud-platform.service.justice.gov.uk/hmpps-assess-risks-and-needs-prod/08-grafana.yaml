@@ -569,7 +569,9 @@ data:
       "refresh": "30s",
       "schemaVersion": 25,
       "style": "dark",
-      "tags": [],
+      "tags": [
+        "hmpps-assess-risks-and-needs"
+      ],
       "templating": {
         "list": [
           {
