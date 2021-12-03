@@ -1,5 +1,5 @@
 module "education_skills_work_employment_storage_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -16,7 +16,7 @@ module "education_skills_work_employment_storage_bucket" {
 }
 
 module "education_skills_work_employment_rds_to_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
