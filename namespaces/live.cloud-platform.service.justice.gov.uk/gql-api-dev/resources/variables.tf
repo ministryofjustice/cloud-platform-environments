@@ -8,7 +8,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "gql-api"
+  default = "gql-api-dev"
 }
 
 variable "business_unit" {
