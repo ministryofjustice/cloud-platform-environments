@@ -29,6 +29,21 @@ type Namespace struct {
 	RbacTeam         []string      `json:"rbac_team,omitempty"`
 	TeamName         string        `json:"team_name"`
 	TeamSlackChannel string        `json:"team_slack_channel"`
+	LastCommit       string        `json:"last_commit"`
+	AuthorOfCommit   string        `json:"author_of_commit"`
+	CreationDate     string        `json:"creation_date"`
+}
+
+// NamespaceReport is a meta data structure for the namespace report used
+// to identify namespace velocity.
+type NamespaceReport struct {
+	NamespacesChanged       []Namespace `json:"report_namespaces"`
+	ReportDate              string      `json:"report_date"`
+	NewNamespaces           int         `json:"number_of_new_namespaces"`
+	ProductionNamespaces    int         `json:"number_of_production_namespaces"`
+	NonProductionNamespaces int         `json:"number_of_non_production_namespaces"`
+	Commits                 int         `json:"commits"`
+	NamespaceDeletions      int         `json:"number_of_namespace_deletions"`
 }
 
 // AllNamespaces contains the json to go struct of the hosted_services endpoint.
@@ -71,7 +86,59 @@ func GetNamespace(s string, h string) (Namespace, error) {
 		}
 	}
 
-	return namespace, fmt.Errorf("Namespace %s is not found in the cluster.", s)
+	return namespace, fmt.Errorf("namespace %s is not found in the cluster", s)
+}
+
+// GetAllCommits queries the GitHub API for all commits over the past month.
+func GetAllCommits(token string) ([]string, error) {
+	// Get the token from the environment
+	t, err := authenticate.GitHubClient(token)
+	if err != nil {
+		return nil, err
+	}
+
+	// Create the client
+	client := &http.Client{
+		Timeout: time.Second * 10,
+	}
+
+	// Create the request
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://api.github.com/repos/%s/%s/commits?since=%s", org, envRepo, time.Now().AddDate(0, -1, 0).Format("2006-01-02")), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Add the token to the request
+	req.Header.Add("Authorization", fmt.Sprintf("token %s", t))
+
+	// Make the request
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	// Read the response
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// Unmarshal the response
+	var commits []struct {
+		SHA string `json:"sha"`
+	}
+	err = json.Unmarshal(body, &commits)
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert the response to a slice of strings
+	for _, commit := range commits {
+		fmt.Println(commit)
+		// commits = append(commits, commit.SHA)
+	}
+
+	return nil, nil
 }
 
 // GetProductionNamespaces takes a type of AllNamespaces and
@@ -176,7 +243,7 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 	}
 
 	if ns.RbacTeam == nil {
-		return fmt.Errorf("Unable to find team names for %s.", ns.Name)
+		return fmt.Errorf("unable to find team names for %s", ns.Name)
 	}
 
 	return nil
@@ -188,7 +255,7 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 // it returns a deduplicated slice of namespace names.
 func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 	if token == "" {
-		return nil, errors.New("You must have a valid GitHub token.")
+		return nil, errors.New("you must have a valid GitHub token")
 	}
 
 	client, err := authenticate.GitHubClient(token)
