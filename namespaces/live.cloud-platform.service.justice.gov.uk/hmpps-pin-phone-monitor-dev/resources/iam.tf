@@ -82,7 +82,9 @@ data "aws_iam_policy_document" "call_processing_policy" {
     actions = [
       "transcribe:*",
       "translate:*",
-      "comprehend:DetectDominantLanguage"
+      "comprehend:DetectDominantLanguage",
+      "comprehend:BatchDetectEntities",
+      "comprehend:BatchDetectKeyPhrases"
     ]
 
     resources = [
