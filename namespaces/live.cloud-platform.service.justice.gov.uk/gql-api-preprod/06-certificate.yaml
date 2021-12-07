@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gql-api-cert
+  namespace: gql-api-preprod
+spec:
+  secretName: gql-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - gql-api-preprod.hmpps.service.justice.gov.uk
