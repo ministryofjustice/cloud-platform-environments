@@ -65,7 +65,7 @@ resource "aws_dms_replication_task" "replication_audit_task" {
   source_endpoint_arn = aws_dms_endpoint.source-live.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target-history.endpoint_arn
 
-  table_mappings            = trimspace(file("settings/dms_table_mappings-audit.json"))
+  table_mappings            = trimspace(file("settings/dms-table-mappings-audit.json"))
   replication_task_settings = ""
 
   tags = {
