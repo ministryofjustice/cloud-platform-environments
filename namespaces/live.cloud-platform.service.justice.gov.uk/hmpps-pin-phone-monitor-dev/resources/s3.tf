@@ -69,6 +69,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
         Principal = "*"
         Action = [
           "s3:GetObject*",
+          "s3:PutObject*",
           "s3:DeleteObject*",
         ]
         Resource = [
