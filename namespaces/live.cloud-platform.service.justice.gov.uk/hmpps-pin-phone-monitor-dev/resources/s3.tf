@@ -45,6 +45,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     "Action": [
       "s3:GetObject",
       "s3:CopyObject",
+      "s3:PutObject",
       "s3:PutObjectTagging",
       "s3:DeleteObject"
     ],
