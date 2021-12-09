@@ -91,8 +91,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             ]
           },
           "Bool" : { "aws:ViaAWSService" : "false" },
-          "StringNotEquals": {
-            "aws:PrincipalArn": "${aws_iam_role.translate_s3_data_role.arn}"
+          "StringNotEquals" : {
+            "aws:PrincipalArn" : "${aws_iam_role.translate_s3_data_role.arn}"
           }
         }
       },
