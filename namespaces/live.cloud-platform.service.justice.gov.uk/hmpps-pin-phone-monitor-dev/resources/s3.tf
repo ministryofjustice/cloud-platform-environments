@@ -235,12 +235,12 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
   }
 
   queue {
-    id        = "translation-creation-event-json"
+    id        = "translation-creation-event-txt"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
     "s3:ObjectCreated:*"]
     filter_prefix = "translations/"
-    filter_suffix = ".json"
+    filter_suffix = ".txt"
   }
 
   queue {
