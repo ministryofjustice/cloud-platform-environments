@@ -244,15 +244,6 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     filter_prefix = "translations/"
     filter_suffix = ".txt"
   }
-
-  queue {
-    id        = "recording-deletion-event"
-    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    events = [
-    "s3:ObjectRemoved:Delete"]
-    filter_prefix = "recordings/"
-    filter_suffix = ".flac"
-  }
 }
 
 resource "kubernetes_secret" "pcms_s3_event_queue" {
