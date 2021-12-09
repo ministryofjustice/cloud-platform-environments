@@ -91,6 +91,20 @@ data "aws_iam_policy_document" "call_processing_policy" {
       "*"
     ]
   }
+
+  statement {
+    actions = [
+      "iam:PassRole"
+    ]
+
+    resources = [
+      "*"
+    ]
+
+    Condition = {
+      "StringEquals" = {"iam:PassedToService": "translate.amazonaws.com"}
+    },
+  }
 }
 
 resource "aws_iam_user_policy" "call_processing_policy" {
