@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "call_processing_policy" {
 
     Condition = {
       "StringEquals" = {"iam:PassedToService": "translate.amazonaws.com"}
-    },
+    }
   }
 }
 
