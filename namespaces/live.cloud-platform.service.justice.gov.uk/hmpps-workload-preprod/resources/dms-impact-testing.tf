@@ -83,6 +83,9 @@ resource "aws_dms_replication_task" "replication_impact_testing_mastered_task" {
     Owner       = var.team_name
     Env         = var.environment
   }
+
+  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
+  lifecycle { ignore_changes = ["replication_task_settings"] }
 }
 
 resource "aws_dms_replication_task" "replication_impact_testing_full_task" {
