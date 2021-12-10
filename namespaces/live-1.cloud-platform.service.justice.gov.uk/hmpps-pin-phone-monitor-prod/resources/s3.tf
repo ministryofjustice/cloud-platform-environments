@@ -94,7 +94,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           },
           "Bool" : { "aws:ViaAWSService" : "false" },
           "StringNotEquals" : {
-            "aws:PrincipalArn" : "${aws_iam_role.translate_s3_data_role.arn}"
+            "aws:PrincipalArn" : ["${aws_iam_role.translate_s3_data_role.arn}", "${aws_iam_user.bt_upload_user.arn}"]
           }
         }
       },
@@ -222,7 +222,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     id        = "metadata-upload-event"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-    "s3:ObjectCreated:*"]
+      "s3:ObjectCreated:*"]
     filter_prefix = "metadata/"
     filter_suffix = ".json"
   }
@@ -231,7 +231,7 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     id        = "transcript-creation-event-json"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
-    "s3:ObjectCreated:*"]
+      "s3:ObjectCreated:*"]
     filter_prefix = "transcripts/"
     filter_suffix = ".json"
   }
