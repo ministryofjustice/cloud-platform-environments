@@ -10,11 +10,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "cloudplatformapp-kl"
+  default     = "hello-world-kl"
 }
 
 variable "namespace" {
-  default = "cloudplatformdiscovery-kl"
+  default = "hello-world-kl"
 }
 
 variable "business_unit" {
@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dex-engage@digital.justice.gov.uk"
+  default     = "dexengage@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -43,7 +43,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dex-engage"
+  default     = "dex-engage-soc"
 }
 
 variable "github_owner" {
