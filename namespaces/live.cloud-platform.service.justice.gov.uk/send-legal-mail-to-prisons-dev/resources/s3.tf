@@ -1,4 +1,4 @@
-module "send-legal-mail_s3_bucket" {
+module "send_legal_mail_s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
   team_name              = var.team_name
   acl                    = "private"
