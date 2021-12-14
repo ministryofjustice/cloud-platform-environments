@@ -28,6 +28,7 @@ data "aws_iam_policy_document" "book-a-secure-move-api" {
       "s3:ListBucket",
       "s3:ListMultipartUploadParts",
       "s3:PutObject",
+      "glue:BatchCreatePartition",
       "glue:GetDatabase",
       "glue:GetDatabases",
       "glue:GetPartitions",
