@@ -18,14 +18,14 @@ module "evidencelibrary_document_s3_bucket" {
 
 resource "kubernetes_secret" "evidencelibrary_document_s3_bucket" {
   metadata {
-    name      = "s3-bucket-output"
+    name      = "evidencelibrary-document-s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = module.evidencelibrary_document_s3_bucket.access_key_id
+    secret_access_key = module.evidencelibrary_document_s3_bucket.secret_access_key
+    bucket_arn        = module.evidencelibrary_document_s3_bucket.bucket_arn
+    bucket_name       = module.evidencelibrary_document_s3_bucket.bucket_name
   }
 }
