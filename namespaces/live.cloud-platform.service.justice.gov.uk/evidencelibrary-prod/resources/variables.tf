@@ -55,3 +55,11 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "rds-family" {
+  default = "postgres13"
+}
+
+variable "db_engine_version" {
+  default = "13"
+}
