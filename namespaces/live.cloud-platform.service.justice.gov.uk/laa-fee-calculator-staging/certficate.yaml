@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: laa-fee-calculator-staging-cert
+  namespace: laa-fee-calculator-staging
+spec:
+  secretName: laa-fee-calculator-staging-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staging.laa-fee-calculator.service.justice.gov.uk

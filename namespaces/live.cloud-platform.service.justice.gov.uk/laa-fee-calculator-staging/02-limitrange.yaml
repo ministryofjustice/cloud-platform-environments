@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: laa-fee-calculator-staging
+spec:
+  limits:
+  - default:
+      cpu: 1000m
+      memory: 1250Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 250Mi
+    type: Container
