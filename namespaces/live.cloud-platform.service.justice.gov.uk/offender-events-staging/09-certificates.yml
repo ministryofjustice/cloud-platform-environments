@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: probation-offender-events-staging.hmpps.service.justice.gov.uk
+  namespace: offender-events-staging
+spec:
+  secretName: probation-offender-events-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - probation-offender-events-staging.hmpps.service.justice.gov.uk
