@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-court-data-ui
+  namespace: laa-court-data-ui-uat
+spec:
+  selector:
+    matchLabels:
+      app: laa-court-data-ui-app-service
+  namespaceSelector:
+    matchNames:
+      - laa-court-data-ui-uat
+  endpoints:
+    - port: metrics
+      interval: 15s
