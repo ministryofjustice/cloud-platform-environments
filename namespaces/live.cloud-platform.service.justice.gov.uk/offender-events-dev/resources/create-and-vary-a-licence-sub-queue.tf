@@ -104,7 +104,7 @@ resource "aws_sqs_queue_policy" "create_and_vary_a_licence_prison_events_queue_p
    EOF
 }
 
-resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_policy" {
+resource "aws_sqs_queue_policy" "create_and_vary_a_licence_probation_events_queue_policy" {
   queue_url = module.create_and_vary_a_licence_probation_events_queue.sqs_id
 
   policy = <<EOF
@@ -131,7 +131,7 @@ resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_poli
    EOF
 }
 
-resource "aws_sns_topic_subscription" "create_and_vary_a_licence_probation_events_subscription" {
+resource "aws_sns_topic_subscription" "create_and_vary_a_licence_prison_events_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
