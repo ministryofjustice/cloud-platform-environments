@@ -146,3 +146,63 @@ resource "aws_sns_topic_subscription" "create_and_vary_a_licence_probation_event
   endpoint      = module.create_and_vary_a_licence_probation_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\"]}"
 }
+
+resource "kubernetes_secret" "create_and_vary_a_licence_prison_events_queue" {
+  metadata {
+    name      = "create-and-vary-a-licence-prison-events-sqs-instance-output"
+    namespace = "create-and-vary-a-licence-dev"
+  }
+
+  data = {
+    access_key_id     = module.create_and_vary_a_licence_prison_events_queue.access_key_id
+    secret_access_key = module.create_and_vary_a_licence_prison_events_queue.secret_access_key
+    sqs_id            = module.create_and_vary_a_licence_prison_events_queue.sqs_id
+    sqs_arn           = module.create_and_vary_a_licence_prison_events_queue.sqs_arn
+    sqs_name          = module.create_and_vary_a_licence_prison_events_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "create_and_vary_a_licence_probation_events_queue" {
+  metadata {
+    name      = "create-and-vary-a-licence-probation-events-sqs-instance-output"
+    namespace = "create-and-vary-a-licence-dev"
+  }
+
+  data = {
+    access_key_id     = module.create_and_vary_a_licence_probation_events_queue.access_key_id
+    secret_access_key = module.create_and_vary_a_licence_probation_events_queue.secret_access_key
+    sqs_id            = module.create_and_vary_a_licence_probation_events_queue.sqs_id
+    sqs_arn           = module.create_and_vary_a_licence_probation_events_queue.sqs_arn
+    sqs_name          = module.create_and_vary_a_licence_probation_events_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "create_and_vary_a_licence_prison_events_dead_letter_queue" {
+  metadata {
+    name      = "create-and-vary-a-licence-prison-events-sqs-dl-instance-output"
+    namespace = "create-and-vary-a-licence-dev"
+  }
+
+  data = {
+    access_key_id     = module.create_and_vary_a_licence_prison_events_dead_letter_queue.access_key_id
+    secret_access_key = module.create_and_vary_a_licence_prison_events_dead_letter_queue.secret_access_key
+    sqs_id            = module.create_and_vary_a_licence_prison_events_dead_letter_queue.sqs_id
+    sqs_arn           = module.create_and_vary_a_licence_prison_events_dead_letter_queue.sqs_arn
+    sqs_name          = module.create_and_vary_a_licence_prison_events_dead_letter_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "create_and_vary_a_licence_probation_events_dead_letter_queue" {
+  metadata {
+    name      = "create-and-vary-a-licence-probation-events-sqs-dl-instance-output"
+    namespace = "create-and-vary-a-licence-dev"
+  }
+
+  data = {
+    access_key_id     = module.create_and_vary_a_licence_probation_events_dead_letter_queue.access_key_id
+    secret_access_key = module.create_and_vary_a_licence_probation_events_dead_letter_queue.secret_access_key
+    sqs_id            = module.create_and_vary_a_licence_probation_events_dead_letter_queue.sqs_id
+    sqs_arn           = module.create_and_vary_a_licence_probation_events_dead_letter_queue.sqs_arn
+    sqs_name          = module.create_and_vary_a_licence_probation_events_dead_letter_queue.sqs_name
+  }
+}
