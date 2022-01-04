@@ -1,7 +1,7 @@
 provider "pingdom" {
 }
 
-resource "pingdom_check" "justicedata-pingdom" {
+resource "pingdom_check" "evidencelibraryui-pingdom" {
   type                     = "http"
   name                     = "evidencelibraryui - production - cloud-platform"
   host                     = "evidence-library-prod.apps.live.cloud-platform.service.justice.gov.uk"
@@ -12,12 +12,12 @@ resource "pingdom_check" "justicedata-pingdom" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_evidencelibrary,component_ping,isproduction_true,environment_production,performance_hub_dev"
+  tags                     = "businessunit_hmpps,application_evidencelibraryui,component_ping,isproduction_true,environment_production,performance_hub_dev"
   probefilters             = "region:EU"
   #integrationids           = [114774]
 }
 
-resource "pingdom_check" "justicedata-pingdom" {
+resource "pingdom_check" "evidencelibraryapi-pingdom" {
   type                     = "http"
   name                     = "evidencelibraryapi - production - cloud-platform"
   host                     = "evidence-library-api-prod.apps.live.cloud-platform.service.justice.gov.uk/health"
@@ -28,7 +28,7 @@ resource "pingdom_check" "justicedata-pingdom" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_evidencelibrary,component_ping,isproduction_true,environment_production,performance_hub_dev"
+  tags                     = "businessunit_hmpps,application_evidencelibraryapi,component_ping,isproduction_true,environment_production,performance_hub_dev"
   probefilters             = "region:EU"
   #integrationids           = [114774]
 }
