@@ -17,8 +17,28 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "pin-phone-data-expiry"
+      id      = "pin-phone-recording-expiry"
       prefix  = "recordings/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-transcript-expiry"
+      prefix  = "transcripts/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-translation-expiry"
+      prefix  = "translations/"
       expiration = [
         {
           days = 90
@@ -44,6 +64,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     "Effect": "Allow",
     "Action": [
       "s3:GetObject",
+      "s3:GetObjectRetention",
       "s3:CopyObject",
       "s3:PutObject",
       "s3:PutObjectTagging",
@@ -92,7 +113,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           },
           "Bool" : { "aws:ViaAWSService" : "false" },
           "StringNotEquals" : {
-            "aws:PrincipalArn" : "${aws_iam_role.translate_s3_data_role.arn}"
+            "aws:PrincipalArn" : ["${aws_iam_role.translate_s3_data_role.arn}", "${aws_iam_user.bt_upload_user.arn}"]
           }
         }
       },
