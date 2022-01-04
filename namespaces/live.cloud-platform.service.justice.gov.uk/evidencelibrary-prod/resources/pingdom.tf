@@ -20,7 +20,7 @@ resource "pingdom_check" "justicedata-pingdom" {
 resource "pingdom_check" "justicedata-pingdom" {
   type                     = "http"
   name                     = "evidencelibraryapi - production - cloud-platform"
-  host                     = "evidencelibrary-api-test.apps.live-1.cloud-platform.service.justice.gov.uk/health"
+  host                     = "evidence-library-api-prod.apps.live.cloud-platform.service.justice.gov.uk/health"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
