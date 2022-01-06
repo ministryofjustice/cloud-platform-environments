@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-to-nomis-cert
+  namespace: hmpps-prisoner-to-nomis-update-preprod
+spec:
+  secretName: prisoner-to-nomis-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-to-nomis-update-preprod.hmpps.service.justice.gov.uk
