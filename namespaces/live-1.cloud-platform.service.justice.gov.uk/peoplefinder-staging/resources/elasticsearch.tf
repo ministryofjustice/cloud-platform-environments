@@ -4,7 +4,7 @@
 #################################################################################
 # For logging elastic search on cloudwatch
 resource "aws_cloudwatch_log_group" "peoplefinder_cloudwatch_log_group" {
-  name              = "/aws/aes/domains/peoplefinder-development-es/application-logs"
+  name              = "/aws/aes/domains/peoplefinder-staging-es/application-logs"
   retention_in_days = 60
 
   tags = {
