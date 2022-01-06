@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-court-data-ui-production" {
   type                     = "http"
   name                     = "View court data production - ping"
-  host                     = "${var.domain}"
+  host                     = var.domain
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
