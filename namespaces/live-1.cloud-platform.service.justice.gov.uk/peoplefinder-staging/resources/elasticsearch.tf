@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "elasticsearch_log_publishing_policy_doc" {
 
 resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_publishing_policy" {
   policy_document = data.aws_iam_policy_document.elasticsearch_log_publishing_policy_doc.json
-  policy_name     = "peoplefinder-dev-elasticsearch-log-publishing-policy"
+  policy_name     = "cloud-platform-elasticsearch-log-publishing-policy"
 }
 
 # Elastic search module
