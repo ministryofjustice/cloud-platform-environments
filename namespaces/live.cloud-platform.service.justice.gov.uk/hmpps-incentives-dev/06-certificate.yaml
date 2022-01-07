@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-incentives-ui-dev-cert
+  namespace: hmpps-incentives-dev
+spec:
+  secretName: hmpps-incentives-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - incentives-ui-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-incentives-api-dev-cert
+  namespace: hmpps-incentives-dev
+spec:
+  secretName: hmpps-incentives-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - incentives-api-dev.hmpps.service.justice.gov.uk
