@@ -22,3 +22,4 @@ provider "aws" {
 provider "random" {
   version = ">= 2.3.0, < 3.0.0"
 }
+
