@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: allow-port-forward
-  namespace: hmpps-pin-phone-monitor-dev
+  namespace: hmpps-pin-phone-monitor-prod
 rules:
   - apiGroups: [""]
     resources: ["pods", "pods/portforward"]
@@ -26,7 +26,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: hmpps-pin-phone-monitor-dev-admin
-  namespace: hmpps-pin-phone-monitor-dev
+  namespace: hmpps-pin-phone-monitor-prod
 subjects:
   - kind: Group
     name: "github:dps-soct-data-science"
