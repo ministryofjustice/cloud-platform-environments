@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: apply-for-legal-aid-prod-cert
+  namespace: laa-apply-for-legalaid-production
+spec:
+  secretName: apply-for-legal-aid-tls-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - apply-for-legal-aid.service.justice.gov.uk
