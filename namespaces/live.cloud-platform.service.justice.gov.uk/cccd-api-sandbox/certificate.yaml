@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: cccd-api-sandbox-cert
+  namespace: cccd-api-sandbox
+spec:
+  secretName: cccd-api-sandbox-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api-sandbox.claim-crown-court-defence.service.justice.gov.uk
