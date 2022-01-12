@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: cla-backend-production-cert
+  namespace: laa-cla-backend-production
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - fox.civillegaladvice.service.gov.uk
