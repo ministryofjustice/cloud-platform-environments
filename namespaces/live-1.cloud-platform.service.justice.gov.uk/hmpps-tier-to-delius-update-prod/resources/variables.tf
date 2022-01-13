@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Manage a Sentence Team"
+  default     = "Manage a Workforce Team"
 }
 
 variable "environment-name" {
