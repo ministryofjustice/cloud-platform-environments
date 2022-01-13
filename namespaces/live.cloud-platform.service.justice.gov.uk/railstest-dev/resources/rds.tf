@@ -12,7 +12,7 @@ module "rds" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -63,7 +63,7 @@ module "read_replica" {
 
   cluster_name           = var.cluster_name
   application            = var.application
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
