@@ -25,6 +25,26 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
         },
       ]
     },
+    {
+      enabled = true
+      id      = "pin-phone-transcript-expiry"
+      prefix  = "transcripts/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-translation-expiry"
+      prefix  = "translations/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
   ]
 
   user_policy = <<EOF
@@ -261,7 +281,7 @@ resource "kubernetes_secret" "pcms_s3_event_queue" {
   }
 }
 
-resource "kubernetes_secret" "pcms_s3_bucket" {
+resource "kubernetes_secret" "pcms_document_s3_bucket" {
   metadata {
     name      = "pcms-s3-bucket-output"
     namespace = var.namespace
