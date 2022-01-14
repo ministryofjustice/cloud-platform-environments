@@ -10,4 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - create-a-licence-api-preprod.hmpps.service.justice.gov.uk
     - create-and-vary-a-licence-api-preprod.hmpps.service.justice.gov.uk
