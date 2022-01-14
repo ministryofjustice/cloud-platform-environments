@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-tier-prod
 subjects:
   - kind: Group
-    name: "github:manage-a-sentence"
+    name: "github:manage-a-workforce"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

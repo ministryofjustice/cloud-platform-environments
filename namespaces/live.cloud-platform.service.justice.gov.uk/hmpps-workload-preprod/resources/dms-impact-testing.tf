@@ -99,6 +99,9 @@ resource "aws_dms_replication_task" "replication_impact_testing_full_task" {
   table_mappings            = trimspace(file("settings/dms-table-mappings-full.json"))
   replication_task_settings = trimspace(file("settings/dms-replication-task-settings.json"))
 
+  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
+  lifecycle { ignore_changes = ["replication_task_settings"] }
+
   tags = {
     Name        = "${var.team_name} Replication Task"
     Description = "Managed by Terraform"
