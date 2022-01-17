@@ -75,9 +75,7 @@ module "hmpps_tier_calculation_complete_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
   metadata {
     name      = "sqs-tier-to-delius-update-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-to-delius-update-preprod"
+    namespace = "hmpps-tier-to-delius-update-preprod"
   }
 
   data = {
@@ -92,9 +90,8 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue" {
   metadata {
     name      = "sqs-tier-to-delius-update-dl-secret"
-    namespace = var.namespace
     # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-to-delius-update-preprod"
+    namespace = "hmpps-tier-to-delius-update-preprod"
   }
 
   data = {
