@@ -89,7 +89,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue" {
   metadata {
-    name      = "sqs-tier-to-delius-update-dl-secret"
+    name = "sqs-tier-to-delius-update-dl-secret"
     # Remove when namespace has been migrated
     namespace = "hmpps-tier-to-delius-update-preprod"
   }
