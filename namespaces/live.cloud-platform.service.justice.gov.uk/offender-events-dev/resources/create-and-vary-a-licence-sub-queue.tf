@@ -1,5 +1,5 @@
 module "create_and_vary_a_licence_prison_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -22,7 +22,7 @@ module "create_and_vary_a_licence_prison_events_queue" {
 }
 
 module "create_and_vary_a_licence_probation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -45,7 +45,7 @@ module "create_and_vary_a_licence_probation_events_queue" {
 }
 
 module "create_and_vary_a_licence_prison_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -61,7 +61,7 @@ module "create_and_vary_a_licence_prison_events_dead_letter_queue" {
 }
 
 module "create_and_vary_a_licence_probation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
