@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: checkmydiary.service.justice.gov.uk
+  namespace: check-my-diary-prod
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - checkmydiary.service.justice.gov.uk
