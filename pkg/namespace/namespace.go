@@ -192,7 +192,7 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 	}
 
 	if ns.RbacTeam == nil {
-		return fmt.Errorf("Unable to find team names for %s", ns.Name)
+		return fmt.Errorf("unable to find team names for %s", ns.Name)
 	}
 
 	return nil
@@ -204,7 +204,7 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 // it returns a deduplicated slice of namespace names.
 func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 	if token == "" {
-		return nil, errors.New("You must have a valid GitHub token.")
+		return nil, errors.New("you must have a valid GitHub token")
 	}
 
 	client, err := authenticate.GitHubClient(token)
