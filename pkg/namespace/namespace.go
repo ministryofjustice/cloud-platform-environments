@@ -15,20 +15,24 @@ import (
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
 	"github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw"
 	"gopkg.in/yaml.v2"
+	v1 "k8s.io/api/core/v1"
+	"k8s.io/client-go/kubernetes"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // Namespace describes a Cloud Platform namespace object.
 type Namespace struct {
-	Application      string        `json:"application"`
-	BusinessUnit     string        `json:"business_unit"`
-	DeploymentType   string        `json:"deployment_type"`
-	Cluster          string        `json:"cluster,omitempty"`
-	DomainNames      []interface{} `json:"domain_names"`
-	GithubURL        string        `json:"github_url"`
-	Name             string        `json:"namespace"`
-	RbacTeam         []string      `json:"rbac_team,omitempty"`
-	TeamName         string        `json:"team_name"`
-	TeamSlackChannel string        `json:"team_slack_channel"`
+	Application      string
+	BusinessUnit     string
+	DeploymentType   string
+	Cluster          string
+	DomainNames      []string
+	GithubURL        string
+	Name             string
+	RbacTeam         []string
+	TeamName         string
+	TeamSlackChannel string
 }
 
 // AllNamespaces contains the json to go struct of the hosted_services endpoint.
@@ -57,10 +61,10 @@ const (
 
 // GetNamespace takes the name of a namespace as a string and returns
 // a Namespace data type.
-func GetNamespace(s string, h string) (Namespace, error) {
+func GetNamespace(s string, endpoint string) (Namespace, error) {
 	var namespace Namespace
 
-	allNamespaces, err := GetAllNamespaces(h)
+	allNamespaces, err := GetAllNamespacesFromHoodaw(endpoint)
 	if err != nil {
 		return namespace, err
 	}
@@ -71,7 +75,7 @@ func GetNamespace(s string, h string) (Namespace, error) {
 		}
 	}
 
-	return namespace, fmt.Errorf("Namespace %s is not found in the cluster.", s)
+	return namespace, fmt.Errorf("Namespace %s is not found in the cluster", s)
 }
 
 // GetProductionNamespaces takes a type of AllNamespaces and
@@ -113,7 +117,7 @@ func GetNonProductionNamespaces(ns AllNamespaces) (namespaces []string, err erro
 
 // GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
 // returns a report of namespace details in the cluster.
-func GetAllNamespaces(endPoint string) (namespaces AllNamespaces, err error) {
+func GetAllNamespacesFromHoodaw(endPoint string) (namespaces AllNamespaces, err error) {
 	body, err := hoodaw.QueryApi(endPoint)
 	if err != nil {
 		return
@@ -125,6 +129,18 @@ func GetAllNamespaces(endPoint string) (namespaces AllNamespaces, err error) {
 	}
 
 	return
+}
+
+// GetNamespaces takes a Kubernetes clientset and returns all namespaces with type *v1beta1.IngressList and an error.s
+func GetAllNamespacesFromCluster(clientSet *kubernetes.Clientset) ([]v1.Namespace, error) {
+
+	namespaces, err := clientSet.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		log.Fatalln("Can'list namespaces from cluster", err.Error())
+		return nil, err
+	}
+
+	return namespaces.Items, nil
 }
 
 // SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
@@ -176,7 +192,7 @@ func (ns *Namespace) SetRbacTeam(cluster string) error {
 	}
 
 	if ns.RbacTeam == nil {
-		return fmt.Errorf("Unable to find team names for %s.", ns.Name)
+		return fmt.Errorf("Unable to find team names for %s", ns.Name)
 	}
 
 	return nil
