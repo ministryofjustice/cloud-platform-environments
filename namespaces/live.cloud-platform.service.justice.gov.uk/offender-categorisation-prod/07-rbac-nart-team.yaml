@@ -1,0 +1,34 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: nart-team-portforward
+  namespace: offender-categorisation-prod
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "pods/portforward"
+    verbs:
+      - "create"
+  - apiGroups:
+      - ""
+    resources:
+      - "pods"
+    verbs:
+      - "get"
+      - "list"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nart-team-portforward
+  namespace: offender-categorisation-prod
+subjects:
+  - kind: Group
+    name: "github:dps-nart-team-access"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: nart-team-portforward
+  apiGroup: rbac.authorization.k8s.io
