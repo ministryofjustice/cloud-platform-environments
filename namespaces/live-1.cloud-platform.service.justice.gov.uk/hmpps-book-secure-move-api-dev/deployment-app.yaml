@@ -1,0 +1,233 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hmpps-book-secure-move-api-deployment-dev
+  namespace: hmpps-book-secure-move-api-dev
+  labels:
+    app: hmpps-book-secure-move-api-web-dev
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: hmpps-book-secure-move-api-web-dev
+  template:
+    metadata:
+      labels:
+        app: hmpps-book-secure-move-api-web-dev
+        tier: frontend
+    spec:
+      containers:
+      - name: webapp
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/book-a-secure-move/hmpps-book-secure-move-api:dev.latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /ping.json
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /ping.json
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+        # non-secret env vars defined in `config_map.yaml`
+        envFrom:
+          - configMapRef:
+              name: hmpps-book-secure-move-api-configmap-dev
+        env:
+          # Define PROMETHEUS_METRICS on/off per container
+          - name: PROMETHEUS_METRICS
+            value: "on"
+          # external secrets defined in `secrets.yml`
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: secret_key_base_key
+          - name: NOMIS_SITE
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_site_key
+          - name: NOMIS_SITE_FOR_API
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_site_for_api_key
+          - name: NOMIS_SITE_FOR_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_site_for_auth_key
+          - name: NOMIS_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_client_id_key
+          - name: NOMIS_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_client_secret_key
+          - name: NOMIS_AUTH_SCHEME
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_auth_scheme_key
+          - name: NOMIS_API_PATH_PREFIX
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_api_path_prefix_key
+          - name: NOMIS_PRISON_API_PATH_PREFIX
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_prison_api_path_prefix_key
+          - name: NOMIS_AUTH_PATH_PREFIX
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: nomis_auth_path_prefix_key
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: sentry_dsn_key
+          - name: APPINSIGHTS_INSTRUMENTATION_KEY
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: appinsights_instrumentation_key
+          - name: CORS_ALLOWED_ORIGINS
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: cors_allowed_origins_key
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: rds-instance-hmpps-book-secure-move-api-dev
+                key: url
+          - name: S3_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: access_key_id
+          - name: S3_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: secret_access_key
+          - name: S3_BUCKET_ARN
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: bucket_arn
+          - name: S3_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: bucket_name
+          - name: S3_METRICS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-metrics-s3-bucket-ro
+                key: access_key_id
+          - name: S3_METRICS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-metrics-s3-bucket-ro
+                key: secret_access_key
+          - name: S3_METRICS_REGION
+            value: "eu-west-2"
+          - name: S3_METRICS_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-metrics-s3-bucket-ro
+                key: bucket_name
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: elasticache-hmpps-book-secure-move-api-dev
+                key: url
+      - name: book-secure-move-metrics
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/book-a-secure-move/hmpps-book-secure-move-api:dev.latest
+        imagePullPolicy: Always
+        command: ['sh', '-c', 'bundle exec prometheus_exporter -a ./lib/prometheus/*collector*.rb --bind 0.0.0.0']
+        ports:
+          - containerPort: 9394
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 9394
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 9394
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        envFrom:
+          - configMapRef:
+              name: hmpps-book-secure-move-api-configmap-dev
+        env:
+          # external secrets defined in `secrets.yml`
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: secret_key_base_key
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: hmpps-book-secure-move-api-secrets-dev
+                key: sentry_dsn_key
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                # use read-replica database for metrics
+                name: read-rds-instance-hmpps-book-secure-move-api-dev
+                key: url
+
+          # The following secrets are not necessary for metrics, but without them
+          # the Rails environment fails to load.
+          - name: S3_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: access_key_id
+          - name: S3_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: secret_access_key
+          - name: S3_BUCKET_ARN
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: bucket_arn
+          - name: S3_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: book-a-secure-move-documents-s3-bucket
+                key: bucket_name
+          # secrets created by `terraform`
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: elasticache-hmpps-book-secure-move-api-dev
+                key: url

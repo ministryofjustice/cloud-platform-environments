@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hmpps-book-secure-move-api-configmap-dev
+  namespace: hmpps-book-secure-move-api-dev
+data:
+  LOG_LEVEL: "debug"
+  SERVE_API_DOCS: "true"
+  RAILS_LOG_TO_STDOUT: "true"
+  SERVER_FQDN: "hmpps-book-secure-move-api-dev.apps.live-1.cloud-platform.service.justice.gov.uk"
+  ENCRYPTOR_SALT: ":D\xCD\xF4\xCE&v\x9C\xA6\xBC3`~\xCEDA\vn\xDD\xF5S1\x9B\xDD~4\xF6\xBE\x0FY\xECl"
+  GOVUK_NOTIFY_STATUS_URL: "https://status.notifications.service.gov.uk"
+  DB_POOL: "8"
+  RAILS_MAX_THREADS: "5"
+  SIDEKIQ_PROCESSES: "3"
+  WEB_CONCURRENCY: "3"
+  APPINSIGHTS_LOGGING_ENABLED: "false"
+  APPINSIGHTS_ENABLED: "false"
+  SENTRY_ENVIRONMENT: "dev"

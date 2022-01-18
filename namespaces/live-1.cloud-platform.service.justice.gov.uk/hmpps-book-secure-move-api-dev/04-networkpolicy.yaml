@@ -11,8 +11,8 @@ spec:
   - from:
     - podSelector: {}
 ---
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
   name: allow-ingress-controllers
   namespace: hmpps-book-secure-move-api-dev
@@ -25,3 +25,21 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-scraping
+  namespace: hmpps-book-secure-move-api-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: hmpps-book-secure-move-api-web-dev
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
+

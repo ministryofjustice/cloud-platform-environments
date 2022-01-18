@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hmpps-book-secure-move-api-service-datasette
+  namespace: hmpps-book-secure-move-api-dev
+  labels:
+    app: hmpps-book-secure-move-api-datasette
+spec:
+  ports:
+  - port: 8001
+    name: http
+    targetPort: 8001
+  selector:
+    app: hmpps-book-secure-move-api-datasette

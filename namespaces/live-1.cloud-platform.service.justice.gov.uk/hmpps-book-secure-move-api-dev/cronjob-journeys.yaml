@@ -1,0 +1,88 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app: hmpps-book-secure-move-api-dev-generate-journeys
+  name: hmpps-book-secure-move-api-dev-generate-journeys
+  namespace: hmpps-book-secure-move-api-dev
+spec:
+  schedule: 0 10,14 * * *
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 5
+  suspend: true
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: webapp
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/book-a-secure-move/hmpps-book-secure-move-api:dev.latest
+              command: ["bundle", "exec", "rake", "fake_data:create_journeys"]
+              imagePullPolicy: Always
+              # non-secret env vars defined in `config_map.yaml`
+              envFrom:
+                - configMapRef:
+                    name: hmpps-book-secure-move-api-configmap-dev
+              env:
+                # external secrets defined in `secrets.yml`
+                - name: SECRET_KEY_BASE
+                  valueFrom:
+                    secretKeyRef:
+                      key: secret_key_base_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: NOMIS_SITE
+                  valueFrom:
+                    secretKeyRef:
+                      key: nomis_site_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: NOMIS_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      key: nomis_client_id_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: NOMIS_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: nomis_client_secret_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: NOMIS_AUTH_SCHEME
+                  valueFrom:
+                    secretKeyRef:
+                      key: nomis_auth_scheme_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: CORS_ALLOWED_ORIGINS
+                  valueFrom:
+                    secretKeyRef:
+                      key: cors_allowed_origins_key
+                      name: hmpps-book-secure-move-api-secrets-dev
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: url
+                      name: rds-instance-hmpps-book-secure-move-api-dev
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      key: access_key_id
+                      name: book-a-secure-move-reporting-s3-bucket
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: secret_access_key
+                      name: book-a-secure-move-reporting-s3-bucket
+                - name: AWS_DEFAULT_REGION
+                  value: eu-west-2
+                - name: S3_REPORTING_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      key: bucket_name
+                      name: book-a-secure-move-reporting-s3-bucket
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: url
+                      name: elasticache-hmpps-book-secure-move-api-dev
+                - name: ELASTIC_APM_ENABLED
+                  value: "false"
+          restartPolicy: OnFailure

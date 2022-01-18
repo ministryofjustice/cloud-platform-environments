@@ -1,0 +1,48 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hmpps-book-secure-move-api-dev-feeds
+  namespace: hmpps-book-secure-move-api-dev
+  labels:
+    app: hmpps-book-secure-move-api-dev-feeds
+spec:
+  schedule: "0 3 */1 * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: feed-report
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/book-a-secure-move/hmpps-book-secure-move-api:dev.latest
+              command: ["bundle", "exec", "rake", "feed[all]"]
+              imagePullPolicy: Always
+              # non-secret env vars defined in `config_map.yaml`
+              envFrom:
+                - configMapRef:
+                    name: hmpps-book-secure-move-api-configmap-dev
+              # external secrets defined in `secrets.yml`
+              env:
+                # external secrets defined in `secrets.yml`
+                - name: SECRET_KEY_BASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: hmpps-book-secure-move-api-secrets-dev
+                      key: secret_key_base_key
+                - name: SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: hmpps-book-secure-move-api-secrets-dev
+                      key: sentry_dsn_key
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: elasticache-hmpps-book-secure-move-api-dev
+                      key: url
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: read-rds-instance-hmpps-book-secure-move-api-dev
+                      key: url
+          restartPolicy: OnFailure

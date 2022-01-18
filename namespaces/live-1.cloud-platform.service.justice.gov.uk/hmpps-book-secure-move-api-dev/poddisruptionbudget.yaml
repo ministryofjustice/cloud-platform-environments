@@ -1,0 +1,10 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: hmpps-book-secure-move-api-pdb-dev
+  namespace: hmpps-book-secure-move-api-dev
+spec:
+  maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: hmpps-book-secure-move-api-web-dev
