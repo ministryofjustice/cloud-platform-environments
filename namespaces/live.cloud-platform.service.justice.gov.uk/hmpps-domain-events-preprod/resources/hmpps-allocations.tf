@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "hmpps-allocations" {
   metadata {
-    name      = "hmpps-domain-events-topic-hmpps-allocations"
+    name      = "hmpps-domain-events-topic"
     namespace = "workforce-management-preprod"
   }
 
