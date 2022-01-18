@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "hmpps-allocations" {
   metadata {
-    name      = "hmpps-domain-events-topic-hmpps-allocations"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "workforce-management-prod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "workforce-management-prod"
   }
 
   data = {
@@ -90,9 +87,7 @@ module "hmpps_allocation_required_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_allocation_required_queue" {
   metadata {
     name      = "sqs-hmpps-allocations-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "workforce-management-prod"
+    namespace = "workforce-management-prod"
   }
 
   data = {
@@ -107,9 +102,7 @@ resource "kubernetes_secret" "hmpps_allocation_required_queue" {
 resource "kubernetes_secret" "hmpps_allocation_required_dead_letter_queue" {
   metadata {
     name      = "sqs-hmpps-allocations-dl-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "workforce-management-prod"
+    namespace = "workforce-management-prod"
   }
 
   data = {
