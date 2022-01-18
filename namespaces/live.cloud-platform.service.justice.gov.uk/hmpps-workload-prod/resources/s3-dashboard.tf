@@ -17,15 +17,15 @@ module "hmpps-workload-prod-s3-dashboard-bucket" {
 
   lifecycle_rule = [
     {
-      enabled                       = true
-      id                            = "retire extracts after 2 weeks"
-      prefix                        = "generated-dashboards/"
+      enabled = true
+      id      = "retire extracts after 2 weeks"
+      prefix  = "generated-dashboards/"
       noncurrent_version_expiration = [
         {
           days = 14
         },
       ]
-      expiration                    = [
+      expiration = [
         {
           days = 14
         },
