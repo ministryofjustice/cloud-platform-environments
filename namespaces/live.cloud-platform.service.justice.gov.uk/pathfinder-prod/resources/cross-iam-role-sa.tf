@@ -2,7 +2,7 @@ module "irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.2"
   namespace        = "pathfinder-prod"
   role_policy_arns = [aws_iam_policy.pathfinder_prod_ap_policy.arn]
-  service_account  = "to-ap-s3-service-account"
+  service_account  = "to-ap-s3-service-account-prod"
 }
 data "aws_iam_policy_document" "pathfinder_prod_ap_policy" {
   # "api" policy statements for the namespace
