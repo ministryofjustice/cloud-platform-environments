@@ -75,7 +75,7 @@ func GetNamespace(s string, endpoint string) (Namespace, error) {
 		}
 	}
 
-	return namespace, fmt.Errorf("Namespace %s is not found in the cluster", s)
+	return namespace, fmt.Errorf("namespace %s is not found in the cluster", s)
 }
 
 // GetProductionNamespaces takes a type of AllNamespaces and
@@ -115,8 +115,9 @@ func GetNonProductionNamespaces(ns AllNamespaces) (namespaces []string, err erro
 	return
 }
 
-// GetAllNamespaces takes the host endpoint for the how-out-of-date-are-we and
-// returns a report of namespace details in the cluster.
+// GetAllNamespacesFromHoodaw queries the host endpoint for the how-out-of-date-are-we, Unmarshal
+// the response json and return all namespaces
+// returns a report of namespace details .
 func GetAllNamespacesFromHoodaw(endPoint string) (namespaces AllNamespaces, err error) {
 	body, err := hoodaw.QueryApi(endPoint)
 	if err != nil {
@@ -131,13 +132,13 @@ func GetAllNamespacesFromHoodaw(endPoint string) (namespaces AllNamespaces, err 
 	return
 }
 
-// GetNamespaces takes a Kubernetes clientset and returns all namespaces with type *v1beta1.IngressList and an error.s
+// GetAllNamespacesFromCluster takes a Kubernetes clientset and returns all namespaces in the cluster
+// with type v1.Namespace
 func GetAllNamespacesFromCluster(clientSet *kubernetes.Clientset) ([]v1.Namespace, error) {
 
 	namespaces, err := clientSet.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
-		log.Fatalln("Can'list namespaces from cluster", err.Error())
-		return nil, err
+		return nil, fmt.Errorf("can't list namespaces from cluster %s", err.Error())
 	}
 
 	return namespaces.Items, nil
