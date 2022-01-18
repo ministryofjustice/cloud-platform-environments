@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "sign-in-staging.hmpps.service.justice.gov.uk"
+  default = "sign-in-stage.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-auth-staging"
+  default = "hmpps-auth-stage"
 }
 
 variable "business-unit" {
@@ -22,7 +22,7 @@ variable "team_name" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "staging"
+  default     = "stage"
 }
 
 variable "infrastructure-support" {

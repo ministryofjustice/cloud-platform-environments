@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-auth-staging
+  namespace: hmpps-auth-stage
 spec:
   hard:
     pods: "50"
