@@ -17,15 +17,15 @@ module "hmpps-workload-prod-s3-extract-bucket" {
 
   lifecycle_rule = [
     {
-      enabled                       = true
-      id                            = "retire extracts after 30 days"
-      prefix                        = "extract/"
+      enabled = true
+      id      = "retire extracts after 30 days"
+      prefix  = "extract/"
       noncurrent_version_expiration = [
         {
           days = 30
         },
       ]
-      expiration                    = [
+      expiration = [
         {
           days = 30
         },
@@ -149,9 +149,9 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
   bucket = module.hmpps-workload-prod-s3-extract-bucket.bucket_name
 
   queue {
-    id            = "wmt-extract-upload-event"
-    queue_arn     = module.hmpps_workload_s3_extract_event_queue.sqs_arn
-    events        = [
+    id        = "wmt-extract-upload-event"
+    queue_arn = module.hmpps_workload_s3_extract_event_queue.sqs_arn
+    events = [
       "s3:ObjectCreated:*"
     ]
     filter_prefix = "extract/"
