@@ -5,6 +5,18 @@
  * releases page of this repository.
  *
  */
+
+ # For logging elastic search on cloudwatch
+resource "aws_cloudwatch_log_group" "abundant_cloudwatch_log_group" {
+  name              = "/aws/aes/domains/webops-dev-cloud-p-test/application-logs"
+  retention_in_days = 60
+
+  tags = {
+    Environment = "development"
+    Application = "testApp"
+  }
+}
+
 module "example_team_es" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.2"
   cluster_name           = var.cluster_name
@@ -20,6 +32,9 @@ module "example_team_es" {
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
+
+  log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.abundant_cloudwatch_log_group.arn
+  log_publishing_application_enabled                  = true
 }
 
 
