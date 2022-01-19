@@ -46,6 +46,7 @@ resource "kubernetes_secret" "irsa-api" {
 
   data = {
     role            = module.irsa-api.aws_iam_role_name
+    role_arn        = module.irsa-api.aws_iam_role_arn
     service_account = module.irsa-api.service_account_name.name
   }
 }
