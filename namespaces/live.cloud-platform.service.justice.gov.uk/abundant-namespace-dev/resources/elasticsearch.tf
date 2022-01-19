@@ -6,7 +6,7 @@
  *
  */
 
- # For logging elastic search on cloudwatch
+# For logging elastic search on cloudwatch
 resource "aws_cloudwatch_log_group" "abundant_cloudwatch_log_group" {
   name              = "/aws/aes/domains/webops-dev-cloud-p-test/application-logs"
   retention_in_days = 60
