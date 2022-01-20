@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: keyworker-api-dev.prison.service.justice.gov.uk
+  namespace: keyworker-api-dev
+spec:
+  secretName: keyworker-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - keyworker-api-dev.prison.service.justice.gov.uk
