@@ -1,0 +1,65 @@
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: court-register.hmpps.service.justice.gov.uk
+  namespace: hmpps-registers-prod
+spec:
+  secretName: court-register-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - court-register.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-register.hmpps.service.justice.gov.uk
+  namespace: hmpps-registers-prod
+spec:
+  secretName: prison-register-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-register.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: registers.hmpps.service.justice.gov.uk
+  namespace: hmpps-registers-prod
+spec:
+  secretName: hmpps-registers-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - registers.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: hmpps-registers-to-delius-update-cert
+  namespace: hmpps-registers-prod
+spec:
+  secretName: hmpps-registers-to-delius-update-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - registers-to-delius-update.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: hmpps-registers-to-nomis-update-cert
+  namespace: hmpps-registers-prod
+spec:
+  secretName: hmpps-registers-to-nomis-update-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - registers-to-nomis-update.hmpps.service.justice.gov.uk
