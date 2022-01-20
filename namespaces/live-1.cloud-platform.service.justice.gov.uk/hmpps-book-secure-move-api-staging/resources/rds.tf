@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_instance_class      = "db.t3.medium"
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
