@@ -12,13 +12,14 @@ module "rds_aurora" {
   engine_version              = "12.6"
   engine_mode                 = "provisioned"
   replica_count               = 2
-  instance_type               = "db.t3.large"
+  instance_type               = "db.r6g.xlarge"
   snapshot_identifier         = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-prod-pre-migration-20210730-1045"
   storage_encrypted           = true
   apply_immediately           = true
   cluster_name                = var.cluster_name
   allow_major_version_upgrade = true
   skip_setting_when_migrated  = true
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
