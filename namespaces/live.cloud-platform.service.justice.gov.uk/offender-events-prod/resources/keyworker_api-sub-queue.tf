@@ -71,7 +71,9 @@ module "keyworker_api_dead_letter_queue" {
 resource "kubernetes_secret" "keyworker_api_queue" {
   metadata {
     name      = "kw-sqs-instance-output"
-    namespace = "keyworker-api-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "keyworker-api-prod"
   }
 
   data = {
@@ -86,7 +88,9 @@ resource "kubernetes_secret" "keyworker_api_queue" {
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
     name      = "kw-sqs-dl-instance-output"
-    namespace = "keyworker-api-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "keyworker-api-prod"
   }
 
   data = {

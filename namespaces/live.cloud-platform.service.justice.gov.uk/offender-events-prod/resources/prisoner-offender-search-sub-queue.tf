@@ -71,7 +71,9 @@ module "prisoner_offender_search_dead_letter_queue" {
 resource "kubernetes_secret" "prisoner_offender_search_queue" {
   metadata {
     name      = "pos-sqs-instance-output"
-    namespace = "prisoner-offender-search-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "prisoner-offender-search-prod"
   }
 
   data = {
@@ -86,7 +88,9 @@ resource "kubernetes_secret" "prisoner_offender_search_queue" {
 resource "kubernetes_secret" "prisoner_offender_search_dead_letter_queue" {
   metadata {
     name      = "pos-sqs-dl-instance-output"
-    namespace = "prisoner-offender-search-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "prisoner-offender-search-prod"
   }
 
   data = {

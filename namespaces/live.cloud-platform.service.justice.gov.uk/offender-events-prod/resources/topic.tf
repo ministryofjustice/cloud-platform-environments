@@ -24,8 +24,10 @@ resource "kubernetes_secret" "offender_events" {
 
 resource "kubernetes_secret" "offender_case_notes" {
   metadata {
-    name      = "offender-events-topic"
-    namespace = "offender-case-notes-prod"
+    name      = "offender-events-topic-offender-case-notes"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "offender-case-notes-prod"
   }
 
   data = {
@@ -58,8 +60,10 @@ resource "kubernetes_secret" "probation_offender_events" {
 
 resource "kubernetes_secret" "prison_data_compliance" {
   metadata {
-    name      = "offender-events-topic"
-    namespace = "prison-data-compliance-prod"
+    name      = "offender-events-topic-prison-data-compliance"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "prison-data-compliance-prod"
   }
 
   data = {

@@ -72,6 +72,8 @@ resource "kubernetes_secret" "prisoner_offender_events_queue" {
   metadata {
     name      = "prisoner-offender-events-queue"
     namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = var.namespace
   }
 
   data = {
@@ -87,6 +89,8 @@ resource "kubernetes_secret" "prisoner_offender_events_dead_letter_queue" {
   metadata {
     name      = "prisoner-offender-events-dlq"
     namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = var.namespace
   }
 
   data = {

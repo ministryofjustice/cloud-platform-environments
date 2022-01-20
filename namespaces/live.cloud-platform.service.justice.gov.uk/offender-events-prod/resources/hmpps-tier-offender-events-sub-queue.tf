@@ -73,7 +73,9 @@ module "hmpps_tier_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_tier_offender_events_queue" {
   metadata {
     name      = "hmpps-tier-offender-events-sqs-instance-output"
-    namespace = "hmpps-tier-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "hmpps-tier-prod"
   }
 
   data = {
@@ -88,7 +90,9 @@ resource "kubernetes_secret" "hmpps_tier_offender_events_queue" {
 resource "kubernetes_secret" "hmpps_tier_offender_events_dead_letter_queue" {
   metadata {
     name      = "hmpps-tier-offender-events-sqs-dl-instance-output"
-    namespace = "hmpps-tier-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "hmpps-tier-prod"
   }
   data = {
     access_key_id     = module.hmpps_tier_offender_events_dead_letter_queue.access_key_id

@@ -71,7 +71,9 @@ module "prison_to_probation_update_dead_letter_queue" {
 resource "kubernetes_secret" "prison_to_probation_update_queue" {
   metadata {
     name      = "ptpu-sqs-instance-output"
-    namespace = "prison-to-probation-update-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "prison-to-probation-update-prod"
   }
 
   data = {
@@ -86,7 +88,9 @@ resource "kubernetes_secret" "prison_to_probation_update_queue" {
 resource "kubernetes_secret" "prison_to_probation_update_dead_letter_queue" {
   metadata {
     name      = "ptpu-sqs-dl-instance-output"
-    namespace = "prison-to-probation-update-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "prison-to-probation-update-prod"
   }
 
   data = {

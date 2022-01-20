@@ -135,7 +135,9 @@ module "pathfinder_probation_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "pathfinder_offender_events_queue" {
   metadata {
     name      = "pathfinder-offender-events-sqs-instance-output"
-    namespace = "pathfinder-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "pathfinder-prod"
   }
 
   data = {
@@ -150,7 +152,9 @@ resource "kubernetes_secret" "pathfinder_offender_events_queue" {
 resource "kubernetes_secret" "pathfinder_probation_offender_events_queue" {
   metadata {
     name      = "pathfinder-probation-offender-events-sqs-instance-output"
-    namespace = "pathfinder-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "pathfinder-prod"
   }
 
   data = {
@@ -165,7 +169,9 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_queue" {
 resource "kubernetes_secret" "pathfinder_offender_events_dead_letter_queue" {
   metadata {
     name      = "pathfinder-offender-events-sqs-dl-instance-output"
-    namespace = "pathfinder-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "pathfinder-prod"
   }
 
   data = {
@@ -180,7 +186,9 @@ resource "kubernetes_secret" "pathfinder_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "pathfinder_probation_offender_events_dead_letter_queue" {
   metadata {
     name      = "pathfinder-probation-offender-events-sqs-dl-instance-output"
-    namespace = "pathfinder-prod"
+    namespace = var.namespace
+    # Remove when namespace has been migrated
+    # namespace = "pathfinder-prod"
   }
 
   data = {
