@@ -117,8 +117,8 @@ func TestSwitchContextFromConfigFile(t *testing.T) {
 		{
 			name: "Fail to switch context",
 			args: args{
-				kubeconfigPath: "./noFile",
 				clusterCtx: "nope",
+				kubeconfigPath: "./noFile",
 			},
 			wantErr: true,
 		},
