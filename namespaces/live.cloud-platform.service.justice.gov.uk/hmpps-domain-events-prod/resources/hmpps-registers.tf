@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "hmpps-registers" {
   metadata {
-    name      = "hmpps-domain-events-topic-hmpps-registers"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "hmpps-registers-prod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "hmpps-registers-prod"
   }
 
   data = {

@@ -73,9 +73,7 @@ module "hmpps_registers_to_nomis_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_registers_to_nomis_queue" {
   metadata {
     name      = "sqs-nomis-update-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-registers-prod"
+    namespace = "hmpps-registers-prod"
   }
 
   data = {
@@ -90,9 +88,7 @@ resource "kubernetes_secret" "hmpps_registers_to_nomis_queue" {
 resource "kubernetes_secret" "hmpps_registers_to_nomis_dead_letter_queue" {
   metadata {
     name      = "sqs-nomis-update-dl-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-registers-prod"
+    namespace = "hmpps-registers-prod"
   }
 
   data = {

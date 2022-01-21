@@ -73,9 +73,7 @@ module "hmpps_registers_to_delius_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_registers_to_delius_queue" {
   metadata {
     name      = "sqs-delius-update-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-registers-prod"
+    namespace = "hmpps-registers-prod"
   }
 
   data = {
@@ -90,9 +88,7 @@ resource "kubernetes_secret" "hmpps_registers_to_delius_queue" {
 resource "kubernetes_secret" "hmpps_registers_to_delius_dead_letter_queue" {
   metadata {
     name      = "sqs-delius-update-dl-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-registers-prod"
+    namespace = "hmpps-registers-prod"
   }
 
   data = {
