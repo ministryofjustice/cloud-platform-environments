@@ -109,3 +109,48 @@ func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (cl
 
 	return
 }
+
+// switchContextFromConfigFile takes a kubeconfig file and a cluster context i.e. live-1/manager/live
+// and set current context, which is usefull to switch context to multiple clusters.
+func switchContextFromConfigFile(clusterCtx, kubeconfigPath string) error {
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfigPath},
+		&clientcmd.ConfigOverrides{
+			CurrentContext: clusterCtx,
+		})
+	config, err := kubeconfig.RawConfig()
+	if err != nil {
+		return fmt.Errorf("error getting RawConfig: %w", err)
+	}
+
+	if config.Contexts[clusterCtx] == nil {
+		return fmt.Errorf("context %s doesn't exists", clusterCtx)
+	}
+
+	config.CurrentContext = clusterCtx
+	err = clientcmd.ModifyConfig(clientcmd.NewDefaultPathOptions(), config, true)
+	if err != nil {
+		return fmt.Errorf("error ModifyConfig: %w", err)
+	}
+
+	fmt.Printf("Switched to context \"%s\"", clusterCtx)
+	return nil
+}
+
+// switchContextFromS3Bucket takes the bucket name, a config file, a region and a the context of a cluster and set current context
+// i.e. live/manager/live-1
+// Kubernetes clientset.
+func switchContextFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (err error) {
+	configFileLocation := filepath.Join("/", "tmp", "config")
+	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
+	if err != nil {
+		return err
+	}
+
+	switchContextFromConfigFile(configFileLocation, clusterCtx)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
