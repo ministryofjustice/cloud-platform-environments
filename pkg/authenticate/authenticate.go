@@ -146,7 +146,7 @@ func SwitchContextFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (e
 		return err
 	}
 
-	SwitchContextFromConfigFile(clusterCtx, configFileLocation)
+	err = SwitchContextFromConfigFile(clusterCtx, configFileLocation)
 	if err != nil {
 		return err
 	}
