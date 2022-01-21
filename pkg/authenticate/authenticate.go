@@ -139,14 +139,13 @@ func SwitchContextFromConfigFile(clusterCtx, kubeconfigPath string) error {
 
 // switchContextFromS3Bucket takes the bucket name, a config file, a region and a the context of a cluster and set current context
 // i.e. live/manager/live-1, and set current context in the config file.
-func SwitchContextFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (err error) {
-	configFileLocation := filepath.Join("/", "tmp", "config")
+func SwitchContextFromS3Bucket(bucket, s3FileName, region, clusterCtx, kubeconfigPath string) (err error) {
 	err = KubeConfigFromS3Bucket(bucket, s3FileName, region)
 	if err != nil {
 		return err
 	}
 
-	err = SwitchContextFromConfigFile(clusterCtx, configFileLocation)
+	err = SwitchContextFromConfigFile(clusterCtx, kubeconfigPath)
 	if err != nil {
 		return err
 	}
