@@ -33,4 +33,3 @@ resource "kubernetes_secret" "example_sqs" {
     sqs_name = module.example_sqs.sqs_name
   }
 }
-
