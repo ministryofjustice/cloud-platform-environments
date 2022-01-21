@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "prison-offender-events" {
   metadata {
-    name      = "hmpps-domain-events-topic-offender-events"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "offender-events-prod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "offender-events-prod"
   }
 
   data = {
