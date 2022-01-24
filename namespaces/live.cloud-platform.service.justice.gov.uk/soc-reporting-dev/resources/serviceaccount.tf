@@ -1,5 +1,5 @@
-# to create github actions/service account for soc reporting
-module "serviceaccount-reporting" {
+# to create github actions/service account for soc reporting and entry
+module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
 
   namespace          = var.namespace
@@ -7,17 +7,6 @@ module "serviceaccount-reporting" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["socreporting"]
+  github_repositories = ["socreporting", "socentry"]
 }
 
-# to create github actions/service account for soc entry
-module "serviceaccount-entry" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
-
-  namespace          = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
-
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["socentry"]
-}
