@@ -1,3 +1,4 @@
+# to create github actions for soc reporting
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
 
@@ -7,9 +8,23 @@ module "ecr-repo" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  github_repositories = ["socreporting"]
 }
 
+# to create github actions for soc entry
+module "ecr-repo-entry" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
+
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr"
+
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ECR name, AWS access key, and AWS secret key, for use in
+  # github actions CI/CD pipelines
+  github_repositories = ["socentry"]
+}
+
+#we only need 1 kubernetes secret for the 2 applications
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
