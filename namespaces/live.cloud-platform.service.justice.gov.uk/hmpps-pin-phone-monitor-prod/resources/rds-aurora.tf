@@ -12,7 +12,7 @@ module "rds_aurora" {
   engine_version               = "12.6"
   engine_mode                  = "provisioned"
   replica_count                = 2
-  instance_type                = "db.r6g.xlarge"
+  instance_type                = "db.r6g.large"
   snapshot_identifier          = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-prod-pre-migration-20210730-1045"
   storage_encrypted            = true
   apply_immediately            = true
