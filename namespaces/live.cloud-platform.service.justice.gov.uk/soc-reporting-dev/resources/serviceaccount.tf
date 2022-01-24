@@ -2,7 +2,7 @@
 module "serviceaccount-reporting" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets
@@ -14,7 +14,7 @@ module "serviceaccount-reporting" {
 module "serviceaccount-entry" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.5"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets
