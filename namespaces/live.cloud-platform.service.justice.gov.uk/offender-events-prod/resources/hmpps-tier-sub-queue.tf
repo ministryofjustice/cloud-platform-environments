@@ -16,7 +16,7 @@ module "hmpps_tier_event_queue" {
   {
     "deadLetterTargetArn": "${module.hmpps_tier_event_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
+
 EOF
 
 
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "hmpps_tier_event_queue_policy" {
         }
       ]
   }
-   
+
 EOF
 
 }
@@ -73,9 +73,7 @@ module "hmpps_tier_event_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_tier_event_queue" {
   metadata {
     name      = "hmpps-tier-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-prod"
+    namespace = "hmpps-tier-prod"
   }
 
   data = {
@@ -90,9 +88,7 @@ resource "kubernetes_secret" "hmpps_tier_event_queue" {
 resource "kubernetes_secret" "hmpps_tier_event_dead_letter_queue" {
   metadata {
     name      = "hmpps-tier-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-prod"
+    namespace = "hmpps-tier-prod"
   }
 
   data = {
