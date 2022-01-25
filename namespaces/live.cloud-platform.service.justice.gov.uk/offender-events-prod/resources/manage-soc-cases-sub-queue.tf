@@ -133,7 +133,6 @@ module "manage_soc_cases_probation_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "manage_soc_cases_offender_events_queue" {
   metadata {
     name      = "manage-soc-cases-offender-events-sqs-instance-output"
-    namespace = var.namespace
     namespace = "manage-soc-cases-prod"
   }
 
@@ -149,7 +148,6 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_queue" {
 resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_queue" {
   metadata {
     name      = "manage-soc-cases-probation-offender-events-sqs-instance-output"
-    namespace = var.namespace
     namespace = "manage-soc-cases-prod"
   }
 
@@ -165,7 +163,6 @@ resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_queue" 
 resource "kubernetes_secret" "manage_soc_cases_offender_events_dead_letter_queue" {
   metadata {
     name      = "manage-soc-cases-offender-events-sqs-dl-instance-output"
-    namespace = var.namespace
     namespace = "manage-soc-cases-prod"
   }
 
@@ -181,7 +178,6 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_dead_letter_queue
 resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_dead_letter_queue" {
   metadata {
     name      = "manage-soc-cases-probation-offender-events-sqs-dl-instance-output"
-    namespace = var.namespace
     namespace = "manage-soc-cases-prod"
   }
 
