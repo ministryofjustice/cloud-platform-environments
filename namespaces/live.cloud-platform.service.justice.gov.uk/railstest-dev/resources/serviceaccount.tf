@@ -6,9 +6,10 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories                  = ["ministryofjustice/ALB-UnclaimedBalanceindex"]
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+  github_repositories = ["ALB-UnclaimedBalanceindex"]
+  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
+  github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
+  github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+  github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+
 }

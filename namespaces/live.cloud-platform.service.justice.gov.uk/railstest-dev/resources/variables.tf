@@ -55,8 +55,6 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
-variable "kubernetes_cluster" {
-}
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
