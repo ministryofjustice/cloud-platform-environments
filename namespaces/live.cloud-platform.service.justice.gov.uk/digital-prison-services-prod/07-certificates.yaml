@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: whereabouts.prison.service.justice.gov.uk
+  namespace: digital-prison-services-prod
+spec:
+  secretName: prison-staff-hub-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - whereabouts.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: digital.prison.service.justice.gov.uk
+  namespace: digital-prison-services-prod
+spec:
+  secretName: digital-prison-services-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - digital.prison.service.justice.gov.uk
