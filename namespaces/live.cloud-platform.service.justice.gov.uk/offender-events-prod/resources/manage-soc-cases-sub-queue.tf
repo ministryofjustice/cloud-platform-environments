@@ -134,8 +134,7 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_queue" {
   metadata {
     name      = "manage-soc-cases-offender-events-sqs-instance-output"
     namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "manage-soc-cases-prod"
+    namespace = "manage-soc-cases-prod"
   }
 
   data = {
@@ -151,8 +150,7 @@ resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_queue" 
   metadata {
     name      = "manage-soc-cases-probation-offender-events-sqs-instance-output"
     namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "manage-soc-cases-prod"
+    namespace = "manage-soc-cases-prod"
   }
 
   data = {
@@ -168,8 +166,7 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_dead_letter_queue
   metadata {
     name      = "manage-soc-cases-offender-events-sqs-dl-instance-output"
     namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "manage-soc-cases-prod"
+    namespace = "manage-soc-cases-prod"
   }
 
   data = {
@@ -185,8 +182,7 @@ resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_dead_le
   metadata {
     name      = "manage-soc-cases-probation-offender-events-sqs-dl-instance-output"
     namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "manage-soc-cases-prod"
+    namespace = "manage-soc-cases-prod"
   }
 
   data = {
