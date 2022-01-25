@@ -34,7 +34,6 @@ resource "kubernetes_secret" "dps_rds" {
 
 # This places a secret for this preprod RDS instance in the production namespace,
 # this can then be used by a kubernetes job which will refresh the preprod data.
-# Commented out until we have a production environment on the new cluster. 
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
     name      = "dps-rds-instance-output-preprod"
