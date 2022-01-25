@@ -19,6 +19,8 @@ import (
 	"k8s.io/client-go/kubernetes"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
+	metricClientset "k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
 // Namespace describes a Cloud Platform namespace object.
@@ -38,6 +40,10 @@ type Namespace struct {
 // AllNamespaces contains the json to go struct of the hosted_services endpoint.
 type AllNamespaces struct {
 	Namespaces []Namespace `json:"namespace_details"`
+}
+
+type Clientset struct {
+	client kubernetes.Interface
 }
 
 // RbacFile describes the rbac file in a users namespace
@@ -146,7 +152,7 @@ func GetAllNamespacesFromCluster(clientSet *kubernetes.Clientset) ([]v1.Namespac
 
 // GetAllPodsFromCluster takes a Kubernetes clientset and returns all pods in all namespaces for a
 // given cluster with type v1.PodList
-func GetAllPodsFromCluster(clientSet *kubernetes.Clientset) ([]v1.Pod, error) {
+func GetAllPodsFromCluster(clientSet kubernetes.Interface) ([]v1.Pod, error) {
 
 	pods, err := clientSet.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
@@ -154,6 +160,18 @@ func GetAllPodsFromCluster(clientSet *kubernetes.Clientset) ([]v1.Pod, error) {
 	}
 
 	return pods.Items, nil
+}
+
+// GetAllPodMetricsesFromCluster takes a Kubernetes clientset and returns all pods Metrics
+// in all namespaces for a given cluster with type v1beta1.PodMetrics
+func GetAllPodMetricsesFromCluster(mclientSet metricClientset.Interface) ([]v1beta1.PodMetrics, error) {
+
+	podMetricsList, err := mclientSet.MetricsV1beta1().PodMetricses(metav1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("can't get Pod Metrics from cluster %s", err.Error())
+	}
+	return podMetricsList.Items, nil
+
 }
 
 // SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
