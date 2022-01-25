@@ -88,7 +88,6 @@ resource "kubernetes_secret" "keyworker_api_queue" {
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
     name      = "kw-sqs-complexity-of-need-dl-instance-output"
-    Remove when namespace has been migrated
     namespace = "keyworker-api-preprod"
   }
 
