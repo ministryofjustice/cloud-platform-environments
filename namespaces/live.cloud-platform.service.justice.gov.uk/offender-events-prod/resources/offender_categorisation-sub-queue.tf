@@ -67,9 +67,7 @@ module "offender_categorisation_events_dead_letter_queue" {
 resource "kubernetes_secret" "offender_categorisation_events_queue" {
   metadata {
     name      = "oc-events-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "offender-categorisation-prod"
+    namespace = "offender-categorisation-prod"
   }
 
   data = {
@@ -84,9 +82,7 @@ resource "kubernetes_secret" "offender_categorisation_events_queue" {
 resource "kubernetes_secret" "offender_categorisation_events_dead_letter_queue" {
   metadata {
     name      = "oc-events-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "offender-categorisation-prod"
+    namespace = "offender-categorisation-prod"
   }
 
   data = {
@@ -178,9 +174,7 @@ module "offender_categorisation_ui_events_dead_letter_queue" {
 resource "kubernetes_secret" "offender_categorisation_ui_events_queue" {
   metadata {
     name      = "ocu-events-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "offender-categorisation-prod"
+    namespace = "offender-categorisation-prod"
   }
 
   data = {
@@ -195,9 +189,7 @@ resource "kubernetes_secret" "offender_categorisation_ui_events_queue" {
 resource "kubernetes_secret" "offender_categorisation_ui_events_dead_letter_queue" {
   metadata {
     name      = "ocu-events-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "offender-categorisation-prod"
+    namespace = "offender-categorisation-prod"
   }
 
   data = {
