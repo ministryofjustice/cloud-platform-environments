@@ -144,6 +144,18 @@ func GetAllNamespacesFromCluster(clientSet *kubernetes.Clientset) ([]v1.Namespac
 	return namespaces.Items, nil
 }
 
+// GetAllPodsFromCluster takes a Kubernetes clientset and returns all pods in all namespaces for a
+// given cluster with type v1.PodList
+func GetAllPodsFromCluster(clientSet *kubernetes.Clientset) ([]v1.Pod, error) {
+
+	pods, err := clientSet.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("can't list pods from cluster %s", err.Error())
+	}
+
+	return pods.Items, nil
+}
+
 // SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
 // method value `RbacTeam`.
 // The function performs a HTTP GET request to GitHub, grabs the contents of the rbac yaml file and

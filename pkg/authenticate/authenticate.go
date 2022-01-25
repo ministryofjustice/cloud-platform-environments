@@ -14,7 +14,9 @@ import (
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	metricClient "k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
 // GitHubClient takes a GitHub personal access key as a string and builds
@@ -72,17 +74,11 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region string) error {
 	return nil
 }
 
-// KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
+// CreateClientFromConfigFile takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
 // and returns a kubernetes clientset ready to use with the cluster in your context.
 func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
-	client, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
-		&clientcmd.ConfigOverrides{
-			CurrentContext: clusterCtx,
-		}).ClientConfig()
-	if err != nil {
-		return nil, err
-	}
+
+	client, err := NewConfigFromContext(configFile, clusterCtx)
 
 	clientset, _ = kubernetes.NewForConfig(client)
 	if err != nil {
@@ -90,6 +86,29 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 	}
 
 	return
+}
+
+// KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
+// and returns a kubernetes clientset ready to use with the cluster in your context.
+func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset *metricClient.Clientset, err error) {
+
+	client, err := NewConfigFromContext(configFile, clusterCtx)
+
+	clientset, _ = metricClient.NewForConfig(client)
+	if err != nil {
+		return nil, err
+	}
+
+	return
+}
+
+func NewConfigFromContext(configFile, clusterCtx string) (*rest.Config, error) {
+
+	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: configFile},
+		&clientcmd.ConfigOverrides{
+			CurrentContext: clusterCtx,
+		}).ClientConfig()
 }
 
 // CreateClientFromS3Bucket takes the bucket name, a config file, a region and a the context of a cluster and creates
