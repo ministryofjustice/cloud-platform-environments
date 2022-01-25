@@ -9,5 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - mpc-staging.service.justice.gov.uk
-  
+    - mpc-staging.service.justice.gov.uk
