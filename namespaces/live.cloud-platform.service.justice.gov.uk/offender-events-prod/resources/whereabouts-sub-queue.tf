@@ -67,9 +67,7 @@ module "whereabouts_api_dead_letter_queue" {
 resource "kubernetes_secret" "whereabouts_api_queue" {
   metadata {
     name      = "whereabouts-api-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "whereabouts-api-prod"
+    namespace = "whereabouts-api-prod"
   }
 
   data = {
@@ -84,9 +82,7 @@ resource "kubernetes_secret" "whereabouts_api_queue" {
 resource "kubernetes_secret" "whereabouts_api_dead_letter_queue" {
   metadata {
     name      = "whereabouts-api-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "whereabouts-api-prod"
+    namespace = "whereabouts-api-prod"
   }
 
   data = {
