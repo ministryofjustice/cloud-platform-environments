@@ -67,9 +67,7 @@ module "restricted_patients_sub_queue_for_domain_events_dead_letter_queue" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events" {
   metadata {
     name      = "restricted-patients-sub-queue-for-domain-events-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-restricted-patients-api-prod"
+    namespace = "hmpps-restricted-patients-api-prod"
   }
 
   data = {
@@ -84,9 +82,7 @@ resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events_dead_letter_queue" {
   metadata {
     name      = "restricted-patients-sub-queue-for-domain-events-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-restricted-patients-api-prod"
+    namespace = "hmpps-restricted-patients-api-prod"
   }
 
   data = {
