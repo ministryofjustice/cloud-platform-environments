@@ -73,9 +73,7 @@ module "keyworker_api_dead_letter_queue" {
 resource "kubernetes_secret" "keyworker_api_queue" {
   metadata {
     name      = "kw-sqs-complexity-of-need-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "keyworker-api-preprod"
+    namespace = "keyworker-api-preprod"
   }
 
   data = {
@@ -90,9 +88,8 @@ resource "kubernetes_secret" "keyworker_api_queue" {
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
     name      = "kw-sqs-complexity-of-need-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "keyworker-api-preprod"
+    Remove when namespace has been migrated
+    namespace = "keyworker-api-preprod"
   }
 
   data = {
