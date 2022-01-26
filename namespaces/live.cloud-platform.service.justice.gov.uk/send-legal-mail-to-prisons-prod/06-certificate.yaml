@@ -1,0 +1,39 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: send-legal-mail-api-prod.prison.service.justice.gov.uk
+  namespace: send-legal-mail-to-prisons-prod
+spec:
+  secretName: send-legal-mail-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - send-legal-mail-api.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: send-legal-mail-prod.prison.service.justice.gov.uk
+  namespace: send-legal-mail-to-prisons-prod
+spec:
+  secretName: send-legal-mail-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - send-legal-mail.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: check-rule39-mail-prod.prison.service.justice.gov.uk
+  namespace: send-legal-mail-to-prisons-prod
+spec:
+  secretName: check-rule39-mail-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - check-rule39-mail.prison.service.justice.gov.uk
