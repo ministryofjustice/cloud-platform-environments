@@ -72,9 +72,7 @@ module "case_note_poll_pusher_dead_letter_queue" {
 resource "kubernetes_secret" "case_note_poll_pusher_queue" {
   metadata {
     name      = "cnpp-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "case-notes-to-probation-prod"
+    namespace = "case-notes-to-probation-prod"
   }
 
   data = {
@@ -89,9 +87,7 @@ resource "kubernetes_secret" "case_note_poll_pusher_queue" {
 resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
   metadata {
     name      = "cnpp-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "case-notes-to-probation-prod"
+    namespace = "case-notes-to-probation-prod"
   }
 
   data = {
