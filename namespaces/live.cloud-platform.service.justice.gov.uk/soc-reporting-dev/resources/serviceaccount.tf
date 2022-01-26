@@ -34,6 +34,7 @@ variable "serviceaccount_rules" {
         "deployment",
         "secrets",
         "services",
+        "configmaps",
         "pods",
       ]
       verbs = [
