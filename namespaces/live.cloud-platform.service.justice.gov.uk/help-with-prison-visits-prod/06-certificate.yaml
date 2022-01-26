@@ -1,0 +1,52 @@
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: help-with-prison-visits.hmpps.service.justice.gov.uk
+  namespace: help-with-prison-visits-prod
+spec:
+  secretName: help-with-prison-visits-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - help-with-prison-visits.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: help-with-prison-visits-internal-prod
+  namespace: help-with-prison-visits-prod
+spec:
+  secretName: help-with-prison-visits-internal-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage.hwpv.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: help-with-prison-visits.service.gov.uk
+  namespace: help-with-prison-visits-prod
+spec:
+  secretName: help-with-prison-visits-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - help-with-prison-visits.service.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: caseworker.help-with-prison-visits.service.gov.uk
+  namespace: help-with-prison-visits-prod
+spec:
+  secretName: help-with-prison-visits-caseworker-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - caseworker.help-with-prison-visits.service.gov.uk
