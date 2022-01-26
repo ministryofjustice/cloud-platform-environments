@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: refer-monitor-intervention.service.justice.gov.uk
+  namespace: hmpps-interventions-prod
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - refer-monitor-intervention.service.justice.gov.uk
