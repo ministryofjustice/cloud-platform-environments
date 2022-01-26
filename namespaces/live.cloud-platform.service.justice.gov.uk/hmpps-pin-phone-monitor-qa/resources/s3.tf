@@ -345,11 +345,11 @@ resource "kubernetes_secret" "pcms_document_s3_bucket" {
   }
 
   data = {
-    access_key_id              = module.hmpps_pin_phone_monitor_document_s3_bucket.access_key_id
-    secret_access_key          = module.hmpps_pin_phone_monitor_document_s3_bucket.secret_access_key
-    bucket_arn                 = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
-    bucket_name                = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
-    translate_s3_data_role_arn = aws_iam_role.translate_s3_data_role.arn
+    access_key_id               = module.hmpps_pin_phone_monitor_document_s3_bucket.access_key_id
+    secret_access_key           = module.hmpps_pin_phone_monitor_document_s3_bucket.secret_access_key
+    bucket_arn                  = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
+    bucket_name                 = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
+    translate_s3_data_role_arn  = aws_iam_role.translate_s3_data_role.arn
     transcribe_s3_data_role_arn = aws_iam_role.transcribe_s3_data_role.arn
   }
 }
