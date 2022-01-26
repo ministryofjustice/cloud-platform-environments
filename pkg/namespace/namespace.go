@@ -42,10 +42,6 @@ type AllNamespaces struct {
 	Namespaces []Namespace `json:"namespace_details"`
 }
 
-type Clientset struct {
-	client kubernetes.Interface
-}
-
 // RbacFile describes the rbac file in a users namespace
 type RbacFile struct {
 	Metadata struct {
@@ -166,7 +162,7 @@ func GetAllPodsFromCluster(clientSet kubernetes.Interface) ([]v1.Pod, error) {
 // in all namespaces for a given cluster with type v1beta1.PodMetrics
 func GetAllPodMetricsesFromCluster(mclientSet metricClientset.Interface) ([]v1beta1.PodMetrics, error) {
 
-	podMetricsList, err := mclientSet.MetricsV1beta1().PodMetricses(metav1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
+	podMetricsList, err := mclientSet.MetricsV1beta1().PodMetricses("").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("can't get Pod Metrics from cluster %s", err.Error())
 	}
