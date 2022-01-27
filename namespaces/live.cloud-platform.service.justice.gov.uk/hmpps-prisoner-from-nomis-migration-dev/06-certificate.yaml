@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-from-nomis-migration-dev.hmpps.service.justice.gov.uk
+    - prisoner-nomis-migration-dev.hmpps.service.justice.gov.uk
