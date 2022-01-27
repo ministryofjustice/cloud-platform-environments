@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "call_processing_policy" {
     condition {
       test     = "StringEquals"
       variable = "iam:PassedToService"
-      values   = ["translate.amazonaws.com"]
+      values   = ["translate.amazonaws.com", "transcribe.amazonaws.com"]
     }
   }
 }
