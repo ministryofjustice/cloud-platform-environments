@@ -117,7 +117,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             "aws:PrincipalArn" : [
               "${aws_iam_role.translate_s3_data_role.arn}",
               "${aws_iam_role.transcribe_s3_data_role.arn}",
-              "${aws_iam_user.bt_upload_user.arn}"]
+            "${aws_iam_user.bt_upload_user.arn}"]
           }
         }
       },
