@@ -14,7 +14,7 @@ module "peoplefinder_es" {
   team_name              = "peoplefinder"
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-demo"
-  elasticsearch_version  = "6.8"
+  elasticsearch_version  = "7.9"
   instance_type          = "t2.small.elasticsearch"
   irsa_enabled           = true
   assume_enabled         = false
