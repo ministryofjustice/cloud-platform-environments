@@ -16,8 +16,6 @@ module "peoplefinder_es" {
   namespace                   = "peoplefinder-demo"
   elasticsearch_version       = "7.9"
   instance_type               = "t2.small.elasticsearch"
-  aws-es-proxy-replica-count  = 2
-  instance_type               = "t3.medium.elasticsearch"
   irsa_enabled                = true
   assume_enabled              = false
 }
