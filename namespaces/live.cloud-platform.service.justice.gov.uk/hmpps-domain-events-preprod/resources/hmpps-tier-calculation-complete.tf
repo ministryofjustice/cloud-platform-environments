@@ -1,7 +1,7 @@
 
 
 module "hmpps_tier_calculation_complete_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_tier_calculation_complete_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -75,9 +75,7 @@ module "hmpps_tier_calculation_complete_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
   metadata {
     name      = "sqs-tier-to-delius-update-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-to-delius-update-preprod"
+    namespace = "hmpps-tier-to-delius-update-preprod"
   }
 
   data = {
@@ -91,10 +89,9 @@ resource "kubernetes_secret" "hmpps_tier_calculation_complete_queue" {
 
 resource "kubernetes_secret" "hmpps_tier_calculation_complete_dead_letter_queue" {
   metadata {
-    name      = "sqs-tier-to-delius-update-dl-secret"
-    namespace = var.namespace
+    name = "sqs-tier-to-delius-update-dl-secret"
     # Remove when namespace has been migrated
-    # namespace = "hmpps-tier-to-delius-update-preprod"
+    namespace = "hmpps-tier-to-delius-update-preprod"
   }
 
   data = {

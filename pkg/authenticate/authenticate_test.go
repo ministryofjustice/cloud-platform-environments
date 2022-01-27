@@ -103,3 +103,31 @@ func TestKubeClientFromConfig(t *testing.T) {
 		})
 	}
 }
+
+func TestSwitchContextFromConfigFile(t *testing.T) {
+	type args struct {
+		clusterCtx     string
+		kubeconfigPath string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Fail to switch context",
+			args: args{
+				clusterCtx:     "nope",
+				kubeconfigPath: "./noFile",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := SwitchContextFromConfigFile(tt.args.clusterCtx, tt.args.kubeconfigPath); (err != nil) != tt.wantErr {
+				t.Errorf("SwitchContextFromConfigFile() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -20,7 +20,13 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+
+  github_repositories                  = ["ALB-UnclaimedBalanceindex"]
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

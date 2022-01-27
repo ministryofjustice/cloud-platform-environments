@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: court-probation-preprod-cert
+  namespace: court-probation-preprod
+spec:
+  secretName: court-probation-preprod-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - court-list-splitter-preprod.hmpps.service.justice.gov.uk
+    - court-hearing-event-receiver-preprod.hmpps.service.justice.gov.uk
+    - court-case-test-app-preprod.hmpps.service.justice.gov.uk
+    - pre-sentence-service-preprod.hmpps.service.justice.gov.uk

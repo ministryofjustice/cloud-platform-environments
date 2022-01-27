@@ -5,7 +5,7 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.5"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
   repo_name = "laa-common-platform-connector"
   team_name = "laa-crime-apps-team"
 

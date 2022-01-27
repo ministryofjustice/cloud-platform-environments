@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "calculate-release-dates-api-topic" {
   metadata {
-    name      = "hmpps-domain-events-topic-calculate-release-dates"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "calculate-release-dates-api-dev"
+    name      = "hmpps-domain-events-topic"
+    namespace = "calculate-release-dates-api-dev"
   }
 
   data = {

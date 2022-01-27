@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_instance_class      = "db.t3.medium"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window

@@ -16,7 +16,7 @@ resource "pingdom_check" "cloud-platform-prometheus-eks-live" {
 
 resource "pingdom_check" "cloud-platform-grafana-eks-live" {
   type                     = "http"
-  name                     = "cloud-platform monitoring Grafana eks-live"
+  name                     = "cloud-platform monitoring Alert Manager eks-live"
   host                     = "alertmanager.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -32,7 +32,7 @@ resource "pingdom_check" "cloud-platform-grafana-eks-live" {
 
 resource "pingdom_check" "cloud-platform-alertmanager-eks-live" {
   type                     = "http"
-  name                     = "cloud-platform monitoring Alert Manager eks-live"
+  name                     = "cloud-platform monitoring Grafana eks-live"
   host                     = "grafana.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true

@@ -50,7 +50,7 @@ func TestNamespace_SetRbacTeam(t *testing.T) {
 		BusinessUnit     string
 		DeploymentType   string
 		Cluster          string
-		DomainNames      []interface{}
+		DomainNames      []string
 		GithubURL        string
 		Name             string
 		RbacTeam         []string
@@ -156,7 +156,7 @@ func TestGetNamespace(t *testing.T) {
 	}
 }
 
-func TestGetAllNamespaces(t *testing.T) {
+func TestGetAllNamespacesFromHoodaw(t *testing.T) {
 	type args struct {
 		endPoint string
 	}
@@ -182,7 +182,7 @@ func TestGetAllNamespaces(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := GetAllNamespaces(tt.args.endPoint)
+			_, err := GetAllNamespacesFromHoodaw(tt.args.endPoint)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetAllNamespaces() error = %v, wantErr %v", err, tt.wantErr)
 				return
