@@ -96,7 +96,7 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 // i.e. live-1.cloud-platform.service.justice.gov.uk and calls two other functions in this package to return a client
 // Kubernetes clientset.
 func CreateClientFromS3Bucket(bucket, s3FileName, region, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
-	configFileLocation := filepath.Join("/", "tmp", "config")
+	configFileLocation := filepath.Join("/", "tmp", "kubeconfig")
 	err = KubeConfigFromS3Bucket(bucket, s3FileName, region, configFileLocation)
 	if err != nil {
 		return nil, err
