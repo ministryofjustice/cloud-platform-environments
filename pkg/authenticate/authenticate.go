@@ -16,7 +16,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-	metricClient "k8s.io/metrics/pkg/client/clientset/versioned"
+	"k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
 // GitHubClient takes a GitHub personal access key as a string and builds
@@ -90,11 +90,11 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 
 // KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
 // and returns a kubernetes clientset ready to use with the cluster in your context.
-func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset *metricClient.Clientset, err error) {
+func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset *versioned.Clientset, err error) {
 
 	client, err := NewConfigFromContext(configFile, clusterCtx)
 
-	clientset, _ = metricClient.NewForConfig(client)
+	clientset, _ = versioned.NewForConfig(client)
 	if err != nil {
 		return nil, err
 	}

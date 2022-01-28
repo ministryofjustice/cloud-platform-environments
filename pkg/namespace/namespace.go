@@ -20,7 +20,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
-	metricClientset "k8s.io/metrics/pkg/client/clientset/versioned"
+	"k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
 // Namespace describes a Cloud Platform namespace object.
@@ -160,7 +160,7 @@ func GetAllPodsFromCluster(clientSet kubernetes.Interface) ([]v1.Pod, error) {
 
 // GetAllPodMetricsesFromCluster takes a Kubernetes clientset and returns all pods Metrics
 // in all namespaces for a given cluster with type v1beta1.PodMetrics
-func GetAllPodMetricsesFromCluster(mclientSet metricClientset.Interface) ([]v1beta1.PodMetrics, error) {
+func GetAllPodMetricsesFromCluster(mclientSet versioned.Interface) ([]v1beta1.PodMetrics, error) {
 
 	podMetricsList, err := mclientSet.MetricsV1beta1().PodMetricses("").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
@@ -168,6 +168,18 @@ func GetAllPodMetricsesFromCluster(mclientSet metricClientset.Interface) ([]v1be
 	}
 	return podMetricsList.Items, nil
 
+}
+
+// GetAllPodsFromCluster takes a Kubernetes clientset and returns all pods in all namespaces for a
+// given cluster with type v1.PodList
+func GetAllResourceQuotasFromCluster(clientSet kubernetes.Interface) ([]v1.ResourceQuota, error) {
+
+	resourcequotas, err := clientSet.CoreV1().ResourceQuotas("").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("can't list resourcequotas from cluster %s", err.Error())
+	}
+
+	return resourcequotas.Items, nil
 }
 
 // SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
