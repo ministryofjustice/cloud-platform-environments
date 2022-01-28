@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: laa-court-data-adaptor-prod-cert
+  namespace: laa-court-data-adaptor-prod
+spec:
+  secretName: laa-court-data-adaptor-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - court-data-adaptor.service.justice.gov.uk
+  - cjscp.court-data-adaptor.service.justice.gov.uk

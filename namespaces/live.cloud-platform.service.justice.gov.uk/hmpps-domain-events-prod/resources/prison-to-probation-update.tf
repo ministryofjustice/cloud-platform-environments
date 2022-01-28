@@ -72,11 +72,8 @@ module "prison_to_probation_update_dead_letter_queue" {
 
 resource "kubernetes_secret" "prison_to_probation_update_queue" {
   metadata {
-    name      = "sqs-hmpps-domain-events-prison-to-probation-update"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "sqs-hmpps-domain-events"
-    # namespace = "prison-to-probation-update-prod"
+    name      = "sqs-hmpps-domain-events"
+    namespace = "prison-to-probation-update-prod"
   }
 
   data = {
@@ -90,11 +87,8 @@ resource "kubernetes_secret" "prison_to_probation_update_queue" {
 
 resource "kubernetes_secret" "prison_to_probation_update_dlq" {
   metadata {
-    name      = "sqs-hmpps-domain-events-dlq-prison-to-probation-update"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "sqs-hmpps-domain-events-dlq"
-    # namespace = "prison-to-probation-update-prod"
+    name      = "sqs-hmpps-domain-events-dlq"
+    namespace = "prison-to-probation-update-prod"
   }
 
   data = {
