@@ -41,7 +41,7 @@ resource "kubernetes_secret" "dps_rds" {
 # this can then be used by a kubernetes job which will refresh the preprod data.
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
-    name      = "dps-rds-instance-output-preprod"
+    name      = "ma-rds-instance-output-preprod"
     namespace = "hmpps-manage-adjudications-api-prod"
   }
 
