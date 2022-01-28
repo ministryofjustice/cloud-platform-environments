@@ -42,7 +42,7 @@ resource "kubernetes_secret" "dps_rds" {
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
     name      = "rp-rds-instance-output-preprod"
-    namespace = "hmpps-restricted-patients-prod"
+    namespace = "hmpps-restricted-patients-api-prod"
   }
 
   data = {
