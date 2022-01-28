@@ -55,7 +55,7 @@ module "peoplefinder_es" {
   log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
   log_publishing_application_enabled                  = true
   irsa_enabled                                        = true
-  assume_enabled                                      = false
+  assume_enabled                                      = true
 }
 
 module "ns_annotation" {
