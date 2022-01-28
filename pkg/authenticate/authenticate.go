@@ -79,6 +79,9 @@ func KubeConfigFromS3Bucket(bucket, s3FileName, region, kubeConfigPath string) e
 func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kubernetes.Clientset, err error) {
 
 	client, err := NewConfigFromContext(configFile, clusterCtx)
+	if err != nil {
+		return nil, err
+	}
 
 	clientset, _ = kubernetes.NewForConfig(client)
 	if err != nil {
@@ -93,6 +96,9 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset *versioned.Clientset, err error) {
 
 	client, err := NewConfigFromContext(configFile, clusterCtx)
+	if err != nil {
+		return nil, err
+	}
 
 	clientset, _ = versioned.NewForConfig(client)
 	if err != nil {
