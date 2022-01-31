@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: track-a-query-production-certificate-duplicate
+  namespace: track-a-query-production
+spec:
+  secretName: track-a-query-certificate-duplicate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - duplicate.track-a-query.service.justice.gov.uk
