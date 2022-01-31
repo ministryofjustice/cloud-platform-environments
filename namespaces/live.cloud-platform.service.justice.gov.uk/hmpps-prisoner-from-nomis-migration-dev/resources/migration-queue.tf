@@ -42,7 +42,7 @@ module "migration_dead_letter_queue" {
 
 resource "kubernetes_secret" "migration_queue" {
   metadata {
-    name      = "sqs_migration_queue"
+    name      = "sqs-migration-queue"
     namespace = var.namespace
   }
 
@@ -57,7 +57,7 @@ resource "kubernetes_secret" "migration_queue" {
 
 resource "kubernetes_secret" "migration_dead_letter_queue" {
   metadata {
-    name      = "sqs_migration_dlq"
+    name      = "sqs-migration-dlq"
     namespace = var.namespace
   }
 
