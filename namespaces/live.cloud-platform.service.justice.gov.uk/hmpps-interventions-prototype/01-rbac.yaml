@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-interventions-prototype
 subjects:
   - kind: Group
-    name: "github:hmpps-interventions"
+    name: "github:designers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
