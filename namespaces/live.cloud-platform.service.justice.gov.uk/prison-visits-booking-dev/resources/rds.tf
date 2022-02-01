@@ -11,8 +11,8 @@ module "prison-visits-rds" {
 
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.m4.large"
-  rds_family                  = "postgres9.6"
-  db_engine_version           = "9.6"
+  rds_family                  = "postgres12"
+  db_engine_version           = "12"
   db_allocated_storage        = "50"
   db_engine                   = "postgres"
   db_name                     = "visits"
