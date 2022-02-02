@@ -147,7 +147,6 @@ resource "kubernetes_secret" "read_replica" {
   */
 }
 
-
 # Configmap to store non-sensitive data related to the RDS instance
 
 resource "kubernetes_config_map" "rds" {
