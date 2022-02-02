@@ -91,8 +91,8 @@ func CreateClientFromConfigFile(configFile, clusterCtx string) (clientset *kuber
 	return
 }
 
-// KubeClientFromConfig takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
-// and returns a kubernetes clientset ready to use with the cluster in your context.
+// CreateMetricsClientFromConfigFile takes a kubeconfig file and a cluster context i.e. live-1.cloud-platform.service.justice.gov.uk
+// and returns a kubernetes metrics clientset ready to use with the cluster in your context.
 func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset *versioned.Clientset, err error) {
 
 	client, err := NewConfigFromContext(configFile, clusterCtx)
@@ -108,6 +108,8 @@ func CreateMetricsClientFromConfigFile(configFile, clusterCtx string) (clientset
 	return
 }
 
+// NewConfigFromContext takes a configFile and creates a clientConfig using the config file
+// and returns the client config to access the api server of the cluster
 func NewConfigFromContext(configFile, clusterCtx string) (*rest.Config, error) {
 
 	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
