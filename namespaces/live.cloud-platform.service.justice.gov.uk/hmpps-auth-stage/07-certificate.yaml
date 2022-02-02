@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - sign-in-stage.hmpps.service.justice.gov.uk
+  - sign-in-stage-alt.hmpps.service.justice.gov.uk
