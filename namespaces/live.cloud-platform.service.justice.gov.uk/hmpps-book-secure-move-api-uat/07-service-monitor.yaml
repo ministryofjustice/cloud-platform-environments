@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hmpps-book-secure-move-api
+  namespace: hmpps-book-secure-move-api-uat
+spec:
+  selector:
+    matchLabels:
+      app: hmpps-book-secure-move-api-web-uat
+  namespaceSelector:
+    matchNames:
+      - hmpps-book-secure-move-api-uat
+  endpoints:
+    - port: metrics
+      interval: 15s
