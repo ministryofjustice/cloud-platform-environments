@@ -1,4 +1,0 @@
-locals {
-  suppliers = ["geoamey", "serco"]
-}
-
