@@ -44,7 +44,7 @@ resource "github_branch_protection" "default" {
   repository_id          = github_repository.prototype.id
   pattern                = "main"
   enforce_admins         = true
-  require_signed_commits = true
+  require_signed_commits = false
 }
 
 resource "github_team_repository" "prototype" {
