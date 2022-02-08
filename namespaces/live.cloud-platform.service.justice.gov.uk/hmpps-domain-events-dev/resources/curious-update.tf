@@ -72,7 +72,7 @@ module "curious_dead_letter_queue" {
 
 resource "kubernetes_secret" "curious_queue" {
   metadata {
-    name      = "sqs-hmpps-domain-events"
+    name      = "sqs-curious-secret"
     namespace = var.namespace
   }
 
@@ -87,7 +87,7 @@ resource "kubernetes_secret" "curious_queue" {
 
 resource "kubernetes_secret" "curious_dlq" {
   metadata {
-    name      = "sqs-hmpps-domain-events-dlq"
+    name      = "sqs-curious-dl-secret"
     namespace = var.namespace
   }
 
