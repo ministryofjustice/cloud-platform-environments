@@ -73,6 +73,7 @@ module "curious_dead_letter_queue" {
 resource "kubernetes_secret" "curious_queue" {
   metadata {
     name      = "sqs-curious-secret"
+    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
     namespace = var.namespace
   }
 
@@ -88,6 +89,7 @@ resource "kubernetes_secret" "curious_queue" {
 resource "kubernetes_secret" "curious_dlq" {
   metadata {
     name      = "sqs-curious-dl-secret"
+    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
     namespace = var.namespace
   }
 
