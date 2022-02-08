@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: hmpps-workload-cert
+  namespace: hmpps-workload-preprod
+spec:
+  secretName: hmpps-workload-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-workload-preprod.hmpps.service.justice.gov.uk
