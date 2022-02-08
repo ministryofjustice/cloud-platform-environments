@@ -9,6 +9,10 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
+{%- if environment == 'prod' %}
+  db_instance_class    = "db.t3.medium"
+  db_allocated_storage = "20"
+{%- endif %}
 
   providers = {
     aws = aws.london
