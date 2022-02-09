@@ -12,7 +12,6 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  db_allocated_storage   = 20
 
   db_instance_class    = "db.t3.medium"
   db_allocated_storage = "20"
