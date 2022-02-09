@@ -5,7 +5,7 @@ metadata:
   namespace: jogapp-dev
 subjects:
   - kind: Group
-    name: "github:jo-g-app"
+    name: "github:laa-get-access"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
