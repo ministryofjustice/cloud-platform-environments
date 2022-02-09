@@ -13,6 +13,7 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
+  db_instance_class      = "db.t3.medium"
 
 
   providers = {

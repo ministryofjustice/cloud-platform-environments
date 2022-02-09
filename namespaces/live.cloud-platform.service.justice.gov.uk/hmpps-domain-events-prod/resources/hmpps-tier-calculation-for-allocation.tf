@@ -1,5 +1,5 @@
 module "hmpps_tier_calculation_allocation_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -55,7 +55,7 @@ EOF
 }
 
 module "hmpps_tier_calculation_allocation_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -82,9 +82,7 @@ resource "aws_sns_topic_subscription" "hmpps_tier_calculation_allocation_subscri
 resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain_events" {
   metadata {
     name      = "sqs-tier-calculation-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "workforce-management-prod"
+    namespace = "workforce-management-prod"
   }
 
   data = {
@@ -99,9 +97,7 @@ resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain
 resource "kubernetes_secret" "hmpps_tier_calculation_allocation_queue_for_domain_events_dead_letter_queue" {
   metadata {
     name      = "sqs-tier-calculation-dl-secret"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "workforce-management-prod"
+    namespace = "workforce-management-prod"
   }
 
   data = {

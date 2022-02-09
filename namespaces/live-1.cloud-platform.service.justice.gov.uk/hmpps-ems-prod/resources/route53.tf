@@ -85,6 +85,13 @@ resource "aws_route53_record" "hmpps_ems_tagging_prod_zone" {
   records = ["ns-1017.awsdns-63.net.", "ns-1682.awsdns-18.co.uk.", "ns-428.awsdns-53.com.", "ns-1300.awsdns-34.org."]
 }
 
+resource "aws_route53_record" "auth0_platform_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "auth.platform.${var.domain}"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["moj-hmpps-ems-platform-auth-cd-trhmgjuqwolmosso.edge.tenants.eu.auth0.com"]
+}
 
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {

@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "intervention_global_events_sns" {
   metadata {
-    name      = "hmpps-domain-events-topic-hmpps-interventions"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "hmpps-interventions-prod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "hmpps-interventions-prod"
   }
 
   data = {

@@ -1,5 +1,5 @@
 data "github_team" "default" {
-  slug = "manage-a-sentence"
+  slug = "manage-a-workforce"
 }
 
 locals {

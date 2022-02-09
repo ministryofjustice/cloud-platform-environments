@@ -21,11 +21,11 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
 
-   github_repositories = ["ALB-UnclaimedBalanceindex"]
-   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-   github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+  github_repositories                  = ["ALB-UnclaimedBalanceindex"]
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
 
 }
 

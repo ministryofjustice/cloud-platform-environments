@@ -1,5 +1,5 @@
 module "whereabouts_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "whereabouts_api_queue_policy" {
 }
 
 module "whereabouts_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -67,9 +67,7 @@ module "whereabouts_api_dead_letter_queue" {
 resource "kubernetes_secret" "whereabouts_api_queue" {
   metadata {
     name      = "whereabouts-api-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "whereabouts-api-preprod"
+    namespace = "whereabouts-api-preprod"
   }
 
   data = {
@@ -84,9 +82,7 @@ resource "kubernetes_secret" "whereabouts_api_queue" {
 resource "kubernetes_secret" "whereabouts_api_dead_letter_queue" {
   metadata {
     name      = "whereabouts-api-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "whereabouts-api-preprod"
+    namespace = "whereabouts-api-preprod"
   }
 
   data = {
