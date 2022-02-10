@@ -303,6 +303,7 @@ module "prosecution_concluded_queue" {
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
+  delay_seconds             = "120"
 
   redrive_policy = <<EOF
   {
