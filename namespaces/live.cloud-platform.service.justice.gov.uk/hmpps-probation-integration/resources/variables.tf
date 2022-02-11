@@ -55,3 +55,8 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "domain" {
+  default = "probation-integration.service.justice.gov.uk"
+}
+
