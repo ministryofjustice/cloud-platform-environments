@@ -24,7 +24,7 @@ resource "kubernetes_secret" "route53_zone_sec" {
 }
 
 resource "aws_route53_record" "probint-api-docs" {
-  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
+  zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "apidocs.probation-integration.service.justice.gov.uk"
   type    = "CNAME"
   ttl     = "300"
