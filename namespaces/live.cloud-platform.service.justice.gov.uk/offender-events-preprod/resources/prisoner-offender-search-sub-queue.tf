@@ -1,5 +1,5 @@
 module "prisoner_offender_search_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "prisoner_offender_search_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -71,9 +71,7 @@ module "prisoner_offender_search_dead_letter_queue" {
 resource "kubernetes_secret" "prisoner_offender_search_queue" {
   metadata {
     name      = "pos-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "prisoner-offender-search-preprod"
+    namespace = "prisoner-offender-search-preprod"
   }
 
   data = {
@@ -88,9 +86,7 @@ resource "kubernetes_secret" "prisoner_offender_search_queue" {
 resource "kubernetes_secret" "prisoner_offender_search_dead_letter_queue" {
   metadata {
     name      = "pos-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "prisoner-offender-search-preprod"
+    namespace = "prisoner-offender-search-preprod"
   }
 
   data = {

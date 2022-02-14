@@ -1,5 +1,5 @@
 module "keyworker_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "keyworker_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -71,9 +71,7 @@ module "keyworker_api_dead_letter_queue" {
 resource "kubernetes_secret" "keyworker_api_queue" {
   metadata {
     name      = "kw-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "keyworker-api-dev"
+    namespace = "keyworker-api-dev"
   }
 
   data = {
@@ -88,9 +86,7 @@ resource "kubernetes_secret" "keyworker_api_queue" {
 resource "kubernetes_secret" "keyworker_api_dead_letter_queue" {
   metadata {
     name      = "kw-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "keyworker-api-dev"
+    namespace = "keyworker-api-dev"
   }
 
   data = {

@@ -1,5 +1,5 @@
 module "restricted_patients_sub_queue_for_domain_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "restricted_patients_sub_queue_for_domain_events
 }
 
 module "restricted_patients_sub_queue_for_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -67,9 +67,7 @@ module "restricted_patients_sub_queue_for_domain_events_dead_letter_queue" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events" {
   metadata {
     name      = "restricted-patients-sub-queue-for-domain-events-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-restricted-patients-api-dev"
+    namespace = "hmpps-restricted-patients-api-dev"
   }
 
   data = {
@@ -84,9 +82,7 @@ resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events" {
 resource "kubernetes_secret" "restricted_patients_sub_queue_for_domain_events_dead_letter_queue" {
   metadata {
     name      = "restricted-patients-sub-queue-for-domain-events-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "hmpps-restricted-patients-api-dev"
+    namespace = "hmpps-restricted-patients-api-dev"
   }
 
   data = {

@@ -25,6 +25,26 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
         },
       ]
     },
+    {
+      enabled = true
+      id      = "pin-phone-transcript-expiry"
+      prefix  = "transcripts/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-translation-expiry"
+      prefix  = "translations/"
+      expiration = [
+        {
+          days = 90
+        },
+      ]
+    },
   ]
 
   user_policy = <<EOF
@@ -94,7 +114,11 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           },
           "Bool" : { "aws:ViaAWSService" : "false" },
           "StringNotEquals" : {
-            "aws:PrincipalArn" : ["${aws_iam_role.translate_s3_data_role.arn}", "${aws_iam_user.bt_upload_user.arn}"]
+            "aws:PrincipalArn" : [
+              "${aws_iam_role.translate_s3_data_role.arn}",
+              "${aws_iam_role.transcribe_s3_data_role.arn}",
+              "${aws_iam_user.bt_upload_user.arn}"
+            ]
           }
         }
       },
@@ -152,8 +176,58 @@ resource "aws_iam_role_policy" "translate_s3_data_role_policy" {
   })
 }
 
+resource "aws_iam_role" "transcribe_s3_data_role" {
+  name = "pcms-prod-transcribe-s3-data-role"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "transcribe.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
+  name = "pcms-prod-transcribe-s3-data-role-policy"
+  role = aws_iam_role.transcribe_s3_data_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject"
+        ],
+        Resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:ListBucket"
+        ],
+        Resource = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+      }
+    ]
+  })
+}
+
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -176,7 +250,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -261,18 +335,19 @@ resource "kubernetes_secret" "pcms_s3_event_queue" {
   }
 }
 
-resource "kubernetes_secret" "pcms_s3_bucket" {
+resource "kubernetes_secret" "pcms_document_s3_bucket" {
   metadata {
     name      = "pcms-s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id              = module.hmpps_pin_phone_monitor_document_s3_bucket.access_key_id
-    secret_access_key          = module.hmpps_pin_phone_monitor_document_s3_bucket.secret_access_key
-    bucket_arn                 = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
-    bucket_name                = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
-    translate_s3_data_role_arn = aws_iam_role.translate_s3_data_role.arn
+    access_key_id               = module.hmpps_pin_phone_monitor_document_s3_bucket.access_key_id
+    secret_access_key           = module.hmpps_pin_phone_monitor_document_s3_bucket.secret_access_key
+    bucket_arn                  = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
+    bucket_name                 = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
+    translate_s3_data_role_arn  = aws_iam_role.translate_s3_data_role.arn
+    transcribe_s3_data_role_arn = aws_iam_role.transcribe_s3_data_role.arn
   }
 }
 
