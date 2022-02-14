@@ -1,5 +1,4 @@
 
-
 module "curious_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
