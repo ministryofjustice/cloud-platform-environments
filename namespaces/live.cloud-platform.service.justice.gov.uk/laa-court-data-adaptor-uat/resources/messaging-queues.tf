@@ -1,15 +1,15 @@
 module "create_link_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "create-link-queue"
-  encrypt_sqs_kms           = var.encrypt_sqs_kms
-  message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
-  visibility_timeout_seconds= var.visibility_timeout_seconds
+  environment-name           = var.environment_name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure_support
+  application                = var.application
+  sqs_name                   = "create-link-queue"
+  encrypt_sqs_kms            = var.encrypt_sqs_kms
+  message_retention_seconds  = var.message_retention_seconds
+  namespace                  = var.namespace
+  visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -76,16 +76,16 @@ module "create_link_queue_dead_letter_queue" {
 module "unlink_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "unlink-queue"
-  existing_user_name        = module.create_link_queue.user_name
-  encrypt_sqs_kms           = var.encrypt_sqs_kms
-  message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
-  visibility_timeout_seconds= var.visibility_timeout_seconds
+  environment-name           = var.environment_name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure_support
+  application                = var.application
+  sqs_name                   = "unlink-queue"
+  existing_user_name         = module.create_link_queue.user_name
+  encrypt_sqs_kms            = var.encrypt_sqs_kms
+  message_retention_seconds  = var.message_retention_seconds
+  namespace                  = var.namespace
+  visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -223,16 +223,16 @@ module "laa_status_update_dead_letter_queue" {
 module "hearing_resulted_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "hearing-resulted-queue"
-  existing_user_name        = module.create_link_queue.user_name
-  encrypt_sqs_kms           = var.encrypt_sqs_kms
-  message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
-  visibility_timeout_seconds= var.visibility_timeout_seconds
+  environment-name           = var.environment_name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure_support
+  application                = var.application
+  sqs_name                   = "hearing-resulted-queue"
+  existing_user_name         = module.create_link_queue.user_name
+  encrypt_sqs_kms            = var.encrypt_sqs_kms
+  message_retention_seconds  = var.message_retention_seconds
+  namespace                  = var.namespace
+  visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
@@ -297,17 +297,17 @@ module "hearing_resulted_dead_letter_queue" {
 module "prosecution_concluded_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
-  sqs_name                  = "prosecution-concluded-queue"
-  existing_user_name        = module.create_link_queue.user_name
-  encrypt_sqs_kms           = var.encrypt_sqs_kms
-  message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
-  delay_seconds             = "120"
-  visibility_timeout_seconds= var.visibility_timeout_seconds
+  environment-name           = var.environment_name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure_support
+  application                = var.application
+  sqs_name                   = "prosecution-concluded-queue"
+  existing_user_name         = module.create_link_queue.user_name
+  encrypt_sqs_kms            = var.encrypt_sqs_kms
+  message_retention_seconds  = var.message_retention_seconds
+  namespace                  = var.namespace
+  delay_seconds              = "120"
+  visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
