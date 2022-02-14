@@ -290,6 +290,7 @@ module "prosecution_concluded_queue" {
   message_retention_seconds = var.message_retention_seconds
   namespace                 = var.namespace
   delay_seconds             = "120"
+  visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
   {
