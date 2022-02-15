@@ -16,13 +16,13 @@ resource "pingdom_check" "manage_recalls" {
 
 resource "pingdom_check" "manage_recalls_ui_health" {
   type                     = "http"
-  name                     = "manage-recalls-ui /health - PROD"
+  name                     = "manage-recalls-ui /ping - PROD"
   host                     = "manage-recalls.hmpps.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/health"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "hmpps,ppud-replacement,manage-recalls,prod,isproduction_true,cloudplatform-managed"
