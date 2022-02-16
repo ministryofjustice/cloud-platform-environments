@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmcts-complaints-formbuilder-adapter-production-admin
+  namespace: hmcts-complaints-formbuilder-adapter-production
+subjects:
+  - kind: Group
+    name: "github:form-builder"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
