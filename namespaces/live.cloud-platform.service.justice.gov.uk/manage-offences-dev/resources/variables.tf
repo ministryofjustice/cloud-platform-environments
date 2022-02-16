@@ -5,11 +5,11 @@ variable "cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "calculate-release-dates"
+  default     = "manage-offences"
 }
 
 variable "namespace" {
-  default = "calculate-release-dates-dev"
+  default = "manage-offences-dev"
 }
 
 variable "business_unit" {
@@ -38,7 +38,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "calculate_release_dates"
+  default     = "offence_reference_data"
 }
 
 variable "number_cache_clusters" {

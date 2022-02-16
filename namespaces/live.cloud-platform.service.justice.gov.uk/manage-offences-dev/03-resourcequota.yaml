@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: calculate-release-dates-dev
+  namespace: manage-offences-dev
 spec:
   hard:
     pods: "50"

@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: calculate-release-dates-dev-admin
-  namespace: calculate-release-dates-dev
+  name: manage-offences-dev-admin
+  namespace: manage-offences-dev
 subjects:
   - kind: Group
     name: "github:farsight-devs"
