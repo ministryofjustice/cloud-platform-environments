@@ -52,7 +52,7 @@ resource "aws_iam_access_key" "pathfinder_ap_user" {
   user = aws_iam_user.pathfinder_ap_user.name
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "pathfinder_ap_policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
   policy = data.aws_iam_policy_document.pathfinder_ap_access.json
   user   = aws_iam_user.pathfinder_ap_user.name
