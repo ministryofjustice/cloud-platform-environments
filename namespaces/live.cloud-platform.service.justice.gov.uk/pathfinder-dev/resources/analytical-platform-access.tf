@@ -39,23 +39,23 @@ data "aws_iam_policy_document" "pathfinder_ap_access" {
   }
 }
 
-resource "random_id" "id" {
+resource "random_id" "pathfinder-ap-id" {
   byte_length = 16
 }
 
-resource "aws_iam_user" "user" {
-  name = "pathfinder-ap-s3-bucket-user-${random_id.id.hex}"
+resource "aws_iam_user" "pathfinder_ap_user" {
+  name = "pathfinder-ap-s3-bucket-user-${random_id.pathfinder-ap-id.hex}"
   path = "/system/pathfinder-ap-s3-bucket-user/"
 }
 
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
+resource "aws_iam_access_key" "pathfinder_ap_user" {
+  user = aws_iam_user.pathfinder_ap_user.name
 }
 
 resource "aws_iam_user_policy" "policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
   policy = data.aws_iam_policy_document.pathfinder_ap_access.json
-  user   = aws_iam_user.user.name
+  user   = aws_iam_user.pathfinder_ap_user.name
 }
 
 resource "kubernetes_secret" "ap_aws_secret" {
@@ -66,9 +66,9 @@ resource "kubernetes_secret" "ap_aws_secret" {
 
   data = {
     destination_bucket = "s3://${var.namespace}-landing"
-    user_arn           = aws_iam_user.user.arn
-    access_key_id      = aws_iam_access_key.user.id
-    secret_access_key  = aws_iam_access_key.user.secret
+    user_arn           = aws_iam_user.pathfinder_ap_user.arn
+    access_key_id      = aws_iam_access_key.pathfinder_ap_user.id
+    secret_access_key  = aws_iam_access_key.pathfinder_ap_user.secret
   }
 }
 
