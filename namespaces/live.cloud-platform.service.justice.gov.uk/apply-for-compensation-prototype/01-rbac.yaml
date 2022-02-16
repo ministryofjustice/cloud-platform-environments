@@ -5,7 +5,7 @@ metadata:
   namespace: apply-for-compensation-prototype
 subjects:
   - kind: Group
-    name: "github:cica-design-team"
+    name: "github:CICA"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
