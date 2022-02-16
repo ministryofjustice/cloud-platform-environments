@@ -7,10 +7,10 @@ module "ap_irsa" {
 
 resource "aws_iam_policy" "ap_policy" {
   name   = "${var.namespace}-ap-policy"
-  policy = data.aws_iam_policy_document.ap_access.json
+  policy = data.aws_iam_policy_document.pathfinder_ap_access.json
 }
 
-data "aws_iam_policy_document" "ap_access" {
+data "aws_iam_policy_document" "pathfinder_ap_access" {
   statement {
     sid = "AllowRdsExportUserToListS3Buckets"
     actions = [
@@ -44,8 +44,8 @@ resource "random_id" "id" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "ap-s3-bucket-user-${random_id.id.hex}"
-  path = "/system/ap-s3-bucket-user/"
+  name = "pathfinder-ap-s3-bucket-user-${random_id.id.hex}"
+  path = "/system/pathfinder-ap-s3-bucket-user/"
 }
 
 resource "aws_iam_access_key" "user" {
@@ -54,13 +54,13 @@ resource "aws_iam_access_key" "user" {
 
 resource "aws_iam_user_policy" "policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
-  policy = data.aws_iam_policy_document.ap_access.json
+  policy = data.aws_iam_policy_document.pathfinder_ap_access.json
   user   = aws_iam_user.user.name
 }
 
 resource "kubernetes_secret" "ap_aws_secret" {
   metadata {
-    name      = "analytical-platform-reporting-s3-bucket"
+    name      = "pathfinder-analytical-platform-reporting-s3-bucket"
     namespace = var.namespace
   }
 
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
 
 resource "kubernetes_secret" "ap_irsa" {
   metadata {
-    name      = "to-ap-s3-irsa"
+    name      = "pathfinder-to-ap-s3-irsa"
     namespace = var.namespace
   }
 
