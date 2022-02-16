@@ -1,0 +1,51 @@
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-visits-public-cert
+  namespace: prison-visits-booking-production
+spec:
+  secretName: prison-visits-public-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prisonvisits.service.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-visits-public-www-cert
+  namespace: prison-visits-booking-production
+spec:
+  secretName: prison-visits-public-www-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.prisonvisits.service.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-visits-staff-cert
+  namespace: prison-visits-booking-production
+spec:
+  secretName: prison-visits-staff-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staff.prisonvisits.service.gov.uk
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: Certificate
+metadata:
+  name: prison-visits-staff-justice-cert
+  namespace: prison-visits-booking-production
+spec:
+  secretName: prison-visits-staff-justice-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staff.prisonvisits.service.justice.gov.uk
