@@ -43,7 +43,7 @@ resource "kubernetes_secret" "analytical-platform" {
     namespace = var.namespace
   }
 
-  data = {n
+  data = {
     role            = module.analytical-platform.aws_iam_role_name
     role_arn        = module.analytical-platform.aws_iam_role_arn
     service_account = module.analytical-platform.service_account_name.name
