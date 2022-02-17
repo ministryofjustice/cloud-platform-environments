@@ -1,10 +1,10 @@
 
-module "irsa-api" {
+module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
 
   namespace        = var.namespace
   role_policy_arns = [aws_iam_policy.analytical-platform.arn]
-  service_account  = "${var.namespace}-api"
+  service_account  = "${var.namespace}-analytical-platform"
   # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
 }
 
@@ -26,7 +26,6 @@ resource "aws_iam_policy" "analytical-platform" {
 }
 
 data "aws_iam_policy_document" "analytical-platform" {
-  # Allows direct put access to "landing" S3 bucket for Prison Network App in Analytical Platform AWS account (mojap)
   statement {
     actions = [
       "s3:GetObject",
@@ -38,15 +37,15 @@ data "aws_iam_policy_document" "analytical-platform" {
   }
 }
 
-resource "kubernetes_secret" "irsa-api" {
+resource "kubernetes_secret" "analytical-platform" {
   metadata {
     name      = "irsa-api"
     namespace = var.namespace
   }
 
-  data = {
-    role            = module.irsa-api.aws_iam_role_name
-    role_arn        = module.irsa-api.aws_iam_role_arn
-    service_account = module.irsa-api.service_account_name.name
+  data = {n
+    role            = module.analytical-platform.aws_iam_role_name
+    role_arn        = module.analytical-platform.aws_iam_role_arn
+    service_account = module.analytical-platform.service_account_name.name
   }
 }
