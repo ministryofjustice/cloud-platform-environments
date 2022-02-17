@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "analytical-platform" {
 
 resource "kubernetes_secret" "analytical-platform" {
   metadata {
-    name      = "irsa-api"
+    name      = "analytical-platform"
     namespace = var.namespace
   }
 
