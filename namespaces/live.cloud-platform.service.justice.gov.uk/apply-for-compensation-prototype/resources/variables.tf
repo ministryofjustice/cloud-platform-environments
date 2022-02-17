@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "cica-design-team"
+  default     = "cica"
 }
 
 variable "environment" {
