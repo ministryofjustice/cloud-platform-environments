@@ -14,6 +14,7 @@ module "contact-moj_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+  github_repositories = [var.repo_name]
 }
 
 resource "kubernetes_secret" "contact-moj_ecr_credentials" {
