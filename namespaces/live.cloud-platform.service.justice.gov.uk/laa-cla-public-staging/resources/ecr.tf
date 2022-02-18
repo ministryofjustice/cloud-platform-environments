@@ -13,7 +13,7 @@ module "it-healthcheck-ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
 
   team_name = var.team_name
-  repo_name = var.repo_name
+  repo_name = "laa-cla-it-health-check"
 
   providers = {
     aws = aws.london
