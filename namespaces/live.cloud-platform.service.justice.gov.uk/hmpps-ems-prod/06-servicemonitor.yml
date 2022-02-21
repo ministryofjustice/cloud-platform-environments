@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hmpps-ems-prod
+spec:
+  selector:
+    matchLabels:
+      app: grafana-prod
+  endpoints:
+  - port: grafana-prod
+    interval: 15s
