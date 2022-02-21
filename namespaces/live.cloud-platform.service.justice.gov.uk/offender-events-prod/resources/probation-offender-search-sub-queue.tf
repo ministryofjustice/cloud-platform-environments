@@ -72,9 +72,7 @@ module "probation_offender_search_event_dead_letter_queue" {
 resource "kubernetes_secret" "probation_offender_search_event_queue" {
   metadata {
     name      = "pose-sqs-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "probation-offender-search-prod"
+    namespace = "probation-offender-search-prod"
   }
 
   data = {
@@ -89,9 +87,7 @@ resource "kubernetes_secret" "probation_offender_search_event_queue" {
 resource "kubernetes_secret" "probation_offender_search_event_dead_letter_queue" {
   metadata {
     name      = "pose-sqs-dl-instance-output"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "probation-offender-search-prod"
+    namespace = "probation-offender-search-prod"
   }
 
   data = {

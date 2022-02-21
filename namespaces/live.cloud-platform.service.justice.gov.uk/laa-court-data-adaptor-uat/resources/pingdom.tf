@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-court-data-adaptor-uat" {
   type                     = "http"
   name                     = "LAA Court Data Adaptor - UAT"
-  host                     = "laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk"
+  host                     = var.domain
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 3

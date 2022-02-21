@@ -3,6 +3,11 @@ package namespace
 import (
 	"reflect"
 	"testing"
+
+	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	testclient "k8s.io/client-go/kubernetes/fake"
+	fakemetrics "k8s.io/metrics/pkg/client/clientset/versioned/fake"
 )
 
 func TestChangedInPR(t *testing.T) {
@@ -310,5 +315,60 @@ func TestGetNonProductionNamespaces(t *testing.T) {
 				t.Errorf("GetNonProductionNamespaces() = %v, want %v", gotNamespaces, tt.wantNamespaces)
 			}
 		})
+	}
+}
+
+func TestGetAllPodsFromCluster(t *testing.T) {
+
+	tests := []struct {
+		name    string
+		PodList *v1.PodList
+		want    []v1.Pod
+		wantErr bool
+	}{
+		{
+			name: "List pods",
+			PodList: &v1.PodList{
+				Items: []v1.Pod{{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:              "pod-01",
+						Namespace:         "ns-01",
+						Labels:            map[string]string{"key": "value"},
+						CreationTimestamp: metav1.Unix(111, 222),
+					},
+				}},
+			},
+			want: []v1.Pod{{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:              "pod-01",
+					Namespace:         "ns-01",
+					Labels:            map[string]string{"key": "value"},
+					CreationTimestamp: metav1.Unix(111, 222),
+				},
+			}},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		kubeClient := testclient.NewSimpleClientset(tt.PodList)
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := GetAllPodsFromCluster(kubeClient)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetAllPodsFromCluster() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetAllPodsFromCluster() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetAllPodMetricsesFromCluster(t *testing.T) {
+	metricClientset := fakemetrics.NewSimpleClientset()
+	_, err := GetAllPodMetricsesFromCluster(metricClientset)
+	if (err != nil) != false {
+		t.Errorf("GetAllPodMetricsesFromCluster() error = %v, wantErr %v", err, false)
+		return
 	}
 }

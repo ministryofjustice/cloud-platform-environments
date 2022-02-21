@@ -40,15 +40,6 @@ resource "aws_route53_record" "hmpps-auth-dev" {
   records = ["20.39.160.233"]
 }
 
-# stage DNS record for Azure based Prison API
-resource "aws_route53_record" "hmpps-auth-stage" {
-  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
-  name    = "sign-in-stage.hmpps.service.justice.gov.uk"
-  type    = "A"
-  ttl     = "30"
-  records = ["20.39.160.251"]
-}
-
 # tech docs DNS record
 resource "aws_route53_record" "hmpps-tech-docs" {
   zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
