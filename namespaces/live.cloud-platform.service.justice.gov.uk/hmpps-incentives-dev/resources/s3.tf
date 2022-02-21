@@ -29,7 +29,12 @@ data "aws_iam_policy_document" "ap_access" {
       "s3:GetObject",
       "s3:GetObjectAcl"
     ]
-
+    principals {
+      type = "AWS"
+      identifiers = [
+        module.analytical-platform.aws_iam_role_arn
+      ]
+    }
     resources = [
       module.analytical_platform_s3_bucket.bucket_arn,
       "${module.analytical_platform_s3_bucket.bucket_arn}/*"
