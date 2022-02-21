@@ -14,7 +14,7 @@ variable "application" {
 }
 
 variable "owner" {
-  default     = "dex-engage"
+  default = "dex-engage"
 }
 
 variable "namespace" {
