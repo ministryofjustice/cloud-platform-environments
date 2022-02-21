@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "ap_access" {
     sid = "AllowServiceUserToAccessS3Bucket"
     actions = [
       "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:GetBucketLocation",
       "s3:GetObject",
       "s3:GetObjectAcl"
     ]
