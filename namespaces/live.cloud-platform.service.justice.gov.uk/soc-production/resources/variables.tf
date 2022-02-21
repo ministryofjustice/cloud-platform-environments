@@ -13,6 +13,10 @@ variable "application" {
   default     = "HMCTS Risk Assurance Operating Controls"
 }
 
+variable "owner" {
+  default     = "dex-engage"
+}
+
 variable "namespace" {
   default = "soc-production"
 }
