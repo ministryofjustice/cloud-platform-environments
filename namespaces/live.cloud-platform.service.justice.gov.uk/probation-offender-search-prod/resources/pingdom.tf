@@ -2,12 +2,11 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 96624 = #dps_alerts
-# 96628 = DPS Pager duty
+# 120233 = #probation-integration-notifications
 
 resource "pingdom_check" "psi-production-check" {
   type                     = "http"
-  name                     = "DPS - probation-offender-search-indexer"
+  name                     = "PI - probation-offender-search-indexer"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -16,14 +15,14 @@ resource "pingdom_check" "psi-production-check" {
   url                      = "/https/${var.domain_psi}"
   encryption               = true
   port                     = 443
-  tags                     = "dps,hmpps,cloudplatform-managed"
+  tags                     = "probation-integration,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [120233]
 }
 
 resource "pingdom_check" "pos-production-check" {
   type                     = "http"
-  name                     = "DPS - probation-offender-search"
+  name                     = "PI - probation-offender-search"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -32,8 +31,8 @@ resource "pingdom_check" "pos-production-check" {
   url                      = "/https/${var.domain_pos}"
   encryption               = true
   port                     = 443
-  tags                     = "dps,hmpps,cloudplatform-managed"
+  tags                     = "probation-integration,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [120233]
 }
 
