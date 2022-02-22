@@ -20,7 +20,7 @@ module "analytical_platform_s3_bucket" {
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "$${module.analytical-platform.aws_iam_role_arn}"
+        "AWS": "$${kubernetes_secret.analytical-platform.role_arn}"
       },
       "Action": [
         "s3:ListBucket",
