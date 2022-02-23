@@ -2,12 +2,11 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 96624 = #dps_alerts
-# 96628 = DPS Pager duty
+# 120233 = #probation-integration-notifications
 
-resource "pingdom_check" "dps-production-check" {
+resource "pingdom_check" "pi-production-check" {
   type                     = "http"
-  name                     = "DPS - ${var.application}"
+  name                     = "PI - ${var.application}"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -16,8 +15,8 @@ resource "pingdom_check" "dps-production-check" {
   url                      = "/https/${var.domain}"
   encryption               = true
   port                     = 443
-  tags                     = "dps,hmpps,cloudplatform-managed"
+  tags                     = "probation-integration,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [120233]
 }
 

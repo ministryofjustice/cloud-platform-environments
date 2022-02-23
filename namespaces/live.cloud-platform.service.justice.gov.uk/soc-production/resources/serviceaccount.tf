@@ -55,6 +55,7 @@ variable "serviceaccount_rules" {
       resources = [
         "deployments",
         "ingresses",
+        "replicasets"
       ]
       verbs = [
         "get",
