@@ -20,7 +20,7 @@ module "analytical_platform_s3_bucket" {
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::754256621582:role/hmpps-incentives-dev-analytical-platform-live"
+        "AWS": "$${module.analytical-platform.aws_iam_role_arn}"
       },
       "Action": [
         "s3:ListBucket",
