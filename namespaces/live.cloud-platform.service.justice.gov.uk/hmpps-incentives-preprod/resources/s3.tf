@@ -13,6 +13,28 @@ module "analytical_platform_s3_bucket" {
   providers = {
     aws = aws.london
   }
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${module.analytical-platform.aws_iam_role_arn}"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:GetObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "analytical_platform_s3_bucket" {
