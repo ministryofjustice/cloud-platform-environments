@@ -13,34 +13,28 @@ module "analytical_platform_s3_bucket" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_iam_policy" "ap_policy" {
-  name   = "${var.namespace}-ap-policy"
-  policy = data.aws_iam_policy_document.ap_access.json
-}
-
-data "aws_iam_policy_document" "ap_access" {
-  statement {
-    sid = "AllowServiceUserToAccessS3Bucket"
-    actions = [
-      "s3:ListBucket",
-      "s3:GetBucketLocation",
-      "s3:GetObject",
-      "s3:GetObjectAcl"
-    ]
-    principals {
-      type = "AWS"
-      identifiers = [
-        module.analytical-platform.aws_iam_role_arn
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${module.analytical-platform.aws_iam_role_arn}"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:GetObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
       ]
     }
-    resources = [
-      module.analytical_platform_s3_bucket.bucket_arn,
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
-    ]
-  }
-
+  ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "analytical_platform_s3_bucket" {
