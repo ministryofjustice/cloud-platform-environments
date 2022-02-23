@@ -11,9 +11,9 @@ spec:
     rules:
     - alert: offender-assessment-api-down
       expr: |-
-        probe_http_status_code{instance="offender-assessment-api-prod"}==200
+        probe_http_status_code{instance="offender-assessment-api-prod"}!=200
       for: 3m
       labels:
         severity: dso
       annotations:
-        message: DSO Cloud Platform migration test for offender assessment monitoring - please ignore
+        message: Offender Assessment API has not responded in the last 5 minutes.
