@@ -45,6 +45,14 @@ resource "aws_route53_record" "hmpps_ems_mapping_test_zone" {
   records = ["ns-745.awsdns-29.net.", "ns-1943.awsdns-50.co.uk.", "ns-318.awsdns-39.com.", "ns-1433.awsdns-51.org."]
 }
 
+resource "aws_route53_record" "hmpps_ems_mapping_training_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "mapping.training.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-937.awsdns-53.net.", "ns-1598.awsdns-07.co.uk.", "ns-424.awsdns-53.com.", "ns-1300.awsdns-34.org."]
+}
+
 resource "aws_route53_record" "hmpps_ems_mapping_preprod_zone" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "mapping.pp.${var.domain}"
