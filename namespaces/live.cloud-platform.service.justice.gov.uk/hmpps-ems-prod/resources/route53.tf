@@ -50,7 +50,7 @@ resource "aws_route53_record" "hmpps_ems_mapping_training_zone" {
   name    = "mapping.training.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["ns-937.awsdns-53.net.", "ns-1598.awsdns-07.co.uk.", "ns-424.awsdns-53.com.", "ns-1300.awsdns-34.org."]
+  records = ["ns-867.awsdns-44.net.", "ns-1635.awsdns-12.co.uk.", "ns-412.awsdns-51.com.", "ns-1419.awsdns-49.org."]
 }
 
 resource "aws_route53_record" "hmpps_ems_mapping_preprod_zone" {
