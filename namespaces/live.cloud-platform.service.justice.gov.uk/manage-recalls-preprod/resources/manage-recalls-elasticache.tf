@@ -30,3 +30,15 @@ resource "kubernetes_secret" "manage_recalls_ui_redis" {
   }
 }
 
+resource "kubernetes_secret" "manage_recalls_api_redis" {
+  metadata {
+    name      = "manage-recalls-api-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.manage_recalls_ui_redis.primary_endpoint_address
+    auth_token               = module.manage_recalls_ui_redis.auth_token
+    member_clusters          = jsonencode(module.manage_recalls_ui_redis.member_clusters)
+  }
+}
