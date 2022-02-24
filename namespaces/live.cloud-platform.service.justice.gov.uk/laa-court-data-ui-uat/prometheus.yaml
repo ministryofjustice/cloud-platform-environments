@@ -47,7 +47,7 @@ spec:
       annotations:
         message: laa-court-data-ui-uat Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: ruby_http_duration_seconds{namespace="laa-court-data-ui-uat"} > 30
+      expr: ruby_http_request_duration_seconds{namespace="laa-court-data-ui-uat"} > 30
       for: 1m
       labels:
         severity: laa-court-get-paid

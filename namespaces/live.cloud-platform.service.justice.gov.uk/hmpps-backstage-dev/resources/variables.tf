@@ -2,13 +2,14 @@
 variable "cluster_name" {
 }
 
+
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Incentives Apps"
+  default     = "hmpps-backstage-dev"
 }
 
 variable "namespace" {
-  default = "hmpps-incentives-dev"
+  default = "hmpps-backstage-dev"
 }
 
 variable "business_unit" {
@@ -18,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-incentives"
+  default     = "hmpps-tech"
 }
 
 variable "environment" {
@@ -40,10 +41,3 @@ variable "slack_channel" {
   default     = "hmpps_dev"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "rds_family" {
-  default = "postgres14"
-}

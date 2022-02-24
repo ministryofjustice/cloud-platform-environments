@@ -18,4 +18,4 @@ spec:
         offender_update_age_seconds_max{namespace="offender-events-prod"} > 60
       for: 5m
       labels:
-        severity: digital-prison-service
+        severity: probation-integration-notifications
