@@ -56,8 +56,7 @@ variable "github_token" {
   default     = ""
 }
 
-variable "kubernetes_cluster" {
-}
+
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
