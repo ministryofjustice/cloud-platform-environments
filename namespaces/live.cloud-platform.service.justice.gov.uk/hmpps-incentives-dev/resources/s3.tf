@@ -17,6 +17,10 @@ module "analytical_platform_s3_bucket" {
   }
 }
 
+locals {
+  bucket_arn = "arn:aws:s3:::cloud-platform-280508bd289f5ea3cf77c019c927e693"
+}
+
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
@@ -29,6 +33,10 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:ListObjectsV2",
       "s3:GetObject",
       "s3:GetObjectAcl",
+    ]
+    resources = [
+      "${local.bucket_arn}/*",
+      local.bucket_arn
     ]
   }
 }
