@@ -1,4 +1,3 @@
-
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
 
@@ -30,6 +29,7 @@ data "aws_iam_policy_document" "analytical-platform" {
     actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
+      "s3:ListObjectsV2",
     ]
     resources = [
       "arn:aws:s3:::alpha-manage-my-prison/incentives_visuals/*",
