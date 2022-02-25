@@ -52,7 +52,7 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
-        "cert-manager.io"
+        "certmanager.k8s.io"
       ]
       resources = [
         "deployments",
