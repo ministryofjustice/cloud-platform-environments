@@ -35,6 +35,7 @@ variable "serviceaccount_rules" {
         "services",
         "configmaps",
         "pods",
+        "certificates"
       ]
       verbs = [
         "patch",
