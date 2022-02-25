@@ -25,6 +25,7 @@ module "analytical_platform_s3_bucket" {
       "Action": [
         "s3:ListBucket",
         "s3:GetBucketLocation",
+        "s3:ListObjectsV2",
         "s3:GetObject",
         "s3:GetObjectAcl"
       ],
