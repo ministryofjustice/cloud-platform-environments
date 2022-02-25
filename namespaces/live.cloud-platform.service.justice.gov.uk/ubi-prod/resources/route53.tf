@@ -24,13 +24,15 @@ resource "kubernetes_secret" "fum_route53_zone_sec" {
   }
 }
 
-
 resource "aws_route53_record" "add_arecord_production" {
-  name    = "find-unclaimed-court-money.service.justice.gov.uk"
   zone_id = aws_route53_zone.fum_route53_zone.zone_id
+  name    = "find-unclaimed-court-money.service.justice.gov.uk"
   type    = "A"
-  records = ["dualstack.ubi-p-loadb-1rk7d55h8z4t3-1469044134.eu-west-2.elb.amazonaws.com."]
-  ttl     = "300"
+  alias {
+    name                   = "dualstack.ubi-p-loadb-1rk7d55h8z4t3-1469044134.eu-west-2.elb.amazonaws.com."
+    zone_id                = "ZHURV8PSTC4K8"
+    evaluate_target_health = true
+  }
 }
 
 resource "aws_route53_record" "add_cname_validation" {
@@ -40,6 +42,7 @@ resource "aws_route53_record" "add_cname_validation" {
   records = ["_06c52dec40633865541b0ff381d9eeb1.chvvfdvqrj.acm-validations.aws."]
   ttl     = "300"
 }
+
 resource "aws_route53_record" "add_cname_validation_www" {
   name    = "_6f2592c897ce1cb57321ce86823bba01.www.find-unclaimed-court-money.service.justice.gov.uk"
   zone_id = aws_route53_zone.fum_route53_zone.zone_id
