@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dev-entry-cert
+  namespace: soc-reporting-dev
+spec:
+  secretName: dev-entry-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - 1.hmcts-risk-assurance-operating-controls.service.justice.gov.uk
+  - dev.entry.hmcts-risk-assurance-operating-controls.service.justice.gov.uk
