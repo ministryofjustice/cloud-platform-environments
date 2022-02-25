@@ -10,26 +10,8 @@ module "analytical_platform_s3_bucket" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
-
   providers = {
     aws = aws.london
-  }
-}
-
-data "aws_iam_policy_document" "bucket-policy" {
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = [module.analytical-platform.aws_iam_role_arn]
-    }
-    actions = [
-      "s3:ListBucket",
-      "s3:GetBucketLocation",
-      "s3:ListObjectsV2",
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-    ]
   }
 }
 
