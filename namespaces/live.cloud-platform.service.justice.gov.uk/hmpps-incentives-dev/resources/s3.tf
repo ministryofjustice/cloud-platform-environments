@@ -30,10 +30,6 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObject",
       "s3:GetObjectAcl",
     ]
-    resources = [
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*",
-      module.analytical_platform_s3_bucket.bucket_arn
-    ]
   }
 }
 
