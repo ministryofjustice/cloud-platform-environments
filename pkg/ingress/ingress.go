@@ -1,9 +1,13 @@
 package ingress
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw"
+	"k8s.io/api/networking/v1beta1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
 )
 
 // IngressReport allows us to unmarshal the json from the Hoodaw page into
@@ -13,6 +17,15 @@ type IngressReport struct {
 		Namespace string
 		Resource  string
 	} `json:"weighting_ingress"`
+}
+
+// GetAllIngresses takes a Kubernetes clientset and returns all ingress with type *v1beta1.IngressList and an error.
+func GetAllIngressesFromCluster(clientset *kubernetes.Clientset) (*v1beta1.IngressList, error) {
+	ingressList, err := clientset.NetworkingV1beta1().Ingresses("").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return ingressList, nil
 }
 
 // CheckAnnotation takes a http endpoint and generates an IngressReport

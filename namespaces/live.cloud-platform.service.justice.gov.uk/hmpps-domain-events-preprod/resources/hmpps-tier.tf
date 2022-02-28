@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "hmpps-tier" {
   metadata {
-    name      = "hmpps-domain-events-topic-hmpps-tier"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "hmpps-tier-preprod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "hmpps-tier-preprod"
   }
 
   data = {

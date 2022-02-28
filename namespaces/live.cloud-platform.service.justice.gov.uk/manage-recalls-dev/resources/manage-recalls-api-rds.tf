@@ -18,7 +18,7 @@ module "manage_recalls_api_rds" {
   rds_family        = "postgres13"
   db_engine         = "postgres"
   db_engine_version = "13"
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t3.medium"
   db_name           = "manage_recalls"
 
   providers = {

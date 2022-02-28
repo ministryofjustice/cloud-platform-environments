@@ -43,3 +43,7 @@ variable "slack_channel" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "rds_family" {
+  default = "postgres14"
+}
