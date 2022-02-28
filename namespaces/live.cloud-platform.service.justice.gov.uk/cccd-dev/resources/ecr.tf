@@ -25,14 +25,14 @@ resource "kubernetes_secret" "cccd_ecr_credentials" {
 
 resource "temp_secret" "cccd_temp_ecr_credentials" {
   metadata {
-    name      = "cccd-ecr-credentials-output"
+    name      = "cccd-temp-ecr-credentials-output"
     namespace = "cccd-dev"
   }
 
   data = {
-    access_key_id     = module.cccd_ecr_credentials.access_key_id
-    secret_access_key = module.cccd_ecr_credentials.secret_access_key
-    repo_arn          = module.cccd_ecr_credentials.repo_arn
-    repo_url          = module.cccd_ecr_credentials.repo_url
+    access_key_id     = module.cccd_temp_ecr_credentials.access_key_id
+    secret_access_key = module.cccd_temp_ecr_credentials.secret_access_key
+    repo_arn          = module.cccd_temp_ecr_credentials.repo_arn
+    repo_url          = module.cccd_temp_ecr_credentials.repo_url
   }
 }
