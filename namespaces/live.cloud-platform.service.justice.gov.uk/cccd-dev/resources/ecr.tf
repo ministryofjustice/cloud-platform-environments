@@ -23,7 +23,7 @@ resource "kubernetes_secret" "cccd_ecr_credentials" {
   }
 }
 
-resource "temp_secret" "cccd_temp_ecr_credentials" {
+resource "kubernetes_secret" "cccd_temp_ecr_credentials" {
   metadata {
     name      = "cccd-temp-ecr-credentials-output"
     namespace = "cccd-dev"
