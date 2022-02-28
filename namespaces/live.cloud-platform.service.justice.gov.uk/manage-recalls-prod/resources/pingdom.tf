@@ -11,7 +11,7 @@ resource "pingdom_check" "manage_recalls" {
   port                     = 443
   tags                     = "hmpps,ppud-replacement,manage-recalls,prod,isproduction_true,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [116726]
+  integrationids           = [116724]
 }
 
 resource "pingdom_check" "manage_recalls_ui_health" {
@@ -27,7 +27,7 @@ resource "pingdom_check" "manage_recalls_ui_health" {
   port                     = 443
   tags                     = "hmpps,ppud-replacement,manage-recalls,prod,isproduction_true,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [116726]
+  integrationids           = [116724]
 }
 
 resource "pingdom_check" "manage_recalls_api_health" {
@@ -43,5 +43,5 @@ resource "pingdom_check" "manage_recalls_api_health" {
   port                     = 443
   tags                     = "hmpps,ppud-replacement,manage-recalls,prod,isproduction_true,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [116726]
+  integrationids           = [116724]
 }
