@@ -31,6 +31,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:ListObjectsV2",
       "s3:GetObject",
       "s3:GetObjectAcl",
+      "s3:ListBucket",
     ]
     resources = [
       "${local.bucket_arn}/*",
