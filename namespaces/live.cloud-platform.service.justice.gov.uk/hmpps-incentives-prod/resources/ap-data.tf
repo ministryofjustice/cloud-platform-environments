@@ -30,6 +30,7 @@ data "aws_iam_policy_document" "analytical-platform" {
       "s3:GetObject",
       "s3:GetObjectAcl",
       "s3:ListObjectsV2",
+      "s3:ListBucket",
     ]
     resources = [
       "arn:aws:s3:::alpha-manage-my-prison/incentives_visuals/*",
