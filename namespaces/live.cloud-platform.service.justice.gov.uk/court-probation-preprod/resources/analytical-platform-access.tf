@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.namespace}-landing/*",
-      "arn:aws:s3:::${var.namespace}-landing/"
+      "arn:aws:s3:::${var.ap-stack-court-case}-landing/*",
+      "arn:aws:s3:::${var.ap-stack-court-case}-landing/"
     ]
   }
 }
@@ -41,7 +41,7 @@ resource "aws_iam_access_key" "user" {
 }
 
 resource "aws_iam_user_policy" "policy" {
-  name   = "${var.namespace}-ap-s3-snapshots"
+  name   = "${var.ap-stack-court-case}-ap-s3-snapshots"
   policy = data.aws_iam_policy_document.ap_access.json
   user   = aws_iam_user.user.name
 }
@@ -53,7 +53,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://${var.namespace}-landing"
+    destination_bucket = "s3://${var.ap-stack-court-case}-landing"
     user_arn           = aws_iam_user.user.arn
     access_key_id      = aws_iam_access_key.user.id
     secret_access_key  = aws_iam_access_key.user.secret
