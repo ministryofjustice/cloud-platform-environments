@@ -24,22 +24,6 @@ resource "kubernetes_secret" "soc_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "add_cname_staging_entry" {
-  name    = "staging.entry.hmcts-risk-assurance-operating-controls.service.justice.gov.uk"
-  zone_id = aws_route53_zone.soc_route53_zone.zone_id
-  type    = "CNAME"
-  records = ["socentrycore31postgresql-staging.eu-west-2.elasticbeanstalk.com"]
-  ttl     = "300"
-}
-
-resource "aws_route53_record" "add_cname_staging_reporting" {
-  name    = "staging.reporting.hmcts-risk-assurance-operating-controls.service.justice.gov.uk"
-  zone_id = aws_route53_zone.soc_route53_zone.zone_id
-  type    = "CNAME"
-  records = ["socreportingcore31postgresql-staging.eu-west-2.elasticbeanstalk.com"]
-  ttl     = "300"
-}
-
 resource "aws_route53_record" "add_cname_production_entry" {
   name    = "entry.hmcts-risk-assurance-operating-controls.service.justice.gov.uk"
   zone_id = aws_route53_zone.soc_route53_zone.zone_id
