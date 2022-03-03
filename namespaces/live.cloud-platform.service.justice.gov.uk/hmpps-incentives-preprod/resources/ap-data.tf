@@ -27,13 +27,20 @@ resource "aws_iam_policy" "analytical-platform" {
 data "aws_iam_policy_document" "analytical-platform" {
   statement {
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:ListObjectsV2",
       "s3:ListBucket",
     ]
     resources = [
       module.analytical_platform_s3_bucket.bucket_arn
+    ]
+  }
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:ListObjectsV2",
+    ]
+    resources = [
+      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
     ]
   }
 }
