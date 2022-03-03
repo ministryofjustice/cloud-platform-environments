@@ -28,8 +28,8 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 1,
-      "id": 148,
-      "iteration": 1646307037883,
+      "id": 210,
+      "iteration": 1646309026695,
       "links": [],
       "panels": [
         {
@@ -1132,12 +1132,12 @@ data:
           {
             "allValue": null,
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "manage-recalls-api",
               "value": "manage-recalls-api"
             },
             "datasource": null,
-            "definition": "label_values(nginx_ingress_controller_requests{}, ingress)",
+            "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, ingress)",
             "description": null,
             "error": null,
             "hide": 0,
@@ -1147,7 +1147,7 @@ data:
             "name": "service",
             "options": [],
             "query": {
-              "query": "label_values(nginx_ingress_controller_requests{}, ingress)",
+              "query": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, ingress)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
