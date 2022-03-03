@@ -1,6 +1,6 @@
 
 module "serviceaccount" {
-  source = "../"
+  source              = "../"
   namespace           = "courts-local-scorecard-dev"
   github_repositories = ["local-scorecard"]
 }
