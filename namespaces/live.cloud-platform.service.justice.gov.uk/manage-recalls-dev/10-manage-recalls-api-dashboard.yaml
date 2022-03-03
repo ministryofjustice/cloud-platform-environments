@@ -28,8 +28,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 2,
-      "id": 215,
-      "iteration": 1646232814539,
+      "iteration": 1646323658725,
       "links": [],
       "panels": [
         {
@@ -356,11 +355,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -370,6 +369,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -380,8 +387,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -424,7 +435,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -444,11 +455,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -458,6 +469,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -468,8 +487,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -501,7 +524,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -513,7 +536,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -533,11 +556,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -547,6 +570,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -557,8 +588,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -590,7 +625,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -602,7 +637,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -622,11 +657,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -636,6 +671,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -646,8 +689,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -679,7 +726,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -691,7 +738,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -711,11 +758,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -725,6 +772,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -735,8 +790,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -768,7 +827,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -780,7 +839,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -800,11 +859,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -814,6 +873,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -824,8 +891,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -857,7 +928,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -869,7 +940,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -889,11 +960,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -903,6 +974,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -913,8 +992,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -946,7 +1029,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -958,7 +1041,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -978,11 +1061,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -992,6 +1075,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -1002,8 +1093,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -1035,7 +1130,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1047,7 +1142,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1067,11 +1162,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -1081,6 +1176,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -1091,8 +1194,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -1124,7 +1231,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1136,7 +1243,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1156,11 +1263,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -1170,6 +1277,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -1180,8 +1295,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -1213,7 +1332,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1225,7 +1344,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1245,11 +1364,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -1259,6 +1378,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -1269,8 +1396,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -1302,7 +1433,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1314,7 +1445,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1334,11 +1465,11 @@ data:
               },
               "mappings": [
                 {
-                  "from": "",
+                  "from": "1",
                   "id": 1,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
+                  "text": "DEGRADED",
+                  "to": "99",
+                  "type": 2,
                   "value": "1"
                 },
                 {
@@ -1348,6 +1479,14 @@ data:
                   "to": "",
                   "type": 1,
                   "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "100"
                 }
               ],
               "thresholds": {
@@ -1358,8 +1497,12 @@ data:
                     "value": null
                   },
                   {
-                    "color": "green",
+                    "color": "yellow",
                     "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
                   }
                 ]
               }
@@ -1391,7 +1534,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1403,7 +1546,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "min(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1909,7 +2052,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2016,7 +2159,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2123,7 +2266,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2232,7 +2375,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2299,7 +2442,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -2364,7 +2507,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2471,7 +2614,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2578,7 +2721,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2687,7 +2830,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2754,7 +2897,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -2819,7 +2962,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2926,7 +3069,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3033,7 +3176,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3142,7 +3285,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3209,7 +3352,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3274,7 +3417,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3381,7 +3524,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3488,7 +3631,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3597,7 +3740,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3664,7 +3807,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3729,7 +3872,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3836,7 +3979,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3943,7 +4086,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4052,7 +4195,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646232814539,
+              "repeatIteration": 1646323658725,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4119,7 +4262,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646232814539,
+          "repeatIteration": 1646323658725,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
