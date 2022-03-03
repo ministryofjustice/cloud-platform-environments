@@ -27,10 +27,17 @@ resource "aws_iam_policy" "analytical-platform" {
 data "aws_iam_policy_document" "analytical-platform" {
   statement {
     actions = [
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::alpha-manage-my-prison",
+    ]
+  }
+  statement {
+    actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
       "s3:ListObjectsV2",
-      "s3:ListBucket",
     ]
     resources = [
       "arn:aws:s3:::alpha-manage-my-prison/incentives_visuals/*",
