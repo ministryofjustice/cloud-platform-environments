@@ -38,3 +38,6 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
+variable "ap-stack-court-case" {
+  default = "hmpps-court-case-dev"
+}

@@ -35,7 +35,7 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "configmaps",
-        "pods",
+        "pods"
       ]
       verbs = [
         "patch",
@@ -52,10 +52,12 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
+        "certmanager.k8s.io"
       ]
       resources = [
         "deployments",
         "ingresses",
+        "certificates"
       ]
       verbs = [
         "get",

@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: staging-entry-cert
+  namespace: soc-staging
+spec:
+  secretName: staging-entry-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - 3.hmcts-risk-assurance-operating-controls.service.justice.gov.uk
+  - staging.entry.hmcts-risk-assurance-operating-controls.service.justice.gov.uk

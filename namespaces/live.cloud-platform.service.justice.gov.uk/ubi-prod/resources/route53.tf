@@ -23,4 +23,3 @@ resource "kubernetes_secret" "fum_route53_zone_sec" {
     zone_id = aws_route53_zone.fum_route53_zone.zone_id
   }
 }
-

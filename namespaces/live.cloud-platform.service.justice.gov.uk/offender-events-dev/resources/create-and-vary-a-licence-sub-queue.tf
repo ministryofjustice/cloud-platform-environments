@@ -136,7 +136,7 @@ resource "aws_sns_topic_subscription" "cvl_prison_events_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.cvl_prison_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"ADDRESS-UPDATED\", \"BOOKING_NUMBER-CHANGED\", \"CONFIRMED_RELEASE_DATE-CHANGED\", \"DATA_COMPLIANCE_DELETE-OFFENDER\", \"OFFENDER-UPDATED\", \"OFFENDER_BOOKING-CHANGED\", \"OFFENDER_DETAILS-CHANGED\", \"OFFENDER_PROFILE_DETAILS-UPDATED\", \"SENTENCE-DATES-CHANGED\", \"SENTENCE_CALCULATION_DATES-CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"SENTENCE_DATES-CHANGED\"]}"
 }
 
 resource "aws_sns_topic_subscription" "cvl_probation_events_subscription" {
