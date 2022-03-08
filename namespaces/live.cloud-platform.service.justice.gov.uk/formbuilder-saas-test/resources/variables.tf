@@ -26,3 +26,7 @@ variable "cluster_name" {
 variable "namespace" {
   default = "formbuilder-saas-test"
 }
+
+variable "db_instance_class" {
+  default = "db.t3.large"
+}
