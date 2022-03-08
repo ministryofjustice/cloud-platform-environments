@@ -25,9 +25,7 @@ resource "kubernetes_secret" "offender_events" {
 resource "kubernetes_secret" "offender_case_notes" {
   metadata {
     name      = "offender-events-topic-offender-case-notes"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "offender-case-notes-prod"
+    namespace = "offender-case-notes-prod"
   }
 
   data = {
