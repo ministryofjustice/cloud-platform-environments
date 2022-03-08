@@ -11,6 +11,7 @@ module "editor-rds-instance" {
   team_name                  = var.team_name
   db_engine_version          = "12"
   rds_family                 = "postgres12"
+  db_instance_class          = var.db_instance_class
 
   providers = {
     aws = aws.london
