@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-book-secure-move-frontend-staging
 subjects:
   - kind: Group
-    name: "github:book-a-secure-move"
+    name: "github:pecs-developers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
