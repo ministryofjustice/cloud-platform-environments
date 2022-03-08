@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "analytical-platform" {
       "s3:ListObjectsV2",
     ]
     resources = [
-      "arn:aws:s3:::alpha-manage-my-prison/incentives_visuals/*",
+      "arn:aws:s3:::alpha-manage-my-prison/*",
     ]
   }
 }
