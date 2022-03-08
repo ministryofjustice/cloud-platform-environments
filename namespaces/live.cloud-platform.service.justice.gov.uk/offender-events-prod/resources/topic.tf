@@ -24,7 +24,7 @@ resource "kubernetes_secret" "offender_events" {
 
 resource "kubernetes_secret" "offender_case_notes" {
   metadata {
-    name      = "offender-events-topic-offender-case-notes"
+    name      = "offender-events-topic"
     namespace = "offender-case-notes-prod"
   }
 
