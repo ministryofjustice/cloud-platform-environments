@@ -28,7 +28,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 2,
-      "iteration": 1646323658725,
+      "iteration": 1646839848112,
       "links": [],
       "panels": [
         {
@@ -505,7 +505,7 @@ data:
             "x": 6,
             "y": 13
           },
-          "id": 175,
+          "id": 212,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -524,7 +524,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -606,7 +606,7 @@ data:
             "x": 12,
             "y": 13
           },
-          "id": 176,
+          "id": 213,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -625,7 +625,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -707,7 +707,7 @@ data:
             "x": 18,
             "y": 13
           },
-          "id": 177,
+          "id": 214,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -726,7 +726,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -808,7 +808,7 @@ data:
             "x": 0,
             "y": 17
           },
-          "id": 178,
+          "id": 215,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -827,7 +827,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -909,7 +909,7 @@ data:
             "x": 6,
             "y": 17
           },
-          "id": 179,
+          "id": 216,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -928,7 +928,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1010,7 +1010,7 @@ data:
             "x": 12,
             "y": 17
           },
-          "id": 180,
+          "id": 217,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1029,7 +1029,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1111,7 +1111,7 @@ data:
             "x": 18,
             "y": 17
           },
-          "id": 181,
+          "id": 218,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1130,7 +1130,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1212,7 +1212,7 @@ data:
             "x": 0,
             "y": 21
           },
-          "id": 182,
+          "id": 219,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1231,7 +1231,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1313,7 +1313,7 @@ data:
             "x": 6,
             "y": 21
           },
-          "id": 183,
+          "id": 220,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1332,7 +1332,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1414,7 +1414,7 @@ data:
             "x": 12,
             "y": 21
           },
-          "id": 184,
+          "id": 221,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1433,7 +1433,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1515,7 +1515,7 @@ data:
             "x": 18,
             "y": 21
           },
-          "id": 185,
+          "id": 222,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1534,7 +1534,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 34,
           "scopedVars": {
             "service": {
@@ -1791,7 +1791,7 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
                 "y": 36
               },
@@ -1832,7 +1832,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -1897,8 +1897,114 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
+                "w": 8,
+                "x": 8,
+                "y": 36
+              },
+              "hiddenSeries": false,
+              "id": 211,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "court-register-dev.hmpps.service.justice.gov.uk",
+                  "value": "court-register-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
                 "y": 36
               },
               "hiddenSeries": false,
@@ -2008,7 +2114,7 @@ data:
             "x": 0,
             "y": 26
           },
-          "id": 186,
+          "id": 223,
           "panels": [
             {
               "aliasColors": {},
@@ -2027,10 +2133,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 0,
-                "y": 26
+                "y": 27
               },
               "hiddenSeries": false,
-              "id": 187,
+              "id": 224,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2052,7 +2158,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2134,10 +2240,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 12,
-                "y": 26
+                "y": 27
               },
               "hiddenSeries": false,
-              "id": 188,
+              "id": 225,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2159,7 +2265,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2239,12 +2345,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
-                "y": 36
+                "y": 37
               },
               "hiddenSeries": false,
-              "id": 189,
+              "id": 226,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2266,7 +2372,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2283,7 +2389,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -2348,12 +2454,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
-                "y": 36
+                "w": 8,
+                "x": 8,
+                "y": 37
               },
               "hiddenSeries": false,
-              "id": 190,
+              "id": 227,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2375,7 +2481,116 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
+              "repeatPanelId": 211,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "data.police.uk",
+                  "value": "data.police.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 37
+              },
+              "hiddenSeries": false,
+              "id": 228,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2442,7 +2657,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -2463,7 +2678,7 @@ data:
             "x": 0,
             "y": 27
           },
-          "id": 191,
+          "id": 229,
           "panels": [
             {
               "aliasColors": {},
@@ -2485,7 +2700,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 192,
+              "id": 230,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2507,7 +2722,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2592,7 +2807,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 193,
+              "id": 231,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2614,7 +2829,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2694,12 +2909,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 194,
+              "id": 232,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2721,7 +2936,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2738,7 +2953,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -2803,12 +3018,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
+                "w": 8,
+                "x": 8,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 195,
+              "id": 233,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2830,7 +3045,116 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
+              "repeatPanelId": 211,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-gotenberg",
+                  "value": "manage-recalls-api-gotenberg"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 36
+              },
+              "hiddenSeries": false,
+              "id": 234,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2897,7 +3221,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -2918,7 +3242,7 @@ data:
             "x": 0,
             "y": 28
           },
-          "id": 196,
+          "id": 235,
           "panels": [
             {
               "aliasColors": {},
@@ -2940,7 +3264,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 197,
+              "id": 236,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2962,7 +3286,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3047,7 +3371,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 198,
+              "id": 237,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3069,7 +3393,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3149,12 +3473,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 199,
+              "id": 238,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3176,7 +3500,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3193,7 +3517,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -3258,12 +3582,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
+                "w": 8,
+                "x": 8,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 200,
+              "id": 239,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3285,7 +3609,116 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
+              "repeatPanelId": 211,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "prison-register-dev.hmpps.service.justice.gov.uk",
+                  "value": "prison-register-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 36
+              },
+              "hiddenSeries": false,
+              "id": 240,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3352,7 +3785,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3373,7 +3806,7 @@ data:
             "x": 0,
             "y": 29
           },
-          "id": 201,
+          "id": 241,
           "panels": [
             {
               "aliasColors": {},
@@ -3395,7 +3828,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 202,
+              "id": 242,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3417,7 +3850,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3502,7 +3935,7 @@ data:
                 "y": 26
               },
               "hiddenSeries": false,
-              "id": 203,
+              "id": 243,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3524,7 +3957,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3604,12 +4037,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 204,
+              "id": 244,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3631,7 +4064,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3648,7 +4081,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -3713,12 +4146,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
+                "w": 8,
+                "x": 8,
                 "y": 36
               },
               "hiddenSeries": false,
-              "id": 205,
+              "id": 245,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3740,7 +4173,116 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
+              "repeatPanelId": 211,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "prisoner-offender-search-dev.prison.service.justice.gov.uk",
+                  "value": "prisoner-offender-search-dev.prison.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 36
+              },
+              "hiddenSeries": false,
+              "id": 246,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3807,7 +4349,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3828,7 +4370,7 @@ data:
             "x": 0,
             "y": 30
           },
-          "id": 206,
+          "id": 247,
           "panels": [
             {
               "aliasColors": {},
@@ -3847,10 +4389,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 0,
-                "y": 26
+                "y": 31
               },
               "hiddenSeries": false,
-              "id": 207,
+              "id": 248,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3872,7 +4414,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3954,10 +4496,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 12,
-                "y": 26
+                "y": 31
               },
               "hiddenSeries": false,
-              "id": 208,
+              "id": 249,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -3979,7 +4521,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4059,12 +4601,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
+                "w": 8,
                 "x": 0,
-                "y": 36
+                "y": 41
               },
               "hiddenSeries": false,
-              "id": 209,
+              "id": 250,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -4086,7 +4628,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4103,7 +4645,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m]))\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -4168,12 +4710,12 @@ data:
               "fillGradient": 0,
               "gridPos": {
                 "h": 10,
-                "w": 12,
-                "x": 12,
-                "y": 36
+                "w": 8,
+                "x": 8,
+                "y": 41
               },
               "hiddenSeries": false,
-              "id": 210,
+              "id": 251,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -4195,7 +4737,116 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1646323658725,
+              "repeatIteration": 1646839848112,
+              "repeatPanelId": 211,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "www.gov.uk",
+                  "value": "www.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 41
+              },
+              "hiddenSeries": false,
+              "id": 252,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1646839848112,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4262,7 +4913,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1646323658725,
+          "repeatIteration": 1646839848112,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -4517,5 +5168,5 @@ data:
       "timezone": "browser",
       "title": "manage-recalls-api / Dashboard",
       "uid": "manage-recalls-api-dashboard",
-      "version": 1
+      "version": 2
     }
