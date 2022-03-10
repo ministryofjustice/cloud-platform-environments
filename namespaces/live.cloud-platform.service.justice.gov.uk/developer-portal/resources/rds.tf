@@ -19,7 +19,7 @@ module "rds" {
   namespace              = var.namespace
 
   # Postgres
-  rds_name             = "${var.app_short_name}-${var.environment_name}"
+  rds_name             = "${var.app_short_name}-${var.environment}"
   performance_insights_enabled = true
   db_engine_version            = "13"
   db_instance_class            = "db.t3.small" # TODO: Is this big enough?
