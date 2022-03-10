@@ -21,10 +21,10 @@ module "rds" {
   # Postgres
   rds_name             = "${var.app_short_name}-${var.environment_name}"
   performance_insights_enabled = true
-  db_engine_version = "13"
-  db_instance_class = "db.t3.small"  # TODO: Is this big enough?
-  rds_family = "postgres13"
-  allow_major_version_upgrade = "false"
+  db_engine_version            = "13"
+  db_instance_class            = "db.t3.small" # TODO: Is this big enough?
+  rds_family                   = "postgres13"
+  allow_major_version_upgrade  = "false"
 
   providers = {
     aws = aws.london
@@ -46,10 +46,10 @@ resource "kubernetes_secret" "rds" {
     access_key_id         = module.rds.access_key_id
     secret_access_key     = module.rds.secret_access_key
     # Backstage stuff 
-    POSTGRES_USER         = module.rds.database_username
-    POSTGRES_PASSWORD     = module.rds.database_password
-    POSTGRES_PORT         = module.rds.rds_instance_port
-    POSTGRES_HOST         = module.rds.rds_instance_host
+    POSTGRES_USER     = module.rds.database_username
+    POSTGRES_PASSWORD = module.rds.database_password
+    POSTGRES_PORT     = module.rds.rds_instance_port
+    POSTGRES_HOST     = module.rds.rds_instance_host
 
   }
 }
