@@ -21,6 +21,33 @@ data:
             "name": "Annotations & Alerts",
             "showIn": 0,
             "type": "dashboard"
+          },
+          {
+            "actionPrefix": "",
+            "alarmNamePrefix": "",
+            "alias": "",
+            "datasource": "Thanos",
+            "dimensions": {},
+            "enable": true,
+            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\"} * 1000",
+            "expression": "",
+            "hide": false,
+            "iconColor": "#3274D9",
+            "id": "",
+            "matchExact": true,
+            "metricName": "",
+            "name": "service pod creation",
+            "namespace": "",
+            "period": "",
+            "prefixMatching": false,
+            "region": "default",
+            "showIn": 0,
+            "statistics": [
+              "Average"
+            ],
+            "textFormat": "",
+            "titleFormat": "{{ pod }}",
+            "useValueForTime": true
           }
         ]
       },
@@ -28,8 +55,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 1,
-      "id": 210,
-      "iteration": 1646309026695,
+      "iteration": 1646930325706,
       "links": [],
       "panels": [
         {
@@ -1102,8 +1128,8 @@ data:
             "allValue": null,
             "current": {
               "selected": true,
-              "text": "manage-recalls-preprod",
-              "value": "manage-recalls-preprod"
+              "text": "manage-recalls-dev",
+              "value": "manage-recalls-dev"
             },
             "datasource": null,
             "definition": "label_values(nginx_ingress_controller_requests{}, exported_namespace)",
