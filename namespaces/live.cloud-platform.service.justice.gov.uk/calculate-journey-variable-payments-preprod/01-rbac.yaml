@@ -5,7 +5,7 @@ metadata:
   namespace: calculate-journey-variable-payments-preprod
 subjects:
   - kind: Group
-    name: "github:calculate-journey-variable-payments"
+    name: "github:pecs-developers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
