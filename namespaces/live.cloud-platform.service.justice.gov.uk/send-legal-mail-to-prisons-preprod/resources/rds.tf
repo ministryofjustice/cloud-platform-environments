@@ -14,6 +14,8 @@ module "slmtp_api_rds" {
   rds_family                  = "postgres13"
   db_engine_version           = "13"
 
+  snapshot_identifier = "rds:cloud-platform-16854fceeeaf4ba2-2022-03-11-01-23"
+  
   providers = {
     aws = aws.london
   }
