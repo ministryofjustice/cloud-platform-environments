@@ -7,7 +7,7 @@ resource "kubernetes_secret" "analytical_platform_s3_bucket" {
   data = {
     access_key_id     = ""
     secret_access_key = ""
-    bucket_arn        = "arn:aws:s3:::mojap-manage-my-prison-dev"
-    bucket_name       = "mojap-manage-my-prison-dev"
+    bucket_arn        = "arn:aws:s3:::mojap-incentives"
+    bucket_name       = "mojap-incentives"
   }
 }
