@@ -49,7 +49,7 @@ resource "kubernetes_secret" "rds" {
     POSTGRES_USER     = module.rds.database_username
     POSTGRES_PASSWORD = module.rds.database_password
     POSTGRES_PORT     = module.rds.rds_instance_port
-    POSTGRES_HOST     = module.rds.rds_instance_host
+    POSTGRES_HOST     = module.rds.rds_instance_address
 
   }
 }
