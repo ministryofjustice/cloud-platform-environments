@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "analytical-platform" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::alpha-manage-my-prison",
+      "arn:aws:s3:::mojap-manage-my-prison-dev",
     ]
   }
   statement {
@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "analytical-platform" {
       "s3:ListObjectsV2",
     ]
     resources = [
-      "arn:aws:s3:::alpha-manage-my-prison/*",
+      "arn:aws:s3:::mojap-manage-my-prison-dev/*",
     ]
   }
 }
