@@ -13,6 +13,7 @@ provider "aws" {
   region = "eu-west-2"
 }
 
+
 # To be use in case the resources need to be created in Ireland
 provider "aws" {
   alias  = "ireland"
