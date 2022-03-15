@@ -48,10 +48,10 @@ spec:
         severity: prepare-a-case
     - alert: SQS-number-of-messages-court-case-matcher
       annotations:
-        message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 20), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+        message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 1000), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-court-case-matcher-queue"} offset 5m) by (queue_name) > 20
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-court-case-matcher-queue"} offset 5m) by (queue_name) > 1000
       for: 10m
       labels:
         severity: prepare-a-case
