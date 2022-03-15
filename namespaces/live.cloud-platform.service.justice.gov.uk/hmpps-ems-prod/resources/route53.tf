@@ -47,10 +47,10 @@ resource "aws_route53_record" "hmpps_ems_mapping_test_zone" {
 
 resource "aws_route53_record" "hmpps_ems_mapping_training_zone" {
   zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "mapping.training.${var.domain}"
+  name    = "mapping.teac.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["ns-867.awsdns-44.net.", "ns-1635.awsdns-12.co.uk.", "ns-412.awsdns-51.com.", "ns-1419.awsdns-49.org."]
+  records = ["ns-1620.awsdns-10.co.uk.", "ns-446.awsdns-55.com.", "ns-1123.awsdns-12.org.", "ns-606.awsdns-11.net."]
 }
 
 resource "aws_route53_record" "hmpps_ems_mapping_preprod_zone" {
