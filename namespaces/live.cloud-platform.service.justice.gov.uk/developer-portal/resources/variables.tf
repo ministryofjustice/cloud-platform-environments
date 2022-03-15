@@ -13,6 +13,16 @@ variable "application" {
   default     = "Developer Portal"
 }
 
+variable "app_short_name" {
+  description = "Short name of the application"
+  default     = "developer-portal"
+}
+
+variable "repo_name" {
+  description = "Name of repository for application"
+  default     = "developer-portal"
+}
+
 variable "namespace" {
   default = "developer-portal"
 }
