@@ -8,7 +8,7 @@ metadata:
     app: manage-recalls-api
     grafana_dashboard: ""
 data:
-  dashboard.json: |
+  manage-recalls-api-dashboard.json: |
     {
       "annotations": {
         "list": [
