@@ -95,12 +95,12 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_10" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_10.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_10.rds_instance_address
-    port              = module.cla_backend_rds_postgres_10.rds_instance_port
-    name              = module.cla_backend_rds_postgres_10.database_name
-    user              = module.cla_backend_rds_postgres_10.database_username
-    password          = module.cla_backend_rds_postgres_10.database_password
+    endpoint = module.cla_backend_rds_postgres_10.rds_instance_endpoint
+    host     = module.cla_backend_rds_postgres_10.rds_instance_address
+    port     = module.cla_backend_rds_postgres_10.rds_instance_port
+    name     = module.cla_backend_rds_postgres_10.database_name
+    user     = module.cla_backend_rds_postgres_10.database_username
+    password = module.cla_backend_rds_postgres_10.database_password
   }
 
 }
