@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - prisoner-nomis-migration-dev.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: nomis-sync-dashboard-dev.hmpps.service.justice.gov.uk
