@@ -61,28 +61,28 @@ spec:
       annotations:
         message: Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/application_merits_task/statement_of_cases|providers/means_summaries"} > 2
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/application_merits_task/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections"} > 2
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Request is taking more than 2 seconds
-    - alert: "Long-Request: Statement of case"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-prod", controller="providers/application_merits_task/statement_of_cases"} > 10
+    - alert: "Long-Request: file_uploads"
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/application_merits_task/statement_of_cases|providers/uploaded_evidence_collections"} > 10
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
-        message: Statement of case request is taking more than 10 seconds    
+        message: File upload request is taking more than 10 seconds    
     - alert: "Long-Request: means_summaries"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-prod", controller="providers/means_summaries"} > 5
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/means_summaries"} > 5
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Means summary generation is taking more than 5 seconds
     - alert: "Long-Request: admin-reports"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-prod", controller="admin/reports"} > 65
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="admin/reports"} > 65
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
