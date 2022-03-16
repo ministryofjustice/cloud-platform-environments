@@ -21,8 +21,8 @@ metadata:
   namespace: hmpps-interventions-dev
 spec:
   selector:
-    matchExpressions:
-      - {key: app, operator: In, values: [hmpps-interventions-service, api-suspect, performance-report]}
+    matchLabels:
+      app: hmpps-interventions-service
   namespaceSelector:
     matchNames:
       - hmpps-interventions-dev
