@@ -69,7 +69,7 @@ module "cla_backend_rds_postgres_10" {
   db_instance_class        = "db.m4.4xlarge"
   db_allocated_storage     = "1000"
   db_iops                  = "3000"
-  db_max_allocated_storage = "1000"
+  db_max_allocated_storage = "1100"
 
   # change the postgres version as you see fit.
   db_engine_version      = "10"
