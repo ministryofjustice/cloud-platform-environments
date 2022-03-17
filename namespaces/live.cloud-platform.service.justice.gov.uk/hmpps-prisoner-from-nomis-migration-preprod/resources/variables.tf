@@ -7,6 +7,11 @@ variable "application" {
   default     = "HMPPS Prisoner from NOMIS Migration"
 }
 
+variable "application_sync_dashboard" {
+  description = "Name of Application you are deploying"
+  default     = "HMPPS NOMIS Synchronisation Dashboard"
+}
+
 variable "namespace" {
   default = "hmpps-prisoner-from-nomis-migration-preprod"
 }
@@ -40,3 +45,10 @@ variable "slack_channel" {
   default     = "syscon_team"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "node-type" {
+  default = "cache.t2.small"
+}
