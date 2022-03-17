@@ -61,14 +61,14 @@ spec:
       annotations:
         message: Container disk space usage is more than 150Mb or is not reported
     - alert: Long-Request
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller!~"providers/application_merits_task/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections"} > 2
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller!~"providers/application_merits_task/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
         message: Request is taking more than 2 seconds
     - alert: "Long-Request: file_uploads"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller="providers/application_merits_task/statement_of_cases|providers/uploaded_evidence_collections"} > 10
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller="providers/application_merits_task/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 10
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
@@ -81,13 +81,6 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: Means summary generation is taking more than 5 seconds
-    - alert: "Long-Request: admin-reports"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller="admin/reports"} > 65
-      for: 1m
-      labels:
-        severity: apply-for-legal-aid-uat
-      annotations:
-        message: Admin report generation is taking more than 65 seconds
     - alert: Address lookup service
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-uat", controller="providers/address_selections"}[30m])) * 1800 > 1
       for: 1m
