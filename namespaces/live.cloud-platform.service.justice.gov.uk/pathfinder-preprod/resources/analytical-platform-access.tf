@@ -6,7 +6,7 @@ module "ap_irsa" {
 }
 
 resource "aws_iam_policy" "ap_policy" {
-  name   = "${var.namespace}-ap-policy"
+  name   = "${var.namespace}-ap-register-my-data-policy"
   policy = data.aws_iam_policy_document.pathfinder_ap_access.json
 }
 
@@ -34,7 +34,8 @@ data "aws_iam_policy_document" "pathfinder_ap_access" {
 
     resources = [
       "arn:aws:s3:::hmpps-${var.namespace}-landing/*",
-      "arn:aws:s3:::hmpps-${var.namespace}-landing/"
+      "arn:aws:s3:::hmpps-${var.namespace}-landing/",
+      "arn:aws:s3:::mojap-land/hmpps/pathfinder/preprod/*",
     ]
   }
 }
@@ -72,7 +73,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 }
 
-resource "kubernetes_secret" "ap_irsa" {
+resource "kubernetes_secret" "pathfinder_to_ap_irsa" {
   metadata {
     name      = "pathfinder-to-ap-s3-irsa"
     namespace = var.namespace
