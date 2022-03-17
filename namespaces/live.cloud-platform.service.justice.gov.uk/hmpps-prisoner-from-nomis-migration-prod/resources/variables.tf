@@ -6,9 +6,18 @@ variable "domain" {
   default = "prisoner-nomis-migration.hmpps.service.justice.gov.uk"
 }
 
+variable "domain_sync_dashboard" {
+  default = "nomis-sync-dashboard.hmpps.service.justice.gov.uk"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS Prisoner from NOMIS Migration"
+}
+
+variable "application_sync_dashboard" {
+  description = "Name of Application you are deploying"
+  default     = "HMPPS NOMIS Synchronisation Dashboard"
 }
 
 variable "namespace" {
@@ -42,5 +51,13 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "syscon_team"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "node-type" {
+  default = "cache.t2.small"
 }
 
