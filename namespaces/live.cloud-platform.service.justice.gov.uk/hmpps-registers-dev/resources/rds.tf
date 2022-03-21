@@ -46,6 +46,7 @@ module "prisons_rds" {
   infrastructure-support = var.infrastructure-support
 
   allow_major_version_upgrade = "true"
+  db_instance_class           = "db.t3.small"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
 
