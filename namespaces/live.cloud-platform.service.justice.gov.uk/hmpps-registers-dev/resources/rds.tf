@@ -46,8 +46,8 @@ module "prisons_rds" {
   infrastructure-support = var.infrastructure-support
 
   allow_major_version_upgrade = "true"
-  rds_family        = "postgres13"
-  db_engine_version = "13"
+  rds_family                  = "postgres13"
+  db_engine_version           = "13"
 
   providers = {
     aws = aws.london
