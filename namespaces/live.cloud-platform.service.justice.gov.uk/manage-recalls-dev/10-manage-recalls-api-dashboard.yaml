@@ -107,7 +107,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 2,
-      "iteration": 1647362326705,
+      "iteration": 1647866591421,
       "links": [],
       "panels": [
         {
@@ -258,7 +258,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(rate(http_server_requests_seconds_count{namespace=\"$namespace\", service=\"manage-recalls-api\"}[1m])) by (status)",
+              "expr": "sum(rate(http_server_requests_seconds_count{namespace=\"$namespace\", service=\"$container\"}[1m])) by (status)",
               "interval": "",
               "legendFormat": "{{ status }}",
               "refId": "A"
@@ -358,7 +358,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(increase(autoReturnedToCustody_total{namespace=\"$namespace\"}[1h]) or vector(0))",
+              "expr": "sum(increase(autoReturnedToCustody_total{namespace=\"$namespace\", container=\"$container\"}[1h]) or vector(0))",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -427,6 +427,7 @@ data:
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -502,9 +503,19 @@ data:
             "textMode": "value"
           },
           "pluginVersion": "7.5.9",
-          "repeat": "service",
+          "repeat": "healthcheck_service",
           "repeatDirection": "h",
           "scopedVars": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
+            },
             "service": {
               "selected": false,
               "text": "bankHoliday",
@@ -514,7 +525,8 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -522,11 +534,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -584,7 +597,7 @@ data:
             "x": 6,
             "y": 13
           },
-          "id": 212,
+          "id": 259,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -603,19 +616,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "clamAV",
               "value": "clamAV"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -623,11 +647,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -685,7 +710,7 @@ data:
             "x": 12,
             "y": 13
           },
-          "id": 213,
+          "id": 260,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -704,19 +729,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "courtRegister",
               "value": "courtRegister"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -724,11 +760,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -786,7 +823,7 @@ data:
             "x": 18,
             "y": 13
           },
-          "id": 214,
+          "id": 261,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -805,19 +842,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "gotenberg",
               "value": "gotenberg"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -825,11 +873,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -887,7 +936,7 @@ data:
             "x": 0,
             "y": 17
           },
-          "id": 215,
+          "id": 262,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -906,19 +955,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "hmppsAuth",
               "value": "hmppsAuth"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -926,11 +986,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -988,7 +1049,7 @@ data:
             "x": 6,
             "y": 17
           },
-          "id": 216,
+          "id": 263,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1007,19 +1068,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "policeUkApi",
               "value": "policeUkApi"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1027,11 +1099,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1089,7 +1162,7 @@ data:
             "x": 12,
             "y": 17
           },
-          "id": 217,
+          "id": 264,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1108,19 +1181,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "prisonApi",
               "value": "prisonApi"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1128,11 +1212,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1190,7 +1275,7 @@ data:
             "x": 18,
             "y": 17
           },
-          "id": 218,
+          "id": 265,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1209,19 +1294,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "prisonRegister",
               "value": "prisonRegister"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1229,11 +1325,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1291,7 +1388,7 @@ data:
             "x": 0,
             "y": 21
           },
-          "id": 219,
+          "id": 266,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1310,19 +1407,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "prisonerOffenderSearch",
               "value": "prisonerOffenderSearch"
+            },
+            "service": {
+              "selected": false,
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1330,11 +1438,12 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
           "datasource": "Thanos",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1392,7 +1501,7 @@ data:
             "x": 6,
             "y": 21
           },
-          "id": 220,
+          "id": 267,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -1411,120 +1520,30 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 34,
           "scopedVars": {
-            "service": {
+            "container": {
+              "selected": true,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "healthcheck_service": {
               "selected": false,
               "text": "s3",
               "value": "s3"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
-              "interval": "",
-              "legendFormat": "{{ exported_service }}",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "$service",
-          "type": "stat"
-        },
-        {
-          "datasource": "Thanos",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "from": "1",
-                  "id": 1,
-                  "text": "DEGRADED",
-                  "to": "99",
-                  "type": 2,
-                  "value": "1"
-                },
-                {
-                  "from": "",
-                  "id": 2,
-                  "text": "DOWN",
-                  "to": "",
-                  "type": 1,
-                  "value": "0"
-                },
-                {
-                  "from": "",
-                  "id": 3,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
-                  "value": "100"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 1
-                  },
-                  {
-                    "color": "green",
-                    "value": 100
-                  }
-                ]
-              }
             },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 6,
-            "x": 12,
-            "y": 21
-          },
-          "id": 221,
-          "maxPerRow": 4,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value"
-          },
-          "pluginVersion": "7.5.9",
-          "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
-          "repeatPanelId": 34,
-          "scopedVars": {
             "service": {
               "selected": false,
-              "text": "manageRecallsApi",
-              "value": "manageRecallsApi"
+              "text": "bankHoliday",
+              "value": "bankHoliday"
             }
           },
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
               "refId": "A"
@@ -1532,108 +1551,7 @@ data:
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "$service",
-          "type": "stat"
-        },
-        {
-          "datasource": "Thanos",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "from": "1",
-                  "id": 1,
-                  "text": "DEGRADED",
-                  "to": "99",
-                  "type": 2,
-                  "value": "1"
-                },
-                {
-                  "from": "",
-                  "id": 2,
-                  "text": "DOWN",
-                  "to": "",
-                  "type": 1,
-                  "value": "0"
-                },
-                {
-                  "from": "",
-                  "id": 3,
-                  "text": "UP",
-                  "to": "",
-                  "type": 1,
-                  "value": "100"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 1
-                  },
-                  {
-                    "color": "green",
-                    "value": 100
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 6,
-            "x": 18,
-            "y": 21
-          },
-          "id": 222,
-          "maxPerRow": 4,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value"
-          },
-          "pluginVersion": "7.5.9",
-          "repeatDirection": "h",
-          "repeatIteration": 1647362326705,
-          "repeatPanelId": 34,
-          "scopedVars": {
-            "service": {
-              "selected": false,
-              "text": "tokenVerification",
-              "value": "tokenVerification"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$service\"}) by (exported_service)\n* 100",
-              "interval": "",
-              "legendFormat": "{{ exported_service }}",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "$service",
+          "title": "$healthcheck_service",
           "type": "stat"
         },
         {
@@ -1703,7 +1621,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -1807,7 +1725,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -1911,7 +1829,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -2017,7 +1935,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -2123,7 +2041,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -2237,7 +2155,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2254,7 +2172,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -2344,7 +2262,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2361,7 +2279,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -2451,7 +2369,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2468,7 +2386,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -2560,7 +2478,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2577,7 +2495,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -2669,7 +2587,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2686,7 +2604,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -2736,7 +2654,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -2801,7 +2719,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2818,7 +2736,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -2908,7 +2826,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2925,7 +2843,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -3015,7 +2933,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3032,7 +2950,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -3124,7 +3042,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3141,7 +3059,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -3233,7 +3151,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3250,7 +3168,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -3300,7 +3218,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3365,7 +3283,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3382,7 +3300,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -3472,7 +3390,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3489,7 +3407,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -3579,7 +3497,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3596,7 +3514,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -3688,7 +3606,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3705,7 +3623,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -3797,7 +3715,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3814,7 +3732,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -3864,7 +3782,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -3929,7 +3847,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -3946,7 +3864,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -4036,7 +3954,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4053,7 +3971,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -4143,7 +4061,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4160,7 +4078,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -4252,7 +4170,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4269,7 +4187,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -4361,7 +4279,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4378,7 +4296,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -4428,7 +4346,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -4493,7 +4411,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4510,7 +4428,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -4600,7 +4518,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4617,7 +4535,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -4707,7 +4625,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4724,7 +4642,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -4816,7 +4734,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4833,7 +4751,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -4925,7 +4843,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -4942,7 +4860,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -4992,7 +4910,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -5057,7 +4975,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 2,
               "repeatedByRow": true,
               "scopedVars": {
@@ -5074,7 +4992,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -5164,7 +5082,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 15,
               "repeatedByRow": true,
               "scopedVars": {
@@ -5181,7 +5099,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -5271,7 +5189,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 46,
               "repeatedByRow": true,
               "scopedVars": {
@@ -5288,7 +5206,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -5380,7 +5298,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 211,
               "repeatedByRow": true,
               "scopedVars": {
@@ -5397,7 +5315,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -5489,7 +5407,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647362326705,
+              "repeatIteration": 1647866591421,
               "repeatPanelId": 78,
               "repeatedByRow": true,
               "scopedVars": {
@@ -5506,7 +5424,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"manage-recalls-api\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -5556,7 +5474,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647362326705,
+          "repeatIteration": 1647866591421,
           "repeatPanelId": 12,
           "scopedVars": {
             "upstream": {
@@ -5637,11 +5555,6 @@ data:
               },
               {
                 "selected": false,
-                "text": "api-dev.prison.service.justice.gov.uk",
-                "value": "api-dev.prison.service.justice.gov.uk"
-              },
-              {
-                "selected": false,
                 "text": "court-register-dev.hmpps.service.justice.gov.uk",
                 "value": "court-register-dev.hmpps.service.justice.gov.uk"
               },
@@ -5693,14 +5606,14 @@ data:
               "value": "$__all"
             },
             "datasource": "Thanos",
-            "definition": "label_values(upstream_healthcheck{namespace=\"$namespace\"},exported_service)",
+            "definition": "label_values(upstream_healthcheck{namespace=\"$namespace\", container=\"$container\"},exported_service)",
             "description": null,
             "error": null,
             "hide": 2,
             "includeAll": true,
             "label": null,
             "multi": false,
-            "name": "service",
+            "name": "healthcheck_service",
             "options": [
               {
                 "selected": true,
@@ -5756,20 +5669,10 @@ data:
                 "selected": false,
                 "text": "s3",
                 "value": "s3"
-              },
-              {
-                "selected": false,
-                "text": "manageRecallsApi",
-                "value": "manageRecallsApi"
-              },
-              {
-                "selected": false,
-                "text": "tokenVerification",
-                "value": "tokenVerification"
               }
             ],
             "query": {
-              "query": "label_values(upstream_healthcheck{namespace=\"$namespace\"},exported_service)",
+              "query": "label_values(upstream_healthcheck{namespace=\"$namespace\", container=\"$container\"},exported_service)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 0,
@@ -5781,6 +5684,31 @@ data:
             "tagsQuery": "",
             "type": "query",
             "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "manage-recalls-api",
+              "value": "manage-recalls-api"
+            },
+            "description": null,
+            "error": null,
+            "hide": 2,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "container",
+            "options": [
+              {
+                "selected": true,
+                "text": "manage-recalls-api",
+                "value": "manage-recalls-api"
+              }
+            ],
+            "query": "manage-recalls-api",
+            "skipUrlSync": false,
+            "type": "custom"
           }
         ]
       },
@@ -5816,5 +5744,5 @@ data:
       "timezone": "browser",
       "title": "manage-recalls-api / Dashboard",
       "uid": "manage-recalls-api-dashboard",
-      "version": 5
+      "version": 1
     }
