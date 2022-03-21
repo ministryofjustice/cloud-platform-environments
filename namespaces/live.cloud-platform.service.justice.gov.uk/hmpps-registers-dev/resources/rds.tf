@@ -45,8 +45,8 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
-  rds_family        = "postgres11"
-  db_engine_version = "11"
+  rds_family        = "postgres14"
+  db_engine_version = "14"
 
   providers = {
     aws = aws.london
