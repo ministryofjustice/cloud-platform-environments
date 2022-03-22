@@ -2,12 +2,12 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hmpps-book-secure-move-frontend-production
+  namespace: manage-pom-cases-prototype
 spec:
   limits:
   - default:
       cpu: 1000m
-      memory: 2500Mi
+      memory: 1000Mi
     defaultRequest:
       cpu: 10m
       memory: 100Mi

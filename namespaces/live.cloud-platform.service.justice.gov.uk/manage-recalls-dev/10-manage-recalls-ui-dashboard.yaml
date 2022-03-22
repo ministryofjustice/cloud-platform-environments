@@ -54,7 +54,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 2,
-      "iteration": 1647361796739,
+      "iteration": 1647945090125,
       "links": [],
       "panels": [
         {
@@ -163,7 +163,7 @@ data:
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "Thanos",
           "fieldConfig": {
             "defaults": {},
             "overrides": []
@@ -205,14 +205,16 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(rate(http_request_duration_seconds_count{namespace=\"$namespace\", service=\"manage-recalls-ui\"}[1m])) by (status_code)",
+              "expr": "sum(rate(http_server_requests_seconds_count{namespace=\"$namespace\", service=\"$container\"}[1m])) by (status_code)",
               "interval": "",
               "legendFormat": "{{ status_code }}",
               "refId": "A"
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "HTTP Request Rate (rpm)",
           "tooltip": {
             "shared": true,
@@ -251,6 +253,7 @@ data:
           }
         },
         {
+          "collapsed": false,
           "datasource": null,
           "gridPos": {
             "h": 1,
@@ -259,6 +262,7 @@ data:
             "y": 12
           },
           "id": 14,
+          "panels": [],
           "title": "Upstream Health",
           "type": "row"
         },
@@ -421,7 +425,7 @@ data:
             "x": 8,
             "y": 13
           },
-          "id": 23,
+          "id": 43,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -440,7 +444,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647361796739,
+          "repeatIteration": 1647945090125,
           "repeatPanelId": 16,
           "scopedVars": {
             "healthcheck_service": {
@@ -522,7 +526,7 @@ data:
             "x": 16,
             "y": 13
           },
-          "id": 24,
+          "id": 44,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -541,7 +545,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647361796739,
+          "repeatIteration": 1647945090125,
           "repeatPanelId": 16,
           "scopedVars": {
             "healthcheck_service": {
@@ -563,6 +567,1682 @@ data:
           "timeShift": null,
           "title": "$healthcheck_service",
           "type": "stat"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 17
+          },
+          "id": 26,
+          "panels": [
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 0,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 30,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "api.os.uk",
+                  "value": "api.os.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
+                  "interval": "",
+                  "legendFormat": "Avg. Request Latency",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 12,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 34,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "api.os.uk",
+                  "value": "api.os.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Reqs / Minute",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Request Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "format": "short",
+                  "label": "Reqs / Minute",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 0,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 38,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "api.os.uk",
+                  "value": "api.os.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
+                  "interval": "",
+                  "legendFormat": "Error Rate",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Error Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "percent",
+                  "label": "Percentage",
+                  "logBase": 1,
+                  "max": "100",
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 8,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 40,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "api.os.uk",
+                  "value": "api.os.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 42,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "api.os.uk",
+                  "value": "api.os.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
+                  "interval": "",
+                  "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency by Path",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            }
+          ],
+          "repeat": "upstream",
+          "scopedVars": {
+            "upstream": {
+              "selected": false,
+              "text": "api.os.uk",
+              "value": "api.os.uk"
+            }
+          },
+          "title": "$upstream",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
+          "id": 45,
+          "panels": [
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 0,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 46,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 30,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+                  "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
+                  "interval": "",
+                  "legendFormat": "Avg. Request Latency",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 12,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 47,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 34,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+                  "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Reqs / Minute",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Request Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "format": "short",
+                  "label": "Reqs / Minute",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 0,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 48,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 38,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+                  "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
+                  "interval": "",
+                  "legendFormat": "Error Rate",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Error Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "percent",
+                  "label": "Percentage",
+                  "logBase": 1,
+                  "max": "100",
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 8,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 49,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 40,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+                  "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 50,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 42,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+                  "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
+                  "interval": "",
+                  "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency by Path",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            }
+          ],
+          "repeatIteration": 1647945090125,
+          "repeatPanelId": 26,
+          "scopedVars": {
+            "upstream": {
+              "selected": false,
+              "text": "manage-recalls-api-dev.hmpps.service.justice.gov.uk",
+              "value": "manage-recalls-api-dev.hmpps.service.justice.gov.uk"
+            }
+          },
+          "title": "$upstream",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 19
+          },
+          "id": 51,
+          "panels": [
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 0,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 52,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 30,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+                  "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
+                  "interval": "",
+                  "legendFormat": "Avg. Request Latency",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 12,
+                "x": 12,
+                "y": 18
+              },
+              "hiddenSeries": false,
+              "id": 53,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 34,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+                  "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Reqs / Minute",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Request Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "format": "short",
+                  "label": "Reqs / Minute",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 0,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 54,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 38,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+                  "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
+                  "interval": "",
+                  "legendFormat": "Error Rate",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Error Rate",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "percent",
+                  "label": "Percentage",
+                  "logBase": 1,
+                  "max": "100",
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 8,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 55,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 40,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+                  "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "interval": "",
+                  "legendFormat": "Timeouts",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Timeouts",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:179",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:180",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 28
+              },
+              "hiddenSeries": false,
+              "id": 56,
+              "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "repeatIteration": 1647945090125,
+              "repeatPanelId": 42,
+              "repeatedByRow": true,
+              "scopedVars": {
+                "upstream": {
+                  "selected": false,
+                  "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+                  "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+                }
+              },
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": false,
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
+                  "interval": "",
+                  "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Avg. Request Latency by Path",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:232",
+                  "format": "s",
+                  "label": "Latency",
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:233",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            }
+          ],
+          "repeatIteration": 1647945090125,
+          "repeatPanelId": 26,
+          "scopedVars": {
+            "upstream": {
+              "selected": false,
+              "text": "sign-in-dev.hmpps.service.justice.gov.uk",
+              "value": "sign-in-dev.hmpps.service.justice.gov.uk"
+            }
+          },
+          "title": "$upstream",
+          "type": "row"
         }
       ],
       "schemaVersion": 27,
@@ -617,7 +2297,7 @@ data:
               "value": "$__all"
             },
             "datasource": "Thanos",
-            "definition": "label_values(upstream_healthcheck{namespace=\"$namespace\", service=\"manage-recalls-ui\"},exported_service)",
+            "definition": "label_values(upstream_healthcheck{namespace=\"$namespace\", service=\"$container\"},exported_service)",
             "description": null,
             "error": null,
             "hide": 2,
@@ -648,7 +2328,7 @@ data:
               }
             ],
             "query": {
-              "query": "label_values(upstream_healthcheck{namespace=\"$namespace\", service=\"manage-recalls-ui\"},exported_service)",
+              "query": "label_values(upstream_healthcheck{namespace=\"$namespace\", service=\"$container\"},exported_service)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 0,
@@ -660,6 +2340,63 @@ data:
             "tagsQuery": "",
             "type": "query",
             "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "Thanos",
+            "definition": "label_values(http_client_requests_seconds_sum{namespace=\"$namespace\", container=\"$container\"},clientName)",
+            "description": null,
+            "error": null,
+            "hide": 2,
+            "includeAll": true,
+            "label": null,
+            "multi": false,
+            "name": "upstream",
+            "options": [],
+            "query": {
+              "query": "label_values(http_client_requests_seconds_sum{namespace=\"$namespace\", container=\"$container\"},clientName)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "manage-recalls-ui",
+              "value": "manage-recalls-ui"
+            },
+            "description": null,
+            "error": null,
+            "hide": 2,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "container",
+            "options": [
+              {
+                "selected": true,
+                "text": "manage-recalls-ui",
+                "value": "manage-recalls-ui"
+              }
+            ],
+            "query": "manage-recalls-ui",
+            "queryValue": "",
+            "skipUrlSync": false,
+            "type": "custom"
           }
         ]
       },
@@ -695,5 +2432,5 @@ data:
       "timezone": "browser",
       "title": "manage-recalls-ui / Dashboard",
       "uid": "manage-recalls-ui-dashboard",
-      "version": 1
+      "version": 19385
     }
