@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cloud-platform-migration-admin
-  namespace: cloud-platform-migration
+  name: cloud-platform-bots-admin
+  namespace: cloud-platform-bots
 subjects:
   - kind: Group
     name: "github:webops"
