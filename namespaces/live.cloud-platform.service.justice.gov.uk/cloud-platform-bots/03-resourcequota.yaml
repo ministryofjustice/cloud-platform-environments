@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: common-platform-connector-dev
+  namespace: cloud-platform-bots
 spec:
   hard:
     pods: "50"
