@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:1.43
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:2.1
 
 namespace-report.json: bin/namespace-reporter.rb namespaces/live-1.cloud-platform.service.justice.gov.uk/*/*.yaml
 	./bin/namespace-reporter.rb -o json -n '.*' > namespace-report.json

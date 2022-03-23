@@ -15,7 +15,7 @@ def send_notification(msg)
   ).notify(msg)
 end
 
-namespaces = deleted_namespaces("live-1.cloud-platform.service.justice.gov.uk")
+namespaces = deleted_namespaces("live.cloud-platform.service.justice.gov.uk")
 
 if namespaces.any?
   msg = <<~EOF

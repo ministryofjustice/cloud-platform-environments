@@ -5,6 +5,9 @@ variable "cluster_name" {
 variable "cluster_state_bucket" {
 }
 
+variable "kubernetes_cluster" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMCTS Risk Assurance Operating Controls - Reporting"
@@ -51,4 +54,24 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_DEV"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_DEV"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_DEV"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_DEV"
 }

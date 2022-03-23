@@ -20,6 +20,8 @@ module "apply-for-legal-aid-rds" {
   db_name                = "apply_for_legal_aid_staging"
   rds_family             = "postgres11"
 
+  snapshot_identifier = "rds:cloud-platform-464651662c253592-2022-03-03-05-40"
+
   providers = {
     aws = aws.london
   }

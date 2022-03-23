@@ -22,4 +22,3 @@ resource "kubernetes_secret" "cccd_ecr_credentials" {
     repo_url          = module.cccd_ecr_credentials.repo_url
   }
 }
-

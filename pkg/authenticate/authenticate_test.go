@@ -46,6 +46,7 @@ func TestKubeConfigFromS3Bucket(t *testing.T) {
 		bucket     string
 		s3FileName string
 		region     string
+		kubeConfigPath string
 	}
 	tests := []struct {
 		name          string
@@ -59,13 +60,14 @@ func TestKubeConfigFromS3Bucket(t *testing.T) {
 				bucket:     "realbucketname",
 				s3FileName: "doesntMatter",
 				region:     "eu-west-2",
+				kubeConfigPath: "/tmp/kubeconfig",
 			},
 			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := KubeConfigFromS3Bucket(tt.args.bucket, tt.args.s3FileName, tt.args.region)
+			err := KubeConfigFromS3Bucket(tt.args.bucket, tt.args.s3FileName, tt.args.region, tt.args.kubeConfigPath)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("KubeConfigFromS3Bucket() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -99,6 +101,34 @@ func TestKubeClientFromConfig(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("KubeClientFromConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+		})
+	}
+}
+
+func TestSwitchContextFromConfigFile(t *testing.T) {
+	type args struct {
+		clusterCtx     string
+		kubeconfigPath string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Fail to switch context",
+			args: args{
+				clusterCtx:     "nope",
+				kubeconfigPath: "./noFile",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := SwitchContextFromConfigFile(tt.args.clusterCtx, tt.args.kubeconfigPath); (err != nil) != tt.wantErr {
+				t.Errorf("SwitchContextFromConfigFile() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
