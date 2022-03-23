@@ -11,10 +11,10 @@ module "hmcts_mock_api_rds" {
   application            = "hmcts-common-platform-mock-api"
   is-production          = "false"
   namespace              = var.namespace
-  db_engine_version      = "11"
+  rds_family             = "postgres13"
+  db_engine_version      = "13.6"
   environment-name       = "development"
   infrastructure-support = "laa@digital.justice.gov.uk"
-  rds_family             = "postgres11"
 
   allow_major_version_upgrade = "true"
 
