@@ -55,7 +55,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 1,
-      "iteration": 1648034136823,
+      "iteration": 1648043794629,
       "links": [],
       "panels": [
         {
@@ -74,7 +74,7 @@ data:
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
-            "h": 9,
+            "h": 10,
             "w": 20,
             "x": 0,
             "y": 0
@@ -159,6 +159,123 @@ data:
         },
         {
           "datasource": "Thanos",
+          "description": "The total number of requests served in the selected time period.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 0
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.5.9",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[10m]))",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Requests Served",
+          "type": "stat"
+        },
+        {
+          "datasource": "Thanos",
+          "description": "The mean response time (p100 - all requests) over the selected timeframe.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 3
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.5.9",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Mean Response Time (p100)",
+          "type": "stat"
+        },
+        {
+          "datasource": "Thanos",
           "description": "The mean response time (p95 - the 95th percentile of requests) over the selected timeframe.",
           "fieldConfig": {
             "defaults": {
@@ -180,10 +297,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 5,
+            "h": 2,
             "w": 4,
             "x": 20,
-            "y": 0
+            "y": 6
           },
           "id": 29,
           "options": {
@@ -216,7 +333,7 @@ data:
         },
         {
           "datasource": "Thanos",
-          "description": "The mean response time (p100 - all requests) over the selected timeframe.",
+          "description": "The mean response time (p50 - the 50th percentile requests) over the selected timeframe.",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -237,12 +354,12 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
+            "h": 2,
             "w": 4,
             "x": 20,
-            "y": 5
+            "y": 8
           },
-          "id": 28,
+          "id": 33,
           "options": {
             "colorMode": "value",
             "graphMode": "none",
@@ -262,13 +379,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Mean Response Time (p100)",
+          "title": "Mean Response Time (p50)",
           "type": "stat"
         },
         {
@@ -288,9 +405,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 6,
+            "w": 8,
             "x": 0,
-            "y": 9
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 16,
@@ -388,9 +505,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 6,
-            "x": 6,
-            "y": 9
+            "w": 8,
+            "x": 8,
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 17,
@@ -502,9 +619,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 6,
-            "x": 12,
-            "y": 9
+            "w": 8,
+            "x": 16,
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 18,
@@ -628,9 +745,9 @@ data:
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
-            "w": 6,
-            "x": 18,
-            "y": 9
+            "w": 8,
+            "x": 0,
+            "y": 18
           },
           "hiddenSeries": false,
           "id": 26,
@@ -737,8 +854,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 0,
-            "y": 17
+            "x": 8,
+            "y": 18
           },
           "hiddenSeries": false,
           "id": 19,
@@ -826,7 +943,7 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "Thanos",
-          "description": "Memory usage in relation to the requested memory for the container.",
+          "description": "Average recorded CPU usage for each type container within the pods.",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -838,11 +955,11 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 8,
-            "y": 17
+            "x": 16,
+            "y": 18
           },
           "hiddenSeries": false,
-          "id": 20,
+          "id": 22,
           "legend": {
             "avg": false,
             "current": false,
@@ -870,7 +987,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.+\", namespace=\"$namespace\"}) by (container)\n* 100",
+              "expr": "avg(\n  irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
@@ -881,7 +998,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Requested Memory Usage",
+          "title": "Actual CPU Usage",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -897,17 +1014,17 @@ data:
           },
           "yaxes": [
             {
-              "$$hashKey": "object:526",
+              "$$hashKey": "object:785",
               "decimals": null,
-              "format": "percent",
-              "label": "Percentage",
+              "format": "s",
+              "label": "",
               "logBase": 1,
-              "max": "100",
-              "min": "0",
+              "max": null,
+              "min": null,
               "show": true
             },
             {
-              "$$hashKey": "object:527",
+              "$$hashKey": "object:786",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -939,8 +1056,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 16,
-            "y": 17
+            "x": 0,
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 24,
@@ -1039,7 +1156,7 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "Thanos",
-          "description": "Average recorded CPU usage for each type container within the pods.",
+          "description": "Memory usage in relation to the requested memory for the container.",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -1051,11 +1168,11 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 0,
-            "y": 25
+            "x": 8,
+            "y": 26
           },
           "hiddenSeries": false,
-          "id": 22,
+          "id": 20,
           "legend": {
             "avg": false,
             "current": false,
@@ -1083,7 +1200,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "avg(\n  irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
+              "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.+\", namespace=\"$namespace\"}) by (container)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
@@ -1094,7 +1211,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Actual CPU Usage",
+          "title": "Requested Memory Usage",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1110,17 +1227,17 @@ data:
           },
           "yaxes": [
             {
-              "$$hashKey": "object:785",
+              "$$hashKey": "object:526",
               "decimals": null,
-              "format": "s",
-              "label": "",
+              "format": "percent",
+              "label": "Percentage",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "max": "100",
+              "min": "0",
               "show": true
             },
             {
-              "$$hashKey": "object:786",
+              "$$hashKey": "object:527",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1152,8 +1269,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 8,
-            "y": 25
+            "x": 16,
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 23,
@@ -1253,8 +1370,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 16,
-            "y": 25
+            "x": 0,
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 21,
@@ -1337,7 +1454,7 @@ data:
         },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Thanos",
@@ -1351,8 +1468,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 0,
-            "y": 33
+            "x": 8,
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 31,
@@ -1365,7 +1482,7 @@ data:
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
@@ -1378,15 +1495,15 @@ data:
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": false,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum by (container) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=~\"$service-.*\"}[10m]))",
+              "expr": "sum by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=~\"$service-.*\"}[10m])) > 0",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{ container }}",
+              "legendFormat": "{{ pod }}",
               "refId": "A"
             }
           ],
@@ -1436,7 +1553,7 @@ data:
         },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Thanos",
@@ -1452,8 +1569,8 @@ data:
           "gridPos": {
             "h": 8,
             "w": 8,
-            "x": 8,
-            "y": 33
+            "x": 16,
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 32,
@@ -1466,7 +1583,7 @@ data:
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
@@ -1479,12 +1596,12 @@ data:
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": false,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum by (pod) (\n  kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$service-.*\", phase=~\"Pending|Unknown\"}\n) > 0\nor vector(0)",
+              "expr": "sum by (pod) (\n  kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$service-.*\", phase=~\"Pending|Unknown\"}\n) > 0",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ pod }}",
@@ -1579,7 +1696,7 @@ data:
           {
             "allValue": null,
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "manage-recalls-api",
               "value": "manage-recalls-api"
             },
@@ -1640,5 +1757,5 @@ data:
       "timezone": "browser",
       "title": "Golden Signals",
       "uid": "golden-signals",
-      "version": 2
+      "version": 3
     }
