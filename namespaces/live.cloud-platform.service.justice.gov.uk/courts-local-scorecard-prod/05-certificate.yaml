@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: Certificate
 metadata:
   name: courts-local-scorecard-cert 
-  namespace: courts-local-scorecard-production
+  namespace: courts-local-scorecard-prod
 spec:
   secretName: courts-local-scorecard-cert-secret
   issuerRef:
