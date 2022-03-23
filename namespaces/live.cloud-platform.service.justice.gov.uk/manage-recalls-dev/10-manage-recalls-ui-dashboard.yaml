@@ -30,7 +30,7 @@ data:
             "datasource": "Thanos",
             "dimensions": {},
             "enable": true,
-            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"manage-recalls-ui-.*\"} * 1000",
+            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$container-.*\"} * 1000",
             "expression": "",
             "hide": true,
             "iconColor": "#3274D9",
@@ -54,109 +54,73 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 2,
-      "iteration": 1647945090125,
+      "iteration": 1648024985679,
       "links": [],
       "panels": [
         {
-          "aliasColors": {},
-          "bars": true,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Thanos",
+          "datasource": null,
+          "description": "",
           "fieldConfig": {
-            "defaults": {},
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 200
+                  },
+                  {
+                    "color": "red",
+                    "value": 500
+                  }
+                ]
+              },
+              "unit": "s"
+            },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
-            "h": 6,
-            "w": 8,
+            "h": 11,
+            "w": 5,
             "x": 0,
             "y": 0
           },
-          "hiddenSeries": false,
-          "id": 22,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null as zero",
+          "id": 64,
           "options": {
-            "alertThreshold": true
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "percentage": false,
           "pluginVersion": "7.5.9",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeatDirection": "v",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(kube_pod_container_info{namespace=\"$namespace\", pod=~\"manage-recalls-ui.*\", pod!~\".*proxy.*\"}) by (container)",
-              "format": "time_series",
+              "expr": "avg(\n  rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace=\"$namespace\", ingress=\"$container\"}[5m]) \n  / \n  rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace=\"$namespace\", ingress=\"$container\"}[5m]) \n  > 0\n)",
               "instant": false,
               "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{ container }}",
-              "refId": "D"
+              "legendFormat": "",
+              "refId": "A"
             }
           ],
-          "thresholds": [],
           "timeFrom": null,
-          "timeRegions": [],
           "timeShift": null,
-          "title": "Pods running",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:597",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:598",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "title": "Mean Response Time",
+          "type": "stat"
         },
         {
           "aliasColors": {},
@@ -171,9 +135,9 @@ data:
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
-            "h": 12,
-            "w": 16,
-            "x": 8,
+            "h": 11,
+            "w": 19,
+            "x": 5,
             "y": 0
           },
           "hiddenSeries": false,
@@ -259,7 +223,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 11
           },
           "id": 14,
           "panels": [],
@@ -323,7 +287,7 @@ data:
             "h": 4,
             "w": 8,
             "x": 0,
-            "y": 13
+            "y": 12
           },
           "id": 16,
           "maxPerRow": 4,
@@ -423,9 +387,9 @@ data:
             "h": 4,
             "w": 8,
             "x": 8,
-            "y": 13
+            "y": 12
           },
-          "id": 43,
+          "id": 115,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -444,7 +408,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647945090125,
+          "repeatIteration": 1648024985679,
           "repeatPanelId": 16,
           "scopedVars": {
             "healthcheck_service": {
@@ -524,9 +488,9 @@ data:
             "h": 4,
             "w": 8,
             "x": 16,
-            "y": 13
+            "y": 12
           },
-          "id": 44,
+          "id": 116,
           "maxPerRow": 4,
           "options": {
             "colorMode": "value",
@@ -545,7 +509,7 @@ data:
           },
           "pluginVersion": "7.5.9",
           "repeatDirection": "h",
-          "repeatIteration": 1647945090125,
+          "repeatIteration": 1648024985679,
           "repeatPanelId": 16,
           "scopedVars": {
             "healthcheck_service": {
@@ -575,6 +539,634 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
+            "y": 16
+          },
+          "id": 80,
+          "panels": [
+            {
+              "aliasColors": {},
+              "bars": true,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 0,
+                "y": 17
+              },
+              "hiddenSeries": false,
+              "id": 22,
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": false,
+              "linewidth": 1,
+              "links": [],
+              "nullPointMode": "null as zero",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 2,
+              "points": false,
+              "renderer": "flot",
+              "repeatDirection": "v",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": true,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum(kube_pod_container_info{namespace=\"$namespace\", pod=~\"manage-recalls-ui.*\", pod!~\".*proxy.*\"}) by (container)",
+                  "format": "time_series",
+                  "instant": false,
+                  "interval": "",
+                  "intervalFactor": 2,
+                  "legendFormat": "{{ container }}",
+                  "refId": "D"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Pods running",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:597",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:598",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "datasource": null,
+              "description": "The number of pods expected to be available within deployments in this service.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 4,
+                "w": 4,
+                "x": 8,
+                "y": 17
+              },
+              "id": 58,
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum(kube_deployment_spec_replicas{namespace=\"$namespace\", deployment=\"$container\"}) ",
+                  "instant": true,
+                  "interval": "1",
+                  "legendFormat": "Expected",
+                  "refId": "A"
+                }
+              ],
+              "title": "Expected",
+              "type": "stat"
+            },
+            {
+              "datasource": null,
+              "description": "The number of pods marked as available within deployments in this service.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 4,
+                "w": 4,
+                "x": 12,
+                "y": 17
+              },
+              "id": 60,
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum(kube_deployment_status_replicas_available{namespace=\"$namespace\", deployment=\"$container\"}) ",
+                  "instant": true,
+                  "interval": "1",
+                  "legendFormat": "Available",
+                  "refId": "A"
+                }
+              ],
+              "title": "Available",
+              "type": "stat"
+            },
+            {
+              "datasource": null,
+              "description": "The number of pods marked as unavailable within deployments in this service.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 4,
+                "w": 4,
+                "x": 16,
+                "y": 17
+              },
+              "id": 62,
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum(kube_deployment_status_replicas_unavailable{namespace=\"$namespace\", deployment=\"$container\"}) ",
+                  "instant": true,
+                  "interval": "1",
+                  "legendFormat": "Unavailable",
+                  "refId": "A"
+                }
+              ],
+              "title": "Unavailable",
+              "type": "stat"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "CPU usage in relation to the requested cpu for the container.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 8,
+                "y": 21
+              },
+              "id": 83,
+              "options": {
+                "reduceOptions": {
+                  "calcs": [
+                    "mean"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "avg(irate(container_cpu_usage_seconds_total{pod=~\"$container-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$container-.+\", namespace=\"$namespace\"}) by (container)",
+                  "hide": false,
+                  "interval": "1",
+                  "legendFormat": "{{container}}",
+                  "refId": "A"
+                }
+              ],
+              "timeFrom": null,
+              "timeShift": null,
+              "title": "Mean CPU Usage",
+              "type": "gauge"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Memory usage in relation to the requested memory for the container.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 14,
+                "y": 21
+              },
+              "id": 100,
+              "options": {
+                "reduceOptions": {
+                  "calcs": [
+                    "mean"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$container-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$container-.+\", namespace=\"$namespace\"}) by (container)\n* 100",
+                  "hide": false,
+                  "instant": false,
+                  "interval": "",
+                  "legendFormat": "{{container}}",
+                  "refId": "A"
+                }
+              ],
+              "timeFrom": null,
+              "timeShift": null,
+              "title": "Mean Memory Usage",
+              "type": "gauge"
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "CPU usage in relation to the requested cpu for the container.",
+              "fieldConfig": {
+                "defaults": {
+                  "links": []
+                },
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 0,
+                "y": 26
+              },
+              "hiddenSeries": false,
+              "id": 82,
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "avg(irate(container_cpu_usage_seconds_total{pod=~\"$container-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$container-.+\", namespace=\"$namespace\"}) by (container)",
+                  "hide": false,
+                  "interval": "",
+                  "legendFormat": "{{container}}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Requested CPU Usage",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:473",
+                  "decimals": null,
+                  "format": "percent",
+                  "label": "Percentage",
+                  "logBase": 1,
+                  "max": "100",
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:474",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": false,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "Memory usage in relation to the requested memory for the container.",
+              "fieldConfig": {
+                "defaults": {
+                  "links": []
+                },
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 8,
+                "y": 26
+              },
+              "hiddenSeries": false,
+              "id": 99,
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": true,
+              "linewidth": 2,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 5,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$container-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$container-.+\", namespace=\"$namespace\"}) by (container)\n* 100",
+                  "hide": false,
+                  "interval": "",
+                  "legendFormat": "{{container}}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "Requested Memory Usage",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:526",
+                  "decimals": null,
+                  "format": "percent",
+                  "label": "Percentage",
+                  "logBase": 1,
+                  "max": "100",
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:527",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            }
+          ],
+          "title": "Pod Stats",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
             "y": 17
           },
           "id": 26,
@@ -596,7 +1188,7 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 0,
-                "y": 18
+                "y": 35
               },
               "hiddenSeries": false,
               "id": 30,
@@ -700,7 +1292,7 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 12,
-                "y": 18
+                "y": 35
               },
               "hiddenSeries": false,
               "id": 34,
@@ -804,7 +1396,7 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 0,
-                "y": 28
+                "y": 45
               },
               "hiddenSeries": false,
               "id": 38,
@@ -910,7 +1502,7 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 8,
-                "y": 28
+                "y": 45
               },
               "hiddenSeries": false,
               "id": 40,
@@ -1016,7 +1608,7 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 16,
-                "y": 28
+                "y": 45
               },
               "hiddenSeries": false,
               "id": 42,
@@ -1125,7 +1717,7 @@ data:
             "x": 0,
             "y": 18
           },
-          "id": 45,
+          "id": 103,
           "panels": [
             {
               "aliasColors": {},
@@ -1144,10 +1736,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 0,
-                "y": 18
+                "y": 36
               },
               "hiddenSeries": false,
-              "id": 46,
+              "id": 104,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1169,7 +1761,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 30,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1251,10 +1843,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 12,
-                "y": 18
+                "y": 36
               },
               "hiddenSeries": false,
-              "id": 47,
+              "id": 105,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1276,7 +1868,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 34,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1358,10 +1950,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 0,
-                "y": 28
+                "y": 46
               },
               "hiddenSeries": false,
-              "id": 48,
+              "id": 106,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1383,7 +1975,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 38,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1467,10 +2059,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 8,
-                "y": 28
+                "y": 46
               },
               "hiddenSeries": false,
-              "id": 49,
+              "id": 107,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1492,7 +2084,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 40,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1576,10 +2168,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 16,
-                "y": 28
+                "y": 46
               },
               "hiddenSeries": false,
-              "id": 50,
+              "id": 108,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1601,7 +2193,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 42,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1668,7 +2260,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647945090125,
+          "repeatIteration": 1648024985679,
           "repeatPanelId": 26,
           "scopedVars": {
             "upstream": {
@@ -1689,7 +2281,7 @@ data:
             "x": 0,
             "y": 19
           },
-          "id": 51,
+          "id": 109,
           "panels": [
             {
               "aliasColors": {},
@@ -1708,10 +2300,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 0,
-                "y": 18
+                "y": 37
               },
               "hiddenSeries": false,
-              "id": 52,
+              "id": 110,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1733,7 +2325,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 30,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1815,10 +2407,10 @@ data:
                 "h": 10,
                 "w": 12,
                 "x": 12,
-                "y": 18
+                "y": 37
               },
               "hiddenSeries": false,
-              "id": 53,
+              "id": 111,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1840,7 +2432,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 34,
               "repeatedByRow": true,
               "scopedVars": {
@@ -1922,10 +2514,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 0,
-                "y": 28
+                "y": 47
               },
               "hiddenSeries": false,
-              "id": 54,
+              "id": 112,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1947,7 +2539,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 38,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2031,10 +2623,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 8,
-                "y": 28
+                "y": 47
               },
               "hiddenSeries": false,
-              "id": 55,
+              "id": 113,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2056,7 +2648,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 40,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2140,10 +2732,10 @@ data:
                 "h": 10,
                 "w": 8,
                 "x": 16,
-                "y": 28
+                "y": 47
               },
               "hiddenSeries": false,
-              "id": 56,
+              "id": 114,
               "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -2165,7 +2757,7 @@ data:
               "pointradius": 5,
               "points": false,
               "renderer": "flot",
-              "repeatIteration": 1647945090125,
+              "repeatIteration": 1648024985679,
               "repeatPanelId": 42,
               "repeatedByRow": true,
               "scopedVars": {
@@ -2232,7 +2824,7 @@ data:
               }
             }
           ],
-          "repeatIteration": 1647945090125,
+          "repeatIteration": 1648024985679,
           "repeatPanelId": 26,
           "scopedVars": {
             "upstream": {
@@ -2432,5 +3024,5 @@ data:
       "timezone": "browser",
       "title": "manage-recalls-ui / Dashboard",
       "uid": "manage-recalls-ui-dashboard",
-      "version": 19385
+      "version": 22048
     }
