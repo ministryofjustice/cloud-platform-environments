@@ -107,7 +107,7 @@ resource "aws_sns_topic_subscription" "curious_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.curious_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.zzz-received\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.received\"]}"
 }
 
 
