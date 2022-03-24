@@ -1,5 +1,5 @@
-resource "aws_route53_zone" "mod-platform-monitoring-dev" {
-  name = "mod-platform-monitoring-dev.service.justice.gov.uk"
+resource "aws_route53_zone" "mod-platform-monitoring" {
+  name = "mod-platform-monitoring.service.justice.gov.uk"
 
   tags = {
     business-unit    = var.business_unit
@@ -11,13 +11,13 @@ resource "aws_route53_zone" "mod-platform-monitoring-dev" {
   }
 }
 
-resource "kubernetes_secret" "mod-platform-monitoring-dev" {
+resource "kubernetes_secret" "mod-platform-monitoring" {
   metadata {
-    name      = "mod-platform-monitoring-dev"
+    name      = "mod-platform-monitoring"
     namespace = var.namespace
   }
 
   data = {
-    zone_id = aws_route53_zone.mod-platform-monitoring-dev.zone_id
+    zone_id = aws_route53_zone.mod-platform-monitoring.zone_id
   }
 }
