@@ -1,0 +1,944 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-alerts-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: ""
+data:
+  dashboard-application-alerts.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "limit": 100,
+            "name": "Annotations & Alerts",
+            "showIn": 0,
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "Charts and tables showing the configured application alerts in the HMPPS \"generic-alerts\" helm chart.",
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 1,
+      "iteration": 1648121469194,
+      "links": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Thanos",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "hiddenSeries": false,
+          "id": 32,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.9",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:1326",
+              "alias": "threshold",
+              "color": "#AD0317",
+              "fill": 0,
+              "legend": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum by (resource) (\n  kube_resourcequota{namespace=\"$namespace\", type=\"used\"}\n  / \n  ignoring(instance, job, type) (kube_resourcequota{namespace=\"$namespace\", type=\"hard\"}) > 0\n)\n* 100",
+              "interval": "",
+              "legendFormat": "{{ resource }} quota",
+              "refId": "A"
+            },
+            {
+              "exemplar": true,
+              "expr": "vector(90)",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "threshold",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "KubeQuotaExceeded",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:1212",
+              "decimals": 0,
+              "format": "percent",
+              "label": "",
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:1213",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 14,
+          "panels": [
+            {
+              "aliasColors": {},
+              "bars": true,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "This chart shows the count of pod/container restart events observed.  This will show \"CrashLooping\" error events.",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 0,
+                "y": 10
+              },
+              "hiddenSeries": false,
+              "id": 16,
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": false,
+              "linewidth": 1,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 2,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": true,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\"}[10m])) > 0",
+                  "interval": "",
+                  "legendFormat": "{{ pod }}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "KubePodCrashLooping",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:115",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:116",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": true,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "This chart shows the count of pods in an \"non-ready\" state.",
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 8,
+                "y": 10
+              },
+              "hiddenSeries": false,
+              "id": 18,
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": false,
+              "linewidth": 1,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 2,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": true,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum by (pod) (\n  kube_pod_status_phase{namespace=\"$namespace\", phase=~\"Pending|Unknown\"}\n) > 0",
+                  "hide": false,
+                  "interval": "",
+                  "legendFormat": "{{ pod }}",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "KubePodNotReady",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:437",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:438",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "aliasColors": {},
+              "bars": true,
+              "dashLength": 10,
+              "dashes": false,
+              "datasource": "Thanos",
+              "description": "This shows containers/pods in a waiting state.",
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "fill": 1,
+              "fillGradient": 0,
+              "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 16,
+                "y": 10
+              },
+              "hiddenSeries": false,
+              "id": 23,
+              "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+              },
+              "lines": false,
+              "linewidth": 1,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "7.5.9",
+              "pointradius": 2,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": true,
+              "steppedLine": false,
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "sum by (pod, container) (kube_pod_container_status_waiting_reason{namespace=~\"$namespace\"}) > 0",
+                  "interval": "1",
+                  "legendFormat": "{{ pod }} ({{ container }})",
+                  "refId": "A"
+                }
+              ],
+              "thresholds": [],
+              "timeFrom": null,
+              "timeRegions": [],
+              "timeShift": null,
+              "title": "KubeContainerWaiting",
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:661",
+                  "decimals": 0,
+                  "format": "short",
+                  "label": "Count",
+                  "logBase": 1,
+                  "max": null,
+                  "min": "0",
+                  "show": true
+                },
+                {
+                  "$$hashKey": "object:662",
+                  "format": "short",
+                  "label": null,
+                  "logBase": 1,
+                  "max": null,
+                  "min": null,
+                  "show": true
+                }
+              ],
+              "yaxis": {
+                "align": false,
+                "alignLevel": null
+              }
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Any deployments listed in this table have a \"deployment generation mismatch\" - this indicates that a deployment has failed, but a rollback has not been rolled back.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 18
+              },
+              "id": 20,
+              "options": {
+                "showHeader": true,
+                "sortBy": []
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "kube_deployment_status_observed_generation{namespace=\"$namespace\"}\n!=\nkube_deployment_metadata_generation{namespace=\"$namespace\"}",
+                  "format": "table",
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeDeploymentGenerationMismatch",
+              "type": "table"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Any deployments listed in this table does not have the expected number of replicas.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 24
+              },
+              "id": 21,
+              "options": {
+                "showHeader": true,
+                "sortBy": []
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "kube_deployment_spec_replicas{namespace=\"$namespace\"}\n!=\nkube_deployment_status_replicas_available{namespace=\"$namespace\"}",
+                  "format": "table",
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeDeploymentReplicasMismatch",
+              "type": "table"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Any pods/containers listed here have been OOMKilled in the relevant timeframe.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 30
+              },
+              "id": 25,
+              "options": {
+                "showHeader": true
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "(\n  kube_pod_container_status_restarts_total{namespace=\"$namespace\"}\n  - \n  kube_pod_container_status_restarts_total{namespace=\"$namespace\"} offset 10m >= 1\n)\nand \nignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{namespace=\"$namespace\", reason=\"OOMKilled\"}[10m]) == 1",
+                  "format": "table",
+                  "interval": "1",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeContainerOOMKilled",
+              "type": "table"
+            }
+          ],
+          "title": "Pod / Container / Deployment Alerts",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 10
+          },
+          "id": 12,
+          "panels": [
+            {
+              "datasource": "Thanos",
+              "description": "Any HPA listed in this table has not matched the desired number of replicas within the selected timeframe.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 10
+              },
+              "id": 27,
+              "options": {
+                "showHeader": true
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "(\n  kube_hpa_status_desired_replicas{namespace=\"$namespace\"}\n  !=\n  kube_hpa_status_current_replicas{}\n)\nand\n(\n  kube_hpa_status_current_replicas{}\n  >\n  kube_hpa_spec_min_replicas{}\n)\nand\n(\n  kube_hpa_status_current_replicas{}\n  <\n  kube_hpa_spec_max_replicas{}\n)\nand\nchanges(kube_hpa_status_current_replicas{}[15m]) == 0",
+                  "format": "table",
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeHpaReplicasMismatch",
+              "type": "table"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Any HPA listed in this table has been running at its maximum number of replicas within the selected timeframe.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 16
+              },
+              "id": 28,
+              "options": {
+                "showHeader": true
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "kube_hpa_status_current_replicas{namespace=\"$namespace\"}\n==\nkube_hpa_spec_max_replicas{}",
+                  "format": "table",
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeHpaMaxedOut",
+              "type": "table"
+            }
+          ],
+          "title": "Horizontal Pod Autoscaler Alerts",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 11
+          },
+          "id": 30,
+          "panels": [
+            {
+              "datasource": "Thanos",
+              "description": "Any cronjobs listed in this table have taken more than 1 hour to complete.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 12
+              },
+              "id": 34,
+              "options": {
+                "showHeader": true,
+                "sortBy": []
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "time() - kube_cronjob_next_schedule_time{namespace=\"$namespace\"} > 3600",
+                  "format": "table",
+                  "instant": false,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeCronJobRunning",
+              "type": "table"
+            },
+            {
+              "datasource": "Thanos",
+              "description": "Any cronjobs listed in this table have not yet completed.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": null,
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 18
+              },
+              "id": 35,
+              "options": {
+                "showHeader": true,
+                "sortBy": []
+              },
+              "pluginVersion": "7.5.9",
+              "targets": [
+                {
+                  "exemplar": true,
+                  "expr": "kube_job_spec_completions{namespace=\"$namespace\"}\n- \nkube_job_status_succeeded{namespace=\"$namespace\"} \n> 0",
+                  "format": "table",
+                  "instant": false,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "KubeJobCompletion",
+              "type": "table"
+            }
+          ],
+          "title": "CronJob / Job Alerts",
+          "type": "row"
+        }
+      ],
+      "refresh": false,
+      "schemaVersion": 27,
+      "style": "dark",
+      "tags": [
+        "kubernetes",
+        "alertmanager"
+      ],
+      "templating": {
+        "list": [
+          {
+            "allValue": null,
+            "current": {
+              "selected": true,
+              "text": "manage-recalls-prod",
+              "value": "manage-recalls-prod"
+            },
+            "datasource": "Thanos",
+            "definition": "label_values(kube_namespace_created{}, namespace)",
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "namespace",
+            "options": [],
+            "query": {
+              "query": "label_values(kube_namespace_created{}, namespace)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timezone": "browser",
+      "title": "Application Alerts",
+      "uid": "application-alerts",
+      "version": 1
+    }
