@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: courts-local-scorecard-prod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "cjs-scorecard"
+    cloud-platform.justice.gov.uk/application: "Crown Court Local Scorecard"
+    cloud-platform.justice.gov.uk/owner: "Central Digital: damien.wilson@digital.justice.gov.uk: damien.wilson@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/local-scorecard"
+    cloud-platform.justice.gov.uk/team-name: "central-digital-developers"
+    cloud-platform.justice.gov.uk/review-after: ""

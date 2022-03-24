@@ -28,13 +28,23 @@ data "aws_iam_policy_document" "bucket-policy" {
       identifiers = [module.analytical-platform.aws_iam_role_arn]
     }
     actions = [
-      "s3:ListObjectsV2",
+      "s3:ListBucket",
+    ]
+    resources = [
+      local.bucket_arn
+    ]
+  }
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
+    actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
     ]
     resources = [
-      "${local.bucket_arn}/*",
-      local.bucket_arn
+      "${local.bucket_arn}/*"
     ]
   }
 }

@@ -6,6 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.68.0"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+    }
     github = {
       source = "integrations/github"
     }
