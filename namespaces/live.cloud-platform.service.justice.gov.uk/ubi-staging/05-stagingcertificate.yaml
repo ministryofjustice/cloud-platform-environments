@@ -9,5 +9,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - 3.staging.find-unclaimed-court-money.service.justice.gov.uk
   - staging.find-unclaimed-court-money.service.justice.gov.uk
+  - 3.staging.find-unclaimed-court-money.service.justice.gov.uk
+  - admin.staging.find-unclaimed-court-money.service.justice.gov.uk
