@@ -11,8 +11,8 @@ module "dps_rds" {
 
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres13"
-  db_engine_version           = "13.3"
+  rds_family                  = "postgres14"
+  db_engine_version           = "14"
 
   providers = {
     aws = aws.london
@@ -47,8 +47,10 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
-  rds_family        = "postgres11"
-  db_engine_version = "11"
+  allow_major_version_upgrade = "true"
+  db_instance_class           = "db.t3.small"
+  rds_family                  = "postgres14"
+  db_engine_version           = "14"
 
   providers = {
     aws = aws.london
