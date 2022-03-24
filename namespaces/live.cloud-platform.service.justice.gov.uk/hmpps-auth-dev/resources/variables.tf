@@ -17,7 +17,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/Tech"
+  default     = "HMPPS Auth Audit Registers Team"
 }
 
 variable "environment-name" {
@@ -35,7 +35,7 @@ variable "is-production" {
 }
 
 variable "rds-family" {
-  default = "postgres13"
+  default = "postgres14"
 }
 
 variable "db_instance_class" {
@@ -43,5 +43,5 @@ variable "db_instance_class" {
 }
 
 variable "db_engine_version" {
-  default = "13"
+  default = "14"
 }
