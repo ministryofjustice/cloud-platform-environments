@@ -16,6 +16,8 @@ module "dps_rds" {
   db_instance_class      = var.db_instance_class
   db_engine_version      = var.db_engine_version
 
+  allow_major_version_upgrade = "true"
+
   providers = {
     aws = aws.london
   }
