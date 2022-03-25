@@ -11,8 +11,8 @@ module "dps_rds" {
 
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres11"
-  db_engine_version           = "11"
+  rds_family                  = "postgres13"
+  db_engine_version           = "13.3"
 
   providers = {
     aws = aws.london
