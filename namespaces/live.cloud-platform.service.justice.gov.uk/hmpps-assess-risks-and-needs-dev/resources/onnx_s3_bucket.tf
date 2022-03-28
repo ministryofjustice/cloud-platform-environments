@@ -3,11 +3,8 @@
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
  *
- */
-/*
  * An S3 bucket that the data science team can use to place updated ONNX files into
  * for use by assess risks and needs
- * 
  */
 module "hmpps_assess_risks_and_needs_onnx_s3_bucket" {
 
