@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cloud-platform-canary-app-admin
-  namespace: cloud-platform-canary-app
+  name: book-a-prison-visit-prototype-admin
+  namespace: book-a-prison-visit-prototype
 subjects:
   - kind: Group
-    name: "github:webops"
+    name: "github:book-a-prison-visit"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

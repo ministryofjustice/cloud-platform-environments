@@ -17,11 +17,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-provider "pingdom" {
-}
-
-provider "helm" {
-  kubernetes {
-    config_path = "/tmp/kubeconfig"
-  }
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
 }

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: pathfinder-prod
+  namespace: book-a-prison-visit-prototype
 spec:
   hard:
     pods: "50"
