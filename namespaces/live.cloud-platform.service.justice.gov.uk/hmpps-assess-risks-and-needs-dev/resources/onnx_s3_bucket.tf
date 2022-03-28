@@ -13,7 +13,7 @@ module "hmpps_assess_risks_and_needs_onnx_s3_bucket" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -50,9 +50,9 @@ resource "kubernetes_secret" "hmpps_assess_risks_and_needs_onnx_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = module.hmpps_assess_risks_and_needs_onnx_s3_bucket.access_key_id
+    secret_access_key = module.hmpps_assess_risks_and_needs_onnx_s3_bucket.secret_access_key
+    bucket_arn        = module.hmpps_assess_risks_and_needs_onnx_s3_bucket.bucket_arn
+    bucket_name       = module.hmpps_assess_risks_and_needs_onnx_s3_bucket.bucket_name
   }
 }
