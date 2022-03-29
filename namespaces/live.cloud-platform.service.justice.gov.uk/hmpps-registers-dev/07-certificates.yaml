@@ -1,5 +1,5 @@
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: court-register-dev.hmpps.service.justice.gov.uk
@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - court-register-dev.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-register-dev.hmpps.service.justice.gov.uk
@@ -25,7 +25,7 @@ spec:
   dnsNames:
     - prison-register-dev.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: registers-dev.hmpps.service.justice.gov.uk
@@ -38,7 +38,7 @@ spec:
   dnsNames:
     - registers-dev.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-registers-to-delius-update-cert
@@ -51,7 +51,7 @@ spec:
   dnsNames:
     - registers-to-delius-update-dev.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-registers-to-nomis-update-cert
