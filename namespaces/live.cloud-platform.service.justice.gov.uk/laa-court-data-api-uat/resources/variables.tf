@@ -134,8 +134,3 @@ variable "basic-auth-username" {
   description = "Basic auth. username of the deployed prototype website"
   default     = "courtdataui"
 }
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = random_password.password.result
-}

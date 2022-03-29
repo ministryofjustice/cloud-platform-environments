@@ -8,6 +8,6 @@ resource "kubernetes_secret" "basic-auth" {
 
   data = {
     username = var.basic-auth-username
-    password = var.basic-auth-password
+    password = var.random_password.password.result
   }
 }
