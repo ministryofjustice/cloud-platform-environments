@@ -1,5 +1,5 @@
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: help-with-prison-visits-preprod.hmpps.service.justice.gov.uk
@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - help-with-prison-visits-preprod.hmpps.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: help-with-prison-visits-internal-preprod

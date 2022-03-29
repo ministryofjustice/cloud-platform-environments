@@ -1,5 +1,5 @@
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-api-stage
@@ -12,7 +12,7 @@ spec:
   dnsNames:
   - api-stage.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-api-dev
@@ -25,7 +25,7 @@ spec:
   dnsNames:
   - api-dev.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-api-preprod
@@ -38,7 +38,7 @@ spec:
   dnsNames:
   - api-preprod.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-api-prod

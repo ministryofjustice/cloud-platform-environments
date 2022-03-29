@@ -1,4 +1,4 @@
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: dps-monitor
@@ -11,7 +11,7 @@ spec:
   dnsNames:
   - dps-monitor.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: dps-grafana
@@ -24,7 +24,7 @@ spec:
   dnsNames:
   - dps-grafana.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: health-kick
@@ -37,7 +37,7 @@ spec:
   dnsNames:
   - health-kick.prison.service.justice.gov.uk
 ---
-apiVersion: cert-manager.io/v1alpha3
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: dps-smoketest-cert
