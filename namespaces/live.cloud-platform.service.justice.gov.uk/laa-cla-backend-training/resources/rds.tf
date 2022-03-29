@@ -101,6 +101,9 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_10" {
     name     = module.cla_backend_rds_postgres_10.database_name
     user     = module.cla_backend_rds_postgres_10.database_username
     password = module.cla_backend_rds_postgres_10.database_password
+    access_key_id     = module.cla_backend_rds_postgres_10.access_key_id
+    secret_access_key = module.cla_backend_rds_postgres_10.secret_access_key
+    db_identifier     = module.cla_backend_rds_postgres_10.db_identifier
   }
 
 }
@@ -118,6 +121,9 @@ resource "kubernetes_secret" "cla_backend_rds" {
     name     = module.cla_backend_rds.database_name
     user     = module.cla_backend_rds.database_username
     password = module.cla_backend_rds.database_password
+    access_key_id     = module.cla_backend_rds.access_key_id
+    secret_access_key = module.cla_backend_rds.secret_access_key
+    db_identifier     = module.cla_backend_rds.db_identifier
   }
 
 }
