@@ -2,8 +2,8 @@
 # authentication
 
 resource "random_password" "password" {
-  length           = 16
-  special          = false
+  length  = 16
+  special = false
 }
 
 resource "kubernetes_secret" "basic-auth" {
