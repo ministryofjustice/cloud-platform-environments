@@ -5,7 +5,7 @@ metadata:
   namespace: rob-sandbox
 subjects:
   - kind: Group
-    name: "github:rob-sandbox"
+    name: "github:designers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
