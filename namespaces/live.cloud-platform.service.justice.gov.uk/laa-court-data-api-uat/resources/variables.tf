@@ -124,12 +124,6 @@ variable "serviceaccount_rules" {
   ]
 }
 
-resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
-
 variable "basic-auth-username" {
   description = "Basic auth. username of the deployed prototype website"
   default     = "courtdataui"
