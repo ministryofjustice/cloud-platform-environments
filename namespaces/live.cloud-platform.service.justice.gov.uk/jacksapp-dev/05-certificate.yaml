@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jacksapp-dev-certificate
+  namespace: jacksapp-dev
+spec:
+  secretName: jacksapp-dev-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - jacksapp-devs.service.justice.gov.uk
