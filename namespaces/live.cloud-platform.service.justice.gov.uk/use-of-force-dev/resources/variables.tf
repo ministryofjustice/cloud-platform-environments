@@ -1,6 +1,3 @@
-variable "cluster_name" {
-}
-
 variable "application" {
   default = "use-of-force"
 }
