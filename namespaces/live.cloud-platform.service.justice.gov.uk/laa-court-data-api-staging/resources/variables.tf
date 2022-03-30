@@ -123,8 +123,3 @@ variable "serviceaccount_rules" {
     },
   ]
 }
-
-variable "basic-auth-value" {
-  description = "Basic auth value. username of the deployed application"
-  default     = "Y291cnRkYXRhdWk6JGFwcjEkcGRTY0tuSDgkVE5Qc0NRcGN5ZWtHcFQweHFManBOLgo="
-}
