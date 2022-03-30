@@ -1,9 +1,3 @@
-resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
-
 resource "kubernetes_secret" "basic-auth" {
   metadata {
     name      = "basic-auth"
@@ -11,7 +5,6 @@ resource "kubernetes_secret" "basic-auth" {
   }
 
   data = {
-    username = var.basic-auth-username
-    password = random_password.password.result
+    auth = var.basic-auth-value
   }
 }
