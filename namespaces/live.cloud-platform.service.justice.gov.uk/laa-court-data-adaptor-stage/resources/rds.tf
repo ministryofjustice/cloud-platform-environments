@@ -52,6 +52,12 @@ resource "kubernetes_secret" "laa_crime_apps_team_rds" {
   }
 
   data = {
+    access_key_id         = module.laa_crime_apps_team_rds.access_key_id
+    secret_access_key     = module.laa_crime_apps_team_rds.secret_access_key
+    database_name         = module.laa_crime_apps_team_rds.database_name
+    database_username     = module.laa_crime_apps_team_rds.database_username
+    rds_instance_address  = module.laa_crime_apps_team_rds.rds_instance_address
+    rds_instance_endpoint = module.laa_crime_apps_team_rds.rds_instance_endpoint
     url = "postgres://${module.laa_crime_apps_team_rds.database_username}:${module.laa_crime_apps_team_rds.database_password}@${module.laa_crime_apps_team_rds.rds_instance_endpoint}/${module.laa_crime_apps_team_rds.database_name}"
   }
 }
