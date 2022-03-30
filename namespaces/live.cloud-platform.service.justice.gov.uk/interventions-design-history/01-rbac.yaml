@@ -5,7 +5,7 @@ metadata:
   namespace: interventions-design-history
 subjects:
   - kind: Group
-    name: "github:interventions"
+    name: "github:designers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
