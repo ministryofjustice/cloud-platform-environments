@@ -18,7 +18,7 @@ module "rds" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name             = "laa-crime-means-assessment"
+  rds_name = "laa-crime-means-assessment"
 
   # enable performance insights
   performance_insights_enabled = true
