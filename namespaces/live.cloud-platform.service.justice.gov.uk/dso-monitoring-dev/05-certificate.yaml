@@ -9,7 +9,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prometheus.dev.mod-platform-monitoring.service.justice.gov.uk
+    - prometheus-dev.mod-platform-monitoring.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -22,7 +22,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - alertmanager.dev.mod-platform-monitoring.service.justice.gov.uk
+    - alertmanager-dev.mod-platform-monitoring.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -35,4 +35,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - grafana.dev.mod-platform-monitoring.service.justice.gov.uk
+    - grafana-dev.mod-platform-monitoring.service.justice.gov.uk
