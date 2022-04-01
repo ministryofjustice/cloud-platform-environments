@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "pre_sentence_report_queue_policy" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::728765553488:role/delius-test-cp-sqs-consumer"
+        "arn:aws:iam::728765553488:role/delius-test-sqs-consumer"
       ]
     }
     resources = [module.pre_sentence_report_queue.sqs_arn]
