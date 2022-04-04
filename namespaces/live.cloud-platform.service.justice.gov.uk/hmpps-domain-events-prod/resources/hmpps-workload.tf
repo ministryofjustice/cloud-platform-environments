@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "hmpps-workload" {
   metadata {
     name      = "hmpps-domain-events-topic"
-    namespace = "hmpps-workload-dev"
+    namespace = "hmpps-workload-prod"
   }
 
   data = {
