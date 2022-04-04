@@ -13,7 +13,7 @@ module "hmcts_mock_api_rds_instance" {
   rds_family             = "postgres14"
 
   allow_major_version_upgrade = "true"
-  db_instance_class = "db.t3.small"
+  db_instance_class           = "db.t3.small"
 
   providers = {
     aws = aws.london
