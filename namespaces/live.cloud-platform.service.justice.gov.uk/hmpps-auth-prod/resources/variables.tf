@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "sign-in-prod-alt.hmpps.service.justice.gov.uk"
+  default = "sign-in-alt.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
