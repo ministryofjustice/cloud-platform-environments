@@ -20,20 +20,20 @@ module "hmcts_mock_api_rds_instance" {
   }
 }
 
-resource "kubernetes_secret" "hmcts_mock_api_rds" {
+resource "kubernetes_secret" "hmcts_mock_api_rds_instance" {
   metadata {
     name      = "rds-instance-output"
     namespace = "hmcts-mock-api-dev"
   }
 
   data = {
-    access_key_id         = module.hmcts_mock_api_rds.access_key_id
-    secret_access_key     = module.hmcts_mock_api_rds.secret_access_key
-    database_name         = module.hmcts_mock_api_rds.database_name
-    database_username     = module.hmcts_mock_api_rds.database_username
-    rds_instance_address  = module.hmcts_mock_api_rds.rds_instance_address
-    rds_instance_endpoint = module.hmcts_mock_api_rds.rds_instance_endpoint
-    url                   = "postgres://${module.hmcts_mock_api_rds.database_username}:${module.hmcts_mock_api_rds.database_password}@${module.hmcts_mock_api_rds.rds_instance_endpoint}/${module.hmcts_mock_api_rds.database_name}"
+    access_key_id         = module.hmcts_mock_api_rds_instance.access_key_id
+    secret_access_key     = module.hmcts_mock_api_rds_instance.secret_access_key
+    database_name         = module.hmcts_mock_api_rds_instance.database_name
+    database_username     = module.hmcts_mock_api_rds_instance.database_username
+    rds_instance_address  = module.hmcts_mock_api_rds_instance.rds_instance_address
+    rds_instance_endpoint = module.hmcts_mock_api_rds_instance.rds_instance_endpoint
+    url                   = "postgres://${module.hmcts_mock_api_rds_instance.database_username}:${module.hmcts_mock_api_rds_instance.database_password}@${module.hmcts_mock_api_rds_instance.rds_instance_endpoint}/${module.hmcts_mock_api_rds_instance.database_name}"
   }
 }
 
