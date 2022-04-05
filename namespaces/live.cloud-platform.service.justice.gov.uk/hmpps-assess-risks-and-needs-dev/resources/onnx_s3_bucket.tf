@@ -31,7 +31,9 @@ module "hmpps_assess_risks_and_needs_onnx_s3_bucket" {
         "AWS": "arn:aws:iam::593291632749:role/service-role/analytical-platform-hub-export"
       },
       "Action": [
-        "s3:PutObject"
+        "s3:PutObject",
+        "s3:ListObjects",
+        "s3:ListObjectsV2"
       ],
       "Resource": [
         "$${bucket_arn}/*"
