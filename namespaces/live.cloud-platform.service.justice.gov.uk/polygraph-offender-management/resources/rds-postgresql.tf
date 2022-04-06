@@ -48,13 +48,13 @@ resource "kubernetes_secret" "rds_postgresql" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
+    rds_instance_endpoint = module.rds_postgresql.rds_instance_endpoint
+    database_name         = module.rds_postgresql.database_name
+    database_username     = module.rds_postgresql.database_username
+    database_password     = module.rds_postgresql.database_password
+    rds_instance_address  = module.rds_postgresql.rds_instance_address
+    access_key_id         = module.rds_postgresql.access_key_id
+    secret_access_key     = module.rds_postgresql.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -71,8 +71,8 @@ resource "kubernetes_config_map" "rds_postgresql" {
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.rds_postgresql.database_name
+    db_identifier = module.rds_postgresql.db_identifier
 
   }
 }
