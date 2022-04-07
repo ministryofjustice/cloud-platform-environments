@@ -19,9 +19,3 @@ module "peoplefinder_es" {
   aws-es-proxy-replica-count = 2
   instance_type              = "t3.medium.elasticsearch"
 }
-
-module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
-  ns_annotation_roles = [module.peoplefinder_es.aws_iam_role_name]
-  namespace           = var.namespace
-}
