@@ -43,7 +43,7 @@ module "rds_postgresql" {
 
 resource "kubernetes_secret" "rds_postgresql" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "rds_postgresql" {
 
 resource "kubernetes_config_map" "rds_postgresql" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
