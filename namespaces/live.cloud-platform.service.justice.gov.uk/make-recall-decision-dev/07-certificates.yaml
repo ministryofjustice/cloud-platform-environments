@@ -5,7 +5,7 @@ metadata:
   name: make-recall-decision-dev.hmpps.service.justice.gov.uk
   namespace: make-recall-decision-dev
 spec:
-  secretName: audit-api-cert
+  secretName: make-recall-decision-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
