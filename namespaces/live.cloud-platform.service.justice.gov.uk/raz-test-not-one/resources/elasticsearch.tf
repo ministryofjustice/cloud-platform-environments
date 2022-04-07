@@ -21,10 +21,3 @@ module "example_team_es" {
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
 }
-
-
-module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
-  ns_annotation_roles = [module.example_team_es.aws_iam_role_name]
-  namespace           = "raz-test-not-one"
-}
