@@ -1,5 +1,5 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.2"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.3"
   cluster_name                    = var.cluster_name
   application                     = var.application
   business-unit                   = var.business-unit
@@ -16,15 +16,8 @@ module "prisoner_offender_search_elasticsearch" {
   aws-es-proxy-replica-count      = 4
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
-  irsa_enabled                    = true
-  assume_enabled                  = false
 }
 
-module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
-  ns_annotation_roles = [module.prisoner_offender_search_elasticsearch.aws_iam_role_name]
-  namespace           = var.namespace
-}
 module "es_snapshots_s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
   team_name              = var.team_name
