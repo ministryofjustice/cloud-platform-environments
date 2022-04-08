@@ -20,6 +20,8 @@ module "example_team_es" {
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
+  irsa_enabled           = true
+  assume_enabled         = false
 }
 
 
