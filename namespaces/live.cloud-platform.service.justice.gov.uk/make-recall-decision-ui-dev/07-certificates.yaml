@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-recall-decision-ui-dev.hmpps.service.justice.gov.uk
+  namespace: make-recall-decision-ui-dev
+spec:
+  secretName: make-recall-decision-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - make-recall-decision-ui-dev.hmpps.service.justice.gov.uk
