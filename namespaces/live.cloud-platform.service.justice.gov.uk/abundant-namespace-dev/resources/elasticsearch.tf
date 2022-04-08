@@ -6,7 +6,7 @@
  *
  */
 module "example_team_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=rm-kiam"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.3"
   cluster_name           = var.cluster_name
   application            = "testApp"
   business-unit          = "HQ"
