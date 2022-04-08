@@ -6,7 +6,7 @@
  *
  */
 module "example_team_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=rm-kiam"
   cluster_name           = var.cluster_name
   application            = "testApp"
   business-unit          = "HQ"
@@ -20,13 +20,4 @@ module "example_team_es" {
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.1"
-  irsa_enabled          = true
-  assume_enabled        = false
-}
-
-
-module "ns_annotation" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ns-annotation?ref=0.0.3"
-  ns_annotation_roles = [module.example_team_es.aws_iam_role_name]
-  namespace           = "abundant-namespace-dev"
 }
