@@ -73,3 +73,20 @@ resource "kubernetes_secret" "prisons_rds" {
     secret_access_key     = module.prisons_rds.secret_access_key
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "prisons_rds_refresh_creds" {
+  metadata {
+    name      = "prisons-rds-instance-output-preprod"
+    namespace = "hmpps-registers-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.prisons_rds.rds_instance_endpoint
+    database_name         = module.prisons_rds.database_name
+    database_username     = module.prisons_rds.database_username
+    database_password     = module.prisons_rds.database_password
+    rds_instance_address  = module.prisons_rds.rds_instance_address
+  }
+}
