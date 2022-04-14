@@ -3,14 +3,12 @@
 ##
 
 locals {
-  mod_platform_vpc_id = "vpc-0a16bb6858dd27aea" # hmpps-production VPC
   mod_platform_subnet_cidr = "10.27.8.0/24" # hmpps-production-general-private-eu-west-2a subnet
 }
 
 resource "aws_security_group" "modernisation_platform_rds_sg" {
   name        = "ppud-replica-prod-modernisation-platform-rds-sg"
   description = "Allow all traffic to/from the modernisation platform"
-  vpc_id      = local.mod_platform_vpc_id
 
   ingress {
     from_port   = 0
