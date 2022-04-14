@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 }
 
 variable "domain" {
-  default = "laa-court-data-api.service.justice.gov.uk"
+  default = "court-data-api.service.justice.gov.uk"
 }
 
 variable "application" {
