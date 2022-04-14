@@ -6,9 +6,17 @@ locals {
   mod_platform_subnet_cidr = "10.27.8.0/24" # hmpps-production-general-private-eu-west-2a subnet
 }
 
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.cluster_name == "live" ? "live-1" : var.cluster_name]
+  }
+}
+
 resource "aws_security_group" "modernisation_platform_rds_sg" {
   name        = "ppud-replica-prod-modernisation-platform-rds-sg"
   description = "Allow all traffic to/from the modernisation platform"
+  vpc_id      = data.aws_vpc.selected.id
 
   ingress {
     from_port   = 0
