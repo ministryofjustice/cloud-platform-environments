@@ -2,8 +2,14 @@
 ## SQL Server - Lumen/PPUD Copy
 ##
 
+data "aws_vpc" "modernisation_platform" {
+  tags = {
+    Name = "hmpps-production"
+  }
+}
+
 module "ppud_replica_prod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.8"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
@@ -14,14 +20,15 @@ module "ppud_replica_prod_rds" {
   is-production          = var.is_production
   team_name              = var.team_name
 
-  rds_name             = "ppud-replica-prod"
-  rds_family           = "sqlserver-web-14.0"
-  db_engine            = "sqlserver-web"
-  db_engine_version    = "14.00"
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = "100"
-  license_model        = "license-included"
-  option_group_name    = aws_db_option_group.ppud_replica_rds_option_group.name
+  rds_name               = "ppud-replica-prod"
+  rds_family             = "sqlserver-web-14.0"
+  db_engine              = "sqlserver-web"
+  db_engine_version      = "14.00"
+  db_instance_class      = "db.t3.small"
+  db_allocated_storage   = "100"
+  license_model          = "license-included"
+  option_group_name      = aws_db_option_group.ppud_replica_rds_option_group.name
+  vpc_security_group_ids = [data.aws_vpc.modernisation_platform.id]
 
   db_parameter = [
     {
