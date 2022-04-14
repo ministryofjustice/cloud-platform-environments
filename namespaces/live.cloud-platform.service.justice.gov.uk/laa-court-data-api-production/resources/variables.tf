@@ -8,6 +8,10 @@ variable "cluster_state_bucket" {
 variable "kubernetes_cluster" {
 }
 
+variable "domain" {
+  default = "laa-court-data-api.service.justice.gov.uk"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "laa-court-data-api"
