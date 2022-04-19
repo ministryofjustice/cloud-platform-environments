@@ -77,7 +77,7 @@ data:
           "pluginVersion": "7.0.2",
           "targets": [
             {
-              "expr": "avg(kube_node_status_allocatable_pods)",
+              "expr": "avg(kube_node_status_allocatable{resource=\"pods\"})",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -86,7 +86,7 @@ data:
               "refId": "D"
             },
             {
-              "expr": "sort_desc(sum by (instance) (kubelet_running_pod_count))",
+              "expr": "sort_desc(sum by (instance) (kubelet_running_pod))",
               "format": "time_series",
               "instant": true,
               "interval": "",
