@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps-tier" {
+resource "kubernetes_secret" "book-a-prison-visit-api" {
   metadata {
     name      = "hmpps-domain-events-topic"
     namespace = "book-a-prison-visit-api-dev"
