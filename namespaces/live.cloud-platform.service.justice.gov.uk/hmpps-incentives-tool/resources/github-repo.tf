@@ -5,5 +5,7 @@
 module "github-prototype" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-github-prototype?ref=0.1.1"
 
+  prototype_create_dockerfile = false
+
   namespace = var.namespace
 }
