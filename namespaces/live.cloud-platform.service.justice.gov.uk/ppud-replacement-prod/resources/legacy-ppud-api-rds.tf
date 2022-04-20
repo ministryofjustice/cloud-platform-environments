@@ -2,8 +2,39 @@
 ## SQL Server - Lumen/PPUD Copy
 ##
 
+locals {
+  mod_platform_subnet_cidr = "10.27.8.0/24" # hmpps-production-general-private-eu-west-2a subnet
+}
+
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.cluster_name == "live" ? "live-1" : var.cluster_name]
+  }
+}
+
+resource "aws_security_group" "modernisation_platform_rds_sg" {
+  name        = "ppud-replica-prod-modernisation-platform-rds-sg"
+  description = "Allow all traffic to/from the modernisation platform"
+  vpc_id      = data.aws_vpc.selected.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [local.mod_platform_subnet_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [local.mod_platform_subnet_cidr]
+  }
+}
+
 module "ppud_replica_prod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.9"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace
@@ -14,14 +45,15 @@ module "ppud_replica_prod_rds" {
   is-production          = var.is_production
   team_name              = var.team_name
 
-  rds_name             = "ppud-replica-prod"
-  rds_family           = "sqlserver-web-14.0"
-  db_engine            = "sqlserver-web"
-  db_engine_version    = "14.00"
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = "100"
-  license_model        = "license-included"
-  option_group_name    = aws_db_option_group.ppud_replica_rds_option_group.name
+  rds_name               = "ppud-replica-prod"
+  rds_family             = "sqlserver-web-14.0"
+  db_engine              = "sqlserver-web"
+  db_engine_version      = "14.00"
+  db_instance_class      = "db.t3.small"
+  db_allocated_storage   = "100"
+  license_model          = "license-included"
+  option_group_name      = aws_db_option_group.ppud_replica_rds_option_group.name
+  vpc_security_group_ids = [aws_security_group.modernisation_platform_rds_sg.id]
 
   db_parameter = [
     {

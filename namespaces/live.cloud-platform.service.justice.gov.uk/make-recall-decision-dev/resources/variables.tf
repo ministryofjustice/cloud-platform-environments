@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "unknown@digital.justice.gov.uk"
+  default     = "making-recall-decisions-tech@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -54,4 +54,8 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
