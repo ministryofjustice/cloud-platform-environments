@@ -284,6 +284,33 @@ resource "kubernetes_secret" "ecr-repo-fb-av" {
 
 ##################################################
 
+# AV (Anti Virus) Mirror ECR Repos
+module "ecr-repo-fb-av-mirror" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
+
+  team_name = "formbuilder"
+  repo_name = "fb-av-mirror"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-av-mirror" {
+  metadata {
+    name      = "ecr-repo-fb-av-mirror"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-av-mirror.repo_url
+    access_key_id     = module.ecr-repo-fb-av-mirror.access_key_id
+    secret_access_key = module.ecr-repo-fb-av-mirror.secret_access_key
+  }
+}
+
+##################################################
+
 # fb-builder - docker image used to build form builder components
 module "ecr-repo-fb-builder" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
