@@ -1,6 +1,3 @@
-#Visit Someone in Prison BackEnd Namespace
-## Dev Environment
-
 # cloud-platform-environments
 
 ## Intro
