@@ -49,7 +49,7 @@ metadata:
 spec:
  podSelector:
    matchLabels:
-     app.kubernetes.io/instance: prometheus-metrics
+     app.kubernetes.io/name: cla-metrics
  policyTypes:
  - Ingress
  ingress:
