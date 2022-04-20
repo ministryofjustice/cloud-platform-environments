@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-court-data-api-staging-cert
+  namespace: laa-court-data-api-staging
+spec:
+  secretName: laa-court-data-api-staging-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staging.court-data-api.service.justice.gov.uk
