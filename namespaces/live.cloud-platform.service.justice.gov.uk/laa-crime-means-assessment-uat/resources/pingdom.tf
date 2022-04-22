@@ -1,6 +1,3 @@
-provider "pingdom" {
-}
-
 resource "pingdom_check" "laa-crime-means-assessment-uat" {
   type                     = "http"
   name                     = "LAA Crime Means Assessment - Uat"
