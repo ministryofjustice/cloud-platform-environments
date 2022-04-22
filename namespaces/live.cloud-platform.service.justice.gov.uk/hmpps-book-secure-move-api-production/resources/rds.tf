@@ -16,6 +16,14 @@ module "rds-instance" {
 
   # enable performance insights
   performance_insights_enabled = true
+
+  db_parameter = [
+    {
+      "apply_method": "immediate",
+      "name": "log_min_duration_statement",
+      "value": "2000"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds-instance" {
