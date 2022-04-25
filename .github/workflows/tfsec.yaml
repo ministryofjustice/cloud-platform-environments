@@ -3,9 +3,9 @@ name: tfsec
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
-   paths: 
-     - 'terraform/**'
-     - '.github/workflows/tfsec.yaml'
+    paths: 
+      - 'terraform/**'
+      - '.github/workflows/tfsec.yaml'
 
 jobs:
   format-code:
