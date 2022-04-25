@@ -39,5 +39,5 @@ variable "rds-family" {
 }
 
 variable "maintenance_window" {
-  default = "tue:02:37-tue:03:37"
+  default = "tue:01:37-tue:02:37"
 }
