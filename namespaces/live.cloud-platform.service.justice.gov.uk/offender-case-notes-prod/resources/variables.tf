@@ -38,3 +38,6 @@ variable "rds-family" {
   default = "postgres10"
 }
 
+variable "maintenance_window" {
+  default = "tue:02:37-tue:03:37"
+}
