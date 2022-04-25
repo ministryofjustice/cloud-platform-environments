@@ -3,7 +3,7 @@
 ########################################
 
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
 
   cluster_name = var.cluster_name
 
