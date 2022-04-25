@@ -14,7 +14,6 @@ module "rds-instance" {
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
-  # enable performance insights
   performance_insights_enabled = true
 
   db_parameter = [
