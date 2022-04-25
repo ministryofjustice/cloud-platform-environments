@@ -5,7 +5,7 @@ on:
     types: [opened, edited, reopened, synchronize]
    paths: 
      - 'terraform/**'
-     - '.github/workflows/tfsec.yml'
+     - '.github/workflows/tfsec.yaml'
 
 jobs:
   format-code:
