@@ -14,6 +14,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure-support
   rds_family             = var.rds-family
   db_instance_class      = "db.t3.small"
+  maintenance_window     = var.maintenance_window
 
   db_engine_version           = "14"
   allow_major_version_upgrade = "true"
