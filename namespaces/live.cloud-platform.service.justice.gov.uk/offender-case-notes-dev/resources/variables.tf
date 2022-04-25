@@ -37,3 +37,7 @@ variable "is-production" {
 variable "rds-family" {
   default = "postgres14"
 }
+
+variable "maintenance_window" {
+  default = "tue:02:37-tue:03:37"
+}
