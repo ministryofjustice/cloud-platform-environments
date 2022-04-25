@@ -39,7 +39,7 @@ variable "rds-family" {
 }
 
 variable "db_instance_class" {
-  default = "db.t3.small"
+  default = "db.t3.large"
 }
 
 variable "db_engine_version" {
