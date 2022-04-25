@@ -8,7 +8,7 @@ variable "cluster_name" {
 
 
 module "checkmydiary_dev_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
 
   cluster_name           = var.cluster_name
   team_name              = "check-my-diary"

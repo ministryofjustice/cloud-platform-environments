@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business-unit
@@ -48,7 +48,7 @@ module "cla_backend_rds" {
 }
 
 module "cla_backend_rds_postgres_10" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business-unit
