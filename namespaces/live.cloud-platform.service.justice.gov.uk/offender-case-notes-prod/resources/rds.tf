@@ -15,7 +15,7 @@ module "dps_rds" {
   rds_family             = var.rds-family
   db_instance_class      = "db.t3.medium"
 
-  maintenance_window     = var.maintenance_window
+  db_engine_version           = "13.4"
 
   providers = {
     aws = aws.london
