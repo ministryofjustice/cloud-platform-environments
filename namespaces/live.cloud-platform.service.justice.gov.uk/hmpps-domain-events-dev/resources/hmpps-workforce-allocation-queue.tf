@@ -77,4 +77,11 @@ resource "aws_sns_topic_subscription" "workforce_allocation_queue_subscription" 
   topic_arn = module.hmpps-domain-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.workforce_allocation_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "person.community.manager.allocated",
+      "event.community.manager.allocated",
+      "requirement.community.manager.allocated",
+    ]
+  })
 }
