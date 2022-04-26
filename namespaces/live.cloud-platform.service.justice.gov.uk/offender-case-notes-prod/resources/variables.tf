@@ -35,9 +35,6 @@ variable "is-production" {
 }
 
 variable "rds-family" {
-  default = "postgres10"
+  default = "postgres13"
 }
 
-variable "maintenance_window" {
-  default = "tue:01:37-tue:02:37"
-}
