@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "prison_to_probation_update_mirror_queue_policy" 
   }
 }
 
-resource "aws_sqs_queue_policy" "pre_sentence_report_mirror_queue_policy" {
+resource "aws_sqs_queue_policy" "prison_to_probation_update_mirror_queue_policy" {
   queue_url = module.prison_to_probation_update_mirror_queue.sqs_id
   policy    = data.aws_iam_policy_document.prison_to_probation_update_mirror_queue_policy.json
 }
