@@ -1,23 +1,14 @@
-/*
- * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
- */
-
-variable "cluster_name" {
-}
-
-
 module "checkmydiary_dev_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
 
   cluster_name           = var.cluster_name
-  team_name              = "check-my-diary"
+  team_name              = var.team_name
   business-unit          = "HMPPS"
-  application            = "check-my-diary"
-  is-production          = "false"
+  application            = var.application
+  is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = "development"
-  infrastructure-support = "checkmydiary@digital.justice.gov.uk"
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
   rds_family             = "postgres10"
   db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
 
