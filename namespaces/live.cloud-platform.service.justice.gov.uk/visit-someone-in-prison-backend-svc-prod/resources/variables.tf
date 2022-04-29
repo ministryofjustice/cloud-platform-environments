@@ -12,7 +12,7 @@ variable "visit-scheduler-application" {
 }
 
 variable "namespace" {
-  default = "visit-someone-in-prison-backend-svc-preprod"
+  default = "visit-someone-in-prison-backend-svc-prod"
 }
 
 variable "business_unit" {
