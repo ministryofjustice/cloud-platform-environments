@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: visit-someone-in-prison-backend-svc-prod
+spec:
+  hard:
+    pods: "50"
