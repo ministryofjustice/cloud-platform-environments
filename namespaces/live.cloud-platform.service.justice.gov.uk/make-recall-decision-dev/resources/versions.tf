@@ -9,5 +9,8 @@ terraform {
     github = {
       source = "integrations/github"
     }
+    pingdom = {
+      source = "russellcardullo/pingdom"
+    }
   }
 }
