@@ -109,3 +109,17 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+    - alert: 429(too many requests) alert
+      expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-uat"}[300s])) * 300 > 5
+      labels:
+        severity: apply-for-legal-aid-staging
+      annotations:
+        message: There have been more than 5 rate-limited calls to the feedback page in the last 5 minutes
+        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:fb2e6550-0186-11ec-a2cf-6b21ca2b1d39,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase,value:laa-apply-for-legalaid-staging),query:(match:(log_processed.kubernetes_namespace:(query:laa-apply-for-legalaid-staging,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(query:'429'),type:phrase,value:'429'),query:(match:(log_processed.status:(query:'429',type:phrase))))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
+    - alert: 403(forbidden) alert
+      expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 5
+      labels:
+        severity: apply-for-legal-aid-staging
+      annotations:
+        message: There have been more than 5 blocked(forbidden) calls to the feedback page in the last 5 minutes
+        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:fb2e6550-0186-11ec-a2cf-6b21ca2b1d39,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase,value:laa-apply-for-legalaid-staging),query:(match:(log_processed.kubernetes_namespace:(query:laa-apply-for-legalaid-staging,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(query:'403'),type:phrase,value:'403'),query:(match:(log_processed.status:(query:'403',type:phrase))))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
