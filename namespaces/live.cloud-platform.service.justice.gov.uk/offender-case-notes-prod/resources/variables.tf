@@ -35,6 +35,6 @@ variable "is-production" {
 }
 
 variable "rds-family" {
-  default = "postgres13"
+  default = "postgres14"
 }
 
