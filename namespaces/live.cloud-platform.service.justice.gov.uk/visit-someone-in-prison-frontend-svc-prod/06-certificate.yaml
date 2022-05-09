@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: book-a-prison-visit-staff-cert
+  name: manage-prison-visits-cert
   namespace: visit-someone-in-prison-frontend-svc-prod
 spec:
-  secretName: book-a-prison-visit-staff-cert
+  secretName: manage-prison-visits-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - visit-someone-in-prison-staff.hmpps.service.justice.gov.uk
+    - manage-prison-visits.prison.service.justice.gov.uk
