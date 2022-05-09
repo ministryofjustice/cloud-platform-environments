@@ -5,7 +5,6 @@ import (
 	"flag"
 	"log"
 	"os"
-
 	"rbac-check/client"
 	"rbac-check/config"
 	"rbac-check/get"

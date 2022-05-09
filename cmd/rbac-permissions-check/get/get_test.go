@@ -4,10 +4,9 @@ import (
 	"context"
 	"log"
 	"os"
-	"testing"
-
 	"rbac-check/client"
 	"rbac-check/config"
+	"testing"
 )
 
 // TestGetUserID attempts to get the user id of a robot user account.

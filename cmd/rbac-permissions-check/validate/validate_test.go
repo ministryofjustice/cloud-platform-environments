@@ -4,11 +4,10 @@ import (
 	"context"
 	"log"
 	"os"
-	"testing"
-
 	"rbac-check/client"
 	"rbac-check/config"
 	"rbac-check/get"
+	"testing"
 )
 
 func TestGoodUserPermissions(t *testing.T) {

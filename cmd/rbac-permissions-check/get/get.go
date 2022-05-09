@@ -5,9 +5,8 @@ import (
 	"bufio"
 	"log"
 	"os"
-	"strings"
-
 	"rbac-check/config"
+	"strings"
 
 	"github.com/google/go-github/v35/github"
 	"gopkg.in/yaml.v2"
