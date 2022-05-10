@@ -2,7 +2,7 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
 
-name: Conftest YAML files
+name: OPA tests
 jobs:
   conftest-yaml:
     runs-on: ubuntu-latest
