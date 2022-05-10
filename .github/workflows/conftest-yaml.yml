@@ -15,7 +15,5 @@ jobs:
       with:
         version: latest
 
-    - name: Run conf tests
-      uses: ministryofjustice/github-actions/conftest-yaml@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run OPA Tests 
+      run: opa test policy/*.rego -v
