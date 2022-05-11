@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - visit-scheduler.hmpps.service.justice.gov.uk
+    - visit-scheduler.prison.service.justice.gov.uk
