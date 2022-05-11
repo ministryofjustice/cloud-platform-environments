@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-contact-registry-preprod.hmpps.service.justice.gov.uk
+    - prisoner-contact-registry-preprod.prison.service.justice.gov.uk
