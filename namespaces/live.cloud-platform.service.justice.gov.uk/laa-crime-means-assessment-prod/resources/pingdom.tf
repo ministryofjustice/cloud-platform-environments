@@ -1,7 +1,4 @@
-provider "pingdom" {
-}
-
-resource "pingdom_check" "laa-crime-means-assessment-test" {
+resource "pingdom_check" "laa-crime-means-assessment-prod" {
   type                     = "http"
   name                     = "LAA Crime Means Assessment - Prod"
   host                     = "laa-crime-means-assessment-prod.apps.live.cloud-platform.service.justice.gov.uk"
