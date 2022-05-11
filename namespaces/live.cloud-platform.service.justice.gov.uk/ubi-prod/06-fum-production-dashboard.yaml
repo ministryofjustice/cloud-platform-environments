@@ -8,16 +8,6 @@ metadata:
 data:
   fum-production-dashboard.json: |
     {
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fum-production-dashboard
-  namespace: ubi-prod
-  labels:
-    grafana_dashboard: "fum-production-dashboard"
-data:
-  fum-production-dashboard.json: |
-    {
       "annotations": {
         "list": [
           {
