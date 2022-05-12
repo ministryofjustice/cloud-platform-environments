@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: Soc-production-dashboard
+  name: soc-production-dashboard
   namespace: soc-production
   labels:
     grafana_dashboard: "soc-production-dashboard"
