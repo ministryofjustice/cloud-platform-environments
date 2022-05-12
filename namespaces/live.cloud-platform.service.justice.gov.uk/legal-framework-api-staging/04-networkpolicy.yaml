@@ -25,3 +25,27 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-source-namespace
+  namespace: legal-framework-api-staging
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-staging
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: check-financial-eligibility-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: check-financial-eligibility-staging
