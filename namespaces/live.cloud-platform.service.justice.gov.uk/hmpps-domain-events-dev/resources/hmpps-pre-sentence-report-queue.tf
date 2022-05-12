@@ -77,4 +77,7 @@ resource "aws_sns_topic_subscription" "pre_sentence_report_queue_subscription" {
   topic_arn = module.hmpps-domain-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.pre_sentence_report_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = ["pre-sentence.report.completed"]
+  })
 }
