@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: apply-for-compensation-prototype-dev
+spec:
+  hard:
+    pods: "50"
