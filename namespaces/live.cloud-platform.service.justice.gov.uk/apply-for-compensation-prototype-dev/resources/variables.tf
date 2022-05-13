@@ -68,8 +68,6 @@ variable "basic-auth-password" {
   default     = "testing"
 }
 
-
-
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
   default     = "KUBE_CLUSTER_DEV"
