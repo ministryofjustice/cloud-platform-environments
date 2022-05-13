@@ -4,7 +4,13 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  github_repositories = [var.namespace]
+  github_repositories = ["apply-for-compensation-prototype"]
+
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
 }
 
 resource "kubernetes_secret" "ecr-repo" {
