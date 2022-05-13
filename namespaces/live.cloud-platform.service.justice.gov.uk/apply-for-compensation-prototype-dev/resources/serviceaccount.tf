@@ -4,5 +4,5 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  github_repositories = [var.namespace]
+  github_repositories = ["apply-for-compensation-prototype"]
 }
