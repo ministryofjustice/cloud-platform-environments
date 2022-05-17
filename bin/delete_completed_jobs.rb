@@ -16,7 +16,7 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 #
 # The script requires the following environment variables:
 #
-#   export PIPELINE_CLUSTER=live-1.cloud-platform.service.justice.gov.uk
+#   export PIPELINE_CLUSTER=live.cloud-platform.service.justice.gov.uk
 #
 # It also needs to be able to run:
 #
