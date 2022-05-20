@@ -11,7 +11,7 @@ spec:
       rules:
         - alert: SQS-oldest-message
           annotations:
-            message: SQS - manage-a-workforce-production-hmpps_workload_s3_extract_event_queue has message older than 2 mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue=manage-a-workforce-production-hmpps_workload_s3_extract_event_queue&from=now-6h&to=now
+            message: SQS - {{ $labels.queue_name }} has message older than 2 mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue=manage-a-workforce-production-hmpps_workload_s3_extract_event_queue&from=now-6h&to=now
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/MaS/pages/3533964702/WMT+Run+book
           expr: |-
             sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|manage-a-workforce-production-hmpps_workload_s3_extract_event_queue"} offset 1m) by (queue_name) > 2 * 60
@@ -20,7 +20,7 @@ spec:
             severity: hmpps-tier
         - alert: SQS-number-of-messages
           annotations:
-            message: SQS - manage-a-workforce-production-hmpps_workload_s3_extract_event_queue - number of messages={{ $value }} (exceeds 2), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue=manage-a-workforce-production-hmpps_workload_s3_extract_event_queue&from=now-6h&to=now
+            message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 2), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue=manage-a-workforce-production-hmpps_workload_s3_extract_event_queue&from=now-6h&to=now
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/MaS/pages/3533964702/WMT+Run+book
           expr: |-
             sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|manage-a-workforce-production-hmpps_workload_s3_extract_event_queue"} offset 1m) by (queue_name) > 2
@@ -29,7 +29,7 @@ spec:
             severity: hmpps-tier
         - alert: SQS-events-dlq-not-empty
           annotations:
-            message: SQS Deadletter queue - manage-a-workforce-production-hmpps_workload_s3_extract_event_dlq has {{ $value }} messages
+            message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/MaS/pages/3533964702/WMT+Run+book
           expr: |-
             sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl|manage-a-workforce-production-hmpps_workload_s3_extract_event_dlq"} offset 1m) by (queue_name) > 0
