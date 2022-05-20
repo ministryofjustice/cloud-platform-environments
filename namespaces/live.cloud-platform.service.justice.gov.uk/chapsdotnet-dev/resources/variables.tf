@@ -81,4 +81,8 @@ variable "github_actions_secret_ecr_secret_key" {
   default     = "ECR_AWS_SECRET_ACCESS_KEY_DEV"
 }
 
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER"
+}
 
