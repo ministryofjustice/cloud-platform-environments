@@ -20,7 +20,11 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+    github_repositories = ["chapsdotnet"]
+    github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+    github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+    github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+    github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
