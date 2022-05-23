@@ -96,8 +96,3 @@ variable "github_actions_secret_kube_cert" {
   default     = "KUBE_CERT"
 }
 
-variable "github_actions_secret_kube_token" {
-  description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN"
-}
-
