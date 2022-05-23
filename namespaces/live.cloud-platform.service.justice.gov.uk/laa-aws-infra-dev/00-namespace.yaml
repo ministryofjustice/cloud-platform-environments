@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-ops"
     cloud-platform.justice.gov.uk/application: "laa-aws-infra"
     cloud-platform.justice.gov.uk/owner: "Laa Ops: mark.roberts@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-aws-infrastructure"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-aws-kubtest"
     cloud-platform.justice.gov.uk/team-name: "laa-aws-infrastructure"
     cloud-platform.justice.gov.uk/review-after: ""
