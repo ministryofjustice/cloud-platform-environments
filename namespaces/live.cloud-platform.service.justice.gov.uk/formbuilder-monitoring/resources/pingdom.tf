@@ -11,6 +11,7 @@ locals {
     complain-to-the-cica           = "complain-to-the-cica.form.service.justice.gov.uk",
     contact-the-cica               = "contact-the-cica.form.service.justice.gov.uk",
     fix-my-court                   = "fix-my-court.form.service.justice.gov.uk",
+    give-feedback                  = "comments-form.form.service.justice.gov.uk",
     house-disrepair                = "check-how-to-get-repairs-done-in-your-rented-home.form.service.justice.gov.uk",
     leavers-form                   = "leavers.form.service.justice.gov.uk",
     let-us-know                    = "let-us-know.form.service.justice.gov.uk",
@@ -19,7 +20,8 @@ locals {
     money-claim-queries            = "money-claim-queries.form.service.justice.gov.uk",
     publisher                      = "fb-publisher-live.apps.live.cloud-platform.service.justice.gov.uk",
     report-security-incident       = "report-security-incident.form.service.justice.gov.uk",
-    request-personal-info          = "request-personal-info.form.service.justice.gov.uk"
+    request-personal-info          = "request-personal-info.form.service.justice.gov.uk",
+    say-thank-you                  = "user-feedback.form.service.justice.gov.uk"
   }
   names = keys(local.forms)
   hosts = values(local.forms)
