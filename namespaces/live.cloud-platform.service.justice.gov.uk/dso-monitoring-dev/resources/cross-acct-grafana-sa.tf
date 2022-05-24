@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${data.kubenetes_secret.nomis_test_acct_id.data.acct-id}:role/CloudwatchDatasourceRole",
+      "arn:aws:iam::${data.kubenetes_secret.nomis_test_acct_id.data["acct-id"]}:role/CloudwatchDatasourceRole",
     ]
   }
 }
