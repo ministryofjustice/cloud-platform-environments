@@ -5,13 +5,6 @@ module "irsa" {
   service_account  = "grafana-dev"
 }
 
-data "kubernetes_secret" "nomis_test_acct_id" {
-  metadata {
-    name = "nomis-test-acct-test"
-    namespace = var.namespace
-  }
-}
-
 data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
   # AssumeRole permissions for CloudWatch provider in
   # nomis-test mod-platform acct.
@@ -20,7 +13,7 @@ data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${data.kubenetes_secret.nomis_test_acct_id.data["acct-id"]}:role/CloudwatchDatasourceRole",
+      "arn:aws:iam::612659970365:role/CloudwatchDatasourceRole",
     ]
   }
 }
