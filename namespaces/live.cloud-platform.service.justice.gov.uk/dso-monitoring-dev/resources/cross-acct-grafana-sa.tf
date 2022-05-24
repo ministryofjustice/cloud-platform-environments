@@ -7,7 +7,7 @@ module "irsa" {
 
 data "kubernetes_secret" "nomis_test_acct_id" {
   metadata {
-    name = "nomis-test-acct"
+    name = "nomis-test-acct-test"
     namespace = var.namespace
   }
 }
