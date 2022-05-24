@@ -112,7 +112,7 @@ ingress:
     - host: canary.apps.live.cloud-platform.service.justice.gov.uk
       paths:
       - path: /
-        pathtype: ImplementationSpecific
+        pathType: ImplementationSpecific
   tls:
     - secretName:
       hosts:
