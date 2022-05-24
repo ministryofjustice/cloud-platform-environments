@@ -104,6 +104,6 @@ resource "aws_sns_topic_subscription" "hmpps_allocations_offender_events_subscri
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_allocations_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"CONVICTION_CHANGED\", \"OFFENDER_MANAGER_CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"CONVICTION_CHANGED\", \"OFFENDER_MANAGER_CHANGED\", \"ORDER_MANAGER_CHANGED\"]}"
 }
 
