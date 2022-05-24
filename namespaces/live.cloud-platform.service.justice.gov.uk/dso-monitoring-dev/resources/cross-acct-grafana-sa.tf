@@ -26,7 +26,7 @@ resource "aws_iam_policy" "dso-monitoring-dev_grafana-dev" {
     application            = var.application
     is-production          = "false"
     environment-name       = var.environment
-    owner                  = var.owner
+    owner                  = var.github_owner
     infrastructure-support = var.infrastructure_support
   }
 }
