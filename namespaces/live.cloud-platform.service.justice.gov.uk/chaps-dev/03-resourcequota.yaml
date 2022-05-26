@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: chapsdotnet-dev
+  namespace: chaps-dev
 spec:
   hard:
     pods: "50"

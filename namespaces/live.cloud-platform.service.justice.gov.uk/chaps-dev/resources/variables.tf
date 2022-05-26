@@ -14,7 +14,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "chapsdotnet-dev"
+  default = "chaps-dev"
 }
 
 variable "business_unit" {

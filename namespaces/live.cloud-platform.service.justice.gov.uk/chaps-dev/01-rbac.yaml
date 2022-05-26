@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: chapsdotnet-dev-admin
-  namespace: chapsdotnet-dev
+  name: chaps-dev-admin
+  namespace: chaps-dev
 subjects:
   - kind: Group
     name: "github:dotnet"
