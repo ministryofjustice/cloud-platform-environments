@@ -9,5 +9,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - development.chaps.apps.live.cloud-platform.service.justice.gov.uk
+  - dev.chaps.apps.live.cloud-platform.service.justice.gov.uk
   
