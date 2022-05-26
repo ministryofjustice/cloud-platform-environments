@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: chaps-dev-cert
+  namespace: chaps-dev
+spec:
+  secretName: chaps-dev-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dev.chaps.apps.live.cloud-platform.service.justice.gov.uk
+  
