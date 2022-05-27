@@ -61,7 +61,7 @@ spec:
         * ON(cronjob, namespace) GROUP_LEFT()
         (kube_cronjob_spec_suspend == 0)
       for: 1h
-      label:
+      labels:
         severity: cica-dev-dev
     - alert: cica--KubeletTooManyPods--dev
       expr: kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-dev"}
