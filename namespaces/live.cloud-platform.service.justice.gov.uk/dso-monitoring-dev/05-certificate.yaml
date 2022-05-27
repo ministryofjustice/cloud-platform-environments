@@ -36,3 +36,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - grafana-dev.mod-platform-monitoring.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: oauth2-proxy-mod-platform-monitoring-dev
+  namespace: dso-monitoring-dev
+spec:
+  secretName: oauth2-proxy-mod-platform-monitoring-dev
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - auth-dev.mod-platform-monitoring.service.justice.gov.uk
