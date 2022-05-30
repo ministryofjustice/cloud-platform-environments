@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: raz-test-not-one-test
+  namespace: raz-test-not-one
+subjects:
+  - kind: Group
+    name: "github:zzz"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:webops"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
