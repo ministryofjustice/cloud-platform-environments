@@ -7,7 +7,7 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  # github_repositories = [var.repo_name]
+  github_repositories                  = [var.repo_name]
   github_actions_secret_kube_cert      = "K8S_GHA_UAT_CLUSTER_CERT"
   github_actions_secret_kube_token     = "K8S_GHA_UAT_TOKEN"
   github_actions_secret_kube_cluster   = "K8S_GHA_UAT_CLUSTER_NAME"
