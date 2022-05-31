@@ -40,7 +40,7 @@ module "hmpps_interventions_split_rds" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  namespace              = var.namespace_split
+  namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds_family
