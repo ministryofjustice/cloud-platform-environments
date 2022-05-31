@@ -52,7 +52,7 @@ module "hmpps_interventions_split_rds" {
 
 resource "kubernetes_secret" "hmpps_interventions_split_rds" {
   metadata {
-    name      = "postgres_split"
+    name      = "postgres.split"
     namespace = var.namespace
   }
 
