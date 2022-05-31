@@ -64,6 +64,6 @@ resource "kubernetes_secret" "hmpps_interventions_split_rds" {
     rds_instance_address  = module.hmpps_interventions_split_rds.rds_instance_address
     access_key_id         = module.hmpps_interventions_split_rds.access_key_id
     secret_access_key     = module.hmpps_interventions_split_rds.secret_access_key
-    url                   = "postgres://${module.hmpps_interventions_rds_split.database_username}:${module.hmpps_interventions_rds_split.database_password}@${module.hmpps_interventions_rds_split.rds_instance_endpoint}/${module.hmpps_interventions_rds_split.database_name}"
+    url                   = "postgres://${module.hmpps_interventions_split_rds.database_username}:${module.hmpps_interventions_split_rds.database_password}@${module.hmpps_interventions_split_rds.rds_instance_endpoint}/${module.hmpps_interventions_split_rds.database_name}"
   }
 }

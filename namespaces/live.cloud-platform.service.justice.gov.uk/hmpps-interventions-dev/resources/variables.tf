@@ -16,10 +16,6 @@ variable "namespace_split" {
   default = "hmpps-interventions-split-dev"
 }
 
-variable "namespace_branch" {
-  default = "hmpps-interventions-dev"
-}
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
