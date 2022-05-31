@@ -1,17 +1,17 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.4"
 
-  namespace            = var.namespace
-  kubernetes_cluster   = var.kubernetes_cluster
+  namespace = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_rules = var.serviceaccount_rules
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories                  = ["chapsdotnet"]
-  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
-  github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
-  github_actions_secret_kube_token     = var.github_actions_secret_kube_token
-  github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+    github_repositories = ["chapsdotnet"]
+    github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
+    github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
+    github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+    github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
 }
 
 variable "serviceaccount_rules" {
@@ -34,7 +34,7 @@ variable "serviceaccount_rules" {
         "services",
         "configmaps",
         "pods",
-        "certificates"
+	"certificates"
       ]
       verbs = [
         "patch",
@@ -51,12 +51,12 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
-        "cert-manager.io"
+	"cert-manager.io"
       ]
       resources = [
         "deployments",
         "ingresses",
-        "certificates"
+	"certificates"
       ]
       verbs = [
         "get",

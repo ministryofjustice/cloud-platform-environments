@@ -9,9 +9,9 @@ module "visit_scheduler_rds" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  db_engine_version           = "13"
-  db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres13"
+  db_engine_version = "13"
+  db_instance_class = "db.t3.small"
+  rds_family = "postgres13"
   allow_major_version_upgrade = "false"
 
   providers = {
