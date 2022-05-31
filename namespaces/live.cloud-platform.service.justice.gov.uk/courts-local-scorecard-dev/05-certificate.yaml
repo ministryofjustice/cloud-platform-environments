@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: courts-local-scorecard-cert
-  namespace: courts-local-scorecard-prod
+  namespace: courts-local-scorecard-dev
 spec:
   secretName: courts-local-scorecard-cert-secret
   issuerRef:
@@ -17,7 +17,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: criminal-justice-delivery-cert
-  namespace: courts-local-scorecard-prod
+  namespace: courts-local-scorecard-dev
 spec:
   secretName: criminal-justice-delivery-cert-secret
   issuerRef:
