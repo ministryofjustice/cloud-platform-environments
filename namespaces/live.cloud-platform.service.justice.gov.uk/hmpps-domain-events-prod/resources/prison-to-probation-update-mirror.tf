@@ -42,10 +42,10 @@ resource "aws_sqs_queue_policy" "prison_to_probation_update_mirror_queue_policy"
 
 # Subscription to the hmpps-domain-events topic
 resource "aws_sns_topic_subscription" "prison_to_probation_update_mirror_subscription" {
-  protocol      = "sqs"
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  endpoint      = module.prison_to_probation_update_mirror_queue.sqs_arn
-  provider      = aws.london
+  protocol  = "sqs"
+  topic_arn = module.hmpps-domain-events.topic_arn
+  endpoint  = module.prison_to_probation_update_mirror_queue.sqs_arn
+  provider  = aws.london
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.released",
