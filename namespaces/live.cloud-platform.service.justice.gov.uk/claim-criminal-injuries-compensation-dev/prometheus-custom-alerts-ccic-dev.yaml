@@ -15,83 +15,80 @@ metadata:
   name: prometheus-custom-rules-data-dev
 spec:
   groups:
-    - name: node.rules
-      rules:
-        - record: job_cronjob:kube_job_status_start_time:max
-          expr: |
-            label_replace(
-              label_replace(
-                max(
-                  kube_job_status_start_time
-                  * ON(exported_job) GROUP_RIGHT()
-                  kube_job_labels{label_cronjob!=""}
-                ) BY (exported_job, label_cronjob)
-                == ON(label_cronjob) GROUP_LEFT()
-                max(
-                  kube_job_status_start_time
-                  * ON(exported_job) GROUP_RIGHT()
-                  kube_job_labels{label_cronjob!=""}
-                ) BY (label_cronjob),
-              "job", "$1", "exported_job", "(.+)"),
-            "cronjob", "$1", "label_cronjob", "(.+)")
-        - record: job_cronjob:kube_job_status_failed:sum
-          expr: |
-            clamp_max(
-              job_cronjob:kube_job_status_start_time:max,
-            1)
-            * ON(job) GROUP_LEFT()
-            label_replace(
-              label_replace(
-                (kube_job_status_failed != 0),
-                "job", "$1", "exported_job", "(.+)"),
-              "cronjob", "$1", "label_cronjob", "(.+)")
-        - alert: cica--Quota-Exceeded--dev
-          expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
-          for: 5m
-          labels:
-            severity: cica-dev-dev
-          annotations:
-            message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
-        - alert: cica--KubeJobFailed--dev
-          annotations:
-            message: "{{ $labels.cronjob }} last run has failed {{ $value }} times."
-            runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica--kubejobfailed---labelsnamespace-
-          expr: |
-            job_cronjob:kube_job_status_failed:sum
-            * ON(cronjob) GROUP_RIGHT()
-            kube_cronjob_labels
-            > 0
-          for: 1m
-          labels:
-            severity: cica-dev-dev
-        - alert: cica--KubeletTooManyPods--dev
-          expr:
-            kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-dev"}
-            > 0 * 0.9
-          for: 5m
-          labels:
-            severity: cica-dev-team
-          annotations:
-            message:
-              Kubelet {{ $labels.instance }} is running {{ $value }} Pods, close to the
-              limit of 1 Test.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
-        - alert: cica--KubeDeploymentReplicasMismatch--dev
-          annotations:
-            message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than an hour.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
-          expr:
-            kube_deployment_spec_replicas{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
-            != kube_deployment_status_replicas_available{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
-          for: 1h
-          labels:
-            severity: cica-dev-dev
-        - alert: cica--Unexpected-Data-Retention--dev
-          annotations:
-            message: RDS {{ $labels.namespace }} has retained application data older than 30 minutes.
-            runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-unexpected-data-retention
-          expr: cleardown_check{namespace="claim-criminal-injuries-compensation-dev", job="applications_not_deleted"} > 0
-          for: 1h
-          labels:
-            severity: cica-dev-team
+  - name: node.rules
+    rules:
+    - record: job_cronjob:kube_job_status_start_time:max
+      expr: |
+        label_replace(
+          label_replace(
+            max(
+              kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-dev"}
+              * ON(exported_job, namespace) GROUP_RIGHT()
+              kube_job_labels{namespace=~"claim-criminal-injuries-compensation-dev", label_cronjob!=""}
+            ) BY (exported_job, label_cronjob, namespace)
+            == ON(label_cronjob) GROUP_LEFT()
+            max(
+              kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-dev"}
+              * ON(exported_job, namespace) GROUP_RIGHT()
+              kube_job_labels{namespace=~"claim-criminal-injuries-compensation-dev",label_cronjob!=""}
+            ) BY (label_cronjob),
+          "job", "$1", "exported_job", "(.+)"),
+        "cronjob", "$1", "label_cronjob", "(.+)")
+    - record: job_cronjob:kube_job_status_failed:sum
+      expr: |
+        clamp_max(
+          job_cronjob:kube_job_status_start_time:max,
+        1)
+        * ON(job) GROUP_LEFT()
+        label_replace(
+          label_replace(
+            (kube_job_status_failed{namespace=~"claim-criminal-injuries-compensation-dev"} != 0),
+            "job", "$1", "exported_job", "(.+)"),
+          "cronjob", "$1", "label_cronjob", "(.+)")
+    - alert: cica--Quota-Exceeded--dev
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
+      for: 5m
+      labels:
+        severity: cica-dev-dev
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
+    - alert: cica--KubeJobFailed--dev
+      annotations:
+        message:  '{{ $labels.cronjob }} last run has failed {{ $value }} times.'
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica--kubejobfailed---labelsnamespace-
+      expr: |
+        job_cronjob:kube_job_status_failed:sum
+        * ON(cronjob) GROUP_RIGHT()
+        kube_cronjob_labels
+        > 0
+      for: 1m
+      labels:
+        severity: cica-dev-dev
+    - alert: cica--KubeletTooManyPods--dev
+      expr: kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-dev"}
+        > 0 * 0.9
+      for: 5m
+      labels:
+        severity: cica-dev-team
+      annotations:
+        message: Kubelet {{ $labels.instance }} is running {{ $value }} Pods, close to the
+          limit of 1 Test.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
+    - alert: cica--KubeDeploymentReplicasMismatch--dev
+      annotations:
+       message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than an hour.
+       runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+      expr: kube_deployment_spec_replicas{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
+        != kube_deployment_status_replicas_available{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-dev"}
+      for: 1h
+      labels:
+        severity: cica-dev-dev
+    - alert: cica--Unexpected-Data-Retention--dev
+      annotations:
+        message: RDS {{ $labels.namespace }} has retained application data older than 30 minutes.
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-unexpected-data-retention
+      expr: cleardown_check{namespace="claim-criminal-injuries-compensation-dev", job="applications_not_deleted"} > 0
+      for: 1h
+      labels:
+        severity: cica-dev-team
