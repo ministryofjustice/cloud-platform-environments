@@ -18,9 +18,9 @@ module "rds-instance" {
 
   db_parameter = [
     {
-      "apply_method": "immediate",
-      "name": "log_min_duration_statement",
-      "value": "2000"
+      "apply_method" : "immediate",
+      "name" : "log_min_duration_statement",
+      "value" : "2000"
     }
   ]
 }
