@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: courts-local-scorecard-cert
+  namespace: courts-local-scorecard-prod
+spec:
+  secretName: courts-local-scorecard-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.criminal-justice-scorecard.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: criminal-justice-delivery-cert
+  namespace: courts-local-scorecard-prod
+spec:
+  secretName: criminal-justice-delivery-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.criminal-justice-delivery-data-dashboards.justice.gov.uk
