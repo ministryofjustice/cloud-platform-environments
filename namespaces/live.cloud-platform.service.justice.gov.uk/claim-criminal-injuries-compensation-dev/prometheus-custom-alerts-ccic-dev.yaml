@@ -17,34 +17,36 @@ spec:
   groups:
   - name: node.rules
     rules:
-    - record: job_cronjob:kube_job_status_start_time:max
+    - record: job:kube_job_status_start_time_cica_dev:max
       expr: |
         label_replace(
           label_replace(
-            max(
+            max by (job_name, owner_name, namespace)(
               kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-dev"}
-              * ON(exported_job, namespace) GROUP_RIGHT()
-              kube_job_labels{namespace=~"claim-criminal-injuries-compensation-dev", label_cronjob!=""}
-            ) BY (exported_job, label_cronjob, namespace)
-            == ON(label_cronjob) GROUP_LEFT()
-            max(
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-dev", owner_name!=""}
+            )
+            == ON(owner_name) GROUP_LEFT()
+            max by (owner_name)(
               kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-dev"}
-              * ON(exported_job, namespace) GROUP_RIGHT()
-              kube_job_labels{namespace=~"claim-criminal-injuries-compensation-dev",label_cronjob!=""}
-            ) BY (label_cronjob),
-          "job", "$1", "exported_job", "(.+)"),
-        "cronjob", "$1", "label_cronjob", "(.+)")
-    - record: job_cronjob:kube_job_status_failed:sum
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-dev",owner_name!=""}
+            ),
+          "job", "$1", "job_name", "(.+)"),
+        "cronjob", "$1", "owner_name", "(.+)")
+    - record: job:kube_job_status_failed_cica_dev:sum
       expr: |
         clamp_max(
-          job_cronjob:kube_job_status_start_time:max,
+          job:kube_job_status_start_time_cica_dev:max,
         1)
         * ON(job) GROUP_LEFT()
         label_replace(
           label_replace(
-            (kube_job_status_failed{namespace=~"claim-criminal-injuries-compensation-dev"} != 0),
-            "job", "$1", "exported_job", "(.+)"),
-          "cronjob", "$1", "label_cronjob", "(.+)")
+            ((kube_job_status_failed{namespace=~"claim-criminal-injuries-compensation-dev"} != 0)
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-dev", owner_name!=""}),
+            "job", "$1", "job_name", "(.+)"),
+          "cronjob", "$1", "owner_name", "(.+)")
     - alert: cica--Quota-Exceeded--dev
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
       for: 5m
@@ -55,11 +57,11 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
     - alert: cica--KubeJobFailed--dev
       annotations:
-        message:  '{{ $labels.cronjob }} last run has failed {{ $value }} times.'
+        message: CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is failing.
         runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica--kubejobfailed---labelsnamespace-
       expr: |
-        job_cronjob:kube_job_status_failed:sum
-        * ON(cronjob) GROUP_RIGHT()
+        job:kube_job_status_failed_cica_dev:sum
+        * ON(cronjob, namespace) GROUP_RIGHT()
         kube_cronjob_labels
         > 0
       for: 1m
