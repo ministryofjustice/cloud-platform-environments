@@ -64,9 +64,9 @@ spec:
         * ON(cronjob, namespace) GROUP_RIGHT()
         kube_cronjob_labels
         > 0
-      for: 1m
+      for: 15m
       labels:
-        severity: cica-dev-dev
+        severity: cica-dev-team
     - alert: cica--KubeletTooManyPods--dev
       expr: kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-dev"}
         > 0 * 0.9
