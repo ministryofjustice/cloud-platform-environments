@@ -15,6 +15,36 @@ spec:
   groups:
   - name: node.rules
     rules:
+    - record: job:kube_job_status_start_time_cica_prod:max
+      expr: |
+        label_replace(
+          label_replace(
+            max by (job_name, owner_name, namespace)(
+              kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-prod"}
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-prod", owner_name!=""}
+            )
+            == ON(owner_name) GROUP_LEFT()
+            max by (owner_name)(
+              kube_job_status_start_time{namespace=~"claim-criminal-injuries-compensation-prod"}
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-prod",owner_name!=""}
+            ),
+          "job", "$1", "job_name", "(.+)"),
+        "cronjob", "$1", "owner_name", "(.+)")
+    - record: job:kube_job_status_failed_cica_prod:sum
+      expr: |
+        clamp_max(
+          job:kube_job_status_start_time_cica_prod:max,
+        1)
+        * ON(job) GROUP_LEFT()
+        label_replace(
+          label_replace(
+            ((kube_job_status_failed{namespace=~"claim-criminal-injuries-compensation-prod"} != 0)
+              * ON(job_name, namespace) GROUP_RIGHT()
+              kube_job_owner{namespace=~"claim-criminal-injuries-compensation-prod", owner_name!=""}),
+            "job", "$1", "job_name", "(.+)"),
+          "cronjob", "$1", "owner_name", "(.+)")
     - alert: cica--Quota-Exceeded--prod
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
       for: 5m
@@ -25,10 +55,14 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
     - alert: cica--KubeJobFailed--prod
       annotations:
-        message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
-      expr: kube_job_status_failed{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-prod"}  > 0
-      for: 1m
+        message: CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is failing.
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica--kubejobfailed---labelsnamespace-
+      expr: |
+        job:kube_job_status_failed_cica_prod:sum
+        * ON(cronjob, namespace) GROUP_RIGHT()
+        kube_cronjob_labels
+        > 0
+      for: 15m
       labels:
         severity: cica-dev-team
     - alert: cica--KubeletTooManyPods--prod
@@ -53,8 +87,8 @@ spec:
     - alert: cica--Unexpected-Data-Retention--prod
       annotations:
         message: RDS {{ $labels.namespace }} has retained application data older than 30 minutes.
-        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/tree/master/pushgateway#alert-name-unexpected-data-retention
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-unexpected-data-retention
       expr: cleardown_check{namespace="claim-criminal-injuries-compensation-prod", job="applications_not_deleted"} > 0
-      for: 1m
+      for: 1h
       labels:
         severity: cica-dev-team
