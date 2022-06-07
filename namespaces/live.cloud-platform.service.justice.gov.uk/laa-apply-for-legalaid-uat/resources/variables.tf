@@ -58,7 +58,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
-        "monitoring.coreos.com
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
