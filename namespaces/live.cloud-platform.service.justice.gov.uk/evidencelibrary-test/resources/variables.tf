@@ -53,9 +53,13 @@ variable "github_token" {
 }
 
 variable "rds-family" {
-  default = "postgres11"
+  default = "postgres13"
 }
 
 variable "db_engine_version" {
-  default = "11"
+  default = "13"
+}
+
+variable "db_instance_class" {
+  default = "db.t3.small"
 }
