@@ -48,7 +48,7 @@ spec:
         severity: form-builder
     - alert: FailedDelayedJobs
       annotations:
-        message: Failed Delayed Job in {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})
+        message: Editor failed Delayed Job in {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})
         runbook_url: https://ministryofjustice.github.io/fb-guide-and-runbook/troubleshooting/find-a-failed-submission/#delayed-job-failures
       expr: |-
         avg(delayed_jobs_failed{namespace="formbuilder-saas-test"}) > 0
