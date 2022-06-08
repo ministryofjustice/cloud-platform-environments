@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["sw-cd-test","sw-helm-cd-tutorial"]
+  github_repositories = ["sw-cd-test", "sw-helm-cd-tutorial"]
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
