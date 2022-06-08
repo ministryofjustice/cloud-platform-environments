@@ -13,7 +13,7 @@ spec:
         app: prototype-${BRANCH}
     spec:
       containers:
-      - name: nginx
+      - name: prototype
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/${ECR_NAME}:${IMAGE_TAG}
         env:
           - name: USERNAME
@@ -32,9 +32,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service-${BRANCH}
+  name: prototype-service-${BRANCH}
   labels:
-    app: nginx-service-${BRANCH}
+    app: prototype-service-${BRANCH}
 spec:
   ports:
   - port: 3000
@@ -43,7 +43,7 @@ spec:
   selector:
     app: prototype-${BRANCH}
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: prototype-ingress-${BRANCH}
@@ -60,6 +60,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: nginx-service-${BRANCH}
-          servicePort: 3000
+          service:
+            name: prototype-service-${BRANCH}
+            port:
+              number: 3000
