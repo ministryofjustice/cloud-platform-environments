@@ -17,6 +17,10 @@ variable "namespace" {
   default = "evidencelibrary-prod"
 }
 
+variable "domain" {
+  default = "analytical-evidence-library.service.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -44,6 +48,11 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "evidence-library"
+}
+
+variable "owner" {
+  description = "Required by the route53"
+  default     = "ministryofjustice"
 }
 
 variable "github_owner" {
