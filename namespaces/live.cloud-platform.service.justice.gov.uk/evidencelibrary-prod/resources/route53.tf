@@ -7,7 +7,7 @@ resource "aws_route53_zone" "evidencelibrary_route53_zone" {
     application            = var.application
     is-production          = var.is_production
     environment-name       = var.environment
-    owner                  = var.owner   
+    owner                  = var.owner
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
@@ -20,6 +20,6 @@ resource "kubernetes_secret" "evidencelibrary_route53_zone_sec" {
   }
 
   data = {
-    zone_id   = aws_route53_zone.evidencelibrary_route53_zone.zone_id
+    zone_id = aws_route53_zone.evidencelibrary_route53_zone.zone_id
   }
 }
