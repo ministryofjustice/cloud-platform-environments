@@ -60,6 +60,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: prototype-service-${BRANCH}
-          servicePort: 3000
+          service:
+            name: prototype-service-${BRANCH}
+            port:
+              number: 3000
