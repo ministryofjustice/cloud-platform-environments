@@ -18,15 +18,6 @@ spec:
           for: 10m
           labels:
             severity: hmpps-tier
-        - alert: SQS-number-of-messages
-          annotations:
-            message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
-            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/MaS/pages/3775856869/Allocations+runbook
-          expr: |-
-            sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue"} offset 5m) by (queue_name) > 100
-          for: 10m
-          labels:
-            severity: hmpps-tier
         - alert: SQS-events-dlq-not-empty
           annotations:
             message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
