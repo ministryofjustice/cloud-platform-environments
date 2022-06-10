@@ -10,7 +10,7 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   db_allocated_storage   = 50
-  db_instance_class      = "db.t3.xlarge"
+  db_instance_class      = "db.t3.2xlarge"
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
