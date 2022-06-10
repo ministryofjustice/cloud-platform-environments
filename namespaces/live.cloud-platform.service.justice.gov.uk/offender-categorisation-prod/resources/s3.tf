@@ -22,7 +22,11 @@ module "risk_profiler_s3_bucket" {
         {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::593291632749:role/airflow_viper_to_external"
+                "AWS":
+                  [
+                    "arn:aws:iam::593291632749:role/airflow_viper_to_external",
+                    "arn:aws:iam::593291632749:role/airflow_prod_sdt_viper_to_external"
+                  ]
             },
             "Action": [
                 "s3:GetObject",
