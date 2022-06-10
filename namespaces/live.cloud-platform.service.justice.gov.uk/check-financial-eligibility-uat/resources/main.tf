@@ -17,11 +17,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-/*
- * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
- *
- */
-
-variable "cluster_name" {
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
 }
