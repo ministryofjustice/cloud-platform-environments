@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: how-out-of-date-are-we-app-ingress
@@ -8,6 +8,7 @@ metadata:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     external-dns.alpha.kubernetes.io/set-identifier: how-out-of-date-are-we-app-ingress-how-out-of-date-are-we-green
 spec:
+  ingressClassName: default
   tls:
   - hosts:
     - how-out-of-date-are-we.apps.live.cloud-platform.service.justice.gov.uk
@@ -16,6 +17,9 @@ spec:
       http:
         paths:
         - path: /
+          pathType: ImplementationSpecific
           backend:
-            serviceName: how-out-of-date-are-we-service
-            servicePort: 4567
+            service:
+              name: how-out-of-date-are-we-service
+              port: 
+                number: 4567
