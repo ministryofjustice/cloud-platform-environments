@@ -1,4 +1,4 @@
-module "irsa" {
+module "irsa_prometheus" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
   namespace        = var.namespace
   role_policy_arns = [aws_iam_policy.dso-monitoring-dev_prometheus-dev.arn]
@@ -31,7 +31,7 @@ resource "aws_iam_policy" "dso-monitoring-dev_prometheus-dev" {
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "irsa_prometheus" {
   metadata {
     name      = "irsa-output-prometheus-dev"
     namespace = var.namespace
