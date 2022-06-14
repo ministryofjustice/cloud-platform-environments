@@ -52,7 +52,7 @@ variable "github_token" {
 }
 
 variable "mp_account" {
-  description = "Destintion account for metrics collection"
+  description = "Destination account for metrics collection"
   default     = "612659970365" # nomis-test
 }
 
