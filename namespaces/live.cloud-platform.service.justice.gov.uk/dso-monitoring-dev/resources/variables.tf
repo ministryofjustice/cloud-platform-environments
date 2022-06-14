@@ -50,3 +50,18 @@ variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
 }
+
+variable "mp_account" {
+  description = "Destintion account for metrics collection"
+  default = "612659970365" # nomis-test
+}
+
+variable "grafana_sa" {
+  description = "Name for Grafana service account"
+  default = "grafana-dev"
+}
+
+variable "prometheus_sa" {
+  description = "Name for Prometheus service account"
+  default = "prometheus-dev"
+}
