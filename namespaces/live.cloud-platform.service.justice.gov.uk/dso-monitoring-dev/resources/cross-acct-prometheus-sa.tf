@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "dso-monitoring-dev_prometheus-dev" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${var.mp_account}:role/PrometheusEC2DiscoveryeRole",
+      "arn:aws:iam::${var.mp_account}:role/PrometheusEC2DiscoveryRole",
     ]
   }
 }
@@ -37,7 +37,7 @@ resource "kubernetes_secret" "irsa_prometheus" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.aws_iam_role_name
-    serviceaccount = module.irsa.service_account_name.name
+    role           = module.irsa_prometheus.aws_iam_role_name
+    serviceaccount = module.irsa_prometheus.service_account_name.name
   }
 }
