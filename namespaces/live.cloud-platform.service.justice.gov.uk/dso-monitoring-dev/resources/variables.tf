@@ -53,15 +53,15 @@ variable "github_token" {
 
 variable "mp_account" {
   description = "Destintion account for metrics collection"
-  default = "612659970365" # nomis-test
+  default     = "612659970365" # nomis-test
 }
 
 variable "grafana_sa" {
   description = "Name for Grafana service account"
-  default = "grafana-dev"
+  default     = "grafana-dev"
 }
 
 variable "prometheus_sa" {
   description = "Name for Prometheus service account"
-  default = "prometheus-dev"
+  default     = "prometheus-dev"
 }
