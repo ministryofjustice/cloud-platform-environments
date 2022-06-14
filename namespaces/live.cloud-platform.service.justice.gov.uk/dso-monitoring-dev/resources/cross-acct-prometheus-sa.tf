@@ -1,25 +1,25 @@
-module "irsa" {
+module "irsa_prometheus" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
   namespace        = var.namespace
-  role_policy_arns = [aws_iam_policy.dso-monitoring-dev_grafana-dev.arn]
-  service_account  = var.grafana_sa
+  role_policy_arns = [aws_iam_policy.dso-monitoring-dev_prometheus-dev.arn]
+  service_account  = var.prometheus_sa
 }
 
-data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
-  # AssumeRole permissions for CloudWatch provider in
+data "aws_iam_policy_document" "dso-monitoring-dev_prometheus-dev" {
+  # AssumeRole permissions for Prometheus EC2 discovery in
   # nomis-test mod-platform acct.
   statement {
     actions = [
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${var.mp_account}:role/CloudwatchDatasourceRole",
+      "arn:aws:iam::${var.mp_account}:role/PrometheusEC2DiscoveryeRole",
     ]
   }
 }
-resource "aws_iam_policy" "dso-monitoring-dev_grafana-dev" {
-  name   = "dso-monitoring-dev-grafana-dev-policy"
-  policy = data.aws_iam_policy_document.dso-monitoring-dev_grafana-dev.json
+resource "aws_iam_policy" "dso-monitoring-dev_prometheus-dev" {
+  name   = "dso-monitoring-dev-prometheus-dev-policy"
+  policy = data.aws_iam_policy_document.dso-monitoring-dev_prometheus-dev.json
 
   tags = {
     business-unit          = var.business_unit
@@ -31,9 +31,9 @@ resource "aws_iam_policy" "dso-monitoring-dev_grafana-dev" {
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "irsa_prometheus" {
   metadata {
-    name      = "irsa-output-grafana-dev"
+    name      = "irsa-output-prometheus-dev"
     namespace = var.namespace
   }
   data = {
