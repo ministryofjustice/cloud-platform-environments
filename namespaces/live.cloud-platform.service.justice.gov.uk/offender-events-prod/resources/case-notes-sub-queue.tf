@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
 
 resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
   queue_url = module.case_note_poll_pusher_queue.sqs_id
-  policy = data.aws_iam_policy_document.case_note_poll_pusher_policy.json
+  policy    = data.aws_iam_policy_document.case_note_poll_pusher_policy.json
 }
 
 module "case_note_poll_pusher_dead_letter_queue" {
@@ -110,10 +110,10 @@ resource "kubernetes_secret" "case_note_poll_pusher_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.case_note_poll_pusher_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.case_note_poll_pusher_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "PRISON-RELEASE",
