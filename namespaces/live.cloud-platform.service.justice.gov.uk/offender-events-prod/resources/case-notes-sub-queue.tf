@@ -20,8 +20,8 @@ module "case_note_poll_pusher_queue" {
 }
 
 data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
-  version = "2012-10-17"
-  id      = "${module.case_note_poll_pusher_queue.sqs_arn}/SQSDefaultPolicy"
+  version   = "2012-10-17"
+  policy_id = "${module.case_note_poll_pusher_queue.sqs_arn}/SQSDefaultPolicy"
   statement {
     sid    = "TopicToQueue"
     effect = "Allow"
