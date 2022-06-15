@@ -1,15 +1,23 @@
+variable "namespace" {
+  default = "legal-framework-api-uat"
+}
+
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "legal-framework-api"
+}
 
 variable "cluster_name" {
+}
+
+
+variable "kubernetes_cluster" {
 }
 
 
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Legal Framework API"
-}
-
-variable "namespace" {
-  default = "legal-framework-api-uat"
 }
 
 variable "business_unit" {
@@ -33,12 +41,12 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "applyprivatebeta"
+  default     = "apply-dev"
 }
 
 variable "github_owner" {
@@ -49,4 +57,67 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are default plus custom to allow for deletion of UAT branches via CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "HorizontalPodAutoscaler",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
