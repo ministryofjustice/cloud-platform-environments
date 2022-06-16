@@ -1,4 +1,4 @@
-module "serviceaccount" {
+module "serviceaccount_github_actions" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.4"
 
   namespace            = var.namespace
