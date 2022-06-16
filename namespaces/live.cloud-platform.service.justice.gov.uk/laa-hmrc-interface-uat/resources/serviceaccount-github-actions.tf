@@ -6,6 +6,9 @@ module "serviceaccount_github_actions" {
   serviceaccount_name  = "github-actions"
   serviceaccount_rules = var.serviceaccount_github_actions_rules
 
+  role_name = "serviceaccount-github-action-role"
+  rolebinding_name = "serviceaccount-github-action-binding"
+
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories                  = [var.repo_name]
