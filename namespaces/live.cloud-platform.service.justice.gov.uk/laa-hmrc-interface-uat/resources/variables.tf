@@ -10,6 +10,11 @@ variable "application" {
   default     = "LAA-HMRC Interface Service API"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-hmrc-interface-service-api"
+}
+
 variable "namespace" {
   default = "laa-hmrc-interface-uat"
 }
@@ -51,4 +56,67 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_github_actions_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are default plus custom to allow for deletion of UAT branches via CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "pods/exec",
+        "pods/portforward",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
