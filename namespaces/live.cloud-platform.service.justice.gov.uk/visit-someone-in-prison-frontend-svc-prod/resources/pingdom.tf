@@ -13,7 +13,7 @@ resource "pingdom_check" "visit-someone-in-prison-staff-ui-production-check" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/https/visit-someone-in-prison-staff.hmpps.service.justice.gov.uk"
+  url                      = "/https/manage-prison-visits.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
