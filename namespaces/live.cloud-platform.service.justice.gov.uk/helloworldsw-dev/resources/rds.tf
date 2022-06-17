@@ -12,7 +12,7 @@ module "rds_mysql" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment_name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -40,8 +40,8 @@ module "rds_mysql" {
       value        = "utf8"
       apply_method = "immediate"
     },
-  # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
+    # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
+    # You will need to specify "pending-reboot" here, as default is set to "immediate".
     {
       name         = "rds.force_ssl"
       value        = "1"
