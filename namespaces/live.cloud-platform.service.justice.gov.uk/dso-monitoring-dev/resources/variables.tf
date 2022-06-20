@@ -65,3 +65,8 @@ variable "prometheus_sa" {
   description = "Name for Prometheus service account"
   default     = "prometheus-dev"
 }
+
+variable "alertmanager_sa" {
+  description = "Name for Alertmanager service account"
+  default     = "prometheus-alertmanager"
+}
