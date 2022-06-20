@@ -7,7 +7,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "send-legal-mail-to-prisons-production-check" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - Legal Sender application"
+  name                     = "${var.application} - Legal Sender application"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -18,12 +18,12 @@ resource "pingdom_check" "send-legal-mail-to-prisons-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [122536]
 }
 
 resource "pingdom_check" "check-rule39-mail-production-check" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - Mail Room Staff application"
+  name                     = "${var.application} - Mail Room Staff application"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -34,5 +34,5 @@ resource "pingdom_check" "check-rule39-mail-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [122536]
 }
