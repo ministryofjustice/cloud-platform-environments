@@ -61,15 +61,15 @@ variable "mp_account" {
 
 variable "grafana_sa" {
   description = "Name for Grafana service account"
-  default     = "grafana"
+  default     = "grafana-prod"
 }
 
 variable "prometheus_sa" {
   description = "Name for Prometheus service account"
-  default     = "prometheus-server"
+  default     = "prometheus-server-prod"
 }
 
 variable "alertmanager_sa" {
   description = "Name for Alertmanager service account"
-  default     = "prometheus-alertmanager"
+  default     = "prometheus-alertmanager-prod"
 }
