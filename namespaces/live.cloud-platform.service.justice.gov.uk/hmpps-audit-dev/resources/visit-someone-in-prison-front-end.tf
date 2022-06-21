@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "vsip_audit_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
-    namespace = "visit-someone-in-prison-frontend-svc-dev"
+    namespace = "visit-someone-in-prison-frontend-dev"
   }
 
   data = {
@@ -12,3 +12,4 @@ resource "kubernetes_secret" "vsip_audit_secret" {
     sqs_queue_name    = module.hmpps_audit_queue.sqs_name
   }
 }
+
