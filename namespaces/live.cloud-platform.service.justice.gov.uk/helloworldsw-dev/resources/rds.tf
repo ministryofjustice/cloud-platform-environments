@@ -61,7 +61,7 @@ resource "kubernetes_secret" "rds_mysql" {
     rds_instance_address  = module.rds_mysql.rds_instance_address
     access_key_id         = module.rds_mysql.access_key_id
     secret_access_key     = module.rds_mysql.secret_access_key
-    url = "mysql://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "mysql://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
