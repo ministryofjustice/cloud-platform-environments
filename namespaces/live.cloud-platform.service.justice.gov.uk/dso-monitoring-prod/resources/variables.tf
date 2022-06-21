@@ -53,3 +53,23 @@ variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
 }
+
+variable "mp_account" {
+  description = "Destination account for metrics collection"
+  default     = "272983201692" # nomis-production
+}
+
+variable "grafana_sa" {
+  description = "Name for Grafana service account"
+  default     = "grafana-prod"
+}
+
+variable "prometheus_sa" {
+  description = "Name for Prometheus service account"
+  default     = "prometheus-server-prod"
+}
+
+variable "alertmanager_sa" {
+  description = "Name for Alertmanager service account"
+  default     = "prometheus-alertmanager-prod"
+}
