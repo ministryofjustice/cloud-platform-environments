@@ -85,3 +85,33 @@ resource "aws_sns_topic_subscription" "workforce_allocation_queue_subscription" 
     ]
   })
 }
+
+resource "kubernetes_secret" "workforce_allocation_queue_secret" {
+  metadata {
+    name      = "sqs-workforce-allocation-queue-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.workforce_allocation_queue.access_key_id
+    secret_access_key = module.workforce_allocation_queue.secret_access_key
+    sqs_queue_url     = module.workforce_allocation_queue.sqs_id
+    sqs_queue_arn     = module.workforce_allocation_queue.sqs_arn
+    sqs_queue_name    = module.workforce_allocation_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "workforce_allocation_dead_letter_queue_secret" {
+  metadata {
+    name      = "sqs-workforce-allocation-dlq-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.workforce_allocation_dlq.access_key_id
+    secret_access_key = module.workforce_allocation_dlq.secret_access_key
+    sqs_queue_url     = module.workforce_allocation_dlq.sqs_id
+    sqs_queue_arn     = module.workforce_allocation_dlq.sqs_arn
+    sqs_queue_name    = module.workforce_allocation_dlq.sqs_name
+  }
+}
