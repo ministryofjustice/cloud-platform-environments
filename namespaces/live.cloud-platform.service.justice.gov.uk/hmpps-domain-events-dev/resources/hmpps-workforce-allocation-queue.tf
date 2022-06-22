@@ -89,6 +89,7 @@ resource "aws_sns_topic_subscription" "workforce_allocation_queue_subscription" 
 resource "kubernetes_secret" "workforce_allocation_queue_secret" {
   metadata {
     name      = "sqs-workforce-allocation-queue-secret"
+    namespace = var.namespace
   }
 
   data = {
@@ -103,6 +104,7 @@ resource "kubernetes_secret" "workforce_allocation_queue_secret" {
 resource "kubernetes_secret" "workforce_allocation_dead_letter_queue_secret" {
   metadata {
     name      = "sqs-workforce-allocation-dlq-secret"
+    namespace = var.namespace
   }
 
   data = {
@@ -113,4 +115,3 @@ resource "kubernetes_secret" "workforce_allocation_dead_letter_queue_secret" {
     sqs_queue_name    = module.workforce_allocation_dlq.sqs_name
   }
 }
-
