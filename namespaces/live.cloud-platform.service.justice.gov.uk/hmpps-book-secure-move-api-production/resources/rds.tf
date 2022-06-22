@@ -48,7 +48,8 @@ module "rds-read-replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_allocated_storage   = 50
+  db_allocated_storage   = 100
+  db_instance_class      = "db.t3.medium"
 
   db_name             = module.rds-instance.database_name
   replicate_source_db = module.rds-instance.db_identifier
