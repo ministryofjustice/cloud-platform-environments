@@ -17,9 +17,9 @@ module "rds" {
   allow_major_version_upgrade = "false"
 
   # using mysql
-  db_engine         = "mysql"
-  db_engine_version = "8.0.25"
-  rds_family        = "mysql8.0"
+  db_engine         = "mariadb"
+  db_engine_version = "10.4"
+  rds_family        = "mariadb10.4"
 
   # overwrite db_parameters
   db_parameter = [
