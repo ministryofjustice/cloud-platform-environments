@@ -9,7 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_allocated_storage   = 150
+  db_allocated_storage   = 200
   db_instance_class      = "db.t3.2xlarge"
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
@@ -48,7 +48,7 @@ module "rds-read-replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_allocated_storage   = 100
+  db_allocated_storage   = 200
   db_instance_class      = "db.t3.medium"
 
   db_name             = module.rds-instance.database_name
