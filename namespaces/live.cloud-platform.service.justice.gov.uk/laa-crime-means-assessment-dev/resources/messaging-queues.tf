@@ -75,14 +75,14 @@ resource "kubernetes_secret" "create_link_queue_m" {
   }
 
   data = {
-    access_key_id                                     = module.means_assessment_post_processing_queue.access_key_id
-    secret_access_key                                 = module.means_assessment_post_processing_queue.secret_access_key
-    sqs_url_means_assessment_post_processing          = module.means_assessment_post_processing_queue.sqs_id
-    sqs_arn_means_assessment_post_processing          = module.means_assessment_post_processing_queue.sqs_arn
-    sqs_name_means_assessment_post_processing         = module.means_assessment_post_processing_queue.sqs_name
-    sqs_url_d_means_assessment_post_processing        = module.means_assessment_post_processing_dead_letter_queue.sqs_id
-    sqs_arn_d_means_assessment_post_processing        = module.means_assessment_post_processing_dead_letter_queue.sqs_arn
-    sqs_name_d_means_assessment_post_processing       = module.means_assessment_post_processing_dead_letter_queue.sqs_name
+    access_key_id                               = module.means_assessment_post_processing_queue.access_key_id
+    secret_access_key                           = module.means_assessment_post_processing_queue.secret_access_key
+    sqs_url_means_assessment_post_processing    = module.means_assessment_post_processing_queue.sqs_id
+    sqs_arn_means_assessment_post_processing    = module.means_assessment_post_processing_queue.sqs_arn
+    sqs_name_means_assessment_post_processing   = module.means_assessment_post_processing_queue.sqs_name
+    sqs_url_d_means_assessment_post_processing  = module.means_assessment_post_processing_dead_letter_queue.sqs_id
+    sqs_arn_d_means_assessment_post_processing  = module.means_assessment_post_processing_dead_letter_queue.sqs_arn
+    sqs_name_d_means_assessment_post_processing = module.means_assessment_post_processing_dead_letter_queue.sqs_name
 
   }
 }
