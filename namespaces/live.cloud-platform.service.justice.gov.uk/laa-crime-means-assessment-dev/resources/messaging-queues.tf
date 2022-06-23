@@ -68,7 +68,7 @@ module "means_assessment_post_processing_dead_letter_queue" {
 }
 
 
-resource "kubernetes_secret" "create_link_queue_m" {
+resource "kubernetes_secret" "means_assessment_post_processing_queue" {
   metadata {
     name      = "cma-messaging-queues-output"
     namespace = var.namespace
