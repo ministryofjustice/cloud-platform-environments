@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Education & Employment services to reduce reoffending"
+  default     = "HMPPS Education & Employment services"
 }
 
 variable "namespace" {
@@ -54,4 +54,8 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
