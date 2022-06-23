@@ -351,11 +351,7 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
    EOF
 }
 
-resource "kubernetes_secret" "create_link_queue_m" {
-  metadata {
-    name      = "cda-messaging-queues-output"
-    namespace = var.namespace
-  }
+
 
 module "means_assessment_post_processing_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
@@ -429,6 +425,12 @@ module "means_assessment_post_processing_dead_letter_queue" {
 }
 
 
+resource "kubernetes_secret" "create_link_queue_m" {
+  metadata {
+    name      = "cda-messaging-queues-output"
+    namespace = var.namespace
+  }
+
   data = {
     access_key_id                    = module.create_link_queue_m.access_key_id
     secret_access_key                = module.create_link_queue_m.secret_access_key
@@ -471,3 +473,6 @@ module "means_assessment_post_processing_dead_letter_queue" {
 
   }
 }
+
+
+
