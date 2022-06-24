@@ -58,7 +58,6 @@ module "means_assessment_post_processing_dead_letter_queue" {
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "means-assessment-post-processing-queue-dl"
-  existing_user_name     = module.means_assessment_post_processing_queue.user_name
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
