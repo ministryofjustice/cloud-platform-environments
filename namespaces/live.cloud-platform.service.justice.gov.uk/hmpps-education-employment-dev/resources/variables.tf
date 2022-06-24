@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Education & Employment services"
+  default     = "HMPPS Education and Employment services"
 }
 
 variable "namespace" {
