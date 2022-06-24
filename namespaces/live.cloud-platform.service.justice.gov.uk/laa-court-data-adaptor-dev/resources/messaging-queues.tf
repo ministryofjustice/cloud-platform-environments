@@ -22,6 +22,7 @@ module "create_link_queue_m" {
   }
 }
 
+
 resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
   queue_url = module.create_link_queue_m.sqs_id
 
@@ -389,9 +390,5 @@ resource "kubernetes_secret" "create_link_queue_m" {
     sqs_url_d_prosecution_concluded  = module.prosecution_concluded_dl_queue.sqs_id
     sqs_arn_d_prosecution_concluded  = module.prosecution_concluded_dl_queue.sqs_arn
     sqs_name_d_prosecution_concluded = module.prosecution_concluded_dl_queue.sqs_name
-
   }
 }
-
-
-
