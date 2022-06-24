@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "incentives_secret" {
+resource "kubernetes_secret" "make-recall-decision_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
     namespace = "make-recall-decision-dev"
