@@ -1,5 +1,5 @@
 module "case_note_poll_pusher_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -7,6 +7,7 @@ module "case_note_poll_pusher_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue"
   encrypt_sqs_kms           = "true"
+  kms_external_access       = ["arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer"]
   message_retention_seconds = 1209600 # 2 weeks
   namespace                 = var.namespace
   redrive_policy = jsonencode({
