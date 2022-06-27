@@ -1,5 +1,5 @@
 module "probation_offender_index_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -24,7 +24,7 @@ EOF
 }
 
 module "probation_offender_index_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

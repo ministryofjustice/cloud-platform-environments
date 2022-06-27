@@ -1,5 +1,5 @@
 module "workforce_allocation_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -19,7 +19,7 @@ module "workforce_allocation_queue" {
 }
 
 module "workforce_allocation_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

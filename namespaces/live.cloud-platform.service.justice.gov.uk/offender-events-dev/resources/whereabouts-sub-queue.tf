@@ -1,5 +1,5 @@
 module "whereabouts_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "whereabouts_api_queue_policy" {
 }
 
 module "whereabouts_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.6"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
