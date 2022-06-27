@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-authorization-server-dev.hmpps.service.justice.gov.uk
+    - authorization-server-dev.hmpps.service.justice.gov.uk
