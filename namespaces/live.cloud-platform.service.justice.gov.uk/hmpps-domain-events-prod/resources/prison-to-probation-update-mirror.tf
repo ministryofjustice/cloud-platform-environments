@@ -4,7 +4,7 @@ locals {
 
 # Queue to mirror data into preprod for testing
 module "prison_to_probation_update_mirror_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
   count  = local.enable_prison_to_probation_update_mirror_queue
 
   environment-name          = var.environment-name
