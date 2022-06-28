@@ -5,7 +5,7 @@ module "means_assessment_post_processing_queue" {
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
-  sqs_name                   = "means_assessment_post_processing_queue"
+  sqs_name                   = "assessment-post-processing-queue"
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   namespace                  = var.namespace
@@ -57,7 +57,7 @@ module "means_assessment_post_processing_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "means-assessment-post-processing-queue-dl"
+  sqs_name               = "assessment-post-processing-queue-dl"
   encrypt_sqs_kms        = var.encrypt_sqs_kms
   namespace              = var.namespace
 
