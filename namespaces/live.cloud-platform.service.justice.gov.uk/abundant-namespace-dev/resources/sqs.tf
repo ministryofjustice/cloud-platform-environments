@@ -1,5 +1,5 @@
 module "example_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
 
   environment-name       = "webops"
   team_name              = "cp"
