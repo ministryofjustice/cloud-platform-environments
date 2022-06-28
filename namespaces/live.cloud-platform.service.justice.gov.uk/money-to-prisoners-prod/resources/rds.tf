@@ -25,8 +25,9 @@ module "rds" {
   db_allocated_storage = "50"
   db_name              = "mtp_api"
 
-  allow_major_version_upgrade = false
-  deletion_protection         = true
+  allow_major_version_upgrade  = false
+  deletion_protection          = true
+  performance_insights_enabled = true
 }
 
 resource "kubernetes_secret" "rds" {
