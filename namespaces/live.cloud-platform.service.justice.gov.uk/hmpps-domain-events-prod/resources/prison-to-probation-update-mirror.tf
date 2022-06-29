@@ -1,5 +1,5 @@
 locals {
-  enable_prison_to_probation_update_mirror_queue = 0 # Set to 1 to enable the queue while testing
+  enable_prison_to_probation_update_mirror_queue = 1 # Set to 1 to enable the queue while testing
 }
 
 # Queue to mirror data into preprod for testing
