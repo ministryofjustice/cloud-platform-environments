@@ -128,6 +128,10 @@ resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
       { prefix = "OMIC" },
       { prefix = "OMIC_OPD" },
       { prefix = "KA" }
+    ],
+    caseNoteId = [
+      { numeric = ["<", 0] },
+      { numeric = [">", 0] }
     ]
   })
 }
