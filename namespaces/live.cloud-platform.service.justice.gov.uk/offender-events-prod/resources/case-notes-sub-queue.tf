@@ -7,6 +7,7 @@ module "case_note_poll_pusher_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue"
   encrypt_sqs_kms           = "true"
+  kms_external_access       = ["arn:aws:iam::050243167760:role/delius-prod-ecs-sqs-consumer"]
   message_retention_seconds = 1209600 # 2 weeks
   namespace                 = var.namespace
   redrive_policy = jsonencode({
@@ -47,6 +48,8 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
+      "sqs:ChangeMessageVisibility",
+      "sqs:ChangeMessageVisibilityBatch"
     ]
     principals {
       type = "AWS"
