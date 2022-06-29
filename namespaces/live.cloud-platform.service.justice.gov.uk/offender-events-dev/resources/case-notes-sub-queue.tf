@@ -128,7 +128,8 @@ resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
       { prefix = "KA" }
     ],
     caseNoteId = [
-      { numeric = ["<", 0, ">", 0] }
+      { numeric = ["<", 0] },
+      { numeric = [">", 0] }
     ]
   })
 }
