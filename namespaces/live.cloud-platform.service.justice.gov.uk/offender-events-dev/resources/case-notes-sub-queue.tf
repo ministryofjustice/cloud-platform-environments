@@ -49,7 +49,6 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
       "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
       "sqs:ChangeMessageVisibility",
-      "sqs:ChangeMessageVisibilityBatch"
     ]
     principals {
       type = "AWS"
