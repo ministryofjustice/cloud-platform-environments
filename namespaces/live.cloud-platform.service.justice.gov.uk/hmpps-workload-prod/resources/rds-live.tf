@@ -22,7 +22,7 @@ module "rds-live" {
 
   db_allocated_storage = "72"
 
-  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2022-06-12-02-12"
+  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2022-06-30-02-15"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
