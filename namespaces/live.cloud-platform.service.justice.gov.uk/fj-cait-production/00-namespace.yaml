@@ -8,7 +8,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "Get help with child arrangements"
-    cloud-platform.justice.gov.uk/owner: "Cross Justice Delivery: crossjusticedelivery@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pflr-cait"
-    cloud-platform.justice.gov.uk/slack-channel: "pflr-cait"
-    cloud-platform.justice.gov.uk/team-name: "family-justice"
+    cloud-platform.justice.gov.uk/slack-channel: "cdpt-central-digital-product-team"
+    cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
