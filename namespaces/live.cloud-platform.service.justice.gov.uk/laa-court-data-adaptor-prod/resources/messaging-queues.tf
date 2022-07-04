@@ -35,7 +35,11 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
         {
           "Sid": "PublishPolicy",
           "Effect": "Allow",
-          "Principal": {"AWS": "*"},
+          "Principal": {
+          "AWS": [
+            "${var.acount_id}"
+            ]
+          },
           "Resource": "${module.create_link_queue.sqs_arn}",
           "Action": "sqs:SendMessage"
         },
