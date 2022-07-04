@@ -47,6 +47,8 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
+  snapshot_identifier = "rds:cloud-platform-897c419584ae8631-2022-06-30-01-33"
+
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres14"
