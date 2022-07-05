@@ -1,3 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: admin-abundant
+  namespace: abundant-namespace-dev 
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/portforward"]
+    verbs: ["get", "list", "create"]
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
