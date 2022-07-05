@@ -15,7 +15,7 @@ metadata:
   namespace: abundant-namespace-dev
 subjects:
   - kind: Group
-    name: "github:webops"
+    name: "github:test-webops"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:test-webops"
