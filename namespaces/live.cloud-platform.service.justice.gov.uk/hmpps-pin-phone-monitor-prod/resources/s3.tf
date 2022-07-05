@@ -23,6 +23,11 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
         {
           days = 90
         },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
       ]
     },
     {
@@ -33,6 +38,11 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
         {
           days = 90
         },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
       ]
     },
     {
@@ -42,6 +52,11 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
       expiration = [
         {
           days = 90
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
         },
       ]
     },
