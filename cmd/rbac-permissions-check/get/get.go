@@ -27,12 +27,11 @@ func UserID(opt *config.Options, user *config.User) (*github.User, error) {
 // TeamName takes a single namespace, finds out what cluster it belongs to and returns a slice of teams in the rbac
 // file of that namespace. We have three potential cases here:
 // - The namespace exists in the primaryCluster directory structure.
-// - The namespace exists in the secondaryCluster directory structure,
 // - The namespace doesn't yet exist and exists in the pull request.
 func TeamName(namespace string, opt *config.Options, user *config.User, repo *config.Repository) ([]string, error) {
 	repoOpts := &github.RepositoryContentGetOptions{}
 
-	// We must first check to see if it exists in the primary or secondary clusters.
+	// We must first check to see if it exists in the primary cluster.
 	ori, err := origin(namespace, opt, user, repo, repoOpts)
 	if err != nil {
 		log.Println(err)
@@ -82,9 +81,8 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 	return namespaceTeams, nil
 }
 
-// origin takes a namespace name and returns the cluster (primary or secondary) it exists on.
+// origin takes a namespace name and returns the cluster it exists on.
 func origin(namespace string, opt *config.Options, user *config.User, repo *config.Repository, repoOpts *github.RepositoryContentGetOptions) (string, error) {
-	secondaryCluster := user.SecondaryCluster
 	primaryCluster := user.PrimaryCluster
 
 	cluster := primaryCluster
@@ -97,20 +95,10 @@ func origin(namespace string, opt *config.Options, user *config.User, repo *conf
 	if resp.StatusCode == 200 {
 		return cluster, nil
 	} else {
-		// If the primary cluster doesn't return a 200, then try the secondary.
-		cluster = secondaryCluster
-		// We have to set the user path again to pick up the new cluster.
-		repo.Path = "namespaces/" + cluster + ".cloud-platform.service.justice.gov.uk/" + namespace + "/01-rbac.yaml"
-		_, _, resp, err := opt.Client.Repositories.GetContents(opt.Ctx, repo.Org, repo.Name, repo.Path, repoOpts)
-		if err != nil {
-			log.Println("Unable to locate the namespace in primary or secondary cluster, checking the PR.")
-		}
-		if resp.StatusCode == 200 {
-			return cluster, nil
-		}
+		log.Println("Unable to locate the namespace in primary cluster, checking the PR.")
 	}
 
-	// If both clusters fail to return a 200, the namespace exists in a PR.
+	// If cluster fail to return a 200, the namespace exists in a PR.
 	return "none", nil
 }
 

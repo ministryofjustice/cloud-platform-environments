@@ -31,8 +31,6 @@ type User struct {
 	Id *github.User
 	// PrimaryCluster is the cluster name where most MoJ Kubernetes namespaces are created.
 	PrimaryCluster string
-	// SecondaryCluster is the cluster name of the backup or future cluster for an MoJ Kubernetes namespace.
-	SecondaryCluster string
 	// Namespaces contains a map of user namespaces interpolated from ChangedFiles.
 	Namespaces map[string]int
 }

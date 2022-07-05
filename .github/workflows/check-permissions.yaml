@@ -7,7 +7,6 @@ on:
   pull_request:
     paths:
       - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
-      - 'namespaces/live-1.cloud-platform.service.justice.gov.uk/**'
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}

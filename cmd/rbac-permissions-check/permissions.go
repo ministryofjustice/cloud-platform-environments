@@ -23,8 +23,7 @@ var (
 	repo             = flag.String("repository", "cloud-platform-environments", "The repository of the Cloud Platform repository.")
 	org              = flag.String("org", "ministryofjustice", "Name of the orgnanisation i.e. ministryofjustice.")
 	adminTeam        = flag.String("admin", "WebOps", "Admin team looking after repository.")
-	primaryCluster   = flag.String("primary", "live-1", "Name of the primary cluster in use.")
-	secondaryCluster = flag.String("secondary", "live", "Name of the secondary cluster in use.")
+	primaryCluster   = flag.String("primary", "live", "Name of the primary cluster in use.")
 )
 
 func main() {
@@ -41,7 +40,6 @@ func main() {
 
 	user := config.User{
 		PrimaryCluster:   *primaryCluster,
-		SecondaryCluster: *secondaryCluster,
 		Username:         *username,
 	}
 
