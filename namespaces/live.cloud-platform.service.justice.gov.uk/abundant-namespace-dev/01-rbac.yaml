@@ -28,7 +28,7 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: abundant-namespace-dev-admin-01
+  name: abundant-namespace-dev-admin-02
   namespace: abundant-namespace-dev
 subjects:
   - kind: Group
