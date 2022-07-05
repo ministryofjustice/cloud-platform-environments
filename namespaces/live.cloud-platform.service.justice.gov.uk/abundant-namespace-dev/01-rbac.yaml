@@ -1,13 +1,3 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: admin-abundant
-  namespace: abundant-namespace-dev 
-rules:
-  - apiGroups: [""]
-    resources: ["pods", "pods/portforward"]
-    verbs: ["get", "list", "create"]
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -19,19 +9,5 @@ subjects:
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: admin
-  apiGroup: rbac.authorization.k8s.io
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: abundant-namespace-dev-admin-02
-  namespace: abundant-namespace-dev
-subjects:
-  - kind: Group
-    name: "github:test-webops"
-    apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: Role
   name: admin
   apiGroup: rbac.authorization.k8s.io
