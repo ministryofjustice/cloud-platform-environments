@@ -17,9 +17,6 @@ subjects:
   - kind: Group
     name: "github:test-webops"
     apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:test-webops"
-    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
@@ -28,7 +25,7 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: abundant-namespace-dev-admin-03
+  name: abundant-namespace-dev-admin-02
   namespace: abundant-namespace-dev
 subjects:
   - kind: Group
