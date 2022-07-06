@@ -14,7 +14,7 @@ name: Check ingress weighting annotation
 on:
   pull_request:
     paths:
-      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
+      - "namespaces/live.cloud-platform.service.justice.gov.uk/**"
 
 env:
   # GITHUB_OAUTH_TOKEN created manually by the cloud-platform-bot-user in last pass.

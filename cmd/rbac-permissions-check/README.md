@@ -13,8 +13,7 @@ Here is a really basic example of the GitHub Action working in the Cloud Platfor
 ```yaml
 name: Check if user can amend namespace
 
-on:
-  pull_request
+on: pull_request
 
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
@@ -43,6 +42,7 @@ jobs:
 ## How to run locally
 
 To run the application locally, you must have the following:
+
 - A personal access token, with permission to view your organisation (this will require you to setup and enable SSO).
 - An environment variable set called `GITHUB_OAUTH_TOKEN` with the value of your personal access token.
 - An environment variable set called `PR_OWNER` that contains the valid username of a GitHub user.
