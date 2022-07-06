@@ -3,8 +3,6 @@
 package validate
 
 import (
-	"log"
-
 	"github.com/google/go-github/v35/github"
 
 	"rbac-check/config"
@@ -18,7 +16,6 @@ func UserPermissions(namespaceTeams map[string]int, opt *config.Options, user *c
 	teamOpts := &github.TeamListTeamMembersOptions{}
 	// Loop over all teams in namespaceTeams map.
 	for team := range namespaceTeams {
-		log.Println("\n Checking if any rbac team %s has the user", team, user.Id.GetID())
 		// Grab each github member of the team
 		members, _, err := opt.Client.Teams.ListTeamMembersBySlug(opt.Ctx, repo.Org, team, teamOpts)
 		if err != nil {
