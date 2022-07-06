@@ -16,14 +16,14 @@ import (
 )
 
 var (
-	token            = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token from GitHub.")
-	branch           = flag.String("branch", os.Getenv("BRANCH"), "Branch of changes in GitHub.")
-	branchRef        = flag.String("branchRef", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
-	username         = flag.String("user", os.Getenv("PR_OWNER"), "Branch of changes in GitHub.")
-	repo             = flag.String("repository", "cloud-platform-environments", "The repository of the Cloud Platform repository.")
-	org              = flag.String("org", "ministryofjustice", "Name of the orgnanisation i.e. ministryofjustice.")
-	adminTeam        = flag.String("admin", "WebOps", "Admin team looking after repository.")
-	primaryCluster   = flag.String("primary", "live", "Name of the primary cluster in use.")
+	token          = flag.String("token", os.Getenv("GITHUB_OAUTH_TOKEN"), "Personal access token from GitHub.")
+	branch         = flag.String("branch", os.Getenv("BRANCH"), "Branch of changes in GitHub.")
+	branchRef      = flag.String("branchRef", os.Getenv("GITHUB_REF"), "GitHub branch reference.")
+	username       = flag.String("user", os.Getenv("PR_OWNER"), "Branch of changes in GitHub.")
+	repo           = flag.String("repository", "cloud-platform-environments", "The repository of the Cloud Platform repository.")
+	org            = flag.String("org", "ministryofjustice", "Name of the orgnanisation i.e. ministryofjustice.")
+	adminTeam      = flag.String("admin", "WebOps", "Admin team looking after repository.")
+	primaryCluster = flag.String("primary", "live", "Name of the primary cluster in use.")
 )
 
 func main() {
@@ -39,8 +39,8 @@ func main() {
 	}
 
 	user := config.User{
-		PrimaryCluster:   *primaryCluster,
-		Username:         *username,
+		PrimaryCluster: *primaryCluster,
+		Username:       *username,
 	}
 
 	opt := config.Options{
@@ -80,7 +80,7 @@ func main() {
 	}
 
 	// Add the admin team so they can make changes to any namespace.
-	namespaceTeams[repo.AdminTeam] = 1
+	//namespaceTeams[repo.AdminTeam] = 1
 
 	// Convert the username string into a GitHub user ID. This is used later, to compare the
 	// list of users in a team.
