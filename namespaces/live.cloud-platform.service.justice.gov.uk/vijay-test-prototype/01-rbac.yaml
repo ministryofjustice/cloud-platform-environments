@@ -11,3 +11,28 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vijay-test-prototype-non-admin
+  namespace: vijay-test-prototype
+subjects:
+  - kind: Group
+    name: "github:test-webops"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: allow-port-forward
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: allow-port-forward
+  namespace: vijay-test-prototype
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/portforward"]
+    verbs: ["get", "list", "create"]
