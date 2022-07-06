@@ -77,7 +77,7 @@ func TestNamespace_SetRbacTeam(t *testing.T) {
 				Name: "abundant-namespace-dev",
 			},
 			args: args{
-				cluster: "live-1",
+				cluster: "live",
 			},
 			wantErr: false,
 		},
@@ -87,7 +87,7 @@ func TestNamespace_SetRbacTeam(t *testing.T) {
 				Name: "FAKE-NAMESPACE",
 			},
 			args: args{
-				cluster: "live-1",
+				cluster: "live",
 			},
 			wantErr: true,
 		},
