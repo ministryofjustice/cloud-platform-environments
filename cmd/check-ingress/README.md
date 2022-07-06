@@ -32,7 +32,7 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@master
 
-      - name: Does live-1 namespace have ingress weighting
+      - name: Does live namespace have ingress weighting
         id: review_pr
         uses: ministryofjustice/cloud-platform-environments/cmd/check-ingress@main
         env:
@@ -46,7 +46,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            The namespace in this PR contains a live-1 ingress resource that doesn't have the correct weighting annotation.
+            The namespace in this PR contains a live ingress resource that doesn't have the correct weighting annotation.
 ```
 
 ## How to run locally
