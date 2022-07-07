@@ -33,53 +33,13 @@ func TestGetUserID(t *testing.T) {
 	}
 }
 
-// TestSecondaryTeamName attempts to get a team name from a yaml file in the
-// secondary cluster.
-func TestSecondaryTeamName(t *testing.T) {
-	namespace := "cloud-platform-reports-dev"
-
-	user := config.User{
-		PrimaryCluster:   "live-1",
-		SecondaryCluster: "live",
-	}
-
-	repo := config.Repository{
-		AdminTeam: "webops",
-		Name:      "cloud-platform-environments",
-		Org:       "ministryofjustice",
-	}
-
-	opt := config.Options{
-		Client: client.GitHubClient(os.Getenv("TEST_GITHUB_ACCESS")),
-		Ctx:    context.Background(),
-	}
-
-	teams, _ := TeamName(namespace, &opt, &user, &repo)
-
-	for _, team := range teams {
-		if team != repo.AdminTeam {
-			t.Errorf("Expecting: %s; got %s", repo.AdminTeam, team)
-		}
-	}
-
-	namespace = "abundant-namespace-dev"
-	teams, _ = TeamName(namespace, &opt, &user, &repo)
-
-	for _, team := range teams {
-		if team != repo.AdminTeam {
-			t.Errorf("Expecting: %s; got %s", repo.AdminTeam, team)
-		}
-	}
-}
-
 // TestPrimaryTeamName attempts to get a team name from a yaml file in the
 // primary cluster.
 func TestPrimaryTeamName(t *testing.T) {
 	namespace := "abundant-namespace-dev"
 
 	user := config.User{
-		PrimaryCluster:   "live-1",
-		SecondaryCluster: "live",
+		PrimaryCluster:   "live",
 	}
 
 	repo := config.Repository{

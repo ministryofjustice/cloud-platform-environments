@@ -26,7 +26,7 @@ func main() {
 		log.Fatalln("Error getting files changed in PR:", err)
 	}
 
-	// Get a list of namespaces in live-1 that don't have an annotation
+	// Get a list of namespaces in live that don't have an annotation
 	data, err := ingress.CheckAnnotation(*endpoint)
 	if err != nil {
 		log.Fatalln("Error checking hoodaw API:", err)
