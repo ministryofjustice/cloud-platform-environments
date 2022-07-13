@@ -1,5 +1,5 @@
 module "case_note_poll_pusher_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=main"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -67,7 +67,7 @@ resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
 }
 
 module "case_note_poll_pusher_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=main"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
