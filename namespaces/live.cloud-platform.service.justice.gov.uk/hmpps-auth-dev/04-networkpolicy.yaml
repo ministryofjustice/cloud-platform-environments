@@ -6,10 +6,10 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - podSelector: {}
+    - from:
+      - podSelector: {}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -19,24 +19,9 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-token-verification-api-dev
-  namespace: hmpps-auth-dev
-spec:
-  podSelector: {}
-  policyTypes:
     - Ingress
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              component: token-verification-api-dev
+      - namespaceSelector:
+          matchLabels:
+            component: ingress-controllers
