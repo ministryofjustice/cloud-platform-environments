@@ -44,6 +44,7 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
     sid    = "QueueToConsumer"
     effect = "Allow"
     actions = [
+      "sqs:SendMessage",
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
@@ -74,12 +75,41 @@ module "case_note_poll_pusher_dead_letter_queue" {
   application               = var.application
   sqs_name                  = "case_note_poll_pusher_queue_dl"
   encrypt_sqs_kms           = "true"
+  kms_external_access       = ["arn:aws:iam::010587221707:role/delius-pre-prod-ecs-sqs-consumer"]
   message_retention_seconds = 1209600 # 2 weeks
   namespace                 = var.namespace
 
   providers = {
     aws = aws.london
   }
+}
+
+data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" {
+  version   = "2012-10-17"
+  policy_id = "${module.case_note_poll_pusher_queue.sqs_arn}/SQSDefaultPolicy"
+  statement {
+    sid    = "QueueToConsumer"
+    effect = "Allow"
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ChangeMessageVisibility",
+    ]
+    principals {
+      type = "AWS"
+      identifiers = [
+        "arn:aws:iam::010587221707:role/delius-pre-prod-ecs-sqs-consumer"
+      ]
+    }
+    resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
+  }
+}
+
+resource "aws_sqs_queue_policy" "case_note_poll_pusher_dead_letter_queue_policy" {
+  queue_url = module.case_note_poll_pusher_dead_letter_queue.sqs_id
+  policy    = data.aws_iam_policy_document.case_note_poll_pusher_dead_letter_queue_policy.json
 }
 
 resource "kubernetes_secret" "case_note_poll_pusher_queue" {
