@@ -1,5 +1,5 @@
 module "offender_events_ui_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "offender_events_ui_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
