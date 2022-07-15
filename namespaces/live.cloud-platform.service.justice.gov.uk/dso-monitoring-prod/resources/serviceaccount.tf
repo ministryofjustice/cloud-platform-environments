@@ -19,6 +19,7 @@ module "serviceaccount" {
         "pods",
         "serviceaccounts",
         "configmaps",
+        "persistentvolumeclaims"
       ]
       verbs = [
         "update",
