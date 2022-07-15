@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-person-match-score-cert
+  namespace: hmpps-person-match-score-prod
+spec:
+  secretName: hmpps-person-match-score-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-person-match-score.hmpps.service.justice.gov.uk
