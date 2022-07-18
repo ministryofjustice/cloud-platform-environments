@@ -3,9 +3,9 @@ kind: Namespace
 metadata:
   name: hmpps-auth-dev
   labels:
+    component: "hmpps-auth-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "dev"
-    cloud-platform.justice.gov.uk/component: "hmpps-auth-dev"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "hmpps-auth"
