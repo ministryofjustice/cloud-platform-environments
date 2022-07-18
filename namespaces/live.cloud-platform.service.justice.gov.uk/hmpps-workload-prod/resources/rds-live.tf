@@ -20,7 +20,7 @@ module "rds-live" {
   rds_family    = "postgres11"
   backup_window = "02:00-03:00"
 
-  db_allocated_storage = "110"
+  db_allocated_storage = "150"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
