@@ -13,3 +13,4 @@ spec:
     - court-hearing-event-receiver-preprod.hmpps.service.justice.gov.uk
     - court-case-test-app-preprod.hmpps.service.justice.gov.uk
     - pre-sentence-service-preprod.hmpps.service.justice.gov.uk
+    - hmpps-person-match-score-preprod.hmpps.service.justice.gov.uk
