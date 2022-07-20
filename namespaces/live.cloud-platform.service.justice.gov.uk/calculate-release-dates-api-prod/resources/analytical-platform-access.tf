@@ -7,10 +7,10 @@ module "ap_irsa" {
 
 resource "aws_iam_policy" "ap_policy" {
   name   = "${var.namespace}-ap-policy"
-  policy = data.aws_iam_policy_document.uof_ap_access.json
+  policy = data.aws_iam_policy_document.crd_ap_access.json
 }
 
-data "aws_iam_policy_document" "uof_ap_access" {
+data "aws_iam_policy_document" "crd_ap_access" {
   statement {
     sid = "AllowRdsExportUserToListS3Buckets"
     actions = [
@@ -39,42 +39,42 @@ data "aws_iam_policy_document" "uof_ap_access" {
   }
 }
 
-resource "random_id" "uof-ap-id" {
+resource "random_id" "crd-ap-id" {
   byte_length = 16
 }
 
-resource "aws_iam_user" "uof_ap_user" {
-  name = "uof-ap-s3-bucket-user-${random_id.uof-ap-id.hex}"
-  path = "/system/uof-ap-s3-bucket-user/"
+resource "aws_iam_user" "crd_ap_user" {
+  name = "crd-ap-s3-bucket-user-${random_id.crd-ap-id.hex}"
+  path = "/system/crd-ap-s3-bucket-user/"
 }
 
-resource "aws_iam_access_key" "uof_ap_user" {
-  user = aws_iam_user.uof_ap_user.name
+resource "aws_iam_access_key" "crd_ap_user" {
+  user = aws_iam_user.crd_ap_user.name
 }
 
-resource "aws_iam_user_policy" "uof_ap_policy" {
+resource "aws_iam_user_policy" "crd_ap_policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
-  policy = data.aws_iam_policy_document.uof_ap_access.json
-  user   = aws_iam_user.uof_ap_user.name
+  policy = data.aws_iam_policy_document.crd_ap_access.json
+  user   = aws_iam_user.crd_ap_user.name
 }
 
 resource "kubernetes_secret" "ap_aws_secret" {
   metadata {
-    name      = "uof-analytical-platform-reporting-s3-bucket"
+    name      = "crd-analytical-platform-reporting-s3-bucket"
     namespace = var.namespace
   }
 
   data = {
     destination_bucket = "s3://hmpps-${var.namespace}-landing"
-    user_arn           = aws_iam_user.uof_ap_user.arn
-    access_key_id      = aws_iam_access_key.uof_ap_user.id
-    secret_access_key  = aws_iam_access_key.uof_ap_user.secret
+    user_arn           = aws_iam_user.crd_ap_user.arn
+    access_key_id      = aws_iam_access_key.crd_ap_user.id
+    secret_access_key  = aws_iam_access_key.crd_ap_user.secret
   }
 }
 
 resource "kubernetes_secret" "ap_irsa" {
   metadata {
-    name      = "uof-to-ap-s3-irsa"
+    name      = "crd-to-ap-s3-irsa"
     namespace = var.namespace
   }
 
