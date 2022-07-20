@@ -10,6 +10,9 @@ variable "namespace" {
   default = "hmpps-historical-prisoner-application-dev"
 }
 
+variable "cluster_name" {
+}
+
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -30,11 +33,15 @@ variable "infrastructure-support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "false"
+variable "number_cache_clusters" {
+  default = "2"
 }
 
-variable "rds-family" {
-  default = "sqlserver-ex"
+variable "node-type" {
+  default = "cache.t2.small"
+}
+
+variable "is-production" {
+  default = "false"
 }
 
