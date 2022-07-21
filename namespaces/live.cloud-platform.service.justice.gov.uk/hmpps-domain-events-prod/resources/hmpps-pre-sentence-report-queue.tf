@@ -1,5 +1,5 @@
 module "pre_sentence_report_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -19,7 +19,7 @@ module "pre_sentence_report_queue" {
 }
 
 module "pre_sentence_report_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
