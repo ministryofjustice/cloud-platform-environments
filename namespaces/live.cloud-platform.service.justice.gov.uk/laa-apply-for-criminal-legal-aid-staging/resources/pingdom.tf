@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-apply-for-criminal-legal-aid-healthcheck" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_laa-apply-for-criminal-legal-aid,component_ping,isproduction_${var.is-production},environment_staging,infrastructuresupport_crime-apply-team"
+  tags                     = "businessunit_${var.business_unit},application_laa-apply-for-criminal-legal-aid,component_ping,isproduction_${var.is_production},environment_staging,infrastructuresupport_crime-apply-team"
   probefilters             = "region:EU"
   integrationids           = [123196]
 }
