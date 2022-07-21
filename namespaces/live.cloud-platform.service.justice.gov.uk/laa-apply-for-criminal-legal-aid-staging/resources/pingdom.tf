@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-apply-for-criminal-legal-aid-healthcheck" {
   type                     = "http"
   name                     = "laa-apply-for-criminal-legal-aid-healthcheck - staging - cloud-platform"
-  host                     = "https://laa-apply-for-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk"
+  host                     = "laa-apply-for-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
