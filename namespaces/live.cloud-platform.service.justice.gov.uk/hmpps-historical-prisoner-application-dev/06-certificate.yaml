@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - historical-prisoner-application-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-historical-prisoner-api-application-cert
+  namespace: hmpps-historical-prisoner-application-dev
+spec:
+  secretName: hmpps-historical-prisoner-api-application-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - historical-prisoner-application-api-dev.hmpps.service.justice.gov.uk
