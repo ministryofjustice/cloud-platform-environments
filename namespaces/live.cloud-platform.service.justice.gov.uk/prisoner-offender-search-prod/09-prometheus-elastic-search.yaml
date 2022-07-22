@@ -36,7 +36,7 @@ spec:
       annotations:
         message: ElasticSearch cluster index writes blocked {{ $labels.domain_name }}. https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?orgId=1&from=now-1h&to=now&refresh=1m&var-datasource=Cloudwatch&var-region=default&var-domainName={{ $labels.domain_name }}&var-clientId={{ $labels.client_id }}
         runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html
-      expr: aws_es_cluster_index_writes_blocked_maximum{domain_name=~"^dps-prod.*"} >= 1
+      expr: aws_es_cluster_index_writes_blocked_maximum{domain_name=~"^dps-prod.*", domain_name!="dps-prod-search-probation"} >= 1
       for: 5m
       labels:
         severity: digital-prison-service
