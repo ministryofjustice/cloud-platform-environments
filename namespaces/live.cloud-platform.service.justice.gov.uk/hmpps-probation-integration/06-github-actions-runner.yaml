@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-runner
+  namespace: hmpps-probation-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app: github-actions-runner
+    spec:
+      containers:
+        - name: runner
+          image: marcusaspin/github-actions-runner # Built from https://github.com/marcus-bcl/docker-github-actions-runner
+          securityContext:
+            runAsUser: 1001
+          resources:
+            # To match GitHub-hosted runner specs: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+            requests:
+              cpu: 2
+              memory: "7Gi"
+            limits:
+              cpu: 2
+              memory: "7Gi"
+          env:
+            - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
+              value: hmpps-probation-integration-runner
+            - name: LABELS
+              value: moj-cloud-platform,hmpps-probation-integration-runner
+            - name: REPO_URL
+              value: https://github.com/ministryofjustice/hmpps-probation-integration-services
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: ACCESS_TOKEN
