@@ -10,6 +10,7 @@ module "drupal_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   db_instance_class      = "db.t3.xlarge"
+  apply_immediately      = true
 
   providers = {
     aws = aws.london
