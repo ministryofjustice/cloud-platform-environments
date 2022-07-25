@@ -10,11 +10,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Gov.UK Prototype Kit"
+  default     = "hmpps-probation-integration-services"
 }
 
 variable "namespace" {
-  default = "hmpps-licenses-prototype"
+  default = "anthony-britton"
 }
 
 variable "business_unit" {
@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-licenses-prototype"
+  default     = "probation-integration"
 }
 
 variable "environment" {
@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "probation-integration-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -43,7 +43,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "create-and-vary-a-licencecreate-and-vary-a-licence"
+  default     = "probation-integration-team"
 }
 
 variable "github_owner" {
@@ -54,16 +54,4 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
-}
-
-## Prototype kit variables
-
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "hotel"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "california"
 }
