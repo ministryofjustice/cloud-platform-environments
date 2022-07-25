@@ -9,7 +9,8 @@ module "drupal_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  db_instance_class      = "db.t3.large"
+  db_instance_class      = "db.t3.medium"
+  apply_immediately      = true
 
   snapshot_identifier = "rds:cloud-platform-2703fa2c8a00ad83-2020-10-16-04-52"
 
