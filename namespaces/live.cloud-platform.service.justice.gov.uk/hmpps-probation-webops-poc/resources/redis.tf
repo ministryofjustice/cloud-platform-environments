@@ -10,7 +10,6 @@ module "elasticache_redis" {
   node_type              = "cache.t2.small"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
-  num_cache_clusters     = 1
   namespace              = var.namespace
 
   providers = {
