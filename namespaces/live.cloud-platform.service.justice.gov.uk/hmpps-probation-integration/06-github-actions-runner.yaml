@@ -15,17 +15,9 @@ spec:
     spec:
       containers:
         - name: runner
-          image: marcusaspin/github-actions-runner # Built from https://github.com/marcus-bcl/docker-github-actions-runner
+          image: marcusaspin/github-actions-runner:latest # Built from https://github.com/marcus-bcl/docker-github-actions-runner
           securityContext:
             runAsUser: 1001
-          resources:
-            # To match GitHub-hosted runner specs: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-            requests:
-              cpu: 2
-              memory: "7Gi"
-            limits:
-              cpu: 2
-              memory: "7Gi"
           env:
             - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
               value: hmpps-probation-integration-runner
