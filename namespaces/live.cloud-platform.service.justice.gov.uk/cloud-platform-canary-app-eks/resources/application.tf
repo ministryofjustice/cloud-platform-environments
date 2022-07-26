@@ -6,6 +6,6 @@ resource "helm_release" "cloud_platform_canary" {
   version    = "6.1.5"
 
   values = [
-    "${file("values.yaml")}"
+    ${file("values.yaml")}
   ]
 }
