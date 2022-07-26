@@ -14,8 +14,8 @@ tools-shell:
 		-e AUTH0_DOMAIN=$${AUTH0_DOMAIN} \
 		-e AUTH0_CLIENT_ID=$${AUTH0_CLIENT_ID} \
 		-e AUTH0_CLIENT_SECRET=$${AUTH0_CLIENT_SECRET} \
-		-e KUBE_CONFIG_PATH=~/.kube/config \
-		-e KUBECONFIG=~/.kube/config \
+		-e KUBE_CONFIG_PATH=$${HOME}/.kube/config \
+		-e KUBECONFIG=$${HOME}/.kube/config \
 		-v $$(pwd):/app \
 		-v $${HOME}/.aws:/root/.aws \
 		-v $${HOME}/.gnupg:/root/.gnupg \
