@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:2.2.2
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:2.2.3
 
 pull-tools:
 	@echo "Pulling Cloud Platform Tools docker image..."
@@ -27,7 +27,7 @@ tools-shell:
 
 # Test all the kubernetes yaml files against all the policies defined in the `policy` directory
 conftest:
-	ls -1 namespaces/livecloud-platform.service.justice.gov.uk/*/*.y*ml \
+	ls -1 namespaces/live.cloud-platform.service.justice.gov.uk/*/*.y*ml \
 		| xargs -n 200 conftest test
 
 # Run the rego policy tests
