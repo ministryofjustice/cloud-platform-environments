@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: runner
-          image: marcusaspin/github-actions-runner:latest # Built from https://github.com/marcus-bcl/docker-github-actions-runner
+          image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
           securityContext:
-            runAsUser: 1001
+            runAsUser: 1001 # 'runner' user
           env:
             - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
               value: hmpps-probation-integration-runner
