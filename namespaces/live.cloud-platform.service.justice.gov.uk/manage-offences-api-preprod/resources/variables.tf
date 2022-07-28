@@ -37,6 +37,6 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "offence_reference_data"
+  default     = "manage_offences_public"
 }
 
