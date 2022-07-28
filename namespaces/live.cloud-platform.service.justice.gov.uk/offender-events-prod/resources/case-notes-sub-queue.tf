@@ -54,8 +54,25 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::050243167760:role/delius-prod-ecs-sqs-consumer"
+        "arn:aws:iam::050243167760:role/delius-prod-ecs-sqs-consumer",
+        aws_iam_role.case_note_sqs_mgmt_role.arn
       ]
+    }
+    resources = [module.case_note_poll_pusher_queue.sqs_arn]
+  }
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:SetQueueAttributes"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.case_note_sqs_mgmt_role.arn]
     }
     resources = [module.case_note_poll_pusher_queue.sqs_arn]
   }
@@ -91,6 +108,7 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
     sid    = "QueueToConsumer"
     effect = "Allow"
     actions = [
+      "sqs:SendMessage",
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
@@ -100,8 +118,25 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::050243167760:role/delius-prod-ecs-sqs-consumer"
+        "arn:aws:iam::050243167760:role/delius-prod-ecs-sqs-consumer",
+        aws_iam_role.case_note_sqs_mgmt_role.arn
       ]
+    }
+    resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
+  }
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:SetQueueAttributes"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.case_note_sqs_mgmt_role.arn]
     }
     resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
   }
@@ -159,5 +194,58 @@ resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
       { prefix = "KA" }
     ]
   })
+}
+
+data "aws_iam_policy_document" "case_note_sqs_mgmt_policy_document" {
+  statement {
+    sid    = "SQS"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:SetQueueAttributes"
+    ]
+    resources = [
+      module.case_note_poll_pusher_queue.sqs_arn,
+      module.case_note_poll_pusher_dead_letter_queue.sqs_arn,
+    ]
+  }
+  statement {
+    sid    = "KMS"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:Encrypt",
+      "kms:GenerateDataKey*"
+    ]
+    resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "case_note_sqs_mgmt_assume_role_policy_document" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::570551521311:root"] # hmpps-probation
+    }
+  }
+}
+
+resource "aws_iam_role" "case_note_sqs_mgmt_role" {
+  name               = "${var.namespace}-case-note-sqs-mgmt"
+  assume_role_policy = data.aws_iam_policy_document.case_note_sqs_mgmt_assume_role_policy_document.json
+  inline_policy {
+    policy = data.aws_iam_policy_document.case_note_sqs_mgmt_policy_document.json
+  }
 }
 
