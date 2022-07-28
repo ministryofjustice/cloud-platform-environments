@@ -59,6 +59,28 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
     }
     resources = [module.case_note_poll_pusher_queue.sqs_arn]
   }
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:SetQueueAttributes"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.case_note_sqs_mgmt_role.arn]
+    }
+    resources = [module.case_note_poll_pusher_queue.sqs_arn]
+  }
 }
 
 resource "aws_sqs_queue_policy" "case_note_poll_pusher_queue_policy" {
@@ -102,6 +124,28 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
       identifiers = [
         "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer"
       ]
+    }
+    resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
+  }
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:SetQueueAttributes"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.case_note_sqs_mgmt_role.arn]
     }
     resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
   }
