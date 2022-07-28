@@ -197,13 +197,11 @@ data "aws_iam_policy_document" "case_note_sqs_mgmt_policy_document" {
 
 data "aws_iam_policy_document" "case_note_sqs_mgmt_assume_role_policy_document" {
   statement {
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole"
-    ]
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::728765553488:role/MoJDevelopers"]
+      identifiers = ["arn:aws:iam::570551521311:root"] # hmpps-probation
     }
   }
 }
