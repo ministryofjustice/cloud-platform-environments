@@ -18,6 +18,32 @@ module "workforce_allocation_queue" {
   }
 }
 
+data "aws_iam_policy_document" "workforce_allocation_queue_policy" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.workforce_allocation_queue.sqs_arn].json
+  ]
+  statement {
+    sid     = "TopicToQueue"
+    effect  = "Allow"
+    actions = ["SQS:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [module.hmpps-domain-events.topic_arn]
+    }
+    resources = [module.workforce_allocation_queue.sqs_arn]
+  }
+}
+
+resource "aws_sqs_queue_policy" "workforce_allocation_queue_policy" {
+  queue_url = module.workforce_allocation_queue.sqs_id
+  policy    = data.aws_iam_policy_document.workforce_allocation_queue_policy.json
+}
+
 module "workforce_allocation_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
@@ -33,43 +59,9 @@ module "workforce_allocation_dlq" {
   }
 }
 
-data "aws_iam_policy_document" "workforce_allocation_queue_policy" {
-  statement {
-    sid     = "SendMessagesFromTopic"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [module.hmpps-domain-events.topic_arn]
-    }
-    resources = [module.workforce_allocation_queue.sqs_arn]
-  }
-  statement {
-    sid    = "ReceiveMessagesFromDelius"
-    effect = "Allow"
-    actions = [
-      "sqs:ReceiveMessage",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes",
-    ]
-    principals {
-      type = "AWS"
-      identifiers = [
-        "arn:aws:iam::728765553488:role/delius-test-sqs-consumer"
-      ]
-    }
-    resources = [module.workforce_allocation_queue.sqs_arn]
-  }
-}
-
-resource "aws_sqs_queue_policy" "workforce_allocation_queue_policy" {
-  queue_url = module.workforce_allocation_queue.sqs_id
-  policy    = data.aws_iam_policy_document.workforce_allocation_queue_policy.json
+resource "aws_sqs_queue_policy" "workforce_allocation_dlq_policy" {
+  queue_url = module.workforce_allocation_dlq.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.workforce_allocation_dlq.sqs_arn].json
 }
 
 resource "aws_sns_topic_subscription" "workforce_allocation_queue_subscription" {
