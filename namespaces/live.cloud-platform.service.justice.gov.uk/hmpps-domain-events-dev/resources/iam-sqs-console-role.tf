@@ -8,7 +8,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
-  for_each = local.managed_queues
+  for_each = toset(local.managed_queues)
   statement {
     sid    = "QueueToConsumer"
     effect = "Allow"
