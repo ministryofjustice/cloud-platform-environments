@@ -92,3 +92,11 @@ spec:
       for: 1h
       labels:
         severity: cica-dev-team
+    - alert: cica--Resubmission-failure--prod
+      annotations:
+        message: The resubmission cronjob on {{ $labels.namespace }} has not been able to resubmit applications.
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-resubmission-failure
+      expr: resubmission_count{namespace="claim-criminal-injuries-compensation-prod", job="applications_resubmitted"} > 3
+      for: 1h
+      labels:
+        severity: cica-dev-team
