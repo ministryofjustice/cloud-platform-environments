@@ -161,3 +161,58 @@ resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
   })
 }
 
+data "aws_iam_policy_document" "case_note_sqs_mgmt_policy_document" {
+  statement {
+    sid    = "SQS"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListQueueTags",
+      "sqs:ListQueues",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:SetQueueAttributes"
+    ]
+    resources = [
+      module.case_note_poll_pusher_queue.sqs_arn,
+      module.case_note_poll_pusher_dead_letter_queue.sqs_arn,
+    ]
+  }
+  statement {
+    sid    = "KMS"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:Encrypt",
+      "kms:GenerateDataKey*"
+    ]
+    resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "case_note_sqs_mgmt_assume_role_policy_document" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::728765553488:role/MoJDevelopers"]
+    }
+  }
+}
+
+resource "aws_iam_role" "case_note_sqs_mgmt_role" {
+  name               = "${var.namespace}-case-note-sqs-mgmt"
+  assume_role_policy = data.aws_iam_policy_document.case_note_sqs_mgmt_assume_role_policy_document.json
+  inline_policy {
+    policy = data.aws_iam_policy_document.case_note_sqs_mgmt_policy_document.json
+  }
+}
+
