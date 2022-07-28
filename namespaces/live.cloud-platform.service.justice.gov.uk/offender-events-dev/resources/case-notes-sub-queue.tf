@@ -54,7 +54,8 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer"
+        "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer",
+        aws_iam_role.case_note_sqs_mgmt_role.arn
       ]
     }
     resources = [module.case_note_poll_pusher_queue.sqs_arn]
@@ -63,16 +64,10 @@ data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
     sid    = "QueueManagement"
     effect = "Allow"
     actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
       "sqs:ListQueues",
       "sqs:PurgeQueue",
-      "sqs:ReceiveMessage",
-      "sqs:SendMessage",
       "sqs:SetQueueAttributes"
     ]
     principals {
@@ -113,6 +108,7 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
     sid    = "QueueToConsumer"
     effect = "Allow"
     actions = [
+      "sqs:SendMessage",
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
@@ -122,7 +118,8 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer"
+        "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer",
+        aws_iam_role.case_note_sqs_mgmt_role.arn
       ]
     }
     resources = [module.case_note_poll_pusher_dead_letter_queue.sqs_arn]
@@ -131,16 +128,10 @@ data "aws_iam_policy_document" "case_note_poll_pusher_dead_letter_queue_policy" 
     sid    = "QueueManagement"
     effect = "Allow"
     actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
       "sqs:ListQueues",
       "sqs:PurgeQueue",
-      "sqs:ReceiveMessage",
-      "sqs:SendMessage",
       "sqs:SetQueueAttributes"
     ]
     principals {
