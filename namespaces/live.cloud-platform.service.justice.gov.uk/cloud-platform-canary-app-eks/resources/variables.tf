@@ -2,7 +2,6 @@
 variable "cluster_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Canary application to monitor cluster uptime"
@@ -10,6 +9,10 @@ variable "application" {
 
 variable "namespace" {
   default = "cloud-platform-canary-app-eks"
+}
+
+variable "host_name" {
+  default = "canary.apps.live.cloud-platform.service.justice.gov.uk"
 }
 
 variable "business_unit" {
