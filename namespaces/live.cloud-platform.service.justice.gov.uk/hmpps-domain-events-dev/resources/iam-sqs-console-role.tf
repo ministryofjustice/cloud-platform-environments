@@ -24,6 +24,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::728765553488:role/delius-test-ecs-sqs-consumer",
+        "arn:aws:iam::728765553488:role/delius-test-sqs-consumer",
         aws_iam_role.sqs_mgmt_role.arn
       ]
     }
