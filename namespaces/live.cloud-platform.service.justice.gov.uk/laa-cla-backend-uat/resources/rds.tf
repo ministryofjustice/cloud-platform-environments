@@ -42,6 +42,7 @@ module "cla_backend_rds_postgres_10" {
     }
   ]
 
+  snapshot_identifier = "cla-backend-manual-snapshot-2022-08-01"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
