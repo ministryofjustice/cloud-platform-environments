@@ -21,7 +21,7 @@ module "rds" {
   rds_family           = "postgres10"
   db_engine            = "postgres"
   db_engine_version    = "10"
-  db_instance_class    = "db.m5.large"
+  db_instance_class    = "db.m5.xlarge"
   db_allocated_storage = "50"
   db_name              = "mtp_api"
 
