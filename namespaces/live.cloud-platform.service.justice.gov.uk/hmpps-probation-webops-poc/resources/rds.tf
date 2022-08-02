@@ -18,6 +18,7 @@ module "rds" {
   db_engine              = "mariadb"
   db_allocated_storage   = "5"                      # Default is 10 in the RDS module
   license_model          = "general-public-license" # Make this visible
+  db_parameter           = [] # Ensure no default parameters set (default param in TF module adds a parameter not relevant to MariaDB) 
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
