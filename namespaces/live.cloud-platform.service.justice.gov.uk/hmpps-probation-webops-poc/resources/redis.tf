@@ -6,7 +6,7 @@ module "elasticache_redis" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-  number_cache_clusters  = "1"
+  number_cache_clusters  = "2"
   node_type              = "cache.t2.small"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
