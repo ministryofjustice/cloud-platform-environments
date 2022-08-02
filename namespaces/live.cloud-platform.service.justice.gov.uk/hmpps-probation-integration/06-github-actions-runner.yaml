@@ -26,7 +26,7 @@ spec:
             - name: REPO_URL
               value: https://github.com/ministryofjustice/hmpps-probation-integration-services
             - name: RUN_AS_ROOT
-              value: false
+              value: 'false'
             - name: ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
