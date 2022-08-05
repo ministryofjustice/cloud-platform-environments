@@ -56,6 +56,7 @@ module "serviceaccount" {
         "servicemonitors",
         "prometheusrules",
         "roles",
+        "rolebindings"
       ]
       verbs = [
         "get",
