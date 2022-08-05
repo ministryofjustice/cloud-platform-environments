@@ -12,6 +12,7 @@ module "track_a_query_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+  github_repositories = [var.repo_name]
 }
 
 resource "kubernetes_secret" "track_a_query_ecr_credentials" {
