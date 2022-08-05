@@ -43,6 +43,7 @@ module "serviceaccount" {
         "batch",
         "networking.k8s.io",
         "monitoring.coreos.com",
+        "rbac.authorization.k8s.io",
       ]
       resources = [
         "deployments",
@@ -54,6 +55,7 @@ module "serviceaccount" {
         "networkpolicies",
         "servicemonitors",
         "prometheusrules",
+        "roles",
       ]
       verbs = [
         "get",
