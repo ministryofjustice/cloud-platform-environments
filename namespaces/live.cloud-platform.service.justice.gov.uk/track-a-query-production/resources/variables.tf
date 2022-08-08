@@ -53,5 +53,5 @@ variable "github_token" {
 }
 
 variable "repo_name" {
-  default = "correspondence_tool"
+  default = "correspondence_tool_staff"
 }
