@@ -65,5 +65,5 @@ variable "basic-auth-username" {
 
 variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
-  default     = "m4n4g3s0cc4ses"
+  default     = ""
 }
