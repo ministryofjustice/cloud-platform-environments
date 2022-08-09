@@ -129,9 +129,9 @@ spec:
             severity: pfs-hub
         - alert: RDSMaxConnections
           annotations:
-            message: "[{{ $labels.dbinstance_identifier }}] RDS max connections above 80%."
+            message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/2160918618/Technical+documentation
-          expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} > aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} * 0.80
+          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-08a8cf9e6f678214"} > 1044
           for: 15m
           labels:
             severity: pfs-hub
