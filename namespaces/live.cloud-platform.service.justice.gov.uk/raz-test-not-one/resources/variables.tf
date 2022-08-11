@@ -16,7 +16,7 @@ variable "namespace" {
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "Platforms"
+  default     = "Platforms and Architecture"
 }
 
 variable "team_name" {
