@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mrd-github-actions-runner
+  namespace: make-recall-decision-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app: github-actions-runner
+    spec:
+      containers:
+        - name: runner
+          image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
+          securityContext:
+            runAsUser: 1001 # 'runner' user
+          env:
+            - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
+              value: make-recall-decision-functional-test-runner
+            - name: LABELS
+              value: moj-cloud-platform,make-recall-decision-functional-test-runner
+            - name: REPO_URL
+              value: https://github.com/ministryofjustice/make-recall-decision-api
+            - name: RUN_AS_ROOT
+              value: 'false'
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: ACCESS_TOKEN
