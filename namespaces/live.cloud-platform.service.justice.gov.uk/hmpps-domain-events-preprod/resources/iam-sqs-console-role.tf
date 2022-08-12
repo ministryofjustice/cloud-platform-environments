@@ -24,7 +24,6 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::010587221707:role/delius-pre-prod-ecs-sqs-consumer",
-        "arn:aws:iam::010587221707:role/delius-pre-prod-sqs-consumer",
         aws_iam_role.sqs_mgmt_role.arn
       ]
     }
