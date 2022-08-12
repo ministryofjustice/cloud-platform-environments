@@ -5,34 +5,16 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
-
-  default_tags {
-    tags = {
-      GithubTeam = "secure-estate-digital-prototypes"
-    }
-  }
 }
 
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
-
-  default_tags {
-    tags = {
-      GithubTeam = "secure-estate-digital-prototypes"
-    }
-  }
 }
 
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
-
-  default_tags {
-    tags = {
-      GithubTeam = "secure-estate-digital-prototypes"
-    }
-  }
 }
 
 provider "github" {
