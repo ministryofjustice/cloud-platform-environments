@@ -13,7 +13,6 @@ env:
   ECR_NAME: ${{ secrets.ECR_NAME }}
   KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
   KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
-  PROTOTYPE_NAME: ${{ secrets.PROTOTYPE_NAME }}
 
 jobs:
   main:

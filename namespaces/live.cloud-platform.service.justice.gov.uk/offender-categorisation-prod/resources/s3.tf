@@ -1,5 +1,5 @@
 module "risk_profiler_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -14,6 +14,7 @@ module "risk_profiler_s3_bucket" {
     aws = aws.london
   }
 
+
   bucket_policy = <<EOF
 {
   "Version":"2012-10-17",
@@ -21,12 +22,21 @@ module "risk_profiler_s3_bucket" {
         {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::593291632749:role/airflow_viper_to_external"
+                "AWS":
+                  [
+                    "arn:aws:iam::593291632749:role/airflow_viper_to_external",
+                    "arn:aws:iam::593291632749:role/airflow_prod_sdt_viper_to_external"
+                  ]
             },
             "Action": [
                 "s3:GetObject",
                 "s3:PutObject",
-                "s3:PutObjectAcl"
+                "s3:PutObjectAcl",
+                "s3:GetObjectAcl",
+                "s3:GetObjectVersion",
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion",
+                "s3:RestoreObject"
             ],
             "Resource": [
                 "$${bucket_arn}/viper/*"

@@ -182,7 +182,7 @@ func GetAllResourceQuotasFromCluster(clientSet kubernetes.Interface) ([]v1.Resou
 	return resourcequotas.Items, nil
 }
 
-// SetRbacTeam takes a cluster name as a string in the format of `live-1` (for example) and sets the
+// SetRbacTeam takes a cluster name as a string in the format of `live` (for example) and sets the
 // method value `RbacTeam`.
 // The function performs a HTTP GET request to GitHub, grabs the contents of the rbac yaml file and
 // interpolates the GitHub teams allowed to access a namespace.
@@ -266,7 +266,7 @@ func ChangedInPR(branchRef, token, repo, owner string) ([]string, error) {
 	for _, repo := range repos {
 		if strings.Contains(*repo.Filename, "live") {
 			// namespaces filepaths are assumed to come in
-			// the format: namespaces/live-1.cloud-platform.service.justice.gov.uk/<namespaceName>
+			// the format: namespaces/live.cloud-platform.service.justice.gov.uk/<namespaceName>
 			s := strings.Split(*repo.Filename, "/")
 			namespaceNames = append(namespaceNames, s[2])
 		}

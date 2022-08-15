@@ -4,7 +4,7 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  github_repositories = [var.namespace]
+  github_repositories = [var.namespace, "manage-a-workforce-design-history"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {

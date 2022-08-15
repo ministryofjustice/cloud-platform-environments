@@ -19,6 +19,8 @@ module "serviceaccount" {
         "pods",
         "serviceaccounts",
         "configmaps",
+        "persistentvolumeclaims",
+
       ]
       verbs = [
         "update",
@@ -34,13 +36,23 @@ module "serviceaccount" {
       api_groups = [
         "extensions",
         "apps",
+        "batch",
         "networking.k8s.io",
         "monitoring.coreos.com",
+        "rbac.authorization.k8s.io",
       ]
       resources = [
         "deployments",
         "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
         "servicemonitors",
+        "prometheusrules",
+        "roles",
+        "rolebindings"
       ]
       verbs = [
         "get",

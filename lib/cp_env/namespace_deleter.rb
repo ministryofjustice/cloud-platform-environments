@@ -14,7 +14,7 @@ class CpEnv
 
     attr_reader :namespace, :k8s_client
 
-    CLUSTER = "live-1.cloud-platform.service.justice.gov.uk"
+    CLUSTER = "live.cloud-platform.service.justice.gov.uk"
     AWS_REGION = "eu-west-2"
     NAMEPACES_DIR = "namespaces/#{CLUSTER}"
     PRODUCTION_LABEL = "cloud-platform.justice.gov.uk/is-production"

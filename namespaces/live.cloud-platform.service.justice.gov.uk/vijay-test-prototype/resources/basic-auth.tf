@@ -5,7 +5,6 @@ resource "kubernetes_secret" "basic-auth" {
     name      = "basic-auth"
     namespace = var.namespace
   }
-
   data = {
     username = var.basic-auth-username
     password = var.basic-auth-password

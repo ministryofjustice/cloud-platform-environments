@@ -10,7 +10,7 @@ variable "cluster_state_bucket" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "LAA-HMRC Interface Service API"
+  default     = "laa-hmrc-interface-service-api"
 }
 
 variable "namespace" {

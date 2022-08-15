@@ -1,12 +1,3 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: allow-port-forward
-  namespace: hmpps-pin-phone-monitor-prod
-rules:
-  - apiGroups: [""]
-    resources: ["pods", "pods/portforward"]
-    verbs: ["get", "list", "create"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -16,6 +7,9 @@ metadata:
 subjects:
   - kind: Group
     name: "github:dps-soct-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:secure-estate-digital-restricted-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -35,3 +29,14 @@ roleRef:
   kind: Role
   name: allow-port-forward
   apiGroup: rbac.authorization.k8s.io
+---
+# Add role at the bottom of the RBAC file, as GitHub action RBAC check expect role binding with subjects to the top of the file
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: allow-port-forward
+  namespace: hmpps-pin-phone-monitor-prod
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/portforward"]
+    verbs: ["get", "list", "create"]

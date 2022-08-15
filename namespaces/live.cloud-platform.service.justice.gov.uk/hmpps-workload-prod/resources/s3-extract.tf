@@ -1,6 +1,6 @@
 module "hmpps-workload-prod-s3-extract-bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -83,7 +83,7 @@ EOF
 }
 
 module "hmpps_workload_s3_extract_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -106,7 +106,7 @@ module "hmpps_workload_s3_extract_event_queue" {
 }
 
 module "hmpps_workload_s3_extract_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment
   team_name              = var.team_name

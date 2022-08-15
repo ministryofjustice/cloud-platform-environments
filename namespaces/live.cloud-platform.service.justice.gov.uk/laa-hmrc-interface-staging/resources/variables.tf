@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 }
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "LAA-HMRC Interface Service API"
+  default     = "laa-hmrc-interface-service-api"
 }
 
 variable "namespace" {
@@ -25,7 +25,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "uat"
+  default     = "staging"
 }
 
 variable "infrastructure_support" {

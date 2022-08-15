@@ -15,7 +15,16 @@ spec:
         message: ingress {{ $labels.ingress }} is serving 5XX responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress!="court-case-service"}[1m]) * 60 > 0) by (ingress)
+      for: 1m
+      labels:
+        severity: prepare-a-case
+    - alert: ErrorResponsesCCS
+      annotations:
+        message: ingress {{ $labels.ingress }} is serving 5XX responses
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress="court-case-service"}[1m]) * 60 > 4)
       for: 1m
       labels:
         severity: prepare-a-case
@@ -79,10 +88,10 @@ spec:
         severity: prepare-a-case
     - alert: RDSHighCpu
       annotations:
-        message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than two minutes.
+        message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than ten minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
         aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-37a1ac1b9a12702e"} > 95
-      for: 2m
+      for: 10m
       labels:
         severity: prepare-a-case

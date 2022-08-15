@@ -1,5 +1,5 @@
 module "create_link_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -31,13 +31,6 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
           "Principal": {
@@ -55,7 +48,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 
 
 module "create_link_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -72,7 +65,7 @@ module "create_link_queue_dead_letter_queue" {
 }
 
 module "unlink_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -105,13 +98,6 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
           "Principal": {
@@ -128,7 +114,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
 }
 
 module "unlink_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -145,7 +131,7 @@ module "unlink_queue_dead_letter_queue" {
 }
 
 module "laa_status_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -178,13 +164,6 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
           "Principal": {
@@ -201,7 +180,7 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
 }
 
 module "laa_status_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -218,7 +197,7 @@ module "laa_status_update_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -251,13 +230,6 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
-        {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",
           "Principal": {
@@ -274,7 +246,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -291,7 +263,7 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name          = var.environment_name
   team_name                 = var.team_name
@@ -316,7 +288,7 @@ module "prosecution_concluded_queue" {
 }
 
 module "prosecution_concluded_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment_name
   team_name              = var.team_name
@@ -340,13 +312,6 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
     "Id": "${module.prosecution_concluded_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
-        {
-          "Sid": "PublishPolicy",
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        },
         {
           "Sid": "ConsumePolicy",
           "Effect": "Allow",

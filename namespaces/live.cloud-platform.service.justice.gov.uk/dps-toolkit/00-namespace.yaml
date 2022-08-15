@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: dps-toolkit
   labels:
+    component: "dps-toolkit"
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:

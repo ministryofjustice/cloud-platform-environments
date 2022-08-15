@@ -9,8 +9,8 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_allocated_storage   = 50
-  db_instance_class      = "db.t3.xlarge"
+  db_allocated_storage   = 200
+  db_instance_class      = "db.t3.2xlarge"
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
@@ -48,7 +48,8 @@ module "rds-read-replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_allocated_storage   = 50
+  db_allocated_storage   = 200
+  db_instance_class      = "db.t3.medium"
 
   db_name             = module.rds-instance.database_name
   replicate_source_db = module.rds-instance.db_identifier
@@ -71,8 +72,8 @@ resource "kubernetes_secret" "rds-read-replica" {
   }
 
   data = {
-    access_key_id     = module.rds-instance.access_key_id
-    secret_access_key = module.rds-instance.secret_access_key
+    access_key_id     = module.rds-read-replica.access_key_id
+    secret_access_key = module.rds-read-replica.secret_access_key
     url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
   }
 }

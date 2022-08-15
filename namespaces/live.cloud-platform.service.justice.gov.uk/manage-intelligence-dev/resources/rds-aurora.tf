@@ -9,7 +9,7 @@ module "rds_aurora" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   engine                      = "aurora-postgresql"
-  engine_version              = "12.8"
+  engine_version              = "13.7"
   engine_mode                 = "provisioned"
   replica_count               = 1
   instance_type               = "db.t3.medium"

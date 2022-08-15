@@ -62,7 +62,7 @@ describe CpEnv::NamespaceDeleter do
 
   context "when the namespace source code folder exists" do
     before do
-      allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(true)
+      allow(FileTest).to receive(:directory?).with("namespaces/live.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(true)
     end
 
     it "does not delete AWS resources" do
@@ -101,10 +101,10 @@ describe CpEnv::NamespaceDeleter do
   context "when the namespace should be deleted" do
     before do
       allow(Open3).to receive(:capture3).at_least(:once).and_return(["", "", success])
-      expect(Open3).to receive(:capture3).with("mkdir -p namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources").and_return(["", "", success])
-      allow(FileTest).to receive(:directory?).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(false, true)
+      expect(Open3).to receive(:capture3).with("mkdir -p namespaces/live.cloud-platform.service.justice.gov.uk/nonprod/resources").and_return(["", "", success])
+      allow(FileTest).to receive(:directory?).with("namespaces/live.cloud-platform.service.justice.gov.uk/#{namespace}").and_return(false, true)
       ["main.tf", "variables.tf", "versions.tf"].each do |tf_file|
-        expect(File).to receive(:open).with("namespaces/live-1.cloud-platform.service.justice.gov.uk/nonprod/resources/#{tf_file}", "w").at_least(:once)
+        expect(File).to receive(:open).with("namespaces/live.cloud-platform.service.justice.gov.uk/nonprod/resources/#{tf_file}", "w").at_least(:once)
       end
     end
 

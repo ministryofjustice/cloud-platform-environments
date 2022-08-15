@@ -2,7 +2,7 @@ module "irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
   namespace        = var.namespace
   role_policy_arns = [aws_iam_policy.dso-monitoring-dev_grafana-dev.arn]
-  service_account  = "grafana-dev"
+  service_account  = var.grafana_sa
 }
 
 data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "dso-monitoring-dev_grafana-dev" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::612659970365:role/CloudwatchDatasourceRole",
+      "arn:aws:iam::${var.mp_account}:role/CloudwatchDatasourceRole",
     ]
   }
 }

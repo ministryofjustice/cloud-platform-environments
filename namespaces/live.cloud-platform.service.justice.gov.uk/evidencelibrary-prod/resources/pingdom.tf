@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "evidencelibraryui-pingdom" {
   type                     = "http"
   name                     = "evidencelibraryui - production - cloud-platform"
-  host                     = "evidence-library-prod.apps.live.cloud-platform.service.justice.gov.uk"
+  host                     = "analytical-evidence-library.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6

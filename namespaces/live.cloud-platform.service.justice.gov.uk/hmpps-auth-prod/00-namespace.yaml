@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: hmpps-auth-prod
   labels:
+    component: "hmpps-auth-prod"
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:

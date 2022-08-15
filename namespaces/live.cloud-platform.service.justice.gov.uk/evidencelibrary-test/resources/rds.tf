@@ -16,12 +16,15 @@ module "evidencelibrary_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
+  # change the instance class as you see fit.
+  db_instance_class = var.db_instance_class
+
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = var.rds-family
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  #allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

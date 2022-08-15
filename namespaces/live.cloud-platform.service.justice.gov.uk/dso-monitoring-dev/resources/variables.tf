@@ -3,6 +3,9 @@ variable "cluster_name" {
 }
 
 
+variable "kubernetes_cluster" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "DSO Monitoring"
@@ -49,4 +52,24 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "mp_account" {
+  description = "Destination account for metrics collection"
+  default     = "612659970365" # nomis-test
+}
+
+variable "grafana_sa" {
+  description = "Name for Grafana service account"
+  default     = "grafana-dev"
+}
+
+variable "prometheus_sa" {
+  description = "Name for Prometheus service account"
+  default     = "prometheus-dev"
+}
+
+variable "alertmanager_sa" {
+  description = "Name for Alertmanager service account"
+  default     = "prometheus-alertmanager"
 }

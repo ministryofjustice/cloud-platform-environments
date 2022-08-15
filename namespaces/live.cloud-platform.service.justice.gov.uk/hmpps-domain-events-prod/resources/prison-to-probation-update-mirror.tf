@@ -1,6 +1,11 @@
+locals {
+  enable_prison_to_probation_update_mirror_queue = 0 # Set to 1 to enable the queue while testing
+}
+
 # Queue to mirror data into preprod for testing
 module "prison_to_probation_update_mirror_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  count  = local.enable_prison_to_probation_update_mirror_queue
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -18,8 +23,9 @@ module "prison_to_probation_update_mirror_queue" {
 
 # Policy to allow topic to push messages to the queue
 data "aws_iam_policy_document" "prison_to_probation_update_mirror_queue_policy" {
+  count = local.enable_prison_to_probation_update_mirror_queue
   statement {
-    sid     = "${module.prison_to_probation_update_mirror_queue.sqs_arn}/SQSDefaultPolicy"
+    sid     = "${module.prison_to_probation_update_mirror_queue[count.index].sqs_arn}/SQSDefaultPolicy"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
@@ -31,20 +37,22 @@ data "aws_iam_policy_document" "prison_to_probation_update_mirror_queue_policy" 
       test     = "ArnEquals"
       values   = [module.hmpps-domain-events.topic_arn]
     }
-    resources = [module.prison_to_probation_update_mirror_queue.sqs_arn]
+    resources = [module.prison_to_probation_update_mirror_queue[count.index].sqs_arn]
   }
 }
 
 resource "aws_sqs_queue_policy" "prison_to_probation_update_mirror_queue_policy" {
-  queue_url = module.prison_to_probation_update_mirror_queue.sqs_id
-  policy    = data.aws_iam_policy_document.prison_to_probation_update_mirror_queue_policy.json
+  count     = local.enable_prison_to_probation_update_mirror_queue
+  queue_url = module.prison_to_probation_update_mirror_queue[count.index].sqs_id
+  policy    = data.aws_iam_policy_document.prison_to_probation_update_mirror_queue_policy[count.index].json
 }
 
 # Subscription to the hmpps-domain-events topic
 resource "aws_sns_topic_subscription" "prison_to_probation_update_mirror_subscription" {
+  count     = local.enable_prison_to_probation_update_mirror_queue
   protocol  = "sqs"
   topic_arn = module.hmpps-domain-events.topic_arn
-  endpoint  = module.prison_to_probation_update_mirror_queue.sqs_arn
+  endpoint  = module.prison_to_probation_update_mirror_queue[count.index].sqs_arn
   provider  = aws.london
   filter_policy = jsonencode({
     eventType = [
@@ -70,18 +78,19 @@ resource "kubernetes_secret" "prison_to_probation_update_topic_access" {
 
 # Kubernetes secret to allow the preprod service to read from the queue
 resource "kubernetes_secret" "prison_to_probation_update_mirror_queue" {
+  count = local.enable_prison_to_probation_update_mirror_queue
   metadata {
     name      = "sqs-hmpps-domain-events-mirror"
     namespace = "prison-to-probation-update-preprod"
   }
 
   data = {
-    access_key_id     = module.prison_to_probation_update_mirror_queue.access_key_id
-    secret_access_key = module.prison_to_probation_update_mirror_queue.secret_access_key
-    sqs_queue_url     = module.prison_to_probation_update_mirror_queue.sqs_id
-    sqs_queue_arn     = module.prison_to_probation_update_mirror_queue.sqs_arn
-    sqs_queue_name    = module.prison_to_probation_update_mirror_queue.sqs_name
-    subscription_arn  = aws_sns_topic_subscription.prison_to_probation_update_mirror_subscription.arn
+    access_key_id     = module.prison_to_probation_update_mirror_queue[count.index].access_key_id
+    secret_access_key = module.prison_to_probation_update_mirror_queue[count.index].secret_access_key
+    sqs_queue_url     = module.prison_to_probation_update_mirror_queue[count.index].sqs_id
+    sqs_queue_arn     = module.prison_to_probation_update_mirror_queue[count.index].sqs_arn
+    sqs_queue_name    = module.prison_to_probation_update_mirror_queue[count.index].sqs_name
+    subscription_arn  = aws_sns_topic_subscription.prison_to_probation_update_mirror_subscription[count.index].arn
   }
 }
 
