@@ -17,7 +17,7 @@ module "rds" {
   infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "13.4"
-  db_instance_class      = "db.t4g.small"
+  db_instance_class      = "db.t3.small"
   db_name                = "laa_apply_bot_production"
   rds_family             = "postgres13"
 
