@@ -16,10 +16,10 @@ module "rds" {
   environment-name       = "production"
   infrastructure-support = "apply@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "13.4"
-  db_instance_class      = "db.t4g.small"
+  db_engine_version      = "11"
+  db_instance_class      = "db.t2.small"
   db_name                = "laa_apply_bot_production"
-  rds_family             = "postgres13"
+  rds_family             = "postgres11"
 
   allow_major_version_upgrade = "true"
 
