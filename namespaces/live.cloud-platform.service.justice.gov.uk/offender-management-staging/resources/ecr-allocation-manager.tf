@@ -1,5 +1,5 @@
 module "ecr-repo-allocation-manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.7"
 
   team_name = var.team_name
   repo_name = "offender-management-allocation-manager"

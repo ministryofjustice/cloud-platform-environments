@@ -5,7 +5,7 @@
  *
  */
 module "cica_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.6"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.7"
   repo_name = "cica-repo-uat"
   team_name = "cica"
 
