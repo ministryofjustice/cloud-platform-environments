@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "hmpps-dpr-poc"
     cloud-platform.justice.gov.uk/application: "POC environment for digital prison reporting"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Reporting: digitalprisonreporting@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/book-a-prison-visit-prototype/hmpps-digital-prison-reporting-poc"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc"
     cloud-platform.justice.gov.uk/team-name: "hmpps-digital-prison-reporting"
     cloud-platform.justice.gov.uk/review-after: "2022-11-16"
