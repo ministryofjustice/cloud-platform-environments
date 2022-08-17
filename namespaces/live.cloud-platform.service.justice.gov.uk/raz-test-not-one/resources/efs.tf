@@ -1,3 +1,4 @@
+
 module "efs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-efs-pv?ref=frist"
 
@@ -10,6 +11,10 @@ module "efs" {
   is_production          = var.is_production
   team_name              = var.team_name
   slack_channel          = var.slack_channel
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "efs_id" {
