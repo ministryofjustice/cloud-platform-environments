@@ -2,7 +2,7 @@
 module "efs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-efs-pv?ref=frist"
 
-  cluster_name           = var.cluster_name == "live-1" ? "live" : var.cluster_name
+  cluster_name           = var.cluster_name
   namespace              = var.namespace
   application            = var.application
   business_unit          = var.business_unit
