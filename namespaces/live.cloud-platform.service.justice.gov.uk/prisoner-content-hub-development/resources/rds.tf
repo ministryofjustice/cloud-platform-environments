@@ -42,3 +42,20 @@ resource "kubernetes_secret" "drupal_rds" {
     # url                   = "postgres://${module.drupal_rds.database_username}:${module.drupal_rds.database_password}@${module.drupal_rds.rds_instance_endpoint}/${module.drupal_rds.database_name}"
   }
 }
+
+# This places a secret for this dev RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the dev data.
+resource "kubernetes_secret" "drupal_rds_refresh_creds_development" {
+  metadata {
+    name      = "drupal-rds-instance-output-development"
+    namespace = "prisoner-content-hub-production"
+  }
+
+  data = {
+    rds_instance_endpoint = module.drupal_rds.rds_instance_endpoint
+    database_name         = module.drupal_rds.database_name
+    database_username     = module.drupal_rds.database_username
+    database_password     = module.drupal_rds.database_password
+    rds_instance_address  = module.drupal_rds.rds_instance_address
+  }
+}
