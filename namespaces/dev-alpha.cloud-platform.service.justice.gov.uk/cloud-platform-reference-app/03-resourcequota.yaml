@@ -5,4 +5,4 @@ metadata:
   namespace: cloud-platform-reference-app
 spec:
   hard:
-    pods: "50"
+    pods: "580"

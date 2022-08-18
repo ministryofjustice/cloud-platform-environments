@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: jason-demo
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "falses"
     cloud-platform.justice.gov.uk/environment-name: "dev-alpha"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "CICA"
