@@ -105,4 +105,3 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_subscription" {
   endpoint      = module.prisoner_from_nomis_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"IEP_INSERTED\"]}"
 }
-
