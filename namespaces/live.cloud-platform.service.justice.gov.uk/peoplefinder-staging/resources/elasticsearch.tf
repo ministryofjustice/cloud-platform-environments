@@ -20,6 +20,6 @@ module "peoplefinder_es" {
   instance_type              = "t3.medium.elasticsearch"
 
   advanced_options = {
-    override_main_response_version = true
+    override_main_response_version = false
   }
 }
