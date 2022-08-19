@@ -18,4 +18,8 @@ module "peoplefinder_es" {
   elasticsearch_version      = "7.9"
   aws-es-proxy-replica-count = 2
   instance_type              = "t3.medium.elasticsearch"
+
+  advanced_options = {
+    override_main_response_version = true
+  }
 }

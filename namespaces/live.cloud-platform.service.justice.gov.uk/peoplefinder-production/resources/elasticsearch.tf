@@ -54,4 +54,8 @@ module "peoplefinder_es" {
 
   log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
   log_publishing_application_enabled                  = true
+
+  advanced_options = {
+    override_main_response_version = true
+  }
 }
