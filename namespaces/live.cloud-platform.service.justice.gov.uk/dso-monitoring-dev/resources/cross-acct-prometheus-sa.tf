@@ -1,5 +1,5 @@
 module "irsa_prometheus" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.3"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.4"
   namespace        = var.namespace
   role_policy_arns = [aws_iam_policy.dso-monitoring-dev_prometheus-dev.arn]
   service_account  = var.prometheus_sa
