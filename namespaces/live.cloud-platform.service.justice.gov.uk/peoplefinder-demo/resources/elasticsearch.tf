@@ -16,4 +16,8 @@ module "peoplefinder_es" {
   namespace              = "peoplefinder-demo"
   elasticsearch_version  = "7.9"
   instance_type          = "t2.small.elasticsearch"
+
+  advanced_options = {
+    override_main_response_version = true
+  }
 }
