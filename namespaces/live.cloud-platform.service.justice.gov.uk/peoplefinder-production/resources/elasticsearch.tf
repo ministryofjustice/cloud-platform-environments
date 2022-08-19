@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_publishing_poli
 
 # Elastic search module
 module "peoplefinder_es" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.3"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.5"
   cluster_name               = var.cluster_name
   application                = "peoplefinder"
   business-unit              = "Central Digital"
@@ -54,4 +54,8 @@ module "peoplefinder_es" {
 
   log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
   log_publishing_application_enabled                  = true
+
+  advanced_options = {
+    override_main_response_version = true
+  }
 }
