@@ -52,6 +52,7 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_host         = module.allocation-rds.rds_instance_address
     postgres_user         = module.allocation-rds.database_username
     postgres_password     = module.allocation-rds.database_password
+    access_key_id         = module.allocation-rds.access_key_id
+    secret_access_key     = module.allocation-rds.secret_access_key
   }
 }
-
