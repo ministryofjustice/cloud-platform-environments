@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-probation-estate-api-cert
+  namespace: hmpps-probation-estate-preprod
+spec:
+  secretName: hmpps-probation-estate-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - hmpps-probation-estate-api-preprod.hmpps.service.justice.gov.uk
