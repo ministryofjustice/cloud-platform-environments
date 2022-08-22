@@ -31,6 +31,8 @@ module "allocation-rds" {
   db_name                = "allocations"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
+  allow_major_version_upgrade = true
+
   providers = {
     aws = aws.london
   }
