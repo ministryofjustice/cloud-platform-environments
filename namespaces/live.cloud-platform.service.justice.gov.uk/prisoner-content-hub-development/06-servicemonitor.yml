@@ -1,0 +1,28 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: prisoner-content-hub-development
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prisoner-content-hub-development
+  namespace: prisoner-content-hub-development
+spec:
+  selector:
+    matchLabels:
+      app: prisoner-content-hub-backend-prometheus-metrics
+  endpoints:
+    - port: http
+      interval: 15s
