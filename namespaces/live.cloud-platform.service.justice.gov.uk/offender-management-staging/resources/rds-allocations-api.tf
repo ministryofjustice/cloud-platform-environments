@@ -18,6 +18,7 @@ module "allocation-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
 
   cluster_name           = var.cluster_name
+  db_instance_class      = "db.t3.small"
   team_name              = "offender-management"
   business-unit          = "HMPPS"
   application            = "offender-management-allocation-manager"
@@ -26,7 +27,7 @@ module "allocation-rds" {
   environment-name       = "staging"
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "14.3"
+  db_engine_version      = "10.21"
   db_name                = "allocations"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
