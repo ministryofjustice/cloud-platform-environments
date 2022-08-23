@@ -26,6 +26,7 @@ module "allocation-rds" {
   environment-name       = "staging"
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
+  rds_family             = "postgres14"
   db_engine_version      = "14.3"
   db_name                = "allocations"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
