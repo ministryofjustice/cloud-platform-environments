@@ -1,6 +1,7 @@
 module "calculate_release_dates_api_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
   cluster_name           = var.cluster_name
+  db_instance_class      = "db.t3.small"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -8,7 +9,11 @@ module "calculate_release_dates_api_rds" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  db_engine              = "postgres"
+  db_engine_version      = "13.4"
+  rds_family             = "postgres13"
 
+  allow_major_version_upgrade = "true"
 
   providers = {
     aws = aws.london
