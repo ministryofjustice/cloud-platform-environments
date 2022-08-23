@@ -12,8 +12,8 @@ module "calculate_release_dates_api_rds" {
   db_engine              = "postgres"
   db_engine_version      = "13.4"
   rds_family             = "postgres13"
-
-  allow_upgrade_to_major_version = true
+  
+  allow_upgrade_to_major_version = "true"
 
   providers = {
     aws = aws.london
