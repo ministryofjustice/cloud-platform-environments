@@ -5,7 +5,7 @@ metadata:
   namespace: approved-premises-prototype
 subjects:
   - kind: Group
-    name: "github:approved-premises-prototype"
+    name: "github:approved-premises-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
