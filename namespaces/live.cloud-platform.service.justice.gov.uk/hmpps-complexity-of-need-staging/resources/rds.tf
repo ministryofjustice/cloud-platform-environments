@@ -18,6 +18,7 @@ module "complexity-of-need-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
 
   cluster_name           = var.cluster_name
+  db_instance_class      = "db.t3.small"
   team_name              = var.team_name
   business-unit          = "HMPPS"
   application            = "hmpps-complexity-of-need"
@@ -26,9 +27,11 @@ module "complexity-of-need-rds" {
   environment-name       = "staging"
   infrastructure-support = "omic@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "10"
+  db_engine_version      = "10.21"
   db_name                = "hmpps_complexity_of_need"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+
+  allow_major_version_upgrade = true
 
   providers = {
     aws = aws.london
@@ -42,10 +45,13 @@ resource "kubernetes_secret" "complexity-of-need-rds" {
   }
 
   data = {
+    rds_instance_endpoint = module.complexity-of-need-rds.rds_instance_endpoint
     postgres_name     = module.complexity-of-need-rds.database_name
     postgres_host     = module.complexity-of-need-rds.rds_instance_address
     postgres_user     = module.complexity-of-need-rds.database_username
     postgres_password = module.complexity-of-need-rds.database_password
+    rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
+    access_key_id         = module.complexity-of-need-rds.access_key_id
+    secret_access_key     = module.complexity-of-need-rds.secret_access_key
   }
 }
-
