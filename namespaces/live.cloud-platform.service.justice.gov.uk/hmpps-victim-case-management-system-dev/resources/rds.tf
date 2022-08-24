@@ -6,19 +6,20 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
-  cluster_name           = var.cluster_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
-  db_engine              = "mariadb"
-  db_allocated_storage   = "5"                      # Default is 10 in the RDS module
-  license_model          = "general-public-license" # Make this visible
-  db_parameter           = [] # Ensure no default parameters set (default param in TF module adds a parameter not relevant to MariaDB)
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  cluster_name             = var.cluster_name
+  team_name                = var.team_name
+  business-unit            = var.business_unit
+  application              = var.application
+  is-production            = var.is_production
+  environment-name         = var.environment
+  infrastructure-support   = var.infrastructure_support
+  namespace                = var.namespace
+  db_engine                = "mariadb"
+  db_allocated_storage     = "5"                      # Default is 10 in the RDS module
+  db_max_allocated_storage = "1000"                   # Default is 10000 in the RDS module, which is a value not compatble with the gp2 storage type
+  license_model            = "general-public-license" # Make this visible
+  db_parameter             = []                       # Ensure no default parameters set (default param in TF module adds a parameter not relevant to MariaDB)
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
