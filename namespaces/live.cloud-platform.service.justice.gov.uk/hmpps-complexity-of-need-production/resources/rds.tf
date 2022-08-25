@@ -22,7 +22,7 @@ module "rds" {
   rds_family = "postgres14"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
