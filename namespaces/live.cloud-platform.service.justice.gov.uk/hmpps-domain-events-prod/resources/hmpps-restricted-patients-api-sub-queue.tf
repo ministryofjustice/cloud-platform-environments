@@ -99,5 +99,5 @@ resource "aws_sns_topic_subscription" "restricted_patients_sub_queue_for_domain_
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.restricted_patients_sub_queue_for_domain_events.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.received\", \"prison-offender-events.restricted-patient.removed\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.received\"]}"
 }
