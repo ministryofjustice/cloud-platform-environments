@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: probation-search-es-probation-offender-search-dev-green
+    ingress.kubernetes.io/whitelist-source-range: "35.176.126.163/32,35.178.162.73/32,52.56.195.113/32"
+  name: probation-search-es
+  namespace: probation-offender-search-dev
+spec:
+  ingressClassName: default
+  rules:
+    - host: probation-search-es-dev.hmpps.service.justice.gov.uk
+      http:
+        paths:
+          - backend:
+              service:
+                name: es-proxy
+                port:
+                  number: 9200
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - probation-search-es-dev.hmpps.service.justice.gov.uk
+      secretName: probation-search-es-cert
+status:
+  loadBalancer:
+    ingress:
+      - hostname: a77370a09d8684f74bf8751253a40dc0-6c06823e856bebac.elb.eu-west-2.amazonaws.com
