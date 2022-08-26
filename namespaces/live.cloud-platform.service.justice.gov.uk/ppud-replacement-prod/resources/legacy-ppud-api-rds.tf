@@ -34,7 +34,7 @@ resource "aws_security_group" "modernisation_platform_rds_sg" {
 }
 
 module "ppud_replica_prod_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
 
   cluster_name           = var.cluster_name
   namespace              = var.namespace

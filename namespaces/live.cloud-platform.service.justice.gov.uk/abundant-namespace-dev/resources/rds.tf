@@ -1,15 +1,17 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+  
 
   # enable performance insights
   performance_insights_enabled = true
+  enable_rds_auto_start_stop   = true
 
   # change the postgres version as you see fit.
   db_engine_version           = "10"

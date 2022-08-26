@@ -15,7 +15,7 @@ variable "cluster_name" {
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
 
   cluster_name           = var.cluster_name
   db_instance_class      = "db.t3.small"

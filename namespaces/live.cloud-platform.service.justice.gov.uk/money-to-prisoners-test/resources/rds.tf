@@ -2,7 +2,7 @@
 variable "cluster_name" {}
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
 
   providers = {
     aws = aws.london
