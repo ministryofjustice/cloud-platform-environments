@@ -78,13 +78,9 @@ resource "aws_sqs_queue_policy" "hmpps-prison-custody-status-to-delius-dlq-polic
   policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.hmpps-prison-custody-status-to-delius-dlq.sqs_arn].json
 }
 
-data "github_actions_public_key" "public_key" {
-  repository = "ministryofjustice/hmpps-probation-integration-services"
-}
-
-resource "github_actions_environment_secret" "queue_name" {
-  repository      = "ministryofjustice/hmpps-probation-integration-services"
-  environment     = "preprod"
+resource "github_actions_environment_secret" "hmpps-prison-custody-status-to-delius-queue-name-secret" {
+  repository      = data.github_repository.hmpps-probation-integration-services.name
+  environment     = "test"
   secret_name     = "PRISON_CUSTODY_STATUS_TO_DELIUS_QUEUE_NAME"
   plaintext_value = module.hmpps-prison-custody-status-to-delius-queue.sqs_name
 }
