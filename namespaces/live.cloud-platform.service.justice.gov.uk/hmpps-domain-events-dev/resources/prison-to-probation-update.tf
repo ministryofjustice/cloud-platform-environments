@@ -1,4 +1,4 @@
-
+# Deprecated. This queue will be removed once the prison-custody-status-to-delius service is live
 
 module "prison_to_probation_update_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
@@ -99,14 +99,4 @@ resource "kubernetes_secret" "prison_to_probation_update_dlq" {
     sqs_queue_name    = module.prison_to_probation_update_dead_letter_queue.sqs_name
   }
 }
-
-
-resource "aws_sns_topic_subscription" "prison_to_probation_update_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.prison_to_probation_update_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
-}
-
 

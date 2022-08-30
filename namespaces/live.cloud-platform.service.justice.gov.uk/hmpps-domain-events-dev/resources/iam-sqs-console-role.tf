@@ -4,6 +4,8 @@ locals {
     module.workforce_allocation_dlq.sqs_arn,
     module.pre_sentence_report_queue.sqs_arn,
     module.pre_sentence_report_dlq.sqs_arn,
+    module.hmpps-prison-custody-status-to-delius-queue.sqs_arn,
+    module.hmpps-prison-custody-status-to-delius-dlq.sqs_arn,
   ]
 }
 
