@@ -20,7 +20,7 @@ module "pre_sentence_report_queue" {
 
 data "aws_iam_policy_document" "pre_sentence_report_queue_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.pre_sentence_report_queue.sqs_arn].json
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
   ]
   statement {
     sid     = "TopicToQueue"
@@ -61,7 +61,7 @@ module "pre_sentence_report_dlq" {
 
 resource "aws_sqs_queue_policy" "pre_sentence_report_dlq_policy" {
   queue_url = module.pre_sentence_report_dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.pre_sentence_report_dlq.sqs_arn].json
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "aws_sns_topic_subscription" "pre_sentence_report_queue_subscription" {
