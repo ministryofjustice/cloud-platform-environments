@@ -10,7 +10,6 @@ locals {
 }
 
 data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
-  for_each = toset(local.managed_queues)
   statement {
     sid    = "QueueToConsumer"
     effect = "Allow"
@@ -29,7 +28,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
         aws_iam_role.sqs_mgmt_role.arn
       ]
     }
-    resources = [each.value]
+    resources = ["*"]
   }
   statement {
     sid    = "QueueManagement"
@@ -45,7 +44,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
       type        = "AWS"
       identifiers = [aws_iam_role.sqs_mgmt_role.arn]
     }
-    resources = [each.value]
+    resources = ["*"]
   }
   statement {
     sid     = "ListQueues"

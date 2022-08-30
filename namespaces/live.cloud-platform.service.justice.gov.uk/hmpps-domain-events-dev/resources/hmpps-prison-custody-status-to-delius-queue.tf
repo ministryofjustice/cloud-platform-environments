@@ -34,7 +34,7 @@ module "hmpps-prison-custody-status-to-delius-queue" {
 
 data "aws_iam_policy_document" "hmpps-prison-custody-status-to-delius-queue-policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.hmpps-prison-custody-status-to-delius-queue.sqs_arn].json
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
   ]
   statement {
     sid     = "TopicToQueue"
@@ -75,7 +75,7 @@ module "hmpps-prison-custody-status-to-delius-dlq" {
 
 resource "aws_sqs_queue_policy" "hmpps-prison-custody-status-to-delius-dlq-policy" {
   queue_url = module.hmpps-prison-custody-status-to-delius-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.hmpps-prison-custody-status-to-delius-dlq.sqs_arn].json
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "github_actions_environment_secret" "hmpps-prison-custody-status-to-delius-queue-name-secret" {
