@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Gov.UK Prototype Kit"
+  default     = "Approved Premises Prototype"
 }
 
 variable "namespace" {
@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "approved-premises-prototype"
+  default     = "approved-premises-team"
 }
 
 variable "environment" {
