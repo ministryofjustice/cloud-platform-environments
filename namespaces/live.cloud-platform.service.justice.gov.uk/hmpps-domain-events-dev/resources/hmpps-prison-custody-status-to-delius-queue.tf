@@ -17,9 +17,9 @@ module "hmpps-prison-custody-status-to-delius-queue" {
   environment-name       = var.environment-name
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
-  team_name              = "probation-integration"
+  team_name              = "hmpps-probation-integration"
   application            = "prison-custody-status-to-delius"
-  sqs_name               = "hmpps-prison-custody-status-to-delius-queue"
+  sqs_name               = "prison-custody-status-to-delius-queue"
 
   message_retention_seconds = 14 * 86400 # 2 weeks
   redrive_policy = jsonencode({
@@ -64,9 +64,9 @@ module "hmpps-prison-custody-status-to-delius-dlq" {
   environment-name       = var.environment-name
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
-  team_name              = "probation-integration"
+  team_name              = "hmpps-probation-integration"
   application            = "prison-custody-status-to-delius"
-  sqs_name               = "hmpps-prison-custody-status-to-delius-dlq"
+  sqs_name               = "prison-custody-status-to-delius-dlq"
 
   providers = {
     aws = aws.london
