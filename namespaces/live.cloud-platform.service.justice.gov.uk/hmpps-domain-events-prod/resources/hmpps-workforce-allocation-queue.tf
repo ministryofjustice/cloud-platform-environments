@@ -20,7 +20,7 @@ module "workforce_allocation_queue" {
 
 data "aws_iam_policy_document" "workforce_allocation_queue_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.workforce_allocation_queue.sqs_arn].json
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
   ]
   statement {
     sid     = "TopicToQueue"
@@ -61,7 +61,7 @@ module "workforce_allocation_dlq" {
 
 resource "aws_sqs_queue_policy" "workforce_allocation_dlq_policy" {
   queue_url = module.workforce_allocation_dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.workforce_allocation_dlq.sqs_arn].json
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "aws_sns_topic_subscription" "workforce_allocation_queue_subscription" {
