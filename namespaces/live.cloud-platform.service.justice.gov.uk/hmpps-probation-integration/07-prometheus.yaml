@@ -15,7 +15,7 @@ spec:
             message: Dead letter queue {{ $labels.queue_name }} has {{ $value }} message(s)
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/PINT/pages/4087972031/How+to+Access+SQS+Queues+in+the+AWS+Console
           expr: |-
-            sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"hmpps-probation-integration-.*-dlq} offset 5m) by (queue_name) > 0
+            sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"hmpps-probation-integration-.*-dlq"} offset 5m) by (queue_name) > 0
           for: 15m
           labels:
             severity: probation-integration-notifications
