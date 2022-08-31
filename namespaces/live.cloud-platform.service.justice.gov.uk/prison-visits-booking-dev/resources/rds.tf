@@ -10,6 +10,7 @@ module "prison-visits-rds" {
   infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
   db_instance_class           = "db.m4.large"
   rds_family                  = "postgres12"
   db_engine_version           = "12"
