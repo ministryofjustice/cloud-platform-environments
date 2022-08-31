@@ -45,5 +45,5 @@ module "sw_test_es" {
  *
  */
 output "ism_policy" {
-  value = module.example_cold_storage.ism_policy
+  value = module.sw_test_es.ism_policy
 }
