@@ -73,7 +73,7 @@ module "pic_probation_offender_events_dead_letter_queue" {
 resource "kubernetes_secret" "pic_probation_offender_events_queue" {
   metadata {
     name      = "pic-probation-offender-events-sqs-instance-output"
-    namespace = "pic-dev"
+    namespace = "court-probation-dev"
   }
 
   data = {
@@ -88,7 +88,7 @@ resource "kubernetes_secret" "pic_probation_offender_events_queue" {
 resource "kubernetes_secret" "pic_probation_offender_events_dead_letter_queue" {
   metadata {
     name      = "pic-probation-offender-events-sqs-dl-instance-output"
-    namespace = "pic-dev"
+    namespace = "court-probation-dev"
   }
   data = {
     access_key_id     = module.pic_probation_offender_events_dead_letter_queue.access_key_id
@@ -99,10 +99,10 @@ resource "kubernetes_secret" "pic_probation_offender_events_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "pic_probation_sqs_tool_main_queue" {
+resource "kubernetes_secret" "pic_probation_offender_events_sqs_tool_main_queue" {
   metadata {
-    name      = "pic-probation-sqs-tool-main-queue"
-    namespace = "pic-dev"
+    name      = "pic-probation-offender-events-sqs-tool-main-queue"
+    namespace = "court-probation-dev"
   }
 
   data = {
@@ -114,10 +114,10 @@ resource "kubernetes_secret" "pic_probation_sqs_tool_main_queue" {
   }
 }
 
-resource "kubernetes_secret" "pic_probation_sqs_tool_dead_letter_queue" {
+resource "kubernetes_secret" "pic_probation_offender_events_sqs_tool_dead_letter_queue" {
   metadata {
-    name      = "pic-probation-sqs-tool-dead-letter-queue"
-    namespace = "pic-dev"
+    name      = "pic-probation-offender-events-sqs-tool-dead-letter-queue"
+    namespace = "court-probation-dev"
   }
   data = {
     access_key_id     = module.pic_probation_offender_events_dead_letter_queue.access_key_id
