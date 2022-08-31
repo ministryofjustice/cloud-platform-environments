@@ -34,3 +34,8 @@ variable "is-production" {
   default = "true"
 }
 
+variable "github_token" {
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+
