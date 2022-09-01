@@ -8,6 +8,7 @@ module "db_backups_storage" {
   is-production          = var.is-production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
