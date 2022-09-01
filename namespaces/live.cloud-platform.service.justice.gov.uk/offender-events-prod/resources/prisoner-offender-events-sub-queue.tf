@@ -107,6 +107,6 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"OFFENDER_MOVEMENT-RECEPTION\", \"OFFENDER_MOVEMENT-DISCHARGE\"] }"
+  filter_policy = "{\"eventType\":[ \"OFFENDER_MOVEMENT-RECEPTION\", \"OFFENDER_MOVEMENT-DISCHARGE\", \"BOOKING_NUMBER-CHANGED\"] }"
 }
 
