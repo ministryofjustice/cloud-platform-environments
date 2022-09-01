@@ -113,7 +113,7 @@ resource "github_actions_environment_secret" "person-search-index-from-delius-se
     "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_AWS_SECRET_ACCESS_KEY" = module.probation_offender_search_event_queue.secret_access_key
   }
   repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = "test"
+  environment     = "preprod"
   secret_name     = each.key
   plaintext_value = each.value
 }
