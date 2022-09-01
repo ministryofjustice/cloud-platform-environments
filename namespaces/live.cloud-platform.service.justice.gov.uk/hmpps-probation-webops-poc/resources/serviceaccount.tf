@@ -18,6 +18,7 @@ module "serviceaccount" {
         "services",
         "configmaps",
         "pods",
+        "pods/exec",
 
       ]
       verbs = [
