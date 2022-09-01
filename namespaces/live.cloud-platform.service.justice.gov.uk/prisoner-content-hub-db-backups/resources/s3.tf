@@ -31,7 +31,7 @@ module "db_backups_storage" {
   ]
 }
 
-resource "kubernetes_secret" "db_backups_secret" {
+resource "kubernetes_secret" "db_backups_s3_production" {
   metadata {
     name      = "db-backups-s3"
     namespace = prisoner-content-hub-production
@@ -45,7 +45,7 @@ resource "kubernetes_secret" "db_backups_secret" {
   }
 }
 
-resource "kubernetes_secret" "db_backups_secret" {
+resource "kubernetes_secret" "db_backups_s3_staging" {
   metadata {
     name      = "db-backups-s3"
     namespace = prisoner-content-hub-staging
@@ -59,7 +59,7 @@ resource "kubernetes_secret" "db_backups_secret" {
   }
 }
 
-resource "kubernetes_secret" "db_backups_secret" {
+resource "kubernetes_secret" "db_backups_s3_development" {
   metadata {
     name      = "db-backups-s3"
     namespace = prisoner-content-hub-development
