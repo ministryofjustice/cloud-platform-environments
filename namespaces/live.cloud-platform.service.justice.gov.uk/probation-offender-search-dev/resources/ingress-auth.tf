@@ -1,5 +1,10 @@
-resource "random_password" "username" { length = 32 }
-resource "random_password" "password" { length = 32 }
+resource "random_password" "username" {
+  length  = 32
+  special = false
+}
+resource "random_password" "password" {
+  length = 32
+}
 
 resource "kubernetes_secret" "ingress-basic-auth" {
   metadata {
