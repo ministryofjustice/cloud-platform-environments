@@ -107,3 +107,14 @@ resource "aws_sns_topic_subscription" "probation_offender_search_event_subscript
   filter_policy = "{\"eventType\":[\"OFFENDER_CHANGED\",\"OFFENDER_REGISTRATION_CHANGED\",\"OFFENDER_REGISTRATION_DEREGISTERED\",\"OFFENDER_REGISTRATION_DELETED\",\"SENTENCE_CHANGED\",\"CONVICTION_CHANGED\"]}"
 }
 
+resource "github_actions_environment_secret" "person-search-index-from-delius-secret" {
+  for_each = {
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_QUEUE_NAME"            = module.probation_offender_search_event_queue.sqs_name
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_AWS_ACCESS_KEY_ID"     = module.probation_offender_search_event_queue.access_key_id
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_AWS_SECRET_ACCESS_KEY" = module.probation_offender_search_event_queue.secret_access_key
+  }
+  repository      = data.github_repository.hmpps-probation-integration-services.name
+  environment     = "prod"
+  secret_name     = each.key
+  plaintext_value = each.value
+}

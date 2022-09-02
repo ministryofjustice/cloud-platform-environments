@@ -1,6 +1,6 @@
 # HMCTS Complaints Adapter ECR Repos
 module "ecr-repo-hmcts-complaints-adapter" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
 
   team_name = var.team_name
   repo_name = "hmcts-complaints-formbuilder-adapter"

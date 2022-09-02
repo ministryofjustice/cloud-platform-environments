@@ -1,5 +1,5 @@
 module "ecr-repo-nomis-delius-emulator" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
 
   team_name = var.team_name
   repo_name = "nomis-delius-emulator"

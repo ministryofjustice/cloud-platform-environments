@@ -1,12 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-nomis-visits-mapping-service-dev-admin
-  namespace: hmpps-historical-prisoner-application-dev
+  name: laa-estimate-financial-eligibility-for-legal-aid-staging-admin
+  namespace: laa-estimate-financial-eligibility-for-legal-aid-staging
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:laa-estimate-eligibility"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

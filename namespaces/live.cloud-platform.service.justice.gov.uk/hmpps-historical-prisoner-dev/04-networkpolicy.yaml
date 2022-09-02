@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hmpps-historical-prisoner-application-dev
+  namespace: hmpps-historical-prisoner-dev
 spec:
   podSelector: {}
   policyTypes:
@@ -16,7 +16,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hmpps-historical-prisoner-application-dev
+  namespace: hmpps-historical-prisoner-dev
 spec:
   podSelector: {}
   policyTypes:

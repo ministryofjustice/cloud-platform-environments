@@ -1,13 +1,13 @@
 variable "domain" {
-  default = "dev.hmpps-historical-prisoner-application-dev.service.justice.gov.uk"
+  default = "dev.hmpps-historical-prisoner-dev.service.justice.gov.uk"
 }
 
 variable "application" {
-  default = "hmpps-historical-prisoner-application-dev"
+  default = "hmpps-historical-prisoner-dev"
 }
 
 variable "namespace" {
-  default = "hmpps-historical-prisoner-application-dev"
+  default = "hmpps-historical-prisoner-dev"
 }
 
 variable "cluster_name" {
