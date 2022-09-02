@@ -7,7 +7,7 @@ resource "kubernetes_secret" "ingress-basic-auth" {
     namespace = var.namespace
   }
   data = {
-    auth = "${random_password.username.result}:${random_password.password.result}"
+    auth = "${random_password.username.result}:${random_password.password.bcrypt_hash}"
   }
 }
 
