@@ -99,9 +99,9 @@ resource "kubernetes_secret" "pic_probation_offender_events_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "pic_probation_offender_events_sqs_tool_main_queue" {
+resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_main_queue" {
   metadata {
-    name      = "pic-probation-offender-events-sqs-tool-main-queue"
+    name      = "probation-offender-events-court-case-service-main-queue"
     namespace = "court-probation-dev"
   }
 
@@ -114,9 +114,9 @@ resource "kubernetes_secret" "pic_probation_offender_events_sqs_tool_main_queue"
   }
 }
 
-resource "kubernetes_secret" "pic_probation_offender_events_sqs_tool_dead_letter_queue" {
+resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_dead_letter_queue" {
   metadata {
-    name      = "pic-probation-offender-events-sqs-tool-dead-letter-queue"
+    name      = "probation-offender-events-court-case-service-dead-letter-queue"
     namespace = "court-probation-dev"
   }
   data = {
