@@ -40,3 +40,6 @@ variable "slack_channel" {
   default     = "offence_reference_data"
 }
 
+variable "rds_family" {
+  default = "postgres14"
+}
