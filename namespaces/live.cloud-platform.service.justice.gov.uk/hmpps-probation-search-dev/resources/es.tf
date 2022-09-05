@@ -6,7 +6,7 @@ module "probation_search_elasticsearch" {
   environment-name                = var.environment
   infrastructure-support          = var.infrastructure_support
   is-production                   = var.is_production
-  team_name                       = var.team_name
+  team_name                       = "pi"
   elasticsearch-domain            = "probation-search"
   aws_es_proxy_service_name       = "es-proxy"
   encryption_at_rest              = true
