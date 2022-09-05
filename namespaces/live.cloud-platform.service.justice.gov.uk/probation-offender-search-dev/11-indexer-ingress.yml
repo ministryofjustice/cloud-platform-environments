@@ -26,3 +26,7 @@ spec:
     - hosts:
         - probation-search-es-dev.hmpps.service.justice.gov.uk
       secretName: probation-search-es-cert
+status:
+  loadBalancer:
+    ingress:
+      - hostname: a77370a09d8684f74bf8751253a40dc0-6c06823e856bebac.elb.eu-west-2.amazonaws.com
