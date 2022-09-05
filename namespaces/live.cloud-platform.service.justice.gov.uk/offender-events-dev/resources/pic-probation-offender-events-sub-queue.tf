@@ -70,35 +70,6 @@ module "pic_probation_offender_events_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "pic_probation_offender_events_queue" {
-  metadata {
-    name      = "pic-probation-offender-events-sqs-instance-output"
-    namespace = "court-probation-dev"
-  }
-
-  data = {
-    access_key_id     = module.pic_probation_offender_events_queue.access_key_id
-    secret_access_key = module.pic_probation_offender_events_queue.secret_access_key
-    sqs_ptpu_url      = module.pic_probation_offender_events_queue.sqs_id
-    sqs_ptpu_arn      = module.pic_probation_offender_events_queue.sqs_arn
-    sqs_ptpu_name     = module.pic_probation_offender_events_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "pic_probation_offender_events_dead_letter_queue" {
-  metadata {
-    name      = "pic-probation-offender-events-sqs-dl-instance-output"
-    namespace = "court-probation-dev"
-  }
-  data = {
-    access_key_id     = module.pic_probation_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.pic_probation_offender_events_dead_letter_queue.secret_access_key
-    sqs_ptpu_url      = module.pic_probation_offender_events_dead_letter_queue.sqs_id
-    sqs_ptpu_arn      = module.pic_probation_offender_events_dead_letter_queue.sqs_arn
-    sqs_ptpu_name     = module.pic_probation_offender_events_dead_letter_queue.sqs_name
-  }
-}
-
 resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_main_queue" {
   metadata {
     name      = "probation-offender-events-court-case-service-main-queue"
@@ -130,7 +101,7 @@ resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_d
 
 resource "aws_sns_topic_probation_subscription" "pic_probation_offender_events_subscription" {
   provider      = aws.london
-  topic_probation_arn     = module.probation_offender_events.topic_probation_arn
+  topic_probation_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.pic_probation_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\"] }"
