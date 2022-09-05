@@ -1,71 +1,73 @@
-module "probation_search_index_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
-
-  environment-name           = var.environment
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
-  sqs_name                   = "probation_search_index_queue"
-  encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
-  namespace                  = var.namespace
-
-
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.probation_search_index_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-  
-EOF
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-module "probation_search_index_dead_letter_queue" {
+module "probation-search-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
   environment-name       = var.environment
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "probation_search_index_dl_queue"
-  encrypt_sqs_kms        = "true"
   namespace              = var.namespace
+  infrastructure-support = var.infrastructure_support
+  team_name              = var.team_name
+  application            = var.application
+  sqs_name               = "probation-search-queue"
+
+  message_retention_seconds = 14 * 86400 # 2 weeks
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.probation-search-dlq.sqs_arn
+    maxReceiveCount     = 3
+  })
 
   providers = {
     aws = aws.london
   }
 }
 
-resource "kubernetes_secret" "probation_search_index_queue" {
-  metadata {
-    name      = "poi-idx-sqs-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.probation_search_index_queue.access_key_id
-    secret_access_key = module.probation_search_index_queue.secret_access_key
-    sqs_id            = module.probation_search_index_queue.sqs_id
-    sqs_arn           = module.probation_search_index_queue.sqs_arn
-    sqs_name          = module.probation_search_index_queue.sqs_name
+data "aws_iam_policy_document" "probation-search-queue-policy" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
+  ]
+  statement {
+    sid     = "TopicToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+#    condition {
+#      variable = "aws:SourceArn"
+#      test     = "ArnEquals"
+#      values   = [module.hmpps-domain-events.topic_arn]
+#    }
+    resources = [module.probation-search-queue.sqs_arn]
   }
 }
 
-resource "kubernetes_secret" "probation_search_index_dead_letter_queue" {
-  metadata {
-    name      = "poi-idx-sqs-dl-instance-output"
-    namespace = var.namespace
-  }
+resource "aws_sqs_queue_policy" "probation-search-queue-policy" {
+  queue_url = module.probation-search-queue.sqs_id
+  policy    = data.aws_iam_policy_document.probation-search-queue-policy.json
+}
 
-  data = {
-    access_key_id     = module.probation_search_index_dead_letter_queue.access_key_id
-    secret_access_key = module.probation_search_index_dead_letter_queue.secret_access_key
-    sqs_id            = module.probation_search_index_dead_letter_queue.sqs_id
-    sqs_arn           = module.probation_search_index_dead_letter_queue.sqs_arn
-    sqs_name          = module.probation_search_index_dead_letter_queue.sqs_name
+module "probation-search-dlq" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+
+  environment-name       = var.environment
+  namespace              = var.namespace
+  infrastructure-support = var.infrastructure_support
+  team_name              = var.team_name
+  application            = var.application
+  sqs_name               = "probation-search-dlq"
+
+  providers = {
+    aws = aws.london
   }
+}
+
+resource "aws_sqs_queue_policy" "probation-search-dlq-policy" {
+  queue_url = module.probation-search-dlq.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
+}
+
+resource "github_actions_environment_secret" "probation-search-queue-name-secret" {
+  repository      = data.github_repository.hmpps-probation-integration-services.name
+  environment     = "test"
+  secret_name     = "PERSON_SEARCH_INDEX_FROM_DELIUS_QUEUE_NAME"
+  plaintext_value = module.probation-search-queue.sqs_name
 }

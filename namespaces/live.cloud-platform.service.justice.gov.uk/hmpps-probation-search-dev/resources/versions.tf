@@ -9,5 +9,8 @@ terraform {
     github = {
       source = "integrations/github"
     }
+    random = {
+      version = "4.3.2"
+    }
   }
 }
