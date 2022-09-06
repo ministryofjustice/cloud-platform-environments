@@ -14,7 +14,7 @@ module "hmpps_allocations_offender_events_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.person_search_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
+    "deadLetterTargetArn": "${module.hmpps_allocations_offender_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
@@ -91,11 +91,11 @@ resource "kubernetes_secret" "hmpps_allocations_offender_events_dead_letter_queu
     namespace = "workforce-management-dev"
   }
   data = {
-    access_key_id     = module.person_search_dead_letter_queue.access_key_id
-    secret_access_key = module.person_search_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.person_search_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.person_search_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.person_search_dead_letter_queue.sqs_name
+    access_key_id     = module.hmpps_allocations_offender_events_dead_letter_queue.access_key_id
+    secret_access_key = module.hmpps_allocations_offender_events_dead_letter_queue.secret_access_key
+    sqs_queue_url     = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_id
+    sqs_queue_arn     = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_arn
+    sqs_queue_name    = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name
   }
 }
 
