@@ -24,10 +24,3 @@ module "sw_test_es" {
   # s3_manual_snapshot_repository = "s3-bucket-arn"
 
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-
