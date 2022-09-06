@@ -27,7 +27,6 @@ module "drupal_rds" {
     }
   ]
 }
-}
 
 resource "kubernetes_secret" "drupal_rds" {
   metadata {
