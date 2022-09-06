@@ -84,8 +84,13 @@ resource "aws_sqs_queue_policy" "hmpps-person-search-index-from-delius-dlq-polic
 }
 
 resource "github_actions_environment_secret" "hmpps-person-search-index-from-delius-queue-name-secret" {
+  for_each = {
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_QUEUE_NAME" = module.hmpps-person-search-index-from-delius-queue.sqs_name
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_AWS_ACCESS_KEY_ID" = module.hmpps-person-search-index-from-delius-queue.access_key_id
+    "PERSON_SEARCH_INDEX_FROM_DELIUS_SQS_AWS_SECRET_ACCESS_KEY" = module.hmpps-person-search-index-from-delius-queue.secret_access_key
+  }
   repository      = data.github_repository.hmpps-probation-integration-services.name
   environment     = "test"
-  secret_name     = "PERSON_SEARCH_INDEX_FROM_DELIUS_QUEUE_NAME"
-  plaintext_value = module.hmpps-person-search-index-from-delius-queue.sqs_name
+  secret_name     = each.key
+  plaintext_value = each.value
 }
