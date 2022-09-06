@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "paul_test_es" {
+module "example_cold_storage" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.1"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
