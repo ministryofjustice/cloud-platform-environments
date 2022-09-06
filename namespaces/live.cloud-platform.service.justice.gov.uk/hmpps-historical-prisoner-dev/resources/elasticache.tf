@@ -1,8 +1,8 @@
 ################################################################################
-# hpa Elasticache for ReDiS
+# HMPPs Typescript Template Application Elasticache
 ################################################################################
 
-module "hmpps_hpa_redis" {
+module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
   cluster_name           = var.cluster_name
   application            = var.application
@@ -21,15 +21,15 @@ module "hmpps_hpa_redis" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_hpa_redis" {
+resource "kubernetes_secret" "elasticache_redis" {
   metadata {
     name      = "elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    REDIS_HOST      = module.hmpps_hpa_redis.primary_endpoint_address
-    REDIS_PASSWORD  = module.hmpps_hpa_redis.auth_token
-    member_clusters = jsonencode(module.hmpps_hpa_redis.member_clusters)
+    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
+    auth_token               = module.elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
   }
 }
