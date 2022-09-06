@@ -1,7 +1,3 @@
-variable "domain" {
-  default = "dev.hmpps-historical-prisoner-dev.service.justice.gov.uk"
-}
-
 variable "application" {
   default = "hmpps-historical-prisoner-dev"
 }
