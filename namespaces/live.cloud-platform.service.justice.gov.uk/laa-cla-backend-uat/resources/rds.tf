@@ -51,7 +51,7 @@ module "cla_backend_rds_postgres_10" {
 }
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
   cluster_name  = var.cluster_name
   team_name     = var.team_name
   business-unit = var.business-unit
