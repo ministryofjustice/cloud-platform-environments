@@ -7,7 +7,7 @@ module "hmpps_historical_prisoner_elasticsearch" {
   infrastructure-support          = var.infrastructure-support
   is-production                   = var.is-production
   team_name                       = var.team_name
-  elasticsearch-domain            = "search-historical-prisoner"
+  elasticsearch-domain            = "historical-prisoner"
   aws_es_proxy_service_name       = "es-proxy"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true

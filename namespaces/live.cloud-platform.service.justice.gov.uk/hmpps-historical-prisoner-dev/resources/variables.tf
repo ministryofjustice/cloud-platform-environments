@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "historical-prisoner-dev.prison.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "hmpps-historical-prisoner-dev"
 }
