@@ -7,8 +7,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
-    cloud-platform.justice.gov.uk/slack-channel: "#cloud-platform"
-    cloud-platform.justice.gov.uk/application: "Test Cross Account IAM"
-    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platform@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-terraform-teams-ingress-controller"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
+    cloud-platform.justice.gov.uk/application: "Elasticsearch storage test"
+    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/team-name: "webops"
+    cloud-platform.justice.gov.uk/review-after: "2022-11-30"
