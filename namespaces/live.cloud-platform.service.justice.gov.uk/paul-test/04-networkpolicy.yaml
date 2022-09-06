@@ -14,7 +14,7 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-ingress-traffic
+  name: allow-ingress-controllers
   namespace: paul-test
 spec:
   podSelector: {}
