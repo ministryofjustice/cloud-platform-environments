@@ -18,9 +18,15 @@ module "drupal_rds" {
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
 
-  # We need to explicitly set this to an empty list, otherwise the module
-  # will add `rds.force_ssl`, which MariaDB doesn't support
-  db_parameter = []
+  # Increase max_allowed_packets as Drupal can sometimes send large packets.
+  db_parameter = [
+    {
+      name         = "max_allowed_packet"
+      value        = "10000000" // 10MB
+      apply_method = "immediate"
+    }
+  ]
+}
 }
 
 resource "kubernetes_secret" "drupal_rds" {
