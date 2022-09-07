@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "farsight-devs"
     cloud-platform.justice.gov.uk/application: "Activities management"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/activities-management.git
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/activities-management.git"
     cloud-platform.justice.gov.uk/team-name: "farsight-devs"
