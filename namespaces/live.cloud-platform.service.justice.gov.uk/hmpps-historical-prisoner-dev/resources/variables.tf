@@ -20,7 +20,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "HMPPS Auth Audit Registers Team"
+  default     = "HAAR"
 }
 
 variable "environment-name" {
