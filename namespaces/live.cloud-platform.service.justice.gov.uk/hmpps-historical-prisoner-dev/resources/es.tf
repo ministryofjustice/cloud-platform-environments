@@ -15,7 +15,7 @@ module "hmpps_historical_prisoner_elasticsearch" {
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
-  s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
+#  s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
 }
 
 module "es_snapshots_s3_bucket" {
