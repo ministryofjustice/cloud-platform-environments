@@ -2,11 +2,12 @@ locals {
   managed_queues = [
     module.case_note_poll_pusher_queue.sqs_arn,
     module.case_note_poll_pusher_dead_letter_queue.sqs_arn,
+    module.hmpps-person-search-index-from-delius-queue.sqs_arn,
+    module.hmpps-person-search-index-from-delius-dlq.sqs_arn,
   ]
 }
 
 data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
-  for_each = toset(local.managed_queues)
   statement {
     sid    = "QueueToConsumer"
     effect = "Allow"
@@ -25,7 +26,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
         aws_iam_role.sqs_mgmt_role.arn
       ]
     }
-    resources = [each.value]
+    resources = ["*"]
   }
   statement {
     sid    = "QueueManagement"
@@ -33,6 +34,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
     actions = [
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
+      "sqs:ListQueues",
       "sqs:PurgeQueue",
       "sqs:SetQueueAttributes"
     ]
@@ -40,7 +42,7 @@ data "aws_iam_policy_document" "sqs_mgmt_common_policy_document" {
       type        = "AWS"
       identifiers = [aws_iam_role.sqs_mgmt_role.arn]
     }
-    resources = [each.value]
+    resources = ["*"]
   }
   statement {
     sid     = "ListQueues"

@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: probation-search-hmpps-probation-search-preprod-green
+    ingress.kubernetes.io/whitelist-source-range: "52.56.240.62/32,18.130.110.168/32,35.178.44.184/32"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+  name: probation-search
+  namespace: hmpps-probation-search-preprod
+spec:
+  ingressClassName: default
+  rules:
+    - host: probation-search-preprod.hmpps.service.justice.gov.uk
+      http:
+        paths:
+          - backend:
+              service:
+                name: es-proxy
+                port:
+                  number: 9200
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - probation-search-preprod.hmpps.service.justice.gov.uk
+      secretName: probation-search-cert

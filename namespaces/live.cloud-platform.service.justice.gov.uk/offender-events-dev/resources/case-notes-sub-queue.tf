@@ -22,7 +22,7 @@ module "case_note_poll_pusher_queue" {
 
 data "aws_iam_policy_document" "case_note_poll_pusher_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.case_note_poll_pusher_queue.sqs_arn].json
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
   ]
   statement {
     sid    = "TopicToQueue"
@@ -68,7 +68,7 @@ module "case_note_poll_pusher_dead_letter_queue" {
 
 resource "aws_sqs_queue_policy" "case_note_poll_pusher_dead_letter_queue_policy" {
   queue_url = module.case_note_poll_pusher_dead_letter_queue.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document[module.case_note_poll_pusher_dead_letter_queue.sqs_arn].json
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "aws_sns_topic_subscription" "case_note_poll_pusher_subscription" {
