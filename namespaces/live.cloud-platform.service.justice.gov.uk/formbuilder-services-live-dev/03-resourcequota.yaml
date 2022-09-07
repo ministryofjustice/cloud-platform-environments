@@ -5,4 +5,4 @@ metadata:
   namespace: formbuilder-services-live-dev
 spec:
   hard:
-    pods: "160"
+    pods: "300"
