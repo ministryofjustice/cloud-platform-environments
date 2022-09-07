@@ -1,3 +1,7 @@
+variable "domain" {
+  default = "historical-prisoner-dev.prison.service.justice.gov.uk"
+}
+
 variable "application" {
   default = "hmpps-historical-prisoner-dev"
 }
@@ -16,7 +20,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "HMPPS Auth Audit Registers Team"
+  default     = "haar"
 }
 
 variable "environment-name" {
