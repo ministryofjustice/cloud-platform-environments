@@ -4,7 +4,7 @@ metadata:
   name: alias-management
   namespace: hmpps-probation-search-dev
 spec:
-  schedule: "59 * * * *"
+  schedule: "0 8,16 * * *"
   jobTemplate:
     spec:
       template:
