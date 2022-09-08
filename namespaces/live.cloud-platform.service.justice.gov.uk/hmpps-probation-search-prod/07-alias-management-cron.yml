@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: alias-management
-  namespace: hmpps-probation-search-dev
+  namespace: hmpps-probation-search-prod
 spec:
   schedule: "59 7 * * *"
   jobTemplate:
