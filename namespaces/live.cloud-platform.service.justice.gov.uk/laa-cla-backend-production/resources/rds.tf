@@ -176,7 +176,7 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_10" {
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
   metadata {
-    name      = "database-10"
+    name      = "database-11"
     namespace = var.namespace
   }
 
