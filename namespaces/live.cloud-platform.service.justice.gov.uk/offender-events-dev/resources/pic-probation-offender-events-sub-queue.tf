@@ -99,7 +99,7 @@ resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_d
   }
 }
 
-resource "aws_sns_topic_probation_subscription" "pic_probation_offender_events_subscription" {
+resource "aws_sns_topic_subscription" "pic_probation_offender_events_subscription" {
   provider      = aws.london
   topic_probation_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
