@@ -3,7 +3,7 @@ data "github_team" "default" {
 }
 
 locals {
-  topics = ["gov-uk-prototype-kit", "moj-cloud-platform"]
+  topics = ["gov-uk-design-history", "moj-cloud-platform"]
 
   # These teams will be granted admin access to the github repository
   teams = {
@@ -12,9 +12,9 @@ locals {
 }
 
 # Repository basics
-resource "github_repository" "prototype" {
-  name                   = var.namespace
-  description            = "Gov.UK Prototype Kit. This repository is defined and managed in Terraform"
+resource "github_repository" "design_history" {
+  name                   = "manage-a-workforce-design-history"
+  description            = "A place for you to document your GOV.UK service designs"
   visibility             = "public"
   has_issues             = false
   has_projects           = false
@@ -30,25 +30,17 @@ resource "github_repository" "prototype" {
   vulnerability_alerts   = true
   topics                 = local.topics
 
-  template {
-    owner      = "ministryofjustice"
-    repository = "moj-prototype-template"
-  }
-
-  lifecycle {
-    ignore_changes = [template]
-  }
 }
 
-resource "github_team_repository" "prototype" {
+resource "github_team_repository" "design_history" {
   for_each   = local.teams
   team_id    = each.value.id
-  repository = github_repository.prototype.name
+  repository = github_repository.design_history.name
   permission = "admin"
 }
 
-resource "github_actions_secret" "prototype" {
-  repository      = github_repository.prototype.name
+resource "github_actions_secret" "design_history" {
+  repository      = github_repository.design_history.name
   secret_name     = "PROTOTYPE_NAME"
   plaintext_value = var.namespace
 }

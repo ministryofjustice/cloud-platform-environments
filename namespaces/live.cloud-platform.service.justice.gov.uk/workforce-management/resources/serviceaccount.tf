@@ -4,5 +4,5 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  github_repositories = [var.namespace, "manage-a-workforce-design-history"]
+  github_repositories = ["manage-a-workforce-design-history"]
 }
