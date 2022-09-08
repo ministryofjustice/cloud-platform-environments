@@ -100,10 +100,13 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_dead_letter_queue" {
   }
 }
 
+
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_subscription" {
   provider      = aws.london
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.revised\", \"prison-visit.cancelled\", \"incentives.iep-review.inserted\"]}"
+  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.revised\", \"prison-visit.cancelled\"]}"
 }
+
+
