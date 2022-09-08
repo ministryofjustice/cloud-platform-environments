@@ -101,7 +101,7 @@ resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_d
 
 resource "aws_sns_topic_subscription" "pic_probation_offender_events_subscription" {
   provider      = aws.london
-  topic_probation_arn     = module.probation_offender_events.topic_arn
+  topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.pic_probation_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\"] }"
