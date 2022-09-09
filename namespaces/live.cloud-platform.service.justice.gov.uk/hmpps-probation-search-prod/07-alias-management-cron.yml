@@ -92,7 +92,7 @@ spec:
                     SECONDS=0
                     until [[ "${EXPECTED_COUNT}" -gt 0 ]]; do
                       echo 'waiting for count to be indexed ... '
-                      if ((SECONDS >= "${MAX_TIMEOUT}")); then
+                      if (("${SECONDS}" >= "${MAX_TIMEOUT}")); then
                         echo "Timed out getting index count."
                         exit 1
                       fi
@@ -110,7 +110,7 @@ spec:
                 
                     until [[ "${ACTUAL_COUNT}" -ge "${EXPECTED_COUNT}" ]]; do
                       echo 'waiting for actual count to be at least expected count ...'
-                      if ((SECONDS >= "${MAX_TIMEOUT}")); then
+                      if (("${SECONDS}" >= "${MAX_TIMEOUT}")); then
                        echo "Indexing process timed out: Expected ${EXPECTED_COUNT} but got ${ACTUAL_COUNT}"
                        exit 1
                       fi
@@ -162,4 +162,4 @@ spec:
                   switch_aliases
                   
                   EOF
-          restartPolicy: OnFailure
+          restartPolicy: Never
