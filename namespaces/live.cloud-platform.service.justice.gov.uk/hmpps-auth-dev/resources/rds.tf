@@ -41,9 +41,9 @@ resource "kubernetes_secret" "dps_rds" {
   }
 }
 
-resource "kubernetes_secret_external_users-api" "dps_rds" {
+resource "kubernetes_secret" "dps_rds_external_users_api" {
   metadata {
-    name      = "dps-rds-instance-output"
+    name      = "hmpps-auth-rds-instance-output"
     namespace = "hmpps-external-users-api-dev"
   }
 
