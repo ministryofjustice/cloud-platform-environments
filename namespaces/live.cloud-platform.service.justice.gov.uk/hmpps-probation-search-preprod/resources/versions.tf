@@ -12,5 +12,9 @@ terraform {
     random = {
       version = "3.3.2"
     }
+    elasticsearch = {
+      source  = "phillbaker/elasticsearch"
+      version = "2.0.4"
+    }
   }
 }
