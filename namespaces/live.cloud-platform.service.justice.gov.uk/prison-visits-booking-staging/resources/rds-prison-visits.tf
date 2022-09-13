@@ -20,6 +20,8 @@ module "prison-visits-rds" {
 
   cluster_name           = var.cluster_name
   team_name              = "prison-visits-booking"
+  db_instance_class      = "db.m5.large"
+  db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-staging"
   is-production          = "false"
