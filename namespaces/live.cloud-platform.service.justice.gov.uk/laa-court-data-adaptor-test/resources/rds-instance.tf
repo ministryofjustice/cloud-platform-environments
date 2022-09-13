@@ -7,7 +7,7 @@ module "court_data_adaptor_rds" {
   application   = "laa-court-data-adaptor"
   is-production = "false"
 
-  db_engine_version      = "14.2"
+  db_engine_version      = "14"
   environment-name       = "test"
   infrastructure-support = "laa@digital.justice.gov.uk"
   rds_family             = "postgres14"
