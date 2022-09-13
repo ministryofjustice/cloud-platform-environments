@@ -15,15 +15,15 @@ module "rds" {
   infrastructure-support = var.email
 
   db_engine                  = "postgres"
-  db_engine_version          = "14.2"
-  db_instance_class          = "db.t2.small"
+  db_engine_version          = "13.4"
+  db_instance_class          = "db.t3.small"
   db_allocated_storage       = "5"
   db_name                    = "datacaptureservice"
   db_backup_retention_period = var.db_backup_retention_period
 
   # rds_family should be one of: postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres13"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
