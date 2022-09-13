@@ -156,10 +156,7 @@ spec:
                 
                   }
                   
-                  get_current_indices
-                  delete_ready_for_reindex
-                  wait_for_index_to_complete
-                  switch_aliases
+                  get_current_indices && delete_ready_for_reindex && wait_for_index_to_complete && switch_aliases
                   
                   EOF
           restartPolicy: Never
