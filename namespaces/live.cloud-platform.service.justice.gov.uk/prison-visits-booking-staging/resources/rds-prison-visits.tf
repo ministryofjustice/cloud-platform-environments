@@ -12,7 +12,7 @@ variable "cluster_name" {
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
- *
+ * 
  */
 
 module "prison-visits-rds" {
