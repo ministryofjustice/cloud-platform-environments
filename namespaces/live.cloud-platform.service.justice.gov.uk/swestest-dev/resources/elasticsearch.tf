@@ -64,7 +64,7 @@ resource "elasticsearch_opensearch_ism_policy" "ism-policy" {
 }
 
 data "template_file" "ism_policy" {
-  template = trimspace(templatefile("es/es.json.tpl", {
+  template = trimspace(templatefile("ism/ism_template.json.tpl", {
 
     timestamp_field   = var.timestamp_field
     warm_transition   = var.warm_transition
