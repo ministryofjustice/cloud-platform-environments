@@ -1,4 +1,3 @@
-
 /*
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
@@ -6,7 +5,7 @@
  *
  */
 module "sw_test_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=ism-policy-tf"
   cluster_name           = var.cluster_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -46,4 +45,33 @@ module "sw_test_es" {
  */
 output "ism_policy" {
   value = module.sw_test_es.ism_policy
+}
+
+output "es_endpoint" {
+    value = module.sw_test_es.es_endpoint
+}
+
+provider "elasticsearch" {
+  url                         = "https://${module.sw_test_es.es_endpoint}"
+  aws_profile                 = "moj-cp"
+  aws_region                  = "eu-west-2"
+  aws_assume_role_arn         = "arn:aws:iam::754256621582:role/cloud-platform-68b7eb77defb5024-irsa"
+  insecure    = true
+  healthcheck = false
+}
+
+resource "elasticsearch_opensearch_ism_policy" "ism-policy" {
+  policy_id = "hot-warm-cold-delete"
+  body      = data.template_file.ism_policy.rendered
+}
+
+data "template_file" "ism_policy" {
+  template = trimspace(templatefile("ism/ism_template.json.tpl", {
+
+    timestamp_field   = var.timestamp_field
+    warm_transition   = var.warm_transition
+    cold_transition   = var.cold_transition
+    delete_transition = var.delete_transition
+    index_pattern     = jsonencode(var.index_pattern)
+  }))
 }

@@ -11,7 +11,7 @@ module "court_data_adaptor_rds" {
   infrastructure-support = "laa@digital.justice.gov.uk"
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14.2"
+  db_engine_version           = "14"
   db_instance_class           = "db.t3.small"
   allow_major_version_upgrade = "true"
 

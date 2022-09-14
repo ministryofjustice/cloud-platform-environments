@@ -62,8 +62,3 @@ variable "basic-auth-username" {
   description = "Basic auth. username of the deployed prototype website"
   default     = "manage-soc-cases-prototype-user"
 }
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = ""
-}

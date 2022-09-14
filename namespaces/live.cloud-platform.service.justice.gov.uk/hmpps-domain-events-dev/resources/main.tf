@@ -19,6 +19,17 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# To be used for granting access to the probation-integration GitHub team
+provider "aws" {
+  alias  = "probation-integration"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "probation-integration"
+    }
+  }
+}
+
 provider "github" {
   owner = "ministryofjustice"
   token = var.github_token

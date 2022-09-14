@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "cjs-dashboard"
+  default     = "cjs-data-science"
 }
 
 variable "environment" {
@@ -43,7 +43,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cjs-dashboard"
+  default     = "cjs-data-dashboard"
 }
 
 variable "github_owner" {

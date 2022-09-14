@@ -5,11 +5,23 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "prisoner-money"
+    }
+  }
 }
 
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "prisoner-money"
+    }
+  }
 }
 
 variable "namespace" {
