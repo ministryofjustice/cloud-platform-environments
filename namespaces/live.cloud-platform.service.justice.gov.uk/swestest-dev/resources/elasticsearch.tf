@@ -52,8 +52,10 @@ output "es_endpoint" {
 }
 
 provider "elasticsearch" {
-  url         = "https://${module.sw_test_es.es_endpoint}"
-  aws_profile = "moj-cp"
+  url                         = "https://${module.sw_test_es.es_endpoint}"
+  aws_profile                 = "moj-cp"
+  aws_region                  = "eu-west-2"
+  aws_assume_role_arn         = "arn:aws:iam::754256621582:role/cloud-platform-68b7eb77defb5024-irsa"
   insecure    = true
   healthcheck = false
 }
