@@ -55,95 +55,21 @@ provider "elasticsearch" {
   url         = "https://${module.sw_test_es.es_endpoint}"
   aws_profile = "moj-cp"
   insecure    = true
+  healthcheck = false
 }
 
 resource "elasticsearch_opensearch_ism_policy" "ism-policy" {
-  policy_id = "hot-warm-cold-delete-test"
-  body      = <<EOF
-{
-    "policy": {
-        "description": "Testing a hot-warm-cold-delete workflow.",
-        "default_state": "example_hot_state",
-        "schema_version": 1,
-        "states": [
-            {
-                "name": "example_hot_state",
-                "actions": [],
-                "transitions": [
-                    {
-                        "state_name": "example_warm_state",
-                        "conditions": {
-                            "min_index_age": "7d"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "example_warm_state",
-                "actions": [
-                    {
-                        "warm_migration": {},
-                        "timeout": "24h",
-                        "retry": {
-                            "count": 5,
-                            "delay": "1h"
-                        }
-                    }
-                ],
-                "transitions": [
-                    {
-                        "state_name": "example_cold_state",
-                        "conditions": {
-                            "min_index_age": "90d"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "example_cold_state",
-                "actions": [
-                    {
-                        "cold_migration": {
-                            "timestamp_field": "last_updated"
-                        }
-                    }
-                ],
-                "transitions": [
-                    {
-                        "state_name": "delete",
-                        "conditions": {
-                            "min_index_age": "365d"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "delete",
-                "actions": [
-                    {
-                        "notification": {
-                            "destination": {
-                                "chime": {
-                                    "url": "<URL>"
-                                }
-                            },
-                            "message_template": {
-                                "source": "The index {{ctx.index}} is being deleted."
-                            }
-                        }
-                    },
-                    {
-                        "cold_delete": {}
-                    }
-                ]
-            }
-        ],
-        "ism_template": {
-            "index_patterns": [
-                "test_data*"
-            ]
-        }
-    }
+  policy_id = "hot-warm-cold-delete"
+  body      = data.template_file.ism_policy.rendered
 }
-EOF
+
+data "template_file" "ism_policy" {
+  template = trimspace(templatefile("ism/ism_template.json.tpl", {
+
+    timestamp_field   = var.timestamp_field
+    warm_transition   = var.warm_transition
+    cold_transition   = var.cold_transition
+    delete_transition = var.delete_transition
+    index_pattern     = jsonencode(var.index_pattern)
+  }))
 }
