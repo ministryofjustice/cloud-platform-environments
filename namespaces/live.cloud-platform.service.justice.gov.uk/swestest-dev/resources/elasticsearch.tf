@@ -54,6 +54,7 @@ output "es_endpoint" {
 provider "elasticsearch" {
   url         = "https://${module.sw_test_es.es_endpoint}"
   aws_profile = "moj-cp"
+  insecure    = true
 }
 
 resource "elasticsearch_opensearch_ism_policy" "ism-policy" {
