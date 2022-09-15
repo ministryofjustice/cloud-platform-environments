@@ -66,12 +66,13 @@ resource "aws_sqs_queue_policy" "hmpps-person-search-index-from-delius-queue-pol
 module "hmpps-person-search-index-from-delius-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
-  environment-name       = var.environment-name
-  namespace              = var.namespace
-  infrastructure-support = var.infrastructure-support
-  team_name              = "hmpps-probation-integration"
-  application            = "person-search-index-from-delius"
-  sqs_name               = "person-search-index-from-delius-dlq"
+  environment-name          = var.environment-name
+  namespace                 = var.namespace
+  infrastructure-support    = var.infrastructure-support
+  team_name                 = "hmpps-probation-integration"
+  application               = "person-search-index-from-delius"
+  sqs_name                  = "person-search-index-from-delius-dlq"
+  message_retention_seconds = 86400 # 1 day
 
   providers = {
     aws = aws.london
