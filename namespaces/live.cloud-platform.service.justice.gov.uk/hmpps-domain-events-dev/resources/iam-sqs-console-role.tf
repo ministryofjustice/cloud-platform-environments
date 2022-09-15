@@ -6,6 +6,8 @@ locals {
     module.pre_sentence_report_dlq.sqs_arn,
     module.hmpps-prison-custody-status-to-delius-queue.sqs_arn,
     module.hmpps-prison-custody-status-to-delius-dlq.sqs_arn,
+    module.hmpps-risk-assessment-scores-to-delius-queue.sqs_arn,
+    module.hmpps-risk-assessment-scores-to-delius-dlq.sqs_arn,
   ]
 }
 

@@ -30,6 +30,9 @@ module "hmpps-risk-assessment-scores-to-delius-queue" {
 }
 
 data "aws_iam_policy_document" "hmpps-risk-assessment-scores-to-delius-queue-policy" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
+  ]
   statement {
     sid     = "TopicToQueue"
     effect  = "Allow"
@@ -66,6 +69,11 @@ module "hmpps-risk-assessment-scores-to-delius-dlq" {
   providers = {
     aws = aws.probation-integration
   }
+}
+
+resource "aws_sqs_queue_policy" "hmpps-risk-assessment-scores-to-delius-dlq-policy" {
+  queue_url = module.hmpps-risk-assessment-scores-to-delius-dlq.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "github_actions_environment_secret" "hmpps-risk-assessment-scores-to-delius-secrets" {
