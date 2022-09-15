@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "hmpps-risk-assessment-scores-to-delius-queue-subscription" {
-  provider  = aws.probation-integration
+  provider  = aws.london
   topic_arn = module.hmpps-domain-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.hmpps-risk-assessment-scores-to-delius-queue.sqs_arn
@@ -25,7 +25,7 @@ module "hmpps-risk-assessment-scores-to-delius-queue" {
   })
 
   providers = {
-    aws = aws.probation-integration
+    aws = aws.london
   }
 }
 
@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "hmpps-risk-assessment-scores-to-delius-queue-pol
 resource "aws_sqs_queue_policy" "hmpps-risk-assessment-scores-to-delius-queue-policy" {
   queue_url = module.hmpps-risk-assessment-scores-to-delius-queue.sqs_id
   policy    = data.aws_iam_policy_document.hmpps-risk-assessment-scores-to-delius-queue-policy.json
-  provider  = aws.probation-integration
+  provider  = aws.london
 }
 
 module "hmpps-risk-assessment-scores-to-delius-dlq" {
@@ -67,7 +67,7 @@ module "hmpps-risk-assessment-scores-to-delius-dlq" {
   sqs_name               = "risk-assessment-scores-to-delius-dlq"
 
   providers = {
-    aws = aws.probation-integration
+    aws = aws.london
   }
 }
 
