@@ -12,7 +12,7 @@ variable "cluster_name" {
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
- *
+ * 
  */
 
 module "prison-visits-rds" {
@@ -20,6 +20,8 @@ module "prison-visits-rds" {
 
   cluster_name           = var.cluster_name
   team_name              = "prison-visits-booking"
+  db_instance_class      = "db.m5.large"
+  db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-staging"
   is-production          = "false"
