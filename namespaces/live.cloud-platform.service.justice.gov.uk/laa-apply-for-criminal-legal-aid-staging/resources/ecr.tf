@@ -5,6 +5,25 @@ module "ecr-repo" {
   repo_name = var.repo_name
 
   github_repositories = [var.repo_name]
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire untagged images keeping newest 25",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 25
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "ecr-repo" {
