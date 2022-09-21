@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Criminal Justice System Delivery Data Dashboard"
+  default     = "CJS Dashboard"
 }
 
 variable "namespace" {
@@ -19,7 +19,7 @@ variable "namespace" {
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "Data and Analysis"
+  default     = "HQ"
 }
 
 variable "team_name" {
@@ -43,7 +43,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cjs-data-dashboard"
+  default     = "cjs-dashboard"
 }
 
 variable "github_owner" {
