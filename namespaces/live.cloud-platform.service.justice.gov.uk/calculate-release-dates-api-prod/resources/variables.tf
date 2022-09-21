@@ -1,6 +1,10 @@
 variable "cluster_name" {
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "domain" {
   default = "calculate-release-dates-api.hmpps.service.justice.gov.uk"
 }
