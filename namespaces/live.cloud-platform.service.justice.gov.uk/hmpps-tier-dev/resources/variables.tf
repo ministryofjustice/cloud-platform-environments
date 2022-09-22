@@ -4,6 +4,9 @@ variable "kubernetes_cluster" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "application" {
   default = "hmpps-tier"

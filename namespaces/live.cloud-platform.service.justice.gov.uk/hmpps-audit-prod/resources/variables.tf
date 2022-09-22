@@ -5,6 +5,9 @@ variable "namespace" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 variable "domain_audit_api" {
   default = "audit-api.hmpps.service.justice.gov.uk"
 }

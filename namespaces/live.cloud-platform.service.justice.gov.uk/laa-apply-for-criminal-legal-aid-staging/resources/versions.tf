@@ -11,7 +11,7 @@ terraform {
     }
     pingdom = {
       source  = "russellcardullo/pingdom"
-        version = "1.1.3"
+      version = "1.1.3"
     }
   }
 }

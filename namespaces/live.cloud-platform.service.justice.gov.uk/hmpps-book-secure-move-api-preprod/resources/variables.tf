@@ -45,3 +45,6 @@ variable "maintenance_window" {
 // The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
+
+variable "vpc_name" {
+}
