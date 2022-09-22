@@ -4,7 +4,7 @@ resource "aws_sns_topic_subscription" "hmpps-risk-assessment-scores-to-delius-qu
   protocol  = "sqs"
   endpoint  = module.hmpps-risk-assessment-scores-to-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["risk-assessment.scores.rsr.determined"]
+    eventType = ["risk-assessment.scores.determined"]
   })
 }
 
