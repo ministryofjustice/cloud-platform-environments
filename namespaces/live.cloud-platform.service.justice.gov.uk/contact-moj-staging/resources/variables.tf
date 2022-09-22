@@ -5,6 +5,9 @@
 
 variable "cluster_name" {}
 
+variable "vpc_name" {
+}
+
 variable "namespace" {
   default = "contact-moj-staging"
 }
