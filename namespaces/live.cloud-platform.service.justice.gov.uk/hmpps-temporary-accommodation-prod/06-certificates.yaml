@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-temporary-accommodation-prod-cert
+  namespace: hmpps-temporary-accommodation-prod
+spec:
+  secretName: hmpps-temporary-accommodation-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - temporary-accommodation.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-temporary-accommodation-api-prod-cert
+  namespace: hmpps-temporary-accommodation-prod
+spec:
+  secretName: hmpps-temporary-accommodation-api-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - temporary-accommodation-api.hmpps.service.justice.gov.uk
