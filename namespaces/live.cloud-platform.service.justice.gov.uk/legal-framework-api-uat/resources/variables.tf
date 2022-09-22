@@ -7,7 +7,7 @@ variable "repo_name" {
   default     = "legal-framework-api"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

@@ -4,7 +4,7 @@
  *
  */
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
@@ -15,9 +15,9 @@ variable "cluster_name" {
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
   business-unit          = "HMPPS"
@@ -47,10 +47,10 @@ resource "kubernetes_secret" "complexity-of-need-rds" {
 
   data = {
     rds_instance_endpoint = module.complexity-of-need-rds.rds_instance_endpoint
-    postgres_name     = module.complexity-of-need-rds.database_name
-    postgres_host     = module.complexity-of-need-rds.rds_instance_address
-    postgres_user     = module.complexity-of-need-rds.database_username
-    postgres_password = module.complexity-of-need-rds.database_password
+    postgres_name         = module.complexity-of-need-rds.database_name
+    postgres_host         = module.complexity-of-need-rds.rds_instance_address
+    postgres_user         = module.complexity-of-need-rds.database_username
+    postgres_password     = module.complexity-of-need-rds.database_password
     rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
     access_key_id         = module.complexity-of-need-rds.access_key_id
     secret_access_key     = module.complexity-of-need-rds.secret_access_key

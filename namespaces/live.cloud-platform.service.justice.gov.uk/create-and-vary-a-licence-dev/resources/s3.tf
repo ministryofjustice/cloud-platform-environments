@@ -12,7 +12,7 @@ module "create-and-vary-a-licence-s3" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  namespace = var.namespace
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london

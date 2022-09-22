@@ -6,7 +6,7 @@
 # Elastic search module
 module "peoplefinder_es" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name               = var.cluster_name
+  vpc_name                   = var.vpc_name
   application                = "peoplefinder"
   business-unit              = "Central Digital"
   environment-name           = "development"

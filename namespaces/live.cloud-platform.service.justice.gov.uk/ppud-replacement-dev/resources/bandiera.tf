@@ -3,9 +3,9 @@
 ##
 
 module "ppud_replacement_bandiera_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   namespace              = var.namespace
   application            = var.application
   business-unit          = var.business_unit

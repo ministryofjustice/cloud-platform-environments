@@ -1,6 +1,6 @@
 module "rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name                 = var.cluster_name
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
+  vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business-unit                = var.business_unit
   application                  = var.application
@@ -23,7 +23,7 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
   is-production          = var.is_production

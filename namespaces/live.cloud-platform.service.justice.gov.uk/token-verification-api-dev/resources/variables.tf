@@ -6,7 +6,7 @@ variable "namespace" {
   default = "token-verification-api-dev"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

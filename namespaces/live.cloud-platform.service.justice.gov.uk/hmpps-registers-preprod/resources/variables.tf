@@ -14,7 +14,7 @@ variable "namespace" {
   default = "hmpps-registers-preprod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "business-unit" {

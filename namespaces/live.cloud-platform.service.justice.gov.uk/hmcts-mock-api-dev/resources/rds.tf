@@ -1,11 +1,11 @@
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
 module "hmcts_mock_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   team_name              = "laa-crime-apps-team"
   business-unit          = "Crime Apps"
   application            = "hmcts-common-platform-mock-api"

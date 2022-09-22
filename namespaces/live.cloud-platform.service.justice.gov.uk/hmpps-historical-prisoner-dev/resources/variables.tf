@@ -10,7 +10,7 @@ variable "namespace" {
   default = "hmpps-historical-prisoner-dev"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "business-unit" {

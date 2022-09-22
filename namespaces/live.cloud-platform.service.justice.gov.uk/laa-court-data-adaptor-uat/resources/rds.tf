@@ -4,7 +4,7 @@
  *
  */
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
@@ -15,8 +15,8 @@ variable "cluster_name" {
  *
  */
 module "laa_crime_apps_team_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name  = var.cluster_name
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
+  vpc_name      = var.vpc_name
   team_name     = "laa-crime-apps-team"
   business-unit = "Crime Apps"
   application   = "laa-court-data-adaptor"

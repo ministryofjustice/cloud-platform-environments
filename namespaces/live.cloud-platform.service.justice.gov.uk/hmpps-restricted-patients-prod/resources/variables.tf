@@ -11,7 +11,7 @@ variable "namespace" {
   default = "hmpps-restricted-patients-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "business_unit" {

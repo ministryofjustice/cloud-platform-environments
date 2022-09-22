@@ -10,7 +10,7 @@ variable "namespace" {
   default = "prison-to-probation-update-dev"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

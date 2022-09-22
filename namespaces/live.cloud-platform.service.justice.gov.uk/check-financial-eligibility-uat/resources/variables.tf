@@ -7,7 +7,7 @@ variable "repo_name" {
   default     = "check-financial-eligibility"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "kubernetes_cluster" {

@@ -1,7 +1,7 @@
 module "manage_intelligence_elasticsearch" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
 
-  cluster_name                    = var.cluster_name
+  vpc_name                        = var.vpc_name
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name

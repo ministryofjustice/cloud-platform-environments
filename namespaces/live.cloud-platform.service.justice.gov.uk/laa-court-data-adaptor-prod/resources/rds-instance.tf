@@ -1,6 +1,6 @@
 module "court_data_adaptor_rds" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
-  cluster_name  = var.cluster_name
+  vpc_name      = var.vpc_name
   namespace     = var.namespace
   team_name     = "laa-crime-apps-team"
   business-unit = "Crime Apps"

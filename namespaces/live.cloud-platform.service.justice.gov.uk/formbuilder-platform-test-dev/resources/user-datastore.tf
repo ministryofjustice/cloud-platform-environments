@@ -1,7 +1,7 @@
 module "user-datastore-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name               = var.cluster_name
+  vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_user_datastore
   application                = "formbuilderuserdatastore"
   environment-name           = var.environment-name

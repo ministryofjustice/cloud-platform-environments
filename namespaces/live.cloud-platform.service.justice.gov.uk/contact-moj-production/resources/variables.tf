@@ -3,7 +3,7 @@
  * two variables are automatically supplied by the pipeline.
  */
 
-variable "cluster_name" {}
+variable "vpc_name" {}
 
 variable "namespace" {
   default = "contact-moj-production"

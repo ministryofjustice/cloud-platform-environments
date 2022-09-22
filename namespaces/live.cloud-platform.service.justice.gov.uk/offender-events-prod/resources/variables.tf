@@ -10,7 +10,7 @@ variable "namespace" {
   default = "offender-events-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

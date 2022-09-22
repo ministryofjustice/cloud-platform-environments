@@ -16,7 +16,7 @@ module "rds_aurora" {
   snapshot_identifier         = "arn:aws:rds:eu-west-2:754256621582:snapshot:hmpps-pin-phone-qa-pre-migration-20210730-1040"
   storage_encrypted           = true
   apply_immediately           = true
-  cluster_name                = var.cluster_name
+  vpc_name                    = var.vpc_name
   allow_major_version_upgrade = true
   skip_setting_when_migrated  = true
 

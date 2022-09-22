@@ -13,7 +13,7 @@ resource "pingdom_check" "vcms-pingdom-check-poc" {
   encryption               = true
   port                     = 443
   # tags as per https://technical-guidance.service.justice.gov.uk/documentation/standards/documenting-infrastructure-owners.html#tags-you-should-use
-  tags                     = "businessunit_HMPPS,application_vcms,environment-name_poc,component_healthcheck,isproduction_false,owner_platforms"
-  probefilters             = "region:EU"
-  integrationids           = [123923]
+  tags           = "businessunit_HMPPS,application_vcms,environment-name_poc,component_healthcheck,isproduction_false,owner_platforms"
+  probefilters   = "region:EU"
+  integrationids = [123923]
 }

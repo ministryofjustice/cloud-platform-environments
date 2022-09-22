@@ -14,7 +14,7 @@ variable "namespace" {
   default = "probation-offender-search-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

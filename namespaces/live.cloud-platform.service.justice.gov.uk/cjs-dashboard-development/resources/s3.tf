@@ -16,7 +16,7 @@ module "s3_bucket" {
   namespace              = var.namespace
 
   # Turn on versioning
-  versioning             = true
+  versioning = true
 
   providers = {
     aws = aws.london

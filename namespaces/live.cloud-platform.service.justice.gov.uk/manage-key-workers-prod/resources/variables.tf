@@ -10,7 +10,7 @@ variable "namespace" {
   default = "manage-key-workers-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

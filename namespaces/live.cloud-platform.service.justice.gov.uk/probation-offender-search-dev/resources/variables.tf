@@ -6,7 +6,7 @@ variable "namespace" {
   default = "probation-offender-search-dev"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

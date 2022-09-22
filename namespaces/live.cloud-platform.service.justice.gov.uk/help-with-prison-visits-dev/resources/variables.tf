@@ -30,7 +30,7 @@ variable "is_production" {
   default = "false"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "number_cache_clusters" {

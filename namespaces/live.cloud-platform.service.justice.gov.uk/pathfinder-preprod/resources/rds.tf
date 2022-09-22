@@ -1,4 +1,4 @@
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
@@ -7,8 +7,8 @@ resource "random_id" "id" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name           = var.cluster_name
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
+  vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application

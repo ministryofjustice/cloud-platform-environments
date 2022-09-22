@@ -10,7 +10,7 @@ variable "namespace" {
   default = "prisoner-offender-search-preprod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

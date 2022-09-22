@@ -15,7 +15,7 @@ module "rds_aurora" {
   instance_type               = "db.t3.medium"
   storage_encrypted           = true
   apply_immediately           = true
-  cluster_name                = var.cluster_name
+  vpc_name                    = var.vpc_name
   allow_major_version_upgrade = true
 
   providers = {

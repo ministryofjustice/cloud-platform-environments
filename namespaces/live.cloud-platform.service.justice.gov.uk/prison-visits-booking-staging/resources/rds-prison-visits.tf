@@ -4,7 +4,7 @@
  *
  */
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
@@ -16,9 +16,9 @@ variable "cluster_name" {
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
   db_instance_class      = "db.m5.large"
   db_allocated_storage   = "50"
@@ -46,9 +46,9 @@ resource "kubernetes_secret" "prison-visits-rds" {
   }
 
   data = {
-    access_key_id         = module.prison-visits-rds.access_key_id
-    secret_access_key     = module.prison-visits-rds.secret_access_key
-    url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
+    access_key_id     = module.prison-visits-rds.access_key_id
+    secret_access_key = module.prison-visits-rds.secret_access_key
+    url               = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
 

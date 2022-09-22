@@ -10,7 +10,7 @@ variable "namespace" {
   default = "digital-prison-services-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

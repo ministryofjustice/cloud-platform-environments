@@ -14,7 +14,7 @@ variable "namespace" {
   default = "hmpps-registers-dev"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

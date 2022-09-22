@@ -1,11 +1,11 @@
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
 module "rds_11" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application

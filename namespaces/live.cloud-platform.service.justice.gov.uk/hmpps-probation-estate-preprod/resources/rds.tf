@@ -1,6 +1,6 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name  = var.cluster_name
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
+  vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
@@ -8,10 +8,10 @@ module "rds" {
   namespace     = var.namespace
 
   performance_insights_enabled = true
-  db_instance_class = "db.t4g.small"
-  db_engine_version = "14"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  db_instance_class            = "db.t4g.small"
+  db_engine_version            = "14"
+  environment-name             = var.environment
+  infrastructure-support       = var.infrastructure_support
 
   rds_family = "postgres14"
 

@@ -7,7 +7,7 @@ variable "namespace" {
 }
 
 # this is injected by Cloud Platform automatically so we do not need to populate it here
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 

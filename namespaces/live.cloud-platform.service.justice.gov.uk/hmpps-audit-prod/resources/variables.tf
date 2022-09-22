@@ -2,7 +2,7 @@ variable "namespace" {
   default = "hmpps-audit-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "domain_audit_api" {

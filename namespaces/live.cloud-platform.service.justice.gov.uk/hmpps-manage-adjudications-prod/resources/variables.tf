@@ -11,7 +11,7 @@ variable "namespace" {
   default = "hmpps-manage-adjudications-prod"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 variable "business_unit" {

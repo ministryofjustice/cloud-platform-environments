@@ -6,7 +6,7 @@ variable "namespace" {
   default = "offender-events-staging"
 }
 
-variable "cluster_name" {
+variable "vpc_name" {
 }
 
 
