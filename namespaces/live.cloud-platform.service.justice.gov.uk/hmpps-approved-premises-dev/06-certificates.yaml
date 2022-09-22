@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-dev-cert
+  namespace: hmpps-approved-premises-dev
+spec:
+  secretName: hmpps-approved-premises-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-approved-premises-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: approved-premises-api-dev-cert
+  namespace: hmpps-approved-premises-dev
+spec:
+  secretName: approved-premises-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-api-dev.hmpps.service.justice.gov.uk
