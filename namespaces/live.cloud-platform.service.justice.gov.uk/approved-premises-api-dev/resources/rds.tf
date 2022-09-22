@@ -21,7 +21,7 @@ module "rds" {
 
 module "read_replica" {
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
   vpc_name               = var.vpc_name
   application            = var.application
