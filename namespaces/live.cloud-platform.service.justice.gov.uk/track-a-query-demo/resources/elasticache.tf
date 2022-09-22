@@ -5,7 +5,7 @@
 
 module "track_a_query_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"

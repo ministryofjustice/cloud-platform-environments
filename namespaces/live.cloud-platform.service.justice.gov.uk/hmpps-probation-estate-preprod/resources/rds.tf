@@ -8,10 +8,10 @@ module "rds" {
   namespace     = var.namespace
 
   performance_insights_enabled = true
-  db_instance_class = "db.t4g.small"
-  db_engine_version = "14"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  db_instance_class            = "db.t4g.small"
+  db_engine_version            = "14"
+  environment-name             = var.environment
+  infrastructure-support       = var.infrastructure_support
 
   rds_family = "postgres14"
 

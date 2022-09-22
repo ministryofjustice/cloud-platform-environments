@@ -50,10 +50,10 @@ resource "kubernetes_secret" "complexity-of-need-rds" {
 
   data = {
     rds_instance_endpoint = module.complexity-of-need-rds.rds_instance_endpoint
-    postgres_name     = module.complexity-of-need-rds.database_name
-    postgres_host     = module.complexity-of-need-rds.rds_instance_address
-    postgres_user     = module.complexity-of-need-rds.database_username
-    postgres_password = module.complexity-of-need-rds.database_password
+    postgres_name         = module.complexity-of-need-rds.database_name
+    postgres_host         = module.complexity-of-need-rds.rds_instance_address
+    postgres_user         = module.complexity-of-need-rds.database_username
+    postgres_password     = module.complexity-of-need-rds.database_password
     rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
     access_key_id         = module.complexity-of-need-rds.access_key_id
     secret_access_key     = module.complexity-of-need-rds.secret_access_key

@@ -1,6 +1,6 @@
 module "pcms_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is-production

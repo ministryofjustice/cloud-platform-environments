@@ -49,9 +49,9 @@ resource "kubernetes_secret" "prison-visits-rds" {
   }
 
   data = {
-    access_key_id         = module.prison-visits-rds.access_key_id
-    secret_access_key     = module.prison-visits-rds.secret_access_key
-    url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
+    access_key_id     = module.prison-visits-rds.access_key_id
+    secret_access_key = module.prison-visits-rds.secret_access_key
+    url               = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
 

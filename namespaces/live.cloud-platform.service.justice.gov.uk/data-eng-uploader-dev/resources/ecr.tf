@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["analytical-platform-uploader"]
+  github_repositories                  = ["analytical-platform-uploader"]
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
