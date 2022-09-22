@@ -2,12 +2,6 @@
 variable "cluster_name" {
 }
 
-variable "cluster_state_bucket" {
-}
-
-variable "kubernetes_cluster" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Temporary Accommodation"
@@ -46,12 +40,6 @@ variable "slack_channel" {
   default     = "community-accommodation-service-tier-3-team"
 }
 
-variable "github_owner" {
-  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
-  default     = "ministryofjustice"
-}
-
-variable "github_token" {
-  description = "Required by the Github Terraform provider"
-  default     = ""
+variable "number_cache_clusters" {
+  default = "2"
 }
