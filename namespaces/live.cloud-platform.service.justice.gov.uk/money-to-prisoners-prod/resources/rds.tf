@@ -8,7 +8,7 @@ module "rds" {
     aws = aws.london
   }
 
-  cluster_name = var.vpc_name
+  vpc_name = var.vpc_name
 
   team_name              = var.team_name
   business-unit          = var.business-unit

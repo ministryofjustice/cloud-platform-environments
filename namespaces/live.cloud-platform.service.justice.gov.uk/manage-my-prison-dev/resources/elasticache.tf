@@ -1,6 +1,6 @@
 module "redis" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
-  cluster_name = var.vpc_name
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
+  vpc_name = var.vpc_name
 
   team_name              = var.team_name
   business-unit          = var.business_unit

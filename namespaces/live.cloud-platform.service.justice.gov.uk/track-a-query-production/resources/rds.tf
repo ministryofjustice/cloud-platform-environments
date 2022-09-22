@@ -31,7 +31,7 @@ module "track_a_query_rds" {
 module "track_a_query_rds_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=rds-update-vpc-name"
 
-  cluster_name = var.vpc_name
+  vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name
