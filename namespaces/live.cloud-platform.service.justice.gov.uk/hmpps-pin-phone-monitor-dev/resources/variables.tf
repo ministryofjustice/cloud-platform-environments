@@ -13,6 +13,9 @@ variable "namespace" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."

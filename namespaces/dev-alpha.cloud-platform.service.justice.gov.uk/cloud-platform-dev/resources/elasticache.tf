@@ -5,7 +5,7 @@
  *
  */
 module "example_team_ec_cluster" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
   cluster_name           = var.cluster_name
   team_name              = "webops"
   namespace              = "cloud-platform-dev"

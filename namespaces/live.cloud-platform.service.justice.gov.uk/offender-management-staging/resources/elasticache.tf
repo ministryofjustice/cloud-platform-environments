@@ -1,5 +1,5 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
   node_type              = "cache.m4.xlarge"
   cluster_name           = var.cluster_name
   team_name              = var.team_name

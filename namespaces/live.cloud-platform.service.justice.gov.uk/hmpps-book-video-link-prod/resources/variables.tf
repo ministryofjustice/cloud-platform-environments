@@ -2,6 +2,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "domain" {
   default = "book-video-link.prison.service.justice.gov.uk"

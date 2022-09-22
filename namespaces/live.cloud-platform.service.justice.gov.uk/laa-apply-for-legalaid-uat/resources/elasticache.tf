@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update-elasticache-vpc-name"
 
   cluster_name           = var.cluster_name
   team_name              = "apply-for-legal-aid"
