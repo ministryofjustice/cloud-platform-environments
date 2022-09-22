@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "CJS Dashboard"
+  default     = "Criminal Justice System Delivery Data Dashboard"
 }
 
 variable "namespace" {
@@ -19,12 +19,12 @@ variable "namespace" {
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "HQ"
+  default     = "Data and Analysis"
 }
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "cjs-data-science"
+  default     = "cjs-dashboard"
 }
 
 variable "environment" {
