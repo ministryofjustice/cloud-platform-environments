@@ -5,6 +5,9 @@ variable "cluster_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
 
 variable "application" {
   description = "Name of Application you are deploying"

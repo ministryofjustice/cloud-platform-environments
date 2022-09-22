@@ -1,6 +1,7 @@
 module "irsa_alertmanager" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.4"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.5"
   namespace        = var.namespace
+  eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.dso-monitoring-alertmanager.arn]
   service_account  = var.alertmanager_sa
 }
