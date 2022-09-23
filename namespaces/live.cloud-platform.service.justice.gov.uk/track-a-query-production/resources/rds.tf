@@ -4,8 +4,8 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name               = var.cluster_name
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "track-a-query"
@@ -29,9 +29,9 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
 
-  cluster_name = var.cluster_name
+  vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name
