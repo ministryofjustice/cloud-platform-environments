@@ -23,6 +23,9 @@ variable "infrastructure-support" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "namespace" {
   default = "formbuilder-publisher-live"

@@ -2,6 +2,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 variable "cluster_state_bucket" {
 }
 

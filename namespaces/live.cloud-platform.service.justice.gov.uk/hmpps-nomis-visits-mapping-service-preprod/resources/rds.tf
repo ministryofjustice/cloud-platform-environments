@@ -1,6 +1,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 module "dps_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
   cluster_name                = var.cluster_name
@@ -48,10 +51,10 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.dps_rds.database_name
-    database_username     = module.dps_rds.database_username
-    database_password     = module.dps_rds.database_password
-    rds_instance_address  = module.dps_rds.rds_instance_address
+    database_name        = module.dps_rds.database_name
+    database_username    = module.dps_rds.database_username
+    database_password    = module.dps_rds.database_password
+    rds_instance_address = module.dps_rds.rds_instance_address
   }
 }
 

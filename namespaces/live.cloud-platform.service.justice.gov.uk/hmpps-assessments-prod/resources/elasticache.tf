@@ -1,6 +1,6 @@
 module "hmpps_assessments_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
-  cluster_name           = var.cluster_name
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
+  vpc_name               = var.vpc_name
   team_name              = var.team_name
   namespace              = var.namespace
   business-unit          = var.business_unit

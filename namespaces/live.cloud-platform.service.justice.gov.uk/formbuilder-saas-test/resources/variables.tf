@@ -22,6 +22,9 @@ variable "infrastructure_support" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "namespace" {
   default = "formbuilder-saas-test"

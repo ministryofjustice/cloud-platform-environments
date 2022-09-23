@@ -1,6 +1,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 module "rds_11" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"

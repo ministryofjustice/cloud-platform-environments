@@ -47,4 +47,7 @@ variable "is-production" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 

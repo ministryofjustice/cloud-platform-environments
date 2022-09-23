@@ -1,6 +1,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 variable "domain" {
   default = "calculate-release-dates.hmpps.service.justice.gov.uk"
 }

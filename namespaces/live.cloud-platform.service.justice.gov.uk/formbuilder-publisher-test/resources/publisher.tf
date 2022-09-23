@@ -33,9 +33,9 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 ########################################################
 # Publisher Elasticache Redis (for resque + job logging)
 module "publisher-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   application            = "formbuilderpublisher"
   environment-name       = var.environment-name
   is-production          = var.is-production

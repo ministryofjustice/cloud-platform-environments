@@ -2,6 +2,9 @@
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 variable "domain" {
   default = "prisoner-nomis-migration.hmpps.service.justice.gov.uk"
 }

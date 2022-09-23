@@ -37,4 +37,7 @@ variable "number_cache_clusters" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 

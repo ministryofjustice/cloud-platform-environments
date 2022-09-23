@@ -12,6 +12,9 @@ variable "environment-name" {
 variable "cluster_name" {
 }
 
+variable "vpc_name" {
+}
+
 
 variable "db_backup_retention_period_hmcts_complaints_adapter" {
   default = "2"
