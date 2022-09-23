@@ -1,7 +1,7 @@
 module "hmcts-complaints-adapter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
 
-  cluster_name               = var.cluster_name
+  vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
   application                = "hmcts-complaints-formbuilder-adapter"
   environment-name           = var.environment-name

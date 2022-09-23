@@ -1,7 +1,7 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
 
-  cluster_name = var.cluster_name
+  vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name

@@ -18,9 +18,9 @@ variable "vpc_name" {
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   db_instance_class      = "db.m5.large"
   team_name              = "offender-management"
   business-unit          = "HMPPS"

@@ -5,8 +5,8 @@ variable "vpc_name" {
 }
 
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.11"
-  cluster_name                = var.cluster_name
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business-unit
   application                 = var.application
