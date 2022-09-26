@@ -20,6 +20,10 @@ variable "namespace" {
   default = "laa-review-criminal-legal-aid-staging"
 }
 
+variable "repo_name" {
+  default = "laa-review-criminal-legal-aid"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "LAA"
@@ -57,4 +61,21 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_STAGING_NAMESPACE"
+}
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_STAGING_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_STAGING_TOKEN"
+}
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the serviceaccount cluster"
+  default     = "KUBE_STAGING_CLUSTER"
 }
