@@ -21,9 +21,9 @@ module "rds" {
 
 module "read_replica" {
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
 
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
   is-production          = var.is_production

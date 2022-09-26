@@ -9,7 +9,7 @@ locals {
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
-    values = [var.cluster_name == "live" ? "live-1" : var.cluster_name]
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
   }
 }
 
