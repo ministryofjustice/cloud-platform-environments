@@ -81,7 +81,7 @@ module "s3_bucket" {
    * The following example can be used if you need to set a lifecycle for your s3. 
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-object-lifecycle"
    *  "https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html"
-   *
+   */
   lifecycle_rule = [
     {
       enabled = true
@@ -113,7 +113,7 @@ module "s3_bucket" {
     },
   ]
 
-  */
+
 
     /*
    * The following are exampls of bucket and user policies. They are treated as
