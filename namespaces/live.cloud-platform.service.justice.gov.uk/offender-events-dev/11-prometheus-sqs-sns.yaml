@@ -10,15 +10,6 @@ spec:
   groups:
   - name: DPS-SQS-SNS-dev
     rules:
-    - alert: DEV-SQS-probation-events-dlq-not-empty
-      annotations:
-        message: DEV SQS - {{ $labels.queue_name }} has message(s) older than 15m
-        runbook_url: https://github.com/ministryofjustice/probation-offender-search-indexer#support
-      expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-dev-probation_offender_search_event_dl_queue|dps-dev-probation_offender_search_index_dl_queue"}) by (queue_name) > 0
-      for: 15m
-      labels:
-        severity: probation-integration-notifications
     - alert: DEV-SQS-oldest-message
       annotations:
         message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.
