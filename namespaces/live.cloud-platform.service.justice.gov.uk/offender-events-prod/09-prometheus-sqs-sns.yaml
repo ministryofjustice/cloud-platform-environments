@@ -71,15 +71,6 @@ spec:
       for: 10m
       labels:
         severity: digital-prison-service
-    - alert: SQS-events-dlq-not-empty-probation-offender-search
-      annotations:
-        message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
-        runbook_url: https://github.com/ministryofjustice/probation-offender-search-indexer#support
-      expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue"} offset 5m) by (queue_name) > 0
-      for: 10m
-      labels:
-        severity: probation-integration-notifications
     - alert: SQS-events-dlq-not-empty-case-notes-probation
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
