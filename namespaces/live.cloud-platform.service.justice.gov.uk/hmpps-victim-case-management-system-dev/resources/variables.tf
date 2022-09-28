@@ -27,7 +27,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-vcms-app-non-prod"
+  default     = "hmpps-migration"
 }
 
 variable "environment" {
