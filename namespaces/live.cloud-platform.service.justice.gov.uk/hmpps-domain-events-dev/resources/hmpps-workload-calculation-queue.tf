@@ -79,7 +79,7 @@ resource "aws_sns_topic_subscription" "workload_calculation_queue_subscription" 
 resource "kubernetes_secret" "workload_calculation_queue_secret" {
   metadata {
     name      = "sqs-workload-calculation-queue-secret"
-    namespace = var.namespace
+    namespace = "hmpps-workload-dev"
   }
 
   data = {
@@ -94,7 +94,7 @@ resource "kubernetes_secret" "workload_calculation_queue_secret" {
 resource "kubernetes_secret" "workload_calculation_dead_letter_queue_secret" {
   metadata {
     name      = "sqs-workload-calculation-dlq-secret"
-    namespace = var.namespace
+    namespace = "hmpps-workload-dev"
   }
 
   data = {
@@ -105,3 +105,4 @@ resource "kubernetes_secret" "workload_calculation_dead_letter_queue_secret" {
     sqs_queue_name    = module.workload_calculation_dlq.sqs_name
   }
 }
+
