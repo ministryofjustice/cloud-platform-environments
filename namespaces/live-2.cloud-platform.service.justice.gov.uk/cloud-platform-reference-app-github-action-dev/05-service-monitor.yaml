@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cloud-platform-reference-app-service
+  namespace: cloud-platform-reference-app-github-action-dev
+spec:
+  selector:
+    matchLabels:
+      app: githubaction
+  endpoints:
+    - port: http
+      interval: 15s

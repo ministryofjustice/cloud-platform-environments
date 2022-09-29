@@ -1,23 +1,14 @@
 
-variable "cluster_name" {
-}
-
 variable "vpc_name" {
-}
-
-variable "cluster_state_bucket" {
-}
-
-variable "kubernetes_cluster" {
 }
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Cloud Platform migration test"
+  default     = "Cloud Platform Reports"
 }
 
 variable "namespace" {
-  default = "cloud-platform-migration"
+  default = "cloud-platform-reports-dev"
 }
 
 variable "business_unit" {
@@ -46,15 +37,5 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform-low-priority"
-}
-
-variable "github_owner" {
-  description = "Required by the github terraform provider"
-  default     = "ministryofjustice"
-}
-
-variable "github_token" {
-  description = "Required by the github terraform provider"
-  default     = ""
+  default     = "cloud-platform"
 }
