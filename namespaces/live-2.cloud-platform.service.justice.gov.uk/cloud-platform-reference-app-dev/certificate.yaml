@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - refapp.cloud-platform.service.justice.gov.uk
+  - refapp.live-2.cloud-platform.service.justice.gov.uk
