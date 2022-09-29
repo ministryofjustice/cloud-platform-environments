@@ -14,10 +14,10 @@ resource "kubernetes_secret" "ecr_credentials_app" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_app.access_key_id
+    secret_access_key = module.ecr_credentials_app.secret_access_key
+    repo_arn          = module.ecr_credentials_app.repo_arn
+    repo_url          = module.ecr_credentials_app.repo_url
   }
 }
 
@@ -37,10 +37,10 @@ resource "kubernetes_secret" "ecr_credentials_php_7_4_apache_buster" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_php_7_4_apache_buster.access_key_id
+    secret_access_key = module.ecr_credentials_php_7_4_apache_buster.secret_access_key
+    repo_arn          = module.ecr_credentials_php_7_4_apache_buster.repo_arn
+    repo_url          = module.ecr_credentials_php_7_4_apache_buster.repo_url
   }
 }
 
@@ -60,10 +60,10 @@ resource "kubernetes_secret" "ecr_credentials_php_7_4_cli" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_php_7_4_cli.access_key_id
+    secret_access_key = module.ecr_credentials_php_7_4_cli.secret_access_key
+    repo_arn          = module.ecr_credentials_php_7_4_cli.repo_arn
+    repo_url          = module.ecr_credentials_php_7_4_cli.repo_url
   }
 }
 
@@ -83,10 +83,10 @@ resource "kubernetes_secret" "ecr_credentials_mariadb" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_mariadb.access_key_id
+    secret_access_key = module.ecr_credentials_mariadb.secret_access_key
+    repo_arn          = module.ecr_credentials_mariadb.repo_arn
+    repo_url          = module.ecr_credentials_mariadb.repo_url
   }
 }
 
@@ -106,10 +106,10 @@ resource "kubernetes_secret" "ecr_credentials_redis" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_redis.access_key_id
+    secret_access_key = module.ecr_credentials_redis.secret_access_key
+    repo_arn          = module.ecr_credentials_redis.repo_arn
+    repo_url          = module.ecr_credentials_redis.repo_url
   }
 }
 
@@ -130,10 +130,10 @@ resource "kubernetes_secret" "ecr_credentials_phpmyadmin" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_phpmyadmin.access_key_id
+    secret_access_key = module.ecr_credentials_phpmyadmin.secret_access_key
+    repo_arn          = module.ecr_credentials_phpmyadmin.repo_arn
+    repo_url          = module.ecr_credentials_phpmyadmin.repo_url
   }
 }
 
@@ -146,16 +146,16 @@ module "ecr_credentials_node_14_15_4_buster" {
   github_repositories = ["hmpps-vcms-app-cp"]
 }
 
-resource "kubernetes_secret" "ecr_credentials_node_14_15_4_buste" {
+resource "kubernetes_secret" "ecr_credentials_node_14_15_4_buster" {
   metadata {
     name      = "ecr-repo-node-14-15-4-buster-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_node_14_15_4_buster.access_key_id
+    secret_access_key = module.ecr_credentials_node_14_15_4_buster.secret_access_key
+    repo_arn          = module.ecr_credentials_node_14_15_4_buster.repo_arn
+    repo_url          = module.ecr_credentials_node_14_15_4_buster.repo_url
   }
 }
