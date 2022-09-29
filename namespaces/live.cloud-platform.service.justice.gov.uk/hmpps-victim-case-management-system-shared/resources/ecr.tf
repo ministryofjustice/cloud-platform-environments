@@ -2,14 +2,14 @@
 module "ecr_credentials_app" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  repo_name = "${var.namespace}-ecr-app"
 
   github_repositories = ["hmpps-vcms-app-cp"]
 }
 
 resource "kubernetes_secret" "ecr_credentials_app" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name      = "ecr-repo-app-${var.namespace}"
     namespace = var.namespace
   }
 
