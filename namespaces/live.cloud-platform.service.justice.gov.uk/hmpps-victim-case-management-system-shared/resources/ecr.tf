@@ -1,38 +1,161 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.7"
+# ECR for VCMS docker images
+module "ecr_credentials_app" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  /*
-    By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
-    / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
-    https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
-    To disable 'scan_on_push', set it to false as below:
-  scan_on_push = "false"
-  */
-
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
   github_repositories = ["hmpps-vcms-app-cp"]
 }
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "ecr_credentials_app" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr_credentials_app.access_key_id
+    secret_access_key = module.ecr_credentials_app.secret_access_key
+    repo_arn          = module.ecr_credentials_app.repo_arn
+    repo_url          = module.ecr_credentials_app.repo_url
+  }
+}
+
+# ECR for php:7.4-apache-buster
+module "ecr_credentials_php_7_4_apache_buster" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-php-7-4-apache-buster"
+
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_php_7_4_apache_buster" {
+  metadata {
+    name      = "ecr-repo-php-7-4-apache-buster-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_php_7_4_apache_buster.access_key_id
+    secret_access_key = module.ecr_credentials_php_7_4_apache_buster.secret_access_key
+    repo_arn          = module.ecr_credentials_php_7_4_apache_buster.repo_arn
+    repo_url          = module.ecr_credentials_php_7_4_apache_buster.repo_url
+  }
+}
+
+# ECR for php:7.4-cli
+module "ecr_credentials_php_7_4_cli" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-php-7-4-cli"
+
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_php_7_4_cli" {
+  metadata {
+    name      = "ecr-repo-php-7-4-cli-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_php_7_4_cli.access_key_id
+    secret_access_key = module.ecr_credentials_php_7_4_cli.secret_access_key
+    repo_arn          = module.ecr_credentials_php_7_4_cli.repo_arn
+    repo_url          = module.ecr_credentials_php_7_4_cli.repo_url
+  }
+}
+
+# ECR for mariadb:10.5.8
+module "ecr_credentials_mariadb" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-mariadb"
+
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_mariadb" {
+  metadata {
+    name      = "ecr-repo-mariadb-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_mariadb.access_key_id
+    secret_access_key = module.ecr_credentials_mariadb.secret_access_key
+    repo_arn          = module.ecr_credentials_mariadb.repo_arn
+    repo_url          = module.ecr_credentials_mariadb.repo_url
+  }
+}
+
+# ECR for redis:5.0.6
+module "ecr_credentials_redis" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-redis"
+
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_redis" {
+  metadata {
+    name      = "ecr-repo-redis-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_redis.access_key_id
+    secret_access_key = module.ecr_credentials_redis.secret_access_key
+    repo_arn          = module.ecr_credentials_redis.repo_arn
+    repo_url          = module.ecr_credentials_redis.repo_url
+  }
+}
+
+# ECR for phpmyadmin/phpmyadmin
+module "ecr_credentials_phpmyadmin" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-phpmyadmin"
+
+  # github actions CI/CD pipelines
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_phpmyadmin" {
+  metadata {
+    name      = "ecr-repo-phpmyadmin-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_phpmyadmin.access_key_id
+    secret_access_key = module.ecr_credentials_phpmyadmin.secret_access_key
+    repo_arn          = module.ecr_credentials_phpmyadmin.repo_arn
+    repo_url          = module.ecr_credentials_phpmyadmin.repo_url
+  }
+}
+
+# ECR for node:14.15.4-buster
+module "ecr_credentials_node_14_15_4_buster" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-node-14-15-4-buster"
+
+  github_repositories = ["hmpps-vcms-app-cp"]
+}
+
+resource "kubernetes_secret" "ecr_credentials_node_14_15_4_buster" {
+  metadata {
+    name      = "ecr-repo-node-14-15-4-buster-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr_credentials_node_14_15_4_buster.access_key_id
+    secret_access_key = module.ecr_credentials_node_14_15_4_buster.secret_access_key
+    repo_arn          = module.ecr_credentials_node_14_15_4_buster.repo_arn
+    repo_url          = module.ecr_credentials_node_14_15_4_buster.repo_url
   }
 }
