@@ -1,18 +1,16 @@
 
-variable "cluster_name" {
-}
-
 variable "vpc_name" {
 }
 
-
+variable "kubernetes_cluster" {
+}
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Cloud Platform Reports"
+  default     = "cloud-platform"
 }
 
 variable "namespace" {
-  default = "cloud-platform-reports-dev"
+  default = "cloud-platform-reference-app-dev"
 }
 
 variable "business_unit" {
@@ -42,4 +40,14 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "cloud-platform"
+}
+
+variable "github_owner" {
+  description = "Required by the github terraform provider"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the github terraform provider"
+  default     = ""
 }
