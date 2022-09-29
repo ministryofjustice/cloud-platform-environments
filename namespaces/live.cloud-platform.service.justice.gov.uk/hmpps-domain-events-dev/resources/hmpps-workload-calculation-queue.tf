@@ -105,3 +105,4 @@ resource "kubernetes_secret" "workload_calculation_dead_letter_queue_secret" {
     sqs_queue_name    = module.workload_calculation_dlq.sqs_name
   }
 }
+
