@@ -32,7 +32,7 @@ module "ecr_credentials_php_7_4_apache_buster" {
 
 resource "kubernetes_secret" "ecr_credentials_php_7_4_apache_buster" {
   metadata {
-    name      = "ecr-repo-php:7.4-apache-buster-${var.namespace}"
+    name      = "ecr-repo-php-7-4-apache-buster-${var.namespace}"
     namespace = var.namespace
   }
 
