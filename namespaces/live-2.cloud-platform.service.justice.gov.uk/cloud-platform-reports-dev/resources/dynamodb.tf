@@ -10,7 +10,7 @@ module "cloud_platform_reports_dynamodb" {
   namespace              = var.namespace
 
   hash_key          = "filename"
-  enable_encryption = "false"
+  enable_encryption = "true"
   enable_autoscaler = "true"
   aws_region        = "eu-west-2"
 }
