@@ -99,10 +99,47 @@ resource "kubernetes_secret" "pic_probation_offender_events_court_case_service_d
   }
 }
 
+resource "aws_sqs_queue_policy" "pic_probation_offender_events_court_case_service_main_queue_policy" {
+  queue_url = module.probation-offender-events-court-case-service-main-queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.probation-offender-events-court-case-service-main-queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.probation-offender-events-court-case-service-main-queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+                      {
+                        "ArnEquals":
+                          {
+                            "aws:SourceArn": "${module.probation_offender_events.topic_arn}"
+                          }
+                      }
+        }
+      ]
+  }
+
+EOF
+
+}
+
 resource "aws_sns_topic_subscription" "pic_probation_offender_events_subscription" {
   provider      = aws.london
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.pic_probation_offender_events_queue.sqs_arn
+  filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\"] }"
+}
+
+resource "aws_sns_topic_subscription" "pic_probation_offender_events_court_case_service_main_queue_subscription" {
+  provider      = aws.london
+  topic_arn     = module.probation_offender_events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.pic_probation_offender_events_court_case_service_main_queue.sqs_arn
   filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\"] }"
 }
