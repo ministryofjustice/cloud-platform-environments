@@ -8,7 +8,8 @@ module "hmpps_interventions_rds" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  rds_family             = var.rds_family
+
+  rds_family = "postgres10"
 
   providers = {
     aws = aws.london
