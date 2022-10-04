@@ -34,3 +34,34 @@ resource "kubernetes_secret" "drupal_redis" {
   }
 }
 
+module "frontend_redis" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.3"
+  cluster_name           = var.cluster_name
+  application            = var.application
+  environment-name       = var.environment-name
+  is-production          = var.is-production
+  infrastructure-support = var.infrastructure-support
+  team_name              = var.team_name
+  number_cache_clusters  = var.number_cache_clusters
+  node_type              = "cache.t3.small"
+  engine_version         = "4.0.10"
+  parameter_group_name   = "default.redis4.0"
+  namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "frontend_redis" {
+  metadata {
+    name      = "frontend-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.frontend_redis.primary_endpoint_address
+    auth_token               = module.frontend_redis.auth_token
+    member_clusters          = jsonencode(module.frontend_redis.member_clusters)
+  }
+}
