@@ -338,6 +338,9 @@ module "ecr-repo-fb-base-adapter" {
 
   team_name = "formbuilder"
   repo_name = "fb-base-adapter"
+
+  scan_on_push = var.scan_on_push
+  lifecycle_policy = var.lifecycle_policy
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-base-adapter" {
