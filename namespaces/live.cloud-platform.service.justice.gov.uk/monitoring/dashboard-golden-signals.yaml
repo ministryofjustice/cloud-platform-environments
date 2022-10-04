@@ -108,7 +108,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(\n  irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n) by (status)",
+              "expr": "sum(\n  irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n) by (status)",
               "interval": "",
               "legendFormat": "{{status}}",
               "refId": "B"
@@ -206,7 +206,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[10m]))",
+              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[10m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -265,7 +265,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -322,7 +322,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -379,7 +379,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -438,7 +438,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status!~\"5.*|499\"}[1m]))\n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status!~\"5.*|499\"}[1m]))\n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m]))\n* 100",
               "interval": "",
               "legendFormat": "Request Success Rate",
               "refId": "A"
@@ -538,21 +538,21 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p50",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p95",
               "refId": "B"
             },
             {
               "exemplar": true,
-              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"$service\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p100",
               "refId": "C"
@@ -652,35 +652,35 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"500\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"500\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "500",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"501\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"501\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "501",
               "refId": "B"
             },
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"502\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"502\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "502",
               "refId": "C"
             },
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"503\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"503\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "503",
               "refId": "D"
             },
             {
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"504\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"504\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "504",
               "refId": "E"
@@ -778,14 +778,14 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"429\"}[1m])\n)\nor\nvector(0)",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"429\"}[1m])\n)\nor\nvector(0)",
               "interval": "",
               "legendFormat": "Rate Limited Reqs",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=\"$service\", exported_namespace=\"$namespace\", status=\"406\"}[1m])\n)\nor\nvector(0)",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service-.+\", exported_namespace=\"$namespace\", status=\"406\"}[1m])\n)\nor\nvector(0)",
               "hide": false,
               "interval": "",
               "legendFormat": "Mod Security Blocked Reqs",
@@ -1701,7 +1701,7 @@ data:
               "value": "manage-recalls-api"
             },
             "datasource": null,
-            "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, ingress)",
+            "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, exported_service)",
             "description": null,
             "error": null,
             "hide": 0,
@@ -1711,7 +1711,7 @@ data:
             "name": "service",
             "options": [],
             "query": {
-              "query": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, ingress)",
+              "query": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, exported_service)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
