@@ -99,5 +99,5 @@ resource "aws_sns_topic_subscription" "whereabouts_api_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.whereabouts_api_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"DATA_COMPLIANCE_DELETE-OFFENDER\", \"APPOINTMENT_CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
 }
