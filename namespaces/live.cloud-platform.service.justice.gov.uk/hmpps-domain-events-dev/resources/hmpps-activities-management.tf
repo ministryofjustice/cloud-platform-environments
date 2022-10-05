@@ -97,7 +97,7 @@ resource "kubernetes_secret" "hmpps_activities_management_queue" {
 
 resource "kubernetes_secret" "hmpps_activities_management_dead_letter_queue" {
   metadata {
-    name      = "sqs-activities_management-dlq-secret"
+    name      = "sqs-activities-management-dlq-secret"
     namespace = "activities-api-dev"
   }
 
