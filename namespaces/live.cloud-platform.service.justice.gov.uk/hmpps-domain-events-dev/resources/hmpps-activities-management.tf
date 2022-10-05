@@ -80,7 +80,7 @@ module "hmpps_activities_management_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_activities_management_queue" {
+resource "kubernetes_secret" "activities_event_queue" {
   metadata {
     name      = "sqs-activities-management-secret"
     namespace = "activities-api-dev"
@@ -95,7 +95,7 @@ resource "kubernetes_secret" "hmpps_activities_management_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_activities_management_dead_letter_queue" {
+resource "kubernetes_secret" "activities_event_dlq" {
   metadata {
     name      = "sqs-activities-management-dlq-secret"
     namespace = "activities-api-dev"
