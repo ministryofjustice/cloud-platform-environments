@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps-activities-management" {
+resource "kubernetes_secret" "domain-event-topic" {
   metadata {
     name      = "hmpps-domain-events-topic"
     namespace = "activities-api-dev"
