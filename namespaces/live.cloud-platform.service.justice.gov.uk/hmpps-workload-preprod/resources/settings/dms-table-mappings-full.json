@@ -16,7 +16,7 @@
       "rule-name": "2",
       "object-locator": {
         "schema-name": "app",
-        "table-name": "users"
+        "table-name": "workload_points"
       },
       "rule-action": "exclude"
     },
@@ -26,17 +26,7 @@
       "rule-name": "3",
       "object-locator": {
         "schema-name": "app",
-        "table-name": "user_role"
-      },
-      "rule-action": "exclude"
-    },
-    {
-      "rule-type": "selection",
-      "rule-id": "4",
-      "rule-name": "4",
-      "object-locator": {
-        "schema-name": "app",
-        "table-name": "roles"
+        "table-name": "adjustment_reason"
       },
       "rule-action": "exclude"
     }
