@@ -27,7 +27,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-crime-apps-team"
+  default     = "crime-apps"
 }
 
 variable "environment" {
