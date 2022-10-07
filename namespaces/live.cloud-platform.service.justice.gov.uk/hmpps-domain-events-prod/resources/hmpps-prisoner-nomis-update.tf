@@ -105,5 +105,5 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.revised\", \"prison-visit.cancelled\", \"incentives.iep-review.inserted\"]}"
+  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.changed\", \"prison-visit.cancelled\", \"incentives.iep-review.inserted\"]}"
 }
