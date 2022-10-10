@@ -15,17 +15,18 @@ spec:
         message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_age_of_oldest_message_maximum{\
-        queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_.*",\
-        queue_name!~"Digital-Prison-Services-dev-prisoner_from_nomis_.*",\
-        queue_name!~"Digital-Prison-Services-dev-hmpps_workload.*",\
-        queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",\
-        queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",\
-        queue_name!="Digital-Prison-Services-dev-cfo_queue",\
-        queue_name!="Digital-Prison-Services-dev-in_cell_hmpps_queue",\
-        queue_name!="Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue",\
-        queue_name=~"Digital-Prison-Services-dev.*",\
-        queue_name!~".*_dl"} offset 1m) by (queue_name) > 2 * 60
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{
+          queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_.*",
+          queue_name!~"Digital-Prison-Services-dev-prisoner_from_nomis_.*",
+          queue_name!~"Digital-Prison-Services-dev-hmpps_workload.*",
+          queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",
+          queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",
+          queue_name!="Digital-Prison-Services-dev-cfo_queue",
+          queue_name!="Digital-Prison-Services-dev-in_cell_hmpps_queue",
+          queue_name!="Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue",
+          queue_name=~"Digital-Prison-Services-dev.*",
+          queue_name!~".*_dl"
+        } offset 1m) by (queue_name) > 2 * 60
       for: 1m
       labels:
         severity: digital-prison-service-dev
