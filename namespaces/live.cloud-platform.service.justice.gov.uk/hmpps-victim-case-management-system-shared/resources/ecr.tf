@@ -67,7 +67,7 @@ module "ecr_credentials_node_14_15_4_buster" {
 module "ecr_credentials_nfs" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr-nfst"
+  repo_name = "${var.namespace}-ecr-nfs"
 }
 
 # ECR for testing-robot
