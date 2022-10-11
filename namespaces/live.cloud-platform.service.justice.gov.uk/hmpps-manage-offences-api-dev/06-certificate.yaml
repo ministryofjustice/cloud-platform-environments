@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-offences-api-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-offences-api-dev
+spec:
+  secretName: manage-offences-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-offences-api-dev.hmpps.service.justice.gov.uk
