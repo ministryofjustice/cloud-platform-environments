@@ -13,6 +13,7 @@ module "opseng_reports" {
   enable_encryption = "false"
   enable_autoscaler = "true"
   aws_region        = "eu-west-2"
+  autoscale_max_read_capacity = "100"
 }
 
 resource "kubernetes_secret" "opseng_reports" {
