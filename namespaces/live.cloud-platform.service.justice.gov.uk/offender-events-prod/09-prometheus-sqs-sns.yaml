@@ -15,19 +15,40 @@ spec:
         message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",queue_name!="Digital-Prison-Services-prod-prison_to_probation_update_mirror.*",queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",queue_name!="Digital-Prison-Services-prod-cfo_queue",queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",queue_name=~"Digital-Prison-Services-prod.*", queue_name!~".*_dl|.*dlq"} offset 5m) by (queue_name) > 15 * 60
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{
+          queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",
+          queue_name!="Digital-Prison-Services-prod-prison_to_probation_update_mirror.*",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",
+          queue_name!="Digital-Prison-Services-prod-cfo_queue",
+          queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",
+          queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",
+          queue_name=~"Digital-Prison-Services-prod.*",
+          queue_name!~".*_dl|.*dlq|.*_dl_queue"
+        } offset 5m) by (queue_name) > 15 * 60
       for: 10m
       labels:
         severity: digital-prison-service
+
     - alert: SQS-number-of-messages
       annotations:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",queue_name!="Digital-Prison-Services-prod-cfo_queue",queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue|Digital-Prison-Services-prod-probation_offender_search_event_queue|Digital-Prison-Services-prod-prison_to_probation_update_mirror_hmpps_queue",queue_name=~"Digital-Prison-Services-prod.*", queue_name!=".*_dl|.*dlq"} offset 5m) by (queue_name) > 100
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{
+          queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",
+          queue_name!="Digital-Prison-Services-prod-cfo_queue",
+          queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",
+          queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue|Digital-Prison-Services-prod-probation_offender_search_event_queue|Digital-Prison-Services-prod-prison_to_probation_update_mirror_hmpps_queue",
+          queue_name=~"Digital-Prison-Services-prod.*",
+          queue_name!~".*_dl|.*dlq|.*_dl_queue"
+        } offset 5m) by (queue_name) > 100
       for: 10m
       labels:
         severity: digital-prison-service
+
     # - alert: SQS-oldest-message-CFO
     #   annotations:
     #     message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -44,6 +65,7 @@ spec:
     #   for: 10m
     #   labels:
     #     severity: hmpps-cfo-dms
+
     - alert: SNS-no-messages-published-prison
       annotations:
         message: "SNS topic for Prison Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy. https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
@@ -53,6 +75,7 @@ spec:
       for: 20m
       labels:
         severity: digital-prison-service
+
     - alert: SNS-no-messages-published-probation
       annotations:
         message: "SNS topic for Probation Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy. https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
@@ -62,15 +85,24 @@ spec:
       for: 30m
       labels:
         severity: probation-integration-notifications
+
     - alert: SQS-events-dlq-not-empty
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-prod-hmpps_allocation_required_dlq|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue_dl",queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*_dl.*",queue_name!="Digital-Prison-Services-prod-case_note_poll_pusher_queue_dl",queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"} offset 5m) by (queue_name) > 0
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{
+          queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_dlq|Digital-Prison-Services-prod-prisoner_from_nomis_dl_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-prod-hmpps_allocation_required_dlq|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue_dl",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*_dl.*",
+          queue_name!="Digital-Prison-Services-prod-case_note_poll_pusher_queue_dl",
+          queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",
+          queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"
+        } offset 5m) by (queue_name) > 0
       for: 10m
       labels:
         severity: digital-prison-service
+
     - alert: SQS-events-dlq-not-empty-case-notes-probation
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
