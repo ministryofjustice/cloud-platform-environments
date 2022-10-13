@@ -548,3 +548,28 @@ resource "kubernetes_secret" "ecr-repo-fb-runner" {
     secret_access_key = module.ecr-repo-fb-runner.secret_access_key
   }
 }
+
+##################################################
+
+module "ecr-repo-fb-maintenance-page" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+
+  team_name = "formbuilder"
+  repo_name = "fb-maintenance-page"
+
+  scan_on_push = var.scan_on_push
+  lifecycle_policy = var.lifecycle_policy
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-maintenance-page" {
+  metadata {
+    name      = "ecr-repo-fb-maintenance-page"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-maintenance-page.repo_url
+    access_key_id     = module.ecr-repo-fb-maintenance-page.access_key_id
+    secret_access_key = module.ecr-repo-fb-maintenance-page.secret_access_key
+  }
+}
