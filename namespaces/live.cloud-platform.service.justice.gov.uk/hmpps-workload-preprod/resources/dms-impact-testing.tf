@@ -65,29 +65,6 @@ resource "aws_dms_endpoint" "target-preprod-db" {
   }
 }
 
-resource "aws_dms_replication_task" "replication_impact_testing_mastered_task" {
-  migration_type           = "full-load"
-  replication_instance_arn = module.hmpps-workload-impact-testing-dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-repl-impact-testing-${random_id.dms_rand.hex}"
-
-  source_endpoint_arn = aws_dms_endpoint.source-prod-db.endpoint_arn
-  target_endpoint_arn = aws_dms_endpoint.target-preprod-db.endpoint_arn
-
-  table_mappings            = trimspace(file("settings/dms-table-mappings.json"))
-  replication_task_settings = trimspace(file("settings/dms-replication-task-settings.json"))
-
-  tags = {
-    Name        = "${var.team_name} Replication Task"
-    Description = "Managed by Terraform"
-    Application = var.application
-    Owner       = var.team_name
-    Env         = var.environment
-  }
-
-  # bug https://github.com/hashicorp/terraform-provider-aws/issues/1513
-  lifecycle { ignore_changes = ["replication_task_settings"] }
-}
-
 resource "aws_dms_replication_task" "replication_impact_testing_full_task" {
   migration_type           = "full-load"
   replication_instance_arn = module.hmpps-workload-impact-testing-dms.replication_instance_arn
@@ -123,7 +100,6 @@ resource "kubernetes_secret" "dms_impact_testing_instance" {
     secret_access_key        = module.hmpps-workload-impact-testing-dms.secret_access_key
     source                   = aws_dms_endpoint.source-prod-db.endpoint_arn
     destination              = aws_dms_endpoint.target-preprod-db.endpoint_arn
-    task                     = aws_dms_replication_task.replication_impact_testing_mastered_task.replication_task_arn
     full_task                = aws_dms_replication_task.replication_impact_testing_full_task.replication_task_arn
   }
 }

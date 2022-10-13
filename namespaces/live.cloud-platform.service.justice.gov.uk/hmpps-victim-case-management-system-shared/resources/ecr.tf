@@ -63,9 +63,23 @@ module "ecr_credentials_node_14_15_4_buster" {
   repo_name = "${var.namespace}-ecr-node-14-15-4-buster"
 }
 
+# ECR for nfs
+module "ecr_credentials_nfs" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-nfs"
+}
+
 # ECR for testing-robot
 module "ecr_credentials_testing_robot" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr-testing-robot"
+}
+
+# ECR for artisan
+module "ecr_credentials_artisan" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-artisan"
 }
