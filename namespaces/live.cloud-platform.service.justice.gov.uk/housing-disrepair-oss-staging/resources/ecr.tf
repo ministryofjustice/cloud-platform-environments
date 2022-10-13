@@ -24,7 +24,7 @@ module "ecr_credentials" {
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["staging", "production"]
+  # github_environments = ["staging", "production"]
 
 
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
