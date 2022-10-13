@@ -104,5 +104,5 @@ resource "aws_sns_topic_subscription" "pic_probation_offender_events_subscriptio
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.pic_probation_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\"] }"
+  filter_policy = "{\"eventType\":[ \"SENTENCE_CHANGED\", \"CONVICTION_CHANGED\", \"COURT_APPEARANCE_CHANGED\"] }"
 }
