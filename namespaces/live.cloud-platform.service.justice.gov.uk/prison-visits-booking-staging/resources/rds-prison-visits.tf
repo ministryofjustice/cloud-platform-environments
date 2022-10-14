@@ -32,7 +32,7 @@ module "prison-visits-rds" {
   environment-name       = "staging"
   infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "12.8"
+  db_engine_version      = "12"
   db_name                = "visits"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres12"
