@@ -4,7 +4,7 @@ metadata:
   name: manage-a-warrant-folder-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-manage-a-warrant-folder-dev
 spec:
-  secretName: hmpps-manage-a-warrant-folder
+  secretName: hmpps-manage-a-warrant-folder-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
