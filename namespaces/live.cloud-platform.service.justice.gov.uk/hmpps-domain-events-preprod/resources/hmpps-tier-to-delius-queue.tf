@@ -4,7 +4,10 @@ resource "aws_sns_topic_subscription" "hmpps-tier-to-delius-queue-subscription" 
   protocol  = "sqs"
   endpoint  = module.hmpps-tier-to-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["TIER_CALCULATION_COMPLETE"]
+    eventType = [
+      "TIER_CALCULATION_COMPLETE",
+      "tier.calculation.complete",
+    ]
   })
 }
 
