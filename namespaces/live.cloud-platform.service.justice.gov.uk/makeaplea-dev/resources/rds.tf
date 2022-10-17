@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -140,14 +140,17 @@ resource "kubernetes_secret" "read_replica" {
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
 
-  /*
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
+    rds_instance_endpoint       = module.dps_rds.rds_instance_endpoint
+    rds_instance_address  =       module.read_replica.rds_instance_address
+    database_name               = module.dps_rds.database_name
+    database_username           = module.dps_rds.database_username
+    database_password           = module.dps_rds.database_password
+    rds_instance_address        = module.dps_rds.rds_instance_address
+    access_key_id               = module.dps_rds.access_key_id
+    secret_access_key           = module.dps_rds.secret_access_key
+    url                         = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
-  */
 }
 
 
