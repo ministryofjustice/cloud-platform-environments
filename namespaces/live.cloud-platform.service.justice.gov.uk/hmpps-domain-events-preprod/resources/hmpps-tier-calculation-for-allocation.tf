@@ -75,7 +75,12 @@ resource "aws_sns_topic_subscription" "hmpps_tier_calculation_allocation_subscri
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_tier_calculation_allocation_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"TIER_CALCULATION_COMPLETE\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "TIER_CALCULATION_COMPLETE",
+      "tier.calculation.complete",
+    ]
+  })
 }
 
 
