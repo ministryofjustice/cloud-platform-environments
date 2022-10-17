@@ -28,14 +28,13 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = false
 
-  # change the postgres version as you see fit.
+  # change the rds version as you see fit.
   db_engine_version = "10.5.16"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t3.micro" # Just used for a POC at this stage
 
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
-  # Pick the one that defines the postgres version the best
+  # Pick the one that defines the mariadb version the best
   rds_family = "mariadb10.5"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
@@ -108,7 +107,7 @@ module "read_replica" {
 
 resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-mariadb-instance-output"
     namespace = var.namespace
   }
 
@@ -122,7 +121,7 @@ resource "kubernetes_secret" "rds" {
     secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
+     * use a single database URL value in your application code, e.g.
      *
      * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
      *
@@ -134,7 +133,7 @@ resource "kubernetes_secret" "read_replica" {
   count = 0
 
   metadata {
-    name      = "rds-postgresql-read-replica-output"
+    name      = "rds-mariadb-read-replica-output"
     namespace = var.namespace
   }
 
@@ -155,7 +154,7 @@ resource "kubernetes_secret" "read_replica" {
 
 resource "kubernetes_config_map" "rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-mariadb-instance-output"
     namespace = var.namespace
   }
 
