@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-contact-registry-cert
+  namespace: visit-someone-in-prison-backend-svc-staging
+spec:
+  secretName: prisoner-contact-registry-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-contact-registry-staging.prison.service.justice.gov.uk
