@@ -4,23 +4,6 @@
  * releases page of this repository.
  *
  */
-module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-
-
-  providers = {
-    aws = aws.london
-  }
-}
-/*
 module "rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
   vpc_name               = var.vpc_name
@@ -70,7 +53,7 @@ module "rds" {
     aws = aws.london
   }
 }
-*/
+
 # To create a read replica, use the below code and update the values to specify the RDS instance
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
