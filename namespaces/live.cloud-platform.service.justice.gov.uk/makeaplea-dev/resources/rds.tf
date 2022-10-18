@@ -4,7 +4,22 @@
  * releases page of this repository.
  *
  */
+module "dps_rds" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business-unit          = var.business-unit
+  application            = var.application
+  is-production          = var.is-production
+  namespace              = var.namespace
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure-support
 
+
+  providers = {
+    aws = aws.london
+  }
+}
 module "rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
   vpc_name               = var.vpc_name
