@@ -4,6 +4,8 @@
  * releases page of this repository.
  *
  */
+
+# Create app ECR repo
 module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
@@ -92,4 +94,11 @@ resource "kubernetes_secret" "ecr_credentials_app" {
     repo_arn          = module.ecr_credentials.repo_arn
     repo_url          = module.ecr_credentials.repo_url
   }
+}
+
+# Create artisan ECR repo
+module "ecr_credentials_artisan" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr-artisan"
 }
