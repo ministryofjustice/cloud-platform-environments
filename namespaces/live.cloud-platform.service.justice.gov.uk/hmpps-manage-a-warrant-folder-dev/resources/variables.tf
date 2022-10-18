@@ -14,7 +14,7 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
-variable "team_name" {
+variable "team-name" {
   description = "The name of your development team"
   default     = "farsight-devs"
 }
