@@ -63,8 +63,7 @@ module "read_replica" {
   # default off
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
-
-  vpc_name               = var.vpc_name
+  cluster_name           = var.cluster_name
   application            = var.application
   environment-name       = var.environment
   is-production          = var.is_production
