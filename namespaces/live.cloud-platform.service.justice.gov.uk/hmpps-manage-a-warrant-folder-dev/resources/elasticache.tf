@@ -2,10 +2,10 @@ module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
-  team_name              = var.team_name
+  environment-name       = var.environment-name
+  is-production          = var.is-production
+  infrastructure-support = var.infrastructure-support
+  team_name              = var.team-name
   number_cache_clusters  = "2"
   node_type              = "cache.t2.small"
   engine_version         = "4.0.10"

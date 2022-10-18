@@ -1,3 +1,6 @@
+variable "vpc-name" {
+}
+
 variable "application" {
   default = "hmpps-manage-a-warrant-folder-dev"
 }
