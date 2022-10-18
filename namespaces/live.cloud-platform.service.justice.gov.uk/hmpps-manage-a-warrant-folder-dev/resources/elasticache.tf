@@ -28,3 +28,4 @@ resource "kubernetes_secret" "elasticache_redis" {
     auth_token               = module.elasticache_redis.auth_token
     member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
   }
+}
