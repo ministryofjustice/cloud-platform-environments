@@ -19,7 +19,7 @@ variable "vpc_name" {
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
