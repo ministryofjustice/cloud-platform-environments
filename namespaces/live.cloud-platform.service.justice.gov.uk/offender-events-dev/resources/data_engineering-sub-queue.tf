@@ -53,13 +53,13 @@ resource "kubernetes_secret" "data_engineering_queue" {
   data = {
     access_key_id     = module.data_engineering_queue.access_key_id
     secret_access_key = module.data_engineering_queue.secret_access_key
-    sqs_ptpu_url      = module.data_engineering_queue.sqs_id
-    sqs_ptpu_arn      = module.data_engineering_queue.sqs_arn
-    sqs_ptpu_name     = module.data_engineering_queue.sqs_name
+    sqs_url           = module.data_engineering_queue.sqs_id
+    sqs_arn           = module.data_engineering_queue.sqs_arn
+    sqs_name          = module.data_engineering_queue.sqs_name
   }
 }
 
-resource "aws_sns_topic_subscription" "ou_events_ui_prison_subscription" {
+resource "aws_sns_topic_subscription" "data_engineering_prison_subscription" {
   provider  = aws.london
   topic_arn = module.offender_events.topic_arn
   protocol  = "sqs"
