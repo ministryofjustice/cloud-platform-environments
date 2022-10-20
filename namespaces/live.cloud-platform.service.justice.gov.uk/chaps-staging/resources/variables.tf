@@ -91,7 +91,7 @@ variable "github_actions_secret_kube_cluster" {
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE"
+  default     = "KUBE_NAMESPACE_STAGING"
 }
 
 variable "github_actions_secret_kube_cert" {
