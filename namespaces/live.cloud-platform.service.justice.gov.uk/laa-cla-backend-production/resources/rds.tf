@@ -10,7 +10,7 @@
 
 
 module "cla_backend_rds_postgres_10" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business-unit
@@ -57,7 +57,7 @@ module "cla_backend_rds_postgres_10" {
 }
 
 module "cla_backend_rds_postgres_10_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -106,7 +106,7 @@ module "cla_backend_rds_postgres_10_replica" {
 }
 
 module "cla_backend_rds_postgres_11_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -155,7 +155,7 @@ module "cla_backend_rds_postgres_11_replica" {
 }
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business-unit

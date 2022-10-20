@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name                   = var.vpc_name
   team_name                  = "peoplefinder"
   business-unit              = "Central Digital"
