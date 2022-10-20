@@ -10,8 +10,8 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure-support
   db_instance_class      = "db.t3.large"
   db_engine              = "postgres"
-  db_engine_version      = "10.21"
-  rds_family             = "postgres10"
+  db_engine_version      = "14"
+  rds_family             = "postgres14"
 
 
   providers = {
