@@ -36,5 +36,5 @@ variable "namespace" {
 }
 
 variable "db_instance_class" {
-  default = "db.m6g.medium"
+  default = "db.m6g.large"
 }
