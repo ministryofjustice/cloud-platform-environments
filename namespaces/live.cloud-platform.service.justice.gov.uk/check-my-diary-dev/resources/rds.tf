@@ -10,7 +10,6 @@ module "checkmydiary_dev_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = "postgres10"
-  db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
 
   providers = {
     aws = aws.london
@@ -30,23 +29,7 @@ resource "kubernetes_secret" "checkmydiary_rds_secrets" {
     database_username     = module.checkmydiary_dev_rds.database_username
     database_password     = module.checkmydiary_dev_rds.database_password
     rds_instance_address  = module.checkmydiary_dev_rds.rds_instance_address
+    access_key_id         = module.checkmydiary_dev_rds.access_key_id
+    secret_access_key     = module.checkmydiary_dev_rds.secret_access_key
   }
 }
-
-# For deletion...
-resource "kubernetes_secret" "checkmydiary_dev_rds" {
-  metadata {
-    name      = "check-my-diary-rds-dev-env"
-    namespace = "check-my-diary-dev"
-  }
-
-  data = {
-    rds_instance_endpoint = module.checkmydiary_dev_rds.rds_instance_endpoint
-    database_name         = module.checkmydiary_dev_rds.database_name
-    rds_instance_port     = module.checkmydiary_dev_rds.rds_instance_port
-    database_username     = module.checkmydiary_dev_rds.database_username
-    database_password     = module.checkmydiary_dev_rds.database_password
-    rds_instance_address  = module.checkmydiary_dev_rds.rds_instance_address
-  }
-}
-
