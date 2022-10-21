@@ -34,3 +34,7 @@ variable "vpc_name" {
 variable "namespace" {
   default = "formbuilder-platform-test-production"
 }
+
+variable "db_instance_class" {
+  default = "db.m6g.medium"
+}
