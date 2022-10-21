@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_rules = var.serviceaccount_rules
 
-  # Uncomment and provide repository names to create github actions secrets
+  #  Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories                  = ["chapsdotnet"]
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
