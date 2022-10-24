@@ -9,13 +9,13 @@ module "checkmydiary_dev_rds" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  db_instance_class      = "db.t3.large"
+  db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
   db_engine_version      = "14"
   rds_family             = "postgres14"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
 
   providers = {
     aws = aws.london
