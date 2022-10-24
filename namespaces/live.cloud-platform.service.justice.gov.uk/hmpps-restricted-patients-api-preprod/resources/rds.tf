@@ -15,6 +15,13 @@ module "rp_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  db_instance_class      = "db.t3.large"
+  db_engine              = "postgres"
+  db_engine_version      = "14"
+  rds_family             = "postgres14"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "true"
 
 
   providers = {
