@@ -8,6 +8,10 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
+  db_instance_class      = "db.t3.large"
+  db_engine              = "postgres"
+  db_engine_version      = "10.21"
+  rds_family             = "postgres10"
 
 
   providers = {
