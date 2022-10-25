@@ -115,12 +115,14 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
-        "certmanager.k8s.io"
+        "certmanager.k8s.io",
+        "policy",
       ]
       resources = [
         "deployments",
         "ingresses",
         "replicasets",
+        "poddisruptionbudgets",
         "certificates"
       ]
       verbs = [
