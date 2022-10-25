@@ -61,19 +61,6 @@ resource "aws_sqs_queue_policy" "hmpps_extract_placed_queue_policy" {
     EOF
 }
 
-resource "aws_s3_bucket_notification" "hmpps_extract_placed_s3_notification" {
-  bucket = module.hmpps-workload-dev-s3-extract-bucket.bucket_name
-
-  queue {
-    id        = "hmpps-extract-placed-event"
-    queue_arn = module.hmpps_extract_placed_queue.sqs_arn
-    events = [
-      "s3:ObjectCreated:*"]
-    filter_prefix = "extract/"
-  }
-
-}
-
 resource "kubernetes_secret" "hmpps_extract_placed_queue" {
   metadata {
     name      = "hmpps-extract-placed-sqs-instance-output"

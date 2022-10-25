@@ -156,6 +156,14 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
     filter_prefix = "extract/"
   }
 
+  queue {
+    id        = "hmpps-extract-placed-event"
+    queue_arn = module.hmpps_extract_placed_queue.sqs_arn
+    events = [
+      "s3:ObjectCreated:*"]
+    filter_prefix = "extract/"
+  }
+
 }
 
 resource "kubernetes_secret" "hmpps_workload_s3_extract_event_queue" {
