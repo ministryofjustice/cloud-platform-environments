@@ -15,7 +15,7 @@ module "extract-placed-topic" {
         "Effect": "Allow",
         "Principal": { "Service": "s3.amazonaws.com" },
         "Action": "SNS:Publish",
-        "Resource": "arn:aws:sns:*:*:extract-placed-topic",
+        "Resource": "${module.extract-placed-topic.topic_arn}",
         "Condition":{
             "ArnLike":{"aws:SourceArn":"${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}"}
         }
