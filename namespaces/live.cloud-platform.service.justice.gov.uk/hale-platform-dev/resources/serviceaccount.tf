@@ -7,4 +7,62 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["hale-platform"]
+
+serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "serviceaccounts",
+        "configmaps",
+        "persistentvolumeclaims",
+
+      ]
+      verbs = [
+        "update",
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+        "rbac.authorization.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+        "roles",
+        "rolebindings"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
