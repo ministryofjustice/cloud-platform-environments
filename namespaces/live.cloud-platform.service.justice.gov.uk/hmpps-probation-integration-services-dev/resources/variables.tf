@@ -123,7 +123,10 @@ variable "serviceaccount_rules" {
         "ingresses",
         "replicasets",
         "poddisruptionbudgets",
-        "certificates"
+        "certificates",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
       ]
       verbs = [
         "get",
