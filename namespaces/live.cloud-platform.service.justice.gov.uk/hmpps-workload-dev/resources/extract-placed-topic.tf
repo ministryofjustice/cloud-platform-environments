@@ -1,5 +1,5 @@
 module "extract-placed-topic" {
-  source = "github.com/carlov20/cloud-platform-terraform-sns-topic?ref=main"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.4"
 
   team_name          = var.team_name
   topic_display_name = "extract-placed-topic"
