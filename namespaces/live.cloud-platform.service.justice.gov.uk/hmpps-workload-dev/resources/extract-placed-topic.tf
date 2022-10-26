@@ -1,5 +1,5 @@
 module "extract-placed-topic" {
-  source = "github.com/carlov20/cloud-platform-terraform-sns-topic?ref=main"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.4"
 
   team_name          = var.team_name
   topic_display_name = "extract-placed-topic"
@@ -8,20 +8,30 @@ module "extract-placed-topic" {
     aws = aws.london
   }
 
-  policy = <<EOF
-  {
-    "Version":"2012-10-17",
-    "Statement":[{
-        "Effect": "Allow",
-        "Principal": { "Service": "s3.amazonaws.com" },
-        "Action": "SNS:Publish",
-        "Resource": "arn:aws:sns:*:*:extract-placed-topic",
-        "Condition":{
-            "ArnLike":{"aws:SourceArn":"${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}"}
-        }
-    }]
+}
+
+data "aws_iam_policy_document" "extract_placed_topic_policy" {
+
+  statement {
+    sid     = "WMTS3ToTopic"
+    effect  = "Allow"
+    actions = ["SNS:Publish"]
+    principals {
+      type        = "Service"
+      identifiers = ["s3.amazonaws.com"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [module.hmpps-workload-dev-s3-extract-bucket.bucket_arn]
+    }
+    resources = [module.extract-placed-topic.topic_arn]
   }
-    EOF
+}
+
+resource "aws_sns_topic_policy" "extract_placed_topic_policy" {
+  arn = module.extract-placed-topic.topic_arn
+  policy    = data.aws_iam_policy_document.extract_placed_topic_policy.json
 }
 
 resource "kubernetes_secret" "extract-placed-topic-secret" {
