@@ -15,13 +15,26 @@ module "extract-placed-topic" {
         "Effect": "Allow",
         "Principal": { "Service": "s3.amazonaws.com" },
         "Action": "SNS:Publish",
-        "Resource": "arn:aws:sns:*:*:s3-event-notification-topic",
+        "Resource": "arn:aws:sns:*:*:extract-placed-topic",
         "Condition":{
             "ArnLike":{"aws:SourceArn":"${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}"}
         }
     }]
   }
     EOF
+}
+
+resource "kubernetes_secret" "extract-placed-topic-secret" {
+  metadata {
+    name      = "extract-placed-topic-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.extract-placed-topic.access_key_id
+    secret_access_key = module.extract-placed-topic.secret_access_key
+    topic_arn         = module.extract-placed-topic.topic_arn
+  }
 }
 
 
