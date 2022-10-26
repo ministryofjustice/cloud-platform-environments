@@ -117,6 +117,7 @@ variable "serviceaccount_rules" {
         "networking.k8s.io",
         "certmanager.k8s.io",
         "policy",
+        "monitoring.coreos.com"
       ]
       resources = [
         "deployments",
