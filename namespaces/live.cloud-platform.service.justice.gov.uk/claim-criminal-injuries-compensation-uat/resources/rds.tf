@@ -18,7 +18,7 @@ module "rds" {
   infrastructure-support = var.email
 
   db_engine                  = "postgres"
-  db_engine_version          = "13.7"
+  db_engine_version          = "10"
   db_instance_class          = "db.t3.small"
   db_allocated_storage       = "5"
   db_name                    = "datacaptureservice"
@@ -26,7 +26,7 @@ module "rds" {
 
   # rds_family should be: postgres13
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres13"
+  rds_family = "postgres10"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
