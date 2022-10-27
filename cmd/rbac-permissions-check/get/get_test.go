@@ -4,10 +4,10 @@ import (
 	"context"
 	"log"
 	"os"
-	"testing"
-
 	"rbac-check/client"
 	"rbac-check/config"
+	"reflect"
+	"testing"
 )
 
 // TestGetUserID attempts to get the user id of a robot user account.
@@ -39,7 +39,7 @@ func TestPrimaryTeamName(t *testing.T) {
 	namespace := "abundant-namespace-dev"
 
 	user := config.User{
-		PrimaryCluster:   "live",
+		PrimaryCluster: "live",
 	}
 
 	repo := config.Repository{
@@ -59,5 +59,78 @@ func TestPrimaryTeamName(t *testing.T) {
 		if team != repo.AdminTeam {
 			t.Errorf("Expecting: %s; got %s", repo.AdminTeam, team)
 		}
+	}
+}
+
+func Test_getGithubTeamName(t *testing.T) {
+	type args struct {
+		content []byte
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    []string
+		wantErr bool
+	}{
+		{
+			name: "simple rolebinding",
+			args: args{[]byte(
+				`---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: test-admins
+  namespace: test-ns
+subjects:
+  - kind: Group
+    name: "github:test-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io`),
+			},
+			want:    []string{"test-team"},
+			wantErr: false,
+		},
+		{
+			name: "rolebinding with empty documents and comments",
+			args: args{[]byte(
+				`---
+# Source: test/templates/01-rbac.yaml
+# Bind admin role for namespace to team group
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: test-admins
+  namespace: test-ns
+subjects:
+  - kind: Group
+    name: "github:test-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+
+# Further roles defined in:
+# - test-service-account.yaml`),
+			},
+			want:    []string{"test-team"},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := getGithubTeamName(tt.args.content)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("getGithubTeamName() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getGithubTeamName() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
