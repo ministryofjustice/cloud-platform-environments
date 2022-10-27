@@ -121,27 +121,10 @@ module "s3_bucket" {
    *
    */
 
-    /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
- *
-
    bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    },
     {
       "Effect": "Allow",
       "Principal": {
@@ -172,8 +155,6 @@ module "s3_bucket" {
   ]
 }
 EOF
-
-*/
 
     /*
  * Override the default policy for the generated machine user of this bucket.
