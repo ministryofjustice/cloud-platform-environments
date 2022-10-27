@@ -121,7 +121,7 @@ module "s3_bucket" {
    *
    */
 
-   bucket_policy = <<EOF
+   bucket_policy = jsonencode(
                     {
                       "Version": "2012-10-17",
                       "Statement": [
@@ -154,7 +154,7 @@ module "s3_bucket" {
                         }
                       ]
                     }
-                    EOF
+                  )
 
     /*
  * Override the default policy for the generated machine user of this bucket.
