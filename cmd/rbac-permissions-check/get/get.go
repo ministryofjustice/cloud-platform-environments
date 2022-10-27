@@ -14,10 +14,7 @@ import (
 
 	"github.com/google/go-github/v35/github"
 	"gopkg.in/yaml.v2"
-	"k8s.io/kubectl/pkg/scheme"
 )
-
-var codec = scheme.Codecs.LegacyCodec(scheme.Scheme.PrioritizedVersionsAllGroups()...)
 
 // UserID takes an Options and User data type from the caller and returns
 // the users GitHub user object.
