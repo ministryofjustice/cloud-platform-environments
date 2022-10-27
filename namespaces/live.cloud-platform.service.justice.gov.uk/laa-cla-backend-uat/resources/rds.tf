@@ -47,27 +47,6 @@ module "cla_backend_rds_postgres_11" {
     aws = aws.london
   }
 }
-
-resource "kubernetes_secret" "cla_backend_rds_postgres_10" {
-  metadata {
-    name      = "database-10"
-    namespace = var.namespace
-  }
-
-  data = {
-    endpoint          = module.cla_backend_rds_postgres_10.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_10.rds_instance_address
-    port              = module.cla_backend_rds_postgres_10.rds_instance_port
-    name              = module.cla_backend_rds_postgres_10.database_name
-    user              = module.cla_backend_rds_postgres_10.database_username
-    password          = module.cla_backend_rds_postgres_10.database_password
-    db_identifier     = module.cla_backend_rds_postgres_10.db_identifier
-    access_key_id     = module.cla_backend_rds_postgres_10.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_10.secret_access_key
-  }
-
-}
-
 resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
   metadata {
     name      = "database-11"
