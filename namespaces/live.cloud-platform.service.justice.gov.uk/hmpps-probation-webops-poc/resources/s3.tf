@@ -121,40 +121,40 @@ module "s3_bucket" {
    *
    */
 
-   bucket_policy = <<-EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "datasync.amazonaws.com"
-        ]
-      },
-      "Action": [
-        "sts:AssumeRole"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::356676313489:role/vcms-dev-efs-migration"
-      },
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}"
-      ]
-    }
-  ]
-}
-EOF
+   bucket_policy = <<EOF
+                    {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": [
+                              "datasync.amazonaws.com"
+                            ]
+                          },
+                          "Action": [
+                            "sts:AssumeRole"
+                          ],
+                          "Resource": [
+                            "$${bucket_arn}/*"
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Principal": {
+                            "AWS": "arn:aws:iam::356676313489:role/vcms-dev-efs-migration"
+                          },
+                          "Action": [
+                            "s3:GetObject",
+                            "s3:PutObject"
+                          ],
+                          "Resource": [
+                            "$${bucket_arn}"
+                          ]
+                        }
+                      ]
+                    }
+                    EOF
 
     /*
  * Override the default policy for the generated machine user of this bucket.
