@@ -121,7 +121,7 @@ module "s3_bucket" {
    *
    */
 
-   bucket_policy = <<EOF
+   bucket_policy = <<-EOF
 {
   "Version": "2012-10-17",
   "Statement": [
