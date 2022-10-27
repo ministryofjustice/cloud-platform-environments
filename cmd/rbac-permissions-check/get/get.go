@@ -66,8 +66,7 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 func getGithubTeamName(content []byte) ([]string, error) {
 	rbac := config.Rbac{}
 	// Parsing the yaml.
-	r := bytes.NewReader(content)
-	decoder := yaml.NewDecoder(r)
+	decoder := yaml.NewDecoder(bytes.NewReader(content))
 	// loop through multiple documents to omit empty documents
 	for {
 
