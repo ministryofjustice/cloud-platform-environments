@@ -8,48 +8,6 @@
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
-module "cla_backend_rds_postgres_10" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
-  vpc_name      = var.vpc_name
-  team_name     = var.team_name
-  business-unit = var.business-unit
-  application   = var.application
-  is-production = var.is-production
-  namespace     = var.namespace
-
-  db_name = "cla_backend"
-  # change the postgres version as you see fit.
-  db_engine_version      = "10"
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres10"
-
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
-
-  db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "1"
-      apply_method = "pending-reboot"
-    }
-  ]
-
-  snapshot_identifier = "cla-backend-manual-snapshot-2022-08-01"
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
-}
-
 module "cla_backend_rds_postgres_11" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name      = var.vpc_name
