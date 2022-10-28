@@ -13,8 +13,6 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "rds:cloud-platform-33ac10144c48c3ea-2022-10-27-00-51"
-
   providers = {
     aws = aws.london
   }
