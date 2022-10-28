@@ -37,35 +37,28 @@ module "hmpps_extract_placed_dead_letter_queue" {
   }
 }
 
-data "aws_iam_policy_document" "hmpps_extract_placed_queue_policy" {
-
-  statement {
-    sid     = "TopicToQueue"
-    effect  = "Allow"
-    actions = ["SQS:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [module.extract-placed-topic.topic_arn]
-    }
-    resources = [module.hmpps_extract_placed_queue.sqs_arn]
-  }
-}
-
 resource "aws_sqs_queue_policy" "hmpps_extract_placed_queue_policy" {
   queue_url = module.hmpps_extract_placed_queue.sqs_id
-  policy    = data.aws_iam_policy_document.hmpps_extract_placed_queue_policy.json
-}
 
-resource "aws_sns_topic_subscription" "hmpps_extract_placed_queue_subscription" {
-  provider  = aws.london
-  topic_arn = module.extract-placed-topic.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.hmpps_extract_placed_queue.sqs_arn
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_extract_placed_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement": [
+      {
+        "Effect": "Allow",
+         "Principal": {
+            "Service": "s3.amazonaws.com"
+         },
+        "Action": "sqs:SendMessage",
+        "Resource": "${module.hmpps_extract_placed_queue.sqs_arn}",
+        "Condition": {
+          "ArnEquals": { "aws:SourceArn": "${module.hmpps-workload-dev-s3-extract-bucket.bucket_arn}" }
+        }
+      }
+    ]
+  }
+    EOF
 }
 
 resource "kubernetes_secret" "hmpps_extract_placed_queue" {
