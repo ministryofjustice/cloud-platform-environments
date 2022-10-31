@@ -8,7 +8,7 @@ module "s3_bucket" {
 
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business-unit          = var.team_name
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
