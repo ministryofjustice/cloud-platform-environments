@@ -30,9 +30,14 @@ variable "team_name" {
   default     = "probation-integration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
+}
+
+variable "github_environment_name" {
+  description = "The name of the GitHub environment to deploy secrets to."
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
