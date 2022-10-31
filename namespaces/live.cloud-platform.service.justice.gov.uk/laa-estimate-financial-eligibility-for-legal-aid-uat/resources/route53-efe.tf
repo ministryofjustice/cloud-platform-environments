@@ -215,7 +215,7 @@ resource "aws_route53_record" "estimate-financial-eligibility-staging" {
   name    = "estimate-financial-eligibility-staging.cloud-platform.service.justice.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["	google-site-verification=9XlFxs80ciBCucw8U8GnSmnkW1dziYbgCNHU1eH5Jp4"]
+  records = ["google-site-verification=9XlFxs80ciBCucw8U8GnSmnkW1dziYbgCNHU1eH5Jp4"]
 }
 
 resource "aws_route53_record" "income-section-estimate-financial-eligibility-uat" {
@@ -231,7 +231,7 @@ resource "aws_route53_record" "main-estimate-financial-eligibility-uat" {
   name    = "main-estimate-financial-eligibility-uat.cloud-platform.service.justice.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["	google-site-verification=WPFbWB8QIay_465TBCXx0CM6bU91H0U6joHv6IPkcJY"]
+  records = ["google-site-verification=WPFbWB8QIay_465TBCXx0CM6bU91H0U6joHv6IPkcJY"]
 }
 
 resource "aws_route53_record" "merge-errors-estimate-financial-eligibility-uat" {
