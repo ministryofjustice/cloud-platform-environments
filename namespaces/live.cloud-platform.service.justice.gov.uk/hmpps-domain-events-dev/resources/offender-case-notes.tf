@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "topic_secrets" {
+resource "kubernetes_secret" "offender-case-notes-topic-secret" {
   metadata {
     namespace = "offender-case-notes-${var.environment-name}"
     name      = "domain-events-topic"
