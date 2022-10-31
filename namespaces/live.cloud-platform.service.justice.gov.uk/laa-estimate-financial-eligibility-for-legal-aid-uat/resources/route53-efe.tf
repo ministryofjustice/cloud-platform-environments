@@ -186,10 +186,6 @@ resource "aws_route53_record" "el-433-smod-results-estimate-financial-eligibilit
   records = ["google-site-verification=B0pIS0ly615jgPN7PVy8sSXNSE95se-RJHo1IvTLroQ"]
 }
 
-data "aws_route53_zone" "cloud_platform" {
-  name = "cloud-platform.service.justice.gov.uk"
-}
-
 resource "aws_route53_record" "el-434-do-not-index-estimate-financial-eligibility-uat" {
   zone_id = data.aws_route53_zone.cloud_platform.zone_id
   name    = "el-434-do-not-index-estimate-financial-eligibility-uat.cloud-platform.service.justice.gov.uk"
