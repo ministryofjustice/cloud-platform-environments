@@ -1,7 +1,7 @@
 locals {
   managed_sqs_queues = [
-    module.prison-case-notes-to-probation-queue,
-    module.prison-case-notes-to-probation-dlq,
+    module.prison-case-notes-to-probation-queue.sqs_arn,
+    module.prison-case-notes-to-probation-dlq.sqs_arn,
   ]
 }
 
