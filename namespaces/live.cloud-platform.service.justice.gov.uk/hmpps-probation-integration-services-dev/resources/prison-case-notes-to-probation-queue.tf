@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subscription" {
-  provider  = aws.london
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
