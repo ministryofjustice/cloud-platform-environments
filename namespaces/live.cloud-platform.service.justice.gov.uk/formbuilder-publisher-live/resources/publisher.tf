@@ -24,7 +24,9 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 
   data = {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
-    url = "postgres://${module.publisher-rds-instance.database_username}:${module.publisher-rds-instance.database_password}@${module.publisher-rds-instance.rds_instance_endpoint}/${module.publisher-rds-instance.database_name}"
+    url               = "postgres://${module.publisher-rds-instance.database_username}:${module.publisher-rds-instance.database_password}@${module.publisher-rds-instance.rds_instance_endpoint}/${module.publisher-rds-instance.database_name}"
+    access_key_id     = module.publisher-rds-instance.access_key_id
+    secret_access_key = module.publisher-rds-instance.secret_access_key
   }
 }
 
