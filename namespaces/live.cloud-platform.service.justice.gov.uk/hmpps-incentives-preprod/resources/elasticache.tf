@@ -1,7 +1,3 @@
-################################################################################
-# HMPPs Typescript Template Application Elasticache
-################################################################################
-
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
   vpc_name               = var.vpc_name
@@ -12,8 +8,8 @@ module "elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   providers = {
@@ -33,4 +29,3 @@ resource "kubernetes_secret" "elasticache_redis" {
     member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
   }
 }
-
