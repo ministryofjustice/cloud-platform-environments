@@ -121,40 +121,33 @@ module "s3_bucket" {
    *
    */
 
-   bucket_policy = jsonencode(
-                    {
-                      "Version": "2012-10-17",
-                      "Statement": [
-                        {
-                          "Effect": "Allow",
-                          "Principal": {
-                            "Service": [
-                              "datasync.amazonaws.com"
-                            ]
-                          },
-                          "Action": [
-                            "sts:AssumeRole"
-                          ],
-                          "Resource": [
-                            "$${bucket_arn}/*"
-                          ]
-                        },
-                        {
-                          "Effect": "Allow",
-                          "Principal": {
-                            "AWS": "arn:aws:iam::356676313489:role/vcms-dev-efs-migration"
-                          },
-                          "Action": [
-                            "s3:GetObject",
-                            "s3:PutObject"
-                          ],
-                          "Resource": [
-                            "$${bucket_arn}"
-                          ]
-                        }
-                      ]
-                    }
-                  )
+data "aws_iam_policy_document" "efs_migration_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject"
+    ]
+    resources = ["${module.s3_bucket.bucket.arn}"]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::356676313489:role/vcms-dev-efs-migration"]
+    }
+  }
+}
+
+resource "aws_iam_role" "efs_migration_role" {
+  name = "efs_migration_role"
+  path = "/"
+
+  assume_role_policy = data.aws_iam_policy_document.efs_migration_policy.json
+}
+
+resource "aws_iam_policy_attachment" "efs_migration_attachment" {
+  name       = "efs_migration_attachment"
+  roles      = [aws_iam_role.efs_migration_role.name]
+  policy_arn = aws_iam_policy.efs_migration_policys.arn
+}
 
     /*
  * Override the default policy for the generated machine user of this bucket.
