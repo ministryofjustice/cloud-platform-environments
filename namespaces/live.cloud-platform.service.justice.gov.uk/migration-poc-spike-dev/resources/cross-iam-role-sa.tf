@@ -8,11 +8,10 @@ module "irsa" {
 data "aws_iam_policy_document" "allow_s3_access" {
   statement {
     actions = [
-      "s3:GetBucketLocation",
-      "s3:ListAllMyBuckets",
+      "sts:AssumeRole",
     ]
     resources = [
-      "arn:aws:s3:::*",
+      "arn:aws:iam::684969100054:role/cp-app-migration-poc-dev",
     ]
   }
 }
