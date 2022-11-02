@@ -22,16 +22,27 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     resources = ["*"]
   }
   statement {
-    sid    = "QueueManagement"
+    sid    = "QueueManagementRead"
     effect = "Allow"
     actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
       "sqs:ListQueues",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.console_role.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid    = "QueueManagementWrite"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
       "sqs:PurgeQueue",
       "sqs:ReceiveMessage",
       "sqs:SendMessage",
@@ -46,16 +57,23 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 
 data "aws_iam_policy_document" "sqs_console_role_policy_document" {
   statement {
-    sid    = "SQS"
+    sid    = "QueueManagementRead"
     effect = "Allow"
     actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
       "sqs:ListQueues",
+    ]
+    resources = local.managed_sqs_queues
+  }
+  statement {
+    sid    = "QueueManagementWrite"
+    effect = "Allow"
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
       "sqs:PurgeQueue",
       "sqs:ReceiveMessage",
       "sqs:SendMessage",
