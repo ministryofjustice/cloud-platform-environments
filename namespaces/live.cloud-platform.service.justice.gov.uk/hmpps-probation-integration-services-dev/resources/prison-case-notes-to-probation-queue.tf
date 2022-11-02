@@ -33,6 +33,11 @@ module "prison-case-notes-to-probation-queue" {
   })
 }
 
+resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
+  queue_url = module.prison-case-notes-to-probation-queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_policy_document.json
+}
+
 module "prison-case-notes-to-probation-dlq" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
   namespace              = var.namespace
@@ -44,7 +49,11 @@ module "prison-case-notes-to-probation-dlq" {
   sqs_name    = "prison-case-notes-to-probation-dlq"
 }
 
-# Secrets
+resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
+  queue_url = module.prison-case-notes-to-probation-dlq.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_policy_document.json
+}
+
 resource "github_actions_environment_secret" "prison-case-notes-to-probation-secrets" {
   for_each = {
     "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_NAME"              = module.prison-case-notes-to-probation-queue.sqs_name
@@ -55,36 +64,4 @@ resource "github_actions_environment_secret" "prison-case-notes-to-probation-sec
   environment     = var.github_environment_name
   secret_name     = each.key
   plaintext_value = each.value
-}
-
-# Access policies
-data "aws_iam_policy_document" "prison-case-notes-to-probation-queue-policy" {
-  source_policy_documents = [
-    data.aws_iam_policy_document.sqs_console_policy_document.json
-  ]
-  statement {
-    sid     = "TopicToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
-    resources = [module.prison-case-notes-to-probation-queue.sqs_arn]
-  }
-}
-
-resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
-  queue_url = module.prison-case-notes-to-probation-queue.sqs_id
-  policy    = data.aws_iam_policy_document.prison-case-notes-to-probation-queue-policy.json
-}
-
-resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
-  queue_url = module.prison-case-notes-to-probation-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_console_policy_document.json
 }
