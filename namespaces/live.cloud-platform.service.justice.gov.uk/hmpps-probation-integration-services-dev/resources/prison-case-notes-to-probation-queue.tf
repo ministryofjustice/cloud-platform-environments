@@ -35,7 +35,7 @@ module "prison-case-notes-to-probation-queue" {
 
 resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
   queue_url = module.prison-case-notes-to-probation-queue.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_policy_document.json
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
 module "prison-case-notes-to-probation-dlq" {
@@ -51,7 +51,7 @@ module "prison-case-notes-to-probation-dlq" {
 
 resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
   queue_url = module.prison-case-notes-to-probation-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_policy_document.json
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
 resource "github_actions_environment_secret" "prison-case-notes-to-probation-secrets" {
