@@ -1,4 +1,5 @@
 module "irsa" {
+  eks_cluster_name = "live.cloud-platform.service.justice.gov.uk"
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.5"
   namespace        = "migration-poc-spike-dev"
   role_policy_arns = [aws_iam_policy.allow_s3_access.arn]
