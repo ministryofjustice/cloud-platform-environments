@@ -54,6 +54,7 @@ module "s3_bucket" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
+  }
     /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
@@ -146,7 +147,7 @@ resource "aws_iam_role" "efs_migration_role" {
 resource "aws_iam_policy_attachment" "efs_migration_attachment" {
   name       = "efs_migration_attachment"
   roles      = [aws_iam_role.efs_migration_role.name]
-  policy_arn = aws_iam_policy.efs_migration_policys.arn
+  policy_arn = aws_iam_policy.efs_migration_policy.arn
 }
 
     /*
