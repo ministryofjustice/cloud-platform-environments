@@ -182,7 +182,7 @@ data "aws_iam_policy_document" "efs_migration_policy" {
       "s3:GetObject",
       "s3:PutObject"
     ]
-    resources = ["${module.s3_bucket.bucket.arn}"]
+    resources = ["${module.s3_bucket.bucket_arn}"]
     principals {
       type        = "AWS"
       identifiers = ["arn:aws:iam::356676313489:role/vcms-dev-efs-migration"]
