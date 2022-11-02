@@ -7,11 +7,11 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Approved Premises"
+  default     = "Community Accommodation"
 }
 
 variable "namespace" {
-  default = "hmpps-approved-premises-dev"
+  default = "hmpps-community-accommodation-dev"
 }
 
 variable "business_unit" {
@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-tech"
+  default     = "hmpps-community-accommodation"
 }
 
 variable "environment" {
@@ -31,7 +31,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "cas3@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -40,7 +40,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cas-dev"
+  default     = "community-accommodation-service-tier-3-team"
 }
 
 variable "number_cache_clusters" {
