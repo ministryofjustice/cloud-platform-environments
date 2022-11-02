@@ -187,7 +187,6 @@ EOF
 
 */
   }
-}
 
 
 resource "kubernetes_secret" "s3_bucket" {
