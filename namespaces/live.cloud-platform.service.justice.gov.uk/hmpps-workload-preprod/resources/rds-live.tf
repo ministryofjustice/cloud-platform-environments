@@ -7,7 +7,6 @@ module "rds-live" {
   is-production = var.is_production
   namespace     = var.namespace
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:rds:cloud-platform-5c9ecadf2a420651-2022-11-01-02-09"
   # enable performance insights
   performance_insights_enabled = true
 
