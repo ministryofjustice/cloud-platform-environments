@@ -17,7 +17,7 @@ module "rds-instance" {
   rds_family = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
 
   # enable performance insights
   performance_insights_enabled = true
