@@ -13,6 +13,7 @@ module "rds-live" {
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
+  db_allocated_storage = "108"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
