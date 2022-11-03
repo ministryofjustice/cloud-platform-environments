@@ -10,6 +10,11 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
 
+  db_engine                  = "postgres"
+  db_engine_version          = "12.11"
+
+  rds_family = "postgres12"
+
   # enable performance insights
   performance_insights_enabled = true
 
