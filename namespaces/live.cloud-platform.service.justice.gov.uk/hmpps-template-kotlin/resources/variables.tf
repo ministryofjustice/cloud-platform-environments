@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-tech"
+  default     = "hmpps-developers"
 }
 
 variable "environment" {
@@ -42,4 +42,3 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps_dev"
 }
-
