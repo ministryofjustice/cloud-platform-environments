@@ -5,10 +5,9 @@ variable "cluster_name" {
 variable "vpc_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "hmpps-template-typescript"
+  default     = "HMPPS Template Apps"
 }
 
 variable "namespace" {
@@ -22,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-typescript"
+  default     = "hmpps-developers"
 }
 
 variable "environment" {
