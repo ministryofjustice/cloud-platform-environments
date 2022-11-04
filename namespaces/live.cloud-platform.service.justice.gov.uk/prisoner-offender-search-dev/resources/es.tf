@@ -12,7 +12,7 @@ module "prisoner_offender_search_elasticsearch" {
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
   namespace                       = var.namespace
-  elasticsearch_version           = "7.17.7"
+  elasticsearch_version           = "7.10.2"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
