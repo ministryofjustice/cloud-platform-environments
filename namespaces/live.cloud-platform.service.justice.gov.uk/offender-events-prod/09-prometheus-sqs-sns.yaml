@@ -17,7 +17,7 @@ spec:
       expr: |-
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue|Digital-Prison-Services-prod-prisoner_offender_search_queue",
-          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue|Digital-Prison-Services-prod-workload_prisoner_hmpps_queue",
           queue_name!="Digital-Prison-Services-prod-prison_to_probation_update_mirror.*",
           queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",
           queue_name!="Digital-Prison-Services-prod-cfo_queue",
@@ -37,7 +37,7 @@ spec:
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue|Digital-Prison-Services-prod-prisoner_offender_search_queue",
-          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue|Digital-Prison-Services-prod-hmpps_allocation_required|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue|Digital-Prison-Services-prod-workload_prisoner_hmpps_queue",
           queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*",
           queue_name!="Digital-Prison-Services-prod-cfo_queue",
           queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",
@@ -93,7 +93,7 @@ spec:
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_dlq|Digital-Prison-Services-prod-prisoner_from_nomis_dl_queue|Digital-Prison-Services-prod-prisoner_offender_search_queue_dl|dps-prod-prisoner_offender_index_queue_dl",
-          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-prod-hmpps_allocation_required_dlq|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue_dl",
+          queue_name!~"Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-prod-hmpps_allocation_required_dlq|Digital-Prison-Services-prod-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-prod-hmpps_allocations_offender_events_queue_dl|Digital-Prison-Services-prod-workload_prisoner_hmpps_dlq",
           queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*_dl.*",
           queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",
           queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"
