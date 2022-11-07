@@ -30,7 +30,7 @@ data:
             "datasource": "Thanos",
             "dimensions": {},
             "enable": true,
-            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$container-.*\", pod!~\".*clamav.*\", pod!~\".*gotenberg.*\", pod!~\".*proxy.*\"} * 1000",
+            "expr": "kube_pod_created{exported_namespace=\"$namespace\", pod=~\"$container-.*\", pod!~\".*clamav.*\", pod!~\".*gotenberg.*\", pod!~\".*proxy.*\"} * 1000",
             "expression": "",
             "hide": true,
             "iconColor": "#3274D9",
@@ -57,7 +57,7 @@ data:
             "datasource": "Thanos",
             "dimensions": {},
             "enable": true,
-            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$container-gotenberg.*\"} * 1000",
+            "expr": "kube_pod_created{exported_namespace=\"$namespace\", pod=~\"$container-gotenberg.*\"} * 1000",
             "expression": "",
             "hide": true,
             "iconColor": "#E02F44",
@@ -196,7 +196,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(rate(http_server_requests_seconds_count{namespace=\"$namespace\", service=\"$container\"}[1m])) by (status)",
+              "expr": "sum(rate(http_server_requests_seconds_count{exported_namespace=\"$namespace\", service=\"$container\"}[1m])) by (status)",
               "interval": "",
               "legendFormat": "{{ status }}",
               "refId": "A"
@@ -297,7 +297,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "count(\n  label_replace(kube_pod_info{pod=~\"$container-.+\", namespace=\"$namespace\"}, \"pod\", \"$1\", \"created_by_name\", \"(.*)-\\\\w+\")\n) by (pod)",
+              "expr": "count(\n  label_replace(kube_pod_info{pod=~\"$container-.+\", exported_namespace=\"$namespace\"}, \"pod\", \"$1\", \"created_by_name\", \"(.*)-\\\\w+\")\n) by (pod)",
               "interval": "",
               "legendFormat": "{{ created_by_name }}",
               "refId": "B"
@@ -451,7 +451,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
@@ -554,7 +554,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
@@ -657,7 +657,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
@@ -760,7 +760,7 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
+              "expr": "sum(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n/\ncount(upstream_healthcheck{exported_namespace=\"$namespace\", exported_service=\"$healthcheck_service\", container=\"$container\"}) by (exported_service)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ exported_service }}",
@@ -839,7 +839,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -943,7 +943,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -1047,7 +1047,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -1153,7 +1153,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -1259,7 +1259,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -1390,7 +1390,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n  / \n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)",
                   "interval": "",
                   "legendFormat": "Avg. Request Latency",
                   "refId": "A"
@@ -1497,7 +1497,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "expr": "sum(irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Reqs / Minute",
                   "refId": "A"
@@ -1604,7 +1604,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(\n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
+                  "expr": "sum(\n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\", outcome!=\"SUCCESS\"}[1m])\n  +\n  irate(http_client_requests_timeout_total{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n)\n/\nsum(irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))\n* 100\nor\nvector(0)",
                   "interval": "",
                   "legendFormat": "Error Rate",
                   "refId": "A"
@@ -1713,7 +1713,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "sum(increase(http_client_requests_timeout_total{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
+                  "expr": "sum(increase(http_client_requests_timeout_total{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]))",
                   "interval": "",
                   "legendFormat": "Timeouts",
                   "refId": "A"
@@ -1822,7 +1822,7 @@ data:
               "targets": [
                 {
                   "exemplar": false,
-                  "expr": "max(\n  irate(http_client_requests_seconds_sum{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
+                  "expr": "max(\n  irate(http_client_requests_seconds_sum{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m]) \n  / \n  irate(http_client_requests_seconds_count{exported_namespace=\"$namespace\", clientName=~\"$upstream\", container=\"$container\"}[1m])\n) by (outcome, status, method, uri)",
                   "interval": "",
                   "legendFormat": "{{ method }} {{ uri }}: {{ status }}",
                   "refId": "A"
@@ -1937,7 +1937,7 @@ data:
               "value": "$__all"
             },
             "datasource": "Thanos",
-            "definition": "label_values(http_client_requests_seconds_max{namespace=\"$namespace\"},clientName)",
+            "definition": "label_values(http_client_requests_seconds_max{exported_namespace=\"$namespace\"},clientName)",
             "description": null,
             "error": null,
             "hide": 2,
@@ -1947,7 +1947,7 @@ data:
             "name": "upstream",
             "options": [],
             "query": {
-              "query": "label_values(http_client_requests_seconds_max{namespace=\"$namespace\"},clientName)",
+              "query": "label_values(http_client_requests_seconds_max{exported_namespace=\"$namespace\"},clientName)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
@@ -1968,7 +1968,7 @@ data:
               "value": "$__all"
             },
             "datasource": "Thanos",
-            "definition": "label_values(upstream_healthcheck{namespace=\"$namespace\", container=\"$container\"},exported_service)",
+            "definition": "label_values(upstream_healthcheck{exported_namespace=\"$namespace\", container=\"$container\"},exported_service)",
             "description": null,
             "error": null,
             "hide": 2,
@@ -1978,7 +1978,7 @@ data:
             "name": "healthcheck_service",
             "options": [],
             "query": {
-              "query": "label_values(upstream_healthcheck{namespace=\"$namespace\", container=\"$container\"},exported_service)",
+              "query": "label_values(upstream_healthcheck{exported_namespace=\"$namespace\", container=\"$container\"},exported_service)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
