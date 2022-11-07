@@ -175,26 +175,69 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-data "aws_iam_policy_document" "efs_migration_policy_document" {
+data "aws_iam_policy_document" "efs_migration_trust" {
   statement {
     effect = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject"
-    ]
-    resources = ["${module.s3_bucket.bucket_arn}"]
+
+    actions = ["sts:AssumeRole"]
+
     principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::356676313489:role/vcms-dev-efs-migration"]
+      type = "Service"
+      identifiers = ["datasync.amazonaws.com"]
     }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+
+      values = [
+        "356676313489"
+      ]
+    }
+
   }
+}
+
+data "aws_iam_policy_document" "efs_migration_write" {
+  statement {
+
+    effect = "Allow"
+
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads"
+    ]
+
+    resource = module.s3_bucket.bucket_arn
+
+  }
+
+  statement {
+
+    effect = "Allow"
+
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:ListMultipartUploadParts",
+      "s3:GetObjectTagging",
+      "s3:PutObjectTagging",
+      "s3:PutObject"
+    ],
+
+    resource = "${module.s3_bucket.bucket_arn}/*"
+
+  }
+
 }
 
 resource "aws_iam_role" "efs_migration_role" {
   name = "efs_migration_role"
   path = "/"
 
-  assume_role_policy = data.aws_iam_policy_document.efs_migration_policy_document.json
+  assume_role_policy = data.aws_iam_policy_document.efs_migration_trust.json
 }
 
 resource "aws_iam_policy_attachment" "efs_migration_attachment" {
@@ -205,5 +248,5 @@ resource "aws_iam_policy_attachment" "efs_migration_attachment" {
 
 resource "aws_iam_policy" "efs_migration_policy" {
   name        = "efs_migration_policy"
-  policy      = "${data.aws_iam_policy_document.efs_migration_policy_document.json}"
+  policy      = "${data.aws_iam_policy_document.efs_migration_write.json}"
 }
