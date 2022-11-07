@@ -220,5 +220,5 @@ resource "aws_iam_policy_attachment" "efs_migration_attachment" {
 
 resource "aws_iam_policy" "efs_migration_policy" {
   name        = "efs_migration_policy"
-  policy      = "${data.aws_iam_policy_document.efs_migration_policy.json}"
+  policy      = "${data.aws_iam_policy.efs_migration_policy.json}"
 }
