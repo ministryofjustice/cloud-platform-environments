@@ -92,3 +92,15 @@ resource "kubernetes_secret" "offender_assessments_events" {
     topic_arn         = module.offender_assessments_events.topic_arn
   }
 }
+
+resource "github_actions_environment_secret" "offender-events-and-delius" {
+  for_each = {
+    "OFFENDER_EVENTS_AND_DELIUS_AWS_TOPIC_NAME"        = module.offender_events.topic_name
+    "OFFENDER_EVENTS_AND_DELIUS_AWS_ACCESS_KEY_ID"     = module.offender_events.access_key_id
+    "OFFENDER_EVENTS_AND_DELIUS_AWS_SECRET_ACCESS_KEY" = module.offender_events.secret_access_key
+  }
+  repository      = data.github_repository.hmpps-probation-integration-services.name
+  environment     = "preprod"
+  secret_name     = each.key
+  plaintext_value = each.value
+}
