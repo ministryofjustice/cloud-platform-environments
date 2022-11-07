@@ -12,6 +12,15 @@ module "rds-instance" {
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
+  db_engine                  = "postgres"
+  db_engine_version          = "12.11"
+  db_instance_class          = "db.t3.small"
+
+  rds_family = "postgres12"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "true"
+
   performance_insights_enabled = true
 
   providers = {
