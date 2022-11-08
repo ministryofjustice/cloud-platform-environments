@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "analytics-platform-rshiny-notebook-dev" {
 
   statement {
     sid = "listsecrets"
-    acrions = [
+    actions = [
       "secretsmanager:ListSecrets",
     ]
     resources = [
