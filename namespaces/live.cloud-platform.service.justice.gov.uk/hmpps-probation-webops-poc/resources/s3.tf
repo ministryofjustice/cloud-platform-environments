@@ -225,7 +225,7 @@ data "aws_iam_policy_document" "efs_migration_write" {
       "s3:GetObjectTagging",
       "s3:PutObjectTagging",
       "s3:PutObject"
-    ],
+    ]
 
     resource = "${module.s3_bucket.bucket_arn}/*"
 
