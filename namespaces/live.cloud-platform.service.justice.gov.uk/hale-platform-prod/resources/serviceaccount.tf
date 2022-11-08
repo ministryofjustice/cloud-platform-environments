@@ -8,6 +8,10 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["hale-platform"]
 
+  # list of github environments, to create the service account secrets as environment secrets
+  # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
+  github_environments = ["prod"]
+
 serviceaccount_rules = [
     {
       api_groups = [""]
