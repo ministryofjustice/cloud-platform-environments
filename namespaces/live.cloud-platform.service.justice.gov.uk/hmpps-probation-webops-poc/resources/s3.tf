@@ -151,7 +151,7 @@ data "aws_iam_policy_document" "bucket_user_policy" {
       "s3:PutObject"
     ]
 
-    resources = ["arn:aws:datasync:eu-west-2:754256621582:location/*"]
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
 
   }
 
@@ -162,7 +162,7 @@ data "aws_iam_policy_document" "bucket_user_policy" {
       "datasync:CreateLocationS3"
     ]
 
-    resources = ["${module.s3_bucket.bucket_arn}/*"]
+    resources = ["arn:aws:datasync:eu-west-2:754256621582:location/*"]
 
   }
 }
