@@ -12,6 +12,11 @@ module "serviceaccount" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["prod"]
 
+  github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
+  github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+  github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
+
 serviceaccount_rules = [
     {
       api_groups = [""]
