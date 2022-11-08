@@ -194,6 +194,7 @@ data "aws_iam_policy_document" "bucket_user_policy" {
   }
 }
 
+data "aws_caller_identity" "current" {}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
