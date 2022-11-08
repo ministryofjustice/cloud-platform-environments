@@ -5,7 +5,7 @@
  *
  */
 module "example_team_dynamodb" {
-  source = "https://github.com/zheileman/cloud-platform-terraform-dynamodb-cluster?ref=list-tables-policy"
+  source = "github.com/zheileman/cloud-platform-terraform-dynamodb-cluster?ref=list-tables-policy"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
