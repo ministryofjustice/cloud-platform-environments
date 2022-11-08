@@ -18,20 +18,7 @@ module "example_team_dynamodb" {
 
   hash_key  = "example-hash"
   range_key = "example-range"
-  attributes = [
-    {
-      name = "UserId"
-      type = "S"
-    },
-    {
-      name = "GameTitle"
-      type = "S"
-    },
-    {
-      name = "TopScore"
-      type = "N"
-    }
-  ]
+
 }
 
 resource "kubernetes_secret" "example_team_dynamodb" {
