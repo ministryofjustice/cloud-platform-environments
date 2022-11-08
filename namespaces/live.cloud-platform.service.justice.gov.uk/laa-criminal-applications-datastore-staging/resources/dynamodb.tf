@@ -1,5 +1,5 @@
 module "crime_applications_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.1"
 
   team_name              = var.team_name
   application            = var.application
