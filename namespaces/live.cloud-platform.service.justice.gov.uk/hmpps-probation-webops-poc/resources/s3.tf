@@ -122,45 +122,49 @@ module "s3_bucket" {
    *
    */
 
-user_policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetBucketLocation",
-            "s3:ListBucket",
-            "s3:ListBucketMultipartUploads"
-          ],
-          "Resource": "$${bucket_arn}"
-        },
-        {
-          "Sid": "",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetObject",
-            "s3:AbortMultipartUpload",
-            "s3:ListMultipartUploadParts",
-            "s3:PutObjectTagging",
-            "s3:GetObjectTagging",
-            "s3:PutObject"
-          ],
-          "Resource": "$${bucket_arn}/*"
-        },
-        {
-          "Sid": "",
-          "Effect": "Allow",
-          "Action": [
-            "datasync:CreateLocationS3"
-          ],
-          "Resource": "arn:aws:datasync:eu-west-2:754256621582:location/*"
-        }
-      ]
-    }
-    EOF
+user_policy = data.aws_iam_policy_document.bucket_user_policy.json
 
+}
+
+data "aws_iam_policy_document" "bucket_user_policy" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads"
+    ]
+
+    resources = [module.s3_bucket.bucket_arn]
+
+  }
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObjectTagging",
+      "s3:GetObjectTagging",
+      "s3:PutObject"
+    ]
+
+    resources = ["arn:aws:datasync:eu-west-2:754256621582:location/*"]
+
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "datasync:CreateLocationS3"
+    ]
+
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
+
+  }
 }
 
 
