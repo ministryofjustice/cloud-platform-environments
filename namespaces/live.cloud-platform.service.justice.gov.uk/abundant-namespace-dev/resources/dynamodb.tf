@@ -24,7 +24,7 @@ module "example_team_dynamodb" {
 resource "kubernetes_secret" "example_team_dynamodb" {
   metadata {
     name      = "example-team-dynamodb-output"
-    namespace = "my-namespace"
+    namespace = var.namespace
   }
 
   data = {
