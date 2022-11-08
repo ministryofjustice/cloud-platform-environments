@@ -69,6 +69,7 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   db_engine_version = "12.11"
+  rds_family        = "postgres12"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
