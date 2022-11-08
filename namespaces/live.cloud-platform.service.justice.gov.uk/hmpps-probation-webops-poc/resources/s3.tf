@@ -122,43 +122,46 @@ module "s3_bucket" {
    *
    */
 
-    /*
- * Override the default policy for the generated machine user of this bucket.
- *
-
 user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
-      "s3:ListBucketMultipartUploads"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject",
-      "s3:AbortMultipartUpload",
-      "s3:ListMultipartUploadParts",
-      "s3:PutObjectTagging",
-      "s3:GetObjectTagging",
-      "s3:PutObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
-}
-EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "s3:ListBucketMultipartUploads"
+          ],
+          "Resource": "$${bucket_arn}"
+        },
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:AbortMultipartUpload",
+            "s3:ListMultipartUploadParts",
+            "s3:PutObjectTagging",
+            "s3:GetObjectTagging",
+            "s3:PutObject"
+          ],
+          "Resource": "$${bucket_arn}/*"
+        },
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Action": [
+            "datasync:CreateLocationS3"
+          ],
+          "Resource": "arn:aws:datasync:eu-west-2:754256621582:location/*"
+        }
+      ]
+    }
+    EOF
 
-*/
-  }
+}
 
 
 resource "kubernetes_secret" "s3_bucket" {
