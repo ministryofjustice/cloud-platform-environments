@@ -209,7 +209,7 @@ data "aws_iam_policy_document" "efs_migration_write" {
       "s3:ListBucketMultipartUploads"
     ]
 
-    resource = module.s3_bucket.bucket_arn
+    resources = [module.s3_bucket.bucket_arn]
 
   }
 
@@ -227,7 +227,7 @@ data "aws_iam_policy_document" "efs_migration_write" {
       "s3:PutObject"
     ]
 
-    resource = "${module.s3_bucket.bucket_arn}/*"
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
 
   }
 
