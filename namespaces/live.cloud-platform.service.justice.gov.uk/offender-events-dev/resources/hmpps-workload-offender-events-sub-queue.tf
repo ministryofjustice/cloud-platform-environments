@@ -23,6 +23,10 @@ EOF
   providers = {
     aws = aws.london
   }
+
+  tags = {
+    GithubTeam = "manage-a-workforce"
+  }
 }
 
 resource "aws_sqs_queue_policy" "hmpps_workload_offender_events_queue_policy" {
@@ -67,6 +71,10 @@ module "hmpps_workload_offender_events_dead_letter_queue" {
 
   providers = {
     aws = aws.london
+  }
+
+  tags = {
+    GithubTeam = "manage-a-workforce"
   }
 }
 
