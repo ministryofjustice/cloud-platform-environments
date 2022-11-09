@@ -1,7 +1,15 @@
 locals {
   managed_sqs_queues = [
+    module.pre-sentence-reports-to-delius-queue.sqs_arn,
+    module.pre-sentence-reports-to-delius-dlq.sqs_arn,
     module.prison-case-notes-to-probation-queue.sqs_arn,
     module.prison-case-notes-to-probation-dlq.sqs_arn,
+    module.prison-custody-status-to-delius-queue.sqs_arn,
+    module.prison-custody-status-to-delius-dlq.sqs_arn,
+    module.risk-assessment-scores-to-delius-queue.sqs_arn,
+    module.risk-assessment-scores-to-delius-dlq.sqs_arn,
+    module.tier-to-delius-queue.sqs_arn,
+    module.tier-to-delius-dlq.sqs_arn,
   ]
 }
 
