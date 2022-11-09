@@ -20,7 +20,6 @@ module "cla_backend_rds_postgres_11_replica" {
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
 
-
   # Settings from current setup
   db_instance_class        = "db.m4.4xlarge"
   db_allocated_storage     = "1000"
