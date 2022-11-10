@@ -115,5 +115,5 @@ resource "aws_sns_topic_subscription" "hmpps_incentives_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_incentives_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.merged\", \"prison-offender-search.prisoner.received\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.merged\", \"prisoner-offender-search.prisoner.received\"]}"
 }
