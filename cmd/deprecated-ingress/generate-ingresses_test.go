@@ -5,6 +5,7 @@ import (
 
 	"github.com/doitintl/kube-no-trouble/pkg/judge"
 	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
 )
 
