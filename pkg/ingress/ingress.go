@@ -17,15 +17,6 @@ func GetAllIngressesFromCluster(clientset *kubernetes.Clientset) (*v1beta1.Ingre
 	return ingressList, nil
 }
 
-// GetAllIngresses takes a Kubernetes clientset and returns all ingress with type *v1beta1.IngressList and an error.
-func GetAllV1IngressesFromCluster(clientset *kubernetes.Clientset) (*v1beta1.IngressList, error) {
-	ingressList, err := clientset.NetworkingV1beta1().Ingresses("").List(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-	return ingressList, nil
-}
-
 // IngressWithClass gets IngressClassName looping over all ingress objects and set the IngressClass if present,
 // if not present, set as undefined
 func IngressWithClass(ingressList *v1beta1.IngressList) ([]map[string]string, error) {
