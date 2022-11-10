@@ -7,16 +7,13 @@ import (
 	"fmt"
 	"log"
 
-	namespace "github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
-
-	ingress "github.com/ministryofjustice/cloud-platform-environments/pkg/ingress"
-
-	authenticate "github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
-
 	"os"
 	"os/exec"
 
 	"github.com/doitintl/kube-no-trouble/pkg/judge"
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/authenticate"
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/ingress"
+	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/api/networking/v1beta1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
@@ -133,7 +130,8 @@ func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Resul
 	return nil
 }
 
-//
+// checkApiVersion get the ingress name and check if that ingress is in the deprecated list
+// If present, return the deprecated api version else return the non deprecated one
 func checkApiVersion(ingressName string, deprecatedList []judge.Result) string {
 	apiVersion := ""
 	for _, r := range deprecatedList {
@@ -146,6 +144,8 @@ func checkApiVersion(ingressName string, deprecatedList []judge.Result) string {
 	return "networking.k8s.io/v1"
 }
 
+// getSlackChannel get the namespace name and a list of namespaces, loop over the list
+// and return the slackChannel of given namespace
 func getSlackChannel(namespace string, namespaces []v1.Namespace) string {
 	for _, ns := range namespaces {
 		if ns.Name == namespace {
