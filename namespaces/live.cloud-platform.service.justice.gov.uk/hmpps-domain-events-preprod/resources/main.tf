@@ -18,9 +18,3 @@ provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
 }
-
-provider "github" {
-  owner = "ministryofjustice"
-  token = var.github_token
-}
-
