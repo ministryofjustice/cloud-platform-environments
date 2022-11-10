@@ -15,7 +15,6 @@ import (
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/ingress"
 	"github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/api/networking/v1beta1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
 )
 
@@ -56,7 +55,7 @@ func main() {
 	}
 
 	// Get IngressClassName from all ingresses
-	ingressClassList, err := IngressWithClass(ingressList)
+	ingressClassList, err := ingress.IngressWithClass(ingressList)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
@@ -69,30 +68,9 @@ func main() {
 
 }
 
-// IngressWithClass gets IngressClassName looping over all ingress objects and set the IngressClass if present,
-// if not present, set as undefined
-func IngressWithClass(ingressList *v1beta1.IngressList) ([]map[string]string, error) {
-	s := make([]map[string]string, 0)
-
-	for _, i := range ingressList.Items {
-		m := make(map[string]string)
-		m["name"] = i.Name
-		m["namespace"] = i.Namespace
-		if i.Spec.IngressClassName != nil {
-			m["ingressClass"] = *i.Spec.IngressClassName
-		} else {
-			m["ingressClass"] = "undefined"
-		}
-		s = append(s, m)
-
-	}
-	return s, nil
-}
-
 // executeKubent executes kubent command agains the context set
 func executeKubent(kubeconfig string, context string) ([]judge.Result, error) {
 	output, err := exec.Command("kubent", "-k", kubeconfig, "-x", context, "-ojson").Output()
-	// output, err := cmd.CombinedOutput()
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +86,6 @@ func executeKubent(kubeconfig string, context string) ([]judge.Result, error) {
 
 // buildCSV creates the CSV file merging deprecated API and namespace details per ingress
 func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Result, namespaces []v1.Namespace) error {
-
 	w := csv.NewWriter(os.Stdout)
 	// get required details of each namespace and store it in namespace map
 	for _, i := range ingressClassList {
@@ -118,7 +95,7 @@ func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Resul
 		apiVersion := checkApiVersion(ingressName, deprecatedList)
 		// Add to csv only if API version is deprecated or IngressClass is not defined
 		if apiVersion != "networking.k8s.io/v1" || (ingressClass != "default" && ingressClass != "modsec") {
-			slack := getSlackChannel(namespace, namespaces)
+			slack := getSlackChannelFromNamespace(namespace, namespaces)
 
 			err := w.Write([]string{fmt.Sprintf("%v", ingressName), fmt.Sprintf("%v", namespace), fmt.Sprintf("%v", apiVersion), fmt.Sprintf("%v", ingressClass), fmt.Sprintf("%v", slack)})
 			if err != nil {
@@ -144,9 +121,9 @@ func checkApiVersion(ingressName string, deprecatedList []judge.Result) string {
 	return "networking.k8s.io/v1"
 }
 
-// getSlackChannel get the namespace name and a list of namespaces, loop over the list
+// getSlackChannelFromNamespace get the namespace name and a list of namespaces, loop over the list
 // and return the slackChannel of given namespace
-func getSlackChannel(namespace string, namespaces []v1.Namespace) string {
+func getSlackChannelFromNamespace(namespace string, namespaces []v1.Namespace) string {
 	for _, ns := range namespaces {
 		if ns.Name == namespace {
 			return ns.Annotations["cloud-platform.justice.gov.uk/slack-channel"]
