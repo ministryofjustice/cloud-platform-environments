@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/csv"
 	"encoding/json"
 	"flag"
@@ -20,8 +19,6 @@ import (
 	"github.com/doitintl/kube-no-trouble/pkg/judge"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/api/networking/v1beta1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
 )
 
@@ -34,14 +31,18 @@ var (
 func main() {
 	flag.Parse()
 
-	// Gain access to a Kubernetes cluster using a config file stored in an S3 bucket.
+	if *ctx == "" || *kubeconfig == "" || *region == "" {
+		log.Fatalln("You need to specify a non-empty value for context, kubeconfig and aws region.")
+	}
+
+	// Gain access to a Kubernetes cluster using a config file for given cluster context.
 	clientset, err := authenticate.CreateClientFromConfigFile(*kubeconfig, *ctx)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
 	// run kubent to find deprecated apis
-	deprecatedListJson, err := executeKubent()
+	deprecatedListJson, err := executeKubent(*kubeconfig, *ctx)
 	if err != nil {
 		log.Fatalln("error in executing kubent", err)
 	}
@@ -51,52 +52,29 @@ func main() {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	// Get all ingress resources
+	// Get all ingress resources from the cluster which is set in the clientset
 	ingressList, err := ingress.GetAllIngressesFromCluster(clientset)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
+	// Get IngressClassName from all ingresses
 	ingressClassList, err := IngressWithClass(ingressList)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
-	err = BuildCSV(ingressClassList, deprecatedListJson, namespaces)
+	// Build the CSV file merging deprecated API and namespace details per ingress
+	err = buildCSV(ingressClassList, deprecatedListJson, namespaces)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
 }
 
-// GetAllIngresses takes a Kubernetes clientset and returns all ingress with type *v1beta1.IngressList and an error.
-func GetAllIngresses(clientset *kubernetes.Clientset) (*v1beta1.IngressList, error) {
-	ingressList, err := clientset.NetworkingV1beta1().Ingresses("").List(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-	return ingressList, nil
-}
-
-// executeKubent
-func executeKubent() ([]judge.Result, error) {
-	output, err := exec.Command("kubent", "-ojson").Output()
-	// output, err := cmd.CombinedOutput()
-	if err != nil {
-		return nil, err
-	}
-
-	// encoding into JSON format
-	var results []judge.Result
-	err = json.Unmarshal([]byte(output), &results)
-	if err != nil {
-		return nil, err
-	}
-	return results, nil
-}
-
+// IngressWithClass gets IngressClassName looping over all ingress objects and set the IngressClass if present,
+// if not present, set as undefined
 func IngressWithClass(ingressList *v1beta1.IngressList) ([]map[string]string, error) {
-	// s contains a slice of maps, each map will be iterated over when placed in a dashboard.
 	s := make([]map[string]string, 0)
 
 	for _, i := range ingressList.Items {
@@ -114,7 +92,25 @@ func IngressWithClass(ingressList *v1beta1.IngressList) ([]map[string]string, er
 	return s, nil
 }
 
-func BuildCSV(ingressClassList []map[string]string, deprecatedList []judge.Result, namespaces []v1.Namespace) error {
+// executeKubent executes kubent command agains the context set
+func executeKubent(kubeconfig string, context string) ([]judge.Result, error) {
+	output, err := exec.Command("kubent", "-k", kubeconfig, "-x", context, "-ojson").Output()
+	// output, err := cmd.CombinedOutput()
+	if err != nil {
+		return nil, err
+	}
+
+	// encoding into JSON format
+	var results []judge.Result
+	err = json.Unmarshal([]byte(output), &results)
+	if err != nil {
+		return nil, err
+	}
+	return results, nil
+}
+
+// buildCSV creates the CSV file merging deprecated API and namespace details per ingress
+func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Result, namespaces []v1.Namespace) error {
 
 	w := csv.NewWriter(os.Stdout)
 	// get required details of each namespace and store it in namespace map
@@ -123,17 +119,21 @@ func BuildCSV(ingressClassList []map[string]string, deprecatedList []judge.Resul
 		namespace := i["namespace"]
 		ingressClass := i["ingressClass"]
 		apiVersion := checkApiVersion(ingressName, deprecatedList)
-		slack := getSlackChannel(namespace, namespaces)
+		// Add to csv only if API version is deprecated or IngressClass is not defined
+		if apiVersion != "networking.k8s.io/v1" || (ingressClass != "default" && ingressClass != "modsec") {
+			slack := getSlackChannel(namespace, namespaces)
 
-		err := w.Write([]string{fmt.Sprintf("%v", ingressName), fmt.Sprintf("%v", namespace), fmt.Sprintf("%v", apiVersion), fmt.Sprintf("%v", ingressClass), fmt.Sprintf("%v", slack)})
-		if err != nil {
-			return err
+			err := w.Write([]string{fmt.Sprintf("%v", ingressName), fmt.Sprintf("%v", namespace), fmt.Sprintf("%v", apiVersion), fmt.Sprintf("%v", ingressClass), fmt.Sprintf("%v", slack)})
+			if err != nil {
+				return err
+			}
 		}
 	}
 	w.Flush()
 	return nil
 }
 
+//
 func checkApiVersion(ingressName string, deprecatedList []judge.Result) string {
 	apiVersion := ""
 	for _, r := range deprecatedList {
