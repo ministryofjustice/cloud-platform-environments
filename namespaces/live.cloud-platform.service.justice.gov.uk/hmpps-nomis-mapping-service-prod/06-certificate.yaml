@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-nomis-mapping-service-cert
+  namespace: hmpps-nomis-mapping-service-prod
+spec:
+  secretName: hmpps-nomis-mapping-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - nomis-sync-prisoner-mapping.hmpps.service.justice.gov.uk
