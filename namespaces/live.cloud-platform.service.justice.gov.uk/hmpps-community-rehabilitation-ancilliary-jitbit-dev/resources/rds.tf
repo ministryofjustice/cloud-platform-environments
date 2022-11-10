@@ -32,8 +32,8 @@ module "rds" {
   rds_family = "sqlserver-se-15.0"
 
   # Storage values
-  db_allocated_storage  = "10"
-  max_allocated_storage = "50"
+  db_allocated_storage     = "10"
+  db_max_allocated_storage = "50"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
