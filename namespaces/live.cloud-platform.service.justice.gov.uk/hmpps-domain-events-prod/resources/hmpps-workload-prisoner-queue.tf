@@ -19,9 +19,6 @@ module "workload_prisoner_queue" {
 }
 
 data "aws_iam_policy_document" "workload_prisoner_queue_policy" {
-  source_policy_documents = [
-    data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
-  ]
   statement {
     sid     = "TopicToQueue"
     effect  = "Allow"
@@ -57,11 +54,6 @@ module "workload_prisoner_dlq" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "workload_prisoner_dlq_policy" {
-  queue_url = module.workload_prisoner_dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_mgmt_common_policy_document.json
 }
 
 resource "aws_sns_topic_subscription" "workload_prisoner_queue_subscription" {
