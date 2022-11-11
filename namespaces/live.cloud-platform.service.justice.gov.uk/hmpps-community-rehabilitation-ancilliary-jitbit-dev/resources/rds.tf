@@ -23,6 +23,7 @@ module "rds" {
   # Engine options
   db_engine         = "sqlserver-se"
   db_engine_version = "15.00.4073.23.v1"
+  license_model     = "license-included"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t2.small" # 1 vCPU, 2 GiB
