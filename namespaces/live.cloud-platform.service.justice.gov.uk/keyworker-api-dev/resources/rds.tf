@@ -9,7 +9,7 @@ module "dps_rds" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t2.small"
+  db_instance_class           = "db.t3.large"
   db_engine_version           = "10"
   rds_family                  = "postgres10"
 
@@ -34,4 +34,3 @@ resource "kubernetes_secret" "dps_rds" {
     secret_access_key     = module.dps_rds.secret_access_key
   }
 }
-
