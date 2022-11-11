@@ -13,7 +13,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Estimat financial eligibility for legal aid"
+  default     = "Estimate financial eligibility for legal aid"
 }
 
 variable "namespace" {
