@@ -35,13 +35,13 @@ module "rds" {
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "pending-reboot"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "pending-reboot"
+    }
+  ]
 
   allow_minor_version_upgrade = "false"
 
