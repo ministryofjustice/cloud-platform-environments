@@ -21,17 +21,17 @@ module "rds" {
   # rds_name             = "my-rds-name"
 
   # Engine options
-  db_engine         = "sqlserver-se"
-  db_engine_version = "15.00.4073.23.v1"
+  db_engine         = "sqlserver-ex"
+  db_engine_version = "15.00.4073.23.v1" # SQL Server 2019
   license_model     = "license-included"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t2.small" # 1 vCPU, 2 GiB
+  db_instance_class = "db.t3.medium" # 2 vCPU, 4 GiB
 
-  rds_family = "sqlserver-se-15.0"
+  rds_family = "sqlserver-ex-15.0"
 
   # Storage values
-  db_allocated_storage     = "10"
+  db_allocated_storage     = "50"
   db_max_allocated_storage = "50"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
