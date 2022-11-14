@@ -6,15 +6,19 @@ variable "vpc_name" {
 
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t2.small"
+  db_engine_version           = "10"
+  rds_family                  = "postgres10"
 
 
   providers = {
@@ -39,4 +43,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-
