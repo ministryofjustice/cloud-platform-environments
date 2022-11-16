@@ -25,6 +25,7 @@ spec:
           queue_name!="Digital-Prison-Services-dev-cfo_queue",
           queue_name!="Digital-Prison-Services-dev-in_cell_hmpps_queue",
           queue_name!="Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue",
+          queue_name!="Digital-Prison-Services-dev-data_engineering_hackathon",
           queue_name=~"Digital-Prison-Services-dev.*",
           queue_name!~"Digital-Prison-Services-dev-.*_dl.*|dps-dev-.*_dl.*"
         } offset 1m) by (queue_name) > 2 * 60
