@@ -19,6 +19,7 @@ spec:
           queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_.*",
           queue_name!~"Digital-Prison-Services-dev-prisoner_from_nomis_.*",
           queue_name!~"Digital-Prison-Services-dev-prisoner_offender_search_queue|Digital-Prison-Services-dev-offender_events_ui_queue",
+          queue_name!~"Digital-Prison-Services-dev-prisoner_offender_search_domain_queue",
           queue_name!~"Digital-Prison-Services-dev-hmpps_workload.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",
