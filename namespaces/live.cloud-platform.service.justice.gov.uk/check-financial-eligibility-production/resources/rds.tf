@@ -7,6 +7,7 @@
 module "check-financial-eligibility-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
+  cluster_name           = var.cluster_name
   vpc_name               = var.vpc_name
   team_name              = "apply-for-legal-aid"
   business-unit          = "laa"
