@@ -16,7 +16,28 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
+type KubernetesClient struct {
+	client *kubernetes.Interface
+}
+
 func main() {
+	// list of excluded Namespaces
+	excludedNamespaces := []string{
+		"cert-manager",
+		"default",
+		"ingress-controllers",
+		"kube-node-lease",
+		"kube-public",
+		"kube-system",
+		"kuberhealthy",
+		"kuberos",
+		"logging",
+		"opa",
+		"overprovision",
+		"velero",
+	}
+
+	// get arguments from the user
 	var kubeconfig *string
 	if home := homedir.HomeDir(); home != "" {
 		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
@@ -26,6 +47,7 @@ func main() {
 	tok := flag.String("p", "", "github token")
 	flag.Parse()
 
+	// create clients
 	kubeClient, gitHubClient, err := createClients(*kubeconfig, *tok)
 	if err != nil {
 		log.Fatal(err)
@@ -46,14 +68,14 @@ func main() {
 	// compare namespaces and print out differences
 	fmt.Println("Namespaces in cluster but not in github:")
 	for _, ns := range clusterNamespaces {
-		if !sets.NewString(githubNamespaces...).Has(ns) {
+		if !sets.NewString(githubNamespaces...).Has(ns) && !sets.NewString(excludedNamespaces...).Has(ns) {
 			fmt.Println(ns)
 		}
 	}
 }
 
 // getClusterNamespaces returns a set of namespaces in the cluster
-func getClusterNamespaces(client *kubernetes.Clientset) ([]string, error) {
+func getClusterNamespaces(client kubernetes.Interface) ([]string, error) {
 	namespaces, err := client.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
@@ -69,7 +91,6 @@ func getClusterNamespaces(client *kubernetes.Clientset) ([]string, error) {
 // getGithubNamespaces returns a set of namespaces in githubToken
 func getGithubNamespaces(client *github.Client) ([]string, error) {
 	// get the list of all directories in https://github.com/ministryofjustice/cloud-platform-environments/namespaces
-	// this is the list of namespaces
 	opt := &github.RepositoryContentGetOptions{Ref: "main"}
 	_, dir, _, err := client.Repositories.GetContents(context.TODO(), "ministryofjustice", "cloud-platform-environments", "namespaces/live.cloud-platform.service.justice.gov.uk", opt)
 	if err != nil {
@@ -83,7 +104,7 @@ func getGithubNamespaces(client *github.Client) ([]string, error) {
 	return nsSet.List(), nil
 }
 
-func createClients(kubeconfig, githubToken string) (*kubernetes.Clientset, *github.Client, error) {
+func createClients(kubeconfig, githubToken string) (kubernetes.Interface, *github.Client, error) {
 	// create kube client
 	kubeClient, err := createKubeClient(kubeconfig)
 	if err != nil {
@@ -113,11 +134,11 @@ func createGitHubClient(pass string) (*github.Client, error) {
 	return client, nil
 }
 
-func createKubeClient(kubeconfig string) (*kubernetes.Clientset, error) {
+func createKubeClient(kubeconfig string) (kubernetes.Interface, error) {
 	// use the current context in kubeconfig
 	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
 
 	// create the clientset
