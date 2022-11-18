@@ -11,6 +11,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.large"
   db_allocated_storage        = "20"
+  db_engine_version           = "10"
   rds_family                  = "postgres10"
 
   providers = {
