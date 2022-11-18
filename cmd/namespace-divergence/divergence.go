@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 
 	"github.com/google/go-github/github"
+	"github.com/nikoksr/notify"
+	"github.com/nikoksr/notify/service/slack"
 	"golang.org/x/oauth2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -45,6 +47,9 @@ func main() {
 		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
 	}
 	tok := flag.String("p", "", "github token")
+	slackApi := flag.String("slackApi", "", "api token for slack")
+	channelId := flag.String("channelId", "", "channel id for slack")
+
 	flag.Parse()
 
 	// create clients
@@ -71,6 +76,19 @@ func main() {
 		if !sets.NewString(githubNamespaces...).Has(ns) && !sets.NewString(excludedNamespaces...).Has(ns) {
 			fmt.Println(ns)
 		}
+	}
+
+	if *slackApi != "" {
+		notifier := notify.New()
+		slackSvc := slack.New(*slackApi)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		slackSvc.AddReceivers(*channelId)
+		notifier.UseServices(slackSvc)
+
+		_ = notifier.Send(context.TODO(), "Namespaces in cluster but not in github:", fmt.Sprintf("%v", clusterNamespaces))
 	}
 }
 
