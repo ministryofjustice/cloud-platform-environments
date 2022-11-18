@@ -18,10 +18,6 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
-type KubernetesClient struct {
-	client *kubernetes.Interface
-}
-
 func main() {
 	// list of excluded Namespaces
 	excludedNamespaces := []string{
