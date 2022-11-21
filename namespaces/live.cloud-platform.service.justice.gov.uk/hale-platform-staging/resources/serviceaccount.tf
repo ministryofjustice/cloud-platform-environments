@@ -17,6 +17,11 @@ module "serviceaccount" {
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
 
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
 serviceaccount_rules = [
     {
       api_groups = [""]
