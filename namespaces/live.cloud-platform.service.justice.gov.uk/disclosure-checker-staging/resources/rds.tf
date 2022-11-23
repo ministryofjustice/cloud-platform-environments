@@ -3,15 +3,19 @@
 ############################################
 
 module "rds-instance" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business-unit               = var.business_unit
+  application                 = var.application
+  is-production               = var.is_production
+  environment-name            = var.environment_name
+  infrastructure-support      = var.infrastructure_support
+  namespace                   = var.namespace
+  db_engine                   = "postgres"
+  db_engine_version           = "12"
+  rds_family                  = "postgres12"
+  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
