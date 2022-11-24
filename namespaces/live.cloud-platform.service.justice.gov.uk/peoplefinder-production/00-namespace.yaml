@@ -8,6 +8,6 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/application: "People Finder"
-    cloud-platform.justice.gov.uk/owner: "Staff Tools and Services: people-finder-support@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/peoplefinder"
-    cloud-platform.justice.gov.uk/slack-channel: "peoplefinder"
+    cloud-platform.justice.gov.uk/slack-channel: "cdpt-central-digital-product-team"
