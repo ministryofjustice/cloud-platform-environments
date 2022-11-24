@@ -13,4 +13,5 @@ resource "pingdom_check" "laa-estimate-financial-eligibility-for-legal-aid-uat" 
   port             = 443
   tags             = "businessunit_laa,application_check-client-qualifies-for-legal-aid,component_ping,isproduction_false,environment_uat,infrastructuresupport_check-client-qualifies-for-legal-aid,laa,check-client-qualifies-for-legal-aid"
   probefilters     = "region:EU"
+  integrationids   = [125950]
 }
