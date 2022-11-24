@@ -2,6 +2,10 @@ variable "team_name" {
   default = "sustainingdevs"
 }
 
+variable "business_unit" {
+  default = "HMCTS"
+}
+
 variable "environment-name" {
   default = "production"
 }
