@@ -33,8 +33,8 @@ func UserID(opt *config.Options, user *config.User) (*github.User, error) {
 // - The namespace doesn't yet exist and exists in the pull request.
 func TeamName(namespace string, opt *config.Options, user *config.User, repo *config.Repository) ([]string, error) {
 	repoOpts := &github.RepositoryContentGetOptions{}
-
-	// We must first check to see if it exists in the primary cluster.
+	log.Println("Checking for rbac file for the given namespace in main branch")
+	// We must first check to see if it exists in the main branch.
 	file, ori, err := origin(namespace, opt, user, repo, repoOpts)
 	if err != nil {
 		log.Println(err)
@@ -42,6 +42,7 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 
 	// If the namespace doesn't exist yet, change the repository options to look at the users branch and try again.
 	if ori == "none" {
+		log.Println("Cant find namespace in main branch, checking for rbac in the PR")
 		repoOpts = &github.RepositoryContentGetOptions{
 			Ref: repo.Branch,
 		}
@@ -61,11 +62,14 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 // getGithubTeamName reads the byte of data, decode and unmarshal the yaml input
 // to the required struct and return a slice of team mentions in subjects
 func getGithubTeamName(content []byte) ([]string, error) {
-	rbac := config.Rbac{}
+
+	var namespaceTeams []string
 	// Parsing the yaml.
 	decoder := yaml.NewDecoder(bytes.NewReader(content))
 	// loop through multiple documents to omit empty documents
 	for {
+		// Storing the subject name in a slice.
+		rbac := config.Rbac{}
 
 		if err := decoder.Decode(&rbac); err != nil {
 			// Break when there are no more documents to decode
@@ -74,18 +78,18 @@ func getGithubTeamName(content []byte) ([]string, error) {
 			}
 			break
 		}
+
 		if reflect.ValueOf(rbac).IsZero() {
 			continue
 		}
-	}
 
-	// Storing the subject name in a slice. The subject name has to be in the form of "github:*", this is to
-	// protect against different kinds of subject such as ServiceAccount.
-	var namespaceTeams []string
-	for _, name := range rbac.Subjects {
-		if strings.Contains(name.Name, "github") {
-			str := strings.SplitAfter(string(name.Name), ":")
-			namespaceTeams = append(namespaceTeams, str[1])
+		// Filtering only subjects which are in the form of "github:*", this is to
+		// protect against different kinds of subject such as ServiceAccount.
+		for _, name := range rbac.Subjects {
+			if strings.Contains(name.Name, "github") {
+				str := strings.SplitAfter(string(name.Name), ":")
+				namespaceTeams = append(namespaceTeams, str[1])
+			}
 		}
 	}
 
