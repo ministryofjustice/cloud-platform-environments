@@ -10,3 +10,4 @@ resource "kubernetes_secret" "make-recall-decision-api" {
     topic_arn         = module.hmpps-domain-events.topic_arn
   }
 }
+
