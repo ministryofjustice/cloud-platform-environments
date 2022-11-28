@@ -13,8 +13,8 @@ module "rds-instance" {
   infrastructure-support      = var.infrastructure_support
   namespace                   = var.namespace
   db_engine                   = "postgres"
-  db_engine_version           = "12"
-  rds_family                  = "postgres12"
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
   allow_major_version_upgrade = "true"
 
   providers = {
