@@ -1,5 +1,4 @@
 module "s3_bucket" {
-
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -16,6 +15,24 @@ module "s3_bucket" {
     "Version": "2012-10-17",
     "Id": "PolicyForCloudFrontPrivateContent",
     "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "$${bucket_arn}/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "$${bucket_arn}"
+            ]
+        },
         {
             "Sid": "AllowCloudFrontServicePrincipal",
             "Effect": "Allow",
