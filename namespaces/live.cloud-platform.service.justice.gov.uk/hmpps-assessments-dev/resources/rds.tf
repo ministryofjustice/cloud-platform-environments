@@ -11,6 +11,7 @@ module "hmpps_assessments_rds" {
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds_family
 
+  db_instance_class          = "db.t3.small"
 
   providers = {
     aws = aws.london
