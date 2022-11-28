@@ -16,24 +16,6 @@ module "s3_bucket" {
     "Id": "PolicyForCloudFrontPrivateContent",
     "Statement": [
         {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "$${bucket_arn}/*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "$${bucket_arn}"
-            ]
-        },
-        {
             "Sid": "AllowCloudFrontServicePrincipal",
             "Effect": "Allow",
             "Principal": {
