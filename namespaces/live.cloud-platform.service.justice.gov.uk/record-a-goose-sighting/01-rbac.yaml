@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: record-a-goose-sighting-admin
+  namespace: record-a-goose-sighting
+subjects:
+  - kind: Group
+    name: "github:record-a-goose-sighting-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
