@@ -12,6 +12,9 @@ module "rds-instance" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  rds_family             = "postgres10"
+  db_engine              = "postgres"
+  db_engine_version      = "10.23"
   db_instance_class      = "db.t3.small"
 
   providers = {
