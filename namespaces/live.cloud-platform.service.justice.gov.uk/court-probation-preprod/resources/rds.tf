@@ -18,7 +18,9 @@ module "court_case_service_rds" {
   db_engine_version           = "13"
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres13"
-
+  
+  snapshot_identifier         = "court-case-service-manual-snapshot-1669738195"
+  db_allocated_storage        = 38
 
   providers = {
     aws = aws.london
