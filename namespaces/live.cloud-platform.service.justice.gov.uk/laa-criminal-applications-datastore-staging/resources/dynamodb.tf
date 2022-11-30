@@ -1,5 +1,5 @@
 module "crime_applications_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=index-policy"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.2"
 
   team_name              = var.team_name
   application            = var.application
@@ -14,6 +14,30 @@ module "crime_applications_dynamodb" {
   # Unique key and sort attributes
   hash_key  = "id"
   range_key = "submitted_at"
+
+  # Other attributes (minimum the ones used in GSI)
+  attributes = [
+    {
+      name = "status"
+      type = "S"
+    },
+    {
+      name = "submitted_at"
+      type = "S"
+    }
+  ]
+
+  # GSI indexes
+  global_secondary_indexes = [
+    {
+      name = "StatusSubmittedAtIndex"
+
+      hash_key  = "status"
+      range_key = "submitted_at"
+
+      projection_type = "ALL"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "crime_applications_dynamodb" {
