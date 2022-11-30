@@ -12,9 +12,12 @@ module "rds-instance" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-  rds_family             = "postgres10"
+  rds_family             = "postgres14"
   db_engine              = "postgres"
+  db_engine_version      = "14"
   db_instance_class      = "db.t3.small"
+
+  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
