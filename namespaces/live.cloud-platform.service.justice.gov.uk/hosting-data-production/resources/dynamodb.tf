@@ -32,8 +32,8 @@ module "dynamodb_with_gsi" {
   global_secondary_indexes = [
     {
       name               = "GameTitleIndex"
-      hash_key           = "GameTitle"
-      range_key          = "TopScore"
+      hash_key           = "example-range"
+      range_key          = "example-hash"
       write_capacity     = 10
       read_capacity      = 10
       projection_type    = "INCLUDE"
