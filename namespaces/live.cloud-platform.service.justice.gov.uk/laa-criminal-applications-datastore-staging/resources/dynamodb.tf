@@ -1,5 +1,5 @@
 module "crime_applications_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.3"
 
   team_name              = var.team_name
   application            = var.application
@@ -10,6 +10,8 @@ module "crime_applications_dynamodb" {
   namespace              = var.namespace
 
   aws_region = var.dynamodb_aws_region
+
+  billing_mode = "PAY_PER_REQUEST"
 
   # Unique key and sort attributes
   hash_key  = "id"
