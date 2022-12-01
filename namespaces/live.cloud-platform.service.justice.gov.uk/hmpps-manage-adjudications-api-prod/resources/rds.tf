@@ -14,8 +14,8 @@ module "ma_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
-  allow_major_version_upgrade = "true"
-  db_instance_class           = "db.t3.large"
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t4g.small"
   db_engine_version           = "14"
   rds_family                  = "postgres14"
 
