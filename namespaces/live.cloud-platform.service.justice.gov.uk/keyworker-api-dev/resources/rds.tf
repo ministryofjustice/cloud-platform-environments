@@ -1,14 +1,17 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t4g.small"
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
 
   providers = {
     aws = aws.london
@@ -31,4 +34,3 @@ resource "kubernetes_secret" "dps_rds" {
     secret_access_key     = module.dps_rds.secret_access_key
   }
 }
-

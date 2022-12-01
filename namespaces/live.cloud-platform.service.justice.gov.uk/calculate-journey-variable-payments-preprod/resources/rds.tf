@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name = var.vpc_name
 
@@ -9,6 +9,15 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+
+  db_engine                  = "postgres"
+  db_engine_version          = "12.11"
+  db_instance_class          = "db.t3.small"
+
+  rds_family = "postgres12"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "false"
 
   # enable performance insights
   performance_insights_enabled = true

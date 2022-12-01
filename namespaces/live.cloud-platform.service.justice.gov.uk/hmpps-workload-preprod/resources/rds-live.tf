@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -7,11 +7,13 @@ module "rds-live" {
   is-production = var.is_production
   namespace     = var.namespace
 
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:rds:cloud-platform-5c9ecadf2a420651-2022-11-02-02-10"
   # enable performance insights
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
+  db_allocated_storage = "108"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 

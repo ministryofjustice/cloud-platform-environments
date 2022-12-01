@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-contacts-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-prisoner-contacts-dev
+spec:
+  secretName: hmpps-prisoner-contacts-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-prisoner-contacts-dev.hmpps.service.justice.gov.uk

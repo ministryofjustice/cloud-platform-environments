@@ -3,8 +3,11 @@ package get
 
 import (
 	"bufio"
+	"bytes"
+	"io"
 	"log"
 	"os"
+	"reflect"
 	"strings"
 
 	"rbac-check/config"
@@ -30,51 +33,63 @@ func UserID(opt *config.Options, user *config.User) (*github.User, error) {
 // - The namespace doesn't yet exist and exists in the pull request.
 func TeamName(namespace string, opt *config.Options, user *config.User, repo *config.Repository) ([]string, error) {
 	repoOpts := &github.RepositoryContentGetOptions{}
-
-	// We must first check to see if it exists in the primary cluster.
-	ori, err := origin(namespace, opt, user, repo, repoOpts)
+	log.Println("Checking for rbac file for the given namespace in main branch")
+	// We must first check to see if it exists in the main branch.
+	file, ori, err := origin(namespace, opt, user, repo, repoOpts)
 	if err != nil {
 		log.Println(err)
 	}
 
 	// If the namespace doesn't exist yet, change the repository options to look at the users branch and try again.
 	if ori == "none" {
+		log.Println("Cant find namespace in main branch, checking for rbac in the PR")
 		repoOpts = &github.RepositoryContentGetOptions{
 			Ref: repo.Branch,
 		}
-		ori, err = origin(namespace, opt, user, repo, repoOpts)
+		file, ori, err = origin(namespace, opt, user, repo, repoOpts)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	// Now we know where the namespace sits we can attempt to get the contents of the rbac file from the GitHub API.
-	repo.Path = "namespaces/" + ori + ".cloud-platform.service.justice.gov.uk/" + namespace + "/01-rbac.yaml"
-	file, _, _, err := opt.Client.Repositories.GetContents(opt.Ctx, repo.Org, repo.Name, repo.Path, repoOpts)
+	content, err := file.GetContent()
 	if err != nil {
 		return nil, err
 	}
+	return getGithubTeamName([]byte(content))
+}
 
-	cont, err := file.GetContent()
-	if err != nil {
-		return nil, err
-	}
+// getGithubTeamName reads the byte of data, decode and unmarshal the yaml input
+// to the required struct and return a slice of team mentions in subjects
+func getGithubTeamName(content []byte) ([]string, error) {
 
-	// Parsing the yaml.
-	fullName := config.Rbac{}
-
-	err = yaml.Unmarshal([]byte(cont), &fullName)
-	if err != nil {
-		return nil, err
-	}
-
-	// Storing the subject name in a slice. The subject name has to be in the form of "github:*", this is to
-	// protect against different kinds of subject such as ServiceAccount.
 	var namespaceTeams []string
-	for _, name := range fullName.Subjects {
-		if strings.Contains(name.Name, "github") {
-			str := strings.SplitAfter(string(name.Name), ":")
-			namespaceTeams = append(namespaceTeams, str[1])
+	// Parsing the yaml.
+	decoder := yaml.NewDecoder(bytes.NewReader(content))
+	// loop through multiple documents to omit empty documents
+	for {
+		// Storing the subject name in a slice.
+		rbac := config.Rbac{}
+
+		if err := decoder.Decode(&rbac); err != nil {
+			// Break when there are no more documents to decode
+			if err != io.EOF {
+				return nil, err
+			}
+			break
+		}
+
+		if reflect.ValueOf(rbac).IsZero() {
+			continue
+		}
+
+		// Filtering only subjects which are in the form of "github:*", this is to
+		// protect against different kinds of subject such as ServiceAccount.
+		for _, name := range rbac.Subjects {
+			if strings.Contains(name.Name, "github") {
+				str := strings.SplitAfter(string(name.Name), ":")
+				namespaceTeams = append(namespaceTeams, str[1])
+			}
 		}
 	}
 
@@ -82,24 +97,24 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 }
 
 // origin takes a namespace name and returns the cluster it exists on.
-func origin(namespace string, opt *config.Options, user *config.User, repo *config.Repository, repoOpts *github.RepositoryContentGetOptions) (string, error) {
+func origin(namespace string, opt *config.Options, user *config.User, repo *config.Repository, repoOpts *github.RepositoryContentGetOptions) (*github.RepositoryContent, string, error) {
 	primaryCluster := user.PrimaryCluster
 
 	cluster := primaryCluster
 	repo.Path = "namespaces/" + cluster + ".cloud-platform.service.justice.gov.uk/" + namespace + "/01-rbac.yaml"
 
 	// Try the primary cluster first.
-	_, _, resp, _ := opt.Client.Repositories.GetContents(opt.Ctx, repo.Org, repo.Name, repo.Path, repoOpts)
+	file, _, resp, _ := opt.Client.Repositories.GetContents(opt.Ctx, repo.Org, repo.Name, repo.Path, repoOpts)
 
 	// If the primary cluster returns 200, the namespace exists on the primary cluster.
 	if resp.StatusCode == 200 {
-		return cluster, nil
+		return file, cluster, nil
 	} else {
 		log.Println("Unable to locate the namespace in primary cluster, checking the PR.")
 	}
 
 	// If cluster fail to return a 200, the namespace exists in a PR.
-	return "none", nil
+	return nil, "none", nil
 }
 
 // Namespaces takes a file name containing the namespaces changed in a PR and returns them

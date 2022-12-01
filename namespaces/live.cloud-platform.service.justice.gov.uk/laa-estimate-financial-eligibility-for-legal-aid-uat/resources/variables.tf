@@ -58,3 +58,8 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-estimate-financial-eligibility-for-legal-aid"
+}

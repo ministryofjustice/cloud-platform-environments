@@ -30,7 +30,10 @@ variable "cluster_name" {
 variable "vpc_name" {
 }
 
-
 variable "namespace" {
   default = "formbuilder-platform-live-production"
+}
+
+variable "db_instance_class" {
+  default = "db.m6g.xlarge"
 }

@@ -1,6 +1,6 @@
 
 module "hmpps_assess_risks_and_needs_preprod_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,8 +9,12 @@ module "hmpps_assess_risks_and_needs_preprod_rds" {
   namespace              = var.namespace
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
-  rds_family             = var.rds_family
+  rds_family             = "postgres10"
+  db_instance_class      = "db.t3.small"
+  db_engine              = "postgres"
+  db_engine_version      = "10.21"
 
+  allow_major_version_upgrade = "true"
 
   providers = {
     aws = aws.london
