@@ -103,5 +103,5 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_from_nomis_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"IEP_UPSERTED\",\"VISIT_CANCELLED\"]}"
+  filter_policy = "{\"eventType\":[\"IEP_UPSERTED\",\"IEP_DELETED\",\"VISIT_CANCELLED\"]}"
 }

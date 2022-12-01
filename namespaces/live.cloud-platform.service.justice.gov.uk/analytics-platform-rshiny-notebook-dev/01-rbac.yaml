@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: analytics-platform-rshiny-notebook-dev-admin
+  namespace: analytics-platform-rshiny-notebook-dev
+subjects:
+  - kind: Group
+    name: "github:analytical-platform"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

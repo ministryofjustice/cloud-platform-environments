@@ -6,7 +6,7 @@ variable "vpc_name" {
 
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -18,15 +18,15 @@ module "rds" {
   infrastructure-support = var.email
 
   db_engine                  = "postgres"
-  db_engine_version          = "10"
-  db_instance_class          = "db.t2.small"
+  db_engine_version          = "14.3"
+  db_instance_class          = "db.t3.small"
   db_allocated_storage       = "5"
   db_name                    = "datacaptureservice"
   db_backup_retention_period = var.db_backup_retention_period
 
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # rds_family should be: postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres10"
+  rds_family = "postgres14"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"

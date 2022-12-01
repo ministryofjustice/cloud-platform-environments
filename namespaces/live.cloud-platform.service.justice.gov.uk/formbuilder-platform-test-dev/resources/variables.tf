@@ -33,3 +33,7 @@ variable "vpc_name" {
 variable "namespace" {
   default = "formbuilder-platform-test-dev"
 }
+
+variable "db_instance_class" {
+  default = "db.m6g.large"
+}

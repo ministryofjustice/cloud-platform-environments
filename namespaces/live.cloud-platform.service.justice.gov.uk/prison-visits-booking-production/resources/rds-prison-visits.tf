@@ -19,7 +19,7 @@ variable "vpc_name" {
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.12"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
@@ -32,10 +32,13 @@ module "prison-visits-rds" {
   environment-name       = "production"
   infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "9.6"
+  db_engine_version      = "12.11"
   db_name                = "visits"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
-  rds_family             = "postgres9.6"
+  rds_family             = "postgres12"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_minor_version_upgrade = "false"
 
   providers = {
     aws = aws.london

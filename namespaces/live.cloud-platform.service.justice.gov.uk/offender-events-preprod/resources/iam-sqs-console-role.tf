@@ -1,7 +1,5 @@
 locals {
   managed_queues = [
-    module.case_note_poll_pusher_queue.sqs_arn,
-    module.case_note_poll_pusher_dead_letter_queue.sqs_arn,
     module.hmpps-person-search-index-from-delius-queue.sqs_arn,
     module.hmpps-person-search-index-from-delius-dlq.sqs_arn,
   ]
