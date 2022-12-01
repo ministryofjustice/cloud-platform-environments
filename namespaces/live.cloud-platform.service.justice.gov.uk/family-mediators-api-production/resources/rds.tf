@@ -13,6 +13,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  db_instance_class      = "db.t3.small"
 
 
   providers = {
