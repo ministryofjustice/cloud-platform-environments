@@ -35,9 +35,9 @@ module "court_case_service_rds_prod_data" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   allow_major_version_upgrade = false
-  db_engine_version           = "13"
+  db_engine_version           = "11"
   db_instance_class           = "db.t3.xlarge"
-  rds_family                  = "postgres13"
+  rds_family                  = "postgres11"
   rds_name                    = "court-case-service-rds-prod-data"
 
 
