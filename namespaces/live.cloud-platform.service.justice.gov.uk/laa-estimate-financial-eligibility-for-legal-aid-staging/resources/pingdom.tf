@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-estimate-financial-eligibility-for-legal-aid-staging" {
   type             = "http"
   name             = "Check if your client qualifies for legal aid - staging - ping"
-  host             = "estimate-financial-eligibility-staging.cloud-platform.service.justice.gov.uk"
+  host             = "check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
   notifyagainevery = 0
