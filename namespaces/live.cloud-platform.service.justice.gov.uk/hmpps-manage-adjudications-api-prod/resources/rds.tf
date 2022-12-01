@@ -4,18 +4,20 @@ variable "cluster_name" {
 variable "vpc_name" {
 }
 
-
 module "ma_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business-unit               = var.business-unit
+  application                 = var.application
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure-support
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t3.large"
+  db_engine_version           = "10"
+  rds_family                  = "postgres10"
 
   providers = {
     aws = aws.london
@@ -39,4 +41,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
   }
 }
-
