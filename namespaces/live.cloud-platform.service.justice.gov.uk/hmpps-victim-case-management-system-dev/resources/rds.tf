@@ -52,6 +52,9 @@ module "rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "false"
 
+  # Turn on auto_start_stop to reduce cost
+  enable_rds_auto_start_stop = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
