@@ -3,13 +3,6 @@ variable "cluster_name" {
 
 variable "vpc_name" {
 }
-
-variable "cluster_state_bucket" {
-}
-
-variable "kubernetes_cluster" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "makeaplea"
