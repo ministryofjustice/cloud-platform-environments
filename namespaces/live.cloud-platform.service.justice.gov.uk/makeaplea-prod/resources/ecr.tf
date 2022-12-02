@@ -48,7 +48,7 @@ module "ecr_credentials" {
             "description": "Keep last 30 dev and staging images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["dev", "staging"],
+                "tagPrefixList": ["prod", "live"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 30
             },
