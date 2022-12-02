@@ -5,7 +5,7 @@ variable "vpc_name" {
 }
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Gov.UK Prototype Kit"
+  default     = "makeaplea"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "pet@hmcts.net"
 }
 
 variable "is_production" {
