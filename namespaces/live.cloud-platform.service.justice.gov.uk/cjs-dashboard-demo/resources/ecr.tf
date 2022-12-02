@@ -5,10 +5,10 @@
  *
  */
 module "ecr_credentials" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
-  team_name           = var.team_name
-  repo_name           = "${var.namespace}-ecr"
-  github_repositories = ["cjs_scorecard_exploratory_analysis"]
+  source                               = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  team_name                            = var.team_name
+  repo_name                            = "${var.namespace}-ecr"
+  github_repositories                  = ["cjs_scorecard_exploratory_analysis"]
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
