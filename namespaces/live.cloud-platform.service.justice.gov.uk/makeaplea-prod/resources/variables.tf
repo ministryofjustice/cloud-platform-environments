@@ -41,7 +41,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "slack_channel" {
