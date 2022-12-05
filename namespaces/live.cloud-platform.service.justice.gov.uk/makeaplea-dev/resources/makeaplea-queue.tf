@@ -3,9 +3,9 @@
 module "makeaplea_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "makeaplea_queue"
   encrypt_sqs_kms           = "true"
@@ -49,9 +49,9 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
 module "makeaplea_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "makeaplea_queue_dl"
   encrypt_sqs_kms        = "true"
