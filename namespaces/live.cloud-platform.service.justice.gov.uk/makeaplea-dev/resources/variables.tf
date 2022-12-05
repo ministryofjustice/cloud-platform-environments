@@ -8,6 +8,12 @@ variable "application" {
   default     = "makeaplea"
 }
 
+variable "cluster_state_bucket" {
+}
+
+variable "kubernetes_cluster" {
+}
+
 variable "namespace" {
   default = "makeaplea-dev"
 }
