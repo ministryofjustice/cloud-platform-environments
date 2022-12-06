@@ -9,8 +9,12 @@ module "hmpps_assess_risks_and_needs_dev_rds" {
   namespace              = var.namespace
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
-  rds_family             = var.rds_family
+  rds_family             = "postgres14"
+  db_instance_class      = "db.t3.small"
+  db_engine              = "postgres"
+  db_engine_version      = "14"
 
+  allow_major_version_upgrade = "true"
 
   providers = {
     aws = aws.london

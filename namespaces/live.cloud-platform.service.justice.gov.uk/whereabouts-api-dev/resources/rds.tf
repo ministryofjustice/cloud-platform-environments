@@ -16,9 +16,9 @@ module "dps_rds" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t2.small"
-  db_engine_version           = "10"
-  rds_family                  = "postgres10"
+  db_instance_class           = "db.t4g.small"
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
 
 
   providers = {

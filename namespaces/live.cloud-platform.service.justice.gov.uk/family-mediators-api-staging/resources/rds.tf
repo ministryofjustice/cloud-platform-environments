@@ -12,6 +12,10 @@ module "rds-instance" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  rds_family             = "postgres14"
+  db_engine              = "postgres"
+  db_engine_version      = "14"
+  db_instance_class      = "db.t3.small"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -26,6 +30,9 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
+    access_key_id     = module.rds-instance.access_key_id
+    secret_access_key = module.rds-instance.secret_access_key
+
     # postgres://USER:PASSWORD@HOST:PORT/NAME
     url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }

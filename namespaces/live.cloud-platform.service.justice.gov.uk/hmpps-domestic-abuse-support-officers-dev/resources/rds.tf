@@ -37,6 +37,8 @@ module "rds" {
   # Pick the one that defines the mariadb version the best
   rds_family = "mariadb10.5"
 
+  enable_rds_auto_start_stop = true
+  
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
   # db_parameter = [

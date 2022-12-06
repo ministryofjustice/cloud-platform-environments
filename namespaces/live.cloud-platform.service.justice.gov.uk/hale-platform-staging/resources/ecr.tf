@@ -21,6 +21,15 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories = ["hale-platform"]
+
+  # Create secrets in target GitHub environment
+  # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
+  github_environments = ["staging"]
+
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

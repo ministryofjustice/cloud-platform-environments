@@ -5,7 +5,7 @@ metadata:
   namespace: peoplefinder-staging
 subjects:
   - kind: Group
-    name: "github:peoplefinder"
+    name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

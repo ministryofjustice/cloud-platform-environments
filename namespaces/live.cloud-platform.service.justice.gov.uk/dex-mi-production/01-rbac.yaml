@@ -5,7 +5,7 @@ metadata:
   namespace: dex-mi-production
 subjects:
   - kind: Group
-    name: "github:correspondence"
+    name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -19,7 +19,7 @@ metadata:
   namespace: dex-mi-production
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: tiller
   namespace: dex-mi-production
