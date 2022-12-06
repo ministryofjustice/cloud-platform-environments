@@ -70,24 +70,32 @@ func main() {
 
 	// compare namespaces and print out differences
 	fmt.Println("Namespaces in cluster but not in github:")
+	var clusterNamespacesSet = sets.NewString()
 	for _, ns := range clusterNamespaces {
 		if !sets.NewString(githubNamespaces...).Has(ns) && !sets.NewString(excludedNamespaces...).Has(ns) {
 			fmt.Println(ns)
+			clusterNamespacesSet.Insert(ns)
 		}
 	}
 
-	if *slackApi != "" {
-		notifier := notify.New()
-		slackSvc := slack.New(*slackApi)
-		if err != nil {
-			log.Fatal(err)
-		}
+	if err := sendSlackMessage(*slackApi, *channelId, clusterNamespacesSet.List()); err != nil {
+		log.Fatal(err)
+	}
 
-		slackSvc.AddReceivers(*channelId)
+}
+
+func sendSlackMessage(slackApi, channelId string, ns []string) error {
+	// create a new slack notifier
+	if slackApi != "" {
+		notifier := notify.New()
+		slackSvc := slack.New(slackApi)
+
+		slackSvc.AddReceivers(channelId)
 		notifier.UseServices(slackSvc)
 
-		_ = notifier.Send(context.TODO(), "Namespaces in cluster but not in github:", fmt.Sprintf("%v", clusterNamespaces))
+		_ = notifier.Send(context.TODO(), "Namespaces in cluster but not in github:", fmt.Sprintf("%v", ns))
 	}
+	return nil
 }
 
 // getClusterNamespaces returns a set of namespaces in the cluster
