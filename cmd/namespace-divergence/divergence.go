@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"path/filepath"
 
 	"github.com/google/go-github/github"
@@ -40,11 +41,12 @@ func main() {
 	if home := homedir.HomeDir(); home != "" {
 		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
 	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+		kubeconfig = flag.String("kubeconfig", os.Getenv("KUBECONFIG"), "absolute path to the kubeconfig file")
 	}
 	tok := flag.String("p", "", "github token")
 	slackApi := flag.String("slackApi", "", "api token for slack")
 	channelId := flag.String("channelId", "", "channel id for slack")
+	clusterName := flag.String("cluster", "live", "the cluster to perform this check on i.e. live")
 
 	flag.Parse()
 
@@ -61,7 +63,7 @@ func main() {
 	}
 
 	// get all github namespaces
-	githubNamespaces, err := getGithubNamespaces(gitHubClient)
+	githubNamespaces, err := getGithubNamespaces(gitHubClient, *clusterName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -103,10 +105,10 @@ func getClusterNamespaces(client kubernetes.Interface) ([]string, error) {
 }
 
 // getGithubNamespaces returns a set of namespaces in githubToken
-func getGithubNamespaces(client *github.Client) ([]string, error) {
+func getGithubNamespaces(client *github.Client, clusterName string) ([]string, error) {
 	// get the list of all directories in https://github.com/ministryofjustice/cloud-platform-environments/namespaces
 	opt := &github.RepositoryContentGetOptions{Ref: "main"}
-	_, dir, _, err := client.Repositories.GetContents(context.TODO(), "ministryofjustice", "cloud-platform-environments", "namespaces/live.cloud-platform.service.justice.gov.uk", opt)
+	_, dir, _, err := client.Repositories.GetContents(context.TODO(), "ministryofjustice", "cloud-platform-environments", "namespaces/"+clusterName+".cloud-platform.service.justice.gov.uk", opt)
 	if err != nil {
 		return nil, err
 	}
