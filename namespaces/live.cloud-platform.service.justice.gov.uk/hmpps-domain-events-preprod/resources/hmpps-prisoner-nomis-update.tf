@@ -10,6 +10,8 @@ module "hmpps_prisoner_to_nomis_queue" {
   sqs_name                  = "hmpps_prisoner_to_nomis_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
+  visibility_timeout_seconds = 120
+
   namespace                 = var.namespace
 
   redrive_policy = <<EOF
