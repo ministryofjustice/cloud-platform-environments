@@ -3,7 +3,14 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
   protocol  = "sqs"
   endpoint  = module.approved-premises-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter
+    eventType = [
+      "approved-premises.application.submitted",
+      "approved-premises.application.assessed",
+      "approved-premises.booking.made",
+      "approved-premises.person.arrived",
+      "approved-premises.person.not-arrived",
+      "approved-premises.person.departed",
+    ]
   })
 }
 
