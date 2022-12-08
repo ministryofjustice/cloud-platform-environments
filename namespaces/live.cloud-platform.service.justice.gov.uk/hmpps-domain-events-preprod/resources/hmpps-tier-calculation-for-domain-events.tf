@@ -79,7 +79,8 @@ resource "aws_sns_topic_subscription" "hmpps_tier_calculation_domain_events_subs
   endpoint      = module.hmpps_tier_calculation_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "breach.end",
+      "enforcement.breach.raised",
+      "enforcement.breach.concluded"
     ]
   })
 }
