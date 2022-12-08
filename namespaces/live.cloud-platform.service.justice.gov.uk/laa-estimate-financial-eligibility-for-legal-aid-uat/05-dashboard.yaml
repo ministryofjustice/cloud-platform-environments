@@ -479,7 +479,7 @@ data:
               "refId": "Prometheus-namespace-Variable-Query"
             },
             "refresh": 1,
-            "regex": "/^laa-cla-frontend/",
+            "regex": "/^laa-estimate-financial-eligibility-for-legal-aid-uat/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
@@ -548,7 +548,7 @@ data:
       },
       "timezone": "browser",
       "title": "Check if your client qualifies for legal aid - UAT - Ingress",
-      "uid": "gWdjtEK4k",
+      "uid": "djtEK4kuZ",
       "version": 1,
       "weekStart": ""
     }
