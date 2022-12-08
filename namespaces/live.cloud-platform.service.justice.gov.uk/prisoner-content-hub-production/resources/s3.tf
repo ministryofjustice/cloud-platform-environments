@@ -92,3 +92,26 @@ resource "kubernetes_secret" "drupal_content_storage_secret" {
     bucket_name       = module.drupal_content_storage.bucket_name
   }
 }
+
+# Output S3 bucket info to staging and development namespaces, to facilitate automated file syncing.
+# NOTE: We only share the bucket name.  We never share access keys.
+resource "kubernetes_secret" "drupal_content_storage_output_staging" {
+  metadata {
+    name      = "drupal-s3-output"
+    namespace = "prisoner-content-hub-staging"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}
+resource "kubernetes_secret" "drupal_content_storage_output_development" {
+  metadata {
+    name      = "drupal-s3-output"
+    namespace = "prisoner-content-hub-development"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}

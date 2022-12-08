@@ -6,12 +6,8 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.68.0"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-    }
-    pingdom = {
-      source  = "russellcardullo/pingdom"
-      version = "1.1.3"
+    github = {
+      source = "integrations/github"
     }
   }
 }
