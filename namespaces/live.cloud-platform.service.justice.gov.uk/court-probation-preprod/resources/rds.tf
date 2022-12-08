@@ -20,7 +20,7 @@ module "court_case_service_rds" {
   rds_family                  = "postgres13"
 
 
-  snapshot_identifier         = "rds:cloud-platform-561e0a5371686304-2022-12-05-22-53"
+  snapshot_identifier         = "court-case-service-manual-snapshot-1670251827"
   
   providers = {
     aws = aws.london
