@@ -18,7 +18,7 @@ module "court_case_service_rds" {
   db_engine_version           = "13"
   db_instance_class           = "db.t3.xlarge"
   rds_family                  = "postgres13"
-
+  db_allocated_storage        = "35"
 
   snapshot_identifier         = "court-case-service-manual-snapshot-1670251827"
   
