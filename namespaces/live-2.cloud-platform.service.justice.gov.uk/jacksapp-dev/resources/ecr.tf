@@ -7,7 +7,7 @@
 module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  repo_name = "${var.namespace}-live-2-ecr"
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
@@ -25,7 +25,7 @@ module "ecr_credentials" {
 
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name      = "ecr-repo-${var.namespace}-live-2"
     namespace = var.namespace
   }
 
