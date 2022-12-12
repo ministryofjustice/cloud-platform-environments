@@ -18,7 +18,7 @@ module "hmpps_historical_prisoner_elasticsearch" {
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
   ebs_iops                        = 0
-  ebs_volume_type                 = "gp3"
+  ebs_volume_type                 = "gp2"
 }
 
 module "es_snapshots_s3_bucket" {
