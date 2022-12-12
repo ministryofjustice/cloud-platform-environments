@@ -69,7 +69,7 @@ spec:
         message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="probation-offender-events-court-case-service-main-queue"} offset 5m) by (queue_name) > 15 * 60
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="pic_probation_offender_events_queue"} offset 5m) by (queue_name) > 15 * 60
       for: 10m
       labels:
         severity: prepare-a-case
@@ -78,7 +78,7 @@ spec:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 1000), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-offender-events-court-case-service-main-queue"} offset 5m) by (queue_name) > 1000
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="pic_probation_offender_events_queue"} offset 5m) by (queue_name) > 1000
       for: 10m
       labels:
         severity: prepare-a-case
@@ -87,9 +87,7 @@ spec:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-offender-events-court-case-service-dead-letter-queue"} offset 5m) by (queue_name) > 0
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="pic_probation_offender_events_queue_dl"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
         severity: prepare-a-case
-
-
