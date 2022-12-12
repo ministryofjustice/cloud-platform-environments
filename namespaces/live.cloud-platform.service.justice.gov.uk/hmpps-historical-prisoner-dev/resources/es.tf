@@ -1,6 +1,7 @@
 module "hmpps_historical_prisoner_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name                    = var.cluster_name
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=provider-upgrade-elastic-search"
+  vpc_name                        = var.vpc_name
+  kubernetes_cluster              = var.kubernetes_cluster
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name
@@ -19,7 +20,7 @@ module "hmpps_historical_prisoner_elasticsearch" {
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=provider-upgrade-s3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
