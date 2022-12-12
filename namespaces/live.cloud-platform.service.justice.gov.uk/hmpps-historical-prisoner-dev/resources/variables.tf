@@ -6,7 +6,7 @@ variable "application" {
   default = "hmpps-historical-prisoner-dev"
 }
 
-variable "kubernetes_cluster" {
+variable "eks_cluster_name" {
 }
 
 variable "namespace" {

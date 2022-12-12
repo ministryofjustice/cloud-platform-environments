@@ -1,7 +1,7 @@
 module "hmpps_historical_prisoner_elasticsearch" {
   source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=provider-upgrade-elastic-search"
   vpc_name                        = var.vpc_name
-  kubernetes_cluster              = var.kubernetes_cluster
+  eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name
