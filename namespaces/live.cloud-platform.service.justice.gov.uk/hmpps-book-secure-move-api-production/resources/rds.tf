@@ -51,7 +51,7 @@ module "rds-read-replica" {
   db_allocated_storage   = 200
   db_instance_class      = "db.t3.medium"
 
-  db_name             = module.rds-instance.database_name
+  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica

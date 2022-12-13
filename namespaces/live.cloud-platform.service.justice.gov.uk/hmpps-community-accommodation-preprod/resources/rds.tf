@@ -29,7 +29,7 @@ module "read_replica" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-  db_name                = module.rds.database_name
+  db_name                = null # "db_name": conflicts with replicate_source_db
   replicate_source_db    = module.rds.db_identifier
 
   skip_final_snapshot        = "true"
