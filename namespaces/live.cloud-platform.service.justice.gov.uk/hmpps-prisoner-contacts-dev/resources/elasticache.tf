@@ -1,5 +1,5 @@
 module "hmpps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
