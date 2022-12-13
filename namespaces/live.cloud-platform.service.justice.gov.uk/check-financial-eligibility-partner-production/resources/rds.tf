@@ -62,7 +62,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.10"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   cluster_name           = var.cluster_name
   application            = var.application
