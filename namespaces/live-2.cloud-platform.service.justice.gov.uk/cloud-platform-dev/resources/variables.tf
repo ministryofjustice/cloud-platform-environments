@@ -10,7 +10,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Test application"
+  default     = "Test application for cp"
 }
 
 variable "namespace" {
