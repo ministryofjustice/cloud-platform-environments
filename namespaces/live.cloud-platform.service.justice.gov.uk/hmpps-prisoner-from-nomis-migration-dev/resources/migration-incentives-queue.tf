@@ -1,5 +1,5 @@
 module "migration_incentives_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
 
   environment-name           = var.environment
   team_name                  = var.team_name
@@ -25,7 +25,7 @@ EOF
 }
 
 module "migration_incentives_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
 
   environment-name       = var.environment
   team_name              = var.team_name

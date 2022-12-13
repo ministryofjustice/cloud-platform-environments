@@ -41,3 +41,5 @@ variable "is-production" {
   default = "false"
 }
 
+variable "eks_cluster_name" {
+}

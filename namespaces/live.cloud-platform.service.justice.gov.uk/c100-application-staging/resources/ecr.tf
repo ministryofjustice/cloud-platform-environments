@@ -3,7 +3,7 @@
 #################################
 
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = var.team_name
   repo_name = var.repo_name

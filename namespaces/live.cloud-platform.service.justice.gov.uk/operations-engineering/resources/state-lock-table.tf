@@ -1,5 +1,5 @@
 module "opseng_tf_state_lock" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.2.4"
 
   team_name              = var.team_name
   application            = var.application
