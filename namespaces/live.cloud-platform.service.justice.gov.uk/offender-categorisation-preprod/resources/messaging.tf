@@ -22,27 +22,6 @@ EOF
   }
 }
 
-resource "aws_sqs_queue_policy" "risk_profiler_change_policy" {
-  queue_url = module.risk_profiler_change.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.risk_profiler_change.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.risk_profiler_change.sqs_arn}",
-          "Action": "SQS:SendMessage"
-        }
-      ]
-  }
-   
-EOF
-
-}
 
 module "risk_profiler_change_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
