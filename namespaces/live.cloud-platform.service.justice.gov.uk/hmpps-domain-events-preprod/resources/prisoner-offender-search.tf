@@ -118,5 +118,5 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_domain_subscript
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_offender_search_domain_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"incentives.iep-review.inserted\", \"incentives.iep-review.updated\", \"incentives.iep-review.deleted\"]}"
+  filter_policy = "{\"eventType\":[ \"incentives.iep-review.inserted\", \"incentives.iep-review.updated\", \"incentives.iep-review.deleted\", \"incentives.prisoner.next-review-date-changed\"]}"
 }
