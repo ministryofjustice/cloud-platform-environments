@@ -5,7 +5,7 @@ metadata:
   namespace: laa-crown-court-proceeding-prod
 subjects:
   - kind: Group
-    name: "github:crime-apps"
+    name: "github:laa-crime-apps-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
