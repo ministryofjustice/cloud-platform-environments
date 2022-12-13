@@ -28,7 +28,7 @@ variable "team_name" {
 }
 
 variable "environment" {
-  description = "The type of environment you're deploying to."
+  description = "The type of environment you're deploying to"
   default     = "development"
 }
 
