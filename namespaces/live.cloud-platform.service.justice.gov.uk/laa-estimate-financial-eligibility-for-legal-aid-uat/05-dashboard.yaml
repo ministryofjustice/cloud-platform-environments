@@ -34,7 +34,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 91,
+      "id": 135,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -326,6 +326,108 @@ data:
           }
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 30
+          },
+          "id": 6,
+          "links": [],
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.2.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum by (phase) (kube_pod_status_phase{namespace=\"$namespace\",pod=~\"$ingress.*\"}) ",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "",
+              "range": true,
+              "refId": "C",
+              "step": 30
+            }
+          ],
+          "title": "Pod counts by status",
+          "type": "timeseries"
+        },
+        {
           "aliasColors": {},
           "bars": false,
           "dashLength": 10,
@@ -336,7 +438,7 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "links": []
             },
             "overrides": []
           },
@@ -346,7 +448,7 @@ data:
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 40
           },
           "hiddenSeries": false,
           "id": 1,
@@ -366,9 +468,10 @@ data:
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -460,7 +563,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "laa-estimate-financial-eligibility-for-legal-aid-uat",
               "value": "laa-estimate-financial-eligibility-for-legal-aid-uat"
             },
@@ -479,7 +582,7 @@ data:
               "refId": "Prometheus-namespace-Variable-Query"
             },
             "refresh": 1,
-            "regex": "/^laa-estimate-financial-eligibility-for-legal-aid-uat/",
+            "regex": "/^laa-estimate-financial-eligibility-for-legal-aid/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
@@ -489,7 +592,7 @@ data:
           },
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "main-laa-estimate-eligibility",
               "value": "main-laa-estimate-eligibility"
             },
@@ -549,6 +652,6 @@ data:
       "timezone": "browser",
       "title": "Check if your client qualifies for legal aid - UAT - Ingress",
       "uid": "djtEK4kuZ",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
