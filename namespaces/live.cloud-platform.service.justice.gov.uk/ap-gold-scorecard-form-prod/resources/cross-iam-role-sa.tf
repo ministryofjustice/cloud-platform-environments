@@ -33,8 +33,8 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
     ]
     resources = [
       "arn:aws:s3:::alpha-app-scorecard-form/*",
-      "arn:aws:s3:::alpha-athena-query-dump/${aws:userid}/*",
-      "arn:aws:s3:::mojap-athena-query-dump/${aws:userid}/*",
+      "arn:aws:s3:::alpha-athena-query-dump/$${aws:userid}/*",
+      "arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*",
     ]
   }
 
