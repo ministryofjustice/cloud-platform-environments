@@ -4,7 +4,7 @@ provider "pingdom" {
 # Integration IDs
 # 96624 = #dps_alerts
 
-resource "pingdom_check" "hmpps-calculate-release-dates-api-production-check" {
+resource "pingdom_check" "hmpps-calculate-release-dates-production-check" {
   type                     = "http"
   name                     = "DPS - HMPPS Calculate Release Dates"
   host                     = "health-kick.prison.service.justice.gov.uk"
