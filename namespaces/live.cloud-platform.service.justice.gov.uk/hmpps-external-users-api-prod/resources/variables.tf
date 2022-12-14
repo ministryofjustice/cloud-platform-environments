@@ -1,5 +1,13 @@
+
+variable "cluster_name" {
+}
+
+variable "vpc_name" {
+}
+
 variable "application" {
-  default = "HMPPS external users api"
+  description = "Name of Application you are deploying"
+  default     = "HMPPS external users api"
 }
 
 variable "namespace" {
