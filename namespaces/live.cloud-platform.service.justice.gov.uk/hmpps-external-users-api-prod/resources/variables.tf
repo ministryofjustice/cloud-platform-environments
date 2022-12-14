@@ -14,6 +14,10 @@ variable "namespace" {
   default = "hmpps-external-users-api-prod"
 }
 
+variable "domain" {
+  default = "external-users-api.hmpps.service.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -35,7 +39,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {
