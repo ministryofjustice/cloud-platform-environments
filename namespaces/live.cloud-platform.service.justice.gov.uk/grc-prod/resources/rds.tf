@@ -67,6 +67,7 @@ module "read_replica" {
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
+  cluster-name       = var.cluster_state_bucket
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
