@@ -1,5 +1,5 @@
 module "ecr-repo-check-financial-eligibility-service" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "check-financial-eligibility-service"

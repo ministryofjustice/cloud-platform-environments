@@ -1,5 +1,5 @@
 module "rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business-unit                = var.business_unit
@@ -21,7 +21,7 @@ module "rds" {
 
 module "read_replica" {
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -29,7 +29,7 @@ module "read_replica" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-  db_name                = module.rds.database_name
+  db_name                = null # "db_name": conflicts with replicate_source_db
   replicate_source_db    = module.rds.db_identifier
 
   skip_final_snapshot        = "true"

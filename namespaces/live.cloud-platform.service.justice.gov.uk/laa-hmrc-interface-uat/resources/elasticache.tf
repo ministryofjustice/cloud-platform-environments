@@ -5,7 +5,7 @@
  *
  */
 module "elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

@@ -1,7 +1,8 @@
 module "manage_intelligence_elasticsearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.2"
 
-  cluster_name                    = var.cluster_name
+  vpc_name                        = var.vpc_name
+  eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name
@@ -16,4 +17,6 @@ module "manage_intelligence_elasticsearch" {
   instance_count                  = 4
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
+  ebs_iops                        = 0
+  ebs_volume_type                 = "gp2"
 }

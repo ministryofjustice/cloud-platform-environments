@@ -1,6 +1,7 @@
 module "content_hub_elasticsearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name           = var.cluster_name
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.2"
+  vpc_name               = var.vpc_name
+  eks_cluster_name       = var.eks_cluster_name
   application            = var.application
   business-unit          = var.business-unit
   environment-name       = var.environment-name
@@ -12,4 +13,6 @@ module "content_hub_elasticsearch" {
   elasticsearch_version  = "7.1"
   ebs_volume_size        = 50
   instance_type          = "t3.medium.elasticsearch"
+  ebs_iops               = 0
+  ebs_volume_type        = "gp2"
 }

@@ -23,3 +23,6 @@ variable "is-production" {
 variable "environment-name" {
   default = "demo"
 }
+
+variable "eks_cluster_name" {
+}

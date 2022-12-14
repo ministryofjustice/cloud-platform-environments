@@ -55,3 +55,6 @@ variable "github_token" {
 variable "repo_name" {
   default = "peoplefinder"
 }
+
+variable "eks_cluster_name" {
+}

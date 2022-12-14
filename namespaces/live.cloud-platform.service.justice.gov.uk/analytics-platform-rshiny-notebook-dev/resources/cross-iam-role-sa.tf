@@ -1,6 +1,6 @@
 module "irsa" {
   eks_cluster_name = var.eks_cluster_name
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.5"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.6"
   namespace        = "analytics-platform-rshiny-notebook-dev"
   role_policy_arns = [aws_iam_policy.analytics-platform-rshiny-notebook-dev.arn]
 }
