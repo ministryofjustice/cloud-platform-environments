@@ -13,7 +13,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Mod Platform Incident Response"
+  default     = "Modernisation Platform Incident Response"
 }
 
 variable "namespace" {
