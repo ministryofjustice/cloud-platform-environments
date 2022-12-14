@@ -36,7 +36,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "pet@hmcts.net"
-}G
+}
 
 variable "is_production" {
   default = "false"
