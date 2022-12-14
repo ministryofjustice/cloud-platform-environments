@@ -4,6 +4,7 @@ metadata:
   name: hmpps-auth-preprod
   labels:
     component: "hmpps-auth-preprod"
+    component: "make-recall-decision-preprod"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "preprod"
   annotations:
