@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - approved-premises-and-oasys-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-case-notes-to-probation-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: prison-case-notes-to-probation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-case-notes-to-probation-preprod.hmpps.service.justice.gov.uk
