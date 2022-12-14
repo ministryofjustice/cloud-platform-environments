@@ -241,7 +241,7 @@ resource "kubernetes_secret" "probation_court_prototype_ecr_credentials" {
 }
 
 module "court_list_mock_data_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
   repo_name = "court-list-mock-data"
   team_name = "probation-services"
 
