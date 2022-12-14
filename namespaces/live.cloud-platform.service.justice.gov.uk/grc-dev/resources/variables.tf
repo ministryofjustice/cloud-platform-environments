@@ -1,11 +1,8 @@
+
 variable "cluster_name" {
 }
 
 variable "vpc_name" {
-}
-variable "application" {
-  description = "Name of Application you are deploying"
-  default     = "makeaplea"
 }
 
 variable "cluster_state_bucket" {
@@ -14,8 +11,13 @@ variable "cluster_state_bucket" {
 variable "kubernetes_cluster" {
 }
 
+variable "application" {
+  description = "Name of Application you are deploying"
+  default     = "Gender Recognition App"
+}
+
 variable "namespace" {
-  default = "makeaplea-dev"
+  default = "grc-dev"
 }
 
 variable "business_unit" {
@@ -36,7 +38,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "pet@hmcts.net"
-}G
+}
 
 variable "is_production" {
   default = "false"
