@@ -18,7 +18,7 @@ variable "infrastructure_support" {
   default = "Form Builder form-builder-developers@digital.justice.gov.uk"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 

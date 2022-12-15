@@ -50,7 +50,7 @@ variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 

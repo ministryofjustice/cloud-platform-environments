@@ -34,7 +34,7 @@ variable "team_name" {
   default = "pq-team"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 

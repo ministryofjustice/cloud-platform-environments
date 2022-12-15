@@ -30,11 +30,9 @@ variable "repo_name" {
   default = "c100-application"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 
 variable "vpc_name" {
 }
-
-

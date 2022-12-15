@@ -97,7 +97,8 @@ resource "kubernetes_secret" "cfo_dead_letter_queue" {
     sqs_cfo_name      = module.cfo_dead_letter_queue.sqs_name
   }
 }
-// Subscriptions removed until CFO are ready to start consuming messages (so we don't falsely fire alerts)
+
+# Subscriptions removed until CFO are ready to start consuming messages (so we don't falsely fire alerts)
 resource "aws_sns_topic_subscription" "cfo_prison_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn

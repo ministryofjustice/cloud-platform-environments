@@ -30,7 +30,7 @@ variable "repo_name" {
   default = "hmpps-book-secure-move-frontend"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 
