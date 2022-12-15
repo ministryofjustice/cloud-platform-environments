@@ -12,7 +12,7 @@ resource "kubernetes_secret" "intervention_global_events_sns" {
 }
 
 module "hmpps-delius-interventions-event-listener-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -39,7 +39,7 @@ EOF
 }
 
 module "hmpps-delius-interventions-event-listener-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   team_name              = var.team_name
   business-unit          = var.business-unit
