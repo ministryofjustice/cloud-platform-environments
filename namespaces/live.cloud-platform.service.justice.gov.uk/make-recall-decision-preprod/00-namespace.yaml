@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: make-recall-decision-preprod
   labels:
+    component: "make-recall-decision-preprod"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "preprod"
   annotations:
