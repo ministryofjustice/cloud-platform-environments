@@ -1,7 +1,7 @@
 module "crime_apps_ec_cluster" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
 
-  // The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
+  # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit

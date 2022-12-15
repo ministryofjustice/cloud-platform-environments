@@ -8,7 +8,7 @@ variable "environment-name" {
   default     = "staging"
 }
 
-// The following two variables are provided at runtime by the pipeline.
+# The following two variables are provided at runtime by the pipeline.
 variable "cluster_name" {
 }
 
