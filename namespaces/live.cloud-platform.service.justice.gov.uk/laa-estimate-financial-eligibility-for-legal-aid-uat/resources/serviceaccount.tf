@@ -18,7 +18,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "pods",
-        "configmap",
+        "configmaps",
       ]
       verbs = [
         "patch",
