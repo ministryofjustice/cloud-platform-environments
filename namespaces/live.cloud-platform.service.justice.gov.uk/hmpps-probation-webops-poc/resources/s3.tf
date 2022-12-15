@@ -149,7 +149,7 @@ EOF
 
 */
 
-  user_policy = "${data.aws_iam_policy_document.bucket_user_policy.json}"
+  user_policy = data.aws_iam_policy_document.bucket_user_policy.json
 
 }
 
@@ -163,7 +163,7 @@ data "aws_iam_policy_document" "bucket_user_policy" {
       "s3:ListBucketMultipartUploads"
     ]
 
-    resources = ["${module.s3_bucket.bucket_arn}"]
+    resources = [module.s3_bucket.bucket_arn]
 
   }
   statement {
