@@ -17,7 +17,8 @@ module "serviceaccount" {
         "deployment",
         "secrets",
         "services",
-        "pods"
+        "pods",
+        "configmap",
       ]
       verbs = [
         "patch",
