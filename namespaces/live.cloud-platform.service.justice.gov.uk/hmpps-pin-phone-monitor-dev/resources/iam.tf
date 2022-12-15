@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "bt_upload_policy" {
     actions = ["s3:*"]
 
     resources = [
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}",
+      module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
       "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"
     ]
 
