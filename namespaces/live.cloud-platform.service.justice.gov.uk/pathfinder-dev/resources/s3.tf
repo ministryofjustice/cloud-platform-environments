@@ -1,5 +1,5 @@
 module "pathfinder_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -65,7 +65,7 @@ EOF
 }
 
 module "pathfinder_rds_to_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -82,7 +82,7 @@ module "pathfinder_rds_to_s3_bucket" {
 }
 
 module "pathfinder_reporting_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
 
   team_name              = var.team_name
   business-unit          = "Digital and Technology"
