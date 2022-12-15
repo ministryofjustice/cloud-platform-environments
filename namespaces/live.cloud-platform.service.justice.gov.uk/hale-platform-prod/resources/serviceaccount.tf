@@ -1,7 +1,7 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.6"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets
@@ -17,7 +17,7 @@ module "serviceaccount" {
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
 
-serviceaccount_rules = [
+  serviceaccount_rules = [
     {
       api_groups = [""]
       resources = [

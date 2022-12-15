@@ -73,10 +73,10 @@ module "hmpps_tier_calculation_allocation_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_tier_calculation_allocation_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_tier_calculation_allocation_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_tier_calculation_allocation_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "TIER_CALCULATION_COMPLETE",
