@@ -1,5 +1,5 @@
 module "data_engineering_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name

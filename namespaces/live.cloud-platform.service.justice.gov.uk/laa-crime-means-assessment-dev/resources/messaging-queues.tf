@@ -1,5 +1,5 @@
 module "means_assessment_post_processing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name           = var.environment_name
   team_name                  = var.team_name
@@ -51,7 +51,7 @@ resource "aws_sqs_queue_policy" "means_assessment_post_processing_queue_policy" 
 }
 
 module "means_assessment_post_processing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment_name
   team_name              = var.team_name

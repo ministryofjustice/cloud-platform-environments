@@ -1,5 +1,5 @@
 module "workload_prisoner_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -42,7 +42,7 @@ resource "aws_sqs_queue_policy" "workload_prisoner_queue_policy" {
 }
 
 module "workload_prisoner_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
