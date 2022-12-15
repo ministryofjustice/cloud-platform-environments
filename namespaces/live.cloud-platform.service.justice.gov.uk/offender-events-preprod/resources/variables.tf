@@ -6,8 +6,6 @@ variable "namespace" {
   default = "offender-events-preprod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

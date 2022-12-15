@@ -1,5 +1,3 @@
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -20,8 +18,8 @@ module "court_case_service_rds" {
   rds_family                  = "postgres13"
   db_allocated_storage        = "35"
 
-  snapshot_identifier         = "court-case-service-manual-snapshot-1670251827"
-  
+  snapshot_identifier = "court-case-service-manual-snapshot-1670251827"
+
   providers = {
     aws = aws.london
   }

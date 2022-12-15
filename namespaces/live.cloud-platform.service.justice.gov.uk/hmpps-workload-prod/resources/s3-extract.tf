@@ -89,7 +89,7 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
     id        = "wmt-extract-upload-event"
     queue_arn = module.hmpps_extract_placed_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_prefix = "extract/"
   }
 

@@ -6,8 +6,6 @@ variable "namespace" {
   default = "licences-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
