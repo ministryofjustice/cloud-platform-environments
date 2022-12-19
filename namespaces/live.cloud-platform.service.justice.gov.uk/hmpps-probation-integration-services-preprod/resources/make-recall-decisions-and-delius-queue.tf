@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-su
   protocol  = "sqs"
   endpoint  = module.make-recall-decisions-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [ "prison-recall.recommendation.started" ]
+    eventType = [] # TODO add event type filter
   })
 }
 
@@ -14,8 +14,8 @@ module "make-recall-decisions-and-delius-queue" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
 
-  application = "make-recall-decisions-and-delius-queue"
-  sqs_name    = "make-recall-decisions-and-delius-queue-queue"
+  application = "make-recall-decisions-and-delius"
+  sqs_name    = "make-recall-decisions-and-delius-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.make-recall-decisions-and-delius-dlq.sqs_arn
