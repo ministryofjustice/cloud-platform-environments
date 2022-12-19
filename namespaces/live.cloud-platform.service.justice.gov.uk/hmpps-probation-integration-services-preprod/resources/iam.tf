@@ -1,5 +1,7 @@
 locals {
   managed_sqs_queues = [
+    module.make-recall-decisions-and-delius-queue.sqs_arn,
+    module.make-recall-decisions-and-delius-dlq.sqs_arn,
     module.custody-key-dates-and-delius-queue.sqs_arn,
     module.custody-key-dates-and-delius-dlq.sqs_arn,
     module.pre-sentence-reports-to-delius-queue.sqs_arn,
