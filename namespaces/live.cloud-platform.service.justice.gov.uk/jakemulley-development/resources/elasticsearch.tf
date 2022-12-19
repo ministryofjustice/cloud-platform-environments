@@ -14,6 +14,8 @@ module "example" {
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
+
+  domain_endpoint_enforce_https = true
 }
 
 module "enforce" {
@@ -33,5 +35,5 @@ module "enforce" {
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
 
-  domain_endpoint_enforce_https = true
+  domain_endpoint_enforce_https = false
 }
