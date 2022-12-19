@@ -10,7 +10,7 @@ module "example" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  elasticsearch-domain = "jakemulley-development-example"
+  elasticsearch-domain = "jakemulley-development"
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
