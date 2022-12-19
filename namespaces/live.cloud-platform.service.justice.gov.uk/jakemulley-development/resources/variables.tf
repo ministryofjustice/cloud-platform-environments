@@ -1,5 +1,3 @@
-
-
 variable "vpc_name" {
 }
 
@@ -55,4 +53,7 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
 }
