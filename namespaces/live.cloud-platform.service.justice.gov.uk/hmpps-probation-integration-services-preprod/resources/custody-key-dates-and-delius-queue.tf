@@ -3,21 +3,7 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscr
   protocol  = "sqs"
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [
-      "person.prison-identifer.added"
-    ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-subscription" {
-  topic_arn = data.aws_sns_topic.offender-events.arn
-  protocol  = "sqs"
-  endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "CONFIRMED_RELEASE_DATE-CHANGED",
-      "SENTENCE_DATES-CHANGED"
-    ]
+    eventType = [] # TODO add event type filter
   })
 }
 
@@ -28,8 +14,8 @@ module "custody-key-dates-and-delius-queue" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
 
-  application = "custody-key-dates-and-delius-queue"
-  sqs_name    = "custody-key-dates-and-delius-queue-queue"
+  application = "custody-key-dates-and-delius"
+  sqs_name    = "custody-key-dates-and-delius-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.custody-key-dates-and-delius-dlq.sqs_arn
