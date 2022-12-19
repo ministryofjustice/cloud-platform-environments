@@ -3,7 +3,21 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscr
   protocol  = "sqs"
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter
+    eventType = [
+      "person.prison-identifer.added"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-subscription" {
+  topic_arn = data.aws_sns_topic.offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "CONFIRMED_RELEASE_DATE-CHANGED",
+      "SENTENCE_DATES-CHANGED"
+    ]
   })
 }
 
