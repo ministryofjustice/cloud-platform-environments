@@ -11,6 +11,7 @@ module "example" {
   namespace              = var.namespace
 
   elasticsearch-domain = "example"
+  aws_es_irsa_sa_name = "jm-test-es"
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
@@ -29,6 +30,7 @@ module "enforce" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  aws_es_irsa_sa_name = "jm-test-es-enforce"
 
   elasticsearch-domain = "enforce"
 
