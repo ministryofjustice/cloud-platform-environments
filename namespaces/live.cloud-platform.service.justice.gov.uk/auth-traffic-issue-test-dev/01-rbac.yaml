@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: auth-traffic-issue-test-dev-admin
+  namespace: auth-traffic-issue-test-dev
+subjects:
+  - kind: Group
+    name: "github:making-recall-decision"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

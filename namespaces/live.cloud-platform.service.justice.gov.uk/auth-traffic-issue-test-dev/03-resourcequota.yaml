@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: auth-traffic-issue-test-dev
+spec:
+  hard:
+    pods: "50"
