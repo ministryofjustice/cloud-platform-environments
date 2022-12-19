@@ -58,3 +58,19 @@ resource "github_actions_environment_secret" "prison-custody-status-to-delius-se
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+# The following kubernetes secrets are only required to facilitate copying messages from the prod-mirror queue
+resource "kubernetes_secret" "prison-custody-status-to-delius-secrets" {
+  metadata {
+    name      = "prison-custody-status-to-delius-queue"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.prison-custody-status-to-delius-queue.access_key_id
+    secret_access_key = module.prison-custody-status-to-delius-queue.secret_access_key
+    sqs_queue_url     = module.prison-custody-status-to-delius-queue.sqs_id
+    sqs_queue_arn     = module.prison-custody-status-to-delius-queue.sqs_arn
+    sqs_queue_name    = module.prison-custody-status-to-delius-queue.sqs_name
+  }
+}
