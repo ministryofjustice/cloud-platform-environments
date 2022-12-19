@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-su
   protocol  = "sqs"
   endpoint  = module.make-recall-decisions-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter
+    eventType = [ "prison-recall.recommendation.started" ]
   })
 }
 
