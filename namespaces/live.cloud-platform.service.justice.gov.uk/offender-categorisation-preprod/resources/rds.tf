@@ -11,7 +11,8 @@ module "dps_rds" {
   rds_family             = var.rds-family
   db_instance_class      = "db.t3.small"
   db_engine_version      = "14"
-
+  allow_major_version_upgrade = "true"
+  
   providers = {
     aws = aws.london
   }
