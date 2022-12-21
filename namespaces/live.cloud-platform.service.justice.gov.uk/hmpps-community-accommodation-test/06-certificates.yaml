@@ -1,0 +1,39 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-test-cert
+  namespace: hmpps-community-accommodation-test
+spec:
+  secretName: hmpps-approved-premises-test-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-temporary-accommodation-test-cert
+  namespace: hmpps-community-accommodation-test
+spec:
+  secretName: hmpps-temporary-accommodation-test-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - temporary-accommodation-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-api-test-cert
+  namespace: hmpps-community-accommodation-test
+spec:
+  secretName: hmpps-approved-premises-api-test-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-api-test.hmpps.service.justice.gov.uk
