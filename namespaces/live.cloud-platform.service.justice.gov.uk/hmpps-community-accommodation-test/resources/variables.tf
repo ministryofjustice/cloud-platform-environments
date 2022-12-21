@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-community-accommodation-dev"
+  default = "hmpps-community-accommodation-test"
 }
 
 variable "business_unit" {
