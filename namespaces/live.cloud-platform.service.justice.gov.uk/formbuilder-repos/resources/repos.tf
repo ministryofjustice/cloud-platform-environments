@@ -6,7 +6,7 @@ module "ecr-repo-fb-publisher-base" {
   team_name = "formbuilder"
   repo_name = "fb-publisher-base"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -33,7 +33,7 @@ module "ecr-repo-fb-publisher-web" {
   team_name = "formbuilder"
   repo_name = "fb-publisher-web"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -60,7 +60,7 @@ module "ecr-repo-fb-publisher-worker" {
   team_name = "formbuilder"
   repo_name = "fb-publisher-worker"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -90,7 +90,7 @@ module "ecr-repo-fb-runner-node" {
   team_name = "formbuilder"
   repo_name = "fb-runner-node"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -120,7 +120,7 @@ module "ecr-repo-fb-service-token-cache" {
   team_name = "formbuilder"
   repo_name = "fb-service-token-cache"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -150,7 +150,7 @@ module "ecr-repo-fb-submitter-base" {
   team_name = "formbuilder"
   repo_name = "fb-submitter-base"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -177,7 +177,7 @@ module "ecr-repo-fb-submitter-api" {
   team_name = "formbuilder"
   repo_name = "fb-submitter-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -204,7 +204,7 @@ module "ecr-repo-fb-submitter-workers" {
   team_name = "formbuilder"
   repo_name = "fb-submitter-workers"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -234,7 +234,7 @@ module "ecr-repo-fb-user-datastore-api" {
   team_name = "formbuilder"
   repo_name = "fb-user-datastore-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -264,7 +264,7 @@ module "ecr-repo-fb-user-filestore-api" {
   team_name = "formbuilder"
   repo_name = "fb-user-filestore-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -294,7 +294,7 @@ module "ecr-repo-fb-av" {
   team_name = "formbuilder"
   repo_name = "fb-av"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -324,7 +324,7 @@ module "ecr-repo-fb-builder" {
   team_name = "formbuilder"
   repo_name = "fb-builder"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -353,7 +353,7 @@ module "ecr-repo-fb-pdf-generator" {
   team_name = "formbuilder"
   repo_name = "fb-pdf-generator"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
 }
@@ -379,7 +379,7 @@ module "ecr-repo-fb-base-adapter" {
   team_name = "formbuilder"
   repo_name = "fb-base-adapter"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -404,7 +404,7 @@ module "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -431,7 +431,7 @@ module "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-worker"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -460,7 +460,7 @@ module "ecr-repo-fb-metadata-api" {
   team_name = "formbuilder"
   repo_name = "fb-metadata-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -485,7 +485,7 @@ module "ecr-repo-fb-editor-web" {
   team_name = "formbuilder"
   repo_name = "fb-editor-web"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -508,7 +508,7 @@ module "ecr-repo-fb-editor-workers" {
   team_name = "formbuilder"
   repo_name = "fb-editor-workers"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -532,7 +532,7 @@ module "ecr-repo-fb-runner" {
   team_name = "formbuilder"
   repo_name = "fb-runner"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -557,7 +557,7 @@ module "ecr-repo-fb-maintenance-page" {
   team_name = "formbuilder"
   repo_name = "fb-maintenance-page"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 

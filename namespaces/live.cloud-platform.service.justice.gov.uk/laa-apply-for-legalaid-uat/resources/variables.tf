@@ -7,8 +7,6 @@ variable "repo_name" {
   default     = "laa-apply-for-legal-aid"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

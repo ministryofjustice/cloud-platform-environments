@@ -1,5 +1,5 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.2"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application

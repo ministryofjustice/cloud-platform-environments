@@ -6,8 +6,6 @@ variable "namespace" {
   default = "prison-data-compliance-preprod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

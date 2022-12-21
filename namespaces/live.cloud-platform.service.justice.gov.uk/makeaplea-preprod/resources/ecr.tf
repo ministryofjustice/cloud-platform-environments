@@ -22,7 +22,7 @@ module "ecr_credentials" {
   # github actions CI/CD pipelines
   # github_repositories = ["my-repo"]
 
-/*
+  /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html

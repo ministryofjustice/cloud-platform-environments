@@ -35,8 +35,6 @@ variable "infrastructure-support" {
   default     = "civil-legal-advice@digital.justice.gov.uk"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
