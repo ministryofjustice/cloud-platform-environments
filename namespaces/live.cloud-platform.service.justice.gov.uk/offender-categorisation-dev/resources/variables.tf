@@ -39,3 +39,7 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
+variable "rds-family" {
+  default = "postgres14"
+}
+
