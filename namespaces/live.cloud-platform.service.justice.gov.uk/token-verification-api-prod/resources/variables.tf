@@ -6,8 +6,6 @@ variable "namespace" {
   default = "token-verification-api-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

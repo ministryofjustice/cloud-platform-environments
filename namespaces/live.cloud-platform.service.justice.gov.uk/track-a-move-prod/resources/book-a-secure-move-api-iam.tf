@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "book-a-secure-move-api" {
     ]
 
     resources = [
-      "${aws_athena_workgroup.queries.arn}",
+      aws_athena_workgroup.queries.arn,
       "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",

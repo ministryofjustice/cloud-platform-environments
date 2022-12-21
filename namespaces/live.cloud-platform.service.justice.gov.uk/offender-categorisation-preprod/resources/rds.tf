@@ -12,7 +12,6 @@ module "dps_rds" {
   db_instance_class      = "db.t3.small"
   db_engine_version      = "14"
 
-
   providers = {
     aws = aws.london
   }

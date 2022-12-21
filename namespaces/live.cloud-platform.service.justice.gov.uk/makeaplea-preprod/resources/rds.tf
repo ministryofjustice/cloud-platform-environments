@@ -31,14 +31,14 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
-    rds_instance_endpoint       = module.dps_rds.rds_instance_endpoint
-    database_name               = module.dps_rds.database_name
-    database_username           = module.dps_rds.database_username
-    database_password           = module.dps_rds.database_password
-    rds_instance_address        = module.dps_rds.rds_instance_address
-    access_key_id               = module.dps_rds.access_key_id
-    secret_access_key           = module.dps_rds.secret_access_key
-    url                         = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
+    database_name         = module.dps_rds.database_name
+    database_username     = module.dps_rds.database_username
+    database_password     = module.dps_rds.database_password
+    rds_instance_address  = module.dps_rds.rds_instance_address
+    access_key_id         = module.dps_rds.access_key_id
+    secret_access_key     = module.dps_rds.secret_access_key
+    url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
 

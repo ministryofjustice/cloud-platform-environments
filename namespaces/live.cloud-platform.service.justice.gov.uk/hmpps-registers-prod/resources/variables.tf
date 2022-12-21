@@ -30,8 +30,6 @@ variable "namespace" {
   default = "hmpps-registers-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
