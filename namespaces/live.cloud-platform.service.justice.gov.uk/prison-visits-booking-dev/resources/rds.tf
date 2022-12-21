@@ -11,7 +11,7 @@ module "prison-visits-rds" {
 
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.m4.large"
+  db_instance_class           = "db.m5.large"
   rds_family                  = "postgres12"
   db_engine_version           = "12"
   db_allocated_storage        = "50"
@@ -31,6 +31,8 @@ resource "kubernetes_secret" "prison-visits-rds" {
   }
 
   data = {
+    access_key_id     = module.prison-visits-rds.access_key_id
+    secret_access_key = module.prison-visits-rds.secret_access_key
     url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
