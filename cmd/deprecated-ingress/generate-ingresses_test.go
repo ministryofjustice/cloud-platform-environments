@@ -13,6 +13,7 @@ func Test_checkApiVersion(t *testing.T) {
 	var testVersion1, _ = judge.NewVersion("1.19.0")
 	type args struct {
 		ingressName    string
+		namespace      string
 		deprecatedList []judge.Result
 	}
 	tests := []struct {
@@ -24,6 +25,7 @@ func Test_checkApiVersion(t *testing.T) {
 			name: "apiversion v1beta1",
 			args: args{
 				ingressName: "ingress-1",
+				namespace:   "ns-1",
 				deprecatedList: []judge.Result{
 					{
 						Name:        "ingress-1",
@@ -42,6 +44,7 @@ func Test_checkApiVersion(t *testing.T) {
 			name: "apiversion v1",
 			args: args{
 				ingressName: "ingress-2",
+				namespace:   "ns-2",
 				deprecatedList: []judge.Result{
 					{
 						Name:        "ingress-1",
@@ -59,30 +62,8 @@ func Test_checkApiVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := checkApiVersion(tt.args.ingressName, tt.args.deprecatedList); got != tt.want {
+			if got := checkApiVersion(tt.args.ingressName, tt.args.namespace, tt.args.deprecatedList); got != tt.want {
 				t.Errorf("checkApiVersion() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_buildCSV(t *testing.T) {
-	type args struct {
-		ingressClassList []map[string]string
-		deprecatedList   []judge.Result
-		namespaces       []v1.Namespace
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := buildCSV(tt.args.ingressClassList, tt.args.deprecatedList, tt.args.namespaces); (err != nil) != tt.wantErr {
-				t.Errorf("buildCSV() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

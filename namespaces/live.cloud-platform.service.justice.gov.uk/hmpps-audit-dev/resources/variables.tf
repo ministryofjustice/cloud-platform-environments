@@ -2,8 +2,6 @@ variable "namespace" {
   default = "hmpps-audit-dev"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

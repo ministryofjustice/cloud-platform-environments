@@ -83,7 +83,7 @@ resource "kubernetes_secret" "offender_assessments_events" {
 
 resource "github_actions_environment_secret" "offender-events-and-delius" {
   for_each = {
-    "OFFENDER_EVENTS_AND_DELIUS_AWS_TOPIC_ARN"        = module.probation_offender_events.topic_arn
+    "OFFENDER_EVENTS_AND_DELIUS_AWS_TOPIC_ARN"         = module.probation_offender_events.topic_arn
     "OFFENDER_EVENTS_AND_DELIUS_AWS_ACCESS_KEY_ID"     = module.probation_offender_events.access_key_id
     "OFFENDER_EVENTS_AND_DELIUS_AWS_SECRET_ACCESS_KEY" = module.probation_offender_events.secret_access_key
   }

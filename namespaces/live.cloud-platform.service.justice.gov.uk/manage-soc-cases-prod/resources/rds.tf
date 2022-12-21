@@ -1,5 +1,3 @@
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -52,7 +50,7 @@ data "aws_iam_policy_document" "manage_soc_cases_prod_rds_to_s3_export_policy" {
     ]
 
     resources = [
-      "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}",
+      module.manage_soc_cases_rds_to_s3_bucket.bucket_arn,
       "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}/*",
       "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/",
       "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/*"

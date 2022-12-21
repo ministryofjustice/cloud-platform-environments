@@ -10,8 +10,6 @@ variable "namespace" {
   default = "hmpps-pin-phone-monitor-qa"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

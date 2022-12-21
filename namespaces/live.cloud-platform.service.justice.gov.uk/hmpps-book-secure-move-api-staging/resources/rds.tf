@@ -12,11 +12,11 @@ module "rds-instance" {
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
-  db_engine              = "postgres"
-  db_engine_version      = "12.11"
-  db_instance_class      = "db.t3.medium"
+  db_engine         = "postgres"
+  db_engine_version = "12.11"
+  db_instance_class = "db.t3.medium"
 
-  rds_family             = "postgres12"
+  rds_family = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -73,8 +73,8 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  rds_family = "postgres12"
-  db_engine_version      = "12.11"
+  rds_family        = "postgres12"
+  db_engine_version = "12.11"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

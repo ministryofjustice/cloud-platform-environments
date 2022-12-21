@@ -16,7 +16,7 @@ module "apply_pipeline_dynamodb" {
   aws_region             = "eu-west-2"
   namespace              = var.namespace
 
-  hash_key  = "commitSha"
+  hash_key = "commitSha"
 
 }
 

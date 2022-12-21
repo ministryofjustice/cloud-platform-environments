@@ -1,5 +1,5 @@
 module "hmpps_tier_calculation_allocation_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -55,7 +55,7 @@ EOF
 }
 
 module "hmpps_tier_calculation_allocation_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -71,10 +71,10 @@ module "hmpps_tier_calculation_allocation_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_tier_calculation_allocation_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_tier_calculation_allocation_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_tier_calculation_allocation_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "TIER_CALCULATION_COMPLETE",

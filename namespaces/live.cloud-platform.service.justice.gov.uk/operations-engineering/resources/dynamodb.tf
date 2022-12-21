@@ -9,10 +9,10 @@ module "opseng_reports" {
   is-production          = "true"
   namespace              = var.namespace
 
-  hash_key          = "filename"
-  enable_encryption = "false"
-  enable_autoscaler = "true"
-  aws_region        = "eu-west-2"
+  hash_key                    = "filename"
+  enable_encryption           = "false"
+  enable_autoscaler           = "true"
+  aws_region                  = "eu-west-2"
   autoscale_max_read_capacity = "100"
 }
 
