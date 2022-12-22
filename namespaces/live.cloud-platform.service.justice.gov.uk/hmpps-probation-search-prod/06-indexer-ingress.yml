@@ -4,7 +4,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     external-dns.alpha.kubernetes.io/set-identifier: probation-search-hmpps-probation-search-prod-green
-    ingress.kubernetes.io/whitelist-source-range: "52.56.115.146/32,35.178.104.253/32,35.177.47.45/32"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "52.56.115.146/32,35.178.104.253/32,35.177.47.45/32"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
   name: probation-search
