@@ -7,7 +7,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
+  default     = "HMPPS Domain Event Logger"
 }
 
 variable "namespace" {
@@ -21,12 +21,12 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "dps-syscon"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -40,5 +40,14 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "syscon_team"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "node-type" {
+  default = "cache.t2.small"
+}
+
