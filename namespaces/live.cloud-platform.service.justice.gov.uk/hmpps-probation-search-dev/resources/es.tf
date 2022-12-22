@@ -12,6 +12,7 @@ module "probation_search_elasticsearch" {
   aws_es_proxy_service_name       = "es-proxy"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
+  domain_endpoint_enforce_https   = true
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
