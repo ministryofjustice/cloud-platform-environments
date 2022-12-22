@@ -12,8 +12,9 @@ spec:
     rules:
     - alert: SQS-oldest-message
       annotations:
-        message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+        message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue|Digital-Prison-Services-prod-prisoner_offender_search_queue|Digital-Prison-Services-prod-prisoner_offender_search_domain_queue",
@@ -33,8 +34,9 @@ spec:
 
     - alert: SQS-number-of-messages
       annotations:
-        message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+        message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthy
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_queue|Digital-Prison-Services-prod-prisoner_from_nomis_queue|Digital-Prison-Services-prod-prisoner_offender_search_queue",
@@ -70,8 +72,9 @@ spec:
 
     - alert: SNS-no-messages-published-prison
       annotations:
-        message: "SNS topic for Prison Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy. https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
+        message: "SNS topic for Prison Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy"
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now
       expr: |-
         absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-160f3.*"} offset 5m) == 1
       for: 20m
@@ -80,8 +83,9 @@ spec:
 
     - alert: SNS-no-messages-published-probation
       annotations:
-        message: "SNS topic for Probation Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy. https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now"
+        message: "SNS topic for Probation Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy"
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSNS000/dps-aws-sns?orgId=1&var-topic={{ $labels.topic_name }}&from=now-6h&to=now
       expr: |-
         (absent(aws_sns_number_of_messages_published_sum{topic_name=~"cloud-platform-Digital-Prison-Services-c2d99.*"} offset 5m) == 1) and ((day_of_week() >= 1 and day_of_week() <= 5) and (hour() >= 8 and hour() <= 17))
       for: 30m
@@ -92,6 +96,7 @@ spec:
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
           queue_name!~"Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_dlq|Digital-Prison-Services-prod-prisoner_from_nomis_dl_queue|Digital-Prison-Services-prod-prisoner_offender_search_domain_dlq|Digital-Prison-Services-prod-prisoner_offender_search_queue_dl|dps-prod-prisoner_offender_index_queue_dl",
