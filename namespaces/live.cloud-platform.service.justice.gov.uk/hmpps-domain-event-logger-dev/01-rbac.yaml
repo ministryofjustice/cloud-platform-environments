@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-domain-event-logger-admin
+  namespace: hmpps-domain-event-logger-dev
+subjects:
+  - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:syscon-devs"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
