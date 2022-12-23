@@ -6,7 +6,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "hmpps-calculate-release-dates-api-dev-check" {
   type                     = "http"
-  name                     = "DPS - HMPPS Calculate Release Dates API"
+  name                     = "DPS - HMPPS Calculate Release Dates API - Development"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
