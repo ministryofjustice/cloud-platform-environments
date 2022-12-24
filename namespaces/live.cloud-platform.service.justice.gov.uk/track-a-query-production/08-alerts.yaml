@@ -17,7 +17,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"track-a-query-production"}[5m]) * 600 > 2
       for: 4m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubeJobFailed
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete
@@ -26,7 +26,7 @@ spec:
         kube_job_status_failed{job="kube-state-metrics", namespace="track-a-query-production"} > 0
       for: 4m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: FailedDelayedJobs
       annotations:
         message: Failed Delayed Job in {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})
@@ -35,7 +35,7 @@ spec:
         avg(delayed_jobs_failed{namespace="track-a-query-production"}) > 0
       for: 1m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubeDeploymentReplicasMismatch
       annotations:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
@@ -47,7 +47,7 @@ spec:
         kube_deployment_status_replicas_available{namespace="track-a-query-production", job="kube-state-metrics"}
       for: 1h
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
@@ -57,7 +57,7 @@ spec:
         phase=~"Pending|Unknown"}) > 0
       for: 1h
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubeJobCompletion
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more
@@ -67,7 +67,7 @@ spec:
         0
       for: 30m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubeCronJobRunning
       annotations:
         message: CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more
@@ -76,7 +76,7 @@ spec:
       expr: time() - kube_cronjob_next_schedule_time{job="kube-state-metrics", namespace="track-a-query-production"} > 3600
       for: 30m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: SlowResponses
       annotations:
         message: ingress {{ $labels.ingress }} is serving slow responses over 5 seconds
@@ -87,7 +87,7 @@ spec:
         rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "track-a-query-production"}[5m]) > 0) by (ingress) > 5
       for: 1m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
     - alert: KubeNamespaceQuotaNearing
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value }}% of its {{ $labels.resource }} quota.
@@ -99,4 +99,4 @@ spec:
           > 80
       for: 5m
       labels:
-        severity: track-a-query-production
+        severity: cdpt-central-digital
