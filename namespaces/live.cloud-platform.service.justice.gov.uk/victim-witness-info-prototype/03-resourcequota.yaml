@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: victim-witness-info
+  namespace: victim-witness-info-prototype
 spec:
   hard:
     pods: "50"

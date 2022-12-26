@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: victim-witness-info
+  name: victim-witness-info-prototype
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "central-digital-product-team"
     cloud-platform.justice.gov.uk/application: "Gov.UK Prototype Kit"
     cloud-platform.justice.gov.uk/owner: "Central Digital Product Team: platforms@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/victim-witness-info"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/victim-witness-info-prototype"
     cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
     cloud-platform.justice.gov.uk/review-after: ""

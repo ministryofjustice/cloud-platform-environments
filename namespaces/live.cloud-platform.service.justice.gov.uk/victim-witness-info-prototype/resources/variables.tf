@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "victim-witness-info"
+  default = "victim-witness-info-prototype"
 }
 
 variable "business_unit" {
