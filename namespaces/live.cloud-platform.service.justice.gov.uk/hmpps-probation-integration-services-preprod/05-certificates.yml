@@ -22,4 +22,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    # Top one is to fix error "did not include a SAN short enough to fit in CN"
+    - prison-case-notes-to-probation-pp.hmpps.service.justice.gov.uk
     - prison-case-notes-to-probation-preprod.hmpps.service.justice.gov.uk
