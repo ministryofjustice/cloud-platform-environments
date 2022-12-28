@@ -12,6 +12,7 @@ module "redis_4" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -32,6 +33,7 @@ module "redis_5" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -52,6 +54,7 @@ module "redis_6" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -72,6 +75,7 @@ module "redis_6_2" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
