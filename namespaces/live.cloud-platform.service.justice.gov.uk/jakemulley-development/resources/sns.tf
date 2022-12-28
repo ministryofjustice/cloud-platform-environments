@@ -7,7 +7,7 @@ module "example_sns_topic" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  owner                  = var.team_name
+  team_name              = var.team_name # also used as `owner`
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
