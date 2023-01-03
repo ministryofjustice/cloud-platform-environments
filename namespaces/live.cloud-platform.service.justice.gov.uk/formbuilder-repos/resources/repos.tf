@@ -1,12 +1,12 @@
 # Publisher ECR Repos
 
 module "ecr-repo-fb-publisher-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-base"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -28,12 +28,12 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-base" {
 }
 
 module "ecr-repo-fb-publisher-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-web"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -55,12 +55,12 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-web" {
 }
 
 module "ecr-repo-fb-publisher-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-worker"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -85,12 +85,12 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 # Runner Node ECR Repos
 module "ecr-repo-fb-runner-node" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-runner-node"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -115,12 +115,12 @@ resource "kubernetes_secret" "ecr-repo-fb-runner-node" {
 
 # Service Token Cache ECR Repos
 module "ecr-repo-fb-service-token-cache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-service-token-cache"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -145,12 +145,12 @@ resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
 
 # Submitter ECR Repos
 module "ecr-repo-fb-submitter-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-base"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -172,12 +172,12 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-base" {
 }
 
 module "ecr-repo-fb-submitter-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -199,12 +199,12 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-api" {
 }
 
 module "ecr-repo-fb-submitter-workers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-workers"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -229,12 +229,12 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-workers" {
 
 # User Datastore ECR Repos
 module "ecr-repo-fb-user-datastore-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-user-datastore-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -259,12 +259,12 @@ resource "kubernetes_secret" "ecr-repo-fb-user-datastore-api" {
 
 # User Filestore ECR Repos
 module "ecr-repo-fb-user-filestore-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-user-filestore-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -289,12 +289,12 @@ resource "kubernetes_secret" "ecr-repo-fb-user-filestore-api" {
 
 # AV (Anti Virus) ECR Repos
 module "ecr-repo-fb-av" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-av"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -319,12 +319,12 @@ resource "kubernetes_secret" "ecr-repo-fb-av" {
 
 # fb-builder - docker image used to build form builder components
 module "ecr-repo-fb-builder" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-builder"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -348,12 +348,12 @@ resource "kubernetes_secret" "ecr-repo-fb-builder" {
 ##################################################
 
 module "ecr-repo-fb-pdf-generator" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-pdf-generator"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
 }
@@ -374,12 +374,12 @@ resource "kubernetes_secret" "ecr-repo-fb-pdf-generator" {
 ##################################################
 
 module "ecr-repo-fb-base-adapter" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-base-adapter"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -399,12 +399,12 @@ resource "kubernetes_secret" "ecr-repo-fb-base-adapter" {
 ##################################################
 
 module "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -426,12 +426,12 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-api"
 }
 
 module "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-worker"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
   providers = {
@@ -455,12 +455,12 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-work
 ##################################################
 
 module "ecr-repo-fb-metadata-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-metadata-api"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -480,12 +480,12 @@ resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
 ##################################################
 
 module "ecr-repo-fb-editor-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-web"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -503,12 +503,12 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-web" {
 }
 
 module "ecr-repo-fb-editor-workers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-workers"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -527,12 +527,12 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
 ##################################################
 
 module "ecr-repo-fb-runner" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-runner"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 
@@ -552,12 +552,12 @@ resource "kubernetes_secret" "ecr-repo-fb-runner" {
 ##################################################
 
 module "ecr-repo-fb-maintenance-page" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = "formbuilder"
   repo_name = "fb-maintenance-page"
 
-  scan_on_push = var.scan_on_push
+  scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 }
 

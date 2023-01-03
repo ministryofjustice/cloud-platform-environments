@@ -1,5 +1,5 @@
 module "cla_frontend_app_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = var.team_name
   repo_name = "cla_frontend"
@@ -23,7 +23,7 @@ resource "kubernetes_secret" "cla_frontend_app_credentials" {
 }
 
 module "cla_frontend_socket_server_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
 
   team_name = var.team_name
   repo_name = "cla_frontend_socket_server"

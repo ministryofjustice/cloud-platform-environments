@@ -1,9 +1,9 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.6"
 
-  namespace = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
-  serviceaccount_rules = var.serviceaccount_rules
+  namespace                            = var.namespace
+  kubernetes_cluster                   = var.kubernetes_cluster
+  serviceaccount_rules                 = var.serviceaccount_rules
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
@@ -12,5 +12,5 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-   github_repositories = ["hmpps-probation-integration-services"]
+  github_repositories = ["hmpps-probation-integration-services"]
 }

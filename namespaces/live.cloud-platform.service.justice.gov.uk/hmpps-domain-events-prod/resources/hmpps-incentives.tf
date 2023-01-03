@@ -12,7 +12,7 @@ resource "kubernetes_secret" "hmpps-incentives" {
 }
 
 module "hmpps_incentives_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -65,7 +65,7 @@ EOF
 }
 
 module "hmpps_incentives_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -115,5 +115,5 @@ resource "aws_sns_topic_subscription" "hmpps_incentives_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_incentives_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.merged\", \"prisoner-offender-search.prisoner.received\"]}"
+  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.merged\", \"prisoner-offender-search.prisoner.received\", \"prisoner-offender-search.prisoner.alerts-updated\"]}"
 }

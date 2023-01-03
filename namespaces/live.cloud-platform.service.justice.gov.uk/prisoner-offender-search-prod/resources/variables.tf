@@ -10,8 +10,6 @@ variable "namespace" {
   default = "prisoner-offender-search-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -41,3 +39,5 @@ variable "is-production" {
   default = "true"
 }
 
+variable "eks_cluster_name" {
+}

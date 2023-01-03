@@ -38,11 +38,29 @@ spec:
         severity: hmpps-interventions-prod
     - alert: SlowResponses
       annotations:
-        message: Refer and monitor slow responses
+        message: For 3 minutes, more than 1% of requests were slower than 10 seconds.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/IC/pages/3386179786/Recovery+scenarios#AlertManager-says-Refer-and-monitor-slow-responses
       expr: |-
-        (sum(60*rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="+Inf"}[1m]))
-        -sum(60*rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="10"}[1m]))) >= 10
+        (
+           sum(increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="+Inf"}[1m]))
+          -sum(increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="10"}[1m]))
+        ) / (
+          sum(increase(nginx_ingress_controller_requests{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui"}[1m]))
+        ) > 0.01
+      for: 3m
+      labels:
+        severity: hmpps-interventions-prod
+    - alert: SlownessOutage
+      annotations:
+        message: For 3 minutes, more than 10% of requests were slower than 10 seconds.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/IC/pages/3386179786/Recovery+scenarios#AlertManager-says-Refer-and-monitor-slow-responses
+      expr: |-
+        (
+           sum(increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="+Inf"}[1m]))
+          -sum(increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui", le="10"}[1m]))
+        ) / (
+          sum(increase(nginx_ingress_controller_requests{exported_namespace="hmpps-interventions-prod", exported_service="hmpps-interventions-ui"}[1m]))
+        ) > 0.10
       for: 3m
       labels:
         severity: hmpps-interventions-prod

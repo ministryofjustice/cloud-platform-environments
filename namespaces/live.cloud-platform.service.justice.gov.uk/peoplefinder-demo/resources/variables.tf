@@ -1,9 +1,8 @@
 /*
  * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
+ * variable is automatically supplied by the pipeline.
  */
 
-variable "cluster_name" {}
 
 variable "vpc_name" {
 }
@@ -22,4 +21,7 @@ variable "is-production" {
 
 variable "environment-name" {
   default = "demo"
+}
+
+variable "eks_cluster_name" {
 }

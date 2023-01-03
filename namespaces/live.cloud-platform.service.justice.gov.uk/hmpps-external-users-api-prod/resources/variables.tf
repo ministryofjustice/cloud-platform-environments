@@ -1,6 +1,4 @@
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -12,6 +10,10 @@ variable "application" {
 
 variable "namespace" {
   default = "hmpps-external-users-api-prod"
+}
+
+variable "domain" {
+  default = "external-users-api.hmpps.service.justice.gov.uk"
 }
 
 variable "business_unit" {
@@ -35,7 +37,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {

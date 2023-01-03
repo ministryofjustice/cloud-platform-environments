@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: approved-premises-and-oasys-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: approved-premises-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-and-oasys-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-case-notes-to-probation-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: prison-case-notes-to-probation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    # Top one is to fix error "did not include a SAN short enough to fit in CN"
+    - prison-case-notes-to-probation-pp.hmpps.service.justice.gov.uk
+    - prison-case-notes-to-probation-preprod.hmpps.service.justice.gov.uk

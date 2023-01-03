@@ -1,5 +1,3 @@
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -10,7 +8,7 @@ resource "random_id" "id" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -52,7 +50,7 @@ data "aws_iam_policy_document" "manage_soc_cases_preprod_rds_to_s3_export_policy
     ]
 
     resources = [
-      "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}",
+      module.manage_soc_cases_rds_to_s3_bucket.bucket_arn,
       "${module.manage_soc_cases_rds_to_s3_bucket.bucket_arn}/*",
       "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/",
       "arn:aws:s3:::mojap-land/hmpps/manage_soc_cases/*"

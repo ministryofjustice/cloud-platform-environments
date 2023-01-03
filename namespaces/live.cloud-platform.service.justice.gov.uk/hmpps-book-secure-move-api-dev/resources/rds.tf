@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -51,7 +51,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -60,8 +60,8 @@ module "rds-read-replica" {
   is-production          = var.is-production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
+  db_name                = null # "db_name": conflicts with replicate_source_db
 
-  db_name             = module.rds-instance.database_name
   replicate_source_db = module.rds-instance.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica

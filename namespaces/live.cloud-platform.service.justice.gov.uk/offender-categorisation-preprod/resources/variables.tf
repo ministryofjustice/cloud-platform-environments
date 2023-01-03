@@ -6,8 +6,6 @@ variable "namespace" {
   default = "offender-categorisation-preprod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -39,5 +37,9 @@ variable "is-production" {
 
 variable "number_cache_clusters" {
   default = "3"
+}
+
+variable "rds-family" {
+  default = "postgres14"
 }
 

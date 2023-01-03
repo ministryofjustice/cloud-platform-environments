@@ -6,8 +6,6 @@ variable "namespace" {
   default = "keyworker-api-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

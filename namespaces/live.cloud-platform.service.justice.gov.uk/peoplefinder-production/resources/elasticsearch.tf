@@ -38,8 +38,9 @@ resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_publishing_poli
 
 # Elastic search module
 module "peoplefinder_es" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name               = var.cluster_name
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
+  vpc_name                   = var.vpc_name
+  eks_cluster_name           = var.eks_cluster_name
   application                = "peoplefinder"
   business-unit              = "Central Digital"
   environment-name           = "production"
@@ -51,6 +52,8 @@ module "peoplefinder_es" {
   elasticsearch_version      = "7.9"
   aws-es-proxy-replica-count = 2
   instance_type              = "t3.medium.elasticsearch"
+  ebs_iops                   = 0
+  ebs_volume_type            = "gp2"
 
   log_publishing_application_cloudwatch_log_group_arn = aws_cloudwatch_log_group.peoplefinder_cloudwatch_log_group.arn
   log_publishing_application_enabled                  = true

@@ -17,7 +17,7 @@ resource "aws_sns_topic_subscription" "hmpps-person-search-index-from-delius-que
 }
 
 module "hmpps-person-search-index-from-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   namespace              = var.namespace
@@ -64,7 +64,7 @@ resource "aws_sqs_queue_policy" "hmpps-person-search-index-from-delius-queue-pol
 }
 
 module "hmpps-person-search-index-from-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   namespace                 = var.namespace

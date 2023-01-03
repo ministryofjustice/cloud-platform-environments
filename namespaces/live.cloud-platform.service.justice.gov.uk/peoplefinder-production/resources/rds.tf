@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business-unit              = "Central Digital"
@@ -33,7 +33,7 @@ module "peoplefinder_rds" {
 }
 
 module "peoplefinder_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -45,7 +45,7 @@ module "peoplefinder_rds_replica" {
   rds_family             = "postgres12"
   db_engine_version      = "12"
 
-  db_name             = module.peoplefinder_rds.database_name
+  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.peoplefinder_rds.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica

@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -10,9 +10,9 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
 
-  db_engine                  = "postgres"
-  db_engine_version          = "12.11"
-  db_instance_class          = "db.t3.small"
+  db_engine         = "postgres"
+  db_engine_version = "12.11"
+  db_instance_class = "db.t3.small"
 
   rds_family = "postgres12"
 

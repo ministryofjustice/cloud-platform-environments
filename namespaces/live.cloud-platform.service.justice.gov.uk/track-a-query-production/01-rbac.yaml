@@ -5,7 +5,7 @@ metadata:
   namespace: track-a-query-production
 subjects:
   - kind: Group
-    name: "github:correspondence"
+    name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

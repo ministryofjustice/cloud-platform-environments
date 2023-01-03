@@ -1,5 +1,5 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -128,12 +128,12 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
               "194.33.249.0/24"
             ]
           },
-          "Bool" : { "aws:ViaAWSService" : "false" },
-          "StringNotEquals" : {
-            "aws:PrincipalArn" : [
-              "${aws_iam_role.translate_s3_data_role.arn}",
-              "${aws_iam_role.transcribe_s3_data_role.arn}",
-              "${aws_iam_user.bt_upload_user.arn}"
+          "Bool" = { "aws:ViaAWSService" : "false" },
+          "StringNotEquals" = {
+            "aws:PrincipalArn" = [
+              aws_iam_role.translate_s3_data_role.arn,
+              aws_iam_role.transcribe_s3_data_role.arn,
+              aws_iam_user.bt_upload_user.arn
             ]
           }
         }
@@ -243,7 +243,7 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -266,7 +266,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

@@ -6,7 +6,7 @@
 #  */
 
 module "rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business-unit            = var.business_unit
@@ -52,6 +52,9 @@ module "rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "false"
 
+  # Turn on auto_start_stop to reduce cost
+  enable_rds_auto_start_stop = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -65,7 +68,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -80,7 +83,7 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier

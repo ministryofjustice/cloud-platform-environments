@@ -2,8 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 96624 = #dps_alerts
-# 96628 = DPS Pager duty
+# 126478 = #syscon-alerts
 
 resource "pingdom_check" "dps-production-check" {
   type                     = "http"
@@ -18,7 +17,7 @@ resource "pingdom_check" "dps-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [126478]
 }
 
 resource "pingdom_check" "dps-production-ui-check" {
@@ -34,6 +33,6 @@ resource "pingdom_check" "dps-production-ui-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [126478]
 }
 
