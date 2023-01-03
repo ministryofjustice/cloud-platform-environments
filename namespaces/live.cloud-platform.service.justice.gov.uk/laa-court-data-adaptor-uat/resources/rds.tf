@@ -1,11 +1,9 @@
 /*
  * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
+ * variable is automatically supplied by the pipeline.
  *
  */
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }
@@ -18,7 +16,7 @@ variable "vpc_name" {
  *
  */
 module "laa_crime_apps_team_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
   vpc_name      = var.vpc_name
   team_name     = "laa-crime-apps-team"
   business-unit = "Crime Apps"

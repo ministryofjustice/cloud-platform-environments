@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -12,11 +12,11 @@ module "rds-instance" {
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
-  db_engine              = "postgres"
-  db_engine_version      = "12.11"
-  db_instance_class      = "db.t3.medium"
+  db_engine         = "postgres"
+  db_engine_version = "12.11"
+  db_instance_class = "db.t3.medium"
 
-  rds_family             = "postgres12"
+  rds_family = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -52,7 +52,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
   vpc_name = var.vpc_name
 
@@ -66,15 +66,15 @@ module "rds-read-replica" {
   # enable performance insights
   performance_insights_enabled = true
 
-  db_name             = module.rds-instance.database_name
+  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  rds_family = "postgres12"
-  db_engine_version      = "12.11"
+  rds_family        = "postgres12"
+  db_engine_version = "12.11"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

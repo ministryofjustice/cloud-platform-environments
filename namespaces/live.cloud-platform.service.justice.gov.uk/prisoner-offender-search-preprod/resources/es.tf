@@ -1,6 +1,7 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name                    = var.cluster_name
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
+  vpc_name                        = var.vpc_name
+  eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name
@@ -11,12 +12,15 @@ module "prisoner_offender_search_elasticsearch" {
   aws_es_proxy_service_name       = "es-proxy"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
+  domain_endpoint_enforce_https   = true
   namespace                       = var.namespace
-  elasticsearch_version           = "7.9"
+  elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 4
   instance_count                  = 6
   instance_type                   = "m6g.xlarge.elasticsearch"
   s3_manual_snapshot_repository   = data.aws_s3_bucket.snapshot_bucket.arn
+  ebs_iops                        = 0
+  ebs_volume_type                 = "gp2"
 }
 
 

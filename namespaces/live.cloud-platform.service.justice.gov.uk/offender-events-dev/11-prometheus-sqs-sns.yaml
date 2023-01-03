@@ -14,11 +14,13 @@ spec:
       annotations:
         message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{
           queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_.*",
           queue_name!~"Digital-Prison-Services-dev-prisoner_from_nomis_.*",
           queue_name!~"Digital-Prison-Services-dev-prisoner_offender_search_queue|Digital-Prison-Services-dev-offender_events_ui_queue",
+          queue_name!~"Digital-Prison-Services-dev-prisoner_offender_search_domain_queue",
           queue_name!~"Digital-Prison-Services-dev-hmpps_workload.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",
@@ -36,9 +38,10 @@ spec:
       annotations:
         message: DEV SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
-          queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_dlq|Digital-Prison-Services-dev-prisoner_from_nomis_dl_queue|Digital-Prison-Services-dev-prisoner_offender_search_queue_dl|Digital-Prison-Services-dev-offender_events_ui_queue_dl",
+          queue_name!~"Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_dlq|Digital-Prison-Services-dev-prisoner_from_nomis_dl_queue|Digital-Prison-Services-dev-prisoner_offender_search_queue_dl|Digital-Prison-Services-dev-prisoner_offender_search_domain_dlq|Digital-Prison-Services-dev-offender_events_ui_queue_dl",
           queue_name!~"Digital-Prison-Services-dev-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-dev-hmpps_allocation_required_dlq|Digital-Prison-Services-dev-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-dev-hmpps_allocations_offender_events_queue_dl",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*_dl.*",
           queue_name!="Digital-Prison-Services-dev-probation_offender_search_event_dl_queue",

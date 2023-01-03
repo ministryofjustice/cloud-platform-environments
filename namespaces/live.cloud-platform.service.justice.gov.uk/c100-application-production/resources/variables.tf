@@ -2,6 +2,10 @@ variable "team_name" {
   default = "sustainingdevs"
 }
 
+variable "business_unit" {
+  default = "HMCTS"
+}
+
 variable "environment-name" {
   default = "production"
 }
@@ -26,11 +30,7 @@ variable "repo_name" {
   default = "c100-application"
 }
 
-// The following two variables are provided at runtime by the pipeline.
-variable "cluster_name" {
-}
+# The following variable is provided at runtime by the pipeline.
 
 variable "vpc_name" {
 }
-
-

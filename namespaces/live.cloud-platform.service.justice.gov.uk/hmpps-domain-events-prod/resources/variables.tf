@@ -6,8 +6,6 @@ variable "namespace" {
   default = "hmpps-domain-events-prod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

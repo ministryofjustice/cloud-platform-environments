@@ -94,6 +94,30 @@ roleRef:
 			wantErr: false,
 		},
 		{
+			name: "rolebinding with multiple subjects",
+			args: args{[]byte(
+				`---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: test-admins
+  namespace: test-ns
+subjects:
+  - kind: Group
+    name: "github:test-team"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:test-team-02"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io`),
+			},
+			want:    []string{"test-team", "test-team-02"},
+			wantErr: false,
+		},
+		{
 			name: "rolebinding with empty documents and comments",
 			args: args{[]byte(
 				`---
@@ -116,6 +140,46 @@ roleRef:
 
 # Further roles defined in:
 # - test-service-account.yaml`),
+			},
+			want:    []string{"test-team"},
+			wantErr: false,
+		},
+		{
+			name: "rolebinding with other documents like serviceaccount",
+			args: args{[]byte(
+				`kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: test-admins
+  namespace: test-namespace
+subjects:
+  - kind: Group
+    name: "github:test-team"
+    apiGroup: rbac.authorization.k8s.io
+    roleRef:
+      kind: ClusterRole
+      name: admin
+      apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: circleCI
+  namespace: test-namespace
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: circleCI
+  namespace: test-namespace
+subjects:
+- kind: ServiceAccount
+  name: circleCI
+  namespace: test-namespace
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io`),
 			},
 			want:    []string{"test-team"},
 			wantErr: false,

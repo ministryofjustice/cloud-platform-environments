@@ -11,8 +11,6 @@ variable "namespace" {
   default = "hmpps-restricted-patients-preprod"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

@@ -1,6 +1,7 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=3.9.6"
-  cluster_name                    = var.cluster_name
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
+  vpc_name                        = var.vpc_name
+  eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business-unit
   environment-name                = var.environment-name
@@ -17,10 +18,12 @@ module "prisoner_offender_search_elasticsearch" {
   instance_count                  = 6
   instance_type                   = "m6g.xlarge.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
+  ebs_iops                        = 0
+  ebs_volume_type                 = "gp2"
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

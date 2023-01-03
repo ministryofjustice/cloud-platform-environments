@@ -30,7 +30,7 @@ resource "kubernetes_secret" "dms_secret" {
 }
 
 module "ppud_dms" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.2"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace

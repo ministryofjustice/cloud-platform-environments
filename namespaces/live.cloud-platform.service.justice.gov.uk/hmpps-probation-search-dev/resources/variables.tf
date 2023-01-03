@@ -1,8 +1,9 @@
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
+}
+
+variable "eks_cluster_name" {
 }
 
 variable "cluster_state_bucket" {

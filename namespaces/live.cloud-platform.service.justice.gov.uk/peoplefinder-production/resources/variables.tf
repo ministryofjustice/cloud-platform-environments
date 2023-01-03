@@ -1,9 +1,8 @@
 /*
  * When using this module through the cloud-platform-environments, the following
- * two variables are automatically supplied by the pipeline.
+ * variable is automatically supplied by the pipeline.
  */
 
-variable "cluster_name" {}
 
 variable "vpc_name" {
 }
@@ -54,4 +53,7 @@ variable "github_token" {
 
 variable "repo_name" {
   default = "peoplefinder"
+}
+
+variable "eks_cluster_name" {
 }

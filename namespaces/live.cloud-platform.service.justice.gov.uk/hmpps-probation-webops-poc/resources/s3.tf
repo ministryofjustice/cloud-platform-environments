@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -55,7 +55,7 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-    /*
+  /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *
@@ -116,13 +116,13 @@ module "s3_bucket" {
 
   */
 
-    /*
+  /*
    * The following are exampls of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-    /*
+  /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
@@ -149,7 +149,7 @@ EOF
 
 */
 
-  user_policy = "${data.aws_iam_policy_document.bucket_user_policy.json}"
+  user_policy = data.aws_iam_policy_document.bucket_user_policy.json
 
 }
 
@@ -163,7 +163,7 @@ data "aws_iam_policy_document" "bucket_user_policy" {
       "s3:ListBucketMultipartUploads"
     ]
 
-    resources = ["${module.s3_bucket.bucket_arn}"]
+    resources = [module.s3_bucket.bucket_arn]
 
   }
   statement {

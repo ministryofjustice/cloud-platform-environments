@@ -1,16 +1,17 @@
 
 
 module "hmpps_prisoner_to_nomis_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
-  application               = var.application
-  sqs_name                  = "hmpps_prisoner_to_nomis_queue"
-  encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1209600
-  namespace                 = var.namespace
+  environment-name           = var.environment-name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure-support
+  application                = var.application
+  sqs_name                   = "hmpps_prisoner_to_nomis_queue"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 1209600
+  visibility_timeout_seconds = 120
+  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -55,7 +56,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -55,7 +55,7 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-    /*
+  /*
    * The following example can be used if you need to define CORS rules for your s3 bucket. 
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *  
@@ -86,43 +86,32 @@ module "s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "retire exports after 90 days"
-      prefix  = ""
+      id      = "Expire intermediate test reports after 7 days"
+      prefix  = "TEMP_REPORTS/"
 
       noncurrent_version_expiration = [
         {
-          days = 90
+          days = 7
         },
       ]
 
       expiration = [
         {
-          days = 90
+          days = 7
         },
       ]
-    },
-    {
-      enabled = true
-      id      = "retire imports after 90 days"
-      prefix  = "surveys/imports"
-
-      expiration = [
-        {
-          days = 90
-        },
-      ]
-    },
+    }
   ]
 
 
 
-    /*
+  /*
    * The following are exampls of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-    /*
+  /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
@@ -149,7 +138,7 @@ EOF
 
 */
 
-    /*
+  /*
  * Override the default policy for the generated machine user of this bucket.
  *
 

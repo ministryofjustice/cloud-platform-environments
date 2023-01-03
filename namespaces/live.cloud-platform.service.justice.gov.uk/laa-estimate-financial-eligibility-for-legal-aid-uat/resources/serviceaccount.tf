@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.6"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -17,7 +17,8 @@ module "serviceaccount" {
         "deployment",
         "secrets",
         "services",
-        "pods"
+        "pods",
+        "configmaps",
       ]
       verbs = [
         "patch",

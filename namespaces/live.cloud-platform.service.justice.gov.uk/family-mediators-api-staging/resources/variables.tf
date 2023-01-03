@@ -30,8 +30,6 @@ variable "repo_name" {
   default = "family-mediators-api"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

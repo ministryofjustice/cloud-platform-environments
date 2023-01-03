@@ -6,8 +6,6 @@ variable "namespace" {
   default = "licences-dev"
 }
 
-variable "cluster_name" {
-}
 
 variable "vpc_name" {
 }

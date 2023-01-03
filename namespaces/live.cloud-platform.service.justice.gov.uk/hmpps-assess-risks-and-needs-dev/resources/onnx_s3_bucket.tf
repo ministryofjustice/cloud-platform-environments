@@ -8,7 +8,7 @@
  */
 module "hmpps_assess_risks_and_needs_onnx_s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application

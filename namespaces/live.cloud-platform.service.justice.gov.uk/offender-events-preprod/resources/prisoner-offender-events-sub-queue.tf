@@ -1,5 +1,5 @@
 module "prisoner_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "prisoner_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.8"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -99,10 +99,19 @@ resource "kubernetes_secret" "prisoner_offender_events_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.prisoner_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"OFFENDER_MOVEMENT-RECEPTION\", \"OFFENDER_MOVEMENT-DISCHARGE\", \"BOOKING_NUMBER-CHANGED\"] }"
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.prisoner_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER_MOVEMENT-RECEPTION",
+      "OFFENDER_MOVEMENT-DISCHARGE",
+      "BOOKING_NUMBER-CHANGED",
+      "OFFENDER_CASE_NOTES-INSERTED",
+      "OFFENDER_CASE_NOTES-UPDATED",
+      "OFFENDER_CASE_NOTES-DELETED"
+    ]
+  })
 }
 

@@ -92,7 +92,7 @@ func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Resul
 		ingressName := i["name"]
 		namespace := i["namespace"]
 		ingressClass := i["ingressClass"]
-		apiVersion := checkApiVersion(ingressName, deprecatedList)
+		apiVersion := checkApiVersion(ingressName, namespace, deprecatedList)
 		// Add to csv only if API version is deprecated or IngressClass is not defined
 		if apiVersion != "networking.k8s.io/v1" || (ingressClass != "default" && ingressClass != "modsec") {
 			slack := getSlackChannelFromNamespace(namespace, namespaces)
@@ -109,15 +109,14 @@ func buildCSV(ingressClassList []map[string]string, deprecatedList []judge.Resul
 
 // checkApiVersion get the ingress name and check if that ingress is in the deprecated list
 // If present, return the deprecated api version else return the non deprecated one
-func checkApiVersion(ingressName string, deprecatedList []judge.Result) string {
+func checkApiVersion(ingressName string, namespace string, deprecatedList []judge.Result) string {
 	apiVersion := ""
 	for _, r := range deprecatedList {
-		if r.Kind == "Ingress" && r.Name == ingressName {
+		if r.Kind == "Ingress" && r.Name == ingressName && r.Namespace == namespace {
 			apiVersion = r.ApiVersion
 			return apiVersion
 		}
 	}
-
 	return "networking.k8s.io/v1"
 }
 

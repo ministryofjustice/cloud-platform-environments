@@ -3,7 +3,7 @@
 ################################################################################
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
@@ -31,6 +31,7 @@ resource "kubernetes_secret" "elasticache_redis" {
     primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
     auth_token               = module.elasticache_redis.auth_token
     member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
+    url                      = "rediss://dummyuser:${module.elasticache_redis.auth_token}@${module.elasticache_redis.primary_endpoint_address}:6379"
   }
 }
 

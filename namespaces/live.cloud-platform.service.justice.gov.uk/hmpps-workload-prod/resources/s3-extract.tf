@@ -1,6 +1,6 @@
 module "hmpps-workload-prod-s3-extract-bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -89,7 +89,7 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
     id        = "wmt-extract-upload-event"
     queue_arn = module.hmpps_extract_placed_queue.sqs_arn
     events = [
-      "s3:ObjectCreated:*"]
+    "s3:ObjectCreated:*"]
     filter_prefix = "extract/"
   }
 
