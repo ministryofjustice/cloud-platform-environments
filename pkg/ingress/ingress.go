@@ -3,14 +3,14 @@ package ingress
 import (
 	"context"
 
-	"k8s.io/api/networking/v1beta1"
+	networkingv1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
 
-// GetAllIngresses takes a Kubernetes clientset and returns all ingress with type *v1beta1.IngressList and an error.
-func GetAllIngressesFromCluster(clientset *kubernetes.Clientset) (*v1beta1.IngressList, error) {
-	ingressList, err := clientset.NetworkingV1beta1().Ingresses("").List(context.TODO(), metav1.ListOptions{})
+// GetAllIngresses takes a Kubernetes clientset and returns all ingress with type *v1.IngressList and an error.
+func GetAllIngressesFromCluster(clientset *kubernetes.Clientset) (*networkingv1.IngressList, error) {
+	ingressList, err := clientset.NetworkingV1().Ingresses("").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -19,7 +19,7 @@ func GetAllIngressesFromCluster(clientset *kubernetes.Clientset) (*v1beta1.Ingre
 
 // IngressWithClass gets IngressClassName looping over all ingress objects and set the IngressClass if present,
 // if not present, set as undefined
-func IngressWithClass(ingressList *v1beta1.IngressList) ([]map[string]string, error) {
+func IngressWithClass(ingressList *networkingv1.IngressList) ([]map[string]string, error) {
 	s := make([]map[string]string, 0)
 
 	for _, i := range ingressList.Items {
