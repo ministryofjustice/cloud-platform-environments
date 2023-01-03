@@ -1,8 +1,15 @@
 module "offender_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
 
-  team_name          = var.team_name
   topic_display_name = "offender-events"
+
+  business_unit          = var.business-unit
+  application            = var.application
+  is_production          = var.is-production
+  team_name              = var.team_name
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure-support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -52,7 +59,7 @@ resource "kubernetes_secret" "prison-data-compliance" {
 }
 
 module "probation_offender_events" {
-  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.5"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
   team_name          = var.team_name
   topic_display_name = "probation-offender-events"
   providers = {
@@ -61,7 +68,7 @@ module "probation_offender_events" {
 }
 
 module "offender_assessments_events" {
-  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.5"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
   team_name          = var.team_name
   topic_display_name = "offender-assessments-events"
   providers = {
