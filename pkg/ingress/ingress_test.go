@@ -4,14 +4,14 @@ import (
 	"reflect"
 	"testing"
 
-	"k8s.io/api/networking/v1beta1"
+	networkingv1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func TestIngressWithClass(t *testing.T) {
 	ingressClass := "default"
 	type args struct {
-		ingressList *v1beta1.IngressList
+		ingressList *networkingv1.IngressList
 	}
 	tests := []struct {
 		name    string
@@ -22,14 +22,14 @@ func TestIngressWithClass(t *testing.T) {
 		{
 			name: "Get ingressClass default",
 			args: args{
-				ingressList: &v1beta1.IngressList{
-					Items: []v1beta1.Ingress{
+				ingressList: &networkingv1.IngressList{
+					Items: []networkingv1.Ingress{
 						{
 							ObjectMeta: metav1.ObjectMeta{
 								Namespace: "namespace-1",
 								Name:      "ingress-1",
 							},
-							Spec: v1beta1.IngressSpec{
+							Spec: networkingv1.IngressSpec{
 								IngressClassName: &ingressClass,
 							},
 						},
