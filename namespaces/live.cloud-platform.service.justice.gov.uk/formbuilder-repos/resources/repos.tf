@@ -573,3 +573,61 @@ resource "kubernetes_secret" "ecr-repo-fb-maintenance-page" {
     secret_access_key = module.ecr-repo-fb-maintenance-page.secret_access_key
   }
 }
+
+##################################################
+
+module "ecr-repo-fb-adapter-template-api" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
+
+  team_name = "formbuilder"
+  repo_name = "fb-adapter-template-api"
+
+  scan_on_push     = var.scan_on_push
+  lifecycle_policy = var.lifecycle_policy
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-adapter-template-api" {
+  metadata {
+    name      = "ecr-repo-fb-adapter-template-api"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-adapter-template-api.repo_url
+    access_key_id     = module.ecr-repo-fb-adapter-template-api.access_key_id
+    secret_access_key = module.ecr-repo-fb-adapter-template-api.secret_access_key
+  }
+}
+
+module "ecr-repo-fb-adapter-template-worker" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
+
+  team_name = "formbuilder"
+  repo_name = "fb-adapter-template-worker"
+
+  scan_on_push     = var.scan_on_push
+  lifecycle_policy = var.lifecycle_policy
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "ecr-repo-fb-adapter-template-worker" {
+  metadata {
+    name      = "ecr-repo-fb-adapter-template-worker"
+    namespace = "formbuilder-repos"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-fb-adapter-template-worker.repo_url
+    access_key_id     = module.ecr-repo-fb-adapter-template-worker.access_key_id
+    secret_access_key = module.ecr-repo-fb-adapter-template-worker.secret_access_key
+  }
+}
+
+##################################################
