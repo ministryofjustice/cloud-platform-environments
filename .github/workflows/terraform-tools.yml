@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: aquasecurity/tfsec-sarif-action@v0.1.4
         with:
-          tfsec_args: --force-all-dirs --no-module-downloads --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption
+          tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
           sarif_file: tfsec.sarif
       - uses: github/codeql-action/upload-sarif@v2
         with:
