@@ -88,17 +88,31 @@ module "s3_bucket" {
       enabled = true
       id      = "Expire intermediate test reports after 7 days"
       prefix  = "TEMP_REPORTS/"
-
       noncurrent_version_expiration = [
         {
           days = 7
-        },
+        }
       ]
-
       expiration = [
         {
           days = 7
-        },
+        }
+      ]
+    },
+    {
+      enabled = true
+      id      = "Expire all objects after 60 days"
+      prefix  = ""
+
+      noncurrent_version_expiration = [
+        {
+          days = 60
+        }
+      ]
+      expiration = [
+        {
+          days = 60
+        }
       ]
     }
   ]
