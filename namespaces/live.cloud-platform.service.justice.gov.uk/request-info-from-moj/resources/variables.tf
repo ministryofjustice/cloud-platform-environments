@@ -1,5 +1,3 @@
-
-
 variable "vpc_name" {
 }
 
