@@ -81,26 +81,6 @@ module "pathfinder_rds_to_s3_bucket" {
   }
 }
 
-module "pathfinder_reporting_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
-
-  team_name              = var.team_name
-  business-unit          = "Digital and Technology"
-  application            = var.application
-  infrastructure-support = var.infrastructure-support
-  acl                    = "private"
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  namespace              = var.namespace
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
-
-  versioning = false
-}
-
 resource "kubernetes_secret" "pathfinder_document_s3_bucket" {
   metadata {
     name      = "pathfinder-document-s3-bucket-output"
@@ -126,19 +106,5 @@ resource "kubernetes_secret" "pathfinder_rds_to_s3_bucket" {
     secret_access_key = module.pathfinder_rds_to_s3_bucket.secret_access_key
     bucket_arn        = module.pathfinder_rds_to_s3_bucket.bucket_arn
     bucket_name       = module.pathfinder_rds_to_s3_bucket.bucket_name
-  }
-}
-
-resource "kubernetes_secret" "pathfinder_reporting_s3_bucket" {
-  metadata {
-    name      = "pathfinder-reporting-s3-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.pathfinder_reporting_s3_bucket.access_key_id
-    secret_access_key = module.pathfinder_reporting_s3_bucket.secret_access_key
-    bucket_arn        = module.pathfinder_reporting_s3_bucket.bucket_arn
-    bucket_name       = module.pathfinder_reporting_s3_bucket.bucket_name
   }
 }
