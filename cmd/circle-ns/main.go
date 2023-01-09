@@ -45,9 +45,48 @@ func main() {
 		os.Exit(1)
 	}
 
-	// get all cluster namespaces
-	fmt.Println(clusterNamespaces)
-	fmt.Println(repoList)
+	list, err := aCircleNamespace(repoList, clusterNamespaces)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// Write out all list names in a file
+	if err := printToFile(removeDuplicates(list)); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func printToFile(list []string) error {
+	f, err := os.Create("circle-ns.txt")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	for _, repo := range list {
+		_, err := f.WriteString(repo + "\n")
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func aCircleNamespace(repoList []repository, clusterNamespaces *v1.NamespaceList) ([]string, error) {
+	var list []string
+	for _, repo := range repoList {
+		fmt.Println(repo.Name)
+		fmt.Println("---")
+		for _, ns := range clusterNamespaces.Items {
+			if repo.Address == ns.Annotations["cloud-platform.justice.gov.uk/source-code"] {
+				fmt.Println(repo.Address, "matches", ns.Annotations["cloud-platform.justice.gov.uk/source-code"], "in", ns.Name)
+				list = append(list, ns.Name)
+			}
+		}
+	}
+	return list, nil
 }
 
 func getClusterNamespaces(client client.KubeClient) (*v1.NamespaceList, error) {
@@ -71,4 +110,23 @@ func getListOfRepos(repos string) []repository {
 	}
 
 	return repoList
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
+func removeDuplicates(strList []string) []string {
+	list := []string{}
+	for _, item := range strList {
+		if contains(list, item) == false {
+			list = append(list, item)
+		}
+	}
+	return list
 }
