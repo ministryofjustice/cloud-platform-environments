@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: hmpps-domain-event-logger-prod
+spec:
+  hard:
+    pods: "50"
