@@ -9,10 +9,19 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_instance_class      = "db.t3.medium"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
+
+  db_instance_class      = "db.t3.medium"
+  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_engine              = "postgres"
+  db_engine_version      = "12.11"
+  rds_family             = "postgres12"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "true"
+
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
