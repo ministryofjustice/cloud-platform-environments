@@ -3,7 +3,7 @@ variable "vpc_name" {
 }
 
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.15"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business-unit

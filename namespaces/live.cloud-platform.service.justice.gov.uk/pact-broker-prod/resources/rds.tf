@@ -1,5 +1,5 @@
 module "pact_broker_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.15"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
