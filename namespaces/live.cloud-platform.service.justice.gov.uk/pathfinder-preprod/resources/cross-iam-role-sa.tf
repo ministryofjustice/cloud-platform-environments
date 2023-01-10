@@ -1,5 +1,5 @@
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=rm-sa"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.6"
   namespace        = "pathfinder-preprod"
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.pathfinder_preprod_ap_policy.arn]
