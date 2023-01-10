@@ -10,7 +10,7 @@ module "abundance_es" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  elasticsearch-domain = "abundant-es"
+  elasticsearch-domain = "ab-es"
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
