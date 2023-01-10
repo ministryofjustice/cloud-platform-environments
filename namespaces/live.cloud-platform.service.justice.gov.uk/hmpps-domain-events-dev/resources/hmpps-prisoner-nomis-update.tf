@@ -16,7 +16,7 @@ module "hmpps_prisoner_to_nomis_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -122,7 +122,7 @@ module "hmpps_prisoner_to_nomis_visit_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -228,7 +228,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -334,7 +334,7 @@ module "hmpps_prisoner_to_nomis_activity_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }

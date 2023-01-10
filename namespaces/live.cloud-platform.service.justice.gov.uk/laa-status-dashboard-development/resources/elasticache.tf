@@ -9,10 +9,10 @@ module "elasticache_redis" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  engine_version        = "5.0.6"
-  parameter_group_name  = "default.redis5.0"
-  node_type             = "cache.t2.small"
-  number_cache_clusters = "2"
+  engine_version         = "5.0.6"
+  parameter_group_name   = "default.redis5.0"
+  node_type              = "cache.t2.small"
+  number_cache_clusters  = "2"
 
   providers = {
     aws = aws.london
