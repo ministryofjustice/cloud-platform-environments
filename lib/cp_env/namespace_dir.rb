@@ -9,13 +9,16 @@ class CpEnv
     # If these file exists in a namespace folder, and enable_skip_namespaces is
     # `true`, calling `apply` on the namespace will do nothing.
     SKIP_FILE = "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
-    MIGRATE_SKIP_FILE = "MIGRATED_SKIP_APPLY_THIS_NAMESPACE"
+    # If SECRET_ROTATION file exists, the pipeline will skip the namespace as it must Note
+    # apply the secrets rotation script until the user removes the file.
+    SECRET_ROTATION = "SECRET_ROTATION_IN_PROGRESS"
 
     def initialize(args)
       @dir = args.fetch(:dir)
       @cluster = args.fetch(:cluster)
       @executor = args.fetch(:executor) { Executor.new }
       @enable_skip_namespaces = args.fetch(:enable_skip_namespaces) { true }
+      @enable_secret_rotation = args.fetch(:enable_skip_namespaces) { true }
     end
 
     def apply
@@ -30,8 +33,8 @@ class CpEnv
     def ignore_this_namespace?
       return true unless FileTest.directory?(dir)
 
-      if (enable_skip_namespaces && FileTest.exist?("#{dir}/#{SKIP_FILE}")) || FileTest.exist?("#{dir}/#{MIGRATE_SKIP_FILE}")
-        log("red", "#{namespace}/#{SKIP_FILE} or #{namespace}/#{MIGRATE_SKIP_FILE} file exists. Skipping this namespace.")
+      if (enable_skip_namespaces && FileTest.exist?("#{dir}/#{SKIP_FILE}")) || FileTest.exist?("#{dir}/#{SECRET_ROTATION}")
+        log("red", "#{namespace}/#{SKIP_FILE} or #{namespace}/#{SECRET_ROTATION} file exists. Skipping this namespace.")
         true
       else
         false

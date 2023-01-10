@@ -12,6 +12,7 @@ def main(cluster)
       cluster: cluster,
       dir: dir,
       enable_skip_namespaces: false, # Ignore APPLY_PIPELINE_SKIP_THIS_NAMESPACE files
+      enable_secret_rotation: true, # Rotate secrets in progress, this will stop the terraform apply command
     ).apply
   end
 
