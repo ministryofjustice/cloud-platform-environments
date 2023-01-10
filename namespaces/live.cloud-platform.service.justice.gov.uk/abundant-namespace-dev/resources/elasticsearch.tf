@@ -11,6 +11,9 @@ module "abundance_es" {
   namespace              = var.namespace
 
   elasticsearch-domain = "ab-es"
+  encryption_at_rest              = true
+  node_to_node_encryption_enabled = true
+  domain_endpoint_enforce_https   = true
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
