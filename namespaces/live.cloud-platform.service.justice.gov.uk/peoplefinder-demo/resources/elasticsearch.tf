@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=rm-sa"
   vpc_name               = var.vpc_name
   eks_cluster_name       = var.eks_cluster_name
   application            = "peoplefinder"
