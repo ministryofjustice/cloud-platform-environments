@@ -1,9 +1,10 @@
-module github.com/ministryofjustice/cloud-platform-environments/cmd/circle-ns
+module github.com/ministryofjustice/cloud-platform-environments/cmd/identify-circle-namespaces
 
 go 1.19
 
 require (
 	github.com/ministryofjustice/cloud-platform-go-library v0.0.0-20220803122921-1ca1153b1730
+	k8s.io/api v0.26.0
 	k8s.io/client-go v0.26.0
 )
 
@@ -40,7 +41,6 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.26.0 // indirect
 	k8s.io/apimachinery v0.26.0 // indirect
 	k8s.io/klog/v2 v2.80.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20221012153701-172d655c2280 // indirect

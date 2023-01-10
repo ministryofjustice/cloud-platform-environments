@@ -1,0 +1,153 @@
+Namespace,Slack,Email,SourceCode,IsProduction
+visit-someone-in-prison-frontend-svc-dev,prison-visit-booking,Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk,https://github.com/ministryofjustice/book-a-prison-visit-staff-ui,false
+visit-someone-in-prison-frontend-svc-prod,prison-visit-booking,Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk,https://github.com/ministryofjustice/book-a-prison-visit-staff-ui,true
+visit-someone-in-prison-frontend-svc-staging,prison-visit-booking,Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk,https://github.com/ministryofjustice/book-a-prison-visit-staff-ui,false
+c100-application-metabase,hmcts-sustaining-team,HMCTS Product Enhancement Team: sustainingaccountnotifications@hmcts.net,https://github.com/ministryofjustice/c100-application,true
+c100-application-production,hmcts-sustaining-team,HMCTS Product Enhancement Team: sustainingaccountnotifications@hmcts.net,https://github.com/ministryofjustice/c100-application,true
+c100-application-staging,hmcts-sustaining-team,HMCTS Product Enhancement Team: sustainingaccountnotifications@hmcts.net,https://github.com/ministryofjustice/c100-application,false
+calculate-journey-variable-payments-dev,calculate-journey-payments,PECS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/calculate-journey-variable-payments,false
+calculate-journey-variable-payments-preprod,calculate-journey-payments,PECS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/calculate-journey-variable-payments,false
+calculate-journey-variable-payments-prod,calculate-journey-payments,PECS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/calculate-journey-variable-payments,true
+check-financial-eligibility-production,apply-alerts-prod,Apply For Legal Aid dev team: apply@digital.justice.gov.uk: apply@digital.justice.gov.uk: apply@digtal.justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility,true
+check-financial-eligibility-staging,apply-alerts-prod,Apply For Legal Aid dev team: apply@digital.justice.gov.uk: apply@digital.justice.gov.uk: apply@digtal.justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility,false
+check-financial-eligibility-uat,apply-alerts-prod,Apply For Legal Aid dev team: apply@digital.justice.gov.uk: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility,false
+check-financial-eligibility-partner-production,eligibility-team,Estimate Eligibility: eligibility@justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility-partner,true
+check-financial-eligibility-partner-staging,estimate-eligibility-dev,estimate eligibility: eligibility@justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility-partner,false
+check-financial-eligibility-partner-uat,estimate-eligibility-dev,Estimate Eligibility: eligibility@justice.gov.uk,https://github.com/ministryofjustice/check-financial-eligibility-partner,false
+laa-cla-end-to-end-tests,laa-cla-fala,CLA/FALA: civil-legal-advice@digital.justice.gov.uk,https://github.com/ministryofjustice/cla-end-to-end-tests,false
+laa-cla-backend-production,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_backend,true
+laa-cla-backend-staging,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_backend,false
+laa-cla-backend-training,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_backend,true
+laa-cla-backend-uat,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_backend,false
+laa-cla-frontend-production,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_frontend,true
+laa-cla-frontend-staging,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_frontend,false
+laa-cla-frontend-training,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_frontend,true
+laa-cla-frontend-uat,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_frontend,false
+laa-cla-public-production,cla-alerts,LAA Get Access: civil-legal-advice@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_public,true
+laa-cla-public-staging,cla-alerts,LAA Get Access: civil-legal-advice@digital.justice.gov.uk,https://github.com/ministryofjustice/cla_public,false
+cccd-api-sandbox,cccd_development,Joel Sugarman: joel.sugarman@digital.justice.gov.uk: crowncourtdefence@digital.justice.gov.uk,https://github.com/ministryofjustice/Claim-for-Crown-Court-Defence,false
+cccd-dev,cccd_development,laa-get-paid: crowncourtdefence@digital.justice.gov.uk,https://github.com/ministryofjustice/Claim-for-Crown-Court-Defence,false
+cccd-dev-lgfs,cccd_development,laa-get-paid: crowncourtdefence@digital.justice.gov.uk,https://github.com/ministryofjustice/Claim-for-Crown-Court-Defence,false
+cccd-production,cccd_development,LAA get paid team: crowncourtdefence@digital.justice.gov.uk,https://github.com/ministryofjustice/Claim-for-Crown-Court-Defence,true
+cccd-staging,cccd_development,laa-get-paid: crowncourtdefence@digital.justice.gov.uk,https://github.com/ministryofjustice/Claim-for-Crown-Court-Defence,false
+cert-manager,,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,true
+ingress-controllers,,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,true
+kuberhealthy,cloud-platform,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,true
+logging,cloud-platform,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,
+monitoring,,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,
+opa,cloud-platform,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,true
+velero,,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-infrastructure,true
+sm-dev,cloud-platform,webops: sablu.miah@digital.justice.gov.uk,https://github.com/ministryofjustice/cloud-platform-reference-app-test,false
+contact-moj-development,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_public,false
+contact-moj-production,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_public,true
+contact-moj-staging,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_public,false
+track-a-query-demo,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_staff,false
+track-a-query-development,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_staff,false
+track-a-query-production,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_staff,true
+track-a-query-qa,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_staff,false
+track-a-query-staging,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/correspondence_tool_staff,false
+court-probation-dev,probation_in_court_alerts,andy.marke@digital.justice.gov.uk: andy.marke@digital.justice.gov.uk,https://github.com/ministryofjustice/court-probation-service,false
+disclosure-checker-production,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/disclosure-checker,true
+disclosure-checker-staging,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/disclosure-checker,false
+family-mediators-api-production,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/family-mediators-api,true
+family-mediators-api-staging,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/family-mediators-api,false
+formbuilder-base-adapter-test,form-builder-alerts,Form Builder: form-builder-developers@digital.justice.gov.uk,https://github.com/ministryofjustice/fb-base-adapter,false
+formbuilder-monitoring,form-builder-alerts,Form Builder: formbuilder@digital.justice.gov.uk,https://github.com/ministryofjustice/fb-monitoring,false
+formbuilder-publisher-live,moj-online-devs,Form Builder: formbuilder@digital.justice.gov.uk,https://github.com/ministryofjustice/fb-publisher,true
+formbuilder-publisher-test,moj-online-devs,Form Builder: formbuilder@digital.justice.gov.uk,https://github.com/ministryofjustice/fb-publisher,false
+hmcts-mock-api-dev,laa-crime-apps,Crime Apps: laa@digital.justice.gov.uk,https://github.com/ministryofjustice/hmcts-common-platform-mock-api,false
+hmcts-complaints-formbuilder-adapter-production,form-builder-alerts,Form Builder: form-builder-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmcts-complaints-formbuilder-adapter,true
+hmcts-complaints-formbuilder-adapter-staging,form-builder-alerts,Form Builder: form-builder-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmcts-complaints-formbuilder-adapter,false
+hmpps-assess-risks-and-needs-dev,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,false
+hmpps-assess-risks-and-needs-preprod,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,false
+hmpps-assess-risks-and-needs-prod,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,true
+hmpps-assessments-dev,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,false
+hmpps-assessments-preprod,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,false
+hmpps-assessments-prod,hmpps-assessments-dev,Assess risks and needs: assess-risks-and-needs@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-assessments-api,true
+hmpps-book-secure-move-api-dev,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+hmpps-book-secure-move-api-preprod,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+hmpps-book-secure-move-api-production,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,true
+hmpps-book-secure-move-api-staging,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+hmpps-book-secure-move-api-uat,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+track-a-move-dev,hmpps_dev,HMPPS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+track-a-move-prod,hmpps_dev,HMPPS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,true
+track-a-move-uat,hmpps_dev,HMPPS: pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-api,false
+hmpps-book-secure-move-frontend-preprod,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-frontend,false
+hmpps-book-secure-move-frontend-production,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-frontend,true
+hmpps-book-secure-move-frontend-staging,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-frontend,false
+hmpps-book-secure-move-frontend-uat,hmpps_dev,pecs-digital-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-book-secure-move-frontend,false
+hmpps-complexity-of-need-preprod,manage-pom-cases,Manage POM Cases: manage-pom-cases@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-complexity-of-need,false
+hmpps-complexity-of-need-production,manage-pom-cases,Manage POM Cases: manage-pom-cases@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-complexity-of-need,true
+hmpps-complexity-of-need-staging,ask_moic_pvb,Offender Management Team: omic@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-complexity-of-need,false
+hmpps-interventions-dev,interventions,Interventions: interventions-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-interventions-service,false
+hmpps-interventions-preprod,interventions,Interventions: interventions-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-interventions-service,false
+hmpps-interventions-prod,interventions,Interventions: interventions-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-interventions-service,true
+hmpps-it-incident-hub-dev,product_support_team,DPS Product Support: product-support-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-it-incident-hub,false
+hmpps-it-incident-hub-preprod,product_support_team,DPS Product Support: product-support-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-it-incident-hub,false
+hmpps-it-incident-hub-prod,product_support_team,DPS Product Support: product-support-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-it-incident-hub,true
+hmpps-user-preferences-dev,probation_in_court,Probation In Court Team: probation-in-court-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-user-preferences,false
+hmpps-user-preferences-preprod,probation_in_court,Probation In Court Team: probation-in-court-team@digital.justice.gov.uk,https://github.com/ministryofjustice/hmpps-user-preferences,false
+connors-apps-dev,connors-testing-channel,Connor: connor.glynn@digital.justice.gov.uk,https://github.com/ministryofjustice/holiday-tracker-ui,false
+kuberos,cloud-platform,Cloud Platform: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/kuberos,true
+laa-apply-for-legalaid-production,apply-dev,Apply For Legal Aid dev team: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-apply-for-legal-aid,true
+laa-apply-for-legalaid-staging,apply-dev,Apply For Legal Aid dev team: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-apply-for-legal-aid,false
+laa-apply-for-legalaid-uat,apply-dev,Apply For Legal Aid dev team: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-apply-for-legal-aid,false
+laa-court-data-adaptor-dev,laa-crimeapps-core,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-adaptor,false
+laa-court-data-adaptor-prod,laa-crimeapps-core,LAA Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-adaptor,true
+laa-court-data-adaptor-stage,laa-crimeapps-core,LAA Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-adaptor,false
+laa-court-data-adaptor-test,laa-crimeapps-core,LAA Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-adaptor,false
+laa-court-data-adaptor-uat,laa-crimeapps-core,LAA Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-adaptor,false
+laa-court-data-api-dev,laa-assess-a-claim,LAA Assess a Claim: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-api,false
+laa-court-data-api-production,laa-assess-a-claim,LAA Assess a Claim: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-api,true
+laa-court-data-api-staging,laa-assess-a-claim,LAA Assess a Claim: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-api,false
+laa-court-data-api-uat,laa-assess-a-claim,LAA Assess a Claim: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-api,false
+laa-court-data-ui-dev,laa-assess-a-claim,LAA get paid team: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-ui,false
+laa-court-data-ui-production,laa-assess-a-claim,LAA get paid team: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-ui,true
+laa-court-data-ui-staging,laa-assess-a-claim,LAA get paid team: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-ui,false
+laa-court-data-ui-uat,laa-assess-a-claim,LAA get paid team: assessaclaim@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-court-data-ui,false
+laa-crime-means-assessment-dev,laa-crimeapps-core,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crime-means-assessment,false
+laa-crime-means-assessment-prod,laa-crimeapps-core,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crime-means-assessment,true
+laa-crime-means-assessment-staging,laa-crimeapps-core,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crime-means-assessment,false
+laa-crime-means-assessment-test,laa-crimeapps-core,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crime-means-assessment,false
+laa-crime-means-assessment-uat,laa-crimeapps-core,Crime Apps: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crime-means-assessment,false
+laa-crown-court-proceeding-dev,laa-crimeapps-core,laa-crime-apps-team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crown-court-proceeding,false
+laa-crown-court-proceeding-prod,laa-crimeapps-modernisation,crime-apps: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crown-court-proceeding,true
+laa-crown-court-proceeding-staging,laa-crimeapps-modernisation,Crime Apps Team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crown-court-proceeding,false
+laa-crown-court-proceeding-test,laa-crimeapps-modernisation,laa-crime-apps-team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crown-court-proceeding,false
+laa-crown-court-proceeding-uat,laa-crimeapps-modernisation,laa-crime-apps-team: laa-crime-apps@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-crown-court-proceeding,false
+laa-estimate-financial-eligibility-for-legal-aid-production,eligibility-team,laa-estimate-eligibility: eligibility@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-estimate-financial-eligibility-for-legal-aid,true
+laa-estimate-financial-eligibility-for-legal-aid-staging,eligibility-team,Estimate Eligibility: eligibility@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-estimate-financial-eligibility-for-legal-aid,false
+laa-estimate-financial-eligibility-for-legal-aid-uat,eligibility-team,laa-estimate-eligibility: eligibility@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-estimate-financial-eligibility-for-legal-aid,false
+laa-fee-calculator-dev,laa-get-paid,LAA get paid team: laa-get-paid@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-fee-calculator,false
+laa-fee-calculator-production,laa-get-paid,LAA get paid team: laa-get-paid@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-fee-calculator,true
+laa-fee-calculator-staging,laa-get-paid,LAA get paid team: laa-get-paid@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-fee-calculator,false
+laa-hmrc-interface-production,apply-dev,apply-for-legal-aid: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-hmrc-interface-service-api,true
+laa-hmrc-interface-staging,apply-dev,Apply: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-hmrc-interface-service-api,false
+laa-hmrc-interface-uat,apply-dev,Apply: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-hmrc-interface-service-api,false
+laa-legal-adviser-api-production,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-legal-adviser-api,true
+laa-legal-adviser-api-staging,cla-alerts,LAA Get Access: laa-get-access@digital.justice.gov.uk,https://github.com/ministryofjustice/laa-legal-adviser-api,false
+legal-framework-api-production,applyprivatebeta,Apply for Legal Aid: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/legal-framework-api,true
+legal-framework-api-staging,applyprivatebeta,Apply for Legal Aid: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/legal-framework-api,false
+legal-framework-api-uat,applyprivatebeta,Apply for Legal Aid: apply@digital.justice.gov.uk,https://github.com/ministryofjustice/legal-framework-api,false
+ppud-replacement-preprod,ppud-replacement-devs,PPUD Replacement: ppud-replacement-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/manage-recalls-ui,false
+ppud-replacement-prod,ppud-replacement-devs,PPUD Replacement: ppud-replacement-tech@digital.justice.gov.uk,https://github.com/ministryofjustice/manage-recalls-ui,true
+moj-frontend,moj-pattern-library-support,MOJ Pattern Library: platforms@digital.justice.gov.uk,https://github.com/ministryofjustice/moj-frontend,false
+offender-management-preprod,ask_moic_pvb,Offender Management Team: omic@digital.justice.gov.uk: omic@digital.justice.gov.uk,https://github.com/ministryofjustice/offender-management-allocation-manager,true
+offender-management-production,ask_moic_pvb,Offender Management Team: omic@digital.justice.gov.uk: omic@digital.justice.gov.uk,https://github.com/ministryofjustice/offender-management-allocation-manager,true
+offender-management-staging,ask_moic_pvb,Offender Management Team: omic@digital.justice.gov.uk,https://github.com/ministryofjustice/offender-management-allocation-manager,false
+offender-management-test,ask_moic_pvb,Offender Management Team: omic@digital.justice.gov.uk,https://github.com/ministryofjustice/offender-management-allocation-manager,false
+parliamentary-questions-development,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/parliamentary-questions,false
+parliamentary-questions-production,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/parliamentary-questions,true
+parliamentary-questions-staging,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/parliamentary-questions,false
+peoplefinder-demo,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/peoplefinder,false
+peoplefinder-development,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/peoplefinder,false
+peoplefinder-production,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/peoplefinder,true
+peoplefinder-staging,cdpt-central-digital-product-team,Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk,https://github.com/ministryofjustice/peoplefinder,false
+fj-cait-production,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/pflr-cait,true
+fj-cait-staging,cdpt-central-digital-product-team,Central Digital Product Team: Central-Digital-Product-Team@digital.justice.gov.uk,https://github.com/ministryofjustice/pflr-cait,false
+court-probation-preprod,probation_in_court_alerts,Probation In Court Team: probation-in-court-team@digital.justice.gov.uk,https://github.com/ministryofjustice/prepare-a-case,false
+court-probation-prod,probation_in_court_alerts,Probation In Court Team: probation-in-court-team@digital.justice.gov.uk,https://github.com/ministryofjustice/prepare-a-case,true
+hmpps-product-portfolio-prod,hmpps_dev,Probation: hmppsproductportfolio@digital.justice.gov.uk,https://github.com/ministryofjustice/product-portfolio-app-frontend,true
+hmpps-workload-dev,manage_a_workforce_dev,Manage a Workforce: mark.berridge@digital.justice.gov.uk,https://github.com/ministryofjustice/wmt-worker,false
+hmpps-workload-preprod,manage_a_workforce_dev,Manage a Workforce: mark.berridge@digital.justice.gov.uk,https://github.com/ministryofjustice/wmt-worker,false
+hmpps-workload-prod,manage_a_workforce_dev,Manage a Workforce: mark.berridge@digital.justice.gov.uk,https://github.com/ministryofjustice/wmt-worker,true
