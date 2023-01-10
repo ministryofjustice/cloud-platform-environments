@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_publishing_poli
 
 # Elastic search module
 module "peoplefinder_es" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=rm-sa"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
   vpc_name                   = var.vpc_name
   eks_cluster_name           = var.eks_cluster_name
   application                = "peoplefinder"
