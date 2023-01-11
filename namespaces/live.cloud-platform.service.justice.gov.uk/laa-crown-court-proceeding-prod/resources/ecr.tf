@@ -79,7 +79,6 @@ EOF
 
 }
 
-
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
     name      = "ecr-repo-${var.namespace}"

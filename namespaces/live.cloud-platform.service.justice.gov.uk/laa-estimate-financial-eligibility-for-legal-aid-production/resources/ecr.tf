@@ -79,7 +79,6 @@ EOF
 
 }
 
-
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
     name      = "ecr-repo-laa-estimate-financial-eligibility-for-legal-aid"

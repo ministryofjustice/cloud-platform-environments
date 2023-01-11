@@ -28,4 +28,3 @@ resource "kubernetes_secret" "track_a_query_ecr_credentials" {
     repo_url          = module.track_a_query_ecr_credentials.repo_url
   }
 }
-

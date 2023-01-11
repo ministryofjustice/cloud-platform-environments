@@ -23,3 +23,4 @@ resource "kubernetes_secret" "ecr" {
     repo_url          = module.ecr.repo_url
   }
 }
+
