@@ -22,3 +22,4 @@ resource "kubernetes_secret" "ecr-repo" {
     secret_access_key = module.ecr-repo.secret_access_key
   }
 }
+

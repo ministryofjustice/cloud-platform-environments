@@ -30,3 +30,4 @@ resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
     repo_url          = module.peoplefinder_ecr_credentials.repo_url
   }
 }
+

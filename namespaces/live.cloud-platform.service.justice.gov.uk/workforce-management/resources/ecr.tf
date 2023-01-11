@@ -20,3 +20,4 @@ resource "kubernetes_secret" "ecr-repo" {
     repo_arn          = module.ecr-repo.repo_arn
   }
 }
+
