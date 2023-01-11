@@ -1,8 +1,8 @@
-module "abundance_namespace_sqs" {
+module "abundant_namespace_sqs" {
   # remember to check the latest version
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
-  sqs_name = "abundance_namespace_sqs"
+  sqs_name = "abundant_namespace_sqs"
   # if true, the sqs_name above must end with ".fifo", it's an API quirk
   fifo_queue             = false
   team_name              = var.team_name
@@ -23,9 +23,9 @@ module "abundance_namespace_sqs" {
   }
 }
 
-resource "kubernetes_secret" "abundance_namespace_sqs" {
+resource "kubernetes_secret" "abundant_namespace_sqs" {
   metadata {
-    name      = "abundance_namespace_sqs"
+    name      = "abundant_namespace_sqs"
     namespace = var.namespace
   }
 
