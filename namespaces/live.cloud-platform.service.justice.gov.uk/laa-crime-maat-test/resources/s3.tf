@@ -86,32 +86,31 @@ module "s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "Expire intermediate test reports after 7 days"
+      id      = "Expire intermediate test reports after 1 days"
       prefix  = "TEMP_REPORTS/"
       noncurrent_version_expiration = [
         {
-          days = 7
+          days = 1
         }
       ]
       expiration = [
         {
-          days = 7
+          days = 1
         }
       ]
     },
     {
       enabled = true
-      id      = "Expire all objects after 60 days"
+      id      = "Expire all objects after 30 days"
       prefix  = ""
-
       noncurrent_version_expiration = [
         {
-          days = 60
+          days = 30
         }
       ]
       expiration = [
         {
-          days = 60
+          days = 30
         }
       ]
     }
