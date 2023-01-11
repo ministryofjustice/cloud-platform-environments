@@ -25,7 +25,7 @@ module "abundant_namespace_sqs" {
 
 resource "kubernetes_secret" "abundant_namespace_sqs" {
   metadata {
-    name      = "abundant_namespace_sqs"
+    name      = "sqs"
     namespace = var.namespace
   }
 
