@@ -30,12 +30,12 @@ resource "kubernetes_secret" "abundance_namespace_sqs" {
   }
 
   data = {
-    access_key_id     = module.example_sqs.access_key_id
-    secret_access_key = module.example_sqs.secret_access_key
+    access_key_id     = module.abundant_namespace_sqs.access_key_id
+    secret_access_key = module.abundant_namespace_sqs.secret_access_key
     # the above will not be set if existing_user_name is defined
-    sqs_id   = module.example_sqs.sqs_id
-    sqs_arn  = module.example_sqs.sqs_arn
-    sqs_name = module.example_sqs.sqs_name
+    sqs_id   = module.abundant_namespace_sqs.sqs_id
+    sqs_arn  = module.abundant_namespace_sqs.sqs_arn
+    sqs_name = module.abundant_namespace_sqs.sqs_name
   }
 }
 
