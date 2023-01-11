@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Hello World"
+  default     = "Hello World App"
 }
 
 variable "namespace" {
