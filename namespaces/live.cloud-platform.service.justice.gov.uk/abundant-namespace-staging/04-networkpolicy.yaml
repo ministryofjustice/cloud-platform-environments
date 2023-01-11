@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: abundant-namespace-dev
+  namespace: abundant-namespace-staging
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: abundant-namespace-dev
+  namespace: abundant-namespace-staging
 spec:
   podSelector: {}
   policyTypes:

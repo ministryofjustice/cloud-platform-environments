@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "abundant-namespace-dev"
+  default = "abundant-namespace-staging"
 }
 
 variable "business_unit" {

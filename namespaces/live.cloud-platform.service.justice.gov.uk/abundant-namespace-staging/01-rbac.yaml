@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: abundant-namespace-dev-admin
-  namespace: abundant-namespace-dev
+  name: abundant-namespace-staging-admin
+  namespace: abundant-namespace-staging
 subjects:
   - kind: Group
     name: "github:webops"
