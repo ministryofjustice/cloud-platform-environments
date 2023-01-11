@@ -1,5 +1,5 @@
 module "formbuilder_product_page_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=4.9"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.0"
   repo_name = "formbuilder-product-page"
   team_name = "formbuilder"
 
