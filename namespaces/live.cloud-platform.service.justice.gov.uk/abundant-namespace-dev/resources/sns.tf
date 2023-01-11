@@ -13,7 +13,7 @@ module "abundant_namespace_dev_sns" {
   is_production          = "false"
   team_name              = "webops"
   environment_name       = "dev"
-  infrastructure_support = "#cloud-platform"
+  infrastructure_support = "cloud-platform"
   namespace              = "abundant-namespace-dev"
 
   providers = {
