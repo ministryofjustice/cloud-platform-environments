@@ -34,3 +34,16 @@ resource "kubernetes_secret" "ecr-repo-allocation-manager-test" {
     secret_access_key = module.ecr-repo-allocation-manager.secret_access_key
   }
 }
+
+resource "kubernetes_secret" "ecr-repo-allocation-manager-test2" {
+  metadata {
+    name      = "ecr-repo-allocation-manager"
+    namespace = "offender-management-test2"
+  }
+
+  data = {
+    repo_url          = module.ecr-repo-allocation-manager.repo_url
+    access_key_id     = module.ecr-repo-allocation-manager.access_key_id
+    secret_access_key = module.ecr-repo-allocation-manager.secret_access_key
+  }
+}
