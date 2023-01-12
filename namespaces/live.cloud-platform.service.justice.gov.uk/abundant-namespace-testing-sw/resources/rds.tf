@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enable-rotation"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=bump-access-key"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
