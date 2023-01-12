@@ -14,6 +14,7 @@ variable "namespace" {
   default = "abundant-namespace-dev"
 }
 
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HQ"
