@@ -10,6 +10,7 @@ class CpEnv
     # `true`, calling `apply` on the namespace will do nothing.
     SKIP_FILE = "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
     MIGRATE_SKIP_FILE = "MIGRATED_SKIP_APPLY_THIS_NAMESPACE"
+    SECRET_ROTATE_FILE = "SECRET_ROTATE_BLOCK"
 
     def initialize(args)
       @dir = args.fetch(:dir)
@@ -29,6 +30,10 @@ class CpEnv
 
     def ignore_this_namespace?
       return true unless FileTest.directory?(dir)
+      if (block_secret_rotation && FileTest.exist?("#{dir}/#{SECRET_ROTATE_FILE}"))
+        log("red", "#{namespace}/#{SECRET_ROTATE_FILE}} file exists, which means a secret is about to be rotated. Skipping this namespace. To remove this, delete the #{SECRET_ROTATE_FILE} file.")
+        return true
+      end
 
       if (enable_skip_namespaces && FileTest.exist?("#{dir}/#{SKIP_FILE}")) || FileTest.exist?("#{dir}/#{MIGRATE_SKIP_FILE}")
         log("red", "#{namespace}/#{SKIP_FILE} or #{namespace}/#{MIGRATE_SKIP_FILE} file exists. Skipping this namespace.")
