@@ -122,6 +122,7 @@ resource "kubernetes_secret" "irsa" {
 # IAM user so athena can access S3 buckets in the analytical platform data aws account
 resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
   name = "ap-gold-scorecard-form-prod"
+  path = "/system/"
 
   tags = {
     business-unit          = "Cloud Platform"
