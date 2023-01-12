@@ -16,8 +16,8 @@ class CpEnv
       @dir = args.fetch(:dir)
       @cluster = args.fetch(:cluster)
       @executor = args.fetch(:executor) { Executor.new }
-      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces) { true }
-      @block_secret_rotation = args.fetch(:block_secret_rotation) { true }
+      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces, true)
+      @block_secret_rotation = args.fetch(:block_secret_rotation, true)
     end
 
     def apply
