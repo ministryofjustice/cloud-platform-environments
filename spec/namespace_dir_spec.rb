@@ -132,5 +132,31 @@ describe CpEnv::NamespaceDir do
         end
       end
     end
+
+    context "when block_secret_rotation is set" do
+      let(:enable_skip_namespaces) { false }
+      let(:block_secret_rotation) { true }
+
+      context "and a block file is present" do
+        let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
+
+        before do
+          allow(FileTest).to receive(:exist?)
+            .with("#{dir}/#{CpEnv::NamespaceDir::SECRET_ROTATE_FILE}")
+            .and_return(true)
+        end
+
+        it "does not run kubectl apply" do
+          expect(executor).to_not receive(:execute).with(kubectl_apply)
+          namespace_dir.apply
+        end
+
+        it "does not run terraform apply" do
+          expect(terraform).to_not receive(:apply)
+          namespace_dir.apply
+        end
+      end
+    end
+
   end
 end
