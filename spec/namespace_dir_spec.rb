@@ -13,7 +13,7 @@ describe CpEnv::NamespaceDir do
   let(:kubectl_apply) { "kubectl -n #{namespace} apply -f #{dir}" }
   let(:yaml_files) { [] }
   let(:enable_skip_namespaces) { true }
-  # let(:block_secret_rotation) { true }
+  let(:block_secret_rotation) { true }
 
   let(:params) {
     {
@@ -21,7 +21,7 @@ describe CpEnv::NamespaceDir do
       cluster: cluster,
       executor: executor,
       enable_skip_namespaces: enable_skip_namespaces
-      # block_secret_rotation: block_secret_rotation
+      block_secret_rotation: block_secret_rotation
     }
   }
 
@@ -85,6 +85,7 @@ describe CpEnv::NamespaceDir do
 
     context "when enable_skip_namespaces is set" do
       let(:enable_skip_namespaces) { true }
+      let(:block_secret_rotation) { false }
 
       context "and a skip file is present" do
         let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
