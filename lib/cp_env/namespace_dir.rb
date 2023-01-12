@@ -1,6 +1,6 @@
 class CpEnv
   class NamespaceDir
-    attr_reader :cluster, :dir, :enable_skip_namespaces :block_secret_rotation
+    attr_reader :cluster, :dir, :enable_skip_namespaces, :block_secret_rotation
     attr_reader :executor
 
     # Hardcoded context is required to switch to the manager cluster
