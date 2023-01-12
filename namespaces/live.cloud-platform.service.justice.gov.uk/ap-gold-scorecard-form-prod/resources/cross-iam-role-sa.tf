@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "athena:RunQuery",
     ]
     resources = [
-      "arn:aws:athena:eu-west-1:593291632749:workgroup/primary",
+      "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
     ]
   }
 }
@@ -100,9 +100,9 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 
   tags = {
     business-unit          = "Cloud Platform"
-    application            = "Test Migration"
-    is-production          = "false"
-    environment-name       = "Development"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
+    environment-name       = "Production"
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
   }
@@ -116,5 +116,20 @@ resource "kubernetes_secret" "irsa" {
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
+  }
+}
+
+# IAM user so athena can access S3 buckets in the analytical platform data aws account
+resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
+  name = "ap-gold-scorecard-form-prod"
+
+  tags = {
+    business-unit          = "Cloud Platform"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
+    environment-name       = "Production"
+    owner                  = "cloud-platform"
+    infrastructure-support = "platforms@digital.justice.gov.uk"
+    usage-scope            = "athena"
   }
 }
