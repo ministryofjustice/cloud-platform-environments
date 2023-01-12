@@ -1,6 +1,6 @@
 class CpEnv
   class NamespaceDir
-    attr_reader :cluster, :dir, :enable_skip_namespaces
+    attr_reader :cluster, :dir, :enable_skip_namespaces :block_secret_rotation
     attr_reader :executor
 
     # Hardcoded context is required to switch to the manager cluster
@@ -16,7 +16,8 @@ class CpEnv
       @dir = args.fetch(:dir)
       @cluster = args.fetch(:cluster)
       @executor = args.fetch(:executor) { Executor.new }
-      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces, true)
+      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces) { true }
+      @block_secret_rotation = args.fetch(:block_secret_rotation) { true }
     end
 
     def apply
