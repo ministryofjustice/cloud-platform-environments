@@ -20,7 +20,7 @@ describe CpEnv::NamespaceDir do
       dir: dir,
       cluster: cluster,
       executor: executor,
-      enable_skip_namespaces: enable_skip_namespaces
+      enable_skip_namespaces: enable_skip_namespaces,
       block_secret_rotation: block_secret_rotation
     }
   }
