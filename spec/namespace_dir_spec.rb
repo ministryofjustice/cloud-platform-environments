@@ -110,6 +110,7 @@ describe CpEnv::NamespaceDir do
 
     context "when enable_skip_namespaces is not set" do
       let(:enable_skip_namespaces) { false }
+      let(:block_secret_rotation) { false }
 
       context "and a migrate skip file is present" do
         let(:yaml_files) { [1, 2, 3] } # just has to be a non-empty array that responds to 'any?'
