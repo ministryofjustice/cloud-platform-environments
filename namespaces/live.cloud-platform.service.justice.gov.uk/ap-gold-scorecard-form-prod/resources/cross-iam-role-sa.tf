@@ -100,8 +100,8 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 
   tags = {
     business-unit          = "Cloud Platform"
-    application            = "Gold Scoredard Form"
-    is-production          = "false"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
     environment-name       = "Production"
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
@@ -125,8 +125,8 @@ resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
 
   tags = {
     business-unit          = "Cloud Platform"
-    application            = "Gold Scoredard Form"
-    is-production          = "false"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
     environment-name       = "Production"
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
