@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=bump-access-key"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=bump-rds-password"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
