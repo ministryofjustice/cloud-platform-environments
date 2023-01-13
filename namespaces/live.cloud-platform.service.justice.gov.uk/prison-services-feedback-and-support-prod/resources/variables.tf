@@ -1,4 +1,7 @@
 
+variable "domain" {
+  default = "prison-services-feedback-and-support.hmpps.service.justice.gov.uk"
+}
 
 variable "vpc_name" {
 }
