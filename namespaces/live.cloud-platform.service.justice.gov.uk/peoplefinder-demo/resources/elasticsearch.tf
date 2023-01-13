@@ -19,6 +19,9 @@ module "peoplefinder_es" {
   instance_type          = "t2.small.elasticsearch"
   ebs_iops               = 0
   ebs_volume_type        = "gp2"
+  encryption_at_rest              = true
+  node_to_node_encryption_enabled = true
+  domain_endpoint_enforce_https   = true
 
   advanced_options = {
     override_main_response_version = true
