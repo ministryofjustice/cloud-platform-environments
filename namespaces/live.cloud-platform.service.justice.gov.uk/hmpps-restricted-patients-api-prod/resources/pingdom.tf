@@ -1,9 +1,9 @@
 provider "pingdom" {
 }
 
-resource "pingdom_check" "create-and-vary-a-license-prod-check" {
+resource "pingdom_check" "hmpps-restricted-patients-api-prod-check" {
   type                     = "http"
-  name                     = "DPS - Create and vary a license"
+  name                     = "DPS - Restricted Patients API"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true

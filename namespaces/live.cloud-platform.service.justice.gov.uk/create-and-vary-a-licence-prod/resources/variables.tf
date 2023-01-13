@@ -1,4 +1,6 @@
-
+variable "domain" {
+  default = "create-and-vary-a-licence.hmpps.service.justice.gov.uk"
+}
 
 variable "vpc_name" {
 }
