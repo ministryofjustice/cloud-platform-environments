@@ -32,7 +32,7 @@ class CpEnv
     def ignore_this_namespace?
       return true unless FileTest.directory?(dir)
       if block_secret_rotation && FileTest.exist?("#{dir}/#{SECRET_ROTATE_FILE}")
-        log("red", "#{namespace}/#{SECRET_ROTATE_FILE}} file exists, which means a secret is about to be rotated. Skipping this namespace. To remove this, delete the #{SECRET_ROTATE_FILE} file.")
+        log("red", "#{namespace}/#{SECRET_ROTATE_FILE} file exists. Skipping #{namespace}. To remove this skip, delete the #{SECRET_ROTATE_FILE} file.")
         return true
       end
 
