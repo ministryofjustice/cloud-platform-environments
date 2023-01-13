@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/csv"
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -15,23 +17,22 @@ import (
 )
 
 var (
+	// Required
 	commitMessage = flag.String("commit-message", "", "Content of the commit message.")
-	prSubject     = flag.String("pr-title", "", "Title of the pull request. If not specified, no pull request will be created.")
+	sourceFiles   = flag.String("files", "", `Comma-separated list of files to commit and their location. The local file is separated by its target location by a semi-colon. If the file should be in the same location with the same name, you can just put the file name and omit the repetition. Example: README.md,main.go:github/examples/commitpr/main.go`)
+	// Optional
+	authorName    = flag.String("author-name", "", "Name of the author of the commit.")
+	authorEmail   = flag.String("author-email", "", "Email of the author of the commit.")
 	prDescription = flag.String("pr-text", "", "Text to put in the description of the pull request.")
-	sourceFiles   = flag.String("files", "", `Comma-separated list of files to commit and their location.
-The local file is separated by its target location by a semi-colon.
-If the file should be in the same location with the same name, you can just put the file name and omit the repetition.
-Example: README.md,main.go:github/examples/commitpr/main.go`)
-	authorName  = flag.String("author-name", "", "Name of the author of the commit.")
-	authorEmail = flag.String("author-email", "", "Email of the author of the commit.")
 )
 
 var (
-	sourceOwner  = "ministry"
+	sourceOwner  = "ministryofjustice"
 	sourceRepo   = "cloud-platform-environments"
-	ns           = []string{"test-file", "prtest"}
 	commitBranch string
 	baseBranch   = "main"
+	prTitle      string
+	prSubject    string
 	prRepoOwner  = sourceOwner
 	prRepo       = sourceRepo
 )
@@ -79,6 +80,7 @@ func getTree(ref *github.Reference) (tree *github.Tree, err error) {
 		if err != nil {
 			return nil, err
 		}
+		//filePath := fmt.Sprintf(commitBranch, file, "namespaces/live.cloud-platform.service.justice.gov.uk/%s/%s")
 		entries = append(entries, &github.TreeEntry{Path: github.String(file), Type: github.String("blob"), Content: github.String(string(content)), Mode: github.String("100644")})
 	}
 
@@ -133,8 +135,10 @@ func pushCommit(ref *github.Reference, tree *github.Tree) (err error) {
 
 // createPR creates a pull request. Based on: https://godoc.org/github.com/google/go-github/github#example-PullRequestsService-Create
 func createPR() (err error) {
-	if *prSubject == "" {
-		return errors.New("missing `-pr-title` flag; skipping PR creation")
+	prSubject = *commitMessage
+	prTitle = fmt.Sprintf("fix(namespaces)%s:%s", commitBranch, prSubject)
+	if prTitle == "" {
+		return errors.New("missing Pull Request Title; skipping PR creation")
 	}
 
 	if prRepoOwner != "" && prRepoOwner != sourceOwner {
@@ -148,13 +152,14 @@ func createPR() (err error) {
 	}
 
 	newPR := &github.NewPullRequest{
-		Title:               prSubject,
+		Title:               &prTitle,
 		Head:                &commitBranch,
 		Base:                &baseBranch,
 		Body:                prDescription,
 		MaintainerCanModify: github.Bool(true),
 	}
 
+	fmt.Println(newPR)
 	pr, _, err := client.PullRequests.Create(ctx, prRepoOwner, prRepo, newPR)
 	if err != nil {
 		return err
@@ -165,39 +170,57 @@ func createPR() (err error) {
 }
 
 func main() {
-	for _, nsName := range ns {
-		commitBranch = nsName
-		flag.Parse()
-		token := os.Getenv("GITHUB_AUTH_TOKEN")
-		if token == "" {
-			log.Fatal("Unauthorized: No token present")
-		}
-		if sourceOwner == "" || sourceRepo == "" || commitBranch == "" || *sourceFiles == "" || *authorName == "" || *authorEmail == "" {
-			log.Fatal("You need to specify a non-empty value for the flags `-source-owner`, `-source-repo`, `-commit-branch`, `-files`, `-author-name` and `-author-email`")
-		}
-		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
-		tc := oauth2.NewClient(ctx, ts)
-		client = github.NewClient(tc)
+	f, err := os.Open("namespace.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-		ref, err := getRef()
+	r := csv.NewReader(f)
+	for {
+		record, err := r.Read()
+
+		if err == io.EOF {
+			break
+		}
+
 		if err != nil {
-			log.Fatalf("Unable to get/create the commit reference: %s\n", err)
-		}
-		if ref == nil {
-			log.Fatalf("No error where returned but the reference is nil")
+			log.Fatal(err)
 		}
 
-		tree, err := getTree(ref)
-		if err != nil {
-			log.Fatalf("Unable to create the tree based on the provided files: %s\n", err)
-		}
+		for _, value := range record {
+			commitBranch = value
+			flag.Parse()
+			token := os.Getenv("GITHUB_AUTH_TOKEN")
+			if token == "" {
+				log.Fatal("Unauthorized: No token present")
+			}
+			if *sourceFiles == "" || *authorName == "" || *authorEmail == "" {
+				log.Fatal("You need to specify a non-empty value for the flags `-files`, `-author-name` and `-author-email`")
+			}
+			ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+			tc := oauth2.NewClient(ctx, ts)
+			client = github.NewClient(tc)
 
-		if err := pushCommit(ref, tree); err != nil {
-			log.Fatalf("Unable to create the commit: %s\n", err)
-		}
+			ref, err := getRef()
+			if err != nil {
+				log.Fatalf("Unable to get/create the commit reference: %s\n", err)
+			}
+			if ref == nil {
+				log.Fatalf("No error where returned but the reference is nil")
+			}
 
-		if err := createPR(); err != nil {
-			log.Fatalf("Error while creating the pull request: %s", err)
+			tree, err := getTree(ref)
+			if err != nil {
+				log.Fatalf("Unable to create the tree based on the provided files: %s\n", err)
+			}
+
+			if err := pushCommit(ref, tree); err != nil {
+				log.Fatalf("Unable to create the commit: %s\n", err)
+			}
+
+			if err := createPR(); err != nil {
+				log.Fatalf("Error while creating the pull request: %s", err)
+			}
 		}
 	}
 }
