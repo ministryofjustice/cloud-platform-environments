@@ -16,7 +16,7 @@ module "peoplefinder_es" {
   elasticsearch-domain   = "es"
   namespace              = "peoplefinder-demo"
   elasticsearch_version  = "7.9"
-  instance_type          = "t2.small.elasticsearch"
+  instance_type          = "t3.small.elasticsearch"
   ebs_iops               = 0
   ebs_volume_type        = "gp2"
   encryption_at_rest              = true
