@@ -111,7 +111,7 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
-    namespace = "ap-gold-scorecard-form-prod"
+    namespace = "ap-gold-scorecard-form-prod-"
   }
   data = {
     role           = module.irsa.aws_iam_role_arn
@@ -121,8 +121,8 @@ resource "kubernetes_secret" "irsa" {
 
 # IAM user so athena can access S3 buckets in the analytical platform data aws account
 resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
-  name = "ap-gold-scorecard-form-prod"
-  path = "/system/"
+  name = "gold-scorecard-form-${random_id.id.hex}"
+  path = "/system/gold-scorecard-form"
 
   tags = {
     business-unit          = "Cloud Platform"
