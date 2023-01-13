@@ -9,7 +9,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/google/go-github/v49/github"
@@ -18,8 +17,7 @@ import (
 
 var (
 	// Required
-	commitMessage = flag.String("commit-message", "", "Content of the commit message.")
-	sourceFiles   = flag.String("files", "", `Comma-separated list of files to commit and their location. The local file is separated by its target location by a semi-colon. If the file should be in the same location with the same name, you can just put the file name and omit the repetition. Example: README.md,main.go:github/examples/commitpr/main.go`)
+	sourceFiles = "namespaces/live.cloud-platform.service.justice.gov.uk/"
 	// Optional
 	authorName    = flag.String("author-name", "", "Name of the author of the commit.")
 	authorEmail   = flag.String("author-email", "", "Email of the author of the commit.")
@@ -27,14 +25,14 @@ var (
 )
 
 var (
-	sourceOwner  = "ministryofjustice"
-	sourceRepo   = "cloud-platform-environments"
-	commitBranch string
-	baseBranch   = "main"
-	prTitle      string
-	prSubject    string
-	prRepoOwner  = sourceOwner
-	prRepo       = sourceRepo
+	sourceOwner   = "ministryofjustice"
+	sourceRepo    = "cloud-platform-environments"
+	commitBranch  string
+	commitMessage = "fix(namespaces)Remove SECRET_ROTATE_BLOCK from" + commitBranch
+	baseBranch    = "main"
+	prTitle       string
+	prRepoOwner   = sourceOwner
+	prRepo        = sourceRepo
 )
 
 var (
@@ -52,11 +50,11 @@ func getRef() (ref *github.Reference, err error) {
 	// We consider that an error means the branch has not been found and needs to
 	// be created.
 	if commitBranch == baseBranch {
-		return nil, errors.New("the commit branch does not exist but `-base-branch` is the same as `-commit-branch`")
+		return nil, errors.New("the commit branch does not exist but `basebranch` is the same as `commitBranch`")
 	}
 
 	if baseBranch == "" {
-		return nil, errors.New("the `-base-branch` should not be set to an empty string when the branch specified by `-commit-branch` does not exists")
+		return nil, errors.New("the `baseBranch` should not be set to an empty string when the branch specified by `commitBranch` does not exists")
 	}
 
 	var baseRef *github.Reference
@@ -70,42 +68,18 @@ func getRef() (ref *github.Reference, err error) {
 
 // getTree generates the tree to commit based on the given files and the commit
 // of the ref you got in getRef.
-func getTree(ref *github.Reference) (tree *github.Tree, err error) {
+func getTree(ref *github.Reference, commitBranch string) (tree *github.Tree, err error) {
 	// Create a tree with what to commit.
 	entries := []*github.TreeEntry{}
 
 	// Load each file into the tree.
-	for _, fileArg := range strings.Split(*sourceFiles, ",") {
-		file, content, err := getFileContent(fileArg)
-		if err != nil {
-			return nil, err
-		}
-		//filePath := fmt.Sprintf(commitBranch, file, "namespaces/live.cloud-platform.service.justice.gov.uk/%s/%s")
-		entries = append(entries, &github.TreeEntry{Path: github.String(file), Type: github.String("blob"), Content: github.String(string(content)), Mode: github.String("100644")})
-	}
+	ns := sourceFiles + commitBranch
+	file := ns + "/SECRET_ROTATE_BLOCK"
+	fmt.Printf("File Path: %s\n", file)
+	entries = append(entries, &github.TreeEntry{Path: github.String(file), Type: github.String("blob"), Content: nil, Mode: github.String("100644")})
 
 	tree, _, err = client.Git.CreateTree(ctx, sourceOwner, sourceRepo, *ref.Object.SHA, entries)
 	return tree, err
-}
-
-// getFileContent loads the local content of a file and return the target name
-// of the file in the target repository and its contents.
-func getFileContent(fileArg string) (targetName string, b []byte, err error) {
-	var localFile string
-	files := strings.Split(fileArg, ":")
-	switch {
-	case len(files) < 1:
-		return "", nil, errors.New("empty `-files` parameter")
-	case len(files) == 1:
-		localFile = files[0]
-		targetName = files[0]
-	default:
-		localFile = files[0]
-		targetName = files[1]
-	}
-
-	b, err = os.ReadFile(localFile)
-	return targetName, b, err
 }
 
 // pushCommit creates the commit in the given reference using the given tree.
@@ -121,7 +95,7 @@ func pushCommit(ref *github.Reference, tree *github.Tree) (err error) {
 	// Create the commit using the tree.
 	date := time.Now()
 	author := &github.CommitAuthor{Date: &date, Name: authorName, Email: authorEmail}
-	commit := &github.Commit{Author: author, Message: commitMessage, Tree: tree, Parents: []*github.Commit{parent.Commit}}
+	commit := &github.Commit{Author: author, Message: &commitMessage, Tree: tree, Parents: []*github.Commit{parent.Commit}}
 	newCommit, _, err := client.Git.CreateCommit(ctx, sourceOwner, sourceRepo, commit)
 	if err != nil {
 		return err
@@ -135,8 +109,7 @@ func pushCommit(ref *github.Reference, tree *github.Tree) (err error) {
 
 // createPR creates a pull request. Based on: https://godoc.org/github.com/google/go-github/github#example-PullRequestsService-Create
 func createPR() (err error) {
-	prSubject = *commitMessage
-	prTitle = fmt.Sprintf("fix(namespaces)%s:%s", commitBranch, prSubject)
+	prTitle = "Rotate Secrets in Namespace: " + commitBranch
 	if prTitle == "" {
 		return errors.New("missing Pull Request Title; skipping PR creation")
 	}
@@ -158,8 +131,6 @@ func createPR() (err error) {
 		Body:                prDescription,
 		MaintainerCanModify: github.Bool(true),
 	}
-
-	fmt.Println(newPR)
 	pr, _, err := client.PullRequests.Create(ctx, prRepoOwner, prRepo, newPR)
 	if err != nil {
 		return err
@@ -194,13 +165,14 @@ func main() {
 			if token == "" {
 				log.Fatal("Unauthorized: No token present")
 			}
-			if *sourceFiles == "" || *authorName == "" || *authorEmail == "" {
-				log.Fatal("You need to specify a non-empty value for the flags `-files`, `-author-name` and `-author-email`")
+			if *authorName == "" || *authorEmail == "" {
+				log.Fatal("You need to specify a non-empty value for the flags `-author-name` and `-author-email`")
 			}
 			ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
 			tc := oauth2.NewClient(ctx, ts)
 			client = github.NewClient(tc)
 
+			fmt.Printf("Namespace: %s\n", commitBranch)
 			ref, err := getRef()
 			if err != nil {
 				log.Fatalf("Unable to get/create the commit reference: %s\n", err)
@@ -209,7 +181,7 @@ func main() {
 				log.Fatalf("No error where returned but the reference is nil")
 			}
 
-			tree, err := getTree(ref)
+			tree, err := getTree(ref, commitBranch)
 			if err != nil {
 				log.Fatalf("Unable to create the tree based on the provided files: %s\n", err)
 			}
