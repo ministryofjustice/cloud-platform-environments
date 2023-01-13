@@ -16,8 +16,6 @@ import (
 )
 
 var (
-	// Required
-	sourceFiles = "namespaces/live.cloud-platform.service.justice.gov.uk/"
 	// Optional
 	authorName    = flag.String("author-name", "", "Name of the author of the commit.")
 	authorEmail   = flag.String("author-email", "", "Email of the author of the commit.")
@@ -25,14 +23,15 @@ var (
 )
 
 var (
+	sourceFiles   = "namespaces/live.cloud-platform.service.justice.gov.uk/"
 	sourceOwner   = "ministryofjustice"
 	sourceRepo    = "cloud-platform-environments"
-	commitBranch  string
 	commitMessage = "fix(namespaces)Remove SECRET_ROTATE_BLOCK from" + commitBranch
 	baseBranch    = "main"
-	prTitle       string
 	prRepoOwner   = sourceOwner
 	prRepo        = sourceRepo
+	prTitle       string
+	commitBranch  string
 )
 
 var (
@@ -61,7 +60,7 @@ func getRef() (ref *github.Reference, err error) {
 	if baseRef, _, err = client.Git.GetRef(ctx, sourceOwner, sourceRepo, "refs/heads/"+baseBranch); err != nil {
 		return nil, err
 	}
-	newRef := &github.Reference{Ref: github.String("refs/heads/" + commitBranch), Object: &github.GitObject{SHA: baseRef.Object.SHA}}
+	newRef := &github.Reference{Ref: github.String("refs/heads/" + "remove-secret-rotator-" + commitBranch), Object: &github.GitObject{SHA: baseRef.Object.SHA}}
 	ref, _, err = client.Git.CreateRef(ctx, sourceOwner, sourceRepo, newRef)
 	return ref, err
 }
@@ -124,9 +123,10 @@ func createPR() (err error) {
 		prRepo = sourceRepo
 	}
 
+	prBranch := "remove-secret-rotator-" + commitBranch
 	newPR := &github.NewPullRequest{
 		Title:               &prTitle,
-		Head:                &commitBranch,
+		Head:                &prBranch,
 		Base:                &baseBranch,
 		Body:                prDescription,
 		MaintainerCanModify: github.Bool(true),
