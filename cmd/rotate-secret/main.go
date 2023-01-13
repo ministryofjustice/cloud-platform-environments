@@ -142,19 +142,25 @@ func printToFile(ns Namespace, fname string) error {
 	return nil
 }
 func ensureEnvVarsSet() error {
-	mapEnvVars := map[string]string{
-		"TF_VAR_cluster_name":         "live",
-		"TF_VAR_cluster_state_bucket": "cloud-platform-terraform-state",
-		"TF_VAR_kubernetes_cluster":   "DF366E49809688A3B16EEC29707D8C09.gr7.eu-west-2.eks.amazonaws.com",
-		"KUBE_CONFIG_PATH":            "${HOME}/.kube/config",
-		"TF_VAR_eks_cluster_name":     "live",
-		"TF_VAR_vpc_name":             "live-1",
+	if err := os.Setenv("TF_VAR_cluster_name", "live"); err != nil {
+		return err
 	}
-	for key, value := range mapEnvVars {
-		if err := os.Setenv(key, value); err != nil {
-			return err
-		}
+	if err := os.Setenv("TF_VAR_cluster_state_bucket", "cloud-platform-terraform-state"); err != nil {
+		return err
 	}
+	if err := os.Setenv("TF_VAR_kubernetes_cluster", "DF366E49809688A3B16EEC29707D8C09.gr7.eu-west-2.eks.amazonaws.com"); err != nil {
+		return err
+	}
+	if err := os.Setenv("KUBE_CONFIG_PATH", "${HOME}/.kube/config"); err != nil {
+		return err
+	}
+	if err := os.Setenv("TF_VAR_eks_cluster_name", "live"); err != nil {
+		return err
+	}
+	if err := os.Setenv("TF_VAR_vpc_name", "live-1"); err != nil {
+		return err
+	}
+
 	return nil
 }
 
