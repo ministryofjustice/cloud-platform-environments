@@ -198,7 +198,21 @@ func (ns *Namespace) GetListOfSecrets(exec string) error {
 	}
 
 	if state.Values == nil {
+		log.Println("no state values found for namespace: ", ns.Name)
 		return nil
+	}
+
+	for _, resource := range state.Values.RootModule.Resources {
+		if strings.Contains(resource.Address, "aws_iam_access_key") && !strings.Contains(resource.Address, "key_2023") {
+			secret := NewSecret(resource.Address)
+			for key, value := range resource.AttributeValues {
+				if key == "id" {
+					secret.value = fmt.Sprintf("%v", value)
+				}
+			}
+
+			ns.Secrets = append(ns.Secrets, secret)
+		}
 	}
 
 	for _, childResources := range state.Values.RootModule.ChildModules {
