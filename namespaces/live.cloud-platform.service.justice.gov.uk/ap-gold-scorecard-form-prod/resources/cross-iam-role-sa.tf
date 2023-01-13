@@ -120,6 +120,10 @@ resource "kubernetes_secret" "irsa" {
 }
 
 # IAM user so athena can access S3 buckets in the analytical platform data aws account
+resource "random_id" "id" {
+  byte_length = 16
+}
+
 resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
   name = "gold-scorecard-form-${random_id.id.hex}"
   path = "/system/gold-scorecard-form"
