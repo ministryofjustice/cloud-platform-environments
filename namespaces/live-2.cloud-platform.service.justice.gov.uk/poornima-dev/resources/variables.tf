@@ -53,6 +53,6 @@ variable "github_owner" {
 }
 
 variable "github_token" {
-  description = "Required by the Github Terraform provider"
+  description = "Required by the Github Terraform provider."
   default     = ""
 }
