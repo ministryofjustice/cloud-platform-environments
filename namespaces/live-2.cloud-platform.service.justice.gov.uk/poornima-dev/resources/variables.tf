@@ -48,7 +48,7 @@ variable "slack_channel" {
 }
 
 variable "github_owner" {
-  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider."
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider"
   default     = "ministryofjustice"
 }
 
