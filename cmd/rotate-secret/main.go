@@ -97,12 +97,11 @@ func main() {
 		listNamespaces = append(listNamespaces, namespace)
 	}
 
-	f, err := os.Create("tainted_circle_namespaces.csv")
+	f, err := writeFile("tainted_circle_namespaces.csv")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("error writing to file: %v", err)
 		os.Exit(1)
 	}
-	defer f.Close()
 
 	for _, ns := range listNamespaces {
 		if err := printToFile(ns, f.Name()); err != nil {
@@ -110,6 +109,20 @@ func main() {
 			os.Exit(1)
 		}
 	}
+}
+
+func writeFile(fname string) (*os.File, error) {
+	f, err := os.Create(fname)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	w := csv.NewWriter(f)
+	defer w.Flush()
+	if err := w.Write([]string{"Namespace", "ResourceAddress", "AccessKeys", "Successful"}); err != nil {
+		return nil, err
+	}
+	return f, nil
 }
 
 func printToFile(ns Namespace, fname string) error {
@@ -120,9 +133,6 @@ func printToFile(ns Namespace, fname string) error {
 
 	w := csv.NewWriter(f)
 	defer w.Flush()
-	if err := w.Write([]string{"Namespace", "ResourceAddress", "AccessKeys", "Successful"}); err != nil {
-		return err
-	}
 
 	for _, secret := range ns.Secrets {
 		if err := w.Write([]string{ns.Name, secret.stateAddress, secret.value, strconv.FormatBool(ns.IsTainted)}); err != nil {
