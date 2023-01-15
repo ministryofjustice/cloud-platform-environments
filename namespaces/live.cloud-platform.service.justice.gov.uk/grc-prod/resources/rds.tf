@@ -54,6 +54,6 @@ resource "kubernetes_config_map" "rds" {
 
   data = {
     database_name = module.dps_rds.database_name
-    url = "postgres://${module.module_name.database_username}:${module.module_name.database_password}@${module.module_name.rds_instance_endpoint}/${module.module_name.database_name}"
+    url = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
