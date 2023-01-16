@@ -90,6 +90,8 @@ func main() {
 			if err := createPR(commitBranch, ns); err != nil {
 				log.Fatalf("Error while creating the pull request: %s", err)
 			}
+
+			sleep(10)
 		}
 	}
 }
@@ -179,4 +181,18 @@ func createPR(commitBranch string, namespace string) (err error) {
 
 	fmt.Printf("PR created: %s\n", pr.GetHTMLURL())
 	return nil
+}
+
+func sleep(s int) {
+	fmt.Println("Loading next namespace")
+	for {
+		// check if end condition is met
+		if s <= 0 {
+			fmt.Println("Creating Pull Request")
+			break
+		} else {
+			time.Sleep(1 * time.Second) // wait 1 sec
+			s--                         // reduce time
+		}
+	}
 }
