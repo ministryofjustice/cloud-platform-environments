@@ -49,7 +49,6 @@ func main() {
 	}
 
 	repoList := getListOfRepos(repos)
-	fmt.Println(repoList)
 	clusterNamespaces, err := getClusterNamespaces(*kubeClient)
 	if err != nil {
 		fmt.Println(err)
@@ -95,22 +94,59 @@ func whatsTheNamespace(repoList []repository, clusterNamespaces *v1.NamespaceLis
 	for _, repo := range repoList {
 		fmt.Println("---")
 		fmt.Println("Checking:", repo.Name)
+		if repo.Name == "" {
+			fmt.Println("No repo address found")
+			continue
+		}
+
 		for _, ns := range clusterNamespaces.Items {
-			if repo.Address == ns.Annotations["cloud-platform.justice.gov.uk/source-code"] {
-				fmt.Println("Found:", ns.Name)
-				fmt.Println(repo.Address, "is the same as", ns.Annotations["cloud-platform.justice.gov.uk/source-code"])
-				ns := circleNamespace{
-					Name:         ns.Name,
-					Slack:        ns.Annotations["cloud-platform.justice.gov.uk/slack-channel"],
-					Email:        ns.Annotations["cloud-platform.justice.gov.uk/owner"],
-					SourceCode:   repo.Address,
-					IsProduction: ns.Labels["cloud-platform.justice.gov.uk/is-production"],
+			// split the sourcecode annotation by comma
+			fmt.Println("Checking:", ns.Name)
+			// if the annotation contains a ; split by that otherwise split by comma
+			sourceCode := strings.Split(ns.Annotations["cloud-platform.justice.gov.uk/source-code"], ";")
+
+			// if the annotation contains a comma, split by comma
+			if strings.Contains(ns.Annotations["cloud-platform.justice.gov.uk/source-code"], ",") {
+				sourceCode = strings.Split(ns.Annotations["cloud-platform.justice.gov.uk/source-code"], ",")
+			}
+
+			for _, annotation := range sourceCode {
+				// if the annotation contains a .git suffix, remove it
+				if strings.Contains(annotation, ".git") {
+					annotation = strings.TrimSuffix(annotation, ".git")
 				}
-				list = append(list, ns)
+
+				fmt.Printf("matching %s with %s\n", annotation, repo.Address)
+				if strings.TrimSpace(repo.Address) == strings.TrimSpace(annotation) {
+					fmt.Println("Found:", ns.Name)
+					fmt.Println(repo.Address, "is the same as", ns.Annotations["cloud-platform.justice.gov.uk/source-code"])
+					ns := circleNamespace{
+						Name:         ns.Name,
+						Slack:        ns.Annotations["cloud-platform.justice.gov.uk/slack-channel"],
+						Email:        ns.Annotations["cloud-platform.justice.gov.uk/owner"],
+						SourceCode:   repo.Address,
+						IsProduction: ns.Labels["cloud-platform.justice.gov.uk/is-production"],
+					}
+					list = append(list, ns)
+				}
+
 			}
 		}
 	}
-	return list, nil
+	return deduplicate(list), nil
+}
+
+// Deduplicate a slice of strings
+func deduplicate(slice []circleNamespace) []circleNamespace {
+	keys := make(map[string]bool)
+	list := []circleNamespace{}
+	for _, entry := range slice {
+		if _, value := keys[entry.Name]; !value {
+			keys[entry.Name] = true
+			list = append(list, entry)
+		}
+	}
+	return list
 }
 
 func getClusterNamespaces(client client.KubeClient) (*v1.NamespaceList, error) {
