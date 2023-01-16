@@ -42,7 +42,7 @@ variable "is_production" {
 }
 
 variable "slack_channel" {
-  description = "Team slack channel to use if we need to contact your team"
+  description = "Team slack channel to use if we need to contact your teams"
   default     = "cloud-platform"
 }
 
