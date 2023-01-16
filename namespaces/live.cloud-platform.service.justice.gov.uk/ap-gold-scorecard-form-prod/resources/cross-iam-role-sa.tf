@@ -126,7 +126,7 @@ resource "random_id" "id" {
 
 resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
   name = "gold-scorecard-form-${random_id.id.hex}"
-  path = "/system/gold-scorecard-form"
+  path = "/system/gold-scorecard-form/"
 
   tags = {
     business-unit          = "Cloud Platform"
