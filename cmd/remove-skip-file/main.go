@@ -140,6 +140,20 @@ func createPR() (err error) {
 	return nil
 }
 
+func sleep(s int) {
+	fmt.Println("Loading next namespace")
+	for {
+		// check if end condition is met
+		if s <= 0 {
+			fmt.Println("Creating Pull Request")
+			break
+		} else {
+			time.Sleep(1 * time.Second) // wait 1 sec
+			s--                         // reduce time
+		}
+	}
+}
+
 func main() {
 	f, err := os.Open("namespace.csv")
 	if err != nil {
@@ -193,6 +207,8 @@ func main() {
 			if err := createPR(); err != nil {
 				log.Fatalf("Error while creating the pull request: %s", err)
 			}
+
+			sleep(10)
 		}
 	}
 }
