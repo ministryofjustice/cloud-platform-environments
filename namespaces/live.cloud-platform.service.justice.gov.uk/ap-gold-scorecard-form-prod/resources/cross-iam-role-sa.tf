@@ -120,8 +120,13 @@ resource "kubernetes_secret" "irsa" {
 }
 
 # IAM user so athena can access S3 buckets in the analytical platform data aws account
+resource "random_id" "id" {
+  byte_length = 16
+}
+
 resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
-  name = "ap-gold-scorecard-form-prod"
+  name = "gold-scorecard-form-${random_id.id.hex}"
+  path = "/system/gold-scorecard-form/"
 
   tags = {
     business-unit          = "Cloud Platform"
@@ -131,5 +136,16 @@ resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
     usage-scope            = "athena"
+  }
+}
+
+resource "kubernetes_secret" "gold-scorecard-form-user" {
+  metadata {
+    name      = "gold-scorecard-form-user"
+    namespace = "ap-gold-scorecard-form-prod"
+  }
+  data = {
+    name = aws_iam_user.ap-gold-scorecard-form-prod.name
+    arn  = aws_iam_user.ap-gold-scorecard-form-prod.arn
   }
 }
