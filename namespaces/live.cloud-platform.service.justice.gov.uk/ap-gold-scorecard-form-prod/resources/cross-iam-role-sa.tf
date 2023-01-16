@@ -111,7 +111,7 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
-    namespace = "ap-gold-scorecard-form-prod-"
+    namespace = "ap-gold-scorecard-form-prod"
   }
   data = {
     role           = module.irsa.aws_iam_role_arn
@@ -136,5 +136,16 @@ resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
     usage-scope            = "athena"
+  }
+}
+
+resource "kubernetes_secret" "gold-scorecard-form-user" {
+  metadata {
+    name      = "gold-scorecard-form-user"
+    namespace = "ap-gold-scorecard-form-prod"
+  }
+  data = {
+    name = aws_iam_user.ap-gold-scorecard-form-prod.name
+    arn  = aws_iam_user.ap-gold-scorecard-form-prod.arn
   }
 }
