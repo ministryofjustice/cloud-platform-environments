@@ -20,6 +20,7 @@ var (
 	authorName   = flag.String("author-name", "", "Name of the author of the commit.")
 	authorEmail  = flag.String("author-email", "", "Email of the author of the commit.")
 	token        = flag.String("token", os.Getenv("GITHUB_AUTH_TOKEN"), "Personal Access token to push commit and Create PR.")
+	tokenTwo     = flag.String("tokenTwo", os.Getenv("GITHUB_AUTH_TOKEN_TWO"), "Personal Access token to create and submit PR review.")
 	namespaceCSV = flag.String("csvfile", "", "Input CSV file to use for removing secret-rotator file")
 )
 
@@ -32,14 +33,18 @@ var (
 )
 
 var (
-	client *github.Client
-	ctx    = context.Background()
+	clientTwo *github.Client
+	client    *github.Client
+	ctx       = context.Background()
 )
 
 func main() {
 	flag.Parse()
 
 	if *token == "" {
+		log.Fatal("Unauthorized: No Github access token present")
+	}
+	if *tokenTwo == "" {
 		log.Fatal("Unauthorized: No Github access token present")
 	}
 	if *authorName == "" || *authorEmail == "" {
@@ -49,6 +54,10 @@ func main() {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: *token})
 	tc := oauth2.NewClient(ctx, ts)
 	client = github.NewClient(tc)
+
+	tsTwo := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: *tokenTwo})
+	tcTwo := oauth2.NewClient(ctx, tsTwo)
+	clientTwo = github.NewClient(tcTwo)
 
 	f, err := os.Open(*namespaceCSV)
 	if err != nil {
@@ -87,9 +96,12 @@ func main() {
 				log.Fatalf("Unable to create the commit: %s\n", err)
 			}
 
-			if err := createPR(commitBranch, ns); err != nil {
+			prid, err := createPR(commitBranch, ns)
+			if err != nil {
 				log.Fatalf("Error while creating the pull request: %s", err)
 			}
+
+			autoApprove(prid)
 
 			sleep(10)
 		}
@@ -163,7 +175,7 @@ func pushCommit(ref *github.Reference, tree *github.Tree, namespace string) (err
 }
 
 // createPR creates a pull request. Based on: https://godoc.org/github.com/google/go-github/github#example-PullRequestsService-Create
-func createPR(commitBranch string, namespace string) (err error) {
+func createPR(commitBranch string, namespace string) (prid int, err error) {
 	prTitle := "Rotate Secrets in namespace:  " + namespace
 	prDescription := "Rotate Secrets in namespace: " + namespace
 
@@ -175,12 +187,12 @@ func createPR(commitBranch string, namespace string) (err error) {
 		MaintainerCanModify: github.Bool(true),
 	}
 	pr, _, err := client.PullRequests.Create(ctx, sourceOwner, sourceRepo, newPR)
+	prid = *pr.Number
 	if err != nil {
-		return err
+		return prid, err
 	}
 
-	fmt.Printf("PR created: %s\n", pr.GetHTMLURL())
-	return nil
+	return prid, nil
 }
 
 func sleep(s int) {
@@ -195,4 +207,14 @@ func sleep(s int) {
 			s--                         // reduce time
 		}
 	}
+}
+
+func autoApprove(prid int) {
+	prR, _, err := clientTwo.PullRequests.CreateReview(context.Background(), sourceOwner, sourceRepo, prid, &github.PullRequestReviewRequest{
+		Event: github.String("APPROVE"),
+	})
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Printf("Review State %v", prR.State)
 }
