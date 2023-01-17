@@ -101,13 +101,8 @@ func main() {
 				log.Fatalf("Error while creating the pull request: %s", err)
 			}
 
-<<<<<<< HEAD
 			autoApprove(prid)
-
-			sleep(10)
-=======
 			sleep(60)
->>>>>>> c0093a732a7c1f55fededa1a85a979c6195721a5
 		}
 	}
 }
