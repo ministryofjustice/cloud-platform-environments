@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Hello World"
+  default     = "Hello World."
 }
 
 variable "namespace" {
@@ -34,7 +34,7 @@ variable "environment" {
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email"
   default     = "platforms@digital.justice.gov.uk"
 }
 
