@@ -91,7 +91,7 @@ func main() {
 				log.Fatalf("Error while creating the pull request: %s", err)
 			}
 
-			sleep(10)
+			sleep(60)
 		}
 	}
 }
