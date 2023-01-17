@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/hashicorp/go-version"
 	install "github.com/hashicorp/hc-install"
 	"github.com/hashicorp/hc-install/fs"
@@ -78,13 +79,15 @@ func main() {
 
 	// get current directory
 	var listNamespaces []Namespace
+	var failedNamespaces []Namespace
 	for _, ns := range namespaces {
-		fmt.Println(ns)
+		color.Green("Processing namespace: %s", ns)
 		namespace := NewNamespace(ns)
 
 		if err := namespace.GetListOfSecrets(exec); err != nil {
 			fmt.Printf("error getting list of secrets: %v", err)
-			os.Exit(1)
+			failedNamespaces = append(failedNamespaces, namespace)
+			continue
 		}
 
 		if err := namespace.RotateSecrets(exec); err != nil {
@@ -108,6 +111,10 @@ func main() {
 			fmt.Printf("error writing to file: %v", err)
 			os.Exit(1)
 		}
+	}
+	if len(failedNamespaces) > 0 {
+		fmt.Printf("failed namespaces: %v", failedNamespaces)
+		os.Exit(1)
 	}
 }
 
@@ -198,13 +205,23 @@ func (ns *Namespace) GetListOfSecrets(exec string) error {
 		tfexec.BackendConfig("dynamodb_table=cloud-platform-environments-terraform-lock"),
 	)
 	if err != nil {
-		log.Fatalf("error running Init: %s", err)
+		err = tf.Init(context.Background(),
+			tfexec.BackendConfig("bucket=cloud-platform-terraform-state"),
+			tfexec.BackendConfig("key=cloud-platform-environments/live-1.cloud-platform.service.justice.gov.uk/"+ns.Name+"/terraform.tfstate"),
+			tfexec.BackendConfig("region=eu-west-1"),
+			tfexec.BackendConfig("dynamodb_table=cloud-platform-environments-terraform-lock"),
+		)
+		if err != nil {
+			return err
+		}
+	} else if err != nil {
+		return err
 	}
 
 	tf.SetStdout(nil)
 	state, err := tf.Show(context.Background())
 	if err != nil {
-		log.Fatalf("error running Show: %s", err)
+		return err
 	}
 
 	if state.Values == nil {
