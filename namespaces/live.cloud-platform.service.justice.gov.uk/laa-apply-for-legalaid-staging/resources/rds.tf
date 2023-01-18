@@ -14,7 +14,7 @@ module "apply-for-legal-aid-rds" {
   is-production          = "false"
   namespace              = var.namespace
   environment-name       = "staging"
-  infrastructure-support = "apply@digital.justice.gov.uk"
+  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "11"
   db_name                = "apply_for_legal_aid_staging"
@@ -44,4 +44,3 @@ resource "kubernetes_secret" "apply-for-legal-aid-rds" {
     url                   = "postgres://${module.apply-for-legal-aid-rds.database_username}:${module.apply-for-legal-aid-rds.database_password}@${module.apply-for-legal-aid-rds.rds_instance_endpoint}/${module.apply-for-legal-aid-rds.database_name}"
   }
 }
-
