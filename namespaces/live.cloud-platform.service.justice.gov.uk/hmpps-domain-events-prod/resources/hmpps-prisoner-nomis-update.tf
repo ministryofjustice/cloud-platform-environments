@@ -94,14 +94,6 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.changed\", \"prison-visit.cancelled\", \"incentives.iep-review.inserted\"]}"
-}
-
 ######################################## VISITS
 
 module "hmpps_prisoner_to_nomis_visit_queue" {
@@ -200,13 +192,19 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
   }
 }
 
-#resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscription" {
-#  provider      = aws.london
-#  topic_arn     = module.hmpps-domain-events.topic_arn
-#  protocol      = "sqs"
-#  endpoint      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
-#  filter_policy = "{\"eventType\":[\"prison-visit.booked\", \"prison-visit.changed\", \"prison-visit.cancelled\"]}"
-#}
+resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscription" {
+  provider      = aws.london
+  topic_arn     = module.hmpps-domain-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-visit.booked",
+      "prison-visit.changed",
+      "prison-visit.cancelled"
+    ]
+  })
+}
 
 ######################################## INCENTIVES
 
@@ -306,13 +304,13 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_incentive_dead_letter_queu
   }
 }
 
-#resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscription" {
-#  provider      = aws.london
-#  topic_arn     = module.hmpps-domain-events.topic_arn
-#  protocol      = "sqs"
-#  endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-#  filter_policy = "{\"eventType\":[\"incentives.iep-review.inserted\"]}"
-#}
+resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscription" {
+  provider      = aws.london
+  topic_arn     = module.hmpps-domain-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
+  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted"] })
+}
 
 ######################################## ACTIVITIES
 
@@ -417,7 +415,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"activities.activity.created\"]}"
+  filter_policy = jsonencode({ eventType = ["activities.activity.created"] })
 }
 
 ######################################## SENTENCING
@@ -523,5 +521,11 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_sentencing_subscr
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"sentencing.sentence.adjustment.created\", \"sentencing.sentence.adjustment.updated\", \"sentencing.sentence.adjustment.deleted\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "sentencing.sentence.adjustment.created",
+      "sentencing.sentence.adjustment.updated",
+      "sentencing.sentence.adjustment.deleted"
+    ]
+  })
 }
