@@ -56,5 +56,5 @@ variable "github_token" {
 }
 
 variable "hosted_zone" {
-    default = "integration-api.hmpps.service.justice.gov.uk"
+  default = "integration-api.hmpps.service.justice.gov.uk"
 }
