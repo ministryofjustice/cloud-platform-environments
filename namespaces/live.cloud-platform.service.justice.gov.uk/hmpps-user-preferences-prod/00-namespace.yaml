@@ -10,5 +10,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "probation_in_court"
     cloud-platform.justice.gov.uk/application: "HMPPS user preferences"
     cloud-platform.justice.gov.uk/owner: "Probation In Court Team: probation-in-court-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-user-preference"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-user-preferences"
     cloud-platform.justice.gov.uk/team-name: "probation-in-court" 
