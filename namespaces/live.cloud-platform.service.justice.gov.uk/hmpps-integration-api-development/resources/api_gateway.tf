@@ -27,7 +27,7 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
   certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert_validations.*.fqdn
+  validation_record_fqdns = [for record in aws_route53_record.cert_validations : record.fqdn]
 
   timeouts {
     create = "10m"
@@ -37,15 +37,21 @@ resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
 }
 
 resource "aws_route53_record" "cert_validations" {
-  count = length(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options)
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
 
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 3600
+  type    = each.value.type
   zone_id = data.kubernetes_secret.zone_id.data["zone_id"]
-
-  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_name, count.index)
-  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_type, count.index)
-  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_value, count.index)]
-  ttl     = 60
 }
+
 
 data "kubernetes_secret" "zone_id" {
   metadata {
