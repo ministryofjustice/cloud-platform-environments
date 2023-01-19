@@ -1,5 +1,3 @@
-
-
 variable "vpc_name" {
 }
 
@@ -16,6 +14,10 @@ variable "application" {
 
 variable "namespace" {
   default = "hmpps-integration-api-development"
+}
+
+variable "production_namespace" {
+  default = "hmpps-integration-api-production"
 }
 
 variable "business_unit" {
@@ -55,4 +57,13 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "base_domain" {
+  default = "integration-api.hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the FQDN"
+  default     = "development"
 }
