@@ -9,6 +9,7 @@ module "rotate_token_ec_cluster" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "platforms@digtal.justice.gov.uk"
+  namespace              = var.namespace
   providers = {
     aws = aws.london
   }
@@ -18,7 +19,7 @@ module "rotate_token_ec_cluster" {
 resource "kubernetes_secret" "rotate_token_ec_cluster" {
   metadata {
     name      = "rotate-token-ec-cluster-output"
-    namespace = "paul-test"
+    namespace              = var.namespace
   }
 
   data = {
