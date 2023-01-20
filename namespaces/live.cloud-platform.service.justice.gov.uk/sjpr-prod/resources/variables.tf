@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "sjpr-team"
+  default     = "sjpr-admin-team"
 }
 
 variable "environment" {
