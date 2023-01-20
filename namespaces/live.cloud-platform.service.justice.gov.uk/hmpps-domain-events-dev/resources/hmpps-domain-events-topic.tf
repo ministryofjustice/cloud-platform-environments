@@ -16,7 +16,7 @@ module "hmpps-domain-events" {
   }
 }
 
-resource "aws_iam_access_key" "user_new" {
+resource "aws_iam_access_key" "key_2023" {
   user = module.hmpps-domain-events.user_name
 }
 
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "hmpps-domain-events-new-key" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.user_new.id
-    secret_access_key = aws_iam_access_key.user_new.secret
+    access_key_id     = aws_iam_access_key.key_2023.id
+    secret_access_key = aws_iam_access_key.key_2023.secret
   }
 }
