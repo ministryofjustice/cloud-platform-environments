@@ -5,7 +5,7 @@ metadata:
   name: hmpps-staff-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-staff-dev
 spec:
-  secretName: hmpps-staff-cert
+  secretName: hmpps-staff-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
