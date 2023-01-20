@@ -5,7 +5,7 @@ metadata:
   namespace: sjpr-prod
 subjects:
   - kind: Group
-    name: "github:sjpr-team"
+    name: "github:sjpr-admin-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
