@@ -16,10 +16,6 @@ variable "namespace" {
   default = "hmpps-integration-api-development"
 }
 
-variable "production_namespace" {
-  default = "hmpps-integration-api-production"
-}
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -60,10 +56,10 @@ variable "github_token" {
 }
 
 variable "base_domain" {
-  default = "integration-api.hmpps.service.justice.gov.uk"
+  default = "hmpps.service.justice.gov.uk"
 }
 
 variable "hostname" {
   description = "Host part of the FQDN"
-  default     = "development"
+  default     = "development.integration-api"
 }
