@@ -61,10 +61,8 @@ module "probation_offender_events" {
 
 resource "kubernetes_secret" "prison_data_compliance" {
   metadata {
-    name      = "offender-events-topic-prison-data-compliance"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # namespace = "prison-data-compliance-prod"
+    name      = "offender-events-topic"
+    namespace = "prison-data-compliance-prod"
   }
 
   data = {
