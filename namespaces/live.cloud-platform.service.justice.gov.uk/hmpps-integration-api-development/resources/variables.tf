@@ -63,3 +63,8 @@ variable "hostname" {
   description = "Host part of the FQDN"
   default     = "development.integration-api"
 }
+
+variable "cloud_platform_integration_api_url" {
+  description = "Pre-defined domain for the namespace provided by Cloud Platform"
+  default     = "https://hmpps-integration-api-development.apps.live.cloud-platform.service.justice.gov.uk"
+}

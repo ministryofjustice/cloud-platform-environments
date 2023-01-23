@@ -61,3 +61,98 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
     types = ["REGIONAL"]
   }
 }
+
+data "aws_api_gateway_resource" "root" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  path        = "/"
+}
+
+resource "aws_api_gateway_method" "root" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
+  resource_id      = data.aws_api_gateway_resource.root.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+}
+
+resource "aws_api_gateway_integration" "root_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = data.aws_api_gateway_resource.root.id
+  http_method             = aws_api_gateway_method.root.http_method
+  type                    = "HTTP_PROXY"
+  integration_http_method = "ANY"
+  uri                     = var.cloud_platform_integration_api_url
+}
+
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "{proxy+}"
+}
+
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+}
+
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
+  type                    = "HTTP_PROXY"
+  integration_http_method = "ANY"
+  uri                     = var.cloud_platform_integration_api_url
+}
+
+resource "aws_api_gateway_deployment" "development" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  stage_name  = "development"
+
+  # Force recreate of the deployment resource
+  stage_description = md5(file("api_gateway.tf"))
+
+  depends_on = [
+    aws_api_gateway_method.root,
+    aws_api_gateway_integration.root_http_proxy,
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy_http_proxy
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_api_key" "team" {
+  name = var.team_name
+}
+
+resource "aws_api_gateway_usage_plan" "default" {
+  name = var.namespace
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.api_gateway.id
+    stage  = aws_api_gateway_deployment.development.stage_name
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "team" {
+  key_id        = aws_api_gateway_api_key.team.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.default.id
+}
+
+
+resource "kubernetes_secret" "api_keys" {
+  metadata {
+    name      = "api-gateway-api-keys"
+    namespace = var.namespace
+  }
+
+  data = {
+    "${var.team_name}" = aws_api_gateway_api_key.team.value
+  }
+}
