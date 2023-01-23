@@ -10,7 +10,7 @@ module "ap_gh_collab_repo_tf_state_lock" {
   namespace              = var.namespace
 
   hash_key          = "LockID"
-  enable_encryption = "false"
+  enable_encryption = "true"
   enable_autoscaler = "true"
   aws_region        = "eu-west-2"
 }
