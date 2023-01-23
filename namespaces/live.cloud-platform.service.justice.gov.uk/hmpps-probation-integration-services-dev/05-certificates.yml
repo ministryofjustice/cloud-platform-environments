@@ -1,6 +1,19 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: approved-premises-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: approved-premises-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-and-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: approved-premises-and-oasys-cert
   namespace: hmpps-probation-integration-services-dev
 spec:
@@ -14,6 +27,58 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: custody-key-dates-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: custody-key-dates-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - custody-key-dates-and-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-recall-decisions-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: make-recall-decisions-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - make-recall-decisions-and-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: offender-events-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: offender-events-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - offender-events-and-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pre-sentence-reports-to-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: pre-sentence-reports-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pre-sentence-reports-to-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: prison-case-notes-to-probation-cert
   namespace: hmpps-probation-integration-services-dev
 spec:
@@ -23,3 +88,30 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prison-case-notes-to-probation-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: risk-assessment-scores-to-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: risk-assessment-scores-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - risk-assessment-scores-to-delius-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tier-to-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: tier-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - tier-to-delius-dev.hmpps.service.justice.gov.uk
+---
