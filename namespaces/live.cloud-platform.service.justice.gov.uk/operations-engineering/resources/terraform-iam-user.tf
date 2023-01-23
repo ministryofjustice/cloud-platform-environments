@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "policy" {
 
     resources = [
       "${module.s3_bucket.bucket_arn}/*",
-      "${module.s3_bucket.ap_gh_collab_repo_s3_bucket}/*",
+      "${module.ap_gh_collab_repo_s3_bucket.bucket_arn}/*",
     ]
   }
 
