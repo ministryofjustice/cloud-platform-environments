@@ -68,12 +68,18 @@ func main() {
 	}
 
 	var cpNamespaces []cpNamespace
+	var errorsCollection []error
 	for _, ns := range clusterNamespaces.Items {
 		for _, namespace := range namespaces {
 			if ns.Name == namespace {
 				color.Blue("Namespace: %s", ns.Name)
 				cpNs := newNamespace(ns)
-				if cpNs.HasIam(exec) {
+				n, err := cpNs.HasIam(exec)
+				if err != nil {
+					errorsCollection = append(errorsCollection, err)
+				}
+
+				if n {
 					cpNamespaces = append(cpNamespaces, cpNs)
 				}
 			}
@@ -82,6 +88,12 @@ func main() {
 
 	if err := printToFile(cpNamespaces); err != nil {
 		log.Fatal(err)
+	}
+
+	if len(errorsCollection) > 0 {
+		for _, err := range errorsCollection {
+			log.Println(err)
+		}
 	}
 }
 
@@ -105,11 +117,10 @@ func printToFile(namespaces []cpNamespace) error {
 	return nil
 }
 
-func (ns cpNamespace) HasIam(exec string) bool {
+func (ns cpNamespace) HasIam(exec string) (bool, error) {
 	tf, err := tfexec.NewTerraform(ns.filePath+"/resources", exec)
 	if err != nil {
-		log.Println(err)
-		return false
+		return false, err
 	}
 	// tf.SetStdout(os.Stdout)
 	// tf.SetStderr(os.Stderr)
@@ -129,28 +140,28 @@ func (ns cpNamespace) HasIam(exec string) bool {
 			tfexec.BackendConfig("dynamodb_table=cloud-platform-environments-terraform-lock"),
 		)
 		if err != nil {
-			return false
+			return false, err
 		}
 	} else if err != nil {
-		return false
+		return false, err
 	}
 
 	tf.SetStdout(nil)
 	state, err := tf.Show(context.Background())
 	if err != nil {
 		log.Println(err)
-		return false
+		return false, err
 	}
 
 	if state.Values == nil {
 		log.Println("no state values found for namespace: ", ns.name)
-		return false
+		return false, nil
 	}
 
 	for _, resource := range state.Values.RootModule.Resources {
 		if strings.Contains(resource.Address, "aws_iam_access_key") && !strings.Contains(resource.Address, "key_2023") {
 			color.Red("IAM Access Key found: %s", resource.Address)
-			return true
+			return true, nil
 		}
 	}
 
@@ -158,12 +169,12 @@ func (ns cpNamespace) HasIam(exec string) bool {
 		for _, modules := range childResources.Resources {
 			if strings.Contains(modules.Address, "aws_iam_access_key") && !strings.Contains(modules.Address, "key_2023") {
 				color.Red("IAM Access Key found: %s", modules.Address)
-				return true
+				return true, nil
 			}
 		}
 	}
 
-	return false
+	return false, nil
 }
 
 func newNamespace(ns v1.Namespace) cpNamespace {
