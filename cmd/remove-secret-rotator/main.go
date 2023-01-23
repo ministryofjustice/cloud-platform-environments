@@ -76,7 +76,7 @@ func main() {
 		}
 
 		for _, ns := range namespaces {
-			commitBranch := "remove-secret-rotator" + ns
+			commitBranch := "remove-secret-rotator-" + ns
 
 			fmt.Printf("Namespace to rotate: %s\n", ns)
 			ref, err := getRef(commitBranch)
@@ -175,8 +175,8 @@ func pushCommit(ref *github.Reference, tree *github.Tree, namespace string) (err
 
 // createPR creates a pull request. Based on: https://godoc.org/github.com/google/go-github/github#example-PullRequestsService-Create
 func createPR(commitBranch string, namespace string) (prid int, err error) {
-	prTitle := "Rotate Secrets in namespace:  " + namespace
-	prDescription := "Rotate Secrets in namespace: " + namespace
+	prTitle := "Rotate Secrets in ns:  " + namespace
+	prDescription := "Rotate Secrets in ns: " + namespace
 
 	newPR := &github.NewPullRequest{
 		Title:               &prTitle,
