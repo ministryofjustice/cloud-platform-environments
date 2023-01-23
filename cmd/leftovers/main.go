@@ -24,8 +24,8 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
-//go:embed circleci-namespaces.txt
-var circleciNamespaces string
+//go:embed process_ns.txt
+var namespaces string
 
 const (
 	namespacePrefix = "../../namespaces/live.cloud-platform.service.justice.gov.uk"
@@ -45,7 +45,7 @@ type cpNamespace struct {
 
 func main() {
 	// take in list of circle namespaces
-	circleciNamespaces := strings.Split(strings.TrimSpace(circleciNamespaces), "\n")
+	namespaces := strings.Split(strings.TrimSpace(namespaces), "\n")
 
 	kubeconfig := filepath.Join(homedir.HomeDir(), ".kube", "config")
 
@@ -67,34 +67,26 @@ func main() {
 		os.Exit(1)
 	}
 
-	// compare circle namespaces to cluster namespaces
-	// if circle namespace is not in cluster namespaces, print it
-	var phase3Namespaces []cpNamespace
+	var cpNamespaces []cpNamespace
 	for _, ns := range clusterNamespaces.Items {
-		if !contains(circleciNamespaces, ns.Name) && !strings.Contains(ns.Name, "kube-") {
-			phase3Namespaces = append(phase3Namespaces, newNamespace(ns))
-		}
-	}
-	var namespacesForTaint []cpNamespace
-	for _, ns := range phase3Namespaces {
-
-		color.Blue(ns.name)
-		if ns.HasIam(exec) {
-			namespacesForTaint = append(namespacesForTaint, ns)
+		for _, namespace := range namespaces {
+			if ns.Name == namespace {
+				color.Blue("Namespace: %s", ns.Name)
+				cpNs := newNamespace(ns)
+				if cpNs.HasIam(exec) {
+					cpNamespaces = append(cpNamespaces, cpNs)
+				}
+			}
 		}
 	}
 
-	if err := printToFile(namespacesForTaint); err != nil {
+	if err := printToFile(cpNamespaces); err != nil {
 		log.Fatal(err)
 	}
-	// find remaining namespaces, that don't equal system.
-	// for each namespace
-	// 		loop over and put namepsace in a list if it contains an IAM cred
-	// 		write the namespaces in that list to a csv file.
 }
 
 func printToFile(namespaces []cpNamespace) error {
-	f, err := os.Create("circle_namespaces.csv")
+	f, err := os.Create("phase3_namespace.csv")
 	if err != nil {
 		return err
 	}
@@ -157,6 +149,7 @@ func (ns cpNamespace) HasIam(exec string) bool {
 
 	for _, resource := range state.Values.RootModule.Resources {
 		if strings.Contains(resource.Address, "aws_iam_access_key") && !strings.Contains(resource.Address, "key_2023") {
+			color.Red("IAM Access Key found: %s", resource.Address)
 			return true
 		}
 	}
@@ -164,6 +157,7 @@ func (ns cpNamespace) HasIam(exec string) bool {
 	for _, childResources := range state.Values.RootModule.ChildModules {
 		for _, modules := range childResources.Resources {
 			if strings.Contains(modules.Address, "aws_iam_access_key") && !strings.Contains(modules.Address, "key_2023") {
+				color.Red("IAM Access Key found: %s", modules.Address)
 				return true
 			}
 		}
