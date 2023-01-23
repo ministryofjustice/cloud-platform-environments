@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-prison-visits-orchestration-cert
+  namespace: visit-someone-in-prison-backend-svc-preprod
+spec:
+  secretName: hmpps-manage-prison-visits-orchestration-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-manage-prison-visits-orchestration-preprod.prison.service.justice.gov.uk
