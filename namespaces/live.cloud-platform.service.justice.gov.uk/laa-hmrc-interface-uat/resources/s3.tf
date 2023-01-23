@@ -45,4 +45,8 @@ resource "kubernetes_secret" "s3-bucket" {
     bucket_arn        = module.s3-bucket.bucket_arn
     secret_access_key = module.s3-bucket.secret_access_key
   }
+
+  tags = {
+    GithubTeam = var.team_name
+  }
 }

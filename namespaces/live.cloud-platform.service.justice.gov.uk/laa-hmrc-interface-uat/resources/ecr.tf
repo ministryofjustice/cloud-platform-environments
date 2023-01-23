@@ -21,4 +21,8 @@ resource "kubernetes_secret" "ecr-repo" {
     access_key_id     = module.ecr-repo.access_key_id
     secret_access_key = module.ecr-repo.secret_access_key
   }
+
+  tags = {
+    GithubTeam = var.team_name
+  }
 }
