@@ -50,10 +50,6 @@ resource "kubernetes_secret" "rds" {
      * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
      *
      */
-
-  tags = {
-    GithubTeam = var.team_name
-  }
 }
 
 resource "kubernetes_config_map" "rds" {
@@ -65,9 +61,5 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
-  }
-
-  tags = {
-    GithubTeam = var.team_name
   }
 }

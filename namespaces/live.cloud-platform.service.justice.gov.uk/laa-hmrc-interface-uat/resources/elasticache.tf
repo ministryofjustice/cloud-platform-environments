@@ -35,9 +35,5 @@ resource "kubernetes_secret" "elasticache" {
     auth_token               = module.elasticache.auth_token
     redis_url                = "rediss://:${module.elasticache.auth_token}@${module.elasticache.primary_endpoint_address}:6379"
   }
-
-  tags = {
-    GithubTeam = var.team_name
-  }
 }
 
