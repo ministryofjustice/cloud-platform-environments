@@ -39,7 +39,8 @@ data "aws_iam_policy_document" "policy" {
     ]
 
     resources = [
-      module.s3_bucket.bucket_arn
+      module.s3_bucket.bucket_arn,
+      module.ap_gh_collab_repo_s3_bucket.bucket_arn,
     ]
   }
 
@@ -68,7 +69,8 @@ data "aws_iam_policy_document" "policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}/*"
+      "${module.s3_bucket.bucket_arn}/*",
+      "${module.s3_bucket.ap_gh_collab_repo_s3_bucket}/*",
     ]
   }
 
@@ -78,7 +80,8 @@ data "aws_iam_policy_document" "policy" {
     ]
 
     resources = [
-      module.opseng_tf_state_lock.table_arn
+      module.opseng_tf_state_lock.table_arn,
+      module.ap_gh_collab_repo_tf_state_lock.table_arn,
     ]
   }
 }
