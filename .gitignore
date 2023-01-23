@@ -10,6 +10,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.checksum
 
 # Icon must end with two \r
 Icon
