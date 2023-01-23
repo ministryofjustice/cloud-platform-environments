@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "unpaid-work-and-delius-queue-subscription
   protocol  = "sqs"
   endpoint  = module.unpaid-work-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter
+    eventType = ["unpaid-work.assessment.completed"]
   })
 }
 
