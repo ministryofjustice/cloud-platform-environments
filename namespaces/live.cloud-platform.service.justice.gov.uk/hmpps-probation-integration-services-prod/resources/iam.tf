@@ -1,5 +1,7 @@
 locals {
   managed_sqs_queues = [
+    module.unpaid-work-and-delius-queue.sqs_arn,
+    module.unpaid-work-and-delius-dlq.sqs_arn,
     module.make-recall-decisions-and-delius-queue.sqs_arn,
     module.make-recall-decisions-and-delius-dlq.sqs_arn,
     module.custody-key-dates-and-delius-queue.sqs_arn,
