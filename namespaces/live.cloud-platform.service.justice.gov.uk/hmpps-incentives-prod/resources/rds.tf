@@ -14,8 +14,9 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
-  backup_window          = var.backup_window
-  maintenance_window     = var.maintenance_window
+  backup_window       = var.backup_window
+  maintenance_window  = var.maintenance_window
+  deletion_protection = true
 
   providers = {
     aws = aws.london
