@@ -14,7 +14,7 @@ module "check-financial-eligibility-rds" {
   is-production          = "true"
   namespace              = var.namespace
   environment-name       = "production"
-  infrastructure-support = "apply@digital.justice.gov.uk"
+  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "11"
   db_name                = "check_financial_eligibility_production"
@@ -40,4 +40,3 @@ resource "kubernetes_secret" "check-financial-eligibility-rds" {
     rds_instance_address  = module.check-financial-eligibility-rds.rds_instance_address
   }
 }
-

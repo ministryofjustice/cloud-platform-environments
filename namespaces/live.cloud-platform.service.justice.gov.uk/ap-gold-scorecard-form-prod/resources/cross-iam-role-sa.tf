@@ -149,3 +149,13 @@ resource "kubernetes_secret" "gold-scorecard-form-user" {
     arn  = aws_iam_user.ap-gold-scorecard-form-prod.arn
   }
 }
+
+resource "aws_athena_data_catalog" "gold-scorecard-form" {
+  name        = "gold-scorecard-form"
+  description = "Glue based Data Catalog for Gold Scorecard Form App"
+  type        = "GLUE"
+
+  parameters = {
+    "catalog-id" = "593291632749"
+  }
+}

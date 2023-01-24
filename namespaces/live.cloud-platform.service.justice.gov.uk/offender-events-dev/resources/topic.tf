@@ -44,11 +44,8 @@ resource "kubernetes_secret" "offender_case_notes" {
 
 resource "kubernetes_secret" "prison-data-compliance" {
   metadata {
-    name      = "offender-events-topic-prison-data-compliance"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "offender-events-topic"
-    # namespace = "prison-data-compliance-dev"
+    name      = "offender-events-topic"
+    namespace = "prison-data-compliance-dev"
   }
 
   data = {
@@ -116,3 +113,18 @@ resource "github_actions_environment_secret" "offender-events-and-delius" {
   plaintext_value = each.value
 }
 
+resource "aws_iam_access_key" "key_2023" {
+  user = module.offender_events.user_name
+}
+
+resource "kubernetes_secret" "offender-events-new-key" {
+  metadata {
+    name      = "offender-events-new-key"
+    namespace = "offender-events-dev"
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.key_2023.id
+    secret_access_key = aws_iam_access_key.key_2023.secret
+  }
+}
