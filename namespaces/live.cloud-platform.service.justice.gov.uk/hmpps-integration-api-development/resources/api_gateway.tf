@@ -62,28 +62,6 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   }
 }
 
-data "aws_api_gateway_resource" "root" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  path        = "/"
-}
-
-resource "aws_api_gateway_method" "root" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
-  resource_id      = data.aws_api_gateway_resource.root.id
-  http_method      = "ANY"
-  authorization    = "NONE"
-  api_key_required = true
-}
-
-resource "aws_api_gateway_integration" "root_http_proxy" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = data.aws_api_gateway_resource.root.id
-  http_method             = aws_api_gateway_method.root.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "ANY"
-  uri                     = var.cloud_platform_integration_api_url
-}
-
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
@@ -96,6 +74,10 @@ resource "aws_api_gateway_method" "proxy" {
   http_method      = "ANY"
   authorization    = "NONE"
   api_key_required = true
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
@@ -104,7 +86,11 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = var.cloud_platform_integration_api_url
+  uri                     = "${var.cloud_platform_integration_api_url}/{proxy}"
+
+  request_parameters = {
+    "integration.request.path.proxy" = "method.request.path.proxy"
+  }
 }
 
 resource "aws_api_gateway_deployment" "development" {
@@ -115,8 +101,6 @@ resource "aws_api_gateway_deployment" "development" {
   stage_description = md5(file("api_gateway.tf"))
 
   depends_on = [
-    aws_api_gateway_method.root,
-    aws_api_gateway_integration.root_http_proxy,
     aws_api_gateway_method.proxy,
     aws_api_gateway_integration.proxy_http_proxy
   ]
