@@ -15,16 +15,11 @@ resource "aws_iam_access_key" "api_gateway_user" {
 data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
-      "apigateway:GET",
-      "apigateway:POST",
-      "apigateway:DELETE",
+      "apigateway:*",
     ]
 
     resources = [
-      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/apikeys",
-      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/apikeys/*",
-      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/usageplans",
-      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/usageplans/**",
+      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
   }
 }
