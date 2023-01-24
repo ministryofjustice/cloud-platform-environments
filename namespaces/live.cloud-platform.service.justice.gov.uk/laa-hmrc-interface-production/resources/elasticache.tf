@@ -15,8 +15,8 @@ module "elasticache" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
 
   providers = {
     aws = aws.london
