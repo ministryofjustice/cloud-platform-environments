@@ -9,9 +9,10 @@ module "dps_rds" {
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
   rds_family                  = var.rds_family
-  allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
+  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
 
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
