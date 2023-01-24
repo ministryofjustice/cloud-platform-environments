@@ -25,6 +25,8 @@ spec:
           env:
             - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
               value: hmpps-probation-integration-runner
+            - name: RUNNER_WORKDIR
+              value: '/_work'
             - name: LABELS
               value: moj-cloud-platform,hmpps-probation-integration-runner
             - name: REPO_URL
