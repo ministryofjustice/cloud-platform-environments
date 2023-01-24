@@ -10,4 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - prison-visits-orch-staging.prison.service.justice.gov.uk
     - hmpps-manage-prison-visits-orchestration-staging.prison.service.justice.gov.uk
