@@ -13,6 +13,9 @@ module "dps_rds" {
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
 
+  backup_window          = var.backup_window
+  maintenance_window     = var.maintenance_window
+
   providers = {
     aws = aws.london
   }
@@ -35,4 +38,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-
