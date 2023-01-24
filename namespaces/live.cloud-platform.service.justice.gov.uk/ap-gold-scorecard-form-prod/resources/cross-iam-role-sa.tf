@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "athena:RunQuery",
     ]
     resources = [
-      "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
+      "arn:aws:athena:eu-west-1:754256621582:workgroup/primary",
     ]
   }
 }
