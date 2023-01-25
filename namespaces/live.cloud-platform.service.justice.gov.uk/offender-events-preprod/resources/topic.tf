@@ -112,3 +112,19 @@ resource "github_actions_environment_secret" "offender-events-and-delius" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "aws_iam_access_key" "key_2023" {
+  user = module.offender_events.user_name
+}
+
+resource "kubernetes_secret" "offender-events-new-key" {
+  metadata {
+    name      = "offender-events-new-key"
+    namespace = "offender-events-preprod"
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.key_2023.id
+    secret_access_key = aws_iam_access_key.key_2023.secret
+  }
+}
