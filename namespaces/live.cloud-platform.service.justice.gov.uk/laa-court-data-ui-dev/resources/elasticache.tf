@@ -8,11 +8,10 @@ module "lcdui_elasticache" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   namespace              = var.namespace
-
-  engine_version        = "6.x"
-  parameter_group_name  = "default.redis6.x"
-  number_cache_clusters = "2"
-  node_type             = "cache.t2.micro"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
+  number_cache_clusters  = "2"
+  node_type              = "cache.t2.micro"
 }
 
 resource "kubernetes_secret" "lcdui_elasticache" {
