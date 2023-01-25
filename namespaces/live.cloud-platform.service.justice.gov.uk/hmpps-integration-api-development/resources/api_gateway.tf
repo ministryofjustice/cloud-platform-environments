@@ -7,6 +7,10 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
     types = ["REGIONAL"]
   }
 
+  mutual_tls_authentication {
+    truststore_uri = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
+  }
+
   depends_on = [aws_acm_certificate_validation.api_gateway_custom_hostname]
 }
 
