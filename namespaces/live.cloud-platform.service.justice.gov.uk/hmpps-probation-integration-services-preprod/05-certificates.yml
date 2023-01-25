@@ -66,6 +66,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: person-search-index-from-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: person-search-index-from-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - person-search-index-from-delius-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: pre-sentence-reports-to-delius-cert
   namespace: hmpps-probation-integration-services-preprod
 spec:
