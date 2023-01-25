@@ -22,7 +22,7 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
