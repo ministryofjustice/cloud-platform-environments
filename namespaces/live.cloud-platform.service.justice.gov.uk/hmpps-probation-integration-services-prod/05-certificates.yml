@@ -105,6 +105,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: prison-custody-status-to-delius-cert
+  namespace: hmpps-probation-integration-services
+spec:
+  secretName: prison-custody-status-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-custody-status-to-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: risk-assessment-scores-to-delius-cert
   namespace: hmpps-probation-integration-services-prod
 spec:
