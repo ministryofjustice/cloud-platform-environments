@@ -12,27 +12,25 @@ module "truststore_s3_bucket" {
     aws = aws.london_without_default_tags
   }
 
-  bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowBucketAccess",
-      "Effect": "Allow",
-      "Principal": {
-          "AWS": "${aws_api_gateway_rest_api.api_gateway.arn}"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
+  bucket_policy =
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowBucketAccess",
+        "Effect": "Allow",
+        "Principal": {
+            "AWS": "${aws_api_gateway_rest_api.api_gateway.arn}"
+        },
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
 }
 
 resource "kubernetes_secret" "truststore_s3_bucket" {
