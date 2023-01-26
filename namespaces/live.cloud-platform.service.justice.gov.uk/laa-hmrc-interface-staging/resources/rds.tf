@@ -25,7 +25,6 @@ module "rds" {
   db_instance_class = "db.t3.small"
 
   providers = {
-    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 }
