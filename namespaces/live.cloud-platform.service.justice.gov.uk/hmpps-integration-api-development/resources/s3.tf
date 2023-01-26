@@ -9,7 +9,7 @@ module "truststore_s3_bucket" {
   namespace              = var.namespace
 
   providers = {
-    aws = aws.london
+    aws = aws.london_without_default_tags
   }
 
   bucket_policy = <<EOF
