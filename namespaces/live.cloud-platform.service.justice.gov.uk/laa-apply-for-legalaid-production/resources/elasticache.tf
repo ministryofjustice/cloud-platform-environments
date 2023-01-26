@@ -14,6 +14,7 @@ module "apply-for-legal-aid-elasticache" {
   is-production          = "true"
   environment-name       = "production"
   infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  node_type              = "cache.t4g.medium"
   engine_version         = "6.x"
   parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
