@@ -141,3 +141,16 @@ spec:
   dnsNames:
     - tier-to-delius.hmpps.service.justice.gov.uk
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: unpaid-work-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: unpaid-work-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - unpaid-work-and-delius.hmpps.service.justice.gov.uk
+---
