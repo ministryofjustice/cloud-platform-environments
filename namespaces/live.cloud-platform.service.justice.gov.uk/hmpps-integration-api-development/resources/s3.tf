@@ -20,7 +20,8 @@ module "truststore_s3_bucket" {
       "Sid": "AllowBucketAccess",
       "Effect": "Allow",
       "Principal": {
-          "AWS": "${aws_api_gateway_rest_api.api_gateway.arn}"
+          "AWS": "${aws_iam_role.api_gateway_role.arn}"
+
       },
       "Action": [
         "s3:GetObject"
@@ -32,7 +33,6 @@ module "truststore_s3_bucket" {
   ]
 }
 EOF
-
 }
 
 resource "kubernetes_secret" "truststore_s3_bucket" {
