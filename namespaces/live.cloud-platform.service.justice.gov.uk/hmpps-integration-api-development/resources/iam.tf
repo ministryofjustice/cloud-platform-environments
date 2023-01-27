@@ -41,3 +41,43 @@ resource "kubernetes_secret" "api_gateway_admin_user_credentials" {
     secret_access_key = aws_iam_access_key.api_gateway_user.secret
   }
 }
+
+resource "aws_iam_role" "api_gateway_role" {
+  name               = "${var.namespace}-api-gateway"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "api_gw_s3" {
+  name  = "${var.namespace}-api-gateway-s3"
+  role = aws_iam_role.api_gateway_role.name
+
+  policy = <<EOF
+{
+  "Version" : "2012-10-17",
+  "Statement" : [
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+
+      "Resource": [
+        "${module.truststore_s3_bucket.bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
