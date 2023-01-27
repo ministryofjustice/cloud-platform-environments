@@ -20,8 +20,7 @@ module "truststore_s3_bucket" {
       "Sid": "AllowBucketAccess",
       "Effect": "Allow",
       "Principal": {
-          "AWS": "${aws_iam_role.api_gateway_role.arn}"
-
+        "AWS": "${aws_iam_role.api_gateway_role.arn}"
       },
       "Action": [
         "s3:GetObject"
