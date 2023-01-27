@@ -13,7 +13,8 @@ module "hmpps_assess_risks_and_needs_prod_rds" {
   db_instance_class      = "db.t3.small"
   db_engine              = "postgres"
   db_engine_version      = "14.3"
-  auto_minor_version_upgrade  = "false"
+
+  allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
 
   providers = {
