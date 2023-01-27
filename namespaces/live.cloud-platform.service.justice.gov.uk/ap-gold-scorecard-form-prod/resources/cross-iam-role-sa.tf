@@ -92,6 +92,20 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
     ]
   }
+
+  statement {
+    sid = "AllowCPImagePull"
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetAuthorizationToken"
+    ]
+    resources = [
+      "arn:aws:ecr:eu-west-1:593291632749:repository/ap-auth0-proxy-test"
+    ]
+
+  }
 }
 
 resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
