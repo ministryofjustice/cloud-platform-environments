@@ -12,10 +12,10 @@ module "hmpps_assess_risks_and_needs_prod_rds" {
   rds_family             = "postgres14"
   db_instance_class      = "db.t3.small"
   db_engine              = "postgres"
-  db_engine_version      = "14"
+  db_engine_version      = "14.3"
 
-  allow_major_version_upgrade = "true"
-
+  allow_minor_version_upgrade = "false"
+  allow_major_version_upgrade = "false"
 
   providers = {
     aws = aws.london
