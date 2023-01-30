@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "vsip_audit_secret" {
   metadata {
-    name      = "sqs-hmpps-audit-secret"
+    name      = "sqs-hmpps-audit-secret-staging"
     namespace = "visit-someone-in-prison-frontend-svc-staging"
   }
 
