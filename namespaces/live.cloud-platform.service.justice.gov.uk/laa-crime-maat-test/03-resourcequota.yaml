@@ -5,4 +5,4 @@ metadata:
   namespace: laa-crime-maat-test
 spec:
   hard:
-    pods: "50"
+    pods: "100"

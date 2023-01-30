@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "prison-visit-booking"
     cloud-platform.justice.gov.uk/slack-alert-channel: "prison-visit-booking"
     cloud-platform.justice.gov.uk/application: "Help with Prison Visits"
-    cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/apvs-internal-web,https://github.com/ministryofjustice/apvs-external-web,https://github.com/ministryofjustice/apvs-asynchronous-worker"
+    cloud-platform.justice.gov.uk/owner: "Prison Visits Booking: prisonvisitsbooking@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/help-with-prison-visits-asynchronous-worker,https://github.com/ministryofjustice/help-with-prison-visits-external,https://github.com/ministryofjustice/help-with-prison-visits-internal"
     cloud-platform.justice.gov.uk/team-name: "hmpps-help-with-prison-visits"

@@ -86,32 +86,34 @@ module "s3_bucket" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "retire exports after 90 days"
-      prefix  = ""
-
+      id      = "Expire intermediate test reports after 1 days"
+      prefix  = "TEMP_REPORTS/"
       noncurrent_version_expiration = [
         {
-          days = 90
-        },
+          days = 1
+        }
       ]
-
       expiration = [
         {
-          days = 90
-        },
+          days = 1
+        }
       ]
     },
     {
       enabled = true
-      id      = "retire imports after 90 days"
-      prefix  = "surveys/imports"
-
+      id      = "Expire all objects after 30 days"
+      prefix  = ""
+      noncurrent_version_expiration = [
+        {
+          days = 30
+        }
+      ]
       expiration = [
         {
-          days = 90
-        },
+          days = 30
+        }
       ]
-    },
+    }
   ]
 
 

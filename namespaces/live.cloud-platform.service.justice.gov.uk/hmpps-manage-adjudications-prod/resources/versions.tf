@@ -6,5 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.27.0"
     }
+    pingdom = {
+      source  = "russellcardullo/pingdom"
+      version = "1.1.3"
+    }
   }
 }

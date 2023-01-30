@@ -1,5 +1,3 @@
-
-
 variable "vpc_name" {
 }
 
@@ -25,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-integration-api-team"
+  default     = "hmpps-integration-api-admin-team"
 }
 
 variable "environment" {
@@ -55,4 +53,18 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "base_domain" {
+  default = "hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the FQDN"
+  default     = "development.integration-api"
+}
+
+variable "cloud_platform_integration_api_url" {
+  description = "Pre-defined domain for the namespace provided by Cloud Platform"
+  default     = "https://hmpps-integration-api-development.apps.live.cloud-platform.service.justice.gov.uk"
 }

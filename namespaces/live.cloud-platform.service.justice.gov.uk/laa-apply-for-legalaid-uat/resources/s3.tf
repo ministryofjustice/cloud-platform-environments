@@ -7,7 +7,7 @@ module "authorized-keys" {
   application            = "laa-apply-for-legal-aid"
   is-production          = "false"
   environment-name       = "uat"
-  infrastructure-support = "apply@digital.justice.gov.uk"
+  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   namespace              = var.namespace
 
   providers = {
@@ -27,4 +27,3 @@ resource "kubernetes_secret" "apply-for-legal-aid-s3-credentials" {
     secret_access_key = module.authorized-keys.secret_access_key
   }
 }
-

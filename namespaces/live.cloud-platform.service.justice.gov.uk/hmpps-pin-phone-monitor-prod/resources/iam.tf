@@ -7,6 +7,10 @@ resource "aws_iam_access_key" "bt_upload_user_key" {
   user = aws_iam_user.bt_upload_user.name
 }
 
+resource "aws_iam_access_key" "key_2023" {
+  user = aws_iam_user.bt_upload_user.name
+}
+
 data "aws_iam_policy_document" "bt_upload_policy" {
   statement {
     actions = ["s3:PutObject"]
@@ -53,6 +57,8 @@ resource "kubernetes_secret" "pcms_bt_upload_user" {
     arn               = aws_iam_user.bt_upload_user.arn
     access_key_id     = aws_iam_access_key.bt_upload_user_key.id
     secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
+    bt_access_key_id     = aws_iam_access_key.key_2023.id
+    bt_secret_access_key = aws_iam_access_key.key_2023.secret
   }
 }
 

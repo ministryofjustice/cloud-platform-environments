@@ -23,11 +23,12 @@ module "rds" {
   rds_family           = "postgres10"
   db_engine            = "postgres"
   db_engine_version    = "10"
-  db_instance_class    = "db.t2.small"
+  db_instance_class    = "db.t3.large"
   db_allocated_storage = "5"
   db_name              = "mtp_api"
 
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = true
+  allow_minor_version_upgrade = true
   deletion_protection         = true
 }
 

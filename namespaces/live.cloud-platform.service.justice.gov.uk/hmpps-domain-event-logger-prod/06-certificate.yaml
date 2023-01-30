@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: domain-event-logger-cert
+  namespace: hmpps-domain-event-logger-prod
+spec:
+  secretName: domain-event-logger-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - domain-event-logger.hmpps.service.justice.gov.uk

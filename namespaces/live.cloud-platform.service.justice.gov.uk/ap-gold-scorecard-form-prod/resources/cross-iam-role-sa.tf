@@ -89,8 +89,22 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "athena:RunQuery",
     ]
     resources = [
-      "arn:aws:athena:eu-west-1:593291632749:workgroup/primary",
+      "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
     ]
+  }
+
+  statement {
+    sid = "AllowCPImagePull"
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetAuthorizationToken"
+    ]
+    resources = [
+      "arn:aws:ecr:eu-west-1:593291632749:repository/ap-auth0-proxy-test"
+    ]
+
   }
 }
 
@@ -100,9 +114,9 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 
   tags = {
     business-unit          = "Cloud Platform"
-    application            = "Test Migration"
-    is-production          = "false"
-    environment-name       = "Development"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
+    environment-name       = "Production"
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
   }
@@ -116,5 +130,46 @@ resource "kubernetes_secret" "irsa" {
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
+  }
+}
+
+# IAM user so athena can access S3 buckets in the analytical platform data aws account
+resource "random_id" "id" {
+  byte_length = 16
+}
+
+resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
+  name = "gold-scorecard-form-${random_id.id.hex}"
+  path = "/system/gold-scorecard-form/"
+
+  tags = {
+    business-unit          = "Cloud Platform"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
+    environment-name       = "Production"
+    owner                  = "cloud-platform"
+    infrastructure-support = "platforms@digital.justice.gov.uk"
+    usage-scope            = "athena"
+  }
+}
+
+resource "kubernetes_secret" "gold-scorecard-form-user" {
+  metadata {
+    name      = "gold-scorecard-form-user"
+    namespace = "ap-gold-scorecard-form-prod"
+  }
+  data = {
+    name = aws_iam_user.ap-gold-scorecard-form-prod.name
+    arn  = aws_iam_user.ap-gold-scorecard-form-prod.arn
+  }
+}
+
+resource "aws_athena_data_catalog" "gold-scorecard-form" {
+  name        = "gold-scorecard-form"
+  description = "Glue based Data Catalog for Gold Scorecard Form App"
+  type        = "GLUE"
+
+  parameters = {
+    "catalog-id" = "593291632749"
   }
 }
