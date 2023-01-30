@@ -1,35 +1,33 @@
 package main
 
 import (
-	"testing"
-	"time"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
-
+	"testing"
+	"time"
 )
 
 // Mocked EC2 client and methods.
 type mockedEC2 struct {
-    ec2iface.EC2API
-    DescribeSnapshotsOutput   ec2.DescribeSnapshotsOutput
+	ec2iface.EC2API
+	DescribeSnapshotsOutput ec2.DescribeSnapshotsOutput
 }
-
 
 func (m *mockedEC2) DescribeSnapshots(*ec2.DescribeSnapshotsInput) (*ec2.DescribeSnapshotsOutput, error) {
-    return &m.DescribeSnapshotsOutput, nil
+	return &m.DescribeSnapshotsOutput, nil
 }
 
-// Unit test for DeleteOldSnapshots func
-func TestDeleteOldSnapshots(t *testing.T) {
+// Test for deleteOldSnapshots func
+func Test_deleteOldSnapshots(t *testing.T) {
 
-	timet := time.Now()
+	currentTime := time.Now()
 
 	describeSnapshotsDeleted := ec2.DescribeSnapshotsOutput{
-		Snapshots: []*ec2.Snapshot {
+		Snapshots: []*ec2.Snapshot{
 			{
-				SnapshotId: aws.String("sp-0e3533b1b004a32f1"),
-				StartTime: &timet,
+				SnapshotId: aws.String("sp-12345678"),
+				StartTime:  &currentTime,
 			},
 		},
 	}
@@ -53,14 +51,13 @@ func TestDeleteOldSnapshots(t *testing.T) {
 		t.Run(c.Name, func(t *testing.T) {
 
 			// Run the test using the mocked EC2 client and specified return value
-			ss := DeleteOldSnapshots(
-				&mockedEC2{DescribeSnapshotsOutput: c.Resp},1)
+			snapshots := deleteOldSnapshots(
+				&mockedEC2{DescribeSnapshotsOutput: c.Resp}, 1)
 
 			// Test that the returned string matches what we expect
-			if ss != c.Expected {
-				t.Errorf("got %q, want %q", ss, c.Expected)
+			if snapshots != c.Expected {
+				t.Errorf("got %q, want %q", snapshots, c.Expected)
 			}
-
 		})
 	}
 }
