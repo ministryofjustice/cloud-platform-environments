@@ -71,7 +71,7 @@ module "gdx_data_share_dlq" {
 
 resource "kubernetes_secret" "gdx_data_share_queue" {
   metadata {
-    name = "sqs-gdx_data_share-secret"
+    name = "sqs-gdx-data-share-secret"
     # injected here and then sent manually over to GDS - an external client of the consuming service
     namespace = var.namespace
   }
