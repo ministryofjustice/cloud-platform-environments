@@ -164,3 +164,17 @@ spec:
   dnsNames:
     - unpaid-work-and-delius-preprod.hmpps.service.justice.gov.uk
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: workforce-allocations-to-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: workforce-allocations-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - workforce-delius-preprod.hmpps.service.justice.gov.uk
+    - workforce-allocations-to-delius-preprod.hmpps.service.justice.gov.uk
+---
