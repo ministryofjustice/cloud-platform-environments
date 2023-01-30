@@ -8,12 +8,14 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 )
 
 var awsRegion string = "eu-west-2"
 var ownerId string = "754256621582"
 
-func deleteOldSnapshots(svc *ec2.EC2, days int) {
+// Delete snapshots older than provided days
+func deleteOldSnapshots(svc ec2iface.EC2API, days int) {
 	output, err := svc.DescribeSnapshots(&ec2.DescribeSnapshotsInput{Filters: []*ec2.Filter{
 		{
 			Name: aws.String("owner-id"),
@@ -32,16 +34,20 @@ func deleteOldSnapshots(svc *ec2.EC2, days int) {
 			fmt.Println(*snapshot.SnapshotId, "deleted")
 		}
 	}
-	fmt.Printf("\nNo snapshots to delete older than '%v' days", days)
+	fmt.Printf("\nSnapshots older than '%v' days deleted", days)
 }
 
 func main() {
+	// Create AWS API Session
 	awsSession, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsRegion),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Instantiate new EC2 client
 	svc := ec2.New(awsSession)
+
+	// Delete snapshots older than given no of days
 	deleteOldSnapshots(svc, 420)
 }
