@@ -9,8 +9,7 @@ import (
 
 )
 
-// Mocked EC2 client and methods. Each method is setup to return a pointer to the relevant struct attribute.
-// This allows different return values to be set for each individual instantiation of the mocked client.
+// Mocked EC2 client and methods.
 type mockedEC2 struct {
     ec2iface.EC2API
     DescribeSnapshotsOutput   ec2.DescribeSnapshotsOutput
@@ -21,20 +20,7 @@ func (m *mockedEC2) DescribeSnapshots(*ec2.DescribeSnapshotsInput) (*ec2.Describ
     return &m.DescribeSnapshotsOutput, nil
 }
 
-// var (
-// 	// DescribeVpcsOutput - Single CIDR Block
-// 	describeSnapshotsDeleted = ec2.DescribeSnapshotsOutput{
-// 		Snapshots: []*ec2.Snapshot {
-// 			{
-// 				SnapshotId: aws.String("sp-0e3533b1b004a32f1"),
-// 			},
-// 		},
-// 	}
-
-// )
-
-
-// Unit test for ListVpcCidrBlocks func
+// Unit test for DeleteOldSnapshots func
 func TestDeleteOldSnapshots(t *testing.T) {
 
 	timet := time.Now()
@@ -47,24 +33,20 @@ func TestDeleteOldSnapshots(t *testing.T) {
 			},
 		},
 	}
-	// Define each test case as a struct.
-	// There are two specific cases tested for here:
-	//
-	// 1. A VPC with a single CIDR block attached
-	// 2. A VPC with multiple CIDR blocks attached
+	// Define test case as a struct.
 	cases := []struct {
 		Name     string
 		Resp     ec2.DescribeSnapshotsOutput
 		Expected error
 	}{
 		{
-			Name:     "SingleCidrAssociation",
+			Name:     "DeleteSnapshots",
 			Resp:     describeSnapshotsDeleted,
 			Expected: nil,
 		},
 	}
 
-	// Iterate through the list of test cases defined above
+	// Iterate through the test case defined above
 	for _, c := range cases {
 
 		// Create a sub-test for each case
@@ -75,7 +57,6 @@ func TestDeleteOldSnapshots(t *testing.T) {
 				&mockedEC2{DescribeSnapshotsOutput: c.Resp},1)
 
 			// Test that the returned string matches what we expect
-			// assert.Equal(t, c.Expected, ss)
 			if ss != c.Expected {
 				t.Errorf("got %q, want %q", ss, c.Expected)
 			}
