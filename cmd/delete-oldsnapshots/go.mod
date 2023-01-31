@@ -2,10 +2,7 @@ module github.com/ministryofjustice/cloud-platform-environments/cmd/delete-oldsn
 
 go 1.19
 
-require (
-	github.com/aws/aws-sdk-go v1.44.172
-	github.com/namsral/flag v1.7.4-pre
-)
+require github.com/aws/aws-sdk-go v1.44.172
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

@@ -29,7 +29,7 @@ func deleteOldSnapshots(svc ec2iface.EC2API, days int) error {
 		},
 	}})
 	if err != nil {
-		log.Fatal("Error to describe snapshots:", err.Error())
+		return err
 	}
 	time := time.Now().AddDate(0, 0, -1*days)
 	for _, snapshot := range output.Snapshots {
