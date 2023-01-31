@@ -4,11 +4,11 @@ module "claim-criminal-injuries-application-queue" {
   sqs_name = "claim-criminal-injuries-application-queue"
   fifo_queue             = false
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business-unit          = var.business-unit
   application            = var.application
-  is-production          = var.is_production
+  is-production          = var.is-production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
