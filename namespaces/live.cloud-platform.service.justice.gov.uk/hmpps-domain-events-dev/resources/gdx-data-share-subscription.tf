@@ -83,7 +83,7 @@ EOF
 
 }
 
-resource "aws_sqs_queue_policy" "gdx_data_share_queue_policy" {
+resource "aws_sqs_queue_policy" "gdx_data_share_dlq_policy" {
   queue_url = module.gdx_data_share_dlq.sqs_id
 
   policy = <<EOF
