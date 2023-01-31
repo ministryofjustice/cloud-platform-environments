@@ -4,7 +4,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "grc-public-production" {
   type                     = "http"
-  name                     = "Gender Recognitiono ServicePublic production - Healthcheck"
+  name                     = "Gender Recognition ServicePublic production - Healthcheck"
   host                     = "genderrecognition.service.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
