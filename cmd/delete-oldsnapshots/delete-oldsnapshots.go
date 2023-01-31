@@ -15,7 +15,7 @@ import (
 var (
 	awsRegion = flag.String("aws-region", "eu-west-2", "AWS_REGION")
 	ownerId   = flag.String("owner-id", "754256621582", "OWNER_ID")
-	daysOlder = flag.Int("days-older", 410, "DAYS_OLDER")
+	daysOld   = flag.Int("days-old", 400, "DAYS_OLD")
 )
 
 // Delete snapshots older than given days
@@ -38,6 +38,7 @@ func deleteOldSnapshots(svc ec2iface.EC2API, days int) error {
 			fmt.Println(*snapshot.SnapshotId, "deleted")
 		}
 	}
+	fmt.Printf("\nSnapshots deleted older than '%v' days", daysOld)
 	return nil
 }
 
@@ -54,7 +55,7 @@ func main() {
 
 	flag.Parse()
 	// Delete snapshots older than given no of days
-	err = deleteOldSnapshots(svc, *daysOlder)
+	err = deleteOldSnapshots(svc, *daysOld)
 	if err != nil {
 		log.Fatal("Error deleting old snapshots:", err.Error())
 	}
