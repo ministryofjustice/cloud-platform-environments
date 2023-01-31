@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - dev.criminal-justice-delivery-data-dashboards.justice.gov.uk
+    - criminal-justice-delivery-data-dashboards.justice.gov.uk
