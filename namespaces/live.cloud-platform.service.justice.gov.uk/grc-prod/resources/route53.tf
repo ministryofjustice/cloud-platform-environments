@@ -24,7 +24,7 @@ resource "kubernetes_secret" "route53_zone_sec" {
 }
 
 resource "aws_route53_zone" "route53_justice_zone" {
-  name = "prisonvisits.service.justice.gov.uk"
+  name = "genderrecognition.service.justice.gov.uk"
 
   tags = {
     business-unit          = "HMPPS"
