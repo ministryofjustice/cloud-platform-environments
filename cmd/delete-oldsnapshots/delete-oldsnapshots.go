@@ -38,7 +38,7 @@ func deleteOldSnapshots(svc ec2iface.EC2API, days int) error {
 			fmt.Println(*snapshot.SnapshotId, "deleted")
 		}
 	}
-	fmt.Printf("\nSnapshots deleted older than '%v' days", daysOld)
+	fmt.Printf("\nSnapshots deleted older than '%v' days", *daysOld)
 	return nil
 }
 
