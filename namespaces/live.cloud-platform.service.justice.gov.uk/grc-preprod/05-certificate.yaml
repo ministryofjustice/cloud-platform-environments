@@ -1,0 +1,48 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-cert
+  namespace: grc-preprod
+spec:
+  secretName: gender-recognition-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - gender-recognition-service-preprod.service.justice.gov.uk
+
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-admin-cert
+  namespace: grc-preprod
+spec:
+  secretName: gender-recognition-service-admin-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - admin.gender-recognition-service-preprod.service.justice.gov.uk
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-dashboard-cert
+  namespace: grc-preprod
+spec:
+  secretName: gender-recognition-service-dashboard-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - dashboard.gender-recognition-service-preprod.service.justice.gov.uk
+
+
+
+
+
+
+
+
+
