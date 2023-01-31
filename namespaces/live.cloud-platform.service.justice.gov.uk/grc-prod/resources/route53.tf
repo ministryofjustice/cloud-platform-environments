@@ -27,8 +27,8 @@ resource "aws_route53_zone" "route53_justice_zone" {
   name = "genderrecognition.service.justice.gov.uk"
 
   tags = {
-    business-unit          = "HMPPS"
-    application            = "PVB"
+    business-unit          = var.business_unit
+    application            = var.application
     is-production          = var.is-production
     environment-name       = var.environment-name
     owner                  = var.team_name
