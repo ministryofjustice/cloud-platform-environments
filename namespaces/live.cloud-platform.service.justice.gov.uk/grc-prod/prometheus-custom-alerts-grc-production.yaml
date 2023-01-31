@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: gender-recognition-service-alerting-production
-  namespace: gender-recognition-service-production
+  namespace: grc-prod
   labels:
     prometheus: cloud-platform
 spec:
