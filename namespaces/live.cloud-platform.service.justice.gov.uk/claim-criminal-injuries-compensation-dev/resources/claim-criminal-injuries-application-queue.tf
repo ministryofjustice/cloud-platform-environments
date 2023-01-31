@@ -21,7 +21,7 @@ module "claim-criminal-injuries-application-queue" {
 
 resource "kubernetes_secret" "claim-criminal-injuries-application-sqs" {
   metadata {
-    name      = "sqs"
+    name      = "application-sqs"
     namespace = var.namespace
   }
 
