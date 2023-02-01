@@ -9,7 +9,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-      - preprod.app.gender-recognition.service.justice.gov.uk
+      - preprod.gender-recognition.service.justice.gov.uk
 
 ---
 
