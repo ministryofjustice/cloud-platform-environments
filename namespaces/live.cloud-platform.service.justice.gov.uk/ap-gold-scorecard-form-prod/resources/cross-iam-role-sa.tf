@@ -7,6 +7,16 @@ module "irsa" {
 
 data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   statement {
+    sid = "listallbuckets"
+    actions = [
+      "s3:ListAllMyBuckets",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
     sid = "listbucket"
     actions = [
       "s3:ListBucket",
@@ -20,7 +30,7 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   }
 
   statement {
-    sid = "readwritelistbuckets"
+    sid = "readwritebucket"
     actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
@@ -30,7 +40,6 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "s3:PutObject",
       "s3:PutObjectAcl",
       "s3:RestoreObject",
-      "s3:ListAllMyBuckets",
     ]
     resources = [
       "arn:aws:s3:::alpha-app-scorecard-form/*",
