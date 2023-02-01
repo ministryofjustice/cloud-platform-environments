@@ -1,12 +1,50 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: gender-recognition-service-prod
+  name: gender-recognition-service-app-cert
   namespace: grc-prod
 spec:
-  secretName: gender-recognition-service-cert
+  secretName: gender-recognition-service-app-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-      - gender-recognition-service.service.justice.gov.uk
+      - gender-recognition.service.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-admin-cert
+  namespace: grc-prod
+spec:
+  secretName: gender-recognition-service-admin-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - admin.gender-recognition.service.justice.gov.uk
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-dashboard-cert
+  namespace: grc-prod
+spec:
+  secretName: gender-recognition-dashboard-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - dashboard.gender-recognition.service.justice.gov.uk
+
+
+
+
+
+
+
+
+
