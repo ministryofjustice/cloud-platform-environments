@@ -7,6 +7,16 @@ module "irsa" {
 
 data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   statement {
+    sid = "listallbuckets"
+    actions = [
+      "s3:ListAllMyBuckets",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
     sid = "listbucket"
     actions = [
       "s3:ListBucket",
@@ -92,20 +102,6 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
     ]
   }
-
-  statement {
-    sid = "AllowCPImagePull"
-    actions = [
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:BatchGetImage",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:GetAuthorizationToken"
-    ]
-    resources = [
-      "arn:aws:ecr:eu-west-1:593291632749:repository/ap-auth0-proxy-test"
-    ]
-
-  }
 }
 
 resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
@@ -122,45 +118,14 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "cross-account-iam-role" {
   metadata {
-    name      = "irsa-output"
-    namespace = "ap-gold-scorecard-form-prod"
+    name      = "cross-account-iam-role"
+    namespace = var.namespace
   }
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
-  }
-}
-
-# IAM user so athena can access S3 buckets in the analytical platform data aws account
-resource "random_id" "id" {
-  byte_length = 16
-}
-
-resource "aws_iam_user" "ap-gold-scorecard-form-prod" {
-  name = "gold-scorecard-form-${random_id.id.hex}"
-  path = "/system/gold-scorecard-form/"
-
-  tags = {
-    business-unit          = "Cloud Platform"
-    application            = "Gold Scorecard Form"
-    is-production          = "true"
-    environment-name       = "Production"
-    owner                  = "cloud-platform"
-    infrastructure-support = "platforms@digital.justice.gov.uk"
-    usage-scope            = "athena"
-  }
-}
-
-resource "kubernetes_secret" "gold-scorecard-form-user" {
-  metadata {
-    name      = "gold-scorecard-form-user"
-    namespace = "ap-gold-scorecard-form-prod"
-  }
-  data = {
-    name = aws_iam_user.ap-gold-scorecard-form-prod.name
-    arn  = aws_iam_user.ap-gold-scorecard-form-prod.arn
   }
 }
 
