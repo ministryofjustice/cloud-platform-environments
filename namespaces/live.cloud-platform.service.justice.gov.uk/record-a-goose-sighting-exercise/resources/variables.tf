@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "record-a-goose-sighting"
+  default = "record-a-goose-sighting-exercise"
 }
 
 variable "business_unit" {
@@ -56,4 +56,3 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
-
