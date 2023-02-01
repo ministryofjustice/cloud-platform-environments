@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "record-a-goose-sighting-admin-team"
+  default     = "accessibility-resources-admin"
 }
 
 variable "environment" {
@@ -57,14 +57,3 @@ variable "github_token" {
   default     = ""
 }
 
-## Prototype kit variables
-
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "record"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "goose"
-}
