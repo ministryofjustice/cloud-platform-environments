@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   }
 
   statement {
-    sid = "readwritebucket"
+    sid = "readwritelistbuckets"
     actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
@@ -30,6 +30,7 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "s3:PutObject",
       "s3:PutObjectAcl",
       "s3:RestoreObject",
+      "s3:ListAllMyBuckets",
     ]
     resources = [
       "arn:aws:s3:::alpha-app-scorecard-form/*",
