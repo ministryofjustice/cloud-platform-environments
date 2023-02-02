@@ -71,29 +71,3 @@ resource "aws_sqs_queue_policy" "gdx_data_share_dlq_policy" {
 
 }
 
-resource "kubernetes_secret" "gdx_data_share_queue" {
-  metadata {
-    name      = "sqs-gdx-data-share-secret"
-    namespace = var.namespace
-  }
-
-  data = {
-    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
-    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
-    sqs_queue_name = module.gdx_data_share_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "gdx_data_share_dlq" {
-  metadata {
-    name      = "sqs-gdx-datashare-dl-secret"
-    namespace = var.namespace
-  }
-
-  data = {
-    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
-    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
-    sqs_queue_name = module.gdx_data_share_queue.sqs_name
-  }
-}
-
