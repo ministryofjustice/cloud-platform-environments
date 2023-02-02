@@ -126,6 +126,7 @@ resource "kubernetes_secret" "cross-account-iam-role" {
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
+    policy_doc     = data.aws_iam_policy_document.ap-gold-scorecard-form-prod.json
   }
 }
 
