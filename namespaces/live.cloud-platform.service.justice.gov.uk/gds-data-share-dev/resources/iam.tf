@@ -1,113 +1,99 @@
-locals {
-  managed_sqs_queues = [
-    module.gdx-data-share-queue.sqs_arn,
-    module.gdx-data-share-dlq.sqs_arn,
-  ]
+# provide a policy to the GDX AWS account to be able to read these queues.
+resource "aws_sqs_queue_policy" "gdx_data_share_queue_policy" {
+  queue_url = module.gdx_data_share_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version":"2012-10-17",
+    "Id":"${module.gdx_data_share_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":[
+       {
+          "Effect":"Allow",
+          "Principal":{
+             "AWS":"*"
+          },
+          "Resource":"${module.gdx_data_share_queue.sqs_arn}",
+          "Action":"SQS:SendMessage",
+          "Condition":{
+             "ArnEquals":{
+                "aws:SourceArn":"${data.aws_sns_topic.hmpps-domain-events.arn}"
+             }
+          }
+       },
+       {
+          "Effect":"Allow",
+          "Principal":{
+             "AWS":[
+                "arn:aws:iam::776473272850:root"
+             ]
+          },
+          "Action":[
+             "SQS:SendMessage",
+             "SQS:ReceiveMessage",
+             "SQS:DeleteMessage",
+             "SQS:GetQueueUrl"
+          ],
+          "Resource":"${module.gdx_data_share_queue.sqs_arn}"
+       }
+    ]
+ }
+
+ EOF
+
 }
 
-data "aws_iam_policy_document" "sqs_queue_policy_document" {
-  statement {
-    sid     = "TopicToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
-    resources = ["*"]
-  }
-  statement {
-    sid    = "QueueManagementRead"
-    effect = "Allow"
-    actions = [
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
-      "sqs:ListDeadLetterSourceQueues",
-      "sqs:ListQueueTags",
-      "sqs:ListQueues",
+resource "aws_sqs_queue_policy" "gdx_data_share_dlq_policy" {
+  queue_url = module.gdx_data_share_dlq.sqs_id
+
+  policy = <<EOF
+  {
+    "Version":"2012-10-17",
+    "Id":"${module.gdx_data_share_dlq.sqs_arn}/SQSDefaultPolicy",
+    "Statement":[
+       {
+          "Effect":"Allow",
+          "Principal":{
+             "AWS":[
+                "arn:aws:iam::776473272850:root"
+             ]
+          },
+          "Action":[
+             "SQS:ReceiveMessage",
+             "SQS:DeleteMessage",
+             "SQS:GetQueueUrl"
+          ],
+          "Resource":"${module.gdx_data_share_dlq.sqs_arn}"
+       }
     ]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_role.console_role.arn]
-    }
-    resources = ["*"]
-  }
-  statement {
-    sid    = "QueueManagementWrite"
-    effect = "Allow"
-    actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
-      "sqs:PurgeQueue",
-      "sqs:ReceiveMessage",
-      "sqs:SendMessage",
-    ]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_role.console_role.arn]
-    }
-    resources = ["*"]
-  }
+ }
+
+ EOF
+
 }
 
-data "aws_iam_policy_document" "sqs_console_role_policy_document" {
-  statement {
-    sid    = "QueueManagementRead"
-    effect = "Allow"
-    actions = [
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
-      "sqs:ListDeadLetterSourceQueues",
-      "sqs:ListQueueTags",
-      "sqs:ListQueues",
-    ]
-    resources = local.managed_sqs_queues
+resource "kubernetes_secret" "gdx_data_share_queue" {
+  metadata {
+    name      = "sqs-gdx-data-share-secret"
+    namespace = var.namespace
   }
-  statement {
-    sid    = "QueueManagementWrite"
-    effect = "Allow"
-    actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
-      "sqs:PurgeQueue",
-      "sqs:ReceiveMessage",
-      "sqs:SendMessage",
-    ]
-    resources = local.managed_sqs_queues
-  }
-  statement {
-    sid    = "KMS"
-    effect = "Allow"
-    actions = [
-      "kms:Decrypt",
-      "kms:Encrypt",
-      "kms:GenerateDataKey*"
-    ]
-    resources = ["*"]
+
+  data = {
+    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
+    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
+    sqs_queue_name = module.gdx_data_share_queue.sqs_name
   }
 }
 
-data "aws_iam_policy_document" "console_assume_role_policy_document" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::776473272850:root"] # hmpps-probation
-    }
+resource "kubernetes_secret" "gdx_data_share_dlq" {
+  metadata {
+    name      = "sqs-gdx-datashare-dl-secret"
+    namespace = var.namespace
   }
-}
 
-resource "aws_iam_role" "console_role" {
-  name               = "${var.namespace}-console"
-  assume_role_policy = data.aws_iam_policy_document.console_assume_role_policy_document.json
-  inline_policy {
-    policy = data.aws_iam_policy_document.sqs_console_role_policy_document.json
+  data = {
+    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
+    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
+    sqs_queue_name = module.gdx_data_share_queue.sqs_name
   }
 }
 
