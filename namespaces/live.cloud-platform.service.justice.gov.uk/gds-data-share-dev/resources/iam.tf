@@ -1,18 +1,18 @@
-# provide a policy to the GDX AWS account to be able to read these queues.
-resource "aws_sqs_queue_policy" "gdx_data_share_queue_policy" {
-  queue_url = module.gdx_data_share_queue.sqs_id
+# provide a policy to the gds AWS account to be able to read these queues.
+resource "aws_sqs_queue_policy" "gds_data_share_queue_policy" {
+  queue_url = module.gds_data_share_queue.sqs_id
 
   policy = <<EOF
   {
     "Version":"2012-10-17",
-    "Id":"${module.gdx_data_share_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id":"${module.gds_data_share_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":[
        {
           "Effect":"Allow",
           "Principal":{
              "AWS":"*"
           },
-          "Resource":"${module.gdx_data_share_queue.sqs_arn}",
+          "Resource":"${module.gds_data_share_queue.sqs_arn}",
           "Action":"SQS:SendMessage",
           "Condition":{
              "ArnEquals":{
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "gdx_data_share_queue_policy" {
              "SQS:DeleteMessage",
              "SQS:GetQueueUrl"
           ],
-          "Resource":"${module.gdx_data_share_queue.sqs_arn}"
+          "Resource":"${module.gds_data_share_queue.sqs_arn}"
        }
     ]
  }
@@ -42,13 +42,13 @@ resource "aws_sqs_queue_policy" "gdx_data_share_queue_policy" {
 
 }
 
-resource "aws_sqs_queue_policy" "gdx_data_share_dlq_policy" {
-  queue_url = module.gdx_data_share_dlq.sqs_id
+resource "aws_sqs_queue_policy" "gds_data_share_dlq_policy" {
+  queue_url = module.gds_data_share_dlq.sqs_id
 
   policy = <<EOF
   {
     "Version":"2012-10-17",
-    "Id":"${module.gdx_data_share_dlq.sqs_arn}/SQSDefaultPolicy",
+    "Id":"${module.gds_data_share_dlq.sqs_arn}/SQSDefaultPolicy",
     "Statement":[
        {
           "Effect":"Allow",
@@ -62,7 +62,7 @@ resource "aws_sqs_queue_policy" "gdx_data_share_dlq_policy" {
              "SQS:DeleteMessage",
              "SQS:GetQueueUrl"
           ],
-          "Resource":"${module.gdx_data_share_dlq.sqs_arn}"
+          "Resource":"${module.gds_data_share_dlq.sqs_arn}"
        }
     ]
  }
