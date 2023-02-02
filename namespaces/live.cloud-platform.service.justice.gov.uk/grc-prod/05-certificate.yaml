@@ -39,12 +39,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
       - dashboard.gender-recognition.service.justice.gov.uk
-
-
-
-
-
-
-
-
-
