@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "gdx-data-share-queue-subscription" {
-  provider  = aws.london
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.gdx_data_share_queue.sqs_arn
