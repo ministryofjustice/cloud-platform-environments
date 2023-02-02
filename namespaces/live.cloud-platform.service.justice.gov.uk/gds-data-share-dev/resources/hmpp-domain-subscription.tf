@@ -1,7 +1,7 @@
 resource "aws_sns_topic_subscription" "gdx-data-share-queue-subscription" {
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
-  endpoint  = module.gdx-data-share-queue.sqs_arn
+  endpoint  = module.gdx_data_share_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.received",
@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "gdx-data-share-queue-subscription" {
   })
 }
 
-module "gdx-data-share-queue" {
+module "gdx_data_share_queue" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
   namespace              = var.namespace
   team_name              = var.team_name
@@ -20,17 +20,12 @@ module "gdx-data-share-queue" {
   sqs_name    = "gdx-data-share-queue"
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.gdx-data-share-dlq.sqs_arn
+    deadLetterTargetArn = module.gdx_data_share_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 }
 
-resource "aws_sqs_queue_policy" "gdx-data-share-queue-policy" {
-  queue_url = module.gdx-data-share-queue.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
-}
-
-module "gdx-data-share-dlq" {
+module "gdx_data_share_dlq" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
   namespace              = var.namespace
   team_name              = var.team_name
@@ -41,8 +36,28 @@ module "gdx-data-share-dlq" {
   sqs_name    = "gdx-data-share-dlq"
 }
 
-resource "aws_sqs_queue_policy" "gdx-data-share-dlq-policy" {
-  queue_url = module.gdx-data-share-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+resource "kubernetes_secret" "gdx_data_share_queue" {
+  metadata {
+    name      = "sqs-gdx-data-share-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
+    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
+    sqs_queue_name = module.gdx_data_share_queue.sqs_name
+  }
 }
 
+resource "kubernetes_secret" "gdx_data_share_dlq" {
+  metadata {
+    name      = "sqs-gdx-data-share-dlq-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.gdx_data_share_queue.sqs_id
+    sqs_queue_arn  = module.gdx_data_share_queue.sqs_arn
+    sqs_queue_name = module.gdx_data_share_queue.sqs_name
+  }
+}
