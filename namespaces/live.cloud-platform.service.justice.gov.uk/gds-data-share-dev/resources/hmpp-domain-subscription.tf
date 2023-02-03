@@ -56,8 +56,8 @@ resource "kubernetes_secret" "gds_data_share_dlq" {
   }
 
   data = {
-    sqs_queue_url  = module.gds_data_share_queue.sqs_id
-    sqs_queue_arn  = module.gds_data_share_queue.sqs_arn
-    sqs_queue_name = module.gds_data_share_queue.sqs_name
+    sqs_queue_url  = module.gds_data_share_dlq.sqs_id
+    sqs_queue_arn  = module.gds_data_share_dlq.sqs_arn
+    sqs_queue_name = module.gds_data_share_dlq.sqs_name
   }
 }
