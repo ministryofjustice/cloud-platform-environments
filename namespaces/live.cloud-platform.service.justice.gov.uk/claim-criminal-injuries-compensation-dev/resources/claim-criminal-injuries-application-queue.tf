@@ -24,9 +24,10 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
 
   policy = <<EOF
   {
-     "Version": "2012-10-17",
-     "Id": "claim-criminal-injuries-application-queue-deny-all-policy",
-     "Statement": [{
+    "Version": "2012-10-17",
+    "Id": "claim-criminal-injuries-application-queue-deny-all-policy",
+    "Statement": [
+      {
         "Sid": "claim-criminal-injuries-application-queue-deny-all-actions",
         "Effect": "Deny",
         "Principal": "*",
@@ -40,7 +41,22 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
             ]
           }
         }
-     }]
+      },
+      {
+        "Sid": "AlwaysEncrypted",
+        "Effect": "Deny",
+        "Principal": {
+          "AWS": "*"
+        },
+        "Action": "sqs:*",
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
   }
   EOF
 }
