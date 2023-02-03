@@ -2,9 +2,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: submit-information-report-test.hmpps.service.justice.gov.uk
-  namespace: manage-intelligence-test
+  namespace: hmpps-manage-intelligence-test
 spec:
-  secretName: hmpps-submit-information-report-cert
+  secretName: submit-information-report-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

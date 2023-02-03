@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: manage-intelligence-api-test.prison.service.justice.gov.uk
-  namespace: manage-intelligence-test
+  namespace: hmpps-manage-intelligence-test
 spec:
   secretName: manage-intelligence-api-cert
   issuerRef:

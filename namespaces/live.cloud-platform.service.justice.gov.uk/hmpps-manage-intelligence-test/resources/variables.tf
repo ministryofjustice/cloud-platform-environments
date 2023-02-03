@@ -14,13 +14,8 @@ variable "application" {
   default     = "manage-intelligence"
 }
 
-variable "namespace_suffix" {
-  description = "namespace suffix such as test or dev, used to ensure AWS resource names are unique"
-  default     = "test"
-}
-
 variable "namespace" {
-  default = "manage-intelligence-test"
+  default = "hmpps-manage-intelligence-test"
 }
 
 variable "business_unit" {
