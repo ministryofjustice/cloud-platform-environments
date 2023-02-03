@@ -19,6 +19,32 @@ module "claim-criminal-injuries-application-queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-policy" {
+  queue_url = "${module.claim-criminal-injuries-application-queue.sqs_id}"
+
+  policy = <<EOF
+  {
+     "Version": "2012-10-17",
+     "Id": "claim-criminal-injuries-application-queue-deny-all-policy",
+     "Statement": [{
+        "Sid": "claim-criminal-injuries-application-queue-deny-all-actions",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "sqs:*",
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}"
+        "Condition": {
+          "ArnNotEquals": {
+            "aws:SourceArn": [
+              "${aws_iam_user.app_service.arn}",
+              "${aws_iam_user.dcs.arn}"
+            ]
+          }
+        }
+     }]
+  }
+  EOF
+}
+
 resource "kubernetes_secret" "claim-criminal-injuries-application-sqs" {
   metadata {
     name      = "application-sqs"
