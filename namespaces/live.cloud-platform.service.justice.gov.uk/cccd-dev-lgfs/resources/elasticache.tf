@@ -14,8 +14,8 @@ module "cccd_elasticache_redis" {
   team_name              = var.team_name
   namespace              = var.namespace
 
-  engine_version        = "4.0.10"
-  parameter_group_name  = "default.redis4.0"
+  engine_version        = "6.x"
+  parameter_group_name  = "default.redis6.x"
   number_cache_clusters = "2"
   node_type             = "cache.t2.micro"
 }
