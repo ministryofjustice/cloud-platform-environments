@@ -51,10 +51,6 @@ variable "number_cache_clusters" {
 
 # Database settings
 
-variable "rds_family" {
-  default = "postgres14"
-}
-
 variable "backup_window" {
   default = "22:00-23:59"
 }
