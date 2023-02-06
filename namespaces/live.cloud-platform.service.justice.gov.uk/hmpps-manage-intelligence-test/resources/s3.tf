@@ -3,11 +3,11 @@ module "manage_intelligence_storage_bucket" {
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -20,11 +20,11 @@ module "manage_intelligence_rds_to_s3_bucket" {
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
