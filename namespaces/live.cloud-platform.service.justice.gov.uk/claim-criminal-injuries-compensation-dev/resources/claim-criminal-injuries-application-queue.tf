@@ -19,6 +19,62 @@ module "claim-criminal-injuries-application-queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-policy" {
+  queue_url = "${module.claim-criminal-injuries-application-queue.sqs_id}"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "claim-criminal-injuries-application-queue-access-policy",
+    "Statement": [
+      {
+        "Sid": "claim-criminal-injuries-application-queue-allow-dcs",
+        "Effect": "Allow",
+        "Principal": {"AWS": "*"},
+        "Action": "sqs:SendMessage",
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
+        "Condition": {
+          "ArnEquals": {
+            "aws:SourceArn": [
+              "${aws_iam_user.dcs.arn}"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "claim-criminal-injuries-application-queue-allow-app-service",
+        "Effect": "Allow",
+        "Principal": {"AWS": "*"},
+        "Action": [
+          "sqs:DeleteMessage",
+          "sqs:ReceiveMessage"
+        ],
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
+        "Condition": {
+          "ArnNotEquals": {
+            "aws:SourceArn": [
+              "${aws_iam_user.app_service.arn}"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "AlwaysEncrypted",
+        "Effect": "Deny",
+        "Principal": {"AWS": "*"},
+        "Action": "sqs:*",
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  }
+  EOF
+}
+
 resource "kubernetes_secret" "claim-criminal-injuries-application-sqs" {
   metadata {
     name      = "application-sqs"

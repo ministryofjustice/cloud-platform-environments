@@ -7,41 +7,24 @@ module "irsa" {
 
 data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   statement {
-    sid = "listallbuckets"
-    actions = [
-      "s3:ListAllMyBuckets",
-    ]
-    resources = [
-      "*"
-    ]
-  }
-
-  statement {
-    sid = "listbucket"
+    sid = "readwritebucket"
     actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation",
+      "s3:ListBucketMultipartUploads",
+      "s3:ListMultipartUploadParts",
+      "s3:AbortMultipartUpload",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:DeleteObject",
+      "s3:DeleteObjectVersion",
+      "s3:PutObject",
+      "s3:RestoreObject",
     ]
     resources = [
       "arn:aws:s3:::alpha-app-scorecard-form",
       "arn:aws:s3:::alpha-athena-query-dump",
       "arn:aws:s3:::mojap-athena-query-dump",
-    ]
-  }
-
-  statement {
-    sid = "readwritebucket"
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:GetObjectVersion",
-      "s3:DeleteObject",
-      "s3:DeleteObjectVersion",
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:RestoreObject",
-    ]
-    resources = [
       "arn:aws:s3:::alpha-app-scorecard-form/*",
       "arn:aws:s3:::alpha-athena-query-dump/$${aws:userid}/*",
       "arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*",
@@ -126,6 +109,7 @@ resource "kubernetes_secret" "cross-account-iam-role" {
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
+    policy_doc     = data.aws_iam_policy_document.ap-gold-scorecard-form-prod.json
   }
 }
 
