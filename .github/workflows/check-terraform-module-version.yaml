@@ -1,0 +1,18 @@
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  format-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check for editted files for terraform modules
+        uses: ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest@add-gh-action-to-pin-terraform-modules-to-latest 
+        env:
+          REPO_NAME: cloud-platform-environments
+          API_URL: ${{ env.TERRAFORM_MODULE_VERSIONS_API_URL }}
+          PR_NUMBER: ${{ github.event.number }}
+
+
