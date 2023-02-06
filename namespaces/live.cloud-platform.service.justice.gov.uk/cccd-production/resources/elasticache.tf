@@ -19,7 +19,7 @@ module "cccd_elasticache_redis" {
   engine_version        = "6.x"
   parameter_group_name  = "default.redis6.x"
   number_cache_clusters = "3"
-  node_type             = "cache.t2.small"
+  node_type             = "cache.t4g.small"
 }
 
 resource "kubernetes_secret" "cccd_elasticache_redis" {
