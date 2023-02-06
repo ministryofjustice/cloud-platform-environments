@@ -110,4 +110,42 @@ resource "aws_sns_topic_subscription" "curious_subscription" {
   filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.received\"]}"
 }
 
+resource "aws_iam_access_key" "curious_queue_key_2023" {
+  user = module.curious_queue.user_name
+}
 
+resource "aws_iam_access_key" "curious_dlq_key_2023" {
+  user = module.curious_dead_letter_queue.user_name
+}
+
+resource "kubernetes_secret" "curious_queue_2023" {
+  metadata {
+    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
+    name      = "sqs-curious-secret-2023"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.curious_queue_key_2023.id
+    secret_access_key = aws_iam_access_key.curious_queue_key_2023.secret
+    sqs_queue_url     = module.curious_queue.sqs_id
+    sqs_queue_arn     = module.curious_queue.sqs_arn
+    sqs_queue_name    = module.curious_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "curious_dlq_2023" {
+  metadata {
+    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
+    name      = "sqs-curious-dl-secret-2023"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.curious_dlq_key_2023.id
+    secret_access_key = aws_iam_access_key.curious_dlq_key_2023.secret
+    sqs_queue_url     = module.curious_dead_letter_queue.sqs_id
+    sqs_queue_arn     = module.curious_dead_letter_queue.sqs_arn
+    sqs_queue_name    = module.curious_dead_letter_queue.sqs_name
+  }
+}
