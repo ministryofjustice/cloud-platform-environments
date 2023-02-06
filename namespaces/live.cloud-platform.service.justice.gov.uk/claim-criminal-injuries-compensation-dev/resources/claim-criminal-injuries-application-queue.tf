@@ -30,11 +30,9 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
       {
         "Sid": "claim-criminal-injuries-application-queue-allow-dcs",
         "Effect": "Allow",
-        "Principal": {
-          AWS: "*"
-        },
+        "Principal": {"AWS": "*"},
         "Action": "sqs:SendMessage",
-        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}"
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
             "aws:SourceArn": [
@@ -46,14 +44,12 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
       {
         "Sid": "claim-criminal-injuries-application-queue-allow-app-service",
         "Effect": "Allow",
-        "Principal": {
-          AWS: "*"
-        },
+        "Principal": {"AWS": "*"},
         "Action": [
           "sqs:DeleteMessage",
           "sqs:ReceiveMessage"
         ],
-        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}"
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
         "Condition": {
           "ArnNotEquals": {
             "aws:SourceArn": [
@@ -65,9 +61,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
       {
         "Sid": "AlwaysEncrypted",
         "Effect": "Deny",
-        "Principal": {
-          "AWS": "*"
-        },
+        "Principal": {"AWS": "*"},
         "Action": "sqs:*",
         "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
         "Condition": {
