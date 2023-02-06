@@ -25,19 +25,39 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "claim-criminal-injuries-application-queue-deny-all-policy",
+    "Id": "claim-criminal-injuries-application-queue-access-policy",
     "Statement": [
       {
-        "Sid": "claim-criminal-injuries-application-queue-deny-all-actions",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": "sqs:*",
+        "Sid": "claim-criminal-injuries-application-queue-allow-dcs",
+        "Effect": "Allow",
+        "Principal": {
+          AWS: "*"
+        },
+        "Action": "sqs:SendMessage",
+        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}"
+        "Condition": {
+          "ArnEquals": {
+            "aws:SourceArn": [
+              "${aws_iam_user.dcs.arn}"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "claim-criminal-injuries-application-queue-allow-app-service",
+        "Effect": "Allow",
+        "Principal": {
+          AWS: "*"
+        },
+        "Action": [
+          "sqs:DeleteMessage",
+          "sqs:ReceiveMessage"
+        ],
         "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}"
         "Condition": {
           "ArnNotEquals": {
             "aws:SourceArn": [
-              "${aws_iam_user.app_service.arn}",
-              "${aws_iam_user.dcs.arn}"
+              "${aws_iam_user.app_service.arn}"
             ]
           }
         }
