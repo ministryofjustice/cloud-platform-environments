@@ -9,10 +9,10 @@ module "publisher-rds-instance" {
   namespace                   = var.namespace
   infrastructure-support      = var.infrastructure-support
   team_name                   = var.team_name
-  db_engine_version           = "12"
+  db_engine_version           = "12.13"
   allow_major_version_upgrade = "true"
   rds_family                  = "postgres12"
-  db_instance_class           = "db.t3"
+  db_instance_class           = "db.t3.small"
 
   providers = {
     aws = aws.london
