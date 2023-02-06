@@ -1,10 +1,10 @@
-# Check "cloud-platform-terraform-*" modules are the latest versions 
+# Check "cloud-platform-terraform-\*" modules are the latest versions
 
 Pull requests (PRs) against the [environments repository][env-repo],
 raised by users of the [MoJ Cloud Platform][cloud-platform],
 have to be approved by the Cloud Platform team.
 
-If these PRs make use of any "cloud-platform-terraform-*" modules then it is important that the user is using the most up-to-date module version.
+If these PRs make use of any "cloud-platform-terraform-\*" modules then it is important that the user is using the most up-to-date module version.
 
 This Github Action marks PRs as failed if they are not using the latest module version.
 
@@ -39,4 +39,3 @@ jobs:
 [env-repo]: https://github.com/ministryofjustice/cloud-platform-environments
 [cloud-platform]: https://github.com/ministryofjustice/cloud-platform
 [api-terraform-versions]: https://github.com/ministryofjustice/cloud-platform-go-get-module
-

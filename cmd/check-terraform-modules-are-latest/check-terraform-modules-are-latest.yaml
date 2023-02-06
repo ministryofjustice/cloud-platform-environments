@@ -1,7 +1,6 @@
-name: Check "cloud-platform-terraform-*" module are the latest versions 
+name: Check "cloud-platform-terraform-*" module are the latest versions
 description: Reject a PR if it's "cloud-platform-terraform-*" modules are not using the latest versions
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
+  using: "docker"
+  image: "Dockerfile"
