@@ -9,7 +9,7 @@ module "manage_intelligence_elasticsearch" {
   infrastructure-support          = var.infrastructure_support
   is-production                   = var.is_production
   team_name                       = var.team_name
-  elasticsearch-domain            = "manage-intelligence-${var.environment}"
+  elasticsearch-domain            = "mis-${var.environment}"
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
   domain_endpoint_enforce_https   = true
