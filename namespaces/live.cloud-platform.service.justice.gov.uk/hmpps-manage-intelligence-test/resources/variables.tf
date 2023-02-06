@@ -14,6 +14,11 @@ variable "application" {
   default     = "manage-intelligence"
 }
 
+variable "number_cache_clusters" {
+  description = "Elasticache cache cluster number"
+  default     = 2
+}
+
 variable "namespace" {
   default = "hmpps-manage-intelligence-test"
 }
@@ -55,4 +60,7 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
 }
