@@ -16,7 +16,7 @@ resource "random_id" "id" {
 
 resource "aws_iam_user" "dcs" {
   name = "dcs-${random_id.id.hex}"
-  path = "/system/cica-dcs-user"
+  path = "/system/cica-dcs-user/"
 }
 
 resource "aws_iam_access_key" "dcs" {
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "app_service_access" {
 
 resource "aws_iam_user" "app_service" {
   name = "app_service-${random_id.id.hex}"
-  path = "/system/cica-app-service-user"
+  path = "/system/cica-app-service-user/"
 }
 
 resource "aws_iam_access_key" "app_service" {
