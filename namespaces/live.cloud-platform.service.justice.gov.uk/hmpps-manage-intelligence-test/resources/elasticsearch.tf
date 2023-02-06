@@ -12,6 +12,7 @@ module "manage_intelligence_elasticsearch" {
   elasticsearch-domain            = "manage-intelligence-${var.environment}"
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
+  domain_endpoint_enforce_https   = true
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
   instance_count                  = 4
