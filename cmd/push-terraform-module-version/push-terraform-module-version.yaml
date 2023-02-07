@@ -4,4 +4,3 @@ description: When a cloud-platform-terrform-* module version is updated also upd
 runs:
   using: "docker"
   image: "Dockerfile"
-

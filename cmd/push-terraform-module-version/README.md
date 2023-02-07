@@ -10,10 +10,9 @@ If these PRs make use of any "cloud-platform-terraform-\*" modules then it is im
 
 There is an action that queries the cloud platform [api][api-terraform-versions] and then verifies if the module in the PR is set to the latest module.
 
-
 ## This Action
 
-The purpose of this action is to keep track of new terraform module releases. When a "cloud-platform-terraform-*" module releases a new version, this action will update the [api][api-terraform-versions] with this new version via a simple POST request.
+The purpose of this action is to keep track of new terraform module releases. When a "cloud-platform-terraform-\*" module releases a new version, this action will update the [api][api-terraform-versions] with this new version via a simple POST request.
 
 ## USAGE
 
