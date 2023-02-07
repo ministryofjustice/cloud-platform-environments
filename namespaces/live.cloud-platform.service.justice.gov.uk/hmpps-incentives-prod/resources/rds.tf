@@ -8,10 +8,15 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
-  rds_family                  = var.rds_family
-  allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.large"
+  rds_family                  = "postgres14"
   db_engine_version           = "14"
+  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
+
+  backup_window       = var.backup_window
+  maintenance_window  = var.maintenance_window
+  deletion_protection = true
 
   providers = {
     aws = aws.london
@@ -35,4 +40,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-
