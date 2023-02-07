@@ -40,7 +40,7 @@ func main() {
 	repoName, prNumber, apiURL := initEnvVars()
 
 	client := github.NewClient(nil)
-	diff, _, err := client.PullRequests.GetRaw(context.Background(), "ministryofjustice", repoName, prNumber, github.RawOptions{Type: github.RawType(2)})
+	diff, _, err := client.PullRequests.GetRaw(context.Background(), "ministryofjustice", repoName, prNumber, github.RawOptions{Type: github.RawType(1)})
 
 	if err != nil {
 		log.Fatal(err)
