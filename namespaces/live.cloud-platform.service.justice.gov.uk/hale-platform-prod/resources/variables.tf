@@ -76,3 +76,23 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN_PROD"
 }
+
+variable "github_actions_secret_ecr_name" {
+  description = "The name of the github actions secret containing the ECR name"
+  default     = "ECR_NAME_PROD"
+}
+
+variable "github_actions_secret_ecr_url" {
+  description = "The name of the github actions secret containing the ECR URL"
+  default     = "ECR_URL_PROD"
+}
+
+variable "github_actions_secret_ecr_access_key" {
+  description = "The name of the github actions secret containing the ECR AWS access key"
+  default     = "ECR_AWS_ACCESS_KEY_ID_PROD"
+}
+
+variable "github_actions_secret_ecr_secret_key" {
+  description = "The name of the github actions secret containing the ECR AWS secret key"
+  default     = "ECR_AWS_SECRET_ACCESS_KEY_PROD"
+}
