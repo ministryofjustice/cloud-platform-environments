@@ -44,11 +44,3 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "incentives-dev"
 }
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "rds_family" {
-  default = "postgres14"
-}
