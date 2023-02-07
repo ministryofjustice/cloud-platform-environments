@@ -67,6 +67,8 @@ module "serviceaccount" {
         "issuers",
       ]
       verbs = [
+        "get",
+        "list",
         "update",
         "create",
         "patch",
