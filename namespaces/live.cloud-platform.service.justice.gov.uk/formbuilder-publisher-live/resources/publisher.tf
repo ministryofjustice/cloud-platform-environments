@@ -1,16 +1,18 @@
 module "publisher-rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
 
-  vpc_name                   = var.vpc_name
-  db_backup_retention_period = var.db_backup_retention_period
-  application                = "formbuilderpublisher"
-  environment-name           = var.environment-name
-  is-production              = var.is-production
-  namespace                  = var.namespace
-  infrastructure-support     = var.infrastructure-support
-  team_name                  = var.team_name
-  db_engine_version          = "10"
-  db_instance_class          = "db.t3.small"
+  vpc_name                    = var.vpc_name
+  db_backup_retention_period  = var.db_backup_retention_period
+  application                 = "formbuilderpublisher"
+  environment-name            = var.environment-name
+  is-production               = var.is-production
+  namespace                   = var.namespace
+  infrastructure-support      = var.infrastructure-support
+  team_name                   = var.team_name
+  db_engine_version           = "12"
+  allow_major_version_upgrade = "true"
+  rds_family                  = "postgres12"
+  db_instance_class           = "db.t3.small"
 
   providers = {
     aws = aws.london
