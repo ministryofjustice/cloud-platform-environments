@@ -33,6 +33,8 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
+    db_identifier         = module.dps_rds.db_identifier
+    resource_id           = module.dps_rds.resource_id
     rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
     database_name         = module.dps_rds.database_name
     database_username     = module.dps_rds.database_username
