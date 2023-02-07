@@ -45,10 +45,6 @@ variable "slack_channel" {
   default     = "incentives-dev"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
-}
-
 # Database settings
 
 variable "backup_window" {
