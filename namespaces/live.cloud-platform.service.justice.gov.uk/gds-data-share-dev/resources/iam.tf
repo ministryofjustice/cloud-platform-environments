@@ -31,7 +31,9 @@ resource "aws_sqs_queue_policy" "gds_data_share_queue_policy" {
              "SQS:SendMessage",
              "SQS:ReceiveMessage",
              "SQS:DeleteMessage",
-             "SQS:GetQueueUrl"
+             "SQS:GetQueueUrl",
+             "SQS:ChangeMessageVisibility",
+             "SQS:GetQueueAttributes"
           ],
           "Resource":"${module.gds_data_share_queue.sqs_arn}"
        }
@@ -60,7 +62,9 @@ resource "aws_sqs_queue_policy" "gds_data_share_dlq_policy" {
           "Action":[
              "SQS:ReceiveMessage",
              "SQS:DeleteMessage",
-             "SQS:GetQueueUrl"
+             "SQS:GetQueueUrl",
+             "SQS:ChangeMessageVisibility",
+             "SQS:GetQueueAttributes"
           ],
           "Resource":"${module.gds_data_share_dlq.sqs_arn}"
        }
