@@ -61,6 +61,7 @@ module "serviceaccount" {
     {
       api_groups = [
         "certmanager.k8s.io",
+        "cert-manager.io",
       ]
       resources = [
         "certificates",
