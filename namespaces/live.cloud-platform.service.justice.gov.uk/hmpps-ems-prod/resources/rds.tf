@@ -18,7 +18,7 @@ module "grafana_rds" {
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres10"
 
   db_instance_class = "db.t3.small"
 
