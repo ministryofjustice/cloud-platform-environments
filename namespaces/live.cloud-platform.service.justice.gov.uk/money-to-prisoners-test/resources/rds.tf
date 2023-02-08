@@ -2,7 +2,7 @@
 variable "vpc_name" {}
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
 
   providers = {
     aws = aws.london
