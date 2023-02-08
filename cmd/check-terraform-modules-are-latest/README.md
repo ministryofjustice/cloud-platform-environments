@@ -28,7 +28,7 @@ jobs:
       - uses: ministryofjustice/github-actions/check-terraform-modules-are-latest@main
         env:
           REPO_NAME: cloud-platform-environments
-          API_URL: ${{ env.API_URL }}
+          API_URL: ${{ vars.TERRAFORM_MODULE_VERSIONS_API_URL }}
           PR_NUMBER: ${{ github.event.number }}
 ```
 

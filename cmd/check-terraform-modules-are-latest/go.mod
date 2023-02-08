@@ -1,4 +1,4 @@
-module github.com/ministryofjustice/github-actions/check-terraform-modules-are-latest
+module github.com/ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest
 
 go 1.19
 
