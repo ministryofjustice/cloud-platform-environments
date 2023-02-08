@@ -11,8 +11,9 @@ module "test_ec_cluster" {
   infrastructure-support = "platforms@digtal.justice.gov.uk"
   namespace              = var.namespace
   node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version        = "6.x"
+  parameter_group_name  = "default.redis6.x"
+  auth_token_rotated_date = "2023-02-08"
   providers = {
     aws = aws.london
   }
@@ -29,5 +30,8 @@ resource "kubernetes_secret" "test_ec_cluster" {
     primary_endpoint_address = module.test_ec_cluster.primary_endpoint_address
     member_clusters          = jsonencode(module.test_ec_cluster.member_clusters)
     auth_token               = module.test_ec_cluster.auth_token
+    access_key_id     = module.test_ec_cluster.access_key_id
+    secret_access_key = module.test_ec_cluster.secret_access_key
+    replication_group_id = module.test_ec_cluster.replication_group_id
   }
 }
