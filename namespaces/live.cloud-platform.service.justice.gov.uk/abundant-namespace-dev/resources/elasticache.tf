@@ -11,8 +11,9 @@ module "test_ec_cluster" {
   infrastructure-support = "platforms@digtal.justice.gov.uk"
   namespace              = var.namespace
   node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version        = "6.x"
+  parameter_group_name  = "default.redis6.x"
+  // auth_token_rotated_date = "2023-02-08"
   providers = {
     aws = aws.london
   }
