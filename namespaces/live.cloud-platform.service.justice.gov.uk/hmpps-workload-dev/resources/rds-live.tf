@@ -7,6 +7,9 @@ module "rds-live" {
   is-production = var.is_production
   namespace     = var.namespace
 
+  # rotating creds
+  db_password_rotated_date = "08-02-2023"
+
   # enable performance insights
   performance_insights_enabled = true
 
