@@ -20,6 +20,8 @@ module "grafana_rds" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres10"
 
+  db_instance_class = "db.t3.small"
+
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
