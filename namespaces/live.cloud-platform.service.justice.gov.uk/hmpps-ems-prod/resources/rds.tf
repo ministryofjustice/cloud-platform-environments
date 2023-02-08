@@ -12,13 +12,13 @@ module "grafana_rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "10"
+  db_engine_version      = "14"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure-support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres10"
+  rds_family = "postgres14"
 
   db_instance_class = "db.t3.small"
 
