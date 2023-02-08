@@ -1,6 +1,6 @@
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
@@ -12,6 +12,8 @@ module "elasticache_redis" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-02-08"
 
   providers = {
     aws = aws.london
