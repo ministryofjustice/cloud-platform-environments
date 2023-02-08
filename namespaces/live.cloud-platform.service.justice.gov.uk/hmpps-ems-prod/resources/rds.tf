@@ -12,7 +12,7 @@ module "grafana_rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "14.3"
+  db_engine_version      = "10"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure-support
 
