@@ -10,7 +10,7 @@ module "ccq_es" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  elasticsearch-domain            = "ccq-es"
+  elasticsearch-domain            = "ccq-uat-es"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
   domain_endpoint_enforce_https   = true
