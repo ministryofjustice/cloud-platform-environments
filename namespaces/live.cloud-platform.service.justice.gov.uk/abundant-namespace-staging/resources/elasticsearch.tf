@@ -1,5 +1,5 @@
 module "abundance_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=update-length"
   eks_cluster_name       = var.eks_cluster_name
   vpc_name               = var.vpc_name
   team_name              = var.team_name
