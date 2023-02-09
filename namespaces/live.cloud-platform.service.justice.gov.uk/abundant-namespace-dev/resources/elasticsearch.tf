@@ -19,5 +19,3 @@ module "abundance_es" {
   elasticsearch_version = "7.10"
 
 }
-
-haar-dev-historical-prisoner
