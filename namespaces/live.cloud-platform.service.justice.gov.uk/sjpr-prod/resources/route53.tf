@@ -7,7 +7,7 @@ resource "aws_route53_zone" "sjpr_route53_zone" {
     application            = var.application
     is-production          = var.is_production
     environment-name       = var.environment
-    owner                  = var.githib_owner    
+    owner                  = var.github_owner    
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
