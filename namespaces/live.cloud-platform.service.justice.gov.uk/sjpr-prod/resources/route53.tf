@@ -15,7 +15,7 @@ resource "aws_route53_zone" "sjpr_route53_zone" {
 
 resource "kubernetes_secret" "sjpr_route53_zone_sec" {
   metadata {
-    name      = "sjpr_route53_zone_output"
+    name      = "sjpr-route53-zone-output"
     namespace = var.namespace
   }
 
