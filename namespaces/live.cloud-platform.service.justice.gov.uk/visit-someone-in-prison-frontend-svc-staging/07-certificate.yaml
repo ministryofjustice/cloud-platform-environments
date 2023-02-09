@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-visits-admin-cert
+  namespace: visit-someone-in-prison-frontend-svc-staging
+spec:
+  secretName:  prison-visits-admin-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-visits-admin-staging.prison.service.justice.gov.uk
