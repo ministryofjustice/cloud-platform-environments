@@ -6,6 +6,9 @@ module "rds-allocation" {
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+  
+  # rotating creds
+  db_password_rotated_date = "09-02-2023"
 
   # enable performance insights
   performance_insights_enabled = true
