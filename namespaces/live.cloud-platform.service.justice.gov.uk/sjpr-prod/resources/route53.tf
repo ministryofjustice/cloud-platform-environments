@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "sjpr_route53_zone" {
-  name = "social-justice-problems.service.justice.gov.uk"
+  name = var.domain
 
   tags = {
     team_name              = var.team_name
