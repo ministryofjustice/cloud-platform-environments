@@ -43,9 +43,9 @@ func main() {
 	} else {
 		kubeconfig = flag.String("kubeconfig", os.Getenv("KUBECONFIG"), "absolute path to the kubeconfig file")
 	}
-	tok := flag.String("p", "", "github token")
-	slackApi := flag.String("slackApi", "", "api token for slack")
-	channelId := flag.String("channelId", "", "channel id for slack")
+	tok := flag.String("githubToken", "", "github token")
+	slackApi := flag.String("slackToken", "", "api token for slack")
+	channelId := flag.String("slackChannel", "", "channel id for slack")
 	clusterName := flag.String("cluster", "live", "the cluster to perform this check on i.e. live")
 
 	flag.Parse()
