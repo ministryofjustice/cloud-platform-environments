@@ -1,6 +1,6 @@
 # Namespace Divergence
 
-Namespace Divergence is a tool that cross-references the namespaces in your Kubernetes cluster with the namespaces directory in the GitHub repository `ministryofjustice/cloud-platform-environments`. If a divergence is found, it can send a slack message or just print to screen. This way, you can be sure that accedental namespaces don't exist and ensure your data is always up-to-date, without spending hours doing manual checks.
+Namespace Divergence is a tool that cross-references the namespaces in your Kubernetes cluster with the namespaces directory in the GitHub repository [ministryofjustice/cloud-platform-environments](https://github.com/ministryofjustice/cloud-platform-environments/). If a divergence is found, it can send a slack message or just print the output to the screen. This way, you can be sure that accidental namespaces are picked up and confirm git is the source of truth.
 
 ### How to run
 
