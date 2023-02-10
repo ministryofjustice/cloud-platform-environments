@@ -26,7 +26,7 @@ resource "kubernetes_secret" "sjpr_route53_zone_sec" {
 
 resource "aws_route53_record" "add_cname_email" {
   name    = "sjpr-prod.apps.live.cloud-platform.service.justice.gov.uk"
-  zone_id = aws_route53_zone.example_team_route53_zone.zone_id
+  zone_id = aws_route53_zone.sjpr_route53_zone.zone_id
   type    = "CNAME"
   records = ["social-justice-problems.service.justice.gov.uk"]
   ttl     = "300"
