@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cloud-platform-go-get-module-admin
-  namespace: cloud-platform-go-get-module
+  namespace: cloud-platform-go-get-module-prod
 subjects:
   - kind: Group
     name: "github:webops"
