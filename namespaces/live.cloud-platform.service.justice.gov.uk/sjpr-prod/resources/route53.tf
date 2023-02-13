@@ -23,3 +23,4 @@ resource "kubernetes_secret" "sjpr_route53_zone_sec" {
     zone_id   = aws_route53_zone.sjpr_route53_zone.zone_id
   }
 }
+
