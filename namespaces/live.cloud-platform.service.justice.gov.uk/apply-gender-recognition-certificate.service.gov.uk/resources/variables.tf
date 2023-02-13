@@ -23,7 +23,7 @@ variable "is_production" {
 }
 
 variable "infrastructure_support" {
-  default     = "example@example.com"
+  default     = "dts-legacy-apps-support-team@hmcts.net"
 }
 
 variable "domain" {
