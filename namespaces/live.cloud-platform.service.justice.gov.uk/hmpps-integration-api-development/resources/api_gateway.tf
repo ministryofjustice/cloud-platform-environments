@@ -142,7 +142,7 @@ resource "kubernetes_secret" "api_keys" {
   }
 
   data = {
-    "${var.team_name}" = aws_api_gateway_api_key.team.value
+    var.team_name = aws_api_gateway_api_key.team.value
   }
 }
 
