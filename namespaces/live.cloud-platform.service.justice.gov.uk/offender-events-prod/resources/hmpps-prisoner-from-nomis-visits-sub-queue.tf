@@ -98,3 +98,11 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_dead_letter_queue" {
     sqs_name          = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name
   }
 }
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_visits_subscription" {
+  provider      = aws.london
+  topic_arn     = module.offender_events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.prisoner_from_nomis_visits_queue.sqs_arn
+  filter_policy = "{\"eventType\":[\"VISIT_CANCELLED\"]}"
+}
