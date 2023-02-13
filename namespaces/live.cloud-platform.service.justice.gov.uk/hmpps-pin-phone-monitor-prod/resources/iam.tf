@@ -3,10 +3,6 @@ resource "aws_iam_user" "bt_upload_user" {
   path = "/system/hmpps-pin-phone-monitor-prod-upload-users/"
 }
 
-resource "aws_iam_access_key" "bt_upload_user_key" {
-  user = aws_iam_user.bt_upload_user.name
-}
-
 resource "aws_iam_access_key" "key_2023" {
   user = aws_iam_user.bt_upload_user.name
 }
@@ -55,10 +51,8 @@ resource "kubernetes_secret" "pcms_bt_upload_user" {
 
   data = {
     arn               = aws_iam_user.bt_upload_user.arn
-    access_key_id     = aws_iam_access_key.bt_upload_user_key.id
-    secret_access_key = aws_iam_access_key.bt_upload_user_key.secret
-    bt_access_key_id     = aws_iam_access_key.key_2023.id
-    bt_secret_access_key = aws_iam_access_key.key_2023.secret
+    access_key_id     = aws_iam_access_key.key_2023.id
+    secret_access_key = aws_iam_access_key.key_2023.secret
   }
 }
 
