@@ -13,6 +13,7 @@ module "manage_offences_rds" {
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
 
+  db_password_rotated_date = "13-02-2023"
 
   providers = {
     aws = aws.london
