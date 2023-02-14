@@ -8,13 +8,18 @@ provider "aws" {
 
   default_tags {
     tags = {
-      application            = var.application
-      business-unit          = var.business_unit
+      # Mandatory
+      business-unit = var.business_unit
+      application   = var.application
+      is-production = var.is_production
+      owner         = var.team_name
+      # Optional
       environment-name       = var.environment
       infrastructure-support = var.infrastructure_support
-      is-production          = var.is_production
-      namespace              = var.namespace
-      owner                  = var.team_name
+      source-code            = "github.com/ministryofjustice/cloud-platform-environments"
+      # Custom
+      namespace     = var.namespace
+      slack-channel = var.slack_channel
     }
   }
 }
@@ -25,13 +30,18 @@ provider "aws" {
 
   default_tags {
     tags = {
-      application            = var.application
-      business-unit          = var.business_unit
+      # Mandatory
+      business-unit = var.business_unit
+      application   = var.application
+      is-production = var.is_production
+      owner         = var.team_name
+      # Optional
       environment-name       = var.environment
       infrastructure-support = var.infrastructure_support
-      is-production          = var.is_production
-      namespace              = var.namespace
-      owner                  = var.team_name
+      source-code            = "github.com/ministryofjustice/cloud-platform-environments"
+      # Custom
+      namespace     = var.namespace
+      slack-channel = var.slack_channel
     }
   }
 }
@@ -42,13 +52,18 @@ provider "aws" {
 
   default_tags {
     tags = {
-      application            = var.application
-      business-unit          = var.business_unit
+      # Mandatory
+      business-unit = var.business_unit
+      application   = var.application
+      is-production = var.is_production
+      owner         = var.team_name
+      # Optional
       environment-name       = var.environment
       infrastructure-support = var.infrastructure_support
-      is-production          = var.is_production
-      namespace              = var.namespace
-      owner                  = var.team_name
+      source-code            = "github.com/ministryofjustice/cloud-platform-environments"
+      # Custom
+      namespace     = var.namespace
+      slack-channel = var.slack_channel
     }
   }
 }
