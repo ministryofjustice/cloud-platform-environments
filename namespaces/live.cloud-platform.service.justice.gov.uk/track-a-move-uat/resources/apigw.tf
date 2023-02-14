@@ -180,7 +180,7 @@ resource "kubernetes_secret" "apikeys" {
   }
 
   data = {
-    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys[count.index].value
+    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys.*.value[count.index]
   }
 }
 
