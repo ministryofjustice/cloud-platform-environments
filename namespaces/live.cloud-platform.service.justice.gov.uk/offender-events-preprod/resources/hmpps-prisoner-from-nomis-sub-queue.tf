@@ -97,11 +97,3 @@ resource "kubernetes_secret" "prisoner_from_nomis_dead_letter_queue" {
     sqs_name          = module.prisoner_from_nomis_dead_letter_queue.sqs_name
   }
 }
-
-resource "aws_sns_topic_subscription" "prisoner_from_nomis_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.prisoner_from_nomis_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"IEP_UPSERTED\",\"IEP_DELETED\",\"VISIT_CANCELLED\"]}"
-}
