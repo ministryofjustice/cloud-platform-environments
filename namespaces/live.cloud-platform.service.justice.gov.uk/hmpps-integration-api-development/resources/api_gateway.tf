@@ -134,6 +134,14 @@ resource "aws_api_gateway_usage_plan_key" "team" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
+# This block gets around the deprecation notice/ambiguous interpolation warning when using
+# a variable for a key
+locals {
+  api_keys_data = {
+    for team_name in [var.team_name]:
+    team_name => aws_api_gateway_api_key.team.value
+  }
+}
 
 resource "kubernetes_secret" "api_keys" {
   metadata {
@@ -141,9 +149,7 @@ resource "kubernetes_secret" "api_keys" {
     namespace = var.namespace
   }
 
-  data = {
-    var.team_name = aws_api_gateway_api_key.team.value
-  }
+  data = local.api_keys_data
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
