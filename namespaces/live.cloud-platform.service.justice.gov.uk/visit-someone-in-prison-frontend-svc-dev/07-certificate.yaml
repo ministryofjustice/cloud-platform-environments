@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-vsip-internal-admin-ui.prison.service.justice.gov.uk
+    - hmpps-vsip-internal-admin-ui-dev.prison.service.justice.gov.uk
