@@ -180,7 +180,7 @@ resource "kubernetes_secret" "apikeys" {
   }
 
   data = {
-    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys[*].value[count.index]
+    local.suppliers[count.index] = aws_api_gateway_api_key.api_keys[count.index].value
   }
 }
 
@@ -196,7 +196,7 @@ resource "aws_api_gateway_usage_plan" "default" {
 resource "aws_api_gateway_usage_plan_key" "main" {
   count = length(local.suppliers)
 
-  key_id        = aws_api_gateway_api_key.api_keys[*].id[count.index]
+  key_id        = aws_api_gateway_api_key.api_keys[count.index].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
