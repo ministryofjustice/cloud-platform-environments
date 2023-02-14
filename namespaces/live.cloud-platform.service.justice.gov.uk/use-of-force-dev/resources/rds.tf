@@ -17,6 +17,7 @@ module "dps_rds" {
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "14"
   rds_family                  = "postgres14"
+  db_password_rotated_date    = "14-02-2023"
 
   providers = {
     aws = aws.london
