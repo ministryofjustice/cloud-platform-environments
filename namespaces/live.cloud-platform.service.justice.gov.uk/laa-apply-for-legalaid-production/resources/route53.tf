@@ -7,7 +7,7 @@ resource "aws_route53_zone" "apply_for_legal_aid_route53_zone" {
     is-production          = "true"
     environment-name       = "production"
     owner                  = "apply-for-legal-aid"
-    infrastructure-support = "apply@digital.justice.gov.uk"
+    infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
     namespace              = var.namespace
   }
 }
@@ -22,4 +22,3 @@ resource "kubernetes_secret" "apply_for_legal_aid_route_53_zone_sec" {
     zone_id = aws_route53_zone.apply_for_legal_aid_route53_zone.zone_id
   }
 }
-

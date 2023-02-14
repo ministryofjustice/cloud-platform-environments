@@ -14,6 +14,7 @@ def main(cluster)
       cluster: cluster,
       dir: dir,
       enable_skip_namespaces: true, # Honour any APPLY_PIPELINE_SKIP_THIS_NAMESPACE files
+      block_secret_rotation: true, # Don't allow the pipeline to run as there are secrets to rotate.
     ).apply
   end
 

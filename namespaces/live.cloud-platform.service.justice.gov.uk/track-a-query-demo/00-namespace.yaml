@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: track-a-query-demo
   labels:
+    cloud-platform.justice.gov.uk/namespace: "track-a-query-demo"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "demo"
   annotations:
@@ -11,3 +12,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Track a Query"
     cloud-platform.justice.gov.uk/owner: "Central Digital Product Team: central-digital-product-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/correspondence_tool_staff"
+    cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"

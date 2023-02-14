@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: cloud-platform-go-get-module
+spec:
+  hard:
+    pods: "20"

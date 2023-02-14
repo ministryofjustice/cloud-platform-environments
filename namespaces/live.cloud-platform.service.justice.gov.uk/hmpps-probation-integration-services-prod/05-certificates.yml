@@ -1,6 +1,19 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: approved-premises-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: approved-premises-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: approved-premises-and-oasys-cert
   namespace: hmpps-probation-integration-services-prod
 spec:
@@ -14,6 +27,84 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: custody-key-dates-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: custody-key-dates-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - custody-key-dates-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-recall-decisions-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: make-recall-decisions-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - make-recall-decisions-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-pom-cases-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: manage-pom-cases-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-pom-cases-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: offender-events-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: offender-events-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - offender-events-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: person-search-index-from-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: person-search-index-from-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - person-search-index-from-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pre-sentence-reports-to-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: pre-sentence-reports-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pre-sentence-reports-to-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: prison-case-notes-to-probation-cert
   namespace: hmpps-probation-integration-services-prod
 spec:
@@ -23,3 +114,69 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prison-case-notes-to-probation.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-custody-status-to-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: prison-custody-status-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prison-custody-status-to-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: risk-assessment-scores-to-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: risk-assessment-scores-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - risk-assessment-scores-to-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tier-to-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: tier-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - tier-to-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: unpaid-work-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: unpaid-work-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - unpaid-work-and-delius.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: workforce-allocations-to-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: workforce-allocations-to-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - workforce-allocations-to-delius.hmpps.service.justice.gov.uk
+---

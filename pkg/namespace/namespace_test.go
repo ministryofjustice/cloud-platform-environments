@@ -212,20 +212,20 @@ func TestGetProductionNamespaces(t *testing.T) {
 				ns: AllNamespaces{
 					Namespaces: []Namespace{
 						{
-							Name:           "namespace-dev",
-							DeploymentType: "dev",
+							Name:         "namespace-dev",
+							IsProduction: false,
 						},
 						{
-							Name:           "namespace-prod",
-							DeploymentType: "prod",
+							Name:         "namespace-prod",
+							IsProduction: true,
 						},
 						{
-							Name:           "namespace-live",
-							DeploymentType: "live-ns",
+							Name:         "namespace-live",
+							IsProduction: true,
 						},
 						{
-							Name:           "namespace-production",
-							DeploymentType: "PRoDucTion",
+							Name:         "namespace-production",
+							IsProduction: true,
 						},
 					},
 				},
@@ -273,20 +273,20 @@ func TestGetNonProductionNamespaces(t *testing.T) {
 				ns: AllNamespaces{
 					Namespaces: []Namespace{
 						{
-							Name:           "namespace-dev",
-							DeploymentType: "dev",
+							Name:         "namespace-dev",
+							IsProduction: false,
 						},
 						{
-							Name:           "namespace-prod",
-							DeploymentType: "prod",
+							Name:         "namespace-prod",
+							IsProduction: true,
 						},
 						{
-							Name:           "namespace-test",
-							DeploymentType: "test",
+							Name:         "namespace-test",
+							IsProduction: false,
 						},
 						{
-							Name:           "namespace-somethingelse",
-							DeploymentType: "RANdoMChAr",
+							Name:         "namespace-somethingelse",
+							IsProduction: false,
 						},
 					},
 				},

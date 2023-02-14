@@ -3,7 +3,7 @@
 ############################################
 
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
 
   vpc_name = var.vpc_name
 
@@ -17,8 +17,6 @@ module "rds-instance" {
   db_engine              = "postgres"
   db_engine_version      = "14"
   rds_family             = "postgres14"
-
-  allow_major_version_upgrade = "true"
 
   providers = {
     aws = aws.london

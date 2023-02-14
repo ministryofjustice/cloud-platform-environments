@@ -1,4 +1,7 @@
 
+variable "domain" {
+  default = "support.hmpps.service.justice.gov.uk"
+}
 
 variable "vpc_name" {
 }

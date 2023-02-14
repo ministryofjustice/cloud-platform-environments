@@ -1,10 +1,7 @@
 resource "kubernetes_secret" "manage-pom-cases" {
   metadata {
-    name      = "hmpps-domain-events-topic-manage-pom-cases"
-    namespace = var.namespace
-    # Remove when namespace has been migrated
-    # name      = "hmpps-domain-events-topic"
-    # namespace = "offender-management-preprod"
+    name      = "hmpps-domain-events-topic"
+    namespace = "offender-management-preprod"
   }
 
   data = {
