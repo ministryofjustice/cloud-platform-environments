@@ -1,7 +1,7 @@
 module "claim-criminal-injuries-application-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
 
-  sqs_name = "claim-criminal-injuries-application-queue"
+  sqs_name               = "claim-criminal-injuries-application-queue"
   fifo_queue             = false
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -20,7 +20,7 @@ module "claim-criminal-injuries-application-queue" {
 }
 
 resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-policy" {
-  queue_url = "${module.claim-criminal-injuries-application-queue.sqs_id}"
+  queue_url = module.claim-criminal-injuries-application-queue.sqs_id
 
   policy = <<EOF
   {
@@ -82,10 +82,10 @@ resource "kubernetes_secret" "claim-criminal-injuries-application-sqs" {
   }
 
   data = {
-    access_key_id = module.claim-criminal-injuries-application-queue.access_key_id
+    access_key_id     = module.claim-criminal-injuries-application-queue.access_key_id
     secret_access_key = module.claim-criminal-injuries-application-queue.secret_access_key
-    sqs_id = module.claim-criminal-injuries-application-queue.sqs_id
-    sqs_arn = module.claim-criminal-injuries-application-queue.sqs_arn
-    sqs_name = module.claim-criminal-injuries-application-queue.sqs_name
+    sqs_id            = module.claim-criminal-injuries-application-queue.sqs_id
+    sqs_arn           = module.claim-criminal-injuries-application-queue.sqs_arn
+    sqs_name          = module.claim-criminal-injuries-application-queue.sqs_name
   }
 }

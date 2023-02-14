@@ -36,9 +36,9 @@ resource "kubernetes_secret" "dcs-sqs-secret" {
   }
 
   data = {
-    user_arn           = aws_iam_user.dcs.arn
-    access_key_id      = aws_iam_access_key.dcs.id
-    secret_access_key  = aws_iam_access_key.dcs.secret
+    user_arn          = aws_iam_user.dcs.arn
+    access_key_id     = aws_iam_access_key.dcs.id
+    secret_access_key = aws_iam_access_key.dcs.secret
   }
 }
 
@@ -77,8 +77,8 @@ resource "kubernetes_secret" "app-service-sqs-secret" {
   }
 
   data = {
-    user_arn           = aws_iam_user.app_service.arn
-    access_key_id      = aws_iam_access_key.app_service.id
-    secret_access_key  = aws_iam_access_key.app_service.secret
+    user_arn          = aws_iam_user.app_service.arn
+    access_key_id     = aws_iam_access_key.app_service.id
+    secret_access_key = aws_iam_access_key.app_service.secret
   }
 }
