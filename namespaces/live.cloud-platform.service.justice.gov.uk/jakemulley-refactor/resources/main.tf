@@ -14,7 +14,6 @@ provider "aws" {
       infrastructure-support = var.infrastructure_support
       is-production          = var.is_production
       namespace              = var.namespace
-      team_name              = var.team_name
     }
   }
 }
@@ -31,7 +30,6 @@ provider "aws" {
       infrastructure-support = var.infrastructure_support
       is-production          = var.is_production
       namespace              = var.namespace
-      team_name              = var.team_name
     }
   }
 }
@@ -48,7 +46,6 @@ provider "aws" {
       infrastructure-support = var.infrastructure_support
       is-production          = var.is_production
       namespace              = var.namespace
-      team_name              = var.team_name
     }
   }
 }
