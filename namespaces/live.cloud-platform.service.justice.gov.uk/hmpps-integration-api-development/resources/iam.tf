@@ -62,7 +62,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gw_s3" {
-  name  = "${var.namespace}-api-gateway-s3"
+  name = "${var.namespace}-api-gateway-s3"
   role = aws_iam_role.api_gateway_role.name
 
   policy = <<EOF

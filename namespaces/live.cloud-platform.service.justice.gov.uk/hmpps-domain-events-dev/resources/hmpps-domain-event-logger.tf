@@ -111,8 +111,8 @@ resource "kubernetes_secret" "hmpps_domain_event_logger_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_domain_event_logger_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_domain_event_logger_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_domain_event_logger_queue.sqs_arn
 }

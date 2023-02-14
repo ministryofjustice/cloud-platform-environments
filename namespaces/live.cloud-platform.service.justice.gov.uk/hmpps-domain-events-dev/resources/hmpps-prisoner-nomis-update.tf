@@ -19,7 +19,7 @@ module "hmpps_prisoner_to_nomis_visit_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -98,10 +98,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-visit.booked",
@@ -131,7 +131,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -237,7 +237,7 @@ module "hmpps_prisoner_to_nomis_activity_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -343,7 +343,7 @@ module "hmpps_prisoner_to_nomis_sentencing_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -422,10 +422,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_sentencing_dead_letter_que
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_sentencing_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "sentencing.sentence.adjustment.created",

@@ -8,8 +8,8 @@ module "elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version        = "6.x"
-  parameter_group_name  = "default.redis6.x"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-02-13"
