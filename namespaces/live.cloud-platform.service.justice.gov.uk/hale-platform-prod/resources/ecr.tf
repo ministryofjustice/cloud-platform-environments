@@ -22,7 +22,7 @@ module "ecr_credentials" {
   # github actions CI/CD pipelines
   github_repositories = ["hale-platform"]
 
-  
+
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["Production"]
