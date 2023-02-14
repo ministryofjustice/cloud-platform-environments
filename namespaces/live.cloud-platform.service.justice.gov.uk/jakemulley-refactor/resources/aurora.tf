@@ -2,13 +2,6 @@ module "aurora_db" {
   # always check the latest release in Github and set below
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=use-default-tags"
   vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
 
   # https://registry.terraform.io/providers/hashicorp/aws/2.33.0/docs/resources/rds_cluster#engine
   engine = "aurora-postgresql"
