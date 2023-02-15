@@ -63,6 +63,9 @@ module "s3_bucket" {
       {
         "Sid": "Stmt1392016154000",
         "Effect": "Allow",
+        "Principal": {
+          "Service": "cloudfront.amazonaws.com"
+        },
         "Action": [
           "s3:AbortMultipartUpload",
           "s3:DeleteObject",
