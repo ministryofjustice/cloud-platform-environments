@@ -1,0 +1,26 @@
+name: Compare namespaces within Terraform, matches directory namespace
+
+on:
+  pull_request:
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
+      - 'namespaces/live-2.cloud-platform.service.justice.gov.uk/**'
+
+env:
+  GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  compare-namespaces:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - id: approve_colab_user
+        name: Check PR user 
+        uses: ministryofjustice/cloud-platform-environments/cmd/check-namespaces@main
