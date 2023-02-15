@@ -34,3 +34,17 @@ resource "kubernetes_secret" "example_team_dynamodb" {
     secret_access_key = module.example_team_dynamodb.secret_access_key
   }
 }
+
+resource "kubernetes_secret" "example_two_dynamodb" {
+  metadata {
+    name      = "example-team-dynamodb-output"
+    namespace = "abundant-namespace-staging"
+  }
+
+  data = {
+    table_name        = module.example_team_dynamodb.table_name
+    table_arn         = module.example_team_dynamodb.table_arn
+    access_key_id     = module.example_team_dynamodb.access_key_id
+    secret_access_key = module.example_team_dynamodb.secret_access_key
+  }
+}
