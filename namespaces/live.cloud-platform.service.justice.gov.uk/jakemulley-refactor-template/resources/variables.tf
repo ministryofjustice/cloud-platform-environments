@@ -1,4 +1,6 @@
-
+locals {
+  namespace_yaml = yamldecode(file("${path.module}/../00-namespace.yaml"))
+}
 
 variable "vpc_name" {
 }
@@ -11,26 +13,26 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Namespace to test refactoring namespace-cli templates"
+  default     = namespace_yaml.metadata.annotations["cloud-platform.justice.gov.uk/application"]
 }
 
 variable "namespace" {
-  default = "jakemulley-refactor-template"
+  default = namespace_yaml.metadata.name
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
-  default     = "Platforms"
+  default     = namespace_yaml.metadata.annotations["cloud-platform.justice.gov.uk/business-unit"]
 }
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "webops"
+  default     = namespace_yaml.metadata.annotations["cloud-platform.justice.gov.uk/business-unit"]
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = namespace_yaml.metadata.labels["cloud-platform.justice.gov.uk/environment-name"]
 }
 
 variable "infrastructure_support" {
@@ -39,12 +41,12 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = namespace_yaml.metadata.labels["cloud-platform.justice.gov.uk/is-production"]
 }
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform"
+  default     = namespace_yaml.metadata.annotations["cloud-platform.justice.gov.uk/slack-channel"]
 }
 
 variable "github_owner" {
