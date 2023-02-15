@@ -1,0 +1,5 @@
+name: Compare namespaces within Terraform, matches directory namespace
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
