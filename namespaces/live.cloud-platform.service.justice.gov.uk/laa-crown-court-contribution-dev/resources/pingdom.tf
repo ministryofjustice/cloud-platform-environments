@@ -1,6 +1,6 @@
 resource "pingdom_check" "laa-crown-court-contribution-dev" {
   type                     = "http"
-  name                     = "LAA Crown Court Proceeding - Dev"
+  name                     = "LAA Crown Court Contribution - Dev"
   host                     = "laa-crown-court-contribution-dev.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
