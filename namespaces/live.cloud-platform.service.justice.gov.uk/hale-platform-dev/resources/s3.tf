@@ -54,130 +54,45 @@ module "s3_bucket" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
-    /*
-   * The following example can be used if you need to define CORS rules for your s3 bucket. 
-   *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
-   *  
+  }
 
-  cors_rule =[
-    {
-      allowed_headers = ["*"]
-      allowed_methods = ["GET"]
-      allowed_origins = ["https://s3-website-test.hashicorp.com"]
-      expose_headers  = ["ETag"]
-      max_age_seconds = 3000
-    },
-    {
-      allowed_headers = ["*"]
-      allowed_methods = ["PUT"]
-      allowed_origins = ["https://s3-website-test.hashicorp.com"]
-      expose_headers  = [""]
-      max_age_seconds = 3000
-    },
-  ]
-
-
-  /*
-   * The following example can be used if you need to set a lifecycle for your s3. 
-   *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-object-lifecycle"
-   *  "https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html"
-   *
-  lifecycle_rule = [
-    {
-      enabled = true
-      id      = "retire exports after 7 days"
-      prefix  = "surveys/export"
-
-      noncurrent_version_expiration = [
-        {
-          days = 7
-        },
-      ]
-
-      expiration = [
-        {
-          days = 7
-        },
-      ]
-    },
-    {
-      enabled = true
-      id      = "retire imports after 10 days"
-      prefix  = "surveys/imports"
-
-      expiration = [
-        {
-          days = 7
-        },
-      ]
-    },
-  ]
-
-  */
-
-    /*
-   * The following are exampls of bucket and user policies. They are treated as
-   * templates. Currently, the only available variable is `$${bucket_arn}`.
-   *
-   */
-
-    /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
- *
-
-   bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "Stmt1392016154000",
+        "Effect": "Allow",
+        "Action": [
+          "s3:AbortMultipartUpload",
+          "s3:DeleteObject",
+          "s3:GetBucketAcl",
+          "s3:GetBucketLocation",
+          "s3:GetBucketPolicy",
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:ListBucket",
+          "s3:ListBucketMultipartUploads",
+          "s3:ListMultipartUploadParts",
+          "s3:PutObject",
+          "s3:PutObjectAcl"
+        ],
+        "Resource": [
+          "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*"
+        ]
       },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
-*/
-
-    /*
- * Override the default policy for the generated machine user of this bucket.
- *
-
-user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
+      {
+        "Sid": "AllowRootAndHomeListingOfBucket",
+        "Action": ["s3:ListBucket"],
+        "Effect": "Allow",
+        "Resource": ["arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f"],
+        "Condition":{"StringLike":{"s3:prefix":["*"]}}
+      }
+    ]
   }
-]
-}
-EOF
+  EOF
 
-*/
-  }
+
 }
 
 
