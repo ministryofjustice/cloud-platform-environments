@@ -106,3 +106,12 @@ spec:
       for: 5m
       labels:
         severity: prepare-a-case
+    - alert: pre-sentence-service-wproofreader-serving-5xx
+      annotations:
+        message: Pre Sentence Service wproofreader is returning 5xx responses
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
+      expr: |-
+        sum(irate(nginx_ingress_controller_requests{ingress=~"pre-sentence-service-wproofreader-v1-2", exported_namespace="court-probation-prod",status=~"5.*"} offset 5m)) > 0
+      for: 10m
+      labels:
+        severity: prepare-a-case  
