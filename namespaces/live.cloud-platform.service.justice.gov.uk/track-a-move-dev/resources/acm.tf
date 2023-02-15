@@ -15,7 +15,7 @@ resource "aws_acm_certificate" "apigw_custom_hostname" {
 
 resource "aws_acm_certificate_validation" "apigw_custom_hostname" {
   certificate_arn         = aws_acm_certificate.apigw_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert-validations.*.fqdn
+  validation_record_fqdns = aws_route53_record.cert-validations[*].fqdn
 
   timeouts {
     create = "5m"
@@ -27,9 +27,9 @@ resource "aws_route53_record" "cert-validations" {
 
   zone_id = data.kubernetes_secret.zone_id.data["zone_id"]
 
-  name    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options.*.resource_record_name, count.index)
-  type    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options.*.resource_record_type, count.index)
-  records = [element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options.*.resource_record_value, count.index)]
+  name    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
+  type    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
+  records = [element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
   ttl     = 60
 }
 

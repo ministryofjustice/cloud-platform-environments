@@ -21,7 +21,7 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
   certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert_validations.*.fqdn
+  validation_record_fqdns = aws_route53_record.cert_validations[*].fqdn
 
   timeouts {
     create = "10m"
@@ -40,9 +40,9 @@ resource "aws_route53_record" "cert_validations" {
 
   zone_id = data.aws_route53_zone.hmpps.zone_id
 
-  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_name, count.index)
-  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_type, count.index)
-  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_value, count.index)]
+  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
+  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
+  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
   ttl     = 60
 }
 
