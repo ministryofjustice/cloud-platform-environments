@@ -9,5 +9,9 @@ terraform {
       source  = "integrations/github"
       version = "~> 5.17.0"
     }
+    pingdom = {
+      source  = "russellcardullo/pingdom"
+      version = "1.1.3"
+    }
   }
 }
