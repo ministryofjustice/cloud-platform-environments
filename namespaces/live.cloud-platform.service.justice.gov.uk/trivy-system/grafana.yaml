@@ -1,4 +1,3 @@
-#kubectl apply -f 08-graffanadashboard.yaml - or go through process
 apiVersion: v1
 kind: ConfigMap
 metadata:
