@@ -47,7 +47,8 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
         "Principal": {"AWS": "*"},
         "Action": [
           "sqs:DeleteMessage",
-          "sqs:ReceiveMessage"
+          "sqs:ReceiveMessage",
+          "GetQueueAttributes"
         ],
         "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
         "Condition": {
