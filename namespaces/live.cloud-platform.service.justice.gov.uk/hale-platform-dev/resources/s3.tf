@@ -57,39 +57,39 @@ module "s3_bucket" {
   }
 
   user_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "Stmt1392016154000",
-        "Effect": "Allow",
-        "Action": [
-          "s3:AbortMultipartUpload",
-          "s3:DeleteObject",
-          "s3:GetBucketAcl",
-          "s3:GetBucketLocation",
-          "s3:GetBucketPolicy",
-          "s3:GetObject",
-          "s3:GetObjectAcl",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads",
-          "s3:ListMultipartUploadParts",
-          "s3:PutObject",
-          "s3:PutObjectAcl"
-        ],
-        "Resource": [
-          "$${bucket_arn}/*"
-        ]
-      },
-      {
-        "Sid": "AllowRootAndHomeListingOfBucket",
-        "Action": ["s3:ListBucket"],
-        "Effect": "Allow",
-        "Resource": ["$${bucket_arn}"],
-        "Condition":{"StringLike":{"s3:prefix":["*"]}}
-      }
-    ]
-  }
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1392016154000",
+      "Effect": "Allow",
+      "Action": [
+        "s3:AbortMultipartUpload",
+        "s3:DeleteObject",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLocation",
+        "s3:GetBucketPolicy",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:ListMultipartUploadParts",
+        "s3:PutObject",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AllowRootAndHomeListingOfBucket",
+      "Action": ["s3:ListBucket"],
+      "Effect": "Allow",
+      "Resource": ["$${bucket_arn}"],
+      "Condition":{"StringLike":{"s3:prefix":["*"]}}
+    }
+  ]
+}
   EOF
 
 
