@@ -94,6 +94,8 @@ resource "aws_sns_topic_subscription" "events-maat-subscription" {
   provider  = "aws.london"
   protocol  = "sqs"
 
+  raw_message_delivery = true
+
   # Not filtering for now, to be decided later
   #
   #  filter_policy = jsonencode({
