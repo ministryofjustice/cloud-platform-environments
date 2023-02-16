@@ -56,43 +56,40 @@ module "s3_bucket" {
     aws = aws.london
   }
 
-  bucket_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "Stmt1392016154000",
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "cloudfront.amazonaws.com"
-        },
-        "Action": [
-          "s3:AbortMultipartUpload",
-          "s3:DeleteObject",
-          "s3:GetBucketAcl",
-          "s3:GetBucketLocation",
-          "s3:GetBucketPolicy",
-          "s3:GetObject",
-          "s3:GetObjectAcl",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads",
-          "s3:ListMultipartUploadParts",
-          "s3:PutObject",
-          "s3:PutObjectAcl"
-        ],
-        "Resource": [
-          "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*"
-        ]
-      },
-      {
-        "Sid": "AllowRootAndHomeListingOfBucket",
-        "Action": ["s3:ListBucket"],
-        "Effect": "Allow",
-        "Resource": ["arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f"],
-        "Condition":{"StringLike":{"s3:prefix":["*"]}}
-      }
-    ]
-  }
+  user_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1392016154000",
+      "Effect": "Allow",
+      "Action": [
+        "s3:AbortMultipartUpload",
+        "s3:DeleteObject",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLocation",
+        "s3:GetBucketPolicy",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:ListMultipartUploadParts",
+        "s3:PutObject",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AllowRootAndHomeListingOfBucket",
+      "Action": ["s3:ListBucket"],
+      "Effect": "Allow",
+      "Resource": ["$${bucket_arn}"],
+      "Condition":{"StringLike":{"s3:prefix":["*"]}}
+    }
+  ]
+}
   EOF
 
 
