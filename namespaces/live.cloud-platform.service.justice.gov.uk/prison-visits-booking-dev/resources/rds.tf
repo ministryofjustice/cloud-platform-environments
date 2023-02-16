@@ -11,9 +11,9 @@ module "prison-visits-rds" {
 
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.m5.large"
+  db_instance_class           = "db.m5.small"
   rds_family                  = "postgres12"
-  db_engine_version           = "12"
+  db_engine_version           = "12.13"
   db_allocated_storage        = "50"
   db_engine                   = "postgres"
   db_name                     = "visits"
