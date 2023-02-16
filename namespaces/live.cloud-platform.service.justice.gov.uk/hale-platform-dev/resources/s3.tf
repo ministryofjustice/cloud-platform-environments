@@ -56,16 +56,13 @@ module "s3_bucket" {
     aws = aws.london
   }
 
-  bucket_policy = <<EOF
+  user_policy = <<EOF
   {
     "Version": "2012-10-17",
     "Statement": [
       {
         "Sid": "Stmt1392016154000",
         "Effect": "Allow",
-        "Principal": {
-          "Service": "cloudfront.amazonaws.com"
-        },
         "Action": [
           "s3:AbortMultipartUpload",
           "s3:DeleteObject",
@@ -81,14 +78,14 @@ module "s3_bucket" {
           "s3:PutObjectAcl"
         ],
         "Resource": [
-          "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*"
+          "$${bucket_arn}/*"
         ]
       },
       {
         "Sid": "AllowRootAndHomeListingOfBucket",
         "Action": ["s3:ListBucket"],
         "Effect": "Allow",
-        "Resource": ["arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f"],
+        "Resource": ["$${bucket_arn}"],
         "Condition":{"StringLike":{"s3:prefix":["*"]}}
       }
     ]
