@@ -83,3 +83,50 @@ resource "kubernetes_secret" "crime-applications-for-maat-dlq" {
     sqs_arn  = module.crime-applications-for-maat-dlq.sqs_arn
   }
 }
+
+###
+########### SNS subscription ###########
+###
+
+resource "aws_sns_topic_subscription" "events-maat-subscription" {
+  topic_arn = module.application-events-sns-topic.topic_arn
+  endpoint  = module.crime-applications-for-maat-sqs.sqs_arn
+  provider  = "aws.london"
+  protocol  = "sqs"
+
+  # Not filtering for now, to be decided later
+  #
+  #  filter_policy = jsonencode({
+  #    eventType = [
+  #      "name1",
+  #      "name2"
+  #    ]
+  #  })
+}
+
+resource "aws_sqs_queue_policy" "events-sns-to-maat-sqs-policy" {
+  queue_url = module.crime-applications-for-maat-sqs.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.crime-applications-for-maat-sqs.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.crime-applications-for-maat-sqs.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+            {
+              "ArnEquals":
+                {
+                  "aws:SourceArn": "${module.application-events-sns-topic.topic_arn}"
+                }
+            }
+        }
+      ]
+  }
+  EOF
+}
