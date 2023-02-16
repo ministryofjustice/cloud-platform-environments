@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "app_service_access" {
     actions = [
       "sqs:DeleteMessage",
       "sqs:ReceiveMessage",
-      "GetQueueAttributes"
+      "sqs:GetQueueAttributes"
     ]
     resources = [
       module.claim-criminal-injuries-application-queue.sqs_arn
