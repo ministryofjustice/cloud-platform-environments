@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-notifications-alerts-vsip.service.justice.gov.uk
+    - hmpps-notifications-alerts-vsip-dev.service.justice.gov.uk
