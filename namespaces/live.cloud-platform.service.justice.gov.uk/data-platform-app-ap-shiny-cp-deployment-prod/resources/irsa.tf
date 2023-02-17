@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "data-platform-app-ap-shiny-cp-deployment-prod" {
     ]
     resources = [
       
-      "",
+      "arn:aws:s3:::dev-analytics-platform-rshiny-notebook",
       
     ]
   }
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "data-platform-app-ap-shiny-cp-deployment-prod" {
     ]
     resources = [
       
-      "/*",
+      "arn:aws:s3:::dev-analytics-platform-rshiny-notebook/*",
       
     ]
   }
