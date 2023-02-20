@@ -21,7 +21,7 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories = ["hale-platform"]
-  
+
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["Demonstration"]
