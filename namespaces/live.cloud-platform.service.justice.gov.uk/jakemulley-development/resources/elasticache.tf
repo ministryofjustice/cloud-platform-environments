@@ -2,8 +2,8 @@ module "redis_4" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
 
   // Redis 4 config
-  engine_version = "4.0.10"
-  parameter_group_name = "default.redis4.0"
+  engine_version = "6.2"
+  parameter_group_name = "default.redis6.x"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -23,8 +23,8 @@ module "redis_5" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
 
   // Redis 5 config
-  engine_version = "5.0.6"
-  parameter_group_name = "default.redis5.0"
+  engine_version = "6.2"
+  parameter_group_name = "default.redis6.x"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -44,7 +44,7 @@ module "redis_6" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
 
   // Redis 6 config
-  engine_version = "6.0"
+  engine_version = "6.2"
   parameter_group_name = "default.redis6.x"
 
   vpc_name               = var.vpc_name
