@@ -20,7 +20,7 @@ module "claim-criminal-injuries-application-queue" {
 }
 
 resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-policy" {
-  queue_url = "${module.claim-criminal-injuries-application-queue.sqs_id}"
+  queue_url = module.claim-criminal-injuries-application-queue.sqs_id
 
   policy = <<EOF
   {
@@ -47,11 +47,12 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
         "Principal": {"AWS": "*"},
         "Action": [
           "sqs:DeleteMessage",
-          "sqs:ReceiveMessage"
+          "sqs:ReceiveMessage",
+          "sqs:GetQueueAttributes"
         ],
         "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
         "Condition": {
-          "ArnNotEquals": {
+          "ArnEquals": {
             "aws:SourceArn": [
               "${aws_iam_user.app_service.arn}"
             ]
