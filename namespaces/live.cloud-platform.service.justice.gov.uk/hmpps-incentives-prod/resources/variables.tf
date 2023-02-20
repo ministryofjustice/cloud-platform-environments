@@ -45,10 +45,12 @@ variable "slack_channel" {
   default     = "incentives-dev"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
+# Database settings
+
+variable "backup_window" {
+  default = "22:00-23:59"
 }
 
-variable "rds_family" {
-  default = "postgres14"
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
 }

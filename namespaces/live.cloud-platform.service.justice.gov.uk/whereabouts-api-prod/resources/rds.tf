@@ -4,7 +4,7 @@ variable "vpc_name" {
 
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -13,7 +13,7 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-
+  db_password_rotated_date    = "15-02-2023"
   db_instance_class    = "db.t3.medium"
   db_allocated_storage = "20"
 

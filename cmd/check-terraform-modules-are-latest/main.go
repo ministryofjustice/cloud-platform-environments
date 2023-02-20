@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/google/go-github/v50/github"
-	"github.com/ministryofjustice/github-actions/check-terraform-modules-are-latest/utils"
+	"github.com/ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest/utils"
 )
 
 func initEnvVars() (string, int, string) {
