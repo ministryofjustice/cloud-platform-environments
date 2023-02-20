@@ -1,11 +1,9 @@
-
 variable "domain" {
   default = "support.hmpps.service.justice.gov.uk"
 }
 
 variable "vpc_name" {
 }
-
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -42,7 +40,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps_core"
+  default     = "dps_adjudications"
 }
 
 # DEPRECATED: snake-case variables are the default. The definitions below
@@ -70,6 +68,5 @@ variable "is-production" {
 
 variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps_core"
+  default     = "dps_adjudications"
 }
-
