@@ -87,6 +87,16 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
     ]
   }
+
+  statement {
+    sid = "assumeRole"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      "arn:aws:iam::593291632749:role/alpha_app_gold-scorecard-form"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
