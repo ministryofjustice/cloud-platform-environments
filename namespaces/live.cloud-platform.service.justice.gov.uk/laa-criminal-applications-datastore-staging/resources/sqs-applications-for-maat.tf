@@ -84,43 +84,6 @@ resource "kubernetes_secret" "crime-applications-for-maat-dlq" {
   }
 }
 
-###
-########### SNS subscription ###########
-###
-
-resource "aws_sns_topic_subscription" "events-maat-subscription" {
-  topic_arn = module.application-events-sns-topic.topic_arn
-  endpoint  = module.crime-applications-for-maat-sqs.sqs_arn
-  provider  = "aws.london"
-  protocol  = "sqs"
-
-  raw_message_delivery = true
-
-  # Not filtering for now, to be decided later
-  #
-  #  filter_policy = jsonencode({
-  #    eventType = [
-  #      "name1",
-  #      "name2"
-  #    ]
-  #  })
-}
-
-resource "aws_sns_topic_subscription" "events-review-subscription" {
-  topic_arn = module.application-events-sns-topic.topic_arn
-  endpoint  = "https://laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk/api/events"
-  protocol  = "https"
-
-  raw_message_delivery   = true
-  endpoint_auto_confirms = true
-
-  filter_policy = jsonencode({
-    event_name = [
-      "apply.submission"
-    ]
-  })
-}
-
 resource "aws_sqs_queue_policy" "events-sns-to-maat-sqs-policy" {
   queue_url = module.crime-applications-for-maat-sqs.sqs_id
 
