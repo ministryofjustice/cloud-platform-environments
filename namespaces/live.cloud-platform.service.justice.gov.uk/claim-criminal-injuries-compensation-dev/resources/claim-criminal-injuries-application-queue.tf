@@ -13,7 +13,7 @@ module "claim-criminal-injuries-application-queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.claim-criminal-injuries-application-dlq.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 1
   })
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
@@ -41,7 +41,8 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
         "Condition": {
           "ArnEquals": {
             "aws:SourceArn": [
-              "${aws_iam_user.dcs.arn}"
+              "${aws_iam_user.dcs.arn}",
+              "${aws_iam_user.redrive_service.arn}",
             ]
           }
         }
@@ -60,20 +61,6 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
           "ArnEquals": {
             "aws:SourceArn": [
               "${aws_iam_user.app_service.arn}"
-            ]
-          }
-        }
-      },
-      {
-        "Sid": "claim-criminal-injuries-application-queue-allow-redrive",
-        "Effect": "Allow",
-        "Principal": {"AWS": "*"},
-        "Action": "sqs:SendMessage",
-        "Resource": "${module.claim-criminal-injuries-application-queue.sqs_arn}",
-        "Condition": {
-          "ArnEquals": {
-            "aws:SourceArn": [
-              "${module.claim-criminal-injuries-application-dlq.sqs_arn}"
             ]
           }
         }
@@ -126,11 +113,11 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-dlq-policy"
     "Id": "claim-criminal-injuries-application-queue-dlq-policy",
     "Statement": [
       {
-        "Sid": "claim-criminal-injuries-application-dlq-allow-app-service",
+        "Sid": "claim-criminal-injuries-application-dlq-allow-redrive-service",
         "Effect": "Allow",
         "Principal": {"AWS": "*"},
         "Action": [
-          "sqs:SendMessage",
+          "sqs:GetQueueAttributes",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage"
         ],
@@ -138,7 +125,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-dlq-policy"
         "Condition": {
           "ArnNotEquals": {
             "aws:SourceArn": [
-              "${aws_iam_user.app_service.arn}"
+              "${aws_iam_user.redrive_service.arn}"
             ]
           }
         }

@@ -83,3 +83,56 @@ resource "kubernetes_secret" "app-service-sqs-secret" {
     secret_access_key = aws_iam_access_key.app_service.secret
   }
 }
+
+data "aws_iam_policy_document" "redrive_service_access" {
+  statement [
+    {
+      sid = "AllowRedriveServiceToReadFromAppDLQ"
+      actions = [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:GetQueueAttributes"
+      ]
+      resources = [
+        module.claim-criminal-injuries-application-dlq.sqs_arn
+      ]
+    }
+    {
+      sid = "AllowRedriveServiceToSendToAppQueue"
+      actions = [
+        "sqs:SendMessage"
+      ]
+      resources = [
+        module.claim-criminal-injuries-application-queue.sqs_arn
+      ]
+    }
+  ]
+}
+
+resource "aws_iam_user" "redrive_service" {
+  name = "app_service-${random_id.id.hex}"
+  path = "/system/cica-redrive-service-user/"
+}
+
+resource "aws_iam_access_key" "redrive_service" {
+  user = aws_iam_user.redrive_service.name
+}
+
+resource "aws_iam_user_policy" "redrive_service_policy" {
+  name   = "redrive_service_access_policy"
+  policy = data.aws_iam_policy_document.redrive_service_access.json
+  user   = aws_iam_user.redrive_service.name
+}
+
+resource "kubernetes_secret" "redrive-service-sqs-secret" {
+  metadata {
+    name      = "redrive-service-sqs-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    user_arn           = aws_iam_user.redrive_service.arn
+    access_key_id      = aws_iam_access_key.redrive_service.id
+    secret_access_key  = aws_iam_access_key.redrive_service.secret
+  }
+}
