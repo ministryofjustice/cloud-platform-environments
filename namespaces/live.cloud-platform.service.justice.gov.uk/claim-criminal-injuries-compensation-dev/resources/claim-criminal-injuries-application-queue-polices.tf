@@ -47,7 +47,8 @@ data "aws_iam_policy_document" "app_service_access" {
     sid = "AllowAppServiceToReadFromAppQueue"
     actions = [
       "sqs:DeleteMessage",
-      "sqs:ReceiveMessage"
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueAttributes"
     ]
     resources = [
       module.claim-criminal-injuries-application-queue.sqs_arn
