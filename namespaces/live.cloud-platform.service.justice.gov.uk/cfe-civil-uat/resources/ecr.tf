@@ -7,7 +7,7 @@
 module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.0"
   team_name = var.team_name
-  repo_name = "check-financial-eligibility-partner-ecr"
+  repo_name = "cfe-civil-ecr"
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
