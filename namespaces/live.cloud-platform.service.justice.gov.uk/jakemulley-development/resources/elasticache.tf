@@ -87,7 +87,7 @@ module "redis_7_0" {
 
   // Redis 7.0 config
   engine_version = "7.0"
-  parameter_group_name = "default.redis7.x"
+  parameter_group_name = "default.redis7"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
