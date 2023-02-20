@@ -7,6 +7,9 @@ module "rds-live" {
   is-production = var.is_production
   namespace     = var.namespace
 
+  # rotating creds
+  db_password_rotated_date = "20-02-2023"
+
   snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:rds:cloud-platform-5c9ecadf2a420651-2022-11-02-02-10"
   # enable performance insights
   performance_insights_enabled = true
