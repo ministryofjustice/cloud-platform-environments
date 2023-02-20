@@ -21,7 +21,7 @@ module "prison-visits-rds" {
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
-  db_instance_class      = "db.m5.large"
+  db_instance_class      = "db.t4g.small"
   db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-staging"
@@ -30,7 +30,7 @@ module "prison-visits-rds" {
   environment-name       = "staging"
   infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"
   db_engine              = "postgres"
-  db_engine_version      = "12"
+  db_engine_version      = "12.13"
   db_name                = "visits"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres12"

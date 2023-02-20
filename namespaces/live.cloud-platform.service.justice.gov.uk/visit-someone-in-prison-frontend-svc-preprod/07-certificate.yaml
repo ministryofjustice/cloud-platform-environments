@@ -2,12 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: prison-visits-admin-cert
+  name: hmpps-vsip-internal-admin-ui-cert
   namespace: visit-someone-in-prison-frontend-svc-preprod
 spec:
-  secretName:  prison-visits-admin-cert
+  secretName: hmpps-vsip-internal-admin-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prison-visits-admin-preprod.prison.service.justice.gov.uk
+  - vsip-internal-admin-ui-preprod.prison.service.justice.gov.uk
+  - hmpps-vsip-internal-admin-ui-preprod.prison.service.justice.gov.uk

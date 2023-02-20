@@ -5,10 +5,10 @@ metadata:
   namespace: offender-events-preprod
 spec:
   limits:
-  - default:
-      cpu: 2000m
-      memory: 1024Mi
-    defaultRequest:
-      cpu: 10m
-      memory: 512Mi
-    type: Container
+    - default:
+        cpu: 2000m
+        memory: 2048Mi
+      defaultRequest:
+        cpu: 10m
+        memory: 856Mi
+      type: Container
