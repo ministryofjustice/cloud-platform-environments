@@ -1,6 +1,6 @@
 resource "random_password" "passwords" {
-  count = 2
-  length = 20
+  count   = 2
+  length  = 20
   special = true
 }
 
