@@ -13,6 +13,7 @@ module "dps_rds" {
   db_allocated_storage        = "20"
   db_engine_version           = "10"
   rds_family                  = "postgres10"
+  db_password_rotated_date    = "15-02-2023"
 
   providers = {
     aws = aws.london
