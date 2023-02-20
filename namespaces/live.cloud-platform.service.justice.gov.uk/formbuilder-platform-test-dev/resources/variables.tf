@@ -19,7 +19,7 @@ variable "is-production" {
 }
 
 variable "infrastructure-support" {
-  default = "Form Builder form-builder-team@digital.justice.gov.uk"
+  default = "Form Builder form-builder-developers@digital.justice.gov.uk"
 }
 
 # The following variable is provided at runtime by the pipeline.
