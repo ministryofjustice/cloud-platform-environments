@@ -4,6 +4,7 @@ module "redis_4" {
   // Redis 4 config
   engine_version = "6.2"
   parameter_group_name = "default.redis6.x"
+  node_type = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -25,6 +26,7 @@ module "redis_5" {
   // Redis 5 config
   engine_version = "6.2"
   parameter_group_name = "default.redis6.x"
+  node_type = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -46,6 +48,7 @@ module "redis_6" {
   // Redis 6 config
   engine_version = "6.2"
   parameter_group_name = "default.redis6.x"
+  node_type = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -67,6 +70,7 @@ module "redis_6_2" {
   // Redis 6.2 config
   engine_version = "6.2"
   parameter_group_name = "default.redis6.x"
+  node_type = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -88,6 +92,7 @@ module "redis_7_0" {
   // Redis 7.0 config
   engine_version = "7.0"
   parameter_group_name = "default.redis7"
+  node_type = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
