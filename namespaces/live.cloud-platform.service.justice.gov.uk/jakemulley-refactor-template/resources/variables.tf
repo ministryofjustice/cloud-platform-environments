@@ -1,58 +1,69 @@
-
-
 variable "vpc_name" {
-}
-
-variable "cluster_state_bucket" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
 }
 
 variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "application" {
-  description = "Name of Application you are deploying"
-  default     = "Namespace to test refactoring namespace-cli templates"
+  description = "Name of the application you are deploying"
+  type        = string
+  default     = "{{ .Application }}"
 }
 
 variable "namespace" {
-  default = "jakemulley-refactor-template"
+  description = "Name of the namespace these resources are part of"
+  type        = string
+  default     = "{{ .Namespace }}"
 }
 
 variable "business_unit" {
-  description = "Area of the MOJ responsible for the service."
-  default     = "Platforms"
+  description = "Area of the MOJ responsible for this service"
+  type        = string
+  default     = "{{ .BusinessUnit }}"
 }
 
 variable "team_name" {
-  description = "The name of your development team"
-  default     = "webops"
+  description = "Name of the development team responsible for this service"
+  type        = string
+  default     = "{{ .GithubTeam }}"
 }
 
 variable "environment" {
-  description = "The type of environment you're deploying to."
-  default     = "development"
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "{{ .Environment }}"
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "{{ .InfrastructureSupport }}"
 }
 
 variable "is_production" {
-  default = "false"
+  description = "Whether this environment type is production or not"
+  type        = string
+  default     = "{{ .IsProduction }}"
 }
 
 variable "slack_channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "cloud-platform"
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "{{ .SlackChannel }}"
 }
 
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
   default     = "ministryofjustice"
 }
 
 variable "github_token" {
-  description = "Required by the Github Terraform provider"
+  type        = string
+  description = "Required by the GitHub Terraform provider"
   default     = ""
 }
