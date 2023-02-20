@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps_core"
+  default     = "dps_adjudications"
 }
 
 # DEPRECATED: snake-case variables are the default. The definitions below
