@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "redrive_service_access" {
       module.claim-criminal-injuries-application-dlq.sqs_arn
     ]
   }
-  
+
   statement {
     sid = "AllowRedriveServiceToSendToAppQueue"
     actions = [
@@ -109,7 +109,7 @@ data "aws_iam_policy_document" "redrive_service_access" {
 }
 
 resource "aws_iam_user" "redrive_service" {
-  name = "app_service-${random_id.id.hex}"
+  name = "redrive_service-${random_id.id.hex}"
   path = "/system/cica-redrive-service-user/"
 }
 
