@@ -13,6 +13,8 @@ module "calculate_release_dates_api_rds" {
   db_engine_version      = "13"
   rds_family             = "postgres13"
 
+  db_password_rotated_date = "14-02-2023"
+
   providers = {
     aws = aws.london
   }
