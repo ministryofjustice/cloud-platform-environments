@@ -85,28 +85,27 @@ resource "kubernetes_secret" "app-service-sqs-secret" {
 }
 
 data "aws_iam_policy_document" "redrive_service_access" {
-  statement [
-    {
-      sid = "AllowRedriveServiceToReadFromAppDLQ"
-      actions = [
-        "sqs:DeleteMessage",
-        "sqs:ReceiveMessage",
-        "sqs:GetQueueAttributes"
-      ]
-      resources = [
-        module.claim-criminal-injuries-application-dlq.sqs_arn
-      ]
-    }
-    {
-      sid = "AllowRedriveServiceToSendToAppQueue"
-      actions = [
-        "sqs:SendMessage"
-      ]
-      resources = [
-        module.claim-criminal-injuries-application-queue.sqs_arn
-      ]
-    }
-  ]
+  statement {
+    sid = "AllowRedriveServiceToReadFromAppDLQ"
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-application-dlq.sqs_arn
+    ]
+  }
+  
+  statement {
+    sid = "AllowRedriveServiceToSendToAppQueue"
+    actions = [
+      "sqs:SendMessage"
+    ]
+    resources = [
+      module.claim-criminal-injuries-application-queue.sqs_arn
+    ]
+  }
 }
 
 resource "aws_iam_user" "redrive_service" {
