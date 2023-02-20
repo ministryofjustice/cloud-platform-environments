@@ -19,7 +19,7 @@ module "rotate_token_ec_cluster" {
 resource "kubernetes_secret" "rotate_token_ec_cluster" {
   metadata {
     name      = "rotate-token-ec-cluster-output"
-    namespace              = var.namespace
+    namespace = var.namespace
   }
 
   data = {
