@@ -42,7 +42,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
           "ArnEquals": {
             "aws:SourceArn": [
               "${aws_iam_user.dcs.arn}",
-              "${aws_iam_user.redrive_service.arn}",
+              "${aws_iam_user.redrive_service.arn}"
             ]
           }
         }
