@@ -12,6 +12,9 @@ module "rds" {
   is-production = var.is_production
   namespace     = var.namespace
 
+  # rotating creds
+  db_password_rotated_date = "21-02-2023"
+
   # enable performance insights
   performance_insights_enabled = true
 
