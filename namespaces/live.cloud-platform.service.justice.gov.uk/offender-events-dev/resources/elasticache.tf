@@ -15,7 +15,7 @@ module "offender_events_ui_elasticache_redis" {
   engine_version          = "6.x"
   parameter_group_name    = "default.redis6.x"
   namespace               = var.namespace
-  auth_token_rotated_date = "2023-02-21"
+  auth_token_rotated_date = "2023-02-21:14:00"
 
   providers = {
     aws = aws.london
