@@ -1,5 +1,5 @@
 module "test_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=update"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name               = var.vpc_name
