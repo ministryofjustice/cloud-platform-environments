@@ -1,16 +1,17 @@
 module "hmpps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
-  vpc_name               = var.vpc_name
-  application            = var.application_sync_dashboard
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
-  team_name              = var.team_name
-  number_cache_clusters  = var.number_cache_clusters
-  node_type              = var.node-type
-  engine_version         = "6.x"
-  parameter_group_name   = "default.redis6.x"
-  namespace              = var.namespace
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  vpc_name                = var.vpc_name
+  application             = var.application_sync_dashboard
+  environment-name        = var.environment
+  is-production           = var.is_production
+  infrastructure-support  = var.infrastructure_support
+  team_name               = var.team_name
+  number_cache_clusters   = var.number_cache_clusters
+  node_type               = var.node-type
+  engine_version          = "6.x"
+  parameter_group_name    = "default.redis6.x"
+  namespace               = var.namespace
+  auth_token_rotated_date = "2023-02-21"
 
   providers = {
     aws = aws.london
