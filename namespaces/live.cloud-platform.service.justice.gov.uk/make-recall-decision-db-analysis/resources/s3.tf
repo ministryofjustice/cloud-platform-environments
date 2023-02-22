@@ -181,6 +181,53 @@ EOF
 }
 
 
+resource "aws_iam_role" "ppud_backup_s3_iam_role" {
+  name = "ppud-backup-s3-iam-role"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "rds.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "ppud_backup_s3_iam_role_policy" {
+  name = "ppud-backup-s3-iam-role-policy"
+  role = aws_iam_role.ppud_backup_s3_iam_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
+        Resource = module.s3_bucket.bucket_arn
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListMultipartUploadParts",
+          "s3:AbortMultipartUpload"
+        ],
+        Resource = "${module.s3_bucket.bucket_arn}/*"
+      }
+    ]
+  })
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"

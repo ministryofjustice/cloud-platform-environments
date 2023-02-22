@@ -26,6 +26,7 @@ module "rds_mssql" {
   rds_family                  = "sqlserver-ex-15.0"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
+  option_group_name    = aws_db_option_group.ppud_backup_rds_option_group.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -35,6 +36,24 @@ module "rds_mssql" {
 
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
+
+	resource "aws_db_option_group" "ppud_backup_rds_option_group" {
+		name                     = "ppud-backup"
+		option_group_description = "Enable SQL Server Backup/Restore"
+		engine_name              = "sqlserver-ex"
+		major_engine_version     = "15.00"
+
+		option {
+			option_name = "SQLSERVER_BACKUP_RESTORE"
+
+			option_settings {
+				name  = "IAM_ROLE_ARN"
+				value = aws_iam_role.ppud_backup_s3_iam_role.arn 
+			}
+		}
+}
+
+  
 
   db_parameter = [
     {
