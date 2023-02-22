@@ -91,8 +91,7 @@ spec:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than ten minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-37a1ac1b9a12702e
-        "} > 95
+        aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-37a1ac1b9a12702e"} > 95
       for: 10m
       labels:
         severity: prepare-a-case
@@ -101,8 +100,7 @@ spec:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than five minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-e98703fc54157c2d
-        "} > 95
+        aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-e98703fc54157c2d"} > 95
       for: 5m
       labels:
         severity: prepare-a-case
@@ -111,7 +109,7 @@ spec:
         message: Pre Sentence Service wproofreader is returning 5xx responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(irate(nginx_ingress_controller_requests{ingress=~"pre-sentence-service-wproofreader-v1-2", exported_namespace="court-probation-prod",status=~"5.*"} offset 5m)) > 0
+        sum(rate(nginx_ingress_controller_requests{ingress=~"pre-sentence-service-wproofreader-v1-2", exported_namespace="laa-apply-for-legalaid-production", status=~"5.."}[5m]))*270 > 0
       for: 10m
       labels:
         severity: prepare-a-case  
