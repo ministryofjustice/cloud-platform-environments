@@ -26,7 +26,6 @@ module "rds_mssql" {
   rds_family                  = "sqlserver-ex-15.0"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
-  storage_encrypted           = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
