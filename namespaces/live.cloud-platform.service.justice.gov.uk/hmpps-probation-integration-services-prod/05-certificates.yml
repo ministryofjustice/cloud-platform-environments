@@ -193,3 +193,17 @@ spec:
   dnsNames:
     - workforce-allocations-to-delius.hmpps.service.justice.gov.uk
 ---
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-project-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: test-project-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - bd58c89521b9ac85f41a70bf9c9d5cb4.hmpps.service.justice.gov.uk
+    - test-project.hmpps.service.justice.gov.uk
