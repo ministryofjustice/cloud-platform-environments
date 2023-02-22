@@ -8,8 +8,8 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
-  allow_major_version_upgrade = "true"
-  db_instance_class           = "db.t3.xlarge"
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t4g.medium"
   db_allocated_storage        = "20"
   db_engine_version           = "14"
   rds_family                  = "postgres14"
