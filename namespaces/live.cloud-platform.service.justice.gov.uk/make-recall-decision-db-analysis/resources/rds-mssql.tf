@@ -37,24 +37,6 @@ module "rds_mssql" {
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
 
-	resource "aws_db_option_group" "ppud_backup_rds_option_group" {
-		name                     = "ppud-backup"
-		option_group_description = "Enable SQL Server Backup/Restore"
-		engine_name              = "sqlserver-ex"
-		major_engine_version     = "15.00"
-
-		option {
-			option_name = "SQLSERVER_BACKUP_RESTORE"
-
-			option_settings {
-				name  = "IAM_ROLE_ARN"
-				value = aws_iam_role.ppud_backup_s3_iam_role.arn 
-			}
-		}
-}
-
-  
-
   db_parameter = [
     {
       name         = "rds.force_ssl"
@@ -66,6 +48,22 @@ module "rds_mssql" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
+  }
+}
+
+resource "aws_db_option_group" "ppud_backup_rds_option_group" {
+  name                     = "ppud-backup"
+  option_group_description = "Enable SQL Server Backup/Restore"
+  engine_name              = "sqlserver-ex"
+  major_engine_version     = "15.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+
+    option_settings {
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.ppud_backup_s3_iam_role.arn 
+    }
   }
 }
 
