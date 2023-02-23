@@ -21,12 +21,12 @@ module "rds" {
   rds_family           = "postgres14"
   db_engine            = "postgres"
   db_engine_version    = "14.3"
-  db_instance_class    = "db.m5.xlarge"
+  db_instance_class    = "db.m6g.xlarge"
   db_allocated_storage = "175"
   db_name              = "mtp_api"
 
-  allow_major_version_upgrade  = true
-  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  allow_minor_version_upgrade  = false
   deletion_protection          = true
   performance_insights_enabled = true
 }
@@ -38,6 +38,8 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
+    db_identifier         = module.rds.db_identifier
+    resource_id           = module.rds.resource_id
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
     database_username     = module.rds.database_username
