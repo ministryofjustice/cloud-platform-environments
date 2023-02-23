@@ -57,3 +57,4 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
