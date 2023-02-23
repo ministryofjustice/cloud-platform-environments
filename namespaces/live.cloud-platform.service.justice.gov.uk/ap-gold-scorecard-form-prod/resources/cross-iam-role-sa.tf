@@ -7,32 +7,27 @@ module "irsa" {
 
 data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
   statement {
-    sid = "listbucket"
+    sid = "readwritebucket"
     actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation",
-    ]
-    resources = [
-      "arn:aws:s3:::alpha-app-scorecard-form",
-      "arn:aws:s3:::alpha-athena-query-dump",
-      "arn:aws:s3:::mojap-athena-query-dump",
-    ]
-  }
-
-  statement {
-    sid = "readwritebucket"
-    actions = [
+      "s3:ListBucketMultipartUploads",
+      "s3:ListMultipartUploadParts",
+      "s3:AbortMultipartUpload",
       "s3:GetObject",
-      "s3:GetObjectAcl",
       "s3:GetObjectVersion",
       "s3:DeleteObject",
       "s3:DeleteObjectVersion",
       "s3:PutObject",
-      "s3:PutObjectAcl",
       "s3:RestoreObject",
     ]
     resources = [
+      "arn:aws:s3:::alpha-app-scorecard-form",
       "arn:aws:s3:::alpha-app-scorecard-form/*",
+      "arn:aws:s3:::alpha-athena-query-dump",
+      "arn:aws:s3:::mojap-athena-query-dump",
+      "arn:aws:s3:::alpha-athena-query-dump/$${aws:userid}",
+      "arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}",
       "arn:aws:s3:::alpha-athena-query-dump/$${aws:userid}/*",
       "arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*",
     ]
@@ -89,7 +84,17 @@ data "aws_iam_policy_document" "ap-gold-scorecard-form-prod" {
       "athena:RunQuery",
     ]
     resources = [
-      "arn:aws:athena:eu-west-1:593291632749:workgroup/primary",
+      "arn:aws:athena:eu-west-2:754256621582:workgroup/primary",
+    ]
+  }
+
+  statement {
+    sid = "assumeRole"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      "arn:aws:iam::593291632749:role/alpha_app_gold-scorecard-form"
     ]
   }
 }
@@ -100,21 +105,32 @@ resource "aws_iam_policy" "ap-gold-scorecard-form-prod" {
 
   tags = {
     business-unit          = "Cloud Platform"
-    application            = "Test Migration"
-    is-production          = "false"
-    environment-name       = "Development"
+    application            = "Gold Scorecard Form"
+    is-production          = "true"
+    environment-name       = "Production"
     owner                  = "cloud-platform"
     infrastructure-support = "platforms@digital.justice.gov.uk"
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "cross-account-iam-role" {
   metadata {
-    name      = "irsa-output"
-    namespace = "ap-gold-scorecard-form-prod"
+    name      = "cross-account-iam-role"
+    namespace = var.namespace
   }
   data = {
     role           = module.irsa.aws_iam_role_arn
     serviceaccount = module.irsa.service_account_name.name
+    policy_doc     = data.aws_iam_policy_document.ap-gold-scorecard-form-prod.json
+  }
+}
+
+resource "aws_athena_data_catalog" "gold-scorecard-form" {
+  name        = "gold-scorecard-form"
+  description = "Glue based Data Catalog for Gold Scorecard Form App"
+  type        = "GLUE"
+
+  parameters = {
+    "catalog-id" = "593291632749"
   }
 }

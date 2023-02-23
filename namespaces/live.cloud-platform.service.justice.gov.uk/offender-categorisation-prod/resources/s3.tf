@@ -24,7 +24,6 @@ module "risk_profiler_s3_bucket" {
             "Principal": {
                 "AWS":
                   [
-                    "arn:aws:iam::593291632749:role/airflow_viper_to_external",
                     "arn:aws:iam::593291632749:role/airflow_prod_sdt_viper_to_external"
                   ]
             },

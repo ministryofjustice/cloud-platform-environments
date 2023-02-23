@@ -1516,9 +1516,24 @@ data:
                 "selected": false,
                 "text": "\"court-hearing-event-receiver\"",
                 "value": "\"court-hearing-event-receiver\""
+              },
+              {
+                "selected": false,
+                "text": "\"pre-sentence-service\"",
+                "value": "\"pre-sentence-service\""
+              },
+              {
+                "selected": false,
+                "text": "\"pre-sentence-service-gotenberg\"",
+                "value": "\"pre-sentence-service-gotenberg\""
+              },
+              {
+                "selected": false,
+                "text": "\"pre-sentence-service-wproofreader\"",
+                "value": "\"pre-sentence-service-wproofreader\""
               }
             ],
-            "query": "\"prepare-a-case\",\"court-case-service\",\"crime-portal-gateway\",\"court-case-matcher\",\"court-list-splitter\",\"court-hearing-event-receiver\"",
+            "query": "\"prepare-a-case\",\"court-case-service\",\"crime-portal-gateway\",\"court-case-matcher\",\"court-list-splitter\",\"court-hearing-event-receiver\",\"pre-sentence-service\",\"pre-sentence-service-gotenberg\",\"pre-sentence-service-wproofreader\"",
             "queryValue": "",
             "skipUrlSync": false,
             "type": "custom"

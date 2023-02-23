@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -7,7 +7,9 @@ module "rds-live" {
   is-production = var.is_production
   namespace     = var.namespace
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:rds:cloud-platform-5c9ecadf2a420651-2022-11-02-02-10"
+  # rotating creds
+  db_password_rotated_date = "20-02-2023"
+
   # enable performance insights
   performance_insights_enabled = true
 

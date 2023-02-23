@@ -13,7 +13,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "dps-core"
 }
 
 variable "environment-name" {
@@ -38,3 +38,7 @@ variable "is-production" {
   default = "false"
 }
 
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "dps_adjudications"
+}

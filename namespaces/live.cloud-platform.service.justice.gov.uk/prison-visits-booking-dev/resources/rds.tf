@@ -1,5 +1,5 @@
 module "prison-visits-rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -11,9 +11,9 @@ module "prison-visits-rds" {
 
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.m5.large"
+  db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres12"
-  db_engine_version           = "12"
+  db_engine_version           = "12.13"
   db_allocated_storage        = "50"
   db_engine                   = "postgres"
   db_name                     = "visits"
@@ -33,7 +33,7 @@ resource "kubernetes_secret" "prison-visits-rds" {
   data = {
     access_key_id     = module.prison-visits-rds.access_key_id
     secret_access_key = module.prison-visits-rds.secret_access_key
-    url = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
+    url               = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
 

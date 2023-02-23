@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: accessibility-book-club-admin
+  namespace: accessibility-book-club
+subjects:
+  - kind: Group
+    name: "github:accessibility-resources-admin"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

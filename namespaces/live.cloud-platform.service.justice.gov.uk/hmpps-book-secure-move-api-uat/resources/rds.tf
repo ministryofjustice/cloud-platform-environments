@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
 
   vpc_name = var.vpc_name
 
@@ -9,10 +9,19 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
-  db_instance_class      = "db.t3.medium"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
+
+  db_instance_class      = "db.t3.medium"
+  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_engine              = "postgres"
+  db_engine_version      = "12.11"
+  rds_family             = "postgres12"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "false"
+
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

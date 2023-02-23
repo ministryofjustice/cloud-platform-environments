@@ -28,6 +28,7 @@ type Namespace struct {
 	Application      string
 	BusinessUnit     string
 	DeploymentType   string
+	IsProduction     bool
 	Cluster          string
 	DomainNames      []string
 	GithubURL        string
@@ -89,9 +90,7 @@ func GetProductionNamespaces(ns AllNamespaces) (namespaces []string, err error) 
 	}
 
 	for _, ns := range ns.Namespaces {
-		// Before cli validation existed users could add whatever they wanted. This means we have some strange values for this identifier.
-		env := strings.ToLower(ns.DeploymentType)
-		if strings.Contains(env, "live") || strings.Contains(env, "production") || env == "prod" {
+		if ns.IsProduction == true {
 			namespaces = append(namespaces, ns.Name)
 		}
 	}
@@ -108,8 +107,7 @@ func GetNonProductionNamespaces(ns AllNamespaces) (namespaces []string, err erro
 	}
 
 	for _, ns := range ns.Namespaces {
-		env := strings.ToLower(ns.DeploymentType)
-		if env != "prod" && !strings.Contains(env, "live") && env != "production" {
+		if ns.IsProduction == false {
 			namespaces = append(namespaces, ns.Name)
 		}
 	}

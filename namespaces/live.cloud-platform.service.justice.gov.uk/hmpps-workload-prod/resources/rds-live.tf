@@ -1,11 +1,14 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+
+  # rotating creds
+  db_password_rotated_date = "21-02-2023"
 
   # enable performance insights
   performance_insights_enabled = true
@@ -25,7 +28,7 @@ module "rds-live" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
-  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2022-10-20-02-06"
+  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2023-02-18-02-09"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

@@ -25,6 +25,8 @@ spec:
           env:
             - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
               value: hmpps-probation-integration-runner
+            - name: RUNNER_WORKDIR
+              value: '/_work'
             - name: LABELS
               value: moj-cloud-platform,hmpps-probation-integration-runner
             - name: REPO_URL
@@ -36,3 +38,5 @@ spec:
                 secretKeyRef:
                   name: github-actions-runner-token
                   key: ACCESS_TOKEN
+            - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
+              value: ubuntu20

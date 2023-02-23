@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sjpr-prod-certificate
+  namespace: sjpr-prod
+spec:
+  secretName: sjpr-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - social-justice-problems.service.justice.gov.uk 

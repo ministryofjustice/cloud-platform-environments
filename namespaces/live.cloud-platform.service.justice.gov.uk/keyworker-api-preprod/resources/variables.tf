@@ -10,7 +10,6 @@ variable "namespace" {
 variable "vpc_name" {
 }
 
-
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -18,7 +17,7 @@ variable "business-unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital-Prison-Services"
+  default     = "dps-core"
 }
 
 variable "environment-name" {
@@ -35,3 +34,7 @@ variable "is-production" {
   default = "false"
 }
 
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "dps_adjudications"
+}

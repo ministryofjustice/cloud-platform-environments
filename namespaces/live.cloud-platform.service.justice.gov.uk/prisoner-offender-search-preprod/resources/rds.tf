@@ -1,5 +1,5 @@
 module "pos_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -9,10 +9,11 @@ module "pos_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
 
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
+  db_password_rotated_date    = "2023-02-21"
 
   providers = {
     aws = aws.london

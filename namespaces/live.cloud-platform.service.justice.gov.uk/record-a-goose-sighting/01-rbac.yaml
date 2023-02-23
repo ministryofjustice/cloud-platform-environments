@@ -5,7 +5,7 @@ metadata:
   namespace: record-a-goose-sighting
 subjects:
   - kind: Group
-    name: "github:record-a-goose-sighting-admin-team"
+    name: "github:accessibility-resources-admin"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

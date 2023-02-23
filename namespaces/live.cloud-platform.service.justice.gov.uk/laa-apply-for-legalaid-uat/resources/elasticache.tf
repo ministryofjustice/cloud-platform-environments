@@ -13,9 +13,10 @@ module "apply-for-legal-aid-elasticache" {
   application            = "laa-apply-for-legal-aid"
   is-production          = "false"
   environment-name       = "uat"
-  infrastructure-support = "apply@digital.justice.gov.uk"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  node_type              = "cache.t4g.medium"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   providers = {
@@ -35,4 +36,3 @@ resource "kubernetes_secret" "apply-for-legal-aid-elasticache" {
     auth_token               = module.apply-for-legal-aid-elasticache.auth_token
   }
 }
-

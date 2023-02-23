@@ -1,11 +1,14 @@
 module "rds-allocation" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+
+  # rotating creds
+  db_password_rotated_date = "09-02-2023"
 
   # enable performance insights
   performance_insights_enabled = true
