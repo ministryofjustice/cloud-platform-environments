@@ -8,7 +8,6 @@ resource "pingdom_check" "pingdom" {
     "make-recall-decisions-and-delius",
     "manage-pom-cases-and-delius",
     "offender-events-and-delius",
-    "person-search-index-from-delius",
     "pre-sentence-reports-to-delius",
     "prison-case-notes-to-probation",
     "prison-custody-status-to-delius",
