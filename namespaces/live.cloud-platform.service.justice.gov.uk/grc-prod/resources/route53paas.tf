@@ -26,11 +26,13 @@ resource "kubernetes_secret" "route53_zone_sec_apply" {
 resource "aws_route53_record" "apply_gender_recognition_certificate" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "apply-gender-recognition-certificate.service.gov.uk"
-  type    = "CNAME"
-  ttl     = 300
-  records = [
-    "d1ihfuni1rbt6y.cloudfront.net."
-  ]
+  type    = "A"
+  
+  alias {
+    name                   = "d1ihfuni1rbt6y.cloudfront.net."
+    zone_id                = "Z2FDTNDATAQYW2"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "_45bde841e2577492acdf0e9abee59ccc_apply_gender_recognition_certificate" {
