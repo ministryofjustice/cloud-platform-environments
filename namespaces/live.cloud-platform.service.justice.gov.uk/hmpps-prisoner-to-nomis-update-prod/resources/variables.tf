@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "syscon-devs"
+  default     = "dps-syscon"
 }
 
 variable "environment" {
