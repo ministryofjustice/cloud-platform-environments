@@ -73,6 +73,6 @@ resource "aws_route53_record" "dashboard_apply_gender_recognition_certificate" {
   type    = "CNAME"
   ttl     = 300
   records = [
-    "grc-production-dashboard.london.cloudapps.digital."
+    "grc-dashboard-service.grc-prod.svc.cluster.live.cloud-platform.service.justice.gov.uk"
   ]
 }
