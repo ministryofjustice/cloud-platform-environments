@@ -15,7 +15,7 @@ class CpEnv
       @dir = args.fetch(:dir)
       @cluster = args.fetch(:cluster)
       @executor = args.fetch(:executor) { Executor.new }
-      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces) { true }
+      @enable_skip_namespaces = args.fetch(:enable_skip_namespaces, true)
     end
 
     def apply
@@ -44,7 +44,7 @@ class CpEnv
 
     def team_name
       @team_name ||= begin
-        yaml = YAML.load(File.read("#{dir}/01-rbac.yaml"))
+        yaml = YAML.safe_load(File.read("#{dir}/01-rbac.yaml"))
         team = yaml["subjects"][0].dig("name").split(":")[1]
         abort("Team name not found") if team.nil?
         team
