@@ -44,10 +44,14 @@ var (
 
 type Mismatch struct {
 	RepositoryNamespace,
-	File,
+	File string
+	// Resource details
 	ResourceTypeName,
 	ResourceName,
 	ResourceNamespace string
+	// Module details
+	ModuleTypeName,
+	ModuleNamespace string
 }
 
 type Result struct {
@@ -86,10 +90,9 @@ func decodeFile() ([]*hclwrite.Block, error) {
 	return blocks, nil
 }
 
-// resouceType will search for namespace in all resources in a Pull Request
+// resouceType will search for namespace in all resources raised in a Pull Request
 func resourceType(block *hclwrite.Block) (string, string) {
 	var resourceName string
-	var namespaceBlock string
 	var namespaceVar string
 
 	metadata := block.Body().Blocks()
@@ -102,28 +105,56 @@ func resourceType(block *hclwrite.Block) (string, string) {
 					var valueTokens hclwrite.Tokens
 					valueTokens = append(valueTokens, exprTokens...)
 					resourceName = strings.TrimSpace(string(valueTokens.Bytes()))
+					if strings.Contains(resourceName, "var.") {
+						n := strings.SplitAfter(resourceName, ".")
+						varName, err := varFileSearch(n[1])
+						if err != nil {
+							log.Fatal(err)
+						}
+						resourceName = varName
+					}
 				}
 				if key == "namespace" {
 					expr := attr.Expr()
 					exprTokens := expr.BuildTokens(nil)
 					var valueTokens hclwrite.Tokens
 					valueTokens = append(valueTokens, exprTokens...)
-					namespaceBlock = strings.TrimSpace(string(valueTokens.Bytes()))
-					if strings.Contains(namespaceBlock, "var.") {
-						ns := strings.SplitAfter(namespaceBlock, ".")
+					namespaceVar = strings.TrimSpace(string(valueTokens.Bytes()))
+					if strings.Contains(namespaceVar, "var.") {
+						ns := strings.SplitAfter(namespaceVar, ".")
 						varNamespace, err := varFileSearch(ns[1])
 						if err != nil {
 							log.Fatal(err)
 						}
 						namespaceVar = varNamespace
-					} else {
-						namespaceVar = namespaceBlock
 					}
 				}
 			}
 		}
 	}
 	return namespaceVar, resourceName
+}
+
+// moduleType will search for namespace in all modules raise in a Pull Request
+func moduleType(block *hclwrite.Block) string {
+	var namespaceVar string
+	body := block.Body()
+	if body.Attributes()["namespace"] != nil {
+		expr := body.Attributes()["namespace"].Expr()
+		exprTokens := expr.BuildTokens(nil)
+		var valueTokens hclwrite.Tokens
+		valueTokens = append(valueTokens, exprTokens...)
+		namespaceVar = strings.TrimSpace(string(valueTokens.Bytes()))
+		if strings.Contains(namespaceVar, "var.") {
+			ns := strings.SplitAfter(namespaceVar, ".")
+			varNamespace, err := varFileSearch(ns[1])
+			if err != nil {
+				log.Fatal(err)
+			}
+			namespaceVar = varNamespace
+		}
+	}
+	return namespaceVar
 }
 
 // varFileSearch will search for the namespace in the variables.tf file if the search returns a var.namespace
@@ -143,7 +174,7 @@ func varFileSearch(ns string) (string, error) {
 		return "", fmt.Errorf("error getting TF resource: %s", diags)
 	}
 
-	var varNamespace string
+	var vn string
 
 	blocks := v.Body().Blocks()
 	for _, block := range blocks {
@@ -156,14 +187,28 @@ func varFileSearch(ns string) (string, error) {
 							exprTokens := expr.BuildTokens(nil)
 							var varTokens hclwrite.Tokens
 							varTokens = append(varTokens, exprTokens...)
-							varNamespace = strings.TrimSpace(string(varTokens.Bytes()))
+							vn = strings.TrimSpace(string(varTokens.Bytes()))
 						}
 					}
 				}
 			}
 		}
 	}
-	return varNamespace, nil
+	return vn, nil
+}
+
+// prMessage adds a meesage to a pull request is there is a mismatch,
+// customising the message depending if its a resource or module
+func prMessage(t string) {
+	githubaction.SetOutput("mismatch", "true")
+	switch {
+	case t == "resource":
+		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nResosurce Type Name: %s\nResource Name: %s\nResource Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ResourceTypeName, mm.ResourceName, mm.ResourceNamespace)
+		fmt.Println(r.Result)
+	case t == "module":
+		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nModule Type Name: %s\nModule Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ModuleTypeName, mm.ModuleNamespace)
+		fmt.Println(r.Result)
+	}
 }
 
 func main() {
@@ -196,14 +241,20 @@ func main() {
 				log.Fatal(err)
 			}
 			for _, block := range blocks {
-				if block.Type() == "resource" {
+				switch {
+				case block.Type() == "resource":
 					rtn := block.Labels()
 					mm.ResourceTypeName = rtn[1]
 					mm.ResourceNamespace, mm.ResourceName = resourceType(block)
 					if !strings.Contains(mm.ResourceNamespace, mm.RepositoryNamespace) {
-						githubaction.SetOutput("mismatch", "true")
-						r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nResosurce Type Name: %s\nResource Name: %s\nResource Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ResourceTypeName, mm.ResourceName, mm.ResourceNamespace)
-						fmt.Println(r.Result)
+						prMessage("resource")
+					}
+				case block.Type() == "module":
+					rtn := block.Labels()
+					mm.ModuleTypeName = rtn[0]
+					mm.ModuleNamespace = moduleType(block)
+					if !strings.Contains(mm.ModuleNamespace, mm.RepositoryNamespace) {
+						prMessage("module")
 					}
 				}
 			}
@@ -212,7 +263,9 @@ func main() {
 	// back to normal state
 	temp.Close()
 	os.Stdout = old // restoring the real stdout
+
 	// reading our temp stdout
 	out, _ := ioutil.ReadFile(fname)
+	fmt.Print(string(out))
 	githubaction.SetOutput("result", string(out))
 }
