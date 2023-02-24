@@ -27,7 +27,7 @@ resource "aws_route53_record" "apply_gender_recognition_certificate" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "apply-gender-recognition-certificate.service.gov.uk"
   type    = "A"
-  
+
   alias {
     name                   = "d1ihfuni1rbt6y.cloudfront.net."
     zone_id                = "Z2FDTNDATAQYW2"
@@ -48,11 +48,13 @@ resource "aws_route53_record" "_45bde841e2577492acdf0e9abee59ccc_apply_gender_re
 resource "aws_route53_record" "admin_apply_gender_recognition_certificate" {
   zone_id = aws_route53_zone.route53_zone_apply.zone_id
   name    = "admin.apply-gender-recognition-certificate.service.gov.uk"
-  type    = "CNAME"
-  ttl     = 300
-  records = [
-    "d38cgb3u1thx2u.cloudfront.net."
-  ]
+  type    = "A"
+
+  alias {
+    name                   = "d38cgb3u1thx2u.cloudfront.net."
+    zone_id                = "Z2FDTNDATAQYW2"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "_6dc57f9f5d57f6fcd214c3d256b9d209_apply_gender_recognition_certificate" {
