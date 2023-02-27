@@ -66,13 +66,3 @@ resource "aws_route53_record" "_6dc57f9f5d57f6fcd214c3d256b9d209_apply_gender_re
     "_4611cac725b87ca088506caa9dcb7b11.bpxxncpwjz.acm-validations.aws."
   ]
 }
-
-resource "aws_route53_record" "dashboard_apply_gender_recognition_certificate" {
-  zone_id = aws_route53_zone.route53_zone_apply.zone_id
-  name    = "dashboard.apply-gender-recognition-certificate.service.gov.uk"
-  type    = "CNAME"
-  ttl     = 300
-  records = [
-    "grc-production-dashboard.london.cloudapps.digital."
-  ]
-}
