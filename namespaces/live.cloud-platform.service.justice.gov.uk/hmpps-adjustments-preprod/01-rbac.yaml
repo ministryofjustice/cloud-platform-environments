@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-adjustments-dev-admin
-  namespace: hmpps-adjustments-dev
+  name: hmpps-adjustments-preprod-admin
+  namespace: hmpps-adjustments-preprod
 subjects:
   - kind: Group
     name: "github:farsight-devs"
