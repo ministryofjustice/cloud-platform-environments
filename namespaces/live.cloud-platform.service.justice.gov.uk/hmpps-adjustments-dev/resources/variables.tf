@@ -2,11 +2,11 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "adjustments-dev"
+  default = "hmpps-adjustments-dev"
 }
 
 variable "namespace" {
-  default = "adjustments-dev"
+  default = "hmpps-adjustments-dev"
 }
 
 variable "business_unit" {
