@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-adjustments-api-preprod-cert
+  namespace: hmpps-adjustments-preprod
+spec:
+  secretName: hmpps-adjustments-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - adjustments-api-preprod.hmpps.service.justice.gov.uk
