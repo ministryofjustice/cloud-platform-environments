@@ -1,57 +1,38 @@
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-golden-signals
-  namespace: offender-categorisation-preprod
-  labels:
-    grafana_dashboard: "offender-categorisation"
 data:
-  dashboard.json: |
+  offender-categorisation-preprod-offender-categorisation-golden-signals-dashboard.json: |
     {
       "annotations": {
         "list": [
           {
             "builtIn": 1,
-            "datasource": {
-              "type": "datasource",
-              "uid": "grafana"
-            },
+            "datasource": "-- Grafana --",
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
             "limit": 100,
             "name": "Annotations & Alerts",
             "showIn": 0,
-            "target": {
-              "limit": 100,
-              "matchAny": false,
-              "tags": [],
-              "type": "dashboard"
-            },
             "type": "dashboard"
           }
         ]
       },
       "editable": true,
-      "fiscalYearStartMonth": 0,
+      "gnetId": null,
       "graphTooltip": 1,
-      "id": 50,
+      "id": 52,
       "links": [],
-      "liveNow": false,
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "The number of HTTP requests per second received via the ingress.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -78,10 +59,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -91,20 +71,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(\n  irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m])\n)",
               "interval": "",
               "legendFormat": "Requests",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(\n  irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m])\n) by (status)",
               "interval": "",
               "legendFormat": "{{status}}",
@@ -112,7 +84,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Requests",
           "tooltip": {
             "shared": true,
@@ -121,7 +95,9 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
@@ -130,16 +106,22 @@ data:
               "format": "short",
               "label": "Rate Per Second",
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -147,14 +129,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "The percentage of HTTP responses that are non-error codes vs error codes.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -181,10 +160,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -194,10 +172,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status!~\"5.*|499\"}[1m]))\n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m]))\n* 100",
               "interval": "",
               "legendFormat": "Request Success Rate",
@@ -205,7 +179,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Availability",
           "tooltip": {
             "shared": true,
@@ -214,7 +190,9 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
@@ -225,16 +203,21 @@ data:
               "label": "Percentage",
               "logBase": 1,
               "max": "100",
+              "min": null,
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -242,14 +225,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "Recorded request duration from the ingress controllers in percentiles.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -276,10 +256,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -289,30 +268,18 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p50",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p95",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[1m])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p100",
@@ -320,7 +287,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Latency",
           "tooltip": {
             "shared": true,
@@ -329,26 +298,34 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "s",
               "label": "Seconds",
               "logBase": 1,
+              "max": null,
               "min": "0",
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -356,14 +333,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "The percentage of all HTTP requests that result in a 5xx status.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -390,10 +364,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -403,50 +376,30 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status=\"500\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "500",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status=\"501\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "501",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status=\"502\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "502",
               "refId": "C"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status=\"503\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "503",
               "refId": "D"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\", status=\"504\"}[1m])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=\"offender-categorisation\", exported_namespace=\"offender-categorisation-preprod\"}[5m]))\n* 100",
               "interval": "",
               "legendFormat": "504",
@@ -454,7 +407,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Errors",
           "tooltip": {
             "shared": true,
@@ -463,7 +418,9 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
@@ -479,12 +436,16 @@ data:
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -492,14 +453,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "CPU usage in relation to the requested cpu for the container.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -526,10 +484,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -539,10 +496,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "avg(irate(container_cpu_usage_seconds_total{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\"}[1m])) by (container)\n/ \navg(label_replace(kube_pod_container_resource_requests_cpu_cores{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\"}, \"container_name\", \"$1\", \"container\", \"(.*)\")) by (container)",
               "hide": false,
               "interval": "",
@@ -551,7 +504,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Requested CPU Usage",
           "tooltip": {
             "shared": true,
@@ -560,12 +515,15 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "percent",
               "label": "Percentage",
               "logBase": 1,
@@ -575,12 +533,16 @@ data:
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -588,14 +550,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "Memory usage in relation to the requested memory for the container.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -622,10 +581,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -635,10 +593,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "avg(irate(container_memory_usage_bytes{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests_memory_bytes{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\"}) by (container)\n* 100",
               "hide": false,
               "interval": "",
@@ -647,7 +601,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Requested Memory Usage",
           "tooltip": {
             "shared": true,
@@ -656,12 +612,15 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "percent",
               "label": "Percentage",
               "logBase": 1,
@@ -671,12 +630,16 @@ data:
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -684,14 +647,11 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "The number of available pod replicas for the service.",
           "fieldConfig": {
             "defaults": {
-              "links": []
+              "custom": {}
             },
             "overrides": []
           },
@@ -718,10 +678,9 @@ data:
           "linewidth": 2,
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "9.2.4",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -731,10 +690,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "count(\n  label_replace(kube_pod_info{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\"}, \"pod\", \"$1\", \"created_by_name\", \"(.*)-\\\\w+\")\n) by (pod)",
               "interval": "",
               "legendFormat": "{{pod}}",
@@ -742,7 +697,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "No. of Replicas",
           "tooltip": {
             "shared": true,
@@ -751,7 +708,9 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
@@ -761,16 +720,22 @@ data:
               "format": "short",
               "label": "Count",
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -778,10 +743,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "Average recorded CPU usage for each type container within the pods.",
           "fieldConfig": {
             "defaults": {
@@ -824,10 +786,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "avg(\n  irate(container_cpu_usage_seconds_total{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
               "hide": false,
               "interval": "",
@@ -836,7 +794,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Actual CPU Usage",
           "tooltip": {
             "shared": true,
@@ -845,25 +805,34 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "s",
               "label": "",
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -871,10 +840,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "Average recorded memory usage for a single type of container within the pods.",
           "fieldConfig": {
             "defaults": {
@@ -917,10 +883,6 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "avg(\n  irate(container_memory_usage_bytes{pod=~\"offender-categorisation-.+\", namespace=\"offender-categorisation-preprod\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
               "hide": false,
               "interval": "",
@@ -929,7 +891,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Actual Memory Usage",
           "tooltip": {
             "shared": true,
@@ -938,25 +902,34 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "decbytes",
               "label": "",
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
               "format": "short",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         },
         {
@@ -964,10 +937,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
-          },
+          "datasource": "Thanos",
           "description": "The amount of data being sent to and from the pods.",
           "fieldConfig": {
             "defaults": {
@@ -1015,20 +985,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"offender-categorisation-preprod\", pod=~\"offender-categorisation-.+\"}[2m]))",
               "interval": "",
               "legendFormat": "Receive",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
               "expr": "sum(irate(container_network_transmit_bytes_total{namespace=\"offender-categorisation-preprod\", pod=~\"offender-categorisation-.+\"}[2m]))",
               "interval": "",
               "legendFormat": "Transmit",
@@ -1036,7 +998,9 @@ data:
             }
           ],
           "thresholds": [],
+          "timeFrom": null,
           "timeRegions": [],
+          "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
             "shared": true,
@@ -1045,33 +1009,40 @@ data:
           },
           "type": "graph",
           "xaxis": {
+            "buckets": null,
             "mode": "time",
+            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "decbytes",
               "label": "",
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
               "format": "decbytes",
+              "label": null,
               "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false
+            "align": false,
+            "alignLevel": null
           }
         }
       ],
-      "schemaVersion": 37,
+      "schemaVersion": 25,
       "style": "dark",
-      "tags": [
-        "offender-categorisation"
-      ],
+      "tags": ["offender-categorisation"],
       "templating": {
         "list": []
       },
@@ -1106,6 +1077,23 @@ data:
       "timezone": "browser",
       "title": "offender-categorisation-preprod / offender-categorisation / Golden Signals",
       "uid": "u9Wa0F2cpJ3bnVGdhNWLyVGZuVmZm9-gs",
-      "version": 2,
-      "weekStart": ""
+      "version": 1
     }
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: offender-categorisation
+    meta.helm.sh/release-namespace: offender-categorisation-preprod
+  creationTimestamp: "2021-11-16T09:59:07Z"
+  labels:
+    app.kubernetes.io/instance: offender-categorisation
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: generic-prometheus-alerts
+    app.kubernetes.io/version: 1.0.0
+    grafana_dashboard: ""
+    helm.sh/chart: generic-prometheus-alerts-0.2.7
+    prometheus: cloud-platform
+  name: offender-categorisation-golden-signals-dashboard
+  namespace: offender-categorisation-preprod
+  resourceVersion: "687620052"
+  uid: ef4b2c59-6646-4bd7-8844-6729c656cfc2
