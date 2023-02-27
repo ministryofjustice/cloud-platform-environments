@@ -6,7 +6,7 @@ module "manage_offences_rds" {
   application                 = var.application
   is-production               = var.is_production
   namespace                   = var.namespace
-  environment-name            = var.environment
+  environment-name            = var.environment_name
   infrastructure-support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
