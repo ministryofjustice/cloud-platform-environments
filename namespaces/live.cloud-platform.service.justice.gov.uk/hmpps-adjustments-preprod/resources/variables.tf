@@ -2,11 +2,11 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "hmpps-adjustments-dev"
+  default = "hmpps-adjustments-preprod"
 }
 
 variable "namespace" {
-  default = "hmpps-adjustments-dev"
+  default = "hmpps-adjustments-preprod"
 }
 
 variable "business_unit" {
@@ -21,7 +21,7 @@ variable "team_name" {
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
