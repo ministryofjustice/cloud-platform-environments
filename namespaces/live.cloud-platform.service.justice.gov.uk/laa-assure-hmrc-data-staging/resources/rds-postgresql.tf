@@ -16,10 +16,6 @@ module "rds" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  # If the rds_name is not specified a random name will be generated ( cp-* )
-  # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  # rds_name             = "my-rds-name"
-
   # enable performance insights
   performance_insights_enabled = true
 
@@ -33,20 +29,14 @@ module "rds" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres14"
 
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "pending-reboot"
-  #   }
-  # ]
-
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
+  #
+  # Team Note: could be useful but since we are likely to be using overnight
+  # scheduled jobs we are not enabling on any environments for now.
+  #
   # enable_rds_auto_start_stop  = true
 
   # This will rotate the db password. Update the value to the current date.
