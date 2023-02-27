@@ -1,6 +1,6 @@
 module "refactor_sqs" {
   # remember to check the latest version
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   sqs_name = "refactor_sqs"
   # if true, the sqs_name above must end with ".fifo", it's an API quirk
