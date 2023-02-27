@@ -1076,7 +1076,7 @@ data:
       },
       "timezone": "browser",
       "title": "manage-soc-cases-preprod / manage-soc-cases-api / Golden Signals",
-      "uid": "kGch1yclNXYj1yYvNXLldWYuFWbk9m-gs",
+      "uid": "15b8751a953de1f9f1f5abb4e01860-gs",
       "version": 1
     }
 kind: ConfigMap
