@@ -5,7 +5,7 @@
  *
  */
 module "refactor_sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
 
   topic_display_name     = "refactor-sns"
   business_unit          = var.business_unit

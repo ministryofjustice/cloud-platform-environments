@@ -1,10 +1,10 @@
 module "redis_4" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
 
   // Redis 4 config
-  engine_version = "6.2"
+  engine_version       = "6.2"
   parameter_group_name = "default.redis6.x"
-  node_type = "cache.t4g.micro"
+  node_type            = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -21,12 +21,12 @@ module "redis_4" {
 }
 
 module "redis_5" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
 
   // Redis 5 config
-  engine_version = "6.2"
+  engine_version       = "6.2"
   parameter_group_name = "default.redis6.x"
-  node_type = "cache.t4g.micro"
+  node_type            = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -43,12 +43,12 @@ module "redis_5" {
 }
 
 module "redis_6" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
 
   // Redis 6 config
-  engine_version = "6.2"
+  engine_version       = "6.2"
   parameter_group_name = "default.redis6.x"
-  node_type = "cache.t4g.micro"
+  node_type            = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -65,12 +65,12 @@ module "redis_6" {
 }
 
 module "redis_6_2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
 
   // Redis 6.2 config
-  engine_version = "6.2"
+  engine_version       = "6.2"
   parameter_group_name = "default.redis6.x"
-  node_type = "cache.t4g.micro"
+  node_type            = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -87,12 +87,12 @@ module "redis_6_2" {
 }
 
 module "redis_7_0" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
 
   // Redis 7.0 config
-  engine_version = "7.0"
+  engine_version       = "7.0"
   parameter_group_name = "default.redis7"
-  node_type = "cache.t4g.micro"
+  node_type            = "cache.t4g.micro"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

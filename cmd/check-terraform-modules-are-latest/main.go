@@ -3,14 +3,16 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 	"strconv"
 
 	"github.com/google/go-github/v50/github"
 	"github.com/ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest/utils"
+	"golang.org/x/oauth2"
 )
 
-func initEnvVars() (string, int, string) {
+func initEnvVars() (string, int, string, string) {
 	repoName, repoNamePresent := os.LookupEnv("REPO_NAME")
 	if repoName == "" || !repoNamePresent {
 		log.Fatal("REPO_NAME is not set")
@@ -32,15 +34,30 @@ func initEnvVars() (string, int, string) {
 		log.Fatal("API_URL is not set")
 	}
 
-	return repoName, prNumber, apiURL
+	ghToken, ghTokenPresent := os.LookupEnv("GH_TOKEN")
+	if ghToken == "" || !ghTokenPresent {
+		log.Fatal("GH_TOKEN is not set")
+	}
+	return repoName, prNumber, apiURL, ghToken
+}
+
+func initOAuth2(ghToken string) (*http.Client, context.Context) {
+	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: ghToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	return tc, ctx
 }
 
 func main() {
 	// pass in the PR number and the repo name and api url
-	repoName, prNumber, apiURL := initEnvVars()
+	repoName, prNumber, apiURL, ghToken := initEnvVars()
+	oauthClient, ctx := initOAuth2(ghToken)
 
-	client := github.NewClient(nil)
-	diff, _, err := client.PullRequests.GetRaw(context.Background(), "ministryofjustice", repoName, prNumber, github.RawOptions{Type: github.RawType(1)})
+	client := github.NewClient(oauthClient)
+	diff, _, err := client.PullRequests.GetRaw(ctx, "ministryofjustice", repoName, prNumber, github.RawOptions{Type: github.RawType(1)})
 
 	if err != nil {
 		log.Fatal(err)
