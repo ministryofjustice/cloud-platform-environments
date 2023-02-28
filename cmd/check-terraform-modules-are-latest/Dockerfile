@@ -31,6 +31,8 @@ ENV PR_NUMBER ""
 
 ENV API_URL ""
 
+ENV GH_TOKEN ""
+
 # copy the ca-certificate.crt from the build stage
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
