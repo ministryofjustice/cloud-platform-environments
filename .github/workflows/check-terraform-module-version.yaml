@@ -14,5 +14,6 @@ jobs:
           REPO_NAME: cloud-platform-environments
           API_URL: ${{ vars.TERRAFORM_MODULE_VERSIONS_API_URL }}
           PR_NUMBER: ${{ github.event.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
