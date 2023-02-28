@@ -1,4 +1,3 @@
-
 terraform {
   required_version = ">= 1.2.5"
   required_providers {
@@ -8,6 +7,10 @@ terraform {
     }
     github = {
       source = "integrations/github"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3.1"
     }
   }
 }
