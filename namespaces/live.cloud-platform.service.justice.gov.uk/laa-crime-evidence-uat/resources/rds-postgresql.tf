@@ -49,6 +49,9 @@ module "rds" {
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   # enable_rds_auto_start_stop  = true
 
+  # This will rotate the db password. Update the value to the current date.
+  # db_password_rotated_date  = "dd-mm-yyyy"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -162,5 +165,6 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+
   }
 }

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: jakemulley-refactor-template
+  namespace: laa-crime-evidence-uat
 spec:
   limits:
   - default:
