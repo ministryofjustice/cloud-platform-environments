@@ -10,7 +10,7 @@ module "elasticache" {
   infrastructure-support = var.infrastructure_support
   node_type              = "cache.t4g.micro"
   engine_version         = "7.x"
-  parameter_group_name   = "default.redis7.x"
+  parameter_group_name   = "default.redis7"
 
   providers = {
     aws = aws.london
