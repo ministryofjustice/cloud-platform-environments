@@ -29,7 +29,7 @@ EOF
 }
 
 resource "aws_sqs_queue_policy" "hmpps_visits_prisoner_change_event_queue_policy" {
-  queue_url = module.hmpps_prisoner_to_nomis_visit_queue.sqs_id
+  queue_url = module.hmpps_visits_prisoner_change_event_queue.sqs_id
 
   policy = <<EOF
   {
@@ -57,7 +57,7 @@ EOF
 
 resource "kubernetes_secret" "hmpps_visits_prisoner_change_event_queue" {
   metadata {
-    name = "hmpps_visits_prisoner_change_event"
+    name = "sqs-prisoner-change-event-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-dev"
   }
@@ -105,7 +105,7 @@ module "hmpps_visits_prisoner_change_event_dead_letter_queue" {
 
 resource "kubernetes_secret" "hmpps_visits_prisoner_change_event_dead_letter_queue" {
   metadata {
-    name = "hmpps_visits_prisoner_change_event_dlq"
+    name = "sqs-prisoner-change-event-dlq-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-dev"
   }
