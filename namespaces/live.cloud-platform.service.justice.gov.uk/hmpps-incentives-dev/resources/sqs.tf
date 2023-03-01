@@ -1,7 +1,7 @@
 resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
-  protocol  = "sqs"
-  endpoint  = module.prisoner-event-queue.sqs_arn
+  topic_arn     = data.aws_sns_topic.hmpps-domain-events.arn
+  protocol      = "sqs"
+  endpoint      = module.prisoner-event-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged",
@@ -26,6 +26,10 @@ module "prisoner-event-queue" {
     deadLetterTargetArn = module.prisoner-event-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
@@ -58,13 +62,18 @@ EOF
 }
 
 module "prisoner-event-dlq" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
-  environment-name = var.environment
-  team_name        = var.team_name
-  application      = var.application
-  sqs_name         = "prisoner-event-queue"
-  encrypt_sqs_kms  = "true"
-  namespace        = var.namespace
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  environment-name       = var.environment
+  team_name              = var.team_name
+  infrastructure-support = var.infrastructure_support
+  application            = var.application
+  sqs_name               = "prisoner-event-dlq"
+  encrypt_sqs_kms        = "true"
+  namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "prisoner-event-queue" {
