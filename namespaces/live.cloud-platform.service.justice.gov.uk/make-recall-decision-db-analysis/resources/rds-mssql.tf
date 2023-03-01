@@ -6,7 +6,7 @@
 */
 
 module "rds_mssql" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -26,7 +26,7 @@ module "rds_mssql" {
   rds_family                  = "sqlserver-ex-15.0"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
-  option_group_name    = aws_db_option_group.ppud_backup_rds_option_group.name
+  option_group_name           = aws_db_option_group.ppud_backup_rds_option_group.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -62,7 +62,7 @@ resource "aws_db_option_group" "ppud_backup_rds_option_group" {
 
     option_settings {
       name  = "IAM_ROLE_ARN"
-      value = aws_iam_role.ppud_backup_s3_iam_role.arn 
+      value = aws_iam_role.ppud_backup_s3_iam_role.arn
     }
   }
 }

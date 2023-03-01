@@ -1,5 +1,5 @@
 module "crime-applications-for-maat-sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   sqs_name = "crime-applications-for-maat"
 
@@ -49,7 +49,7 @@ resource "kubernetes_secret" "crime-applications-for-maat-sqs" {
 ###
 
 module "crime-applications-for-maat-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   sqs_name = "crime-applications-for-maat-dlq"
 
