@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: ap-judicial-reviews-prod
   labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
