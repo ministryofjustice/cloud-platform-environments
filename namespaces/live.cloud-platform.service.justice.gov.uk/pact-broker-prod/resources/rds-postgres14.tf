@@ -19,7 +19,7 @@ module "pact_broker_rds_postgres14" {
   }
 }
 
-resource "kubernetes_secret" "pact_broker_rds_postgres14" {
+resource "kubernetes_secret" "pact_broker_rds_postgres14_secrets" {
   metadata {
     name      = "postgres14"
     namespace = var.namespace
