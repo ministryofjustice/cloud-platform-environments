@@ -20,6 +20,7 @@ resource "aws_iam_access_key" "key_2023" {
   user = module.hmpps-domain-events.user_name
 }
 
+
 resource "kubernetes_secret" "hmpps-domain-events-new-key" {
   metadata {
     name      = "hmpps-domain-events-new-key"
@@ -30,11 +31,4 @@ resource "kubernetes_secret" "hmpps-domain-events-new-key" {
     access_key_id     = aws_iam_access_key.key_2023.id
     secret_access_key = aws_iam_access_key.key_2023.secret
   }
-}
-
-resource "aws_ssm_parameter" "param-store-topic-arn" {
-  type        = "String"
-  name        = "${var.namespace}/topic-arn"
-  value       = module.hmpps-domain-events.topic_arn
-  description = "SNS topic ARN for hmpps-domain-events-dev; use this parameter from other DPS dev namespaces"
 }
