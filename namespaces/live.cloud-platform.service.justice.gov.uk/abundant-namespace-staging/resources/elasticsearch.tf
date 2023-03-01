@@ -1,5 +1,5 @@
 module "abundance_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.1.0"
   eks_cluster_name       = var.eks_cluster_name
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -10,7 +10,7 @@ module "abundance_es" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  elasticsearch-domain = "ab-sg"
+  elasticsearch-domain            = "ab-sg"
   encryption_at_rest              = true
   node_to_node_encryption_enabled = true
   domain_endpoint_enforce_https   = true
