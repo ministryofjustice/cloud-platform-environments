@@ -9,9 +9,8 @@ module "elasticache" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   node_type              = "cache.t4g.micro"
-
-  # Consider setting the engine to a recent version (defaults to 5.0.6)
-  engine_version = "6.x"
+  engine_version         = "7.x"
+  parameter_group_name   = "default.redis7.x"
 
   providers = {
     aws = aws.london
@@ -31,5 +30,6 @@ resource "kubernetes_secret" "elasticache" {
     access_key_id            = module.elasticache.access_key_id
     secret_access_key        = module.elasticache.secret_access_key
     replication_group_id     = module.elasticache.replication_group_id
+    redis_url                = "rediss://:${module.elasticache.auth_token}@${module.elasticache.primary_endpoint_address}:6379"
   }
 }
