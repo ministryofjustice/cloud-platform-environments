@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
-  topic_arn     = data.aws_sns_topic.hmpps-domain-events.arn
+  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol      = "sqs"
   endpoint      = module.prisoner-event-queue.sqs_arn
   filter_policy = jsonencode({
@@ -50,7 +50,7 @@ resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_sns_topic.hmpps-domain-events.arn}"
+                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
                           }
                         }
         }
