@@ -3,7 +3,7 @@
 # continuous deployment (CD) workflow in prototype github repo.
 
 module "github-prototype" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-github-prototype?ref=0.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-github-prototype?ref=0.3.0"
 
   prototype_create_deployment_file    = false
   prototype_create_docker_ignore_file = false
