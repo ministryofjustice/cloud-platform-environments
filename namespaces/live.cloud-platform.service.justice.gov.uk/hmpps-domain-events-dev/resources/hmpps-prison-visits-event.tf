@@ -8,15 +8,15 @@
 module "hmpps_prison_visits_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
-  environment-name = var.environment-name
-  team_name = var.team_name
-  infrastructure-support = var.infrastructure-support
-  application = var.application
-  sqs_name = "hmpps_prison_visits_event_queue"
-  encrypt_sqs_kms = "true"
-  message_retention_seconds = 1209600
+  environment-name           = var.environment-name
+  team_name                  = var.team_name
+  infrastructure-support     = var.infrastructure-support
+  application                = var.application
+  sqs_name                   = "hmpps_prison_visits_event_queue"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace = var.namespace
+  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -64,19 +64,19 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
   }
 
   data = {
-    access_key_id = module.hmpps_prison_visits_event_queue.access_key_id
+    access_key_id     = module.hmpps_prison_visits_event_queue.access_key_id
     secret_access_key = module.hmpps_prison_visits_event_queue.secret_access_key
-    sqs_queue_url = module.hmpps_prison_visits_event_queue.sqs_id
-    sqs_queue_arn = module.hmpps_prison_visits_event_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prison_visits_event_queue.sqs_name
+    sqs_queue_url     = module.hmpps_prison_visits_event_queue.sqs_id
+    sqs_queue_arn     = module.hmpps_prison_visits_event_queue.sqs_arn
+    sqs_queue_name    = module.hmpps_prison_visits_event_queue.sqs_name
   }
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
-  provider = aws.london
+  provider  = aws.london
   topic_arn = module.hmpps-domain-events.topic_arn
-  protocol = "sqs"
-  endpoint = module.hmpps_prison_visits_event_queue.sqs_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "incentives.iep-review.inserted",
@@ -91,13 +91,13 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
 module "hmpps_prison_visits_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
-  environment-name = var.environment-name
-  team_name = var.team_name
+  environment-name       = var.environment-name
+  team_name              = var.team_name
   infrastructure-support = var.infrastructure-support
-  application = var.application
-  sqs_name = "hmpps_prison_visits_event_dlq"
-  encrypt_sqs_kms = "true"
-  namespace = var.namespace
+  application            = var.application
+  sqs_name               = "hmpps_prison_visits_event_dlq"
+  encrypt_sqs_kms        = "true"
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -113,10 +113,10 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_dead_letter_queue" {
   }
 
   data = {
-    access_key_id = module.hmpps_prison_visits_event_dead_letter_queue.access_key_id
+    access_key_id     = module.hmpps_prison_visits_event_dead_letter_queue.access_key_id
     secret_access_key = module.hmpps_prison_visits_event_dead_letter_queue.secret_access_key
-    sqs_queue_url = module.hmpps_prison_visits_event_dead_letter_queue.sqs_id
-    sqs_queue_arn = module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prison_visits_event_dead_letter_queue.sqs_name
+    sqs_queue_url     = module.hmpps_prison_visits_event_dead_letter_queue.sqs_id
+    sqs_queue_arn     = module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn
+    sqs_queue_name    = module.hmpps_prison_visits_event_dead_letter_queue.sqs_name
   }
 }
