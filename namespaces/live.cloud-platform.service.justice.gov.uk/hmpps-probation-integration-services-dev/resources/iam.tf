@@ -1,5 +1,9 @@
 locals {
   managed_sqs_queues = [
+    module.person-search-index-from-delius-person-queue.sqs_arn,
+    module.person-search-index-from-delius-person-dlq.sqs_arn,
+    module.person-search-index-from-delius-contact-queue.sqs_arn,
+    module.person-search-index-from-delius-contact-dlq.sqs_arn,
     module.refer-and-monitor-and-delius-queue.sqs_arn,
     module.refer-and-monitor-and-delius-dlq.sqs_arn,
     module.unpaid-work-and-delius-queue.sqs_arn,
