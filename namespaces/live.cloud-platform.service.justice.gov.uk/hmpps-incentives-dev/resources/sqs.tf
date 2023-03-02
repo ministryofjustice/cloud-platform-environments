@@ -1,7 +1,7 @@
 resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.prisoner-event-queue.sqs_arn
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner-event-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged",
