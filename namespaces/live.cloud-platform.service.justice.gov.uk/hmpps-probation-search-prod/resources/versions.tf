@@ -7,14 +7,16 @@ terraform {
       version = "~> 4.29.0"
     }
     github = {
-      source = "integrations/github"
+      source  = "integrations/github"
+      version = "~> 5.17.0"
     }
     pingdom = {
       source  = "russellcardullo/pingdom"
-      version = "1.1.3"
+      version = "~> 1.1.3"
     }
     random = {
-      version = "3.3.2"
+      source  = "hashicorp/random"
+      version = "~> 3.3.2"
     }
   }
 }
