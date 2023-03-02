@@ -58,7 +58,7 @@ type Result struct {
 	Result string
 }
 
-// listFiles will gather a list of tf files to be checked for namespace comparisons
+// listFiles will gather a list of tf files to be checked for namespace comparisons using github ref for the pull request
 func listFiles() []*github.CommitFile {
 	prs, _, err := client.PullRequests.ListFiles(ctx, owner, repo, bid, nil)
 	if err != nil {
@@ -67,7 +67,7 @@ func listFiles() []*github.CommitFile {
 	return prs
 }
 
-// decodeFile for kube secrets and return namespaces that the secret is attached to
+// decodeFile will read tf files and return the file to for the comparison
 func decodeFile() ([]*hclwrite.Block, error) {
 	var blocks []*hclwrite.Block
 
@@ -157,7 +157,7 @@ func moduleType(block *hclwrite.Block) string {
 	return namespaceVar
 }
 
-// varFileSearch will search for the namespace in the variables.tf file if the search returns a var.namespace
+// varFileSearch will search for the namespace in the variables.tf file if the search contians 'var.'
 func varFileSearch(ns string) (string, error) {
 	path := strings.SplitAfter(mm.File, "resources/")
 	data, err := os.ReadFile(path[0] + "variables.tf")
@@ -197,7 +197,7 @@ func varFileSearch(ns string) (string, error) {
 	return vn, nil
 }
 
-// prMessage adds a meesage to a pull request is there is a mismatch,
+// prMessage adds a meesage to a pull request if there is a mismatch,
 // customising the message depending if its a resource or module
 func prMessage(t string) {
 	githubaction.SetOutput("mismatch", "true")
@@ -236,6 +236,7 @@ func main() {
 		if filepath.Ext(mm.File) == ".tf" {
 			fileS := strings.Split(mm.File, "/")
 			mm.RepositoryNamespace = fileS[2]
+			// mm.File = "/Users/jackstockley/repo/fork/cloud-platform-environments-fork/" + mm.File
 			blocks, err := decodeFile()
 			if err != nil {
 				log.Fatal(err)
