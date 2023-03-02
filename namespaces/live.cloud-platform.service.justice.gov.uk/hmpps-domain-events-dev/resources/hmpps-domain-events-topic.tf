@@ -18,7 +18,7 @@ module "hmpps-domain-events" {
 
 resource "aws_ssm_parameter" "param-store-topic-arn" {
   type        = "String"
-  name        = "${var.namespace}/topic-arn"
+  name        = "/${var.namespace}/topic-arn"
   value       = module.hmpps-domain-events.topic_arn
   description = "SNS topic ARN for hmpps-domain-events-dev; use this parameter from other DPS dev namespaces"
 
