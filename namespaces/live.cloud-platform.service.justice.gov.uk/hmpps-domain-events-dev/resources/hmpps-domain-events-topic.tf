@@ -1,5 +1,5 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
 
   topic_display_name = "hmpps-domain-events"
 
@@ -16,10 +16,26 @@ module "hmpps-domain-events" {
   }
 }
 
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "${var.namespace}/topic-arn"
+  value       = module.hmpps-domain-events.topic_arn
+  description = "SNS topic ARN for hmpps-domain-events-dev; use this parameter from other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business-unit
+    application            = var.application
+    is-production          = var.is-production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
+  }
+}
+
 resource "aws_iam_access_key" "key_2023" {
   user = module.hmpps-domain-events.user_name
 }
-
 
 resource "kubernetes_secret" "hmpps-domain-events-new-key" {
   metadata {

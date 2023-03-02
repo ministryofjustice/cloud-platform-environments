@@ -1,5 +1,5 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.5"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.1.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
@@ -24,7 +24,7 @@ module "prisoner_offender_search_elasticsearch" {
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
