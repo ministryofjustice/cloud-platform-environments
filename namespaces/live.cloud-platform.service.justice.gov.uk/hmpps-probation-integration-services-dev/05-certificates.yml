@@ -150,6 +150,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - d2aad93a-dev.hmpps.service.justice.gov.uk
     - refer-and-monitor-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
