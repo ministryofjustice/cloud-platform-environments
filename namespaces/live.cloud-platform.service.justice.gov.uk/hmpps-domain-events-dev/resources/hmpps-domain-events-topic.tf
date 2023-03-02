@@ -21,6 +21,16 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
   name        = "${var.namespace}/topic-arn"
   value       = module.hmpps-domain-events.topic_arn
   description = "SNS topic ARN for hmpps-domain-events-dev; use this parameter from other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business-unit
+    application            = var.application
+    is-production          = var.is-production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_iam_access_key" "key_2023" {

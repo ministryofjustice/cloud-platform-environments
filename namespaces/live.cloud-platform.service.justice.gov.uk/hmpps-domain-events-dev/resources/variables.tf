@@ -6,10 +6,8 @@ variable "namespace" {
   default = "hmpps-domain-events-dev"
 }
 
-
 variable "vpc_name" {
 }
-
 
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service."
@@ -39,4 +37,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
