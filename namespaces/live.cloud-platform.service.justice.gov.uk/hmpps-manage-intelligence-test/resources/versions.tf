@@ -5,9 +5,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.27.0"
     }
-    github = {
-      source = "integrations/github"
-    }
     random = {
       source  = "hashicorp/random"
       version = "~> 2.3.1"
