@@ -10,7 +10,7 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscr
 }
 
 resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-subscription" {
-  topic_arn = data.aws_sns_topic.offender-events.arn
+  topic_arn = data.aws_sns_topic.prison-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
