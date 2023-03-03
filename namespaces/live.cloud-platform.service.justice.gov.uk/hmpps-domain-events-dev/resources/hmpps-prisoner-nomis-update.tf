@@ -320,7 +320,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.prisoner.allocated"] })
+  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.scheduled-instances.amended", "activities.prisoner.allocated"] })
 }
 
 ######################################## APPOINTMENTS ########################################
