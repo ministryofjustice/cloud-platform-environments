@@ -7,7 +7,7 @@ terraform {
     }
     dns = {
       source  = "hashicorp/dns"
-      version = "3.2.3"
+      version = "~> 3.2.3"
     }
     helm = {
       source  = "hashicorp/helm"
@@ -15,11 +15,11 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.12.1"
+      version = "~> 2.12.1"
     }
     pingdom = {
       source  = "russellcardullo/pingdom"
-      version = "1.1.3"
+      version = "~> 1.1.3"
     }
   }
 }
