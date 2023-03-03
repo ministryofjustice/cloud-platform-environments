@@ -10,14 +10,14 @@ data "aws_iam_policy_document" "dcs_access" {
   }
 
   statement {
-      sid = "AllowDCSToSendMessageToNotifyQueue"
-      actions = [
-        "sqs:SendMessage"
-      ]
-      resources = [
-        module.claim-criminal-injuries-notify-queue.sqs_arn
-      ]
-    }
+    sid = "AllowDCSToSendMessageToNotifyQueue"
+    actions = [
+      "sqs:SendMessage"
+    ]
+    resources = [
+      module.claim-criminal-injuries-notify-queue.sqs_arn
+    ]
+  }
 }
 
 resource "random_id" "id" {
@@ -140,9 +140,9 @@ resource "kubernetes_secret" "redrive-service-sqs-secret" {
   }
 
   data = {
-    user_arn           = aws_iam_user.redrive_service.arn
-    access_key_id      = aws_iam_access_key.redrive_service.id
-    secret_access_key  = aws_iam_access_key.redrive_service.secret
+    user_arn          = aws_iam_user.redrive_service.arn
+    access_key_id     = aws_iam_access_key.redrive_service.id
+    secret_access_key = aws_iam_access_key.redrive_service.secret
   }
 }
 

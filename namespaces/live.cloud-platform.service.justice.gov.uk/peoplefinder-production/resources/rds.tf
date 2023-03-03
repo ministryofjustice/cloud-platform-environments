@@ -91,5 +91,4 @@ resource "kubernetes_secret" "peoplefinder_rds_replica" {
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds_replica.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
-
 }

@@ -63,5 +63,4 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
     access_key_id     = module.cla_backend_rds_postgres_11.access_key_id
     secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
   }
-
 }

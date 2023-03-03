@@ -13,7 +13,6 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "s3_bucket" {

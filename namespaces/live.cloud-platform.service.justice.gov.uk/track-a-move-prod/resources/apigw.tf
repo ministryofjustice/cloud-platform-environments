@@ -100,7 +100,6 @@ resource "aws_api_gateway_integration" "tracks_post_integration" {
   request_templates = {
     "application/json" = data.http.template.body
   }
-
 }
 
 resource "aws_api_gateway_method_response" "response_200" {

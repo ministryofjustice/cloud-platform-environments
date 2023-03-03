@@ -13,5 +13,9 @@ terraform {
       source  = "russellcardullo/pingdom"
       version = "1.1.3"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.9.0"
+    }
   }
 }
