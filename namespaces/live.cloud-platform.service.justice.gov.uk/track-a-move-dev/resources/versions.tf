@@ -7,13 +7,16 @@ terraform {
       version = "~> 4.27.0"
     }
     http = {
-      source = "hashicorp/http"
+      source  = "hashicorp/http"
+      version = "~> 3.2.1"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.18.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
+      version = "~> 3.4.3"
     }
   }
 }
