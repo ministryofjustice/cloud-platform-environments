@@ -41,5 +41,4 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
     access_key_id               = module.rds_aurora.access_key_id
     secret_access_key           = module.rds_aurora.secret_access_key
   }
-
 }

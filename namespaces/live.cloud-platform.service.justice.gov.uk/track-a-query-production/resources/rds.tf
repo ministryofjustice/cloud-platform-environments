@@ -87,6 +87,5 @@ resource "kubernetes_secret" "track_a_query_rds_replica" {
 
     url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
-
 }
 

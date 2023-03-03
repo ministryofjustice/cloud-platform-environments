@@ -53,7 +53,6 @@ module "cla_backend_rds_postgres_11_replica" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-
 }
 
 module "cla_backend_rds_postgres_11" {
@@ -122,5 +121,4 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
     secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
     db_identifier     = module.cla_backend_rds_postgres_11.db_identifier
   }
-
 }

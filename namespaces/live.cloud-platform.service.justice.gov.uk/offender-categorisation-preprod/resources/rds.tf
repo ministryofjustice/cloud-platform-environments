@@ -16,7 +16,6 @@ module "dps_rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "random_id" "risk_profiler_role_password" {

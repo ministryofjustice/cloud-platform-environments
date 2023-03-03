@@ -13,7 +13,6 @@ module "ap_gh_collab_repo_s3_bucket" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {

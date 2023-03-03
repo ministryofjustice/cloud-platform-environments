@@ -97,5 +97,4 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
     replica_host      = module.cla_backend_rds_postgres_11_replica.rds_instance_address
     replica_endpoint  = module.cla_backend_rds_postgres_11_replica.rds_instance_endpoint
   }
-
 }

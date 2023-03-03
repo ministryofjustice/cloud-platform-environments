@@ -93,7 +93,6 @@ resource "aws_s3_bucket_notification" "hmpps_workload_s3_notification" {
     "s3:ObjectCreated:*"]
     filter_prefix = "extract/"
   }
-
 }
 
 resource "kubernetes_secret" "hmpps-workload-preprod-s3-extract-bucket" {

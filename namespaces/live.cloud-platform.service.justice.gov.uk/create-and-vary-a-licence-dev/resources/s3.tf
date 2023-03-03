@@ -17,7 +17,6 @@ module "create-and-vary-a-licence-s3" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "create-and-vary-a-licence-s3" {
