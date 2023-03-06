@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-profile-cert
+  namespace: hmpps-prisoner-profile-preprod
+spec:
+  secretName: hmpps-prisoner-profile-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-preprod.digital.prison.service.justice.gov.uk
