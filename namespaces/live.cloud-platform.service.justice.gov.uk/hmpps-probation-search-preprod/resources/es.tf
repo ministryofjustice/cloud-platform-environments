@@ -15,11 +15,12 @@ module "probation_search_elasticsearch" {
   domain_endpoint_enforce_https   = true
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
-  dedicated_master_enabled        = true
   aws-es-proxy-replica-count      = 3
+  dedicated_master_enabled        = true
   dedicated_master_count          = 3
+  dedicated_master_instance_type  = "m6g.large.elasticsearch"
   instance_count                  = 6
-  instance_type                   = "m5.xlarge.elasticsearch"
+  instance_type                   = "m6g.xlarge.elasticsearch"
   ebs_volume_size                 = 128
 }
 
