@@ -53,6 +53,9 @@ module "rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "false"
 
+  # This will rotate the db password. Update the value to the current date.
+  db_password_rotated_date  = "06-03-2023"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london

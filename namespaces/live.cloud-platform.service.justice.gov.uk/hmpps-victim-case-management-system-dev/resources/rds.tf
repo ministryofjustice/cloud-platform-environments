@@ -55,6 +55,9 @@ module "rds" {
   # Turn on auto_start_stop to reduce cost
   enable_rds_auto_start_stop = true
 
+  # This will rotate the db password. Update the value to the current date.
+  db_password_rotated_date  = "06-03-2023"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
