@@ -7,11 +7,11 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 1.11.0"
+      version = "~> 1.13.0"
     }
     pingdom = {
       source  = "russellcardullo/pingdom"
-      version = "1.1.3"
+      version = "~> 1.1.3"
     }
     helm = {
       source  = "hashicorp/helm"
