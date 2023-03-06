@@ -20,3 +20,9 @@ resource "kubernetes_secret" "ecr-repo" {
     repo_arn          = module.ecr-repo.repo_arn
   }
 }
+
+resource "github_actions_secret" "prototype" {
+  repository      = var.namespace
+  secret_name     = "PROTOTYPE_NAME"
+  plaintext_value = var.namespace
+}
