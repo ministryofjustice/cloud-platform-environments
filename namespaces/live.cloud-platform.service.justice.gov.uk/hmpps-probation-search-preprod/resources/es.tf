@@ -17,7 +17,9 @@ module "probation_search_elasticsearch" {
   elasticsearch_version           = "7.10"
   dedicated_master_enabled        = true
   aws-es-proxy-replica-count      = 3
-  instance_type                   = "m5.large.elasticsearch"
-  ebs_volume_size                 = 30
+  dedicated_master_count          = 3
+  instance_count                  = 6
+  instance_type                   = "m6g.xlarge.elasticsearch"
+  ebs_volume_size                 = 256
 }
 
