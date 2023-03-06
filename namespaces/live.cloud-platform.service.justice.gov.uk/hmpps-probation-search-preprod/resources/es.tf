@@ -20,6 +20,6 @@ module "probation_search_elasticsearch" {
   dedicated_master_count          = 3
   instance_count                  = 6
   instance_type                   = "m5.xlarge.elasticsearch"
-  ebs_volume_size                 = 256
+  ebs_volume_size                 = 128
 }
 
