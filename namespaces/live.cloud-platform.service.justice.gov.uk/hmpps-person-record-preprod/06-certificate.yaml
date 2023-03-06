@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-person-record-preprod-cert
+  namespace: hmpps-person-record-preprod
+spec:
+  secretName: hmpps-person-record-preprod-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-person-record-preprod.hmpps.service.justice.gov.uk
