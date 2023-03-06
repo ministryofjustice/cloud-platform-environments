@@ -19,7 +19,7 @@ module "probation_search_elasticsearch" {
   aws-es-proxy-replica-count      = 3
   dedicated_master_count          = 3
   instance_count                  = 6
-  instance_type                   = "m6g.xlarge.elasticsearch"
+  instance_type                   = "m5.xlarge.elasticsearch"
   ebs_volume_size                 = 256
 }
 
