@@ -16,6 +16,23 @@ module "offender_events" {
   }
 }
 
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.offender_events.topic_arn
+  description = "SNS topic ARN for ${var.namespace}; use this parameter from other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business-unit
+    application            = var.application
+    is-production          = var.is-production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
+  }
+}
+
 resource "kubernetes_secret" "offender_events" {
   metadata {
     name      = "offender-events-topic"
