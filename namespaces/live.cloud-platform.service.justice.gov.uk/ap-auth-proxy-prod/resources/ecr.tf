@@ -12,7 +12,6 @@ module "ecr_credentials" {
   github_repositories = [var.repo_name]
 }
 
-
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
