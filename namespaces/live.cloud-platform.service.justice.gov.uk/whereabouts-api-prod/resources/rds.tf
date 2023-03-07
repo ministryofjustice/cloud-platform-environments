@@ -2,9 +2,8 @@
 variable "vpc_name" {
 }
 
-
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business-unit
@@ -13,9 +12,12 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
-  db_password_rotated_date    = "15-02-2023"
-  db_instance_class    = "db.t3.medium"
-  db_allocated_storage = "20"
+
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t4g.medium"
+  db_allocated_storage        = "20"
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
 
   providers = {
     aws = aws.london
@@ -39,4 +41,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-

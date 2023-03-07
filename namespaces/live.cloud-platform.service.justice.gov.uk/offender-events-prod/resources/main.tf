@@ -19,9 +19,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-provider "random" {
-  version = ">= 2.3.0, < 3.0.0"
-}
+provider "random" {}
 
 provider "github" {
   owner = "ministryofjustice"

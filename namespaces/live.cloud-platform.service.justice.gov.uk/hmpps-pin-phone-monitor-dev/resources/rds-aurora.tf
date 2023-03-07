@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.0.0"
 
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -41,5 +41,4 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
     access_key_id               = module.rds_aurora.access_key_id
     secret_access_key           = module.rds_aurora.secret_access_key
   }
-
 }

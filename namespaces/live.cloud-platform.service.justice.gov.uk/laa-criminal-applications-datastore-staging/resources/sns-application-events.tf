@@ -1,5 +1,5 @@
 module "application-events-sns-topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
 
   topic_display_name = "datastore-application-events"
   encrypt_sns_kms    = true
@@ -29,4 +29,32 @@ resource "kubernetes_secret" "application-events-sns-topic" {
     topic_name        = module.application-events-sns-topic.topic_name
     topic_arn         = module.application-events-sns-topic.topic_arn
   }
+}
+
+###
+########### SNS subscriptions ###########
+###
+
+resource "aws_sns_topic_subscription" "events-maat-subscription" {
+  topic_arn = module.application-events-sns-topic.topic_arn
+  endpoint  = module.crime-applications-for-maat-sqs.sqs_arn
+  provider  = "aws.london"
+  protocol  = "sqs"
+
+  raw_message_delivery = true
+}
+
+resource "aws_sns_topic_subscription" "events-review-subscription" {
+  topic_arn = module.application-events-sns-topic.topic_arn
+  endpoint  = "https://laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk/api/events"
+  protocol  = "https"
+
+  raw_message_delivery   = false
+  endpoint_auto_confirms = true
+
+  filter_policy = jsonencode({
+    event_name = [
+      "apply.submission"
+    ]
+  })
 }

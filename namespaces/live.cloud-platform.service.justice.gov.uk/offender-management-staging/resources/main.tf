@@ -17,3 +17,6 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+locals {
+  dev_namespaces = toset([var.namespace, "offender-management-test", "offender-management-test2"])
+}

@@ -1,5 +1,5 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
 
   topic_display_name = "hmpps-domain-events"
 
@@ -16,5 +16,18 @@ module "hmpps-domain-events" {
   }
 }
 
+resource "aws_iam_access_key" "key_2023" {
+  user = module.hmpps-domain-events.user_name
+}
 
+resource "kubernetes_secret" "hmpps-domain-events-new-key" {
+  metadata {
+    name      = "hmpps-domain-events-new-key"
+    namespace = "hmpps-domain-events-preprod"
+  }
 
+  data = {
+    access_key_id     = aws_iam_access_key.key_2023.id
+    secret_access_key = aws_iam_access_key.key_2023.secret
+  }
+}

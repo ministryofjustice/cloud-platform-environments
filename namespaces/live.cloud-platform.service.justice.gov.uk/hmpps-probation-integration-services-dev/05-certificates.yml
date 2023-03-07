@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -9,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - ap-delius-dev.hmpps.service.justice.gov.uk
+    - e38eaa33-dev.hmpps.service.justice.gov.uk
     - approved-premises-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -23,7 +24,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - ap-oasys-dev.hmpps.service.justice.gov.uk
+    - ab40099c-dev.hmpps.service.justice.gov.uk
     - approved-premises-and-oasys-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -37,7 +38,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - key-dates-delius-dev.hmpps.service.justice.gov.uk
+    - 53b487a1-dev.hmpps.service.justice.gov.uk
     - custody-key-dates-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -51,7 +52,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - recall-decisions-delius-dev.hmpps.service.justice.gov.uk
+    - a5ca014d-dev.hmpps.service.justice.gov.uk
     - make-recall-decisions-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -65,7 +66,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - pom-cases-delius-dev.hmpps.service.justice.gov.uk
+    - 87d8378a-dev.hmpps.service.justice.gov.uk
     - manage-pom-cases-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -79,7 +80,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - offender-events-delius-dev.hmpps.service.justice.gov.uk
+    - 01ac23ab-dev.hmpps.service.justice.gov.uk
     - offender-events-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -93,7 +94,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - person-index-delius-dev.hmpps.service.justice.gov.uk
+    - 9308caef-dev.hmpps.service.justice.gov.uk
     - person-search-index-from-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -107,7 +108,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - pre-sentence-delius-dev.hmpps.service.justice.gov.uk
+    - ec76b6af-dev.hmpps.service.justice.gov.uk
     - pre-sentence-reports-to-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -121,7 +122,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - case-notes-delius-dev.hmpps.service.justice.gov.uk
+    - 67e535c0-dev.hmpps.service.justice.gov.uk
     - prison-case-notes-to-probation-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -135,7 +136,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - custodial-status-delius-dev.hmpps.service.justice.gov.uk
+    - 96736f8d-dev.hmpps.service.justice.gov.uk
     - prison-custody-status-to-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -149,6 +150,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - d2aad93a-dev.hmpps.service.justice.gov.uk
     - refer-and-monitor-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -162,7 +164,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - risk-scores-delius-dev.hmpps.service.justice.gov.uk
+    - 4d31d896-dev.hmpps.service.justice.gov.uk
     - risk-assessment-scores-to-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -176,6 +178,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - 2e92766f-dev.hmpps.service.justice.gov.uk
     - tier-to-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -189,6 +192,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - 2289a501-dev.hmpps.service.justice.gov.uk
     - unpaid-work-and-delius-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -202,6 +206,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - workforce-delius-dev.hmpps.service.justice.gov.uk
+    - fc410a78-dev.hmpps.service.justice.gov.uk
     - workforce-allocations-to-delius-dev.hmpps.service.justice.gov.uk
----

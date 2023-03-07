@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -19,10 +19,10 @@ module "s3_bucket" {
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary. 
                     By default buckets are private, however to create a 'public' bucket add the following two variables when calling the module:
-
-                    acl                           = "public-read"
-                    enable_allow_block_pub_access = false
-
+ */
+  # acl                           = "public-read"
+  enable_allow_block_pub_access = false
+  /*
                     For more information granting public access to S3 buckets, please see AWS documentation: 
                     https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
 
@@ -55,44 +55,6 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1392016154000",
-      "Effect": "Allow",
-      "Action": [
-        "s3:AbortMultipartUpload",
-        "s3:DeleteObject",
-        "s3:GetBucketAcl",
-        "s3:GetBucketLocation",
-        "s3:GetBucketPolicy",
-        "s3:GetObject",
-        "s3:GetObjectAcl",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:ListMultipartUploadParts",
-        "s3:PutObject",
-        "s3:PutObjectAcl"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    },
-    {
-      "Sid": "AllowRootAndHomeListingOfBucket",
-      "Action": ["s3:ListBucket"],
-      "Effect": "Allow",
-      "Resource": ["$${bucket_arn}"],
-      "Condition":{"StringLike":{"s3:prefix":["*"]}}
-    }
-  ]
-}
-  EOF
-
-
 }
 
 

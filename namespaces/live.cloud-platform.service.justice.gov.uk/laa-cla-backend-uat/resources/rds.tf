@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business-unit
@@ -63,5 +63,4 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
     access_key_id     = module.cla_backend_rds_postgres_11.access_key_id
     secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
   }
-
 }

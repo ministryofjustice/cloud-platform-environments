@@ -1,11 +1,14 @@
 module "rds-history" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+
+  # rotating creds
+  db_password_rotated_date = "21-02-2023"
 
   # enable performance insights
   performance_insights_enabled = true

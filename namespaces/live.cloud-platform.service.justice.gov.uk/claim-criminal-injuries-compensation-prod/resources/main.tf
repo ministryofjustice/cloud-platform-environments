@@ -20,9 +20,7 @@ provider "aws" {
 }
 
 # For Push gateway
-provider "kubernetes" {
-  version = "~> 1.11"
-}
+provider "kubernetes" {}
 
 # For Push gateway
 provider "helm" {

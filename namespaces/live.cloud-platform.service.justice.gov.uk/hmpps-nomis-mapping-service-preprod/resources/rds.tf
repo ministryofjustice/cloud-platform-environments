@@ -1,9 +1,8 @@
-
 variable "vpc_name" {
 }
 
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -16,6 +15,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
+  db_password_rotated_date    = "2023-02-21"
 
   providers = {
     aws = aws.london

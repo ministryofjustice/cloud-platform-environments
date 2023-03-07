@@ -1,5 +1,5 @@
 module "probation_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.5"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.1.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
@@ -15,9 +15,12 @@ module "probation_search_elasticsearch" {
   domain_endpoint_enforce_https   = true
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
-  dedicated_master_enabled        = true
   aws-es-proxy-replica-count      = 3
-  instance_type                   = "m5.large.elasticsearch"
-  ebs_volume_size                 = 30
+  dedicated_master_enabled        = true
+  dedicated_master_count          = 3
+  dedicated_master_type           = "m6g.large.elasticsearch"
+  instance_count                  = 6
+  instance_type                   = "m6g.xlarge.elasticsearch"
+  ebs_volume_size                 = 128
 }
 

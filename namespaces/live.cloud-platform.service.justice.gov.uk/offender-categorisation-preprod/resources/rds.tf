@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -16,7 +16,6 @@ module "dps_rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "random_id" "risk_profiler_role_password" {

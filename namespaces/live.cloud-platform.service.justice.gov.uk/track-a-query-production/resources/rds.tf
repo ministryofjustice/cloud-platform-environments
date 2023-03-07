@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
@@ -29,7 +29,7 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name = var.vpc_name
 
@@ -87,6 +87,5 @@ resource "kubernetes_secret" "track_a_query_rds_replica" {
 
     url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
-
 }
 
