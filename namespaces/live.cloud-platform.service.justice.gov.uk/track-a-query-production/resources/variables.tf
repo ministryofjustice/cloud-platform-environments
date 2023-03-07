@@ -28,8 +28,10 @@ variable "application" {
   default = "track-a-query"
 }
 
-variable "infrastructure-support" {
-  default = "correspondence-support@digital.justice.gov.uk"
+variable "infrastructure_support" {
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "correspondence@digital.justice.gov.uk"
 }
 
 variable "team_name" {
