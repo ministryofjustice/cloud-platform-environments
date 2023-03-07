@@ -1,4 +1,4 @@
-q# cloud-platform-environments
+# cloud-platform-environments
 
 ## Intro
 
