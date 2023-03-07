@@ -9,7 +9,6 @@ module "simulated_data_producer_rds" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  # TODO: Instance configuration
   vpc_name                    = var.vpc_name
   rds_name                    = "simulated-data-producer"
   rds_family                  = "postgres14"
