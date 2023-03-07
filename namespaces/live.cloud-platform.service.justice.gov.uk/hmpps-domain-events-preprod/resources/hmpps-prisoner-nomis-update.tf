@@ -326,7 +326,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
 ######################################## APPOINTMENTS ########################################
 
 module "prisoner_to_nomis_appointment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -376,7 +376,7 @@ EOF
 }
 
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
