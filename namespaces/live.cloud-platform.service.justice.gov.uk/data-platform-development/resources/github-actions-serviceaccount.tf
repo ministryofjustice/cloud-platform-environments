@@ -1,7 +1,9 @@
 module "github_actions_serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.8.0"
 
-  namespace = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  namespace           = var.namespace
+  serviceaccount_name = "github-actions"
 
   github_repositories = ["data-platform"]
 
