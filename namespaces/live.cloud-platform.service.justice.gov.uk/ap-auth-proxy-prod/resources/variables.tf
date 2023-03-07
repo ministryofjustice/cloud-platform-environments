@@ -56,3 +56,7 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "repo_name" {
+  default = "analytics-platform-auth-proxy"
+}
