@@ -16,6 +16,7 @@ module "simulated_data_producer_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "14"
   db_instance_class           = "db.t4g.small"
+  db_name                     = "simulated_data_producer"
   allow_minor_version_upgrade = true
   enable_rds_auto_start_stop  = true
 
