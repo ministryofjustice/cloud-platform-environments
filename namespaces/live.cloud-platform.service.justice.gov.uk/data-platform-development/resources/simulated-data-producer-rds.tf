@@ -10,7 +10,6 @@ module "simulated_data_producer_rds" {
   namespace              = var.namespace
 
   vpc_name                    = var.vpc_name
-  rds_name                    = "simulated-data-producer"
   rds_family                  = "postgres14"
   db_engine                   = "postgres"
   db_engine_version           = "14"
