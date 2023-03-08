@@ -11,7 +11,7 @@ module "track_a_query_s3" {
   application            = "track-a-query"
   is-production          = "false"
   environment-name       = "qa"
-  infrastructure-support = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
 
   cors_rule = [
     {

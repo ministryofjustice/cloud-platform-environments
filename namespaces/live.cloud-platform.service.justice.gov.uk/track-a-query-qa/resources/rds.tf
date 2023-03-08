@@ -16,7 +16,7 @@ module "track_a_query_rds" {
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_qa"
   environment-name           = "qa"
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 
