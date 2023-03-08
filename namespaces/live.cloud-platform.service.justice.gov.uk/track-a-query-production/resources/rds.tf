@@ -16,7 +16,7 @@ module "track_a_query_rds" {
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
   environment-name           = "production"
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -36,7 +36,7 @@ module "track_a_query_rds_replica" {
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is-production
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   rds_family             = "postgres12"
   db_engine_version      = "12"
