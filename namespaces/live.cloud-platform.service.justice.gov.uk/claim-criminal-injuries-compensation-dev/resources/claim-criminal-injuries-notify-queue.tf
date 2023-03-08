@@ -105,7 +105,7 @@ module "claim-criminal-injuries-notify-dlq" {
 }
 
 resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-dlq-policy" {
-  queue_url = "${module.claim-criminal-injuries-notify-dlq.sqs_id}"
+  queue_url = module.claim-criminal-injuries-notify-dlq.sqs_id
 
   policy = <<EOF
   {
