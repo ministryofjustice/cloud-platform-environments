@@ -1,5 +1,5 @@
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
   vpc_name                = var.vpc_name
   application             = var.application
   auth_token_rotated_date = "08-03-2023"
