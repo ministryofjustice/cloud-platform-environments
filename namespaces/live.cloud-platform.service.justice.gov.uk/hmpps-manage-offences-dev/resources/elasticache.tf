@@ -1,5 +1,5 @@
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.6"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
@@ -8,8 +8,8 @@ module "elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version        = "6.x"
-  parameter_group_name  = "default.redis6.x"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-02-13"

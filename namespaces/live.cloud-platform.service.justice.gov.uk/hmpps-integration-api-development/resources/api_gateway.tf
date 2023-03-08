@@ -59,7 +59,7 @@ resource "aws_route53_record" "data" {
 }
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
-  name = var.namespace
+  name                         = var.namespace
   disable_execute_api_endpoint = true
 
   endpoint_configuration {
@@ -138,7 +138,7 @@ resource "aws_api_gateway_usage_plan_key" "team" {
 # a variable for a key
 locals {
   api_keys_data = {
-    for team_name in [var.team_name]:
+    for team_name in [var.team_name] :
     team_name => aws_api_gateway_api_key.team.value
   }
 }

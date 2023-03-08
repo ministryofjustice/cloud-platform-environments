@@ -23,3 +23,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - api-dev.hmpps-assessments.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan-demo.hmpps.service.justice.gov.uk
+  namespace: hmpps-assessments-dev
+spec:
+  secretName: sentence-plan-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - sentence-plan-demo.hmpps.service.justice.gov.uk

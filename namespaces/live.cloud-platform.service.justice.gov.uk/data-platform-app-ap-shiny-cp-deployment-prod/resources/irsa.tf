@@ -1,6 +1,6 @@
 module "irsa" {
   eks_cluster_name = var.eks_cluster_name
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.6"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
   namespace        = "data-platform-app-ap-shiny-cp-deployment-prod"
   role_policy_arns = [aws_iam_policy.data-platform-app-ap-shiny-cp-deployment-prod.arn]
 }
@@ -13,9 +13,9 @@ data "aws_iam_policy_document" "data-platform-app-ap-shiny-cp-deployment-prod" {
       "s3:GetBucketLocation",
     ]
     resources = [
-      
+
       "arn:aws:s3:::dev-analytics-platform-rshiny-notebook",
-      
+
     ]
   }
 
@@ -32,9 +32,9 @@ data "aws_iam_policy_document" "data-platform-app-ap-shiny-cp-deployment-prod" {
       "s3:RestoreObject",
     ]
     resources = [
-      
+
       "arn:aws:s3:::dev-analytics-platform-rshiny-notebook/*",
-      
+
     ]
   }
 }

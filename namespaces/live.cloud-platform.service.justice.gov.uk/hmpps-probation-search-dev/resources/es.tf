@@ -17,6 +17,6 @@ module "probation_search_elasticsearch" {
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
-  ebs_volume_size                 = 10
+  ebs_volume_size                 = 30
 }
 

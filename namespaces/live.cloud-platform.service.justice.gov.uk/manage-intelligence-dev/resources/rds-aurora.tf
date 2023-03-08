@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.0.0"
 
   team_name                   = var.team_name
   business-unit               = var.business-unit
@@ -9,7 +9,7 @@ module "rds_aurora" {
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure-support
   engine                      = "aurora-postgresql"
-  engine_version              = "13.7"
+  engine_version              = "14.6"
   engine_mode                 = "provisioned"
   replica_count               = 1
   instance_type               = "db.t3.medium"
@@ -51,6 +51,5 @@ resource "kubernetes_secret" "manage_intelligence_rds_aurora" {
     url                                 = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
     reader_url                          = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_reader_endpoint}/${module.rds_aurora.database_name}"
   }
-
 }
 

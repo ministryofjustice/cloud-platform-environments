@@ -16,7 +16,6 @@ module "alee-list-poc-s3" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "alee-list-poc-s3" {

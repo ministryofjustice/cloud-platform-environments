@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business-unit              = "Central Digital"
@@ -33,7 +33,7 @@ module "peoplefinder_rds" {
 }
 
 module "peoplefinder_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.16"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name = var.vpc_name
 
@@ -91,5 +91,4 @@ resource "kubernetes_secret" "peoplefinder_rds_replica" {
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds_replica.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
-
 }

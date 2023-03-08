@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -13,7 +13,6 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "s3_bucket" {

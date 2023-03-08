@@ -1,4 +1,3 @@
-
 terraform {
   required_version = ">= 1.2.5"
   required_providers {
@@ -7,14 +6,16 @@ terraform {
       version = "~> 4.27.0"
     }
     http = {
-      source = "hashicorp/http"
+      source  = "hashicorp/http"
+      version = "~> 3.2.1"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.3.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
+      version = "~> 3.4.3"
     }
   }
 }

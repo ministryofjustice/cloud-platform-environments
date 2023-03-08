@@ -19,7 +19,7 @@ resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscr
 }
 
 module "refer-and-monitor-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -40,7 +40,7 @@ resource "aws_sqs_queue_policy" "refer-and-monitor-and-delius-queue-policy" {
 }
 
 module "refer-and-monitor-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name

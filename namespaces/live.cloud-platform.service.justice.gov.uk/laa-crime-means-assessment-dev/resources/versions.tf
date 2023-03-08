@@ -1,4 +1,3 @@
-
 terraform {
   required_version = ">= 1.2.5"
   required_providers {
@@ -7,11 +6,16 @@ terraform {
       version = "~> 4.27.0"
     }
     github = {
-      source = "integrations/github"
+      source  = "integrations/github"
+      version = "~> 5.17.0"
     }
     pingdom = {
-      source  = "russellcardullo/pingdom"
-      version = "1.1.3"
+      source  = "DrFaust92/pingdom"
+      version = "~> 1.3.1"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.18.0"
     }
   }
 }
