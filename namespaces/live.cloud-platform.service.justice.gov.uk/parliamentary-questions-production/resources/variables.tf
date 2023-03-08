@@ -42,8 +42,6 @@ variable "domain" {
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }

@@ -23,8 +23,6 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
