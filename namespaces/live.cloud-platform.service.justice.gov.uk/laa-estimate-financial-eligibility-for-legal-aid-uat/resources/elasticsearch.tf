@@ -1,5 +1,5 @@
 module "ccq_es" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
   eks_cluster_name       = var.eks_cluster_name
   vpc_name               = var.vpc_name
   team_name              = var.team_name
