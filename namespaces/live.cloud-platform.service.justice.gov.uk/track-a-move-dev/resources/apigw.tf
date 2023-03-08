@@ -36,8 +36,8 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gw_firehose_policy" {
+  count = length(local.suppliers)
 
-  count = length(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn)
   name  = "apigw-firehose-${count.index}"
 
   role = aws_iam_role.apigw_role.name
@@ -51,12 +51,14 @@ resource "aws_iam_role_policy" "api_gw_firehose_policy" {
       "Action": "firehose:PutRecordBatch",
 
       "Resource": [
-        "${element(aws_kinesis_firehose_delivery_stream.extended_s3_stream.*.arn, count.index)}"
+        "${aws_kinesis_firehose_delivery_stream.extended_s3_stream[count.index].arn}"
       ]
     }
   ]
 }
 EOF
+
+  depends_on = [aws_kinesis_firehose_delivery_stream.extended_s3_stream]
 }
 
 
