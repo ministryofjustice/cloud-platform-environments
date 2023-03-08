@@ -3,8 +3,9 @@
 ################################################################################
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
+  business-unit          = var.business-unit
   application            = var.application
   environment-name       = var.environment
   is-production          = var.is_production
