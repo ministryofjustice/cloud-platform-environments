@@ -21,3 +21,8 @@ variable "environment-name" {
   default = "production"
 }
 
+variable "infrastructure_support" {
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "Central-Digital-Product-Team@digital.justice.gov.uk"
+}
