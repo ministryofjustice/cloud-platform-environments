@@ -24,3 +24,8 @@ variable "environment-name" {
   default = "development"
 }
 
+variable "infrastructure_support" {
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "correspondence@digital.justice.gov.uk"
+}
