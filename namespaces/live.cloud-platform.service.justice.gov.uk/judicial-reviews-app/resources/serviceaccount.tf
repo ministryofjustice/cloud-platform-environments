@@ -65,5 +65,16 @@ module "serviceaccount" {
         "watch",
       ]
     },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
   ]
 }
