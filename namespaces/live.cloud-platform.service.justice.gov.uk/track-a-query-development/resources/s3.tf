@@ -11,7 +11,7 @@ module "track_a_query_s3" {
   application            = "track-a-query"
   is-production          = "false"
   environment-name       = "development"
-  infrastructure-support = "mohammed.seedat@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   cors_rule = [
