@@ -11,8 +11,8 @@ terraform {
       version = "~> 2.18.0"
     }
     pingdom = {
-      source  = "russellcardullo/pingdom"
-      version = "~> 1.1.3"
+      source  = "DrFaust92/pingdom"
+      version = "~> 1.3.1"
     }
     github = {
       source  = "integrations/github"

@@ -35,8 +35,9 @@ module "person-search-index-from-delius-contact-dlq" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
 
-  application = "person-search-index-from-delius"
-  sqs_name    = "person-search-index-from-delius-contact-dlq"
+  application               = "person-search-index-from-delius"
+  sqs_name                  = "person-search-index-from-delius-contact-dlq"
+  message_retention_seconds = 604800 # 1 week
 }
 
 resource "aws_sqs_queue_policy" "person-search-index-from-delius-contact-dlq-policy" {
