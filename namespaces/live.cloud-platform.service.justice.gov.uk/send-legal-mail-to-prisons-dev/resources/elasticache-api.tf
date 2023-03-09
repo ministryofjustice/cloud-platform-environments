@@ -13,7 +13,8 @@ module "slmtp_api_elasticache_redis" {
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
   engine_version         = "7.0"
-  parameter_group_name   = aws_elasticache_parameter_group.token_store.name
+  parameter_group_name   = "default.redis7"
+  # parameter_group_name   = aws_elasticache_parameter_group.token_store.name
   namespace              = var.namespace
 
   providers = {
@@ -36,14 +37,14 @@ resource "kubernetes_secret" "slmtp_api_elasticache_redis" {
   }
 }
 
-resource "aws_elasticache_parameter_group" "token_store" {
-  name   = "slmtp-api-dev-token-store-parameter-group"
-  family = "redis7.0"
+# resource "aws_elasticache_parameter_group" "token_store" {
+#   name   = "slmtp-api-dev-token-store-parameter-group"
+#   family = "redis7.0"
 
-  # Needed in order to get spring boot to expire items from the redis cache
-  parameter {
-    name  = "notify-keyspace-events"
-    value = "Ex"
-  }
-}
+#   # Needed in order to get spring boot to expire items from the redis cache
+#   parameter {
+#     name  = "notify-keyspace-events"
+#     value = "Ex"
+#   }
+# }
 
