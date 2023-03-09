@@ -35,8 +35,6 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
