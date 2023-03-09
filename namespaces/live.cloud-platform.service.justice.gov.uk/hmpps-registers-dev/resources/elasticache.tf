@@ -12,7 +12,7 @@ module "hmpps_registers_elasticache_redis" {
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   number_cache_clusters  = var.number-cache-clusters
-  node_type              = "cache.t2.small"
+  node_type              = "cache.t4g.micro"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
