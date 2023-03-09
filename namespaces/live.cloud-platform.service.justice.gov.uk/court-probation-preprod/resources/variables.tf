@@ -30,14 +30,6 @@ variable "is-production" {
   default = "false"
 }
 
-variable "rds-family" {
-  default = "postgres11"
-}
-
-variable "db_engine_version" {
-  default = "11"
-}
-
 variable "number_cache_clusters" {
   default = "2"
 }

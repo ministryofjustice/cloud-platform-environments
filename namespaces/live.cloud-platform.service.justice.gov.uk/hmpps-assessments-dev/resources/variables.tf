@@ -42,15 +42,9 @@ variable "slack_channel" {
   default     = "hmpps-assessments-dev"
 }
 
-variable "rds_family" {
-  default = "postgres10"
-}
-
 variable "domain" {
   default = "hmpps-assessments.service.justice.gov.uk"
 }
-
-
 
 # DEPRECATED: snake-case variables are the default. The definitions below
 # have been left in place until all code has been updated to use snake-case
@@ -79,8 +73,3 @@ variable "slack-channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps-assessments-dev"
 }
-
-variable "rds-family" {
-  default = "postgres10"
-}
-

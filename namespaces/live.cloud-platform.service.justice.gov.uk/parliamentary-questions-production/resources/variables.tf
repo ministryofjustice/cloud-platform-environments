@@ -2,10 +2,6 @@ variable "application" {
   default = "Parliamentary Questions Tracker"
 }
 
-variable "aws_region" {
-  default = "eu-west-2"
-}
-
 variable "db_backup_retention_period" {
   default = "7"
 }
