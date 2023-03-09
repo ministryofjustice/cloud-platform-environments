@@ -5,4 +5,4 @@ metadata:
   namespace: cfe-civil-uat
 spec:
   hard:
-    pods: "50"
+    pods: "100"
