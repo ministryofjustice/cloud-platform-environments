@@ -56,11 +56,6 @@ variable "domain" {
 # have been left in place until all code has been updated to use snake-case
 # variable names.
 
-variable "business-unit" {
-  description = "Area of the MOJ responsible for the service."
-  default     = "HMPPS"
-}
-
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "assess-risks-and-needs@digital.justice.gov.uk"
@@ -73,4 +68,3 @@ variable "is-production" {
 variable "rds-family" {
   default = "postgres10"
 }
-
