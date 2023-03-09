@@ -61,8 +61,3 @@ variable "basic-auth-username" {
   description = "Basic auth. username of the deployed prototype website"
   default     = "hmpps-prepare-a-case-prototype"
 }
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "hmpps-prepare-a-case-prototype"
-}
