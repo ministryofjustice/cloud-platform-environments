@@ -1,4 +1,3 @@
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "gds-data-share"
@@ -18,11 +17,6 @@ variable "environment_name" {
   default     = "dev"
 }
 
-variable "github_environment_name" {
-  description = "The name of the GitHub environment to deploy secrets to."
-  default     = "test"
-}
-
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "gdx-dev-team@digital.cabinet-office.gov.uk"
@@ -31,4 +25,3 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
-
