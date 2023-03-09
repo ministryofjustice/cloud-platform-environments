@@ -14,10 +14,6 @@ variable "application" {
   default = "Civil Legal Advice Case Handling System"
 }
 
-variable "repo_name" {
-  default = "cla_frontend"
-}
-
 variable "email" {
   default = "civil-legal-advice@digital.justice.gov.uk"
 }

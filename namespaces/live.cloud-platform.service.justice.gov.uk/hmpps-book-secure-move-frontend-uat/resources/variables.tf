@@ -22,13 +22,6 @@ variable "namespace" {
   default = "hmpps-book-secure-move-frontend-uat"
 }
 
-variable "repo_name" {
-  default = "hmpps-book-secure-move-frontend"
-}
-
 # The following variable is provided at runtime by the pipeline.
-
 variable "vpc_name" {
 }
-
-

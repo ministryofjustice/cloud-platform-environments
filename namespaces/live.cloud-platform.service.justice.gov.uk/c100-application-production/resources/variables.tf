@@ -26,11 +26,6 @@ variable "namespace" {
   default = "c100-application-production"
 }
 
-variable "repo_name" {
-  default = "c100-application"
-}
-
 # The following variable is provided at runtime by the pipeline.
-
 variable "vpc_name" {
 }

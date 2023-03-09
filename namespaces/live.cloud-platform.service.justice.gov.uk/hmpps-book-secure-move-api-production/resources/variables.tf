@@ -26,10 +26,6 @@ variable "namespace" {
   default = "hmpps-book-secure-move-api-production"
 }
 
-variable "repo_name" {
-  default = "hmpps-book-secure-move-api"
-}
-
 variable "business-unit" {
   default = "Digital and Technology"
 }

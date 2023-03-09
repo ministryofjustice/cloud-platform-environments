@@ -30,10 +30,6 @@ variable "infrastructure-support" {
   default     = "LAA get paid team: laa-get-paid@digital.justice.gov.uk"
 }
 
-variable "repo_name" {
-  default = "laa-fee-calculator"
-}
-
 variable "is-production" {
   default = "false"
 }

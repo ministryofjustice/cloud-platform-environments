@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe CpEnv::Terraform do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
+  let(:vpc_name) { "live-1" }
+  let(:eks_cluster_name) { "live" }
   let(:namespace) { "mynamespace" }
   let(:dir) { "namespaces/#{cluster}/#{namespace}" }
   let(:success) { double(success?: true) }
@@ -14,9 +16,9 @@ describe CpEnv::Terraform do
       "PIPELINE_TERRAFORM_STATE_LOCK_TABLE" => "lock-table",
       "PIPELINE_STATE_REGION" => "region",
       "PIPELINE_CLUSTER_STATE" => cluster,
-      "TF_VAR_cluster_name" => cluster,
-      "TF_VAR_cluster_state_bucket" => "cloud-platform-terraform-state",
-      "TF_VAR_cluster_state_key" => "cloud-platform/live-1/terraform.tfstate"
+      "TF_VAR_vpc_name" => vpc_name,
+      "TF_VAR_eks_cluster_name" => eks_cluster_name,
+      "TF_VAR_kubernetes_cluster" => "XIHIUHIU.eks.amazonaws.com"
     }
   }
 
