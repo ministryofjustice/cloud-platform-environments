@@ -55,3 +55,15 @@ resource "github_actions_environment_secret" "tier-to-delius-secrets" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "tier-to-delius-queue-secret" {
+  metadata {
+    name      = "tier-to-delius-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.tier-to-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.tier-to-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.tier-to-delius-queue.secret_access_key
+  }
+}

@@ -55,3 +55,15 @@ resource "github_actions_environment_secret" "unpaid-work-and-delius-secrets" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "unpaid-work-and-delius-queue-secret" {
+  metadata {
+    name      = "unpaid-work-and-delius-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.unpaid-work-and-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.unpaid-work-and-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.unpaid-work-and-delius-queue.secret_access_key
+  }
+}

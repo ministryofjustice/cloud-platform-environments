@@ -58,3 +58,15 @@ resource "github_actions_environment_secret" "prison-custody-status-to-delius-se
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "prison-custody-status-to-delius-queue-secret" {
+  metadata {
+    name      = "prison-custody-status-to-delius-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.prison-custody-status-to-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.prison-custody-status-to-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.prison-custody-status-to-delius-queue.secret_access_key
+  }
+}
