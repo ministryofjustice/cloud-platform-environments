@@ -14,10 +14,6 @@ variable "application" {
   default = "Find A Legal Advisor"
 }
 
-variable "repo_name" {
-  default = "fala"
-}
-
 variable "email" {
   default = "civil-legal-advice@digital.justice.gov.uk"
 }

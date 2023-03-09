@@ -14,10 +14,6 @@ variable "application" {
   default = "LAA-Legal-Adviser-API"
 }
 
-variable "repo_name" {
-  default = "laa-legal-adviser-api"
-}
-
 variable "email" {
   default = "laa-get-access@digital.justice.gov.uk"
 }
