@@ -58,3 +58,15 @@ resource "github_actions_environment_secret" "make-recall-decisions-and-delius-s
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "make-recall-decisions-and-delius-queue-secret" {
+  metadata {
+    name      = "make-recall-decisions-and-delius-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.make-recall-decisions-and-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.make-recall-decisions-and-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.make-recall-decisions-and-delius-queue.secret_access_key
+  }
+}
