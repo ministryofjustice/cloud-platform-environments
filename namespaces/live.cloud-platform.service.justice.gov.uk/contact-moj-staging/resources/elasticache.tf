@@ -10,7 +10,7 @@ module "contact_moj_elasticache_redis" {
   business-unit          = "Central Digital"
   application            = "contact-moj"
   is-production          = "false"
-  environment-name       = "staging"
+  environment-name       = var.environment
   infrastructure-support = "staffservices@digital.justice.gov.uk"
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"

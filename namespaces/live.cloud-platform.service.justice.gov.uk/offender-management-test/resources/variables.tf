@@ -1,4 +1,4 @@
-variable "environment-name" {
+variable "environment" {
   default = "test"
 }
 

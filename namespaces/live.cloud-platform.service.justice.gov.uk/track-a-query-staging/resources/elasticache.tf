@@ -10,7 +10,7 @@ module "track_a_query_elasticache_redis" {
   business-unit          = "Central Digital"
   application            = "track-a-query"
   is-production          = "false"
-  environment-name       = "staging"
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"

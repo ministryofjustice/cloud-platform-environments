@@ -9,7 +9,7 @@ module "peoplefinder_es" {
   eks_cluster_name                = var.eks_cluster_name
   application                     = "peoplefinder"
   business-unit                   = "Central Digital"
-  environment-name                = "demo"
+  environment-name                = var.environment
   infrastructure-support          = "people-finder-support@digital.justice.gov.uk"
   is-production                   = "false"
   team_name                       = "peoplefinder"

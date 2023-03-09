@@ -19,7 +19,7 @@ variable "is-production" {
   default = "false"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "demo"
 }
 
