@@ -61,11 +61,6 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
-variable "team-name" {
-  description = "The name of your development team"
-  default     = "hmpps-assessments"
-}
-
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "assess-risks-and-needs@digital.justice.gov.uk"
@@ -73,11 +68,6 @@ variable "infrastructure-support" {
 
 variable "is-production" {
   default = "false"
-}
-
-variable "slack-channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps-assessments-dev"
 }
 
 variable "rds-family" {
