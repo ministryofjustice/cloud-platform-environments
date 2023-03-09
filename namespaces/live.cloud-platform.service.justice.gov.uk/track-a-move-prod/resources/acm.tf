@@ -11,6 +11,10 @@ resource "aws_acm_certificate" "apigw_custom_hostname" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_acm_certificate_validation" "apigw_custom_hostname" {

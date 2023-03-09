@@ -8,10 +8,6 @@ variable "application" {
   default     = "Visit Someone in Prison"
 }
 
-variable "visit-scheduler-application" {
-  default = "visit-scheduler"
-}
-
 variable "namespace" {
   default = "visit-someone-in-prison-backend-svc-prod"
 }

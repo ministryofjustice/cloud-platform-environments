@@ -16,7 +16,7 @@ module "dex_mi_production_rds" {
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
   environment-name           = var.environment-name
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 

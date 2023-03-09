@@ -16,7 +16,7 @@ resource "pingdom_check" "pingdom" {
     "tier-to-delius",
     "unpaid-work-and-delius",
     "workforce-allocations-to-delius",
-    // ^ add new projects here
+    # ^ add new projects here
   ])
   type                     = "http"
   name                     = "Integration - ${each.value}"

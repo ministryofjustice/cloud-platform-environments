@@ -17,6 +17,10 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
 resource "aws_acm_certificate" "api_gateway_custom_hostname" {
   domain_name       = "${var.hostname}.${var.base_domain}"
   validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
