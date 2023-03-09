@@ -55,3 +55,15 @@ resource "github_actions_environment_secret" "risk-assessment-scores-to-delius-s
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "risk-assessment-scores-to-delius-queue-secret" {
+  metadata {
+    name      = "risk-assessment-scores-to-delius-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.risk-assessment-scores-to-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.risk-assessment-scores-to-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.risk-assessment-scores-to-delius-queue.secret_access_key
+  }
+}
