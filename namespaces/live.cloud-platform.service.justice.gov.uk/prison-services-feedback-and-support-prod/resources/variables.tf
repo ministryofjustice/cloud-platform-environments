@@ -56,7 +56,3 @@ variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
-
-variable "is-production" {
-  default = "false"
-}

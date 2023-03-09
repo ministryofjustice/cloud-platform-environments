@@ -30,10 +30,6 @@ variable "infrastructure-support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
 variable "is_production" {
   default = "true"
 }
@@ -45,4 +41,3 @@ variable "number_cache_clusters" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
-
