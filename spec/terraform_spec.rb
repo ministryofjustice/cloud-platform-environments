@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe CpEnv::Terraform do
   let(:cluster) { "live-1.cloud-platform.service.justice.gov.uk" }
-  let(:vpc_name) {"live-1"}
+  let(:vpc_name) { "live-1" }
   let(:eks_cluster_name) { "live" }
   let(:namespace) { "mynamespace" }
   let(:dir) { "namespaces/#{cluster}/#{namespace}" }
