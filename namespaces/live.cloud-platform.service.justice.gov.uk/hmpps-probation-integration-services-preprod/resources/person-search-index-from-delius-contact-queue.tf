@@ -59,3 +59,27 @@ resource "github_actions_environment_secret" "person-search-index-from-delius-co
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "person-search-index-from-delius-contact-queue-secret" {
+  metadata {
+    name      = "person-search-index-from-delius-contact-queue"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.person-search-index-from-delius-contact-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-contact-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-contact-queue.secret_access_key
+  }
+}
+
+resource "kubernetes_secret" "person-search-index-from-delius-contact-dlq-secret" {
+  metadata {
+    name      = "person-search-index-from-delius-contact-dlq"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME            = module.person-search-index-from-delius-contact-dlq.sqs_name
+    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-contact-dlq.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-contact-dlq.secret_access_key
+  }
+}
