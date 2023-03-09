@@ -30,10 +30,6 @@ variable "preprod_namespace" {
   default = "hmpps-book-secure-move-api-preprod"
 }
 
-variable "repo_name" {
-  default = "hmpps-book-secure-move-api"
-}
-
 variable "business-unit" {
   default = "Digital and Technology"
 }

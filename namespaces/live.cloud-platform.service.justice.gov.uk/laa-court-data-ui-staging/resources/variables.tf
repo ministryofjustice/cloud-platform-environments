@@ -20,11 +20,6 @@ variable "team_name" {
   default     = "laa-assess-a-claim"
 }
 
-variable "repo_name" {
-  description = "The name of github repo AND ecr repo"
-  default     = "laa-court-data-ui"
-}
-
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "staging"
