@@ -57,11 +57,6 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
-variable "team-name" {
-  description = "The name of your development team"
-  default     = "calculate-journey-variable-payments"
-}
-
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "calculatejourneypayments@digital.justice.gov.uk"
@@ -70,9 +65,3 @@ variable "infrastructure-support" {
 variable "is-production" {
   default = "false"
 }
-
-variable "slack-channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "calculate-journey-payments"
-}
-
