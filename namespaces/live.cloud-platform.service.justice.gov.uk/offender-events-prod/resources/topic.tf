@@ -113,3 +113,15 @@ resource "github_actions_environment_secret" "offender-events-and-delius" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+resource "kubernetes_secret" "offender-events-and-delius-topic-secret" {
+  metadata {
+    name      = "offender-events-and-delius-topic"
+    namespace = "hmpps-probation-integration-services-${var.environment-name}"
+  }
+  data = {
+    TOPIC_ARN             = module.probation_offender_events.topic_arn
+    AWS_ACCESS_KEY_ID     = module.probation_offender_events.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.probation_offender_events.secret_access_key
+  }
+}
