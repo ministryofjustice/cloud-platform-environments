@@ -15,7 +15,7 @@ module "peoplefinder_rds" {
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_staging"
-  environment-name           = "staging"
+  environment-name           = var.environment
   infrastructure-support     = "people-finder-support@digital.justice.gov.uk"
 
   rds_family = "postgres12"
