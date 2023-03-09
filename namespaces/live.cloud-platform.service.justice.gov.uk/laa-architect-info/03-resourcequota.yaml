@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: apshinytest-dev
+  namespace: laa-architect-info
 spec:
   hard:
     pods: "50"
