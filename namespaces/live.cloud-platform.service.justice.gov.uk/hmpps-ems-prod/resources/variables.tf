@@ -55,11 +55,6 @@ variable "business-unit" {
   default     = "HMPPS"
 }
 
-variable "infrastructure-support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "hmpps-ems-platform-team@digital.justice.gov.uk"
-}
-
 variable "is-production" {
   default = "true"
 }
