@@ -10,7 +10,7 @@ module "example_team_s3_bucket" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.email
   namespace              = var.namespace

@@ -3,7 +3,7 @@ module "ec-cluster-prison-visits-booking-staff" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = "prison-visits-booking-staff"
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   engine_version         = "4.0.10"

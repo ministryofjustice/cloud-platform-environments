@@ -9,7 +9,7 @@ module "book_a_secure_move_documents_s3_bucket" {
   application            = var.application
   infrastructure-support = var.infrastructure-support
 
-  is-production    = var.is-production
+  is-production    = var.is_production
   environment-name = var.environment-name
   namespace        = var.namespace
 

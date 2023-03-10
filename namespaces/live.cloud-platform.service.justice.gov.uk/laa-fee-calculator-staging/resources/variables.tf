@@ -34,7 +34,7 @@ variable "repo_name" {
   default = "laa-fee-calculator"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

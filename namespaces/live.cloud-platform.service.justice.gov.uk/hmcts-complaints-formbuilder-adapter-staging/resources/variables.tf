@@ -18,7 +18,7 @@ variable "db_backup_retention_period_hmcts_complaints_adapter" {
   default = "2"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

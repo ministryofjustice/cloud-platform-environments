@@ -22,7 +22,7 @@ variable "infrastructure-support" {
   default = "Probation in Court Team: probation-in-court-team@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

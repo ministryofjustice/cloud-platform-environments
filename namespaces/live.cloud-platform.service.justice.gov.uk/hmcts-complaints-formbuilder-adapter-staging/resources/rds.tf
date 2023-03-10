@@ -5,7 +5,7 @@ module "hmcts-complaints-adapter-rds-instance" {
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
   application                = "hmcts-complaints-formbuilder-adapter"
   environment-name           = var.environment-name
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name
