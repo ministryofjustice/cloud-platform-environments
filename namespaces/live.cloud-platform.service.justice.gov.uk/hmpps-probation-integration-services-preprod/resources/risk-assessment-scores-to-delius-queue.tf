@@ -44,18 +44,6 @@ resource "aws_sqs_queue_policy" "risk-assessment-scores-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "risk-assessment-scores-to-delius-secrets" {
-  for_each = {
-    "RISK_ASSESSMENT_SCORES_TO_DELIUS_SQS_QUEUE_NAME"              = module.risk-assessment-scores-to-delius-queue.sqs_name
-    "RISK_ASSESSMENT_SCORES_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.risk-assessment-scores-to-delius-queue.access_key_id
-    "RISK_ASSESSMENT_SCORES_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.risk-assessment-scores-to-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "risk-assessment-scores-to-delius-queue-secret" {
   metadata {
     name      = "risk-assessment-scores-to-delius-queue"
