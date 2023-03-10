@@ -13,7 +13,7 @@ module "slmtp_ui_elasticache_redis" {
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
   engine_version         = "7.0"
-  parameter_group_name   = "default.redis7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   providers = {
