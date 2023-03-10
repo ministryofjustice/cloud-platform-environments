@@ -42,10 +42,6 @@ variable "slack_channel" {
   default     = "hmpps-assessments-dev"
 }
 
-variable "rds_family" {
-  default = "postgres10"
-}
-
 variable "domain" {
   default = "hmpps-assessments.service.justice.gov.uk"
 }

@@ -38,12 +38,3 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "syscon_team"
 }
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "node-type" {
-  default = "cache.t2.small"
-}
-

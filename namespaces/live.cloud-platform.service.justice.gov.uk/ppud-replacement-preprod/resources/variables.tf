@@ -51,7 +51,3 @@ variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
 }
-
-variable "number_cache_clusters" {
-  default = "2"
-}
