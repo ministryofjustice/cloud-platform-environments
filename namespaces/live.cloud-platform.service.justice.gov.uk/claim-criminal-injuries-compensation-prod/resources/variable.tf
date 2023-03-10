@@ -2,7 +2,7 @@ variable "namespace" {
   default = "claim-criminal-injuries-compensation-prod"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "cica"
 }
 

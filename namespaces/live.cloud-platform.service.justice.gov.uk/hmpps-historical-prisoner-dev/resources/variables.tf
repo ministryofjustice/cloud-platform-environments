@@ -17,7 +17,7 @@ variable "eks_cluster_name" {
 variable "vpc_name" {
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }

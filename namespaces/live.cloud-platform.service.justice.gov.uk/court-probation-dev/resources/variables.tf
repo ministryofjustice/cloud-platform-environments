@@ -6,7 +6,7 @@ variable "namespace" {
   default = "court-probation-dev"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "HMPPS"
 }
 

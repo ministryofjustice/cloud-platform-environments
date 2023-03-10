@@ -10,7 +10,7 @@ variable "domain" {
   default = "view-court-data.service.justice.gov.uk"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
 }

@@ -22,7 +22,7 @@ variable "namespace" {
   default = "hmpps-book-secure-move-api-dev"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "Digital and Technology"
 }
 

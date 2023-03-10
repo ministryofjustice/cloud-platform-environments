@@ -2,7 +2,7 @@ variable "namespace" {
   default = "laa-legal-adviser-api-staging"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "LAA"
 }
 

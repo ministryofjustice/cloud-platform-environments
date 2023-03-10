@@ -4,7 +4,7 @@ module "manage_intelligence_elasticsearch" {
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
-  business-unit                   = var.business-unit
+  business-unit                   = var.business_unit
   environment-name                = var.environment-name
   infrastructure-support          = var.infrastructure-support
   is-production                   = var.is-production

@@ -3,7 +3,7 @@ resource "aws_route53_zone" "route53_zone_hmpps" {
   name = "hmpps.service.justice.gov.uk"
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is-production
     environment-name       = var.environment-name

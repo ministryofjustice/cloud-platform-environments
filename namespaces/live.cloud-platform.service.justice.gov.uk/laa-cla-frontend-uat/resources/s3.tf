@@ -3,7 +3,7 @@ module "cla_frontend_static_files_bucket" {
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
-  business-unit                 = var.business-unit
+  business-unit                 = var.business_unit
   application                   = var.application
   is-production                 = var.is-production
   environment-name              = var.environment-name

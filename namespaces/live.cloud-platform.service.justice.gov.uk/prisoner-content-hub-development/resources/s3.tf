@@ -3,7 +3,7 @@ module "drupal_content_storage" {
 
   team_name              = var.team_name
   versioning             = true
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name

@@ -2,7 +2,7 @@ resource "aws_route53_zone" "crime_portal_mirror_gateway_route53_zone" {
   name = var.crime-portal-mirror-gateway-domain
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
     environment-name       = var.environment-name

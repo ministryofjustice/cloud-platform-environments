@@ -10,7 +10,7 @@ variable "namespace" {
   default = "laa-fee-calculator-staging"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
 }

@@ -3,7 +3,7 @@ module "cla_backend_private_reports_bucket" {
   acl    = "private"
 
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
@@ -54,7 +54,7 @@ module "cla_backend_deleted_objects_bucket" {
   acl    = "private"
 
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
@@ -103,7 +103,7 @@ module "cla_backend_static_files_bucket" {
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
-  business-unit                 = var.business-unit
+  business-unit                 = var.business_unit
   application                   = var.application
   is-production                 = var.is-production
   environment-name              = var.environment-name

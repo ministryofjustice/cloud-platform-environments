@@ -4,7 +4,7 @@ module "court-case-events" {
   topic_display_name = "court-case-events"
   encrypt_sns_kms    = true
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name

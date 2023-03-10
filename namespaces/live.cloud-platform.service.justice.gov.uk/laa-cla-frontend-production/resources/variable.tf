@@ -2,7 +2,7 @@ variable "namespace" {
   default = "laa-cla-frontend-production"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "LAA"
 }
 
