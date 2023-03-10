@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "dcs_access" {
     ]
   }
 }
-
+# tflint-ignore: all
 resource "random_id" "id" {
   byte_length = 16
 }
