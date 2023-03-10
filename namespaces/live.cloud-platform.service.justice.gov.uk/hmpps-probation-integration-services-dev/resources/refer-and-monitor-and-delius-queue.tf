@@ -4,16 +4,7 @@ resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscr
   endpoint  = module.refer-and-monitor-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "intervention.session-appointment.session-feedback-submitted",
-      "intervention.session-appointment.missed",
-      "intervention.session-appointment.attended",
-      "intervention.referral.sent",
-      "intervention.referral.prematurely-ended",
-      "intervention.referral.completed",
-      "intervention.referral.cancelled",
-      "intervention.initial-assessment-appointment.session-feedback-submitted",
-      "intervention.initial-assessment-appointment.missed",
-      "intervention.initial-assessment-appointment.attended",
+      "intervention.referral.ended"
     ]
   })
 }
