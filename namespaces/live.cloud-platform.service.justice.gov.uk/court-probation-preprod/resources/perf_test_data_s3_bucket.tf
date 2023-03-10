@@ -6,7 +6,7 @@ module "perf-test-data-s3-bucket" {
   application            = "cpmg-gatling-performance-tests"
   is-production          = var.is-production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

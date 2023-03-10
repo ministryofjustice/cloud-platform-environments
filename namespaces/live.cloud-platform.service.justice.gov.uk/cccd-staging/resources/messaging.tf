@@ -8,7 +8,7 @@ module "cccd_claims_submitted" {
   is_production          = var.is-production
   team_name              = var.team_name
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure-support
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -21,7 +21,7 @@ module "claims_for_ccr" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cccd-claims-for-ccr"
   existing_user_name     = module.cccd_claims_submitted.user_name
@@ -75,7 +75,7 @@ module "claims_for_cclf" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cccd-claims-for-cclf"
   existing_user_name     = module.cccd_claims_submitted.user_name
@@ -129,7 +129,7 @@ module "responses_for_cccd" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "responses-for-cccd"
   existing_user_name     = module.cccd_claims_submitted.user_name
@@ -154,7 +154,7 @@ module "ccr_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cccd-claims-submitted-ccr-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name
@@ -171,7 +171,7 @@ module "cclf_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cccd-claims-submitted-cclf-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name
@@ -188,7 +188,7 @@ module "cccd_response_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "reponses-for-cccd-dlq"
   existing_user_name     = module.cccd_claims_submitted.user_name

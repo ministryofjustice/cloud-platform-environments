@@ -8,7 +8,7 @@ module "offender_events" {
   is_production          = var.is-production
   team_name              = var.team_name
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure-support
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -64,7 +64,7 @@ module "probation_offender_events" {
   is_production          = var.is-production
   team_name              = var.team_name
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure-support
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -81,7 +81,7 @@ module "offender_assessments_events" {
   is_production          = var.is-production
   team_name              = var.team_name
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure-support
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

@@ -21,7 +21,7 @@ module "rds" {
   # change the postgres version as you see fit.
   db_engine_version      = "11"
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best

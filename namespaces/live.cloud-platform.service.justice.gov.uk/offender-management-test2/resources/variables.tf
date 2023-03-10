@@ -14,6 +14,6 @@ variable "namespace" {
   default = "offender-management-test2"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "omic@digital.justice.gov.uk"
 }

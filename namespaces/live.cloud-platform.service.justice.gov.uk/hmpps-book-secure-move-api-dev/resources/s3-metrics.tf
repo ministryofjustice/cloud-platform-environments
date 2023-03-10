@@ -7,7 +7,7 @@ module "book_a_secure_move_metrics_s3_bucket" {
   team_name              = var.team_name
   business-unit          = "Digital and Technology"
   application            = var.application
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   is-production    = var.is-production
   environment-name = var.environment-name

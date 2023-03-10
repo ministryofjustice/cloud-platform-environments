@@ -14,7 +14,7 @@ variable "environment-name" {
   default = "staging"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Tactical Products Team: pqsupport@digital.justice.gov.uk"
 }
 

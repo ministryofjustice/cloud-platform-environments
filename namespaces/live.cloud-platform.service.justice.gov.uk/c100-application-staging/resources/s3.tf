@@ -12,7 +12,7 @@ module "s3_bucket" {
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   /* 

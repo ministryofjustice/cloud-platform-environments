@@ -12,7 +12,7 @@ module "s3" {
   is-production          = var.is-production
   namespace              = var.namespace
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   acl                           = "private"
   enable_allow_block_pub_access = true

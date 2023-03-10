@@ -11,7 +11,7 @@ module "dps_rds" {
   is-production               = var.is-production
   namespace                   = var.namespace
   environment-name            = var.environment-name
-  infrastructure-support      = var.infrastructure-support
+  infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "14"

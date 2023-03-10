@@ -12,7 +12,7 @@ module "rds_instance" {
   db_engine_version          = "12"
   db_name                    = "parliamentary_questions_dev"
   environment-name           = var.environment-name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   is-production              = var.is-production
   namespace                  = var.namespace
   rds_family                 = "postgres12"

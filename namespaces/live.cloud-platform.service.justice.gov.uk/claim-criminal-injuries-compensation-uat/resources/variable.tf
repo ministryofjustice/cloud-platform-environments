@@ -26,7 +26,7 @@ variable "is-production" {
   default = "false"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "Infrastructure@cica.gov.uk"
 }

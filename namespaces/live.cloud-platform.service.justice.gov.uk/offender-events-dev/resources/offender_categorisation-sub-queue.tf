@@ -3,7 +3,7 @@ module "offender_categorisation_events_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "offender_categorisation_events_queue"
   encrypt_sqs_kms           = "true"
@@ -53,7 +53,7 @@ module "offender_categorisation_events_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "offender_categorisation_events_queue_dl"
   encrypt_sqs_kms        = "true"
@@ -110,7 +110,7 @@ module "offender_categorisation_ui_events_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "offender_categorisation_ui_events_queue"
   encrypt_sqs_kms           = "true"
@@ -160,7 +160,7 @@ module "offender_categorisation_ui_events_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "offender_categorisation_ui_events_queue_dl"
   encrypt_sqs_kms        = "true"

@@ -3,7 +3,7 @@ module "risk_profiler_change" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "risk_profiler_change"
   encrypt_sqs_kms        = "false"
@@ -28,7 +28,7 @@ module "risk_profiler_change_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "risk_profiler_change_dl"
   encrypt_sqs_kms        = "false"
