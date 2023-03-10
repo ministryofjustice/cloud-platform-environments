@@ -6,7 +6,7 @@ module "prisoner_offender_search_elasticsearch" {
   business-unit                   = var.business_unit
   environment-name                = var.environment-name
   infrastructure-support          = var.infrastructure-support
-  is-production                   = var.is-production
+  is-production                   = var.is_production
   team_name                       = var.team_name
   elasticsearch-domain            = "search-prisoner"
   aws_es_proxy_service_name       = "es-proxy"
@@ -30,7 +30,7 @@ module "es_snapshots_s3_bucket" {
   versioning             = false
   business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace

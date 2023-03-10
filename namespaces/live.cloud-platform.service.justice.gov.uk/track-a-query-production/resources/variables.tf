@@ -16,7 +16,7 @@ variable "domain" {
   default = "track-a-query.service.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

@@ -9,7 +9,7 @@ resource "aws_route53_zone" "track_a_query_route53_zone" {
   tags = {
     business-unit          = "Central Digital"
     application            = "track-a-query"
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = "staff-services"
     infrastructure-support = var.infrastructure_support

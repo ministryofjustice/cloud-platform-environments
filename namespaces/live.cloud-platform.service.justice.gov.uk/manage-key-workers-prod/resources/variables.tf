@@ -42,7 +42,7 @@ variable "node-type" {
   default = "cache.t2.small"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

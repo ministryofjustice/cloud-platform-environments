@@ -25,7 +25,7 @@ module "prison-visits-rds" {
   db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-production"
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   environment-name       = "production"
   infrastructure-support = "pvb-technical-support@digital.justice.gov.uk"

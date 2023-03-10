@@ -9,7 +9,7 @@ module "dex_mi_production_rds" {
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "dex-mi-metabase"
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"

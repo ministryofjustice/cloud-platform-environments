@@ -15,7 +15,7 @@ variable "domain" {
   default = "peoplefinder.service.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

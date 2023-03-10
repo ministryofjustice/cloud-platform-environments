@@ -3,7 +3,7 @@ resource "aws_route53_zone" "route53_zone_short" {
 
   tags = {
     application            = var.application
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
@@ -16,7 +16,7 @@ resource "aws_route53_zone" "route53_zone_long" {
 
   tags = {
     application            = var.application
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
