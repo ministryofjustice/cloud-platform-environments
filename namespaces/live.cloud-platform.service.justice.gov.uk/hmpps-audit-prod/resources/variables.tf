@@ -11,7 +11,7 @@ variable "domain_audit_api" {
 }
 
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }

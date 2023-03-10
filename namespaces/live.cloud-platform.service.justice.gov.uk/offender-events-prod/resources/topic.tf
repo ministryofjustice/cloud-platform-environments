@@ -3,7 +3,7 @@ module "offender_events" {
 
   topic_display_name = "offender-events"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name
@@ -46,7 +46,7 @@ module "probation_offender_events" {
   source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
   topic_display_name = "probation-offender-events"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name
@@ -76,7 +76,7 @@ module "offender_assessments_events" {
   source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
   topic_display_name = "offender-assessments-events"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name

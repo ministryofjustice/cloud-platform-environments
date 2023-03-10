@@ -3,7 +3,7 @@ resource "aws_route53_zone" "app_domain" {
   name = "prisoner-money.service.justice.gov.uk."
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     team_name              = var.team_name
     application            = var.application
     is-production          = var.is-production
@@ -40,7 +40,7 @@ resource "aws_route53_zone" "send_money" {
   name = "send-money-to-prisoner.service.gov.uk."
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     team_name              = var.team_name
     application            = var.application
     is-production          = var.is-production
@@ -77,7 +77,7 @@ resource "aws_route53_zone" "start_page" {
   name = "sendmoneytoaprisoner.justice.gov.uk."
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     team_name              = var.team_name
     application            = var.application
     is-production          = var.is-production
@@ -114,7 +114,7 @@ resource "aws_route53_zone" "start_page_alias" {
   name = "sendmoneytoaprisoner.service.justice.gov.uk."
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     team_name              = var.team_name
     application            = var.application
     is-production          = var.is-production
