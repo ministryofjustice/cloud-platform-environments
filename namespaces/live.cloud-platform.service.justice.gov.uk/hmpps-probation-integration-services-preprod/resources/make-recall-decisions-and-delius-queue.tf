@@ -47,18 +47,6 @@ resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "make-recall-decisions-and-delius-secrets" {
-  for_each = {
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_NAME"              = module.make-recall-decisions-and-delius-queue.sqs_name
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.make-recall-decisions-and-delius-queue.access_key_id
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.make-recall-decisions-and-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "make-recall-decisions-and-delius-queue-secret" {
   metadata {
     name      = "make-recall-decisions-and-delius-queue"

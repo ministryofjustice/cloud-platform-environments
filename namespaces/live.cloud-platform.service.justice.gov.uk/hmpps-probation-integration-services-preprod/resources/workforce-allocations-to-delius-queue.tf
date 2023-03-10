@@ -48,18 +48,6 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "workforce-allocations-to-delius-secrets" {
-  for_each = {
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_NAME"              = module.workforce-allocations-to-delius-queue.sqs_name
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.workforce-allocations-to-delius-queue.access_key_id
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.workforce-allocations-to-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "workforce-allocations-to-delius-queue-secret" {
   metadata {
     name      = "workforce-allocations-to-delius-queue"

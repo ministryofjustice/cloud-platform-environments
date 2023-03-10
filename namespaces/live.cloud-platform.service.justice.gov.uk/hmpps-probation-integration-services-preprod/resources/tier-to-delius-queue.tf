@@ -44,18 +44,6 @@ resource "aws_sqs_queue_policy" "tier-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "tier-to-delius-secrets" {
-  for_each = {
-    "TIER_TO_DELIUS_SQS_QUEUE_NAME"              = module.tier-to-delius-queue.sqs_name
-    "TIER_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.tier-to-delius-queue.access_key_id
-    "TIER_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.tier-to-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "tier-to-delius-queue-secret" {
   metadata {
     name      = "tier-to-delius-queue"
