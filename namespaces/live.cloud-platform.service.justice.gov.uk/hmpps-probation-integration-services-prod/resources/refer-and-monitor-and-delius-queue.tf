@@ -55,18 +55,6 @@ resource "aws_sqs_queue_policy" "refer-and-monitor-and-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "refer-and-monitor-and-delius-secrets" {
-  for_each = {
-    "REFER_AND_MONITOR_AND_DELIUS_SQS_QUEUE_NAME"              = module.refer-and-monitor-and-delius-queue.sqs_name
-    "REFER_AND_MONITOR_AND_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.refer-and-monitor-and-delius-queue.access_key_id
-    "REFER_AND_MONITOR_AND_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.refer-and-monitor-and-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "refer-and-monitor-and-delius-queue-secret" {
   metadata {
     name      = "refer-and-monitor-and-delius-queue"
