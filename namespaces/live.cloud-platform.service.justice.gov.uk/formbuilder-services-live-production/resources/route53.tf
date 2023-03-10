@@ -7,7 +7,7 @@ resource "aws_route53_zone" "main" {
     is-production          = var.is-production
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
   }
 }
 

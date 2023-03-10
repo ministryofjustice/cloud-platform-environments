@@ -6,7 +6,7 @@ resource "aws_route53_zone" "route53_zone_short" {
     is-production          = var.is-production
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
 }
@@ -19,7 +19,7 @@ resource "aws_route53_zone" "route53_zone_long" {
     is-production          = var.is-production
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
 }

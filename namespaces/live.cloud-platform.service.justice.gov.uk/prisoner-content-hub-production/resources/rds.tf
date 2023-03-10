@@ -8,7 +8,7 @@ module "drupal_rds" {
   is-production          = var.is-production
   namespace              = var.namespace
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   db_instance_class      = "db.t3.xlarge"
 
   providers = {

@@ -6,7 +6,7 @@ module "ec-cluster-prison-visits-booking-staff" {
   node_type              = "cache.m4.xlarge"
   is-production          = var.is-production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace

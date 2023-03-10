@@ -29,7 +29,7 @@ variable "environment-name" {
   default     = "prod"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "probation-in-court-team@digital.justice.gov.uk"
 }

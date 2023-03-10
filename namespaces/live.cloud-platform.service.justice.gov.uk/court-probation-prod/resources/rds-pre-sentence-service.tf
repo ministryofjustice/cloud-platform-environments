@@ -6,7 +6,7 @@ module "pre_sentence_service_rds" {
   namespace                    = var.namespace
   application                  = "pre-sentence-service"
   environment-name             = var.environment-name
-  infrastructure-support       = var.infrastructure-support
+  infrastructure-support       = var.infrastructure_support
   rds_family                   = "postgres13"
   db_instance_class            = "db.t3.small"
   db_engine_version            = "13"

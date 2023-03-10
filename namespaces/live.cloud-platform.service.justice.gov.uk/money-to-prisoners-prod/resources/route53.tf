@@ -10,7 +10,7 @@ resource "aws_route53_zone" "app_domain" {
     namespace              = var.namespace
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_route53_zone" "send_money" {
     namespace              = var.namespace
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
   }
 }
 
@@ -84,7 +84,7 @@ resource "aws_route53_zone" "start_page" {
     namespace              = var.namespace
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
   }
 }
 
@@ -121,7 +121,7 @@ resource "aws_route53_zone" "start_page_alias" {
     namespace              = var.namespace
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
   }
 }
 

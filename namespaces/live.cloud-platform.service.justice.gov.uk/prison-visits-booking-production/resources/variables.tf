@@ -14,7 +14,7 @@ variable "namespace" {
   default = "prison-visits-booking-production"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "pvb-technical-support@digital.justice.gov.uk"
 }
 

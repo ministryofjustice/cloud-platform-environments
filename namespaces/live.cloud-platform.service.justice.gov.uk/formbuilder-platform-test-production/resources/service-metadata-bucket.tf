@@ -8,7 +8,7 @@ module "service-metadata-s3-bucket" {
   application            = "formbuilderservicemetadata"
   is-production          = var.is-production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

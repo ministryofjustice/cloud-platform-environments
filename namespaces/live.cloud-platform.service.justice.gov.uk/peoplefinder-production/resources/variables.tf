@@ -27,7 +27,7 @@ variable "application" {
   default = "peoplefinder"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "people-finder-support@digital.justice.gov.uk"
 }
 

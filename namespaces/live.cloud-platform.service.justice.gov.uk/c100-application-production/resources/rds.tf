@@ -11,7 +11,7 @@ module "rds-instance" {
   environment-name       = var.environment-name
   is-production          = var.is-production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
 
 
