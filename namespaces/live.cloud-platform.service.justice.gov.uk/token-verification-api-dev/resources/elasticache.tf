@@ -15,6 +15,7 @@ module "tva_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  business-unit          = var.business-unit
 
   providers = {
     aws = aws.london
