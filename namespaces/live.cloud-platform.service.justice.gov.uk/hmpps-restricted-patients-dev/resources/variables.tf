@@ -62,10 +62,6 @@ variable "infrastructure-support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "false"
-}
-
 variable "number_cache_clusters" {
   default = "2"
 }

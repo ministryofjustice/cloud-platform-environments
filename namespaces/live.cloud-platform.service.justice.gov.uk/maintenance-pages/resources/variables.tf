@@ -58,10 +58,6 @@ variable "infrastructure-support" {
   default     = "operations-engineering@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
 variable "domains" {
   description = "List of domains to be put in maintenance"
   type        = any

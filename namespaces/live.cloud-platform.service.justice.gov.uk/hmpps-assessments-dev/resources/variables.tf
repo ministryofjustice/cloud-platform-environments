@@ -66,10 +66,6 @@ variable "infrastructure-support" {
   default     = "assess-risks-and-needs@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "false"
-}
-
 variable "rds-family" {
   default = "postgres10"
 }

@@ -13,7 +13,7 @@ module "dps_rds" {
   team_name              = var.team_name
   business-unit          = var.business-unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   db_engine_version      = "11"
   environment-name       = var.environment-name
