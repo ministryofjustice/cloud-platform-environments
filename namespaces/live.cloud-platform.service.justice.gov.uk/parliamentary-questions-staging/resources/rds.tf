@@ -13,7 +13,7 @@ module "rds_instance" {
   db_name                    = "parliamentary_questions_dev"
   environment-name           = var.environment-name
   infrastructure-support     = var.infrastructure-support
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   rds_family                 = "postgres12"
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"

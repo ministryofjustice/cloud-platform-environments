@@ -26,7 +26,7 @@ variable "infrastructure-support" {
   default     = "probation-in-court-team@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

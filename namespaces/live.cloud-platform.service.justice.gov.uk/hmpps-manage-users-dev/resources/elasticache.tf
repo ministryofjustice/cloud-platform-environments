@@ -8,7 +8,7 @@ module "hmpps_redis" {
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters

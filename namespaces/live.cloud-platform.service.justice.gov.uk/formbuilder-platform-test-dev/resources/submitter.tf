@@ -5,7 +5,7 @@ module "submitter-rds-instance-2" {
   db_backup_retention_period = var.db_backup_retention_period_submitter
   application                = "formbuildersubmitter"
   environment-name           = var.environment-name
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   infrastructure-support     = var.infrastructure-support
   team_name                  = var.team_name

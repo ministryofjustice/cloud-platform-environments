@@ -22,7 +22,7 @@ variable "environment-name" {
   default = "training"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

@@ -15,7 +15,7 @@ variable "domain" {
   default = "development.contact-moj.service.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

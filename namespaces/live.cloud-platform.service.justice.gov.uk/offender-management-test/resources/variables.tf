@@ -6,7 +6,7 @@ variable "team_name" {
   default = "offender-management"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
