@@ -44,18 +44,6 @@ resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "pre-sentence-reports-to-delius-secrets" {
-  for_each = {
-    "PRE_SENTENCE_REPORTS_TO_DELIUS_SQS_QUEUE_NAME"              = module.pre-sentence-reports-to-delius-queue.sqs_name
-    "PRE_SENTENCE_REPORTS_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.pre-sentence-reports-to-delius-queue.access_key_id
-    "PRE_SENTENCE_REPORTS_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.pre-sentence-reports-to-delius-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "pre-sentence-reports-to-delius-queue-secret" {
   metadata {
     name      = "pre-sentence-reports-to-delius-queue"

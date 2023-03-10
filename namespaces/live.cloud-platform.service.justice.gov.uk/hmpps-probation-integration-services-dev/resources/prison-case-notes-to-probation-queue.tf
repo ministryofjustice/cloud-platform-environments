@@ -54,18 +54,6 @@ resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "prison-case-notes-to-probation-secrets" {
-  for_each = {
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_NAME"              = module.prison-case-notes-to-probation-queue.sqs_name
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_ACCESS_KEY_ID"     = module.prison-case-notes-to-probation-queue.access_key_id
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_SECRET_ACCESS_KEY" = module.prison-case-notes-to-probation-queue.secret_access_key
-  }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
 resource "kubernetes_secret" "prison-case-notes-to-probation-queue-secret" {
   metadata {
     name      = "prison-case-notes-to-probation-queue"
