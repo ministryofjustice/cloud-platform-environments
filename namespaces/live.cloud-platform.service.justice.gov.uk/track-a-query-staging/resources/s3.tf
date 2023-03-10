@@ -10,7 +10,7 @@ module "track_a_query_s3" {
   business-unit          = "Central Digital"
   application            = "track-a-query"
   is-production          = "false"
-  environment-name       = "staging"
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   cors_rule = [

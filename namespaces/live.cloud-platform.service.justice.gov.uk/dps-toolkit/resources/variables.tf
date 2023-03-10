@@ -20,7 +20,7 @@ variable "team_name" {
   default     = "Digital Prison Services/DPS Tech Team"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }

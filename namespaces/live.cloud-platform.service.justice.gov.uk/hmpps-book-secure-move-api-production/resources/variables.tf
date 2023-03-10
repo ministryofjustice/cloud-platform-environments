@@ -6,10 +6,6 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
 variable "is_production" {
   default = "true"
 }
