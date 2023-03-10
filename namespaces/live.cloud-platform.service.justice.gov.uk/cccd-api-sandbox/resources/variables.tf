@@ -6,7 +6,7 @@ variable "namespace" {
   default = "cccd-api-sandbox"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
 }

@@ -3,7 +3,7 @@ provider "pingdom" {}
 
 resource "pingdom_check" "money-to-prisoners-test-emails" {
   name = "money-to-prisoners-test-emails"
-  tags = "businessunit_${lower(var.business-unit)},application_${var.application},component_emails,isproduction_${var.is-production},environment_${var.environment-name}"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_emails,isproduction_${var.is-production},environment_${var.environment-name}"
   host = "emails-test.prisoner-money.service.justice.gov.uk"
   url  = "/ping.json"
 

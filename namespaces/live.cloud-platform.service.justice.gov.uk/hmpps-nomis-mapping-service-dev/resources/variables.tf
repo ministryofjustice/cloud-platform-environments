@@ -10,7 +10,7 @@ variable "namespace" {
   default = "hmpps-nomis-mapping-service-dev"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }

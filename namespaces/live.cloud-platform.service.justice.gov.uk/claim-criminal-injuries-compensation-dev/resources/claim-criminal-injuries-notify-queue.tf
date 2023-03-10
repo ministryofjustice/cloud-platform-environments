@@ -4,7 +4,7 @@ module "claim-criminal-injuries-notify-queue" {
   sqs_name               = "claim-criminal-injuries-notify-queue"
   fifo_queue             = false
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
@@ -89,7 +89,7 @@ module "claim-criminal-injuries-notify-dlq" {
   sqs_name               = "claim-criminal-injuries-notify-dead-letter-queue"
   fifo_queue             = false
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is-production
   environment-name       = var.environment-name
