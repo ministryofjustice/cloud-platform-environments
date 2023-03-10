@@ -7,7 +7,7 @@ module "drupal_redis" {
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
@@ -39,8 +39,13 @@ module "frontend_redis" {
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
+<<<<<<< HEAD
   is-production          = var.is-production
   infrastructure-support = var.infrastructure_support
+=======
+  is-production          = var.is_production
+  infrastructure-support = var.infrastructure-support
+>>>>>>> main
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t3.small"

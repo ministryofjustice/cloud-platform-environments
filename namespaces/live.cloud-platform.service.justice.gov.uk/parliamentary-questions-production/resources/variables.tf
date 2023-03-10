@@ -14,7 +14,7 @@ variable "infrastructure_support" {
   default = "Tactical Products Team: pqsupport@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = true
 }
 

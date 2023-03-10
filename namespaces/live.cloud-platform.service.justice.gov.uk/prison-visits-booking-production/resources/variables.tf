@@ -6,7 +6,7 @@ variable "team_name" {
   default = "prison-visits-booking"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

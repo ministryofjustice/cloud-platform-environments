@@ -9,7 +9,7 @@ module "peoplefinder_rds" {
   team_name                  = var.team_name
   business-unit              = "Central Digital"
   application                = var.application
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
@@ -39,7 +39,7 @@ module "peoplefinder_rds_replica" {
 
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   rds_family             = "postgres12"

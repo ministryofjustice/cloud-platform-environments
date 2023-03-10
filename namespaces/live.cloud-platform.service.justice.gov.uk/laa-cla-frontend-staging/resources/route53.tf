@@ -5,7 +5,7 @@ resource "aws_route53_zone" "cla_frontend_route53_zone" {
     team_name              = var.team_name
     business-unit          = var.business_unit
     application            = var.application
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     infrastructure-support = var.infrastructure-support
   }

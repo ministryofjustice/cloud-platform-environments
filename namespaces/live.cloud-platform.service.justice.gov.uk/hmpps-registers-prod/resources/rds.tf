@@ -4,7 +4,7 @@ module "dps_rds" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.court-application
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
@@ -42,7 +42,7 @@ module "prisons_rds" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.prison-application
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support

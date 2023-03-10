@@ -6,7 +6,7 @@ variable "environment-name" {
   default = "uat"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

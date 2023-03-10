@@ -10,7 +10,7 @@ variable "environment-name" {
   default = "staging"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

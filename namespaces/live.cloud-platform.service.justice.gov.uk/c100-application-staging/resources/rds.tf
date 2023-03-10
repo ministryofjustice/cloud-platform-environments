@@ -9,7 +9,7 @@ module "rds-instance" {
 
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   infrastructure-support = var.infrastructure-support
   team_name              = var.team_name

@@ -14,7 +14,7 @@ variable "db_backup_retention_period_user_datastore" {
   default = "2"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

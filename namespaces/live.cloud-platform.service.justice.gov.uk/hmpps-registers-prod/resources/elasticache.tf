@@ -8,7 +8,7 @@ module "hmpps_registers_elasticache_redis" {
   business-unit          = var.business_unit
   application            = var.hmpps-registers-application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number-cache-clusters

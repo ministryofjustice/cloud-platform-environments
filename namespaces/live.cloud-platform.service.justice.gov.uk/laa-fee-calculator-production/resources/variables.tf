@@ -30,7 +30,7 @@ variable "infrastructure_support" {
   default     = "LAA get paid team: laa-get-paid@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

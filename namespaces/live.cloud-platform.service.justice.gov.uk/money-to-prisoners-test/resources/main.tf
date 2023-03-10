@@ -44,7 +44,7 @@ variable "environment-name" {
   default = "test"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

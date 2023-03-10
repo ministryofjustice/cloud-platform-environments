@@ -3,7 +3,7 @@ provider "pingdom" {}
 
 resource "pingdom_check" "money-to-prisoners-prod-send-money" {
   name = "money-to-prisoners-prod-send-money"
-  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_send-money,isproduction_${var.is-production},environment_${var.environment-name}"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_send-money,isproduction_${var.is_production},environment_${var.environment-name}"
   host = "send-money-to-prisoner.service.gov.uk"
   url  = "/ping.json"
 
@@ -23,7 +23,7 @@ resource "pingdom_check" "money-to-prisoners-prod-send-money" {
 
 resource "pingdom_check" "money-to-prisoners-prod-emails" {
   name = "money-to-prisoners-prod-emails"
-  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_emails,isproduction_${var.is-production},environment_${var.environment-name}"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_emails,isproduction_${var.is_production},environment_${var.environment-name}"
   host = "emails.prisoner-money.service.justice.gov.uk"
   url  = "/ping.json"
 
@@ -43,7 +43,7 @@ resource "pingdom_check" "money-to-prisoners-prod-emails" {
 
 resource "pingdom_check" "money-to-prisoners-prod-start-page" {
   name = "money-to-prisoners-prod-start-page"
-  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_start-page,isproduction_${var.is-production},environment_${var.environment-name}"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_start-page,isproduction_${var.is_production},environment_${var.environment-name}"
   host = "start-page.prisoner-money.service.justice.gov.uk"
   url  = "/ping.json"
 

@@ -7,7 +7,7 @@ variable "team_name" {
   default = "formbuilder"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

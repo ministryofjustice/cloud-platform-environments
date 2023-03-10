@@ -4,7 +4,7 @@ module "crime-portal-gateway-s3-bucket" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = "crime-portal-gateway"
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace

@@ -11,7 +11,7 @@ variable "namespace" {
   default = "formbuilder-publisher-test"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

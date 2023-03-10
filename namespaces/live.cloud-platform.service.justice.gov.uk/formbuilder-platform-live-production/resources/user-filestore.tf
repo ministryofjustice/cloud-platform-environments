@@ -9,7 +9,7 @@ module "user-filestore-s3-bucket" {
   versioning             = false
   business-unit          = "transformed-department"
   application            = "formbuilderuserfilestore"
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace

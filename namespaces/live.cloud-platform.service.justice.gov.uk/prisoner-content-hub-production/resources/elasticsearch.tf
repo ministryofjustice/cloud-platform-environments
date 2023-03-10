@@ -6,7 +6,7 @@ module "content_hub_elasticsearch" {
   business-unit          = var.business_unit
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  is-production          = var.is-production
+  is-production          = var.is_production
   team_name              = var.team_name
   elasticsearch-domain   = "hub-search"
   namespace              = var.namespace

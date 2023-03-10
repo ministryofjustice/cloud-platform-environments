@@ -18,7 +18,7 @@ resource "aws_iam_policy" "analytical-platform" {
     business-unit          = var.business_unit
     team_name              = var.team_name
     application            = var.application
-    is-production          = var.is-production
+    is-production          = var.is_production
     namespace              = var.namespace
     environment-name       = var.environment-name
     owner                  = var.team_name

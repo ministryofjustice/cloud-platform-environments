@@ -5,7 +5,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   versioning             = true
   business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
