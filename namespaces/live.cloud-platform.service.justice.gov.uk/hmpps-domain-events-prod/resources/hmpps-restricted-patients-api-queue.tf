@@ -3,7 +3,7 @@ module "restricted_patients_queue_for_domain_events" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "rp_queue_for_domain_events"
   encrypt_sqs_kms           = "true"
@@ -53,7 +53,7 @@ module "restricted_patients_queue_for_domain_events_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "rp_queue_for_domain_events_dl"
   encrypt_sqs_kms        = "true"

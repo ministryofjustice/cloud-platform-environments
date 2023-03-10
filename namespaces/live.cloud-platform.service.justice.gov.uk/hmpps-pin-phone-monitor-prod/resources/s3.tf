@@ -7,7 +7,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -247,7 +247,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_prod"
   encrypt_sqs_kms           = "false"
@@ -270,7 +270,7 @@ module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_pin_phone_monitor_s3_event_dlq_prod"
   encrypt_sqs_kms        = "true"

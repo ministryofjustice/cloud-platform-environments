@@ -11,7 +11,7 @@ module "dps_rds" {
   is-production          = var.is_production
   namespace              = var.namespace
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   rds_family             = var.rds-family
   db_instance_class      = var.db_instance_class
   db_engine_version      = var.db_engine_version

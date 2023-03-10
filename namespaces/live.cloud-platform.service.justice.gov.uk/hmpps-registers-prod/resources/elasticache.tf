@@ -9,7 +9,7 @@ module "hmpps_registers_elasticache_redis" {
   application            = var.hmpps-registers-application
   environment-name       = var.environment-name
   is-production          = var.is_production
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number-cache-clusters
   node_type              = "cache.t4g.small"

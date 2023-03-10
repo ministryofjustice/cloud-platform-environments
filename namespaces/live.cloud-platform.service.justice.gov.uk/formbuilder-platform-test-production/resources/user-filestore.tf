@@ -11,7 +11,7 @@ module "user-filestore-s3-bucket" {
   application            = "formbuilderuserfilestore"
   is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

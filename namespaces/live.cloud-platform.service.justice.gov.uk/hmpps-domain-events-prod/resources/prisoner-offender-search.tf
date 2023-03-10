@@ -18,7 +18,7 @@ module "prisoner_offender_search_domain_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "prisoner_offender_search_domain_queue"
   encrypt_sqs_kms           = "true"
@@ -72,7 +72,7 @@ module "prisoner_offender_search_domain_dlq" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "prisoner_offender_search_domain_dlq"
   encrypt_sqs_kms        = "true"

@@ -3,7 +3,7 @@ module "crime-portal-gateway-queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = "crime-portal-gateway"
   sqs_name               = "crime-portal-gateway-queue"
   encrypt_sqs_kms        = "true"
@@ -26,7 +26,7 @@ module "crime-portal-gateway-dead-letter-queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = "crime-portal-gateway"
   sqs_name                  = "crime-portal-gateway-dead-letter-queue"
   encrypt_sqs_kms           = "true"
