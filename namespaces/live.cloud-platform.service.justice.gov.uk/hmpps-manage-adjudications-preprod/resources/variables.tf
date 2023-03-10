@@ -49,19 +49,6 @@ variable "slack_channel" {
   default     = "dps_adjudications"
 }
 
-# DEPRECATED: snake-case variables are the default. The definitions below
-# have been left in place until all code has been updated to use snake-case
-# variable names.
-
-variable "business-unit" {
-  description = "Area of the MOJ responsible for the service."
-  default     = "HMPPS"
-}
-
-variable "is-production" {
-  default = "false"
-}
-
 variable "number_cache_clusters" {
   default = "2"
 }

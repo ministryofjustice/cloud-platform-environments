@@ -5,7 +5,7 @@ module "pathfinder_document_s3_bucket" {
   versioning             = true
   business-unit          = var.business-unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
@@ -71,7 +71,7 @@ module "pathfinder_rds_to_s3_bucket" {
   versioning             = false
   business-unit          = var.business-unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
