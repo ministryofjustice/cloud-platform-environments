@@ -47,12 +47,3 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "calculate-journey-payments"
 }
-
-# DEPRECATED: snake-case variables are the default. The definitions below
-# have been left in place until all code has been updated to use snake-case
-# variable names.
-
-variable "infrastructure-support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "pecs-digital-tech@digital.justice.gov.uk"
-}

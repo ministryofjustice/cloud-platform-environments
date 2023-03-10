@@ -44,20 +44,6 @@ variable "slack_channel" {
   default     = "operations-engineering-team"
 }
 
-# DEPRECATED: snake-case variables are the default. The definitions below
-# have been left in place until all code has been updated to use snake-case
-# variable names.
-
-variable "business-unit" {
-  description = "Area of the MOJ responsible for the service."
-  default     = "Platforms"
-}
-
-variable "infrastructure-support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "operations-engineering@digital.justice.gov.uk"
-}
-
 variable "domains" {
   description = "List of domains to be put in maintenance"
   type        = any

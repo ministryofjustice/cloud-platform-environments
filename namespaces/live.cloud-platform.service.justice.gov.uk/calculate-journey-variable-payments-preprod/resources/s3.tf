@@ -7,7 +7,7 @@ module "calculate-journey-variable-payments_s3_bucket" {
   team_name              = var.team_name
   business-unit          = "Digital and Technology"
   application            = var.application
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   is-production    = var.is_production
   environment-name = var.environment-name
