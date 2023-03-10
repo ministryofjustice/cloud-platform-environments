@@ -3,7 +3,7 @@ module "cvl_prison_events_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "cvl_prison_events_queue"
   encrypt_sqs_kms           = "true"
@@ -26,7 +26,7 @@ module "cvl_probation_events_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "cvl_probation_events_queue"
   encrypt_sqs_kms           = "true"
@@ -49,7 +49,7 @@ module "cvl_prison_events_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cvl_prison_events_queue_dl"
   encrypt_sqs_kms        = "true"
@@ -65,7 +65,7 @@ module "cvl_probation_events_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cvl_probation_events_queue_dl"
   encrypt_sqs_kms        = "true"

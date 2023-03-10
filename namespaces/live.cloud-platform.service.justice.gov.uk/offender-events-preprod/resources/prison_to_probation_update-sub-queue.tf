@@ -3,7 +3,7 @@ module "prison_to_probation_update_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "prison_to_probation_update_queue"
   encrypt_sqs_kms           = "true"
@@ -57,7 +57,7 @@ module "prison_to_probation_update_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "prison_to_probation_update_queue_dl"
   encrypt_sqs_kms        = "true"

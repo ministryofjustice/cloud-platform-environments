@@ -7,7 +7,7 @@ module "rds-instance" {
   environment-name       = var.environment-name
   is-production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
@@ -74,7 +74,7 @@ module "rds-read-replica" {
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is_production
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_allocated_storage   = 20
 

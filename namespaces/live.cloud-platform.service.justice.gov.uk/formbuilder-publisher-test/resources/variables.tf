@@ -19,7 +19,7 @@ variable "db_backup_retention_period" {
   default = "2"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Form Builder form-builder-team@digital.justice.gov.uk"
 }
 

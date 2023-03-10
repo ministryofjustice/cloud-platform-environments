@@ -8,7 +8,7 @@ module "claim-criminal-injuries-application-queue" {
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   redrive_policy = jsonencode({
@@ -93,7 +93,7 @@ module "claim-criminal-injuries-application-dlq" {
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
