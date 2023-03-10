@@ -3,7 +3,7 @@ module "cccd_claims_submitted" {
 
   topic_display_name = "cccd-claims-submitted"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name

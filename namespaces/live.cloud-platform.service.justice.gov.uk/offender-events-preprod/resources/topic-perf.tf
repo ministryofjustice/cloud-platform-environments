@@ -2,7 +2,7 @@ module "probation_offender_events_perf" {
   source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
   topic_display_name = "probation-offender-events-perf"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name

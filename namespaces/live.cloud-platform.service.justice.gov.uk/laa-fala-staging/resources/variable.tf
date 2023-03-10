@@ -2,7 +2,7 @@ variable "namespace" {
   default = "laa-fala-staging"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "LAA"
 }
 

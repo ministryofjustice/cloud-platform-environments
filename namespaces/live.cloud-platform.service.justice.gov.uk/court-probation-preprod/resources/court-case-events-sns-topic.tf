@@ -3,7 +3,7 @@ module "court-case-events" {
 
   topic_display_name = "court-case-events"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name

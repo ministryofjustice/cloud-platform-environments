@@ -2,7 +2,7 @@ resource "aws_route53_zone" "cccd_route53_zone" {
   name = var.domain
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is-production
     environment-name       = var.environment-name

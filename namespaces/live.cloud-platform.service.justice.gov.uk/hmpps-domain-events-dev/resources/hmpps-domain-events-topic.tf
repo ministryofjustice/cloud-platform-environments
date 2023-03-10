@@ -3,7 +3,7 @@ module "hmpps-domain-events" {
 
   topic_display_name = "hmpps-domain-events"
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is-production
   team_name              = var.team_name
@@ -23,7 +23,7 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
   description = "SNS topic ARN for hmpps-domain-events-dev; use this parameter from other DPS dev namespaces"
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is-production
     owner                  = var.team_name

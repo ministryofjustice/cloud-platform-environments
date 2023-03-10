@@ -28,7 +28,7 @@ variable "namespace" {
   default = "money-to-prisoners-test"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "HMPPS"
 }
 
