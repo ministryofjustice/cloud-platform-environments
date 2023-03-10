@@ -18,10 +18,6 @@ variable "repo_name" {
   default = "cla_frontend"
 }
 
-variable "email" {
-  default = "civil-legal-advice@digital.justice.gov.uk"
-}
-
 variable "environment-name" {
   default = "staging"
 }

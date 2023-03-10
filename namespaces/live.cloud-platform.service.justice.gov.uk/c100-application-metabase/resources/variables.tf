@@ -2,7 +2,7 @@ variable "team_name" {
   default = "sustainingdevs"
 }
 
-variable "environment_name" {
+variable "environment" {
   default = "metabase"
 }
 

@@ -14,10 +14,6 @@ variable "application" {
   default = "Backend API for the Civil Legal Aid applications"
 }
 
-variable "email" {
-  default = "civil-legal-advice@digital.justice.gov.uk"
-}
-
 variable "environment-name" {
   default = "production"
 }
@@ -31,7 +27,5 @@ variable "infrastructure_support" {
   default     = "civil-legal-advice@digital.justice.gov.uk"
 }
 
-
 variable "vpc_name" {
 }
-

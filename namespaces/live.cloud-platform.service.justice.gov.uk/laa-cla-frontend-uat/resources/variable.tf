@@ -14,10 +14,6 @@ variable "application" {
   default = "Civil Legal Advice Case Handling System"
 }
 
-variable "email" {
-  default = "civil-legal-advice@digital.justice.gov.uk"
-}
-
 variable "environment-name" {
   default = "uat"
 }
