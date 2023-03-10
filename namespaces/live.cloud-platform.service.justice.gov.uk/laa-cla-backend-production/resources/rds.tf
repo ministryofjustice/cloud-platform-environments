@@ -15,7 +15,7 @@ module "cla_backend_rds_postgres_11_replica" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure-support
   namespace              = var.namespace
@@ -61,7 +61,7 @@ module "cla_backend_rds_postgres_11" {
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
-  is-production = var.is-production
+  is-production = var.is_production
   namespace     = var.namespace
 
   db_name = "cla_backend"

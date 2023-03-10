@@ -9,7 +9,7 @@ resource "aws_route53_zone" "contact-moj_route53_zone" {
   tags = {
     business-unit          = "Central Digital"
     application            = "contact-moj"
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = "Staff Services"
     infrastructure-support = "staffservices@digital.justice.gov.uk"

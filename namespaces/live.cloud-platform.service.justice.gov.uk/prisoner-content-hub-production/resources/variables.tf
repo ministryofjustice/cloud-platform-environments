@@ -38,10 +38,6 @@ variable "infrastructure-support" {
   default     = "thehub@digital.justice.gov.uk"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
 variable "is_production" {
   default = "true"
 }

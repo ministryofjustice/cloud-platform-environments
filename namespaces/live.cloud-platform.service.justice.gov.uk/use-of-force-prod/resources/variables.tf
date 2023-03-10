@@ -30,7 +30,7 @@ variable "infrastructure-support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
