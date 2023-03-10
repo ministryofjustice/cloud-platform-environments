@@ -11,7 +11,7 @@ module "court_case_service_rds" {
   namespace              = var.namespace
   application            = var.application
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   rds_family             = var.rds-family
   db_engine_version      = var.db_engine_version
 

@@ -12,7 +12,7 @@ module "rp_rds" {
   is-production            = var.is_production
   namespace                = var.namespace
   environment-name         = var.environment-name
-  infrastructure-support   = var.infrastructure-support
+  infrastructure-support   = var.infrastructure_support
   db_instance_class        = "db.t4g.small"
   db_engine                = "postgres"
   db_engine_version        = "14"

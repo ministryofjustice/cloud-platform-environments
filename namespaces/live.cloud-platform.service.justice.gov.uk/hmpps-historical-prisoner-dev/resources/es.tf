@@ -5,7 +5,7 @@ module "hmpps_historical_prisoner_elasticsearch" {
   application                     = var.application
   business-unit                   = var.business_unit
   environment-name                = var.environment-name
-  infrastructure-support          = var.infrastructure-support
+  infrastructure-support          = var.infrastructure_support
   is-production                   = var.is_production
   team_name                       = var.team_name
   elasticsearch-domain            = "historical-prisoner"
@@ -30,7 +30,7 @@ module "es_snapshots_s3_bucket" {
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

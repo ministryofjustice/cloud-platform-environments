@@ -14,7 +14,7 @@ module "lcdui_rds" {
   is-production               = var.is_production
   namespace                   = var.namespace
   environment-name            = var.environment-name
-  infrastructure-support      = var.infrastructure-support
+  infrastructure-support      = var.infrastructure_support
   db_allocated_storage        = "10"
   db_instance_class           = "db.t3.small"
   db_engine_version           = "11"

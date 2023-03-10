@@ -4,7 +4,7 @@ module "dps_smoketest_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "dps_smoketest_dev_hmpps_queue"
   encrypt_sqs_kms           = "true"

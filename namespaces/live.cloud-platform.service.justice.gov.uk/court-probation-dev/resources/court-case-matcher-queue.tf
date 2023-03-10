@@ -3,7 +3,7 @@ module "court-case-matcher-queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = "court-case-matcher"
   sqs_name               = "court-case-matcher-queue"
   encrypt_sqs_kms        = "true"
@@ -62,7 +62,7 @@ module "court-case-matcher-dead-letter-queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = "court-case-matcher"
   sqs_name                  = "court-case-matcher-dead-letter-queue"
   encrypt_sqs_kms           = "true"

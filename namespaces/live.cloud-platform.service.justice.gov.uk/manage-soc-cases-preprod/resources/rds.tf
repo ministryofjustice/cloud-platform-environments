@@ -17,7 +17,7 @@ module "dps_rds" {
   namespace              = var.namespace
   db_engine_version      = "11"
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   rds_family = "postgres11"
 

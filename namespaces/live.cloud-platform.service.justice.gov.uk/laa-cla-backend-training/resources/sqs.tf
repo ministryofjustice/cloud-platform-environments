@@ -3,7 +3,7 @@ module "laa_cla_backend_training_sqs" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "cla_backend_training_queue"
   encrypt_sqs_kms        = "false"

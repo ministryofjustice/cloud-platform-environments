@@ -7,7 +7,7 @@ module "publisher-rds-instance" {
   environment-name            = var.environment-name
   is-production               = var.is_production
   namespace                   = var.namespace
-  infrastructure-support      = var.infrastructure-support
+  infrastructure-support      = var.infrastructure_support
   team_name                   = var.team_name
   db_engine_version           = "12"
   allow_major_version_upgrade = "true"
@@ -44,7 +44,7 @@ module "publisher-elasticache" {
   application            = "formbuilderpublisher"
   environment-name       = var.environment-name
   is-production          = var.is_production
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"

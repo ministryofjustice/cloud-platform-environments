@@ -14,7 +14,7 @@ variable "is_production" {
   default = "false"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "sustainingaccountnotifications@hmcts.net"
 }
 

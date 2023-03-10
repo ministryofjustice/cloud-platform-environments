@@ -3,7 +3,7 @@ module "workload_prisoner_queue" {
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "workload_prisoner_hmpps_queue"
   message_retention_seconds = 14 * 86400 # 2 weeks
@@ -46,7 +46,7 @@ module "workload_prisoner_dlq" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "workload_prisoner_hmpps_dlq"
   namespace              = var.namespace

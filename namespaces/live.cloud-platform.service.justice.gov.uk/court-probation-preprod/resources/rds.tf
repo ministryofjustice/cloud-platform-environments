@@ -11,7 +11,7 @@ module "court_case_service_rds" {
   namespace                   = var.namespace
   application                 = var.application
   environment-name            = var.environment-name
-  infrastructure-support      = var.infrastructure-support
+  infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = false
   db_engine_version           = "13"
   db_instance_class           = "db.t3.xlarge"
