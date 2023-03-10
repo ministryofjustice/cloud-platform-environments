@@ -22,6 +22,7 @@ module "hmpps_redis" {
   }
 }
 
+
 resource "kubernetes_secret" "hmpps_redis" {
   metadata {
     name      = "hmpps-redis"
