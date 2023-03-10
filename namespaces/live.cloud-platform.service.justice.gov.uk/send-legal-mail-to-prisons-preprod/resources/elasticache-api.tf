@@ -13,7 +13,8 @@ module "slmtp_api_elasticache_redis" {
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
   engine_version         = "5.0.6"
-  parameter_group_name   = aws_elasticache_parameter_group.token_store.name
+  parameter_group_name   = "default.redis5.x"
+  # parameter_group_name   = aws_elasticache_parameter_group.token_store.name
   namespace              = var.namespace
 
   providers = {
