@@ -3,7 +3,7 @@ module "pathfinder_document_s3_bucket" {
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
@@ -69,7 +69,7 @@ module "pathfinder_rds_to_s3_bucket" {
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name

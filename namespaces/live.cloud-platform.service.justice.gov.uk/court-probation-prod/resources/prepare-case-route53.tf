@@ -2,7 +2,7 @@ resource "aws_route53_zone" "prepare_case_route53_zone" {
   name = var.prepare-case-domain
 
   tags = {
-    business-unit          = var.business-unit
+    business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
     environment-name       = var.environment-name
