@@ -14,7 +14,7 @@ module "cccd_rds" {
   is-production               = var.is_production
   namespace                   = var.namespace
   environment-name            = var.environment-name
-  infrastructure-support      = var.infrastructure-support
+  infrastructure-support      = var.infrastructure_support
   db_allocated_storage        = "50"
   db_instance_class           = "db.t3.medium"
   db_engine_version           = "13"

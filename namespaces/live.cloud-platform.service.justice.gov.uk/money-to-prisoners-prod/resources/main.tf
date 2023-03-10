@@ -48,7 +48,7 @@ variable "is_production" {
   default = "true"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "money-to-prisoners@digital.justice.gov.uk"
 }
 

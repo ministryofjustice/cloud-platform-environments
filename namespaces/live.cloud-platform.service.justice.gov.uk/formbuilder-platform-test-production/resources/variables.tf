@@ -19,7 +19,7 @@ variable "is_production" {
   default = "false"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Form Builder form-builder-developers@digital.justice.gov.uk"
 }
 

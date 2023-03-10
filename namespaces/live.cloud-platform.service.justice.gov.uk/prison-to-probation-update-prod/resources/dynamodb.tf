@@ -5,7 +5,7 @@ module "message_dynamodb" {
   application                  = var.application
   business-unit                = var.business_unit
   environment-name             = var.environment-name
-  infrastructure-support       = var.infrastructure-support
+  infrastructure-support       = var.infrastructure_support
   is-production                = "true"
   namespace                    = var.namespace
   autoscale_max_read_capacity  = 5000
@@ -36,7 +36,7 @@ module "schedule_dynamodb" {
   application            = var.application
   business-unit          = var.business_unit
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   is-production          = "true"
   namespace              = var.namespace
 

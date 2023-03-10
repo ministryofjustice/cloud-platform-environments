@@ -16,7 +16,7 @@ module "peoplefinder_rds" {
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment-name           = var.environment-name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -40,7 +40,7 @@ module "peoplefinder_rds_replica" {
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is_production
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   rds_family             = "postgres12"
   db_engine_version      = "12"

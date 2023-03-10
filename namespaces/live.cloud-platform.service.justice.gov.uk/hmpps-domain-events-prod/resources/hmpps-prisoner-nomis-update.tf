@@ -6,7 +6,7 @@ module "hmpps_prisoner_to_nomis_visit_queue" {
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "hmpps_prisoner_to_nomis_visit_queue"
   encrypt_sqs_kms            = "true"
@@ -56,7 +56,7 @@ module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_prisoner_to_nomis_visit_dlq"
   encrypt_sqs_kms        = "true"
@@ -118,7 +118,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "hmpps_prisoner_to_nomis_incentive_queue"
   encrypt_sqs_kms            = "true"
@@ -168,7 +168,7 @@ module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_prisoner_to_nomis_incentive_dlq"
   encrypt_sqs_kms        = "true"
@@ -224,7 +224,7 @@ module "hmpps_prisoner_to_nomis_activity_queue" {
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "hmpps_prisoner_to_nomis_activity_queue"
   encrypt_sqs_kms            = "true"
@@ -274,7 +274,7 @@ module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_prisoner_to_nomis_activity_dlq"
   encrypt_sqs_kms        = "true"
@@ -330,7 +330,7 @@ module "hmpps_prisoner_to_nomis_sentencing_queue" {
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "hmpps_prisoner_to_nomis_sentencing_queue"
   encrypt_sqs_kms            = "true"
@@ -380,7 +380,7 @@ module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_prisoner_to_nomis_sentencing_dlq"
   encrypt_sqs_kms        = "true"
