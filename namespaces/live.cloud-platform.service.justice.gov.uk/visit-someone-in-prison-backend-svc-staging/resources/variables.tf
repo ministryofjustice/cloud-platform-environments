@@ -50,3 +50,8 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "staging"
+}
