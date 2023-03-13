@@ -1,8 +1,3 @@
-
-variable "vpc_name" {
-}
-
-
 module "dps_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
   vpc_name               = var.vpc_name
