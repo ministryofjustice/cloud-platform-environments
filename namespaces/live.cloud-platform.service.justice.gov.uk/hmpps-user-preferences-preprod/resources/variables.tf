@@ -1,3 +1,11 @@
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variable is automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS user preferences"
