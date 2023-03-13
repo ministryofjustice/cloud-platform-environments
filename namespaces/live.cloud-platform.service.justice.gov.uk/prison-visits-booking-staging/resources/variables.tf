@@ -22,3 +22,7 @@ variable "application" {
   description = "Name of Application you are deploying"
   default     = "prison-visits-booking-staff"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
