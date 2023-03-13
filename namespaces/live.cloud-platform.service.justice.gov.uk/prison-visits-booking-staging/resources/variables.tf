@@ -18,3 +18,7 @@ variable "infrastructure_support" {
   default = "pvb-technical-support@digital.justice.gov.uk"
 }
 
+variable "application" {
+  description = "Name of Application you are deploying"
+  default     = "prison-visits-booking-staff"
+}
