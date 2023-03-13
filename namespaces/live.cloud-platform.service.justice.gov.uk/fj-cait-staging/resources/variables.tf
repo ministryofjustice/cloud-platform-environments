@@ -6,7 +6,7 @@ variable "business_unit" {
   default = "HQ"
 }
 
-variable "environment_name" {
+variable "environment" {
   default = "staging"
 }
 

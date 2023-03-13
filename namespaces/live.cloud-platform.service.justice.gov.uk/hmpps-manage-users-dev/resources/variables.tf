@@ -30,10 +30,6 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "node-type" {
-  default = "cache.t2.small"
-}
-
 variable "is_production" {
   default = "false"
 }

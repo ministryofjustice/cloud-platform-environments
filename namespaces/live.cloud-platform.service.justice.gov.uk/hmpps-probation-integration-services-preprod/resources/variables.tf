@@ -31,11 +31,6 @@ variable "environment_name" {
   default     = "preprod"
 }
 
-variable "github_environment_name" {
-  description = "The name of the GitHub environment to deploy secrets to."
-  default     = "preprod"
-}
-
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "probation-integration-team@digital.justice.gov.uk"
