@@ -1,8 +1,5 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "kubernetes_cluster" {
 }
@@ -73,4 +70,61 @@ variable "github_actions_secret_kube_namespace" {
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
   default     = "KUBE_CERT_STAGING"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+        "certificates"
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+        "cert-manager.io"
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "certificates"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
