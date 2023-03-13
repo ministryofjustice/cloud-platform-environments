@@ -9,7 +9,7 @@
 module "hmpps_prison_visits_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment_name
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -52,7 +52,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
 module "hmpps_prison_visits_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application

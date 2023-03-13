@@ -51,7 +51,7 @@ variable "github_token" {
   default     = ""
 }
 
-variable "environment-name" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "staging"
 }
