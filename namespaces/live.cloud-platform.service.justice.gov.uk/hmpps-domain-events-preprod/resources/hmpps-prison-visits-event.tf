@@ -3,7 +3,7 @@
 ######## for the given fevents (filter_policy configured below)!
 
 ######## TODO WE DO NOT SUBSCRIBE TO THE DOMAIN EVENTS QUEUE, as the code to consume this is not live
-######## TODO namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-dev/resources/hmpps-prison-visits-event.tf
+######## TODO HowTo namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-dev/resources/hmpps-prison-visits-event.tf
 
 ######## Main queue
 
