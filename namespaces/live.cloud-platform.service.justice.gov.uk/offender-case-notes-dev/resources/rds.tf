@@ -1,8 +1,3 @@
-
-variable "vpc_name" {
-}
-
-
 module "dps_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name               = var.vpc_name
@@ -39,4 +34,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-

@@ -1,3 +1,11 @@
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variable is automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+}
+
 variable "environment-name" {
   default = "production"
 }
@@ -17,4 +25,3 @@ variable "namespace" {
 variable "infrastructure_support" {
   default = "omic@digital.justice.gov.uk"
 }
-
