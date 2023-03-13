@@ -1,3 +1,11 @@
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variable is automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+}
+
 variable "domain" {
   default = "nomis-sync-prisoner-mapping.hmpps.service.justice.gov.uk"
 }
@@ -37,4 +45,3 @@ variable "is_production" {
 variable "rds-family" {
   default = "postgres14"
 }
-

@@ -1,7 +1,3 @@
-
-variable "vpc_name" {
-}
-
 module "ma_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                    = var.vpc_name

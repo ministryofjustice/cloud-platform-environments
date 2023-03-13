@@ -1,8 +1,3 @@
-
-variable "vpc_name" {
-}
-
-
 module "hmcts_mock_api_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
