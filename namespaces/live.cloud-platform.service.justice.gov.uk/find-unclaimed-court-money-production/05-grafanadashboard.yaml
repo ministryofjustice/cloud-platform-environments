@@ -154,7 +154,7 @@ data:
               "interval": "",
               "legendFormat": "Webapp container",
               "refId": "B"
-            },
+            }
           ],
           "thresholds": [],
           "timeFrom": null,
