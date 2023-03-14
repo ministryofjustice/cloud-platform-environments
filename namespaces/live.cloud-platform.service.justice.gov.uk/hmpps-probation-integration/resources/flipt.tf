@@ -26,3 +26,17 @@ resource "kubernetes_secret" "flipt-db" {
   }
 }
 
+resource "random_password" "flipt-client-token" {
+  length  = 32
+  special = false
+}
+
+resource "kubernetes_secret" "flipt-client" {
+  metadata {
+    name      = "flipt-client"
+    namespace = var.namespace
+  }
+  data = {
+    TOKEN = random_password.flipt-client-token.result
+  }
+}
