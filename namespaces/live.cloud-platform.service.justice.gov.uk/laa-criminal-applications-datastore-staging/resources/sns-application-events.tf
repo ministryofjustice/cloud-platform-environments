@@ -42,6 +42,11 @@ resource "aws_sns_topic_subscription" "events-maat-subscription" {
   protocol  = "sqs"
 
   raw_message_delivery = true
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.application-events-dlq.sqs_arn
+    maxReceiveCount     = 3
+  })
 }
 
 resource "aws_sns_topic_subscription" "events-review-subscription" {
@@ -51,6 +56,26 @@ resource "aws_sns_topic_subscription" "events-review-subscription" {
 
   raw_message_delivery   = false
   endpoint_auto_confirms = true
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.application-events-dlq.sqs_arn
+    maxReceiveCount     = 3
+  })
+
+  delivery_policy = jsonencode({
+    "healthyRetryPolicy" = {
+      "backoffFunction"    = "exponential"
+      "numRetries"         = 30
+      "minDelayTarget"     = 5
+      "maxDelayTarget"     = 120
+      "numNoDelayRetries"  = 3
+      "numMinDelayRetries" = 2
+      "numMaxDelayRetries" = 15
+    }
+    "throttlePolicy" = {
+      "maxReceivesPerSecond" = 10
+    }
+  })
 
   filter_policy = jsonencode({
     event_name = [
