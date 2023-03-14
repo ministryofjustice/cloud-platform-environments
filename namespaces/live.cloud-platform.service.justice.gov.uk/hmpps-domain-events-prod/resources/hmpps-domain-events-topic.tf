@@ -15,6 +15,22 @@ module "hmpps-domain-events" {
     aws = aws.london
   }
 }
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.hmpps-domain-events.topic_arn
+  description = "SNS topic ARN for ${var.namespace}; use this parameter from other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
 
 resource "aws_iam_access_key" "key_2023" {
   user = module.hmpps-domain-events.user_name
