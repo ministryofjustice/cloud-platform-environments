@@ -7,20 +7,16 @@ module "rds" {
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   # enable performance insights
   performance_insights_enabled = true
 
-  # change the postgres version as you see fit.
-  db_engine_version      = "11"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
-  # Pick the one that defines the postgres version the best
+  # Database configuration
+  db_engine_version = "11"
+  db_instance_class = "db.t3.large"
   rds_family = "postgres11"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
   providers = {
