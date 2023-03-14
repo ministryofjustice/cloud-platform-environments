@@ -6,6 +6,8 @@ resource "random_id" "api_gateway_id" {
 resource "aws_iam_user" "api_gateway_user" {
   name = "api-gateway-user-${random_id.api_gateway_id.hex}"
   path = "/system/api-gateway-user/"
+
+  tags = local.default_tags
 }
 
 resource "aws_iam_access_key" "api_gateway_user" {
@@ -59,6 +61,8 @@ resource "aws_iam_role" "api_gateway_role" {
   ]
 }
 EOF
+
+  tags = local.default_tags
 }
 
 resource "aws_iam_role_policy" "api_gw_s3" {

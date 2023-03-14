@@ -11,6 +11,8 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
     truststore_uri = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
   }
 
+  tags = local.default_tags
+
   depends_on = [aws_acm_certificate_validation.api_gateway_custom_hostname]
 }
 
@@ -21,6 +23,8 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
@@ -69,6 +73,8 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -121,6 +127,8 @@ resource "aws_api_gateway_deployment" "development" {
 
 resource "aws_api_gateway_api_key" "team" {
   name = var.team_name
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -130,6 +138,8 @@ resource "aws_api_gateway_usage_plan" "default" {
     api_id = aws_api_gateway_rest_api.api_gateway.id
     stage  = aws_api_gateway_deployment.development.stage_name
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan_key" "team" {

@@ -57,5 +57,6 @@ resource "aws_s3_object" "truststore" {
   bucket  = module.truststore_s3_bucket.bucket_name
   key     = "truststore.pem"
   content = data.github_repository_file.truststore.content
-}
 
+  tags = local.default_tags
+}
