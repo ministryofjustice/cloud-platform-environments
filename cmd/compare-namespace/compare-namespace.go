@@ -58,7 +58,7 @@ type Result struct {
 	Result string
 }
 
-// listFiles will gather a list of tf files to be checked for namespace comparisons using github ref for the pull request
+// listFiles() will gather a list of tf files to be checked for namespace comparisons using github ref for the pull request
 func listFiles() []*github.CommitFile {
 	prs, _, err := client.PullRequests.ListFiles(ctx, owner, repo, bid, nil)
 	if err != nil {
@@ -67,7 +67,7 @@ func listFiles() []*github.CommitFile {
 	return prs
 }
 
-// decodeFile will read tf files and return the file to for the comparison
+// decodeFile() will read tf files and return the file to for the comparison
 func decodeFile() ([]*hclwrite.Block, error) {
 	var blocks []*hclwrite.Block
 
@@ -90,7 +90,7 @@ func decodeFile() ([]*hclwrite.Block, error) {
 	return blocks, nil
 }
 
-// resouceType will search for namespace in all resources raised in a Pull Request
+// resouceType() will search for namespace in all resources raised in a Pull Request
 func resourceType(block *hclwrite.Block) (string, string) {
 	var resourceName string
 	var namespaceVar string
@@ -135,7 +135,7 @@ func resourceType(block *hclwrite.Block) (string, string) {
 	return namespaceVar, resourceName
 }
 
-// moduleType will search for namespace in all modules raise in a Pull Request
+// moduleType() will search for namespace in all modules raise in a Pull Request
 func moduleType(block *hclwrite.Block) string {
 	var namespaceVar string
 	body := block.Body()
@@ -157,7 +157,7 @@ func moduleType(block *hclwrite.Block) string {
 	return namespaceVar
 }
 
-// varFileSearch will search for the namespace in the variables.tf file if the search contians 'var.'
+// varFileSearch() will search for the namespace in the variables.tf file if the search contians 'var.'
 func varFileSearch(ns string) (string, error) {
 	path := strings.SplitAfter(mm.File, "resources/")
 	data, err := os.ReadFile(path[0] + "variables.tf")
@@ -197,7 +197,7 @@ func varFileSearch(ns string) (string, error) {
 	return vn, nil
 }
 
-// prMessage adds a meesage to a pull request if there is a mismatch,
+// prMessage() adds a meesage to a pull request if there is a mismatch,
 // customising the message depending if its a resource or module
 func prMessage(t string) {
 	githubaction.SetOutput("mismatch", "true")
