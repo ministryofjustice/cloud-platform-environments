@@ -212,16 +212,15 @@ func prMessage(t string) {
 }
 
 func main() {
+	ctx = context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: *token},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	client = github.NewClient(tc)
 	if *token == "" {
 		client = github.NewClient(nil)
-	} else {
-		ctx = context.Background()
-		ts := oauth2.StaticTokenSource(
-			&oauth2.Token{AccessToken: *token},
-		)
-		tc := oauth2.NewClient(ctx, ts)
-
-		client = github.NewClient(tc)
 	}
 
 	prs := listFiles()
@@ -236,7 +235,6 @@ func main() {
 		if filepath.Ext(mm.File) == ".tf" {
 			fileS := strings.Split(mm.File, "/")
 			mm.RepositoryNamespace = fileS[2]
-			// mm.File = "/Users/jackstockley/repo/fork/cloud-platform-environments-fork/" + mm.File
 			blocks, err := decodeFile()
 			if err != nil {
 				log.Fatal(err)
