@@ -32,9 +32,15 @@ resource "random_password" "flipt-client-token" {
 }
 
 resource "kubernetes_secret" "flipt-client" {
+  for_each = toset([
+    var.namespace,
+    "hmpps-probation-integration-services-dev",
+    "hmpps-probation-integration-services-preprod",
+    "hmpps-probation-integration-services-prod",
+  ])
   metadata {
     name      = "flipt-client"
-    namespace = var.namespace
+    namespace = each.value
   }
   data = {
     TOKEN = random_password.flipt-client-token.result
