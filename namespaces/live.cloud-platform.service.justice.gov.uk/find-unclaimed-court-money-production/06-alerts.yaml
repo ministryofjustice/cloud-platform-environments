@@ -1,0 +1,64 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: find-unclaimed-court-money-production
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-find-unclaimed-court-money
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: KubePodCrashLooping
+      annotations:
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+      expr: |-
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"find-unclaimed-court-money-production"}[5m]) * 600 > 2
+      for: 4m
+      labels:
+        severity: central-digital-product-team
+    - alert: KubeDeploymentReplicasMismatch
+      annotations:
+        message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
+          matched the expected number of replicas for longer than an hour.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+      expr: |-
+        kube_deployment_spec_replicas{namespace="find-unclaimed-court-money-production", job="kube-state-metrics"}
+          !=
+        kube_deployment_status_replicas_available{namespace="find-unclaimed-court-money-production", job="kube-state-metrics"}
+      for: 1h
+      labels:
+        severity: central-digital-product-team
+    - alert: KubePodNotReady
+      annotations:
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
+          state for longer than an hour.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubepodnotready
+      expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="find-unclaimed-court-money-production", job="kube-state-metrics",
+        phase=~"Pending|Unknown"}) > 0
+      for: 1h
+      labels:
+        severity: central-digital-product-team
+    - alert: SlowResponses
+      annotations:
+        message: ingress {{ $labels.ingress }} is serving slow responses over 5 seconds
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "find-unclaimed-court-money-production"}[5m])
+        /
+        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "find-unclaimed-court-money-production"}[5m]) > 0) by (ingress) > 5
+      for: 1m
+      labels:
+        severity: central-digital-product-team
+    - alert: KubeNamespaceQuotaNearing
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value }}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+      expr: |-
+        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="find-unclaimed-court-money-production"}
+          / ignoring(instance, job, type)
+        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="find-unclaimed-court-money-production"} > 0)
+          > 80
+      for: 5m
+      labels:
+        severity: central-digital-product-team
