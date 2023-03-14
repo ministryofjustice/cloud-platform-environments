@@ -45,7 +45,6 @@ resource "aws_sns_topic_subscription" "events-maat-subscription" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.application-events-dlq.sqs_arn
-    maxReceiveCount     = 3
   })
 }
 
@@ -59,7 +58,6 @@ resource "aws_sns_topic_subscription" "events-review-subscription" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.application-events-dlq.sqs_arn
-    maxReceiveCount     = 3
   })
 
   delivery_policy = jsonencode({
