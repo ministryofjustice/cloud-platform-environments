@@ -20,7 +20,7 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
   type        = "String"
   name        = "/${var.namespace}/topic-arn"
   value       = module.hmpps-domain-events.topic_arn
-  description = "SNS topic ARN for ${var.namespace}; use this parameter from other DPS dev namespaces"
+  description = "SNS topic ARN for ${var.namespace}; use this parameter from other DPS pre prod namespaces"
 
   tags = {
     business-unit          = var.business_unit
