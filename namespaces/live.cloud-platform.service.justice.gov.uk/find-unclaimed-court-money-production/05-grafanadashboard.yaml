@@ -469,7 +469,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"track-a-query-ingress\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"track-a-query-ingress\"}[5m]) > 0)",
+              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"find-unclaimed-court-money-ingress\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"find-unclaimed-court-money-ingress\"}[5m]) > 0)",
               "interval": "",
               "legendFormat": "Average Request Duration",
               "refId": "A"
@@ -681,7 +681,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"track-a-query-ingress\"}[5m])) by(status)",
+              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"find-unclaimed-court-money-production\", ingress = \"find-unclaimed-court-money-ingress\"}[5m])) by(status)",
               "interval": "",
               "legendFormat": "{{status}}",
               "refId": "A"
