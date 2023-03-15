@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: find-unclaimed-court-money-dashboard
+  name: find-unclaimed-court-money-production-dashboard
   namespace: find-unclaimed-court-money-production
   labels:
     grafana_dashboard: ""
@@ -768,6 +768,6 @@ data:
       },
       "timezone": "browser",
       "title": "Find Unclaimed Court Money Dashboard",
-      "uid": "143904FC7104CF7CCF40792469617B9C",
+      "uid": "9d9cd7c46960840691fe578e774cad9b",
       "version": 1
     }
