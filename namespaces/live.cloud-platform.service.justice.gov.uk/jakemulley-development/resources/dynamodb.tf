@@ -1,5 +1,5 @@
 module "dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
 
   # Tags
   application            = var.application

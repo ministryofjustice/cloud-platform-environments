@@ -1,5 +1,5 @@
 module "opseng_tf_state_lock" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -12,7 +12,6 @@ module "opseng_tf_state_lock" {
   hash_key          = "LockID"
   enable_encryption = "false"
   enable_autoscaler = "true"
-  aws_region        = "eu-west-2"
 }
 
 resource "kubernetes_secret" "opseng_tf_state_lock" {
