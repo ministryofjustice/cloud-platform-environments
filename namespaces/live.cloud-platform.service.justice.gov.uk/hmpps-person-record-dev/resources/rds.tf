@@ -6,7 +6,7 @@ module "hmpps_person_record_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment_name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
   db_instance_class      = "db.t3.small"
