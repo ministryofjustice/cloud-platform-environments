@@ -22,7 +22,7 @@ module "hmpps_person_record_rds" {
 
 resource "kubernetes_secret" "hmpps_person_record_rds" {
   metadata {
-    name      = "hmpps_person_record_rds-instance-output"
+    name      = "hmpps-person-record-rds-instance-output"
     namespace = var.namespace
   }
 
