@@ -11,7 +11,7 @@ module "drupal_redis" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t3.small"
+  node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
@@ -45,7 +45,7 @@ module "frontend_redis" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t3.small"
+  node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
