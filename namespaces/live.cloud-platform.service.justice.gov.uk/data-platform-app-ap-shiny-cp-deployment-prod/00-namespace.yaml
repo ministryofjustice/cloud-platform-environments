@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: data-platform-app-ap-shiny-cp-deployment-prod
   labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
