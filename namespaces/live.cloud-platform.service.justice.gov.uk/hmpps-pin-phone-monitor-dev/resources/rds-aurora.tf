@@ -18,7 +18,7 @@ module "rds_aurora" {
   apply_immediately           = true
   vpc_name                    = var.vpc_name
   allow_major_version_upgrade = true
-  auto_upgrade_minor_versions = true
+  auto_minor_version_upgrade  = true
   skip_setting_when_migrated  = true
 
   providers = {
