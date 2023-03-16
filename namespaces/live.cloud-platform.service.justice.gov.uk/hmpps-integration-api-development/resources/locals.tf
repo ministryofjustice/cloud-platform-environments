@@ -8,5 +8,7 @@ locals {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
     GithubTeam             = var.team_name
-  }
+  },
+
+  api_clients = ["mapps-team", var.team_name]
 }

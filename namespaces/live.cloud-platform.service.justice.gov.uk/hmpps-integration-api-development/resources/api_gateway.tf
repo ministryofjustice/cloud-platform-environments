@@ -120,7 +120,8 @@ resource "aws_api_gateway_deployment" "development" {
 }
 
 resource "aws_api_gateway_api_key" "team" {
-  name = var.team_name
+  for_each = toset(local.api_clients)
+  name = each.value
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -142,7 +143,7 @@ resource "aws_api_gateway_usage_plan_key" "team" {
 # a variable for a key
 locals {
   api_keys_data = {
-    for team_name in [var.team_name] :
+    for team_name in [local.api_clients] :
     team_name => aws_api_gateway_api_key.team.value
   }
 }
