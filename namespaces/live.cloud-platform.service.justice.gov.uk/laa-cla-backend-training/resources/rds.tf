@@ -39,7 +39,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
-
+  snapshot_identifier = "manual-backup-1679001807"
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
