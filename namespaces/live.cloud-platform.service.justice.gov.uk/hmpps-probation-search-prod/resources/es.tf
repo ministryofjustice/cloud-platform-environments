@@ -21,6 +21,7 @@ module "probation_search_elasticsearch" {
   dedicated_master_type           = "m6g.large.elasticsearch"
   instance_count                  = 6
   instance_type                   = "m6g.xlarge.elasticsearch"
-  ebs_volume_size                 = 128
+  ebs_volume_size                 = 256
+  ebs_iops                        = 6000
 }
 
