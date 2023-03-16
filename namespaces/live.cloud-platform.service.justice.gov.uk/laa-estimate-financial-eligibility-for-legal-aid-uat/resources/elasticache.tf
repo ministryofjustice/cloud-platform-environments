@@ -5,7 +5,7 @@
  *
  */
 module "laa-estimate-financial-eligibility-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -17,6 +17,7 @@ module "laa-estimate-financial-eligibility-elasticache" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  node_type              = "cache.t4g.micro"
 
   providers = {
     aws = aws.london
