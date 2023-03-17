@@ -8,7 +8,7 @@ module "aurora_db" {
   application                  = var.application
   is-production                = var.is_production
   namespace                    = var.namespace
-  environment-name             = var.environment-name
+  environment-name             = var.environment
   infrastructure-support       = var.infrastructure_support
 
   engine         = "aurora-postgresql"
@@ -33,7 +33,7 @@ module "aurora_db_serverless" {
   application                  = var.application
   is-production                = var.is_production
   namespace                    = var.namespace
-  environment-name             = var.environment-name
+  environment-name             = var.environment
   infrastructure-support       = var.infrastructure_support
 
   engine         = "aurora-postgresql"
