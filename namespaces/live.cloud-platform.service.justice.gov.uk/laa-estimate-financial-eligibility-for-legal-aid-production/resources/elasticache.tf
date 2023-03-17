@@ -17,6 +17,9 @@ module "laa-estimate-financial-eligibility-elasticache" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
+  node_type              = "cache.t4g.small"
+
+  auth_token_rotated_date = "2023-03-17"
 
   providers = {
     aws = aws.london
