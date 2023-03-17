@@ -25,7 +25,7 @@ module "aurora_db" {
 
 # RDS Aurora Serverless v2 (WIP)
 module "aurora_db_serverless" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=aurora-serverless-v2"
 
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
@@ -40,8 +40,13 @@ module "aurora_db_serverless" {
   engine_version = "14.6"
   engine_mode    = "provisioned"
 
-  instance_type = "db.t4g.medium"
+  instance_type = "db.serverless"
   replica_count = 2
+
+  serverlessv2_scaling_configuration = {
+    max_capacity = 2
+    min_capacity = 0.5
+  }
 
   storage_encrypted            = true
   apply_immediately            = true
