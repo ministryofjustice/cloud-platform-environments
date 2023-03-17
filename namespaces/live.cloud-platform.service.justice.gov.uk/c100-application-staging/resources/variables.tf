@@ -30,6 +30,12 @@ variable "repo_name" {
   default = "c100-application"
 }
 
+# Database
+
+variable "db_engine_version" {
+  default = "14"
+}
+
 # The following variable is provided at runtime by the pipeline.
 
 variable "vpc_name" {
