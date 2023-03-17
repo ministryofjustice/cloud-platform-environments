@@ -17,7 +17,7 @@ module "laa-estimate-financial-eligibility-elasticache" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
-  node_type              = "cache.t4g.micro"
+  node_type              = "cache.t3.small"
 
   auth_token_rotated_date = "2023-03-16"
 
