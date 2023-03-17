@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: ops-pilot-test-dev-admin
-  namespace: ops-pilot-test-dev
+  name: ops-pilot-test-admin
+  namespace: ops-pilot-test
 subjects:
   - kind: Group
     name: "github:bold-rr-ops-team"
