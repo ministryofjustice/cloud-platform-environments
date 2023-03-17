@@ -44,8 +44,6 @@ module "cla_backend_rds_postgres_11_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  snapshot_identifier = "b4-diversity-keys"
-
   db_parameter = [
     { name = "max_standby_archive_delay", value = "3600000", apply_method = "immediate" },
     { name = "max_standby_streaming_delay", value = "3600000", apply_method = "immediate" },
@@ -97,6 +95,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
+ snapshot_identifier = "b4-diversity-keys"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
