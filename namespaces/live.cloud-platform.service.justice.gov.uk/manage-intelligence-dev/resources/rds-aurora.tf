@@ -12,7 +12,7 @@ module "rds_aurora" {
   engine_version              = "14.6"
   engine_mode                 = "provisioned"
   replica_count               = 1
-  instance_type               = "db.t3.medium"
+  instance_type               = "db.t4g.medium"
   storage_encrypted           = true
   apply_immediately           = true
   vpc_name                    = var.vpc_name
