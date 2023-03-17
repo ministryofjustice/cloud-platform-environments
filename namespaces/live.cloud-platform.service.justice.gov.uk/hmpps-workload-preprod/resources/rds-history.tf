@@ -14,7 +14,7 @@ module "rds-history" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "11"
+  db_engine_version      = "11.18"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
