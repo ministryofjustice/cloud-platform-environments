@@ -95,6 +95,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
+ snapshot_identifier = "b4-diversity-keys"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
