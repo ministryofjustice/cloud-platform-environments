@@ -25,7 +25,7 @@ module "aurora_db" {
 
 # RDS Aurora Serverless v2 (WIP)
 module "aurora_db_serverless" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=aurora-serverless-v2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
 
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
