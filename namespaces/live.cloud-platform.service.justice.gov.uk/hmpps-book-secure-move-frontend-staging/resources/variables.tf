@@ -31,4 +31,6 @@ variable "repo_name" {
 variable "vpc_name" {
 }
 
-
+variable "business_unit" {
+  default = "HMPPS"
+}
