@@ -35,3 +35,7 @@ variable "namespace" {
 variable "db_instance_class" {
   default = "db.m6g.large"
 }
+
+variable "business_unit" {
+  default = "Platforms"
+}
