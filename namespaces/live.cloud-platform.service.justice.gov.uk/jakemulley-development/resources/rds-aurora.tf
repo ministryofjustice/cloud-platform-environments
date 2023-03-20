@@ -1,6 +1,6 @@
 # Generic RDS Aurora
 module "aurora_db" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
 
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
