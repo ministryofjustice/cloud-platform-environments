@@ -25,3 +25,7 @@ variable "namespace" {
 # The following variable is provided at runtime by the pipeline.
 variable "vpc_name" {
 }
+
+variable "business_unit" {
+  default = "HMPPS"
+}
