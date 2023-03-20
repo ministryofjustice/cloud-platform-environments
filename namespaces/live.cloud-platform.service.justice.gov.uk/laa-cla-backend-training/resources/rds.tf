@@ -39,7 +39,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
-
+  snapshot_identifier = "manual-backup-1679001807"
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -71,6 +71,8 @@ module "cla_backend_rds_postgres_11_replica" {
   # Pick the one that defines the postgres version the best
   rds_family        = "postgres11"
   db_engine_version = "11"
+
+  snapshot_identifier = "manual-backup-1679001807"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
 
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -12,7 +12,7 @@ module "rds_aurora" {
   engine_version              = "14.6"
   engine_mode                 = "provisioned"
   replica_count               = 1
-  instance_type               = "db.t3.medium"
+  instance_type               = "db.t4g.medium"
   storage_encrypted           = true
   apply_immediately           = true
   vpc_name                    = var.vpc_name
