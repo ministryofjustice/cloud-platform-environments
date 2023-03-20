@@ -28,3 +28,7 @@ variable "vpc_name" {
 variable "namespace" {
   default = "formbuilder-publisher-live"
 }
+
+variable "business_unit" {
+  default = "Platforms"
+}

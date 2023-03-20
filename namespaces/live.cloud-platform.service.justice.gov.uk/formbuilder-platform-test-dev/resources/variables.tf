@@ -35,3 +35,7 @@ variable "namespace" {
 variable "db_instance_class" {
   default = "db.t4g.medium"
 }
+
+variable "business_unit" {
+  default = "Platforms"
+}
