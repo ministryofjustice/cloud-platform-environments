@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
   team_name              = "correspondence"
   business-unit          = "Central Digital"
