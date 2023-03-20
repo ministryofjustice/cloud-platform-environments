@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=dependabot\/terraform\/terraform-aws-modules\/iam\/aws-5.13.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=main"
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = "jakemulley-development"
