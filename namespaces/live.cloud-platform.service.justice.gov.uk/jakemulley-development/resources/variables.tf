@@ -1,8 +1,11 @@
 variable "vpc_name" {
 }
 
-
 variable "kubernetes_cluster" {
+}
+
+variable "eks_cluster_name" {
+
 }
 
 variable "application" {
