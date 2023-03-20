@@ -8,11 +8,12 @@ module "irsa" {
 
 data "aws_iam_policy_document" "document" {
   statement {
+    sid = "listbucket"
     actions = [
-      "s3:*",
+      "s3:ListBucket"
     ]
     resources = [
-      "arn:aws:s3:::*",
+      "arn:aws:s3:::*"
     ]
   }
 }
