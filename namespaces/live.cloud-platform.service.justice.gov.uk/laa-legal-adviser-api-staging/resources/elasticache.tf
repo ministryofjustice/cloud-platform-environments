@@ -1,9 +1,10 @@
 module "celery-broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = var.application
   is-production          = var.is_production
+  business-unit          = var.business_unit
   node_type              = "cache.t2.micro"
   environment-name       = var.environment-name
   infrastructure-support = var.email

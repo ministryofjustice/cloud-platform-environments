@@ -25,3 +25,7 @@ variable "namespace" {
 variable "infrastructure_support" {
   default = "omic@digital.justice.gov.uk"
 }
+
+variable "business_unit" {
+  default = "HMPPS"
+}
