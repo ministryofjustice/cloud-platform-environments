@@ -7,7 +7,6 @@ module "redis-elasticache" {
 
   vpc_name = var.vpc_name
 
-  business-unit          = var.business_unit
   application            = var.application
   environment-name       = var.environment-name
   is-production          = var.is_production
