@@ -13,7 +13,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-
+  db_engine_version      = var.db_engine_version
 
   providers = {
     aws = aws.london
