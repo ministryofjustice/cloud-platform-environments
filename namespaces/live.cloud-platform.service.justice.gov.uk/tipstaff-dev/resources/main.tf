@@ -43,4 +43,4 @@ provider "github" {
   owner = var.github_owner
 }
 
-kubernetes = {}
+provider "kubernetes" {}
