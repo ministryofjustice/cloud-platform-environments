@@ -30,7 +30,7 @@ variable "repo_name" {
   default = "c100-application"
 }
 
-# Database
+# Database 
 
 variable "db_engine_version" {
   default = "14"
