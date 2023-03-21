@@ -16,6 +16,7 @@ module "slmtp_api_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = aws_elasticache_parameter_group.token_store.name
   namespace              = var.namespace
+  auth_token_rotated_date = "2023-03-21"
 
   providers = {
     aws = aws.london
