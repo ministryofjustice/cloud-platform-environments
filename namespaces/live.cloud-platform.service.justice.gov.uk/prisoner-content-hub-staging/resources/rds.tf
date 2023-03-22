@@ -14,6 +14,7 @@ module "drupal_rds" {
   db_engine         = "mariadb"
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
+  db_password_rotated_date    = "2023-03-22"
 
   # We need to explicitly set this to an empty list, otherwise the module
   # will add `rds.force_ssl`, which MariaDB doesn't support
