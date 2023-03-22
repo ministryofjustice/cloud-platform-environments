@@ -28,6 +28,12 @@ resource "kubernetes_secret" "rds-instance" {
     namespace = var.namespace
   }
 
+  rds_instance_endpoint = module.calculate_release_dates_api_rds.rds_instance_endpoint
+  database_name         = module.calculate_release_dates_api_rds.database_name
+  database_username     = module.calculate_release_dates_api_rds.database_username
+  database_password     = module.calculate_release_dates_api_rds.database_password
+  rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
+  
   data = {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
     url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
