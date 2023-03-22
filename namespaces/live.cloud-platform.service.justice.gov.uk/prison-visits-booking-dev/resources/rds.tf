@@ -18,6 +18,7 @@ module "prison-visits-rds" {
   db_engine                   = "postgres"
   db_name                     = "visits"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_password_rotated_date    = "2023-03-22"
 
   providers = {
     aws = aws.london
