@@ -14,6 +14,8 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_engine_version      = var.db_engine_version
+  allow_major_version_upgrade = "true"
+  rds_family             = var.db_engine_family
 
   providers = {
     aws = aws.london
