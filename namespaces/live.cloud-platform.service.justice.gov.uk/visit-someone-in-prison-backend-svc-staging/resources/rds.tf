@@ -13,6 +13,7 @@ module "visit_scheduler_rds" {
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres13"
   allow_major_version_upgrade = "false"
+  db_password_rotated_date    = "2023-03-22"
 
   providers = {
     aws = aws.london
