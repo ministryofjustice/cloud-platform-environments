@@ -31,6 +31,11 @@ resource "kubernetes_secret" "rds-instance" {
   data = {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
     url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    rds_instance_endpoint = module.rds-instance.rds_instance_endpoint
+    database_name         = module.rds-instance.database_name
+    database_username     = module.rds-instance.database_username
+    database_password     = module.rds-instance.database_password
+    rds_instance_address  = module.rds-instance.rds_instance_address
   }
 }
 
