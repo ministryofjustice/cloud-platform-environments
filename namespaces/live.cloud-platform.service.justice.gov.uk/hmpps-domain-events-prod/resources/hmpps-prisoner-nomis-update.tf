@@ -534,9 +534,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_sentencing_subscr
   endpoint  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "sentencing.sentence.adjustment.created",
-      "sentencing.sentence.adjustment.updated",
-      "sentencing.sentence.adjustment.deleted"
+      "release-date-adjustments.adjustment.inserted",
+      "release-date-adjustments.adjustment.updated",
+      "release-date-adjustments.adjustment.deleted"
     ]
   })
 }
