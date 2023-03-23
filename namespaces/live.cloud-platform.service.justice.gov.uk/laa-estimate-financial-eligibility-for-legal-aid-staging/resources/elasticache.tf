@@ -19,7 +19,7 @@ module "laa-estimate-financial-eligibility-elasticache" {
   namespace              = var.namespace
   node_type              = "cache.t4g.micro"
 
-  auth_token_rotated_date = "2023-03-16"
+  auth_token_rotated_date = "2023-03-23"
 
   providers = {
     aws = aws.london
