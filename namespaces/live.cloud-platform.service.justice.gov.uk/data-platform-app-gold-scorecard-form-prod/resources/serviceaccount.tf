@@ -8,7 +8,7 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["gold-scorecard-form"]
 
-  github_environments = ["prod", "dev"]
+  github_environments = ["prod"]
 
   serviceaccount_rules = [
     {
