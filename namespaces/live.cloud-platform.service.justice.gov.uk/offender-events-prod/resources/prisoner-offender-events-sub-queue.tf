@@ -114,7 +114,8 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "BOOKING_NUMBER-CHANGED",
       "OFFENDER_CASE_NOTES-INSERTED",
       "OFFENDER_CASE_NOTES-UPDATED",
-      "OFFENDER_CASE_NOTES-DELETED"
+      "OFFENDER_CASE_NOTES-DELETED",
+      "BED_ASSIGNMENT_HISTORY-INSERTED"
     ]
   })
 }
