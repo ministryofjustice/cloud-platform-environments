@@ -22,7 +22,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-estimate-eligibility"
+  default     = "laa-eligibility-platform"
 }
 
 variable "environment" {
