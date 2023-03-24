@@ -1,8 +1,10 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
   namespace        = var.namespace
+  eks_cluster_name = var.kubernetes_cluster
   role_policy_arns = [aws_iam_policy.bold-rr-ops-test_ap-access.arn]
 }
+
 data "aws_iam_policy_document" "bold-rr-ops-test_ap-access" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
@@ -15,6 +17,7 @@ data "aws_iam_policy_document" "bold-rr-ops-test_ap-access" {
     ]
   }
 }
+
 resource "aws_iam_policy" "bold-rr-ops-test_ap-access" {
   name   = "bold-rr-ops-test_ap-access"
   policy = data.aws_iam_policy_document.bold-rr-ops-test_ap-access.json
@@ -28,6 +31,7 @@ resource "aws_iam_policy" "bold-rr-ops-test_ap-access" {
     infrastructure-support = var.infrastructure_support
   }
 }
+
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
