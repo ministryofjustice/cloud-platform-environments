@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: cfe-civil-production
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
     cloud-platform.justice.gov.uk/namespace: "cfe-civil-production"
   annotations:
