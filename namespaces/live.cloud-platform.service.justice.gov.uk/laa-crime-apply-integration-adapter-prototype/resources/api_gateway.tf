@@ -33,17 +33,15 @@ resource "aws_apigatewayv2_integration" "test_api" {
 
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "GET /api/internal/v1/test"
+  route_key = "GET /test"
   target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
 }
 
 resource "aws_apigatewayv2_stage" "stage" {
-  api_id = aws_apigatewayv2_api.test_api.id
+  api_id = aws_apigatewayv2_api.gateway.id
   name   = var.apigw_stage_name
-
-  auto_deploy = true
 }
 
 resource "aws_api_gateway_domain_name" "apigw_fqdn" {
