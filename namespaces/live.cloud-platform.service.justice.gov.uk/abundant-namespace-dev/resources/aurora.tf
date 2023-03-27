@@ -20,6 +20,7 @@ module "aurora_db" {
   storage_encrypted            = true
   apply_immediately            = true
   performance_insights_enabled = true
+  allow_major_version_upgrade  = true
 }
 
 resource "kubernetes_secret" "aurora_db" {
