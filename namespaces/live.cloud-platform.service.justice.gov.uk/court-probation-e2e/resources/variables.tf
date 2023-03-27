@@ -2,7 +2,7 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "HMPPS  Court Probation"
+  default = "HMPPS Court Probation"
 }
 
 variable "namespace" {
