@@ -5,7 +5,7 @@ variable "api_gateway_name" {
 
 variable "aws_lb_listener_https_arn" {
   description = "Load balancer listner arn"
-  default = "https://adapter-integration.crimeapply.service.justice.gov.uk/test"
+  default = "https://crimeapply-adapter-integration-prototype.legalservices.gov.uk/test"
 }
 
 variable "apigw_stage_name" {
@@ -108,12 +108,12 @@ variable "is_production" {
 
 variable "base_domain" {
   description = "Base domain where to create the custom hostname"
-  default     = "crimeapply.service.justice.gov.uk"
+  default     = "legalservices.gov.uk"
 }
 
 variable "hostname" {
   description = "Host part of the FQDN"
-  default     = "adapter-integration"
+  default     = "crimeapply-adapter-integration-prototype"
 }
 
 variable "base_domain_route53_namespace" {
