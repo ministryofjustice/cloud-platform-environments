@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-court-data-api-production-admin
-  namespace: laa-court-data-api-production
+  name: laa-crime-apply-integration-adapter-prototype
+  namespace: laa-crime-apply-integration-adapter-prototype
 subjects:
   - kind: Group
     name: "github:laa-assess-a-claim"
