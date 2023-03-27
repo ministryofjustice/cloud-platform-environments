@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: court-probation-e2e-cert
+  namespace: court-probation-e2e
+spec:
+  secretName: court-probation-e2e-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - court-probation-e2e.hmpps.service.justice.gov.uk
+
+

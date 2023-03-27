@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: court-probation-e2e
+spec:
+  hard:
+    pods: "50"
