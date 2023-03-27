@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-crime-apply-integration-adapter-prototype-cert
+  namespace: laa-crime-apply-integration-adapter-prototype
+spec:
+  secretName: laa-crime-apply-integration-adapter-prototype-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - crime-apply-integration-adapter.service.justice.gov.uk
