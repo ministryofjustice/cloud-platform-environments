@@ -14,6 +14,7 @@ module "contact_moj_elasticache_redis" {
   infrastructure-support = "staffservices@digital.justice.gov.uk"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-03-27"
