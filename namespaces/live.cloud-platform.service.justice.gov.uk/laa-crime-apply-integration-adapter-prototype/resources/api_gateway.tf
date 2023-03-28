@@ -47,6 +47,7 @@ resource "aws_apigatewayv2_stage" "stage" {
 resource "aws_api_gateway_domain_name" "apigw_fqdn" {
   domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
   regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+  security_policy          = "TLS_1_2"
 
   endpoint_configuration {
     types = ["REGIONAL"]
