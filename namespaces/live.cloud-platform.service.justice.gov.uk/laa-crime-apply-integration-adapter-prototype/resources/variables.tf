@@ -63,6 +63,10 @@ variable "VPCSubnets" {
   default = ""
 }
 
+variable "apigw_region" {
+  default = "eu-west-2"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Crime Apply Integration Adapter"
