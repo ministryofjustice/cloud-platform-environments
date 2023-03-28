@@ -16,6 +16,8 @@ module "contact_moj_elasticache_redis" {
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
+  auth_token_rotated_date = "2023-03-28"
+
   providers = {
     aws = aws.london
   }
