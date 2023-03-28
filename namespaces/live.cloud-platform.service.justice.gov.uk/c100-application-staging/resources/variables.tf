@@ -33,7 +33,7 @@ variable "repo_name" {
 # Database 
 
 variable "db_engine_version" {
-  default = "14"
+  default = "14.4"
 }
 
 variable "db_engine_family" {
