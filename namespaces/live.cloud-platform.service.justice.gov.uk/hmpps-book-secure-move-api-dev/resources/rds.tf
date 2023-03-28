@@ -9,6 +9,8 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  business-unit          = var.business_unit
+
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
 
@@ -60,6 +62,9 @@ module "rds-read-replica" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  namespace              = var.namespace
+  business-unit          = var.business_unit
+
   db_name                = null # "db_name": conflicts with replicate_source_db
 
   replicate_source_db = module.rds-instance.db_identifier
