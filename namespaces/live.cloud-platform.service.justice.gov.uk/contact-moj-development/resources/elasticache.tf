@@ -17,7 +17,7 @@ module "contact_moj_elasticache_redis" {
   node_type              = "cache.t4g.micro"
   namespace              = var.namespace
 
-  auth_token_rotated_date = "2023-03-27"
+  auth_token_rotated_date = "2023-03-28"
 
   providers = {
     aws = aws.london

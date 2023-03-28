@@ -11,6 +11,7 @@ module "rds-instance" {
   team_name              = var.team_name
   backup_window          = var.backup_window
   maintenance_window     = var.maintenance_window
+  business-unit          = var.business_unit
 
   db_allocated_storage = 20
   db_instance_class    = "db.t3.xlarge"
@@ -76,6 +77,9 @@ module "rds-read-replica" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  namespace              = var.namespace
+  business-unit          = var.business_unit
+
   db_allocated_storage   = 20
 
   db_name             = null # "db_name": conflicts with replicate_source_db
