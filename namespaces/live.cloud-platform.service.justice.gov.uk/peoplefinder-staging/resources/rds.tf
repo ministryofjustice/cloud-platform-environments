@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = "peoplefinder"
   business-unit              = "Central Digital"
@@ -15,7 +15,7 @@ module "peoplefinder_rds" {
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_staging"
-  environment-name           = "staging"
+  environment-name           = var.environment
   infrastructure-support     = "people-finder-support@digital.justice.gov.uk"
 
   rds_family = "postgres12"

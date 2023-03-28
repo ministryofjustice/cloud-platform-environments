@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
@@ -16,7 +16,7 @@ module "track_a_query_rds" {
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_demo"
   environment-name           = "demo"
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 

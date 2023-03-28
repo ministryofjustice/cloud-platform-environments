@@ -1,3 +1,11 @@
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variable is automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+}
+
 variable "domain" {
   default = "use-of-force.service.justice.gov.uk"
 }
@@ -10,7 +18,7 @@ variable "namespace" {
   default = "use-of-force-prod"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
@@ -25,12 +33,12 @@ variable "environment-name" {
   default     = "prod"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 

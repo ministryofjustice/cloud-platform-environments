@@ -4,14 +4,14 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
 
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
   is-production          = "false"
-  environment-name       = "staging"
-  infrastructure-support = "correspondence-support@digital.justice.gov.uk"
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   cors_rule = [
     {

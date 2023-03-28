@@ -14,20 +14,16 @@ variable "environment-name" {
   default = "staging"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Tactical Products Team: pqsupport@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = false
 }
 
 variable "namespace" {
   default = "parliamentary-questions-staging"
-}
-
-variable "repo_name" {
-  default = "parliamentary-questions"
 }
 
 variable "team_name" {
@@ -38,5 +34,3 @@ variable "team_name" {
 
 variable "vpc_name" {
 }
-
-

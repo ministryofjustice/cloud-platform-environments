@@ -13,7 +13,7 @@ resource "pingdom_check" "claim-crown-court-defence-staging" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business-unit},application_${var.application},component_ping,isproduction_${var.is-production},environment_${var.environment-name},infrastructuresupport_${var.application}"
+  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_${var.application}"
   probefilters             = "region:EU"
   integrationids           = [116115]
 }

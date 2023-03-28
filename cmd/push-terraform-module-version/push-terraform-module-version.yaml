@@ -1,0 +1,6 @@
+name: Push the latest terraform module version to be stored in the API
+description: When a cloud-platform-terrform-* module version is updated also update the API
+
+runs:
+  using: "docker"
+  image: "Dockerfile"

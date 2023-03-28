@@ -28,7 +28,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -43,12 +43,4 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "incentives-dev"
-}
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "rds_family" {
-  default = "postgres14"
 }

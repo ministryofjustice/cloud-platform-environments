@@ -1,12 +1,12 @@
 module "crime-portal-gateway-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
 
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = "crime-portal-gateway"
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

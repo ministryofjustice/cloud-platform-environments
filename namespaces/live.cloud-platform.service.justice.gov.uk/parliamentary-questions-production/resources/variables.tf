@@ -2,10 +2,6 @@ variable "application" {
   default = "Parliamentary Questions Tracker"
 }
 
-variable "aws_region" {
-  default = "eu-west-2"
-}
-
 variable "db_backup_retention_period" {
   default = "7"
 }
@@ -14,11 +10,11 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Tactical Products Team: pqsupport@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = true
 }
 
@@ -42,8 +38,6 @@ variable "domain" {
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }

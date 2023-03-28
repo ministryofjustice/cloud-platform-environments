@@ -1,12 +1,13 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   node_type              = "cache.m4.xlarge"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  is-production          = var.is_production
+  environment-name       = var.environment_name
+  infrastructure-support = var.infrastructure_support
+  business-unit          = var.business_unit
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
@@ -18,7 +19,7 @@ module "ec-cluster-offender-management-allocation-manager" {
 
 resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-staging" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment-name}"
+    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
     namespace = var.namespace
   }
 

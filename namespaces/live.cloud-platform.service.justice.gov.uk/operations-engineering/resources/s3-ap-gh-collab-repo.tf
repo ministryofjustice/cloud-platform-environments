@@ -1,5 +1,5 @@
 module "ap_gh_collab_repo_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -13,7 +13,6 @@ module "ap_gh_collab_repo_s3_bucket" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {
@@ -23,8 +22,8 @@ resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {
   }
 
   data = {
-    access_key_id               = module.ap_gh_collab_repo_s3_bucket.access_key_id
-    secret_access_key           = module.ap_gh_collab_repo_s3_bucket.secret_access_key
-    bucket_arn                  = module.ap_gh_collab_repo_s3_bucket.bucket_arn
+    access_key_id     = module.ap_gh_collab_repo_s3_bucket.access_key_id
+    secret_access_key = module.ap_gh_collab_repo_s3_bucket.secret_access_key
+    bucket_arn        = module.ap_gh_collab_repo_s3_bucket.bucket_arn
   }
 }

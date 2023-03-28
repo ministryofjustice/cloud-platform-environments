@@ -7,7 +7,7 @@ variable "team_name" {
   default = "formbuilder"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
@@ -15,8 +15,8 @@ variable "db_backup_retention_period" {
   default = "2"
 }
 
-variable "infrastructure-support" {
-  default = "Form Builder form-builder-team@digital.justice.gov.uk"
+variable "infrastructure_support" {
+  default = "Form Builder form-builder-developers@digital.justice.gov.uk"
 }
 
 # The following variable is provided at runtime by the pipeline.
@@ -27,4 +27,8 @@ variable "vpc_name" {
 
 variable "namespace" {
   default = "formbuilder-publisher-live"
+}
+
+variable "business_unit" {
+  default = "Platforms"
 }

@@ -1,9 +1,9 @@
 module "court-case-matcher-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = "court-case-matcher"
   sqs_name               = "court-case-matcher-queue"
   encrypt_sqs_kms        = "true"
@@ -58,11 +58,11 @@ resource "aws_sns_topic_subscription" "court-case-matcher-topic-subscription" {
 }
 
 module "court-case-matcher-dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = "court-case-matcher"
   sqs_name                  = "court-case-matcher-dead-letter-queue"
   encrypt_sqs_kms           = "true"

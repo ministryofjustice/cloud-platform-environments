@@ -1,16 +1,12 @@
-
-variable "vpc_name" {
-}
-
-
 module "hmpps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
-  infrastructure-support = var.infrastructure-support
+  is-production          = var.is_production
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = var.node-type
   engine_version         = "6.x"

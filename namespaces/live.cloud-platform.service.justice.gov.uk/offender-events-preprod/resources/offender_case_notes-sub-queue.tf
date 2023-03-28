@@ -1,9 +1,9 @@
 module "offender_case_notes_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "offender_case_notes_events_queue"
   encrypt_sqs_kms           = "true"
@@ -49,11 +49,11 @@ resource "aws_sqs_queue_policy" "offender_case_notes_events_queue_policy" {
 }
 
 module "offender_case_notes_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "offender_case_notes_events_queue_dl"
   encrypt_sqs_kms        = "true"

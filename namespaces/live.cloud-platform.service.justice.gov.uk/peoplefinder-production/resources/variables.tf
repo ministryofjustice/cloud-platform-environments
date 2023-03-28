@@ -15,7 +15,7 @@ variable "domain" {
   default = "peoplefinder.service.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
@@ -27,7 +27,7 @@ variable "application" {
   default = "peoplefinder"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "people-finder-support@digital.justice.gov.uk"
 }
 
@@ -35,8 +35,6 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }

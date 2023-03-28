@@ -1,22 +1,18 @@
-
-variable "vpc_name" {
-}
-
-
 module "rp_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business-unit
-  application            = var.application
-  is-production          = var.is-production
-  namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
-  db_instance_class      = "db.t4g.small"
-  db_engine              = "postgres"
-  db_engine_version      = "14"
-  rds_family             = "postgres14"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  vpc_name                 = var.vpc_name
+  team_name                = var.team_name
+  business-unit            = var.business_unit
+  application              = var.application
+  is-production            = var.is_production
+  namespace                = var.namespace
+  environment-name         = var.environment-name
+  infrastructure-support   = var.infrastructure_support
+  db_instance_class        = "db.t4g.small"
+  db_engine                = "postgres"
+  db_engine_version        = "14"
+  rds_family               = "postgres14"
+  db_password_rotated_date = "15-02-2023"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"

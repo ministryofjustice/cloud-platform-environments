@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.0"
 
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
@@ -19,4 +19,10 @@ resource "kubernetes_secret" "ecr-repo" {
     secret_access_key = module.ecr-repo.secret_access_key
     repo_arn          = module.ecr-repo.repo_arn
   }
+}
+
+resource "github_actions_secret" "prototype" {
+  repository      = var.namespace
+  secret_name     = "PROTOTYPE_NAME"
+  plaintext_value = var.namespace
 }

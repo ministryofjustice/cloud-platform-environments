@@ -9,10 +9,10 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/application: "formbuilder-monitoring"
     cloud-platform.justice.gov.uk/business-unit: "HQ"
-    cloud-platform.justice.gov.uk/contact_email: "formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/contact_email: "form-builder-developers@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/environment: "dev"
     cloud-platform.justice.gov.uk/github_team: "formbuilder"
     cloud-platform.justice.gov.uk/namespace: "formbuilder-monitoring"
-    cloud-platform.justice.gov.uk/owner: "Form Builder: formbuilder@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Form Builder: form-builder-developers@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/fb-monitoring"
     cloud-platform.justice.gov.uk/slack-channel: "form-builder-alerts"

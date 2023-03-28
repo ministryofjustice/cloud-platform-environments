@@ -1,11 +1,11 @@
 
 
 module "in_cell_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "in_cell_hmpps_queue"
   encrypt_sqs_kms           = "true"
@@ -55,11 +55,11 @@ EOF
 }
 
 module "in_cell_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = "Kainos"
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = "In-cell prisoner on boarding"
   sqs_name               = "in_cell_hmpps_dlq"
   encrypt_sqs_kms        = "true"

@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -7,13 +7,16 @@ module "rds" {
   is-production = var.is_production
   namespace     = var.namespace
 
+  # rotating creds
+  db_password_rotated_date = "09-02-2023"
+
   # enable performance insights
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best

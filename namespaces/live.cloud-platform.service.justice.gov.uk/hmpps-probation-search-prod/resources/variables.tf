@@ -3,8 +3,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "eks_cluster_name" {
 }

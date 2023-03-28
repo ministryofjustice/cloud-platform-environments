@@ -1,7 +1,7 @@
 module "rotate_token_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add-keepers"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
-  // The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
+  # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name               = var.vpc_name
   team_name              = "webops"
   business-unit          = "platforms"
@@ -19,7 +19,7 @@ module "rotate_token_ec_cluster" {
 resource "kubernetes_secret" "rotate_token_ec_cluster" {
   metadata {
     name      = "rotate-token-ec-cluster-output"
-    namespace              = var.namespace
+    namespace = var.namespace
   }
 
   data = {

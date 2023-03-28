@@ -1,9 +1,4 @@
-
-
 variable "vpc_name" {
-}
-
-variable "cluster_state_bucket" {
 }
 
 variable "kubernetes_cluster" {
@@ -55,16 +50,4 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
-}
-
-## Prototype kit variables
-
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "username"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "prototype"
 }

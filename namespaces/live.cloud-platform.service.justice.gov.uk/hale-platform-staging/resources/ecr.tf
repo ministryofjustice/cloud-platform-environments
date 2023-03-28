@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -24,7 +24,7 @@ module "ecr_credentials" {
 
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["staging"]
+  github_environments = ["Staging"]
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url

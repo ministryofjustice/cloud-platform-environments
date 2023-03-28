@@ -1,15 +1,15 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=1.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
 
   team_name                    = var.team_name
-  business-unit                = var.business-unit
+  business-unit                = var.business_unit
   application                  = var.application
-  is-production                = var.is-production
+  is-production                = var.is_production
   namespace                    = var.namespace
   environment-name             = var.environment-name
-  infrastructure-support       = var.infrastructure-support
+  infrastructure-support       = var.infrastructure_support
   engine                       = "aurora-postgresql"
-  engine_version               = "13.4"
+  engine_version               = "14.6"
   engine_mode                  = "provisioned"
   replica_count                = 2
   instance_type                = "db.r6g.large"
@@ -18,6 +18,7 @@ module "rds_aurora" {
   apply_immediately            = true
   vpc_name                     = var.vpc_name
   allow_major_version_upgrade  = true
+  auto_minor_version_upgrade   = true
   skip_setting_when_migrated   = true
   performance_insights_enabled = true
 
@@ -42,5 +43,4 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
     access_key_id               = module.rds_aurora.access_key_id
     secret_access_key           = module.rds_aurora.secret_access_key
   }
-
 }

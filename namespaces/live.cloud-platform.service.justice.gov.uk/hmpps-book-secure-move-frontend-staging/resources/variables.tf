@@ -6,11 +6,11 @@ variable "environment-name" {
   default = "staging"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "pecs-digital-tech@digital.justice.gov.uk"
 }
 
@@ -31,4 +31,6 @@ variable "repo_name" {
 variable "vpc_name" {
 }
 
-
+variable "business_unit" {
+  default = "HMPPS"
+}

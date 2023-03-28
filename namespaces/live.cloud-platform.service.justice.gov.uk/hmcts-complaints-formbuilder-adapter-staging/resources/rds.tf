@@ -1,13 +1,13 @@
 module "hmcts-complaints-adapter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
   application                = "hmcts-complaints-formbuilder-adapter"
   environment-name           = var.environment-name
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
 
   db_engine_version = "11"

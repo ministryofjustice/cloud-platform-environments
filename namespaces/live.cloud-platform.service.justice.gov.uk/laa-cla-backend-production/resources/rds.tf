@@ -9,15 +9,15 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_11_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   # Settings from current setup
@@ -49,20 +49,22 @@ module "cla_backend_rds_postgres_11_replica" {
     { name = "max_standby_streaming_delay", value = "3600000", apply_method = "immediate" },
     { name = "log_statement", value = "all", apply_method = "immediate" }
   ]
+
+  snapshot_identifier = "b4-diversity-keys"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-
 }
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business-unit
+  business-unit = var.business_unit
   application   = var.application
-  is-production = var.is-production
+  is-production = var.is_production
   namespace     = var.namespace
 
   db_name = "cla_backend"
@@ -75,7 +77,7 @@ module "cla_backend_rds_postgres_11" {
   # change the postgres version as you see fit.
   db_engine_version      = "11"
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
@@ -96,6 +98,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
+ snapshot_identifier = "b4-diversity-keys"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -122,5 +125,4 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
     secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
     db_identifier     = module.cla_backend_rds_postgres_11.db_identifier
   }
-
 }

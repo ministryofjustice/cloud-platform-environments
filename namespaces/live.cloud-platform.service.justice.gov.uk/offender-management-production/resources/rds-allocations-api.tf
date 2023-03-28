@@ -1,22 +1,11 @@
 /*
- * When using this module through the cloud-platform-environments, the following
- * variable is automatically supplied by the pipeline.
- *
- */
-
-
-variable "vpc_name" {
-}
-
-
-/*
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name               = var.vpc_name
   db_instance_class      = "db.m5.large"

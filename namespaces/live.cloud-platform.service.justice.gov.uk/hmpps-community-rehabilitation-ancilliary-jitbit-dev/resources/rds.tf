@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -56,6 +56,9 @@ module "rds" {
   performance_insights_enabled = false
 
   enable_rds_auto_start_stop = true
+
+  # This will rotate the db password. Update the value to the current date.
+  db_password_rotated_date = "08-03-2023"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

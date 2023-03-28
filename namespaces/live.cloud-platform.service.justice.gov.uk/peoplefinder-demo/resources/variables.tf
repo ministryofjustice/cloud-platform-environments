@@ -15,11 +15,11 @@ variable "domain" {
   default = "demo.peoplefinder.service.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "demo"
 }
 

@@ -3,8 +3,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -60,19 +58,4 @@ variable "github_token" {
 variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
-}
-
-variable "encrypt_sqs_kms" {
-  description = "Encrypt sqs keys."
-  default     = "false"
-}
-
-variable "message_retention_seconds" {
-  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)."
-  default     = "1209600"
-}
-
-variable "visibility_timeout_seconds" {
-  description = "Sets the length of time (seconds) that a message received from a queue will not be visible to the other message consumers."
-  default     = "120"
 }

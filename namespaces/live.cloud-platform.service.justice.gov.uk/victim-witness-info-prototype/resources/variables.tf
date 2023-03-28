@@ -3,8 +3,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -66,5 +64,5 @@ variable "basic-auth-username" {
 
 variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
-  default     = "kryandia"
+  default     = "happydog"
 }

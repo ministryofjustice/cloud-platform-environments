@@ -1,15 +1,15 @@
 module "court-case-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
 
   topic_display_name = "court-case-events"
   encrypt_sns_kms    = true
 
-  business_unit          = var.business-unit
+  business_unit          = var.business_unit
   application            = var.application
-  is_production          = var.is-production
+  is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure-support
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

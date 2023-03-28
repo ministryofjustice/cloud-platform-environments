@@ -5,10 +5,10 @@ resource "aws_route53_zone" "parliamentary_questions" {
   tags = {
     business-unit          = var.team_name
     application            = var.application
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = var.team_name
-    infrastructure-support = var.infrastructure-support
+    infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
 }

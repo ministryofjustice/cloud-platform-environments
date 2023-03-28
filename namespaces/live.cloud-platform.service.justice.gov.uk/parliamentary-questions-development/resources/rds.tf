@@ -11,11 +11,11 @@ module "rds_instance" {
   db_engine_version           = "12"
   db_name                     = "parliamentary_questions_dev"
   environment-name            = var.environment-name
-  infrastructure-support      = var.infrastructure-support
-  is-production               = var.is-production
+  infrastructure-support      = var.infrastructure_support
+  is-production               = var.is_production
   namespace                   = var.namespace
   rds_family                  = "postgres12"
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   team_name                   = var.team_name
 }
 

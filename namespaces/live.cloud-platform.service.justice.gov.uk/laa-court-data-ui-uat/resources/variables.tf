@@ -10,7 +10,7 @@ variable "domain" {
   default = "view-court-data.service.justice.gov.uk"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
 }
@@ -20,22 +20,17 @@ variable "team_name" {
   default     = "laa-assess-a-claim"
 }
 
-variable "repo_name" {
-  description = "The name of github repo AND ecr repo"
-  default     = "laa-court-data-ui"
-}
-
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "uat"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "assessaclaim@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

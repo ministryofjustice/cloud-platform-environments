@@ -3,8 +3,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -35,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "cris.coxon@justice.gov.uk"
+  default     = "SJPR@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -55,4 +53,8 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "domain" {
+  default = "social-justice-problems.service.justice.gov.uk"
 }

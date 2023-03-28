@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-su
 }
 
 module "make-recall-decisions-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -32,7 +32,7 @@ resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-queue-policy" 
 }
 
 module "make-recall-decisions-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -47,14 +47,14 @@ resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "make-recall-decisions-and-delius-secrets" {
-  for_each = {
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_NAME"              = module.make-recall-decisions-and-delius-queue.sqs_name
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.make-recall-decisions-and-delius-queue.access_key_id
-    "MAKE_RECALL_DECISIONS_AND_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.make-recall-decisions-and-delius-queue.secret_access_key
+resource "kubernetes_secret" "make-recall-decisions-and-delius-queue-secret" {
+  metadata {
+    name      = "make-recall-decisions-and-delius-queue"
+    namespace = var.namespace
   }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
+  data = {
+    QUEUE_NAME            = module.make-recall-decisions-and-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.make-recall-decisions-and-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.make-recall-decisions-and-delius-queue.secret_access_key
+  }
 }

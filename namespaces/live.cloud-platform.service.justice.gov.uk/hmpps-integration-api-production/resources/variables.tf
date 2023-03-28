@@ -1,8 +1,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -56,5 +54,5 @@ variable "github_token" {
 }
 
 variable "hosted_zone" {
-    default = "integration-api.hmpps.service.justice.gov.uk"
+  default = "integration-api.hmpps.service.justice.gov.uk"
 }

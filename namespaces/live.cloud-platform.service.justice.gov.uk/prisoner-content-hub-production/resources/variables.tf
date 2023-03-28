@@ -15,7 +15,7 @@ variable "vpc_name" {
 }
 
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
@@ -33,13 +33,9 @@ variable "environment-name" {
   default     = "production"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "thehub@digital.justice.gov.uk"
-}
-
-variable "is-production" {
-  default = "true"
 }
 
 variable "is_production" {

@@ -1,8 +1,8 @@
 module "hwpv_sqlserver" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
@@ -11,10 +11,11 @@ module "hwpv_sqlserver" {
   db_instance_class      = "db.t3.small"
   db_allocated_storage   = "20"
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   rds_family             = "sqlserver-web-15.0"
   db_parameter           = []
   license_model          = "license-included"
+  db_password_rotated_date    = "2023-03-22"
 
   providers = {
     aws = aws.london

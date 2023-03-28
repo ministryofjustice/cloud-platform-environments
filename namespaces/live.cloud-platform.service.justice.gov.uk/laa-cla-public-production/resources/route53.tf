@@ -2,9 +2,9 @@ resource "aws_route53_zone" "route53_zone" {
   name = "checklegalaid.service.gov.uk"
 
   tags = {
-    business-unit    = var.business-unit
+    business-unit    = var.business_unit
     application      = var.application
-    is-production    = var.is-production
+    is-production    = var.is_production
     environment-name = var.environment-name
     owner            = var.team_name
     namespace        = var.namespace

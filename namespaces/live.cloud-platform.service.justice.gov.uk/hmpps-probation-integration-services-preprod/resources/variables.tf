@@ -3,8 +3,6 @@
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -33,11 +31,6 @@ variable "environment_name" {
   default     = "preprod"
 }
 
-variable "github_environment_name" {
-  description = "The name of the GitHub environment to deploy secrets to."
-  default     = "preprod"
-}
-
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "probation-integration-team@digital.justice.gov.uk"
@@ -60,6 +53,11 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "github_environment" {
+  description = "Name of the GitHub environment linked to this namespace"
+  default     = "preprod"
 }
 
 variable "github_actions_secret_kube_cluster" {

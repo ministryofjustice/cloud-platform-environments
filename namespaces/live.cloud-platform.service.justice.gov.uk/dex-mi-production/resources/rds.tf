@@ -4,19 +4,19 @@
 #################################################################################
 
 module "dex_mi_production_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
   application                = "dex-mi-metabase"
-  is-production              = var.is-production
+  is-production              = var.is_production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
   environment-name           = var.environment-name
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 

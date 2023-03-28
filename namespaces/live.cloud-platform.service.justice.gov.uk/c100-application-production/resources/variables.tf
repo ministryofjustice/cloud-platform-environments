@@ -10,11 +10,11 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "sustainingaccountnotifications@hmcts.net"
 }
 
@@ -26,11 +26,6 @@ variable "namespace" {
   default = "c100-application-production"
 }
 
-variable "repo_name" {
-  default = "c100-application"
-}
-
 # The following variable is provided at runtime by the pipeline.
-
 variable "vpc_name" {
 }

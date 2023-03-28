@@ -16,7 +16,7 @@ variable "domain" {
   default = "demo.track-a-query.service.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
@@ -24,3 +24,8 @@ variable "environment-name" {
   default = "demo"
 }
 
+variable "infrastructure_support" {
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "correspondence@digital.justice.gov.uk"
+}

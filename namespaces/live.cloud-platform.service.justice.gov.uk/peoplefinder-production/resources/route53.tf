@@ -9,7 +9,7 @@ resource "aws_route53_zone" "peoplefinder_route53_zone" {
   tags = {
     business-unit          = "Central Digital"
     application            = "peoplefinder"
-    is-production          = var.is-production
+    is-production          = var.is_production
     environment-name       = var.environment-name
     owner                  = "peoplefinder"
     infrastructure-support = "people-finder-support@digital.justice.gov.uk"

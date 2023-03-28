@@ -10,11 +10,11 @@ variable "environment-name" {
   default = "staging"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "sustainingaccountnotifications@hmcts.net"
 }
 
@@ -28,6 +28,20 @@ variable "namespace" {
 
 variable "repo_name" {
   default = "c100-application"
+}
+
+# Database 
+
+variable "db_engine_version" {
+  default = "10"
+}
+
+variable "db_instance_class" {
+  default = "db.t3.small"
+}
+
+variable "db_engine_family" {
+  default = "postgres14"
 }
 
 # The following variable is provided at runtime by the pipeline.

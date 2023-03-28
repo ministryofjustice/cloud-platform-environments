@@ -1,9 +1,9 @@
 module "ims_index_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   application                = var.application
   sqs_name                   = "ims_index_update_queue"
   encrypt_sqs_kms            = "true"
@@ -25,11 +25,11 @@ EOF
 }
 
 module "ims_index_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "ims_index_update_dl_queue"
   encrypt_sqs_kms        = "true"

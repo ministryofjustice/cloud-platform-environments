@@ -1,12 +1,12 @@
 module "pre_sentence_service_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
-  business-unit                = var.business-unit
+  business-unit                = var.business_unit
   namespace                    = var.namespace
   application                  = "pre-sentence-service"
   environment-name             = var.environment-name
-  infrastructure-support       = var.infrastructure-support
+  infrastructure-support       = var.infrastructure_support
   rds_family                   = "postgres13"
   db_instance_class            = "db.t3.small"
   db_engine_version            = "13"

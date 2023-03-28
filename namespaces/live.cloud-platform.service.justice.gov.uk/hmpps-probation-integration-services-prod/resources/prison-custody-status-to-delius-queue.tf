@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
 }
 
 module "prison-custody-status-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -32,7 +32,7 @@ resource "aws_sqs_queue_policy" "prison-custody-status-to-delius-queue-policy" {
 }
 
 module "prison-custody-status-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -47,14 +47,14 @@ resource "aws_sqs_queue_policy" "prison-custody-status-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "prison-custody-status-to-delius-secrets" {
-  for_each = {
-    "PRISON_CUSTODY_STATUS_TO_DELIUS_SQS_QUEUE_NAME"              = module.prison-custody-status-to-delius-queue.sqs_name
-    "PRISON_CUSTODY_STATUS_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.prison-custody-status-to-delius-queue.access_key_id
-    "PRISON_CUSTODY_STATUS_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.prison-custody-status-to-delius-queue.secret_access_key
+resource "kubernetes_secret" "prison-custody-status-to-delius-queue-secret" {
+  metadata {
+    name      = "prison-custody-status-to-delius-queue"
+    namespace = var.namespace
   }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
+  data = {
+    QUEUE_NAME            = module.prison-custody-status-to-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.prison-custody-status-to-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.prison-custody-status-to-delius-queue.secret_access_key
+  }
 }

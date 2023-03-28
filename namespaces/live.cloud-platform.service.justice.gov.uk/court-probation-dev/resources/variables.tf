@@ -1,3 +1,11 @@
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variable is automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+}
+
 variable "application" {
   default = "court-case-service"
 }
@@ -6,7 +14,7 @@ variable "namespace" {
   default = "court-probation-dev"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   default = "HMPPS"
 }
 
@@ -18,11 +26,11 @@ variable "environment-name" {
   default = "development"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Probation in Court Team: probation-in-court-team@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

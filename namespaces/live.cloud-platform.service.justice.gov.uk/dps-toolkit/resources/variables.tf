@@ -10,7 +10,7 @@ variable "namespace" {
   default = "dps-toolkit"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
@@ -20,16 +20,16 @@ variable "team_name" {
   default     = "Digital Prison Services/DPS Tech Team"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }

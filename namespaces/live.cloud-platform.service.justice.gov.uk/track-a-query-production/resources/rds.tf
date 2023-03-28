@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
@@ -16,7 +16,7 @@ module "track_a_query_rds" {
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
   environment-name           = "production"
-  infrastructure-support     = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -29,14 +29,14 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
-  infrastructure-support = var.infrastructure-support
+  is-production          = var.is_production
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   rds_family             = "postgres12"
   db_engine_version      = "12"
@@ -87,6 +87,5 @@ resource "kubernetes_secret" "track_a_query_rds_replica" {
 
     url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
-
 }
 

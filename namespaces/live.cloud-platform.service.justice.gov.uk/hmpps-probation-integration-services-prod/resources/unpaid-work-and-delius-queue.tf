@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "unpaid-work-and-delius-queue-subscription
 }
 
 module "unpaid-work-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "unpaid-work-and-delius-queue-policy" {
 }
 
 module "unpaid-work-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -44,14 +44,14 @@ resource "aws_sqs_queue_policy" "unpaid-work-and-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "unpaid-work-and-delius-secrets" {
-  for_each = {
-    "UNPAID_WORK_AND_DELIUS_SQS_QUEUE_NAME"              = module.unpaid-work-and-delius-queue.sqs_name
-    "UNPAID_WORK_AND_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.unpaid-work-and-delius-queue.access_key_id
-    "UNPAID_WORK_AND_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.unpaid-work-and-delius-queue.secret_access_key
+resource "kubernetes_secret" "unpaid-work-and-delius-queue-secret" {
+  metadata {
+    name      = "unpaid-work-and-delius-queue"
+    namespace = var.namespace
   }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
+  data = {
+    QUEUE_NAME            = module.unpaid-work-and-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.unpaid-work-and-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.unpaid-work-and-delius-queue.secret_access_key
+  }
 }

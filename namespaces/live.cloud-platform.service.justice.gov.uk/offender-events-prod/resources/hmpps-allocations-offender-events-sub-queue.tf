@@ -1,9 +1,9 @@
 module "hmpps_allocations_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure-support
+  infrastructure-support    = var.infrastructure_support
   application               = var.application
   sqs_name                  = "hmpps_allocations_offender_events_queue"
   encrypt_sqs_kms           = "true"
@@ -55,11 +55,11 @@ EOF
 }
 
 module "hmpps_allocations_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "hmpps_allocations_offender_events_queue_dl"
   encrypt_sqs_kms        = "true"
@@ -104,6 +104,6 @@ resource "aws_sns_topic_subscription" "hmpps_allocations_offender_events_subscri
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_allocations_offender_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"CONVICTION_CHANGED\", \"OFFENDER_MANAGER_CHANGED\", \"ORDER_MANAGER_CHANGED\"]}"
+  filter_policy = "{\"eventType\":[\"CONVICTION_CHANGED\", \"ORDER_MANAGER_CHANGED\"]}"
 }
 

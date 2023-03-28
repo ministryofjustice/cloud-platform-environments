@@ -2,14 +2,14 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
  */
 module "calculate-journey-variable-payments_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.7.3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
 
   team_name              = var.team_name
   business-unit          = "Digital and Technology"
   application            = var.application
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
-  is-production    = var.is-production
+  is-production    = var.is_production
   environment-name = var.environment-name
   namespace        = var.namespace
 

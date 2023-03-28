@@ -18,7 +18,7 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
 }
 
 module "prison-case-notes-to-probation-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -39,7 +39,7 @@ resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
 }
 
 module "prison-case-notes-to-probation-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -54,14 +54,14 @@ resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "prison-case-notes-to-probation-secrets" {
-  for_each = {
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_NAME"              = module.prison-case-notes-to-probation-queue.sqs_name
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_ACCESS_KEY_ID"     = module.prison-case-notes-to-probation-queue.access_key_id
-    "PRISON_CASE_NOTES_TO_PROBATION_SQS_QUEUE_SECRET_ACCESS_KEY" = module.prison-case-notes-to-probation-queue.secret_access_key
+resource "kubernetes_secret" "prison-case-notes-to-probation-queue-secret" {
+  metadata {
+    name      = "prison-case-notes-to-probation-queue"
+    namespace = var.namespace
   }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
+  data = {
+    QUEUE_NAME            = module.prison-case-notes-to-probation-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.prison-case-notes-to-probation-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.prison-case-notes-to-probation-queue.secret_access_key
+  }
 }

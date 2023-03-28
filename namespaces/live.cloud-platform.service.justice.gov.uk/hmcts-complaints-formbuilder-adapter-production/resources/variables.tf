@@ -18,11 +18,11 @@ variable "db_backup_retention_period_hmcts_complaints_adapter" {
   default = "2"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "Form Builder form-builder-team@digital.justice.gov.uk"
 }

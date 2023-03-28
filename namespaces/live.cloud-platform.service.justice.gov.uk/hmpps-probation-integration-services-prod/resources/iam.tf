@@ -1,5 +1,11 @@
 locals {
   managed_sqs_queues = [
+    module.person-search-index-from-delius-person-queue.sqs_arn,
+    module.person-search-index-from-delius-person-dlq.sqs_arn,
+    module.person-search-index-from-delius-contact-queue.sqs_arn,
+    module.person-search-index-from-delius-contact-dlq.sqs_arn,
+    module.refer-and-monitor-and-delius-queue.sqs_arn,
+    module.refer-and-monitor-and-delius-dlq.sqs_arn,
     module.unpaid-work-and-delius-queue.sqs_arn,
     module.unpaid-work-and-delius-dlq.sqs_arn,
     module.make-recall-decisions-and-delius-queue.sqs_arn,
@@ -22,7 +28,7 @@ locals {
 
 data "aws_iam_policy_document" "sqs_queue_policy_document" {
   statement {
-    sid     = "TopicToQueue"
+    sid     = "DomainEventsToQueue"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
@@ -33,6 +39,36 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
       values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "PrisonOffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.prison-offender-events.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "ProbationOffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }

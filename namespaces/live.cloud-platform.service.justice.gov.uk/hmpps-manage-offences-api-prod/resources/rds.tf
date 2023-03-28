@@ -1,5 +1,5 @@
 module "manage_offences_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -13,6 +13,7 @@ module "manage_offences_rds" {
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
 
+  db_password_rotated_date = "14-02-2023"
 
   providers = {
     aws = aws.london

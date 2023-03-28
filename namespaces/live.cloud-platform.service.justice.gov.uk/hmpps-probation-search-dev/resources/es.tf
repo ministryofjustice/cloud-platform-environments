@@ -1,5 +1,5 @@
 module "probation_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.0.4"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
@@ -17,6 +17,6 @@ module "probation_search_elasticsearch" {
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
   instance_type                   = "t3.medium.elasticsearch"
-  ebs_volume_size                 = 10
+  ebs_volume_size                 = 30
 }
 

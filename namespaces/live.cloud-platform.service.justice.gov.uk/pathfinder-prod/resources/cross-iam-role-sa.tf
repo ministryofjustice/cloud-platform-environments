@@ -1,10 +1,11 @@
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.6"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
   namespace        = "pathfinder-prod"
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.pathfinder_prod_ap_policy.arn]
   service_account  = "to-ap-s3-service-account-prod"
 }
+
 data "aws_iam_policy_document" "pathfinder_prod_ap_policy" {
   # "api" policy statements for the namespace
   # allows direct access to "landing" S3 bucket
@@ -18,21 +19,12 @@ data "aws_iam_policy_document" "pathfinder_prod_ap_policy" {
     ]
   }
 }
+
 resource "aws_iam_policy" "pathfinder_prod_ap_policy" {
   name   = "pathfinder_prod_ap_policy"
   policy = data.aws_iam_policy_document.pathfinder_prod_ap_policy.json
 }
-variable "pathfinder-prod-tags" {
-  type = map(string)
-  default = {
-    business-unit          = "HMPPS"
-    application            = "pathfinder"
-    is-production          = "false"
-    environment-name       = "prod"
-    owner                  = "Digital Prison Services"
-    infrastructure-support = "dps-hmpps@digital.justice.gov.uk"
-  }
-}
+
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "to-ap-s3-irsa"

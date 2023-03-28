@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
 }
 
 module "workforce-allocations-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-queue-policy" {
 }
 
 module "workforce-allocations-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.9.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -48,14 +48,14 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-dlq-policy" {
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
-resource "github_actions_environment_secret" "workforce-allocations-to-delius-secrets" {
-  for_each = {
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_NAME"              = module.workforce-allocations-to-delius-queue.sqs_name
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_ACCESS_KEY_ID"     = module.workforce-allocations-to-delius-queue.access_key_id
-    "WORKFORCE_ALLOCATIONS_TO_DELIUS_SQS_QUEUE_SECRET_ACCESS_KEY" = module.workforce-allocations-to-delius-queue.secret_access_key
+resource "kubernetes_secret" "workforce-allocations-to-delius-queue-secret" {
+  metadata {
+    name      = "workforce-allocations-to-delius-queue"
+    namespace = var.namespace
   }
-  repository      = data.github_repository.hmpps-probation-integration-services.name
-  environment     = var.github_environment_name
-  secret_name     = each.key
-  plaintext_value = each.value
+  data = {
+    QUEUE_NAME            = module.workforce-allocations-to-delius-queue.sqs_name
+    AWS_ACCESS_KEY_ID     = module.workforce-allocations-to-delius-queue.access_key_id
+    AWS_SECRET_ACCESS_KEY = module.workforce-allocations-to-delius-queue.secret_access_key
+  }
 }

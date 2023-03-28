@@ -15,7 +15,7 @@ variable "domain" {
   default = "contact-moj.service.justice.gov.uk"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
@@ -23,8 +23,6 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }

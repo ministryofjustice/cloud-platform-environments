@@ -1,26 +1,26 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
 
-  backup_window          = var.backup_window
-  maintenance_window     = var.maintenance_window
+  backup_window      = var.backup_window
+  maintenance_window = var.maintenance_window
 
   performance_insights_enabled = true
 
-  db_allocated_storage   = 200
-  db_instance_class      = "db.t3.2xlarge"
+  db_allocated_storage = 200
+  db_instance_class    = "db.t3.2xlarge"
 
-  db_engine              = "postgres"
-  db_engine_version      = "12.11"
-  rds_family             = "postgres12"
+  db_engine         = "postgres"
+  db_engine_version = "12.11"
+  rds_family        = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -48,14 +48,14 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.16.14"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
   environment-name       = var.environment-name
-  is-production          = var.is-production
-  infrastructure-support = var.infrastructure-support
+  is-production          = var.is_production
+  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_allocated_storage   = 200
   db_instance_class      = "db.t3.medium"

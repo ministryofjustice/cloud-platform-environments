@@ -6,15 +6,11 @@ variable "environment-name" {
   default = "production"
 }
 
-variable "is-production" {
-  default = "true"
-}
-
 variable "is_production" {
   default = "true"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "pecs-digital-tech@digital.justice.gov.uk"
 }
 
@@ -26,15 +22,7 @@ variable "namespace" {
   default = "hmpps-book-secure-move-api-production"
 }
 
-variable "preprod_namespace" {
-  default = "hmpps-book-secure-move-api-preprod"
-}
-
-variable "repo_name" {
-  default = "hmpps-book-secure-move-api"
-}
-
-variable "business-unit" {
+variable "business_unit" {
   default = "Digital and Technology"
 }
 

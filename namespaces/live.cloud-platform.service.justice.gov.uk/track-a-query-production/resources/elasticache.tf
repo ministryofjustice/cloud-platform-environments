@@ -4,14 +4,14 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=5.5"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
   team_name              = "correspondence"
   business-unit          = "Central Digital"
   application            = "track-a-query"
   is-production          = "true"
   environment-name       = "production"
-  infrastructure-support = "correspondence-support@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace

@@ -1,10 +1,6 @@
-
-
 variable "vpc_name" {
 }
 
-variable "cluster_state_bucket" {
-}
 
 variable "kubernetes_cluster" {
 }
@@ -61,10 +57,5 @@ variable "github_token" {
 
 variable "basic-auth-username" {
   description = "Basic auth. username of the deployed prototype website"
-  default     = "interventions"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
   default     = "interventions"
 }

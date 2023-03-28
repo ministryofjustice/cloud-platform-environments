@@ -10,7 +10,7 @@ variable "namespace" {
   default = "laa-fee-calculator-staging"
 }
 
-variable "business-unit" {
+variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "legal-aid-agency"
 }
@@ -25,7 +25,7 @@ variable "environment-name" {
   default     = "staging"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "LAA get paid team: laa-get-paid@digital.justice.gov.uk"
 }
@@ -34,7 +34,7 @@ variable "repo_name" {
   default = "laa-fee-calculator"
 }
 
-variable "is-production" {
+variable "is_production" {
   default = "false"
 }
 

@@ -1,9 +1,4 @@
-
-
 variable "vpc_name" {
-}
-
-variable "cluster_state_bucket" {
 }
 
 variable "kubernetes_cluster" {
@@ -62,26 +57,6 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN_STAGING"
 }
 
-variable "github_actions_secret_ecr_name" {
-  description = "The name of the github actions secret containing the ECR name"
-  default     = "ECR_NAME_STAGING"
-}
-
-variable "github_actions_secret_ecr_url" {
-  description = "The name of the github actions secret containing the ECR URL"
-  default     = "ECR_URL_STAGING"
-}
-
-variable "github_actions_secret_ecr_access_key" {
-  description = "The name of the github actions secret containing the ECR AWS access key"
-  default     = "ECR_AWS_ACCESS_KEY_ID_STAGING"
-}
-
-variable "github_actions_secret_ecr_secret_key" {
-  description = "The name of the github actions secret containing the ECR AWS secret key"
-  default     = "ECR_AWS_SECRET_ACCESS_KEY_STAGING"
-}
-
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
   default     = "KUBE_CLUSTER_STAGING"
@@ -97,3 +72,59 @@ variable "github_actions_secret_kube_cert" {
   default     = "KUBE_CERT_STAGING"
 }
 
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+        "certificates"
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+        "cert-manager.io"
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "certificates"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}

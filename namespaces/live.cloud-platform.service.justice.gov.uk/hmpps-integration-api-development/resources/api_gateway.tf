@@ -17,11 +17,15 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
 resource "aws_acm_certificate" "api_gateway_custom_hostname" {
   domain_name       = "${var.hostname}.${var.base_domain}"
   validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
   certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert_validations.*.fqdn
+  validation_record_fqdns = aws_route53_record.cert_validations[*].fqdn
 
   timeouts {
     create = "10m"
@@ -40,9 +44,9 @@ resource "aws_route53_record" "cert_validations" {
 
   zone_id = data.aws_route53_zone.hmpps.zone_id
 
-  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_name, count.index)
-  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_type, count.index)
-  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options.*.resource_record_value, count.index)]
+  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
+  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
+  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
   ttl     = 60
 }
 
@@ -59,7 +63,7 @@ resource "aws_route53_record" "data" {
 }
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
-  name = var.namespace
+  name                         = var.namespace
   disable_execute_api_endpoint = true
 
   endpoint_configuration {
@@ -134,6 +138,14 @@ resource "aws_api_gateway_usage_plan_key" "team" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
+# This block gets around the deprecation notice/ambiguous interpolation warning when using
+# a variable for a key
+locals {
+  api_keys_data = {
+    for team_name in [var.team_name] :
+    team_name => aws_api_gateway_api_key.team.value
+  }
+}
 
 resource "kubernetes_secret" "api_keys" {
   metadata {
@@ -141,9 +153,7 @@ resource "kubernetes_secret" "api_keys" {
     namespace = var.namespace
   }
 
-  data = {
-    "${var.team_name}" = aws_api_gateway_api_key.team.value
-  }
+  data = local.api_keys_data
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {

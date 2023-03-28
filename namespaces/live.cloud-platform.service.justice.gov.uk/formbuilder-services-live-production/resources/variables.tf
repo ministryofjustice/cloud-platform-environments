@@ -1,4 +1,4 @@
-variable "is-production" {
+variable "is_production" {
   default = "true"
 }
 
@@ -10,7 +10,7 @@ variable "team_name" {
   default = "formbuilder"
 }
 
-variable "infrastructure-support" {
+variable "infrastructure_support" {
   default = "Form Builder form-builder-team@digital.justice.gov.uk"
 }
 
