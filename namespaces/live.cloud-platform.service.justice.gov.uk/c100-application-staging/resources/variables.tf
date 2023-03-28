@@ -33,7 +33,11 @@ variable "repo_name" {
 # Database 
 
 variable "db_engine_version" {
-  default = "14.4"
+  default = "10"
+}
+
+variable "db_instance_class" {
+  default = "db.t3.small"
 }
 
 variable "db_engine_family" {
