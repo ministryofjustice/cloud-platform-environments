@@ -12,8 +12,8 @@ module "contact_moj_elasticache_redis" {
   is-production          = "false"
   environment-name       = var.environment
   infrastructure-support = "staffservices@digital.justice.gov.uk"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   providers = {
