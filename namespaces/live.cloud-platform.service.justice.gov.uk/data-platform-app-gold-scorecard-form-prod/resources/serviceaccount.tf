@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.8.1"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -8,7 +8,7 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["gold-scorecard-form"]
 
-  github_environments = ["prod", "dev"]
+  github_environments = ["prod"]
 
   serviceaccount_rules = [
     {
