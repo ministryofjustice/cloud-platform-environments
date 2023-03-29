@@ -36,6 +36,10 @@ variable "db_engine_version" {
   default = "14.4"
 }
 
+variable "db_instance_class" {
+  default = "db.t4g.small"
+}
+
 variable "db_engine_family" {
   default = "postgres14"
 }
