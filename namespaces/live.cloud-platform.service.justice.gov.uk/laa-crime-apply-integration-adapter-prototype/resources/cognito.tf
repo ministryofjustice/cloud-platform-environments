@@ -7,6 +7,9 @@ resource "aws_cognito_user_pool_client" "client" {
   user_pool_id          = aws_cognito_user_pool.pool.id
   explicit_auth_flows   = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows   = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes = [var.resource_server_scope_name]
+  prevent_user_existence_errors = "ENABLED"
   generate_secret       = true
 }
 
