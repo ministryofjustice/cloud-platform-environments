@@ -1,6 +1,16 @@
 resource "aws_apigatewayv2_api" "gateway" {
   name = var.api_gateway_name
   protocol_type = "HTTP"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_apigatewayv2_authorizer" "auth" {

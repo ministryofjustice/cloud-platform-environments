@@ -1,5 +1,23 @@
 resource "aws_cognito_user_pool" "pool" {
   name = var.user_pool_name
+
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "admin_only"
+      priority = 1
+    }
+  }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+  
 }
 
 resource "aws_cognito_user_pool_client" "client" {
