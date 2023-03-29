@@ -14,5 +14,5 @@ resource "pingdom_check" "cfe-civil-uat" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integrationids           = [ ]
+  integrationids           = [128662]
 }
