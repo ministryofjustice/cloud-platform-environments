@@ -34,4 +34,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }} # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
       - run: rm -r namespace-resources-cli-template # remove the template from being linted
+      - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
       - run: tflint -c $(realpath .tflint.hcl) -f compact --recursive --only=terraform_comment_syntax --only=terraform_deprecated_index --only=terraform_deprecated_interpolation --only=terraform_documented_outputs --only=terraform_empty_list_equality --only=terraform_module_pinned_source --only=terraform_module_version --only=terraform_required_providers --only=terraform_required_version --only=terraform_unused_required_providers --only=terraform_workspace_remote # enable rules that pass at the current time only, whilst the others are rectified on multiple namespaces (see: https://github.com/terraform-linters/tflint-ruleset-terraform/tree/main/docs/rules)
