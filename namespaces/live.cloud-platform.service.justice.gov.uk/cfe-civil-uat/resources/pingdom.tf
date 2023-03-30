@@ -3,8 +3,8 @@ provider "pingdom" {
 
 resource "pingdom_check" "cfe-civil-uat" {
   type                     = "http"
-  name                     = "Eligibility Platform - CFE Civil staging - ping"
-  host                     = "main-cfe-civil-uat.service.justice.gov.uk"
+  name                     = "Eligibility Platform - CFE Civil UAT - ping"
+  host                     = "main-cfe-civil-uat.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -14,4 +14,5 @@ resource "pingdom_check" "cfe-civil-uat" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
   probefilters             = "region:EU"
+  integrationids           = [128662]
 }
