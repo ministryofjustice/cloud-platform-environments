@@ -17,12 +17,12 @@ resource "aws_apigatewayv2_authorizer" "auth" {
 }
 
 resource "aws_apigatewayv2_integration" "test_api" {
-    api_id                          = aws_apigatewayv2_api.gateway.id
-    integration_method              = "ANY"
-    connection_type                 = "INTERNET"
-    integration_type                = "HTTP_PROXY"
-    integration_uri                 = "https://${aws_apigatewayv2_api.gateway.id}.execute-api.${var.apigw_region}.amazonaws.com/${var.apigw_stage_name}/test"        
-    passthrough_behavior            = "WHEN_NO_MATCH"
+  api_id                          = aws_apigatewayv2_api.gateway.id
+  integration_method              = "ANY"
+  connection_type                 = "INTERNET"
+  integration_type                = "HTTP_PROXY"
+  integration_uri                 = "https://${aws_apigatewayv2_api.gateway.id}.execute-api.${var.apigw_region}.amazonaws.com/${var.apigw_stage_name}/test"        
+  passthrough_behavior            = "WHEN_NO_MATCH"
 }
 
 resource "aws_apigatewayv2_route" "route" {
@@ -31,9 +31,11 @@ resource "aws_apigatewayv2_route" "route" {
   target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
+  authorization_scopes = aws_cognito_resource_server.resource.scope_identifiers
 }
 
 resource "aws_apigatewayv2_stage" "stage" {
   api_id = aws_apigatewayv2_api.gateway.id
   name   = var.apigw_stage_name
+  auto_deploy = true
 }
