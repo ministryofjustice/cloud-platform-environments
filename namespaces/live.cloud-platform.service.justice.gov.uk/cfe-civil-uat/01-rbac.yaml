@@ -5,7 +5,7 @@ metadata:
   namespace: cfe-civil-uat
 subjects:
   - kind: Group
-    name: "github:laa-estimate-eligibility"
+    name: "github:laa-eligibility-platform"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
