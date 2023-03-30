@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
 
   team_name              = "peoplefinder"
   business-unit          = "Central Digital"
