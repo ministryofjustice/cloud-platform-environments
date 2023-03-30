@@ -1094,4 +1094,3 @@ metadata:
     prometheus: cloud-platform
   name: manage-soc-cases-golden-signals-dashboard
   namespace: manage-soc-cases-dev
-  uid: f4a91370-0a6d-474a-bc8a-c84ca984b587
