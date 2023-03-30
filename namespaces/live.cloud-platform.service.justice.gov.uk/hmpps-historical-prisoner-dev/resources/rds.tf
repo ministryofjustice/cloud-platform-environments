@@ -6,13 +6,13 @@ module "hmpps_historical_prisoner_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine              = "sqlserver-web"
+  db_engine              = "sqlserver-ex"
   db_engine_version      = "15.00"
   db_instance_class      = "db.t3.small"
   db_allocated_storage   = "10"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  rds_family             = "sqlserver-web-15.0"
+  rds_family             = "sqlserver-ex-15.0"
   db_parameter           = []
   license_model          = "license-included"
 
