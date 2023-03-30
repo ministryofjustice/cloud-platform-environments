@@ -9,7 +9,7 @@ module "hmpps_historical_prisoner_rds" {
   db_engine              = "sqlserver-ex"
   db_engine_version      = "15.00"
   db_instance_class      = "db.t3.small"
-  db_allocated_storage   = 10
+  db_allocated_storage   = 20
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   rds_family             = "sqlserver-ex-15.0"
