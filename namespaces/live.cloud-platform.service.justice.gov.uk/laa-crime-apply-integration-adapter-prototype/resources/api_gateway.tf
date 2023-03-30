@@ -1,6 +1,7 @@
 resource "aws_apigatewayv2_api" "gateway" {
   name = var.api_gateway_name
   protocol_type = "HTTP"
+
 }
 
 resource "aws_apigatewayv2_authorizer" "auth" {
@@ -20,13 +21,13 @@ resource "aws_apigatewayv2_integration" "test_api" {
     integration_method              = "ANY"
     connection_type                 = "INTERNET"
     integration_type                = "HTTP_PROXY"
-    integration_uri                 = "https://${aws_apigatewayv2_api.gateway.id}.execute-api.${var.apigw_region}.amazonaws.com/${var.apigw_stage_name}/test"       
+    integration_uri                 = "https://${aws_apigatewayv2_api.gateway.id}.execute-api.${var.apigw_region}.amazonaws.com/${var.apigw_stage_name}/test"        
     passthrough_behavior            = "WHEN_NO_MATCH"
 }
 
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "GET /v1/test"
+  route_key = "ANY /test"
   target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id

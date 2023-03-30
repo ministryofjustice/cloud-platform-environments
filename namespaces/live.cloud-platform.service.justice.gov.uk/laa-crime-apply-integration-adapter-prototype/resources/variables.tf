@@ -83,7 +83,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Crime Apps Core"
+  default     = "laa-crime-apps-team"
 }
 
 variable "environment" {
