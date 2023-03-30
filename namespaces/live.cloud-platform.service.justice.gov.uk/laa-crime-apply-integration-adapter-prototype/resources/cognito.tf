@@ -7,10 +7,6 @@ resource "aws_cognito_user_pool" "pool" {
       priority = 1
     }
   }
-
-  tags = {
-    GithubTeam = var.team_name
-  }
   
 }
 

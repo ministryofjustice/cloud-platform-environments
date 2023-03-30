@@ -2,9 +2,6 @@ resource "aws_apigatewayv2_api" "gateway" {
   name = var.api_gateway_name
   protocol_type = "HTTP"
 
-  tags = {
-    GithubTeam = var.team_name
-  }
 }
 
 resource "aws_apigatewayv2_authorizer" "auth" {
