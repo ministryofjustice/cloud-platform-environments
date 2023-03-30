@@ -1,5 +1,5 @@
 module "events_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   sqs_name = "${var.namespace}-events-sqs"
 
@@ -56,7 +56,7 @@ resource "kubernetes_secret" "events_sqs" {
 }
 
 module "events_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   sqs_name = "${var.namespace}-events-sqs-dlq"
 
