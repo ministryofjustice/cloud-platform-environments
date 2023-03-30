@@ -11,7 +11,7 @@ module "rds" {
   performance_insights_enabled = false
 
   # general options
-  db_instance_class           = "db.t2.small"
+  db_instance_class           = "db.t4g.small"
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
