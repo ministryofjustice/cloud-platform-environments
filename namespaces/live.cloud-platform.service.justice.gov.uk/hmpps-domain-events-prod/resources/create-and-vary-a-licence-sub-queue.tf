@@ -1,5 +1,5 @@
 module "cvl_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -22,7 +22,7 @@ module "cvl_domain_events_queue" {
 }
 
 module "cvl_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

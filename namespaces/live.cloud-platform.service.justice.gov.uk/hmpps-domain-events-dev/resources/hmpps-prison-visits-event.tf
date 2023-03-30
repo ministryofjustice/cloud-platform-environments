@@ -6,7 +6,7 @@
 ######## Main queue
 
 module "hmpps_prison_visits_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -89,7 +89,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
 ######## Dead letter queue
 
 module "hmpps_prison_visits_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

@@ -1,5 +1,5 @@
 module "ims_index_batch_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -25,7 +25,7 @@ EOF
 }
 
 module "ims_index_batch_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
