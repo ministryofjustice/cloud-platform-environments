@@ -1084,7 +1084,6 @@ metadata:
   annotations:
     meta.helm.sh/release-name: manage-soc-cases-api
     meta.helm.sh/release-namespace: manage-soc-cases-dev
-  creationTimestamp: "2021-11-29T17:24:11Z"
   labels:
     app.kubernetes.io/instance: manage-soc-cases-api
     app.kubernetes.io/managed-by: Helm
@@ -1095,5 +1094,4 @@ metadata:
     prometheus: cloud-platform
   name: manage-soc-cases-api-golden-signals-dashboard
   namespace: manage-soc-cases-dev
-  resourceVersion: "108478370"
   uid: fe44fd2d-c740-4342-a619-cc3b51b809d6
