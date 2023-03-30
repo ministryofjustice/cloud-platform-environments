@@ -65,17 +65,17 @@ resource "kubernetes_secret" "terraform_template_poc_state_lock_table" {
 }
 
 # IAM user to access S3 and DynamoDB
-resource "random_id" "id" {
+resource "random_id" "terraform_template_poc_state_id" {
   byte_length = 16
 }
 
 resource "aws_iam_user" "terraform_template_poc_state_terraform_user" {
-  name = "${local.name}-${random_id.id.hex}"
+  name = "${local.name}-${random_id.terraform_template_poc_state_id.hex}"
   path = "/system/opseng-terraform-user/"
 }
 
 resource "aws_iam_access_key" "terraform_template_poc_state_user" {
-  user = aws_iam_user.terraform_user.name
+  user = aws_iam_user.terraform_template_poc_state_terraform_user.name
 }
 
 resource "kubernetes_secret" "terraform_template_poc_state_user_secret" {
@@ -85,12 +85,12 @@ resource "kubernetes_secret" "terraform_template_poc_state_user_secret" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.terraform_user.id
-    secret_access_key = aws_iam_access_key.terraform_user.secret
+    access_key_id     = aws_iam_access_key.terraform_template_poc_state_user.id
+    secret_access_key = aws_iam_access_key.terraform_template_poc_state_user.secret
   }
 }
 
-data "aws_iam_policy_document" "policy" {
+data "aws_iam_policy_document" "terraform_template_poc_state_policy" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -146,6 +146,6 @@ data "aws_iam_policy_document" "policy" {
 
 resource "aws_iam_user_policy" "terraform_template_poc_state_policy" {
   name   = "${local.name}-s3-bucket-and-dynamodb"
-  policy = data.aws_iam_policy_document.policy.json
-  user   = aws_iam_user.terraform_user.name
+  policy = data.aws_iam_policy_document.terraform_template_poc_state_policy.json
+  user   = aws_iam_user.terraform_template_poc_state_terraform_user.name
 }
