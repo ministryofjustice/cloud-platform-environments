@@ -29,7 +29,7 @@ variable "namespace" {
 # Database 
 
 variable "db_engine_version" {
-  default = "10" # "14.4"
+  default = "14.4"
 }
 
 variable "db_instance_class" {
@@ -37,7 +37,7 @@ variable "db_instance_class" {
 }
 
 variable "db_engine_family" {
-  default = "postgres10" # "postgres14"
+  default = "postgres14"
 }
 
 # The following variable is provided at runtime by the pipeline.
