@@ -21,7 +21,7 @@ module "s3_bucket" {
                     By default buckets are private, however to create a 'public' bucket add the following two variables when calling the module:
   */
 
- //acl                           = "public-read"
+ # acl                           = "public-read"
  enable_allow_block_pub_access = false
 
  /*
