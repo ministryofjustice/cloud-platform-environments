@@ -69,16 +69,16 @@ resource "random_id" "id" {
   byte_length = 16
 }
 
-resource "aws_iam_user" "terraform_user" {
+resource "aws_iam_user" "terraform_template_poc_state_terraform_user" {
   name = "${local.name}-${random_id.id.hex}"
   path = "/system/opseng-terraform-user/"
 }
 
-resource "aws_iam_access_key" "terraform_user" {
+resource "aws_iam_access_key" "terraform_template_poc_state_user" {
   user = aws_iam_user.terraform_user.name
 }
 
-resource "kubernetes_secret" "terraform_user_secret" {
+resource "kubernetes_secret" "terraform_template_poc_state_user_secret" {
   metadata {
     name      = "${local.name}-user-aws-credentials"
     namespace = var.namespace
@@ -144,7 +144,7 @@ data "aws_iam_policy_document" "policy" {
   }
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "terraform_template_poc_state_policy" {
   name   = "${local.name}-s3-bucket-and-dynamodb"
   policy = data.aws_iam_policy_document.policy.json
   user   = aws_iam_user.terraform_user.name
