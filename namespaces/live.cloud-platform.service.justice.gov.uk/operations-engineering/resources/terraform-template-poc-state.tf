@@ -46,7 +46,7 @@ module "terraform_template_poc_state_lock_table" {
   namespace              = var.namespace
 
   hash_key          = "LockID"
-  enable_encryption = "false"
+  enable_encryption = "true"
   enable_autoscaler = "true"
 }
 
