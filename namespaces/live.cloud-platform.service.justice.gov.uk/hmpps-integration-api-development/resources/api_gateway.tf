@@ -171,7 +171,9 @@ resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
     namespace = var.namespace
   }
 
-  data = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+  data = {
+    certificate = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+  }
 }
 
 resource "aws_api_gateway_stage" "development" {
