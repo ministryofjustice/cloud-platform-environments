@@ -15,3 +15,12 @@ resource "resource-test" "test" {
     namespace = var.namespace
   }
 }
+
+resource "resource-test" "test" {
+  metadata {
+
+  }
+  tags = {
+    "test" = "test"
+  }
+}
