@@ -1084,7 +1084,6 @@ metadata:
   annotations:
     meta.helm.sh/release-name: offender-categorisation
     meta.helm.sh/release-namespace: offender-categorisation-preprod
-  creationTimestamp: "2021-11-16T09:59:07Z"
   labels:
     app.kubernetes.io/instance: offender-categorisation
     app.kubernetes.io/managed-by: Helm
@@ -1095,5 +1094,3 @@ metadata:
     prometheus: cloud-platform
   name: offender-categorisation-golden-signals-dashboard
   namespace: offender-categorisation-preprod
-  resourceVersion: "687620052"
-  uid: ef4b2c59-6646-4bd7-8844-6729c656cfc2
