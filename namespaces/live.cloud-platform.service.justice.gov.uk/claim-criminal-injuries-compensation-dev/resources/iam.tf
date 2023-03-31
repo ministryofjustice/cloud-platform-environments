@@ -108,12 +108,34 @@ data "aws_iam_policy_document" "redrive_service_access" {
   }
 
   statement {
+    sid = "AllowRedriveServiceToReadFromNotifyDLQ"
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-notify-dlq.sqs_arn
+    ]
+  }
+
+  statement {
     sid = "AllowRedriveServiceToSendToAppQueue"
     actions = [
       "sqs:SendMessage"
     ]
     resources = [
       module.claim-criminal-injuries-application-queue.sqs_arn
+    ]
+  }
+
+  statement {
+    sid = "AllowRedriveServiceToSendToNotifyQueue"
+    actions = [
+      "sqs:SendMessage"
+    ]
+    resources = [
+      module.claim-criminal-injuries-notify-queue.sqs_arn
     ]
   }
 }
