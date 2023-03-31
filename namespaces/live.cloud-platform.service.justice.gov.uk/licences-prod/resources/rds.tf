@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-
+  db_instance_class      = "db.t3.large"
 
   providers = {
     aws = aws.london
