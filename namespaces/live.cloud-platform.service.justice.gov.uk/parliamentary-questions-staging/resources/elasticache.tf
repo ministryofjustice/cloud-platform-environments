@@ -12,9 +12,12 @@ module "parliamentary_questions_elasticache_redis" {
   is-production          = "false"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-03-31"
 
   providers = {
     aws = aws.london

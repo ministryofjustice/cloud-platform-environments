@@ -1,5 +1,5 @@
 module "hmpps_historical_prisoner_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,7 +9,7 @@ module "hmpps_historical_prisoner_rds" {
   db_engine              = "sqlserver-ex"
   db_engine_version      = "15.00"
   db_instance_class      = "db.t3.small"
-  db_allocated_storage   = 10
+  db_allocated_storage   = 20
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   rds_family             = "sqlserver-ex-15.0"
