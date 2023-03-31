@@ -33,7 +33,7 @@ variable "db_engine_version" {
 }
 
 variable "db_instance_class" {
-  default = "db.t3.small" # "db.t4g.small"
+  default = "db.t4g.small"
 }
 
 variable "db_engine_family" {
