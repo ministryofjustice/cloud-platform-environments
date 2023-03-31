@@ -1,5 +1,5 @@
 module "update_application_status_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name           = var.environment_name
   team_name                  = var.team_name
