@@ -104,7 +104,6 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
 resource "aws_api_gateway_deployment" "development" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  stage_name  = var.environment
 
   # Force recreate of the deployment resource
   stage_description = md5(file("api_gateway.tf"))
@@ -160,4 +159,24 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn.domain_name
   stage_name  = var.environment
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client" {
+  description = "Client certificate presented to the backend API"
+}
+
+resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
+  metadata {
+    name      = "api-gateway-client-certificate"
+    namespace = var.namespace
+  }
+
+  data = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+}
+
+resource "aws_api_gateway_stage" "development" {
+  deployment_id = aws_api_gateway_deployment.development.id
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+  stage_name    = var.namespace
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
 }
