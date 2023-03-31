@@ -124,11 +124,10 @@ resource "aws_api_gateway_api_key" "team" {
 
 resource "aws_api_gateway_usage_plan" "default" {
   name = var.namespace
-  stage = aws_api_gateway_stage.development.id
 
   api_stages {
     api_id = aws_api_gateway_rest_api.api_gateway.id
-    stage  = aws_api_gateway_deployment.development.stage_name
+    stage  = aws_api_gateway_stage.development.stage_name
   }
 }
 
