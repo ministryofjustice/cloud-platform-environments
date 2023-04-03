@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: abundant-namespace-staging
+  namespace: laa-crime-applications-adaptor-prod
 spec:
   hard:
     pods: "50"
