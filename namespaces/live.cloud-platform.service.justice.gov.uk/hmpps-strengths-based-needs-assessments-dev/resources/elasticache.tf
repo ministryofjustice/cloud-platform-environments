@@ -19,7 +19,7 @@ module "hmpps_strengths_based_needs_assessments_dev_elasticache_redis" {
 
 resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_dev_elasticache_redis" {
   metadata {
-    name      = "hmpps-strengths-based-needs-assessments-dev-elasticache-redis"
+    name      = "hmpps-strengths-based-needs-assessments-elasticache-redis"
     namespace = var.namespace
   }
 
