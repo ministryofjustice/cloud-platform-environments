@@ -4,6 +4,9 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "jakemulley-development"
@@ -51,7 +54,3 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
-
-variable "eks_cluster_name" {
-}
-
