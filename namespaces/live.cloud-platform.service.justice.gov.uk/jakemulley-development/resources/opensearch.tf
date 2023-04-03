@@ -9,10 +9,10 @@ module "opensearch_all" {
   cluster_config = {
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "t3.medium.search"
+    dedicated_master_type    = "c6g.large.search"
 
     instance_count = 3
-    instance_type  = "t3.medium.search"
+    instance_type  = "c6g.large.search"
 
     warm_enabled = true
     warm_count   = 3
