@@ -38,4 +38,10 @@ resource "aws_apigatewayv2_stage" "stage" {
   api_id = aws_apigatewayv2_api.gateway.id
   name   = var.apigw_stage_name
   auto_deploy = true
+
+  default_route_settings {
+    logging_level = "INFO"
+    detailed_metrics_enabled = true
+  }
+
 }
