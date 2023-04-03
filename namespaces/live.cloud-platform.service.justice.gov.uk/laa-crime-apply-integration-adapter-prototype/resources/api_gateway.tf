@@ -43,10 +43,9 @@ resource "aws_apigatewayv2_deployment" "deployment" {
   description = "API Gateway deployment"
 
   triggers = {
-    redeployment = sha1(join(",", list(
-      jsonencode(aws_apigatewayv2_integration.test_api),
-      jsonencode(aws_apigatewayv2_route.route),
-    )))
+    redeployment = sha1(join(",", tolist([
+      jsonencode(aws_apigatewayv2_integration.test_api), 
+    ])))
   }
 
   lifecycle {
@@ -55,8 +54,8 @@ resource "aws_apigatewayv2_deployment" "deployment" {
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
+    aws_apigatewayv2_route.route,
     aws_apigatewayv2_integration.test_api,
-    aws_apigatewayv2_route.route
   ]
 }
 
