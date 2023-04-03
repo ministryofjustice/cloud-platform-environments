@@ -80,7 +80,9 @@ resource "aws_sns_topic_subscription" "hmpps_tier_calculation_domain_events_subs
   filter_policy = jsonencode({
     eventType = [
       "enforcement.breach.raised",
-      "enforcement.breach.concluded"
+      "enforcement.breach.concluded",
+      "person.risk.registration.added",
+      "person.risk.registration.ended"
     ]
   })
 }
