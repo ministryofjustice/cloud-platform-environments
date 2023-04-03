@@ -48,6 +48,10 @@ variable "cognito_user_pool_domain_name" {
      default = "crime-apply-integration-adapter-prototype"
 }
 
+variable "access_log_retention_in_days" {
+     default = 7
+}
+
 variable "vpc_name" {
 }
 
@@ -66,6 +70,7 @@ variable "VPCSubnets" {
 variable "apigw_region" {
   default = "eu-west-2"
 }
+
 
 variable "application" {
   description = "Name of Application you are deploying"
