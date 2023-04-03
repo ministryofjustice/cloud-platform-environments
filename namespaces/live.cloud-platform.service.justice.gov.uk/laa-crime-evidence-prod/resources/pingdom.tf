@@ -9,7 +9,7 @@ resource "pingdom_check" "laa-crime-evidence-prod" {
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_laa-crime-evidence,component_ping,isproduction_false,environment_prod,owner_laa-crime-apps-team"
+  tags                     = "businessunit_laa,application_laa-crime-evidence,component_ping,isproduction_true,environment_prod,owner_laa-crime-apps-team"
   probefilters             = "region:EU"
   integrationids           = [121160]
 }

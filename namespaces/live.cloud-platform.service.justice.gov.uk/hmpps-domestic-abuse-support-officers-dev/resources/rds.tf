@@ -32,7 +32,7 @@ module "rds" {
   db_engine_version = "10.5.16"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.micro" # Just used for a POC at this stage
+  db_instance_class = "db.t4g.micro" # Just used for a POC at this stage
 
   # Pick the one that defines the mariadb version the best
   rds_family = "mariadb10.5"
@@ -54,7 +54,7 @@ module "rds" {
   allow_minor_version_upgrade = "false"
 
   # This will rotate the db password. Update the value to the current date.
-  db_password_rotated_date  = "08-03-2023"
+  db_password_rotated_date = "08-03-2023"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
