@@ -72,7 +72,18 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.activities_domain_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.cell.move",
+      "incentives.iep-review.inserted",
+      "incentives.iep-review.updated",
+      "incentives.iep-review.deleted"
+    ]
+  })
+
 }
 
 resource "kubernetes_secret" "activities_domain_events_queue" {
