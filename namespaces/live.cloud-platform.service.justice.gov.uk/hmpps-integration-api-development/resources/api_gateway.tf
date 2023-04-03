@@ -158,7 +158,7 @@ resource "kubernetes_secret" "api_keys" {
 resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn.domain_name
-  stage_name  = var.environment
+  stage_name  = aws_api_gateway_stage.development.stage_name
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
