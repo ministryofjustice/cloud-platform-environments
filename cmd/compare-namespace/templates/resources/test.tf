@@ -3,7 +3,7 @@ module "module-test" {
 }
 
 module "module-test" {
-  
+
   tags = {
     "test" = "test"
   }
