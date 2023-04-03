@@ -245,14 +245,18 @@ func main() {
 					rtn := block.Labels()
 					mm.ResourceTypeName = rtn[1]
 					mm.ResourceNamespace, mm.ResourceName = resourceType(block)
-					if !strings.Contains(mm.ResourceNamespace, mm.RepositoryNamespace) {
+					if mm.ResourceNamespace == "" {
+						fmt.Println("Namespace not found in Resource, skipping")
+					} else if !strings.Contains(mm.ResourceNamespace, mm.RepositoryNamespace) {
 						prMessage("resource")
 					}
 				case block.Type() == "module":
 					rtn := block.Labels()
 					mm.ModuleTypeName = rtn[0]
 					mm.ModuleNamespace = moduleType(block)
-					if !strings.Contains(mm.ModuleNamespace, mm.RepositoryNamespace) {
+					if mm.ModuleNamespace == "" {
+						fmt.Println("Namespace not found in Resource, skipping")
+					} else if !strings.Contains(mm.ModuleNamespace, mm.RepositoryNamespace) {
 						prMessage("module")
 					}
 				}
