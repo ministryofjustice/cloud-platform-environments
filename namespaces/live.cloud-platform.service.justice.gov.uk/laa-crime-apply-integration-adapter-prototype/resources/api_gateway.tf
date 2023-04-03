@@ -2,6 +2,10 @@ resource "aws_apigatewayv2_api" "gateway" {
   name = var.api_gateway_name
   protocol_type = "HTTP"
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
 }
 
 resource "aws_apigatewayv2_authorizer" "auth" {
@@ -34,10 +38,40 @@ resource "aws_apigatewayv2_route" "route" {
   authorization_scopes = aws_cognito_resource_server.resource.scope_identifiers
 }
 
+resource "aws_apigatewayv2_deployment" "deployment" {
+  api_id      = aws_apigatewayv2_api.gateway.id
+  description = "API Gateway deployment"
+
+  triggers = {
+    redeployment = sha1(join(",", tolist([
+      jsonencode(aws_apigatewayv2_integration.test_api), 
+    ])))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_apigatewayv2_api.gateway,
+    aws_apigatewayv2_route.route,
+    aws_apigatewayv2_integration.test_api,
+  ]
+}
+
 resource "aws_apigatewayv2_stage" "stage" {
   api_id = aws_apigatewayv2_api.gateway.id
   name   = var.apigw_stage_name
-  auto_deploy = true
+  deployment_id = aws_apigatewayv2_deployment.deployment.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_apigatewayv2_api.gateway,
+    aws_apigatewayv2_deployment.deployment
+  ]
 
   default_route_settings {
     logging_level = "INFO"
