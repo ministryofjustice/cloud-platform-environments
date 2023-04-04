@@ -1,4 +1,4 @@
-module "opensearch" {
+module "opensearch_non_production" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-ebs-sg" # use the latest release
 
   # VPC/EKS configuration
@@ -9,8 +9,12 @@ module "opensearch" {
   engine_version = "OpenSearch_2.5"
 
   cluster_config   = {
-    instance_count = 3
+    instance_count = 2
     instance_type  = "t3.medium.search"
+  }
+
+  ebs_options = {
+    volume_size = 10
   }
 
   # Tags
