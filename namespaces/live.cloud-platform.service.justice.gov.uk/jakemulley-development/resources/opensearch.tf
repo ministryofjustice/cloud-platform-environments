@@ -39,7 +39,7 @@ resource "kubernetes_secret" "opensearch" {
 }
 
 module "opensearch_production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-ebs-sg" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.0.0" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -68,7 +68,7 @@ module "opensearch_production" {
 }
 
 module "opensearch_production_huge" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-ebs-sg" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.0.0" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
