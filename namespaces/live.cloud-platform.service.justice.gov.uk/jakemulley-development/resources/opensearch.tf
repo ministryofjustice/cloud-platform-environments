@@ -1,5 +1,5 @@
 module "opensearch_non_production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-ebs-sg" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.0.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -25,4 +25,15 @@ module "opensearch_non_production" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "opensearch" {
+  metadata {
+    name      = "${var.team_name}-opensearch-proxy-url"
+    namespace = var.namespace
+  }
+
+  data = {
+    proxy_url = module.opensearch_non_production.proxy_url
+  }
 }
