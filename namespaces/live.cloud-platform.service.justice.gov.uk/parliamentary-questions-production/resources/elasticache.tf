@@ -12,8 +12,8 @@ module "parliamentary_questions_elasticache_redis" {
   is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   providers = {
