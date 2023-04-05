@@ -23,7 +23,7 @@ module "drupal_rds" {
   # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level
   db_parameter = [
     {
-      name         = "transaction_isolation"
+      name         = "tx_isolation"
       value        = "READ-COMMITTED"
       apply_method = "immediate"
     }
