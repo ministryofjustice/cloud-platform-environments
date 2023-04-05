@@ -7,7 +7,7 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version = "OpenSearch_1.0"
+  engine_version = "OpenSearch_1.3"
 
   # Non-production cluster configuration
   cluster_config = {
