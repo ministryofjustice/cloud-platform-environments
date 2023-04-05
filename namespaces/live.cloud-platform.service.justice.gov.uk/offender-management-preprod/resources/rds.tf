@@ -22,6 +22,8 @@ module "allocation-rds" {
   db_name                = "allocations"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
+  db_password_rotated_date = "2023-04-05T11:31:27Z"
+
   providers = {
     aws = aws.london
   }
