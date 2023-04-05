@@ -51,7 +51,7 @@ variable "number_cache_clusters" {
 }
 
 variable "node-type" {
-  default = "cache.t4g.small"
+  default = "cache.t2.small"
 }
 
 variable "is_production" {
