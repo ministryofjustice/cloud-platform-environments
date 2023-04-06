@@ -14,6 +14,7 @@ module "contact_moj_elasticache_redis" {
   infrastructure-support = "staffservices@digital.justice.gov.uk"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.small"
   namespace              = var.namespace
 
   providers = {
