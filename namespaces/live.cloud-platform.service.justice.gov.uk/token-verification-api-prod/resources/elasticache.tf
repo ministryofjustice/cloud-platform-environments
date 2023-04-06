@@ -10,7 +10,6 @@ module "tva_elasticache_redis" {
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-  business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
   engine_version         = "5.0.6"
