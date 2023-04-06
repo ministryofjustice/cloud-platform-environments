@@ -9,8 +9,8 @@ module "hmpps_redis" {
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = var.node-type
-  engine_version         = "6.x"
-  parameter_group_name   = "default.redis6.x"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   providers = {
