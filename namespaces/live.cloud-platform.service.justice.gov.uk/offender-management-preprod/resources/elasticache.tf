@@ -8,8 +8,8 @@ module "ec-cluster-offender-management-allocation-manager" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "5.0.6"
+  parameter_group_name   = "default.redis5.0"
   namespace              = var.namespace
 
   providers = {
