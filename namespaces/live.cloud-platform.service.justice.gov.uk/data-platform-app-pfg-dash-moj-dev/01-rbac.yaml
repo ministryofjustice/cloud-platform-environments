@@ -5,6 +5,9 @@ metadata:
   namespace: data-platform-app-pfg-dash-moj-dev
 subjects:
   - kind: Group
+    name: "github:people-analytics"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:analytics-hq"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
