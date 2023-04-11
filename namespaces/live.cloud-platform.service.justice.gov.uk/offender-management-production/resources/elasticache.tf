@@ -12,6 +12,8 @@ module "ec-cluster-offender-management-allocation-manager" {
   parameter_group_name   = "default.redis5.0"
   namespace              = var.namespace
 
+  auth_token_rotated_date = "2023-04-11T13:16:00Z"
+
   providers = {
     aws = aws.london
   }
