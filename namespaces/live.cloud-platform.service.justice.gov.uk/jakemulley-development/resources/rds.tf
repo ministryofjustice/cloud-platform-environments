@@ -27,7 +27,7 @@ module "rds_mysql" {
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
-  performance_insights_enabled = true
+  performance_insights_enabled = false
   rds_family                   = "mysql8.0"
   # rds_name
   # replicate_source_db
@@ -71,7 +71,7 @@ module "rds_mariadb" {
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
-  performance_insights_enabled = true
+  performance_insights_enabled = false
   rds_family                   = "mariadb10.6"
   # rds_name
   # replicate_source_db
