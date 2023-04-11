@@ -29,3 +29,35 @@ resource "aws_route53_record" "data_platform_technical_documentation" {
   ttl     = "300"
   records = ["ministryofjustice.github.io."]
 }
+
+resource "aws_route53_record" "data_platform_pagerduty_status_page_web" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "status.data-platform.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["cd-4a9d4d61b9ba517b444f76f11a406278.hosted-status.pagerduty.com."]
+}
+
+resource "aws_route53_record" "data_platform_pagerduty_status_page_mail" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "em9648.status.data-platform.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["u31181182.wl183.sendgrid.net."]
+}
+
+resource "aws_route53_record" "data_platform_pagerduty_status_page_mail_dkim1" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "pdt._domainkey.status.data-platform.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["pdt.domainkey.u31181182.wl183.sendgrid.net."]
+}
+
+resource "aws_route53_record" "data_platform_pagerduty_status_page_mail_dkim2" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "pdt2._domainkey.status.data-platform.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["pdt2.domainkey.u31181182.wl183.sendgrid.net."]
+}
