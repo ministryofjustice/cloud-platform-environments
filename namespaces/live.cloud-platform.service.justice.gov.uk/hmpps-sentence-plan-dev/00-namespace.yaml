@@ -9,5 +9,5 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "probation-integration-team"
     cloud-platform.justice.gov.uk/application: "Sentence Plan"
-    cloud-platform.justice.gov.uk/owner: "probation-integration-team: probation-integration-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/team-name: "probation-integration-team"
+    cloud-platform.justice.gov.uk/owner: "probation-integration: probation-integration-team@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/team-name: "probation-integration"

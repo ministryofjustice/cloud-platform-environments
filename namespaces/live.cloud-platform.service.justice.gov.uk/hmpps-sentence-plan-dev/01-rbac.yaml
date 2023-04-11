@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-sentence-plan-dev
 subjects:
   - kind: Group
-    name: "github:probation-integration-team"
+    name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
