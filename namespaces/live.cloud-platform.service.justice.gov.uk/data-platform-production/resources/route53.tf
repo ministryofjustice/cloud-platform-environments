@@ -38,6 +38,14 @@ resource "aws_route53_record" "data_platform_pagerduty_status_page_web" {
   records = ["cd-4a9d4d61b9ba517b444f76f11a406278.hosted-status.pagerduty.com."]
 }
 
+resource "aws_route53_record" "data_platform_pagerduty_status_page_web_tls_validation" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "_701f6977b827d5ad23c4f98802a51bc3.status.data-platform.service.justice.gov.uk."
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_56473aa9b1f7b9aec52ac3d3ea416721.yygwskclfy.acm-validations.aws."]
+}
+
 resource "aws_route53_record" "data_platform_pagerduty_status_page_mail" {
   zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
   name    = "em9648.status.data-platform.service.justice.gov.uk"
