@@ -28,7 +28,7 @@ module "rds_mysql" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = false
-  rds_family                   = "mysql8"
+  rds_family                   = "mysql8.0"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
