@@ -1,6 +1,6 @@
 # MySQL, MariaDB, PostgreSQL
 
-module "rds_mysql" {
+module "rds_mysql_old" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
 
   # VPC configuration
@@ -15,8 +15,8 @@ module "rds_mysql" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "mysql"
-  db_engine_version          = "8.0.32"
-  db_instance_class          = "db.t4g.micro"
+  db_engine_version          = "5.7.41"
+  db_instance_class          = "db.t3.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
   # db_name
@@ -28,7 +28,7 @@ module "rds_mysql" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = false
-  rds_family                   = "mysql8.0"
+  rds_family                   = "mysql5.7"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
@@ -44,7 +44,7 @@ module "rds_mysql" {
   team_name              = var.team_name
 }
 
-module "rds_mariadb" {
+module "rds_mariadb_old" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
 
   # VPC configuration
@@ -59,7 +59,7 @@ module "rds_mariadb" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "mariadb"
-  db_engine_version          = "10.6.12"
+  db_engine_version          = "10.5.19"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
@@ -72,7 +72,7 @@ module "rds_mariadb" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = false
-  rds_family                   = "mariadb10.6"
+  rds_family                   = "mariadb10.5"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
@@ -88,7 +88,7 @@ module "rds_mariadb" {
   team_name              = var.team_name
 }
 
-module "rds_postgresql" {
+module "rds_postgresql_old" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
 
   # VPC configuration
@@ -103,7 +103,7 @@ module "rds_postgresql" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "postgres"
-  db_engine_version          = "14.7"
+  db_engine_version          = "13.10"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
@@ -116,7 +116,7 @@ module "rds_postgresql" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = true
-  rds_family                   = "postgres14"
+  rds_family                   = "postgres13"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
