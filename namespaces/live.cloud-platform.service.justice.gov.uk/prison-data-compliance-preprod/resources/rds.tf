@@ -9,6 +9,7 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
+  db_instance_class      = "db.t3.small"
 
   providers = {
     aws = aws.london
