@@ -15,7 +15,7 @@ module "rds_mysql" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "mysql"
-  db_engine_version          = "8.0.28" # purposefully an old minor version
+  db_engine_version          = "8.0.32"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
@@ -59,7 +59,7 @@ module "rds_mariadb" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "mariadb"
-  db_engine_version          = "10.6.8" # purposefully an old minor version - mariadb does not follow semver ("10.6" is the major version, ".8" is the minor version)
+  db_engine_version          = "10.6.12"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
@@ -103,7 +103,7 @@ module "rds_postgresql" {
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
   db_engine                  = "postgres"
-  db_engine_version          = "14.3" # purposefully an old minor version
+  db_engine_version          = "14.7"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage   = "100"
