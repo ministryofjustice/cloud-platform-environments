@@ -22,7 +22,7 @@ module "rds_mysql" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
@@ -66,7 +66,7 @@ module "rds_mysql_old" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
@@ -110,7 +110,7 @@ module "rds_mariadb" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
@@ -154,7 +154,7 @@ module "rds_mariadb_old" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
@@ -198,7 +198,7 @@ module "rds_postgresql" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
@@ -243,7 +243,7 @@ module "rds_postgresql_old" {
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
-  deletion_protection        = true
+  deletion_protection        = false
   enable_rds_auto_start_stop = true
   # license_model
   maintenance_window = "Mon:00:00-Mon:03:00"
