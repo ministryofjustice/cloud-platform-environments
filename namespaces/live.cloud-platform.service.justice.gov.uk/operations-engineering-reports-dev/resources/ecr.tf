@@ -4,7 +4,31 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  github_repositories = ["operations-engineering-reports"]
+  github_repositories                  = ["operations-engineering-reports"]
+  github_actions_secret_ecr_name       = "DEV_ECR_NAME"
+  github_actions_secret_ecr_url        = "DEV_ECR_URL"
+  github_actions_secret_ecr_access_key = "DEV_ECR_ACCESS_KEY"
+  github_actions_secret_ecr_secret_key = "DEV_ECR_SECRET_KEY"
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire images older than 14 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 14
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "ecr-repo" {
