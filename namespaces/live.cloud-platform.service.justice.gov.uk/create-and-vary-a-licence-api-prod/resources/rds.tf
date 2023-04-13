@@ -12,6 +12,7 @@ module "create_and_vary_a_licence_api_rds" {
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "14.3"
   rds_family                  = "postgres14"
+  db_password_rotated_date    = "13-04-2023"
 
   providers = {
     aws = aws.london
