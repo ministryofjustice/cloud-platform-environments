@@ -59,12 +59,12 @@ type Result struct {
 }
 
 // listFiles() will gather a list of tf files to be checked for namespace comparisons using github ref for the pull request
-func listFiles() ([]*github.CommitFile, error) {
+func listFiles() []*github.CommitFile {
 	prs, _, err := client.PullRequests.ListFiles(ctx, owner, repo, bid, nil)
 	if err != nil {
-		return nil, err
+		log.Fatal("Error within listFiles: %s", err)
 	}
-	return prs, nil
+	return prs
 }
 
 // decodeFile() will read tf files and return the file to for the comparison
@@ -223,17 +223,12 @@ func main() {
 		client = github.NewClient(nil)
 	}
 
-	prs, err := listFiles()
+	prs := listFiles()
 	// setting stdout to a file
 	fname := filepath.Join(os.TempDir(), "stdout")
 	old := os.Stdout            // keep backup of the real stdout
 	temp, _ := os.Create(fname) // create temp file
 	os.Stdout = temp
-
-	// handle error if files can't be listed
-	if err != nil {
-		githubaction.Errorf("error getting files: %s", err)
-	}
 
 	// loop through all files in the PR
 	for _, pr := range prs {
@@ -243,7 +238,12 @@ func main() {
 			mm.RepositoryNamespace = fileS[2]
 			blocks, err := decodeFile()
 			if err != nil {
-				log.Fatal(err)
+				if strings.Contains(err.Error(), "no such file or directory") {
+					fmt.Printf("No file or Directory, skipping...\n")
+					continue
+				} else {
+					log.Fatal(err)
+				}
 			}
 			for _, block := range blocks {
 				switch {
