@@ -12,6 +12,8 @@ module "rds-allocation" {
 
   # enable performance insights
   performance_insights_enabled = true
+  # instance class
+  db_instance_class = "db.t3.medium"
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"
