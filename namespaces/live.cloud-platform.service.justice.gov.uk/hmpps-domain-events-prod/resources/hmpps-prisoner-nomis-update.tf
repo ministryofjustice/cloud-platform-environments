@@ -426,7 +426,14 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_to_nomis_appointment_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["appointments.appointment-instance.created"] })
+  filter_policy = jsonencode({
+    eventType = [
+      "appointments.appointment-instance.created",
+      "appointments.appointment-instance.updated",
+      "appointments.appointment-instance.cancelled",
+      "appointments.appointment-instance.deleted"
+    ]
+  })
 }
 
 ######################################## SENTENCING
