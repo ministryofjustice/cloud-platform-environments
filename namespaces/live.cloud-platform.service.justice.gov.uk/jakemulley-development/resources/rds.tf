@@ -149,9 +149,6 @@ module "rds_mariadb_old" {
   # character_set_name
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
-  db_engine                  = "mariadb"
-  db_engine_version          = "10.5.19"
-  db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
   db_max_allocated_storage = "100"
   # db_name
@@ -163,11 +160,17 @@ module "rds_mariadb_old" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = false
-  rds_family                   = "mariadb10.5"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
   # snapshot_identifier
+
+  # Upgrade testing
+  prepare_for_major_upgrade = true
+  db_engine                 = "mariadb"
+  db_engine_version         = "10.6.12"
+  db_instance_class         = "db.t4g.micro"
+  rds_family                = "mariadb10.6"
 
   # Tags
   application            = var.application
