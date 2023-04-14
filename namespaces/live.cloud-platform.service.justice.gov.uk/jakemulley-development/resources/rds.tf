@@ -75,10 +75,10 @@ module "rds_mysql_old" {
   # snapshot_identifier
 
   # Upgrade testing
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "mysql"
   db_engine_version         = "8.0.32"
-  db_instance_class         = "db.t3.micro"
+  db_instance_class         = "db.t4g.micro"
   rds_family                = "mysql8.0"
 
   # Tags
