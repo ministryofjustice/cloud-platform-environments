@@ -18,7 +18,7 @@ module "rds_mysql" {
   db_engine_version          = "8.0.32"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
@@ -45,7 +45,7 @@ module "rds_mysql" {
 }
 
 module "rds_mysql_old" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -58,11 +58,8 @@ module "rds_mysql_old" {
   # character_set_name
   db_allocated_storage       = "10"
   db_backup_retention_period = "7"
-  db_engine                  = "mysql"
-  db_engine_version          = "5.7.41"
-  db_instance_class          = "db.t3.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
@@ -72,11 +69,17 @@ module "rds_mysql_old" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   # option_group_name
   performance_insights_enabled = false
-  rds_family                   = "mysql5.7"
   # rds_name
   # replicate_source_db
   skip_final_snapshot = false
   # snapshot_identifier
+
+  # Upgrade testing
+  prepare_for_major_upgrade = true
+  db_engine                 = "mysql"
+  db_engine_version         = "8.0.32"
+  db_instance_class         = "db.t3.micro"
+  rds_family                = "mysql8.0"
 
   # Tags
   application            = var.application
@@ -106,7 +109,7 @@ module "rds_mariadb" {
   db_engine_version          = "10.6.12"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
@@ -133,7 +136,7 @@ module "rds_mariadb" {
 }
 
 module "rds_mariadb_old" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -150,7 +153,7 @@ module "rds_mariadb_old" {
   db_engine_version          = "10.5.19"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
@@ -194,7 +197,7 @@ module "rds_postgresql" {
   db_engine_version          = "14.7"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
@@ -222,7 +225,7 @@ module "rds_postgresql" {
 
 
 module "rds_postgresql_old" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -239,7 +242,7 @@ module "rds_postgresql_old" {
   db_engine_version          = "13.10"
   db_instance_class          = "db.t4g.micro"
   # db_iops                    = 0
-  db_max_allocated_storage   = "100"
+  db_max_allocated_storage = "100"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
