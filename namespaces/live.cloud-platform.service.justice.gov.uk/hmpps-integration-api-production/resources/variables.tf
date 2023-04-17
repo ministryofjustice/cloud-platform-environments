@@ -24,6 +24,11 @@ variable "team_name" {
   default     = "hmpps-integration-api-admin-team"
 }
 
+variable "clients" {
+  description = "Clients that are allowed to access API Gateway and our service"
+  default     = ("hmpps-integration-api-admin-team")
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"

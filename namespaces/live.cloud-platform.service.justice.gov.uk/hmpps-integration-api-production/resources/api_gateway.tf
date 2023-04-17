@@ -131,8 +131,8 @@ resource "aws_api_gateway_deployment" "production" {
   }
 }
 
-resource "aws_api_gateway_api_key" "team" {
-  for_each = toset([var.team_name])
+resource "aws_api_gateway_api_key" "clients" {
+  for_each = local.clients
   name = each.key
 }
 
@@ -145,8 +145,10 @@ resource "aws_api_gateway_usage_plan" "default" {
   }
 }
 
-resource "aws_api_gateway_usage_plan_key" "team" {
-  key_id        = aws_api_gateway_api_key.team.id
+resource "aws_api_gateway_usage_plan_key" "clients" {
+  for_each      = aws_api_gateway_api_key.clients
+
+  key_id        = aws_api_gateway_api_key.clients[each.key].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
@@ -155,8 +157,8 @@ resource "aws_api_gateway_usage_plan_key" "team" {
 # a variable for a key
 locals {
   api_keys_data = {
-    for team_name in [var.team_name] :
-    team_name => aws_api_gateway_api_key.team.value
+    for client in [local.clients] :
+    client => aws_api_gateway_api_key.clients.value
   }
 }
 
