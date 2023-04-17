@@ -15,7 +15,7 @@ resource "aws_iam_access_key" "api_gateway_user" {
 data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
-      "apigateway:*",
+      "apigateway:GET",
     ]
 
     resources = [
