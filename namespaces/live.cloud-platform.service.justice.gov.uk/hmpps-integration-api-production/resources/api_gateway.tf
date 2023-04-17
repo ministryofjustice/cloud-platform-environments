@@ -162,7 +162,7 @@ resource "kubernetes_secret" "api_keys" {
   }
 
   data = {
-    each.key = aws_api_gateway_api_key.clients[each.key].value
+    local.clients[each.key] = aws_api_gateway_api_key.clients[each.key].value
   }
 }
 
