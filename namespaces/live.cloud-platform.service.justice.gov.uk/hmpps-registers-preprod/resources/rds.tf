@@ -10,6 +10,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "false"
+  enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
@@ -50,6 +51,7 @@ module "prisons_rds" {
   snapshot_identifier = "rds:cloud-platform-897c419584ae8631-2022-06-30-01-33"
 
   allow_major_version_upgrade = "false"
+  enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
