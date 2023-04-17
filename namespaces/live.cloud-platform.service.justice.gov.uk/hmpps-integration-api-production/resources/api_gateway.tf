@@ -40,14 +40,21 @@ data "aws_route53_zone" "hmpps" {
 }
 
 resource "aws_route53_record" "cert_validations" {
-  count = length(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options)
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = data.aws_route53_zone.hmpps.zone_id
+    }
+  }
 
-  zone_id = data.aws_route53_zone.hmpps.zone_id
-
-  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
-  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
-  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
-  ttl     = 60
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = each.value.zone_id
 }
 
 resource "aws_route53_record" "data" {
