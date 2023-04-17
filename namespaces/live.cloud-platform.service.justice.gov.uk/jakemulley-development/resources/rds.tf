@@ -14,7 +14,7 @@ module "rds_postgresql" {
   db_backup_retention_period = "7"
   db_engine                  = "postgres"
   db_engine_version          = "14.7"
-  db_instance_class          = "db.t4g.medium"
+  db_instance_class          = "db.t4g.micro" # this should fail
   # db_iops                    = 0
   # db_max_allocated_storage = "100"
   # db_name
