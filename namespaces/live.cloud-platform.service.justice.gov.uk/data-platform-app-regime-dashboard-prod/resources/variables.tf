@@ -23,13 +23,13 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "analytics-hq"
+  default     = "moj-analytical-services"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "analytics-platform-tech@digital.justice.gov.uk"
+  default     = "CustodialPerformance.Enquiries@justice.gov.uk"
 }
 
 variable "is_production" {
