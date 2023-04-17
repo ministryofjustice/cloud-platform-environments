@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
-    cloud-platform.justice.gov.uk/slack-channel: "dash_ccdlalbs"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
     cloud-platform.justice.gov.uk/application: "moj-officehub-locator-webapp"
     cloud-platform.justice.gov.uk/owner: "moj-officehub-locator-webapp-admin-team: analytics-platform-tech@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/moj-officehub-locator-webapp"
