@@ -1,6 +1,8 @@
 resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
+
   domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
-  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname.certificate_arn
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
   security_policy          = "TLS_1_2"
 
   endpoint_configuration {
