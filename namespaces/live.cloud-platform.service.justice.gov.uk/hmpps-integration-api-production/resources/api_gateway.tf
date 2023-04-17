@@ -126,7 +126,7 @@ resource "aws_api_gateway_deployment" "production" {
 }
 
 resource "aws_api_gateway_api_key" "team" {
-  for_each = to_set([var.team_name])
+  for_each = toset([var.team_name])
   name = each.key
 }
 
