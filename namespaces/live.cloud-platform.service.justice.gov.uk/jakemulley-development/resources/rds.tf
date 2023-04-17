@@ -16,7 +16,7 @@ module "rds_postgresql" {
   db_engine_version          = "14.7"
   db_instance_class          = "db.t4g.micro" # this should fail
   # db_iops                    = 0
-  # db_max_allocated_storage = "100"
+  db_max_allocated_storage = "500"
   # db_name
   db_parameter               = []
   db_password_rotated_date   = "2023-04-05"
