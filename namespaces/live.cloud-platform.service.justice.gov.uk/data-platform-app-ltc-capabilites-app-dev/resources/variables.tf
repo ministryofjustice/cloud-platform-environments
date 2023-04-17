@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = ""
+  default     = "ltc-capabilites-app-admin-team"
 }
 
 variable "environment" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = ""
+  default     = "data-platform-application-migration-support"
 }
 
 variable "github_owner" {
