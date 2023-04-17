@@ -8,9 +8,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "licences-team"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "licences-team"
+    cloud-platform.justice.gov.uk/slack-channel: "create-and-vary-a-licence"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "create-and-vary-a-licence"
     cloud-platform.justice.gov.uk/application: "Create and vary a licence API"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/create-and-vary-a-licence-api.git"
-    cloud-platform.justice.gov.uk/team-name: "farsight-devs"
+    cloud-platform.justice.gov.uk/team-name: "create-and-vary-a-licence-devs"
