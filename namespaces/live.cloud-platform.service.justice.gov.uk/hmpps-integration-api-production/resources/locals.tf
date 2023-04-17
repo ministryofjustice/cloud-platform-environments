@@ -10,5 +10,5 @@ locals {
     GithubTeam             = var.team_name
   }
 
-  clients = (var.team_name)
+  clients = toset([var.team_name])
 }

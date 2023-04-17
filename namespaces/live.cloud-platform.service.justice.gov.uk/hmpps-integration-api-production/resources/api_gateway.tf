@@ -29,7 +29,7 @@ resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
   for_each = aws_route53_record.cert_validations
 
   certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert_validations[each.key].fqdn
+  validation_record_fqdns = toset(aws_route53_record.cert_validations[each.key].fqdn)
 
   timeouts {
     create = "10m"
