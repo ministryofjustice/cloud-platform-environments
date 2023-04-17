@@ -7,9 +7,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
-    cloud-platform.justice.gov.uk/slack-channel: ""
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
     cloud-platform.justice.gov.uk/application: "pfg-dash-moj"
     cloud-platform.justice.gov.uk/owner: "People Analytics: peopleanalytics@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pfg-dash-moj"
-    cloud-platform.justice.gov.uk/team-name: ""
+    cloud-platform.justice.gov.uk/team-name: "pfg-dash-moj-admin-team"
     cloud-platform.justice.gov.uk/review-after: ""
