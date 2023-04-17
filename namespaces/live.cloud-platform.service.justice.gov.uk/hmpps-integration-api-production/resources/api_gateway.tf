@@ -62,13 +62,15 @@ resource "aws_route53_record" "cert_validations" {
 }
 
 resource "aws_route53_record" "data" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
   zone_id = data.aws_route53_zone.hmpps.zone_id
   name    = "${var.hostname}.${data.aws_route53_zone.hmpps.name}"
   type    = "A"
 
   alias {
-    name                   = aws_api_gateway_domain_name.api_gateway_fqdn.regional_domain_name
-    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn.regional_zone_id
+    name                   = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_zone_id
     evaluate_target_health = false
   }
 }
@@ -168,8 +170,10 @@ resource "kubernetes_secret" "api_keys" {
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
   api_id      = aws_api_gateway_rest_api.api_gateway.id
-  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn.domain_name
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.production.stage_name
 }
 
