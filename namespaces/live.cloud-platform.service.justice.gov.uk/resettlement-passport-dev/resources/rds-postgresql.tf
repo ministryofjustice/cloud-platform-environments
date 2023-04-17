@@ -54,7 +54,7 @@ module "rds" {
 
   # This will limit the storage to given max value
   db_max_allocated_storage = 500
-
+  
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london

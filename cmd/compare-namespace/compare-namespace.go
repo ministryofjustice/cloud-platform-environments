@@ -62,7 +62,7 @@ type Result struct {
 func listFiles() []*github.CommitFile {
 	prs, _, err := client.PullRequests.ListFiles(ctx, owner, repo, bid, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error within listFiles: %s", err)
 	}
 	return prs
 }
@@ -230,6 +230,7 @@ func main() {
 	temp, _ := os.Create(fname) // create temp file
 	os.Stdout = temp
 
+	// loop through all files in the PR
 	for _, pr := range prs {
 		mm.File = *pr.Filename
 		if filepath.Ext(mm.File) == ".tf" {
@@ -237,7 +238,12 @@ func main() {
 			mm.RepositoryNamespace = fileS[2]
 			blocks, err := decodeFile()
 			if err != nil {
-				log.Fatal(err)
+				if strings.Contains(err.Error(), "no such file or directory") {
+					fmt.Printf("No file or Directory, skipping...\n")
+					continue
+				} else {
+					log.Fatal(err)
+				}
 			}
 			for _, block := range blocks {
 				switch {
