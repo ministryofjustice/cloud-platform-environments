@@ -153,22 +153,17 @@ resource "aws_api_gateway_usage_plan_key" "clients" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
-# This block gets around the deprecation notice/ambiguous interpolation warning when using
-# a variable for a key
-locals {
-  api_keys_data = {
-    for client in local.clients :
-    client => aws_api_gateway_api_key.clients.value
-  }
-}
-
 resource "kubernetes_secret" "api_keys" {
+  for_each = aws_api_gateway_api_key.clients
+
   metadata {
     name      = "api-gateway-api-keys"
     namespace = var.namespace
   }
 
-  data = local.api_keys_data
+  data = {
+    each.key = aws_api_gateway_api_key.clients[each.key].value
+  }
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
