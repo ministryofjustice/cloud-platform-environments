@@ -132,7 +132,7 @@ resource "aws_api_gateway_deployment" "production" {
 }
 
 resource "aws_api_gateway_api_key" "clients" {
-  for_each = local.clients
+  for_each = toset(local.clients)
   name = each.key
 }
 
