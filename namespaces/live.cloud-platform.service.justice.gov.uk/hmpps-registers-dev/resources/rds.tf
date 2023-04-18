@@ -15,6 +15,7 @@ module "dps_rds" {
   db_max_allocated_storage    = "500"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
@@ -55,6 +56,7 @@ module "prisons_rds" {
   db_max_allocated_storage    = "500"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
