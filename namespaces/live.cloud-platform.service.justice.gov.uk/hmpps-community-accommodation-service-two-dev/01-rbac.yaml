@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-community-accommodation-service-two-dev-admin
+  namespace: hmpps-community-accommodation-service-two-dev
+subjects:
+  - kind: Group
+    name: "github:hmpps-community-accommodation-service-two"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
