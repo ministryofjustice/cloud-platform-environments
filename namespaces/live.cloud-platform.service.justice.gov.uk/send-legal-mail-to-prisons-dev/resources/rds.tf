@@ -8,6 +8,7 @@ module "slmtp_api_rds" {
   namespace              = var.namespace
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  enable_rds_auto_start_stop = true
 
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.t3.small"
