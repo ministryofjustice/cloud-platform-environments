@@ -20,6 +20,7 @@ module "check-financial-eligibility-rds" {
   db_name                = "check_financial_eligibility_production"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres11"
+  deletion_protection    = true
 
   providers = {
     aws = aws.london
