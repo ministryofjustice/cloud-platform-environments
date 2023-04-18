@@ -14,6 +14,7 @@ module "track_a_query_elasticache_redis" {
   infrastructure-support = var.infrastructure_support
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.small"
   namespace              = var.namespace
 
   providers = {
