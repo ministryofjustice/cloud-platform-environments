@@ -1,5 +1,5 @@
 module "offender_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
 
   topic_display_name = "offender-events"
 
@@ -56,7 +56,7 @@ resource "kubernetes_secret" "prison-data-compliance" {
 }
 
 module "probation_offender_events" {
-  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.1"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
   topic_display_name = "probation-offender-events"
 
   business_unit          = var.business_unit
@@ -73,7 +73,7 @@ module "probation_offender_events" {
 }
 
 module "offender_assessments_events" {
-  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.1"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
   topic_display_name = "offender-assessments-events"
 
   business_unit          = var.business_unit

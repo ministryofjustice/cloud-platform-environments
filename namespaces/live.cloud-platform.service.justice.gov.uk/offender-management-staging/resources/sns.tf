@@ -1,5 +1,5 @@
 module "events_sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
 
   topic_display_name = "offender-management-staging-events"
   encrypt_sns_kms    = true
