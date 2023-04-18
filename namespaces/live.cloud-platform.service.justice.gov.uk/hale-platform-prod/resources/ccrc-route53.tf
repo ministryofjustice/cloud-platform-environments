@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "ccrc_route53_zone" {
-  name = "ccrc.service.justice.gov.uk"
+  name = "ccrc.gov.uk"
 
   tags = {
     business-unit          = var.business_unit
