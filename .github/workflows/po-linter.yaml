@@ -3,10 +3,10 @@ name: Prometheus Operator Linter
 on:
   pull_request:
     paths:
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus.yaml
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus.yml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus.yaml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus.yml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
   workflow_dispatch:
 
 jobs:

@@ -23,13 +23,13 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "analytics-hq"
+  default     = "moj-officehub-locator-webapp-admin-team"
 }
 
 variable "environment" {
