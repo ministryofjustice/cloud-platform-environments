@@ -24,6 +24,8 @@ module "rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
 
+  deletion_protection = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
