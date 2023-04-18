@@ -19,9 +19,15 @@ module "drupal_rds" {
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
 
-  # We need to explicitly set this to an empty list, otherwise the module
-  # will add `rds.force_ssl`, which MariaDB doesn't support
-  db_parameter = []
+  # The recommended transaction isolation level for Drupal is READ-COMMITTED.
+  # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level
+  db_parameter = [
+    {
+      name         = "tx_isolation"
+      value        = "READ-COMMITTED"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "drupal_rds" {
