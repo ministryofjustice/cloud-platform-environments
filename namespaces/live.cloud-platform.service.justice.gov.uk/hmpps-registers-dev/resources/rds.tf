@@ -9,7 +9,7 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
@@ -50,7 +50,7 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
