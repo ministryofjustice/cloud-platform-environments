@@ -6,15 +6,16 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  vpc_name                 = var.vpc_name
+  team_name                = var.team_name
+  business-unit            = var.business_unit
+  application              = var.application
+  is-production            = var.is_production
+  environment-name         = var.environment
+  infrastructure-support   = var.infrastructure_support
+  namespace                = var.namespace
+  db_password_rotated_date = "13-04-2023"
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)

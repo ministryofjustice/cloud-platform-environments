@@ -4,7 +4,8 @@ resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscr
   endpoint  = module.refer-and-monitor-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "intervention.referral.ended"
+      "intervention.referral.ended",
+      "intervention.session-appointment.session-feedback-submitted"
     ]
   })
 }

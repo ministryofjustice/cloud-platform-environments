@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-eligibility-platform"
     cloud-platform.justice.gov.uk/application: "CFE Civil"
-    cloud-platform.justice.gov.uk/owner: "Eligibility Platform: eligibility-platform@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Eligibility Platform: eligibility-platform@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cfe-civil"
     cloud-platform.justice.gov.uk/team-name: "laa-eligibility-platform"
     cloud-platform.justice.gov.uk/review-after: ""
