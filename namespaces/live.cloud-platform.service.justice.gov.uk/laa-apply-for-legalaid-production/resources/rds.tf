@@ -19,6 +19,7 @@ module "apply-for-legal-aid-rds" {
   db_engine_version      = "11"
   db_name                = "apply_for_legal_aid_production"
   rds_family             = "postgres11"
+  deletion_protection    = true
 
   providers = {
     aws = aws.london
