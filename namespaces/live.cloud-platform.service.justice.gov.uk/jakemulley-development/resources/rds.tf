@@ -1,5 +1,5 @@
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -37,10 +37,13 @@ module "rds_mssql" {
   is-production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # testing
+  prepare_for_major_upgrade = true
 }
 
 module "rds_mysql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -68,10 +71,12 @@ module "rds_mysql" {
   is-production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  prepare_for_major_upgrade = true
 }
 
 module "rds_mariadb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -99,10 +104,12 @@ module "rds_mariadb" {
   is-production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  prepare_for_major_upgrade = true
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=prepare-for-upgrade-var"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -129,4 +136,6 @@ module "rds" {
   is-production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  prepare_for_major_upgrade = true
 }
