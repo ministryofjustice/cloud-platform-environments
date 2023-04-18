@@ -39,7 +39,7 @@ module "rds_mssql" {
   team_name              = var.team_name
 
   # testing
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 }
 
 module "rds_mysql" {
@@ -72,7 +72,7 @@ module "rds_mysql" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 }
 
 module "rds_mariadb" {
@@ -105,7 +105,7 @@ module "rds_mariadb" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 }
 
 module "rds" {
@@ -137,5 +137,5 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 }
