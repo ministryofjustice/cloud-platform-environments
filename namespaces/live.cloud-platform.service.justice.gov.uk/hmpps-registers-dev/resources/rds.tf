@@ -12,6 +12,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
 
@@ -51,6 +52,7 @@ module "prisons_rds" {
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
   rds_family                  = "postgres14"
   db_engine_version           = "14"
 
