@@ -13,6 +13,7 @@ module "rp_rds" {
   db_engine_version        = "14"
   rds_family               = "postgres14"
   db_password_rotated_date = "15-02-2023"
+  deletion_protection      = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
