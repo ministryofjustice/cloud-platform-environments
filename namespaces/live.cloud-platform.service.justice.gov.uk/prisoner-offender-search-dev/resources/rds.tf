@@ -14,6 +14,7 @@ module "pos_rds" {
   rds_family                  = "postgres14"
   db_engine_version           = "14"
   db_password_rotated_date    = "2023-02-21"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
