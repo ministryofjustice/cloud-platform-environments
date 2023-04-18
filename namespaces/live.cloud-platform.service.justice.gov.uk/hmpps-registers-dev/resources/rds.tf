@@ -13,8 +13,8 @@ module "dps_rds" {
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
 
   providers = {
     aws = aws.london
@@ -53,8 +53,8 @@ module "prisons_rds" {
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
 
   providers = {
     aws = aws.london
