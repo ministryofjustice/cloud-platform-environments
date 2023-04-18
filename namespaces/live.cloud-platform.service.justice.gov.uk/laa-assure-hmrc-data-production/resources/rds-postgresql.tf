@@ -42,6 +42,8 @@ module "rds" {
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
 
+  deletion_protection = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
