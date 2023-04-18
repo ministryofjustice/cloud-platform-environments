@@ -1,0 +1,64 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: magistrates.judiciary.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: magistrates-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - magistrates.judiciary.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: victimscommissioner.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimscommissioner-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - victimscommissioner.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: publicdefenderservice.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: publicdefenderservice-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - publicdefenderservice.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: imb.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: imb-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - imb.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ccrc.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ccrc-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - ccrc.gov.uk
