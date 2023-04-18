@@ -58,6 +58,7 @@ module "rds_mysql" {
   db_engine_version = "8.0.32"
   rds_family        = "mysql8.0"
   db_instance_class = "db.t4g.micro"
+  db_parameter      = []
 
   # Tags
   application            = var.application
@@ -88,6 +89,7 @@ module "rds_mariadb" {
   db_engine_version = "10.6.12"
   rds_family        = "mariadb10.6"
   db_instance_class = "db.t4g.micro"
+  db_parameter      = []
 
   # Tags
   application            = var.application
