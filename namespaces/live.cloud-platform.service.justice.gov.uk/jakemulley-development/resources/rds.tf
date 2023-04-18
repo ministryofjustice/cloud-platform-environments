@@ -1,5 +1,5 @@
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -40,7 +40,7 @@ module "rds_mssql" {
 }
 
 module "rds_mysql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -71,7 +71,7 @@ module "rds_mysql" {
 }
 
 module "rds_mariadb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -102,7 +102,7 @@ module "rds_mariadb" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
