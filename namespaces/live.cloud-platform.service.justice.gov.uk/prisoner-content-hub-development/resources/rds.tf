@@ -9,7 +9,7 @@ module "drupal_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  db_instance_class      = "db.t3.medium"
+  db_instance_class      = "db.t4g.medium"
   enable_rds_auto_start_stop = true
 
 
