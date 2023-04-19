@@ -15,7 +15,7 @@ module "allocation-rds" {
   is-production          = "true"
   namespace              = var.namespace
   environment-name       = "production"
-  infrastructure-support = "omic@digital.justice.gov.uk"
+  infrastructure-support = "manage-pom-cases@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "14.3"
   rds_family             = "postgres14"
