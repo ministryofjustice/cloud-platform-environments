@@ -38,6 +38,6 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "create-and-vary-a-licence-team"
+  default     = "create-and-vary-a-licence"
 }
 
