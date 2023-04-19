@@ -8,8 +8,8 @@ module "ec-cluster-offender-management-allocation-manager" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
-  engine_version         = "5.0.6"
-  parameter_group_name   = "default.redis5.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-04-05T17:15:00Z"
