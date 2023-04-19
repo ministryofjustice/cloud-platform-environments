@@ -8,7 +8,7 @@ module "allocation-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t4g.small"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
