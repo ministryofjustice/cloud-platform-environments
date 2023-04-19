@@ -8,6 +8,6 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "Offender Management in Custody services"
-    cloud-platform.justice.gov.uk/owner: "Offender Management Team: omic@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Offender Management Team: manage-pom-cases@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offender-management-allocation-manager"
     cloud-platform.justice.gov.uk/slack-channel: "ask_moic_pvb"
