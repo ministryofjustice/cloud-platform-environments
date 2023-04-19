@@ -118,8 +118,13 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 resource "aws_api_gateway_deployment" "production" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
-  # Force recreate of the deployment resource
-  stage_description = md5(file("api_gateway.tf"))
+  triggers = {
+    redeployment = sha1(jsonencode([
+      # "manual-deploy-trigger",
+      var.cloud_platform_integration_api_url,
+      md5(file("api_gateway.tf"))
+    ]))
+  }
 
   depends_on = [
     aws_api_gateway_method.proxy,
