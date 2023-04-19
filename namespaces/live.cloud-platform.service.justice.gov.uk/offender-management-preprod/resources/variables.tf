@@ -6,12 +6,20 @@
 variable "vpc_name" {
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default = "preprod"
 }
 
 variable "team_name" {
   default = "offender-management"
+}
+
+variable "application" {
+  default = "offender-management-allocation-manager"
+}
+
+variable "business_unit" {
+  default = "HMPPS"
 }
 
 variable "is_production" {
@@ -24,8 +32,4 @@ variable "namespace" {
 
 variable "infrastructure_support" {
   default = "manage-pom-cases@digital.justice.gov.uk"
-}
-
-variable "business_unit" {
-  default = "HMPPS"
 }
