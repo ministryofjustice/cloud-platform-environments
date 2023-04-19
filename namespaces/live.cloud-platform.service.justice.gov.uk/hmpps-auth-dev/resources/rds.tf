@@ -11,8 +11,10 @@ module "dps_rds" {
   rds_family             = var.rds-family
   db_instance_class      = var.db_instance_class
   db_engine_version      = var.db_engine_version
-
-  allow_major_version_upgrade = "false"
+  db_max_allocated_storage  = "500"
+  deletion_protection       = true
+  prepare_for_major_upgrade = true
+  db_engine                 = "postgres"
 
   providers = {
     aws = aws.london
