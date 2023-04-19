@@ -10,7 +10,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure_support
   rds_family             = var.rds-family
   db_instance_class         = "db.t4g.small"
-  db_max_allocated_storage  = "500"
+  db_max_allocated_storage  = "10000"
   deletion_protection       = true
   prepare_for_major_upgrade = true
   db_engine                 = "postgres"
