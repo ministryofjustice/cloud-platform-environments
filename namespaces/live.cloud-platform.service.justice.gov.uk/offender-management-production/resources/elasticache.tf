@@ -4,7 +4,7 @@ module "ec-cluster-offender-management-allocation-manager" {
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
   is-production          = var.is_production
-  node_type              = "cache.m4.large"
+  node_type              = "cache.t4g.medium"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
