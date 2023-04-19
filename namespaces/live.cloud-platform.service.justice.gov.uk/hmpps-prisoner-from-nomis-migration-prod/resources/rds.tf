@@ -10,7 +10,7 @@ module "nomis_migration_rds" {
   infrastructure-support      = var.infrastructure_support
   rds_family                  = "postgres14"
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
   db_engine_version           = "14"
   db_password_rotated_date    = "2023-02-21"
   deletion_protection         = true
