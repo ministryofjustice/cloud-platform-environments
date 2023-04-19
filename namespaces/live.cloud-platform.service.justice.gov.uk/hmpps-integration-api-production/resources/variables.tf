@@ -69,5 +69,5 @@ variable "hostname" {
 
 variable "cloud_platform_integration_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
-  default     = "https://hmpps-integration-api.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "https://hmpps-integration-api-production.apps.live.cloud-platform.service.justice.gov.uk"
 }
