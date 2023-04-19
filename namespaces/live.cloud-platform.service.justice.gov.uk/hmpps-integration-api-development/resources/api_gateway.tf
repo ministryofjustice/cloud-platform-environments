@@ -172,7 +172,7 @@ resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
   }
 
   data = {
-    certificate = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
   }
 }
 
