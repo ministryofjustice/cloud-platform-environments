@@ -19,6 +19,9 @@ module "rds" {
   rds_family = "postgres14"
   allow_major_version_upgrade = "true"
 
+  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
+  enable_rds_auto_start_stop = true
+
   providers = {
     aws = aws.london
   }
