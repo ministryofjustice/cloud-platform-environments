@@ -15,7 +15,7 @@ module "complexity-of-need-rds" {
   is-production          = "false"
   namespace              = var.namespace
   environment-name       = var.environment
-  infrastructure-support = "omic@digital.justice.gov.uk"
+  infrastructure-support = "manage-pom-cases@digital.justice.gov.uk"
   db_engine              = "postgres"
   db_engine_version      = "14"
   rds_family             = "postgres14"
