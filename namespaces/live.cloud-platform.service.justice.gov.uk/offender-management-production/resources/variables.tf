@@ -6,7 +6,7 @@
 variable "vpc_name" {
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default = "production"
 }
 

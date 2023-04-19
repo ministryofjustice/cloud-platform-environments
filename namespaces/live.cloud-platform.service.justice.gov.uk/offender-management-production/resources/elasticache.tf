@@ -5,7 +5,7 @@ module "ec-cluster-offender-management-allocation-manager" {
   application            = "offender-management-allocation-manager"
   is-production          = var.is_production
   node_type              = "cache.t4g.medium"
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
   engine_version         = "7.0"
@@ -21,7 +21,7 @@ module "ec-cluster-offender-management-allocation-manager" {
 
 resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-production" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment-name}"
+    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
     namespace = var.namespace
   }
 
