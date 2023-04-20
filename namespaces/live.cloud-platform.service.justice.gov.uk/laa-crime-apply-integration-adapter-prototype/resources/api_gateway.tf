@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
-  name              = "/aws/apigateway/test"
+  name              = "API-Gateway-Execution-Logs_${aws_apigatewayv2_api.gateway.id}/v1"
   retention_in_days = 60
 }
 
