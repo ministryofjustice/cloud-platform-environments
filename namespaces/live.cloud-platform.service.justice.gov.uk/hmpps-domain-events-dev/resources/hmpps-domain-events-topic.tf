@@ -10,7 +10,7 @@ module "hmpps-domain-events" {
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
   namespace                = var.namespace
-  additional_topic_clients = ["hmpps-incentives"]
+  additional_topic_clients = var.additional_topic_clients
 
   providers = {
     aws = aws.london
