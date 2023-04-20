@@ -13,7 +13,7 @@ module "dps_rds" {
   db_engine_version      = var.db_engine_version
   db_max_allocated_storage  = "500"
   deletion_protection       = true
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
 
   providers = {
