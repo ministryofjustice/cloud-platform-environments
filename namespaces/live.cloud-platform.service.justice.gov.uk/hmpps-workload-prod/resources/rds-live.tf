@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -12,6 +12,8 @@ module "rds-live" {
 
   # enable performance insights
   performance_insights_enabled = true
+  # db instance class
+  db_instance_class = "db.t3.medium"
 
   # change the postgres version as you see fit.
   db_engine_version      = "11"

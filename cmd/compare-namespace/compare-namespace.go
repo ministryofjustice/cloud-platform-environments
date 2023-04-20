@@ -62,7 +62,7 @@ type Result struct {
 func listFiles() []*github.CommitFile {
 	prs, _, err := client.PullRequests.ListFiles(ctx, owner, repo, bid, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error within listFiles: %s", err)
 	}
 	return prs
 }
@@ -203,10 +203,10 @@ func prMessage(t string) {
 	githubaction.SetOutput("mismatch", "true")
 	switch {
 	case t == "resource":
-		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nResosurce Type Name: %s\nResource Name: %s\nResource Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ResourceTypeName, mm.ResourceName, mm.ResourceNamespace)
+		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nResource: %s\nResource Name: %s\nResource Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ResourceTypeName, mm.ResourceName, mm.ResourceNamespace)
 		fmt.Println(r.Result)
 	case t == "module":
-		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nModule Type Name: %s\nModule Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ModuleTypeName, mm.ModuleNamespace)
+		r.Result = fmt.Sprintf("\nRepository Namespace: %s\nFile: %s\nModule: %s\nModule Namespace: %s\n", mm.RepositoryNamespace, mm.File, mm.ModuleTypeName, mm.ModuleNamespace)
 		fmt.Println(r.Result)
 	}
 }
@@ -230,6 +230,7 @@ func main() {
 	temp, _ := os.Create(fname) // create temp file
 	os.Stdout = temp
 
+	// loop through all files in the PR
 	for _, pr := range prs {
 		mm.File = *pr.Filename
 		if filepath.Ext(mm.File) == ".tf" {
@@ -237,25 +238,30 @@ func main() {
 			mm.RepositoryNamespace = fileS[2]
 			blocks, err := decodeFile()
 			if err != nil {
-				log.Fatal(err)
+				if strings.Contains(err.Error(), "no such file or directory") {
+					fmt.Printf("No file or Directory, skipping...\n")
+					continue
+				} else {
+					log.Fatal(err)
+				}
 			}
 			for _, block := range blocks {
 				switch {
 				case block.Type() == "resource":
 					rtn := block.Labels()
-					mm.ResourceTypeName = rtn[1]
+					mm.ResourceTypeName = "[" + rtn[0] + "]" + " - " + rtn[1]
 					mm.ResourceNamespace, mm.ResourceName = resourceType(block)
 					if mm.ResourceNamespace == "" {
-						fmt.Println("Namespace not found in Resource, skipping")
+						fmt.Printf("No Namespace data found in Resource: %s - skipping...\n", mm.ResourceTypeName)
 					} else if !strings.Contains(mm.ResourceNamespace, mm.RepositoryNamespace) {
 						prMessage("resource")
 					}
 				case block.Type() == "module":
-					rtn := block.Labels()
-					mm.ModuleTypeName = rtn[0]
+					mtn := block.Labels()
+					mm.ModuleTypeName = mtn[0]
 					mm.ModuleNamespace = moduleType(block)
 					if mm.ModuleNamespace == "" {
-						fmt.Println("Namespace not found in Resource, skipping")
+						fmt.Println("No Namespace data found in Module: %s - skipping...\n", mm.ModuleTypeName)
 					} else if !strings.Contains(mm.ModuleNamespace, mm.RepositoryNamespace) {
 						prMessage("module")
 					}

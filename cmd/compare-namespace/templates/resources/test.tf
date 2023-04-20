@@ -2,6 +2,13 @@ module "module-test" {
   namespace = "test-namespace"
 }
 
+module "module-test" {
+
+  tags = {
+    "test" = "test"
+  }
+}
+
 resource "resource-test" "test" {
   metadata {
     name      = "test"

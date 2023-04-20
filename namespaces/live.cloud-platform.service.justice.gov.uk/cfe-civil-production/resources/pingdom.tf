@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "cfe-civil-production" {
   type                     = "http"
   name                     = "Eligibility Platform - CFE Civil PRODUCTION - ping"
-  host                     = "cfe-civil-production.cloud-platform.service.justice.gov.uk"
+  host                     = "cfe-civil.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6

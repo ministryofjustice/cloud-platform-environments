@@ -8,9 +8,11 @@ module "ec-cluster-offender-management-allocation-manager" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "5.0.6"
+  parameter_group_name   = "default.redis5.0"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-04-11T13:16:00Z"
 
   providers = {
     aws = aws.london
@@ -27,6 +29,7 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
     url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    access_key_id            = module.ec-cluster-offender-management-allocation-manager.access_key_id
+    secret_access_key        = module.ec-cluster-offender-management-allocation-manager.secret_access_key
   }
 }
-
