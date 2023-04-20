@@ -10,7 +10,7 @@ module "hmpps_assess_risks_and_needs_preprod_rds" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
   db_engine_version      = "14"
 
