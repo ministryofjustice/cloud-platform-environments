@@ -9,7 +9,7 @@ module "drupal_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  db_instance_class      = "db.t3.large"
+  db_instance_class      = "db.t4g.large"
 
   db_engine         = "mariadb"
   db_engine_version = "10.4"
