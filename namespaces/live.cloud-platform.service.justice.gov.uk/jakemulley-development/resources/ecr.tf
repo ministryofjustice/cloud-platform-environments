@@ -3,6 +3,7 @@ module "ecr" {
 
   repo_name = var.namespace
   team_name = var.team_name
+  namespace = var.namespace
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
 }
