@@ -24,6 +24,11 @@ variable "team_name" {
   default     = "hmpps-integration-api-admin-team"
 }
 
+variable "clients" {
+  description = "Clients that are allowed to access API Gateway and our service"
+  default     = ("hmpps-integration-api-admin-team")
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
@@ -53,6 +58,16 @@ variable "github_token" {
   default     = ""
 }
 
-variable "hosted_zone" {
-  default = "integration-api.hmpps.service.justice.gov.uk"
+variable "base_domain" {
+  default = "hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the FQDN"
+  default     = "integration-api"
+}
+
+variable "cloud_platform_integration_api_url" {
+  description = "Pre-defined domain for the namespace provided by Cloud Platform"
+  default     = "https://hmpps-integration-api-production.apps.live.cloud-platform.service.justice.gov.uk"
 }

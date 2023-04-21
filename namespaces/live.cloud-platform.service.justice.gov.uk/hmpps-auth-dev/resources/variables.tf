@@ -43,13 +43,13 @@ variable "is_production" {
 }
 
 variable "rds-family" {
-  default = "postgres14"
+  default = "postgres15"
 }
 
 variable "db_instance_class" {
-  default = "db.t3.small"
+  default = "db.t4g.micro"
 }
 
 variable "db_engine_version" {
-  default = "14"
+  default = "15"
 }

@@ -4,13 +4,15 @@ module "ec-cluster-offender-management-allocation-manager" {
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
   is-production          = var.is_production
-  node_type              = "cache.m4.large"
-  environment-name       = var.environment-name
+  node_type              = "cache.t4g.medium"
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-04-11T13:16:00Z"
 
   providers = {
     aws = aws.london
@@ -19,7 +21,7 @@ module "ec-cluster-offender-management-allocation-manager" {
 
 resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-production" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment-name}"
+    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
     namespace = var.namespace
   }
 

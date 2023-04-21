@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -10,9 +10,12 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  enable_rds_auto_start_stop  = true
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
@@ -37,7 +40,7 @@ resource "kubernetes_secret" "dps_rds" {
 }
 
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -48,9 +51,12 @@ module "prisons_rds" {
   infrastructure-support = var.infrastructure_support
 
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  enable_rds_auto_start_stop  = true
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london

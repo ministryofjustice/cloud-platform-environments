@@ -214,7 +214,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted"] })
+  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered"] })
 }
 
 ######################################## ACTIVITIES
@@ -320,7 +320,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.activity-schedule.amended", "activities.scheduled-instances.amended", "activities.prisoner.allocated", "activities.prisoner.deallocated", "activities.prisoner.attendance-created"] })
+  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.activity-schedule.amended", "activities.scheduled-instances.amended", "activities.scheduled-instance.amended", "activities.prisoner.allocated", "activities.prisoner.deallocated", "activities.prisoner.attendance-created", "activities.prisoner.attendance-amended"] })
 }
 
 ######################################## APPOINTMENTS ########################################
@@ -426,7 +426,14 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_to_nomis_appointment_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["appointments.appointment-instance.created"] })
+  filter_policy = jsonencode({
+    eventType = [
+      "appointments.appointment-instance.created",
+      "appointments.appointment-instance.updated",
+      "appointments.appointment-instance.cancelled",
+      "appointments.appointment-instance.deleted"
+    ]
+  })
 }
 
 ######################################## SENTENCING
