@@ -43,7 +43,8 @@ variable "additional_topic_clients" {
     "offender-management-staging",
     "offender-management-test",
     "offender-management-test2",
-    "prisoner-offender-search-dev"
+    "prisoner-offender-search-dev",
+    "visit-someone-in-prison-backend-svc-dev",
   ]
 }
 
