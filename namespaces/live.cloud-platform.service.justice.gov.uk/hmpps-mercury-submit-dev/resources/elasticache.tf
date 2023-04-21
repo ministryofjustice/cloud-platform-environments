@@ -34,4 +34,3 @@ resource "kubernetes_secret" "mercury_submit_elasticache_redis" {
     member_clusters          = jsonencode(module.mercury_submit_elasticache_redis.member_clusters)
   }
 }
-
