@@ -1,19 +1,14 @@
-resource "random_password" "passwords" {
-  count   = 2
-  length  = 32
-  special = true
-}
-
 locals {
-  # Declare consumers of the API, keeping the order.
+  # Declare any consumers of the API here. If any existing secrets
+  # had to be rotated, change its `rotated_at` timestamp.
   datastore_api_consumers = {
     "crime_apply" = {
-      namespace = "laa-apply-for-criminal-legal-aid-staging"
-      secret    = random_password.passwords[0].result
+      namespace  = "laa-apply-for-criminal-legal-aid-staging"
+      rotated_at = "2023-04-21T11:34:15Z"
     }
     "crime_review" = {
-      namespace = "laa-review-criminal-legal-aid-staging"
-      secret    = random_password.passwords[1].result
+      namespace  = "laa-review-criminal-legal-aid-staging"
+      rotated_at = "2023-04-21T11:34:15Z"
     }
   }
 }
@@ -22,20 +17,29 @@ locals {
 # should declare all consumers and namespaces. Code below
 # will dynamically use the keys and values accordingly.
 
-resource "kubernetes_secret" "api-auth-secrets" {
+resource "random_password" "passwords" {
   for_each = local.datastore_api_consumers
 
+  length  = 32
+  special = true
+
+  keepers = {
+    last_changed = each.value.rotated_at
+  }
+}
+
+resource "kubernetes_secret" "api-auth-secrets" {
   metadata {
     name      = "api-auth-secrets"
     namespace = var.namespace
   }
 
   data = {
-    (each.key) = each.value.secret
+    for key in keys(local.datastore_api_consumers) : key => random_password.passwords[key].result
   }
 }
 
-resource "kubernetes_secret" "apply-api-auth-secret" {
+resource "kubernetes_secret" "injected-api-auth-secret" {
   for_each = local.datastore_api_consumers
 
   metadata {
@@ -44,6 +48,6 @@ resource "kubernetes_secret" "apply-api-auth-secret" {
   }
 
   data = {
-    secret = each.value.secret
+    secret = random_password.passwords[each.key].result
   }
 }
