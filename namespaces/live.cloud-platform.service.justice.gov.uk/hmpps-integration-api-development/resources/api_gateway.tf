@@ -159,15 +159,13 @@ resource "aws_api_gateway_usage_plan_key" "clients" {
 }
 
 resource "kubernetes_secret" "api_keys" {
-  for_each = aws_api_gateway_api_key.clients
-
   metadata {
     name      = "api-gateway-api-keys"
     namespace = var.namespace
   }
 
   data = {
-    local.clients[index(local.clients, each.key)] = aws_api_gateway_api_key.clients[each.key].value
+    for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
   }
 }
 
