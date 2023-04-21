@@ -8,7 +8,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/application: "HMPPS historical prisoner application"
+    cloud-platform.justice.gov.uk/application: "HMPPS historical prisoner application - HPA"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/iis.git"
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
