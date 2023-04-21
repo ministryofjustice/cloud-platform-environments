@@ -5,7 +5,7 @@ metadata:
   namespace: laa-dast-zap
 subjects:
   - kind: Group
-    name: "github:joel-efejuku"
+    name: "github:laa-aws-control"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
