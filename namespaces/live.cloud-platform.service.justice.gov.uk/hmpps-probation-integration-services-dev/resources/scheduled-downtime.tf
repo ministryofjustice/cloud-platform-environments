@@ -16,7 +16,7 @@ module "scheduled_downtime_service_account" {
     {
       api_groups = ["apps"]
       resources  = ["deployments/scale"]
-      verbs      = ["patch"]
+      verbs      = ["get", "patch"]
     }
   ]
 }
