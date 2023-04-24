@@ -69,4 +69,3 @@ which appears to remove policy config. However examination of the plan will reve
         ) -> (known after apply)
         user   = "cp-dynamo-"cp-abcdefghij123
 ```
-
