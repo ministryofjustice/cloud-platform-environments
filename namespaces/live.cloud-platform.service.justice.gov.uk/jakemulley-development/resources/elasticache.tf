@@ -46,7 +46,7 @@ resource "aws_elasticache_user" "ec_iam_auth" {
   access_string = "on ~* +@all"
   engine        = "REDIS"
   user_id       = module.redis_7.replication_group_id
-  user_name     = module.redis_7.replication_group_id
+  user_name     = "default"
 
   authentication_mode {
     type = "iam"
