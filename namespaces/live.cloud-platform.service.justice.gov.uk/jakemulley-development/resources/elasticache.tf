@@ -61,8 +61,8 @@ data "aws_iam_policy_document" "ec_iam_auth_assume" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-      type   = "AWS"
-      values = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
   }
 }
