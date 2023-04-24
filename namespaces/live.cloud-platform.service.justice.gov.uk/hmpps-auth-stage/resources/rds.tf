@@ -12,9 +12,9 @@ module "dps_rds" {
   db_max_allocated_storage   = "500"
   deletion_protection        = true
   prepare_for_major_upgrade  = true
-  rds_family                 = "postgres14"
+  rds_family                 = "postgres15"
   db_engine                  = "postgres"
-  db_engine_version          = "14"
+  db_engine_version          = "15"
 
   providers = {
     aws = aws.london
