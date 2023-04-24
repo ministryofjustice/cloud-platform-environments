@@ -14,6 +14,11 @@ variable "application" {
   default     = "manage-intelligence"
 }
 
+variable "number_cache_clusters" {
+  description = "Elasticache cache cluster number"
+  default     = 2
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
@@ -29,7 +34,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dps-soct-team"
+  default     = "dps-soct-tech"
 }
 
 variable "environment" {
@@ -53,7 +58,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "dps-soct-tech"
+  default     = "ims-digital-team"
 }
 
 variable "github_owner" {

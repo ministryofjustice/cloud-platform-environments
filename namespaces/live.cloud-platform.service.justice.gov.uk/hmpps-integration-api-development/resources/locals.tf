@@ -9,4 +9,6 @@ locals {
     namespace              = var.namespace
     GithubTeam             = var.team_name
   }
+
+  clients = ["emile", "ting", "april", "matt"]
 }
