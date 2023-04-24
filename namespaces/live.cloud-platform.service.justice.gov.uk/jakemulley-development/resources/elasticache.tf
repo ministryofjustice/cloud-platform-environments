@@ -12,25 +12,25 @@ module "redis_7" {
   # Tags
   team_name              = var.team_name
   namespace              = var.namespace
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  is-production          = var.is_production
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "example_team_ec_cluster" {
+resource "kubernetes_secret" "redis_7" {
   metadata {
     name      = "${var.team_name}-ec-cluster-output"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.example_team_ec_cluster.primary_endpoint_address
-    member_clusters          = jsonencode(module.example_team_ec_cluster.member_clusters)
-    auth_token               = module.example_team_ec_cluster.auth_token
-    access_key_id            = module.example_team_ec_cluster.access_key_id
-    secret_access_key        = module.example_team_ec_cluster.secret_access_key
-    replication_group_id     = module.example_team_ec_cluster.replication_group_id
+    primary_endpoint_address = module.redis_7.primary_endpoint_address
+    member_clusters          = jsonencode(module.redis_7.member_clusters)
+    auth_token               = module.redis_7.auth_token
+    access_key_id            = module.redis_7.access_key_id
+    secret_access_key        = module.redis_7.secret_access_key
+    replication_group_id     = module.redis_7.replication_group_id
   }
 }
