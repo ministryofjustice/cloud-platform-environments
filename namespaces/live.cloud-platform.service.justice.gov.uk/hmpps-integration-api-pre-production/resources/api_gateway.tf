@@ -167,6 +167,10 @@ resource "kubernetes_secret" "api_keys" {
   data = {
     for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
   }
+
+  depends_on = [
+    aws_api_gateway_api_key.clients
+  ]
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
