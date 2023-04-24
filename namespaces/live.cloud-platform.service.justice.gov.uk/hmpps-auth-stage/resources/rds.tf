@@ -8,9 +8,13 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  rds_family             = var.rds-family
-  db_instance_class      = var.db_instance_class
-  db_engine_version      = var.db_engine_version
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
+  deletion_protection        = true
+  prepare_for_major_upgrade  = true
+  rds_family                 = "postgres14"
+  db_engine                  = "postgres"
+  db_engine_version          = "14"
 
   providers = {
     aws = aws.london
