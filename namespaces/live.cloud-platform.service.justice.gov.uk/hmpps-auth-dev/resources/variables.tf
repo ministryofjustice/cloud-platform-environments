@@ -41,15 +41,3 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
-
-variable "rds-family" {
-  default = "postgres15"
-}
-
-variable "db_instance_class" {
-  default = "db.t4g.micro"
-}
-
-variable "db_engine_version" {
-  default = "15"
-}
