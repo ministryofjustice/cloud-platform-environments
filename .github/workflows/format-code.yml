@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ministryofjustice/github-actions/code-formatter@v11
+      - uses: ministryofjustice/github-actions/code-formatter@v12
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
