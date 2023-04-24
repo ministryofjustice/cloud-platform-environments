@@ -214,7 +214,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered"] })
+  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered", "incentives.prison-level.changed"] })
 }
 
 ######################################## ACTIVITIES
