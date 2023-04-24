@@ -17,8 +17,8 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{
-          queue_name!~"cica-dev-team-dev-claim-criminal-injuries-application.*",
-          queue_name!~"cica-dev-team-dev-claim-criminal-injuries-notify.*"
+          queue_name=~"cica-dev-team-dev-claim-criminal-injuries-application.*",
+          queue_name=~"cica-dev-team-dev-claim-criminal-injuries-notify.*"
         } offset 1m) by (queue_name) > 2 * 60
       for: 1m
       labels:
@@ -30,8 +30,8 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
-          queue_name!~"cica-dev-team-dev-claim-criminal-injuries-application-dead-letter-queue",
-          queue_name!~"cica-dev-team-dev-claim-criminal-injuries-notify-dead-letter-queue"
+          queue_name=~"cica-dev-team-dev-claim-criminal-injuries-application-dead-letter-queue",
+          queue_name=~"cica-dev-team-dev-claim-criminal-injuries-notify-dead-letter-queue"
         } offset 5m) by (queue_name) > 0
       for: 10m
       labels:
