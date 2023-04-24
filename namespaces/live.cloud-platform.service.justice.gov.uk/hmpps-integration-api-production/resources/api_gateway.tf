@@ -118,8 +118,13 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 resource "aws_api_gateway_deployment" "production" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
-  # Force recreate of the deployment resource
-  stage_description = md5(file("api_gateway.tf"))
+  triggers = {
+    redeployment = sha1(jsonencode([
+      # "manual-deploy-trigger",
+      var.cloud_platform_integration_api_url,
+      md5(file("api_gateway.tf"))
+    ]))
+  }
 
   depends_on = [
     aws_api_gateway_method.proxy,
@@ -154,16 +159,18 @@ resource "aws_api_gateway_usage_plan_key" "clients" {
 }
 
 resource "kubernetes_secret" "api_keys" {
-  for_each = aws_api_gateway_api_key.clients
-
   metadata {
     name      = "api-gateway-api-keys"
     namespace = var.namespace
   }
-
+  
   data = {
-    local.clients[index(local.clients, each.key)] = aws_api_gateway_api_key.clients[each.key].value
+    for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
   }
+
+  depends_on = [
+    aws_api_gateway_api_key.clients
+  ]
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
@@ -185,7 +192,7 @@ resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
   }
 
   data = {
-    certificate = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
   }
 }
 

@@ -24,11 +24,6 @@ variable "team_name" {
   default     = "hmpps-integration-api-admin-team"
 }
 
-variable "clients" {
-  description = "Clients that are allowed to access API Gateway and our service"
-  default     = ("hmpps-integration-api-admin-team")
-}
-
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
@@ -69,5 +64,5 @@ variable "hostname" {
 
 variable "cloud_platform_integration_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
-  default     = "https://hmpps-integration-api.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "https://hmpps-integration-api-production.apps.live.cloud-platform.service.justice.gov.uk"
 }

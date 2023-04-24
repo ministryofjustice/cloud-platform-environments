@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:laa-estimate-eligibility"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-estimate-eligibility-ithc"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

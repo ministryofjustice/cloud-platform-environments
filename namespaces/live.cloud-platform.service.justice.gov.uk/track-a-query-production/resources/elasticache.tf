@@ -17,6 +17,8 @@ module "track_a_query_elasticache_redis" {
   node_type              = "cache.t4g.small"
   namespace              = var.namespace
 
+  auth_token_rotated_date = "2023-04-18"
+
   providers = {
     aws = aws.london
   }
