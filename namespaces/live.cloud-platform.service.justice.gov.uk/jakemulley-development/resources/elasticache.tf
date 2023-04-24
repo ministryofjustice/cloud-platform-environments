@@ -39,14 +39,14 @@ resource "kubernetes_secret" "redis_7" {
 resource "aws_elasticache_user_group" "test" {
   engine        = "REDIS"
   user_group_id = "${var.namespace}-ug"
-  user_ids      = [aws_elasticache_user.ec_iam_auth.user_id]
+  user_ids      = ["default", aws_elasticache_user.ec_iam_auth.user_id]
 }
 
 resource "aws_elasticache_user" "ec_iam_auth" {
   access_string = "on ~* +@all"
   engine        = "REDIS"
-  user_id       = "default"
-  user_name     = "default"
+  user_id       = module.redis_7.replication_group_id
+  user_name     = module.redis_7.replication_group_id
 
   authentication_mode {
     type = "iam"
