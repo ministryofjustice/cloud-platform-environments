@@ -7,9 +7,16 @@ module "scheduled_downtime_service_account" {
   serviceaccount_name = "scheduled-downtime-serviceaccount"
   role_name           = "scheduled-downtime-serviceaccount-role"
   rolebinding_name    = "scheduled-downtime-serviceaccount-rolebinding"
-  serviceaccount_rules = [{
-    api_groups = ["apps"]
-    resources  = ["deployments/scale"]
-    verbs      = ["patch"]
-  }]
+  serviceaccount_rules = [
+    {
+      api_groups = ["apps"]
+      resources  = ["deployments"]
+      verbs      = ["get"]
+    },
+    {
+      api_groups = ["apps"]
+      resources  = ["deployments/scale"]
+      verbs      = ["get", "update", "patch"]
+    }
+  ]
 }
