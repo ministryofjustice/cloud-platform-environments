@@ -55,7 +55,7 @@ data "github_repository_file" "truststore" {
 
 resource "aws_s3_object" "truststore" {
   bucket  = module.truststore_s3_bucket.bucket_name
-  key     = "truststore.pem"
+  key     = "development-truststore.pem"
   content = data.github_repository_file.truststore.content
 }
 
