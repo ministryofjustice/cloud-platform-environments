@@ -1,11 +1,11 @@
-module "s3_bucket" {
+module "drupal_content_storage_2" {
 
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment
+  environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
