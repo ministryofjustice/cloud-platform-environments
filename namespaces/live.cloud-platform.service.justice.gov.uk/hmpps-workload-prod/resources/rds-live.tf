@@ -13,10 +13,10 @@ module "rds-live" {
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
-  db_instance_class = "db.t3.large"
+  db_instance_class = "db.t3.medium"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "11"
+  db_engine_version      = "11.18"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
