@@ -14,6 +14,8 @@ module "elasticache_redis" {
   node_type             = "cache.t4g.micro"
   number_cache_clusters = "2"
 
+  auth_token_rotated_date = "2023-04-25"
+
   providers = {
     aws = aws.london
   }
