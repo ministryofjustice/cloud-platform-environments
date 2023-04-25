@@ -221,7 +221,7 @@ EOF
 
 resource "kubernetes_secret" "drupal_content_storage_2_secret" {
   metadata {
-    name      = "drupal-s3"
+    name      = "drupal-s3-2"
     namespace = var.namespace
   }
 
