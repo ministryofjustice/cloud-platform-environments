@@ -93,3 +93,131 @@ resource "aws_route53_record" "victimscommissioner_route53_txt_record_smtp" {
   ttl     = "300"
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_acm" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_763372be03a4e87a04610fa50b15adbd.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_a5501a920598b4c1cad73a7000cd5db6.tfmgdnztqk.acm-validations.aws."]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_dmarc" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_dmarc.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_dmarc_ttp_policy.justice.gov.uk"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_dkim2" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "k2._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "60"
+  records = ["dkim2.mcsv.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_dkim3" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "k3._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "60"
+  records = ["dkim3.mcsv.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_onc" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "onc._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["onc.domainkey.u32912322.wl073.sendgrid.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_onc2" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "onc2._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["onc2.domainkey.u32912322.wl073.sendgrid.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_s1" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "s1._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["s1.domainkey.u2320754.wl005.sendgrid.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_s2" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "s2._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["s2.domainkey.u2320754.wl005.sendgrid.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_selector1" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "selector1._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["selector1-victimscommissioner-org-uk._domainkey.JusticeUK.onmicrosoft.com"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_selector2" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "selector2._domainkey.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["selector2-victimscommissioner-org-uk._domainkey.JusticeUK.onmicrosoft.com"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_autodiscover" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "autodiscover.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["autodiscover.outlook.com"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_sendgrid" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "em3960.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["u2320754.wl005.sendgrid.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_enterpriseenrollment" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "enterpriseenrollment.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["enterpriseenrollment.manage.microsoft.com"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_enterpriseregistration" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "enterpriseregistration.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["enterpriseregistration.windows.net"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_srv_record_sipfed" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_sipfederationtls._tcp.victimscommissioner.org.uk"
+  type    = "SRV"
+  ttl     = "3600"
+  records = ["100 1 5061 sipfed.online.lync.com"]
+}
+
+resource "aws_route53_record" "victimscommissioner_route53_srv_record_sipdir" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_sip._tls.victimscommissioner.org.uk"
+  type    = "SRV"
+  ttl     = "3600"
+  records = ["100 1 443 sipdir.online.lync.com"]
+}
