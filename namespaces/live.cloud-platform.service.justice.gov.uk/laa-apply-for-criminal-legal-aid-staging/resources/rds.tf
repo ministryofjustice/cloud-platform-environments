@@ -25,7 +25,7 @@ module "rds" {
   rds_family = "postgres15"
 
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
-  prepare_for_major_upgrade = "true"
+  prepare_for_major_upgrade = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
