@@ -16,6 +16,7 @@ module "rds-history" {
   db_instance_class = "db.t3.medium"
 
   # change the postgres version as you see fit.
+  prepare_for_major_upgrade = true
   db_engine_version      = "14"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
