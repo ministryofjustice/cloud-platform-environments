@@ -140,6 +140,7 @@ resource "kubernetes_secret" "offender-events-ui-irsa" {
   }
   data = {
     role           = module.offender-events-ui-irsa.aws_iam_role_name
+    rolearn        = module.offender-events-ui-irsa.aws_iam_role_arn
     serviceaccount = module.offender-events-ui-irsa.service_account_name.name
   }
 }
