@@ -70,6 +70,16 @@ module "drupal_content_storage_2" {
       max_age_seconds = 3000
     },
   ]
+  */
+  # Add CORS rule to allow direct s3 file uploading with progress bar (in Drupal CMS).
+  cors_rule = [
+    {
+      allowed_headers = ["Accept", "Content-Type", "Origin"]
+      allowed_methods = ["GET", "PUT", "POST"]
+      allowed_origins = ["https://cms-prisoner-content-hub-development.apps.live.cloud-platform.service.justice.gov.uk"]
+      max_age_seconds = 3000
+    }
+  ]
 
 
   /*
