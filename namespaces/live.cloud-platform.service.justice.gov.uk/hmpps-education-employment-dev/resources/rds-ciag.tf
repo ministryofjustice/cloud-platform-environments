@@ -12,7 +12,7 @@ module "ciag_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "14"
+  db_engine_version           = "15"
   enable_rds_auto_start_stop  = true
 
   providers = {
