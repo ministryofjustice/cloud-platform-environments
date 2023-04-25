@@ -26,11 +26,10 @@ resource "aws_route53_record" "imb_route53_a_record" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "imb.org.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "jotwp-loadb-1mbwraz503eq6-1769122100.eu-west-2.elb.amazonaws.com."
-    zone_id                = ""
+    zone_id                = "ZHURV8PSTC4K8"
     evaluate_target_health = false
   }
 }
@@ -39,11 +38,10 @@ resource "aws_route53_record" "imb_sts_a_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "mta-sts.imb.org.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "d3s1p7nop9zosl.cloudfront.net."
-    zone_id                = ""
+    zone_id                = "Z2FDTNDATAQYW2"
     evaluate_target_health = false
   }
 }
@@ -94,6 +92,14 @@ resource "aws_route53_record" "imb_smtp_tls_record" {
   type    = "TXT"
   ttl     = "300"
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
+}
+
+resource "aws_route53_record" "imb_cname_acm_validation_02_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "_a17f291094c56738f53f60414269a15f.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_8434a359b8481c5767ade4985b20f14c.hkvuiqjoua.acm-validations.aws."]
 }
 
 resource "aws_route53_record" "imb_cname_mts_sts_record" {
