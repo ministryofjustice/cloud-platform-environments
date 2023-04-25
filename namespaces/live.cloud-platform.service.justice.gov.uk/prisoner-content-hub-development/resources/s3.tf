@@ -219,16 +219,16 @@ EOF
 EOF
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "drupal_content_storage_2_secret" {
   metadata {
-    name      = "s3-bucket-output"
+    name      = "drupal-s3"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = module.drupal_content_storage_2.access_key_id
+    secret_access_key = module.drupal_content_storage_2.secret_access_key
+    bucket_arn        = module.drupal_content_storage_2.bucket_arn
+    bucket_name       = module.drupal_content_storage_2.bucket_name
   }
 }
