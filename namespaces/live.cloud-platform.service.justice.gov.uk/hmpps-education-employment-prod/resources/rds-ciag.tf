@@ -8,7 +8,7 @@ module "ciag_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
-  rds_family                  = var.rds_family
+  rds_family                  = "postgres15"
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
