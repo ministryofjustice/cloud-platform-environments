@@ -13,7 +13,7 @@ module "rds-history" {
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
-  db_instance_class = "db.t3.medium"
+  db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = true
