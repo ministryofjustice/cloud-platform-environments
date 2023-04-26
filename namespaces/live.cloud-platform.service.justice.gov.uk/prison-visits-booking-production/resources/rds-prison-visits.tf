@@ -26,6 +26,7 @@ module "prison-visits-rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
