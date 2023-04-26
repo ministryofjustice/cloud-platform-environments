@@ -34,7 +34,7 @@ resource "aws_route53_record" "publicdefenderservice_route53_a_record" {
   }
 }
 
-resource "aws_route53_record" "publicdefenderservice_route53_verification_record" {
+resource "aws_route53_record" "publicdefenderservice_route53_txt_verification_record" {
   zone_id = aws_route53_zone.publicdefenderservice_route53_zone.zone_id
   name    = "publicdefenderservice.org.uk"
   type    = "TXT"
