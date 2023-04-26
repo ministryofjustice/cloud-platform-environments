@@ -26,7 +26,6 @@ resource "aws_route53_record" "victimscommissioner_route53_a_record" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "victimscommissioner.org.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "dualstack.jotwp-loadb-1mbwraz503eq6-1769122100.eu-west-2.elb.amazonaws.com."

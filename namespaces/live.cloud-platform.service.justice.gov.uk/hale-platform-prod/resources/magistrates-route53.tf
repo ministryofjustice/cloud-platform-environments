@@ -26,7 +26,6 @@ resource "aws_route53_record" "magistrates_route53_a_record" {
   zone_id = aws_route53_zone.magistrates_route53_zone.zone_id
   name    = "magistrates.judiciary.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "dualstack.jotwp-loadb-1mbwraz503eq6-1769122100.eu-west-2.elb.amazonaws.com."
@@ -44,7 +43,7 @@ resource "aws_route53_record" "magistrates_route53_a_record_apply" {
   records = ["18.130.183.123"]
 }
 
-resource "aws_route53_record" "magistrates_route53_cname_record" {
+resource "aws_route53_record" "magistrates_route53_cname_record_acm" {
   zone_id = aws_route53_zone.magistrates_route53_zone.zone_id
   name    = "_6f0e92da46509e479f24cc2bad43c06f.magistrates.judiciary.uk"
   type    = "CNAME"
