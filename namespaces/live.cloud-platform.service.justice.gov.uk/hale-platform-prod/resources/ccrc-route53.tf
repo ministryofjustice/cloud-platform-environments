@@ -79,7 +79,7 @@ resource "aws_route53_record" "ccrc_route53_a_record_mta" {
   }
 }
 
-resource "aws_route53_record" "ccrc_route53_mx_record" {
+resource "aws_route53_record" "ccrc_route53_mx_record_outlook" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "ccrc.gov.uk"
   type    = "MX"

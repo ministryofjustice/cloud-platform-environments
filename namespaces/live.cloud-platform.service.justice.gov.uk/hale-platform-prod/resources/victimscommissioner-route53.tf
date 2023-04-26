@@ -35,7 +35,7 @@ resource "aws_route53_record" "victimscommissioner_route53_a_record" {
   
 }
 
-resource "aws_route53_record" "victimscommissioner_route53_mx_record" {
+resource "aws_route53_record" "victimscommissioner_route53_mx_record_outlook" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "victimscommissioner.org.uk"
   type    = "MX"
