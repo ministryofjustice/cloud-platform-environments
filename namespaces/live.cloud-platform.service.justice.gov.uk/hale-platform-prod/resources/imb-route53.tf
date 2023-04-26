@@ -35,7 +35,7 @@ resource "aws_route53_record" "imb_route53_a_record" {
 }
 
 resource "aws_route53_record" "imb_sts_a_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "mta-sts.imb.org.uk"
   type    = "A"
 
@@ -47,7 +47,7 @@ resource "aws_route53_record" "imb_sts_a_record" {
 }
 
 resource "aws_route53_record" "imb_route53_mx_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "imb.org.uk"
   type    = "MX"
   ttl     = "300"
@@ -55,7 +55,7 @@ resource "aws_route53_record" "imb_route53_mx_record" {
 }
 
 resource "aws_route53_record" "imb_spf1_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "imb.org.uk"
   type    = "TXT"
   ttl     = "300"
@@ -63,7 +63,7 @@ resource "aws_route53_record" "imb_spf1_record" {
 }
 
 resource "aws_route53_record" "imb_aws_ses_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_amazonses.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
@@ -71,7 +71,7 @@ resource "aws_route53_record" "imb_aws_ses_record" {
 }
 
 resource "aws_route53_record" "imb_dmarc_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_dmarc.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
@@ -79,7 +79,7 @@ resource "aws_route53_record" "imb_dmarc_record" {
 }
 
 resource "aws_route53_record" "imb_mta_sts_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_mta-sts.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
@@ -87,7 +87,7 @@ resource "aws_route53_record" "imb_mta_sts_record" {
 }
 
 resource "aws_route53_record" "imb_smtp_tls_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_smtp._tls.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
@@ -95,7 +95,7 @@ resource "aws_route53_record" "imb_smtp_tls_record" {
 }
 
 resource "aws_route53_record" "imb_cname_acm_validation_02_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_a17f291094c56738f53f60414269a15f.imb.org.uk"
   type    = "CNAME"
   ttl     = "300"
@@ -103,7 +103,7 @@ resource "aws_route53_record" "imb_cname_acm_validation_02_record" {
 }
 
 resource "aws_route53_record" "imb_cname_mts_sts_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_bec7b6a29ca37a0129b2033111e16a61.mta-sts.imb.org.uk"
   type    = "CNAME"
   ttl     = "60"
@@ -111,7 +111,7 @@ resource "aws_route53_record" "imb_cname_mts_sts_record" {
 }
 
 resource "aws_route53_record" "imb_cname_myimb_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "my.imb.org.uk"
   type    = "CNAME"
   ttl     = "300"
@@ -119,7 +119,7 @@ resource "aws_route53_record" "imb_cname_myimb_record" {
 }
 
 resource "aws_route53_record" "imb_cname_myimb_acm_validation_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_3fc8a2dfb41e5703485146ebfdc6fe3d.my.imb.org.uk"
   type    = "CNAME"
   ttl     = "60"
@@ -127,7 +127,7 @@ resource "aws_route53_record" "imb_cname_myimb_acm_validation_record" {
 }
 
 resource "aws_route53_record" "imb_cname_www_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "www.imb.org.uk"
   type    = "CNAME"
   ttl     = "300"
@@ -135,7 +135,7 @@ resource "aws_route53_record" "imb_cname_www_record" {
 }
 
 resource "aws_route53_record" "imb_cname_www_acm_validation_aws_record" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_bfd2574796bb803800192be042cb12fa.www.imb.org.uk"
   type    = "CNAME"
   ttl     = "60"
