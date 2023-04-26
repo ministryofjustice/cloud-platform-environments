@@ -43,28 +43,12 @@ resource "aws_route53_record" "victimscommissioner_route53_mx_record_outlook" {
   records = ["0 victimscommissioner-org-uk.mail.protection.outlook.com"]
 }
 
-resource "aws_route53_record" "victimscommissioner_route53_txt_record_ms" {
+resource "aws_route53_record" "victimscommissioner_route53_txt_record_main" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "victimscommissioner.org.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms22529871"]
-}
-
-resource "aws_route53_record" "victimscommissioner_route53_txt_record_spf" {
-  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
-  name    = "victimscommissioner.org.uk"
-  type    = "TXT"
-  ttl     = "3600"
-  records = ["v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 ip4:198.37.159.2 ip4:168.245.16.120 include:spf.protection.outlook.com -all"]
-}
-
-resource "aws_route53_record" "victimscommissioner_route53_txt_record_atlassian" {
-  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
-  name    = "victimscommissioner.org.uk"
-  type    = "TXT"
-  ttl     = "3600"
-  records = ["atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby"]
+  records = ["MS=ms22529871", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 ip4:198.37.159.2 ip4:168.245.16.120 include:spf.protection.outlook.com -all", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby"]
 }
 
 resource "aws_route53_record" "victimscommissioner_route53_txt_record_amazonses" {
