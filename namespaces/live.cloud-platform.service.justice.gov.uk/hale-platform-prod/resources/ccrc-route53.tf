@@ -143,14 +143,6 @@ resource "aws_route53_record" "ccrc_route53_txt_record_smtp" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
-resource "aws_route53_record" "ccrc_route53_txt_record_smtp" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_smtp._tls.imb.org.uk.ccrc.gov.uk"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
-}
-
 resource "aws_route53_record" "ccrc_route53_cname_record_acm" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "_5770ab00d5e1032ff7db591706b2f9a5.ccrc.gov.uk"
