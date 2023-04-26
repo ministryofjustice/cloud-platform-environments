@@ -87,28 +87,12 @@ resource "aws_route53_record" "ccrc_route53_mx_record_outlook" {
   records = ["10 CCRC-gov-uk.mail.protection.outlook.com."]
 }
 
-resource "aws_route53_record" "ccrc_route53_txt_record_ms" {
+resource "aws_route53_record" "ccrc_route53_txt_record_main" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "ccrc.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms13510705"]
-}
-
-resource "aws_route53_record" "ccrc_route53_txt_record_mystery_code" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "ccrc.gov.uk"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ=="]
-}
-
-resource "aws_route53_record" "ccrc_route53_txt_record_spf" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "ccrc.gov.uk"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["v=spf1 include:spf.protection.outlook.com ip4:80.6.91.150 -all"]
+  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "v=spf1 include:spf.protection.outlook.com ip4:80.6.91.150 -all"]
 }
 
 resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
