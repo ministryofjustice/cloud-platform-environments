@@ -37,8 +37,3 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
-
-variable "rds-family" {
-  default = "postgres15"
-}
-
