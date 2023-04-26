@@ -17,7 +17,7 @@ metadata:
   name: check-clients-details-using-hmrc-data-certificate
   namespace: laa-assure-hmrc-data-production
 spec:
-  secretName: assure-hmrc-data-tls-certificate
+  secretName: check-clients-details-using-hmrc-data-tls-certificate
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
