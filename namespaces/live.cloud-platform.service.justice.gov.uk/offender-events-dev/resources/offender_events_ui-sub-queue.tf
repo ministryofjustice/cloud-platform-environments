@@ -132,14 +132,3 @@ module "offender-events-ui-irsa" {
   service_account  = "offender-events-ui"
   role_policy_arns = [module.offender_events_ui_dead_letter_queue.aws_iam_policy_arn, module.offender_events_ui_queue.aws_iam_policy_arn]
 }
-
-resource "kubernetes_secret" "offender-events-ui-irsa" {
-  metadata {
-    name      = "offender-events-ui-irsa"
-    namespace = var.namespace
-  }
-  data = {
-    role           = module.offender-events-ui-irsa.aws_iam_role_name
-    serviceaccount = module.offender-events-ui-irsa.service_account_name.name
-  }
-}
