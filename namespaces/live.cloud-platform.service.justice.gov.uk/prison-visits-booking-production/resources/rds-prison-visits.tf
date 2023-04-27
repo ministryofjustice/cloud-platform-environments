@@ -10,7 +10,7 @@ module "prison-visits-rds" {
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
-  db_instance_class      = "db.m5.large"
+  db_instance_class      = "db.m5.xlarge"
   db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-production"
