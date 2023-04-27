@@ -5,7 +5,7 @@ metadata:
   namespace: claim-dev
 subjects:
   - kind: Group
-    name: "github:crm7"
+    name: "github:crm7team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
