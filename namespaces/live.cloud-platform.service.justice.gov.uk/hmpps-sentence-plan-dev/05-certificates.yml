@@ -4,7 +4,7 @@ metadata:
   name: sentence-plan
   namespace: hmpps-sentence-plan-dev
 spec:
-  secretName: hmpps-sentence-plan-cert
+  secretName: hmpps-sentence-plan-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -17,7 +17,7 @@ metadata:
   name: sentence-plan-api
   namespace: hmpps-sentence-plan-dev
 spec:
-  secretName: hmpps-sentence-plan-ui-cert
+  secretName: hmpps-sentence-plan-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
