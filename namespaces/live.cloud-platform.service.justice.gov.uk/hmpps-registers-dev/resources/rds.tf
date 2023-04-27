@@ -9,13 +9,14 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "false"
-  enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
-  deletion_protection         = true
+  enable_rds_auto_start_stop = true
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
+  deletion_protection        = true
+  prepare_for_major_upgrade  = false
+  rds_family                 = "postgres15"
+  db_engine                  = "postgres"
+  db_engine_version          = "15"
 
   providers = {
     aws = aws.london
@@ -50,13 +51,14 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "false"
-  enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
-  deletion_protection         = true
+  enable_rds_auto_start_stop = true
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
+  deletion_protection        = true
+  prepare_for_major_upgrade  = false
+  rds_family                 = "postgres15"
+  db_engine                  = "postgres"
+  db_engine_version          = "15"
 
   providers = {
     aws = aws.london

@@ -103,3 +103,29 @@ resource "kubernetes_secret" "drupal_content_storage_secret" {
     bucket_name       = module.drupal_content_storage.bucket_name
   }
 }
+
+# Temporarily output S3 bucket info to production and development namespaces.
+# We are moving prod S3 from eu-west-1 to eu-west-2. Rather than sync the whole 500GB
+# across regions, we are going to sync prod eu-west-2 from staging, which is already in
+# eu-west-2 and is largely already sync'd with prod eu-west-1.
+# NOTE: We only share the bucket name.  We never share access keys.
+resource "kubernetes_secret" "drupal_content_storage_output_staging_temp" {
+  metadata {
+    name      = "drupal-s3-output-temp"
+    namespace = "prisoner-content-hub-production"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}
+resource "kubernetes_secret" "drupal_content_storage_output_development" {
+  metadata {
+    name      = "drupal-s3-output-temp"
+    namespace = "prisoner-content-hub-development"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}
