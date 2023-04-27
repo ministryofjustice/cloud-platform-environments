@@ -10,6 +10,10 @@ locals {
       namespace  = "laa-review-criminal-legal-aid-staging"
       rotated_at = "2023-04-21T11:34:15Z"
     }
+    "maat_adapter" = {
+      namespace  = "laa-crime-applications-adaptor-staging"
+      rotated_at = "2023-04-27"
+    }
   }
 }
 
