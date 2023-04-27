@@ -22,4 +22,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+  - stg.check-clients-details-using-hmrc-data.service.justice.gov.uk
   - staging.check-clients-details-using-hmrc-data.service.justice.gov.uk
