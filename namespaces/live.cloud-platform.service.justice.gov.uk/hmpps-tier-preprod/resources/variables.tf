@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Manage a Workforce Team"
+  default     = "manage-a-workforce"
 }
 
 variable "environment-name" {
