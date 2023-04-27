@@ -88,7 +88,7 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
 }
 
 
-resource "kubernetes_secret" "hmpps_tier_domain_events_queue_for_domain_events" {
+resource "kubernetes_secret" "hmpps_tier_domain_events_queue_secret" {
   metadata {
     name      = "sqs-domain-events-secret"
     namespace = var.namespace
@@ -103,7 +103,7 @@ resource "kubernetes_secret" "hmpps_tier_domain_events_queue_for_domain_events" 
   }
 }
 
-resource "kubernetes_secret" "hmpps_tier_domain_events_queue_for_domain_events_dead_letter_queue" {
+resource "kubernetes_secret" "hmpps_tier_domain_events_queue_secret_dead_letter_queue" {
   metadata {
     name      = "sqs-domain-events-dl-secret"
     namespace = var.namespace
