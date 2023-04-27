@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.5"
+  source = "ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.7.6"
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
