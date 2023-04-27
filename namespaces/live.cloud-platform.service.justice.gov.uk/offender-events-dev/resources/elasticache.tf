@@ -9,8 +9,8 @@ module "offender_events_ui_elasticache_redis" {
   business-unit           = var.business_unit
   number_cache_clusters   = var.number-cache-clusters
   node_type               = "cache.t4g.micro"
-  engine_version          = "6.x"
-  parameter_group_name    = "default.redis6.x"
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
   namespace               = var.namespace
   auth_token_rotated_date = "2023-02-21:14:00"
 
@@ -34,7 +34,7 @@ resource "kubernetes_secret" "offender_events_ui_elasticache_redis" {
 
 resource "aws_elasticache_parameter_group" "event_store" {
   name   = "offender-events-ui-event-parameter-group"
-  family = "redis6.x"
+  family = "redis7"
 
   # Needed in order to get spring boot to expire items from the redis cache
   parameter {
