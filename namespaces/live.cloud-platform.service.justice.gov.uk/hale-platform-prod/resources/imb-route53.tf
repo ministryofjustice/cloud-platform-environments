@@ -22,6 +22,18 @@ resource "kubernetes_secret" "imb_route53_zone_sec" {
   }
 }
 
+resource "aws_route53_record" "imb_route53_a_record" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "imb.org.uk"
+  type    = "A"
+
+  alias {
+    name                   = "jotwp-loadb-1mbwraz503eq6-1769122100.eu-west-2.elb.amazonaws.com."
+    zone_id                = "ZHURV8PSTC4K8"
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "imb_route53_a_record_sts" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "mta-sts.imb.org.uk"
