@@ -12,7 +12,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "claim-dev"
+  default     = "LAA-claim-non-standard-magistrate-fee-dev"
 }
 
 variable "business_unit" {
