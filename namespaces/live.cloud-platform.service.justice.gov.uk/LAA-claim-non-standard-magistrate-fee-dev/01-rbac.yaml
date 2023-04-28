@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: LAA-claim-non-standard-magistrate-fee-dev-admin
-  namespace: LAA-claim-non-standard-magistrate-fee-dev
+  name: laa-claim-non-standard-magistrate-fee-dev-admin
+  namespace: laa-claim-non-standard-magistrate-fee-dev
 subjects:
   - kind: Group
     name: "github:crm7team"
