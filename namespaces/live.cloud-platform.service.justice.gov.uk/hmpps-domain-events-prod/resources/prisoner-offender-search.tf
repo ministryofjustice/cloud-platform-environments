@@ -14,7 +14,7 @@ resource "kubernetes_secret" "prisoner-offender-search" {
 
 
 module "prisoner_offender_search_domain_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -68,7 +68,7 @@ EOF
 }
 
 module "prisoner_offender_search_domain_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

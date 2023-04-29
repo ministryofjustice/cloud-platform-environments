@@ -1,5 +1,5 @@
 module "crime_apps_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name               = var.vpc_name

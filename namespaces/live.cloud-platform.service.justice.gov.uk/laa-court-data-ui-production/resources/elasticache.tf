@@ -1,5 +1,5 @@
 module "lcdui_elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -8,6 +8,8 @@ module "lcdui_elasticache" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   namespace              = var.namespace
+  business-unit          = var.business_unit
+
   engine_version         = "6.x"
   parameter_group_name   = "default.redis6.x"
   number_cache_clusters  = "2"

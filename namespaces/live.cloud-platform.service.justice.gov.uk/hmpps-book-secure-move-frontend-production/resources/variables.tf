@@ -27,4 +27,6 @@ variable "namespace" {
 variable "vpc_name" {
 }
 
-
+variable "business_unit" {
+  default = "HMPPS"
+}

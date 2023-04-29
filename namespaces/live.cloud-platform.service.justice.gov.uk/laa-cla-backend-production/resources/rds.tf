@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_11_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -49,6 +49,9 @@ module "cla_backend_rds_postgres_11_replica" {
     { name = "max_standby_streaming_delay", value = "3600000", apply_method = "immediate" },
     { name = "log_statement", value = "all", apply_method = "immediate" }
   ]
+
+  snapshot_identifier = "b4-diversity-keys"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
@@ -56,7 +59,7 @@ module "cla_backend_rds_postgres_11_replica" {
 }
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -95,6 +98,7 @@ module "cla_backend_rds_postgres_11" {
     }
   ]
 
+ snapshot_identifier = "b4-diversity-keys"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

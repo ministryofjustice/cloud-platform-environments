@@ -1,5 +1,5 @@
 module "cloud_platform_reports_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -12,7 +12,6 @@ module "cloud_platform_reports_dynamodb" {
   hash_key          = "filename"
   enable_encryption = "false"
   enable_autoscaler = "true"
-  aws_region        = "eu-west-2"
 }
 
 resource "kubernetes_secret" "cloud_platform_reports_dynamodb" {

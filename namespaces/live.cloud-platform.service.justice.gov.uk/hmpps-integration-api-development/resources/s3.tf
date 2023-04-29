@@ -1,5 +1,5 @@
 module "truststore_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -50,12 +50,12 @@ resource "kubernetes_secret" "truststore_s3_bucket" {
 
 data "github_repository_file" "truststore" {
   repository = "ministryofjustice/hmpps-integration-api"
-  file       = "temporary_certificates/truststore.pem"
+  file       = "temporary_certificates/development-truststore.pem"
 }
 
 resource "aws_s3_object" "truststore" {
   bucket  = module.truststore_s3_bucket.bucket_name
-  key     = "truststore.pem"
+  key     = "development-truststore.pem"
   content = data.github_repository_file.truststore.content
 }
 

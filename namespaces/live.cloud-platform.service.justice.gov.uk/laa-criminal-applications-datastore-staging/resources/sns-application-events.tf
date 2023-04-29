@@ -1,5 +1,5 @@
 module "application-events-sns-topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
 
   topic_display_name = "datastore-application-events"
   encrypt_sns_kms    = true

@@ -1,7 +1,7 @@
 
 
 module "makeaplea_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -47,7 +47,7 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
 
 
 module "makeaplea_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment
   team_name              = var.team_name

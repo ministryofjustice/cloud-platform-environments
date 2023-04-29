@@ -41,15 +41,3 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "true"
 }
-
-variable "rds-family" {
-  default = "postgres14"
-}
-
-variable "db_instance_class" {
-  default = "db.t3.large"
-}
-
-variable "db_engine_version" {
-  default = "14"
-}

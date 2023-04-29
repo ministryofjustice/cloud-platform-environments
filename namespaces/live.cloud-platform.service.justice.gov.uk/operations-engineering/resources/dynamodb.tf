@@ -1,5 +1,5 @@
 module "opseng_reports" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -12,7 +12,6 @@ module "opseng_reports" {
   hash_key                    = "filename"
   enable_encryption           = "false"
   enable_autoscaler           = "true"
-  aws_region                  = "eu-west-2"
   autoscale_max_read_capacity = "100"
 }
 

@@ -1,5 +1,5 @@
 module "db_backups_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
 
   team_name              = var.team_name
   versioning             = false

@@ -13,7 +13,7 @@ module "tva_elasticache_redis" {
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t4g.micro"
   engine_version         = "7.0"
-  parameter_group_name   = "default.redis7"
+  parameter_group_name   = aws_elasticache_parameter_group.token_store.name
   namespace              = var.namespace
   business-unit          = var.business_unit
 
@@ -37,7 +37,7 @@ resource "kubernetes_secret" "tva_elasticache_redis" {
 
 resource "aws_elasticache_parameter_group" "token_store" {
   name   = "tva-token-store-parameter-group"
-  family = "redis5.0"
+  family = "redis7"
 
   # Needed in order to get spring boot to expire items from the redis cache
   parameter {

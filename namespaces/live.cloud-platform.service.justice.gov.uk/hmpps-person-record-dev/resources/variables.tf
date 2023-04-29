@@ -1,3 +1,5 @@
+variable "vpc_name" {
+}
 
 variable "application" {
   default = "HMPPS Person Record Service"

@@ -5,22 +5,23 @@
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
-  vpc_name               = var.vpc_name
-  db_instance_class      = "db.t3.small"
-  team_name              = var.team_name
-  business-unit          = "HMPPS"
-  application            = "hmpps-complexity-of-need"
-  is-production          = "false"
-  namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = "omic@digital.justice.gov.uk"
-  db_engine              = "postgres"
-  db_engine_version      = "14"
-  rds_family             = "postgres14"
-  db_name                = "hmpps_complexity_of_need"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  vpc_name                   = var.vpc_name
+  db_instance_class          = "db.t3.small"
+  team_name                  = var.team_name
+  business-unit              = "HMPPS"
+  application                = "hmpps-complexity-of-need"
+  is-production              = "false"
+  namespace                  = var.namespace
+  environment-name           = var.environment
+  infrastructure-support     = "manage-pom-cases@digital.justice.gov.uk"
+  db_engine                  = "postgres"
+  db_engine_version          = "14"
+  rds_family                 = "postgres14"
+  db_name                    = "hmpps_complexity_of_need"
+  db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  enable_rds_auto_start_stop = true
 
   allow_major_version_upgrade = true
 

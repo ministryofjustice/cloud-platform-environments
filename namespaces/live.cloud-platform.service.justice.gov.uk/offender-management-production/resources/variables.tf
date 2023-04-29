@@ -6,7 +6,7 @@
 variable "vpc_name" {
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default = "production"
 }
 
@@ -23,5 +23,9 @@ variable "namespace" {
 }
 
 variable "infrastructure_support" {
-  default = "omic@digital.justice.gov.uk"
+  default = "manage-pom-cases@digital.justice.gov.uk"
+}
+
+variable "business_unit" {
+  default = "HMPPS"
 }

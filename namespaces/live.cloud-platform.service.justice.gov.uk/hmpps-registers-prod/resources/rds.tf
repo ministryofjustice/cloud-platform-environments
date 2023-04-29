@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,10 +9,13 @@ module "dps_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
+  deletion_protection        = true
+  prepare_for_major_upgrade  = false
+  rds_family                 = "postgres15"
+  db_engine                  = "postgres"
+  db_engine_version          = "15"
 
   providers = {
     aws = aws.london
@@ -37,7 +40,7 @@ resource "kubernetes_secret" "dps_rds" {
 }
 
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -47,10 +50,13 @@ module "prisons_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  db_instance_class           = "db.t4g.small"
+  db_engine                   = "postgres"
+  db_engine_version           = "15"
+  rds_family                  = "postgres15"
+  db_max_allocated_storage    = "10000"
+  prepare_for_major_upgrade   = true
+  deletion_protection         = true
 
   providers = {
     aws = aws.london

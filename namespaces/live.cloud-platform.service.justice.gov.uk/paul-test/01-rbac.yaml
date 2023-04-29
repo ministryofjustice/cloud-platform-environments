@@ -5,7 +5,7 @@ metadata:
   namespace: paul-test
 subjects:
   - kind: Group
-    name: "github:webops"
+    name: "github:test-webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

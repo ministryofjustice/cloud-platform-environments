@@ -1,6 +1,8 @@
 resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
+
   domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
-  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname.certificate_arn
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
   security_policy          = "TLS_1_2"
 
   endpoint_configuration {
@@ -24,8 +26,10 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
 }
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
+  for_each = aws_route53_record.cert_validations
+
   certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = aws_route53_record.cert_validations[*].fqdn
+  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
 
   timeouts {
     create = "10m"
@@ -40,24 +44,33 @@ data "aws_route53_zone" "hmpps" {
 }
 
 resource "aws_route53_record" "cert_validations" {
-  count = length(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options)
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = data.aws_route53_zone.hmpps.zone_id
+    }
+  }
 
-  zone_id = data.aws_route53_zone.hmpps.zone_id
-
-  name    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
-  type    = element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
-  records = [element(aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
-  ttl     = 60
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = each.value.zone_id
 }
 
 resource "aws_route53_record" "data" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
   zone_id = data.aws_route53_zone.hmpps.zone_id
   name    = "${var.hostname}.${data.aws_route53_zone.hmpps.name}"
   type    = "A"
 
   alias {
-    name                   = aws_api_gateway_domain_name.api_gateway_fqdn.regional_domain_name
-    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn.regional_zone_id
+    name                   = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_zone_id
     evaluate_target_health = false
   }
 }
@@ -104,10 +117,14 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
 resource "aws_api_gateway_deployment" "development" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  stage_name  = var.environment
 
-  # Force recreate of the deployment resource
-  stage_description = md5(file("api_gateway.tf"))
+  triggers = {
+    redeployment = sha1(jsonencode([
+      # "manual-deploy-trigger",
+      var.cloud_platform_integration_api_url,
+      md5(file("api_gateway.tf"))
+    ]))
+  }
 
   depends_on = [
     aws_api_gateway_method.proxy,
@@ -119,8 +136,9 @@ resource "aws_api_gateway_deployment" "development" {
   }
 }
 
-resource "aws_api_gateway_api_key" "team" {
-  name = var.team_name
+resource "aws_api_gateway_api_key" "clients" {
+  for_each = toset(local.clients)
+  name = each.key
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -128,23 +146,16 @@ resource "aws_api_gateway_usage_plan" "default" {
 
   api_stages {
     api_id = aws_api_gateway_rest_api.api_gateway.id
-    stage  = aws_api_gateway_deployment.development.stage_name
+    stage  = aws_api_gateway_stage.development.stage_name
   }
 }
 
-resource "aws_api_gateway_usage_plan_key" "team" {
-  key_id        = aws_api_gateway_api_key.team.id
+resource "aws_api_gateway_usage_plan_key" "clients" {
+  for_each      = aws_api_gateway_api_key.clients
+
+  key_id        = aws_api_gateway_api_key.clients[each.key].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.default.id
-}
-
-# This block gets around the deprecation notice/ambiguous interpolation warning when using
-# a variable for a key
-locals {
-  api_keys_data = {
-    for team_name in [var.team_name] :
-    team_name => aws_api_gateway_api_key.team.value
-  }
 }
 
 resource "kubernetes_secret" "api_keys" {
@@ -153,11 +164,41 @@ resource "kubernetes_secret" "api_keys" {
     namespace = var.namespace
   }
 
-  data = local.api_keys_data
+  data = {
+    for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
+  }
+
+  depends_on = [
+    aws_api_gateway_api_key.clients
+  ]
 }
 
 resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
   api_id      = aws_api_gateway_rest_api.api_gateway.id
-  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn.domain_name
-  stage_name  = var.environment
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
+  stage_name  = aws_api_gateway_stage.development.stage_name
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client" {
+  description = "Client certificate presented to the backend API"
+}
+
+resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
+  metadata {
+    name      = "api-gateway-client-certificate"
+    namespace = var.namespace
+  }
+
+  data = {
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+  }
+}
+
+resource "aws_api_gateway_stage" "development" {
+  deployment_id = aws_api_gateway_deployment.development.id
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+  stage_name    = var.namespace
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
 }

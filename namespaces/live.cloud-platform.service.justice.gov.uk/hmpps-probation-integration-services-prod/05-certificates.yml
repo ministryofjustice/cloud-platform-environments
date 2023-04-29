@@ -208,3 +208,48 @@ spec:
   dnsNames:
     - fc410a78.hmpps.service.justice.gov.uk
     - workforce-allocations-to-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: create-and-vary-a-licence-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: create-and-vary-a-licence-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 11bbddfa.hmpps.service.justice.gov.uk
+    - create-and-vary-a-licence-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: court-case-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: court-case-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4dc762c3.hmpps.service.justice.gov.uk
+    - court-case-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: effective-proposal-framework-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: effective-proposal-framework-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 3ce96d4b.hmpps.service.justice.gov.uk
+    - effective-proposal-framework-and-delius.hmpps.service.justice.gov.uk
