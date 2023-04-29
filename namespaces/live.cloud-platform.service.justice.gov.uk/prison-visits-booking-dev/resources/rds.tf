@@ -1,5 +1,5 @@
 module "prison-visits-rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -18,6 +18,7 @@ module "prison-visits-rds" {
   db_engine                   = "postgres"
   db_name                     = "visits"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_password_rotated_date    = "2023-03-22"
 
   providers = {
     aws = aws.london

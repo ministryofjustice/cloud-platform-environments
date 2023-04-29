@@ -1,18 +1,5 @@
-resource "kubernetes_secret" "hmpps-domain-event-logger" {
-  metadata {
-    name      = "hmpps-domain-events-topic"
-    namespace = "hmpps-domain-event-logger-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps-domain-events.access_key_id
-    secret_access_key = module.hmpps-domain-events.secret_access_key
-    topic_arn         = module.hmpps-domain-events.topic_arn
-  }
-}
-
 module "hmpps_domain_event_logger_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -65,7 +52,7 @@ EOF
 }
 
 module "hmpps_domain_event_logger_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

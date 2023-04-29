@@ -26,3 +26,7 @@ variable "infrastructure_support" {
   default = "pvb-technical-support@digital.justice.gov.uk"
 }
 
+variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
+  default     = "HMPPS"
+}

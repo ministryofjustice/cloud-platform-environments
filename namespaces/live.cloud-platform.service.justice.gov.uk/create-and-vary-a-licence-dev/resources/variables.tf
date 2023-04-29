@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "create-and-vary-a-licence-devs"
 }
 
 variable "environment" {
@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "licences-team"
+  default     = "create-and-vary-a-licence"
 }
 
 variable "number_cache_clusters" {

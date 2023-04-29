@@ -5,7 +5,7 @@
  *
  */
 module "laa-estimate-financial-eligibility-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -14,10 +14,13 @@ module "laa-estimate-financial-eligibility-elasticache" {
   is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  node_type              = "cache.t4g.micro"
 
+  auth_token_rotated_date = "2023-03-16"
+  
   providers = {
     aws = aws.london
   }
@@ -33,6 +36,8 @@ resource "kubernetes_secret" "laa-estimate-financial-eligibility-elasticache" {
     primary_endpoint_address = module.laa-estimate-financial-eligibility-elasticache.primary_endpoint_address
     member_clusters          = jsonencode(module.laa-estimate-financial-eligibility-elasticache.member_clusters)
     auth_token               = module.laa-estimate-financial-eligibility-elasticache.auth_token
+    access_key_id            = module.laa-estimate-financial-eligibility-elasticache.access_key_id
+    secret_access_key        = module.laa-estimate-financial-eligibility-elasticache.secret_access_key
     url                      = "rediss://dummyuser:${module.laa-estimate-financial-eligibility-elasticache.auth_token}@${module.laa-estimate-financial-eligibility-elasticache.primary_endpoint_address}:6379"
   }
 }

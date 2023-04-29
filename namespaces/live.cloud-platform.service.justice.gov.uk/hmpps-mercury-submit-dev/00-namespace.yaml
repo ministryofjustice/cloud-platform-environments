@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hmpps-mercury-submit-dev
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "ims-digital-team"
+    cloud-platform.justice.gov.uk/application: "manage-intelligence"
+    cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-mercury-submit-ui.git"
+    cloud-platform.justice.gov.uk/team-name: "dps-soct-tech"
+    cloud-platform.justice.gov.uk/review-after: ""

@@ -16,6 +16,9 @@ resource "pingdom_check" "pingdom" {
     "tier-to-delius",
     "unpaid-work-and-delius",
     "workforce-allocations-to-delius",
+    "create-and-vary-a-licence-and-delius",
+    "court-case-and-delius",
+    "effective-proposal-framework-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

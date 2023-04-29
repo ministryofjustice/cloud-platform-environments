@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-apply-for-criminal-legal-aid-staging
   labels:
+    component: "laa-apply-for-criminal-legal-aid-staging"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:

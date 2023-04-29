@@ -1,8 +1,5 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "kubernetes_cluster" {
 }
@@ -23,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-estimate-eligibility"
+  default     = "laa-eligibility-platform"
 }
 
 variable "environment" {
@@ -33,7 +30,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "eligibility@justice.gov.uk"
+  default     = "eligibility-platform@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -42,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "estimate-eligibility-dev"
+  default     = "laa-eligibility-platform"
 }
 
 variable "github_owner" {

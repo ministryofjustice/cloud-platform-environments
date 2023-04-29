@@ -1,30 +1,27 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
   application   = var.application
   is-production = var.is_production
   namespace     = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   # enable performance insights
   performance_insights_enabled = true
 
-  # change the postgres version as you see fit.
-  db_engine_version      = "11"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres11"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  # Database configuration
+  db_engine_version      = "14.4"
+  db_instance_class      = "db.t4g.small"
+  rds_family = "postgres14"
   allow_major_version_upgrade = "true"
 
+  deletion_protection = true
+
   providers = {
-    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 }

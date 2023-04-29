@@ -1,5 +1,5 @@
 module "redis-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   vpc_name = var.vpc_name
 
@@ -7,6 +7,7 @@ module "redis-elasticache" {
   environment-name       = var.environment-name
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
+  business-unit          = var.business_unit
   team_name              = var.team_name
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"

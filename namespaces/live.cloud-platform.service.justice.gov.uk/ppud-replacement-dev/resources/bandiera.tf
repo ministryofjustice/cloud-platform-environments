@@ -3,7 +3,7 @@
 ##
 
 module "ppud_replacement_bandiera_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace

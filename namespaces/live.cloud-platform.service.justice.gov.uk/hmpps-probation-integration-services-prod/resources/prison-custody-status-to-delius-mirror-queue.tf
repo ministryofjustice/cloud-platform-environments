@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-mirror-qu
 }
 
 module "prison-custody-status-to-delius-mirror-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name

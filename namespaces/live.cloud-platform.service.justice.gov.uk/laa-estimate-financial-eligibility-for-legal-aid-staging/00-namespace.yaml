@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Estimate financial eligibility for Legal Aid"
     cloud-platform.justice.gov.uk/owner: "Estimate Eligibility: eligibility@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-estimate-financial-eligibility-for-legal-aid"
-    cloud-platform.justice.gov.uk/team-name: "laa-estimate-eligibility"
+    cloud-platform.justice.gov.uk/team-name: "laa-estimate-eligibility-ithc"
     cloud-platform.justice.gov.uk/review-after: ""
