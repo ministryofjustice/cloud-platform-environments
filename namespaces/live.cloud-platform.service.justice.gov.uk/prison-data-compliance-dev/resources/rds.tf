@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure_support
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine_version           = "14.3"

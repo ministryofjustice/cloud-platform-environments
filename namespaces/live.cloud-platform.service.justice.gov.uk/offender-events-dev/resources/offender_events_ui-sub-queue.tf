@@ -1,5 +1,5 @@
 module "offender_events_ui_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=HEAT-61-test-irsa"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "offender_events_ui_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=HEAT-61-test-irsa"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -121,14 +121,4 @@ resource "aws_sns_topic_subscription" "ou_events_ui_domain_subscription" {
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.offender_events_ui_queue.sqs_arn
-}
-
-# IRSA role for offender-events-ui app
-module "offender-events-ui-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
-
-  eks_cluster_name = var.eks_cluster_name
-  namespace        = var.namespace
-  service_account  = "offender-events-ui"
-  role_policy_arns = [module.offender_events_ui_dead_letter_queue.aws_iam_policy_arn, module.offender_events_ui_queue.aws_iam_policy_arn]
 }

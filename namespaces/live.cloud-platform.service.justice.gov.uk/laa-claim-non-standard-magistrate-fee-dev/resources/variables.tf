@@ -6,13 +6,13 @@ variable "vpc_name" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "LAA-Claim-non-standard-magistrate-fee"
+  default     = "laa-claim-non-standard-magistrate-fee"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "claim-dev"
+  default     = "laa-claim-non-standard-magistrate-fee-dev"
 }
 
 variable "business_unit" {
