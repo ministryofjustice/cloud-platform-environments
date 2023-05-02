@@ -5,7 +5,9 @@ module "irsa" {
   namespace        = var.namespace
 
   role_policy_arns = [
+    module.dynamodb.irsa_policy_arn,
+    module.s3.aws_iam_policy_arn,
+    module.sns.aws_iam_policy_arn,
     module.sqs.aws_iam_policy_arn,
-    module.dynamodb.irsa_policy_arn
   ]
 }

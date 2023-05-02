@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=irsa"
 
   # Tags
   application            = var.application
