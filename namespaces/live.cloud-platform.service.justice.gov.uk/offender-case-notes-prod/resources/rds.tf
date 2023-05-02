@@ -10,7 +10,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure_support
   db_instance_class         = "db.t4g.medium"
   deletion_protection       = true
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   rds_family                = "postgres15"
   db_engine                 = "postgres"
   db_engine_version         = "15"
