@@ -3,7 +3,6 @@ module "dynamodb" {
 
   # DynamoDB configuration
   hash_key = "hk"
-  sort_key = "sk"
 
   # Tags
   application            = var.application
