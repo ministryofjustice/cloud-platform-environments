@@ -1,5 +1,5 @@
 module "dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=irsa"
 
   # DynamoDB configuration
   hash_key = "hk"
