@@ -5,9 +5,8 @@ module "mercury_submit_queue" {
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
-  sqs_name                   = "mercury_submit_queue.fifo"
-  encrypt_sqs_kms            = "false"
-  fifo_queue                 = "true"
+  sqs_name                   = "mercury_submit_queue"
+  encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
   namespace                  = var.namespace
@@ -32,9 +31,8 @@ module "mercury_submit_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "mercury_submit_dl_queue.fifo"
-  encrypt_sqs_kms        = "false"
-  fifo_queue             = "true"
+  sqs_name               = "mercury_submit_dl_queue"
+  encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
   providers = {
