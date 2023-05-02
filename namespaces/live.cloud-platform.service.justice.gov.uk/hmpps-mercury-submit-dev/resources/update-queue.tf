@@ -42,7 +42,7 @@ module "mercsubmit_index_update_dead_letter_queue" {
 
 resource "kubernetes_secret" "mercsubmit_index_update_queue" {
   metadata {
-    name      = "mercsubmit-index-update-queue-instance-output"
+    name      = "ims-index-update-queue-instance-output"
     namespace = var.namespace
   }
 
@@ -57,7 +57,7 @@ resource "kubernetes_secret" "mercsubmit_index_update_queue" {
 
 resource "kubernetes_secret" "mercsubmit_index_update_dead_letter_queue" {
   metadata {
-    name      = "mercsubmit-index-update-dlq-instance-output"
+    name      = "ims-index-update-dlq-instance-output"
     namespace = var.namespace
   }
 
