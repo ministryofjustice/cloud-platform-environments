@@ -7,7 +7,7 @@ module "irsa" {
   role_policy_arns = [
     module.dynamodb.irsa_policy_arn,
     module.s3.irsa_policy_arn,
-    module.sns.irsa_policy_arn,
-    module.sqs.irsa_policy_arn,
+    # module.sns.irsa_policy_arn,
+    # module.sqs.irsa_policy_arn,
   ]
 }
