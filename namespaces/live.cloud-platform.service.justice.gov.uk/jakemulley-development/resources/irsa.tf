@@ -1,4 +1,6 @@
-resource "irsa" {
+module "irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+
   eks_cluster_name = var.eks_cluster_name
   namespace = var.namespace
 
