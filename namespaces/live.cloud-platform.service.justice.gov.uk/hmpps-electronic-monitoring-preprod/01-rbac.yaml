@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-electronic-monitoring-dev-admin
-  namespace: hmpps-electronic-monitoring-dev
+  name: hmpps-electronic-monitoring-preprod-admin
+  namespace: hmpps-electronic-monitoring-preprod
 subjects:
   - kind: Group
     name: "github:hmpps-electronic-monitoring"
