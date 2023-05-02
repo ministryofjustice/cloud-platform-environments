@@ -40,6 +40,21 @@ module "drupal_content_storage" {
       ]
     },
     {
+      "Sid": "AllowHubDevelopmentS3SyncTemp",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
       "Sid": "AllowListBucketVersions",
       "Effect": "Allow",
       "Principal": {
@@ -119,7 +134,7 @@ resource "kubernetes_secret" "drupal_content_storage_output_staging_temp" {
     bucket_name = module.drupal_content_storage.bucket_name
   }
 }
-resource "kubernetes_secret" "drupal_content_storage_output_development" {
+resource "kubernetes_secret" "drupal_content_storage_output_development_temp" {
   metadata {
     name      = "drupal-s3-output-temp"
     namespace = "prisoner-content-hub-development"
