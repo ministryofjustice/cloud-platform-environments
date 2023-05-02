@@ -1,5 +1,5 @@
 module "sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
 
   # SNS configuration
   topic_display_name = "jm-dev"
