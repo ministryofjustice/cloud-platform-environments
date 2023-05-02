@@ -7,6 +7,7 @@ module "mercury_submit_queue" {
   application                = var.application
   sqs_name                   = "mercury_submit_queue_${var.environment}"
   encrypt_sqs_kms            = "true"
+  fifo_queue                 = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
   namespace                  = var.namespace
@@ -33,6 +34,7 @@ module "mercury_submit_dead_letter_queue" {
   application            = var.application
   sqs_name               = "mercury_submit_dl_queue_${var.environment}"
   encrypt_sqs_kms        = "true"
+  fifo_queue             = "true"
   namespace              = var.namespace
 
   providers = {
