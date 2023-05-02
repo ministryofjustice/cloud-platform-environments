@@ -3,8 +3,9 @@
  * variable is automatically supplied by the pipeline.
  *
  */
-variable "vpc_name" {
-}
+variable "vpc_name" {}
+
+variable "kubernetes_cluster" {}
 
 variable "domain" {
   default = "restricted-patients-api-preprod.hmpps.service.justice.gov.uk"
