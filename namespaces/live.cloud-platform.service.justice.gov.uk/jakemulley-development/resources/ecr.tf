@@ -5,4 +5,5 @@ module "ecr" {
   repo_name = "oidc-test"
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
+  oidc_providers      = ["github"]
 }
