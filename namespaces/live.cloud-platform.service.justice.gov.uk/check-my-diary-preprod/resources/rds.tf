@@ -9,7 +9,8 @@ module "checkmydiary_rds" {
   namespace                  = var.namespace
   environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
-  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "500"
+  db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
   db_engine_version          = "15"
   rds_family                 = "postgres15"
