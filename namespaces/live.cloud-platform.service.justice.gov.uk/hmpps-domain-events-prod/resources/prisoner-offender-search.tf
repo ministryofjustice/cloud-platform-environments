@@ -1,18 +1,3 @@
-resource "kubernetes_secret" "prisoner-offender-search" {
-  metadata {
-    name      = "hmpps-domain-events-topic"
-    namespace = "prisoner-offender-search-prod"
-  }
-
-  data = {
-    access_key_id     = module.hmpps-domain-events.access_key_id
-    secret_access_key = module.hmpps-domain-events.secret_access_key
-    topic_arn         = module.hmpps-domain-events.topic_arn
-  }
-}
-
-
-
 module "prisoner_offender_search_domain_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
