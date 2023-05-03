@@ -201,4 +201,32 @@ resource "aws_api_gateway_stage" "development" {
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   stage_name    = var.namespace
   client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
+    format          = "$context.extendedRequestId $context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] \"$context.httpMethod $context.resourcePath $context.protocol \" $context.status $context.responseLength $context.requestId"
+  }
+
+  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
 }
+
+resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${aws_api_gateway_deployment.development.stage_name}"
+  retention_in_days = 7
+}
+
+resource "kubernetes_secret" "api_gateway_logs" {
+  metadata {
+    name      = "api-gateway-logs"
+    namespace = var.namespace
+  }
+
+  data = {
+    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${aws_api_gateway_deployment.development.stage_name}"
+  }
+
+  depends_on = [
+    aws_cloudwatch_log_group.api_gateway_access_logs
+  ]
+}
+
