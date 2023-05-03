@@ -59,7 +59,7 @@ module "cla_backend_rds_postgres_11_replica" {
   infrastructure-support = var.infrastructure_support
 
   # It is mandatory to set the below values to create read replica instance
-  db_name = module.cla_backend_rds_postgres_11.database_name
+  db_name = "cla_backend"
 
   # Set the db_identifier of the source db
   replicate_source_db = module.cla_backend_rds_postgres_11.db_identifier
