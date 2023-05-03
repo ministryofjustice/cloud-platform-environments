@@ -26,4 +26,6 @@ variable "is_production" {
   default = "false"
 }
 
+variable "vpc_name" {
+}
 
