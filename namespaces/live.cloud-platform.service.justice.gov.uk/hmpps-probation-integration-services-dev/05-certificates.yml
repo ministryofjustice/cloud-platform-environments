@@ -253,3 +253,18 @@ spec:
   dnsNames:
     - 3ce96d4b-dev.hmpps.service.justice.gov.uk
     - effective-proposal-framework-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: sentence-plan-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7edb0910-dev.hmpps.service.justice.gov.uk
+    - sentence-plan-and-delius-dev.hmpps.service.justice.gov.uk
