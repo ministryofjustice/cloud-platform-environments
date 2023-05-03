@@ -39,3 +39,5 @@ resource "kubernetes_secret" "make_recall_decision_api_rds" {
     password = module.make_recall_decision_api_rds.database_password
   }
 }
+
+
