@@ -222,7 +222,7 @@ resource "kubernetes_secret" "api_gateway_logs" {
   }
 
   data = {
-    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${aws_api_gateway_deployment.development.stage_name}"
+    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${aws_cloudwatch_log_group.api_gateway_access_logs.name}"
   }
 
   depends_on = [
