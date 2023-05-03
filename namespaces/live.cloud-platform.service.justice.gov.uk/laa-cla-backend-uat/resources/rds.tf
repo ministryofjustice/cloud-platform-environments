@@ -49,14 +49,14 @@ module "cla_backend_rds_postgres_11" {
 
 module "cla_backend_rds_postgres_11_replica" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
-  cluster_name           = var.cluster_name
+  vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business-unit
+  business-unit          = var.business_unit
   application            = var.application
-  is-production          = var.is-production
+  is-production          = var.is_production
   namespace              = var.namespace
   environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure-support
+  infrastructure-support = var.infrastructure_support
 
   # It is mandatory to set the below values to create read replica instance
   db_name = module.cla_backend_rds_postgres_11.database_name
