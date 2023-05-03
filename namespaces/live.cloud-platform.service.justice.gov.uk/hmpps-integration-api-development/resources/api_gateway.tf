@@ -1,3 +1,7 @@
+locals {
+  log_group_name = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
+}
+
 resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
   for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
 
@@ -211,7 +215,7 @@ resource "aws_api_gateway_stage" "development" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
+  name              = local.log_group_name
   retention_in_days = 7
 }
 
@@ -222,7 +226,7 @@ resource "kubernetes_secret" "api_gateway_logs" {
   }
 
   data = {
-    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${aws_cloudwatch_log_group.api_gateway_access_logs.name}"
+    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${local.log_group_name}"
   }
 
   depends_on = [
