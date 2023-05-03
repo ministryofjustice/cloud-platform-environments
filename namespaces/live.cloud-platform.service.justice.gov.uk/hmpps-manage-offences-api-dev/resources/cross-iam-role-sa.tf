@@ -8,6 +8,14 @@ data "aws_iam_policy_document" "hmpps_manage_offences_api_dev_ap_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
     actions = [
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::mojap-manage-offences",
+    ]
+  }
+  statement {
+    actions = [
       "s3:*",
     ]
     resources = [
