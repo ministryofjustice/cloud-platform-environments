@@ -45,7 +45,7 @@ resource "random_id" "manage-offences-api-ap-id" {
 }
 
 resource "aws_iam_user" "manage_offences_api_ap_user" {
-  name = "manage-offences-api-ap-s3-bucket-user-${random_id.manage-offences-api-ap-id.hex}"
+  name = "ap-s3-user-${random_id.manage-offences-api-ap-id.hex}"
   path = "/system/manage-offences-api-ap-s3-bucket-user/"
 }
 
