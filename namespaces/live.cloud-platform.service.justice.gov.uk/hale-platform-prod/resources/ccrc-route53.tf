@@ -11,6 +11,17 @@ resource "aws_route53_zone" "ccrc_route53_zone" {
   }
 }
 
+resource "kubernetes_secret" "ccrc_route53_zone_sec" {
+  metadata {
+    name      = "ccrc-route53-zone-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  }
+}
+
 resource "aws_route53_record" "ccrc_route53_a_record" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "ccrc.gov.uk"
@@ -22,17 +33,6 @@ resource "aws_route53_record" "ccrc_route53_a_record" {
     evaluate_target_health = false
   }
 
-}
-
-resource "kubernetes_secret" "ccrc_route53_zone_sec" {
-  metadata {
-    name      = "ccrc-route53-zone-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  }
 }
 
 resource "aws_route53_record" "ccrc_route53_a_record_connect" {
