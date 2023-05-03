@@ -21,6 +21,30 @@ variable "team_name" {
   default     = "Digital-Prison-Services"
 }
 
+variable "additional_topic_clients" {
+  description = "Create a dedicated access key and store it in a secret named 'hmpps-domain-events-topic' in each of the below namespaces."
+  default = [
+    "calculate-release-dates-api-prod",
+    "hmpps-assessments-prod",
+    "hmpps-community-accommodation-prod",
+    "hmpps-complexity-of-need-production",
+    "hmpps-domain-event-logger-prod",
+    "hmpps-incentives-prod",
+    "hmpps-interventions-prod",
+    "hmpps-manage-offences-api-prod",
+    "hmpps-registers-prod",
+    "hmpps-restricted-patients-api-prod",
+    "hmpps-tier-prod",
+    "hmpps-workload-prod",
+    "make-recall-decision-prod",
+    "offender-management-production",
+    "court-probation-prod",
+    "offender-events-prod",
+    "prisoner-offender-search-prod",
+    "visit-someone-in-prison-backend-svc-prod",
+  ]
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
