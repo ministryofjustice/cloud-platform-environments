@@ -39,3 +39,36 @@ resource "kubernetes_secret" "irsa" {
     rolearn        = module.irsa.aws_iam_role_arn
   }
 }
+
+resource "random_id" "manage-offences-api-ap-id" {
+  byte_length = 16
+}
+
+resource "aws_iam_user" "manage_offences_api_ap_user" {
+  name = "manage-offences-api-ap-s3-bucket-user-${random_id.manage-offences-api-ap-id.hex}"
+  path = "/system/manage-offences-api-ap-s3-bucket-user/"
+}
+
+resource "aws_iam_access_key" "manage_offences_api_ap_user" {
+  user = aws_iam_user.manage_offences_api_ap_user.name
+}
+
+resource "aws_iam_user_policy" "manage_offences_api_ap_policy" {
+  name   = "${var.namespace}-ap-s3"
+  policy = data.aws_iam_policy_document.hmpps_manage_offences_api_dev_ap_policy.json
+  user   = aws_iam_user.manage_offences_api_ap_user.name
+}
+
+resource "kubernetes_secret" "ap_aws_secret" {
+  metadata {
+    name      = "manage-offences-ap-s3-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn         = "arn:aws:s3:::mojap-manage-offences"
+    user_arn           = aws_iam_user.manage_offences_api_ap_user.arn
+    access_key_id      = aws_iam_access_key.manage_offences_api_ap_user.id
+    secret_access_key  = aws_iam_access_key.manage_offences_api_ap_user.secret
+  }
+}
