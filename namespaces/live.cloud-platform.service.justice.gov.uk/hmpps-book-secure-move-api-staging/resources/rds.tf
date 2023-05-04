@@ -76,6 +76,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
   db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
 
 
   rds_family        = "postgres12"
