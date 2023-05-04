@@ -75,6 +75,8 @@ module "rds-read-replica" {
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+  db_instance_class = "db.t4g.micro"
+
 
   rds_family        = "postgres12"
   db_engine_version = "12.11"
