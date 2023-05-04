@@ -12,11 +12,12 @@ module "rds-instance" {
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
-  enable_rds_auto_start_stop  = true
+  # this isn't possible with a read replica
+  enable_rds_auto_start_stop  = false
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
-  db_instance_class = "db.t4g.medium"
+  db_instance_class = "db.t4g.small"
 
   rds_family = "postgres12"
 
