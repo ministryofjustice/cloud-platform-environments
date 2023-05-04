@@ -20,6 +20,7 @@ module "rds-instance" {
   db_engine         = "postgres"
   db_engine_version = "12.11"
   db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
 
   rds_family = "postgres12"
 
@@ -78,6 +79,7 @@ module "rds-read-replica" {
 
   db_engine_version = "12.11"
   db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
   
   rds_family        = "postgres12"
 
