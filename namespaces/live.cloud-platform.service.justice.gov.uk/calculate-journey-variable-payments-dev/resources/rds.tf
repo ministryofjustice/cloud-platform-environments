@@ -9,10 +9,12 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  
+  enable_rds_auto_start_stop  = true
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
 
   rds_family = "postgres12"
 
