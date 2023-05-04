@@ -13,10 +13,12 @@ module "rds-instance" {
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
-  enable_rds_auto_start_stop  = true
+
+  # this isn't possible with a read replica
+  enable_rds_auto_start_stop  = false
 
   db_allocated_storage = 20
-  db_instance_class    = "db.t4g.xlarge"
+  db_instance_class    = "db.t4g.medium"
   db_engine            = "postgres"
   db_engine_version    = "12.11"
   rds_family           = "postgres12"
@@ -83,6 +85,7 @@ module "rds-read-replica" {
   business-unit          = var.business_unit
 
   db_allocated_storage   = 20
+  db_instance_class    = "db.t4g.small"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
