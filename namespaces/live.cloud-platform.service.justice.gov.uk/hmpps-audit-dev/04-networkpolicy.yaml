@@ -24,4 +24,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: hmpps-audit-dev
+              component: ingress-controllers
