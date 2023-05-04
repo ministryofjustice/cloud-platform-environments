@@ -7,9 +7,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMCTS"
-    cloud-platform.justice.gov.uk/slack-channel: "pet"
+    cloud-platform.justice.gov.uk/slack-channel: "dts-legacy-cloud-platform-apps"
     cloud-platform.justice.gov.uk/application: "Court fines"
-    cloud-platform.justice.gov.uk/owner: "pet: pet@hmcts.net"
+    cloud-platform.justice.gov.uk/owner: "DTS Legacy apps support: dts-legacy-apps-support-team@hmcts.net"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmcts-courtfines"
-    cloud-platform.justice.gov.uk/team-name: "pet"
+    cloud-platform.justice.gov.uk/team-name: "dts-legacy"
     cloud-platform.justice.gov.uk/review-after: ""
