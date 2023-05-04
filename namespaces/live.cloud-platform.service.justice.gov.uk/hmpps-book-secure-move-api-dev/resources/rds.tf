@@ -17,7 +17,7 @@ module "rds-instance" {
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.micro"
 
   rds_family = "postgres12"
 
@@ -75,6 +75,8 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   db_engine_version = "12.11"
+  db_instance_class = "db.t4g.micro"
+  
   rds_family        = "postgres12"
 
   providers = {
