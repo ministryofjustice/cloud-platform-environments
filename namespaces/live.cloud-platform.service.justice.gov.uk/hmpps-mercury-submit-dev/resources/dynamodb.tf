@@ -9,9 +9,11 @@ module "report_id_dynamodb" {
   is-production                = "false"
   namespace                    = var.namespace
 
-  hash_key      = "id"
-  hash_key_type = "N"
-  billing_mode  = "PAY_PER_REQUEST"
+  autoscale_min_read_capacity  = 0
+  autoscale_min_write_capacity = 0
+  hash_key                     = "id"
+  hash_key_type                = "N"
+  billing_mode                 = "PAY_PER_REQUEST"
 }
 
 resource "kubernetes_secret" "report_id_dynamodb" {
