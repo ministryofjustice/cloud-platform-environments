@@ -1,6 +1,7 @@
 
-variable "vpc_name" {
-}
+variable "vpc_name" {}
+
+variable "kubernetes_cluster" {}
 
 variable "application" {
   description = "Name of Application you are deploying"

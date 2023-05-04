@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-integration-api-development
 subjects:
   - kind: Group
-    name: "github:hmpps-integration-api-admin-team"
+    name: "github:hmpps-integration-api"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"

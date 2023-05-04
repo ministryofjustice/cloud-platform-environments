@@ -1,7 +1,8 @@
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
-  team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.3"
+  team_name      = var.team_name
+  repo_name      = "${var.namespace}-ecr"
+  oidc_providers = ["github"]
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
@@ -19,7 +20,8 @@ module "ecr_credentials" {
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["prod"]
-
+  # You must provide a prefix if you're using environments, otherwise Terraform will fail as it will try to overwrite the Actions variable and error saying it exists.
+  github_actions_prefix = "prod"
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
