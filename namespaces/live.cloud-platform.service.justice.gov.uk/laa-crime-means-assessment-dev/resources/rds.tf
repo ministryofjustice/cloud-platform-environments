@@ -20,6 +20,8 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   rds_name = "laa-crime-means-assessment"
 
+  prepare_for_major_upgrade = true
+
   # enable performance insights
   performance_insights_enabled = true
 
