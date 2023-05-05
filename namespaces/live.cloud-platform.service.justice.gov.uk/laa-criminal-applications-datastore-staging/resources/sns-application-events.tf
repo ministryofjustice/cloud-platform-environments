@@ -50,7 +50,7 @@ resource "aws_sns_topic_subscription" "events-maat-subscription" {
 
 resource "aws_sns_topic_subscription" "events-review-subscription" {
   topic_arn = module.application-events-sns-topic.topic_arn
-  endpoint  = "https://laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk/api/events"
+  endpoint  = "https://staging.review-criminal-legal-aid.service.justice.gov.uk/api/events"
   protocol  = "https"
 
   raw_message_delivery   = false
