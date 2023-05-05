@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   team_name              = "apply-for-legal-aid"
@@ -19,6 +19,7 @@ module "apply-for-legal-aid-rds" {
   db_engine_version      = "11"
   db_name                = "apply_for_legal_aid_production"
   rds_family             = "postgres11"
+  deletion_protection    = true
 
   providers = {
     aws = aws.london

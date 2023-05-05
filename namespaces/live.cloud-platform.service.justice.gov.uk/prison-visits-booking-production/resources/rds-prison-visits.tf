@@ -6,11 +6,11 @@
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
-  db_instance_class      = "db.m5.large"
+  db_instance_class      = "db.m5.xlarge"
   db_allocated_storage   = "50"
   business-unit          = "HMPPS"
   application            = "prison-visits-booking-production"
@@ -26,6 +26,7 @@ module "prison-visits-rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london

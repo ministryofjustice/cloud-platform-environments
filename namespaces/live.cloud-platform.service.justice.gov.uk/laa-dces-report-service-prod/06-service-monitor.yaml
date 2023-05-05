@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-dces-report-service
+  namespace: laa-dces-report-service-prod
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-dces-report-service
+  namespaceSelector:
+    matchNames:
+      - laa-dces-report-service
+  endpoints:
+    - port: metrics
+      interval: 15s

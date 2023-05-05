@@ -15,8 +15,9 @@ variable "namespace" {
 }
 
 
-variable "vpc_name" {
-}
+variable "kubernetes_cluster" {}
+
+variable "vpc_name" {}
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."

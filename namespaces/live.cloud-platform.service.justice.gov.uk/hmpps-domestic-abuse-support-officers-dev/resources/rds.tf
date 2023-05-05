@@ -6,7 +6,7 @@
 #  */
 
 module "rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business-unit            = var.business_unit
@@ -69,7 +69,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   application            = var.application

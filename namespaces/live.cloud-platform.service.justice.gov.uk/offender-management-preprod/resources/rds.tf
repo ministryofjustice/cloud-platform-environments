@@ -5,22 +5,23 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
-  vpc_name               = var.vpc_name
-  team_name              = "offender-management"
-  db_instance_class      = "db.m5.large"
-  business-unit          = "HMPPS"
-  application            = "offender-management-allocation-manager"
-  is-production          = "true"
-  namespace              = var.namespace
-  environment-name       = "preprod"
-  infrastructure-support = "omic@digital.justice.gov.uk"
-  db_engine              = "postgres"
-  db_engine_version      = "14"
-  rds_family             = "postgres14"
-  db_name                = "allocations"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  vpc_name                   = var.vpc_name
+  db_instance_class          = "db.t4g.small"
+  team_name                  = var.team_name
+  business-unit              = var.business_unit
+  application                = var.application
+  is-production              = var.is_production
+  namespace                  = var.namespace
+  environment-name           = var.environment_name
+  infrastructure-support     = var.infrastructure_support
+  db_engine                  = "postgres"
+  db_engine_version          = "14"
+  rds_family                 = "postgres14"
+  db_name                    = "allocations"
+  db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  enable_rds_auto_start_stop = true
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
 
@@ -32,7 +33,7 @@ module "allocation-rds" {
 resource "kubernetes_secret" "allocation-rds" {
   metadata {
     name      = "allocation-rds-instance-output"
-    namespace = "offender-management-preprod"
+    namespace = var.namespace
   }
 
   data = {
