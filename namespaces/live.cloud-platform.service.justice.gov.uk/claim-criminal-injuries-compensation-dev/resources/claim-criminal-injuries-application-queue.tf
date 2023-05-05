@@ -13,7 +13,7 @@ module "claim-criminal-injuries-application-queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.claim-criminal-injuries-application-dlq.sqs_arn
-    maxReceiveCount     = 1
+    maxReceiveCount     = 3
   })
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
