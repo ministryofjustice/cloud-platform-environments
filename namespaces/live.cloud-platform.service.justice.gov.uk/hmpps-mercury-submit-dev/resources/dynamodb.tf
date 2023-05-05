@@ -9,8 +9,7 @@ module "report_id_dynamodb" {
   is-production                = "false"
   namespace                    = var.namespace
 
-  autoscale_min_read_capacity  = 0
-  autoscale_min_write_capacity = 0
+  enable_autoscaler            = "false"
   hash_key                     = "id"
   hash_key_type                = "N"
   billing_mode                 = "PAY_PER_REQUEST"
