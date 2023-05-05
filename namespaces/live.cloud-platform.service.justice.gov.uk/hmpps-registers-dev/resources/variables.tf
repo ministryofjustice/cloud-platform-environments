@@ -14,10 +14,9 @@ variable "namespace" {
   default = "hmpps-registers-dev"
 }
 
+variable "kubernetes_cluster" {}
 
-variable "vpc_name" {
-}
-
+variable "vpc_name" {}
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."

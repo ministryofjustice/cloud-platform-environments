@@ -50,12 +50,12 @@ resource "kubernetes_secret" "truststore_s3_bucket" {
 
 data "github_repository_file" "truststore" {
   repository = "ministryofjustice/hmpps-integration-api"
-  file       = "temporary_certificates/truststore.pem"
+  file       = "temporary_certificates/development-truststore.pem"
 }
 
 resource "aws_s3_object" "truststore" {
   bucket  = module.truststore_s3_bucket.bucket_name
-  key     = "truststore.pem"
+  key     = "development-truststore.pem"
   content = data.github_repository_file.truststore.content
 }
 

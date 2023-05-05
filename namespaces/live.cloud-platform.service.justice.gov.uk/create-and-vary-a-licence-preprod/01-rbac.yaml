@@ -6,7 +6,7 @@ metadata:
   namespace: create-and-vary-a-licence-preprod
 subjects:
   - kind: Group
-    name: "github:farsight-devs"
+    name: "github:create-and-vary-a-licence-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"

@@ -67,6 +67,7 @@ module "offender_events_ui_dead_letter_queue" {
     aws = aws.london
   }
 }
+
 resource "kubernetes_secret" "offender_events_ui_queue" {
   metadata {
     name      = "oeu-sqs-instance-output"

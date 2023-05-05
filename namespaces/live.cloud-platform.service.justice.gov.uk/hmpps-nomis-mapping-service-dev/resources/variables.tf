@@ -3,8 +3,9 @@
  * variable is automatically supplied by the pipeline.
  *
  */
-variable "vpc_name" {
-}
+variable "vpc_name" {}
+
+variable "kubernetes_cluster" {}
 
 variable "domain" {
   default = "dev.nomis-sync-prisoner-mapping-dev.service.justice.gov.uk"
@@ -41,8 +42,3 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
-
-variable "rds-family" {
-  default = "postgres14"
-}
-

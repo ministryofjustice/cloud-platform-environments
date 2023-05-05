@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: domain-tls-certificate-staging
+  namespace: laa-apply-for-criminal-legal-aid-staging
+spec:
+  secretName: domain-tls-certificate-staging
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - staging.apply-for-criminal-legal-aid.service.justice.gov.uk

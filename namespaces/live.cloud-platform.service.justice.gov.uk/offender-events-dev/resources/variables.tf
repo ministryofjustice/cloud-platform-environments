@@ -7,8 +7,9 @@ variable "namespace" {
 }
 
 
-variable "vpc_name" {
-}
+variable "vpc_name" {}
+
+variable "kubernetes_cluster" {}
 
 
 variable "business_unit" {
@@ -42,4 +43,8 @@ variable "number-cache-clusters" {
 variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
