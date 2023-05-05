@@ -40,6 +40,7 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.dps_rds.rds_instance_address
     access_key_id         = module.dps_rds.access_key_id
     secret_access_key     = module.dps_rds.secret_access_key
+    sql_alchemy_url       = "postgresql://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
