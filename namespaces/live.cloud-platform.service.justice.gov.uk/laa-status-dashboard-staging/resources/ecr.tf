@@ -5,9 +5,10 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.3"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
+  oidc_providers = ["github"]
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
