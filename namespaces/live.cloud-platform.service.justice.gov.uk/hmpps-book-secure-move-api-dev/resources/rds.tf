@@ -11,12 +11,16 @@ module "rds-instance" {
   team_name              = var.team_name
   business-unit          = var.business_unit
 
-  backup_window          = var.backup_window
-  maintenance_window     = var.maintenance_window
+  backup_window               = var.backup_window
+  maintenance_window          = var.maintenance_window
+
+  # this isn't possible with a read replica
+  enable_rds_auto_start_stop  = false
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
 
   rds_family = "postgres12"
 
@@ -74,6 +78,9 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   db_engine_version = "12.11"
+  db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
+  
   rds_family        = "postgres12"
 
   providers = {
