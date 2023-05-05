@@ -14,10 +14,10 @@ module "opensearch" {
   engine_version = "OpenSearch_2.5"
   cluster_config = {
     instance_count           = 6
-    instance_type            = "m6g.xlarge.elasticsearch"
+    instance_type            = "m6g.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "m6g.large.elasticsearch"
+    dedicated_master_type    = "m6g.large.search"
   }
 
   ebs_options = {
