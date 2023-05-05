@@ -22,5 +22,6 @@ module "opensearch" {
 
   ebs_options = {
     volume_size = 368
+    throughput  = 250
   }
 }
