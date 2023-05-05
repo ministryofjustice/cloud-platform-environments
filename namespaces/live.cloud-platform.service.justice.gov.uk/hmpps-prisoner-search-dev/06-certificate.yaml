@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-search-cert
+  namespace: hmpps-prisoner-search-dev
+spec:
+  secretName: hmpps-prisoner-search-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prisoner-search-dev.prison.service.justice.gov.uk
