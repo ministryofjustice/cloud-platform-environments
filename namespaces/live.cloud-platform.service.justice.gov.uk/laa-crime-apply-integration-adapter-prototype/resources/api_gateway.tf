@@ -1,3 +1,8 @@
+resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
+  name              = "API-Gateway-Execution-Logs_${aws_apigatewayv2_api.gateway.id}/v1"
+  retention_in_days = 60
+}
+
 resource "aws_apigatewayv2_api" "gateway" {
   name = var.api_gateway_name
   protocol_type = "HTTP"
@@ -63,6 +68,24 @@ resource "aws_apigatewayv2_stage" "stage" {
   api_id = aws_apigatewayv2_api.gateway.id
   name   = var.apigw_stage_name
   deployment_id = aws_apigatewayv2_deployment.deployment.id
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_log_group.arn
+    format          = jsonencode(
+        {
+          requestId         = "$context.requestId"
+          extendedRequestId = "$context.extendedRequestId"
+          ip                = "$context.identity.sourceIp"
+          caller            = "$context.identity.caller"
+          user              = "$context.identity.user"
+          requestTime       = "$context.requestTime"
+          httpMethod        = "$context.httpMethod"
+          resourcePath      = "$context.resourcePath"
+          status            = "$context.status"
+          protocol          = "$context.protocol"
+          responseLength    = "$context.responseLength"
+      })
+  }
 
   lifecycle {
     create_before_destroy = true

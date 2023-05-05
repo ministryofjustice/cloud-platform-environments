@@ -69,3 +69,11 @@ resource "aws_route53_record" "data_platform_pagerduty_status_page_mail_dkim2" {
   ttl     = "300"
   records = ["pdt2.domainkey.u31181182.wl183.sendgrid.net."]
 }
+
+resource "aws_route53_record" "data_platform_rapid_dev_zone" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "rapid.dev.data-platform.service.justice.gov.uk"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1638.awsdns-12.co.uk.", "ns-93.awsdns-11.com.", "ns-1512.awsdns-61.org.", "ns-588.awsdns-09.net."]
+}

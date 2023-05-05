@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -18,7 +18,7 @@ module "rds" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name             = "sentence-planning-dev"
+  rds_name = "sentence-planning-dev"
 
   # enable performance insights
   performance_insights_enabled = true
@@ -47,15 +47,10 @@ module "rds" {
   allow_major_version_upgrade = "true"
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop = true
 
   # This will rotate the db password. Update the value to the current date.
-  db_password_rotated_date  = "11-04-2023"
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
+  db_password_rotated_date = "11-04-2023"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -65,7 +60,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -89,11 +84,6 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.

@@ -1,0 +1,27 @@
+module "opensearch" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.0.0"
+
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+  vpc_name               = var.vpc_name
+
+  engine_version = "OpenSearch_2.5"
+  cluster_config = {
+    instance_count           = 6
+    instance_type            = "m6g.xlarge.search"
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_type    = "m6g.large.search"
+  }
+
+  ebs_options = {
+    volume_size = 368
+    throughput  = 250
+  }
+}

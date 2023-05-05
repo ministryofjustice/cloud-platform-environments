@@ -10,3 +10,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - staging.assure-hmrc-data.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: check-clients-details-using-hmrc-data-certificate
+  namespace: laa-assure-hmrc-data-staging
+spec:
+  secretName: check-clients-details-using-hmrc-data-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - stg.check-clients-details-using-hmrc-data.service.justice.gov.uk
+  - staging.check-clients-details-using-hmrc-data.service.justice.gov.uk
