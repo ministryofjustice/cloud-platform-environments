@@ -6,7 +6,7 @@
  */
 module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
-  team_name = var.team_name
+  team_name = "pet"
   repo_name = "${var.namespace}-ecr"
 
   /*

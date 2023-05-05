@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "pet"
+  default     = "dts-legacy"
 }
 
 variable "environment" {
@@ -33,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "pet@hmcts.net"
+  default     = "dts-legacy-apps-support-team@hmcts.net"
 }
 
 variable "is_production" {
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "pet"
+  default     = "dts-legacy-cloud-platform-apps"
 }
 
 variable "github_owner" {
