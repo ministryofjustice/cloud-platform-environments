@@ -25,6 +25,7 @@ module "rds-allocation" {
   rds_family = "postgres14"
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
