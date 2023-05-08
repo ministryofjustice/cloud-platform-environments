@@ -1,17 +1,16 @@
-# Original (before OIDC)
+# No entry (also original, 5.1.1)
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=main"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
 
   team_name = var.team_name
   repo_name = "oidc-test"
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
-  # oidc_providers      = ["github"]
 }
 
 # GitHub
 module "ecr_github" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=main"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
 
   team_name = var.team_name
   repo_name = "oidc-test"
@@ -20,24 +19,24 @@ module "ecr_github" {
   oidc_providers      = ["github"]
 }
 
-# # CircleCI
-# module "ecr_circleci" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=main"
+# CircleCI
+module "ecr_circleci" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
 
-#   team_name = var.team_name
-#   repo_name = "oidc-test"
+  team_name = var.team_name
+  repo_name = "oidc-test"
 
-#   github_repositories = ["cloud-platform-ecr-oidc-test"]
-#   oidc_providers      = ["circleci"]
-# }
+  github_repositories = ["cloud-platform-ecr-oidc-test"]
+  oidc_providers      = ["circleci"]
+}
 
-# # Both
-# module "ecr_github_circleci" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=main"
+# Both
+module "ecr_github_circleci" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
 
-#   team_name = var.team_name
-#   repo_name = "oidc-test"
+  team_name = var.team_name
+  repo_name = "oidc-test"
 
-#   github_repositories = ["cloud-platform-ecr-oidc-test"]
-#   oidc_providers      = ["github", "circleci"]
-# }
+  github_repositories = ["cloud-platform-ecr-oidc-test"]
+  oidc_providers      = ["github", "circleci"]
+}
