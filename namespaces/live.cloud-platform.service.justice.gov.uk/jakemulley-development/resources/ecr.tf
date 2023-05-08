@@ -1,6 +1,6 @@
 # No entry (also original, 5.1.1)
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=circleci"
 
   team_name = var.team_name
   repo_name = "oidc-test"
@@ -10,7 +10,7 @@ module "ecr" {
 
 # GitHub
 module "ecr_github" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=circleci"
 
   team_name = var.team_name
   repo_name = "oidc-test"
@@ -21,7 +21,7 @@ module "ecr_github" {
 
 # CircleCI
 module "ecr_circleci" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=circleci"
 
   team_name = var.team_name
   repo_name = "oidc-test"
@@ -32,7 +32,7 @@ module "ecr_circleci" {
 
 # Both
 module "ecr_github_circleci" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=oidc-refactor"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=circleci"
 
   team_name = var.team_name
   repo_name = "oidc-test"
