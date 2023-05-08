@@ -28,7 +28,7 @@ module "ecr_circleci" {
   repo_name = "oidc-test"
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
-  oidc_providers      = ["github"]
+  oidc_providers      = ["circleci"]
 }
 
 # Both
@@ -39,5 +39,5 @@ module "ecr_github_circleci" {
   repo_name = "oidc-test"
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
-  oidc_providers      = ["github"]
+  oidc_providers      = ["github", "circleci"]
 }
