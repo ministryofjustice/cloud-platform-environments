@@ -78,6 +78,8 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.cell.move",
+      "prison-offender-events.prisoner.non-association-detail.changed",
+      "prison-offender-events.prisoner.activities-changed",
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",
       "incentives.iep-review.deleted"
@@ -116,15 +118,3 @@ resource "kubernetes_secret" "activities_dlq" {
   }
 }
 
-resource "kubernetes_secret" "activities_domain_events_topic" {
-  metadata {
-    name      = "activities-domain-events-sqs-topic-instance-output"
-    namespace = "activities-api-dev"
-  }
-
-  data = {
-    access_key_id     = module.hmpps-domain-events.access_key_id
-    secret_access_key = module.hmpps-domain-events.secret_access_key
-    topic_arn         = module.hmpps-domain-events.topic_arn
-  }
-}
