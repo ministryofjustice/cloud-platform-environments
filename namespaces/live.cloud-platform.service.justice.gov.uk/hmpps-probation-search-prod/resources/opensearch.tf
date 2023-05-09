@@ -19,8 +19,9 @@ module "opensearch" {
     dedicated_master_count   = 3
     dedicated_master_type    = "m6g.large.search"
   }
-
+  proxy_count = 3
   ebs_options = {
     volume_size = 368
+    throughput  = 250
   }
 }
