@@ -25,3 +25,23 @@ module "opensearch" {
     throughput  = 250
   }
 }
+
+resource "kubernetes_secret" "probation_search_url" {
+  metadata {
+    name      = "opensearch"
+    namespace = var.namespace
+  }
+  data = {
+    url = module.opensearch.proxy_url
+  }
+}
+
+resource "kubernetes_secret" "indexer_url" {
+  metadata {
+    name      = "person-search-index-from-delius-opensearch"
+    namespace = "hmpps-probation-integration-services-${var.environment}"
+  }
+  data = {
+    url = module.opensearch.proxy_url
+  }
+}
