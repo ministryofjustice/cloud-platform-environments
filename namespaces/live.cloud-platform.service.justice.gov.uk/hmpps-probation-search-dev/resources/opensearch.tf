@@ -16,7 +16,7 @@ module "opensearch" {
     instance_count = 2
     instance_type  = "t3.medium.search"
   }
-
+  proxy_count = 2
   ebs_options = {
     volume_size = 30
   }
