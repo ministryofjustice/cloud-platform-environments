@@ -11,6 +11,7 @@ module "hmpps_audit_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
   namespace                 = var.namespace
+  additional_audit_clients  = var.additional_audit_clients
 
   redrive_policy = <<EOF
   {

@@ -16,6 +16,26 @@ variable "team_name" {
   default     = "Digital-Prison-Services"
 }
 
+variable "additional_audit_clients" {
+  description = "Create a dedicated access key and stores it in a secret named 'hmpps-audit-queue' in each of the below namespaces."
+  default = [
+    "activities-api-dev",
+    "hmpps-audit-dev",
+    "hmpps-auth-dev",
+    "hmpps-community-accommodation-dev",
+    "hmpps-external-users-api-dev",
+    "hmpps-historical-prisoner-api-dev",
+    "hmpps-incentives-dev",
+    "hmpps-manage-users-api-dev",
+    "hmpps-prisoner-from-nomis-migration-dev",
+    "hmpps-registers-dev",
+    "hmpps-workload-dev",
+    "make-recall-decision-dev",
+    "visit-someone-in-prison-frontend-svc-dev",
+    "visit-someone-in-prison-frontend-svc-staging",
+  ]
+}
+
 variable "application" {
   description = "The name of the application"
   default     = "HMPPS-Audit-Service"
