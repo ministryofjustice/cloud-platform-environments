@@ -1,5 +1,5 @@
 module "sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
 
   # Configuration
   encrypt_sns_kms    = true
