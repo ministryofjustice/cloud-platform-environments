@@ -20,6 +20,7 @@ resource "pingdom_check" "pingdom" {
     "court-case-and-delius",
     "effective-proposal-framework-and-delius",
     "sentence-plan-and-delius",
+    "pathfinder-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

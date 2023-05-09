@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - prisoner-search-dev.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-search-indexer-cert
+  namespace: hmpps-prisoner-search-dev
+spec:
+  secretName: hmpps-prisoner-search-indexer-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prisoner-search-indexer-dev.prison.service.justice.gov.uk

@@ -268,3 +268,18 @@ spec:
   dnsNames:
     - 7edb0910.hmpps.service.justice.gov.uk
     - sentence-plan-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pathfinder-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: pathfinder-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 45f98e5d.hmpps.service.justice.gov.uk
+    - pathfinder-and-delius.hmpps.service.justice.gov.uk

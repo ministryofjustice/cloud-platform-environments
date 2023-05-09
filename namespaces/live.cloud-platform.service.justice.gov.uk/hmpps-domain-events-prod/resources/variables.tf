@@ -25,6 +25,7 @@ variable "additional_topic_clients" {
   description = "Create a dedicated access key and store it in a secret named 'hmpps-domain-events-topic' in each of the below namespaces."
   default = [
     "calculate-release-dates-api-prod",
+    "court-probation-prod",
     "hmpps-assessments-prod",
     "hmpps-community-accommodation-prod",
     "hmpps-complexity-of-need-production",
@@ -37,8 +38,8 @@ variable "additional_topic_clients" {
     "hmpps-tier-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
+    "offender-case-notes-prod",
     "offender-management-production",
-    "court-probation-prod",
     "offender-events-prod",
     "prisoner-offender-search-prod",
     "visit-someone-in-prison-backend-svc-prod",
