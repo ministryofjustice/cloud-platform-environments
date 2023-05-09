@@ -9,8 +9,9 @@ module "service-token-cache-elasticache" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "6.2"
+  parameter_group_name   = "default.redis6.x"
+  node_type              = "cache.t3.medium"
   namespace              = var.namespace
 
   providers = {
