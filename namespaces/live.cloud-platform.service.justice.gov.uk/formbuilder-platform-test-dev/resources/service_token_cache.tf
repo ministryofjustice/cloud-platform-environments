@@ -11,6 +11,7 @@ module "service-token-cache-elasticache" {
   business-unit          = var.business_unit
   engine_version         = "6.2.6"
   parameter_group_name   = "default.redis6.x"
+  node_type              = "cache.t3.medium"
   namespace              = var.namespace
 
   providers = {
