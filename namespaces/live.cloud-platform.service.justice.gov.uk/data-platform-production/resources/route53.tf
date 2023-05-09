@@ -78,10 +78,10 @@ resource "aws_route53_record" "data_platform_rapid_dev_zone" {
   records = ["ns-1638.awsdns-12.co.uk.", "ns-93.awsdns-11.com.", "ns-1512.awsdns-61.org.", "ns-588.awsdns-09.net."]
 }
 
-resource "aws_route53_record" "data_platform_catalogue_dev_zone" {
+resource "aws_route53_record" "data_platform_data_catalogue_dev_zone" {
   zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
-  name    = "catalogue.dev.data-platform.service.justice.gov.uk"
+  name    = "data-catalogue.dev.data-platform.service.justice.gov.uk"
   type    = "NS"
   ttl     = "600"
-  records = ["ns-1554.awsdns-02.co.uk.", "ns-15.awsdns-01.com.", "ns-1516.awsdns-61.org.", "ns-578.awsdns-08.net."]
+  records = ["ns-1710.awsdns-21.co.uk.", "ns-70.awsdns-08.com.", "ns-1267.awsdns-30.org.", "ns-928.awsdns-52.net."]
 }
