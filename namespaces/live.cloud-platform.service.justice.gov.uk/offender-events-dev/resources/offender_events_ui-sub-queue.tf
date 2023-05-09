@@ -125,6 +125,6 @@ module "offender-events-ui-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  service_account  = "offender-events-ui"
+  service_account  = "{var.namespace}-offender-events-ui"
   role_policy_arns = [module.offender_events_ui_dead_letter_queue.aws_iam_policy_arn, module.offender_events_ui_queue.aws_iam_policy_arn]
 }
