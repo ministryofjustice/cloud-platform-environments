@@ -17,6 +17,18 @@ module "report_id_dynamodb" {
   billing_mode                 = "PAY_PER_REQUEST"
 }
 
+resource "aws_dynamodb_table_item" "id" {
+  table_name = module.report_id_dynamodb.table_name
+  hash_key = module.report_id_dynamodb.hash_key
+
+  item = <<ITEM
+{
+  "id": {"N": "0"},
+  "num": {"N": "40000000"}
+}
+ITEM
+}
+
 resource "kubernetes_secret" "report_id_dynamodb" {
   metadata {
     name      = "report-id-dynamodb-output"
