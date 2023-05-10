@@ -30,18 +30,6 @@ resource "aws_iam_user_policy" "api_gateway_policy" {
   user   = aws_iam_user.api_gateway_user.name
 }
 
-resource "kubernetes_secret" "api_gateway_admin_user_credentials" {
-  metadata {
-    name      = "api-gateway-iam"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = aws_iam_access_key.api_gateway_user.id
-    secret_access_key = aws_iam_access_key.api_gateway_user.secret
-  }
-}
-
 resource "aws_iam_role" "api_gateway_role" {
   name               = "${var.namespace}-api-gateway"
   assume_role_policy = <<EOF

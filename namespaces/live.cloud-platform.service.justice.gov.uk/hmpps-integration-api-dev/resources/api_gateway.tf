@@ -115,7 +115,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   }
 }
 
-resource "aws_api_gateway_deployment" "dev" {
+resource "aws_api_gateway_deployment" "main" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
   triggers = {
@@ -146,7 +146,7 @@ resource "aws_api_gateway_usage_plan" "default" {
 
   api_stages {
     api_id = aws_api_gateway_rest_api.api_gateway.id
-    stage  = aws_api_gateway_stage.dev.stage_name
+    stage  = aws_api_gateway_stage.main.stage_name
   }
 }
 
@@ -158,46 +158,20 @@ resource "aws_api_gateway_usage_plan_key" "clients" {
   usage_plan_id = aws_api_gateway_usage_plan.default.id
 }
 
-resource "kubernetes_secret" "api_keys" {
-  metadata {
-    name      = "api-gateway-api-keys"
-    namespace = var.namespace
-  }
-
-  data = {
-    for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
-  }
-
-  depends_on = [
-    aws_api_gateway_api_key.clients
-  ]
-}
-
 resource "aws_api_gateway_base_path_mapping" "hostname" {
   for_each = aws_api_gateway_domain_name.api_gateway_fqdn
 
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
-  stage_name  = aws_api_gateway_stage.dev.stage_name
+  stage_name  = aws_api_gateway_stage.main.stage_name
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   description = "Client certificate presented to the backend API"
 }
 
-resource "kubernetes_secret" "api_gateway_client_certificate_secret" {
-  metadata {
-    name      = "api-gateway-client-certificate"
-    namespace = var.namespace
-  }
-
-  data = {
-    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
-  }
-}
-
-resource "aws_api_gateway_stage" "dev" {
-  deployment_id = aws_api_gateway_deployment.dev.id
+resource "aws_api_gateway_stage" "main" {
+  deployment_id = aws_api_gateway_deployment.main.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   stage_name    = var.namespace
   client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
@@ -213,20 +187,5 @@ resource "aws_api_gateway_stage" "dev" {
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
   retention_in_days = 7
-}
-
-resource "kubernetes_secret" "api_gateway_logs" {
-  metadata {
-    name      = "api-gateway-logs"
-    namespace = var.namespace
-  }
-
-  data = {
-    "access_log_url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${aws_cloudwatch_log_group.api_gateway_access_logs.name}"
-  }
-
-  depends_on = [
-    aws_cloudwatch_log_group.api_gateway_access_logs
-  ]
 }
 

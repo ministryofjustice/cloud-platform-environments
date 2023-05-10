@@ -34,20 +34,6 @@ module "truststore_s3_bucket" {
 EOF
 }
 
-resource "kubernetes_secret" "truststore_s3_bucket" {
-  metadata {
-    name      = "truststore-s3-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.truststore_s3_bucket.access_key_id
-    secret_access_key = module.truststore_s3_bucket.secret_access_key
-    bucket_arn        = module.truststore_s3_bucket.bucket_arn
-    bucket_name       = module.truststore_s3_bucket.bucket_name
-  }
-}
-
 data "github_repository_file" "truststore" {
   repository = "ministryofjustice/hmpps-integration-api"
   file       = "temporary_certificates/dev-truststore.pem"
