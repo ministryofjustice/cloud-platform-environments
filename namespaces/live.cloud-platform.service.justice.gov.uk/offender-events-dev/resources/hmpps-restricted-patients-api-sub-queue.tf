@@ -68,6 +68,26 @@ module "restricted_patients_dead_letter_queue" {
   }
 }
 
+resource "aws_ssm_parameter" "restricted_patients_queues" {
+  type = "String"
+  name = "/${var.namespace}/hmpps-restricted-patients-sqs"
+  value = jsonencode({
+    "irsa_policy_arn" : module.restricted_patients_queue.irsa_policy_arn
+    "irsa_policy_arn_dql" : module.restricted_patients_dead_letter_queue.irsa_policy_arn
+  })
+  description = "Output from restricted_patients sqs modules; use these parameters in other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+
 resource "kubernetes_secret" "restricted_patients_queue" {
   metadata {
     name      = "restricted-patients-queue-for-offender-events"
@@ -104,14 +124,4 @@ resource "aws_sns_topic_subscription" "restricted_patients_subscription" {
   protocol      = "sqs"
   endpoint      = module.restricted_patients_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_MOVEMENT-RECEPTION\"]}"
-}
-
-# IRSA role for hmpps-restricted-patients app
-module "hmpps-restricted-patients-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
-
-  eks_cluster_name = var.eks_cluster_name
-  namespace        = "hmpps-restricted-patients-api-dev"
-  service_account  = "hmpps-restricted-patients-dev"
-  role_policy_arns = [module.restricted_patients_queue.irsa_policy_arn, module.restricted_patients_dead_letter_queue.irsa_policy_arn]
 }
