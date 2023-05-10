@@ -76,7 +76,6 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events" {
     sqs_queue_url     = module.restricted_patients_queue_for_domain_events.sqs_id
     sqs_queue_arn     = module.restricted_patients_queue_for_domain_events.sqs_arn
     sqs_queue_name    = module.restricted_patients_queue_for_domain_events.sqs_name
-    irsa_policy_arn   = module.restricted_patients_queue_for_domain_events.irsa_policy_arn
   }
 }
 
@@ -92,27 +91,6 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events_dead_l
     sqs_queue_url     = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_id
     sqs_queue_arn     = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_name
-    irsa_policy_arn   = module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
-  }
-}
-
-resource "aws_ssm_parameter" "hmpps-restricted-patients-sqs" {
-  type = "String"
-  name = "/${var.namespace}/hmpps-restricted-patients-sqs"
-  value = jsonencode({
-    "irsa_policy_arn" : module.restricted_patients_queue_for_domain_events.irsa_policy_arn
-    "irsa_policy_arn_dql" : module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
-  })
-  description = "Output from hmpps-restricted-patients sqs modules; use these parameters in other DPS dev namespaces"
-
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    owner                  = var.team_name
-    environment-name       = var.environment-name
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
   }
 }
 
