@@ -1,5 +1,5 @@
 module "restricted_patients_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "restricted_patients_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -66,6 +66,16 @@ module "restricted_patients_dead_letter_queue" {
   providers = {
     aws = aws.london
   }
+}
+
+resource "aws_ssm_parameter" "hmpps-restricted-patients-sqs" {
+  type = "String"
+  name = "/${var.namespace}/hmpps-restricted-patients-sqs"
+  value = jsonencode({
+    "irsa_policy_arn" : module.restricted_patients_queue.irsa_policy_arn
+    "irsa_policy_arn_dql" : module.restricted_patients_dead_letter_queue.irsa_policy_arn
+  })
+  tags = local.tags
 }
 
 resource "kubernetes_secret" "restricted_patients_queue" {
@@ -105,4 +115,3 @@ resource "aws_sns_topic_subscription" "restricted_patients_subscription" {
   endpoint      = module.restricted_patients_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_MOVEMENT-RECEPTION\"]}"
 }
-
