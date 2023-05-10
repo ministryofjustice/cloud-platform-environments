@@ -59,6 +59,7 @@ module "cla_backend_rds_postgres_14" {
   db_name = "cla_backend"
   # change the postgres version as you see fit.
   db_engine_version      = "14"
+  db_instance_class      = "db.t3.small"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
