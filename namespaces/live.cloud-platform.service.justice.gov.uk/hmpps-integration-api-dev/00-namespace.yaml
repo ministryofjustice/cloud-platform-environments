@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Integration API"
     cloud-platform.justice.gov.uk/owner: "HMPPS Integration API Team: hmpps-integration-api@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-integration-api"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-integration-api-admin-team"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-integration-api"
     cloud-platform.justice.gov.uk/review-after: ""
