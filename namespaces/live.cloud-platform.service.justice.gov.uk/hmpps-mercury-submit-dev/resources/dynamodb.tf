@@ -19,7 +19,7 @@ module "report_id_dynamodb" {
 
 resource "aws_dynamodb_table_item" "id" {
   table_name = module.report_id_dynamodb.table_name
-  hash_key = module.report_id_dynamodb.hash_key
+  hash_key   = module.report_id_dynamodb.hash_key
 
   item = <<ITEM
 {
