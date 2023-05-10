@@ -37,3 +37,14 @@ locals {
     namespace              = var.namespace
   }
 }
+
+# Add outputs that need to be consumed in other namespaces here
+resource "aws_ssm_parameter" "tf-outputs" {
+  type = "String"
+  name = "/${var.namespace}/tf-outputs"
+  value = jsonencode({
+    "restricted_patients_queue_irsa_policy_arn" : module.restricted_patients_queue.irsa_policy_arn
+    "restricted_patients_dql_queue_irsa_policy_arn" : module.restricted_patients_dead_letter_queue.irsa_policy_arn
+  })
+  tags = local.tags
+}
