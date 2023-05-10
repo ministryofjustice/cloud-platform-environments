@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-gold-scorecard-form-dev
 subjects:
   - kind: Group
-    name: "github:gold-scorecard-form-admin-team"
+    name: "github:analytics-hq"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
