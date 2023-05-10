@@ -35,7 +35,7 @@ resource "kubernetes_secret" "probation_search_url" {
 locals {
   # Temporarily rewriting the URL to enable access across namespaces until the full URL is outputted directly from the module.
   # See https://github.com/ministryofjustice/cloud-platform-terraform-opensearch/pull/3
-  proxy_url_without_port        = regex("([^:\\.]*):9200", module.opensearch.proxy_url)[0]
+  proxy_url_without_port        = regex("(.*):9200", module.opensearch.proxy_url)[0]
   proxy_url_with_cluster_suffix = "${local.proxy_url_without_port}.${var.namespace}.svc.cluster.local:9200"
 }
 
