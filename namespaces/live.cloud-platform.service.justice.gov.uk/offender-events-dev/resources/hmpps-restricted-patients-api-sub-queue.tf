@@ -113,5 +113,11 @@ module "hmpps-restricted-patients-irsa" {
   eks_cluster_name = var.eks_cluster_name
   namespace        = "hmpps-restricted-patients-api-dev"
   service_account  = "hmpps-restricted-patients-dev"
-  role_policy_arns = [module.restricted_patients_queue.irsa_policy_arn, module.restricted_patients_dead_letter_queue.irsa_policy_arn]
+  role_policy_arns = [
+    module.restricted_patients_queue.irsa_policy_arn,
+    module.restricted_patients_dead_letter_queue.irsa_policy_arn,
+    "arn:aws:iam::754256621582:policy/cloud-platform/sns/cloud-platform-sns-e29fb030a51b3576dd645aa5e460e573", # from module.hmpps-domain-events.aws_iam_policy.irsa in hmpps-domain-events-dev namespace/resources
+    "arn:aws:iam::754256621582:policy/cloud-platform/sqs/cloud-platform-sqs-ec6462c423e9", # from module.restricted_patients_queue_for_domain_events.aws_iam_policy.irsa in hmpps-domain-events-dev namespace/resources
+    "arn:aws:iam::754256621582:policy/cloud-platform/sqs/cloud-platform-sqs-74a4b2514faa" # from module.restricted_patients_queue_for_domain_events_dead_letter_queue.aws_iam_policy.irsa in hmpps-domain-events-dev namespace/resources
+    ]
 }
