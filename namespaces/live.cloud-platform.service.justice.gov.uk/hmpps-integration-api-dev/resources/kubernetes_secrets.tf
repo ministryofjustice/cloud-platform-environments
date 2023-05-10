@@ -5,31 +5,31 @@ resource "kubernetes_secret" "services" {
   }
 
   data = {
-    api-gateway = {
-      cloudwatch-log-url = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${aws_cloudwatch_log_group.api_gateway_access_logs.name}"
-      access-credentials = {
-        access-key-id     = aws_iam_access_key.api_gateway_user.id
-        secret-access-key = aws_iam_access_key.api_gateway_user.secret
+    "api-gateway" = jsonencode({
+      "cloudwatch-log-url" = "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups/log-group/${aws_cloudwatch_log_group.api_gateway_access_logs.name}"
+      "access-credentials" = {
+        "access-key-id"   = aws_iam_access_key.api_gateway_user.id
+        "secret-access-key" = aws_iam_access_key.api_gateway_user.secret
       }
-    }
+    })
 
-    ecr = {
-      access-credentials = {
-        access-key-id     = module.ecr_credentials.access_key_id
-        secret-access-key = module.ecr_credentials.secret_access_key
+    "ecr" = jsonencode({
+      "access-credentials" = {
+        "access-key-id"     = module.ecr_credentials.access_key_id
+        "secret-access-key" = module.ecr_credentials.secret_access_key
       }
-      repo-arn          = module.ecr_credentials.repo_arn
-      repo-url          = module.ecr_credentials.repo_url
-    }
+      "repo-arn"         = module.ecr_credentials.repo_arn
+      "repo-url"          = module.ecr_credentials.repo_url
+    })
 
-    s3 = {
-      access-credentials = {
-        access-key-id     = module.truststore_s3_bucket.access_key_id
-        secret-access-key = module.truststore_s3_bucket.secret_access_key
+    "s3" = jsonencode({
+      "access-credentials" = {
+        "access-key-id"     = module.truststore_s3_bucket.access_key_id
+        "secret-access-key" = module.truststore_s3_bucket.secret_access_key
       }
-      bucket-arn        = module.truststore_s3_bucket.bucket_arn
-      bucket-name       = module.truststore_s3_bucket.bucket_name
-    }
+      "bucket-arn"        = module.truststore_s3_bucket.bucket_arn
+      "bucket-name"       = module.truststore_s3_bucket.bucket_name
+    })
   }
 
   depends_on = [
@@ -46,7 +46,7 @@ resource "kubernetes_secret" "certificates" {
 
   # Certificates and keys used for mutual TLS are uploaded manually.
   data = {
-    ca.crt = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
   }
 }
 
