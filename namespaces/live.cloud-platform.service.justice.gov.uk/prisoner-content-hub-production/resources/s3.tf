@@ -216,6 +216,19 @@ EOF
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "AllowListBucketVersions",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
+      },
+      "Action": [
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "$${bucket_arn}"
+      ]
     }
   ]
 }
