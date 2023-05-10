@@ -17,6 +17,26 @@ module "hmpps-domain-events" {
   }
 }
 
+resource "aws_ssm_parameter" "hmpps-domain-events-sns" {
+  type        = "String"
+  name        = "/${var.namespace}/hmpps-domain-events-sns"
+  value       = jsonencode({
+    "irsa_policy_arn" : module.hmpps-domain-events.irsa_policy_arn
+    "topic_arn" : module.hmpps-domain-events.topic_arn
+  })
+  description = "Output from hmpps-domain-events-dev sns module; use these parameters in other DPS dev namespaces"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+
 resource "aws_ssm_parameter" "param-store-topic-arn" {
   type        = "String"
   name        = "/${var.namespace}/topic-arn"
