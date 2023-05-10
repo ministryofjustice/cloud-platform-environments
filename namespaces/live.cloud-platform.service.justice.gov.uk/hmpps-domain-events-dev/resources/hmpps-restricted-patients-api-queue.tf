@@ -1,5 +1,5 @@
 module "restricted_patients_queue_for_domain_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -49,7 +49,7 @@ resource "aws_sqs_queue_policy" "restricted_patients_queue_for_domain_events_que
 }
 
 module "restricted_patients_queue_for_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -76,6 +76,7 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events" {
     sqs_queue_url     = module.restricted_patients_queue_for_domain_events.sqs_id
     sqs_queue_arn     = module.restricted_patients_queue_for_domain_events.sqs_arn
     sqs_queue_name    = module.restricted_patients_queue_for_domain_events.sqs_name
+    irsa_policy_arn   = module.restricted_patients_queue_for_domain_events.irsa_policy_arn
   }
 }
 
@@ -91,6 +92,7 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events_dead_l
     sqs_queue_url     = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_id
     sqs_queue_arn     = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_name
+    irsa_policy_arn   = module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
   }
 }
 
