@@ -233,11 +233,10 @@ EOF
   ]
 }
 EOF
-}
 
-# Adds staging & old production S3 resources to user-policy to allow one-way sync
-# https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
-user_policy = <<EOF
+  # Adds staging & old production S3 resources to user-policy to allow one-way sync
+  # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
+  user_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -269,7 +268,7 @@ user_policy = <<EOF
   ]
 }
 EOF
-
+}
 
 resource "kubernetes_secret" "drupal_content_storage_2_secret" {
   metadata {
