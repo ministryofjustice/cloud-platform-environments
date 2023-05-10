@@ -27,7 +27,7 @@ module "rds" {
   db_engine_version = "13"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
   # Pick the one that defines the postgres version the best
@@ -45,6 +45,12 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
+
+  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
+  enable_rds_auto_start_stop  = true
+
+  # This will rotate the db password. Update the value to the current date.
+  # db_password_rotated_date  = "dd-mm-yyyy"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
