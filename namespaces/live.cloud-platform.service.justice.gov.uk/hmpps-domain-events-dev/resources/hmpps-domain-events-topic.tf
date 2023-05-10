@@ -18,9 +18,9 @@ module "hmpps-domain-events" {
 }
 
 resource "aws_ssm_parameter" "hmpps-domain-events-sns" {
-  type        = "String"
-  name        = "/${var.namespace}/hmpps-domain-events-sns"
-  value       = jsonencode({
+  type = "String"
+  name = "/${var.namespace}/hmpps-domain-events-sns"
+  value = jsonencode({
     "irsa_policy_arn" : module.hmpps-domain-events.irsa_policy_arn
     "topic_arn" : module.hmpps-domain-events.topic_arn
   })

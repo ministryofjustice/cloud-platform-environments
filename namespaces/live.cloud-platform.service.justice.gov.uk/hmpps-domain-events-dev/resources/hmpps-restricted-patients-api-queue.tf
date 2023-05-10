@@ -97,9 +97,9 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events_dead_l
 }
 
 resource "aws_ssm_parameter" "hmpps-restricted-patients-sqs" {
-  type        = "String"
-  name        = "/${var.namespace}/hmpps-restricted-patients-sqs"
-  value       = jsonencode({
+  type = "String"
+  name = "/${var.namespace}/hmpps-restricted-patients-sqs"
+  value = jsonencode({
     "irsa_policy_arn" : module.restricted_patients_queue_for_domain_events.irsa_policy_arn
     "irsa_policy_arn_dql" : module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
   })
