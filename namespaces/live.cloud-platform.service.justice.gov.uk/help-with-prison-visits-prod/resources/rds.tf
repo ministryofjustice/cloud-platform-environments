@@ -15,6 +15,7 @@ module "hwpv_sqlserver" {
   rds_family             = "sqlserver-web-15.0"
   db_parameter           = []
   license_model          = "license-included"
+  db_password_rotated_date    = "2023-05-11"
 
   providers = {
     aws = aws.london
