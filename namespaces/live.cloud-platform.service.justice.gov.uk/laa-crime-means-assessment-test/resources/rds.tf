@@ -81,6 +81,8 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  db_engine_version = "14" # you shouldn't include the minor version here
+  rds_family        = "postgres14"
 
   # It is mandatory to set the below values to create read replica instance
 
@@ -138,9 +140,6 @@ resource "kubernetes_secret" "rds" {
 resource "kubernetes_secret" "read_replica" {
   # default off
   count = 0
-
-  db_engine_version = "14" # you shouldn't include the minor version here
-  rds_family        = "postgres14"
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
