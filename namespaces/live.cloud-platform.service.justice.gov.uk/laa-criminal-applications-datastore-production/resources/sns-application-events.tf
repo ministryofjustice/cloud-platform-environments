@@ -35,6 +35,36 @@ resource "kubernetes_secret" "application-events-sns-topic" {
 ########### SNS subscriptions ###########
 ###
 
-# TODO: HTTP subscription to be added once review production namespace
-# is up and running (needs `/api/events` endpoint).
-# Copy and paste subscription block from staging namespace.
+resource "aws_sns_topic_subscription" "events-review-subscription" {
+  topic_arn = module.application-events-sns-topic.topic_arn
+  endpoint  = "https://review-criminal-legal-aid.service.justice.gov.uk/api/events"
+  protocol  = "https"
+
+  raw_message_delivery   = false
+  endpoint_auto_confirms = true
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.application-events-dlq.sqs_arn
+  })
+
+  delivery_policy = jsonencode({
+    "healthyRetryPolicy" = {
+      "backoffFunction"    = "exponential"
+      "numRetries"         = 30
+      "minDelayTarget"     = 5
+      "maxDelayTarget"     = 120
+      "numNoDelayRetries"  = 3
+      "numMinDelayRetries" = 2
+      "numMaxDelayRetries" = 15
+    }
+    "throttlePolicy" = {
+      "maxReceivesPerSecond" = 10
+    }
+  })
+
+  filter_policy = jsonencode({
+    event_name = [
+      "apply.submission"
+    ]
+  })
+}
