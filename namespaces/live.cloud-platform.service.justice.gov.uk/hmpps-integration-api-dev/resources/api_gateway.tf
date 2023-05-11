@@ -178,7 +178,7 @@ resource "aws_api_gateway_stage" "main" {
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format          = "$context.extendedRequestId $context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] \"$context.httpMethod $context.resourcePath $context.protocol \" $context.status $context.responseLength $context.requestId"
+    format          = "$context.extendedRequestId $context.identity.sourceIp $context.identity.clientCert.subjectDN [$context.requestTime] \"$context.httpMethod $context.resourcePath \" \nHttpCode: $context.status \nLength:$context.responseLength"
   }
 
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
