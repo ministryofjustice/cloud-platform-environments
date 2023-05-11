@@ -67,3 +67,7 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "domain" {
+  default = "laa-status-dashboard.service.justice.gov.uk"
+}
