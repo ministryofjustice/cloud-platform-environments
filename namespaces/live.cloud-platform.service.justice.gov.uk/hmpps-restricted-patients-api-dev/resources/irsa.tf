@@ -27,3 +27,10 @@ locals {
   domain-events   = jsondecode(data.aws_ssm_parameter.hmpps-domain-events-tf-outputs.value)
   offender-events = jsondecode(data.aws_ssm_parameter.offender-events-tf-outputs.value)
 }
+
+# get current region
+data "aws_region" "current" {}
+
+output "region" {
+  value = data.aws_region.current.name # should be eu-west-2
+}
