@@ -20,7 +20,7 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   # rds_name = ""
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # enable performance insights
   performance_insights_enabled = true
@@ -138,6 +138,9 @@ resource "kubernetes_secret" "rds" {
 resource "kubernetes_secret" "read_replica" {
   # default off
   count = 0
+
+  db_engine_version = "14" # you shouldn't include the minor version here
+  rds_family        = "postgres14"
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
