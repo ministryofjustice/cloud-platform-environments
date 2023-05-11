@@ -20,7 +20,7 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   # rds_name             = "my-rds-name"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # enable performance insights
   performance_insights_enabled = true
@@ -31,7 +31,7 @@ module "rds" {
   db_engine_version = "14.7"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
   # Pick the one that defines the postgres version the best
@@ -49,6 +49,12 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
+
+  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
+  enable_rds_auto_start_stop  = true
+
+  # This will rotate the db password. Update the value to the current date.
+  # db_password_rotated_date  = "dd-mm-yyyy"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -75,6 +81,8 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  db_engine_version = "14" # you shouldn't include the minor version here
+  rds_family        = "postgres14"
 
   # It is mandatory to set the below values to create read replica instance
 
