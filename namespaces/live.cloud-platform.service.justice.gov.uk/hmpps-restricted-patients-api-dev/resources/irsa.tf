@@ -5,7 +5,7 @@ module "hmpps-restricted-patients-irsa" {
   namespace        = var.namespace
   service_account  = "${var.application}-${var.environment-name}"
   role_policy_arns = [
-    local.hmpps-domain-events-sns.hmpps_domain_events_irsa_policy_arn,
+    local.domain-events.hmpps_domain_events_irsa_policy_arn,
 
     local.domain-events.rp_domain-events_sqs_irsa_policy_arn,
     local.domain-events.rp_domain-events_dlq_sqs_irsa_policy_arn,
