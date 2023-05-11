@@ -4,7 +4,7 @@ metadata:
   name: prison-visits-public-cert
   namespace: prison-visits-booking-production
 spec:
-  secretName: prison-visits-public-secret
+  secretName: prison-visits-public-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -17,7 +17,7 @@ metadata:
   name: prison-visits-public-www-cert
   namespace: prison-visits-booking-production
 spec:
-  secretName: prison-visits-public-www-secret
+  secretName: prison-visits-public-www-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -30,7 +30,7 @@ metadata:
   name: prison-visits-staff-cert
   namespace: prison-visits-booking-production
 spec:
-  secretName: prison-visits-staff-secret
+  secretName: prison-visits-staff-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -43,7 +43,7 @@ metadata:
   name: prison-visits-staff-justice-cert
   namespace: prison-visits-booking-production
 spec:
-  secretName: prison-visits-staff-justice-secret
+  secretName: prison-visits-staff-justice-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
