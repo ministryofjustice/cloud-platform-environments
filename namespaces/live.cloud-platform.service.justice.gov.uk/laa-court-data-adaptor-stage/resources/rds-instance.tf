@@ -13,6 +13,7 @@ module "court_data_adaptor_rds" {
   db_engine_version      = "14"
 
   allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t3.small"
 
   providers = {
