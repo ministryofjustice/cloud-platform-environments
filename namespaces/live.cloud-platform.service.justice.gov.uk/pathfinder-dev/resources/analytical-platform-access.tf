@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "pathfinder_ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::hmpps-${var.namespace}-landing/*",
-      "arn:aws:s3:::hmpps-${var.namespace}-landing/"
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-dev/*",
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-dev/"
     ]
   }
 }
@@ -61,7 +61,7 @@ resource "aws_iam_user_policy" "pathfinder_ap_policy" {
 
 resource "kubernetes_secret" "ap_aws_secret" {
   metadata {
-    name      = "pathfinder-analytical-platform-reporting-s3-bucket"
+    name      = "s3://moj-reg-dev/landing/hmpps-pathfinder-dev/"
     namespace = var.namespace
   }
 
