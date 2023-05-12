@@ -13,6 +13,7 @@ module "slmtp_api_rds" {
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres13"
   db_engine_version           = "13"
+  db_password_rotated_date    = "2023-05-11"
 
   providers = {
     aws = aws.london

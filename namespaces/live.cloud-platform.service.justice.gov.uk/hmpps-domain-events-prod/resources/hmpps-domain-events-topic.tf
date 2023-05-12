@@ -1,5 +1,5 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
 
   topic_display_name = "hmpps-domain-events"
 

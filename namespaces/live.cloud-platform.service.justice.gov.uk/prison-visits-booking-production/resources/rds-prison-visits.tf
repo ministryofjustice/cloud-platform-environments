@@ -23,6 +23,7 @@ module "prison-visits-rds" {
   db_name                = "visits"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres12"
+  db_password_rotated_date    = "2023-05-11"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
