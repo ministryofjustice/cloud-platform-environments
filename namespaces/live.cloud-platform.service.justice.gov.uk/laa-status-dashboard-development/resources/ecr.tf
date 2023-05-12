@@ -29,6 +29,10 @@ module "ecr_credentials" {
   # Uncomment to configure OIDC for GitHub Actions rather than using access keys
   oidc_providers = ["github"]
 
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "development"
+
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
