@@ -178,7 +178,21 @@ resource "aws_api_gateway_stage" "main" {
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format          = "$context.extendedRequestId $context.identity.sourceIp $context.identity.clientCert.subjectDN [$context.requestTime] \"$context.httpMethod $context.resourcePath\" HttpCode: $context.status Length: $context.responseLength Error: $context.error.message"
+    format          = jsonencode({
+      "extendedRequestId" = "$context.extendedRequestId"
+      "ip" =  "$context.identity.sourceIp"
+      "client" = "$context.identity.clientCert.subjectDN"
+      "requestTime" = "$context.requestTime"
+      "httpMethod" = "$context.httpMethod"
+      "resourcePath" = "$context.resourcePath"
+      "status" = "$context.status"
+      "responseLength" = "$context.responseLength"
+      "error" = "$context.error.message"
+      "authenticateStatus" = "$context.authenticate.status"
+      "authenticateError" = "$context.authenticate.error"
+      "integrationStatus" = "$context.integration.status"
+      "integrationError" = "$context.integration.error"
+    })
   }
 
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
