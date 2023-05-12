@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-idenfify-remand-periods-dev-admin
-  namespace: hmpps-idenfify-remand-periods-dev
+  name: hmpps-identify-remand-periods-dev-admin
+  namespace: hmpps-identify-remand-periods-dev
 subjects:
   - kind: Group
     name: "github:farsight-devs"

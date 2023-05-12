@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-idenfify-remand-periods-dev
+  namespace: hmpps-identify-remand-periods-dev
 spec:
   hard:
     pods: "50"

@@ -2,11 +2,11 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "hmpps-idenfify-remand-periods-dev"
+  default = "hmpps-identify-remand-periods-dev"
 }
 
 variable "namespace" {
-  default = "hmpps-idenfify-remand-periods-dev"
+  default = "hmpps-identify-remand-periods-dev"
 }
 
 variable "business_unit" {

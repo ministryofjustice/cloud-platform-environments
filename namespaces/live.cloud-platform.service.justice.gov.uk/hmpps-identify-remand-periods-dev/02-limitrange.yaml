@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hmpps-idenfify-remand-periods-dev
+  namespace: hmpps-identify-remand-periods-dev
 spec:
   limits:
   - default:

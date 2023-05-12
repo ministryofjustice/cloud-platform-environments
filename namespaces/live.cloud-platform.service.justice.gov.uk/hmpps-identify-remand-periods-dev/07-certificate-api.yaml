@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-idenfify-remand-periods-api-dev-cert
-  namespace: hmpps-idenfify-remand-periods-dev
+  name: hmpps-identify-remand-periods-api-dev-cert
+  namespace: hmpps-identify-remand-periods-dev
 spec:
-  secretName: hmpps-idenfify-remand-periods-api-cert
+  secretName: hmpps-identify-remand-periods-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - idenfify-remand-periods-api-dev.hmpps.service.justice.gov.uk
+    - identify-remand-periods-api-dev.hmpps.service.justice.gov.uk
