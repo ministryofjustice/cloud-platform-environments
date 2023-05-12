@@ -203,3 +203,13 @@ resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   retention_in_days = 7
 }
 
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  stage_name  = aws_api_gateway_stage.main.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled = true
+    logging_level   = "INFO"
+  }
+}
