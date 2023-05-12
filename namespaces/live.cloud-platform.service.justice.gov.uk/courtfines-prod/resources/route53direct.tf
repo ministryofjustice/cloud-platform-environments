@@ -34,19 +34,6 @@ resource "aws_route53_record" "aws_route53_record_prod" {
   }
 }
 
-resource "aws_route53_record" "aws_route53_record_ns" {
-  name = "courtfines.direct.gov.uk."
-  zone_id = aws_route53_zone.route53_direct_zone.zone_id
-  type = "NS"
-  ttl  = 300
-  records = [
-    "ns-328.awsdns-41.com.",
-    "ns-1333.awsdns-38.org.",
-    "ns-1824.awsdns-36.co.uk.",
-    "ns-748.awsdns-29.net."
-  ]
-}
-
 resource "aws_route53_record" "aws_route53_record_cname_1" {
   name = "_975286e3bc1ca6804128ccd7c48c89ac.courtfines.direct.gov.uk."
   zone_id = aws_route53_zone.route53_direct_zone.zone_id
