@@ -14,7 +14,6 @@ module "court_data_adaptor_rds" {
   db_engine_version           = "14"
   db_instance_class           = "db.t3.small"
   allow_major_version_upgrade = "true"
-   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   enable_rds_auto_start_stop  = true
 
   providers = {
