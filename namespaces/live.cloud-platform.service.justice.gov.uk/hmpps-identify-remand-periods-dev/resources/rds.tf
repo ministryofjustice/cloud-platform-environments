@@ -10,7 +10,7 @@ module "identify_remand_periods_rds" {
   infrastructure-support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.micro"
   db_engine_version           = "14"
 
   providers = {
