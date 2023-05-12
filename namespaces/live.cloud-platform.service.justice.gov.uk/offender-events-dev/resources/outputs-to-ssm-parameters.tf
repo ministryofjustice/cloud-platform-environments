@@ -69,9 +69,9 @@ resource "aws_ssm_parameter" "tf-outputs-sns-irsa-policies" {
   type = "String"
   name = "/${var.namespace}/tf-outputs/sns-irsa-policies"
   value = jsonencode({
-    (module.offender_events.topic_display_name) : module.offender_events.irsa_policy_arn
-    (module.probation_offender_events.topic_display_name) : module.probation_offender_events.irsa_policy_arn
-    (module.offender_assessments_events.topic_display_name) : module.probation_offender_events.irsa_policy_arn
+    (module.offender_events.topic_name) : module.offender_events.irsa_policy_arn
+    (module.probation_offender_events.topic_name) : module.probation_offender_events.irsa_policy_arn
+    (module.offender_assessments_events.topic_name) : module.probation_offender_events.irsa_policy_arn
   })
   tags = local.tags
 }
