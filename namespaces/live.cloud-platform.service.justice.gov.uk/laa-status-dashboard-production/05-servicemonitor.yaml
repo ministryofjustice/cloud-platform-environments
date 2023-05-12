@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: service-monitor-production
+spec:
+  selector:
+    matchLabels:
+      app: laa-status-dashboard-production
+  endpoints:
+  - port: https
+    interval: 15s
