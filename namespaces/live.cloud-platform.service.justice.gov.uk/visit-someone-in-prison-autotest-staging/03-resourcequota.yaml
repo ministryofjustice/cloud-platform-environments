@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: visit-someone-in-prison-autotest-stage
+  namespace: visit-someone-in-prison-autotest-staging
 spec:
   hard:
     pods: "50"

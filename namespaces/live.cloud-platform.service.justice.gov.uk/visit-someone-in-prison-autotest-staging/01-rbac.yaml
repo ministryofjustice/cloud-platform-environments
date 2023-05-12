@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: visit-someone-in-prison-autotest-stage-admin
-  namespace: visit-someone-in-prison-autotest-stage
+  name: visit-someone-in-prison-autotest-staging-admin
+  namespace: visit-someone-in-prison-autotest-staging
 subjects:
   - kind: Group
     name: "github:book-a-prison-visit"

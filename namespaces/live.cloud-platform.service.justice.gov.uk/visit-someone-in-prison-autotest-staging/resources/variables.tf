@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "visit-someone-in-prison-autotest-stage"
+  default = "visit-someone-in-prison-autotest-staging"
 }
 
 variable "business_unit" {
@@ -24,7 +24,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "stage"
+  default     = "staging"
 }
 
 variable "infrastructure_support" {
