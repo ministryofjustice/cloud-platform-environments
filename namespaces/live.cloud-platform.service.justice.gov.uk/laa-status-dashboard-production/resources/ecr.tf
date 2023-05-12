@@ -58,18 +58,3 @@ module "ecr_credentials" {
 EOF
 
 }
-
-
-resource "kubernetes_secret" "ecr_credentials" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
-  }
-}
