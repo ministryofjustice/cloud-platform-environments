@@ -12,6 +12,7 @@ module "identify_remand_periods_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_engine_version           = "14"
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london
