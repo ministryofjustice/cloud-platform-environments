@@ -11,6 +11,7 @@ module "identify_remand_periods_rds" {
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine_version           = "14"
   enable_rds_auto_start_stop  = true
 
