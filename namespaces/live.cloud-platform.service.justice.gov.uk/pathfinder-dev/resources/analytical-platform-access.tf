@@ -61,12 +61,12 @@ resource "aws_iam_user_policy" "pathfinder_ap_policy" {
 
 resource "kubernetes_secret" "ap_aws_secret" {
   metadata {
-    name      = "s3://moj-reg-dev/landing/hmpps-pathfinder-dev/"
+    name      = "pathfinder-analytical-platform-reporting-s3-bucket"
     namespace = var.namespace
   }
 
   data = {
-    destination_bucket = "s3://hmpps-${var.namespace}-landing"
+    destination_bucket = "s3://moj-reg-dev/landing/hmpps-pathfinder-dev/"
     user_arn           = aws_iam_user.pathfinder_ap_user.arn
     access_key_id      = aws_iam_access_key.pathfinder_ap_user.id
     secret_access_key  = aws_iam_access_key.pathfinder_ap_user.secret
