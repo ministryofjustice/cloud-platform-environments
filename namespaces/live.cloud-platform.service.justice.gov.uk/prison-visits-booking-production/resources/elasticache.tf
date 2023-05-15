@@ -3,7 +3,7 @@ module "ec-cluster-prison-visits-booking-staff" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = "prison-visits-booking-staff"
-  node_type              = "cache.m4.xlarge"
+  node_type              = "cache.t4g.small"
   is-production          = var.is_production
   environment-name       = var.environment-name
   business-unit          = var.business_unit
