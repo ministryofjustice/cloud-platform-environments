@@ -14,7 +14,10 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
     truststore_version = aws_s3_object.truststore.version_id
   }
 
-  depends_on = [aws_acm_certificate_validation.api_gateway_custom_hostname]
+  depends_on = [
+    aws_acm_certificate_validation.api_gateway_custom_hostname,
+    aws_s3_object.truststore
+  ]
 }
 
 resource "aws_acm_certificate" "api_gateway_custom_hostname" {
