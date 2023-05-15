@@ -12,15 +12,15 @@ module "datahub_frontend_assumable_role" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.datahub-frontend-sa}"]
 }
 
-# module "datahub_gms_assumable_role" {
-#   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-#   version                       = "5.13.0"
-#   create_role                   = true
-#   role_name                     = "${var.datahub-gms-sa}-${var.eks_cluster_name}"
-#   provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
-#   role_policy_arns              = [aws_iam_policy.data_platform_datahub.arn]
-#   oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.datahub-gms-sa}"]
-# }
+module "datahub_gms_assumable_role" {
+  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version                       = "5.13.0"
+  create_role                   = true
+  role_name                     = "${var.datahub-gms-sa}-${var.eks_cluster_name}"
+  provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  role_policy_arns              = [aws_iam_policy.data_platform_datahub.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.datahub-gms-sa}"]
+}
 
 data "aws_iam_policy_document" "data_platform_datahub" {
   # AssumeRole permissions for S3 access in
@@ -59,13 +59,13 @@ resource "kubernetes_secret" "datahub_frontend_role" {
   }
 }
 
-# resource "kubernetes_secret" "datahub_gms_role" {
-#   metadata {
-#     name      = "datahub-gms-role"
-#     namespace = var.namespace
-#   }
-#   data = {
-#     role = module.datahub_gms_assumable_role.iam_role_name
-#     arn  = module.datahub_gms_assumable_role.iam_role_arn
-#   }
-# }
+resource "kubernetes_secret" "datahub_gms_role" {
+  metadata {
+    name      = "datahub-gms-role"
+    namespace = var.namespace
+  }
+  data = {
+    role = module.datahub_gms_assumable_role.iam_role_name
+    arn  = module.datahub_gms_assumable_role.iam_role_arn
+  }
+}

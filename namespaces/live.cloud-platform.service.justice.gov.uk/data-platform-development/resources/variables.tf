@@ -82,7 +82,7 @@ variable "datahub-frontend-sa" {
 variable "datahub-gms-sa" {
   type        = string
   description = "Datahub GMS service account used for data ingestion"
-  default     = " datahub-datahub-gms"
+  default     = "datahub-datahub-gms"
 }
 
 variable "eks_cluster_name" {
