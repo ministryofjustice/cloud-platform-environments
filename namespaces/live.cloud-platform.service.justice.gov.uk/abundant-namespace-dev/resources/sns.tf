@@ -8,13 +8,13 @@ module "abundant_namespace_dev_sns" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
 
   topic_display_name     = "test-sns"
-  business_unit          = "hq"
-  application            = "abundant-namespace-dev"
-  is_production          = "false"
-  team_name              = "webops"
-  environment_name       = "dev"
-  infrastructure_support = "cloud-platform"
-  namespace              = "abundant-namespace-dev"
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
 
   providers = {
     aws = aws.london
@@ -24,7 +24,7 @@ module "abundant_namespace_dev_sns" {
 resource "kubernetes_secret" "example_sns_topic" {
   metadata {
     name      = "sns-topic-sns-user"
-    namespace = "abundant-namespace-dev"
+    namespace = var.namespace
   }
 
   data = {

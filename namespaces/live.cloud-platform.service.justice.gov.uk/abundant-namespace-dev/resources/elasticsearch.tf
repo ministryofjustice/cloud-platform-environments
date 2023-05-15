@@ -17,5 +17,4 @@ module "abundance_es" {
 
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
-
 }
