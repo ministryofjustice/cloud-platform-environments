@@ -182,6 +182,7 @@ resource "aws_api_gateway_stage" "main" {
       "extendedRequestId" = "$context.extendedRequestId"
       "ip" =  "$context.identity.sourceIp"
       "client" = "$context.identity.clientCert.subjectDN"
+      "issuerDN" = "$context.identity.clientCert.issuerDN"
       "requestTime" = "$context.requestTime"
       "httpMethod" = "$context.httpMethod"
       "resourcePath" = "$context.resourcePath"
@@ -192,6 +193,7 @@ resource "aws_api_gateway_stage" "main" {
       "authenticateError" = "$context.authenticate.error"
       "integrationStatus" = "$context.integration.status"
       "integrationError" = "$context.integration.error"
+      "apiKeyId" = "$context.identity.apiKeyId"
     })
   }
 
