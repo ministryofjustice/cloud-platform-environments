@@ -14,7 +14,7 @@ module "hmpps-restricted-patients-irsa" {
 }
 
 data "aws_ssm_parameter" "domain-events-sns-topic" {
-  name = "/hmpps-domain-events-preprod/sns/cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573/irsa-policy-arn"
+  name = "/hmpps-domain-events-preprod/sns/cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "domain-events-rp-queue" {
