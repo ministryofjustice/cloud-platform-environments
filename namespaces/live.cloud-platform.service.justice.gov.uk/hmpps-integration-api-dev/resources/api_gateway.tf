@@ -11,6 +11,7 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
 
   mutual_tls_authentication {
     truststore_uri = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
+    truststore_version = aws_s3_object.truststore.version_id
   }
 
   depends_on = [aws_acm_certificate_validation.api_gateway_custom_hostname]
