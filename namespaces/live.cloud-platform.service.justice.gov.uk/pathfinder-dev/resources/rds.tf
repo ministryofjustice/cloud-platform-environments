@@ -10,13 +10,12 @@ module "dps_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_instance_class      = "db.t4g.micro"
-  db_engine_version      = "15.2"
+  db_engine_version      = "12.14"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  rds_family = "postgres15"
-  prepare_for_major_upgrade = true
+  rds_family = "postgres12"
+  prepare_for_major_upgrade = false
   providers = {
     aws = aws.london
   }
