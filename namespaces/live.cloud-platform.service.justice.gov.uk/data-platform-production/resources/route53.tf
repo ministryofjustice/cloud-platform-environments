@@ -11,6 +11,24 @@ resource "aws_route53_zone" "data_platform_production_route53_zone" {
   }
 }
 
+/* Delegating to data-platform-development */
+resource "aws_route53_record" "data_platform_development_zone" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "development.data-platform.service.justice.gov.uk"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1741.awsdns-25.co.uk.", "ns-446.awsdns-55.com.", "ns-1406.awsdns-47.org.", "ns-952.awsdns-55.net."]
+}
+
+/* Delegating to analytical-platform-data-engineering-sandbox-a */
+resource "aws_route53_record" "data_platform_rapid_dev_zone" {
+  zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
+  name    = "rapid.dev.data-platform.service.justice.gov.uk"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1638.awsdns-12.co.uk.", "ns-93.awsdns-11.com.", "ns-1512.awsdns-61.org.", "ns-588.awsdns-09.net."]
+}
+
 resource "kubernetes_secret" "data_platform_production_route53_zone_id" {
   metadata {
     name      = "cloud-platform-data-platform-production-route53-zone-id"

@@ -1,5 +1,5 @@
 module "prisoner_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "prisoner_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -115,7 +115,8 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "NON_ASSOCIATION_DETAIL-UPSERTED",
       "RESTRICTION-UPSERTED",
       "PERSON_RESTRICTION-UPSERTED",
-      "VISITOR_RESTRICTION-UPSERTED"
+      "VISITOR_RESTRICTION-UPSERTED",
+      "PRISONER_ACTIVITY-UPDATE"
     ]
   })
 }

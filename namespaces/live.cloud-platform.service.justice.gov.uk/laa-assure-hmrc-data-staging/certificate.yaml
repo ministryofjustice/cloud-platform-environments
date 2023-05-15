@@ -1,19 +1,6 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: assure-hmrc-data-certificate
-  namespace: laa-assure-hmrc-data-staging
-spec:
-  secretName: assure-hmrc-data-tls-certificate
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - staging.assure-hmrc-data.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: check-clients-details-using-hmrc-data-certificate
   namespace: laa-assure-hmrc-data-staging
 spec:

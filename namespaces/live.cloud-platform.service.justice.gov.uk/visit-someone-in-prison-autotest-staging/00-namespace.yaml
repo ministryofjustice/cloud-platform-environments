@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: visit-someone-in-prison-autotest-staging
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "staging"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "prison-visit-booking-dev"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "prison-visit-booking-alerts-nonprod"
+    cloud-platform.justice.gov.uk/application: "Visit Someone in Prison"
+    cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: " https://github.com/ministryofjustice/hmpps-vsip-ui-tests"
+    cloud-platform.justice.gov.uk/team-name: "book-a-prison-visit"

@@ -14,7 +14,7 @@ module "hmpps_audit_rds" {
   db_engine_version           = "15"
   rds_family                  = "postgres15"
   db_max_allocated_storage    = "10000"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   deletion_protection         = true
 
   providers = {

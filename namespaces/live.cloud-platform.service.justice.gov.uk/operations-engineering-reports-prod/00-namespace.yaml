@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: operations-engineering-reports-prod
-  labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
-    cloud-platform.justice.gov.uk/environment-name: "production"
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Platforms"
-    cloud-platform.justice.gov.uk/slack-channel: "operations-engineering"
     cloud-platform.justice.gov.uk/application: "Operations reports for MoJ"
-    cloud-platform.justice.gov.uk/owner: "operations-engineering: operationsengineering@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/owner: "operations-engineering: operations-engineering@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/review-after: ""
+    cloud-platform.justice.gov.uk/slack-channel: "operations-engineering"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/operations-engineering-reports"
     cloud-platform.justice.gov.uk/team-name: "operations-engineering"
-    cloud-platform.justice.gov.uk/review-after: ""
+  labels:
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    cloud-platform.justice.gov.uk/is-production: "true"
+  name: operations-engineering-reports-prod

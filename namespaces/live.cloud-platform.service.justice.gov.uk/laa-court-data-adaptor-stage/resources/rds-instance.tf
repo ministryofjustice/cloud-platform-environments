@@ -8,11 +8,12 @@ module "court_data_adaptor_rds" {
   is-production = "false"
 
   environment-name       = "stage"
-  infrastructure-support = "laa@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
   db_engine_version      = "14"
 
   allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t3.small"
 
   providers = {

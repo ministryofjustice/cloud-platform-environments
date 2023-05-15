@@ -35,22 +35,9 @@ resource "kubernetes_secret" "application-events-sns-topic" {
 ########### SNS subscriptions ###########
 ###
 
-resource "aws_sns_topic_subscription" "events-maat-subscription" {
-  topic_arn = module.application-events-sns-topic.topic_arn
-  endpoint  = module.crime-applications-for-maat-sqs.sqs_arn
-  provider  = "aws.london"
-  protocol  = "sqs"
-
-  raw_message_delivery = true
-
-  redrive_policy = jsonencode({
-    deadLetterTargetArn = module.application-events-dlq.sqs_arn
-  })
-}
-
 resource "aws_sns_topic_subscription" "events-review-subscription" {
   topic_arn = module.application-events-sns-topic.topic_arn
-  endpoint  = "https://laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk/api/events"
+  endpoint  = "https://staging.review-criminal-legal-aid.service.justice.gov.uk/api/events"
   protocol  = "https"
 
   raw_message_delivery   = false

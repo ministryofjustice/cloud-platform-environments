@@ -5,7 +5,7 @@
  *
  */
 module "peoplefinder_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "peoplefinder-ecr"
   team_name = "peoplefinder"
 

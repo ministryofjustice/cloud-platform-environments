@@ -26,12 +26,10 @@ module "rds-live" {
   rds_family    = "postgres14"
   backup_window = "02:00-03:00"
 
-  db_allocated_storage = "150"
+  db_allocated_storage = "750"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
-
-  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2023-02-18-02-09"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
