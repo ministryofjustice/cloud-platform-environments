@@ -9,7 +9,7 @@ module "court_data_adaptor_rds" {
 
   db_engine_version      = "14"
   environment-name       = "test"
-  infrastructure-support = "laa@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
 
   allow_major_version_upgrade = "true"
