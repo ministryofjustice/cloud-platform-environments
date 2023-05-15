@@ -10,11 +10,14 @@ module "dps_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "11"
+  db_engine_version      = "12.14"
+  db_instance_class      = "db.t4g.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  rds_family = "postgres11"
+  rds_family = "postgres12"
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
