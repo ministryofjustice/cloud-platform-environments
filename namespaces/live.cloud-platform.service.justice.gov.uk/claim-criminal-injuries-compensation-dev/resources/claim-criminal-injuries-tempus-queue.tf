@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-tempus-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.1"
 
   sqs_name               = "claim-criminal-injuries-tempus-queue"
   fifo_queue             = false
@@ -13,7 +13,7 @@ module "claim-criminal-injuries-tempus-queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.claim-criminal-injuries-tempus-dlq.sqs_arn
-    maxReceiveCount     = 1
+    maxReceiveCount     = 3
   })
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
