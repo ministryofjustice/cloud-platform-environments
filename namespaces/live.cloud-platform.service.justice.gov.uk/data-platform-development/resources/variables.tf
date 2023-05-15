@@ -84,3 +84,7 @@ variable "datahub-gms-sa" {
   description = "Datahub GMS service account used for data ingestion"
   default     = " datahub-datahub-gms"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
