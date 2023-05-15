@@ -1,16 +1,5 @@
 # Add outputs that need to be consumed in other namespaces here.
 
-# This param needs to deleting after cut over to new config below.
-resource "aws_ssm_parameter" "tf-outputs" {
-  type = "String"
-  name = "/${var.namespace}/tf-outputs"
-  value = jsonencode({
-    "restricted_patients_queue_irsa_policy_arn" : module.restricted_patients_queue.irsa_policy_arn
-    "restricted_patients_dql_queue_irsa_policy_arn" : module.restricted_patients_dead_letter_queue.irsa_policy_arn
-  })
-  tags = local.tags
-}
-
 locals {
   sqs_irsa_policies = {
     (module.cfo_queue.sqs_name)                                                    = module.cfo_queue.irsa_policy_arn,
