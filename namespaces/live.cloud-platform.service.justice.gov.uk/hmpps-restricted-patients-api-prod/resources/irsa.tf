@@ -5,25 +5,30 @@ module "hmpps-restricted-patients-irsa" {
   namespace        = var.namespace
   service_account  = "${var.application}-${var.environment-name}"
   role_policy_arns = [
-    local.domain-events.hmpps_domain_events_irsa_policy_arn,
-
-    local.domain-events.rp_domain-events_sqs_irsa_policy_arn,
-    local.domain-events.rp_domain-events_dlq_sqs_irsa_policy_arn,
-
-    local.offender-events.restricted_patients_queue_irsa_policy_arn,
-    local.offender-events.restricted_patients_dql_queue_irsa_policy_arn
+    data.aws_ssm_parameter.domain-events-sns-topic.value,
+    data.aws_ssm_parameter.domain-events-rp-queue.value,
+    data.aws_ssm_parameter.domain-events-rp-dql-queue.value,
+    data.aws_ssm_parameter.offender-events-rp-queue.value,
+    data.aws_ssm_parameter.offender-events-rp-dlq-queue.value
   ]
 }
 
-data "aws_ssm_parameter" "hmpps-domain-events-tf-outputs" {
-  name = "/hmpps-domain-events-${var.environment-name}/tf-outputs"
+data "aws_ssm_parameter" "domain-events-sns-topic" {
+  name = "/hmpps-domain-events-prod/sns/cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08/irsa-policy-arn"
 }
 
-data "aws_ssm_parameter" "offender-events-tf-outputs" {
-  name = "/offender-events-${var.environment-name}/tf-outputs"
+data "aws_ssm_parameter" "domain-events-rp-queue" {
+  name = "/hmpps-domain-events-prod/sqs/Digital-Prison-Services-prod-rp_queue_for_domain_events/irsa-policy-arn"
 }
 
-locals {
-  domain-events   = jsondecode(data.aws_ssm_parameter.hmpps-domain-events-tf-outputs.value)
-  offender-events = jsondecode(data.aws_ssm_parameter.offender-events-tf-outputs.value)
+data "aws_ssm_parameter" "domain-events-rp-dql-queue" {
+  name = "/hmpps-domain-events-prod/sqs/Digital-Prison-Services-prod-rp_queue_for_domain_events_dl/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "offender-events-rp-queue" {
+  name = "/offender-events-prod/sqs/Digital-Prison-Services-prod-restricted_patients_queue/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "offender-events-rp-dlq-queue" {
+  name = "/offender-events-prod/sqs/Digital-Prison-Services-prod-restricted_patients_queue_dl/irsa-policy-arn"
 }
