@@ -18,11 +18,11 @@ data "aws_ssm_parameter" "domain-events-sns-topic" {
 }
 
 data "aws_ssm_parameter" "domain-events-rp-queue" {
-  name = "/offender-events-dev/sqs/Digital-Prison-Services-dev-rp_queue_for_domain_events/irsa-policy-arn"
+  name = "/hmpps-domain-events-dev/sqs/Digital-Prison-Services-dev-rp_queue_for_domain_events/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "domain-events-rp-dql-queue" {
-  name = "/offender-events-dev/sqs/Digital-Prison-Services-dev-rp_queue_for_domain_events_dl/irsa-policy-arn"
+  name = "/hmpps-domain-events-dev/sqs/Digital-Prison-Services-dev-rp_queue_for_domain_events_dl/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "offender-events-rp-queue" {
