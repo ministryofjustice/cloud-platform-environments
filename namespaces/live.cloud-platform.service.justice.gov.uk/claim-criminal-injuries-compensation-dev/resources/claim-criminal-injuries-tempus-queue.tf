@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-tempus-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name               = "claim-criminal-injuries-tempus-queue"
   fifo_queue             = false
