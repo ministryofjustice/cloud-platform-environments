@@ -1,7 +1,7 @@
 
 
 module "court_probation_service_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "court-probation-service"
   team_name = "probation-services"
 
@@ -25,7 +25,7 @@ resource "kubernetes_secret" "court_probation_service_ecr_credentials" {
 }
 
 module "ps_cps_pack_parser_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "cps-pack-parser"
   team_name = "probation-services"
 
@@ -49,7 +49,7 @@ resource "kubernetes_secret" "ps_cps_pack_parser_ecr_credentials" {
 }
 
 module "mock_cp_court_service_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "mock-cp-court-service"
   team_name = "probation-services"
 
@@ -73,7 +73,7 @@ resource "kubernetes_secret" "mock_cp_court_service_ecr_credentials" {
 }
 
 module "court_list_service_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "court-list-service"
   team_name = "probation-services"
 
@@ -97,7 +97,7 @@ resource "kubernetes_secret" "court_list_service_ecr_credentials" {
 }
 
 module "prepare_probation_courtcases_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "prepare-probation-courtcases"
   team_name = "probation-services"
 
@@ -121,7 +121,7 @@ resource "kubernetes_secret" "prepare_probation_courtcases_ecr_credentials" {
 }
 
 module "ndelius_new_tech_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "ndelius-new-tech"
   team_name = "probation-services"
 
@@ -145,7 +145,7 @@ resource "kubernetes_secret" "ndelius_new_tech_ecr_credentials" {
 }
 
 module "community_api_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "community-api"
   team_name = "probation-services"
 
@@ -169,7 +169,7 @@ resource "kubernetes_secret" "community_api_ecr_credentials" {
 }
 
 module "ukcloud_proxy_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "ukcloud-proxy"
   team_name = "probation-services"
 
@@ -193,7 +193,7 @@ resource "kubernetes_secret" "ukcloud_proxy_ecr_credentials" {
 }
 
 module "delius_oauth2_server_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "delius-oauth2-server"
   team_name = "probation-services"
 
@@ -217,7 +217,7 @@ resource "kubernetes_secret" "delius_oauth2_server_ecr_credentials" {
 }
 
 module "probation_court_prototype_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "probation-court-prototype"
   team_name = "probation-services"
 
@@ -241,7 +241,7 @@ resource "kubernetes_secret" "probation_court_prototype_ecr_credentials" {
 }
 
 module "court_list_mock_data_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   repo_name = "court-list-mock-data"
   team_name = "probation-services"
 

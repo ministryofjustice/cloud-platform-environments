@@ -43,8 +43,7 @@ module "rds" {
   #   }
   # ]
 
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  enable_rds_auto_start_stop = true
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   # enable_rds_auto_start_stop  = true

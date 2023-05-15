@@ -1,13 +1,13 @@
 provider "pingdom" {
 }
 
-resource "pingdom_check" "laa-review-criminal-legal-aid-staging-healthcheck" {
+resource "pingdom_check" "laa-review-criminal-legal-aid-healthcheck" {
   type                     = "http"
-  name                     = "laa-review-criminal-legal-aid-staging-healthcheck - staging - cloud-platform"
-  host                     = "laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk"
+  name                     = "LAA Review criminal legal aid applications - Staging"
+  host                     = "staging.review-criminal-legal-aid.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 4
   notifyagainevery         = 0
   url                      = "/ping"
   encryption               = true

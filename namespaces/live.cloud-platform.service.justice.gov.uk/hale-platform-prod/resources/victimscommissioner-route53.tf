@@ -22,19 +22,6 @@ resource "kubernetes_secret" "victimscommissioner_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "victimscommissioner_route53_a_record" {
-  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
-  name    = "victimscommissioner.org.uk"
-  type    = "A"
-
-  alias {
-    name                   = "jotwp-loadb-1mbwraz503eq6-1769122100.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-  
-}
-
 resource "aws_route53_record" "victimscommissioner_route53_mx_record_outlook" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "victimscommissioner.org.uk"
