@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-identify-remand-periods-preprod
 subjects:
   - kind: Group
-    name: "github:farsight-preprods"
+    name: "github:farsight-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"
