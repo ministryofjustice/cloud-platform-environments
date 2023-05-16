@@ -1,0 +1,23 @@
+name: ruby
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/ruby.yml # this workflow
+      - .ruby-version # ruby version
+      - Gemfile # dependencies
+      - Gemfile.lock # dependencies
+      - bin/** # explicit bin/ changes
+      - lib/** # explicit lib/ changes
+      - spec/** # explicit spec/ changes
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: ruby/setup-ruby@v1.149.0
+        with:
+          bundler-cache: true
+      - run: bundle exec rspec

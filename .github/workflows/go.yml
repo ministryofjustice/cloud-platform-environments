@@ -1,0 +1,22 @@
+name: go
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/go.yml # this workflow
+      - go.mod # dependencies
+      - go.sum # dependencies
+      - cmd/** # explicit cmd/ changes
+      - pkg/** # explicit pkg/ changes
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: actions/setup-go@v4.0.1
+        with:
+          go-version: 1.19
+      - run: go mod download
+      - run: go test -v ./...
