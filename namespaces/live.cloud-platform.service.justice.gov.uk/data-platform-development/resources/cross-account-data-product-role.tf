@@ -1,5 +1,13 @@
 locals {
-  access_accounts = ["013433889002"]
+  access_accounts = [
+    "013433889002", # data-platform-development
+    "803963757240", # ap-data-d
+    "189157455002", # ap-data-eng
+    "684969100054", # ap-data-eng-a
+    "593291632749", # ap-data
+    "525294151996", # ap-dev
+    "312423030077"  # ap
+  ]
 }
 data "aws_eks_cluster" "eks_cluster" {
   name = var.eks_cluster_name
@@ -32,8 +40,7 @@ data "aws_iam_policy_document" "data_platform_datahub" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = formatlist("arn:aws:iam::%s:role/DatahubProductS3AccessRole", local.access_accounts)
-
+    resources = formatlist("arn:aws:iam::%s:role/DatahubProductS3AccessRole", tolist(local.access_accounts))
   }
 }
 resource "aws_iam_policy" "data_platform_datahub" {
