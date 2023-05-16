@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "data_platform_datahub" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${var.mp_account}:role/DatahubProductS3AccessRole",
+      formatlist("arn:aws:iam::%s:role/DatahubProductS3AccessRole", var.access_accounts)
     ]
   }
 }
