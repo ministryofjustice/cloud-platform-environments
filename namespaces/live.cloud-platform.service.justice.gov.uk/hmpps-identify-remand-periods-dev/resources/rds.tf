@@ -1,4 +1,4 @@
-module "identify_remand_periods_rds" {
+module "identify_remand_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -20,7 +20,7 @@ module "identify_remand_periods_rds" {
   }
 }
 
-resource "kubernetes_secret" "identify_remand_periods_rds" {
+resource "kubernetes_secret" "identify_remand_rds" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
