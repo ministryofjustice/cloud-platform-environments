@@ -27,12 +27,12 @@ resource "kubernetes_secret" "identify_remand_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.identify_remand_periods_rds.rds_instance_endpoint
-    database_name         = module.identify_remand_periods_rds.database_name
-    database_username     = module.identify_remand_periods_rds.database_username
-    database_password     = module.identify_remand_periods_rds.database_password
-    rds_instance_address  = module.identify_remand_periods_rds.rds_instance_address
-    access_key_id         = module.identify_remand_periods_rds.access_key_id
-    secret_access_key     = module.identify_remand_periods_rds.secret_access_key
+    rds_instance_endpoint = module.identify_remand_rds.rds_instance_endpoint
+    database_name         = module.identify_remand_rds.database_name
+    database_username     = module.identify_remand_rds.database_username
+    database_password     = module.identify_remand_rds.database_password
+    rds_instance_address  = module.identify_remand_rds.rds_instance_address
+    access_key_id         = module.identify_remand_rds.access_key_id
+    secret_access_key     = module.identify_remand_rds.secret_access_key
   }
 }
