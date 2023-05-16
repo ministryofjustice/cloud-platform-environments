@@ -1,6 +1,6 @@
-resource "kubernetes_secret" "services" {
+resource "kubernetes_secret" "aws_services" {
   metadata {
-    name      = "services"
+    name      = "aws-services"
     namespace = var.namespace
   }
 
@@ -38,21 +38,20 @@ resource "kubernetes_secret" "services" {
   ]
 }
 
-resource "kubernetes_secret" "certificates" {
+resource "kubernetes_secret" "client_certificate_auth" {
   metadata {
-    name      = "certificates"
+    name      = "client-certificate-auth"
     namespace = var.namespace
   }
 
-  # Certificates and keys used for mutual TLS are uploaded manually.
   data = {
     "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
   }
 }
 
-resource "kubernetes_secret" "consumers" {
+resource "kubernetes_secret" "consumer_api_keys" {
   metadata {
-    name      = "consumers"
+    name      = "consumer-api-keys"
     namespace = var.namespace
   }
 
