@@ -70,10 +70,10 @@ class CpEnv
         return false
       end
 
-      if ns.metadata.labels[PRODUCTION_LABEL] == LABEL_TRUE
-        log("red", "Namespace #{namespace} has 'is-production: true'. Will not delete.")
-        return false
-      end
+      # if ns.metadata.labels[PRODUCTION_LABEL] == LABEL_TRUE
+      #   log("red", "Namespace #{namespace} has 'is-production: true'. Will not delete.")
+      #   return false
+      # end
 
       true
     end
