@@ -47,6 +47,36 @@ module "drupal_content_storage" {
       ]
     },
     {
+      "Sid": "AllowHubProductionS3SyncNew",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AllowHubDevelopmentS3SyncNew",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-0da9568a0aa6b9444b6fb48e8d4f79cd"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
       "Sid": "AllowHubStagingS3Sync",
       "Effect": "Allow",
       "Principal": {
