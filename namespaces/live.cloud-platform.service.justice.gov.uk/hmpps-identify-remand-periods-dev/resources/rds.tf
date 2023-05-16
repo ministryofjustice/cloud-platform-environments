@@ -1,4 +1,4 @@
-module "identify_remand_periods_rds" {
+module "identify_remand_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -12,7 +12,7 @@ module "identify_remand_periods_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
-  db_engine_version           = "14"
+  db_engine_version           = "15"
   enable_rds_auto_start_stop  = true
 
   providers = {
@@ -20,19 +20,19 @@ module "identify_remand_periods_rds" {
   }
 }
 
-resource "kubernetes_secret" "identify_remand_periods_rds" {
+resource "kubernetes_secret" "identify_remand_rds" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.identify_remand_periods_rds.rds_instance_endpoint
-    database_name         = module.identify_remand_periods_rds.database_name
-    database_username     = module.identify_remand_periods_rds.database_username
-    database_password     = module.identify_remand_periods_rds.database_password
-    rds_instance_address  = module.identify_remand_periods_rds.rds_instance_address
-    access_key_id         = module.identify_remand_periods_rds.access_key_id
-    secret_access_key     = module.identify_remand_periods_rds.secret_access_key
+    rds_instance_endpoint = module.identify_remand_rds.rds_instance_endpoint
+    database_name         = module.identify_remand_rds.database_name
+    database_username     = module.identify_remand_rds.database_username
+    database_password     = module.identify_remand_rds.database_password
+    rds_instance_address  = module.identify_remand_rds.rds_instance_address
+    access_key_id         = module.identify_remand_rds.access_key_id
+    secret_access_key     = module.identify_remand_rds.secret_access_key
   }
 }
