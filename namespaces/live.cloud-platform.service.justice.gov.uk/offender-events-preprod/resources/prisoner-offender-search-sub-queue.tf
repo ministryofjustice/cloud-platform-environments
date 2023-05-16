@@ -129,4 +129,5 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "OFFENDER_IDENTIFIER-INSERTED",
       "OFFENDER_IDENTIFIER-DELETED"
     ]
-  })}
+  })
+}
