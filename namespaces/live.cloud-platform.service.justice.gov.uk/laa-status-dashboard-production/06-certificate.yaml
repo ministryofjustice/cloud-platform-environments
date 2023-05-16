@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: domain-tls-certificate
+  namespace: laa-status-dashboard-production
+spec:
+  secretName: domain-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - laa-status-dashboard.service.justice.gov.uk
