@@ -75,14 +75,3 @@ resource "aws_route53_record" "aws_route53_record_cname_3" {
   ]
 }
 
-resource "aws_route53_record" "aws_route53_record_dev" {
-  name = "dev.courtfines.direct.gov.uk."
-  zone_id = aws_route53_zone.route53_direct_zone.zone_id
-  type = "A"
-  alias {
-    zone_id                = "ZHURV8PSTC4K8"
-    name                   = "court-LoadB-118VI6SLEQ8II-1970392396.eu-west-2.elb.amazonaws.com."
-    evaluate_target_health = true
-  }
-}
-
