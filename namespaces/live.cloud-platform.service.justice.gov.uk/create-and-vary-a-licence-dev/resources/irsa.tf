@@ -22,5 +22,5 @@ module "app-irsa" {
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
-  name     = "/${each.key}/${each.value}"
+  name     = "/${each.key}/sqs/${each.value}"
 }
