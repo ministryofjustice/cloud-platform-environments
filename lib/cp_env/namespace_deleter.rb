@@ -58,10 +58,10 @@ class CpEnv
 
     def safe_to_delete?
       dir = File.join(NAMEPACES_DIR, namespace)
-      if FileTest.directory?(File.join(NAMEPACES_DIR, namespace))
-        log("red", "Namespace folder #{dir} exists. Will not delete.")
-        return false
-      end
+      # if FileTest.directory?(File.join(NAMEPACES_DIR, namespace))
+      #   log("red", "Namespace folder #{dir} exists. Will not delete.")
+      #   return false
+      # end
 
       ns = k8s_client.get_namespaces.find { |n| n.metadata.name == namespace }
 
