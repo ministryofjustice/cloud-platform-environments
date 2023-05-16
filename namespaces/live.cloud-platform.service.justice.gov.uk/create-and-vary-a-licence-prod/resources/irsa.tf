@@ -7,7 +7,9 @@ locals {
     "Digital-Prison-Services-prod-cvl_domain_events_queue"       = "hmpps-domain-events-prod",
     "Digital-Prison-Services-prod-cvl_domain_events_queue_dl"    = "hmpps-domain-events-prod",
     "Digital-Prison-Services-prod-cvl_probation_events_queue"    = "offender-events-prod",
-    "Digital-Prison-Services-prod-cvl_probation_events_queue_dl" = "offender-events-prod"
+    "Digital-Prison-Services-prod-cvl_probation_events_queue_dl" = "offender-events-prod",
+    "Digital-Prison-Services-prod-cvl_prison_events_queue"       = "offender-events-prod",
+    "Digital-Prison-Services-prod-cvl_prison_events_queue_dl"    = "offender-events-prod"
   }
 }
 
