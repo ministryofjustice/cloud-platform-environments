@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-      - courtfines.direct.gov.uk
+      - dev.courtfines.direct.gov.uk
