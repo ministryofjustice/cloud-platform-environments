@@ -79,7 +79,7 @@ class CpEnv
     end
 
     def destroy_aws_resources
-      create_terraform_files_for_empty_namespace
+      #create_terraform_files_for_empty_namespace
       log("green", "Destroying AWS resources for namespace #{namespace}...")
       NamespaceDir.new(cluster: CLUSTER, dir: namespace_dir).apply
     end
