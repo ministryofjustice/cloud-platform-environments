@@ -1,0 +1,26 @@
+name: tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: ruby/setup-ruby@v1.149.0
+        with:
+          bundler-cache: true
+      - run: bundle exec rspec
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: actions/setup-go@v4.0.1
+        with:
+          go-version: 1.19
+      - run: go mod download
+      - run: go test -v ./...
