@@ -10,7 +10,7 @@ module "hmcts-complaints-adapter-rds-instance" {
   infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
 
-  db_engine_version          = "14"
+  db_engine_version          = "14.4"
   rds_family                 = "postgres14"
   db_instance_class          = "db.t3.small"
   prepare_for_major_upgrade  = true
