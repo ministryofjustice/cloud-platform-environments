@@ -10,7 +10,7 @@ module "hmcts-complaints-adapter-rds-instance" {
   infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
 
-  db_engine_version          = "14"
+  db_engine_version          = "14.4"
   rds_family                 = "postgres14"
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500" # maximum storage for autoscaling
