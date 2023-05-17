@@ -12,4 +12,38 @@ module "truststore_s3_bucket" {
   providers = {
     aws = aws.london_without_default_tags
   }
+
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowBucketAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${aws_iam_role.api_gateway_role.arn}"
+      },
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+data "kubernetes_secret" "truststore" {
+  metadata {
+    name = "mutual-tls-auth"
+    namespace = var.namespace
+  }
+}
+
+resource "aws_s3_object" "truststore" {
+  bucket  = module.truststore_s3_bucket.bucket_name
+  key     = "${var.environment}-truststore.pem"
+  content = data.kubernetes_secret.truststore.data["truststore-public-key"]
 }
