@@ -54,3 +54,10 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "irsa_serviceaccount_name" {
+  description = "The name of the service account to be used for irsa."
+  type        = string
+  default     = "irsa-${var.namespace}"
+  
+}

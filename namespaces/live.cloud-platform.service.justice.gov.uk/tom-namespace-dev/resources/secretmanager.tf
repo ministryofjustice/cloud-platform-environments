@@ -1,6 +1,3 @@
-locals {
-  irsa_serviceaccount_name = (var.irsa_serviceaccount_name != "" ? var.irsa_serviceaccount_name : "irsa-${var.namespace}")
-}
 module "secrets_manager" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=tom-branch"
   team_name               = var.team_name
@@ -10,7 +7,7 @@ module "secrets_manager" {
   namespace               = var.namespace
   environment             = var.environment
   infrastructure_support  = var.infrastructure_support
-  serviceaccount_name = local.irsa_serviceaccount_name
+  serviceaccount_name = var.irsa_serviceaccount_name
   eks_cluster_name       = var.eks_cluster_name
   
   secrets = {
@@ -28,7 +25,7 @@ module "irsa" {
   eks_cluster_name =  var.eks_cluster_name
   namespace        = var.namespace
   role_policy_arns = [module.secrets_manager.irsa_policy_arn]
-  service_account = local.irsa_serviceaccount_name
+  service_account = var.irsa_serviceaccount_name
 }
 
 resource "kubernetes_secret" "irsa" {
@@ -38,7 +35,7 @@ resource "kubernetes_secret" "irsa" {
   }
   data = {
     role           = module.irsa.aws_iam_role_name
-    serviceaccount = local.irsa_serviceaccount_name
+    serviceaccount = var.irsa_serviceaccount_name
   }
 }
 
