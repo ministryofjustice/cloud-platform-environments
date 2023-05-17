@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=tom-branch"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=main"
   team_name               = var.team_name
   application             = var.application
   business_unit           = var.business_unit
@@ -11,14 +11,16 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
   
   secrets = {
-    "hello-world-name" = {
+    "hello-world-app" = {
       description             = "Test secret for hello world",
-      recovery-window-in-days = 15
+      recovery_window_in_days = 15
+      k8s_secret_name        = "hello-world-secret"
+      k8s_secret_key = "POSTGRES_URL"
     },
   }
 }
 
-// New users
+#  New users
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
 
@@ -39,5 +41,5 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
-// Existing users who have IRSA 
-// Add "module.secrets_manager.irsa_policy_arn" to the role_policy_arns in the irsa module 
+#  Existing users who have IRSA 
+#  Add "module.secrets_manager.irsa_policy_arn" to the role_policy_arns in the irsa module 
