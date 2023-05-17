@@ -8,7 +8,8 @@ locals {
     "Digital-Prison-Services-dev-prison_to_probation_update_queue_dl" = "offender-events-dev"
   }
   sqs_policies      = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
-  dynamodb_policies = [module.message_dynamodb.irsa_policy_arn, module.schedule_dynamodb.irsa_policy_arn]
+  #dynamodb_policies = [module.message_dynamodb.irsa_policy_arn, module.schedule_dynamodb.irsa_policy_arn]
+  dynamodb_policies = []
 }
 
 module "app-irsa" {
