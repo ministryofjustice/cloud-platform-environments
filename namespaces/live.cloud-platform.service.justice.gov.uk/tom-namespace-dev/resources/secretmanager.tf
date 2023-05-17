@@ -17,6 +17,13 @@ module "secrets_manager" {
       k8s_secret_name        = "hello-world-secret"
       k8s_secret_key = "POSTGRES_URL"
     },
+        
+    "multicontainer-app" = {
+      description             = "Test secret for Multi container app",
+      recovery_window_in_days = 15
+      k8s_secret_name        = "multi-container-secret"
+      k8s_secret_key = "MONDG_DB_URL"
+    },
   }
 }
 
