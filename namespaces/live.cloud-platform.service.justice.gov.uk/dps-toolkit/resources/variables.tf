@@ -33,3 +33,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "true"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
