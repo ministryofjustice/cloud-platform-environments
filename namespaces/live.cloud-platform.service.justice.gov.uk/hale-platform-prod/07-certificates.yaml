@@ -69,7 +69,7 @@ metadata:
   name: icrir.independent-inquiry.uk
   namespace: hale-platform-prod
 spec:
-  secretName: ccrc-cert
+  secretName: icrir-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
