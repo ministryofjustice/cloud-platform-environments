@@ -12,8 +12,8 @@ module "hmcts-complaints-adapter-rds-instance" {
 
   db_engine_version          = "14.4"
   rds_family                 = "postgres14"
-  db_instance_class          = "db.t3.small"
-  prepare_for_major_upgrade  = true
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500" # maximum storage for autoscaling
 
   providers = {
     aws = aws.london
