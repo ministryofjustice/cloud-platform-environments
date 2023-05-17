@@ -10,8 +10,8 @@ module "hmcts-complaints-adapter-rds-instance" {
   infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
 
-  db_engine_version = "11"
-  rds_family        = "postgres11"
+  db_engine_version          = "14"
+  rds_family                 = "postgres14"
 
   providers = {
     aws = aws.london
