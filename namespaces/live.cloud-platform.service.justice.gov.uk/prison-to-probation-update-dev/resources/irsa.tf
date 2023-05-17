@@ -7,7 +7,8 @@ locals {
     "Digital-Prison-Services-dev-prison_to_probation_update_queue"    = "offender-events-dev",
     "Digital-Prison-Services-dev-prison_to_probation_update_queue_dl" = "offender-events-dev"
   }
-  sqs_policies = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
+  sqs_policies      = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
+  dynamodb_policies = [module.message_dynamodb.irsa_policy_arn, module.schedule_dynamodb.irsa_policy_arn]
 }
 
 module "app-irsa" {
@@ -15,8 +16,8 @@ module "app-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  service_account  = "${var.application}-${var.environment}"
-  role_policy_arns = concat(local.sqs_policies, [module.message_dynamodb.irsa_policy_arn])
+  service_account  = "${var.application}-${var.environment-name}"
+  role_policy_arns = concat(local.sqs_policies, local.dynamodb_policies)
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
