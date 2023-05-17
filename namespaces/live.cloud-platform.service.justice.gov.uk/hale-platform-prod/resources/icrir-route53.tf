@@ -33,3 +33,19 @@ resource "aws_route53_record" "icrir_route53_a_record" {
     evaluate_target_health = false
   }
 }
+
+resource "aws_route53_record" "icrir_route53_cname_acm_validation_record" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "_27b0e5e023e55bc581390f068c414ad3.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "60"
+  records = ["_05e3766687e3636ce128945e81f79be3.wmqxbylrnj.acm-validations.aws."]
+}
+
+resource "aws_route53_record" "icrir_route53_cname_www_record" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "www.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["icrir.independent-inquiry.uk"]
+}
