@@ -58,6 +58,5 @@ variable "github_token" {
 variable "irsa_serviceaccount_name" {
   description = "The name of the service account to be used for irsa."
   type        = string
-  default     = "irsa-${var.namespace}"
-  
+  default     = "irsa-tom-namespace-dev"
 }
