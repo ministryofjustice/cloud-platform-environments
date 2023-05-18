@@ -52,7 +52,6 @@ resource "kubernetes_secret" "rds" {
     url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
-
 # Configmap to store non-sensitive data related to the RDS instance
 resource "kubernetes_config_map" "rds" {
   metadata {
