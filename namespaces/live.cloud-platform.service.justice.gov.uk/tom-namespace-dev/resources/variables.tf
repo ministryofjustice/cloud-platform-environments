@@ -7,6 +7,10 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+}
+
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Hello world app"
@@ -53,4 +57,10 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "irsa_serviceaccount_name" {
+  description = "The name of the service account to be used for irsa."
+  type        = string
+  default     = "irsa-tom-namespace-dev"
 }
