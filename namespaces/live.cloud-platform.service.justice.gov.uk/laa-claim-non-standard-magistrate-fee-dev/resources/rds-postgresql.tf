@@ -97,6 +97,8 @@ resource "kubernetes_secret" "rds" {
     rds_instance_address  = module.rds.rds_instance_address
     access_key_id         = module.rds.access_key_id
     secret_access_key     = module.rds.secret_access_key
+    
+    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
