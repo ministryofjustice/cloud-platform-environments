@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
 }
 
 module "prisoner-event-queue" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
