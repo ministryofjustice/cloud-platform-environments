@@ -145,3 +145,15 @@ resource "kubernetes_secret" "drupal_content_storage_output_development" {
     bucket_name = module.drupal_content_storage.bucket_name
   }
 }
+# Temporarily output to production as well, so we can sync from old to new buckets
+# until we're ready to cut over to the new one.
+resource "kubernetes_secret" "drupal_content_storage_output_production" {
+  metadata {
+    name      = "drupal-s3-output"
+    namespace = "prisoner-content-hub-production"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}
