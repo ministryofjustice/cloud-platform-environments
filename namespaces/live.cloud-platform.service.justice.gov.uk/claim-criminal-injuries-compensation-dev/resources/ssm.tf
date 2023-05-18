@@ -7,7 +7,7 @@ resource "aws_ssm_parameter" "cica_dev_account_id" {
 
   lifecycle {
     ignore_changes = [
-      value,
+      value
     ]
   }
 }
