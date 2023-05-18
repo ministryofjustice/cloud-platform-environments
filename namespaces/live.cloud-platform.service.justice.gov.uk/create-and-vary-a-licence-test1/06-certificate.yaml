@@ -5,7 +5,7 @@ metadata:
   name: create-and-vary-a-licence-test1.hmpps.service.justice.gov.uk
   namespace: create-and-vary-a-licence-test1
 spec:
-  secretName: create-and-vary-a-licence-cert
+  secretName: create-and-vary-a-licence-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -18,7 +18,7 @@ metadata:
   name: create-and-vary-a-licence-api-test1.hmpps.service.justice.gov.uk
   namespace: create-and-vary-a-licence-test1
 spec:
-  secretName: create-and-vary-a-licence-cert
+  secretName: create-and-vary-a-licence-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
