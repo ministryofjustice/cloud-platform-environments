@@ -9,7 +9,6 @@ module "elasticache_redis" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
   node_type             = "cache.t4g.micro"
   engine_version        = "7.0"
