@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=1.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=include-irsa"
   team_name               = var.team_name
   application             = var.application
   business_unit           = var.business_unit
@@ -7,7 +7,6 @@ module "secrets_manager" {
   namespace               = var.namespace
   environment             = var.environment
   infrastructure_support  = var.infrastructure_support
-  serviceaccount_name = var.irsa_serviceaccount_name
   eks_cluster_name       = var.eks_cluster_name
   
   secrets = {
