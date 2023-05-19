@@ -18,8 +18,17 @@ module "jacksapp_es" {
   # change the elasticsearch version as you see fit.
   elasticsearch_version = "7.10"
 
-  warm_enabled    = "true"
-  cold_enabled    = "true"
-  timestamp_field = "last_updated"
-  index_pattern   = "kibana_sample_data_logs*"
+  instance_count           = 3
+  instance_type            = "t3.medium"
+  zone_awareness_enabled   = "true"
+  availability_zone_count  = 3
+  ebs_volume_size          = 10
+  ebs_volume_type          = "gp3"
+  ebs_iops                 = 3000
+  dedicated_master_enabled = "true"
+  dedicated_master_type    = "t3.medium"
+  warm_enabled             = "true"
+  cold_enabled             = "true"
+  timestamp_field          = "last_updated"
+  index_pattern            = "kibana_sample_data_logs*"
 }
