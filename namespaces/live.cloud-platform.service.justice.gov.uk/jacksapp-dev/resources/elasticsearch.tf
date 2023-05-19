@@ -19,14 +19,14 @@ module "jacksapp_es" {
   elasticsearch_version = "7.10"
 
   instance_count           = 3
-  instance_type            = "t3.medium.elasticsearch"
+  instance_type            = "r6g.large.elasticsearch"
   zone_awareness_enabled   = "true"
   availability_zone_count  = 3
   ebs_volume_size          = 10
   ebs_volume_type          = "gp3"
   ebs_iops                 = 3000
   dedicated_master_enabled = "true"
-  dedicated_master_type    = "t3.medium.elasticsearch"
+  dedicated_master_type    = "m6g.large.elasticsearch"
   warm_enabled             = "true"
   cold_enabled             = "true"
   timestamp_field          = "last_updated"
