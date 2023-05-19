@@ -13,3 +13,16 @@ module "truststore_s3_bucket" {
     aws = aws.london_without_default_tags
   }
 }
+
+data "kubernetes_secret" "truststore" {
+  metadata {
+    name = "mutual-tls-auth"
+    namespace = var.namespace
+  }
+}
+
+resource "aws_s3_object" "truststore" {
+  bucket  = module.truststore_s3_bucket.bucket_name
+  key     = "${var.environment}-truststore.pem"
+  content = data.kubernetes_secret.truststore.data["truststore-public-key"]
+}
