@@ -4,6 +4,8 @@ locals {
   sqs_irsa_policies = {
     (module.cvl_domain_events_queue.sqs_name)                                       = module.cvl_domain_events_queue.irsa_policy_arn,
     (module.cvl_domain_events_dead_letter_queue.sqs_name)                           = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
+    (module.cvl_test1_domain_events_queue.sqs_name)                                 = module.cvl_test1_domain_events_queue.irsa_policy_arn,
+    (module.cvl_test1_domain_events_dead_letter_queue.sqs_name)                     = module.cvl_test1_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.curious_queue.sqs_name)                                                 = module.curious_queue.irsa_policy_arn,
     (module.curious_dead_letter_queue.sqs_name)                                     = module.curious_dead_letter_queue.irsa_policy_arn,
     (module.dps_smoketest_queue.sqs_name)                                           = module.dps_smoketest_queue.irsa_policy_arn,
