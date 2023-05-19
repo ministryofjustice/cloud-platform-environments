@@ -16,7 +16,7 @@ module "rds-instance" {
   performance_insights_enabled = true
 
   db_allocated_storage = 200
-  db_instance_class    = "db.t3.2xlarge"
+  db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
@@ -58,7 +58,7 @@ module "rds-read-replica" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_allocated_storage   = 200
-  db_instance_class      = "db.t3.medium"
+  db_instance_class      = "db.t4g.medium"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
