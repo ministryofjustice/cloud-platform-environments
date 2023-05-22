@@ -15,7 +15,7 @@ module "redis-elasticache" {
   namespace              = var.namespace
   snapshot_window        = "22:00-23:59"
   maintenance_window     = "sun:00:00-sun:03:00"
-  auth_token_rotated_date = "2023-05-19"
+  auth_token_rotated_date = "2023-05-22"
 
   providers = {
     aws = aws.london
