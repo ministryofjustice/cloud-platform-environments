@@ -30,6 +30,7 @@ variable "additional_topic_clients" {
     "hmpps-community-accommodation-preprod",
     "hmpps-complexity-of-need-preprod",
     "hmpps-domain-event-logger-preprod",
+    "hmpps-manage-adjudications-api-preprod",
     "hmpps-incentives-preprod",
     "hmpps-interventions-preprod",
     "hmpps-manage-offences-api-preprod",
