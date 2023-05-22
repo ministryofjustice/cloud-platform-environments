@@ -36,3 +36,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - dps-smoketest-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-service-catalogue-cert
+  namespace: dps-toolkit
+spec:
+  secretName: hmpps-service-catalogue-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - service-catalogue.hmpps.service.justice.gov.uk
