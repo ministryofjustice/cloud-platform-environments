@@ -12,9 +12,8 @@ module "hmcts-complaints-adapter-rds-instance" {
 
   db_engine_version    = "14.4"
   rds_family           = "postgres14"
-  db_instance_class    = "db.t3.medium"
+  db_instance_class    = "db.t4g.medium"
   db_allocated_storage = "100"
-  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
