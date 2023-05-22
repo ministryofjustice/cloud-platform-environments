@@ -32,6 +32,7 @@ variable "additional_topic_clients" {
     "hmpps-domain-event-logger-preprod",
     "hmpps-incentives-preprod",
     "hmpps-interventions-preprod",
+    "hmpps-manage-adjudications-api-preprod",
     "hmpps-manage-offences-api-preprod",
     "hmpps-registers-preprod",
     "hmpps-restricted-patients-api-preprod",
