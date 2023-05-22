@@ -31,5 +31,7 @@ resource "kubernetes_secret" "redis-elasticache" {
   data = {
     primary_endpoint_address = module.redis-elasticache.primary_endpoint_address
     auth_token               = module.redis-elasticache.auth_token
+    access_key_id            = module.redis-elasticache.access_key_id
+    secret_access_key        = module.redis-elasticache.secret_access_key
   }
 }
