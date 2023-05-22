@@ -79,8 +79,6 @@ resource "kubernetes_secret" "create_and_vary_a_licence_test1_domain_events_queu
   }
 
   data = {
-    access_key_id     = module.cvl_test1_domain_events_queue.access_key_id
-    secret_access_key = module.cvl_test1_domain_events_queue.secret_access_key
     sqs_id            = module.cvl_test1_domain_events_queue.sqs_id
     sqs_arn           = module.cvl_test1_domain_events_queue.sqs_arn
     sqs_name          = module.cvl_test1_domain_events_queue.sqs_name
@@ -94,8 +92,6 @@ resource "kubernetes_secret" "create_and_vary_a_licence_test1_domain_events_dead
   }
 
   data = {
-    access_key_id     = module.cvl_test1_domain_events_dead_letter_queue.access_key_id
-    secret_access_key = module.cvl_test1_domain_events_dead_letter_queue.secret_access_key
     sqs_id            = module.cvl_test1_domain_events_dead_letter_queue.sqs_id
     sqs_arn           = module.cvl_test1_domain_events_dead_letter_queue.sqs_arn
     sqs_name          = module.cvl_test1_domain_events_dead_letter_queue.sqs_name
