@@ -46,3 +46,5 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "dps_adjudications"
 }
+
+variable "kubernetes_cluster" {}
