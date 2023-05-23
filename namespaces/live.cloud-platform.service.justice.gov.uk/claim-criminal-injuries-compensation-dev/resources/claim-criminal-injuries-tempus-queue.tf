@@ -5,7 +5,7 @@ module "claim-criminal-injuries-tempus-queue" {
   fifo_queue             = false
   team_name              = var.team_name
   business-unit          = var.business_unit
-  tempus                 = var.tempus
+  application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
@@ -86,7 +86,7 @@ module "claim-criminal-injuries-tempus-dlq" {
   fifo_queue             = false
   team_name              = var.team_name
   business-unit          = var.business_unit
-  tempus            = var.tempus
+  application            = var.application
   is-production          = var.is_production
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
