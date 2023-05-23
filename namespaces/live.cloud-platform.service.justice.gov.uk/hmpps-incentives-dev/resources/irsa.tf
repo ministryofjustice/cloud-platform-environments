@@ -16,14 +16,10 @@ module "app-irsa" {
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
   service_account  = "hmpps-incentives-api-${var.environment}"
-  role_policy_arns = [
-    module.prisoner-event-queue.irsa_policy_arn,
-    module.prisoner-event-dlq.irsa_policy_arn,
-    concat(
+  role_policy_arns = concat(
       [for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.value],
       [for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.value]
-    )
-  ]
+  )
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
