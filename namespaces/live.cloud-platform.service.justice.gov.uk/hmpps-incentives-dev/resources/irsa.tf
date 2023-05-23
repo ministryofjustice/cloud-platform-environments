@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "hmpps_audit_queue"   = "hmpps-audit-dev",
+    "hmpps_audit_queue"   = "hmpps-audit-dev"
   },
   sns_topics = {
     "hmpps-domain-events" = "hmpps-domain-events-dev"
