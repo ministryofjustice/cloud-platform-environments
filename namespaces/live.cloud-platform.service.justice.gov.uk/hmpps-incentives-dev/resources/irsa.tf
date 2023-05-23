@@ -17,8 +17,8 @@ module "app-irsa" {
   namespace        = var.namespace
   service_account  = "hmpps-incentives-api-${var.environment}"
   role_policy_arns = [
-    module.prisoner-event-queue.irsa_policy_arns,
-    module.prisoner-event-dlq.irsa_policy_arns,
+    module.prisoner-event-queue.irsa_policy_arn,
+    module.prisoner-event-dlq.irsa_policy_arn,
     [for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.value],
     [for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.value]
   ]
