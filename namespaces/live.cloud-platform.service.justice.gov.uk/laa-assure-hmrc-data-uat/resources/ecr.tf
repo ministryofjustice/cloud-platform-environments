@@ -31,6 +31,8 @@ module "ecr_credentials" {
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
 
+  oidc_providers = ["github"]
+
   lifecycle_policy = <<EOF
 {
     "rules": [
