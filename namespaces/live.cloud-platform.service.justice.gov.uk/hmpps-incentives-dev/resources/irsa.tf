@@ -6,7 +6,7 @@ locals {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
   sns_topics = {
-    "hmpps-domain-events" = "hmpps-domain-events-dev"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
 }
 
