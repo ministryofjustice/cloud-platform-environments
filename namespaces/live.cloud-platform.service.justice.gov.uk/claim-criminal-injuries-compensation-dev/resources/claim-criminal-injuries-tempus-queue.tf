@@ -79,7 +79,6 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
   EOF
 }
 
-
 module "claim-criminal-injuries-tempus-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
