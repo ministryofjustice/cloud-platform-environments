@@ -17,6 +17,7 @@ module "contact-moj_rds" {
   db_name                    = "contact_moj_development"
   environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
+  enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
 
