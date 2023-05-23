@@ -26,6 +26,9 @@ module "claim-criminal-injuries-tempus-queue" {
 
 data "aws_ssm_parameter" "cica_dev_account_id" {
   name = "/claim-criminal-injuries-compensation-dev/cica-dev-account-id"
+  depends_on = [
+    aws_ssm_parameter.cica_dev_account_id,
+  ]
 }
 
 resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
