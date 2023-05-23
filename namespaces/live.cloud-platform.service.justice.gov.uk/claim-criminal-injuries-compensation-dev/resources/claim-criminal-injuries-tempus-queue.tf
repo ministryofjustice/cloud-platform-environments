@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
       {
         "Sid": "claim-criminal-injuries-tempus-queue-allow-app-service",
         "Effect": "Allow",
-        "Principal": {"AWS": "${data.aws_ssm_parameter.cica_dev_acct_id.value}"},
+        "Principal": {"AWS": "${data.aws_ssm_parameter.cica_dev_account_id.value}"},
         "Action": [
           "sqs:DeleteMessage",
           "sqs:ReceiveMessage",
