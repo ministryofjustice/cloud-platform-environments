@@ -26,7 +26,7 @@ variable "additional_topic_clients" {
   default = [
     "calculate-release-dates-api-preprod",
     "court-probation-preprod",
-    "hmpps-adjustments-dev",
+    "hmpps-adjustments-preprod",
     "hmpps-assessments-preprod",
     "hmpps-community-accommodation-preprod",
     "hmpps-complexity-of-need-preprod",
