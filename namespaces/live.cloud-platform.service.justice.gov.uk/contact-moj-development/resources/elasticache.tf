@@ -11,7 +11,7 @@ module "contact_moj_elasticache_redis" {
   application            = "contact-moj"
   is-production          = "false"
   environment-name       = var.environment
-  infrastructure-support = "staffservices@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   node_type              = "cache.t4g.micro"

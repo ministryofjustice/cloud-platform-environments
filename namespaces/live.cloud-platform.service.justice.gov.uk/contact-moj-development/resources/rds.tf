@@ -16,7 +16,8 @@ module "contact-moj_rds" {
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_development"
   environment-name           = var.environment
-  infrastructure-support     = "staffservices@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
+  enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
 

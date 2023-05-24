@@ -27,6 +27,7 @@ variable "additional_topic_clients" {
     "activities-api-preprod",
     "calculate-release-dates-api-preprod",
     "court-probation-preprod",
+    "hmpps-adjustments-preprod",
     "hmpps-assessments-preprod",
     "hmpps-community-accommodation-preprod",
     "hmpps-complexity-of-need-preprod",
