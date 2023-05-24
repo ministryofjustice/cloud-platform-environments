@@ -63,7 +63,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
           "sqs:ReceiveMessage",
           "sqs:GetQueueAttributes"
         ],
-        "Resource": "${module.claim-criminal-injuries-tempus-queue.sqs_arn}",
+        "Resource": "${module.claim-criminal-injuries-tempus-queue.sqs_arn}"
       },
       {
         "Sid": "AlwaysEncrypted",
