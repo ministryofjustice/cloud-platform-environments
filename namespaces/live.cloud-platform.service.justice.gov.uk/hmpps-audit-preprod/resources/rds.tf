@@ -14,7 +14,6 @@ module "hmpps_audit_rds" {
   rds_family                  = "postgres15"
   db_engine_version           = "15"
   deletion_protection         = true
-  enable_rds_auto_start_stop  = true
   db_engine = "postgres"
   prepare_for_major_upgrade   = false
 
