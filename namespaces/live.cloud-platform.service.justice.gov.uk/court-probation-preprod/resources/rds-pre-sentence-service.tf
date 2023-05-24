@@ -11,6 +11,7 @@ module "pre_sentence_service_rds" {
   db_instance_class           = "db.t3.small"
   db_engine_version           = "13"
   allow_major_version_upgrade = false
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london
