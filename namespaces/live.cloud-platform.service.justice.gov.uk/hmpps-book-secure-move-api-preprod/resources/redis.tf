@@ -15,6 +15,7 @@ module "redis-elasticache" {
   snapshot_window         = var.backup_window
   maintenance_window      = var.maintenance_window
   node_type               = "cache.t4g.micro"
+  auth_token_rotated_date = "2023-05-24"
 
   providers = {
     aws = aws.london
