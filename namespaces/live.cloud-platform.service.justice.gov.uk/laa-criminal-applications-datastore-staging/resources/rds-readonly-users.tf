@@ -1,6 +1,6 @@
 resource "random_password" "password_metabase" {
   length  = 32
-  special = true
+  special = false
 
   keepers = {
     last_changed = "2023-05-24"
