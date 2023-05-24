@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: laa-apply-for-criminal-legal-aid-production
+  labels:
+    component: "laa-apply-for-criminal-legal-aid-production"
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-crime-apply"
+    cloud-platform.justice.gov.uk/application: "Apply for Criminal Legal Aid"
+    cloud-platform.justice.gov.uk/owner: "LAA Crime Apps Team: laa-crime-apps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid"
+    cloud-platform.justice.gov.uk/team-name: "laa-crime-apply"
+    cloud-platform.justice.gov.uk/review-after: ""

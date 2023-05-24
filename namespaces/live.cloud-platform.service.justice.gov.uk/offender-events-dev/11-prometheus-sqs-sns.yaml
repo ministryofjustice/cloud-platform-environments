@@ -27,6 +27,7 @@ spec:
           queue_name!="Digital-Prison-Services-dev-cfo_queue",
           queue_name!="Digital-Prison-Services-dev-in_cell_hmpps_queue",
           queue_name!="Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue",
+          queue_name!~"Digital-Prison-Services-dev-prison_to_probation_update.*",
           queue_name=~"Digital-Prison-Services-dev.*",
           queue_name!~"Digital-Prison-Services-dev-.*_dl.*|dps-dev-.*_dl.*"
         } offset 1m) by (queue_name) > 2 * 60
@@ -45,6 +46,7 @@ spec:
           queue_name!~"Digital-Prison-Services-dev-hmpps_workload_offender_events_queue_dl|Digital-Prison-Services-dev-hmpps_allocation_required_dlq|Digital-Prison-Services-dev-hmpps_tier_calculation_allocation_dlq|Digital-Prison-Services-dev-hmpps_allocations_offender_events_queue_dl",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*_dl.*",
           queue_name!="Digital-Prison-Services-dev-probation_offender_search_event_dl_queue",
+          queue_name!~"Digital-Prison-Services-dev-prison_to_probation_update.*",
           queue_name=~"Digital-Prison-Services-dev-.*_dl.*|dps-dev-.*_dl.*"
         } offset 5m) by (queue_name) > 0
       for: 10m

@@ -67,3 +67,33 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "access_accounts" {
+  type        = list(string)
+  description = "Destination accounts for S3 access"
+  default = [
+    "013433889002", # data-platform-development
+    "803963757240", # ap-data-d
+    "189157455002", # ap-data-eng
+    "684969100054", # ap-data-eng-a
+    "593291632749", # ap-data
+    "525294151996", # ap-dev
+    "312423030077"  # ap
+  ]
+}
+
+variable "datahub-frontend-sa" {
+  type        = string
+  description = "Datahub service account used for deployment"
+  default     = "datahub-datahub-frontend"
+}
+
+variable "datahub-gms-sa" {
+  type        = string
+  description = "Datahub GMS service account used for data ingestion"
+  default     = "datahub-datahub-gms"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

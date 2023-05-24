@@ -1,5 +1,5 @@
 module "hmpps_interventions_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -12,6 +12,7 @@ module "hmpps_interventions_postgres14" {
   rds_family                  = "postgres14"
   db_engine_version           = "14"
   db_instance_class           = "db.m5.large"
+  db_allocated_storage        = 20
   allow_major_version_upgrade = "false"
 
   providers = {

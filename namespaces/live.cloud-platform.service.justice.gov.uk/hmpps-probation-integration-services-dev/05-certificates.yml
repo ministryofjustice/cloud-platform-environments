@@ -223,3 +223,63 @@ spec:
   dnsNames:
     - 11bbddfa-dev.hmpps.service.justice.gov.uk
     - create-and-vary-a-licence-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: court-case-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: court-case-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4dc762c3-dev.hmpps.service.justice.gov.uk
+    - court-case-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: effective-proposal-framework-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: effective-proposal-framework-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 3ce96d4b-dev.hmpps.service.justice.gov.uk
+    - effective-proposal-framework-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: sentence-plan-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7edb0910-dev.hmpps.service.justice.gov.uk
+    - sentence-plan-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pathfinder-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: pathfinder-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 45f98e5d-dev.hmpps.service.justice.gov.uk
+    - pathfinder-and-delius-dev.hmpps.service.justice.gov.uk

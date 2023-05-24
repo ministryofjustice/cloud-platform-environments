@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-review-send-recall-prototype-api-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-review-send-recall-dev
+spec:
+  secretName: hmpps-review-send-recall-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-review-send-recall-dev.hmpps.service.justice.gov.uk
+    - hmpps-review-send-recall-prototype-api-dev.hmpps.service.justice.gov.uk

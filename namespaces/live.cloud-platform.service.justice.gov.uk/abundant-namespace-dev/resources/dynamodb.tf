@@ -10,14 +10,13 @@ module "example_team_dynamodb" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
-  is-production          = "false"
+  is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
   hash_key  = "example-hash"
   range_key = "example-range"
-
 }
 
 resource "kubernetes_secret" "example_team_dynamodb" {

@@ -1,5 +1,5 @@
 module "court_data_adaptor_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   namespace     = var.namespace
   team_name     = "laa-crime-apps-team"
@@ -8,7 +8,7 @@ module "court_data_adaptor_rds" {
   is-production = "true"
 
   environment-name       = "prod"
-  infrastructure-support = "laa@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
   db_engine_version      = "14.3"
 

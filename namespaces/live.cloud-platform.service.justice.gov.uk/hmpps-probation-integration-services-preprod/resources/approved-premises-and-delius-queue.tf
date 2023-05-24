@@ -15,7 +15,7 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
 }
 
 module "approved-premises-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -36,7 +36,7 @@ resource "aws_sqs_queue_policy" "approved-premises-and-delius-queue-policy" {
 }
 
 module "approved-premises-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name

@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -13,6 +13,7 @@ module "visit_scheduler_rds" {
   db_instance_class           = "db.t3.small"
   rds_family                  = "postgres13"
   allow_major_version_upgrade = "false"
+  db_password_rotated_date    = "2023-05-11"
 
   providers = {
     aws = aws.london

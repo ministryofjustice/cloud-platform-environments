@@ -1,15 +1,18 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
-  node_type              = "cache.m4.xlarge"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  node_type              = "cache.t4g.small"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
   is-production          = var.is_production
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  business-unit          = var.business_unit
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-04-05T17:15:00Z"
 
   providers = {
     aws = aws.london
@@ -26,6 +29,8 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
     url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    access_key_id            = module.ec-cluster-offender-management-allocation-manager.access_key_id
+    secret_access_key        = module.ec-cluster-offender-management-allocation-manager.secret_access_key
   }
 }
 

@@ -28,4 +28,6 @@ variable "infrastructure_support" {
 variable "vpc_name" {
 }
 
-
+variable "business_unit" {
+  default = "Platforms"
+}

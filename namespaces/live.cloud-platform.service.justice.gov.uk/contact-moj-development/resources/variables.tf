@@ -22,3 +22,7 @@ variable "is_production" {
 variable "environment" {
   default = "development"
 }
+
+variable "infrastructure_support" {
+  default = "correspondence@digital.justice.gov.uk"
+}

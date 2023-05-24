@@ -1,6 +1,6 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -18,6 +18,8 @@ module "rds" {
   db_instance_class      = "db.t4g.small"
   rds_family = "postgres14"
   allow_major_version_upgrade = "true"
+
+  deletion_protection = true
 
   providers = {
     aws = aws.london

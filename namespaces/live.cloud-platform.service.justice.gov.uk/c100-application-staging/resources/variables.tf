@@ -30,6 +30,20 @@ variable "repo_name" {
   default = "c100-application"
 }
 
+# Database 
+
+variable "db_engine_version" {
+  default = "14.4"
+}
+
+variable "db_instance_class" {
+  default = "db.t4g.small"
+}
+
+variable "db_engine_family" {
+  default = "postgres14"
+}
+
 # The following variable is provided at runtime by the pipeline.
 
 variable "vpc_name" {

@@ -24,6 +24,7 @@ spec:
           queue_name!="Digital-Prison-Services-prod-cfo_queue",
           queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",
           queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",
+          queue_name!~"Digital-Prison-Services-prod-prison_to_probation_update.*",
           queue_name!="Digital-Prison-Services-prod-pic_probation_offender_events_queue",
           queue_name=~"Digital-Prison-Services-prod.*",
           queue_name!~".*_dl|.*dlq|.*_dl_queue"
@@ -46,6 +47,7 @@ spec:
           queue_name!="Digital-Prison-Services-prod-in_cell_hmpps_queue",
           queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue|Digital-Prison-Services-prod-probation_offender_search_event_queue|Digital-Prison-Services-prod-prison_to_probation_update_mirror_hmpps_queue",
           queue_name!="Digital-Prison-Services-prod-pic_probation_offender_events_queue",
+          queue_name!~"Digital-Prison-Services-prod-prison_to_probation_update.*",
           queue_name=~"Digital-Prison-Services-prod.*",
           queue_name!~".*_dl|.*dlq|.*_dl_queue"
         } offset 5m) by (queue_name) > 100
@@ -104,8 +106,22 @@ spec:
           queue_name!~"Digital-Prison-Services-prod-hmpps_tier.*_dl.*",
           queue_name!="Digital-Prison-Services-prod-probation_offender_search_event_dl_queue",
           queue_name!="Digital-Prison-Services-prod-pic_probation_offender_events_queue_dl",
+          queue_name!~"Digital-Prison-Services-prod-prison_to_probation_update.*",
           queue_name=~"Digital-Prison-Services-prod-.*_dl.*|dps-prod-.*_dl.*"
         } offset 5m) by (queue_name) > 0
       for: 10m
       labels:
         severity: digital-prison-service
+
+    - alert: SQS-events-dlq-not-empty
+      annotations:
+        message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{
+          queue_name=~"Digital-Prison-Services-prod-prison_to_probation_update_queue_dl"
+        } offset 5m) by (queue_name) > 0
+      for: 10m
+      labels:
+        severity: probation-integration-notifications

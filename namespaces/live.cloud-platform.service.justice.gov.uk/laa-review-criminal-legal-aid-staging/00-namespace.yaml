@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: laa-review-criminal-legal-aid-staging
   labels:
-    cloud-platform.justice.gov.uk/namespace: "laa-review-criminal-legal-aid-staging"
+    component: "laa-review-criminal-legal-aid-staging"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:

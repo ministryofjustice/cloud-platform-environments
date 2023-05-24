@@ -5,6 +5,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
+    cloud-platform.justice.gov.uk/namespace: "laa-assure-hmrc-data-staging"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "apply-dev"

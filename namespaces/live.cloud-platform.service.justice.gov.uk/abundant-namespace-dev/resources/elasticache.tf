@@ -1,5 +1,5 @@
 module "test_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name                = var.vpc_name
@@ -10,9 +10,9 @@ module "test_ec_cluster" {
   environment-name        = "development"
   infrastructure-support  = "platforms@digtal.justice.gov.uk"
   namespace               = var.namespace
-  node_type               = "cache.t2.small"
-  engine_version          = "6.x"
-  parameter_group_name    = "default.redis6.x"
+  node_type               = "cache.t4g.micro"
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2023-02-08"
   providers = {
     aws = aws.london

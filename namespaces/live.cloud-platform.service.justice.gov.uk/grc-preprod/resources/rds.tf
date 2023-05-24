@@ -6,19 +6,20 @@
  */
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "11"
+  db_engine_version      = "14.4"
   db_instance_class      = "db.t3.small"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
+  prepare_for_major_upgrade = true
 
-  rds_family = "postgres11"
+  rds_family = "postgres14"
 
   providers = {
     aws = aws.london
@@ -39,6 +40,7 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.dps_rds.rds_instance_address
     access_key_id         = module.dps_rds.access_key_id
     secret_access_key     = module.dps_rds.secret_access_key
+    sql_alchemy_url       = "postgresql://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }

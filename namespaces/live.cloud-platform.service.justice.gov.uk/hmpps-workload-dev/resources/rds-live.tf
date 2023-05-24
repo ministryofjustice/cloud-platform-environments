@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -24,8 +24,8 @@ module "rds-live" {
   # Pick the one that defines the postgres version the best
   rds_family    = "postgres14"
   backup_window = "02:00-03:00"
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+
+  enable_rds_auto_start_stop = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

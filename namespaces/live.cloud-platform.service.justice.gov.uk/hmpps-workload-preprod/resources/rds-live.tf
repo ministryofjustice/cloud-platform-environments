@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -12,16 +12,18 @@ module "rds-live" {
 
   # enable performance insights
   performance_insights_enabled = true
+  # db instance class
+  db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "11"
+  db_engine_version      = "14"
   db_allocated_storage   = "108"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family    = "postgres11"
+  rds_family    = "postgres14"
   backup_window = "02:00-03:00"
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
