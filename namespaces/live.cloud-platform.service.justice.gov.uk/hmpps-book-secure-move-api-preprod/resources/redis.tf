@@ -3,17 +3,18 @@ module "redis-elasticache" {
 
   vpc_name = var.vpc_name
 
-  application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
-  business-unit          = var.business_unit
-  team_name              = var.team_name
-  engine_version         = "7.0"
-  parameter_group_name   = "default.redis7"
-  namespace              = var.namespace
-  snapshot_window        = var.backup_window
-  maintenance_window     = var.maintenance_window
+  application             = var.application
+  environment-name        = var.environment-name
+  is-production           = var.is_production
+  infrastructure-support  = var.infrastructure_support
+  business-unit           = var.business_unit
+  team_name               = var.team_name
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
+  namespace               = var.namespace
+  snapshot_window         = var.backup_window
+  maintenance_window      = var.maintenance_window
+  node_type               = "cache.t4g.micro"
 
   providers = {
     aws = aws.london
