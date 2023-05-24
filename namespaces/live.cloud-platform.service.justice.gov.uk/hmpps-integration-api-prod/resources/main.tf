@@ -1,0 +1,35 @@
+terraform {
+  backend "s3" {
+  }
+}
+
+provider "aws" {
+  region = "eu-west-2"
+
+  default_tags {
+    tags = local.default_tags
+  }
+}
+
+provider "aws" {
+  alias  = "london"
+  region = "eu-west-2"
+
+  default_tags {
+    tags = local.default_tags
+  }
+}
+
+provider "aws" {
+  alias  = "london_without_default_tags"
+  region = "eu-west-2"
+}
+
+provider "aws" {
+  alias  = "ireland"
+  region = "eu-west-1"
+
+  default_tags {
+    tags = local.default_tags
+  }
+}

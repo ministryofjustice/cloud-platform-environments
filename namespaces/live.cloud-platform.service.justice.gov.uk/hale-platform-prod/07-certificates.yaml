@@ -62,3 +62,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - ccrc.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: icrir.independent-inquiry.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: icrir-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - icrir.independent-inquiry.uk
+

@@ -10,6 +10,7 @@ module "drupal_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   db_instance_class      = "db.t4g.xlarge"
+  db_password_rotated_date    = "2023-05-15"
 
   providers = {
     aws = aws.london

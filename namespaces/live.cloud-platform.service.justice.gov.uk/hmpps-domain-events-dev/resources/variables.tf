@@ -33,6 +33,8 @@ variable "additional_topic_clients" {
     "hmpps-incentives-dev",
     "hmpps-interventions-dev",
     "hmpps-manage-offences-api-dev",
+    "hmpps-manage-adjudications-api-dev",
+    "hmpps-prisoner-search-dev",
     "hmpps-registers-dev",
     "hmpps-restricted-patients-api-dev",
     "hmpps-tier-dev",
