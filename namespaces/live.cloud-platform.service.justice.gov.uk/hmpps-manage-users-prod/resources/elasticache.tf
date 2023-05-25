@@ -11,6 +11,8 @@ module "hmpps_redis" {
   node_type              = var.node-type
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  maintenance_window     = "sun:23:00-mon:01:00"
+  snapshot_window        = "02:00-05:00"
   namespace              = var.namespace
 
   providers = {
