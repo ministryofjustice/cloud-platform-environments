@@ -17,6 +17,7 @@ module "peoplefinder_rds" {
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_development"
+  enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
 
