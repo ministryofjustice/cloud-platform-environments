@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "ecr_credentials" {
+module "digital_prison_reporting_mi_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
   team_name = var.team_name
   repo_name = "digital-prison-reporting-mi-ecr"
@@ -75,7 +75,7 @@ EOF
 }
 
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "digital_prison_reporting_mi_ecr_credentials" {
   metadata {
     name      = "ecr-repo-digital-prison-reporting-mi"
     namespace = var.namespace
