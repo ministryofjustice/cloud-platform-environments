@@ -15,6 +15,7 @@ module "mercury_submit_elasticache_redis" {
   node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  maintenance_window     = "sun:23:00-mon:01:00"
   namespace              = var.namespace
 
   providers = {
