@@ -102,3 +102,25 @@ resource "aws_apigatewayv2_stage" "stage" {
   }
 
 }
+
+resource "aws_api_gateway_usage_plan" "caa-plan" {
+  name = "caa-prototype-usage-plan"
+  description = "API gateway usage plan for CAA service."
+
+  quota_settings {
+    limit = 500
+    offset = 2
+    period = "MONTH"
+  }
+
+  throttle_settings {
+    burst_limit = 20
+    rate_limit = 10
+  }
+
+  api_stages {
+    api_id = aws_apigatewayv2_api.gateway.id
+    stage = aws_apigatewayv2_stage.stage.stage_name
+  }
+
+}
