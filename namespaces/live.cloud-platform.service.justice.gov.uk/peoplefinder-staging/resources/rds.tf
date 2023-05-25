@@ -35,7 +35,7 @@ module "peoplefinder_rds" {
 resource "kubernetes_secret" "peoplefinder_rds" {
   metadata {
     name      = "peoplefinder-rds-output"
-    namespace = var.namespace
+    namespace = "peoplefinder-staging"
   }
 
   data = {
