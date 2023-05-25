@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
-    cloud-platform.justice.gov.uk/slack-channel: "ask-bold-rr-ops"
+    cloud-platform.justice.gov.uk/slack-channel: "ask-bold-case-info-dashboard"
     cloud-platform.justice.gov.uk/application: "Gov.UK Prototype Kit"
     cloud-platform.justice.gov.uk/owner: "BOLD Reducing Reoffending Operational Pilot: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/bold-rr-ops-pilot-prototype"
