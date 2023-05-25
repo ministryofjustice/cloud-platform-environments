@@ -26,8 +26,9 @@ module "claim-criminal-injuries-tempus-queue" {
 
 data "aws_ssm_parameter" "cica_dev_account_id" {
   name = "/claim-criminal-injuries-compensation-dev/cica-dev-account-id"
+  type = "SecureString"
   depends_on = [
-    aws_ssm_parameter.cica_dev_account_id,
+    aws_ssm_parameter.cica_dev_account_id
   ]
 }
 
@@ -47,10 +48,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-tempus-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.app_service.arn}",
-              "${aws_iam_user.redrive_service.arn}"
-            ]
+            "aws:PrincipalArn": "${aws_iam_user.app_service.arn}"
           }
         }
       },
