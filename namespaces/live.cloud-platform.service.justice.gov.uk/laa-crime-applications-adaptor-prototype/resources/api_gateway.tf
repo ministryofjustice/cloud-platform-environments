@@ -123,4 +123,13 @@ resource "aws_api_gateway_usage_plan" "caa-plan" {
     stage = aws_apigatewayv2_stage.stage.stage_name
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_apigatewayv2_api.gateway,
+    aws_apigatewayv2_stage.stage
+  ]
+
 }
