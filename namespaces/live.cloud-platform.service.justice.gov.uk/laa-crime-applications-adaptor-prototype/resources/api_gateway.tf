@@ -120,7 +120,6 @@ resource "aws_api_gateway_usage_plan" "caa-plan" {
 
   api_stages {
     api_id = aws_apigatewayv2_api.gateway.id
-    stage = aws_apigatewayv2_stage.stage.stage_name
   }
 
   lifecycle {
@@ -129,6 +128,5 @@ resource "aws_api_gateway_usage_plan" "caa-plan" {
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
-    aws_apigatewayv2_stage.stage
   ]
 }
