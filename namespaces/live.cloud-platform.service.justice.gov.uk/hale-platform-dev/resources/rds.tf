@@ -16,6 +16,9 @@ module "rds" {
   infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
 
+  # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
+  enable_rds_auto_start_stop = true
+
   # using mysql
   db_engine         = "mariadb"
   db_engine_version = "10.4"
