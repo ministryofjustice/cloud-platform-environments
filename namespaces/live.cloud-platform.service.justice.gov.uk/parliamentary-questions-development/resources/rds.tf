@@ -3,7 +3,7 @@
 #############################################
 
 module "rds_instance" {
-  allow_major_version_upgrade = "true"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   application                 = var.application
   vpc_name                    = var.vpc_name
   db_backup_retention_period  = var.db_backup_retention_period
@@ -15,8 +15,8 @@ module "rds_instance" {
   is-production               = var.is_production
   namespace                   = var.namespace
   rds_family                  = "postgres12"
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   team_name                   = var.team_name
+  enable_rds_auto_start_stop  = true
 }
 
 resource "kubernetes_secret" "rds_instance" {
