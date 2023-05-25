@@ -18,6 +18,7 @@ module "rds_instance" {
   rds_family                 = "postgres12"
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   team_name                  = var.team_name
+  enable_rds_auto_start_stop = true
 
   providers = {
     aws = aws.london
