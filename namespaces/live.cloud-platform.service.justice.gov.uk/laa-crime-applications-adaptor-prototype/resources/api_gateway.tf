@@ -124,3 +124,33 @@ resource "aws_api_gateway_usage_plan" "caa-plan" {
   }
 }
 
+resource "random_id" "key" {
+  count       = 1
+  byte_length = 16
+}
+
+resource "aws_api_gateway_api_key" "api_key" {
+  count = 1
+  name  = "caa-key"
+  value = "${random_id.key[0].hex}"
+}
+
+resource "kubernetes_secret" "apikeys" {
+  count = 1
+
+  metadata {
+    name      = "caa-api-key"
+    namespace = var.namespace
+  }
+
+  data = {
+    "caa-api-key" = aws_api_gateway_api_key.api_key[0].value
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.api_key.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.caa-plan.id
+}
+
