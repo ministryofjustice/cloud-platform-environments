@@ -17,6 +17,8 @@ module "track_a_query_rds" {
   db_name                    = "track_a_query_demo"
   environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
+  enable_rds_auto_start_stop = true
+
 
   rds_family = "postgres12"
 
