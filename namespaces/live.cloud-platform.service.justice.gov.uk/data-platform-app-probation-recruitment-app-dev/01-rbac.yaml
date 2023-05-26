@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: data-platform-app-probation-recruitment-app-dev-admin
+  namespace: data-platform-app-probation-recruitment-app-dev
+subjects:
+  - kind: Group
+    name: "github:probation-recruitment-app-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
