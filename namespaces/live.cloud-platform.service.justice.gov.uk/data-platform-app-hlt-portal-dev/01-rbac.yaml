@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: data-platform-app-hlt-portal-dev-admin
+  namespace: data-platform-app-hlt-portal-dev
+subjects:
+  - kind: Group
+    name: "github:https://github.com/orgs/moj-analytical-services/teams/hlt-portal-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
