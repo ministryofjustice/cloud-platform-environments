@@ -132,7 +132,7 @@ resource "random_id" "key" {
 resource "aws_api_gateway_api_key" "api_key" {
   count = 1
   name  = "caa-key"
-  value = "${random_id.key[0].hex}"
+  value = "CAA${random_id.key[0].hex}"
 }
 
 resource "kubernetes_secret" "apikeys" {
@@ -149,7 +149,7 @@ resource "kubernetes_secret" "apikeys" {
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {
-  key_id        = aws_api_gateway_api_key.api_key.id
+  key_id        = aws_api_gateway_api_key.api_key[0].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.caa-plan.id
 }
