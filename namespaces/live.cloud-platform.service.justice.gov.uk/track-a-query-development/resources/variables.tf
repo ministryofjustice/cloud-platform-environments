@@ -29,3 +29,15 @@ variable "infrastructure_support" {
   type        = string
   default     = "correspondence@digital.justice.gov.uk"
 }
+
+variable "team_name" {
+  default = "correspondence"
+}
+
+variable "business_unit" {
+  default = "Central Digital"
+}
+
+variable "application" {
+  default = "track-a-query"
+}
