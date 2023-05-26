@@ -21,8 +21,8 @@ module "digital_prison_reporting_mi_ui_ec_cluster" {
 
 resource "kubernetes_secret" "digital_prison_reporting_mi_ui_ec_cluster" {
   metadata {
-    name      = "example-team-ec-cluster-output"
-    namespace = "example-namespace"
+    name      = "digital-prison-reporting-mi-ui-ec-cluster-output"
+    namespace = var.namespace
   }
 
   data = {
