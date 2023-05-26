@@ -11,3 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "moveaprisoner@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-book-secure-move-api"
     cloud-platform.justice.gov.uk/slack-channel: "move-a-prisoner-digital"
+    cloud-platform.justice.gov.uk/team-name: "Move a Prisoner"
+    
