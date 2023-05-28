@@ -14,6 +14,7 @@ module "redis-elasticache" {
   namespace              = var.namespace
   snapshot_window        = var.backup_window
   maintenance_window     = var.maintenance_window
+  node_type              = "cache.t4g.medium"
 
   providers = {
     aws = aws.london
