@@ -1,7 +1,3 @@
-data "aws_ssm_parameter" "cica_dev_account_id" {
-  name = "/claim-criminal-injuries-compensation-dev/cica-dev-account-id"
-}
-
 data "aws_iam_policy_document" "dcs_access" {
   statement {
     sid = "AllowDCSToSendMessageToAppQueue"
@@ -37,7 +33,7 @@ data "aws_iam_policy_document" "dcs_access" {
     condition {
       test     = "ForAnyValue:StringEquals"
       variable = "aws:ResourceAccount"
-      values   = ["${data.aws_ssm_parameter.cica_dev_account_id.value}"]
+      values   = [data.aws_ssm_parameter.cica_dev_account_id.value]
     }
   }
 }
@@ -113,7 +109,7 @@ data "aws_iam_policy_document" "app_service_access" {
     condition {
       test     = "ForAnyValue:StringEquals"
       variable = "aws:ResourceAccount"
-      values   = ["${data.aws_ssm_parameter.cica_dev_account_id.value}"]
+      values   = [data.aws_ssm_parameter.cica_dev_account_id.value]
     }
   }
 }
