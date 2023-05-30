@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-cjsm-monitoring-dev
 subjects:
   - kind: Group
-    name: "github:cjs-demand-prisons"
+    name: "github:cjs_demand_prisons"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
