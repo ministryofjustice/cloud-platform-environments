@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-hlt-portal-dev
 subjects:
   - kind: Group
-    name: "github:https://github.com/orgs/moj-analytical-services/teams/hlt-portal-admin-team"
+    name: "github:hlt-portal-admin-team"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
