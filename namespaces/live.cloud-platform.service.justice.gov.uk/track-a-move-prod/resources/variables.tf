@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "pecs"
+  default     = "Move a Prisoner"
 }
 
 variable "environment" {
@@ -40,16 +40,16 @@ variable "environment_suffix" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "pecs-digital-tech@digital.justice.gov.uk"
+  default     = "moveaprisoner@digital.justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "move-a-prisoner-digital"
 }
 
 variable "base_domain" {
