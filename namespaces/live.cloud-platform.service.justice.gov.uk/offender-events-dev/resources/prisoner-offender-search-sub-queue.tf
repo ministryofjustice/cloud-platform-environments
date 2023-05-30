@@ -112,6 +112,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "EXTERNAL_MOVEMENT-CHANGED",
       "SENTENCING-CHANGED",
       "ASSESSMENT-CHANGED",
+      "ASSESSMENT-UPDATED",
       "OFFENDER_BOOKING-REASSIGNED",
       "OFFENDER_BOOKING-CHANGED",
       "OFFENDER_DETAILS-CHANGED",
