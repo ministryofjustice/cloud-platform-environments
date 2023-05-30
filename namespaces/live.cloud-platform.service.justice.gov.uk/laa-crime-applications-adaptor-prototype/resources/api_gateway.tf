@@ -36,7 +36,7 @@ resource "aws_apigatewayv2_integration" "test_api" {
 
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "ANY /api/internal/v1/{proxy}"
+  route_key = "ANY /api/internal/v1/crimeapply/{proxy}"
   target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
