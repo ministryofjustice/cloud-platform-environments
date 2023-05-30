@@ -1,3 +1,7 @@
+data "aws_ssm_parameter" "cica_dev_account_id" {
+  name = "/claim-criminal-injuries-compensation-dev/cica-dev-account-id"
+}
+
 data "aws_iam_policy_document" "dcs_access" {
   statement {
     sid = "AllowDCSToSendMessageToAppQueue"
@@ -17,6 +21,24 @@ data "aws_iam_policy_document" "dcs_access" {
     resources = [
       module.claim-criminal-injuries-notify-queue.sqs_arn
     ]
+  }
+
+  statement {
+    sid = "AllowDCSToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "kms:GenerateKeyData",
+      "kms:Decrypt*",
+      "kms:Encrypt*"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = ["${data.aws_ssm_parameter.cica_dev_account_id.value}"]
+    }
   }
 }
 
@@ -63,6 +85,36 @@ data "aws_iam_policy_document" "app_service_access" {
     resources = [
       module.claim-criminal-injuries-application-queue.sqs_arn
     ]
+  }
+
+  statement {
+    sid = "AllowAppServiceToWriteToTempusQueue"
+    actions = [
+      "sqs:SendMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-tempus-queue.sqs_arn
+    ]
+  }
+
+  statement {
+    sid = "AllowAppServiceToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "kms:GenerateKeyData",
+      "kms:Decrypt*",
+      "kms:Encrypt*"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = ["${data.aws_ssm_parameter.cica_dev_account_id.value}"]
+    }
   }
 }
 
