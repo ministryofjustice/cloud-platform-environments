@@ -1,5 +1,5 @@
 module "hmpps_extract_placed_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -22,7 +22,7 @@ module "hmpps_extract_placed_queue" {
 }
 
 module "hmpps_extract_placed_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
 
   environment-name       = var.environment
   team_name              = var.team_name

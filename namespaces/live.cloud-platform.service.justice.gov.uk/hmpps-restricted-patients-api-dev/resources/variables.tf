@@ -3,8 +3,9 @@
  * variable is automatically supplied by the pipeline.
  *
  */
-variable "vpc_name" {
-}
+variable "vpc_name" {}
+
+variable "kubernetes_cluster" {}
 
 variable "domain" {
   default = "restricted-patients-api-dev.hmpps.service.justice.gov.uk"
@@ -45,4 +46,8 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "dps_adjudications"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

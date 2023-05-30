@@ -4,7 +4,7 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
@@ -16,7 +16,8 @@ module "contact-moj_rds" {
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_staging"
   environment-name           = var.environment
-  infrastructure-support     = "staffservices@digital.justice.gov.uk"
+  infrastructure-support     = var.infrastructure_support
+  enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
 

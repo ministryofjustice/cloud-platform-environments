@@ -4,12 +4,11 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
-
-  team_name              = "correspondence"
-  business-unit          = "Central Digital"
-  application            = "track-a-query"
-  is-production          = "false"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
@@ -38,7 +37,7 @@ module "track_a_query_s3" {
 resource "kubernetes_secret" "track_a_query_s3" {
   metadata {
     name      = "track-a-query-s3-output"
-    namespace = "track-a-query-qa"
+    namespace = var.namespace
   }
 
   data = {

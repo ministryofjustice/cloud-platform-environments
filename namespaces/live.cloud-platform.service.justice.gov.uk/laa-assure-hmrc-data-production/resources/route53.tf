@@ -1,5 +1,5 @@
-resource "aws_route53_zone" "assure_hmrc_data_route53_zone" {
-  name = "assure-hmrc-data.service.justice.gov.uk"
+resource "aws_route53_zone" "check_clients_details_using_hmrc_data_route53_zone" {
+  name = "check-clients-details-using-hmrc-data.service.justice.gov.uk"
 
   tags = {
     team_name              = var.team_name
@@ -20,7 +20,7 @@ resource "kubernetes_secret" "assure_hmrc_data_route_53_zone_sec" {
   }
 
   data = {
-    zone_id = aws_route53_zone.assure_hmrc_data_route53_zone.zone_id
+    zone_id = aws_route53_zone.check_clients_details_using_hmrc_data_route53_zone.zone_id
   }
 }
 

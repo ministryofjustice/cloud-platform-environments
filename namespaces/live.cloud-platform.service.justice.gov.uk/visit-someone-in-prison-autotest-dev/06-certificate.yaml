@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: visit-scheduler-cert
+  namespace: visit-someone-in-prison-autotest-dev
+spec:
+  secretName: vsip-automated-testing-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - vsip-automated-testing-dev.prison.service.justice.gov.uk

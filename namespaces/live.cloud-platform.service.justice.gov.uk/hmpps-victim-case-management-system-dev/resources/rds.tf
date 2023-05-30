@@ -6,7 +6,7 @@
 #  */
 
 module "rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business-unit            = var.business_unit
@@ -32,7 +32,7 @@ module "rds" {
   db_engine_version = "10.5.16"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.micro" # Just used for a POC at this stage
+  db_instance_class = "db.t4g.micro" # Just used for a POC at this stage
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
   # Pick the one that defines the postgres version the best
@@ -56,7 +56,7 @@ module "rds" {
   enable_rds_auto_start_stop = true
 
   # This will rotate the db password. Update the value to the current date.
-  db_password_rotated_date  = "08-03-2023"
+  db_password_rotated_date = "08-03-2023"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -71,7 +71,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name               = var.vpc_name
   application            = var.application

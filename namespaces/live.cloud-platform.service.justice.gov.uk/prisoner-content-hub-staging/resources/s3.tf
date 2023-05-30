@@ -1,5 +1,5 @@
 module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
 
   team_name              = var.team_name
   versioning             = true
@@ -24,21 +24,6 @@ module "drupal_content_storage" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowHubDevelopmentS3Sync",
-      "Effect": "Allow",
-      "Principal": {
-          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
-      },
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}",
-        "$${bucket_arn}/*"
-      ]
-    },
     {
       "Sid": "AllowListBucketVersions",
       "Effect": "Allow",

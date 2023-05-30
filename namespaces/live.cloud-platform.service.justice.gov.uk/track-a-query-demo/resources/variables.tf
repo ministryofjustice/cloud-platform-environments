@@ -20,7 +20,7 @@ variable "is_production" {
   default = "false"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "demo"
 }
 
@@ -28,4 +28,16 @@ variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
   default     = "correspondence@digital.justice.gov.uk"
+}
+
+variable "team_name" {
+  default = "correspondence"
+}
+
+variable "business_unit" {
+  default = "Central Digital"
+}
+
+variable "application" {
+  default = "track-a-query"
 }

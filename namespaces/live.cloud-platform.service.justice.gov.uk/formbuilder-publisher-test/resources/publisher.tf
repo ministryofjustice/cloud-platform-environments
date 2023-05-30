@@ -1,5 +1,5 @@
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name                    = var.vpc_name
   db_backup_retention_period  = var.db_backup_retention_period
@@ -47,8 +47,9 @@ module "publisher-elasticache" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
 
   providers = {

@@ -11,10 +11,13 @@ module "contact_moj_elasticache_redis" {
   application            = "contact-moj"
   is-production          = "false"
   environment-name       = var.environment
-  infrastructure-support = "staffservices@digital.justice.gov.uk"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  infrastructure-support = var.infrastructure_support
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
+
+  auth_token_rotated_date = "2023-03-28"
 
   providers = {
     aws = aws.london

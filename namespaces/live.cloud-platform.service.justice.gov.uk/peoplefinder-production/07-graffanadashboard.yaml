@@ -32,58 +32,6 @@ data:
       "panels": [
         {
           "columns": [],
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fontSize": "100%",
-          "gridPos": {
-            "h": 6,
-            "w": 9,
-            "x": 0,
-            "y": 0
-          },
-          "id": 6,
-          "pageSize": null,
-          "scroll": true,
-          "showHeader": true,
-          "sort": {
-            "col": 0,
-            "desc": true
-          },
-          "styles": [
-            {
-              "alias": "Time",
-              "align": "auto",
-              "dateFormat": "YYYY-MM-DD HH:mm:ss",
-              "pattern": "Time",
-              "type": "date"
-            },
-            {
-              "alias": "",
-              "align": "auto",
-              "colorMode": null,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "decimals": 2,
-              "pattern": "/.*/",
-              "thresholds": [],
-              "type": "number",
-              "unit": "short"
-            }
-          ],
-          "title": "Panel Title",
-          "transform": "timeseries_to_columns",
-          "type": "table-old"
-        },
-        {
-          "columns": [],
           "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
@@ -262,13 +210,13 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"jobs\"}[2m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"jobs\"}[2m])))",
               "interval": "",
               "legendFormat": "Jobs container",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"webapp\"}[2m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"peoplefinder-production\", container=\"webapp\"}[2m])))",
               "interval": "",
               "legendFormat": "Webapp container",
               "refId": "B"

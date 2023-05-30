@@ -5,21 +5,28 @@
  *
  */
 module "check-financial-eligibility-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
-  vpc_name               = var.vpc_name
-  team_name              = "apply-for-legal-aid"
-  business-unit          = "laa"
-  application            = "check-financial-eligibility"
-  is-production          = "true"
-  namespace              = var.namespace
-  environment-name       = "production"
-  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
-  db_engine              = "postgres"
-  db_engine_version      = "11"
-  db_name                = "check_financial_eligibility_production"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
-  rds_family             = "postgres11"
+  vpc_name                  = var.vpc_name
+  team_name                 = "apply-for-legal-aid"
+  business-unit             = "laa"
+  application               = "check-financial-eligibility"
+  is-production             = "true"
+  namespace                 = var.namespace
+  environment-name          = "production"
+  infrastructure-support    = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  db_engine                 = "postgres"
+
+  # specified as latest version that can be upgraded from 11.16
+  db_engine_version         = "14.4"
+
+  db_name                   = "check_financial_eligibility_production"
+  db_parameter              = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  rds_family                = "postgres14"
+  deletion_protection       = true
+  db_instance_class         = "db.t4g.small"
+  db_max_allocated_storage  = "500"
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 module "ecr-repo-applyforlegalaid-service" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "applyforlegalaid-service"
@@ -24,7 +24,7 @@ resource "kubernetes_secret" "ecr-repo-applyforlegalaid-service" {
 }
 
 module "ecr-repo-clamav" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
 
   team_name = "laa-apply-for-legal-aid"
   repo_name = "clamav"

@@ -15,6 +15,9 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "vpc_name" {
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Digital Prison Services/DPS Tech Team"
@@ -32,4 +35,8 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "true"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

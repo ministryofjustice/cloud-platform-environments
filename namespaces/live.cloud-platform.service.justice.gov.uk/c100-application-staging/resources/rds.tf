@@ -3,7 +3,7 @@
 ########################################
 
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name = var.vpc_name
 
@@ -14,6 +14,7 @@ module "rds-instance" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_engine_version      = var.db_engine_version
+  db_instance_class	     = var.db_instance_class
   allow_major_version_upgrade = "true"
   rds_family             = var.db_engine_family
 
@@ -36,6 +37,8 @@ resource "kubernetes_secret" "rds-instance" {
     database_username     = module.rds-instance.database_username
     database_password     = module.rds-instance.database_password
     rds_instance_address  = module.rds-instance.rds_instance_address
+    access_key_id         = module.rds-instance.access_key_id
+    secret_access_key     = module.rds-instance.secret_access_key
   }
 }
 

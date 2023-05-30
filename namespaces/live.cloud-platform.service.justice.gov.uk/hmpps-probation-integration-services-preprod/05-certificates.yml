@@ -238,3 +238,48 @@ spec:
   dnsNames:
     - 4dc762c3-preprod.hmpps.service.justice.gov.uk
     - court-case-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: effective-proposal-framework-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: effective-proposal-framework-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 3ce96d4b-preprod.hmpps.service.justice.gov.uk
+    - effective-proposal-framework-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: sentence-plan-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7edb0910-preprod.hmpps.service.justice.gov.uk
+    - sentence-plan-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pathfinder-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: pathfinder-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 45f98e5d-preprod.hmpps.service.justice.gov.uk
+    - pathfinder-and-delius-preprod.hmpps.service.justice.gov.uk

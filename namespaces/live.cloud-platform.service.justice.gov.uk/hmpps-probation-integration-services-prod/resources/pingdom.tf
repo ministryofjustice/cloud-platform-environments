@@ -18,6 +18,9 @@ resource "pingdom_check" "pingdom" {
     "workforce-allocations-to-delius",
     "create-and-vary-a-licence-and-delius",
     "court-case-and-delius",
+    "effective-proposal-framework-and-delius",
+    "sentence-plan-and-delius",
+    "pathfinder-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

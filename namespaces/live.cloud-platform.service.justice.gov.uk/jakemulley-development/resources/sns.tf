@@ -1,5 +1,9 @@
 module "sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.7.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
+
+  # Configuration
+  encrypt_sns_kms    = true
+  topic_display_name = "jm-dev"
 
   # Tags
   application            = var.application
@@ -9,8 +13,4 @@ module "sns" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  # Module variabes
-  encrypt_sns_kms    = "true"
-  topic_display_name = "jmdev"
 }

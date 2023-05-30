@@ -3,10 +3,10 @@ name: Prometheus Operator Linter
 on:
   pull_request:
     paths:
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus.yaml
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus.yml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus.yaml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus.yml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Successful Result
-        if: steps.po-linter.outcome = 'success'
+        if: steps.po-linter.outcome == 'success'
         uses: actions/github-script@v6
         env:
             summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"

@@ -1,5 +1,5 @@
 module "hmpps_tier_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -55,7 +55,7 @@ EOF
 }
 
 module "hmpps_tier_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

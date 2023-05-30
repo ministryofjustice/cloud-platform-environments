@@ -1,14 +1,15 @@
 module "court_case_service_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  namespace              = var.namespace
-  application            = var.application
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
-  rds_family             = var.rds-family
-  db_engine_version      = var.db_engine_version
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business-unit               = var.business_unit
+  namespace                   = var.namespace
+  application                 = var.application
+  environment-name            = var.environment-name
+  infrastructure-support      = var.infrastructure_support
+  rds_family                  = var.rds-family
+  db_engine_version           = var.db_engine_version
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london

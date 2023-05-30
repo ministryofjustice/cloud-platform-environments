@@ -2,7 +2,7 @@
 ######################################## VISITS
 
 module "hmpps_prisoner_to_nomis_visit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -52,7 +52,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -114,7 +114,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscriptio
 ######################################## INCENTIVES
 
 module "hmpps_prisoner_to_nomis_incentive_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -164,7 +164,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -214,13 +214,13 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted"] })
+  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered", "incentives.prison-level.changed"] })
 }
 
 ######################################## ACTIVITIES
 
 module "hmpps_prisoner_to_nomis_activity_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -270,7 +270,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -320,13 +320,13 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.scheduled-instances.amended", "activities.prisoner.allocated"] })
+  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.activity-schedule.amended", "activities.scheduled-instance.amended", "activities.prisoner.allocated", "activities.prisoner.deallocated", "activities.prisoner.attendance-created", "activities.prisoner.attendance-amended"] })
 }
 
 ######################################## APPOINTMENTS ########################################
 
 module "prisoner_to_nomis_appointment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -376,7 +376,7 @@ EOF
 }
 
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -426,13 +426,20 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_to_nomis_appointment_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["appointments.appointment-instance.created"] })
+  filter_policy = jsonencode({
+    eventType = [
+      "appointments.appointment-instance.created",
+      "appointments.appointment-instance.updated",
+      "appointments.appointment-instance.cancelled",
+      "appointments.appointment-instance.deleted"
+    ]
+  })
 }
 
 ######################################## SENTENCING
 
 module "hmpps_prisoner_to_nomis_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -482,7 +489,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

@@ -1,22 +1,23 @@
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
-  vpc_name                 = var.vpc_name
-  team_name                = var.team_name
-  business-unit            = "HMPPS"
-  application              = var.application
-  is-production            = var.is_production
-  namespace                = var.namespace
-  environment-name         = var.environment
-  infrastructure-support   = var.infrastructure_support
-  db_instance_class        = "db.t4g.small"
-  db_engine                = "postgres"
-  db_engine_version        = "14"
-  rds_family               = "postgres14"
-  db_password_rotated_date = "2023-02-21"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  vpc_name                   = var.vpc_name
+  team_name                  = var.team_name
+  business-unit              = "HMPPS"
+  application                = var.application
+  is-production              = var.is_production
+  namespace                  = var.namespace
+  environment-name           = var.environment
+  infrastructure-support     = var.infrastructure_support
+  db_max_allocated_storage   = "500"
+  db_instance_class          = "db.t4g.micro"
+  db_engine                  = "postgres"
+  db_engine_version          = "15"
+  rds_family                 = "postgres15"
+  db_password_rotated_date   = "2023-02-21"
+  deletion_protection        = true
+  prepare_for_major_upgrade  = false
+  enable_rds_auto_start_stop = true
 
   providers = {
     aws = aws.london

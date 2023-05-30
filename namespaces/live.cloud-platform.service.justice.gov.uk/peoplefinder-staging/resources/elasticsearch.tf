@@ -8,12 +8,12 @@ module "peoplefinder_es" {
   source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
-  application                     = "peoplefinder"
-  business-unit                   = "Central Digital"
-  environment-name                = "staging"
-  infrastructure-support          = "people-finder-support@digital.justice.gov.uk"
-  is-production                   = "false"
-  team_name                       = "peoplefinder"
+  application                     = var.application
+  business-unit                   = var.business_unit
+  environment-name                = var.environment
+  infrastructure-support          = var.infrastructure_support
+  is-production                   = var.is_production
+  team_name                       = var.team_name
   elasticsearch-domain            = "es"
   namespace                       = "peoplefinder-staging"
   elasticsearch_version           = "7.9"

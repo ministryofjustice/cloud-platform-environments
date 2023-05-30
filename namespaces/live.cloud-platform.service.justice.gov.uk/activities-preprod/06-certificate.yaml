@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: activities-preprod.prison.service.justice.gov.uk
+  namespace: activities-preprod
+spec:
+  secretName: activities-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - activities-preprod.prison.service.justice.gov.uk

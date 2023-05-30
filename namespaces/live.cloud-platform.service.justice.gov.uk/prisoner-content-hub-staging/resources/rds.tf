@@ -1,6 +1,6 @@
 module "drupal_rds" {
   # We need to use at least 5.4, which introduces support for MariaDB by making `custom_parameters` overridable.
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,16 +9,22 @@ module "drupal_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
-  db_instance_class      = "db.t3.large"
+  db_instance_class      = "db.t4g.large"
 
   db_engine         = "mariadb"
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
   db_password_rotated_date    = "2023-03-22"
 
-  # We need to explicitly set this to an empty list, otherwise the module
-  # will add `rds.force_ssl`, which MariaDB doesn't support
-  db_parameter = []
+  # The recommended transaction isolation level for Drupal is READ-COMMITTED.
+  # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level
+  db_parameter = [
+    {
+      name         = "tx_isolation"
+      value        = "READ-COMMITTED"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "drupal_rds" {

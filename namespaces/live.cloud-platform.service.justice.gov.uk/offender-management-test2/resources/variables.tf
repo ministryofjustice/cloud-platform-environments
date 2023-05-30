@@ -15,5 +15,5 @@ variable "namespace" {
 }
 
 variable "infrastructure_support" {
-  default = "omic@digital.justice.gov.uk"
+  default = "manage-pom-cases@digital.justice.gov.uk"
 }

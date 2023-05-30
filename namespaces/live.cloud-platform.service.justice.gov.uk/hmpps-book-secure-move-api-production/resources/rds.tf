@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name = var.vpc_name
 
@@ -16,7 +16,7 @@ module "rds-instance" {
   performance_insights_enabled = true
 
   db_allocated_storage = 200
-  db_instance_class    = "db.t3.2xlarge"
+  db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
   db_engine_version = "12.11"
@@ -48,7 +48,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name = var.vpc_name
 
@@ -58,7 +58,7 @@ module "rds-read-replica" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   db_allocated_storage   = 200
-  db_instance_class      = "db.t3.medium"
+  db_instance_class      = "db.t4g.medium"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier

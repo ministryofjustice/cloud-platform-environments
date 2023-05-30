@@ -8,7 +8,7 @@
 ######## Main queue
 
 module "hmpps_prison_visits_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -51,7 +51,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
 ######## Dead letter queue
 
 module "hmpps_prison_visits_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name

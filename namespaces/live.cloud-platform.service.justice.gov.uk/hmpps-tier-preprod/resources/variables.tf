@@ -1,8 +1,6 @@
-/*
- * When using this module through the cloud-platform-environments, the following
- * variable is automatically supplied by the pipeline.
- *
- */
+variable "kubernetes_cluster" {
+}
+
 variable "vpc_name" {
 }
 
@@ -21,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Manage a Workforce Team"
+  default     = "manage-a-workforce"
 }
 
 variable "environment-name" {

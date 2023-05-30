@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.17.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
 
   vpc_name = var.vpc_name
 
@@ -13,7 +13,7 @@ module "rds-instance" {
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
 
-  db_instance_class = "db.t3.medium"
+  db_instance_class = "db.t4g.small"
   db_parameter      = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_engine         = "postgres"
   db_engine_version = "12.11"

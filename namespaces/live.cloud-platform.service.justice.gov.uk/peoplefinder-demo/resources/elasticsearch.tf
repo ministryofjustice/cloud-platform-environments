@@ -7,14 +7,14 @@ module "peoplefinder_es" {
   source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
-  application                     = "peoplefinder"
-  business-unit                   = "Central Digital"
+  application                     = var.application
+  business-unit                   = var.business_unit
   environment-name                = var.environment
-  infrastructure-support          = "people-finder-support@digital.justice.gov.uk"
-  is-production                   = "false"
-  team_name                       = "peoplefinder"
+  infrastructure-support          = var.infrastructure_support
+  is-production                   = var.is_production
+  team_name                       = var.team_name
+  namespace                       = var.namespace
   elasticsearch-domain            = "es"
-  namespace                       = "peoplefinder-demo"
   elasticsearch_version           = "7.9"
   instance_type                   = "t3.small.elasticsearch"
   ebs_iops                        = 0

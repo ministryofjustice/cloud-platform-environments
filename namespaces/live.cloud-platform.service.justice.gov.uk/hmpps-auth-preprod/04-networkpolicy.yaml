@@ -40,3 +40,28 @@ spec:
       - namespaceSelector:
           matchLabels:
             component: make-recall-decision-preprod
+
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-source-namespace
+  namespace: hmpps-auth-preprod
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-audit-preprod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-external-users-api-preprod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-manage-users-preprod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: token-verification-api-preprod
