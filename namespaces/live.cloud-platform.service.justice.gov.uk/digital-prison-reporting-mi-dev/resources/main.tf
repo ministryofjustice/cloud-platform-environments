@@ -44,3 +44,5 @@ provider "github" {
 }
 
 provider "kubernetes" {}
+
+provider "random" {}
