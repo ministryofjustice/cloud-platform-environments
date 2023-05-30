@@ -3,15 +3,10 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "kubernetes_cluster" {
-  description = "Kubernetes cluster name for references to secrets for service accounts"
-  type        = string
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "cnsmf"
+  default     = "claim-non-standard-magistrate-fee-high-fidelity"
 }
 
 variable "namespace" {
@@ -29,7 +24,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cnsmf"
+  default     = "ministryofjustice"
 }
 
 variable "environment" {
@@ -66,4 +61,46 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+variable "kubernetes_cluster" {
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_DEV"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_DEV"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_DEV"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_DEV"
+}
+
+variable "github_actions_secret_ecr_name" {
+  description = "The name of the github actions secret containing the ECR name"
+  default     = "ECR_NAME_DEV"
+}
+
+variable "github_actions_secret_ecr_url" {
+  description = "The name of the github actions secret containing the ECR URL"
+  default     = "ECR_URL_DEV"
+}
+
+variable "github_actions_secret_ecr_access_key" {
+  description = "The name of the github actions secret containing the ECR AWS access key"
+  default     = "ECR_AWS_ACCESS_KEY_ID_DEV"
+}
+
+variable "github_actions_secret_ecr_secret_key" {
+  description = "The name of the github actions secret containing the ECR AWS secret key"
+  default     = "ECR_AWS_SECRET_ACCESS_KEY_DEV"
 }
