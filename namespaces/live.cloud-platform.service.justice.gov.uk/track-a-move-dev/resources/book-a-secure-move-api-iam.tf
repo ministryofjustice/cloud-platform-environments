@@ -57,7 +57,7 @@ resource "aws_iam_user_policy" "book-a-secure-move-api-policy" {
 resource "kubernetes_secret" "track_a_move_book_a_secure_move_api_iam" {
   metadata {
     name      = "book-a-secure-move-api-iam"
-    namespace = "hmpps-book-secure-move-api-dev"
+    namespace = "hmpps-book-secure-move-api-staging"
   }
 
   data = {
