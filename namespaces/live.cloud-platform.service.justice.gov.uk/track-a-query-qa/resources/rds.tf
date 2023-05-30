@@ -6,10 +6,10 @@
 module "track_a_query_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                   = var.vpc_name
-  team_name                  = "correspondence"
-  business-unit              = "Central Digital"
-  application                = "track-a-query"
-  is-production              = "false"
+  team_name                  = var.team_name
+  business-unit              = var.business_unit
+  application                = var.application
+  is-production              = var.is_production
   namespace                  = var.namespace
   db_engine                  = "postgres"
   db_engine_version          = "12"
@@ -17,6 +17,7 @@ module "track_a_query_rds" {
   db_name                    = "track_a_query_qa"
   environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
+  enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
 
@@ -35,7 +36,7 @@ module "track_a_query_rds" {
 resource "kubernetes_secret" "track_a_query_rds" {
   metadata {
     name      = "track-a-query-rds-output"
-    namespace = "track-a-query-qa"
+    namespace = var.namespace
   }
 
   data = {

@@ -120,14 +120,37 @@ resource "aws_api_gateway_usage_plan" "caa-plan" {
 
   api_stages {
     api_id = aws_apigatewayv2_api.gateway.id
-    stage = var.apigw_stage_name
+    stage = aws_apigatewayv2_stage.stage.name
   }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  depends_on = [
-    aws_apigatewayv2_api.gateway,
-  ]
 }
+
+resource "random_id" "key" {
+  count       = 1
+  byte_length = 16
+}
+
+resource "aws_api_gateway_api_key" "api_key" {
+  count = 1
+  name  = "caa-key"
+  value = "CAA${random_id.key[0].hex}"
+}
+
+resource "kubernetes_secret" "apikeys" {
+  count = 1
+
+  metadata {
+    name      = "caa-api-key"
+    namespace = var.namespace
+  }
+
+  data = {
+    "caa-api-key" = aws_api_gateway_api_key.api_key[0].value
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.api_key[0].id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.caa-plan.id
+}
+

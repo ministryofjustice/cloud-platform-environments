@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-book-secure-move-frontend-production-admin
-  namespace: hmpps-book-secure-move-frontend-production
+  name: hmpps-electronic-monitoring-documentation-dev-admin
+  namespace: hmpps-electronic-monitoring-documentation-dev
 subjects:
   - kind: Group
-    name: "github:map-developers"
+    name: "github:hmpps-electronic-monitoring"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"

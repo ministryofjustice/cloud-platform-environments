@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-book-secure-move-frontend-preprod
 subjects:
   - kind: Group
-    name: "github:pecs-developers"
+    name: "github:map-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"
