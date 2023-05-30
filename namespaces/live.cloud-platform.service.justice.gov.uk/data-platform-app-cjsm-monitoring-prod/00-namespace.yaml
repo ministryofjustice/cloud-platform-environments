@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Cjsm Monitoring Tool"
     cloud-platform.justice.gov.uk/owner: "modelling hub: "
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjsm-monitoring"
-    cloud-platform.justice.gov.uk/team-name: "cjs-demand-prisons"
+    cloud-platform.justice.gov.uk/team-name: "cjs_demand_prisons"
     cloud-platform.justice.gov.uk/review-after: ""
