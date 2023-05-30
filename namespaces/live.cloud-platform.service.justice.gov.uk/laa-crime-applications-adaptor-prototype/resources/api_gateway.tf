@@ -30,13 +30,13 @@ resource "aws_apigatewayv2_integration" "test_api" {
   integration_method              = "ANY"
   connection_type                 = "INTERNET"
   integration_type                = "HTTP_PROXY"
-  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{proxy}"
+  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{id}"
   passthrough_behavior            = "WHEN_NO_MATCH"
 }
 
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "ANY /api/internal/v1/crimeapply/{proxy}"
+  route_key = "ANY /api/internal/v1/crimeapply/{id}"
   target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
