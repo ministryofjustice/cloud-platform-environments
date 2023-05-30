@@ -30,7 +30,7 @@ resource "aws_apigatewayv2_integration" "test_api" {
   integration_method              = "ANY"
   connection_type                 = "INTERNET"
   integration_type                = "HTTP_PROXY"
-  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{id}"
+  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{id}}"
   passthrough_behavior            = "WHEN_NO_MATCH"
 }
 
