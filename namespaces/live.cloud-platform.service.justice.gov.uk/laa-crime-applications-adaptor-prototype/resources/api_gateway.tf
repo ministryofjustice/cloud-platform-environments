@@ -99,58 +99,7 @@ resource "aws_apigatewayv2_stage" "stage" {
   default_route_settings {
     logging_level = "INFO"
     detailed_metrics_enabled = true
-  }
-
-}
-
-resource "aws_api_gateway_usage_plan" "caa-plan" {
-  name = "caa-prototype-usage-plan"
-  description = "API gateway usage plan for CAA service."
-
-  quota_settings {
-    limit = 500
-    offset = 2
-    period = "MONTH"
-  }
-
-  throttle_settings {
-    burst_limit = 20
-    rate_limit = 10
-  }
-
-  api_stages {
-    api_id = aws_apigatewayv2_api.gateway.id
-    stage = aws_apigatewayv2_stage.stage.name
+    throttling_rate_limit  = 100
+    throttling_burst_limit = 100
   }
 }
-
-resource "random_id" "key" {
-  count       = 1
-  byte_length = 16
-}
-
-resource "aws_api_gateway_api_key" "api_key" {
-  count = 1
-  name  = "caa-key"
-  value = "CAA${random_id.key[0].hex}"
-}
-
-resource "kubernetes_secret" "apikeys" {
-  count = 1
-
-  metadata {
-    name      = "caa-api-key"
-    namespace = var.namespace
-  }
-
-  data = {
-    "caa-api-key" = aws_api_gateway_api_key.api_key[0].value
-  }
-}
-
-resource "aws_api_gateway_usage_plan_key" "main" {
-  key_id        = aws_api_gateway_api_key.api_key[0].id
-  key_type      = "API_KEY"
-  usage_plan_id = aws_api_gateway_usage_plan.caa-plan.id
-}
-
