@@ -20,7 +20,13 @@ module "ecr_credentials" {
 
   # Uncomment to configure OIDC for GitHub Actions rather than using access keys
   # oidc_providers = ["github"]
+  github_repositories = ["claim-non-standard-magistrate-fee-high-fidelity"]
 
+  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
+  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
+  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+ 
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
