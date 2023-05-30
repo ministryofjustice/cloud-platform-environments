@@ -3,6 +3,7 @@
 ## Intro
 
 This repository is where kubernetes namespaces are managed, across all the clusters. Kubernetes namespaces and resources are defined in the `namespaces` directory in this repository under the corresponding `cluster` name.
+
 ### Functionality
 
 The pipeline will for each defined `cluster`:
