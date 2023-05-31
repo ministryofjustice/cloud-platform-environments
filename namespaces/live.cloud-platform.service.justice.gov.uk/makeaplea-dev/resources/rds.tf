@@ -14,7 +14,7 @@ module "dps_rds" {
   is-production             = var.is_production
   namespace                 = var.namespace
   prepare_for_major_upgrade = true
-  db_engine_version         = "12.9"
+  db_engine_version         = "12.11"
   environment-name          = var.environment
   infrastructure-support    = var.infrastructure_support
 
