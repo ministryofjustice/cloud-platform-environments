@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: digital-prison-reporting-mi-dev
+  namespace: hmpps-digital-prison-reporting-mi-preprod
 spec:
   hard:
     pods: "50"
