@@ -1,7 +1,7 @@
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
 
-  team_name = var.team_name
+  team_name = "book-a-secure-move"
   repo_name = var.repo_name
 
   github_repositories = ["hmpps-book-secure-move-frontend"]
