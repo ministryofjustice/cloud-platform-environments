@@ -4,6 +4,8 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = var.repo_name
 
+  github_repositories = ["hmpps-book-secure-move-frontend"]
+
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
