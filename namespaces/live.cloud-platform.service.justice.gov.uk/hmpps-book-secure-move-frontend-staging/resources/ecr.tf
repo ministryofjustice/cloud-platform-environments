@@ -3,6 +3,15 @@ module "ecr-repo" {
 
   team_name = var.team_name
   repo_name = var.repo_name
+
+  github_repositories = ["hmpps-book-secure-move-frontend"]
+
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "staging"
 }
 
 resource "kubernetes_secret" "ecr-repo" {
