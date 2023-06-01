@@ -15,7 +15,7 @@ module "drupal_content_storage" {
     {
       allowed_headers = ["Accept", "Content-Type", "Origin"]
       allowed_methods = ["GET", "PUT", "POST"]
-      allowed_origins = ["https://cms-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://cms-prisoner-content-hub-staging.apps.live.cloud-platform.service.justice.gov.uk"]
       max_age_seconds = 3000
     }
   ]
