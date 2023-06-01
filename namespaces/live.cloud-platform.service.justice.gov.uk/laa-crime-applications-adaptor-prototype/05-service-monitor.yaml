@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-crime-applications-adaptor
+  namespace: laa-crime-applications-adaptor-prototype
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-crime-applications-adaptor
+  namespaceSelector:
+    matchNames:
+      - laa-crime-applications-adaptor
+  endpoints:
+    - port: metrics
+      interval: 15s
