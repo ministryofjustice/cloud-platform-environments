@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-digital-prison-reporting-mi-ui-dev.hmpps.service.justice.gov.uk
+    - digital-prison-reporting-mi-ui-dev.hmpps.service.justice.gov.uk
