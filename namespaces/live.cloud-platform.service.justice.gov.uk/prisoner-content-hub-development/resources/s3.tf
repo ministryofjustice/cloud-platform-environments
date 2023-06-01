@@ -45,6 +45,8 @@ module "drupal_content_storage_2" {
   
 */
 
+  versioning = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
