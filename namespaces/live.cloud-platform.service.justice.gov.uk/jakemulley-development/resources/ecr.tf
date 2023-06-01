@@ -5,6 +5,6 @@ module "ecr" {
   repo_name = "oidc-test"
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
-
-  oidc_providers = ["circleci"]
+  oidc_providers      = ["circleci"]
+  namespace           = var.namespace
 }

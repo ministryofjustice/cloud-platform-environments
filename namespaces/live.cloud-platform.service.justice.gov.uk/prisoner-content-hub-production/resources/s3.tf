@@ -279,7 +279,7 @@ resource "kubernetes_secret" "drupal_content_storage_output_staging_new" {
   }
 
   data = {
-    bucket_name = module.drupal_content_storage.bucket_name
+    bucket_name = module.drupal_content_storage_2.bucket_name
   }
 }
 resource "kubernetes_secret" "drupal_content_storage_output_development_new" {
@@ -289,7 +289,7 @@ resource "kubernetes_secret" "drupal_content_storage_output_development_new" {
   }
 
   data = {
-    bucket_name = module.drupal_content_storage.bucket_name
+    bucket_name = module.drupal_content_storage_2.bucket_name
   }
 }
 

@@ -16,14 +16,21 @@ provider "aws" {
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = var.team_name
+    }
+  }
 }
 
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
-}
 
-provider "github" {
-  token = var.github_token
-  owner = var.github_owner
+  default_tags {
+    tags = {
+      GithubTeam = var.team_name
+    }
+  }
 }

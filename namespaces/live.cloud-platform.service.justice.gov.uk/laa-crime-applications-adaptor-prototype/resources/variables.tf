@@ -41,15 +41,15 @@ variable "resource_server_scope_name" {
 }
 
 variable "resource_server_scope_description" {
-    default = "Standard scope"
+  default = "Standard scope"
 }
 
 variable "cognito_user_pool_domain_name" {
-     default = "laa-crime-applications-adaptor-prototype"
+  default = "laa-crime-applications-adaptor-prototype"
 }
 
 variable "access_log_retention_in_days" {
-     default = 7
+  default = 7
 }
 
 variable "vpc_name" {
