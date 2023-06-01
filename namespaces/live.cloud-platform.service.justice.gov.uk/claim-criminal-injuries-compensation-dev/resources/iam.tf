@@ -23,9 +23,11 @@ data "aws_iam_policy_document" "dcs_access" {
     sid = "AllowDCSToWriteToS3"
     actions = [
       "s3:PutObject",
-      "kms:GenerateKeyData",
-      "kms:Decrypt*",
-      "kms:Encrypt*"
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
     ]
     resources = [
       "*"
@@ -99,9 +101,12 @@ data "aws_iam_policy_document" "app_service_access" {
     actions = [
       "s3:PutObject",
       "s3:GetObject",
-      "kms:GenerateKeyData",
-      "kms:Decrypt*",
-      "kms:Encrypt*"
+      "s3:ListBucket",
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
     ]
     resources = [
       "*"
