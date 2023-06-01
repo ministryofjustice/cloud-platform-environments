@@ -6,4 +6,5 @@ module "ecr" {
 
   github_repositories = ["cloud-platform-ecr-oidc-test"]
   oidc_providers      = ["circleci"]
+  namespace           = var.namespace
 }
