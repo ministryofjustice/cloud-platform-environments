@@ -5,7 +5,8 @@ resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscr
   filter_policy = jsonencode({
     eventType = [
       "intervention.referral.ended",
-      "intervention.session-appointment.session-feedback-submitted"
+      "intervention.session-appointment.session-feedback-submitted",
+      "intervention.initial-assessment-appointment.session-feedback-submitted"
     ]
   })
 }
