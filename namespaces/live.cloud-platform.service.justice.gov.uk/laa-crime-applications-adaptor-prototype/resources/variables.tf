@@ -41,15 +41,15 @@ variable "resource_server_scope_name" {
 }
 
 variable "resource_server_scope_description" {
-    default = "Standard scope"
+  default = "Standard scope"
 }
 
 variable "cognito_user_pool_domain_name" {
-     default = "laa-crime-applications-adaptor-prototype"
+  default = "laa-crime-applications-adaptor-prototype"
 }
 
 variable "access_log_retention_in_days" {
-     default = 7
+  default = 7
 }
 
 variable "vpc_name" {
@@ -130,7 +130,14 @@ variable "base_domain_route53_namespace" {
   default     = "laa-crime-applications-adaptor-prototype"
 }
 
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
 variable "github_token" {
-  description = "Required by the Github Terraform provider"
+  type        = string
+  description = "Required by the GitHub Terraform provider"
   default     = ""
 }
