@@ -3,10 +3,10 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "keyworker_api_queue"                       = "offender-events-dev",
-    "keyworker_api_queue_dl"                    = "offender-events-dev",
-    "keyworker_api_queue_complexity_of_need"    = "hmpps-domain-events-dev",
-    "keyworker_api_queue_dl_complexity_of_need" = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-dev-keyworker_api_queue"                       = "offender-events-dev",
+    "Digital-Prison-Services-dev-keyworker_api_queue_dl"                    = "offender-events-dev",
+    "Digital-Prison-Services-dev-keyworker_api_queue_complexity_of_need"    = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-keyworker_api_queue_dl_complexity_of_need" = "hmpps-domain-events-dev"
   }
 }
 
