@@ -1,5 +1,5 @@
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=circleci"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
 
   team_name = var.team_name
   repo_name = "oidc-test"
