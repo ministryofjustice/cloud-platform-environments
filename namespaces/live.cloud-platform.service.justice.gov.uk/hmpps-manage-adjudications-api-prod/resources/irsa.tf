@@ -15,7 +15,7 @@ module "app-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  namespace        = var.namespace
+  service_account  = var.namespace
   role_policy_arns = concat([
     module.prisoner-event-queue.irsa_policy_arn,
     module.prisoner-event-dlq.irsa_policy_arn
