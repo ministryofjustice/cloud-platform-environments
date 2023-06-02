@@ -7,16 +7,17 @@ module "rds-instance" {
 
   vpc_name = var.vpc_name
 
-  application            = var.application
-  environment-name       = var.environment_name
-  is-production          = var.is_production
-  namespace              = var.namespace
-  infrastructure-support = var.infrastructure_support
-  team_name              = var.team_name
-  db_instance_class      = "db.t3.small"
-  db_engine              = "postgres"
-  db_engine_version      = "14"
-  rds_family             = "postgres14"
+  application              = var.application
+  environment-name         = var.environment_name
+  is-production            = var.is_production
+  namespace                = var.namespace
+  infrastructure-support   = var.infrastructure_support
+  team_name                = var.team_name
+  db_instance_class        = "db.t4g.small"
+  db_max_allocated_storage = "10000"
+  db_engine                = "postgres"
+  db_engine_version        = "14"
+  rds_family               = "postgres14"
 
   providers = {
     aws = aws.london
