@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crime-applications-adaptor-uat
   labels:
+    component: "laa-crime-applications-adaptor-uat"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "uat"
   annotations:
