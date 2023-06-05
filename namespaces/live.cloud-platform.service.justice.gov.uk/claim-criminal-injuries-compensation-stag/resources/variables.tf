@@ -32,7 +32,7 @@ variable "team_name" {
   default     = "cica"
 }
 
-variable "environment" {
+variable "environment-name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "staging"
