@@ -6,16 +6,16 @@ module "rds_instance" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   application                = var.application
   vpc_name                   = var.vpc_name
-  db_backup_retention_period = var.db_backup_retention_period
-  db_engine                  = "postgres"
-  db_engine_version          = "12"
-  db_name                    = "parliamentary_questions_dev"
   environment-name           = var.environment-name
   infrastructure-support     = var.infrastructure_support
   is-production              = var.is_production
   namespace                  = var.namespace
-  rds_family                 = "postgres12"
   team_name                  = var.team_name
+  db_engine                  = "postgres"
+  db_engine_version          = "12"
+  db_name                    = "parliamentary_questions_dev"
+  rds_family                 = "postgres12"
+  db_backup_retention_period = var.db_backup_retention_period
   enable_rds_auto_start_stop = true
 
   providers = {
