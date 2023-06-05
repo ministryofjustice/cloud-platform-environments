@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-notify-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name               = "claim-criminal-injuries-notify-queue"
   fifo_queue             = false
@@ -84,7 +84,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
 
 
 module "claim-criminal-injuries-notify-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name               = "claim-criminal-injuries-notify-dead-letter-queue"
   fifo_queue             = false
