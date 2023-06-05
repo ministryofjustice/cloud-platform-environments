@@ -19,7 +19,7 @@ variable "is_production" {
   default = "true"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "production"
 }
 
