@@ -6,12 +6,12 @@
 module "contact_moj_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
   vpc_name               = var.vpc_name
-  team_name              = "correspondence"
-  business-unit          = "Central Digital"
-  application            = "contact-moj"
-  is-production          = "false"
-  environment-name       = "production"
-  infrastructure-support = "staffservices@digital.justice.gov.uk"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   node_type              = "cache.t4g.small"
@@ -27,7 +27,7 @@ module "contact_moj_elasticache_redis" {
 resource "kubernetes_secret" "contact_moj_elasticache_redis" {
   metadata {
     name      = "contact-moj-elasticache-redis-output"
-    namespace = "contact-moj-production"
+    namespace = var.namespace
   }
 
   data = {

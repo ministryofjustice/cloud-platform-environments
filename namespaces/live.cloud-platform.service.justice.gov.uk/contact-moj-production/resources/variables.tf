@@ -23,7 +23,6 @@ variable "environment-name" {
   default = "production"
 }
 
-
 variable "kubernetes_cluster" {
 }
 
@@ -40,3 +39,20 @@ variable "github_token" {
 variable "repo_name" {
   default = "correspondence_tool_public"
 }
+
+variable "team_name" {
+  default = "correspondence"
+}
+
+variable "business_unit" {
+  default = "Central Digital"
+}
+
+variable "application" {
+  default = "contact-moj"
+}
+
+variable "infrastructure_support" {
+  default = "correspondence@digital.justice.gov.uk"
+}
+
