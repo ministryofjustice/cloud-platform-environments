@@ -12,3 +12,4 @@ spec:
   dnsNames:
     - make-recall-decision-dev.hmpps.service.justice.gov.uk
     - make-recall-decision-api-dev.hmpps.service.justice.gov.uk
+    - consider-a-recall-dev.hmpps.service.justice.gov.uk
