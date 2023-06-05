@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: peoplefinder-demo
+  namespace: laa-cla-frontend-express-prototype
 spec:
   hard:
     pods: "50"

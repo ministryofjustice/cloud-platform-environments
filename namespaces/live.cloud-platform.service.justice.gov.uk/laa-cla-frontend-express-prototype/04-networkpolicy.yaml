@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: peoplefinder-demo
+  namespace: laa-cla-frontend-express-prototype
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: peoplefinder-demo
+  namespace: laa-cla-frontend-express-prototype
 spec:
   podSelector: {}
   policyTypes:
@@ -25,20 +25,3 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-prometheus-scraping
-  namespace: peoplefinder-demo
-spec:
-  podSelector:
-    matchLabels:
-      app: peoplefinder
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: monitoring
