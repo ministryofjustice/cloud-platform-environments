@@ -39,6 +39,7 @@ resource "kubernetes_secret" "contact-moj_rds" {
   metadata {
     name      = "contact-moj-rds-output"
     namespace = var.namespace
+  }
 
   data = {
     rds_instance_endpoint = module.contact-moj_rds.rds_instance_endpoint
