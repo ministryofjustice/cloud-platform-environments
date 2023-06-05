@@ -6,17 +6,17 @@
 module "contact-moj_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
   vpc_name                   = var.vpc_name
-  team_name                  = "correspondence"
-  business-unit              = "Central Digital"
-  application                = "contact-moj"
-  is-production              = "false"
+  team_name                  = var.team_name
+  business-unit              = var.business_unit
+  application                = var.application
+  is-production              = var.is_production
   namespace                  = var.namespace
+  environment-name           = var.environment
+  infrastructure-support     = var.infrastructure_support
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_development"
-  environment-name           = var.environment
-  infrastructure-support     = var.infrastructure_support
   enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
@@ -36,8 +36,7 @@ module "contact-moj_rds" {
 resource "kubernetes_secret" "contact-moj_rds" {
   metadata {
     name      = "contact-moj-rds-output"
-    namespace = "contact-moj-development"
-  }
+    namespace = var.namespace
 
   data = {
     rds_instance_endpoint = module.contact-moj_rds.rds_instance_endpoint
