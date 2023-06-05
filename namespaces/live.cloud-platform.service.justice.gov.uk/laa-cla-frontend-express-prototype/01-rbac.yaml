@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: peoplefinder-demo-admin
-  namespace: peoplefinder-demo
+  name: laa-cla-frontend-express-prototype-admin
+  namespace: laa-cla-frontend-express-prototype
 subjects:
   - kind: Group
-    name: "github:central-digital-product-team"
+    name: "github:laa-cla-frontend-express-prototype-admin-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
