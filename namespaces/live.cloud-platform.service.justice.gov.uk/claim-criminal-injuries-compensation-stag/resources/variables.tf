@@ -72,3 +72,7 @@ variable "db_backup_retention_period" {
   description = "The days to retain backups. Must be 1 or greater to be a source for a Read Replica"
   default     = "35"
 }
+
+variable "email" {
+  default = "Infrastructure@cica.gov.uk"
+}
