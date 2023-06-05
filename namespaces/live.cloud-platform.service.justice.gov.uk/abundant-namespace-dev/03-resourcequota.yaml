@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: abundant-namespace-dev
-spec:
-  hard:
-    pods: "50"
