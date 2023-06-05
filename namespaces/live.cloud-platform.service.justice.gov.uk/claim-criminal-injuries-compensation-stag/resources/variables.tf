@@ -76,3 +76,8 @@ variable "db_backup_retention_period" {
 variable "email" {
   default = "Infrastructure@cica.gov.uk"
 }
+
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape"
+  default     = true
+}
