@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  github_repositories = ["laa-fee-calculator-user-interface"]
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
