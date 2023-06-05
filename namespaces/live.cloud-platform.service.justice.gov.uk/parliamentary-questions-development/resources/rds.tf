@@ -12,6 +12,8 @@ module "rds_instance" {
   infrastructure-support      = var.infrastructure_support
   is-production               = var.is_production
   namespace                   = var.namespace
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
   db_engine_version           = "12"
   db_name                     = "parliamentary_questions_dev"
