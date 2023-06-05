@@ -12,6 +12,8 @@ module "rds_instance" {
   is-production              = var.is_production
   namespace                  = var.namespace
   team_name                  = var.team_name
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_name                    = "parliamentary_questions_production"
