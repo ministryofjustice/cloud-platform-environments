@@ -30,8 +30,6 @@ resource "kubernetes_secret" "test_ec_cluster" {
     primary_endpoint_address = module.test_ec_cluster.primary_endpoint_address
     member_clusters          = jsonencode(module.test_ec_cluster.member_clusters)
     auth_token               = module.test_ec_cluster.auth_token
-    access_key_id            = module.test_ec_cluster.access_key_id
-    secret_access_key        = module.test_ec_cluster.secret_access_key
     replication_group_id     = module.test_ec_cluster.replication_group_id
   }
 }
