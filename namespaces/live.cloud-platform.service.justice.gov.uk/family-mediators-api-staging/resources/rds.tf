@@ -17,7 +17,6 @@ module "rds-instance" {
   rds_family                 = "postgres14"
   db_engine                  = "postgres"
   db_engine_version          = "14"
-  db_instance_class          = "db.t3.small"
   enable_rds_auto_start_stop = true
 
   providers = {
