@@ -13,6 +13,8 @@ module "dex_mi_production_rds" {
   namespace                  = var.namespace
   environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
