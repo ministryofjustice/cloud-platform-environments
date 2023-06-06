@@ -6,11 +6,10 @@ locals {
     "hmpps_audit_queue"    = "hmpps-audit-dev",
     "hmpps_audit_dead_letter_queue" = "hmpps-audit-dev"
   }
-  sqs_policies      = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
 }
 
 module "app-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
@@ -22,3 +21,4 @@ data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
+
