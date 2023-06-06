@@ -8,7 +8,6 @@ resource "pingdom_check" "claim-crown-court-defence-staging" {
   host                     = "staging.claim-crown-court-defence.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
   notifyagainevery         = 0
   url                      = "/ping"
   encryption               = true
