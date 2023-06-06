@@ -16,7 +16,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: create-and-vary-a-licence-wiremock-dev.hmpps.service.justice.gov.uk
-  namespace: create-and-vary-a-licence-dev
+  namespace: create-and-vary-a-licence-api-dev
 spec:
   secretName: create-and-vary-a-licence-wiremock-cert
   issuerRef:
