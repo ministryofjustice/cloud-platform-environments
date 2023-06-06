@@ -4,8 +4,9 @@
  * releases page of this repository
  *
  */
-module "cica_ecr_credentials" {
+module "cica_ecr" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  repo_name = "cica-repo-stag"
   team_name = "cica"
 
   oidc_providers = ["circleci"]
