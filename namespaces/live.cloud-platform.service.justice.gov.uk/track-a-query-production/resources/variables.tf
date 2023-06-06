@@ -20,7 +20,7 @@ variable "is_production" {
   default = "true"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "production"
 }
 
@@ -55,4 +55,8 @@ variable "github_token" {
 
 variable "repo_name" {
   default = "correspondence_tool_staff"
+}
+
+variable "business_unit" {
+  default = "Central Digital"
 }
