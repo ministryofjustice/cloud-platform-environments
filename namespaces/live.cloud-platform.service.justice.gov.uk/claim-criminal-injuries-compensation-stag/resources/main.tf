@@ -44,3 +44,9 @@ provider "github" {
 }
 
 provider "kubernetes" {}
+
+# For Push gateway
+provider "helm" {
+  kubernetes {
+  }
+}
