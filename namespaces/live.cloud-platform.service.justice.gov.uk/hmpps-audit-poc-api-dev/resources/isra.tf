@@ -14,7 +14,7 @@ module "app-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  service_account  = "${var.application}-${var.environment-name}"
+  service_account  = var.namespace
   role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
 }
 
