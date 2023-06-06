@@ -6,7 +6,9 @@ resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscr
     eventType = [
       "intervention.referral.ended",
       "intervention.session-appointment.session-feedback-submitted",
-      "intervention.initial-assessment-appointment.session-feedback-submitted"
+      "intervention.initial-assessment-appointment.session-feedback-submitted",
+      "intervention.action-plan.submitted",
+      "intervention.action-plan.approved"
     ]
   })
 }
