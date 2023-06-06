@@ -25,4 +25,4 @@ spec:
   tls:
     - hosts:
         - make-recall-decision-preprod.hmpps.service.justice.gov.uk
-      secretName: make-recall-decision-cert-old
+      secretName: make-recall-decision-cert
