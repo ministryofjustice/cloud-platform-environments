@@ -67,3 +67,8 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "number_cache_clusters" {
+  description = "The number of cache clusters (primary and replicas) this replication group will have. Default is 2"
+  default = "2"
+}
