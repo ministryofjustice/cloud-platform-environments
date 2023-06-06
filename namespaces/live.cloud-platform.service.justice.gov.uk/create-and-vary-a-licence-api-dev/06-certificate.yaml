@@ -15,7 +15,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: create-and-vary-a-licence-wiremock-dev.hmpps.service.justice.gov.uk
+  name: cvl-probation-mock.hmpps.service.justice.gov.uk
   namespace: create-and-vary-a-licence-api-dev
 spec:
   secretName: create-and-vary-a-licence-wiremock-cert
@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - create-and-vary-a-licence-wiremock-dev.hmpps.service.justice.gov.uk
+    - cvl-probation-mock.hmpps.service.justice.gov.uk
