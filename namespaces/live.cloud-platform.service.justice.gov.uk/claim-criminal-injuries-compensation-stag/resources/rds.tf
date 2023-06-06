@@ -12,10 +12,12 @@ module "rds" {
 
   db_engine                  = "postgres"
   db_engine_version          = "14.3"
-  db_instance_class          = "db.t3.small"
+  db_instance_class          = "db.t4g.micro"
   db_allocated_storage       = "5"
   db_name                    = "datacaptureservice"
   db_backup_retention_period = var.db_backup_retention_period
+
+  enable_rds_auto_start_stop = true
 
   # rds_family should be: postgres14
   # Pick the one that defines the postgres version the best
