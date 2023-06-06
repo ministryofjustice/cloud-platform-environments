@@ -6,6 +6,7 @@
  */
 module "cica_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  team_name = "cica"
 
   oidc_providers = ["circleci"]
 
