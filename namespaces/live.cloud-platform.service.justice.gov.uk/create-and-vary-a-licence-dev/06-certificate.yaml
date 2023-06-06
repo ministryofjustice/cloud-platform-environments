@@ -11,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - create-and-vary-a-licence-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: create-and-vary-a-licence-wiremock-dev.hmpps.service.justice.gov.uk
+  namespace: create-and-vary-a-licence-dev
+spec:
+  secretName: create-and-vary-a-licence-wiremock-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - create-and-vary-a-licence-wiremock-dev.hmpps.service.justice.gov.uk
