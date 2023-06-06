@@ -14,6 +14,7 @@ module "rds" {
   db_engine_version          = "14.3"
   db_instance_class          = "db.t4g.micro"
   db_allocated_storage       = "50"
+  db_max_allocated_storage   = "500"
   db_name                    = "datacaptureservice"
   db_backup_retention_period = var.db_backup_retention_period
 
