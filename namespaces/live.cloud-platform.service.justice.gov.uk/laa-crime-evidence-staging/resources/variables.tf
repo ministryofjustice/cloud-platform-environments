@@ -108,5 +108,5 @@ variable "resource_server_scope_description" {
 }
 
 variable "cognito_user_pool_domain_name" {
-  default = "laa-crime-evidence-dev.apps.live.cloud-platform.service.justice.gov.uk"
+  default = "laa-crime-evidence-staging"
 }
