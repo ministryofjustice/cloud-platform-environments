@@ -6,13 +6,13 @@ module "analytical-platform" {
   role_policy_arns       = [aws_iam_policy.analytical-platform.arn]
   service_account_name   = "${var.namespace}-analytical-platform"
   # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   team_name              = var.team_name
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
+  is_production          = var.is_production
+  environment_name       = var.environment-name
   owner                  = var.team_name
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_iam_policy" "analytical-platform" {
