@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
-  name              = "API-Gateway-Execution-Logs_${aws_apigatewayv2_api.gateway.id}/v1"
+  name              = "API-Gateway-Execution-Logs_caa_api_dev"
   retention_in_days = 60
 }
 
@@ -26,7 +26,7 @@ resource "aws_apigatewayv2_authorizer" "auth" {
 
 }
 
-resource "aws_apigatewayv2_integration" "crime_apply_api" {
+resource "aws_apigatewayv2_integration" "crime_apply_api_dev" {
   api_id                          = aws_apigatewayv2_api.gateway.id
   integration_method              = "ANY"
   connection_type                 = "INTERNET"
@@ -42,14 +42,14 @@ resource "aws_apigatewayv2_integration" "crime_apply_api" {
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
   route_key = "ANY /api/internal/v1/crimeapply/{proxy+}"
-  target = "integrations/${aws_apigatewayv2_integration.crime_apply_api.id}"
+  target = "integrations/${aws_apigatewayv2_integration.crime_apply_api_dev.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
   authorization_scopes = aws_cognito_resource_server.resource.scope_identifiers
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
-    aws_apigatewayv2_integration.crime_apply_api,
+    aws_apigatewayv2_integration.crime_apply_api_dev,
   ]
 
 }
@@ -64,7 +64,7 @@ resource "aws_apigatewayv2_deployment" "deployment" {
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
-    aws_apigatewayv2_integration.crime_apply_api,
+    aws_apigatewayv2_integration.crime_apply_api_dev,
     aws_apigatewayv2_route.route
   ]
 }
