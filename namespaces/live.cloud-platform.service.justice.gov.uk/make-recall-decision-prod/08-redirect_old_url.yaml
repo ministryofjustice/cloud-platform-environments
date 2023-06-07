@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: https://consider-a-recall.hmpps.service.justice.gov.uk/$1
-    external-dns.alpha.kubernetes.io/set-identifier: make-recall-decisions-redirect-old-url-make-recall-decision-green
+    external-dns.alpha.kubernetes.io/set-identifier: make-recall-decisions-redirect-old-url-make-recall-decision-prod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
   labels:
     app: make-recall-decision-ui
