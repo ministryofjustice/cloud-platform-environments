@@ -22,7 +22,7 @@ variable "team_name" {
   default     = "dps-tech"
 }
 
-variable "environment_name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }

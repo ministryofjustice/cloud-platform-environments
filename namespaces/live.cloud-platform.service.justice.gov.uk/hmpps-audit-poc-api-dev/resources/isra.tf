@@ -3,18 +3,18 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"    = "hmpps-audit-dev",
-    "Digital-Prison-Services-dev-hmpps_audit_dlq" = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_dlq"   = "hmpps-audit-dev"
   }
 }
 
 module "app-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name = var.eks_cluster_name
-  namespace        = var.namespace
-  service_account  = var.namespace
-  role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
+   eks_cluster_name     = var.eks_cluster_name
+   namespace            = var.namespace
+   service_account_name = "${var.team_name}-${var.environment}"
+   role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
