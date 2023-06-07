@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Prisons Ready Reckoner"
     cloud-platform.justice.gov.uk/owner: "cjs priority projects: "
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prisons-ready-reckoner-app"
-    cloud-platform.justice.gov.uk/team-name: "mh-cjs-priority-projects"
+    cloud-platform.justice.gov.uk/team-name: "mh_cjs_priority_projects"
     cloud-platform.justice.gov.uk/review-after: ""

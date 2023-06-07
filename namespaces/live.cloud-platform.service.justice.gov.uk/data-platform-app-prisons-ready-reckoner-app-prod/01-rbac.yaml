@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-prisons-ready-reckoner-app-prod
 subjects:
   - kind: Group
-    name: "github:mh-cjs-priority-projects"
+    name: "github:mh_cjs_priority_projects"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
