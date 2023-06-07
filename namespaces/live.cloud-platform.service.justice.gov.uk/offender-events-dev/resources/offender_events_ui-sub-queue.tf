@@ -130,4 +130,9 @@ module "offender-events-ui-irsa" {
     offender_events_ui_dead_letter_queue = module.offender_events_ui_dead_letter_queue.irsa_policy_arn,
     offender_events_ui_queue = module.offender_events_ui_queue.irsa_policy_arn
   }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
 }
