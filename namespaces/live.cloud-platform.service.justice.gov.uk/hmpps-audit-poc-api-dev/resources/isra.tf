@@ -14,7 +14,10 @@ module "app-irsa" {
    eks_cluster_name     = var.eks_cluster_name
    namespace            = var.namespace
    service_account_name = "${var.team_name}-${var.environment}"
-   role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
+   role_policy_arns = [
+    hmpps_audit_dlq = module.hmpps_audit_dlq.irsa_policy_arn,
+    hmpps_audit_queue = module.hmpps_audit_queue.irsa_policy_arn
+   ]
 
     # Tags
      business_unit          = var.business_unit
@@ -24,9 +27,3 @@ module "app-irsa" {
      environment_name       = var.environment
      infrastructure_support = var.infrastructure_support
 }
-
-data "aws_ssm_parameter" "irsa_policy_arns" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
-}
-
