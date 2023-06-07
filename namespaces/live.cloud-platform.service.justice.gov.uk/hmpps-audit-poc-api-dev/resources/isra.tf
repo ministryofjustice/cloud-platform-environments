@@ -15,6 +15,14 @@ module "app-irsa" {
    namespace            = var.namespace
    service_account_name = "${var.team_name}-${var.environment}"
    role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns : item.value]
+
+    # Tags
+     business_unit          = var.business_unit
+     application            = var.application
+     is_production          = var.is_production
+     team_name              = var.team_name
+     environment_name       = var.environment
+     infrastructure_support = var.infrastructure_support
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
