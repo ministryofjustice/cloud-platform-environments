@@ -36,3 +36,15 @@ resource "aws_cognito_user_pool_domain" "domain" {
   domain          = var.cognito_user_pool_domain_name
   user_pool_id    = aws_cognito_user_pool.pool.id
 }
+
+resource "kubernetes_secret" "aws_cognito_user_pool_client" {
+  metadata {
+    name      = "caa-cognito-client-secret-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    client_id                               = aws_cognito_user_pool_client.client.id
+    client_secret                           = aws_cognito_user_pool_client.client.client_secret
+  }
+}
