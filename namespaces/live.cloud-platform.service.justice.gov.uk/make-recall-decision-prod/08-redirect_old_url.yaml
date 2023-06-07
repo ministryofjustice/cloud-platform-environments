@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: https://consider-a-recall.hmpps.service.justice.gov.uk/$1
+    external-dns.alpha.kubernetes.io/set-identifier: make-recall-decisions-redirect-old-url-make-recall-decision-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  labels:
+    app: make-recall-decision-ui
+  name: make-recall-decisions-redirect-old-url
+  namespace: make-recall-decision-prod
+spec:
+  ingressClassName: default
+  rules:
+    - host: make-recall-decision.hmpps.service.justice.gov.uk
+      http:
+        paths:
+          - backend:
+              service:
+                name: make-recall-decision-ui
+                port:
+                  name: http
+            path: /(.*)
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - make-recall-decision.hmpps.service.justice.gov.uk
+      secretName: make-recall-decision-cert
+      
