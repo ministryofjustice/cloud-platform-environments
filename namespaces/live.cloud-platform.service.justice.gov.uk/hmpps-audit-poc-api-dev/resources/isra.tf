@@ -14,10 +14,10 @@ module "app-irsa" {
    eks_cluster_name     = var.eks_cluster_name
    namespace            = var.namespace
    service_account_name = "${var.team_name}-${var.environment}"
-   role_policy_arns = [
+   role_policy_arns = {
     hmpps_audit_dlq = module.hmpps_audit_dlq.irsa_policy_arn,
     hmpps_audit_queue = module.hmpps_audit_queue.irsa_policy_arn
-   ]
+   }
 
     # Tags
      business_unit          = var.business_unit
