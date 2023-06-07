@@ -3,9 +3,12 @@ module "analytical-platform" {
 
   namespace              = var.namespace
   eks_cluster_name       = var.eks_cluster_name
-  role_policy_arns       = [aws_iam_policy.analytical-platform.arn]
-  service_account_name   = "${var.namespace}-analytical-platform"
+  role_policy_arns       = {
+    analytical-platform = aws_iam_policy.analytical-platform.arn
+  }
   # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
+  service_account_name   = "${var.namespace}-analytical-platform"
+  # Tags
   business_unit          = var.business_unit
   team_name              = var.team_name
   application            = var.application
