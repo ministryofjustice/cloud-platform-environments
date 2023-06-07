@@ -1,11 +1,19 @@
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  namespace        = var.namespace
-  eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = [aws_iam_policy.analytical-platform.arn]
-  service_account  = "${var.namespace}-analytical-platform"
+  namespace              = var.namespace
+  eks_cluster_name       = var.eks_cluster_name
+  role_policy_arns       = [aws_iam_policy.analytical-platform.arn]
+  service_account_name   = "${var.namespace}-analytical-platform"
   # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
+  business-unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is-production          = var.is_production
+  namespace              = var.namespace
+  environment-name       = var.environment-name
+  owner                  = var.team_name
+  infrastructure-support = var.infrastructure_support
 }
 
 resource "aws_iam_policy" "analytical-platform" {
