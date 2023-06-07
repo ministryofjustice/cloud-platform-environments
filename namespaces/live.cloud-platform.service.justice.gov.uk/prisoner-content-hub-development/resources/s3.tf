@@ -196,7 +196,7 @@ bucket_policy = <<EOF
       },
       "Action": [
         "s3:GetObjectAcl",
-        "s3:PutObjectAcl",
+        "s3:PutObjectAcl"
       ],
       "Resource": [
         "$${bucket_arn}",
