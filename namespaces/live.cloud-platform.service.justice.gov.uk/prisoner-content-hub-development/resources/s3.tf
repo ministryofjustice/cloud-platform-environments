@@ -183,7 +183,30 @@ EOF
 
 */
 
-# Adds staging & production S3 resources to user-policy to allow one-way sync
+
+# Temporarily grant all actions on bucket to its own user to troubleshoot S3 permissions errors.
+bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-0da9568a0aa6b9444b6fb48e8d4f79cd"
+      },
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+
+  # Adds staging & production S3 resources to user-policy to allow one-way sync
 # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
   user_policy = <<EOF
 {
