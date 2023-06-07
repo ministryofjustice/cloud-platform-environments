@@ -11,7 +11,6 @@ module "analytical-platform" {
   application            = var.application
   is_production          = var.is_production
   environment_name       = var.environment-name
-  owner                  = var.team_name
   infrastructure_support = var.infrastructure_support
 }
 
