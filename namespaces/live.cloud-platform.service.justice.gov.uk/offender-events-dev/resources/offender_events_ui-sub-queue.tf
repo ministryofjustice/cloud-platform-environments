@@ -121,10 +121,13 @@ resource "aws_sns_topic_subscription" "ou_events_ui_domain_subscription" {
 
 # IRSA role for offender-events-ui app
 module "offender-events-ui-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  service_account  = "offender-events-ui-dev"
-  role_policy_arns = [module.offender_events_ui_dead_letter_queue.irsa_policy_arn, module.offender_events_ui_queue.irsa_policy_arn]
+  service_account_name  = "offender-events-ui"
+  role_policy_arns = {
+    offender_events_ui_dead_letter_queue = module.offender_events_ui_dead_letter_queue.irsa_policy_arn,
+    offender_events_ui_queue = module.offender_events_ui_queue.irsa_policy_arn
+  }
 }
