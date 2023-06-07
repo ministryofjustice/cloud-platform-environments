@@ -1,7 +1,7 @@
 module "prisoner_from_nomis_sentencing_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -56,7 +56,7 @@ EOF
 module "prisoner_from_nomis_sentencing_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
