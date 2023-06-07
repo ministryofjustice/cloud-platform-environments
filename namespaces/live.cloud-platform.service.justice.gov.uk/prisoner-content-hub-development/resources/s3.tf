@@ -195,7 +195,8 @@ bucket_policy = <<EOF
           "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-0da9568a0aa6b9444b6fb48e8d4f79cd"
       },
       "Action": [
-        "s3:*"
+        "s3:GetObjectAcl",
+        "s3:PutObjectAcl"
       ],
       "Resource": [
         "$${bucket_arn}",
