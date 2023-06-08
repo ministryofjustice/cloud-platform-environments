@@ -1,5 +1,5 @@
 module "hmpps_reductions_completed_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -22,7 +22,7 @@ module "hmpps_reductions_completed_queue" {
 }
 
 module "hmpps_reductions_completed_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment
   team_name              = var.team_name

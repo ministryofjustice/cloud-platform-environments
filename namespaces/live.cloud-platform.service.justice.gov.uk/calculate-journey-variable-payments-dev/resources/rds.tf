@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name = var.vpc_name
 
@@ -9,7 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
-  
+
   enable_rds_auto_start_stop  = true
 
   db_engine         = "postgres"

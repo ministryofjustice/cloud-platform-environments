@@ -6,18 +6,20 @@
  */
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  namespace              = var.namespace
-  db_engine_version      = "11"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  vpc_name                 = var.vpc_name
+  team_name                = var.team_name
+  business-unit            = var.business_unit
+  application              = var.application
+  is-production            = var.is_production
+  namespace                = var.namespace
+  db_engine_version        = "12.11"
+  db_instance_class        = "db.t4g.micro"
+  db_max_allocated_storage = "500"
+  environment-name         = var.environment
+  infrastructure-support   = var.infrastructure_support
 
-  rds_family = "postgres11"
+  rds_family = "postgres12"
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 module "activities_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -35,4 +35,3 @@ resource "kubernetes_secret" "activities_api_rds" {
     secret_access_key     = module.activities_api_rds.secret_access_key
   }
 }
-

@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -21,7 +21,7 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories = [var.repo_name]
-  oidc_providers = ["github"]
+  oidc_providers      = ["github"]
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets

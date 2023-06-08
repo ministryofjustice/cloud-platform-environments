@@ -4,13 +4,15 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business-unit              = var.business_unit
   application                = var.application
   is-production              = var.is_production
   namespace                  = var.namespace
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
@@ -53,4 +55,3 @@ resource "kubernetes_secret" "track_a_query_rds" {
     url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
 }
-

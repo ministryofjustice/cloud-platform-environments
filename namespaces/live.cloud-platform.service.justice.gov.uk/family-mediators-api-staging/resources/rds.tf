@@ -3,7 +3,7 @@
 ############################################
 
 module "rds-instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business-unit              = var.business_unit
@@ -12,10 +12,11 @@ module "rds-instance" {
   environment-name           = var.environment_name
   infrastructure-support     = var.infrastructure_support
   namespace                  = var.namespace
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
   rds_family                 = "postgres14"
   db_engine                  = "postgres"
   db_engine_version          = "14"
-  db_instance_class          = "db.t3.small"
   enable_rds_auto_start_stop = true
 
   providers = {

@@ -1,7 +1,7 @@
 module "prisoner_offender_search_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -55,7 +55,7 @@ EOF
 module "prisoner_offender_search_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -112,6 +112,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "EXTERNAL_MOVEMENT-CHANGED",
       "SENTENCING-CHANGED",
       "ASSESSMENT-CHANGED",
+      "ASSESSMENT-UPDATED",
       "OFFENDER_BOOKING-REASSIGNED",
       "OFFENDER_BOOKING-CHANGED",
       "OFFENDER_DETAILS-CHANGED",
