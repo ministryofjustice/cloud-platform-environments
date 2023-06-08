@@ -19,26 +19,25 @@ data "aws_iam_policy_document" "dcs_access" {
     ]
   }
 
-  #TODO: Wait until SSM param is created
-  # statement {
-  #   sid = "AllowDCSToWriteToS3"
-  #   actions = [
-  #     "s3:PutObject",
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:ReEncrypt*",
-  #     "kms:GenerateDataKey*",
-  #     "kms:DescribeKey"
-  #   ]
-  #   resources = [
-  #     "*"
-  #   ]
-  #   condition {
-  #     test     = "ForAnyValue:StringEquals"
-  #     variable = "aws:ResourceAccount"
-  #     values   = [data.aws_ssm_parameter.cica_stag_account_id.value]
-  #   }
-  # }
+  statement {
+    sid = "AllowDCSToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = [data.aws_ssm_parameter.cica_stag_account_id.value]
+    }
+  }
 }
 
 resource "random_id" "id" {
@@ -86,40 +85,39 @@ data "aws_iam_policy_document" "app_service_access" {
     ]
   }
 
-  #TODO: Wait until queue resource is created
-  # statement {
-  #   sid = "AllowAppServiceToWriteToTempusQueue"
-  #   actions = [
-  #     "sqs:SendMessage",
-  #     "sqs:GetQueueAttributes"
-  #   ]
-  #   resources = [
-  #     module.claim-criminal-injuries-tempus-queue.sqs_arn
-  #   ]
-  # }
+  statement {
+    sid = "AllowAppServiceToWriteToTempusQueue"
+    actions = [
+      "sqs:SendMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-tempus-queue.sqs_arn
+    ]
+  }
 
-  #TODO: Wait until SSM param is created
-  # statement {
-  #   sid = "AllowAppServiceToWriteToS3"
-  #   actions = [
-  #     "s3:PutObject",
-  #     "s3:GetObject",
-  #     "s3:ListBucket",
-  #     "kms:Encrypt",
-  #     "kms:Decrypt",
-  #     "kms:ReEncrypt*",
-  #     "kms:GenerateDataKey*",
-  #     "kms:DescribeKey"
-  #   ]
-  #   resources = [
-  #     "*"
-  #   ]
-  #   condition {
-  #     test     = "ForAnyValue:StringEquals"
-  #     variable = "aws:ResourceAccount"
-  #     values   = [data.aws_ssm_parameter.cica_stag_account_id.value]
-  #   }
-  # }
+  TODO: Wait until SSM param is created
+  statement {
+    sid = "AllowAppServiceToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = [data.aws_ssm_parameter.cica_stag_account_id.value]
+    }
+  }
 }
 
 resource "aws_iam_user" "app_service" {
