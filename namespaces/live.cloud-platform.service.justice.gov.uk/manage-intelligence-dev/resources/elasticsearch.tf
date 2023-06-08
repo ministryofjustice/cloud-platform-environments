@@ -5,7 +5,7 @@ module "manage_intelligence_elasticsearch" {
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business_unit
-  environment-name                = var.environment-name
+  environment-name                = var.environment
   infrastructure-support          = var.infrastructure_support
   is-production                   = var.is_production
   team_name                       = var.team_name

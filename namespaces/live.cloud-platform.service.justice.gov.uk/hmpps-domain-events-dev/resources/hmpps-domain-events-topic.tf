@@ -7,7 +7,7 @@ module "hmpps-domain-events" {
   application              = var.application
   is_production            = var.is_production
   team_name                = var.team_name
-  environment_name         = var.environment-name
+  environment_name         = var.environment
   infrastructure_support   = var.infrastructure_support
   namespace                = var.namespace
   additional_topic_clients = var.additional_topic_clients
@@ -28,7 +28,7 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
     application            = var.application
     is-production          = var.is_production
     owner                  = var.team_name
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }

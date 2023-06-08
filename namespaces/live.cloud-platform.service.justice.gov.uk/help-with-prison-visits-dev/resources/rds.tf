@@ -10,7 +10,7 @@ module "hwpv_sqlserver" {
   db_engine_version      = "15.00"
   db_instance_class      = "db.t3.small"
   db_allocated_storage   = "20"
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   rds_family             = "sqlserver-web-15.0"
   db_parameter           = []

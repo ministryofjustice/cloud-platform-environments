@@ -6,7 +6,7 @@ module "risk_profiler_s3_bucket" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 

@@ -22,7 +22,7 @@ variable "team_name" {
   default = "probation-in-court-team"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "development"
 }
 

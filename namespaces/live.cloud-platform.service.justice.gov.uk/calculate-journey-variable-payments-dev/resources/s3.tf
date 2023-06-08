@@ -10,7 +10,7 @@ module "calculate-journey-variable-payments_s3_bucket" {
   infrastructure-support = var.infrastructure_support
 
   is-production    = var.is_production
-  environment-name = var.environment-name
+  environment-name = var.environment
   namespace        = var.namespace
 
   providers = {

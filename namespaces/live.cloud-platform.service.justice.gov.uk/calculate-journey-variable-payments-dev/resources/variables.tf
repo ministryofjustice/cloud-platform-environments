@@ -28,7 +28,7 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The environment name identifier."
   default     = "dev"
 }

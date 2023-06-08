@@ -7,7 +7,7 @@ module "hmpps_prisoner_search_rds" {
   application               = var.application
   is-production             = var.is_production
   namespace                 = var.namespace
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   infrastructure-support    = var.infrastructure_support
   db_instance_class         = "db.t4g.micro"
   db_engine                 = "postgres"

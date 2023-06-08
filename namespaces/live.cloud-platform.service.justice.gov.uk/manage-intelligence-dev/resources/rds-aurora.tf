@@ -6,7 +6,7 @@ module "rds_aurora" {
   application                 = var.application
   is-production               = var.is_production
   namespace                   = var.namespace
-  environment-name            = var.environment-name
+  environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
   engine                      = "aurora-postgresql"
   engine_version              = "14.6"

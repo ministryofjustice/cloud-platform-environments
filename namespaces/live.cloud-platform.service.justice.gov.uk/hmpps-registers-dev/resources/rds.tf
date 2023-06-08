@@ -6,7 +6,7 @@ module "dps_rds" {
   application            = var.court-application
   is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   enable_rds_auto_start_stop = true
@@ -48,7 +48,7 @@ module "prisons_rds" {
   application            = var.prison-application
   is-production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   enable_rds_auto_start_stop = true

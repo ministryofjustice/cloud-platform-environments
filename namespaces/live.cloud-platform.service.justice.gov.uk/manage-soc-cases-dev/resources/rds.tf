@@ -13,7 +13,7 @@ module "dps_rds" {
   db_engine_version      = "12.14"
   db_instance_class      = "db.t3.micro"
   db_max_allocated_storage = "500" # maximum storage for autoscaling
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
   rds_family = "postgres12"

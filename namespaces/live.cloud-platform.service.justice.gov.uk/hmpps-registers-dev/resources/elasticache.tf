@@ -7,7 +7,7 @@ module "hmpps_registers_elasticache_redis" {
   vpc_name               = var.vpc_name
   business-unit          = var.business_unit
   application            = var.hmpps-registers-application
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name

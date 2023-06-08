@@ -5,7 +5,7 @@ module "court_case_service_rds" {
   business-unit               = var.business_unit
   namespace                   = var.namespace
   application                 = var.application
-  environment-name            = var.environment-name
+  environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
   rds_family                  = var.rds-family
   db_engine_version           = var.db_engine_version

@@ -23,7 +23,7 @@ variable "team_name" {
   default     = "dps-shared"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }

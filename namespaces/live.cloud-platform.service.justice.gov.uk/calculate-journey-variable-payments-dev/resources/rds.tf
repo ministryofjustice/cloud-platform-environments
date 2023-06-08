@@ -4,7 +4,7 @@ module "rds-instance" {
   vpc_name = var.vpc_name
 
   application            = var.application
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   is-production          = var.is_production
   namespace              = var.namespace
   infrastructure-support = var.infrastructure_support
@@ -39,7 +39,7 @@ module "rds-instance" {
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
-    name      = "rds-instance-calculate-journey-variable-payments-${var.environment-name}"
+    name      = "rds-instance-calculate-journey-variable-payments-${var.environment}"
     namespace = var.namespace
   }
 

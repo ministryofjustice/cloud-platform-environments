@@ -6,7 +6,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -229,7 +229,7 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 module "hmpps_pin_phone_monitor_s3_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -252,7 +252,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application

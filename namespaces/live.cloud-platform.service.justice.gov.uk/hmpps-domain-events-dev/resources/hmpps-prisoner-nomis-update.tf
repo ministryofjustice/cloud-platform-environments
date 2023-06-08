@@ -4,7 +4,7 @@
 module "hmpps_prisoner_to_nomis_visit_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -54,7 +54,7 @@ EOF
 module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -116,7 +116,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscriptio
 module "hmpps_prisoner_to_nomis_incentive_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -166,7 +166,7 @@ EOF
 module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -222,7 +222,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
 module "hmpps_prisoner_to_nomis_activity_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -272,7 +272,7 @@ EOF
 module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -328,7 +328,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
 module "prisoner_to_nomis_appointment_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -378,7 +378,7 @@ EOF
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -441,7 +441,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
 module "hmpps_prisoner_to_nomis_sentencing_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -491,7 +491,7 @@ EOF
 module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
