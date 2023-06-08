@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-contact-q
 }
 
 module "person-search-index-from-delius-contact-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "person-search-index-from-delius-contact-queue-p
 }
 
 module "person-search-index-from-delius-contact-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
