@@ -18,7 +18,7 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
 }
 
 module "prison-case-notes-to-probation-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -39,7 +39,7 @@ resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
 }
 
 module "prison-case-notes-to-probation-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
