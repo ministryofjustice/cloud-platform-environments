@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -15,7 +15,7 @@ module "s3" {
 }
 
 module "cla_fala_static_files_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
@@ -54,6 +54,3 @@ resource "kubernetes_secret" "s3" {
     region            = "eu-west-2"
   }
 }
-
-
-
