@@ -36,3 +36,14 @@ resource "aws_cognito_user_pool_domain" "domain" {
   domain       = var.cognito_user_pool_domain_name
   user_pool_id = aws_cognito_user_pool.pool.id
 }
+
+resource "kubernetes_secret" "aws_cognito_user_pool_ccp_client" {
+  metadata {
+    name      = "ccp-client-secret-output"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.ccp_client.id
+    client_secret = aws_cognito_user_pool_client.ccp_client.client_secret
+  }
+}
