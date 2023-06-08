@@ -25,7 +25,7 @@ module "claim-criminal-injuries-tempus-queue" {
 }
 
 data "aws_ssm_parameter" "cica_stag_account_id" {
-  name = "/claim-criminal-injuries-compensation-dev/cica-stag-account-id"
+  name = "/claim-criminal-injuries-compensation-stag/cica-stag-account-id"
 }
 
 resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {

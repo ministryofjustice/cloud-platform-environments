@@ -96,7 +96,6 @@ data "aws_iam_policy_document" "app_service_access" {
     ]
   }
 
-  TODO: Wait until SSM param is created
   statement {
     sid = "AllowAppServiceToWriteToS3"
     actions = [
