@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: submit-a-mercury-report-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-mercury-submit-preprod
+spec:
+  secretName: hmpps-mercury-submit-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - submit-a-mercury-report-preprod.hmpps.service.justice.gov.uk

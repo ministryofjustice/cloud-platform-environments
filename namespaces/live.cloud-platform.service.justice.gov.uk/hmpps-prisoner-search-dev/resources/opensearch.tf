@@ -69,6 +69,6 @@ resource "kubernetes_secret" "opensearch" {
   }
 
   data = {
-    aws_es_proxy_url = module.hmpps_prisoner_search_opensearch.proxy_url
+    url = module.hmpps_prisoner_search_opensearch.proxy_url
   }
 }

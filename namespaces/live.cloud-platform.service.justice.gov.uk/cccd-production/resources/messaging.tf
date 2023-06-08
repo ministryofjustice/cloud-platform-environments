@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
 
   topic_display_name = "cccd-claims-submitted"
 
@@ -246,4 +246,3 @@ resource "aws_sns_topic_subscription" "cclf-queue-subscription" {
   endpoint      = module.claims_for_cclf.sqs_arn
   filter_policy = "{\"claim_type\": [\"Claim::LitigatorClaim\", \"Claim::InterimClaim\", \"Claim::TransferClaim\", \"Claim::LitigatorHardshipClaim\"]}"
 }
-

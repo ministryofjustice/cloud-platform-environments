@@ -68,9 +68,18 @@ variable "github_token" {
   default     = ""
 }
 
-variable "mp_account" {
-  description = "Destination account for S3 access"
-  default     = "013433889002" # data-platform-development
+variable "access_accounts" {
+  type        = list(string)
+  description = "Destination accounts for S3 access"
+  default = [
+    "013433889002", # data-platform-development
+    "803963757240", # ap-data-d
+    "189157455002", # ap-data-eng
+    "684969100054", # ap-data-eng-a
+    "593291632749", # ap-data
+    "525294151996", # ap-dev
+    "312423030077"  # ap
+  ]
 }
 
 variable "datahub-frontend-sa" {

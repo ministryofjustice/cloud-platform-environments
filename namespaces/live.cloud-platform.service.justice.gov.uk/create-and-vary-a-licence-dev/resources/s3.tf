@@ -4,7 +4,7 @@
 #################################################################################
 
 module "create-and-vary-a-licence-s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -32,4 +32,3 @@ resource "kubernetes_secret" "create-and-vary-a-licence-s3" {
     bucket_name       = module.create-and-vary-a-licence-s3.bucket_name
   }
 }
-

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: activities-preprod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "preprod"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "activities-management"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "farsight-devs"
+    cloud-platform.justice.gov.uk/application: "Activities management"
+    cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/activities-management.git"
+    cloud-platform.justice.gov.uk/team-name: "farsight-devs"

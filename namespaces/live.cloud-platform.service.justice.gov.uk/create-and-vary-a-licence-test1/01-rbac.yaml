@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: create-and-vary-a-licence-test1-admin
+  namespace: create-and-vary-a-licence-test1
+subjects:
+  - kind: Group
+    name: "github:create-and-vary-a-licence-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

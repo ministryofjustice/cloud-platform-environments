@@ -9,6 +9,10 @@ terraform {
       source  = "hashicorp/dns"
       version = "~> 3.3.2"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.23.0"
+    }
     helm = {
       source  = "hashicorp/helm"
       version = "~> 2.9.0"

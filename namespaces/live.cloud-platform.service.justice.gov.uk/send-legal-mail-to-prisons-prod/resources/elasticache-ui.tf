@@ -12,11 +12,11 @@ module "slmtp_ui_elasticache_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t2.small"
+  node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
-  auth_token_rotated_date = "2023-05-15"
+  auth_token_rotated_date = "2023-05-16"
 
   providers = {
     aws = aws.london

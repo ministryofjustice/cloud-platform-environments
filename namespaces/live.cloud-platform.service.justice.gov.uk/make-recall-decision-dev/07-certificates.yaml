@@ -10,5 +10,18 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - make-recall-decision-dev.hmpps.service.justice.gov.uk
     - make-recall-decision-api-dev.hmpps.service.justice.gov.uk
+    - consider-a-recall-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-recall-decision-dev.hmpps.service.justice.gov.uk
+  namespace: make-recall-decision-dev
+spec:
+  secretName: make-recall-decision-cert-old
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - make-recall-decision-dev.hmpps.service.justice.gov.uk

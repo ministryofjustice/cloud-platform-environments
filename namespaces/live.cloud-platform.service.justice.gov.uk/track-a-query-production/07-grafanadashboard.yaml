@@ -91,7 +91,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\"} [60m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\"} [60m])))",
               "interval": "",
               "legendFormat": "Restarts count (60m)",
               "refId": "B"
@@ -150,19 +150,19 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"jobs\"}[2m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"jobs\"}[2m])))",
               "interval": "",
               "legendFormat": "Jobs container",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"webapp\"}[2m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"webapp\"}[2m])))",
               "interval": "",
               "legendFormat": "Webapp container",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"uploads\"}[2m]))",
+              "expr": "round(sum(increase(kube_pod_container_status_restarts_total{namespace=\"track-a-query-production\", container=\"uploads\"}[2m])))",
               "interval": "",
               "legendFormat": "Upload container",
               "refId": "C"

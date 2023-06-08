@@ -24,9 +24,9 @@ module "check-financial-eligibility-rds" {
   db_parameter              = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family                = "postgres14"
   deletion_protection       = true
-  db_instance_class         = "db.t3.large"
+  db_instance_class         = "db.t4g.small"
   db_max_allocated_storage  = "500"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london

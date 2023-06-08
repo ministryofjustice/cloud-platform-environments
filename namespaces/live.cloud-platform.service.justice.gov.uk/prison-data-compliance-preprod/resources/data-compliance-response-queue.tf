@@ -1,5 +1,5 @@
 module "data_compliance_response_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -23,7 +23,7 @@ module "data_compliance_response_queue" {
 }
 
 module "data_compliance_response_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
