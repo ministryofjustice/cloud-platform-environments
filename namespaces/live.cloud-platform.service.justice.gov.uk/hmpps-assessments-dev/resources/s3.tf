@@ -1,5 +1,5 @@
 module "hmpps_assessments_s3" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
@@ -13,7 +13,7 @@ module "hmpps_assessments_s3" {
   }
 
   /*
-   * The following is used to set a lifecycle for documents in S3. 
+   * The following is used to set a lifecycle for documents in S3.
    *  Documentation here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-object-lifecycle"
    *  "https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html"
    *

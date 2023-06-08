@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-electronic-monitoring-preprod"
+  default     = "hmpps-electronic-monitoring-dev"
 }
 
 variable "business_unit" {
@@ -66,4 +66,9 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  description = "The number of cache clusters (primary and replicas) this replication group will have. Default is 2"
+  default = "2"
 }

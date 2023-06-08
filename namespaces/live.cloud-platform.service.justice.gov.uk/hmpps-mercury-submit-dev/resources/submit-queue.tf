@@ -1,5 +1,5 @@
 module "mercury_submit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment
   team_name                  = var.team_name
@@ -16,7 +16,7 @@ module "mercury_submit_queue" {
   {
     "deadLetterTargetArn": "${module.mercury_submit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
-  
+
 EOF
 
   providers = {
@@ -25,7 +25,7 @@ EOF
 }
 
 module "mercury_submit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment
   team_name              = var.team_name
@@ -69,4 +69,3 @@ resource "kubernetes_secret" "mercury_submit_dead_letter_queue" {
     sqs_name          = module.mercury_submit_dead_letter_queue.sqs_name
   }
 }
-

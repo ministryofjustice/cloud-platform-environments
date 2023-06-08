@@ -23,35 +23,40 @@ resource "aws_apigatewayv2_authorizer" "auth" {
     audience = [aws_cognito_user_pool_client.client.id]
     issuer   = "https://${aws_cognito_user_pool.pool.endpoint}"
   }
+
 }
 
-resource "aws_apigatewayv2_integration" "test_api" {
+resource "aws_apigatewayv2_integration" "crime_apply_api" {
   api_id                          = aws_apigatewayv2_api.gateway.id
   integration_method              = "ANY"
   connection_type                 = "INTERNET"
   integration_type                = "HTTP_PROXY"
-  integration_uri                 = "https://${aws_apigatewayv2_api.gateway.id}.execute-api.${var.apigw_region}.amazonaws.com/${var.apigw_stage_name}/test"
-  passthrough_behavior            = "WHEN_NO_MATCH"
+  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{proxy}"
+
+  depends_on = [
+    aws_apigatewayv2_api.gateway,
+  ]
+
 }
 
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "ANY /test"
-  target = "integrations/${aws_apigatewayv2_integration.test_api.id}"
+  route_key = "ANY /api/internal/v1/crimeapply/{proxy+}"
+  target = "integrations/${aws_apigatewayv2_integration.crime_apply_api.id}"
   authorization_type = "JWT"
   authorizer_id = aws_apigatewayv2_authorizer.auth.id
   authorization_scopes = aws_cognito_resource_server.resource.scope_identifiers
+
+  depends_on = [
+    aws_apigatewayv2_api.gateway,
+    aws_apigatewayv2_integration.crime_apply_api,
+  ]
+
 }
 
 resource "aws_apigatewayv2_deployment" "deployment" {
   api_id      = aws_apigatewayv2_api.gateway.id
   description = "API Gateway deployment"
-
-  triggers = {
-    redeployment = sha1(join(",", tolist([
-      jsonencode(aws_apigatewayv2_integration.test_api),
-    ])))
-  }
 
   lifecycle {
     create_before_destroy = true
@@ -59,8 +64,8 @@ resource "aws_apigatewayv2_deployment" "deployment" {
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
-    aws_apigatewayv2_route.route,
-    aws_apigatewayv2_integration.test_api,
+    aws_apigatewayv2_integration.crime_apply_api,
+    aws_apigatewayv2_route.route
   ]
 }
 
@@ -72,18 +77,18 @@ resource "aws_apigatewayv2_stage" "stage" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_log_group.arn
     format          = jsonencode(
-        {
-          requestId         = "$context.requestId"
-          extendedRequestId = "$context.extendedRequestId"
-          ip                = "$context.identity.sourceIp"
-          caller            = "$context.identity.caller"
-          user              = "$context.identity.user"
-          requestTime       = "$context.requestTime"
-          httpMethod        = "$context.httpMethod"
-          resourcePath      = "$context.resourcePath"
-          status            = "$context.status"
-          protocol          = "$context.protocol"
-          responseLength    = "$context.responseLength"
+      {
+        requestId         = "$context.requestId"
+        extendedRequestId = "$context.extendedRequestId"
+        ip                = "$context.identity.sourceIp"
+        caller            = "$context.identity.caller"
+        user              = "$context.identity.user"
+        requestTime       = "$context.requestTime"
+        httpMethod        = "$context.httpMethod"
+        resourcePath      = "$context.resourcePath"
+        status            = "$context.status"
+        protocol          = "$context.protocol"
+        responseLength    = "$context.responseLength"
       })
   }
 
@@ -99,58 +104,8 @@ resource "aws_apigatewayv2_stage" "stage" {
   default_route_settings {
     logging_level = "INFO"
     detailed_metrics_enabled = true
+    throttling_rate_limit  = 100
+    throttling_burst_limit = 100
   }
 
 }
-
-resource "aws_api_gateway_usage_plan" "caa-plan" {
-  name = "caa-prototype-usage-plan"
-  description = "API gateway usage plan for CAA service."
-
-  quota_settings {
-    limit = 500
-    offset = 2
-    period = "MONTH"
-  }
-
-  throttle_settings {
-    burst_limit = 20
-    rate_limit = 10
-  }
-
-  api_stages {
-    api_id = aws_apigatewayv2_api.gateway.id
-    stage = aws_apigatewayv2_stage.stage.name
-  }
-}
-
-resource "random_id" "key" {
-  count       = 1
-  byte_length = 16
-}
-
-resource "aws_api_gateway_api_key" "api_key" {
-  count = 1
-  name  = "caa-key"
-  value = "CAA${random_id.key[0].hex}"
-}
-
-resource "kubernetes_secret" "apikeys" {
-  count = 1
-
-  metadata {
-    name      = "caa-api-key"
-    namespace = var.namespace
-  }
-
-  data = {
-    "caa-api-key" = aws_api_gateway_api_key.api_key[0].value
-  }
-}
-
-resource "aws_api_gateway_usage_plan_key" "main" {
-  key_id        = aws_api_gateway_api_key.api_key[0].id
-  key_type      = "API_KEY"
-  usage_plan_id = aws_api_gateway_usage_plan.caa-plan.id
-}
-

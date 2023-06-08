@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: claim-non-standard-magistrate-fee-high-fidelity-admin
+  namespace: claim-non-standard-magistrate-fee-high-fidelity
+subjects:
+  - kind: Group
+    name: "github:cnsmf"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

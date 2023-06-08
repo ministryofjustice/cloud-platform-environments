@@ -1,55 +1,55 @@
 variable "api_gateway_name" {
   description = "The name of the API Gateway"
-  default = "caa-api-gateway"
+  default     = "caa-api-gateway"
 }
 
 variable "aws_lb_listener_https_arn" {
   description = "Load balancer listner arn"
-  default = "https://laa-crime-applications-adaptor-prototype.legalservices.gov.uk/test"
+  default     = "https://laa-crime-applications-adaptor-prototype.legalservices.gov.uk/test"
 }
 
 variable "apigw_stage_name" {
   description = "Named reference to the deployment"
-  default = "v1"
+  default     = "v1"
 }
 
 variable "user_pool_name" {
   description = "Cognito user pool name"
-  default = "laa-crime-applications-adaptor-prototype-userpool"
+  default     = "laa-crime-applications-adaptor-prototype-userpool"
 }
 
 variable "cognito_user_pool_client_name" {
   description = "Cognito user pool client name"
-  default = "laa-crime-applications-adaptor-prototype"
+  default     = "laa-crime-applications-adaptor-prototype"
 }
 
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
-  default = "laa-crime-applications-adaptor-prototype"
+  default     = "laa-crime-applications-adaptor-prototype"
 }
 
 variable "resource_server_name" {
   description = "Cognito resource server name"
-  default = "laa-crime-applications-adaptor-prototype-resourceserver"
+  default     = "laa-crime-applications-adaptor-prototype-resourceserver"
 
 }
 
 variable "resource_server_scope_name" {
   description = "Resource server scope name"
-  default = "standard"
+  default     = "standard"
 
 }
 
 variable "resource_server_scope_description" {
-    default = "Standard scope"
+  default = "Standard scope"
 }
 
 variable "cognito_user_pool_domain_name" {
-     default = "laa-crime-applications-adaptor-prototype"
+  default = "laa-crime-applications-adaptor-prototype"
 }
 
 variable "access_log_retention_in_days" {
-     default = 7
+  default = 7
 }
 
 variable "vpc_name" {
@@ -130,7 +130,14 @@ variable "base_domain_route53_namespace" {
   default     = "laa-crime-applications-adaptor-prototype"
 }
 
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
 variable "github_token" {
-  description = "Required by the Github Terraform provider"
+  type        = string
+  description = "Required by the GitHub Terraform provider"
   default     = ""
 }

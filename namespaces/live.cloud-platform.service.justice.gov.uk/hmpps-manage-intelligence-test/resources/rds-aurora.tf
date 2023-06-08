@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.3.0"
 
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -52,4 +52,3 @@ resource "kubernetes_secret" "manage_intelligence_rds_aurora" {
     reader_url                          = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_reader_endpoint}/${module.rds_aurora.database_name}"
   }
 }
-

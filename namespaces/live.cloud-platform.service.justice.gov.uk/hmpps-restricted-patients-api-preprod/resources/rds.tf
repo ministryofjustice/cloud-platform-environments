@@ -1,5 +1,5 @@
 module "rp_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -56,4 +56,3 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     rds_instance_address  = module.rp_rds.rds_instance_address
   }
 }
-

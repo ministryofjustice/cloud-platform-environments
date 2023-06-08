@@ -1,5 +1,5 @@
 module "hmpps-ems-ecr" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   repo_name = "hmpps-ems"
   team_name = "hmpps-ems-platform-team"
 }
