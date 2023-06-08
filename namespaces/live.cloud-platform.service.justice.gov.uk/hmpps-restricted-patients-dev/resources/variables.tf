@@ -30,11 +30,6 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "environment" {
-  description = "The type of environment you're deploying to."
-  default     = "development"
-}
-
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
