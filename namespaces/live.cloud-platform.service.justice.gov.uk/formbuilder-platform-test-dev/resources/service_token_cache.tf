@@ -1,5 +1,5 @@
 module "service-token-cache-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
 
   vpc_name = var.vpc_name
 
@@ -30,4 +30,3 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
     auth_token               = module.service-token-cache-elasticache.auth_token
   }
 }
-

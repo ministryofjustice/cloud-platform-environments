@@ -1,5 +1,5 @@
 module "nomis_migration_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -39,4 +39,3 @@ resource "kubernetes_secret" "nomis_migration_rds" {
     url                   = "postgres://${module.nomis_migration_rds.database_username}:${module.nomis_migration_rds.database_password}@${module.nomis_migration_rds.rds_instance_endpoint}/${module.nomis_migration_rds.database_name}"
   }
 }
-

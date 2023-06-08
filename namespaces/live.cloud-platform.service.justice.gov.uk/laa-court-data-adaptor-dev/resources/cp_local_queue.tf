@@ -1,5 +1,5 @@
 module "cp_test_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = "development"
   team_name                 = "crimeapps"

@@ -1,5 +1,5 @@
 module "hmpps-workload-impact-testing-dms" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.5.0"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
