@@ -3,7 +3,7 @@
 #############################################
 
 module "rds_instance" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   application                 = var.application
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -38,4 +38,3 @@ resource "kubernetes_secret" "rds_instance" {
     secret_access_key     = module.rds_instance.secret_access_key
   }
 }
-

@@ -1,5 +1,5 @@
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
@@ -36,4 +36,3 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
     secret_access_key     = module.calculate_release_dates_api_rds.secret_access_key
   }
 }
-
