@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "risk-assessment-scores-to-delius-queue-su
 }
 
 module "risk-assessment-scores-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "risk-assessment-scores-to-delius-queue-policy" 
 }
 
 module "risk-assessment-scores-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
