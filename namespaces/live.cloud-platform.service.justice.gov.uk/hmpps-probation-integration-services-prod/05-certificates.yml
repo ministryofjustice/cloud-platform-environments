@@ -298,3 +298,18 @@ spec:
   dnsNames:
     - 6dc0564d.hmpps.service.justice.gov.uk
     - soc-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan-and-oasys-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: sentence-plan-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4713f3dc.hmpps.service.justice.gov.uk
+    - sentence-plan-and-oasys.hmpps.service.justice.gov.uk
