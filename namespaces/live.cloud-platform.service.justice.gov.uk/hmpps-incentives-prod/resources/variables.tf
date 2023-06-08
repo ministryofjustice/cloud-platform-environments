@@ -53,3 +53,15 @@ variable "backup_window" {
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+

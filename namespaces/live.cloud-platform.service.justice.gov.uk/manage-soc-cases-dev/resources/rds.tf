@@ -3,18 +3,21 @@ resource "random_id" "id" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "11"
+  db_engine_version      = "12.14"
+  db_instance_class      = "db.t3.micro"
+  db_max_allocated_storage = "500" # maximum storage for autoscaling
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  rds_family = "postgres11"
+  rds_family = "postgres12"
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
@@ -88,4 +91,3 @@ resource "kubernetes_secret" "dps_rds" {
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret
   }
 }
-

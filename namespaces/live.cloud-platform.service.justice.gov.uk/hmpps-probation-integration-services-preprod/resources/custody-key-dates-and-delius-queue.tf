@@ -22,7 +22,7 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-sub
 }
 
 module "custody-key-dates-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -43,7 +43,7 @@ resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-queue-policy" {
 }
 
 module "custody-key-dates-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name

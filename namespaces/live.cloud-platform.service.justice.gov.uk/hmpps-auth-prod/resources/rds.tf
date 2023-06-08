@@ -8,6 +8,7 @@ module "dps_rds" {
   namespace              = var.namespace
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
+  performance_insights_enabled = true
   db_instance_class         = "db.t4g.large"
   deletion_protection       = true
   prepare_for_major_upgrade = false

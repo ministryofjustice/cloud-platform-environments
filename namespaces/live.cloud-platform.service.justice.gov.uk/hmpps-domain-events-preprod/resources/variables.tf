@@ -24,14 +24,17 @@ variable "team_name" {
 variable "additional_topic_clients" {
   description = "Create a dedicated access key and store it in a secret named 'hmpps-domain-events-topic' in each of the below namespaces."
   default = [
+    "activities-api-preprod",
     "calculate-release-dates-api-preprod",
     "court-probation-preprod",
+    "hmpps-adjustments-preprod",
     "hmpps-assessments-preprod",
     "hmpps-community-accommodation-preprod",
     "hmpps-complexity-of-need-preprod",
     "hmpps-domain-event-logger-preprod",
     "hmpps-incentives-preprod",
     "hmpps-interventions-preprod",
+    "hmpps-manage-adjudications-api-preprod",
     "hmpps-manage-offences-api-preprod",
     "hmpps-registers-preprod",
     "hmpps-restricted-patients-api-preprod",
@@ -60,8 +63,14 @@ variable "is_production" {
   default = "false"
 }
 
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
 variable "github_token" {
+  type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-

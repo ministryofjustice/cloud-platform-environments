@@ -31,8 +31,6 @@ module "rds-live" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
-  snapshot_identifier = "rds:cloud-platform-78407cd5fbd86ed5-2023-02-18-02-09"
-
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london

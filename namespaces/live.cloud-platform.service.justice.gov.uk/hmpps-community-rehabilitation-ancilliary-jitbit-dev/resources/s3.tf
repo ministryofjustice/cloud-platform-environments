@@ -9,7 +9,7 @@
 #  Create bucket and secret for jitbit app files
 ##
 module "s3_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name                     = var.team_name
   business-unit                 = var.business_unit
   application                   = var.application
@@ -49,7 +49,7 @@ resource "kubernetes_secret" "s3_bucket" {
 #  Create bucket and secret for jitbit app artefacts - used by the docker build process
 ##
 module "s3_bucket_jitbit_app_artefacts" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name                     = var.team_name
   business-unit                 = var.business_unit
   application                   = var.application

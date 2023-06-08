@@ -1,5 +1,5 @@
 module "court_case_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -12,6 +12,7 @@ module "court_case_service_rds" {
   db_instance_class           = "db.t3.xlarge"
   rds_family                  = "postgres13"
   db_allocated_storage        = "35"
+  enable_rds_auto_start_stop  = true
 
   snapshot_identifier = "court-case-service-manual-snapshot-1670251827"
 
@@ -36,4 +37,3 @@ resource "kubernetes_secret" "court_case_service_rds" {
     secret_access_key     = module.court_case_service_rds.secret_access_key
   }
 }
-

@@ -1,5 +1,5 @@
 module "hmcts-complaints-adapter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
@@ -10,8 +10,10 @@ module "hmcts-complaints-adapter-rds-instance" {
   infrastructure-support     = var.infrastructure_support
   team_name                  = var.team_name
 
-  db_engine_version = "11"
-  rds_family        = "postgres11"
+  db_engine_version          = "14.4"
+  rds_family                 = "postgres14"
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500" # maximum storage for autoscaling
 
   providers = {
     aws = aws.london
@@ -29,4 +31,3 @@ resource "kubernetes_secret" "hmcts-complaints-adapter-rds-instance" {
     url = "postgres://${module.hmcts-complaints-adapter-rds-instance.database_username}:${module.hmcts-complaints-adapter-rds-instance.database_password}@${module.hmcts-complaints-adapter-rds-instance.rds_instance_endpoint}/${module.hmcts-complaints-adapter-rds-instance.database_name}"
   }
 }
-

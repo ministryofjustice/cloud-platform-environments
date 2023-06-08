@@ -29,7 +29,7 @@ jobs:
           GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Successful Result
-        if: steps.po-linter.outcome = 'success'
+        if: steps.po-linter.outcome == 'success'
         uses: actions/github-script@v6
         env:
             summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"

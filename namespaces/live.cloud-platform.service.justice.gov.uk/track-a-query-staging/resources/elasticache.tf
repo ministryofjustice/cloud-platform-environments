@@ -4,12 +4,12 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
-  team_name              = "correspondence"
-  business-unit          = "Central Digital"
-  application            = "track-a-query"
-  is-production          = "false"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   engine_version         = "7.0"
@@ -27,7 +27,7 @@ module "track_a_query_elasticache_redis" {
 resource "kubernetes_secret" "track_a_query_elasticache_redis" {
   metadata {
     name      = "track-a-query-elasticache-redis-output"
-    namespace = "track-a-query-staging"
+    namespace = var.namespace
   }
 
   data = {
@@ -36,4 +36,3 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
     url                      = "rediss://appuser:${module.track_a_query_elasticache_redis.auth_token}@${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
-

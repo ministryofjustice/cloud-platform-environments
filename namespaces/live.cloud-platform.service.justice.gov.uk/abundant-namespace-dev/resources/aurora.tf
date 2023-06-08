@@ -1,6 +1,6 @@
 module "aurora_db" {
   # always check the latest release in Github and set below
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.3.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit

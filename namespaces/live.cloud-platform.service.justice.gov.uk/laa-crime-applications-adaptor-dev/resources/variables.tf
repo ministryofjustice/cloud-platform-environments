@@ -87,3 +87,46 @@ variable "visibility_timeout_seconds" {
   description = "Sets the length of time (seconds) that a message received from a queue will not be visible to the other message consumers."
   default     = "120"
 }
+
+variable "api_gateway_name" {
+  description = "The name of the API Gateway"
+  default     = "caa-api-gateway-dev"
+}
+
+variable "apigw_stage_name" {
+  description = "Named reference to the deployment"
+  default     = "v1"
+}
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "caa-api-dev-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "caa-api-dev"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "caa-api-dev"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "caa-api-dev-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "caa-api-dev"
+}

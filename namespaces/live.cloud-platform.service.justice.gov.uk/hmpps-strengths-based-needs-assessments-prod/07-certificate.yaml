@@ -11,3 +11,16 @@ spec:
   dnsNames:
     - strengths-based-needs.hmpps.service.justice.gov.uk
     - strengths-based-needs-assessments.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: strengths-based-needs.hmpps.service.justice.gov.uk
+  namespace: hmpps-strengths-based-needs-assessments-prod
+spec:
+  secretName: hmpps-strengths-based-needs-assessments-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - api.strengths-based-needs.hmpps.service.justice.gov.uk
