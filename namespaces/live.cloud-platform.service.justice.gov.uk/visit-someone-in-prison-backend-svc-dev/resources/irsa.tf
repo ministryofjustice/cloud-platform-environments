@@ -11,6 +11,7 @@ module "app-irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  eks_cluster_name       = var.eks_cluster_name
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
