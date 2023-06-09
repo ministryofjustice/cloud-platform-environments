@@ -10,10 +10,8 @@ variable "namespace" {
   default = "prison-to-probation-update-dev"
 }
 
-
 variable "vpc_name" {
 }
-
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
