@@ -21,6 +21,13 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns     = merge(local.sqs_policies, local.dynamodb_policies)
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 #  For deletion
@@ -34,7 +41,7 @@ module "app-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
-  service_account  = "${var.application}-${var.environment-name}"
+  service_account  = "${var.application}-${var.environment}"
   role_policy_arns = concat(local.sqs_policies_old, local.dynamodb_policies_old)
 }
 
