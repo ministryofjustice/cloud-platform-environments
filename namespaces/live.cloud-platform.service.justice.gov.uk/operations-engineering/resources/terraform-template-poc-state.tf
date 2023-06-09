@@ -4,7 +4,7 @@ locals {
 
 # S3 Bucket to Store State
 module "terraform_template_poc_state_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   acl    = "private"
 
   team_name              = var.team_name
@@ -35,7 +35,7 @@ resource "kubernetes_secret" "terraform_template_poc_state_bucket" {
 
 # DynamoDB State Lock
 module "terraform_template_poc_state_lock_table" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
 
   team_name              = var.team_name
   application            = var.application
