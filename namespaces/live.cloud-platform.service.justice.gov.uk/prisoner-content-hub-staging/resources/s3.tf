@@ -1,5 +1,5 @@
 module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   team_name              = var.team_name
   versioning             = true
@@ -15,7 +15,7 @@ module "drupal_content_storage" {
     {
       allowed_headers = ["Accept", "Content-Type", "Origin"]
       allowed_methods = ["GET", "PUT", "POST"]
-      allowed_origins = ["https://cms-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://cms-prisoner-content-hub-staging.apps.live.cloud-platform.service.justice.gov.uk"]
       max_age_seconds = 3000
     }
   ]

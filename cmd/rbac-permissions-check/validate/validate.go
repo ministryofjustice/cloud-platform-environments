@@ -28,7 +28,7 @@ func UserPermissions(namespaceTeams map[string]int, opt *config.Options, user *c
 			members, resp, err := opt.Client.Teams.ListTeamMembersBySlug(opt.Ctx, repo.Org, team, teamOpts)
 			allMembers = append(allMembers, members...)
 			if err != nil {
-				return false, "", nil
+				return false, "", err
 			}
 
 			if resp.NextPage == 0 {

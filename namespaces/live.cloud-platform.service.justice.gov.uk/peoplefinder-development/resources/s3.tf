@@ -4,14 +4,14 @@
 #################################################################################
 
 module "peoplefinder_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
-  team_name              = "peoplefinder"
-  business-unit          = "Central Digital"
-  application            = "peoplefinder"
-  is-production          = "false"
-  environment-name       = "development"
-  infrastructure-support = "people-finder-support@digital.justice.gov.uk"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
 
   cors_rule = [
     {
@@ -82,4 +82,3 @@ resource "kubernetes_secret" "peoplefinder_s3" {
     bucket_name       = module.peoplefinder_s3.bucket_name
   }
 }
-

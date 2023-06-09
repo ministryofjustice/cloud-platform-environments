@@ -5,7 +5,7 @@
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                   = var.vpc_name
   db_instance_class          = "db.t3.small"

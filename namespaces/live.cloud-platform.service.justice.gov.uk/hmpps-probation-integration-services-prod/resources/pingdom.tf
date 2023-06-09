@@ -21,6 +21,8 @@ resource "pingdom_check" "pingdom" {
     "effective-proposal-framework-and-delius",
     "sentence-plan-and-delius",
     "pathfinder-and-delius",
+    "soc-and-delius",
+    "sentence-plan-and-oasys",
     # ^ add new projects here
   ])
   type                     = "http"

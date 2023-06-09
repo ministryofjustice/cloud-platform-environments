@@ -1,5 +1,5 @@
 module "hmpps_audit_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -14,7 +14,6 @@ module "hmpps_audit_rds" {
   rds_family                  = "postgres15"
   db_engine_version           = "15"
   deletion_protection         = true
-  enable_rds_auto_start_stop  = true
   db_engine = "postgres"
   prepare_for_major_upgrade   = false
 

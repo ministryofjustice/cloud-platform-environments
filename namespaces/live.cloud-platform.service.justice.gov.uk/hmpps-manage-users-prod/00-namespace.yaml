@@ -5,6 +5,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
+    cloud-platform.justice.gov.uk/namespace: "hmpps-manage-users-prod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "hmpps-manage-users"

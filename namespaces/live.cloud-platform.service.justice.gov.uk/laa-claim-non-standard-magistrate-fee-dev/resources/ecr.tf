@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-    github_repositories = ["LAA-Claim-non-standard-magistrate-fee-backend"]
+  github_repositories = ["LAA-Claim-non-standard-magistrate-fee-backend"]
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url

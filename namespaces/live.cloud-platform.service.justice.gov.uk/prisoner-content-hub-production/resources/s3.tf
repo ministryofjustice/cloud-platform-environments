@@ -229,6 +229,20 @@ EOF
       "Resource": [
         "$${bucket_arn}"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
+      },
+      "Action": [
+        "s3:GetObjectAcl",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
     }
   ]
 }
@@ -268,6 +282,29 @@ EOF
   ]
 }
 EOF
+}
+
+# Output S3 bucket info to staging and development namespaces, to facilitate automated file syncing.
+# NOTE: We only share the bucket name.  We never share access keys.
+resource "kubernetes_secret" "drupal_content_storage_output_staging_new" {
+  metadata {
+    name      = "drupal-s3-output-new"
+    namespace = "prisoner-content-hub-staging"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage_2.bucket_name
+  }
+}
+resource "kubernetes_secret" "drupal_content_storage_output_development_new" {
+  metadata {
+    name      = "drupal-s3-output-new"
+    namespace = "prisoner-content-hub-development"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage_2.bucket_name
+  }
 }
 
 resource "kubernetes_secret" "drupal_content_storage_2_secret" {

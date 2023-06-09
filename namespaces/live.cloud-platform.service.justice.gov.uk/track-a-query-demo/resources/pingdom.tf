@@ -16,6 +16,6 @@ resource "pingdom_check" "track-a-query-demo-healthcheck" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_central_digital,application_track_a_query,component_ping,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_track_a_query"
+  tags                     = "businessunit_central_digital,application_track_a_query,component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_track_a_query"
   probefilters             = "region:EU"
 }

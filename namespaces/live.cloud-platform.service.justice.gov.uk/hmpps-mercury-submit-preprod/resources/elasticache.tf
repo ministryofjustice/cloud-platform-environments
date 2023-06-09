@@ -3,7 +3,7 @@
 ################################################################################
 
 module "mercury_submit_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment
@@ -15,6 +15,8 @@ module "mercury_submit_elasticache_redis" {
   node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  maintenance_window     = "sun:23:00-mon:01:00"
+  snapshot_window        = "02:00-05:00"
   namespace              = var.namespace
 
   providers = {
