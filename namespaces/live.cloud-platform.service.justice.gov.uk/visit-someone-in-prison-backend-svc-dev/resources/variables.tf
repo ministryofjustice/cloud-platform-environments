@@ -27,6 +27,10 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "prisonvisitsbooking@digital.justice.gov.uk"
