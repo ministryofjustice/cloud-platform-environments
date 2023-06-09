@@ -6,7 +6,6 @@ module "analytical-platform" {
   role_policy_arns       = {
     analytical-platform = aws_iam_policy.analytical-platform.arn
   }
-  # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
   service_account_name   = "${var.namespace}-analytical-platform"
   # Tags
   business_unit          = var.business_unit
