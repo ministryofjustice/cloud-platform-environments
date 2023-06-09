@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=jakemulley-patch-1"
 
   # Tags
   application            = var.application
@@ -19,7 +19,7 @@ module "cdn" {
 
   # Origin
   origin = {
-    domain_name = "https://${module.s3.bucket_name}.s3.eu-west-2.amazonaws.com" # tidy up
+    domain_name = module.s3.bucket_domain_name
   }
 
   # Tags
