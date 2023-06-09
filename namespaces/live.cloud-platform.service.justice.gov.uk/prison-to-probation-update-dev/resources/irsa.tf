@@ -49,13 +49,3 @@ data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
-
-data "aws_iam_policy" "sqs_policies" {
-  for_each = local.sqs_policies
-  arn      = each.value
-}
-
-# Combine all SQS policies
-data "aws_iam_policy_document" "sqs_policies" {
-  source_policy_documents = [for item in data.aws_iam_policy.sqs_policies : item.policy]
-}
