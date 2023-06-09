@@ -51,7 +51,7 @@ data "aws_ssm_parameter" "irsa_policy_arns" {
 }
 
 data "aws_iam_policy" "sqs_policies" {
-  for_each = data.aws_ssm_parameter.irsa_policy_arns
+  for_each = locals.sqs_policies_old
   arn      = each.value
 }
 
