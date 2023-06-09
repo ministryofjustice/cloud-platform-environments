@@ -4,7 +4,7 @@ module "message_dynamodb" {
   team_name                    = var.team_name
   application                  = var.application
   business-unit                = var.business_unit
-  environment-name             = var.environment-name
+  environment-name             = var.environment
   infrastructure-support       = var.infrastructure_support
   is-production                = "false"
   namespace                    = var.namespace
@@ -35,7 +35,7 @@ module "schedule_dynamodb" {
   team_name              = var.team_name
   application            = var.application
   business-unit          = var.business_unit
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   is-production          = "false"
   namespace              = var.namespace
