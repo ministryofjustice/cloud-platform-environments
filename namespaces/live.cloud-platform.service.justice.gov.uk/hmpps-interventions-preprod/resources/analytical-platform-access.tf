@@ -1,3 +1,5 @@
+# Note for Amol, this file is not used - no service/application consumes
+# the data in the proprod stack.
 module "ap_irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
   namespace        = var.namespace
