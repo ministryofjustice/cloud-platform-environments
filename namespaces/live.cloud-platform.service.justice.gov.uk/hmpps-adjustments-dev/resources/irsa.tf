@@ -13,8 +13,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
   namespace        = var.namespace
   service_account  = "hmpps-adjustments-api-${var.environment_name}"
-  role_policy_arns = 
-    [for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.value]
+  role_policy_arns = [for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.value]
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
