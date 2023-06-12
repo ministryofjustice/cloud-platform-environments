@@ -19,9 +19,7 @@ module "ecr_credentials" {
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["dev"]
-
-  # You must provide a prefix if you're using environments, otherwise Terraform will fail as it will try to overwrite the Actions variable and error saying it exists.
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   /*
