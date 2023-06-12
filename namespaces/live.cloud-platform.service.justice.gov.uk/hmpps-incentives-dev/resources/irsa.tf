@@ -18,7 +18,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-incentives-api"
-  role_policy_arns     = concat([
+  role_policy_arns     = merge([
     module.prisoner-event-queue.irsa_policy_arn,
     module.prisoner-event-dlq.irsa_policy_arn
     ],
