@@ -11,9 +11,9 @@ module "secrets_manager" {
 
   secrets = {
     "user-guide-secret" = {
-      description             = "test secret for user guide update", // Required
-      recovery_window_in_days = 7, // Required
-      k8s_secret_name        = "test-secret" // The name of the secret in k8s
+      description             = "test secret for user guide update", # Required
+      recovery_window_in_days = 7, # Required
+      k8s_secret_name        = "test-secret" # The name of the secret in k8s
     },
   }
 }
