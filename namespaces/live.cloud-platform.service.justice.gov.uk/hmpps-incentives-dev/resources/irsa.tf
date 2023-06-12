@@ -20,7 +20,7 @@ module "irsa" {
   service_account_name = "hmpps-incentives-api"
   role_policy_arns     = merge(
     local.sqs_policies,
-    local.sns_policies
+    local.sns_policies,
     { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
     { prisoner-event-dlq   = module.prisoner-event-dlq.irsa_policy_arn }
   )
