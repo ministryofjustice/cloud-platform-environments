@@ -3,7 +3,7 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sqs_queues = {
+  sns_queues = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"       = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
@@ -26,6 +26,6 @@ module "irsa" {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+  for_each = local.sns_queues
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
