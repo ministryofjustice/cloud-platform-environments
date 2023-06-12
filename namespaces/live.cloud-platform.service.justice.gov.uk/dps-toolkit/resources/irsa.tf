@@ -6,7 +6,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue" = "hmpps-domain-events-dev"
   }
-  sqs_policies  = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "irsa" {
