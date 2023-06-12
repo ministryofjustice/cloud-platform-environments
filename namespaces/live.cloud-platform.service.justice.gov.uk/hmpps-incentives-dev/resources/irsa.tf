@@ -20,10 +20,11 @@ module "irsa" {
   service_account_name = "hmpps-incentives-api"
   role_policy_arns     = concat([
     module.prisoner-event-queue.irsa_policy_arn,
-    module.prisoner-event-dlq.irsa_policy_arn,
+    module.prisoner-event-dlq.irsa_policy_arn
+    ],
     sqs_policies,
     sns_policies
-  ])
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
