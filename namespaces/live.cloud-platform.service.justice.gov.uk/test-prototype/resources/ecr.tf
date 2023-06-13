@@ -7,15 +7,3 @@ module "ecr-repo" {
   oidc_providers      = ["github"]
   github_repositories = [var.namespace]
 }
-
-resource "kubernetes_secret" "ecr-repo" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_url = module.ecr-repo.repo_url
-    repo_arn = module.ecr-repo.repo_arn
-  }
-}
