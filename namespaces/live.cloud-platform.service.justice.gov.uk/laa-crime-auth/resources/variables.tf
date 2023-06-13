@@ -73,28 +73,48 @@ variable "user_pool_name" {
   default     = "laa-crime-auth-userpool"
 }
 
-variable "cognito_user_pool_ccp_client_name" {
+variable "cognito_user_pool_ccp_client_name_dev" {
   description = "Cognito user pool CCP client name"
-  default     = "crown-court-proceeding-client"
+  default     = "crown-court-proceeding-client-dev"
 }
 
-variable "resource_server_identifier" {
-  default     = "crime-rs"
+variable "cognito_user_pool_ccp_client_name_tst" {
+  description = "Cognito user pool CCP client name"
+  default     = "crown-court-proceeding-client-tst"
+}
+
+variable "cognito_user_pool_ccp_client_name_uat" {
+  description = "Cognito user pool CCP client name"
+  default     = "crown-court-proceeding-client-uat"
+}
+
+variable "cognito_user_pool_ccp_client_name_stg" {
+  description = "Cognito user pool CCP client name"
+  default     = "crown-court-proceeding-client-stg"
+}
+
+variable "cognito_user_pool_ccp_client_name_prd" {
+  description = "Cognito user pool CCP client name"
+  default     = "crown-court-proceeding-client-prd"
+}
+
+variable "evidence_resource_server_identifier" {
+  default     = "evidence"
   description = "Cognito resource server identifier"
 }
 
-variable "resource_server_name" {
+variable "evidence_resource_server_name" {
+  default     = "evidence-resource-server"
   description = "Cognito resource server name"
-  default     = "laa-crime-auth-resource-server"
 }
 
-variable "resource_server_ccp_scope_name" {
-  default     = "ccp:standard"
+variable "evidence_scope_name" {
+  default     = "standard"
   description = "Resource server scope name"
 }
 
-variable "resource_server_ccp_scope_description" {
-  default = "standard scope for the Crown Court Proceeding service"
+variable "evidence_scope_description" {
+  default = "Standard scope for the Crime Evidence service"
 }
 
 variable "cognito_user_pool_domain_name" {
