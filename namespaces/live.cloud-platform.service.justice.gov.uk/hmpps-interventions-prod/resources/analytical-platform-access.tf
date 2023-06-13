@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.namespace}-landing/*",
-      "arn:aws:s3:::${var.namespace}-landing/"
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-interventions-prod/*",
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-interventions-prod/"
     ]
   }
 }
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://${var.namespace}-landing"
+    destination_bucket = "s3://moj-reg-prod/landing/hmpps-interventions-prod/"
     user_arn           = aws_iam_user.user.arn
     access_key_id      = aws_iam_access_key.user.id
     secret_access_key  = aws_iam_access_key.user.secret
