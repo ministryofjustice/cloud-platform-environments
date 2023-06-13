@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "pathfinder_ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-preprod/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-preprod/"
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-pathfinder-preprod/*",
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-pathfinder-preprod/"
     ]
   }
 }
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-dev/landing/hmpps-pathfinder-preprod/"
+    destination_bucket = "s3://moj-reg-preprod/landing/hmpps-pathfinder-preprod/"
     user_arn           = aws_iam_user.pathfinder_ap_user.arn
     access_key_id      = aws_iam_access_key.pathfinder_ap_user.id
     secret_access_key  = aws_iam_access_key.pathfinder_ap_user.secret
