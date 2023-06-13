@@ -1,4 +1,4 @@
-resource "pingdom_check" "laa-crime-hardship-dev" {
+resource "pingdom_check" "laa-crime-hardship-test" {
   type                     = "http"
   name                     = "LAA Crime Hardship - Test"
   host                     = "laa-crime-hardship-test.apps.live.cloud-platform.service.justice.gov.uk"
