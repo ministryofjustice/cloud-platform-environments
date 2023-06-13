@@ -14,7 +14,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "dps-smoketest-dev"
+  service_account_name = "dps-smoketest"
   role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
