@@ -4,6 +4,7 @@ package get
 import (
 	"bufio"
 	"bytes"
+	"errors"
 	"io"
 	"log"
 	"os"
@@ -49,6 +50,9 @@ func TeamName(namespace string, opt *config.Options, user *config.User, repo *co
 		file, ori, err = origin(namespace, opt, user, repo, repoOpts)
 		if err != nil {
 			return nil, err
+		}
+		if ori == "none" {
+			return nil, errors.New("Unable to find namespace in the PR")
 		}
 	}
 
