@@ -13,10 +13,10 @@ module "ecr" {
   namespace = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["github"]
+  # oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["example-repository"]
+  # github_repositories = ["example-repository"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
@@ -69,4 +69,19 @@ module "ecr" {
     }
     EOF
   */
+}
+
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = module.ecr.access_key_id
+    secret_access_key = module.ecr.secret_access_key
+    repo_arn          = module.ecr.repo_arn
+    repo_url          = module.ecr.repo_url
+  }
 }
