@@ -10,11 +10,9 @@ variable "namespace" {
   default = "hmpps-prisoner-search-dev"
 }
 
-
 variable "vpc_name" {}
 
 variable "kubernetes_cluster" {}
-
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
@@ -26,7 +24,7 @@ variable "team_name" {
   default     = "syscon-devs"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
@@ -53,4 +51,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
