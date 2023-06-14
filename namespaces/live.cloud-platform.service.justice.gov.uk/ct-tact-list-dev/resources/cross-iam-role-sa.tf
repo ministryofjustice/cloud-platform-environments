@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "document" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "simple-policy-for-testing-irsa"
+  name        = "ct_tact_list_pull_from_mojap_policy"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
   description = "Policy for testing cloud-platform-terraform-irsa"
@@ -31,7 +31,8 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.policy.arn
+    # s3 = aws_iam_policy.policy.arn
+    s3 = module.s3.irsa_policy_arn
   }
 
   # Tags
