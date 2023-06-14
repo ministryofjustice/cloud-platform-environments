@@ -36,7 +36,5 @@ resource "kubernetes_secret" "checkmydiary_rds_secrets" {
     database_username     = module.checkmydiary_rds.database_username
     database_password     = module.checkmydiary_rds.database_password
     rds_instance_address  = module.checkmydiary_rds.rds_instance_address
-    access_key_id         = module.checkmydiary_rds.access_key_id
-    secret_access_key     = module.checkmydiary_rds.secret_access_key
   }
 }
