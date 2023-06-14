@@ -34,8 +34,6 @@ resource "kubernetes_secret" "nomis_migration_rds" {
     database_username     = module.nomis_migration_rds.database_username
     database_password     = module.nomis_migration_rds.database_password
     rds_instance_address  = module.nomis_migration_rds.rds_instance_address
-    access_key_id         = module.nomis_migration_rds.access_key_id
-    secret_access_key     = module.nomis_migration_rds.secret_access_key
     url                   = "postgres://${module.nomis_migration_rds.database_username}:${module.nomis_migration_rds.database_password}@${module.nomis_migration_rds.rds_instance_endpoint}/${module.nomis_migration_rds.database_name}"
   }
 }
