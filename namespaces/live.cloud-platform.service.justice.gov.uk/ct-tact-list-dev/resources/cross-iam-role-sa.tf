@@ -1,10 +1,10 @@
 
     module "irsa" {
-      source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.2"
-      namespace        = "<namespace>"
-      role_policy_arns = ["<aws_iam_policy.<namespace>_<policy_name>.arn>"]
+      source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+      namespace        = "${var.namespace}"
+      role_policy_arns = ["<aws_iam_policy.${var.namespace}_<policy_name>.arn>"]
     }
-    data "aws_iam_policy_document" "<namespace>_<policy_name>" {
+    data "aws_iam_policy_document" "${var.namespace}_<policy_name>" {
       # Provide list of permissions and target AWS account resources to allow access to
       statement {
         actions = [
@@ -16,9 +16,9 @@
         ]
       }
     }
-    resource "aws_iam_policy" "<namespace>_<policy_name>" {
-      name   = "<namespace>-<policy-name>"
-      policy = data.aws_iam_policy_document.<namespace>_<policy_name>.json
+    resource "aws_iam_policy" "${var.namespace}_<policy_name>" {
+      name   = "${var.namespace}-<policy-name>"
+      policy = data.aws_iam_policy_document.${var.namespace}_<policy_name>.json
 
       tags = {
         business-unit          = "<Which part of the MoJ is responsible for this service? (e.g HMPPS, Legal Aid Agency)>"
@@ -32,7 +32,7 @@
     resource "kubernetes_secret" "irsa" {
       metadata {
         name      = "irsa-output"
-        namespace = "<namespace>"
+        namespace = "${var.namespace}"
       }
       data = {
         role = module.irsa.aws_iam_role_name
