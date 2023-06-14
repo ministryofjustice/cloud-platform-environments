@@ -18,7 +18,7 @@
     }
     resource "aws_iam_policy" "${var.namespace}_<policy_name>" {
       name   = "${var.namespace}-<policy-name>"
-      policy = data.aws_iam_policy_document.${var.namespace}_<policy_name>.json
+      policy = "data.aws_iam_policy_document.${var.namespace}_<policy_name>.json"
 
       tags = {
         business-unit          = "${var.business_unit}"
