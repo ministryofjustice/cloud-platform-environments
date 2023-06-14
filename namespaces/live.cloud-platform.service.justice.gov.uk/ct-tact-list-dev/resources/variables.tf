@@ -73,10 +73,10 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "role_policy_arns" {
-  description = "List of ARNs of IAM policies to attach to IAM role"
-  type        = map(string)
-}
+# variable "role_policy_arns" {
+#   description = "List of ARNs of IAM policies to attach to IAM role"
+#   type        = map(string)
+# }
 
 variable "service_account_name" {
   description = "Name of the service account"
