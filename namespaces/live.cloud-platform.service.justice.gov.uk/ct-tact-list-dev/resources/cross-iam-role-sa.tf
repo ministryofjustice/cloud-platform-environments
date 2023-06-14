@@ -1,42 +1,52 @@
+data "aws_iam_policy_document" "document" {
+  statement {
+    actions = [
+      "s3:*",
+    ]
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+  }
+}
 
-    module "irsa" {
-      source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-      namespace        = "${var.namespace}"
-      role_policy_arns = ["<aws_iam_policy.${var.namespace}_<policy_name>.arn>"]
-    }
-    data "aws_iam_policy_document" "${var.namespace}_<policy_name>" {
-      # Provide list of permissions and target AWS account resources to allow access to
-      statement {
-        actions = [
-          "s3:PutObject",
-          "s3:PutObjectAcl",
-        ]
-        resources = [
-          "<ARN of resource in target AWS account>/*",
-        ]
-      }
-    }
-    resource "aws_iam_policy" "${var.namespace}_<policy_name>" {
-      name   = "${var.namespace}-<policy-name>"
-      policy = "data.aws_iam_policy_document.${var.namespace}_<policy_name>.json"
+resource "aws_iam_policy" "policy" {
+  name        = "simple-policy-for-testing-irsa"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.document.json
+  description = "Policy for testing cloud-platform-terraform-irsa"
+}
 
-      tags = {
-        business-unit          = "${var.business_unit}"
-        application            = "${var.application}"
-        is-production          = "${var.is_production}"
-        environment-name       = "${var.environment}"
-        owner                  = "${var.team_name}"
-        infrastructure-support = "${var.infrastructure_support}"
-      }
-    }
-    resource "kubernetes_secret" "irsa" {
-      metadata {
-        name      = "irsa-output"
-        namespace = "${var.namespace}"
-      }
-      data = {
-        role = module.irsa.aws_iam_role_name
-        serviceaccount = module.irsa.service_account_name.name
-      }
-    }
+module "irsa" {
+  #always replace with latest version from Github
+  #   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.0.6"
+  source = "../"
 
+  # EKS configuration
+  eks_cluster_name = var.eks_cluster_name
+
+  # IRSA configuration
+  service_account_name = "${var.team_name}-${var.environment}"
+  namespace            = var.namespace # this is also used as a tag
+  role_policy_arns = {
+    s3 = aws_iam_policy.policy.arn
+  }
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "${var.team_name}-irsa"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+  }
+}
