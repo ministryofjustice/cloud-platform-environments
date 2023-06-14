@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "document" {
+data "aws_iam_policy_document" "irsa" {
   statement {
     actions = [
       "s3:PutObject",
@@ -13,15 +13,15 @@ data "aws_iam_policy_document" "document" {
   }
 }
 
-resource "aws_iam_policy" "policy" {
-  name        = "ct_tact_list_pull_from_mojap_policy"
-  path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
+resource "aws_iam_policy" "irsa" {
+  # NB: IAM policy name must be unique within Cloud Platform
+  name        = "${var.namespace}-irsa"
+  policy      = data.aws_iam_policy_document.irsa.json
   description = "Policy for testing cloud-platform-terraform-irsa"
 }
 
 module "irsa" {
-  #always replace with latest version from Github
+  # always replace with latest version from Github
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -32,7 +32,8 @@ module "irsa" {
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     # s3 = aws_iam_policy.policy.arn
-    s3 = module.s3.irsa_policy_arn
+    # s3 = module.s3.irsa_policy_arn
+    irsa = aws_iam_policy.irsa.arn
   }
 
   # Tags
@@ -50,7 +51,8 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    role_name       = module.irsa.role_name
+    role_arn        = module.irsa.role_arn
+    service_account = module.irsa.service_account.name
   }
 }
