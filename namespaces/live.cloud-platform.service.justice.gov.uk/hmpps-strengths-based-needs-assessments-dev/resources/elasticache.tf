@@ -1,5 +1,5 @@
 module "hmpps_strengths_based_needs_assessments_dev_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   namespace              = var.namespace

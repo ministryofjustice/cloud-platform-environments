@@ -1,6 +1,6 @@
 module "abundant_namespace_sqs" {
   # remember to check the latest version
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name = "abundant_namespace_sqs"
   # if true, the sqs_name above must end with ".fifo", it's an API quirk
@@ -9,7 +9,7 @@ module "abundant_namespace_sqs" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = "dev"
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -38,4 +38,3 @@ resource "kubernetes_secret" "abundant_namespace_sqs" {
     sqs_name = module.abundant_namespace_sqs.sqs_name
   }
 }
-

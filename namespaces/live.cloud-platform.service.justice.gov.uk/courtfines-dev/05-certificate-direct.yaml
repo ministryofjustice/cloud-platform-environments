@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: courtfines-direct-app-cert
+  namespace: courtfines-dev
+spec:
+  secretName: courtfines-direct-app-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - dev.courtfines.direct.gov.uk

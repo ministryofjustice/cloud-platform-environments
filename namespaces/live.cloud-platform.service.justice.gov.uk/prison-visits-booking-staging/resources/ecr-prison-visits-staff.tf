@@ -1,5 +1,5 @@
 module "ecr-repo-prison-visits-staff" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
 
   team_name = var.team_name
   repo_name = "prison-visits-staff"

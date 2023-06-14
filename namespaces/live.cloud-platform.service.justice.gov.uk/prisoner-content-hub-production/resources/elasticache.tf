@@ -12,10 +12,11 @@ module "drupal_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t3.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  node_type              = "cache.t4g.small"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  auth_token_rotated_date = "2023-05-15"
 
   providers = {
     aws = aws.london
@@ -45,10 +46,11 @@ module "frontend_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t3.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  node_type              = "cache.t4g.small"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  auth_token_rotated_date = "2023-05-15"
 
   providers = {
     aws = aws.london

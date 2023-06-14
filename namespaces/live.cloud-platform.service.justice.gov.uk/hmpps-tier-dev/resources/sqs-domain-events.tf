@@ -1,7 +1,7 @@
 
 
 module "hmpps_tier_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_tier_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -81,6 +81,8 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
     eventType = [
       "enforcement.breach.raised",
       "enforcement.breach.concluded",
+      "enforcement.recall.raised",
+      "enforcement.recall.concluded",
       "person.risk.registration.added",
       "person.risk.registration.ended"
     ]
@@ -117,4 +119,3 @@ resource "kubernetes_secret" "hmpps_tier_domain_events_queue_secret_dead_letter_
     sqs_queue_name    = module.hmpps_tier_domain_events_dead_letter_queue.sqs_name
   }
 }
-

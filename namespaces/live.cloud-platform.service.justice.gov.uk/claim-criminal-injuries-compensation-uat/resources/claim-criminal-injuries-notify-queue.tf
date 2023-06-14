@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-notify-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name               = "claim-criminal-injuries-notify-queue"
   fifo_queue             = false
@@ -13,7 +13,7 @@ module "claim-criminal-injuries-notify-queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.claim-criminal-injuries-notify-dlq.sqs_arn
-    maxReceiveCount     = 1
+    maxReceiveCount     = 3
   })
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
@@ -84,7 +84,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
 
 
 module "claim-criminal-injuries-notify-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name               = "claim-criminal-injuries-notify-dead-letter-queue"
   fifo_queue             = false

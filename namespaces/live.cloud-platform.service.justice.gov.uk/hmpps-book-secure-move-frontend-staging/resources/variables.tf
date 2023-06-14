@@ -1,5 +1,5 @@
 variable "team_name" {
-  default = "book-a-secure-move"
+  default = "move-a-prisoner"
 }
 
 variable "environment-name" {
@@ -11,7 +11,7 @@ variable "is_production" {
 }
 
 variable "infrastructure_support" {
-  default = "pecs-digital-tech@digital.justice.gov.uk"
+  default = "moveaprisoner@digital.justice.gov.uk"
 }
 
 variable "application" {
@@ -33,4 +33,14 @@ variable "vpc_name" {
 
 variable "business_unit" {
   default = "HMPPS"
+}
+
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  description = "Required by the github terraform provider"
+  default     = ""
 }

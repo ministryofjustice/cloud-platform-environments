@@ -1,5 +1,5 @@
 module "service-token-cache-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
 
   vpc_name = var.vpc_name
 
@@ -9,8 +9,9 @@ module "service-token-cache-elasticache" {
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
   business-unit          = var.business_unit
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
 
   providers = {
@@ -29,4 +30,3 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
     auth_token               = module.service-token-cache-elasticache.auth_token
   }
 }
-

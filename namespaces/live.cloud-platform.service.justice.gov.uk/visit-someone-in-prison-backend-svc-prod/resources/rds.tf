@@ -10,9 +10,11 @@ module "visit_scheduler_rds" {
   namespace              = var.namespace
 
   db_engine_version           = "13"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
   rds_family                  = "postgres13"
   allow_major_version_upgrade = "false"
+  db_password_rotated_date    = "2023-05-11"
 
   providers = {
     aws = aws.london

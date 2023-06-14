@@ -1,10 +1,10 @@
 module "message_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
 
   team_name                    = var.team_name
   application                  = var.application
   business-unit                = var.business_unit
-  environment-name             = var.environment-name
+  environment-name             = var.environment
   infrastructure-support       = var.infrastructure_support
   is-production                = "false"
   namespace                    = var.namespace
@@ -30,12 +30,12 @@ resource "kubernetes_secret" "message_dynamodb" {
 }
 
 module "schedule_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
 
   team_name              = var.team_name
   application            = var.application
   business-unit          = var.business_unit
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   is-production          = "false"
   namespace              = var.namespace
