@@ -32,9 +32,6 @@ module "rds" {
   is-production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop  = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
