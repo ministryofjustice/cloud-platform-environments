@@ -1,10 +1,14 @@
 data "aws_iam_policy_document" "document" {
   statement {
     actions = [
-      "s3:*",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:ListBucket",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
     ]
     resources = [
-      "arn:aws:s3:::*",
+      "arn:aws:s3:::mojap-counter-terrorism-exports",
     ]
   }
 }
