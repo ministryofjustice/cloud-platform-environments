@@ -67,7 +67,7 @@ module "mgw_rds" {
   application              = var.application
   is-production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "12.9"
+  db_engine_version        = "12.11"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
   environment-name         = var.environment
