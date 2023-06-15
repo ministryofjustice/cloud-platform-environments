@@ -1,5 +1,5 @@
 module "rp_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -39,4 +39,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.rp_rds.database_username}:${module.rp_rds.database_password}@${module.rp_rds.rds_instance_endpoint}/${module.rp_rds.database_name}"
   }
 }
-

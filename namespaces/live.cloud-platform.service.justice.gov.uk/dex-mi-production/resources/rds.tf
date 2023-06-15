@@ -4,7 +4,7 @@
 #################################################################################
 
 module "dex_mi_production_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                   = var.vpc_name
   team_name                  = "correspondence"
   business-unit              = "Central Digital"
@@ -47,4 +47,3 @@ resource "kubernetes_secret" "dex_mi_production_rds" {
     url = "postgres://${module.dex_mi_production_rds.database_username}:${module.dex_mi_production_rds.database_password}@${module.dex_mi_production_rds.rds_instance_endpoint}/${module.dex_mi_production_rds.database_name}"
   }
 }
-
