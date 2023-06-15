@@ -23,6 +23,7 @@ module "irsa" {
     {
       migration_appointments_queue = module.migration_appointments_queue.irsa_policy_arn,
       migration_appointments_dlq   = module.migration_appointments_dead_letter_queue.irsa_policy_arn,
+      migration_sentencing_queue   = module.migration_sentencing_queue.irsa_policy_arn,
       migration_sentencing_dlq     = module.migration_sentencing_dead_letter_queue.irsa_policy_arn,
       migration_visits_queue       = module.migration_visits_queue.irsa_policy_arn,
       migration_visits_dlq         = module.migration_visits_dead_letter_queue.irsa_policy_arn
