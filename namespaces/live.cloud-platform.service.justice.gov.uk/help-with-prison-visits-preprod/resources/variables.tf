@@ -30,7 +30,6 @@ variable "is_production" {
   default = "false"
 }
 
-
 variable "vpc_name" {
 }
 
@@ -38,6 +37,10 @@ variable "number_cache_clusters" {
   description = "The number of cache clusters (primary and replicas) this replication group will have. Default is 2"
   type        = string
   default     = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "github_owner" {
@@ -51,4 +54,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
