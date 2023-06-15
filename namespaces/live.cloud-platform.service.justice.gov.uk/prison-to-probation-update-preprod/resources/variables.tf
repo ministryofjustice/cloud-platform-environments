@@ -10,10 +10,8 @@ variable "namespace" {
   default = "prison-to-probation-update-preprod"
 }
 
-
 variable "vpc_name" {
 }
-
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
@@ -25,9 +23,9 @@ variable "team_name" {
   default     = "Digital Prison Services/Tech"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -37,6 +35,10 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "false"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "github_owner" {
@@ -50,4 +52,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-

@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-central-session-api-dev-admin
+  namespace: hmpps-central-session-api-dev
+subjects:
+  - kind: Group
+    name: "github:connect-dps"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

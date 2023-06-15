@@ -5,7 +5,7 @@
  *
  */
 module "laa_crime_apps_team_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name      = var.vpc_name
   team_name     = "laa-crime-apps-team"
   business-unit = "Crime Apps"
@@ -51,4 +51,3 @@ resource "kubernetes_secret" "laa_crime_apps_team_rds" {
     url                   = "postgres://${module.laa_crime_apps_team_rds.database_username}:${module.laa_crime_apps_team_rds.database_password}@${module.laa_crime_apps_team_rds.rds_instance_endpoint}/${module.laa_crime_apps_team_rds.database_name}"
   }
 }
-

@@ -9,7 +9,7 @@ module "opseng_reports" {
   is-production          = "false"
   namespace              = var.namespace
 
-  hash_key                    = "filename"
+  hash_key                    = "name"
   enable_autoscaler           = "true"
   autoscale_max_read_capacity = "100"
 }

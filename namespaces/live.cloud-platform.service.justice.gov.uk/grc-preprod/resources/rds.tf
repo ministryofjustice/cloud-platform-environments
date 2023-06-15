@@ -17,7 +17,7 @@ module "dps_rds" {
   db_instance_class      = "db.t3.small"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   rds_family = "postgres14"
 
