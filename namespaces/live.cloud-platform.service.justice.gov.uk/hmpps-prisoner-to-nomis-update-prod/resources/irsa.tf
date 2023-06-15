@@ -4,6 +4,7 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_activity_dlq"     = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_activity_queue"   = "hmpps-domain-events-prod"
     "Digital-Prison-Services-prod-prisoner_to_nomis_appointment_dlq"        = "hmpps-domain-events-prod"
     "Digital-Prison-Services-prod-prisoner_to_nomis_appointment_queue"      = "hmpps-domain-events-prod"
     "Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_incentive_dlq"    = "hmpps-domain-events-prod"
