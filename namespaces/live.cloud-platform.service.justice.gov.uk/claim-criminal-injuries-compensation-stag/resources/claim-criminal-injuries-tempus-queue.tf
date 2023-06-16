@@ -18,6 +18,7 @@ module "claim-criminal-injuries-tempus-queue" {
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
   encrypt_sqs_kms = "true"
+  kms_external_access = [data.aws_ssm_parameter.cica_stag_account_id.value]
 
   providers = {
     aws = aws.london

@@ -7,7 +7,7 @@ module "pos_rds" {
   application               = var.application
   is-production             = var.is_production
   namespace                 = var.namespace
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   infrastructure-support    = var.infrastructure_support
   db_instance_class         = "db.t4g.small"
   db_engine                 = "postgres"
@@ -34,8 +34,6 @@ resource "kubernetes_secret" "pos_rds" {
     database_username     = module.pos_rds.database_username
     database_password     = module.pos_rds.database_password
     rds_instance_address  = module.pos_rds.rds_instance_address
-    access_key_id         = module.pos_rds.access_key_id
-    secret_access_key     = module.pos_rds.secret_access_key
     url                   = "postgres://${module.pos_rds.database_username}:${module.pos_rds.database_password}@${module.pos_rds.rds_instance_endpoint}/${module.pos_rds.database_name}"
   }
 }

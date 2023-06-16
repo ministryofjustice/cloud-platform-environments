@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-platform-app-ccpt-dev
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMCTS"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
+    cloud-platform.justice.gov.uk/application: "Crown Court Performance Tool"
+    cloud-platform.justice.gov.uk/owner: "crime team: "
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ccpt"
+    cloud-platform.justice.gov.uk/team-name: "ccpt-admin-team"
+    cloud-platform.justice.gov.uk/review-after: ""

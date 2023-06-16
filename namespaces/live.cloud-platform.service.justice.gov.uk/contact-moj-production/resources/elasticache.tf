@@ -4,7 +4,7 @@
 #################################################################################
 
 module "contact_moj_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   team_name              = "correspondence"
   business-unit          = "Central Digital"
@@ -36,4 +36,3 @@ resource "kubernetes_secret" "contact_moj_elasticache_redis" {
     url                      = "rediss://appuser:${module.contact_moj_elasticache_redis.auth_token}@${module.contact_moj_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
-

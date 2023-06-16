@@ -30,7 +30,6 @@ variable "additional_topic_clients" {
     "hmpps-assessments-prod",
     "hmpps-community-accommodation-prod",
     "hmpps-complexity-of-need-production",
-    "hmpps-domain-event-logger-prod",
     "hmpps-incentives-prod",
     "hmpps-interventions-prod",
     "hmpps-manage-adjudications-api-prod",

@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   team_name              = "correspondence"
   business-unit          = "Central Digital"
@@ -48,4 +48,3 @@ resource "kubernetes_secret" "track_a_query_s3" {
     bucket_name       = module.track_a_query_s3.bucket_name
   }
 }
-

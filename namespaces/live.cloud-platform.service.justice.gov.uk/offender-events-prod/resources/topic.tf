@@ -7,7 +7,7 @@ module "offender_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -50,7 +50,7 @@ module "probation_offender_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -80,7 +80,7 @@ module "offender_assessments_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -104,7 +104,7 @@ resource "kubernetes_secret" "offender_assessments_events" {
 resource "kubernetes_secret" "offender-events-and-delius-topic-secret" {
   metadata {
     name      = "offender-events-and-delius-topic"
-    namespace = "hmpps-probation-integration-services-${var.environment-name}"
+    namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
     TOPIC_ARN             = module.probation_offender_events.topic_arn

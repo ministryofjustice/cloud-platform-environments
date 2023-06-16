@@ -75,11 +75,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_queue.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_queue.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_queue.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_queue.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_queue.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_queue.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_queue.sqs_name
   }
 }
 
@@ -90,11 +88,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_dlq" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_dlq.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_dlq.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_dlq.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_dlq.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_dlq.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_dlq.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_dlq.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_dlq.sqs_name
   }
 }
 
