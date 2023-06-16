@@ -29,7 +29,7 @@ resource "kubernetes_secret" "hwpv_document_s3_bucket_internal" {
   data = {
     access_key_id     = module.hwpv_document_s3_bucket.access_key_id
     secret_access_key = module.hwpv_document_s3_bucket.secret_access_key
-    bucket_arn  = module.hwpv_document_s3_bucket.bucket_arn
-    bucket_name = module.hwpv_document_s3_bucket.bucket_name
+    bucket_arn        = module.hwpv_document_s3_bucket.bucket_arn
+    bucket_name       = module.hwpv_document_s3_bucket.bucket_name
   }
 }
