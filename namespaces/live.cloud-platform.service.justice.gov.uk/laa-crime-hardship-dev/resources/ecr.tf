@@ -12,6 +12,12 @@ module "ecr" {
   repo_name = var.namespace
   namespace = var.namespace
 
+
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["laa-crime-hardship"]
+
+
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
   # oidc_providers = ["github"]
 
