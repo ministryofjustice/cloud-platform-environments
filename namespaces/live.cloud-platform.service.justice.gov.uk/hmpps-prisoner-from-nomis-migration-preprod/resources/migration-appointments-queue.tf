@@ -47,11 +47,9 @@ resource "kubernetes_secret" "migration_appointments_queue" {
   }
 
   data = {
-    access_key_id     = module.migration_appointments_queue.access_key_id
-    secret_access_key = module.migration_appointments_queue.secret_access_key
-    sqs_id            = module.migration_appointments_queue.sqs_id
-    sqs_arn           = module.migration_appointments_queue.sqs_arn
-    sqs_name          = module.migration_appointments_queue.sqs_name
+    sqs_id   = module.migration_appointments_queue.sqs_id
+    sqs_arn  = module.migration_appointments_queue.sqs_arn
+    sqs_name = module.migration_appointments_queue.sqs_name
   }
 }
 
@@ -62,10 +60,8 @@ resource "kubernetes_secret" "migration_appointments_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.migration_appointments_dead_letter_queue.access_key_id
-    secret_access_key = module.migration_appointments_dead_letter_queue.secret_access_key
-    sqs_id            = module.migration_appointments_dead_letter_queue.sqs_id
-    sqs_arn           = module.migration_appointments_dead_letter_queue.sqs_arn
-    sqs_name          = module.migration_appointments_dead_letter_queue.sqs_name
+    sqs_id   = module.migration_appointments_dead_letter_queue.sqs_id
+    sqs_arn  = module.migration_appointments_dead_letter_queue.sqs_arn
+    sqs_name = module.migration_appointments_dead_letter_queue.sqs_name
   }
 }
