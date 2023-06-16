@@ -57,10 +57,10 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name = module.hmpps_education_work_plan_rds.database_name
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.hmpps_education_work_plan_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
@@ -90,13 +90,13 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
+    rds_instance_endpoint = module.hmpps_education_work_plan_rds.rds_instance_endpoint
+    database_name         = module.hmpps_education_work_plan_rds.database_name
+    database_username     = module.hmpps_education_work_plan_rds.database_username
+    database_password     = module.hmpps_education_work_plan_rds.database_password
+    rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
+    access_key_id         = module.hmpps_education_work_plan_rds.access_key_id
+    secret_access_key     = module.hmpps_education_work_plan_rds.secret_access_key
   }
 }
 
@@ -133,7 +133,7 @@ resource "kubernetes_config_map" "rds" {
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.hmpps_education_work_plan_rds.database_name
+    db_identifier = module.hmpps_education_work_plan_rds.db_identifier
   }
 }
