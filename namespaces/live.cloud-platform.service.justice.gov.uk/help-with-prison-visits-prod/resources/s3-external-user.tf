@@ -1,17 +1,4 @@
-# Generate an additional IAM user to external app
-resource "random_id" "hwpv-external-id" {
-  byte_length = 16
-}
-
-resource "aws_iam_user" "hwpv-external-user" {
-  name = "hwpv-external-user-${random_id.hwpv-external-id.hex}"
-  path = "/system/hwpv-external-user/"
-}
-
-resource "aws_iam_access_key" "hwpv-external-user" {
-  user = aws_iam_user.hwpv-external-user.name
-}
-
+# Define policy for external app to access S3
 data "aws_iam_policy_document" "hwpv-external" {
   statement {
     actions = [
@@ -32,10 +19,10 @@ data "aws_iam_policy_document" "hwpv-external" {
   }
 }
 
-resource "aws_iam_user_policy" "hwpv-external-policy" {
+resource "aws_iam_policy" "hwpv-external" {
   name   = "${var.namespace}-hwpv-external"
+  path   = "/"
   policy = data.aws_iam_policy_document.hwpv-external.json
-  user   = aws_iam_user.hwpv-external-user.name
 }
 
 resource "kubernetes_secret" "hwpv_document_s3_bucket_external" {
@@ -45,9 +32,9 @@ resource "kubernetes_secret" "hwpv_document_s3_bucket_external" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.hwpv-external-user.id
-    secret_access_key = aws_iam_access_key.hwpv-external-user.secret
-    bucket_arn        = module.hwpv_document_s3_bucket.bucket_arn
-    bucket_name       = module.hwpv_document_s3_bucket.bucket_name
+    access_key_id     = module.hwpv_document_s3_bucket.access_key_id
+    secret_access_key = module.hwpv_document_s3_bucket.secret_access_key
+    bucket_arn  = module.hwpv_document_s3_bucket.bucket_arn
+    bucket_name = module.hwpv_document_s3_bucket.bucket_name
   }
 }
