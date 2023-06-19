@@ -3,7 +3,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "send-legal-mail-to-prisons"
+  default     = "Send Legal Mail to Prisons"
 }
 
 variable "namespace" {
