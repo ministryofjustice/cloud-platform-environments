@@ -1,26 +1,26 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: rp-api-dev-cert
+  name: resettlement-passport-api-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: rp-api-cert
+  secretName: resettlement-passport-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-resettlement-passport-prototype-api-dev.hmpps.service.justice.gov.uk
+    - resettlement-passport-api-dev.hmpps.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: rp-ui-dev-cert
+  name: resettlement-passport-ui-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: rp-ui-cert
+  secretName: resettlement-passport-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-resettlement-passport-prototype-ui-dev.hmpps.service.justice.gov.uk
+    - resettlement-passport-ui-dev.hmpps.service.justice.gov.uk
