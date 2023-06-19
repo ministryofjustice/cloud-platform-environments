@@ -1,5 +1,5 @@
 module "hwpv_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -22,8 +22,6 @@ resource "kubernetes_secret" "hwpv_document_s3_bucket_admin" {
   }
 
   data = {
-    access_key_id     = module.hwpv_document_s3_bucket.access_key_id
-    secret_access_key = module.hwpv_document_s3_bucket.secret_access_key
     bucket_arn        = module.hwpv_document_s3_bucket.bucket_arn
     bucket_name       = module.hwpv_document_s3_bucket.bucket_name
   }

@@ -1,6 +1,6 @@
 
 module "cccd_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   repo_name = "cccd"
   team_name = "laa-get-paid"
 

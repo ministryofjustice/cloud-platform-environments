@@ -29,10 +29,11 @@ variable "additional_topic_clients" {
     "hmpps-assessments-dev",
     "hmpps-community-accommodation-dev",
     "hmpps-complexity-of-need-staging",
-    "hmpps-domain-event-logger-dev",
     "hmpps-incentives-dev",
     "hmpps-interventions-dev",
     "hmpps-manage-offences-api-dev",
+    "hmpps-manage-adjudications-api-dev",
+    "hmpps-prisoner-search-dev",
     "hmpps-registers-dev",
     "hmpps-restricted-patients-api-dev",
     "hmpps-tier-dev",
@@ -62,7 +63,14 @@ variable "is_production" {
   default = "false"
 }
 
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
 variable "github_token" {
+  type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }

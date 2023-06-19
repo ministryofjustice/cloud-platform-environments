@@ -15,7 +15,7 @@ subjects:
     name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:pecs-developers"
+    name: "github:map-developers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

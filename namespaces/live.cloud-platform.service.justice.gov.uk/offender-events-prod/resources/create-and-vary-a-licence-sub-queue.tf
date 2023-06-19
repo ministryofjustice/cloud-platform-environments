@@ -1,7 +1,7 @@
 module "cvl_prison_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -22,9 +22,9 @@ module "cvl_prison_events_queue" {
 }
 
 module "cvl_probation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -45,9 +45,9 @@ module "cvl_probation_events_queue" {
 }
 
 module "cvl_prison_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -61,9 +61,9 @@ module "cvl_prison_events_dead_letter_queue" {
 }
 
 module "cvl_probation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application

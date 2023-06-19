@@ -18,7 +18,6 @@ locals {
     module.prison-case-notes-to-probation-dlq.sqs_arn,
     module.prison-custody-status-to-delius-queue.sqs_arn,
     module.prison-custody-status-to-delius-dlq.sqs_arn,
-    module.prison-custody-status-to-delius-mirror-queue.sqs_arn,
     module.risk-assessment-scores-to-delius-queue.sqs_arn,
     module.risk-assessment-scores-to-delius-dlq.sqs_arn,
     module.tier-to-delius-queue.sqs_arn,

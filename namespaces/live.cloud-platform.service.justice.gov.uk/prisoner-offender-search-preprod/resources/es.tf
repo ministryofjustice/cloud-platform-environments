@@ -4,7 +4,7 @@ module "prisoner_offender_search_elasticsearch" {
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
   business-unit                   = var.business_unit
-  environment-name                = var.environment-name
+  environment-name                = var.environment
   infrastructure-support          = var.infrastructure_support
   is-production                   = var.is_production
   team_name                       = var.team_name
@@ -22,7 +22,6 @@ module "prisoner_offender_search_elasticsearch" {
   ebs_iops                        = 0
   ebs_volume_type                 = "gp2"
 }
-
 
 
 data "aws_s3_bucket" "snapshot_bucket" {

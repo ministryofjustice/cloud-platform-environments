@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: data-capture-service-cert-stag
+  namespace: claim-criminal-injuries-compensation-stag
+spec:
+  secretName: data-capture-service-cert-secret-stag
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - claim-criminal-injuries-compensation.service.justice.gov.uk
+  - data-capture-service.stag.claim-criminal-injuries-compensation.service.justice.gov.uk

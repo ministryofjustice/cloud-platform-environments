@@ -1,8 +1,7 @@
-
 ######################################## VISITS
 
 module "hmpps_prisoner_to_nomis_visit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -19,7 +18,7 @@ module "hmpps_prisoner_to_nomis_visit_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -52,7 +51,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -74,11 +73,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_visit_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_visit_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_visit_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_visit_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_visit_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_visit_queue.sqs_name
   }
 }
 
@@ -89,19 +86,17 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_name
   }
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscription" {
-  provider  = aws.london
-  topic_arn = module.hmpps-domain-events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
+  provider      = aws.london
+  topic_arn     = module.hmpps-domain-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-visit.booked",
@@ -114,7 +109,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscriptio
 ######################################## INCENTIVES
 
 module "hmpps_prisoner_to_nomis_incentive_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -131,7 +126,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -164,7 +159,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -186,11 +181,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_incentive_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_incentive_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_incentive_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_name
   }
 }
 
@@ -201,11 +194,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_incentive_dead_letter_queu
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_name
   }
 }
 
@@ -214,13 +205,18 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered", "incentives.prison-level.changed"] })
+  filter_policy = jsonencode({
+    eventType = [
+      "incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered",
+      "incentives.prison-level.changed"
+    ]
+  })
 }
 
 ######################################## ACTIVITIES
 
 module "hmpps_prisoner_to_nomis_activity_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -237,7 +233,7 @@ module "hmpps_prisoner_to_nomis_activity_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -270,7 +266,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -292,11 +288,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_activity_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_activity_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_activity_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_activity_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_activity_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_activity_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_activity_queue.sqs_name
   }
 }
 
@@ -307,11 +301,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_activity_dead_letter_queue
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_name
   }
 }
 
@@ -320,13 +312,20 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
-  filter_policy = jsonencode({ eventType = ["activities.activity-schedule.created", "activities.activity-schedule.amended", "activities.scheduled-instances.amended", "activities.scheduled-instance.amended", "activities.prisoner.allocated", "activities.prisoner.deallocated", "activities.prisoner.attendance-created", "activities.prisoner.attendance-amended"] })
+  filter_policy = jsonencode({
+    eventType = [
+      "activities.activity-schedule.created", "activities.activity-schedule.amended",
+      "activities.scheduled-instance.amended", "activities.prisoner.allocated",
+      "activities.prisoner.allocation-amended", "activities.prisoner.deallocated",
+      "activities.prisoner.attendance-created", "activities.prisoner.attendance-amended"
+    ]
+  })
 }
 
 ######################################## APPOINTMENTS ########################################
 
 module "prisoner_to_nomis_appointment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -343,7 +342,7 @@ module "prisoner_to_nomis_appointment_queue" {
     "deadLetterTargetArn": "${module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -376,7 +375,7 @@ EOF
 }
 
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -398,11 +397,9 @@ resource "kubernetes_secret" "prisoner_to_nomis_appointment_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_to_nomis_appointment_queue.access_key_id
-    secret_access_key = module.prisoner_to_nomis_appointment_queue.secret_access_key
-    sqs_queue_url     = module.prisoner_to_nomis_appointment_queue.sqs_id
-    sqs_queue_arn     = module.prisoner_to_nomis_appointment_queue.sqs_arn
-    sqs_queue_name    = module.prisoner_to_nomis_appointment_queue.sqs_name
+    sqs_queue_url  = module.prisoner_to_nomis_appointment_queue.sqs_id
+    sqs_queue_arn  = module.prisoner_to_nomis_appointment_queue.sqs_arn
+    sqs_queue_name = module.prisoner_to_nomis_appointment_queue.sqs_name
   }
 }
 
@@ -413,11 +410,9 @@ resource "kubernetes_secret" "prisoner_to_nomis_appointment_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_to_nomis_appointment_dead_letter_queue.access_key_id
-    secret_access_key = module.prisoner_to_nomis_appointment_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_name
   }
 }
 
@@ -439,7 +434,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
 ######################################## SENTENCING
 
 module "hmpps_prisoner_to_nomis_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -456,7 +451,7 @@ module "hmpps_prisoner_to_nomis_sentencing_queue" {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers = {
+  providers      = {
     aws = aws.london
   }
 }
@@ -489,7 +484,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -511,11 +506,9 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_sentencing_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_sentencing_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_sentencing_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_name
   }
 }
 
@@ -526,19 +519,17 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_sentencing_dead_letter_que
   }
 
   data = {
-    access_key_id     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_name
   }
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_sentencing_subscription" {
-  provider  = aws.london
-  topic_arn = module.hmpps-domain-events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
+  provider      = aws.london
+  topic_arn     = module.hmpps-domain-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "release-date-adjustments.adjustment.inserted",

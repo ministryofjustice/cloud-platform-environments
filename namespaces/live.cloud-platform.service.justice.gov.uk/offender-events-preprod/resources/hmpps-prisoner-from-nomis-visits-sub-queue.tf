@@ -1,7 +1,7 @@
 module "prisoner_from_nomis_visits_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -54,9 +54,9 @@ EOF
 }
 
 module "prisoner_from_nomis_visits_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -76,11 +76,9 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_from_nomis_visits_queue.access_key_id
-    secret_access_key = module.prisoner_from_nomis_visits_queue.secret_access_key
-    sqs_id            = module.prisoner_from_nomis_visits_queue.sqs_id
-    sqs_arn           = module.prisoner_from_nomis_visits_queue.sqs_arn
-    sqs_name          = module.prisoner_from_nomis_visits_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_visits_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_visits_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_visits_queue.sqs_name
   }
 }
 
@@ -91,11 +89,9 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_from_nomis_visits_dead_letter_queue.access_key_id
-    secret_access_key = module.prisoner_from_nomis_visits_dead_letter_queue.secret_access_key
-    sqs_id            = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_id
-    sqs_arn           = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_arn
-    sqs_name          = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name
   }
 }
 

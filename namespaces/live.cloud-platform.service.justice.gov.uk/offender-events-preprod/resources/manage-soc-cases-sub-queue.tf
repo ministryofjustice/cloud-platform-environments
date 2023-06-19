@@ -1,7 +1,7 @@
 module "manage_soc_cases_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -22,9 +22,9 @@ module "manage_soc_cases_offender_events_queue" {
 }
 
 module "manage_soc_cases_probation_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -99,9 +99,9 @@ resource "aws_sqs_queue_policy" "manage_soc_cases_probation_offender_events_queu
 }
 
 module "manage_soc_cases_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -115,9 +115,9 @@ module "manage_soc_cases_offender_events_dead_letter_queue" {
 }
 
 module "manage_soc_cases_probation_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application

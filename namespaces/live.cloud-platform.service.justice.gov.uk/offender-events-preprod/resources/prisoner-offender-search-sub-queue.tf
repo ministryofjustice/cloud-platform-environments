@@ -1,7 +1,7 @@
 module "prisoner_offender_search_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -53,9 +53,9 @@ EOF
 }
 
 module "prisoner_offender_search_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -75,11 +75,9 @@ resource "kubernetes_secret" "prisoner_offender_search_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_queue.secret_access_key
-    sqs_pos_url       = module.prisoner_offender_search_queue.sqs_id
-    sqs_pos_arn       = module.prisoner_offender_search_queue.sqs_arn
-    sqs_pos_name      = module.prisoner_offender_search_queue.sqs_name
+    sqs_pos_url  = module.prisoner_offender_search_queue.sqs_id
+    sqs_pos_arn  = module.prisoner_offender_search_queue.sqs_arn
+    sqs_pos_name = module.prisoner_offender_search_queue.sqs_name
   }
 }
 
@@ -90,11 +88,9 @@ resource "kubernetes_secret" "prisoner_offender_search_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_dead_letter_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_dead_letter_queue.secret_access_key
-    sqs_pos_url       = module.prisoner_offender_search_dead_letter_queue.sqs_id
-    sqs_pos_arn       = module.prisoner_offender_search_dead_letter_queue.sqs_arn
-    sqs_pos_name      = module.prisoner_offender_search_dead_letter_queue.sqs_name
+    sqs_pos_url  = module.prisoner_offender_search_dead_letter_queue.sqs_id
+    sqs_pos_arn  = module.prisoner_offender_search_dead_letter_queue.sqs_arn
+    sqs_pos_name = module.prisoner_offender_search_dead_letter_queue.sqs_name
   }
 }
 
@@ -103,5 +99,32 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_offender_search_queue.sqs_arn
-  filter_policy = "{\"eventType\":[ \"OFFENDER-INSERTED\", \"OFFENDER-UPDATED\", \"OFFENDER-DELETED\", \"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"EXTERNAL_MOVEMENT-CHANGED\", \"SENTENCING-CHANGED\", \"ASSESSMENT-CHANGED\", \"OFFENDER_BOOKING-REASSIGNED\", \"OFFENDER_BOOKING-CHANGED\", \"OFFENDER_DETAILS-CHANGED\", \"BOOKING_NUMBER-CHANGED\", \"SENTENCE_DATES-CHANGED\", \"IMPRISONMENT_STATUS-CHANGED\", \"BED_ASSIGNMENT_HISTORY-INSERTED\", \"CONFIRMED_RELEASE_DATE-CHANGED\", \"ALERT-INSERTED\", \"ALERT-UPDATED\", \"OFFENDER_ALIAS-CHANGED\", \"OFFENDER_PROFILE_DETAILS-INSERTED\", \"OFFENDER_PROFILE_DETAILS-UPDATED\", \"OFFENDER_PHYSICAL_DETAILS-CHANGED\"] }"
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER-INSERTED",
+      "OFFENDER-UPDATED",
+      "OFFENDER-DELETED",
+      "EXTERNAL_MOVEMENT_RECORD-INSERTED",
+      "EXTERNAL_MOVEMENT-CHANGED",
+      "SENTENCING-CHANGED",
+      "ASSESSMENT-CHANGED",
+      "ASSESSMENT-UPDATED",
+      "OFFENDER_BOOKING-REASSIGNED",
+      "OFFENDER_BOOKING-CHANGED",
+      "OFFENDER_DETAILS-CHANGED",
+      "BOOKING_NUMBER-CHANGED",
+      "SENTENCE_DATES-CHANGED",
+      "IMPRISONMENT_STATUS-CHANGED",
+      "BED_ASSIGNMENT_HISTORY-INSERTED",
+      "CONFIRMED_RELEASE_DATE-CHANGED",
+      "ALERT-INSERTED",
+      "ALERT-UPDATED",
+      "OFFENDER_ALIAS-CHANGED",
+      "OFFENDER_PROFILE_DETAILS-INSERTED",
+      "OFFENDER_PROFILE_DETAILS-UPDATED",
+      "OFFENDER_PHYSICAL_DETAILS-CHANGED",
+      "OFFENDER_IDENTIFIER-INSERTED",
+      "OFFENDER_IDENTIFIER-DELETED"
+    ]
+  })
 }

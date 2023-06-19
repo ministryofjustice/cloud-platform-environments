@@ -6,7 +6,7 @@
  */
 
 module "cccd_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -45,4 +45,3 @@ resource "kubernetes_secret" "cccd_rds" {
     url                   = "postgres://${module.cccd_rds.database_username}:${module.cccd_rds.database_password}@${module.cccd_rds.rds_instance_endpoint}/${module.cccd_rds.database_name}"
   }
 }
-

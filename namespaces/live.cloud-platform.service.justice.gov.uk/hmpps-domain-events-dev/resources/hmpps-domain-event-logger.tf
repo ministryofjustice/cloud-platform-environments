@@ -1,5 +1,5 @@
 module "hmpps_domain_event_logger_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -52,7 +52,7 @@ EOF
 }
 
 module "hmpps_domain_event_logger_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -74,11 +74,9 @@ resource "kubernetes_secret" "hmpps_domain_event_logger_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_domain_event_logger_queue.access_key_id
-    secret_access_key = module.hmpps_domain_event_logger_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_domain_event_logger_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_domain_event_logger_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_domain_event_logger_queue.sqs_name
+    sqs_queue_url  = module.hmpps_domain_event_logger_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_domain_event_logger_queue.sqs_arn
+    sqs_queue_name = module.hmpps_domain_event_logger_queue.sqs_name
   }
 }
 
@@ -89,11 +87,9 @@ resource "kubernetes_secret" "hmpps_domain_event_logger_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_domain_event_logger_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_domain_event_logger_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_domain_event_logger_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_domain_event_logger_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_domain_event_logger_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_domain_event_logger_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_domain_event_logger_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_domain_event_logger_dead_letter_queue.sqs_name
   }
 }
 

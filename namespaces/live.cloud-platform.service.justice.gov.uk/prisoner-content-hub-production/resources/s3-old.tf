@@ -32,10 +32,25 @@ module "drupal_content_storage" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "AllowHubDevelopmentS3Sync",
+      "Sid": "AllowHubProductionS3SyncNew",
       "Effect": "Allow",
       "Principal": {
-          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-8f67b39c6e3bd0e7ca18f73b97b39938"
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AllowHubDevelopmentS3SyncNew",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-0da9568a0aa6b9444b6fb48e8d4f79cd"
       },
       "Action": [
         "s3:ListBucket",
@@ -109,6 +124,18 @@ resource "kubernetes_secret" "drupal_content_storage_output_development" {
   metadata {
     name      = "drupal-s3-output"
     namespace = "prisoner-content-hub-development"
+  }
+
+  data = {
+    bucket_name = module.drupal_content_storage.bucket_name
+  }
+}
+# Temporarily output to production as well, so we can sync from old to new buckets
+# until we're ready to cut over to the new one.
+resource "kubernetes_secret" "drupal_content_storage_output_production" {
+  metadata {
+    name      = "drupal-s3-output"
+    namespace = "prisoner-content-hub-production"
   }
 
   data = {

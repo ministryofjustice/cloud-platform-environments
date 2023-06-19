@@ -5,7 +5,7 @@
  *
  */
 module "laa-estimate-financial-eligibility-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -20,7 +20,7 @@ module "laa-estimate-financial-eligibility-elasticache" {
   node_type              = "cache.t4g.micro"
 
   auth_token_rotated_date = "2023-03-16"
-  
+
   providers = {
     aws = aws.london
   }
@@ -41,4 +41,3 @@ resource "kubernetes_secret" "laa-estimate-financial-eligibility-elasticache" {
     url                      = "rediss://dummyuser:${module.laa-estimate-financial-eligibility-elasticache.auth_token}@${module.laa-estimate-financial-eligibility-elasticache.primary_endpoint_address}:6379"
   }
 }
-

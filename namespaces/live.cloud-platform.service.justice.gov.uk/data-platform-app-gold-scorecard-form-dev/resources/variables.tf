@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "hq"
+  default     = "HQ"
 }
 
 variable "team_name" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = ""
+  default     = "ccmbpt-data-and-analysis"
 }
 
 variable "github_owner" {

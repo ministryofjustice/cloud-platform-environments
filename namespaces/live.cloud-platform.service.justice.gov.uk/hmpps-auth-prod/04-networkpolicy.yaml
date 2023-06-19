@@ -25,3 +25,28 @@ spec:
       - namespaceSelector:
           matchLabels:
             component: ingress-controllers
+
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-source-namespace
+  namespace: hmpps-auth-prod
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-audit-prod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-external-users-api-prod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-manage-users-prod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: token-verification-api-prod

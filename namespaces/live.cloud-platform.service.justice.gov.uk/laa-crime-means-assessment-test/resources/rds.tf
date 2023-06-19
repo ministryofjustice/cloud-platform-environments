@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -20,7 +20,7 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   # rds_name = ""
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # enable performance insights
   performance_insights_enabled = true
@@ -69,7 +69,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -81,6 +81,8 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  db_engine_version = "14" # you shouldn't include the minor version here
+  rds_family        = "postgres14"
 
   # It is mandatory to set the below values to create read replica instance
 

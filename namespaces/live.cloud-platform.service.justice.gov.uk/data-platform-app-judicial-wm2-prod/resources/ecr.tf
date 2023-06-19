@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   team_name      = var.team_name
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["github"]
@@ -19,9 +19,7 @@ module "ecr_credentials" {
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["prod"]
-
-  # You must provide a prefix if you're using environments, otherwise Terraform will fail as it will try to overwrite the Actions variable and error saying it exists.
+  github_environments   = ["prod"]
   github_actions_prefix = "prod"
 
   /*

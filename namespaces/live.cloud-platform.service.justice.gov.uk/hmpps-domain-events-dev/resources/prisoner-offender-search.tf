@@ -1,5 +1,5 @@
 module "prisoner_offender_search_domain_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -53,7 +53,7 @@ EOF
 }
 
 module "prisoner_offender_search_domain_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -75,11 +75,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_queue.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_queue.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_queue.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_queue.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_queue.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_queue.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_queue.sqs_name
   }
 }
 
@@ -90,11 +88,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_dlq" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_dlq.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_dlq.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_dlq.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_dlq.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_dlq.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_dlq.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_dlq.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_dlq.sqs_name
   }
 }
 

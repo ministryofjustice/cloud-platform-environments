@@ -1,5 +1,5 @@
 module "service-metadata-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   team_name              = var.team_name
   acl                    = "private"
@@ -69,4 +69,3 @@ resource "kubernetes_secret" "service-metadata-s3-bucket" {
     secret_access_key = module.service-metadata-s3-bucket.secret_access_key
   }
 }
-

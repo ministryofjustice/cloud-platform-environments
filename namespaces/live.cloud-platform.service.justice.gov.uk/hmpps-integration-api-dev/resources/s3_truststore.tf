@@ -7,6 +7,7 @@ module "truststore_s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = true
 
   providers = {
     aws = aws.london_without_default_tags
@@ -34,14 +35,15 @@ module "truststore_s3_bucket" {
 EOF
 }
 
-data "github_repository_file" "truststore" {
-  repository = "ministryofjustice/hmpps-integration-api"
-  file       = "temporary_certificates/dev-truststore.pem"
+data "kubernetes_secret" "truststore" {
+  metadata {
+    name = "mutual-tls-auth"
+    namespace = var.namespace
+  }
 }
 
 resource "aws_s3_object" "truststore" {
   bucket  = module.truststore_s3_bucket.bucket_name
   key     = "dev-truststore.pem"
-  content = data.github_repository_file.truststore.content
+  content = data.kubernetes_secret.truststore.data["truststore-public-key"]
 }
-

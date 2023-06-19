@@ -1,6 +1,6 @@
 
 module "hmpps_assessments_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -10,7 +10,7 @@ module "hmpps_assessments_rds" {
   environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   rds_family             = "postgres14"
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
   db_engine_version      = "14"
 
@@ -39,4 +39,3 @@ resource "kubernetes_secret" "hmpps_assessments_rds" {
     url                   = "postgres://${module.hmpps_assessments_rds.database_username}:${module.hmpps_assessments_rds.database_password}@${module.hmpps_assessments_rds.rds_instance_endpoint}/${module.hmpps_assessments_rds.database_name}"
   }
 }
-

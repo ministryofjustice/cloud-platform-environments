@@ -6,7 +6,7 @@
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
@@ -23,6 +23,7 @@ module "prison-visits-rds" {
   db_name                = "visits"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres12"
+  db_password_rotated_date    = "2023-05-11"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
@@ -45,4 +46,3 @@ resource "kubernetes_secret" "prison-visits-rds" {
     url               = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
-

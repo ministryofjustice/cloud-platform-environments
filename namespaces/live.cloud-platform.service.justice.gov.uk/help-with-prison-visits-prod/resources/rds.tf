@@ -1,5 +1,5 @@
 module "hwpv_sqlserver" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -15,6 +15,7 @@ module "hwpv_sqlserver" {
   rds_family             = "sqlserver-web-15.0"
   db_parameter           = []
   license_model          = "license-included"
+  db_password_rotated_date    = "2023-05-11"
 
   providers = {
     aws = aws.london
