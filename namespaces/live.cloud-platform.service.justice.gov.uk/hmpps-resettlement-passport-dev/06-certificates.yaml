@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: resettlement-passport-api-dev-cert
+  name: rp-api-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: hmpps-resettlement-passport-api-cert
+  secretName: rp-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -15,10 +15,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: resettlement-passport-ui-dev-cert
+  name: rp-ui-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: hmpps-resettlement-passport-ui-cert
+  secretName: rp-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
