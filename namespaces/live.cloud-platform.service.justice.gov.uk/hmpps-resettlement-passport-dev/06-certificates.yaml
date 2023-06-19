@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: rp-api-dev-cert
+  name: resettlement-passport-api-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
   secretName: resettlement-passport-api-cert
@@ -15,7 +15,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: rp-ui-dev-cert
+  name: resettlement-passport-ui-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
   secretName: resettlement-passport-ui-cert
