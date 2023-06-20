@@ -1,9 +1,25 @@
+locals {
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+  }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = [aws_iam_policy.hmpps_manage_offences_api_dev_ap_policy.arn]
+  role_policy_arns = merge(
+    aws_iam_policy.hmpps_manage_offences_api_dev_ap_policy.arn,
+    local.sns_policies,
+  )
 }
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
 data "aws_iam_policy_document" "hmpps_manage_offences_api_dev_ap_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
