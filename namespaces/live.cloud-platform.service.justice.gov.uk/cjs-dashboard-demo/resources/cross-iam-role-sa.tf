@@ -9,7 +9,7 @@ module "irsa" {
   environment_name       = var.environment
   team_name              = var.team_name
   infrastructure_support = var.infrastructure_support
-  role_policy_arns = [aws_iam_policy.cjs_dashboard_demo_ap_policy.arn]
+  role_policy_arns       = {s3 = aws_iam_policy.cjs_dashboard_demo_ap_policy.arn}
 }
 data "aws_iam_policy_document" "cjs_dashboard_demo_ap_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
@@ -49,9 +49,9 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.aws_iam_role_name
-    serviceaccount = module.irsa.service_account_name.name
-    rolearn        = module.irsa.aws_iam_role_arn
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    #rolearn        = module.irsa.aws_iam_role_arn
   }
 }
 
