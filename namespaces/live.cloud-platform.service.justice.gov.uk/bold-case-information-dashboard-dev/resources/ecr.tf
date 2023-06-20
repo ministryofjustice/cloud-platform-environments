@@ -20,6 +20,7 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
+  oidc_providers = ["github"]
   github_repositories = [var.repo_name]
 
   # list of github environments, to create the ECR secrets as environment secrets
@@ -77,19 +78,4 @@ module "ecr_credentials" {
 EOF
 */
 
-}
-
-
-resource "kubernetes_secret" "ecr_credentials" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
-  }
 }
