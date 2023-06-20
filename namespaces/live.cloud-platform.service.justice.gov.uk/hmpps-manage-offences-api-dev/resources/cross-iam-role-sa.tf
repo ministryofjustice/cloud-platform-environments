@@ -14,7 +14,6 @@ module "irsa" {
     aws_iam_policy.hmpps_manage_offences_api_dev_ap_policy.arn,
     local.sns_policies,
   )
-  team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
