@@ -11,15 +11,15 @@ data "aws_iam_policy_document" "cjs_dashboard_demo_ap_policy" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::alpha-cjs-scorecard",
+      "arn:aws:s3:::mojap-alpha-cjs-scorecard",
     ]
   }
   statement {
     actions = [
-      "s3:*",
+      "s3:GetObject",
     ]
     resources = [
-      "arn:aws:s3:::alpha-cjs-scorecard/data_processed/*"
+      "arn:aws:s3:::mojap-alpha-cjs-scorecard/*"
     ]
   }
 }
