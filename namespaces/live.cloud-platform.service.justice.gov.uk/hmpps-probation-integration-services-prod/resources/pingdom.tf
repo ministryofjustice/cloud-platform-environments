@@ -23,6 +23,7 @@ resource "pingdom_check" "pingdom" {
     "pathfinder-and-delius",
     "soc-and-delius",
     "sentence-plan-and-oasys",
+    "domain-events-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
