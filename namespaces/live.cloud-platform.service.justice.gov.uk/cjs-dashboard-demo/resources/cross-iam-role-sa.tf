@@ -1,5 +1,5 @@
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.cjs_dashboard_demo_ap_policy.arn]
@@ -54,7 +54,7 @@ resource "random_id" "cjs-dashboard-demo-ap-id" {
 
 resource "aws_iam_user" "cjs_dashboard_demo_ap_user" {
   name = "ap-s3-user-${random_id.cjs-dashboard-demo-ap-id.hex}"
-  path = "/system/manage-offences-api-ap-s3-bucket-user/"
+  path = "/system/cjs-dashboard-demo-ap-s3-bucket-user/"
 }
 
 resource "aws_iam_access_key" "cjs_dashboard_demo_ap_user" {
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    bucket_arn         = "arn:aws:s3:::alpha-cjs-scorecard"
+    bucket_arn         = "arn:aws:s3:::mojap-alpha-cjs-scorecard"
     user_arn           = aws_iam_user.cjs_dashboard_demo_ap_user.arn
     access_key_id      = aws_iam_access_key.cjs_dashboard_demo_ap_user.id
     secret_access_key  = aws_iam_access_key.cjs_dashboard_demo_ap_user.secret
