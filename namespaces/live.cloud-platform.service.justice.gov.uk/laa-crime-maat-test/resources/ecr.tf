@@ -5,7 +5,7 @@
  *
  */
 
-module "ecr" {
+module "ecr_credentials" {
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
