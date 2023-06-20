@@ -2,6 +2,13 @@ module "irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
+  business_unit          = var.business_unit
+  application            = var.application
+  service_account_name   = "${var.namespace}-sa"
+  is_production          = var.is_production
+  environment_name       = var.environment
+  team_name              = var.team_name
+  infrastructure_support = var.infrastructure_support
   role_policy_arns = [aws_iam_policy.cjs_dashboard_demo_ap_policy.arn]
 }
 data "aws_iam_policy_document" "cjs_dashboard_demo_ap_policy" {
