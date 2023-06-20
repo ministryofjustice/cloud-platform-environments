@@ -32,7 +32,7 @@ module "ecr" {
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
-  github_actions_prefix = ""
+  github_actions_prefix = "testing"
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
