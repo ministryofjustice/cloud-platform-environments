@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["circleci", "github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["https://github.com/ministryofjustice/HMCTS-iacfees"]
+  # github_repositories = ["HMCTS-iacfees"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
