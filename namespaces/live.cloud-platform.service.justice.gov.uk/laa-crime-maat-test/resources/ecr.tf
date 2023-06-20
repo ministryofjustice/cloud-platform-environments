@@ -23,6 +23,18 @@ module "ecr_credentials" {
   github_repositories = ["laa-crimeapps-maat-functional-tests"]
 }
 
+module "ecr" {
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["laa-crimeapps-maat-functional-tests"]
+
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = ""
+}
+
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
