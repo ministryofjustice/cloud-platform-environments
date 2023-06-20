@@ -23,6 +23,7 @@ module "ecr" {
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
+  /*
   lifecycle_policy = <<EOF
     {
       "rules": [
@@ -67,4 +68,5 @@ module "ecr" {
       ]
     }
     EOF
+    */
 }
