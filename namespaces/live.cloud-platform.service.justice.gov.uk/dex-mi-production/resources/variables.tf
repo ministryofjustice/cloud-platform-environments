@@ -17,7 +17,7 @@ variable "is_production" {
   default = "true"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "production"
 }
 
@@ -36,5 +36,17 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable team_name {
+  default = "correspondence"
+}
+
+variable business_unit {
+  default = "Central Digital"
+}
+
+variable application {
+  default = "dex-mi-metabase"
 }
 
