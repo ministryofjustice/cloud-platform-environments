@@ -76,11 +76,9 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_from_nomis_visits_queue.access_key_id
-    secret_access_key = module.prisoner_from_nomis_visits_queue.secret_access_key
-    sqs_id            = module.prisoner_from_nomis_visits_queue.sqs_id
-    sqs_arn           = module.prisoner_from_nomis_visits_queue.sqs_arn
-    sqs_name          = module.prisoner_from_nomis_visits_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_visits_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_visits_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_visits_queue.sqs_name
   }
 }
 
@@ -91,11 +89,9 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_from_nomis_visits_dead_letter_queue.access_key_id
-    secret_access_key = module.prisoner_from_nomis_visits_dead_letter_queue.secret_access_key
-    sqs_id            = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_id
-    sqs_arn           = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_arn
-    sqs_name          = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name
   }
 }
 
