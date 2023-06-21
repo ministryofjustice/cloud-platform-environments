@@ -98,6 +98,31 @@ variable "cognito_user_pool_ccp_client_name_prd" {
   default     = "crown-court-proceeding-client-prd"
 }
 
+variable "cognito_user_pool_ccc_client_name_dev" {
+  description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-dev"
+}
+
+variable "cognito_user_pool_ccc_client_name_tst" {
+  description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-tst"
+}
+
+variable "cognito_user_pool_ccc_client_name_uat" {
+  description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-uat"
+}
+
+variable "cognito_user_pool_ccc_client_name_stg" {
+  description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-stg"
+}
+
+variable "cognito_user_pool_ccc_client_name_prd" {
+  description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-prd"
+}
+
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"
@@ -115,6 +140,25 @@ variable "evidence_scope_name" {
 
 variable "evidence_scope_description" {
   default = "Standard scope for the Crime Evidence service"
+}
+
+variable "hardship_resource_server_identifier" {
+  default     = "hardship"
+  description = "Cognito resource server identifier for Crime Hardship service"
+}
+
+variable "hardship_resource_server_name" {
+  default     = "hardship-resource-server"
+  description = "Cognito resource server name for Crime Hardship service"
+}
+
+variable "hardship_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "hardship_scope_description" {
+  default = "Standard scope for the Crime Hardship service"
 }
 
 variable "cognito_user_pool_domain_name" {
