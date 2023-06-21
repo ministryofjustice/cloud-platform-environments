@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: prison-api-dev-admin
-  namespace: prison-api-dev
+  name: hmpps-prison-api-dev-admin
+  namespace: hmpps-prison-api-dev
 subjects:
   - kind: Group
     name: "github:syscon-devs"

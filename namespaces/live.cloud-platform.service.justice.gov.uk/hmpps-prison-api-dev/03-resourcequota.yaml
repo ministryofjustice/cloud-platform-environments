@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: prison-api-dev
+  namespace: hmpps-prison-api-dev
 spec:
   hard:
     pods: "50"

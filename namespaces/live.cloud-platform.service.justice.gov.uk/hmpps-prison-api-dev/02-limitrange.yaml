@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: prison-api-dev
+  namespace: hmpps-prison-api-dev
 spec:
   limits:
   - default:

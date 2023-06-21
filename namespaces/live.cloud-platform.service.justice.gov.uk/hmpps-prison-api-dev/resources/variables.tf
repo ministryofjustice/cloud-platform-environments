@@ -7,7 +7,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "prison-api-dev"
+  default = "hmpps-prison-api-dev"
 }
 
 variable "business_unit" {

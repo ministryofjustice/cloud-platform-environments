@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prison-api-dev.prison.service.justice.gov.uk
-  namespace: prison-api-dev
+  namespace: hmpps-prison-api-dev
 spec:
   secretName: prison-api-cert
   issuerRef:
