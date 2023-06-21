@@ -4,7 +4,6 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
-    "Digital-Prison-Services-dev-hmpps_audit_dlq"   = "hmpps-audit-dev"
   }
 }
 
