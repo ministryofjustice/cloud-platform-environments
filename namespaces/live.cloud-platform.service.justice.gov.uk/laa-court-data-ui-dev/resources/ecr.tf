@@ -6,6 +6,10 @@ module "lcdui_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+
+  oidc_providers      = ["github"]
+  github_repositories = ["laa-court-data-ui"]
+  namespace           = var.namespace
 }
 
 resource "kubernetes_secret" "lcdui_ecr_credentials" {
