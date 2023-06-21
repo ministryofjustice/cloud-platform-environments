@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-platform-app-cjsm-email-traffic-app-prod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "prod"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
+    cloud-platform.justice.gov.uk/application: "Cjsm Email Traffic App"
+    cloud-platform.justice.gov.uk/owner: "corporate data science (data science hub): "
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjsm-email-traffic-app"
+    cloud-platform.justice.gov.uk/team-name: "moj-analytical-services"
+    cloud-platform.justice.gov.uk/review-after: ""
