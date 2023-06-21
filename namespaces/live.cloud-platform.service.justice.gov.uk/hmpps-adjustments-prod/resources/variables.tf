@@ -2,11 +2,15 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "hmpps-adjustments-prod"
+  default = "hmpps-adjustments"
 }
 
 variable "namespace" {
   default = "hmpps-adjustments-prod"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "business_unit" {

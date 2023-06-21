@@ -4,20 +4,6 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  oidc_providers      = ["github"]
   github_repositories = [var.namespace, "manage-a-workforce-design-history"]
 }
-
-resource "kubernetes_secret" "ecr-repo" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_url          = module.ecr-repo.repo_url
-    access_key_id     = module.ecr-repo.access_key_id
-    secret_access_key = module.ecr-repo.secret_access_key
-    repo_arn          = module.ecr-repo.repo_arn
-  }
-}
-

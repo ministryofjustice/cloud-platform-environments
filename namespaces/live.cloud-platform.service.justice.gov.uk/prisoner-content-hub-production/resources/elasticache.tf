@@ -3,7 +3,7 @@
 ################################################################################
 
 module "drupal_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
@@ -37,7 +37,7 @@ resource "kubernetes_secret" "drupal_redis" {
 }
 
 module "frontend_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name

@@ -1,5 +1,5 @@
 module "application-events-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   sqs_name = "application-events-dlq"
 

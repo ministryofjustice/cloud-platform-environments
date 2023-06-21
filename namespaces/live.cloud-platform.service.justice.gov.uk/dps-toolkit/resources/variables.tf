@@ -2,6 +2,8 @@ variable "domain" {
   default = "dps-monitor.prison.service.justice.gov.uk"
 }
 
+variable "kubernetes_cluster" {}
+
 variable "application" {
   default = "health-kick"
 }
@@ -53,3 +55,6 @@ variable "github_token" {
   default     = ""
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}

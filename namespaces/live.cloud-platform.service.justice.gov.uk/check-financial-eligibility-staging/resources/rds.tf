@@ -5,7 +5,7 @@
  *
  */
 module "check-financial-eligibility-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                  = var.vpc_name
   team_name                 = "apply-for-legal-aid"
@@ -19,7 +19,7 @@ module "check-financial-eligibility-rds" {
 
   # specified as latest version that can be upgraded from 11.16
   db_engine_version         = "14.4"
-  
+
   db_name                   = "check_financial_eligibility_staging"
   db_parameter              = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family                = "postgres14"

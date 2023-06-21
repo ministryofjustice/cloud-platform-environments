@@ -125,6 +125,7 @@ resource "aws_api_gateway_deployment" "main" {
   triggers = {
     redeployment = sha1(jsonencode([
       # "manual-deploy-trigger",
+      local.clients,
       var.cloud_platform_integration_api_url,
       md5(file("api_gateway.tf"))
     ]))

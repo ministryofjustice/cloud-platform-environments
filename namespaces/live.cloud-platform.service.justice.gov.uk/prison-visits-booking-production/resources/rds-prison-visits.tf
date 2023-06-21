@@ -6,7 +6,7 @@
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
@@ -46,4 +46,3 @@ resource "kubernetes_secret" "prison-visits-rds" {
     url               = "postgres://${module.prison-visits-rds.database_username}:${module.prison-visits-rds.database_password}@${module.prison-visits-rds.rds_instance_endpoint}/${module.prison-visits-rds.database_name}"
   }
 }
-

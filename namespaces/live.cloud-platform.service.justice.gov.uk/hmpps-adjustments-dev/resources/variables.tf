@@ -2,7 +2,7 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "hmpps-adjustments-dev"
+  default = "hmpps-adjustments"
 }
 
 variable "namespace" {
@@ -17,6 +17,10 @@ variable "business_unit" {
 variable "team_name" {
   description = "The name of your development team"
   default     = "farsight-devs"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "environment_name" {

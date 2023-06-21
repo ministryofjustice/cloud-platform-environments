@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -9,9 +9,10 @@ module "dps_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
+  prepare_for_major_upgrade = false
   db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 

@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-audit-poc-api-dev.hmpps.service.justice.gov.uk
+    - audit-poc-api-dev.hmpps.service.justice.gov.uk

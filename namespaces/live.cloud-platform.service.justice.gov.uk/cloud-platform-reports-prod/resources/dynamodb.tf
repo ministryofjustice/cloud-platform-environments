@@ -1,5 +1,5 @@
 module "cloud_platform_reports_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
 
   team_name              = var.team_name
   application            = var.application

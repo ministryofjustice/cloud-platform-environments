@@ -4,19 +4,21 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                   = var.vpc_name
-  team_name                  = "correspondence"
-  business-unit              = "Central Digital"
-  application                = "contact-moj"
-  is-production              = "true"
+  team_name                  = var.team_name
+  business-unit              = var.business_unit
+  application                = var.application
+  is-production              = var.is_production
   namespace                  = var.namespace
+  environment-name           = var.environment
+  infrastructure-support     = var.infrastructure_support
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_production"
-  environment-name           = "production"
-  infrastructure-support     = "staffservices@digital.justice.gov.uk"
 
   rds_family = "postgres12"
 
@@ -35,7 +37,7 @@ module "contact-moj_rds" {
 resource "kubernetes_secret" "contact-moj_rds" {
   metadata {
     name      = "contact-moj-rds-output"
-    namespace = "contact-moj-production"
+    namespace = var.namespace
   }
 
   data = {
