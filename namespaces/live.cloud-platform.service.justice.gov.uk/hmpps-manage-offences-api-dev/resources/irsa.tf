@@ -2,13 +2,13 @@ locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
-  sns_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value}
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace        = var.namespace
-  eks_cluster_name = var.eks_cluster_name
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace            = var.namespace
+  eks_cluster_name     = var.eks_cluster_name
   service_account_name = "hmpps-manage-offences-api"
   role_policy_arns = merge(
     { "s3" = aws_iam_policy.hmpps_manage_offences_api_dev_ap_policy.arn },
@@ -67,6 +67,6 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    bucket_arn        = "arn:aws:s3:::mojap-manage-offences"
+    bucket_arn = "arn:aws:s3:::mojap-manage-offences"
   }
 }
