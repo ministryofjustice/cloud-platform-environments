@@ -3,7 +3,7 @@
 ################################################################################
 
 module "hmpps_book_video_link_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
@@ -32,6 +32,9 @@ resource "kubernetes_secret" "hmpps_book_video_link_elasticache_redis" {
     primary_endpoint_address = module.hmpps_book_video_link_elasticache_redis.primary_endpoint_address
     auth_token               = module.hmpps_book_video_link_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.hmpps_book_video_link_elasticache_redis.member_clusters)
+    access_key_id            = module.hmpps_book_video_link_elasticache_redis.access_key_id
+    secret_access_key        = module.hmpps_book_video_link_elasticache_redis.secret_access_key
+    replication_group_id     = module.hmpps_book_video_link_elasticache_redis.replication_group_id
   }
 }
 
