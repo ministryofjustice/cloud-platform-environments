@@ -123,8 +123,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
-      "OFFENDER_IDENTIFIER-INSERTED",
-      "OFFENDER_IDENTIFIER-DELETED"
+      "OFFENDER_IDENTIFIER-UPDATED"
     ]
   })
 }
