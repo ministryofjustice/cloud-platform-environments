@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-matrix-booking-dev
 subjects:
   - kind: Group
-    name: "github:matrix-booking-admin-team"
+    name: "github:fact"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
