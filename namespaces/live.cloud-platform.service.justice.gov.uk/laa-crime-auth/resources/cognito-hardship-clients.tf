@@ -58,9 +58,9 @@ resource "aws_cognito_user_pool_client" "ccc_client_prd" {
   generate_secret                      = true
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_dev" {
+resource "kubernetes_secret" "aws_cognito_user_pool_hardship_dev" {
   metadata {
-    name      = "ccc-client-secret-dev-output"
+    name      = "hardship-dev-client-credentials"
     namespace = var.namespace
   }
   data = {
@@ -69,9 +69,9 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_dev" {
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_tst" {
+resource "kubernetes_secret" "aws_cognito_user_pool_hardship_tst" {
   metadata {
-    name      = "ccc-client-secret-tst-output"
+    name      = "hardship-tst-client-credentials"
     namespace = var.namespace
   }
   data = {
@@ -80,9 +80,9 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_tst" {
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_uat" {
+resource "kubernetes_secret" "aws_cognito_user_pool_hardship_uat" {
   metadata {
-    name      = "ccc-client-secret-uat-output"
+    name      = "hardship-uat-client-credentials"
     namespace = var.namespace
   }
   data = {
@@ -91,9 +91,9 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_uat" {
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_stg" {
+resource "kubernetes_secret" "aws_cognito_user_pool_hardship_stg" {
   metadata {
-    name      = "ccc-client-secret-stg-output"
+    name      = "hardship-stg-client-credentials"
     namespace = var.namespace
   }
   data = {
@@ -102,9 +102,9 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_stg" {
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccc_client_prd" {
+resource "kubernetes_secret" "aws_cognito_user_pool_hardship_prd" {
   metadata {
-    name      = "ccc-client-secret-prd-output"
+    name      = "hardship-prd-client-credentials"
     namespace = var.namespace
   }
   data = {
