@@ -7,7 +7,7 @@ module "lcdui_ecr_credentials" {
     aws = aws.london
   }
 
-  oidc_providers      = ["github"]
+  oidc_providers      = ["circleci"]
   github_repositories = ["laa-court-data-ui"]
   namespace           = var.namespace
 }
