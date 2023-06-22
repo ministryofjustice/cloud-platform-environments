@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Cjsm Email Traffic App"
     cloud-platform.justice.gov.uk/owner: "corporate data science (data science hub): "
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjsm-email-traffic-app"
-    cloud-platform.justice.gov.uk/team-name: "moj-analytical-services"
+    cloud-platform.justice.gov.uk/team-name: "cjsm-email-traffic-app-admin-team"
     cloud-platform.justice.gov.uk/review-after: ""
