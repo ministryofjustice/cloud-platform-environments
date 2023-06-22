@@ -68,9 +68,14 @@ variable "github_token" {
   default     = ""
 }
 
-variable "user_pool_name" {
+variable "user_pool_name_evidence" {
   description = "Cognito user pool name"
-  default     = "laa-crime-auth-userpool"
+  default     = "laa-crime-auth-userpool-evidence"
+}
+
+variable "user_pool_name_hardship" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-hardship"
 }
 
 variable "cognito_user_pool_ccp_client_name_dev" {
@@ -161,6 +166,10 @@ variable "hardship_scope_description" {
   default = "Standard scope for the Crime Hardship service"
 }
 
-variable "cognito_user_pool_domain_name" {
-  default = "laa-crime-auth"
+variable "cognito_user_pool_domain_name_evidence" {
+  default = "laa-crime-auth-evidence"
+}
+
+variable "cognito_user_pool_domain_name_hardship" {
+  default = "laa-crime-auth-hardship"
 }

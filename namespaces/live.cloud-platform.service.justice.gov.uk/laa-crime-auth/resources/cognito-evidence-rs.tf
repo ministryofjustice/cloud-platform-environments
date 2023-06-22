@@ -6,5 +6,5 @@ resource "aws_cognito_resource_server" "evidence_resource_server" {
     scope_name        = var.evidence_scope_name
     scope_description = var.evidence_scope_description
   }
-  user_pool_id = aws_cognito_user_pool.pool.id
+  user_pool_id = aws_cognito_user_pool.evidence_user_pool.id
 }
