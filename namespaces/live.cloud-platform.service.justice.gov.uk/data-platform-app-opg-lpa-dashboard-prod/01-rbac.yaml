@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-opg-lpa-dashboard-prod
 subjects:
   - kind: Group
-    name: "github:opg-lpa-dashboard-admin-team"
+    name: "github:deds"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
