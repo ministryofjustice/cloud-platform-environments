@@ -13,8 +13,6 @@ module "hmpps_book_video_link_elasticache_redis" {
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
