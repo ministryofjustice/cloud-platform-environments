@@ -12,7 +12,7 @@ spec:
       rules:
         - alert: CcqUat5xxIngressResponses
           expr: |-
-            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat",status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
           labels:
             severity: laa-estimate-eligibility-uat
           annotations:
