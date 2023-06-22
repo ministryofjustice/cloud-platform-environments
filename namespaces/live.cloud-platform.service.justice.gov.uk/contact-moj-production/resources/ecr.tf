@@ -7,7 +7,7 @@
 module "contact-moj_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
   repo_name = "contact-moj-ecr"
-  team_name = "correspondence"
+  team_name = var.team_name
 
   # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
 
@@ -20,7 +20,7 @@ module "contact-moj_ecr_credentials" {
 resource "kubernetes_secret" "contact-moj_ecr_credentials" {
   metadata {
     name      = "contact-moj-ecr-credentials-output"
-    namespace = "contact-moj-production"
+    namespace = var.namespace
   }
 
   data = {

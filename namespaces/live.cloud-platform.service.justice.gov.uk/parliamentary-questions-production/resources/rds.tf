@@ -7,17 +7,19 @@ module "rds_instance" {
   application                 = var.application
 
   vpc_name                   = var.vpc_name
-  db_backup_retention_period = var.db_backup_retention_period
-  db_engine                  = "postgres"
-  db_engine_version          = "12"
-  db_name                    = "parliamentary_questions_production"
   environment-name           = var.environment-name
   infrastructure-support     = var.infrastructure_support
   is-production              = var.is_production
   namespace                  = var.namespace
-  rds_family                 = "postgres12"
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   team_name                  = var.team_name
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
+  db_engine                  = "postgres"
+  db_engine_version          = "12"
+  db_name                    = "parliamentary_questions_production"
+  rds_family                 = "postgres12"
+  db_backup_retention_period = var.db_backup_retention_period
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   providers = {
     aws = aws.london
