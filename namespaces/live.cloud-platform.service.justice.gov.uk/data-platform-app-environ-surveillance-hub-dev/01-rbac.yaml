@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-environ-surveillance-hub-dev
 subjects:
   - kind: Group
-    name: "github:environ-surveillance-hub-admin-team"
+    name: "github:pses_app"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
