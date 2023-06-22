@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-legal-aid-tools-prod
 subjects:
   - kind: Group
-    name: "github:legal-aid-tools-admin-team"
+    name: "github:legal_aid_statistics_team"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
