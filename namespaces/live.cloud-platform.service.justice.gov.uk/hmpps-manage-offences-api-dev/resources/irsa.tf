@@ -9,7 +9,7 @@ module "irsa" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-manage-offences-api"
+  service_account_name = "hmpps-manage-offences-api-dev"
   role_policy_arns = merge(
     { "s3" = aws_iam_policy.hmpps_manage_offences_api_dev_ap_policy.arn },
     local.sns_policies
@@ -70,3 +70,16 @@ resource "kubernetes_secret" "ap_aws_secret" {
     bucket_arn = "arn:aws:s3:::mojap-manage-offences"
   }
 }
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
+}
+
