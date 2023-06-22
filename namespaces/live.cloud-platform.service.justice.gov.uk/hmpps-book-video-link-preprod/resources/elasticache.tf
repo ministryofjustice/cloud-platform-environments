@@ -35,6 +35,5 @@ resource "kubernetes_secret" "hmpps_book_video_link_elasticache_redis" {
     access_key_id            = module.hmpps_book_video_link_elasticache_redis.access_key_id
     secret_access_key        = module.hmpps_book_video_link_elasticache_redis.secret_access_key
     replication_group_id     = module.hmpps_book_video_link_elasticache_redis.replication_group_id
-
   }
 }
