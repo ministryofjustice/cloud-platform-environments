@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-estimate-financial-eligibility-for-legal-aid-uat
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-ccq
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: CcqUat5xxIngressResponses
+      expr: avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+      labels:
+        severity: laa-estimate-eligibility-uat
+      annotations:
+        message: Ingress {{ $labels.exported_namespace }}/{{ $labels.ingress }} is serving 5xx responses.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/LE/pages/4405724996/CCQ+Runbook
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-estimate-financial-eligibility-for-legal-aid-uat&var-ingress=main-laa-estimate-eligibility
