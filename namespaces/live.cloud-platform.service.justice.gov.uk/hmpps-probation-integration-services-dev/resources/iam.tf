@@ -1,27 +1,27 @@
 locals {
   managed_sqs_queues = [
-    module.person-search-index-from-delius-person-queue.sqs_arn,
-    module.person-search-index-from-delius-person-dlq.sqs_arn,
-    module.person-search-index-from-delius-contact-queue.sqs_arn,
-    module.person-search-index-from-delius-contact-dlq.sqs_arn,
-    module.refer-and-monitor-and-delius-queue.sqs_arn,
-    module.refer-and-monitor-and-delius-dlq.sqs_arn,
-    module.unpaid-work-and-delius-queue.sqs_arn,
-    module.unpaid-work-and-delius-dlq.sqs_arn,
-    module.make-recall-decisions-and-delius-queue.sqs_arn,
-    module.make-recall-decisions-and-delius-dlq.sqs_arn,
-    module.custody-key-dates-and-delius-queue.sqs_arn,
-    module.custody-key-dates-and-delius-dlq.sqs_arn,
-    module.pre-sentence-reports-to-delius-queue.sqs_arn,
-    module.pre-sentence-reports-to-delius-dlq.sqs_arn,
-    module.prison-case-notes-to-probation-queue.sqs_arn,
-    module.prison-case-notes-to-probation-dlq.sqs_arn,
-    module.prison-custody-status-to-delius-queue.sqs_arn,
-    module.prison-custody-status-to-delius-dlq.sqs_arn,
-    module.risk-assessment-scores-to-delius-queue.sqs_arn,
-    module.risk-assessment-scores-to-delius-dlq.sqs_arn,
-    module.tier-to-delius-queue.sqs_arn,
-    module.tier-to-delius-dlq.sqs_arn,
+    module.person-search-index-from-delius-person-queue,
+    module.person-search-index-from-delius-person-dlq,
+    module.person-search-index-from-delius-contact-queue,
+    module.person-search-index-from-delius-contact-dlq,
+    module.refer-and-monitor-and-delius-queue,
+    module.refer-and-monitor-and-delius-dlq,
+    module.unpaid-work-and-delius-queue,
+    module.unpaid-work-and-delius-dlq,
+    module.make-recall-decisions-and-delius-queue,
+    module.make-recall-decisions-and-delius-dlq,
+    module.custody-key-dates-and-delius-queue,
+    module.custody-key-dates-and-delius-dlq,
+    module.pre-sentence-reports-to-delius-queue,
+    module.pre-sentence-reports-to-delius-dlq,
+    module.prison-case-notes-to-probation-queue,
+    module.prison-case-notes-to-probation-dlq,
+    module.prison-custody-status-to-delius-queue,
+    module.prison-custody-status-to-delius-dlq,
+    module.risk-assessment-scores-to-delius-queue,
+    module.risk-assessment-scores-to-delius-dlq,
+    module.tier-to-delius-queue,
+    module.tier-to-delius-dlq,
   ]
 }
 
@@ -116,7 +116,7 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
       "sqs:ListQueueTags",
       "sqs:ListQueues",
     ]
-    resources = local.managed_sqs_queues
+    resources = local.managed_sqs_queues.*.sqs_arn
   }
   statement {
     sid    = "QueueManagementWrite"
@@ -128,7 +128,7 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
       "sqs:ReceiveMessage",
       "sqs:SendMessage",
     ]
-    resources = local.managed_sqs_queues
+    resources = local.managed_sqs_queues.*.sqs_arn
   }
   statement {
     sid    = "KMS"
