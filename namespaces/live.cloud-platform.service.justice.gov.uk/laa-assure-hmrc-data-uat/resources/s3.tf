@@ -12,6 +12,24 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
+
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "expire sensitive data files"
+
+      noncurrent_version_expiration = [
+        {
+          days = 32
+        },
+      ]
+      expiration = [
+        {
+          days = 32
+        },
+      ]
+    }
+  ]
 }
 
 resource "kubernetes_secret" "s3_bucket" {
