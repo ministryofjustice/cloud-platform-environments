@@ -20,12 +20,12 @@ module "s3_bucket" {
 
       noncurrent_version_expiration = [
         {
-          days = 32
+          days = 1
         },
       ]
       expiration = [
         {
-          days = 32
+          days = 1
         },
       ]
     }
