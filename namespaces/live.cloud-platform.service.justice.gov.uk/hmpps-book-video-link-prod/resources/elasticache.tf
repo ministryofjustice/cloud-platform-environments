@@ -13,9 +13,10 @@ module "hmpps_book_video_link_elasticache_redis" {
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+  auth_token_rotated_date = "2023-06-26"
 
   providers = {
     aws = aws.london
@@ -35,6 +36,5 @@ resource "kubernetes_secret" "hmpps_book_video_link_elasticache_redis" {
     access_key_id            = module.hmpps_book_video_link_elasticache_redis.access_key_id
     secret_access_key        = module.hmpps_book_video_link_elasticache_redis.secret_access_key
     replication_group_id     = module.hmpps_book_video_link_elasticache_redis.replication_group_id
-
   }
 }
