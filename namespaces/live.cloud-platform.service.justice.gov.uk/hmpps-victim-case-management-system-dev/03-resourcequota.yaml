@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: hmpps-victim-case-management-system-dev
-spec:
-  hard:
-    pods: "50"
