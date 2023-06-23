@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-remuneration-tool-app-prod
 subjects:
   - kind: Group
-    name: "github:remuneration-tool-app-admin-team"
+    name: "github:remuneration-tool-admin"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
