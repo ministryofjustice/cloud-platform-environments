@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: apply-for-criminal-legal-aid-prometheus-staging
+      app: apply-for-criminal-legal-aid-web-staging
   endpoints:
   - port: metrics
     interval: 15s
