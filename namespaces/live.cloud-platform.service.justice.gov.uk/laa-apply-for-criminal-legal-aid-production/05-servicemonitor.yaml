@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: metrics-service-monitor
+  namespace: laa-apply-for-criminal-legal-aid-production
+spec:
+  selector:
+    matchLabels:
+      app: apply-for-criminal-legal-aid-web-production
+  endpoints:
+  - port: metrics
+    interval: 15s
