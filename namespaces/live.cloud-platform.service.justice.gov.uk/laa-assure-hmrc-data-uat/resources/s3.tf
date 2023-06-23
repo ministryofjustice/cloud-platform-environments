@@ -14,7 +14,7 @@ module "s3_bucket" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_config" {
-  bucket = module.s3_bucket.bucket.id
+  bucket = module.s3_bucket.bucket_name
 
   rule {
     id = "expire sensitive data"
