@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: apply-for-criminal-legal-aid-prometheus-staging
+      app: apply-for-criminal-legal-aid-web-staging
   policyTypes:
   - Ingress
   ingress:
