@@ -82,5 +82,5 @@ module "custody-key-dates-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "custody-key-dates-and-delius"
-  role_policy_arns     = [module.custody-key-dates-and-delius-queue.irsa_policy_arn]
+  role_policy_arns     = { sqs = module.custody-key-dates-and-delius-queue.irsa_policy_arn }
 }

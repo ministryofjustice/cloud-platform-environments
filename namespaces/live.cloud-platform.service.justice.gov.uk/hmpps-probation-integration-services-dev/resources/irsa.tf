@@ -12,5 +12,5 @@ module "shared-service-account" {
   team_name              = var.team_name
 
   service_account_name = var.application
-  role_policy_arns     = local.managed_sqs_queues.*.irsa_policy_arn
+  role_policy_arns     = local.managed_sqs_queues[*].irsa_policy_arn
 }

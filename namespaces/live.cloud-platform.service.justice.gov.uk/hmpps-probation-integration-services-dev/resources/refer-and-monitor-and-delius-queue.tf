@@ -74,5 +74,5 @@ module "refer-and-monitor-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "refer-and-monitor-and-delius"
-  role_policy_arns     = [module.refer-and-monitor-and-delius-queue.irsa_policy_arn]
+  role_policy_arns     = { sqs = module.refer-and-monitor-and-delius-queue.irsa_policy_arn }
 }

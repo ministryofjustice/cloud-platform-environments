@@ -10,5 +10,5 @@ module "offender-events-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "offender-events-and-delius"
-  role_policy_arns     = [data.aws_ssm_parameter.probation-offender-events-policy-arn.value]
+  role_policy_arns     = { sqs = data.aws_ssm_parameter.probation-offender-events-policy-arn.value }
 }

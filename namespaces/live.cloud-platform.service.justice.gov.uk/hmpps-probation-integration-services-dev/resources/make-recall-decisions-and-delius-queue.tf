@@ -71,5 +71,5 @@ module "make-recall-decisions-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "make-recall-decisions-and-delius"
-  role_policy_arns     = [module.make-recall-decisions-and-delius-queue.irsa_policy_arn]
+  role_policy_arns     = { sqs = module.make-recall-decisions-and-delius-queue.irsa_policy_arn }
 }

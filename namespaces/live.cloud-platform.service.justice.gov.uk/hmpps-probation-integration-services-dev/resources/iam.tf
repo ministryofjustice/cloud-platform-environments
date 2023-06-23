@@ -116,7 +116,7 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
       "sqs:ListQueueTags",
       "sqs:ListQueues",
     ]
-    resources = local.managed_sqs_queues.*.sqs_arn
+    resources = local.managed_sqs_queues[*].sqs_arn
   }
   statement {
     sid    = "QueueManagementWrite"
@@ -128,7 +128,7 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
       "sqs:ReceiveMessage",
       "sqs:SendMessage",
     ]
-    resources = local.managed_sqs_queues.*.sqs_arn
+    resources = local.managed_sqs_queues[*].sqs_arn
   }
   statement {
     sid    = "KMS"

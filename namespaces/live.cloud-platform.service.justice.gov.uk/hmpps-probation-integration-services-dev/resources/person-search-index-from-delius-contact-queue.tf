@@ -81,8 +81,8 @@ module "person-search-index-from-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "person-search-index-from-delius"
-  role_policy_arns = [
-    module.person-search-index-from-delius-contact-queue.irsa_policy_arn,
-    module.person-search-index-from-delius-person-queue.irsa_policy_arn,
-  ]
+  role_policy_arns = {
+    sqs_person  = module.person-search-index-from-delius-contact-queue.irsa_policy_arn,
+    sqs_contact = module.person-search-index-from-delius-person-queue.irsa_policy_arn,
+  }
 }

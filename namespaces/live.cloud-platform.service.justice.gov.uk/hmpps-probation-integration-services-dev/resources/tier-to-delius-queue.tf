@@ -68,5 +68,5 @@ module "tier-to-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "tier-to-delius"
-  role_policy_arns     = [module.tier-to-delius-queue.irsa_policy_arn]
+  role_policy_arns     = { sqs = module.tier-to-delius-queue.irsa_policy_arn }
 }

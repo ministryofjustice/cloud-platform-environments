@@ -10,5 +10,5 @@ module "domain-events-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "domain-events-and-delius"
-  role_policy_arns     = [data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value]
+  role_policy_arns     = { sqs = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value }
 }

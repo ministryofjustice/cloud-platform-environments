@@ -70,5 +70,5 @@ module "manage-pom-cases-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "manage-pom-cases-and-delius"
-  role_policy_arns     = [module.manage-pom-cases-and-delius-queue.irsa_policy_arn]
+  role_policy_arns     = { sqs = module.manage-pom-cases-and-delius-queue.irsa_policy_arn }
 }
