@@ -1,5 +1,10 @@
 # Shared service account for use by the probation integration team to access all queues in the namespace
 # Note: each service in the namespace also has a dedicated service account
+resource "aws_iam_policy" "irsa_policy" {
+  name   = "${var.namespace}-irsa"
+  policy = data.aws_iam_policy_document.sqs_console_role_policy_document.json
+}
+
 module "shared-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
@@ -12,5 +17,5 @@ module "shared-service-account" {
   team_name              = var.team_name
 
   service_account_name = var.application
-  role_policy_arns     = { for queue in local.managed_sqs_queues : queue.sqs_name => queue.irsa_policy_arn }
+  role_policy_arns     = { sqs = aws_iam_policy.irsa_policy.arn }
 }
