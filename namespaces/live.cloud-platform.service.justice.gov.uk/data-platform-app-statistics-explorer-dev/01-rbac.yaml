@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-statistics-explorer-dev
 subjects:
   - kind: Group
-    name: "github:statistics-explorer-admin-team"
+    name: "github:statistics-explorer-admin"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
