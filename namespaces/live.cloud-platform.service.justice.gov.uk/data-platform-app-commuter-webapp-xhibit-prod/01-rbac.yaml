@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-commuter-webapp-xhibit-prod
 subjects:
   - kind: Group
-    name: "github:commuter-webapp-xhibit-admin-team"
+    name: "github:commuter-webapp-xhibit-admin"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
