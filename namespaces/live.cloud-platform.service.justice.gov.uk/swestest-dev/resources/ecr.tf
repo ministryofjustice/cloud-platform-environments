@@ -69,4 +69,6 @@ module "ecr" {
     }
     EOF
   */
+
+  ready_for_deletion = true
 }
