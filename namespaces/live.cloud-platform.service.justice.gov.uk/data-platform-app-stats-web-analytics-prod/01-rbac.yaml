@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-stats-web-analytics-prod
 subjects:
   - kind: Group
-    name: "github:stats-web-analytics-admin-team"
+    name: "github:stats-web-analytics-admin"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
