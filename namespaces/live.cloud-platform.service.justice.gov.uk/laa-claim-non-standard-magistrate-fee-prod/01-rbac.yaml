@@ -1,7 +1,7 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-claim-non-standard-magistrate-fee-uat-admin
+  name: laa-claim-non-standard-magistrate-fee-prod-admin
   namespace: laa-claim-non-standard-magistrate-fee-prod
 subjects:
   - kind: Group
