@@ -1,4 +1,4 @@
-module "irsa" {
+module "irsa-staging" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -6,7 +6,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "prisoner-content-hub-db-backups"
-  namespace            = "prisoner-content-hub-development"
+  namespace            = "prisoner-content-hub-staging"
 
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
