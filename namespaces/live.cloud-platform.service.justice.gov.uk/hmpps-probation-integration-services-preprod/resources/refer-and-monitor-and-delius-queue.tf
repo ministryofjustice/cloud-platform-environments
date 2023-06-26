@@ -61,3 +61,18 @@ resource "kubernetes_secret" "refer-and-monitor-and-delius-queue-secret" {
     AWS_SECRET_ACCESS_KEY = module.refer-and-monitor-and-delius-queue.secret_access_key
   }
 }
+
+module "refer-and-monitor-and-delius-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "refer-and-monitor-and-delius"
+  role_policy_arns     = { sqs = module.refer-and-monitor-and-delius-queue.irsa_policy_arn }
+}
