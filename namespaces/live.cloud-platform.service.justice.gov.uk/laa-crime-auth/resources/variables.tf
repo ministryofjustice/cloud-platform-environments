@@ -83,6 +83,11 @@ variable "user_pool_name_cma" {
   default     = "laa-crime-auth-userpool-cma"
 }
 
+variable "user_pool_name_ccp" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-ccp"
+}
+
 variable "cognito_user_pool_ccp_client_name_dev" {
   description = "Cognito user pool CCP client name"
   default     = "crown-court-proceeding-client-dev"
@@ -215,6 +220,25 @@ variable "cma_scope_description" {
   default = "Standard scope for the Crime Means Assessment service"
 }
 
+variable "ccp_resource_server_identifier" {
+  default     = "ccp"
+  description = "Cognito resource server identifier for Crime Means Assessment service"
+}
+
+variable "ccp_resource_server_name" {
+  default     = "ccp-resource-server"
+  description = "Cognito resource server name for Crown Court Proceeding service"
+}
+
+variable "ccp_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "ccp_scope_description" {
+  default = "Standard scope for the Crown Court Proceeding service"
+}
+
 variable "cognito_user_pool_domain_name_evidence" {
   default = "laa-crime-auth-evidence"
 }
@@ -225,4 +249,8 @@ variable "cognito_user_pool_domain_name_hardship" {
 
 variable "cognito_user_pool_domain_name_cma" {
   default = "laa-crime-auth-cma"
+}
+
+variable "cognito_user_pool_domain_name_ccp" {
+  default = "laa-crime-auth-ccp"
 }
