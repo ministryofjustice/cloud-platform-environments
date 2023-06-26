@@ -7,6 +7,10 @@ module "cccd_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+
+  oidc_providers      = ["circleci"]
+  github_repositories = ["claim-for-crown-court-defence"]
+  namespace           = var.namespace
 }
 
 resource "kubernetes_secret" "cccd_ecr_credentials" {
