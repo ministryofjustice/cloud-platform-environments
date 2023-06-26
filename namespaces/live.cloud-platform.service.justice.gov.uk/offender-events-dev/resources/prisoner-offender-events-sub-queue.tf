@@ -112,7 +112,8 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "RESTRICTION-UPSERTED",
       "PERSON_RESTRICTION-UPSERTED",
       "VISITOR_RESTRICTION-UPSERTED",
-      "PRISONER_ACTIVITY-UPDATE"
+      "PRISONER_ACTIVITY-UPDATE",
+      "PRISONER_APPOINTMENT-UPDATE"
     ]
   })
 }
