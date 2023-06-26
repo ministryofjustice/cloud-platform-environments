@@ -31,7 +31,6 @@ variable "additional_topic_clients" {
     "hmpps-complexity-of-need-staging",
     "hmpps-incentives-dev",
     "hmpps-interventions-dev",
-    "hmpps-manage-offences-api-dev",
     "hmpps-manage-adjudications-api-dev",
     "hmpps-prisoner-search-dev",
     "hmpps-probation-integration-services-dev",
