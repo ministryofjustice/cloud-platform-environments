@@ -1,4 +1,4 @@
-resource "aws_cognito_user_pool_client" "maat_client_dev" {
+resource "aws_cognito_user_pool_client" "maat_client_ccp_dev" {
   name                                 = var.cognito_user_pool_maat_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -10,7 +10,7 @@ resource "aws_cognito_user_pool_client" "maat_client_dev" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_tst" {
+resource "aws_cognito_user_pool_client" "maat_client_ccp_tst" {
   name                                 = var.cognito_user_pool_maat_client_name_tst
   user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -22,7 +22,7 @@ resource "aws_cognito_user_pool_client" "maat_client_tst" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_uat" {
+resource "aws_cognito_user_pool_client" "maat_client_ccp_uat" {
   name                                 = var.cognito_user_pool_maat_client_name_uat
   user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -34,7 +34,7 @@ resource "aws_cognito_user_pool_client" "maat_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_stg" {
+resource "aws_cognito_user_pool_client" "maat_client_ccp_stg" {
   name                                 = var.cognito_user_pool_maat_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -46,7 +46,7 @@ resource "aws_cognito_user_pool_client" "maat_client_stg" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_prd" {
+resource "aws_cognito_user_pool_client" "maat_client_ccp_prd" {
   name                                 = var.cognito_user_pool_maat_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
