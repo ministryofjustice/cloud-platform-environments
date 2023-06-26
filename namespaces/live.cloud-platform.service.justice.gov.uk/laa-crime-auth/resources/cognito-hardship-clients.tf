@@ -64,8 +64,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_hardship_dev" {
     namespace = var.namespace
   }
   data = {
-    client_id     = aws_cognito_user_pool_client.ccc_client_dev.id
-    client_secret = aws_cognito_user_pool_client.ccc_client_dev.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_dev.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_dev.client_secret
   }
 }
 
