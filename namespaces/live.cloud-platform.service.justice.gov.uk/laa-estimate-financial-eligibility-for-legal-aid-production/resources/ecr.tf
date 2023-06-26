@@ -9,6 +9,15 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "laa-estimate-financial-eligibility-for-legal-aid-ecr"
 
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = ["laa-estimate-financial-eligibility-for-legal-aid"]
+
+  # set your namespace name to create a ConfigMap of credentials you need in CircleCI
+  namespace = var.namespace
+
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
@@ -17,26 +26,22 @@ module "ecr_credentials" {
   scan_on_push = "false"
   */
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
-
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   # github_environments = ["my-environment"]
 
-  /*
+
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
 
+  # Production images are tagged with "latest". No other images are tagged
   lifecycle_policy = <<EOF
 {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire untagged images older than 14 days",
+            "description": "Expire untagged (UAT) images older than 14 days",
             "selection": {
                 "tagStatus": "untagged",
                 "countType": "sinceImagePushed",
@@ -49,22 +54,10 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 2,
-            "description": "Keep last 30 dev and staging images",
+            "description": "Keep the newest 100 production images and mark the rest for expiration",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["dev", "staging"],
-                "countType": "imageCountMoreThan",
-                "countNumber": 30
-            },
-            "action": {
-                "type": "expire"
-            }
-        },
-        {
-            "rulePriority": 3,
-            "description": "Keep the newest 100 images and mark the rest for expiration",
-            "selection": {
-                "tagStatus": "any",
+                "tagPrefixList": ["latest"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 100
             },
@@ -75,7 +68,7 @@ module "ecr_credentials" {
     ]
 }
 EOF
-*/
+
 
 }
 
