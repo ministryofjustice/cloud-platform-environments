@@ -62,3 +62,18 @@ resource "kubernetes_secret" "approved-premises-and-delius-queue-secret" {
     AWS_SECRET_ACCESS_KEY = module.approved-premises-and-delius-queue.secret_access_key
   }
 }
+
+module "approved-premises-and-delius-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "approved-premises-and-delius"
+  role_policy_arns     = { sqs = module.approved-premises-and-delius-queue.irsa_policy_arn }
+}
