@@ -107,6 +107,14 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 
 data "aws_iam_policy_document" "sqs_console_role_policy_document" {
   statement {
+    sid    = "QueueManagementList"
+    effect = "Allow"
+    actions = [
+      "sqs:ListQueues",
+    ]
+    resources = ["*"]
+  }
+  statement {
     sid    = "QueueManagementRead"
     effect = "Allow"
     actions = [
@@ -114,7 +122,6 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListQueueTags",
-      "sqs:ListQueues",
     ]
     resources = local.managed_sqs_queues[*].sqs_arn
   }
