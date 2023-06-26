@@ -78,6 +78,11 @@ variable "user_pool_name_hardship" {
   default     = "laa-crime-auth-userpool-hardship"
 }
 
+variable "user_pool_name_cma" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-cma"
+}
+
 variable "cognito_user_pool_ccp_client_name_dev" {
   description = "Cognito user pool CCP client name"
   default     = "crown-court-proceeding-client-dev"
@@ -128,6 +133,31 @@ variable "cognito_user_pool_ccc_client_name_prd" {
   default     = "crown-court-contribution-client-prd"
 }
 
+variable "cognito_user_pool_maat_client_name_dev" {
+  description = "Cognito user pool MAAT client name"
+  default     = "maat-client-dev"
+}
+
+variable "cognito_user_pool_maat_client_name_tst" {
+  description = "Cognito user pool MAAT client name"
+  default     = "maat-client-tst"
+}
+
+variable "cognito_user_pool_maat_client_name_uat" {
+  description = "Cognito user pool MAAT client name"
+  default     = "maat-client-uat"
+}
+
+variable "cognito_user_pool_maat_client_name_stg" {
+  description = "Cognito user pool MAAT client name"
+  default     = "maat-client-stg"
+}
+
+variable "cognito_user_pool_maat_client_name_prd" {
+  description = "Cognito user pool MAAT client name"
+  default     = "maat-client-prd"
+}
+
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"
@@ -166,10 +196,33 @@ variable "hardship_scope_description" {
   default = "Standard scope for the Crime Hardship service"
 }
 
+variable "cma_resource_server_identifier" {
+  default     = "cma"
+  description = "Cognito resource server identifier for Crime Means Assessment service"
+}
+
+variable "cma_resource_server_name" {
+  default     = "cma-resource-server"
+  description = "Cognito resource server name for Crime Means Assessment service"
+}
+
+variable "cma_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "cma_scope_description" {
+  default = "Standard scope for the Crime Means Assessment service"
+}
+
 variable "cognito_user_pool_domain_name_evidence" {
   default = "laa-crime-auth-evidence"
 }
 
 variable "cognito_user_pool_domain_name_hardship" {
   default = "laa-crime-auth-hardship"
+}
+
+variable "cognito_user_pool_domain_name_cma" {
+  default = "laa-crime-auth-cma"
 }
