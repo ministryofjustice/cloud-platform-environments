@@ -9,7 +9,7 @@ module "cccd_ecr_credentials" {
   }
 
   oidc_providers      = ["circleci"]
-  github_repositories = ["claim-for-crown-court-defence"]
+  github_repositories = ["Claim-for-Crown-Court-Defence"]
   namespace           = var.namespace
 }
 
