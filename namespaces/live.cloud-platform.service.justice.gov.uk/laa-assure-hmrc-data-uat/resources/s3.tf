@@ -20,7 +20,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_config" {
     id = "expire sensitive data"
 
     expiration {
-      days = 1
+      days = 32
     }
 
     status = "Enabled"
