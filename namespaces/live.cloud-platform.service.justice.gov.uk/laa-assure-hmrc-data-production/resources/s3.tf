@@ -14,6 +14,20 @@ module "s3_bucket" {
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_config" {
+  bucket = module.s3_bucket.bucket_name
+
+  rule {
+    id = "expire sensitive data"
+
+    expiration {
+      days = 32
+    }
+
+    status = "Enabled"
+  }
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
