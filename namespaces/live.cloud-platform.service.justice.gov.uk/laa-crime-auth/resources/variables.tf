@@ -158,31 +158,6 @@ variable "cognito_user_pool_maat_client_name_prd" {
   default     = "maat-client-prd"
 }
 
-variable "cognito_user_pool_ccq_client_name_dev" {
-  description = "Cognito user pool CCQ client name"
-  default     = "ccq-client-dev"
-}
-
-variable "cognito_user_pool_ccq_client_name_tst" {
-  description = "Cognito user pool CCQ client name"
-  default     = "ccq-client-tst"
-}
-
-variable "cognito_user_pool_ccq_client_name_uat" {
-  description = "Cognito user pool CCQ client name"
-  default     = "ccq-client-uat"
-}
-
-variable "cognito_user_pool_ccq_client_name_stg" {
-  description = "Cognito user pool CCQ client name"
-  default     = "ccq-client-stg"
-}
-
-variable "cognito_user_pool_ccq_client_name_prd" {
-  description = "Cognito user pool CCQ client name"
-  default     = "ccq-client-prd"
-}
-
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"
