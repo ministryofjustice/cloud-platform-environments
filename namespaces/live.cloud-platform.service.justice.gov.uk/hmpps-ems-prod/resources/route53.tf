@@ -125,7 +125,7 @@ resource "aws_route53_record" "ruby_preprod_dns_validation_record" {
   records = ["_48d1a9b6ff3eb34ffef392d38d9b1d65.hnyzmxtzsz.acm-validations.aws."]
 }
 
-# API Gateway validation record
+# API Gateway alias record
 resource "aws_route53_record" "ruby_preprod_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "ruby.preprod.electronic-monitoring.service.justice.gov.uk"
