@@ -75,4 +75,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - icrir.independent-inquiry.uk
-
