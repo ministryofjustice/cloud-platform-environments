@@ -20,6 +20,7 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["prod"]
   oidc_providers      = ["github"]
+  github_actions_prefix = "prod"
 
 
 
