@@ -25,7 +25,7 @@ module "education_work_plan_ui_elasticache_redis" {
 
 resource "kubernetes_secret" "education_work_plan_ui_elasticache_redis" {
   metadata {
-    name      = "education_work_plan-ui-elasticache-redis"
+    name      = "education-work-plan-ui-elasticache-redis"
     namespace = var.namespace
   }
 
