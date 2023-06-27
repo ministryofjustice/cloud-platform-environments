@@ -4,7 +4,7 @@
 locals {
   sqs_queues = {
     "offender_case_notes_events_queue" = "offender-events-dev",
-    "offender_case_notes_events_dead_letter_queue" = "offender-events-dev",
+    "offender_case_notes_events_queue_dl" = "offender-events-dev",
   }
   sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
 }
