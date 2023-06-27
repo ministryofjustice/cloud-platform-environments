@@ -26,6 +26,10 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
