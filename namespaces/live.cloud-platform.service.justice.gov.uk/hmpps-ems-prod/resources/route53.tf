@@ -141,7 +141,7 @@ resource "aws_route53_record" "ruby_preprod_record" {
 # ACM Validation Record (Prod)
 resource "aws_route53_record" "ruby_prod_dns_validation_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = " _c7c996bb788c4319fe5574b3456c85c5.ruby.electronic-monitoring.service.justice.gov.uk."
+  name    = "_c7c996bb788c4319fe5574b3456c85c5.ruby.electronic-monitoring.service.justice.gov.uk."
   type    = "CNAME"
   ttl     = "7200"
   records = ["_0966f119a76d9832601afe2332cf0b9d.kmjqhnbgnp.acm-validations.aws."]
