@@ -125,7 +125,7 @@ resource "aws_route53_record" "ruby_preprod_dns_validation_record" {
   records = ["_48d1a9b6ff3eb34ffef392d38d9b1d65.hnyzmxtzsz.acm-validations.aws."]
 }
 
-# API Gateway alias record
+# API Gateway alias record (Preprod)
 resource "aws_route53_record" "ruby_preprod_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "ruby.preprod.electronic-monitoring.service.justice.gov.uk"
@@ -145,4 +145,17 @@ resource "aws_route53_record" "ruby_prod_dns_validation_record" {
   type    = "CNAME"
   ttl     = "7200"
   records = ["_0966f119a76d9832601afe2332cf0b9d.kmjqhnbgnp.acm-validations.aws."]
+}
+
+# API Gateway alias record (Prod)
+resource "aws_route53_record" "ruby_prod_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "ruby.electronic-monitoring.service.justice.gov.uk"
+  type    = "A"
+
+  alias {
+    name                   = "d-464apdl3w7.execute-api.eu-west-2.amazonaws.com"
+    zone_id                = "ZJ5UAJN8Y3Z2Q"
+    evaluate_target_health = false
+  }
 }
