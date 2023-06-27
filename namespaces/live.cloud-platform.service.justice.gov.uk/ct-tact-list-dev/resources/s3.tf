@@ -122,21 +122,21 @@ module "s3_bucket" {
    */
 
     /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
+ * Allow the data engineering exporter to push objects to this bucket.
+ * https://github.com/moj-analytical-services/data-engineering-exports/pull/44
  *
-
-   bucket_policy = <<EOF
+*/
+    bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
+        "AWS": "arn:aws:iam::593291632749:role/service-role/export_counter_terrorism_exports-move"
       },
       "Action": [
-        "s3:GetObject"
+        "s3:PutObject"
       ],
       "Resource": [
         "$${bucket_arn}/*"
@@ -146,7 +146,7 @@ module "s3_bucket" {
 }
 EOF
 
-*/
+
 
     /*
  * Override the default policy for the generated machine user of this bucket.
