@@ -12,6 +12,8 @@ module "ecr" {
   repo_name = var.namespace
   namespace = var.namespace
 
+  deletion_protection = false
+
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
   oidc_providers = ["github"]
 
