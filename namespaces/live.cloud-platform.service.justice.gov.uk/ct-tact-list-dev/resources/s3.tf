@@ -17,20 +17,6 @@ module "s3_bucket" {
 
   /*
 
-  * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
-                    By default buckets are private, however to create a 'public' bucket add the following two variables when calling the module:
-
-                    acl                           = "public-read"
-                    enable_allow_block_pub_access = false
-
-                    For more information granting public access to S3 buckets, please see AWS documentation:
-                    https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
-
-  * Converting existing private bucket to public: If amending an existing private bucket that was created using version 4.3 or above then you will need to raise two PRs:
-
-                    (1) First PR to add the var: enable_allow_block_pub_access = false
-                    (2) Second PR to add the var: acl = "public-read"
-
   * Versioning: By default this is set to false. When set to true multiple versions of an object can be stored
                 For more details on versioning please visit: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html
 
@@ -51,16 +37,16 @@ module "s3_bucket" {
 
 */
 
-providers = {
+  providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
-}
-/*
+  }
+  /*
  * Allow the data engineering exporter to push objects to this bucket.
  * https://github.com/moj-analytical-services/data-engineering-exports/pull/44
  *
 */
-bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -79,7 +65,7 @@ bucket_policy = <<EOF
   ]
 }
 EOF
-
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
