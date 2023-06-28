@@ -12,7 +12,10 @@ module "track_a_query_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+
   github_repositories = [var.repo_name]
+  oidc_providers = ["circleci"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "track_a_query_ecr_credentials" {
