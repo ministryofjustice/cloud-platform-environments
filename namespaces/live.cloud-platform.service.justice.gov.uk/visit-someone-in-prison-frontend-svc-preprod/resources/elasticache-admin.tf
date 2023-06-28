@@ -1,8 +1,8 @@
 ################################################################################
-# Book A Prison Visit Application Elasticache
+# VSiP Admin Application Elasticache
 ################################################################################
 
-module "elasticache_redis" {
+module "elasticache_redis_admin" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
@@ -12,7 +12,7 @@ module "elasticache_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t4g.small"
+  node_type              = "cache.t4g.micro"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
@@ -23,17 +23,17 @@ module "elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "elasticache_redis_admin" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "elasticache-redis-admin"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    access_key_id            = module.elasticache_redis.access_key_id
-    secret_access_key        = module.elasticache_redis.secret_access_key
+    primary_endpoint_address = module.elasticache_redis_admin.primary_endpoint_address
+    auth_token               = module.elasticache_redis_admin.auth_token
+    member_clusters          = jsonencode(module.elasticache_redis_admin.member_clusters)
+    access_key_id            = module.elasticache_redis_admin.access_key_id
+    secret_access_key        = module.elasticache_redis_admin.secret_access_key
   }
 }
