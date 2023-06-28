@@ -51,82 +51,16 @@ module "s3_bucket" {
 
 */
 
-  providers = {
+providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
-    /*
-   * The following example can be used if you need to define CORS rules for your s3 bucket.
-   *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
-   *
-
-  cors_rule =[
-    {
-      allowed_headers = ["*"]
-      allowed_methods = ["GET"]
-      allowed_origins = ["https://s3-website-test.hashicorp.com"]
-      expose_headers  = ["ETag"]
-      max_age_seconds = 3000
-    },
-    {
-      allowed_headers = ["*"]
-      allowed_methods = ["PUT"]
-      allowed_origins = ["https://s3-website-test.hashicorp.com"]
-      expose_headers  = [""]
-      max_age_seconds = 3000
-    },
-  ]
-
-
-  /*
-   * The following example can be used if you need to set a lifecycle for your s3.
-   *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-object-lifecycle"
-   *  "https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html"
-   *
-  lifecycle_rule = [
-    {
-      enabled = true
-      id      = "retire exports after 7 days"
-      prefix  = "surveys/export"
-
-      noncurrent_version_expiration = [
-        {
-          days = 7
-        },
-      ]
-
-      expiration = [
-        {
-          days = 7
-        },
-      ]
-    },
-    {
-      enabled = true
-      id      = "retire imports after 10 days"
-      prefix  = "surveys/imports"
-
-      expiration = [
-        {
-          days = 7
-        },
-      ]
-    },
-  ]
-
-  */
-
-    /*
-   * The following are exampls of bucket and user policies. They are treated as
-   * templates. Currently, the only available variable is `$${bucket_arn}`.
-   *
-   */
-
-    /*
+}
+/*
  * Allow the data engineering exporter to push objects to this bucket.
  * https://github.com/moj-analytical-services/data-engineering-exports/pull/44
  *
 */
-    bucket_policy = <<EOF
+bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -145,40 +79,6 @@ module "s3_bucket" {
   ]
 }
 EOF
-
-
-
-    /*
- * Override the default policy for the generated machine user of this bucket.
- *
-
-user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
-}
-EOF
-
-*/
-  }
-}
 
 
 resource "kubernetes_secret" "s3_bucket" {
