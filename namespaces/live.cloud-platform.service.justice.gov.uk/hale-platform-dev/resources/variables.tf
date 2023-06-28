@@ -61,22 +61,22 @@ variable "github_token" {
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER"
+  default     = "KUBE_CLUSTER_DEV"
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE"
+  default     = "KUBE_NAMESPACE_DEV"
 }
 
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT"
+  default     = "KUBE_CERT_DEV"
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN"
+  default     = "KUBE_TOKEN_DEV"
 }
 
 variable "github_actions_secret_ecr_name" {
