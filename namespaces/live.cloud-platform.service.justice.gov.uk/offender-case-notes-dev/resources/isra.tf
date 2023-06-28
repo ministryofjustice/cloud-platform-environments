@@ -21,12 +21,12 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = var.application
-    role_policy_arns     = merge(
-      local.sqs_policies,
-      local.sns_policies,
-      { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
-      { prisoner-event-dlq   = module.prisoner-event-dlq.irsa_policy_arn }
-    )
+  role_policy_arns       = merge(
+    local.sqs_policies,
+    local.sns_policies,
+    { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
+    { prisoner-event-dlq   = module.prisoner-event-dlq.irsa_policy_arn }
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
