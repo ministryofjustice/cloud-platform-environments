@@ -9,6 +9,9 @@ module "ecr-repo" {
   repo_name = var.repo_name
 
   github_repositories = [var.repo_name]
+
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
