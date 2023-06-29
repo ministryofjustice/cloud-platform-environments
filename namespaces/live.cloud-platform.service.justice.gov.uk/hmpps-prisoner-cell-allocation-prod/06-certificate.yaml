@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-cell-allocation-cert
+  namespace: hmpps-prisoner-cell-allocation-prod
+spec:
+  secretName: hmpps-prisoner-cell-allocation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-cell-allocation-api.prison.service.justice.gov.uk
