@@ -10,7 +10,7 @@ module "analytical_platform_s3_bucket" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
+  bucket_policy = data.aws_iam_policy_document.analytical-platform.json
 
   providers = {
     aws = aws.london
