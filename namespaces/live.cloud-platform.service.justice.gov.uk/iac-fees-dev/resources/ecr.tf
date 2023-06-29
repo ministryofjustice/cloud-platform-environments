@@ -78,9 +78,9 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    access_key_id     = module.ecr.access_key_id
+    secret_access_key = module.ecr.secret_access_key
+    repo_arn          = module.ecr.repo_arn
+    repo_url          = module.ecr.repo_url
   }
 }
