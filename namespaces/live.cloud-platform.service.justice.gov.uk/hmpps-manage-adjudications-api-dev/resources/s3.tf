@@ -17,23 +17,6 @@ module "analytical_platform_s3_bucket" {
   }
 }
 
-resource "aws_iam_policy" "analytical-platform" {
-  name   = "${var.namespace}-analytical-platform"
-  policy = data.aws_iam_policy_document.analytical-platform.json
-  # NB: IAM policy name must be unique within Cloud Platform
-
-  tags = {
-    business-unit          = var.business_unit
-    team_name              = var.team_name
-    application            = var.application
-    is-production          = var.is_production
-    namespace              = var.namespace
-    environment-name       = var.environment
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure_support
-  }
-}
-
 
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
@@ -51,6 +34,23 @@ module "analytical-platform" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "aws_iam_policy" "analytical-platform" {
+  name   = "${var.namespace}-analytical-platform"
+  policy = data.aws_iam_policy_document.analytical-platform.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
 }
 
 
