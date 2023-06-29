@@ -14,9 +14,9 @@ module "irsa" {
   role_policy_arns = {
     sqs_batch  = module.ims_index_batch_queue.irsa_policy_arn
     sqs_update = module.ims_index_update_queue.irse_policy_arn
-    s3_ims = module.manage_intelligence_storage_bucket.irsa_policy_arn
-    s3_rds = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
-    rds = module.rds_aurora.irsa_policy_arn
+    s3_ims     = module.manage_intelligence_storage_bucket.irsa_policy_arn
+    s3_rds     = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
+    rds        = module.rds_aurora.irsa_policy_arn
   }
 
   # Tags
