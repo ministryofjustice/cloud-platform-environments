@@ -17,6 +17,37 @@ module "analytical_platform_s3_bucket" {
   }
 }
 
+locals {
+  bucket_arn = module.analytical_platform_s3_bucket.bucket_arn
+}
+
+data "aws_iam_policy_document" "bucket-policy" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
+    actions = [
+      "s3:ListBucket",
+    ]
+    resources = [
+      local.bucket_arn
+    ]
+  }
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+    ]
+    resources = [
+      "${local.bucket_arn}/*"
+    ]
+  }
+}
 
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
@@ -53,34 +84,6 @@ resource "aws_iam_policy" "analytical-platform" {
   }
 }
 
-
-data "aws_iam_policy_document" "bucket-policy" {
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = [module.analytical-platform.aws_iam_role_arn]
-    }
-    actions = [
-      "s3:ListBucket",
-    ]
-    resources = [
-      module.analytical_platform_s3_bucket.bucket_arn
-    ]
-  }
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = [module.analytical-platform.aws_iam_role_arn]
-    }
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-    ]
-    resources = [
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
-    ]
-  }
-}
 
 resource "kubernetes_secret" "analytical-platform" {
   metadata {
