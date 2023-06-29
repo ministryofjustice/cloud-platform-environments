@@ -44,8 +44,8 @@ resource "kubernetes_secret" "manage_intelligence_rds_aurora" {
     database_name                       = module.rds_aurora.database_name
     database_username                   = module.rds_aurora.database_username
     database_password                   = module.rds_aurora.database_password
-    manage_intelligence_update_password = random_id.manage_intelligence_update_role_password.b64
-    manage_intelligence_read_password   = random_id.manage_intelligence_read_role_password.b64
+    manage_intelligence_update_password = random_id.manage_intelligence_update_role_password.result
+    manage_intelligence_read_password   = random_id.manage_intelligence_read_role_password.result
     access_key_id                       = module.rds_aurora.access_key_id
     secret_access_key                   = module.rds_aurora.secret_access_key
     url                                 = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
