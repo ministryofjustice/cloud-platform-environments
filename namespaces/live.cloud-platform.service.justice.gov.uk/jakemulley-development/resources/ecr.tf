@@ -18,7 +18,7 @@ module "ecr" {
 }
 
 # Custom lifecycle policies
-module "ecr" {
+module "ecr_custom" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=canned-lifecycle-policies"
 
   # REQUIRED: Repository configuration
@@ -39,7 +39,7 @@ module "ecr" {
 }
 
 # One canned lifecycle policies (days)
-module "ecr" {
+module "ecr_one_days" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=canned-lifecycle-policies"
 
   # REQUIRED: Repository configuration
@@ -63,7 +63,7 @@ module "ecr" {
 }
 
 # One canned lifecycle policies (count)
-module "ecr" {
+module "ecr_one_count" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=canned-lifecycle-policies"
 
   # REQUIRED: Repository configuration
@@ -87,7 +87,7 @@ module "ecr" {
 }
 
 # Canned lifecycle & custom lifecycle (custom should take precedence)
-module "ecr" {
+module "ecr_one_custom" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=canned-lifecycle-policies"
 
   # REQUIRED: Repository configuration
