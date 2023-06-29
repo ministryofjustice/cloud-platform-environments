@@ -10,7 +10,7 @@ module "analytical_platform_s3_bucket" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = data.aws_iam_policy_document.analytical-platform.json
+  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
 
   providers = {
     aws = aws.london
@@ -38,7 +38,7 @@ module "analytical-platform" {
 
 resource "aws_iam_policy" "analytical-platform" {
   name   = "${var.namespace}-analytical-platform"
-  policy = data.aws_iam_policy_document.analytical-platform.json
+  policy = data.aws_iam_policy_document.bucket-policy.json
   # NB: IAM policy name must be unique within Cloud Platform
 
   tags = {
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "analytical-platform" {
 }
 
 
-data "aws_iam_policy_document" "analytical-platform" {
+data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
