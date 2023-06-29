@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "analytical-platform" {
   }
 }
 
-resource "kubernetes_secret" "analytical_platform_s3_bucket" {
+resource "kubernetes_secret" "analytical-platform" {
   metadata {
     name      = "analytical-platform-s3-bucket-output"
     namespace = var.namespace
