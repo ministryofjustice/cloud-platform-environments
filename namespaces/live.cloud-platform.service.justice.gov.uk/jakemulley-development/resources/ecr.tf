@@ -8,10 +8,10 @@ module "ecr" {
   namespace = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["github"]
+  oidc_providers = ["github", "circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["example-repository"]
+  github_repositories = ["cloud-platform-ecr-oidc-test"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
