@@ -13,6 +13,10 @@ module "ma_rds" {
   db_engine_version           = "14"
   rds_family                  = "postgres14"
   db_password_rotated_date    = "15-02-2023"
+  allow_minor_version_upgrade = "true"
+  backup_window               = var.backup_window
+  maintenance_window          = var.maintenance_window
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
