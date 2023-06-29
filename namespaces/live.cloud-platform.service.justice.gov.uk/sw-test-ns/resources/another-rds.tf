@@ -109,7 +109,7 @@ module "read_replica-test" {
 
 resource "kubernetes_secret" "rds-test" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-postgresql-instance-output-test"
     namespace = var.namespace
   }
 
@@ -136,7 +136,7 @@ resource "kubernetes_secret" "read_replica-test" {
   count = 0
 
   metadata {
-    name      = "rds-postgresql-read-replica-output"
+    name      = "rds-postgresql-read-replica-output-test"
     namespace = var.namespace
   }
 
@@ -158,7 +158,7 @@ resource "kubernetes_secret" "read_replica-test" {
 
 resource "kubernetes_config_map" "rds-test" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-postgresql-instance-output-test"
     namespace = var.namespace
   }
 
