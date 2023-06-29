@@ -10,16 +10,31 @@ module "analytical_platform_s3_bucket" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${module.analytical-platform.aws_iam_role_arn}"
+      },
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
 
   providers = {
     aws = aws.london
   }
 }
 
-locals {
-  bucket_arn = module.analytical_platform_s3_bucket.bucket_arn
-}
 
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
@@ -31,7 +46,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:ListBucket",
     ]
     resources = [
-      local.bucket_arn
+      module.analytical_platform_s3_bucket.bucket_arnt_arn
     ]
   }
   statement {
@@ -44,7 +59,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObjectAcl",
     ]
     resources = [
-      "${local.bucket_arn}/*"
+      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
     ]
   }
 }
