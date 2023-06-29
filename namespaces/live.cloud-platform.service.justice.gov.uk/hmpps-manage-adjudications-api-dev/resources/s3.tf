@@ -38,7 +38,7 @@ module "analytical-platform" {
 
 resource "aws_iam_policy" "analytical-platform" {
   name   = "${var.namespace}-analytical-platform"
-  policy = data.aws_iam_policy_document.bucket-policy.json
+  policy = data.aws_iam_policy_document.analytical-platform.json
   # NB: IAM policy name must be unique within Cloud Platform
 
   tags = {
@@ -53,7 +53,7 @@ resource "aws_iam_policy" "analytical-platform" {
   }
 }
 
-data "aws_iam_policy_document" "bucket-policy" {
+data "aws_iam_policy_document" "analytical-platform" {
   statement {
     principals {
       type        = "AWS"
