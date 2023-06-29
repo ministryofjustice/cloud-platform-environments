@@ -35,7 +35,7 @@ module "ecr_credentials" {
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
 
-  # Production images are tagged with "production". Other images are tagged "uat".
+  # Production images are tagged with "main". Other images are tagged "branch".
   lifecycle_policy = <<EOF
 {
     "rules": [
@@ -44,7 +44,7 @@ module "ecr_credentials" {
             "description": "Expire UAT images older than 14 days",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["uat"],
+                "tagPrefixList": ["branch"],
                 "countType": "sinceImagePushed",
                 "countUnit": "days",
                 "countNumber": 14
@@ -58,7 +58,7 @@ module "ecr_credentials" {
             "description": "Keep the newest 100 production images and mark the rest for expiration",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["production"],
+                "tagPrefixList": ["main"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 100
             },
