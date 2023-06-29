@@ -32,7 +32,5 @@ resource "kubernetes_secret" "manage_offences_rds" {
     database_username     = module.manage_offences_rds.database_username
     database_password     = module.manage_offences_rds.database_password
     rds_instance_address  = module.manage_offences_rds.rds_instance_address
-    access_key_id         = module.manage_offences_rds.access_key_id
-    secret_access_key     = module.manage_offences_rds.secret_access_key
   }
 }
