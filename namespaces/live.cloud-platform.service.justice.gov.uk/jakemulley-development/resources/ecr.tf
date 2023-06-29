@@ -55,7 +55,7 @@ module "ecr_one_days" {
 
   canned_lifecycle_policy = {
     count = 5
-    type = "days"
+    type  = "days"
   }
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
@@ -79,7 +79,7 @@ module "ecr_one_count" {
 
   canned_lifecycle_policy = {
     count = 5
-    type = "imageCount"
+    type  = "images"
   }
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
@@ -103,7 +103,7 @@ module "ecr_one_custom" {
 
   canned_lifecycle_policy = {
     count = 5
-    type = "imageCount"
+    type  = "images"
   }
 
   lifecycle_policy = jsonencode({})
