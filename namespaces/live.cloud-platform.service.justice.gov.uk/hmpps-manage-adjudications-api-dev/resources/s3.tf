@@ -18,7 +18,7 @@ module "analytical_platform_s3_bucket" {
       "Effect": "Allow",
       "Action": [
         "s3:GetObject",
-        "s3:GetObjectAcl",
+        "s3:GetObjectAcl"
       ],
       "Resource": "$${bucket_arn}/*"
     },
