@@ -16,9 +16,7 @@ module "analytical_platform_s3_bucket" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
+      "Sid": "",
       "Action": [
         "s3:GetObject"
       ],
@@ -33,20 +31,6 @@ EOF
   }
 }
 
-data "aws_iam_policy_document" "bucket-policy" {
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = [module.analytical-platform.aws_iam_role_arn]
-    }
-    actions = [
-      "s3:GetObject"
-    ]
-    resources = [
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
-    ]
-  }
-}
 
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
@@ -64,6 +48,21 @@ module "analytical-platform" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_iam_policy_document" "bucket-policy" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "analytical-platform" {
