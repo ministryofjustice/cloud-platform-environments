@@ -10,24 +10,6 @@ module "analytical_platform_s3_bucket" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": "$${bucket_arn}/*"
-    }
-  ]
-}
-EOF
-
   providers = {
     aws = aws.london
   }
