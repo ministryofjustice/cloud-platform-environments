@@ -24,13 +24,13 @@ module "analytical_platform_s3_bucket" {
         "$${bucket_arn}/*"
       ]
     },
-  {
+    {
       "Effect": "Allow",
       "Action": [
         "s3:ListBucket"
       ],
       "Resource": [
-        $${bucket_arn}
+        "$${bucket_arn}"
       ]
     }
   ]
