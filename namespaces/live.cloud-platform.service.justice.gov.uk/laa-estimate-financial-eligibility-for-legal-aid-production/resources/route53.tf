@@ -15,7 +15,7 @@ resource "aws_route53_zone" "eligibility_team_route53_zone" {
 
 resource "kubernetes_secret" "eligibility_team_route53_zone" {
   metadata {
-    name      = "example-route53-zone-output"
+    name      = "eligibility-team-route53-zone-output"
     namespace = var.namespace
   }
 
