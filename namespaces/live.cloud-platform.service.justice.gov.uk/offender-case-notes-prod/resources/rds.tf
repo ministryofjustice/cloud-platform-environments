@@ -15,9 +15,6 @@ module "dps_rds" {
   db_engine                 = "postgres"
   db_engine_version         = "15"
 
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "dps_rds" {
