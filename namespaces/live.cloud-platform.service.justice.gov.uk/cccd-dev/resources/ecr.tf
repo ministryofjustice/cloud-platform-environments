@@ -11,6 +11,51 @@ module "cccd_ecr_credentials" {
   oidc_providers      = ["circleci"]
   github_repositories = ["Claim-for-Crown-Court-Defence"]
   namespace           = var.namespace
+
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep the newest 10 production images and mark the rest for expiration",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["app-latest"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Expire untagged images older than 1 day",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 1
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 3,
+            "description": "Keep the newest 50 images and mark the rest for expiration",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 50
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+  }
+  EOF
 }
 
 resource "kubernetes_secret" "cccd_ecr_credentials" {

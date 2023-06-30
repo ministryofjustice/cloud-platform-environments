@@ -66,6 +66,8 @@ module "cla_backend_rds_postgres_11" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
+  snapshot_identifier = "rds:cloud-platform-bca1917ecbd4eda1-2023-06-27-03-38"
+
   db_parameter = [
     {
       name         = "rds.force_ssl"

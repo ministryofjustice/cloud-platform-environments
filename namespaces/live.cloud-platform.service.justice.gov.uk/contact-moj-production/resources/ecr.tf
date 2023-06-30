@@ -8,12 +8,12 @@ module "contact-moj_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   repo_name = "contact-moj-ecr"
   team_name = var.team_name
-
-  # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
-
+  namespace = var.namespace
   providers = {
     aws = aws.london
   }
+
+  oidc_providers = ["circleci"]
   github_repositories = [var.repo_name]
 }
 
