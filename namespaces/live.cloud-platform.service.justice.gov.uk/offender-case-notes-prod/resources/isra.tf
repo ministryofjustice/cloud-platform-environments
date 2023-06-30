@@ -3,8 +3,8 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-offender_case_notes_events_queue" = "offender-events-prod",
-    "Digital-Prison-Services-dev-offender_case_notes_events_queue_dl" = "offender-events-prod",
+    "Digital-Prison-Services-prod-offender_case_notes_events_queue" = "offender-events-prod",
+    "Digital-Prison-Services-prod-offender_case_notes_events_queue_dl" = "offender-events-prod",
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
