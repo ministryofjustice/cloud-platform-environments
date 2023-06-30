@@ -8,7 +8,7 @@ module "serviceaccount" {
 
   namespace           = "dpr-nomis-port-forwarder"
   github_repositories = ["dpr-nomis-port-forwarder"]
-kubernetes_cluster = var.kubernetes_cluster
+  kubernetes_cluster  = var.kubernetes_cluster
 
   github_actions_secret_kube_cert      = "KUBE_PROD_CERT"
   github_actions_secret_kube_token     = "KUBE_PROD_TOKEN"
