@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "DPR to Nomis Port Forwarder"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Reporting: hari.chintala@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/dpr-cp-nomis-portforwarder.git"
-    cloud-platform.justice.gov.uk/team-name: "dpr-developers"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-digital-prison-reporting"
     cloud-platform.justice.gov.uk/review-after: "2023-09-28"
