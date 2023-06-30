@@ -20,18 +20,14 @@ module "analytical_platform_s3_bucket" {
         "s3:GetObject",
         "s3:GetObjectAcl",
       ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
+      "Resource": "$${bucket_arn}/*"
     },
     {
       "Effect": "Allow",
       "Action": [
         "s3:ListBucket"
       ],
-      "Resource": [
-        "$${bucket_arn}"
-      ]
+      "Resource": "$${bucket_arn}"
     }
   ]
 }
