@@ -16,18 +16,13 @@ module "analytical_platform_s3_bucket" {
   "Statement": [
     {
       "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::012345678901:user/foobar"
+      },
       "Action": [
-        "s3:GetObject",
-        "s3:GetObjectAcl"
+        "s3:GetObject"
       ],
       "Resource": "$${bucket_arn}/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket"
-      ],
-      "Resource": "$${bucket_arn}"
     }
   ]
 }
@@ -40,17 +35,12 @@ EOF
 
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
     actions = [
-      "s3:ListBucket",
-    ]
-    resources = [
-      module.analytical_platform_s3_bucket.bucket_arn
-    ]
-  }
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
+      "s3:GetObject"
     ]
     resources = [
       "${module.analytical_platform_s3_bucket.bucket_arn}/*"
