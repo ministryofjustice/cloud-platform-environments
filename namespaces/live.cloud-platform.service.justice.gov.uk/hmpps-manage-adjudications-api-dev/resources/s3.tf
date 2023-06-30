@@ -16,7 +16,9 @@ module "analytical_platform_s3_bucket" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Sid": "",
+      "Principal": {
+        "AWS": "arn:aws:iam::012345678901:user/foobar"
+      },
       "Action": [
         "s3:GetObject"
       ],
