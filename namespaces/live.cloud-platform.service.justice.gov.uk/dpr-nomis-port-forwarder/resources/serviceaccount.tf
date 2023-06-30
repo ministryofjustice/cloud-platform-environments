@@ -3,8 +3,6 @@
  * this variable is automatically supplied by the pipeline TF_VAR_kubernetes_cluster.
  *
 */
-variable "kubernetes_cluster" {}
-
 module "serviceaccount" {
   source = "../"
 
