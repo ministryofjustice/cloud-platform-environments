@@ -9,6 +9,25 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
+
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
