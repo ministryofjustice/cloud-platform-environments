@@ -7,7 +7,7 @@ module "secrets_manager" {
   namespace               = var.namespace
   environment             = var.environment
   infrastructure_support  = var.infrastructure_support
-  kubernetes_cluster       = var.kubernetes_cluster
+  eks_cluster_name        = var.kubernetes_cluster    
 
   secrets = {
     "gold_scorecard_form_dev_alert_rule" = {
