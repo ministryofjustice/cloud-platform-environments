@@ -7,13 +7,13 @@ module "secrets_manager" {
   namespace               = var.namespace
   environment             = var.environment
   infrastructure_support  = var.infrastructure_support
-  eks_cluster_name       = var.eks_cluster_name
+  kubernetes_cluster       = var.kubernetes_cluster
 
   secrets = {
-    "test_alert_rule" = {
-      description             = "secret for test alerting rule", 
+    "gold_scorecard_form_dev_alert_rule" = {
+      description             = "secret for goldscorecard form dev alerting rule", 
       recovery_window_in_days = 7,
-      k8s_secret_name        = "test-alert-secret"
+      k8s_secret_name        = "gold-scorecard-form-dev-alert-secret"
     },
   }
 }
