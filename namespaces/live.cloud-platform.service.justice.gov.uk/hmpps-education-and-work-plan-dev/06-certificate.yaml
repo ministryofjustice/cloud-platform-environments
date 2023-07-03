@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-education-and-work-plan-api-dev.prison.service.justice.gov.uk
+  name: hmpps-education-and-work-plan-api-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-education-and-work-plan-dev
 spec:
   secretName:  hmpps-education-and-work-plan-api-cert
@@ -10,12 +10,12 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-education-and-work-plan-api-dev.prison.service.justice.gov.uk
+    - hmpps-education-and-work-plan-api-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name:  hmpps-education-and-work-plan-dev.prison.service.justice.gov.uk
+  name:  hmpps-education-and-work-plan-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-education-and-work-plan-dev
 spec:
   secretName:  hmpps-education-and-work-plan-cert
@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    -  hmpps-education-and-work-plan-dev.prison.service.justice.gov.uk
+    -  hmpps-education-and-work-plan-dev.hmpps.service.justice.gov.uk
