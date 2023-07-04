@@ -45,11 +45,6 @@ module "prison-to-probation-update-dlq" {
   sqs_name                  = "prison-to-probation-update-dlq"
 }
 
-resource "aws_sqs_queue_policy" "prison-to-probation-update-dlq-policy" {
-  queue_url = module.prison-to-probation-update-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
-}
-
 resource "kubernetes_secret" "prison-to-probation-update-queue-secret" {
   metadata {
     name      = "prison-to-probation-update-queue"
@@ -90,19 +85,4 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
-}
-
-module "prison-to-probation-update-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  application            = var.application
-  business_unit          = var.business_unit
-  eks_cluster_name       = var.eks_cluster_name
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  service_account_name = "prison-to-probation-update"
-  role_policy_arns     = { sqs = module.prison-to-probation-update-queue.irsa_policy_arn }
 }
