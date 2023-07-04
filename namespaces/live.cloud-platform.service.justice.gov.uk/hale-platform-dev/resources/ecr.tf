@@ -50,8 +50,6 @@ module "ecr_credentials" {
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
