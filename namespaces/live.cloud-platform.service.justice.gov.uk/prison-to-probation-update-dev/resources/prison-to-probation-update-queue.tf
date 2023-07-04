@@ -13,6 +13,11 @@ resource "aws_sns_topic_subscription" "prison-to-probation-update-queue-subscrip
   })
 }
 
+resource "aws_sqs_queue_policy" "prison-to-probation-update-queue-policy" {
+  queue_url = module.prison-to-probation-update-queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
+
 module "prison-to-probation-update-queue" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
