@@ -45,11 +45,6 @@ module "prison-to-probation-update-dlq" {
   sqs_name                  = "prison-to-probation-update-dlq"
 }
 
-resource "aws_sqs_queue_policy" "prison-to-probation-update-dlq-policy" {
-  queue_url = module.prison-to-probation-update-dlq.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
-}
-
 resource "kubernetes_secret" "prison-to-probation-update-queue-secret" {
   metadata {
     name      = "prison-to-probation-update-queue"
@@ -89,6 +84,16 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
       values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "irsa" {
+  version = "2012-10-17"
+  statement {
+    sid       = "AllowSQSActions"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = [module.prison-to-probation-update-queue.sqs_arn]
   }
 }
 
