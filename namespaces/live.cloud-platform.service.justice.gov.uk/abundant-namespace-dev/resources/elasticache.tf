@@ -3,12 +3,12 @@ module "test_ec_cluster" {
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name                = var.vpc_name
-  team_name               = "webops"
-  business-unit           = "platforms"
-  application             = "testapp"
-  is-production           = "false"
-  environment-name        = "development"
-  infrastructure-support  = "platforms@digtal.justice.gov.uk"
+  team_name               = var.team_name
+  business-unit           = var.business_unit
+  application             = var.application
+  is-production           = var.is_production
+  environment-name        = var.environment
+  infrastructure-support  = var.infrastructure_support
   namespace               = var.namespace
   node_type               = "cache.t4g.micro"
   engine_version          = "7.0"
