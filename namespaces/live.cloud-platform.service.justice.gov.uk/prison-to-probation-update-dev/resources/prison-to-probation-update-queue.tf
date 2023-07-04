@@ -41,7 +41,7 @@ module "prison-to-probation-update-dlq" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  application               = "person-search-index-from-delius"
+  application               = "prison-to-probation-update"
   sqs_name                  = "prison-to-probation-update-dlq"
 }
 
@@ -90,4 +90,19 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
+}
+
+module "prison-to-probation-update-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "prison-to-probation-update"
+  role_policy_arns     = { sqs = module.prison-to-probation-update-queue.irsa_policy_arn }
 }
