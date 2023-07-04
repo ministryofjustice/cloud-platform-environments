@@ -11,8 +11,9 @@ module "crime_apps_ec_cluster" {
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
   engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   node_type              = "cache.t4g.micro"
-  auth_token_rotated_date = "2023-07-03"
+  auth_token_rotated_date = "2023-07-04"
   providers = {
     aws = aws.london
   }
