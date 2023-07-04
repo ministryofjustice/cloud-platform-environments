@@ -82,16 +82,6 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
   }
 }
 
-data "aws_iam_policy_document" "irsa" {
-  version = "2012-10-17"
-  statement {
-    sid       = "AllowSQSActions"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
-    resources = [module.prison-to-probation-update-queue.sqs_arn]
-  }
-}
-
 module "prison-to-probation-update-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
