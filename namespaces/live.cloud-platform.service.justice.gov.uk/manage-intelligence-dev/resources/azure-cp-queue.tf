@@ -5,7 +5,7 @@ module "ims_azure_cp_queue" {
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
-  sqs_name                   = "ims_azure_cp_queue.fifo"
+  sqs_name                   = "ims_azure_cp_queue"
   fifo_queue                 = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -32,7 +32,7 @@ module "ims_azure_cp_dead_letter_queue" {
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "ims_azure_cp_dl_queue.fifo"
+  sqs_name               = "ims_azure_cp_dl_queue"
   fifo_queue             = true
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
