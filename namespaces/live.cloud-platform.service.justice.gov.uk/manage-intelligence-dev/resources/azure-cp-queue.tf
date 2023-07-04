@@ -1,5 +1,5 @@
 module "ims_azure_cp_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs"
 
   environment-name           = var.environment-name
   team_name                  = var.team_name
@@ -26,7 +26,7 @@ EOF
 }
 
 module "ims_azure_cp_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
