@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "prison-to-probation-update-queue-subscription" {
-  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  topic_arn = data.aws_sns_topic.prison-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-to-probation-update-queue.sqs_arn
   filter_policy = jsonencode({
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events.arn]
+      values   = [data.aws_sns_topic.prison-offender-events.arn]
     }
     resources = ["*"]
   }
