@@ -3,5 +3,5 @@ data "aws_sns_topic" "prison-offender-events" {
 }
 
 data "aws_ssm_parameter" "probation-offender-events-policy-arn" {
-  name = "/offender-events-${var.environment}/sns/${data.aws_sns_topic.prison-offender-events.name}/irsa-policy-arn"
+  name = "/hmpps-domain-events-dev-${var.environment}/sns/${data.aws_sns_topic.prison-offender-events.name}/irsa-policy-arn"
 }
