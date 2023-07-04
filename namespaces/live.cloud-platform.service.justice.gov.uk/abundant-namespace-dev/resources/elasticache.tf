@@ -1,5 +1,5 @@
 module "test_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=aws-provider-v5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=main"
 
   # VPC configuration
   vpc_name = var.vpc_name
