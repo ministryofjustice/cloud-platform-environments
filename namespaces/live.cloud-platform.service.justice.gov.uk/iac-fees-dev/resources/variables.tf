@@ -67,3 +67,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "s3_bucket_arn" {
+  description = "S3 bucket ARN for the API Gateway"
+  type        = string
+  default     = "arn:aws:s3:::cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6"
+}
