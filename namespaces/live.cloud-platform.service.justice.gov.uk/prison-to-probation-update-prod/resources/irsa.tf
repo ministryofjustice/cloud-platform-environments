@@ -5,9 +5,10 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns     = {
-    message_dynamodb  = module.message_dynamodb.irsa_policy_arn,
-    schedule_dynamodb = module.schedule_dynamodb.irsa_policy_arn,
+    message_dynamodb  = module.message_dynamodb.irsa_policy_arn
+    schedule_dynamodb = module.schedule_dynamodb.irsa_policy_arn
     sqs               = module.prison-to-probation-update-queue.irsa_policy_arn
+    dlq               = module.prison-to-probation-update-dlq.irsa_policy_arn
   }
   # Tags
   business_unit          = var.business_unit
