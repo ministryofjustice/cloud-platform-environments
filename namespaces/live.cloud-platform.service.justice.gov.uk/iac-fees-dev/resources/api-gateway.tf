@@ -23,7 +23,7 @@ resource "aws_api_gateway_integration" "proxy" {
   type        = "AWS"
 
   integration_http_method = "PUT"
-  uri                     = var.s3_bucket_arn
+  uri                     = "arn:aws:apigateway:eu-west-2:s3:::cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/"
 
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"
