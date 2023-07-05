@@ -23,7 +23,7 @@ resource "aws_api_gateway_integration" "proxy" {
   type        = "AWS"
 
   integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:eu-west-2:s3:::cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/"
+  uri                     = "arn:aws:apigateway:eu-west-2:s3:action/PutObject/cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/"
 
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"
@@ -38,6 +38,9 @@ resource "aws_api_gateway_method_response" "proxy" {
 }
 
 resource "aws_api_gateway_integration_response" "proxy" {
+  depends_on = [
+    aws_api_gateway_integration.proxy
+  ]
   rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
