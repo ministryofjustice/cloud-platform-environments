@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-micro-frontend-components.hmpps.service.justice.gov.uk
+    - hmpps-micro-frontend-components-dev.hmpps.service.justice.gov.uk
