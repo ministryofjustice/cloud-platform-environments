@@ -2,7 +2,7 @@ resource "aws_api_gateway_rest_api" "upload_pdf_api" {
   name        = "iac-fees-upload-pdf-api"
   description = "API Gateway to connect and upload PDFs to S3"
 
-    tags = {
+  tags = {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
