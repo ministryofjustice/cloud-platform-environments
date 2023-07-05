@@ -47,7 +47,3 @@ resource "aws_api_gateway_integration_response" "proxy" {
     "application/json" = ""
   }
 }
-
-output "invoke_url" {
-  value = aws_api_gateway_rest_api.upload_pdf_api.invoke_url
-}
