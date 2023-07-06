@@ -17,7 +17,7 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
-  vpc_security_group_ids      = [aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
 
   providers = {
