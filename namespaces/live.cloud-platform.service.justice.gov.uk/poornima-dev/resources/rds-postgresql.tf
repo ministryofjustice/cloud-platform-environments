@@ -39,7 +39,6 @@ module "rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
-  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
