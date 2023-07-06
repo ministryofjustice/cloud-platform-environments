@@ -15,7 +15,8 @@ resource "aws_iam_access_key" "apigw-user" {
 data "aws_iam_policy_document" "apigw" {
   statement {
     actions = [
-      "apigateway:PUT"
+      "apigateway:PUT",
+      "apigateway:GET"
     ]
 
     resources = [
