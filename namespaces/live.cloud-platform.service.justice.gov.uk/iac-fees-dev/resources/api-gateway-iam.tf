@@ -1,4 +1,4 @@
-# Generate an additional IAM user to manage APIGW a
+# Generate an additional IAM user to manage APIGW
 resource "random_id" "apigw-id" {
   byte_length = 16
 }
@@ -20,8 +20,9 @@ data "aws_iam_policy_document" "apigw" {
     ]
 
     resources = [
-      "${aws_api_gateway_rest_api.upload_pdf_api.arn}/*"
+      aws_api_gateway_rest_api.upload_pdf_api.arn
     ]
+    effect = "Allow"
   }
 }
 
