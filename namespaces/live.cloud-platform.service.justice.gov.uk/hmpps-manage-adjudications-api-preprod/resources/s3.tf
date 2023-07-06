@@ -64,7 +64,7 @@ resource "kubernetes_secret" "analytical-platform" {
   data = {
     role_name       = module.analytical-platform.role_name
     role_arn        = module.analytical-platform.role_arn
-    service_account = module.analytical-platform.service_account
+    service_account = module.analytical-platform.service_account.name
   }
 }
 
