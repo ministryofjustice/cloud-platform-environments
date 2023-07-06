@@ -9,25 +9,7 @@ module "analytical_platform_s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
+  bucket_policy          = data.aws_iam_policy_document.bucket-policy.json
 
   providers = {
     aws = aws.london
@@ -55,11 +37,15 @@ module "analytical-platform" {
 
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
+    principals {
+      type        = "AWS"
+      identifiers = [module.analytical-platform.aws_iam_role_arn]
+    }
     actions = [
       "s3:GetObject"
     ]
     resources = [
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
+      "arn:aws:s3:::cloud-platform-403569db5b294899ffe32e696b1c4ab1/*"
     ]
   }
 }
