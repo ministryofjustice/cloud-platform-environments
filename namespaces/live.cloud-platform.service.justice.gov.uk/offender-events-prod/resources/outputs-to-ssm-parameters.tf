@@ -38,8 +38,6 @@ locals {
     (module.pathfinder_probation_offender_events_dead_letter_queue.sqs_name)       = module.pathfinder_probation_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.pic_probation_offender_events_queue.sqs_name)                          = module.pic_probation_offender_events_queue.irsa_policy_arn,
     (module.pic_probation_offender_events_dead_letter_queue.sqs_name)              = module.pic_probation_offender_events_dead_letter_queue.irsa_policy_arn,
-    (module.prison_to_probation_update_queue.sqs_name)                             = module.prison_to_probation_update_queue.irsa_policy_arn,
-    (module.prison_to_probation_update_dead_letter_queue.sqs_name)                 = module.prison_to_probation_update_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_offender_events_queue.sqs_name)                               = module.prisoner_offender_events_queue.irsa_policy_arn,
     (module.prisoner_offender_events_dead_letter_queue.sqs_name)                   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_offender_search_queue.sqs_name)                               = module.prisoner_offender_search_queue.irsa_policy_arn,

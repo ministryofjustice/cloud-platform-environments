@@ -9,12 +9,12 @@ module "peoplefinder_ecr_credentials" {
   repo_name = "peoplefinder-ecr"
   team_name = "peoplefinder"
 
-  # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
-
   providers = {
     aws = aws.london
   }
   github_repositories = [var.repo_name]
+  oidc_providers = ["circleci"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
@@ -30,4 +30,3 @@ resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
     repo_url          = module.peoplefinder_ecr_credentials.repo_url
   }
 }
-

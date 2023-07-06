@@ -8,9 +8,9 @@ module "pcms_elasticache_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  node_type              = "cache.t4g.micro"
+  engine_version         = "6.x"
+  parameter_group_name   = "default.redis6.x"
   namespace              = var.namespace
 
   providers = {

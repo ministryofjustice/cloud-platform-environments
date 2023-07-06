@@ -24,6 +24,7 @@ module "cla_backend_rds_postgres_11_replica" {
 
   # Set the db_identifier of the source db
   replicate_source_db = module.cla_backend_rds_postgres_11.db_identifier
+  snapshot_identifier = "rds:cloud-platform-bca1917ecbd4eda1-2023-06-27-03-38"
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
