@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "apigw" {
     ]
 
     resources = [
-      "${aws_api_gateway_rest_api.upload_pdf_api.arn}"
+      aws_api_gateway_rest_api.upload_pdf_api.arn
     ]
     effect = "Allow"
   }
