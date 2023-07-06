@@ -1,4 +1,4 @@
-# Retrieve mp_dps_sg_name SG group ID
+# Retrieve mp_dps_sg_name SG group ID 
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
