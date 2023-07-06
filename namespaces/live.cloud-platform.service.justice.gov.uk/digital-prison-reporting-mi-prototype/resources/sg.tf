@@ -8,9 +8,9 @@ data "aws_vpc" "selected" {
 
 # Additional RDS SG
 resource "aws_security_group" "rds" {
-  name_prefix = "cloudplatform-mp-dps-sg"
-  description = "RDS VPC Security Group for MP Ingress Traffic"
-  vpc_id      = data.aws_vpc.selected.id
+  name          = "cloudplatform-mp-dps-sg"
+  description   = "RDS VPC Security Group for MP Ingress Traffic"
+  vpc_id        = data.aws_vpc.selected.id
 
   lifecycle {
     create_before_destroy = true
