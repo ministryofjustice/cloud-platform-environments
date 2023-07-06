@@ -1,4 +1,4 @@
-# Generate an additional IAM user to manage APIGW a
+# Generate an additional IAM user to manage APIGW
 resource "random_id" "apigw-id" {
   byte_length = 16
 }
