@@ -328,3 +328,18 @@ spec:
   dnsNames:
     - df61733d-dev.hmpps.service.justice.gov.uk
     - domain-events-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-api-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: external-api-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 968d1142-dev.hmpps.service.justice.gov.uk
+    - external-api-and-delius-dev.hmpps.service.justice.gov.uk
