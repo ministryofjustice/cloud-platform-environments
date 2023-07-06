@@ -44,5 +44,6 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
   data = {
     access_key_id     = aws_iam_access_key.apigw-user.id
     secret_access_key = aws_iam_access_key.apigw-user.secret
+    invoke_url        = aws_api_gateway_deployment.live.invoke_url
   }
 }
