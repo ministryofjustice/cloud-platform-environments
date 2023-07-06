@@ -1,4 +1,4 @@
-# Generate an additional IAM user to manage APIGW a
+# Generate an additional IAM user to manage APIGW
 resource "random_id" "apigw-id" {
   byte_length = 16
 }
@@ -15,12 +15,17 @@ resource "aws_iam_access_key" "apigw-user" {
 data "aws_iam_policy_document" "apigw" {
   statement {
     actions = [
-      "apigateway:PUT"
+      "apigateway:PUT",
+      "apigateway:GET"
     ]
 
     resources = [
-      "${aws_api_gateway_rest_api.upload_pdf_api.arn}/*"
+      "${aws_api_gateway_rest_api.upload_pdf_api.arn}/*",
+      aws_api_gateway_rest_api.upload_pdf_api.arn,
+      "arn:aws:apigateway:eu-west-2::/restapis/*",
+      "arn:aws:apigateway:eu-west-2::/restapis",
     ]
+    effect = "Allow"
   }
 }
 
@@ -39,5 +44,6 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
   data = {
     access_key_id     = aws_iam_access_key.apigw-user.id
     secret_access_key = aws_iam_access_key.apigw-user.secret
+    invoke_url        = aws_api_gateway_deployment.live.invoke_url
   }
 }

@@ -105,3 +105,19 @@ resource "aws_iam_role_policy_attachment" "api_gateway_s3_policy_attachment" {
   role       = aws_iam_role.api_gateway_role.name
   policy_arn = aws_iam_policy.s3_put_object_policy.arn
 }
+
+resource "aws_api_gateway_deployment" "live" {
+  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
+  stage_name  = "live"
+
+  stage_description = md5(file("api-gateway.tf"))
+
+  depends_on = [
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
