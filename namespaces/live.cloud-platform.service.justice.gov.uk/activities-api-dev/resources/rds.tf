@@ -1,3 +1,8 @@
+# Retrieve mp_dps_sg_name SG group ID 
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
 module "activities_api_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
@@ -12,6 +17,7 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
 
   providers = {
