@@ -28,7 +28,6 @@ module "analytical_platform_s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_policy          = data.aws_iam_policy_document.bucket-policy.json
 
   providers = {
     aws = aws.london
@@ -41,7 +40,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-403569db5b294899ffe32e696b1c4ab1"
+      module.analytical_platform_s3_bucket.bucket_arn
     ]
   }
   statement {
@@ -49,7 +48,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-403569db5b294899ffe32e696b1c4ab1/*"
+      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
     ]
   }
 }
