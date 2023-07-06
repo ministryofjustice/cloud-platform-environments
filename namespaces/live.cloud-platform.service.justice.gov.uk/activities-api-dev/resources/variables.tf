@@ -58,8 +58,3 @@ variable "github_token" {
   default     = ""
 }
 
-variable "mp_dps_sg_name" {
-  type        = string
-  description = "Required MP DPR Traffic ingress into DPS"
-  default     = "cloudplatform-mp-dps-sg"
-}
