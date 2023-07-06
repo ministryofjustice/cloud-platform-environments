@@ -37,10 +37,6 @@ module "analytical_platform_s3_bucket" {
 
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
-    principals {
-      type        = "AWS"
-      identifiers = [module.analytical-platform.role_arn]
-    }
     actions = [
       "s3:GetObject"
     ]
