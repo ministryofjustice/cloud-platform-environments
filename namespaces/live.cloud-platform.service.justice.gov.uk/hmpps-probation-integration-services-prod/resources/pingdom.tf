@@ -24,6 +24,7 @@ resource "pingdom_check" "pingdom" {
     "soc-and-delius",
     "sentence-plan-and-oasys",
     "domain-events-and-delius",
+    "external-api-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
