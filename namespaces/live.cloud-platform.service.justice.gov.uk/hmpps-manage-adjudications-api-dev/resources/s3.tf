@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObject"
     ]
     resources = [
-      "${module.analytical_platform_s3_bucket.bucket_arn}/*"
+      "arn:aws:s3:::cloud-platform-403569db5b294899ffe32e696b1c4ab1/*"
     ]
   }
 }
