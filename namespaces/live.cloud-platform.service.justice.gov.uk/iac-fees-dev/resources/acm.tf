@@ -38,7 +38,7 @@ resource "aws_route53_record" "cert-validations" {
   ttl     = 60
 }
 
-data "kubernetes_secret" "zone_id" {
+resource "kubernetes_secret" "zone_id" {
   metadata {
     name      = "route53-zone-output"
     namespace = var.base_domain_route53_namespace
