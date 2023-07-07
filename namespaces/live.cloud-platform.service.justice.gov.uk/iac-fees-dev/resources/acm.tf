@@ -27,7 +27,8 @@ resource "aws_acm_certificate_validation" "apigw_custom_hostname" {
 }
 
 resource "aws_route53_record" "cert-validations" {
-  count = length(aws_acm_certificate.apigw_custom_hostname.domain_validation_options)
+  depends_on = [kubernetes_secret.zone_id]
+  count      = length(aws_acm_certificate.apigw_custom_hostname.domain_validation_options)
 
   zone_id = kubernetes_secret.zone_id.data["zone_id"]
 
@@ -36,7 +37,6 @@ resource "aws_route53_record" "cert-validations" {
   records = [element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_value, count.index)]
   ttl     = 60
 }
-
 
 resource "kubernetes_secret" "zone_id" {
   metadata {
