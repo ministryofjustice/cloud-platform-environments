@@ -37,17 +37,3 @@ resource "kubernetes_secret" "pq_ecr_credentials" {
     secret_access_key = module.pq_ecr_credentials.secret_access_key
   }
 }
-
-resource "kubernetes_secret" "pq_ecr_credentials_production" {
-  metadata {
-    name      = "pq-ecr-credentials-output"
-    namespace = "parliamentary-questions-production"
-  }
-
-  data = {
-    access_key_id     = module.pq_ecr_credentials.access_key_id
-    repo_arn          = module.pq_ecr_credentials.repo_arn
-    repo_url          = module.pq_ecr_credentials.repo_url
-    secret_access_key = module.pq_ecr_credentials.secret_access_key
-  }
-}
