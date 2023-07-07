@@ -20,8 +20,8 @@ data "aws_iam_policy_document" "apigw" {
     ]
 
     resources = [
-      "${aws_api_gateway_rest_api.upload_pdf_api.arn}/*",
-      aws_api_gateway_rest_api.upload_pdf_api.arn,
+      "${aws_api_gateway_rest_api.upload_files_api.arn}/*",
+      aws_api_gateway_rest_api.upload_files_api.arn,
       "arn:aws:apigateway:eu-west-2::/restapis/*",
       "arn:aws:apigateway:eu-west-2::/restapis",
     ]
