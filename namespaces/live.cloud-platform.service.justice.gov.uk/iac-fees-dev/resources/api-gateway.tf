@@ -121,3 +121,14 @@ resource "aws_api_gateway_deployment" "live" {
     create_before_destroy = true
   }
 }
+
+resource "aws_api_gateway_domain_name" "apigw_fqdn" {
+  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
+}
