@@ -1,6 +1,6 @@
-resource "aws_api_gateway_rest_api" "upload_pdf_api" {
-  name        = "iac-fees-upload-pdf-api"
-  description = "API Gateway to connect and upload PDFs to S3"
+resource "aws_api_gateway_rest_api" "upload_files_api" {
+  name        = "iac-fees-upload-files-api"
+  description = "API Gateway to connect and upload files to S3"
 
   tags = {
     business-unit          = var.business_unit
@@ -13,20 +13,20 @@ resource "aws_api_gateway_rest_api" "upload_pdf_api" {
 }
 
 resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
-  parent_id   = aws_api_gateway_rest_api.upload_pdf_api.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
+  parent_id   = aws_api_gateway_rest_api.upload_files_api.root_resource_id
   path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
-  rest_api_id   = aws_api_gateway_rest_api.upload_pdf_api.id
+  rest_api_id   = aws_api_gateway_rest_api.upload_files_api.id
   resource_id   = aws_api_gateway_resource.proxy.id
   http_method   = "PUT"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
+  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
   type        = "AWS"
@@ -42,7 +42,7 @@ resource "aws_api_gateway_integration" "proxy" {
 }
 
 resource "aws_api_gateway_method_response" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
+  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = "200"
@@ -52,7 +52,7 @@ resource "aws_api_gateway_integration_response" "proxy" {
   depends_on = [
     aws_api_gateway_integration.proxy
   ]
-  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
+  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = aws_api_gateway_method_response.proxy.status_code
@@ -107,7 +107,7 @@ resource "aws_iam_role_policy_attachment" "api_gateway_s3_policy_attachment" {
 }
 
 resource "aws_api_gateway_deployment" "live" {
-  rest_api_id = aws_api_gateway_rest_api.upload_pdf_api.id
+  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
   stage_name  = "live"
 
   stage_description = md5(file("api-gateway.tf"))
@@ -120,4 +120,16 @@ resource "aws_api_gateway_deployment" "live" {
   lifecycle {
     create_before_destroy = true
   }
+}
+
+resource "aws_api_gateway_domain_name" "apigw_fqdn" {
+  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
+  security_policy          = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
 }
