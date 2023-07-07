@@ -76,7 +76,7 @@ variable "base_domain" {
 
 variable "hostname" {
   description = "Host part of the FQDN"
-  default     = "upload-files-dev"
+  default     = "gw"
 }
 
 variable "base_domain_route53_namespace" {
