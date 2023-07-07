@@ -30,7 +30,7 @@ resource "aws_route53_record" "cert-validations" {
   depends_on = [kubernetes_secret.zone_id]
   count      = length(aws_acm_certificate.apigw_custom_hostname.domain_validation_options)
 
-  zone_id = data.kubernetes_secret.zone_id.data["zone_id"]
+  zone_id = aws_route53_zone.iac_fees_dev_route53_zone.zone_id
 
   name    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_name, count.index)
   type    = element(aws_acm_certificate.apigw_custom_hostname.domain_validation_options[*].resource_record_type, count.index)
