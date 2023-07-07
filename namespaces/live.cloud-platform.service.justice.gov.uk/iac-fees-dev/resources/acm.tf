@@ -48,7 +48,7 @@ resource "kubernetes_secret" "zone_id" {
 resource "aws_route53_record" "data" {
   name    = aws_api_gateway_domain_name.apigw_fqdn.domain_name
   type    = "A"
-  zone_id = data.kubernetes_secret.zone_id.data["zone_id"]
+  zone_id = kubernetes_secret.zone_id.data["zone_id"]
 
   alias {
     evaluate_target_health = true
