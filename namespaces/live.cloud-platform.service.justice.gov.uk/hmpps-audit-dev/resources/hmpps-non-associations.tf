@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "incentives_secret" {
+resource "kubernetes_secret" "non_associations_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
     namespace = "hmpps-non-associations-dev"
