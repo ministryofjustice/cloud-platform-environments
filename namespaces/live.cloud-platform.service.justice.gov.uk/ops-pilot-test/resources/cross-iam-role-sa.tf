@@ -15,12 +15,15 @@ data "aws_iam_policy_document" "bold_rr_ops_test_ap_policy" {
       "s3:GetObject",
       "s3:GetObjectAcl",
       "glue:GetDatabase",
+      "glue:GetDatabases",
       "glue:GetTable",
       "glue:GetPartitions"
     ]
     resources = [
       "arn:aws:s3:::mojap-bold-rr-ops",
-      "arn:aws:glue:eu-west-2:*:database/bold_rr_ops_test/mtcars",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/bold_rr_ops_test/*",
+      "arn:aws:glue:eu-west-2:*:table/bold_rr_ops_test/mtcars"
     ]
   }
 }
