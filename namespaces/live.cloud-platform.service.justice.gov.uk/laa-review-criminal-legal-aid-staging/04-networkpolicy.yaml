@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: laa-review-criminal-legal-aid-web-staging
+      app: review-criminal-legal-aid-web-staging
   policyTypes:
   - Ingress
   ingress:
