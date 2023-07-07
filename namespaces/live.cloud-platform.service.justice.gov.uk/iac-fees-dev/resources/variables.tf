@@ -69,7 +69,7 @@ variable "github_token" {
 }
 
 
-variable "base_domain" {
+variable "domain" {
   description = "Base domain where to create the custom hostname"
   default     = "iac-fees-dev.apps.live.cloud-platform.service.justice.gov.uk"
 }
