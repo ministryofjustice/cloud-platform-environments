@@ -2,7 +2,6 @@ module "ap_irsa" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace              = var.namespace
   eks_cluster_name       = var.eks_cluster_name
-  
   role_policy_arns = {
     s3 = aws_iam_policy.ap_policy.arn
   }
@@ -90,7 +89,7 @@ resource "kubernetes_secret" "ap_irsa" {
   }
 
   data = {
-    role           = module.ap_irsa.aws_iam_role_name
-    serviceaccount = module.ap_irsa.service_account_name.name
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
   }
 }
