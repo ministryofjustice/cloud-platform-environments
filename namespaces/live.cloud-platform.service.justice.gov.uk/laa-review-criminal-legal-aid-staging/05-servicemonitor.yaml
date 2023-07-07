@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: review-criminal-legal-aid-web-staging
+      app: laa-review-criminal-legal-aid-web-staging
   endpoints:
   - port: metrics
     interval: 15s
