@@ -33,6 +33,7 @@ variable "additional_topic_clients" {
     "hmpps-interventions-dev",
     "hmpps-manage-offences-api-dev",
     "hmpps-manage-adjudications-api-dev",
+    "hmpps-non-associations-dev",
     "hmpps-prisoner-search-dev",
     "hmpps-probation-integration-services-dev",
     "hmpps-registers-dev",
