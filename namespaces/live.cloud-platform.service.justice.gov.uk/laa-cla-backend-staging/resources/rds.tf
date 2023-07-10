@@ -159,7 +159,7 @@ module "cla_backend_rds_postgres_14" {
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
 
 
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  # Use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   db_parameter = [
