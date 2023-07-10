@@ -12,9 +12,9 @@ module "secrets_manager" {
   secrets = {
     "azure/appId" = {
 
-      description             = "The Id for the App registration on Azure", // Required
-      recovery_window_in_days = 7, // Required
-      k8s_secret_name        = "azure/appId" // The name of the secret in k8s
+      description             = "The Id for the App registration on Azure", # Required
+      recovery_window_in_days = 7, # Required
+      k8s_secret_name        = "azure/appId" # The name of the secret in k8s
     },
   }
 }
