@@ -43,3 +43,13 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "infrastructure_support" {
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+}
+
+variable "team_name" {
+  description = "The name of your development team"
+  default     = "laa-apply-for-legal-aid"
+}
