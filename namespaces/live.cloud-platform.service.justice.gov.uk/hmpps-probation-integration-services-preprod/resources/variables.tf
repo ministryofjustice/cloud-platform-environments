@@ -88,15 +88,8 @@ variable "serviceaccount_rules" {
   default = [
     {
       api_groups = [""]
-      resources  = ["pods/log"]
-      verbs      = ["get"]
-    },
-    {
-      api_groups = [""]
       resources = [
         "pods/portforward",
-        "pods/exec",
-        "pods/attach",
         "deployment",
         "secrets",
         "services",
