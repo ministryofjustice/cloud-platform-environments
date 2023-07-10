@@ -25,7 +25,7 @@ locals {
     module.tier-to-delius-dlq,
     module.tier-to-delius-queue,
     module.unpaid-work-and-delius-dlq,
-    module.unpaid-work-and-delius-dlq,
+    module.unpaid-work-and-delius-queue,
     module.workforce-allocations-to-delius-dlq,
     module.workforce-allocations-to-delius-queue,
   ]
