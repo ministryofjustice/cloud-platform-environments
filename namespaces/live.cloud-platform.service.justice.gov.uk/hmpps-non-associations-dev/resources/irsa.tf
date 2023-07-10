@@ -17,7 +17,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = var.application
+  service_account_name = "hmpps-non-associations-api"
   role_policy_arns     = merge(
     local.sqs_policies,
     local.sns_policies,
