@@ -48,7 +48,7 @@ module "ecr-repo" {
             "selection": {
                 "tagStatus": "any",
                 "countType": "imageCountMoreThan",
-                "countNumber": 50
+                "countNumber": 25
             },
             "action": {
                 "type": "expire"
