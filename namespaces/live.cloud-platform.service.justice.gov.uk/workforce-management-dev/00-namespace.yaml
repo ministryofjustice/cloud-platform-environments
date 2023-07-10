@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "manage_a_workforce_dev"
     cloud-platform.justice.gov.uk/slack-alert-channel: "manage_a_workforce_dev"
     cloud-platform.justice.gov.uk/application: "Workforce Management"
-    cloud-platform.justice.gov.uk/owner: "Manage a Workforce: manageaworkforce@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Manage a Workforce: manage-a-workforce-team@digital.justice.gov.uk
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manage-a-workforce-ui.git"
     cloud-platform.justice.gov.uk/team-name: "manage-a-workforce"
