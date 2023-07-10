@@ -102,6 +102,39 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
   }
 }
 
+module "cla_backend_rds_postgres_14_replica" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  namespace              = var.namespace
+  environment-name       = var.environment-name
+  infrastructure-support = var.infrastructure_support
+
+  # It is mandatory to set the below values to create read replica instance
+  db_name = null # "db_name": conflicts with replicate_source_db
+
+  # Set the db_identifier of the source db
+  replicate_source_db = module.cla_backend_rds_postgres_14.db_identifier
+
+  # Set to true. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres14
+  # Pick the one that defines the postgres version the best
+  rds_family        = "postgres14"
+  db_engine_version = "14"
+  db_instance_class = "db.t4g.small"
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+}
+
 module "cla_backend_rds_postgres_14" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name      = var.vpc_name
@@ -158,6 +191,8 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
     user              = module.cla_backend_rds_postgres_14.database_username
     password          = module.cla_backend_rds_postgres_14.database_password
     db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
+    replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
+    replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
     access_key_id     = module.cla_backend_rds_postgres_14.access_key_id
     secret_access_key = module.cla_backend_rds_postgres_14.secret_access_key
   }
