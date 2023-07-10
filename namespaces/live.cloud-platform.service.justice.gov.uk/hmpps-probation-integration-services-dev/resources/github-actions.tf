@@ -1,4 +1,4 @@
-module "serviceaccount" {
+module "github_actions_service_account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
   business_unit          = var.business_unit
@@ -40,7 +40,7 @@ resource "kubernetes_role_binding" "github-actions-rolebinding" {
   }
   subject {
     kind      = "ServiceAccount"
-    name      = module.serviceaccount.service_account.name
+    name      = module.github_actions_service_account.service_account.name
     namespace = var.namespace
   }
 }
