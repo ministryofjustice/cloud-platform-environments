@@ -10,7 +10,7 @@ module "github_actions_service_account" {
   team_name              = var.team_name
 
   service_account_name = "cd-serviceaccount"
-  role_policy_arns     = { sqs = aws_iam_policy.irsa_policy.arn }
+  role_policy_arns     = { for key, policy in aws_iam_policy.sqs_management_policy : key => policy.arn }
 }
 
 resource "kubernetes_role" "github_actions_role" {
