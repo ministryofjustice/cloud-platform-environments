@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-preprod",
+    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
