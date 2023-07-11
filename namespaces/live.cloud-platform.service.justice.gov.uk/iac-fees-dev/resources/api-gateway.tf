@@ -1,36 +1,116 @@
-resource "aws_api_gateway_rest_api" "upload_files_api" {
-  name        = "iac-fees-upload-files-api"
-  description = "API Gateway to connect and upload files to S3"
+resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
 
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
+  domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
+  security_policy          = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  mutual_tls_authentication {
+    truststore_uri     = "s3://${module.s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
+    truststore_version = aws_s3_object.truststore.version_id
+  }
+
+  depends_on = [
+    aws_acm_certificate_validation.api_gateway_custom_hostname,
+    aws_s3_object.truststore
+  ]
+}
+
+resource "aws_acm_certificate" "api_gateway_custom_hostname" {
+  domain_name       = "${var.hostname}.${var.base_domain}"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
+  for_each = aws_route53_record.cert_validations
+
+  certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
+  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
+
+  timeouts {
+    create = "10m"
+  }
+
+  depends_on = [aws_route53_record.cert_validations]
+}
+
+data "aws_route53_zone" "iac_fees" {
+  name         = var.base_domain
+  private_zone = false
+}
+
+resource "aws_route53_record" "cert_validations" {
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = data.aws_route53_zone.iac_fees.zone_id
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = each.value.zone_id
+}
+
+resource "aws_route53_record" "data" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  zone_id = data.aws_route53_zone.iac_fees.zone_id
+  name    = "${var.hostname}.${data.aws_route53_zone.iac_fees.name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_api_gateway_rest_api" "api_gateway" {
+  name                         = var.namespace
+  disable_execute_api_endpoint = true
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
   }
 }
 
 resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
-  parent_id   = aws_api_gateway_rest_api.upload_files_api.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
-  rest_api_id   = aws_api_gateway_rest_api.upload_files_api.id
-  resource_id   = aws_api_gateway_resource.proxy.id
-  http_method   = "PUT"
-  authorization = "NONE"
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
 }
 
-resource "aws_api_gateway_integration" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
-  resource_id = aws_api_gateway_resource.proxy.id
-  http_method = aws_api_gateway_method.proxy.http_method
-  type        = "AWS"
-
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
+  type                    = "AWS"
   integration_http_method = "PUT"
   uri                     = "arn:aws:apigateway:eu-west-2:s3:action/PutObject/cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/"
 
@@ -41,80 +121,16 @@ resource "aws_api_gateway_integration" "proxy" {
   }
 }
 
-resource "aws_api_gateway_method_response" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
-  resource_id = aws_api_gateway_resource.proxy.id
-  http_method = aws_api_gateway_method.proxy.http_method
-  status_code = "200"
-}
+resource "aws_api_gateway_deployment" "main" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
-resource "aws_api_gateway_integration_response" "proxy" {
-  depends_on = [
-    aws_api_gateway_integration.proxy
-  ]
-  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
-  resource_id = aws_api_gateway_resource.proxy.id
-  http_method = aws_api_gateway_method.proxy.http_method
-  status_code = aws_api_gateway_method_response.proxy.status_code
-
-  response_templates = {
-    "application/json" = ""
+  triggers = {
+    redeployment = md5(file("api-gateway.tf"))
   }
-}
-
-resource "aws_iam_role" "api_gateway_role" {
-  name = "api-gateway-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "apigateway.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_policy" "s3_put_object_policy" {
-  name        = "s3-put-object-policy"
-  description = "Allows API Gateway to put objects in S3 bucket"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowPutObject",
-      "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/*"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "api_gateway_s3_policy_attachment" {
-  role       = aws_iam_role.api_gateway_role.name
-  policy_arn = aws_iam_policy.s3_put_object_policy.arn
-}
-
-resource "aws_api_gateway_deployment" "live" {
-  rest_api_id = aws_api_gateway_rest_api.upload_files_api.id
-  stage_name  = "live"
-
-  stage_description = md5(file("api-gateway.tf"))
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy
+    aws_api_gateway_integration.proxy_http_proxy
   ]
 
   lifecycle {
@@ -122,14 +138,32 @@ resource "aws_api_gateway_deployment" "live" {
   }
 }
 
-resource "aws_api_gateway_domain_name" "apigw_fqdn" {
-  domain_name              = aws_acm_certificate.apigw_custom_hostname.domain_name
-  regional_certificate_arn = aws_acm_certificate_validation.apigw_custom_hostname.certificate_arn
-  security_policy          = "TLS_1_2"
+resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
 
-  endpoint_configuration {
-    types = ["REGIONAL"]
+  api_id      = aws_api_gateway_rest_api.api_gateway.id
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
+  stage_name  = aws_api_gateway_stage.main.stage_name
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client" {
+  description = "Client certificate presented to the backend API"
+}
+
+resource "aws_api_gateway_stage" "main" {
+  deployment_id         = aws_api_gateway_deployment.main.id
+  rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
+  stage_name            = var.namespace
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+}
+
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  stage_name  = aws_api_gateway_stage.main.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled = true
+    logging_level   = "INFO"
   }
-
-  depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]
 }
