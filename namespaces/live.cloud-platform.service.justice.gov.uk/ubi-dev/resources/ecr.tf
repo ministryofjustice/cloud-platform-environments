@@ -9,6 +9,8 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  deletion_protection = false
+
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
