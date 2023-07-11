@@ -10,6 +10,11 @@ variable "namespace" {
   default = "laa-apply-for-legalaid-production"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-apply-for-legal-aid"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "laa-apply-for-legalaid"
