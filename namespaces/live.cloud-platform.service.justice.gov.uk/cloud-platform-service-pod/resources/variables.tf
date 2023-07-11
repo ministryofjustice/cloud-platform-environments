@@ -11,49 +11,49 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "iac-fees"
+  default     = "Cloud Platform service pod"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "iac-fees-dev"
+  default     = "cloud-platform-service-pod"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMCTS"
+  default     = "Platforms"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dts-legacy"
+  default     = "webops"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dts-legacy-apps-support-team@hmcts.net"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "dts-legacy-apps-support-team"
+  default     = "cloud-platform"
 }
 
 variable "github_owner" {
@@ -66,19 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "base_domain" {
-  description = "Base domain where to create the custom hostname"
-  default     = "iac-fees.service.justice.gov.uk"
-}
-
-variable "hostname" {
-  description = "Host part of the FQDN"
-  default     = "gw-dev"
-}
-
-variable "base_domain_route53_namespace" {
-  description = "Kubernetes namespace where the base domain was created"
-  default     = "iac-fees-prod"
 }

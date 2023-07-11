@@ -8,9 +8,10 @@ module "create_and_vary_a_licence_api_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment
   infrastructure-support      = var.infrastructure_support
+  allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14.3"
+  db_engine_version           = "14.7"
   rds_family                  = "postgres14"
   db_password_rotated_date    = "13-04-2023"
 

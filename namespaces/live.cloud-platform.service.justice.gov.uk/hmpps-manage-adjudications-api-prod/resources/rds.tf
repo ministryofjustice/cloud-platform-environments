@@ -10,13 +10,16 @@ module "ma_rds" {
   infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14"
-  rds_family                  = "postgres14"
+  db_engine_version           = "15"
+  rds_family                  = "postgres15"
   db_password_rotated_date    = "15-02-2023"
   allow_minor_version_upgrade = "true"
+  db_engine                   = "postgres"
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
+  prepare_for_major_upgrade   = false
+
 
   providers = {
     aws = aws.london
