@@ -19,11 +19,11 @@ data "aws_iam_policy_document" "apigw" {
     ]
 
     resources = [
-      "${aws_api_gateway_rest_api.upload_files_api.arn}/*",
-      aws_api_gateway_rest_api.upload_files_api.arn,
+      "${aws_api_gateway_rest_api.api_gateway.arn}/*",
+      aws_api_gateway_rest_api.api_gateway.arn,
       "arn:aws:apigateway:eu-west-2::/restapis/*",
       "arn:aws:apigateway:eu-west-2::/restapis",
-      "${element(split("/", aws_api_gateway_rest_api.upload_files_api.arn), 0)}/*",
+      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
     effect = "Allow"
   }
@@ -85,6 +85,6 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
   data = {
     access_key_id     = aws_iam_access_key.apigw-user.id
     secret_access_key = aws_iam_access_key.apigw-user.secret
-    invoke_url        = aws_api_gateway_deployment.live.invoke_url
+    invoke_url        = aws_api_gateway_deployment.main.invoke_url
   }
 }
