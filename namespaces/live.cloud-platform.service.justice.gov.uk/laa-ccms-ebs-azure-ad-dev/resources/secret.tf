@@ -10,7 +10,7 @@ module "secrets_manager" {
   eks_cluster_name        = var.eks_cluster_name
 
   secrets = {
-    "azure/appId" = {
+    "azure-appId" = {
 
       description             = "The Id for the App registration on Azure", # Required
       recovery_window_in_days = 7, # Required
