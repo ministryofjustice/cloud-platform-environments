@@ -18,7 +18,8 @@ module "ma_rds" {
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
+
 
   providers = {
     aws = aws.london
