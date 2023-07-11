@@ -1,5 +1,5 @@
-module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.8.1"
+module "github_actions_service_account" {
+  source = "github.com/marcus-bcl/cloud-platform-terraform-serviceaccount?ref=patch-1"
 
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
@@ -10,16 +10,9 @@ module "serviceaccount" {
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
 }
 
-data "kubernetes_service_account" "service_account" {
-  metadata {
-    name      = "cd-serviceaccount"
-    namespace = var.namespace
-  }
-}
-
 data "kubernetes_secret" "service_account_secret" {
   metadata {
-    name      = data.kubernetes_service_account.service_account.default_secret_name
+    name      = module.github_actions_service_account.default_secret_name
     namespace = var.namespace
   }
 }
