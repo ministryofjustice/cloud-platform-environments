@@ -68,18 +68,17 @@ variable "github_token" {
   default     = ""
 }
 
-
-variable "domain" {
+variable "base_domain" {
   description = "Base domain where to create the custom hostname"
-  default     = "iac-fees-dev.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "iac-fees.service.justice.gov.uk"
 }
 
 variable "hostname" {
   description = "Host part of the FQDN"
-  default     = "gw"
+  default     = "gw-dev"
 }
 
 variable "base_domain_route53_namespace" {
   description = "Kubernetes namespace where the base domain was created"
-  default     = "iac-fees-dev"
+  default     = "iac-fees-prod"
 }
