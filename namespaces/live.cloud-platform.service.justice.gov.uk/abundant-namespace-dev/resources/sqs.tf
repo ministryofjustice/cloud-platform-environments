@@ -16,7 +16,7 @@ module "abundant_namespace_sqs" {
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
   encrypt_sqs_kms = "false"
 
-  # existing_user_name     = module.another_sqs_instance.user_name
+  # existing_user_name = module.another_sqs_instance.user_name
 
   providers = {
     aws = aws.london
