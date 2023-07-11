@@ -44,7 +44,7 @@ module "ecr-repo" {
         },
         {
             "rulePriority": 3,
-            "description": "Keep the newest 50 images and mark the rest for expiration",
+            "description": "Keep the newest 25 images and mark the rest for expiration",
             "selection": {
                 "tagStatus": "any",
                 "countType": "imageCountMoreThan",
