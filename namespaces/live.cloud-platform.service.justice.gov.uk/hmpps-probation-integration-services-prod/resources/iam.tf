@@ -25,7 +25,7 @@ locals {
     module.tier-to-delius-dlq,
     module.tier-to-delius-queue,
     module.unpaid-work-and-delius-dlq,
-    module.unpaid-work-and-delius-dlq,
+    module.unpaid-work-and-delius-queue,
     module.workforce-allocations-to-delius-dlq,
     module.workforce-allocations-to-delius-queue,
   ]
@@ -77,44 +77,9 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
-  statement {
-    sid    = "QueueManagementRead"
-    effect = "Allow"
-    actions = [
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
-      "sqs:ListDeadLetterSourceQueues",
-      "sqs:ListMessageMoveTasks",
-      "sqs:ListQueueTags",
-      "sqs:ListQueues",
-    ]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_role.console_role.arn]
-    }
-    resources = ["*"]
-  }
-  statement {
-    sid    = "QueueManagementWrite"
-    effect = "Allow"
-    actions = [
-      "sqs:CancelMessageMoveTask",
-      "sqs:ChangeMessageVisibility",
-      "sqs:DeleteMessage",
-      "sqs:PurgeQueue",
-      "sqs:ReceiveMessage",
-      "sqs:SendMessage",
-      "sqs:StartMessageMoveTask",
-    ]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_role.console_role.arn]
-    }
-    resources = ["*"]
-  }
 }
 
-data "aws_iam_policy_document" "sqs_console_role_policy_document" {
+data "aws_iam_policy_document" "sqs_management_policy_document" {
   statement {
     sid    = "QueueManagementList"
     effect = "Allow"
@@ -158,22 +123,7 @@ data "aws_iam_policy_document" "sqs_console_role_policy_document" {
   }
 }
 
-data "aws_iam_policy_document" "console_assume_role_policy_document" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::570551521311:root"] # hmpps-probation
-    }
-  }
+resource "aws_iam_policy" "sqs_management_policy" {
+  name   = "${var.namespace}-sqs-management-policy"
+  policy = data.aws_iam_policy_document.sqs_management_policy_document.json
 }
-
-resource "aws_iam_role" "console_role" {
-  name               = "${var.namespace}-console"
-  assume_role_policy = data.aws_iam_policy_document.console_assume_role_policy_document.json
-  inline_policy {
-    policy = data.aws_iam_policy_document.sqs_console_role_policy_document.json
-  }
-}
-
