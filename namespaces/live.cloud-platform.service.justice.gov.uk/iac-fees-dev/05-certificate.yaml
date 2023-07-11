@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: courtfines-justice-app-cert
+  name: iac-fees-justice-app-cert
   namespace: iac-fees-dev
 spec:
   secretName: iac-fees-justice-app-secret
