@@ -70,7 +70,7 @@ variable "github_token" {
 
 variable "base_domain" {
   description = "Base domain where to create the custom hostname"
-  default     = "iac-fees.service.justice.gov.uk"
+  default     = "iac-fees.justice.gov.uk"
 }
 
 variable "hostname" {
