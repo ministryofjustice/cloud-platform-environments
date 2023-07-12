@@ -14,7 +14,6 @@ module "dps_redis" {
   namespace               = var.namespace
   auth_token_rotated_date = "2023-07-12"
 
-
   providers = {
     aws = aws.london
   }
