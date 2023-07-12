@@ -96,5 +96,5 @@ data "kubernetes_secret" "truststore" {
 resource "aws_s3_object" "truststore" {
   bucket  = module.s3_bucket.bucket_name
   key     = "dev-truststore.pem"
-  content = data.kubernetes_secret.truststore.data["truststore-public-key"]
+  content = data.kubernetes_secret.truststore.data["dev-truststore.pem"]
 }
