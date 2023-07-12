@@ -6,7 +6,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment-name}"
+  service_account_name = var.application
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     redis = module.dps_redis.irsa_policy_arn
