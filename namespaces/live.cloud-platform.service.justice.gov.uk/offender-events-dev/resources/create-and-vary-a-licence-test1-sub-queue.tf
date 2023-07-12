@@ -139,9 +139,7 @@ resource "aws_sns_topic_subscription" "cvl_prison_test1_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "SENTENCE_DATES-CHANGED", 
-      "CONFIRMED_RELEASE_DATE-CHANGED",
-      "OFFENDER-UPDATED",
-      "OFFENDER_DETAILS-CHANGED"
+      "CONFIRMED_RELEASE_DATE-CHANGED"
     ]
   })
 }
