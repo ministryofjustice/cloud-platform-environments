@@ -102,8 +102,9 @@ resource "kubernetes_secret" "ecr_credentials" {
 module "ecr-repo-clamav" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
-  team_name = "laa-apply-for-legal-aid"
-  repo_name = "clamav"
+  team_name           = "laa-apply-for-legal-aid"
+  repo_name           = "clamav"
+  deletion_protection = false
 
   providers = {
     aws = aws.london
