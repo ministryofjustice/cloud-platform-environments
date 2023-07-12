@@ -17,7 +17,7 @@ spec:
             rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"parliamentary-questions-production"}[5m]) * 600 > 2
           for: 4m
           labels:
-            severity: central-digital-product-team
+            severity: parliamentary-questions
         - alert: KubeDeploymentReplicasMismatch
           annotations:
             message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
@@ -29,7 +29,7 @@ spec:
             kube_deployment_status_replicas_available{namespace="parliamentary-questions-production", job="kube-state-metrics"}
           for: 1h
           labels:
-            severity: central-digital-product-team
+            severity: parliamentary-questions
         - alert: KubePodNotReady
           annotations:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
@@ -39,7 +39,7 @@ spec:
             phase=~"Pending|Unknown"}) > 0
           for: 1h
           labels:
-            severity: central-digital-product-team
+            severity: parliamentary-questions
         - alert: SlowResponses
           annotations:
             message: ingress {{ $labels.ingress }} is serving slow responses over 5 seconds
@@ -49,7 +49,7 @@ spec:
             rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "parliamentary-questions-production"}[5m]) > 0) by (ingress) > 5
           for: 1m
           labels:
-            severity: central-digital-product-team
+            severity: parliamentary-questions
         - alert: KubeNamespaceQuotaNearing
           annotations:
             message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value }}% of its {{ $labels.resource }} quota.
@@ -61,4 +61,4 @@ spec:
               > 80
           for: 5m
           labels:
-            severity: central-digital-product-team
+            severity: parliamentary-questions
