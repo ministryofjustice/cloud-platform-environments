@@ -20,10 +20,7 @@ data "aws_iam_policy_document" "apigw" {
 
     resources = [
       "${aws_api_gateway_rest_api.api_gateway.arn}/*",
-      aws_api_gateway_rest_api.api_gateway.arn,
-      "arn:aws:apigateway:eu-west-2::/restapis/*",
-      "arn:aws:apigateway:eu-west-2::/restapis",
-      "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
+      aws_api_gateway_rest_api.api_gateway.arn
     ]
     effect = "Allow"
   }
