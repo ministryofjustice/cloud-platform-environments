@@ -9,9 +9,10 @@ module "opseng_reports" {
   is-production          = "false"
   namespace              = var.namespace
 
-  hash_key                    = "name"
-  enable_autoscaler           = "true"
-  autoscale_max_read_capacity = "100"
+  hash_key                     = "name"
+  enable_autoscaler            = "true"
+  autoscale_max_read_capacity  = "100"
+  autoscale_max_write_capacity = "100"
 }
 
 resource "kubernetes_secret" "opseng_reports" {
