@@ -8,6 +8,7 @@ module "s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -25,7 +26,7 @@ module "s3_bucket" {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
         "Action": [
-          "s3:GetObject"
+          "s3:PutObject"
         ],
         "Resource": [
           "$${bucket_arn}/*"
