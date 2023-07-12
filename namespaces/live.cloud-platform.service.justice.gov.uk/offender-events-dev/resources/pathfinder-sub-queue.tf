@@ -196,6 +196,35 @@ data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
   name = "/hmpps-domain-events-dev/topic-arn"
 }
 
+resource "aws_sqs_queue_policy" "hmpps_domain_event_pathfinder_queue_policy" {
+  queue_url = module.pathfinder_offender_events_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.pathfinder_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.pathfinder_offender_events_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+                      {
+                        "ArnEquals":
+                          {
+                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                          }
+                        }
+        }
+      ]
+  }
+
+EOF
+
+}
+
 resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription" {
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
