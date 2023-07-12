@@ -19,7 +19,7 @@ module "lcdui_rds" {
   db_instance_class           = "db.t3.small"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "14.4"
+  db_engine_version           = "14.7"
   rds_family                  = "postgres14"
   allow_major_version_upgrade = "true"
 
