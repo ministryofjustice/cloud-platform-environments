@@ -192,6 +192,21 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_dead_letter_q
   }
 }
 
+data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
+  name = "/hmpps-domain-events-dev/topic-arn"
+}
+
+resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription" {
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.pathfinder_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prisoner-offender-search.prisoner.updated",
+    ]
+  })
+}
+
 resource "aws_sns_topic_subscription" "pathfinder_offender_events_subscription" {
   provider      = aws.london
   topic_arn     = module.offender_events.topic_arn
