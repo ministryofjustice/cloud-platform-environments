@@ -6,7 +6,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "hmpps-dps"
+  default     = "hmpps-dps-homepage"
 }
 
 variable "namespace" {
