@@ -87,6 +87,16 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_api_gateway_rest_api_policy" "api_policy" {
@@ -114,11 +124,10 @@ resource "aws_api_gateway_resource" "proxy" {
 }
 
 resource "aws_api_gateway_method" "proxy" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
-  resource_id      = aws_api_gateway_resource.proxy.id
-  http_method      = "ANY"
-  authorization    = "NONE"
-  api_key_required = true
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+  resource_id   = aws_api_gateway_resource.proxy.id
+  http_method   = "ANY"
+  authorization = "NONE"
 
   request_parameters = {
     "method.request.path.proxy" = true
