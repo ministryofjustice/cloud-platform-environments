@@ -12,7 +12,7 @@ module "dps_redis" {
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
-  auth_token_rotated_date = "2023-07-12"
+  auth_token_rotated_date = "2023-07-13"
 
   providers = {
     aws = aws.london
