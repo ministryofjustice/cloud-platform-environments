@@ -10,6 +10,9 @@ variable "namespace" {
   default = "manage-key-workers-prod"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
 
 variable "vpc_name" {
 }

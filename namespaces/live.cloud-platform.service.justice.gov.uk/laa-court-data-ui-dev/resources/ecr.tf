@@ -1,11 +1,15 @@
 module "lcdui_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
   repo_name = var.repo_name
 
   providers = {
     aws = aws.london
   }
+
+  oidc_providers      = ["circleci"]
+  github_repositories = ["laa-court-data-ui"]
+  namespace           = var.namespace
 }
 
 resource "kubernetes_secret" "lcdui_ecr_credentials" {

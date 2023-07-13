@@ -328,3 +328,18 @@ spec:
   dnsNames:
     - df61733d-preprod.hmpps.service.justice.gov.uk
     - domain-events-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-api-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: external-api-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 968d1142-preprod.hmpps.service.justice.gov.uk
+    - external-api-and-delius-preprod.hmpps.service.justice.gov.uk

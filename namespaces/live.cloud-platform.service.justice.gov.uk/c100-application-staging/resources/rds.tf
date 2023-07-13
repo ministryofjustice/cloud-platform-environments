@@ -15,7 +15,7 @@ module "rds-instance" {
   team_name              = var.team_name
   db_engine_version      = var.db_engine_version
   db_instance_class	     = var.db_instance_class
-  allow_major_version_upgrade = "true"
+  allow_minor_version_upgrade = "false"
   rds_family             = var.db_engine_family
 
   providers = {

@@ -59,3 +59,7 @@ variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

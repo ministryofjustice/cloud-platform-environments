@@ -5,7 +5,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Manage offences API"
+  default     = "Manage Offences API"
 }
 
 variable "namespace" {

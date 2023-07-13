@@ -36,7 +36,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "sandeep.mittal@digital.justice.gov.uk"
+  default     = "CRM457@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -48,7 +48,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "crmseven"
+  default     = "laa-crm-4-5-7"
 }
 
 variable "github_owner" {

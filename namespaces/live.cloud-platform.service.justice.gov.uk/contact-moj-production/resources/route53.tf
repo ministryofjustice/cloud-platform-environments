@@ -7,12 +7,12 @@ resource "aws_route53_zone" "contact-moj_route53_zone" {
   name = var.domain
 
   tags = {
-    business-unit          = "Central Digital"
-    application            = "contact-moj"
+    business-unit          = var.business_unit
+    application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     owner                  = "Staff Services"
-    infrastructure-support = "staffservices@digital.justice.gov.uk"
+    infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
 }

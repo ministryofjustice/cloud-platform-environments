@@ -5,9 +5,28 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
+
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
@@ -16,6 +35,9 @@ module "ecr_credentials" {
     To disable 'scan_on_push', set it to false as below:
   scan_on_push = "false"
   */
+
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in

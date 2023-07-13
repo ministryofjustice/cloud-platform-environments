@@ -9,7 +9,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "manage_a_workforce_dev"
     cloud-platform.justice.gov.uk/application: "Staff information"
-    cloud-platform.justice.gov.uk/owner: "Manage a Workforce: manageaworkforce@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Manage a Workforce: manage-a-workforce-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-staff-api"
     cloud-platform.justice.gov.uk/team-name: "manage-a-workforce"
     cloud-platform.justice.gov.uk/review-after: ""

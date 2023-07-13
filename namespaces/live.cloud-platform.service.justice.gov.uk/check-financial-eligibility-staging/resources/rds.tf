@@ -18,13 +18,14 @@ module "check-financial-eligibility-rds" {
   db_engine                 = "postgres"
 
   # specified as latest version that can be upgraded from 11.16
-  db_engine_version         = "14.4"
+  db_engine_version         = "14.7"
 
   db_name                   = "check_financial_eligibility_staging"
   db_parameter              = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.small"
   db_max_allocated_storage  = "500"
+  allow_minor_version_upgrade = "false"
   prepare_for_major_upgrade = false
 
   providers = {

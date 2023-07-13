@@ -10,9 +10,11 @@ module "ma_rds" {
   infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14"
-  rds_family                  = "postgres14"
+  db_engine_version           = "15"
+  db_engine                   = "postgres"
+  rds_family                  = "postgres15"
   db_password_rotated_date    = "15-02-2023"
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
@@ -31,8 +33,6 @@ resource "kubernetes_secret" "dps_rds" {
     database_username     = module.ma_rds.database_username
     database_password     = module.ma_rds.database_password
     rds_instance_address  = module.ma_rds.rds_instance_address
-    access_key_id         = module.ma_rds.access_key_id
-    secret_access_key     = module.ma_rds.secret_access_key
     url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
   }
 }

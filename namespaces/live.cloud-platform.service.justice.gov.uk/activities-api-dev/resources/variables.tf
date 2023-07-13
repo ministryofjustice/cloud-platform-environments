@@ -27,6 +27,10 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
@@ -58,3 +62,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required MP DPR Traffic ingress into DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

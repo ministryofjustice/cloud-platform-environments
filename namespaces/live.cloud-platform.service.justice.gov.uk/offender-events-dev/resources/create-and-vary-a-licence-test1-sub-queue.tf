@@ -136,7 +136,12 @@ resource "aws_sns_topic_subscription" "cvl_prison_test1_events_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.cvl_prison_test1_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"SENTENCE_DATES-CHANGED\", \"CONFIRMED_RELEASE_DATE-CHANGED\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "SENTENCE_DATES-CHANGED", 
+      "CONFIRMED_RELEASE_DATE-CHANGED"
+    ]
+  })
 }
 
 resource "aws_sns_topic_subscription" "cvl_probation_test1_events_subscription" {

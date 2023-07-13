@@ -9,7 +9,7 @@ variable "eks_cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Calculate release dates API"
+  default     = "Calculate Release dates API"
 }
 
 variable "namespace" {

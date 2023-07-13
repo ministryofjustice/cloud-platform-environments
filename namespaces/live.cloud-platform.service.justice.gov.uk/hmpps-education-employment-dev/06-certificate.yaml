@@ -36,7 +36,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-ciag-careers-induction-ui-dev.hmpps.service.justice.gov.uk
+    - ciag-induction-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -49,4 +49,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-ciag-careers-induction-api-dev.hmpps.service.justice.gov.uk
+    - ciag-induction-api-dev.hmpps.service.justice.gov.uk

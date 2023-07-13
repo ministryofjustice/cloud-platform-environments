@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -20,6 +20,7 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["prod"]
   oidc_providers      = ["github"]
+  github_actions_prefix = "prod"
 
 
 

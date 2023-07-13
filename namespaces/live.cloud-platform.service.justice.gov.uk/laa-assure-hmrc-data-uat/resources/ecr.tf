@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -31,18 +31,18 @@ module "ecr_credentials" {
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
-
+  */
   lifecycle_policy = <<EOF
 {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire untagged images older than 14 days",
+            "description": "Expire untagged images older than 7 days",
             "selection": {
                 "tagStatus": "untagged",
                 "countType": "sinceImagePushed",
                 "countUnit": "days",
-                "countNumber": 14
+                "countNumber": 7
             },
             "action": {
                 "type": "expire"
@@ -50,12 +50,13 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 2,
-            "description": "Keep last 30 dev and staging images",
+            "description": "Expire images tagged with 'latest' older than 180 days",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["dev", "staging"],
-                "countType": "imageCountMoreThan",
-                "countNumber": 30
+                "tagPrefixList": ["latest"],
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 180
             },
             "action": {
                 "type": "expire"
@@ -63,11 +64,11 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 3,
-            "description": "Keep the newest 100 images and mark the rest for expiration",
+            "description": "Keep the newest 50 images and mark the rest for expiration",
             "selection": {
                 "tagStatus": "any",
                 "countType": "imageCountMoreThan",
-                "countNumber": 100
+                "countNumber": 50
             },
             "action": {
                 "type": "expire"
@@ -76,10 +77,7 @@ module "ecr_credentials" {
     ]
 }
 EOF
-*/
-
 }
-
 
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
