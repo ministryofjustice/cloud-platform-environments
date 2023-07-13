@@ -7,7 +7,7 @@ module "ecr" {
   namespace = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci", "github"]
+  oidc_providers = ["circleci"]
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

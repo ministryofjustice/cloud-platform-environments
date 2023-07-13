@@ -11,7 +11,6 @@ module "s3_bucket" {
   versioning             = true
 
   providers = {
-    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 
@@ -26,7 +25,8 @@ module "s3_bucket" {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
         "Action": [
-          "s3:PutObject"
+          "s3:PutObject",
+          "s3:GetObject"
         ],
         "Resource": [
           "$${bucket_arn}/*"
