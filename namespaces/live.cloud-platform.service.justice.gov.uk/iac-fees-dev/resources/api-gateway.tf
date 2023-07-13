@@ -183,41 +183,12 @@ resource "aws_api_gateway_stage" "main" {
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
   client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
-
-  access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format = jsonencode({
-      "extendedRequestId"  = "$context.extendedRequestId"
-      "ip"                 = "$context.identity.sourceIp"
-      "client"             = "$context.identity.clientCert.subjectDN"
-      "issuerDN"           = "$context.identity.clientCert.issuerDN"
-      "requestTime"        = "$context.requestTime"
-      "httpMethod"         = "$context.httpMethod"
-      "resourcePath"       = "$context.resourcePath"
-      "status"             = "$context.status"
-      "responseLength"     = "$context.responseLength"
-      "error"              = "$context.error.message"
-      "authenticateStatus" = "$context.authenticate.status"
-      "authenticateError"  = "$context.authenticate.error"
-      "integrationStatus"  = "$context.integration.status"
-      "integrationError"   = "$context.integration.error"
-      "apiKeyId"           = "$context.identity.apiKeyId"
-    })
-  }
-
-  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
-}
-
-resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 7
 }
 
 resource "aws_api_gateway_method_settings" "all" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   stage_name  = aws_api_gateway_stage.main.stage_name
   method_path = "*/*"
-
   settings {
     metrics_enabled        = true
     logging_level          = "INFO"
