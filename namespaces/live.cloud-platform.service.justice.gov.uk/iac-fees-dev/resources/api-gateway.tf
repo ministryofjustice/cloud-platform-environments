@@ -98,9 +98,7 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": {
-          "AWS": "*"
-        },
+        "Principal": "*",
         "Action": "execute-api:Invoke",
         "Resource": "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
       }
