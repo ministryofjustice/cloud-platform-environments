@@ -95,27 +95,3 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
     invoke_url        = aws_api_gateway_deployment.main.invoke_url
   }
 }
-
-data "aws_iam_policy_document" "cloudwatch" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:DescribeLogGroups",
-      "logs:DescribeLogStreams",
-      "logs:PutLogEvents",
-      "logs:GetLogEvents",
-      "logs:FilterLogEvents",
-    ]
-
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_role_policy" "cloudwatch" {
-  name   = "${var.namespace}-default"
-  role   = aws_iam_role.api_gateway_role.id
-  policy = data.aws_iam_policy_document.cloudwatch.json
-}
