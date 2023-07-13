@@ -10,6 +10,10 @@ variable "application" {
   default = "manage-key-workers-preprod"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "namespace" {
   default = "manage-key-workers-preprod"
 }
