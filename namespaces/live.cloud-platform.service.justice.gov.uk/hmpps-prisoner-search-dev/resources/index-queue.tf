@@ -10,12 +10,10 @@ module "hmpps_prisoner_search_index_queue" {
   message_retention_seconds = 1209600
   namespace                 = var.namespace
 
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.hmpps_prisoner_search_index_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-
-EOF
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.hmpps_prisoner_search_index_dead_letter_queue.sqs_arn
+    maxReceiveCount     = 3
+  })
 
   providers = {
     aws = aws.london
