@@ -17,10 +17,18 @@ data "aws_iam_policy_document" "apigw" {
     actions = [
       "apigateway:*",
     ]
-
     resources = [
       "${aws_api_gateway_rest_api.api_gateway.arn}/*",
-      aws_api_gateway_rest_api.api_gateway.arn,
+      aws_api_gateway_rest_api.api_gateway.arn
+    ]
+    effect = "Allow"
+  }
+
+  statement {
+    actions = [
+      "apigateway:GET",
+    ]
+    resources = [
       "arn:aws:apigateway:eu-west-2::/restapis"
     ]
     effect = "Allow"
