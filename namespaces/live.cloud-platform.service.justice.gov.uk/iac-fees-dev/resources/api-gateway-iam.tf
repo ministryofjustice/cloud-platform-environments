@@ -74,7 +74,8 @@ resource "aws_iam_role_policy" "api_gw_s3" {
       "Action": "s3:PutObject",
 
       "Resource": [
-        "${module.s3_bucket.bucket_arn}/*"
+        "${module.s3_bucket.bucket_arn}/*",
+        "${module.s3_bucket.bucket_arn}"
       ]
     }
   ]
@@ -93,4 +94,28 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
     secret_access_key = aws_iam_access_key.apigw-user.secret
     invoke_url        = aws_api_gateway_deployment.main.invoke_url
   }
+}
+
+data "aws_iam_policy_document" "cloudwatch" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams",
+      "logs:PutLogEvents",
+      "logs:GetLogEvents",
+      "logs:FilterLogEvents",
+    ]
+
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role_policy" "cloudwatch" {
+  name   = "${var.namespace}-default"
+  role   = aws_iam_role.api_gateway_role.id
+  policy = data.aws_iam_policy_document.cloudwatch.json
 }

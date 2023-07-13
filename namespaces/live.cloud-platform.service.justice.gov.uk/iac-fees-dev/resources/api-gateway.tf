@@ -87,6 +87,16 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_api_gateway_rest_api_policy" "api_policy" {
@@ -114,11 +124,10 @@ resource "aws_api_gateway_resource" "proxy" {
 }
 
 resource "aws_api_gateway_method" "proxy" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
-  resource_id      = aws_api_gateway_resource.proxy.id
-  http_method      = "ANY"
-  authorization    = "NONE"
-  api_key_required = true
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+  resource_id   = aws_api_gateway_resource.proxy.id
+  http_method   = "ANY"
+  authorization = "NONE"
 
   request_parameters = {
     "method.request.path.proxy" = true
@@ -174,6 +183,34 @@ resource "aws_api_gateway_stage" "main" {
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
   client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
+    format = jsonencode({
+      "extendedRequestId"  = "$context.extendedRequestId"
+      "ip"                 = "$context.identity.sourceIp"
+      "client"             = "$context.identity.clientCert.subjectDN"
+      "issuerDN"           = "$context.identity.clientCert.issuerDN"
+      "requestTime"        = "$context.requestTime"
+      "httpMethod"         = "$context.httpMethod"
+      "resourcePath"       = "$context.resourcePath"
+      "status"             = "$context.status"
+      "responseLength"     = "$context.responseLength"
+      "error"              = "$context.error.message"
+      "authenticateStatus" = "$context.authenticate.status"
+      "authenticateError"  = "$context.authenticate.error"
+      "integrationStatus"  = "$context.integration.status"
+      "integrationError"   = "$context.integration.error"
+      "apiKeyId"           = "$context.identity.apiKeyId"
+    })
+  }
+
+  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
+}
+
+resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
+  retention_in_days = 7
 }
 
 resource "aws_api_gateway_method_settings" "all" {
