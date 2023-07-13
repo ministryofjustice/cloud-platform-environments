@@ -1,7 +1,7 @@
 resource "aws_sns_topic_subscription" "prison-to-probation-update-queue-subscription" {
-  topic_arn     = data.aws_sns_topic.prison-offender-events.arn
-  protocol      = "sqs"
-  endpoint      = module.prison-to-probation-update-queue.sqs_arn
+  topic_arn = data.aws_sns_topic.prison-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.prison-to-probation-update-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "BOOKING_NUMBER-CHANGED",
@@ -51,9 +51,7 @@ resource "kubernetes_secret" "prison-to-probation-update-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.prison-to-probation-update-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.prison-to-probation-update-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.prison-to-probation-update-queue.secret_access_key
+    QUEUE_NAME = module.prison-to-probation-update-queue.sqs_name
   }
 }
 
@@ -63,9 +61,7 @@ resource "kubernetes_secret" "prison-to-probation-update-dlq-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.prison-to-probation-update-dlq.sqs_name
-    AWS_ACCESS_KEY_ID     = module.prison-to-probation-update-dlq.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.prison-to-probation-update-dlq.secret_access_key
+    QUEUE_NAME = module.prison-to-probation-update-dlq.sqs_name
   }
 }
 
