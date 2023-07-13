@@ -10,7 +10,6 @@ module "s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
-  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
   providers = {
