@@ -88,6 +88,23 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   }
 }
 
+data "aws_iam_policy_document" "api_access_policy" {
+  statement {
+    actions = [
+      "execute-api:Invoke",
+    ]
+    resources = [
+      "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
+    ]
+    effect = "Allow"
+  }
+}
+
+resource "aws_api_gateway_rest_api_policy" "api_policy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  policy      = data.aws_iam_policy_document.api_access_policy.json
+}
+
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
