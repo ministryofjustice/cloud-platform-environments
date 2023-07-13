@@ -163,7 +163,34 @@ resource "aws_api_gateway_method_settings" "all" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled        = true
+    logging_level          = "INFO"
+    throttling_burst_limit = 5000
+    throttling_rate_limit  = 10000
+    data_trace_enabled     = false
+
+    // Attach the IAM policy to the API Gateway
+    authorization_type = "CUSTOM"
+
+    // Policy
+    authorization_scopes             = []
+    authorizer_uri                   = null
+    authorizer_credentials           = null
+    authorizer_result_ttl_in_seconds = null
+
+    // Attach the IAM policy to the method
+    policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": "*",
+          "Action": "execute-api:Invoke",
+          "Resource": "arn:aws:execute-api:eu-west-2:754256621582:gp3sc513hg/*/*/*"
+        }
+      ]
+    }
+    EOF
   }
 }
