@@ -88,21 +88,24 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   }
 }
 
-data "aws_iam_policy_document" "api_access_policy" {
-  statement {
-    actions = [
-      "execute-api:Invoke",
-    ]
-    resources = [
-      "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
-    ]
-    effect = "Allow"
-  }
-}
-
 resource "aws_api_gateway_rest_api_policy" "api_policy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  policy      = data.aws_iam_policy_document.api_access_policy.json
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "*"
+        },
+        "Action": "execute-api:Invoke",
+        "Resource": "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
+      }
+    ]
+  }
+  EOF
 }
 
 resource "aws_api_gateway_resource" "proxy" {
