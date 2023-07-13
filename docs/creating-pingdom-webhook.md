@@ -11,7 +11,6 @@ This cannot be managed by Terraform and will need to be created manually. To con
 
 To create the webhook perform the following:
 
-
 - Sign into the mojds Slack [Pingdom app](https://mojdt.slack.com/apps/new/A0F814AV7-pingdom)
 - Create a new configuration:
 
