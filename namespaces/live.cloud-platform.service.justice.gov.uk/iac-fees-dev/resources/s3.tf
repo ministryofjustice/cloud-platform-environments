@@ -10,6 +10,9 @@ module "s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
+  acl                           = "public-read"
+  enable_allow_block_pub_access = false
+
   providers = {
     aws = aws.london
   }
@@ -24,11 +27,9 @@ module "s3_bucket" {
         "Principal": {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
-        "Action": [
-          "s3:PutObject",
-          "s3:GetObject"
-        ],
+        "Action": "s3:*",
         "Resource": [
+          "$${bucket_arn}",
           "$${bucket_arn}/*"
         ]
       }
