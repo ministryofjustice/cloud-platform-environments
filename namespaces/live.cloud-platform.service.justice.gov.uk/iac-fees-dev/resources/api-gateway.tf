@@ -81,11 +81,28 @@ resource "aws_route53_record" "data" {
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
   name                         = var.namespace
-  disable_execute_api_endpoint = true
+  disable_execute_api_endpoint = false
 
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+}
+
+data "aws_iam_policy_document" "api_access_policy" {
+  statement {
+    actions = [
+      "execute-api:Invoke",
+    ]
+    resources = [
+      "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
+    ]
+    effect = "Allow"
+  }
+}
+
+resource "aws_api_gateway_rest_api_policy" "api_policy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  policy      = data.aws_iam_policy_document.api_access_policy.json
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -163,7 +180,10 @@ resource "aws_api_gateway_method_settings" "all" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled        = true
+    logging_level          = "INFO"
+    throttling_burst_limit = 5000
+    throttling_rate_limit  = 10000
+    data_trace_enabled     = false
   }
 }
