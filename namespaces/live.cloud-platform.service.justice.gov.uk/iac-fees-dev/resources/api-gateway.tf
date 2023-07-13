@@ -101,7 +101,7 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
           "AWS": "*"
         },
         "Action": "execute-api:Invoke",
-        "Resource": "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*",
+        "Resource": "arn:aws:execute-api:eu-west-2:207640118376:j7ouh6nm42/*/*/*"
       }
     ]
   }
