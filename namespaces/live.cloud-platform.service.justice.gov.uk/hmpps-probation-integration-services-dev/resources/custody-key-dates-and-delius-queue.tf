@@ -4,7 +4,8 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscr
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "person.prison-identifer.added"
+      "probation-case.prison-identifier.added",
+      "probation-case.prison-identifier.updated"
     ]
   })
 }
