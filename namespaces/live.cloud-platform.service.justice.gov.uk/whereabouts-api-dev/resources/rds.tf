@@ -13,7 +13,7 @@ module "dps_rds" {
   db_engine                   = "postgres"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_password_rotated_date    = "15-02-2023"
 
 
