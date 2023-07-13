@@ -12,6 +12,7 @@ This cannot be managed by Terraform and will need to be created manually. To con
 To create the webhook perform the following:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Sign into the mojds Slack [Pingdom app](https://mojdt.slack.com/apps/new/A0F814AV7-pingdom)
 - Create a new configuration:
 
@@ -26,6 +27,8 @@ To create the webhook perform the following:
 
 Now it's a simple case of finding the `integrationid`, which can be found by clicking your newly created integration and making a note of the `integration=` in the URL.
 =======
+=======
+>>>>>>> 4c4ae243ef79be77d8faddb3596f435fd46bb2ab
 - Sign into the mojds slack [Pingdom app](https://slack.com/apps/A0F814AV7-pingdom?next_id=0)
 - Create a new configuration and generate a webhook url i.e. https://hooks.slack.com/services/xxxxxx/xxxxxx/xxxxx
 - Sign into Pingdom
@@ -33,7 +36,10 @@ Now it's a simple case of finding the `integrationid`, which can be found by cli
 - Fill in the name and paste you generated webhook and save
 
 Now it's a simple case of finding the `integrationid`, which can be found by clicking your newly created integration and making a note of the `integration` in the URL.
+<<<<<<< HEAD
 >>>>>>> 4c4ae243e (Commit changes made by code formatters)
+=======
+>>>>>>> 4c4ae243ef79be77d8faddb3596f435fd46bb2ab
 
 ```
 e.g.
