@@ -11,5 +11,5 @@ spec:
     matchNames:
       - laa-crime-applications-adaptor
   endpoints:
-    - port: metrics
+    - port: actuator
       interval: 15s
