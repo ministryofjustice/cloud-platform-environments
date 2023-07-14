@@ -42,11 +42,6 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{bucket}"
 }
 
-  request_parameters = {
-    "method.request.path.bucket"      = true
-  }
-}
-
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   resource_id   = aws_api_gateway_resource.proxy.id
@@ -54,7 +49,7 @@ resource "aws_api_gateway_method" "proxy" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.path.proxy"       = true
+    "method.request.path.proxy" = true
   }
 }
 
