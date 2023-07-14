@@ -74,7 +74,7 @@ resource "aws_iam_role_policy" "api_gw_s3" {
       "Action": "s3:PutObject",
 
       "Resource": [
-        "${module.s3_bucket.bucket_arn}/*",
+        "${module.s3_bucket.bucket_arn}/*/*/*",
         "${module.s3_bucket.bucket_arn}"
       ]
     }
