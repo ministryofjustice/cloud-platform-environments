@@ -21,7 +21,7 @@ resource "kubernetes_secret" "eligibility_team_route53_zone" {
 
   data = {
     zone_id   = aws_route53_zone.eligibility_team_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.eligibility_team_route53_zone.name_servers)
+    nameservers = join(", ", aws_route53_zone.eligibility_team_route53_zone.name_servers)
   }
 }
 
