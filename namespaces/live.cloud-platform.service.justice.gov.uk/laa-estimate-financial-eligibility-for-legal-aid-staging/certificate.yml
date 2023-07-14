@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ccq-staging-cert
+  namespace: laa-estimate-financial-eligibility-for-legal-aid-staging
+spec:
+  secretName: ccq-staging-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
