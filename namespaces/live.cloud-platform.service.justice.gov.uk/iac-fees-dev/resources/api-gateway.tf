@@ -149,12 +149,34 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   }
 }
 
+resource "aws_api_gateway_method_response" "api_method_response" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = "200"
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+
+resource "aws_api_gateway_integration_response" "api_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = aws_api_gateway_method_response.api_method_response.status_code
+  response_templates = {
+    "application/json" = ""
+  }
+  depends_on = [
+    aws_api_gateway_integration.proxy_http_proxy
+  ]
+}
+
 resource "aws_api_gateway_deployment" "main" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
-  triggers = {
-    redeployment = md5(file("api-gateway.tf"))
-  }
+  #hack to force recreate of the deployment resource
+  stage_description = md5(file("api-gateway.tf"))
 
   depends_on = [
     aws_api_gateway_method.proxy,
