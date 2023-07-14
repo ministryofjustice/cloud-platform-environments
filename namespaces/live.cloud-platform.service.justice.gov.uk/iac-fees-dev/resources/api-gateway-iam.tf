@@ -71,10 +71,10 @@ resource "aws_iam_role_policy" "api_gw_s3" {
     {
       "Sid": "AllowPutObject",
       "Effect": "Allow",
-      "Action": "s3:PutObject",
+      "Action": "s3:*",
 
       "Resource": [
-        "${module.s3_bucket.bucket_arn}/*",
+        "${module.s3_bucket.bucket_arn}/*/*/*",
         "${module.s3_bucket.bucket_arn}"
       ]
     }
