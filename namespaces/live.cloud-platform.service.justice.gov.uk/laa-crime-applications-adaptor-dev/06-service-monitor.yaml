@@ -12,5 +12,4 @@ spec:
       - laa-crime-applications-adaptor
   endpoints:
     - port: actuator
-      path: /actuator/metrics
       interval: 15s
