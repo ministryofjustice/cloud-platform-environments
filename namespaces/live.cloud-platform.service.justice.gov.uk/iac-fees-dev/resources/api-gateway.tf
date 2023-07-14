@@ -117,15 +117,15 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
   EOF
 }
 
-resource "aws_api_gateway_resource" "bucket" {
+resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "{bucket}"
+  path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_resource" "upload_type" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_resource.bucket.id
+  parent_id   = aws_api_gateway_resource.proxy.id
   path_part   = "{upload_type}"
 }
 
@@ -148,7 +148,7 @@ resource "aws_api_gateway_method" "proxy" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.path.bucket"      = true
+    "method.request.path.proxy"       = true
     "method.request.path.upload_type" = true
     "method.request.path.filetype"    = true
     "method.request.path.filename"    = true
