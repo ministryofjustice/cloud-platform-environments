@@ -49,16 +49,3 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name       = module.s3_bucket.bucket_name
   }
 }
-
-data "kubernetes_secret" "truststore" {
-  metadata {
-    name      = "mutual-tls-auth"
-    namespace = var.namespace
-  }
-}
-
-resource "aws_s3_object" "truststore" {
-  bucket  = module.s3_bucket.bucket_name
-  key     = "truststore.pem"
-  content = data.kubernetes_secret.truststore.data["truststore.pem"]
-}
