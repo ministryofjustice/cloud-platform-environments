@@ -38,42 +38,6 @@ module "s3_bucket" {
 
 }
 
-resource "aws_s3_bucket_object" "backup_pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/PDF_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "backup_status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "backup_xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/XML_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/PDF_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/XML_Files/"
-  content_type = "application/x-directory"
-}
-
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
