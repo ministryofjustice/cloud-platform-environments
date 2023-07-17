@@ -30,7 +30,15 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
         "Principal": "*",
         "Action": "execute-api:Invoke",
         "Resource": "arn:aws:execute-api:eu-west-2:754256621582:gp3sc513hg/*/*/*"
-      }
+      },
+      {
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": [
+        "${module.s3_bucket.bucket_arn}/*",
+        "${module.s3_bucket.bucket_arn}"
+      ]
+    }
     ]
   }
   EOF
