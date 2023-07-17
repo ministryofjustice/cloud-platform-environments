@@ -137,15 +137,15 @@ resource "aws_api_gateway_deployment" "main" {
   }
 }
 
-resource "aws_api_gateway_stage" "main" {
+resource "aws_api_gateway_stage" "live" {
   deployment_id = aws_api_gateway_deployment.main.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
-  stage_name    = var.namespace
+  stage_name    = "upload"
 }
 
 resource "aws_api_gateway_method_settings" "all" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  stage_name  = aws_api_gateway_stage.main.stage_name
+  stage_name  = aws_api_gateway_stage.live.stage_name
   method_path = "*/*"
   settings {
     metrics_enabled        = true
