@@ -26,13 +26,16 @@ module "s3_bucket" {
         },
         "Action": "s3:*",
         "Resource": [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
+          "${bucket_arn}",
+          "${bucket_arn}/*",
+          "${bucket_arn}/*/*",
+          "${bucket_arn}/*/*/*"
         ]
       }
     ]
   }
   EOF
+
 }
 
 resource "aws_s3_bucket_object" "backup_pdf_directory" {
