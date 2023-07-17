@@ -27,9 +27,7 @@ module "s3_bucket" {
         "Action": "s3:*",
         "Resource": [
           "$${bucket_arn}",
-          "$${bucket_arn}/*",
-          "$${bucket_arn}/*/*",
-          "$${bucket_arn}/*/*/*"
+          "$${bucket_arn}/*"
         ]
       }
     ]
