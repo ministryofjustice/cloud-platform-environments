@@ -33,6 +33,7 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
       },
       {
       "Effect": "Allow",
+      "Principal": "*",
       "Action": "s3:PutObject",
       "Resource": [
         "${module.s3_bucket.bucket_arn}/*",
