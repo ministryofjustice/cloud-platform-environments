@@ -55,10 +55,10 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
-resource "github_actions_variable" "irsa_service_account" {
-  repository       = "ministryofjustice/cjs_scorecard_exploratory_analysis"
-  variable_name    = "DEMO_IRSA_SERVICE_ACCOUNT"
-  value            = module.irsa.service_account.name
+resource "github_actions_secret" "irsa_service_account" {
+  repository       = "cjs_scorecard_exploratory_analysis"
+  secret_name      = "DEMO_IRSA_SERVICE_ACCOUNT"
+  plaintext_value  = module.irsa.service_account.name
 }
 
 resource "random_id" "cjs-dashboard-demo-ap-id" {
