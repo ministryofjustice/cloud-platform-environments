@@ -17,6 +17,7 @@ data "aws_iam_policy_document" "bold_rr_ops_test_ap_policy" {
       "glue:GetDatabase",
       "glue:GetDatabases",
       "glue:GetTable",
+      "glue:GetTables",
       "glue:GetPartitions"
     ]
     resources = [
