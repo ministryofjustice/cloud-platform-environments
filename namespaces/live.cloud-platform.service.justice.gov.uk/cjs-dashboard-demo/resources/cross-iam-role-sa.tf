@@ -82,6 +82,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
 
   data = {
     bucket_arn         = "arn:aws:s3:::mojap-cjs-dashboard"
+    bucket_name        = "mojap-cjs-dashboard"
     user_arn           = aws_iam_user.cjs_dashboard_demo_ap_user.arn
     access_key_id      = aws_iam_access_key.cjs_dashboard_demo_ap_user.id
     secret_access_key  = aws_iam_access_key.cjs_dashboard_demo_ap_user.secret
