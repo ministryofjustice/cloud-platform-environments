@@ -38,7 +38,7 @@ module "ecr_credentials" {
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
-  
+
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
@@ -48,6 +48,11 @@ module "ecr_credentials" {
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["Production"]
+
+  # OPTIONAL:
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "prod"
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
