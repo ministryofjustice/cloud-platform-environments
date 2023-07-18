@@ -48,12 +48,18 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "{bucket}"
+}
+
+resource "aws_api_gateway_resource" "gateway_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
-  resource_id   = aws_api_gateway_resource.proxy.id
+  resource_id   = aws_api_gateway_resource.gateway_resource.id
   http_method   = "PUT"
   authorization = "NONE"
 
@@ -64,7 +70,7 @@ resource "aws_api_gateway_method" "proxy" {
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.proxy.id
+  resource_id             = aws_api_gateway_resource.gateway_resource.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "AWS"
   integration_http_method = "PUT"
@@ -79,7 +85,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
 resource "aws_api_gateway_method_response" "api_method_response" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  resource_id = aws_api_gateway_resource.proxy.id
+  resource_id = aws_api_gateway_resource.gateway_resource.id
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = "200"
   response_models = {
@@ -89,7 +95,7 @@ resource "aws_api_gateway_method_response" "api_method_response" {
 
 resource "aws_api_gateway_integration_response" "api_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  resource_id = aws_api_gateway_resource.proxy.id
+  resource_id = aws_api_gateway_resource.gateway_resource.id
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = aws_api_gateway_method_response.api_method_response.status_code
   response_templates = {
