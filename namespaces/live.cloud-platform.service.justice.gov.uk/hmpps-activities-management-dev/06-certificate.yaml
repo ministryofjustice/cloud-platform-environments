@@ -1,0 +1,27 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: activities-dev2.prison.service.justice.gov.uk
+  namespace: hmpps-activities-management-dev
+spec:
+  secretName: activities-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - activities-dev2.prison.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: activities-api-dev2.prison.service.justice.gov.uk
+  namespace: hmpps-activities-management-dev
+spec:
+  secretName: activities-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - activities-api-dev2.prison.service.justice.gov.uk
