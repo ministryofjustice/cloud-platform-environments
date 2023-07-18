@@ -11,11 +11,11 @@ module "ecr-repo" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire untagged images keeping newest 25",
+            "description": "Expire images keeping newest 200",
             "selection": {
-                "tagStatus": "untagged",
+                "tagStatus": "any",
                 "countType": "imageCountMoreThan",
-                "countNumber": 25
+                "countNumber": 200
             },
             "action": {
                 "type": "expire"
