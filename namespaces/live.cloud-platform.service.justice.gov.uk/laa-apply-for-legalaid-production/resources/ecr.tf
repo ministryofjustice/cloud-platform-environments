@@ -5,6 +5,7 @@ module "ecr-repo-applyforlegalaid-service" {
 
   team_name = var.team_name
   repo_name = "applyforlegalaid-service"
+  deletion_protection = false
 
   providers = {
     aws = aws.london
