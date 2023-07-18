@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "apigw" {
 
   statement {
     actions = [
-      "apigateway:GET",
+      "apigateway:*",
     ]
     resources = [
       "arn:aws:apigateway:eu-west-2::/restapis"
