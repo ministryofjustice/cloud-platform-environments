@@ -14,7 +14,7 @@ module "ecr_credentials" {
   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
   github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
   oidc_providers                       = ["github"]
-  github_actions_prefix                = "demo"
+  github_actions_prefix                = "dev"
 }
 
 
