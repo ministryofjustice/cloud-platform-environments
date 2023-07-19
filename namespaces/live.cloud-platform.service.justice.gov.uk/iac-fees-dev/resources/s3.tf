@@ -49,15 +49,3 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name       = module.s3_bucket.bucket_name
   }
 }
-
-resource "aws_s3_bucket_cors_configuration" "cors_rule" {
-  bucket = module.s3_bucket.bucket_name
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-}
