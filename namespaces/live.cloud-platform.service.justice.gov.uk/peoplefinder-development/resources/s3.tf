@@ -72,13 +72,10 @@ EOF
 resource "kubernetes_secret" "peoplefinder_s3" {
   metadata {
     name      = "peoplefinder-s3-output"
-    namespace = "peoplefinder-development"
+    namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.peoplefinder_s3.access_key_id
-    secret_access_key = module.peoplefinder_s3.secret_access_key
-    bucket_arn        = module.peoplefinder_s3.bucket_arn
-    bucket_name       = module.peoplefinder_s3.bucket_name
+    bucket_name = module.peoplefinder_s3.bucket_name
   }
 }
