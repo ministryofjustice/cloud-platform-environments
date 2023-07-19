@@ -44,7 +44,7 @@ module "peoplefinder_es" {
   application                = var.application
   business-unit              = var.business_unit
   environment-name           = var.environment
-  infrastructure-support     = var.infrastructure-support
+  infrastructure-support     = var.infrastructure_support
   is-production              = var.is_production
   team_name                  = var.team_name
   elasticsearch-domain       = "es"
