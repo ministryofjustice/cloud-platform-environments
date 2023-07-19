@@ -24,7 +24,7 @@ module "s3_bucket" {
         "Principal": {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
-        "Action": "s3:*",
+        "Action": "s3:PutObject",
         "Resource": [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
