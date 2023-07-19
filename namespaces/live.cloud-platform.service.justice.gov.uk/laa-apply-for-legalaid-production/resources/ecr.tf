@@ -1,31 +1,3 @@
-# TODO: delete "ecr-repo-applyforlegalaid-service" module once images
-# being pushed/pulled to/from new ECR repo
-module "ecr-repo-applyforlegalaid-service" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-
-  team_name = var.team_name
-  repo_name = "applyforlegalaid-service"
-  deletion_protection = false
-
-  providers = {
-    aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "ecr-repo-applyforlegalaid-service" {
-  metadata {
-    name      = "ecr-repo-applyforlegalaid-service"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_arn          = module.ecr-repo-applyforlegalaid-service.repo_arn
-    repo_url          = module.ecr-repo-applyforlegalaid-service.repo_url
-    access_key_id     = module.ecr-repo-applyforlegalaid-service.access_key_id
-    secret_access_key = module.ecr-repo-applyforlegalaid-service.secret_access_key
-  }
-}
-
 module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
