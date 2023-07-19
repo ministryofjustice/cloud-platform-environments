@@ -138,4 +138,3 @@ resource "aws_api_gateway_method_settings" "all" {
     data_trace_enabled     = false
   }
 }
-
