@@ -11,6 +11,14 @@ variable "namespace" {
   default = "peoplefinder-production"
 }
 
+variable "business_unit" {
+  default = "Central Digital"
+}
+
+variable "application" {
+  default = "peoplefinder"
+}
+
 variable "domain" {
   default = "peoplefinder.service.gov.uk"
 }
@@ -19,12 +27,8 @@ variable "is_production" {
   default = "true"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "production"
-}
-
-variable "application" {
-  default = "peoplefinder"
 }
 
 variable "infrastructure_support" {
@@ -35,8 +39,7 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
-
-variable "kubernetes_cluster" {
+variable "eks_cluster_name" {
 }
 
 variable "github_owner" {
