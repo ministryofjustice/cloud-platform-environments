@@ -68,7 +68,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "AWS"
   integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:eu-west-2:s3:action/PutObject/cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/*"
+  uri                     = "arn:aws:apigateway:eu-west-2:s3:path/cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/*"
 
   credentials = aws_iam_role.api_gateway_role.arn
 
