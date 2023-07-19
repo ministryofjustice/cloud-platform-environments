@@ -17,6 +17,7 @@ data "aws_iam_policy_document" "bold_rr_ops_test_ap_policy" {
       "glue:GetDatabase",
       "glue:GetDatabases",
       "glue:GetTable",
+      "glue:GetTables",
       "glue:GetPartitions"
     ]
     resources = [
@@ -53,5 +54,4 @@ resource "kubernetes_secret" "irsa" {
     role           = module.irsa.aws_iam_role_name
     serviceaccount = module.irsa.service_account_name.name
   }
-  
 }
