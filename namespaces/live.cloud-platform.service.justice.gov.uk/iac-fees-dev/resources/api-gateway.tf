@@ -48,14 +48,8 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "{bucket}"
+  path_part   = "{proxy}"
 }
-
-# resource "aws_api_gateway_resource" "gateway_resource" {
-#   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-#   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-#   path_part   = "{proxy}"
-# }
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
@@ -64,7 +58,7 @@ resource "aws_api_gateway_method" "proxy" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.path.bucket" = true
+    "method.request.path.proxy" = true
   }
 }
 
