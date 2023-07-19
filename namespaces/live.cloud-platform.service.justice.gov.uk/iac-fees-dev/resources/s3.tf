@@ -24,7 +24,7 @@ module "s3_bucket" {
         "Principal": {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
-        "Action": "s3:*",
+        "Action": "s3:PutObject",
         "Resource": [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
@@ -47,17 +47,5 @@ resource "kubernetes_secret" "s3_bucket" {
     secret_access_key = module.s3_bucket.secret_access_key
     bucket_arn        = module.s3_bucket.bucket_arn
     bucket_name       = module.s3_bucket.bucket_name
-  }
-}
-
-resource "aws_s3_bucket_cors_configuration" "cors_rule" {
-  bucket = module.s3_bucket.bucket_name
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
   }
 }
