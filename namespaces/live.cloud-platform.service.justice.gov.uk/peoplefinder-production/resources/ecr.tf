@@ -7,7 +7,7 @@
 module "peoplefinder_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   repo_name = "peoplefinder-ecr"
-  team_name = "peoplefinder"
+  team_name = var.team_name
 
   providers = {
     aws = aws.london
@@ -39,7 +39,7 @@ module "peoplefinder_ecr_credentials" {
 resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
   metadata {
     name      = "peoplefinder-ecr-credentials-output"
-    namespace = "peoplefinder-production"
+    namespace = var.namespace
   }
 
   data = {
