@@ -10,6 +10,7 @@ module "dps_rds" {
   infrastructure-support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
+  db_engine_version           = "15"
   db_engine                   = "postgres"
   rds_family                  = "postgres15"
   prepare_for_major_upgrade   = true
