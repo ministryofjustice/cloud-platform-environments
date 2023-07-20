@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "workforce-management-prod" {
   type                     = "http"
   name                     = var.application
-  host                     = "workforce-management.hmpps.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
