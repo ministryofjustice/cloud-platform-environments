@@ -67,8 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "bucket_name" {
-  description = "Name of S3 bucket"
-  default     = module.s3_bucket.bucket_name
-}
