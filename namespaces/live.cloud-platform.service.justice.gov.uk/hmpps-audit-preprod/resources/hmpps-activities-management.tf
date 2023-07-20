@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "activities_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
-    namespace = "activities-api-preprod"
+    namespace = "hmpps-activities-management-preprod"
   }
 
   data = {
