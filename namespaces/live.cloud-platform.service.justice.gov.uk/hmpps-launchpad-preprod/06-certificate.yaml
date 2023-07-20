@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-launchpad-preprod.hmpps.service.justice.gov.uk
+    - launchpad-preprod.hmpps.service.justice.gov.uk
