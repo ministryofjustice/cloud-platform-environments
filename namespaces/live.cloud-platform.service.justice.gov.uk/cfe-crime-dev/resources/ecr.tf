@@ -16,6 +16,8 @@ module "ecr_credentials" {
     To disable 'scan_on_push', set it to false as below:
   scan_on_push = "false"
   */
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
