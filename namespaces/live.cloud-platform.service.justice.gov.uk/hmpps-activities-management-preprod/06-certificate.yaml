@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: activities-preprod2.prison.service.justice.gov.uk
+  name: activities-preprod.prison.service.justice.gov.uk
   namespace: hmpps-activities-management-preprod
 spec:
   secretName: activities-cert
@@ -10,13 +10,13 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - activities-preprod2.prison.service.justice.gov.uk
+    - activities-preprod.prison.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: activities-api-preprod2.prison.service.justice.gov.uk
+  name: activities-api-preprod.prison.service.justice.gov.uk
   namespace: hmpps-activities-management-preprod
 spec:
   secretName: activities-api-cert
@@ -24,4 +24,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - activities-api-preprod2.prison.service.justice.gov.uk
+    - activities-api-preprod.prison.service.justice.gov.uk
