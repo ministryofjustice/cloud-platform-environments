@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: victimscommissioner.org.uk
+  name: www.victimscommissioner.org.uk
   namespace: hale-platform-prod
 spec:
   secretName: victimscommissioner-www-cert
@@ -53,7 +53,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: publicdefenderservice.org.uk
+  name: www.publicdefenderservice.org.uk
   namespace: hale-platform-prod
 spec:
   secretName: publicdefenderservice-www-cert
@@ -79,7 +79,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: imb.org.uk
+  name: www.imb.org.uk
   namespace: hale-platform-prod
 spec:
   secretName: imb-www-cert
@@ -105,7 +105,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ccrc.gov.uk
+  name: www.ccrc.gov.uk
   namespace: hale-platform-prod
 spec:
   secretName: ccrc-www-cert
