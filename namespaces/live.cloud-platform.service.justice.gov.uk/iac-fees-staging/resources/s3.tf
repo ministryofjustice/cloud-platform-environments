@@ -8,46 +8,32 @@ module "s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = true
 
   providers = {
     aws = aws.london
   }
-}
 
-resource "aws_s3_bucket_object" "backup_pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/PDF_Files/"
-  content_type = "application/x-directory"
-}
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowBucketAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "${aws_iam_role.api_gateway_role.arn}"
+        },
+        "Action": "s3:PutObject",
+        "Resource": [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
 
-resource "aws_s3_bucket_object" "backup_status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "backup_xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/XML_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/PDF_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/XML_Files/"
-  content_type = "application/x-directory"
 }
 
 resource "kubernetes_secret" "s3_bucket" {
