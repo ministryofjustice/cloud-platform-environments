@@ -27,6 +27,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: www.victimscommissioner.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimscommissioner-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.victimscommissioner.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: publicdefenderservice.org.uk
   namespace: hale-platform-prod
 spec:
@@ -36,6 +49,19 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - publicdefenderservice.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.publicdefenderservice.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: publicdefenderservice-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.publicdefenderservice.org.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -53,6 +79,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: www.imb.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: imb-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.imb.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: ccrc.gov.uk
   namespace: hale-platform-prod
 spec:
@@ -62,6 +101,19 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - ccrc.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.ccrc.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ccrc-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.ccrc.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
