@@ -29,7 +29,7 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
         "Effect": "Allow",
         "Principal": "*",
         "Action": "execute-api:Invoke",
-        "Resource": "arn:aws:execute-api:eu-west-2:754256621582:gp3sc513hg/*"
+        "Resource": "arn:aws:execute-api:eu-west-2:754256621582:${aws_api_gateway_rest_api.api_gateway.id}/*"
       },
       {
       "Effect": "Allow",
@@ -68,7 +68,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "AWS"
   integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:eu-west-2:s3:path/cloud-platform-d3ad47215cc1ffea9eff85a1aa2575b6/{proxy}"
+  uri                     = "arn:aws:apigateway:eu-west-2:s3:path/${module.s3_bucket.bucket_name}/{proxy}"
 
   credentials = aws_iam_role.api_gateway_role.arn
 
