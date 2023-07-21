@@ -67,3 +67,6 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+}
