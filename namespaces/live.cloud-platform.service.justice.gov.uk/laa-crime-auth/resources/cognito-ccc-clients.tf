@@ -1,114 +1,114 @@
-resource "aws_cognito_user_pool_client" "maat_client_ccp_dev" {
+resource "aws_cognito_user_pool_client" "maat_client_ccc_dev" {
   name                                 = var.cognito_user_pool_maat_client_name_dev
-  user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccp_resource_server.scope_identifiers
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
   prevent_user_existence_errors        = "ENABLED"
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_ccp_tst" {
+resource "aws_cognito_user_pool_client" "maat_client_ccc_tst" {
   name                                 = var.cognito_user_pool_maat_client_name_tst
-  user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccp_resource_server.scope_identifiers
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
   prevent_user_existence_errors        = "ENABLED"
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_ccp_uat" {
+resource "aws_cognito_user_pool_client" "maat_client_ccc_uat" {
   name                                 = var.cognito_user_pool_maat_client_name_uat
-  user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccp_resource_server.scope_identifiers
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
   prevent_user_existence_errors        = "ENABLED"
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_ccp_stg" {
+resource "aws_cognito_user_pool_client" "maat_client_ccc_stg" {
   name                                 = var.cognito_user_pool_maat_client_name_stg
-  user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccp_resource_server.scope_identifiers
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
   prevent_user_existence_errors        = "ENABLED"
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_ccp_prd" {
+resource "aws_cognito_user_pool_client" "maat_client_ccc_prd" {
   name                                 = var.cognito_user_pool_maat_client_name_prd
-  user_pool_id                         = aws_cognito_user_pool.ccp_user_pool.id
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccp_resource_server.scope_identifiers
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
   prevent_user_existence_errors        = "ENABLED"
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccp_dev" {
+resource "kubernetes_secret" "aws_cognito_user_pool_ccc_dev" {
   metadata {
-    name      = "ccp-dev-client-credentials"
+    name      = "ccc-dev-client-credentials"
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccp_dev.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccp_dev.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_dev.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_dev.client_secret
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccp_tst" {
+resource "kubernetes_secret" "aws_cognito_user_pool_ccc_tst" {
   metadata {
-    name      = "ccp-tst-client-credentials"
+    name      = "ccc-tst-client-credentials"
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccp_tst.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccp_tst.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_tst.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_tst.client_secret
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccp_uat" {
+resource "kubernetes_secret" "aws_cognito_user_pool_ccc_uat" {
   metadata {
-    name      = "ccp-uat-client-credentials"
+    name      = "ccc-uat-client-credentials"
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccp_uat.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccp_uat.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_uat.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_uat.client_secret
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccp_stg" {
+resource "kubernetes_secret" "aws_cognito_user_pool_ccc_stg" {
   metadata {
-    name      = "ccp-stg-client-credentials"
+    name      = "ccc-stg-client-credentials"
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccp_stg.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccp_stg.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_stg.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_stg.client_secret
   }
 }
 
-resource "kubernetes_secret" "aws_cognito_user_pool_ccp_prd" {
+resource "kubernetes_secret" "aws_cognito_user_pool_ccc_prd" {
   metadata {
-    name      = "ccp-prd-client-credentials"
+    name      = "ccc-prd-client-credentials"
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccp_prd.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccp_prd.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_prd.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_prd.client_secret
   }
 }
