@@ -19,7 +19,7 @@ module "serviceaccount" {
 
   serviceaccount_rules = [
     {
-      api_groups = [""]
+      api_groups = ["autoscaling"]
       resources = [
         "pods/portforward",
         "deployment",
