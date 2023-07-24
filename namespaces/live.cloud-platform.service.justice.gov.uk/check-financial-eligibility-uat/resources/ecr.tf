@@ -4,6 +4,8 @@ module "ecr-repo-check-financial-eligibility-service" {
   team_name = "laa-apply-for-legal-aid"
   repo_name = "check-financial-eligibility-service"
 
+  deletion_protection = false
+
   providers = {
     aws = aws.london
   }
