@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: check-financial-eligibility-staging
+  namespace: laa-ccms-civil
 spec:
   hard:
     pods: "50"

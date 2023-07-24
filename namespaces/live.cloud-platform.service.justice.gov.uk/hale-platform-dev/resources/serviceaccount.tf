@@ -19,17 +19,17 @@ module "serviceaccount" {
 
   serviceaccount_rules = [
     {
-      api_groups = [""]
+      api_groups = ["autoscaling"]
       resources = [
         "pods/portforward",
         "deployment",
-        "secrets",
         "services",
         "pods",
         "serviceaccounts",
         "configmaps",
         "persistentvolumeclaims",
-
+        "hpa",
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "update",
