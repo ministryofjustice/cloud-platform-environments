@@ -23,7 +23,6 @@ module "serviceaccount" {
       resources = [
         "pods/portforward",
         "deployment",
-        "secrets",
         "services",
         "pods",
         "serviceaccounts",
