@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=token-update"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=output-update"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
