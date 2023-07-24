@@ -29,7 +29,8 @@ module "serviceaccount" {
         "serviceaccounts",
         "configmaps",
         "persistentvolumeclaims",
-
+        "hpa",
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "update",
