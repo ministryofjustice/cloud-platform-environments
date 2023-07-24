@@ -8,6 +8,6 @@ module "ecr" {
 
   # This is the namespace to create a ConfigMap
   # of credentials you need in CircleCI
-  namespace = var.namespace
+  namespace = laa-not-on-libra-auto-search-application-dev
   ...
 }
