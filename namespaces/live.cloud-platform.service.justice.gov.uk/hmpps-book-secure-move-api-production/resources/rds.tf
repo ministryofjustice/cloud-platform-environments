@@ -67,7 +67,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "12.11"
+  db_engine_version = "12.14"
   rds_family        = "postgres12"
 
   providers = {
