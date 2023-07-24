@@ -41,7 +41,7 @@ resource "kubernetes_secret" "create_and_vary_a_licence_api_rds" {
 resource "kubernetes_secret" "rds_refresh_creds" {
   metadata {
     name      = "rds-instance-output-preprod"
-    namespace = "create-and-vary-a-licence-prod"
+    namespace = "create-and-vary-a-licence-api-prod"
   }
 
   data = {
