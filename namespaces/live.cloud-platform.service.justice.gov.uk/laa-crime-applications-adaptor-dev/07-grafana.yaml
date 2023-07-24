@@ -354,7 +354,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(http_server_requests_seconds_sum{outcome=\"SUCCESS\", namespace=\"laa-crime-applications-adaptor-dev\"})/\nsum(http_server_requests_seconds_count{outcome=\"SUCCESS\", namespace=\"laa-crime-applications-adaptor-dev\"})",
+              "expr": "sum(http_server_requests_seconds_sum{outcome=\"SUCCESS\", namespace=\"$namespace\"})/\nsum(http_server_requests_seconds_count{outcome=\"SUCCESS\", namespace=\"$namespace\"})",
               "legendFormat": "Average Successful Response Time",
               "range": true,
               "refId": "A"
@@ -583,8 +583,8 @@ data:
           {
             "current": {
               "selected": true,
-              "text": "laa-crime-applications-adaptor-dev",
-              "value": "laa-crime-applications-adaptor-dev"
+              "text": "laa-crime-applications-adaptor-prod",
+              "value": "laa-crime-applications-adaptor-prod"
             },
             "datasource": {
               "type": "prometheus",
@@ -643,6 +643,6 @@ data:
       "timezone": "browser",
       "title": "LAA Crime Applications Adaptor",
       "uid": "Kn71716Gz1",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
