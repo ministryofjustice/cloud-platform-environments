@@ -70,11 +70,11 @@ variable "github_actions_secret_kube_cert" {
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_DEV"
+  default     = "KUBE_CLUSTER"
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_DEV"
+  default     = "KUBE_NAMESPACE"
 }
 
