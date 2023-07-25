@@ -17,10 +17,6 @@ module "ecr" {
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-ccms-caab","laa-ccms-data-api","laa-ccms-soa-gateway-api"]
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
    github_environments = ["development"]
