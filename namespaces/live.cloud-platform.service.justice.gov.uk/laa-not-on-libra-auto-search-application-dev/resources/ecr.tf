@@ -4,6 +4,9 @@ module "ecr_credentials" {
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["circleci"]
 
+  # This is the namespace to create a ConfigMap of credentials you need in CircleCI
+  namespace = var.namespace
+
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
