@@ -13,8 +13,8 @@ locals {
     "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_sentencing_queue"      = "hmpps-domain-events-dev"
     "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_visit_dlq"             = "hmpps-domain-events-dev"
     "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_visit_queue"           = "hmpps-domain-events-dev"
-    "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_adjudication_dlq"      = "hmpps-domain-events-dev"
-    "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_adjudication_queue"    = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_adjudication_dlq"      = "hmpps-prisoner-to-nomis-update-dev"
+    "Digital-Prison-Services-dev-hmpps_prisoner_to_nomis_adjudication_queue"    = "hmpps-prisoner-to-nomis-update-dev"
   }
   sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
 }
