@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=3.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -11,7 +11,7 @@ module "rds_aurora" {
   instance_type  = "db.t4g.medium"
   replica_count  = 1
 
-  allow_major_version_upgrade  = true
+  allow_major_version_upgrade = true
 
   # Tags
   business_unit          = var.business_unit
@@ -50,8 +50,6 @@ resource "kubernetes_secret" "manage_intelligence_rds_aurora" {
     database_password                   = module.rds_aurora.database_password
     manage_intelligence_update_password = random_id.manage_intelligence_update_role_password.b64_url
     manage_intelligence_read_password   = random_id.manage_intelligence_read_role_password.b64_url
-    access_key_id                       = module.rds_aurora.access_key_id
-    secret_access_key                   = module.rds_aurora.secret_access_key
     url                                 = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
     reader_url                          = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_reader_endpoint}/${module.rds_aurora.database_name}"
   }
