@@ -26,7 +26,7 @@ module "irsa" {
   role_policy_arns       = merge({
                                hmpps_prisoner_to_nomis_adjudication_queue               = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
                                hmpps_prisoner_to_nomis_adjudication_dead_letter_queue   = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
-                             }, local.sns_policies)
+                             }, local.sqs_policies)
 
   # Tags
   business_unit          = var.business_unit
