@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "crime-apps-adaptor-alert-webhook-prod" = {
-      description             = "Crime Applications Adaptor Webhook",
+      description             = "Crime Applications Adaptor Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name        = "crime-apps-adaptor-alert-webhook-prod"
     },
