@@ -114,14 +114,6 @@ resource "aws_route53_record" "imb_route53_cname_myimb_acm_validation_record" {
   records = ["_25ce653534cfe69d486bf5196e4c76d8.hkvuiqjoua.acm-validations.aws."]
 }
 
-resource "aws_route53_record" "imb_route53_cname_www_record" {
-  zone_id = aws_route53_zone.imb_route53_zone.zone_id
-  name    = "www.imb.org.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["imb.org.uk"]
-}
-
 resource "aws_route53_record" "imb_route53_cname_www_acm_validation_aws_record" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_bfd2574796bb803800192be042cb12fa.www.imb.org.uk"
