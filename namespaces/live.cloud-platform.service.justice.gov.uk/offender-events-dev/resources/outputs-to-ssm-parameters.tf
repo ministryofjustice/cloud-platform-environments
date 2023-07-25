@@ -74,3 +74,11 @@ resource "aws_ssm_parameter" "tf-outputs-sns-irsa-policies" {
   value    = each.value
   tags     = local.tags
 }
+
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.offender_events.topic_arn
+  description = "SNS topic ARN for offender-events-dev; use this parameter from other HMPPS dev namespaces"
+  tags        = local.tags
+}
