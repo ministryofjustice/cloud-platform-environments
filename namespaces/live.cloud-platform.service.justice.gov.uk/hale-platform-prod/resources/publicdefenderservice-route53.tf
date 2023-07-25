@@ -38,14 +38,6 @@ resource "aws_route53_record" "publicdefenderservice_route53_cname_record_verifi
   records = ["_b00c4b6fa166512ac8dcb0e527c6402c.tfmgdnztqk.acm-validations.aws."]
 }
 
-resource "aws_route53_record" "publicdefenderservice_route53_cname_record_verification_www" {
-  zone_id = aws_route53_zone.publicdefenderservice_route53_zone.zone_id
-  name    = "www.publicdefenderservice.org.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["publicdefenderservice.org.uk."]
-}
-
 resource "aws_route53_record" "publicdefenderservice_route53_cname_record_verification_acm_www" {
   zone_id = aws_route53_zone.publicdefenderservice_route53_zone.zone_id
   name    = "_f330287d1fa7ebbaecb8bba3b4c535b8.www.publicdefenderservice.org.uk"
