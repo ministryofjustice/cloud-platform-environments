@@ -11,8 +11,8 @@ module "dps_rds" {
 
   prepare_for_major_upgrade = true
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
