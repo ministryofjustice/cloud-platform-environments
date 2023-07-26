@@ -44,6 +44,6 @@ resource "kubernetes_secret" "track_a_query_s3" {
   }
 
   data = {
-    bucket_name       = module.track_a_query_s3.bucket_name
+    bucket_name = module.track_a_query_s3.bucket_name
   }
 }
