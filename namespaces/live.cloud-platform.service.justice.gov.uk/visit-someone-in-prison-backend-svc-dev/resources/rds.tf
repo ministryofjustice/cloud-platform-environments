@@ -35,7 +35,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
     database_username     = module.visit_scheduler_rds.database_username
     database_password     = module.visit_scheduler_rds.database_password
     rds_instance_address  = module.visit_scheduler_rds.rds_instance_address
-//    access_key_id         = module.visit_scheduler_rds.access_key_id
-//    secret_access_key     = module.visit_scheduler_rds.secret_access_key
+    access_key_id         = module.visit_scheduler_rds.access_key_id
+    secret_access_key     = module.visit_scheduler_rds.secret_access_key
   }
 }
