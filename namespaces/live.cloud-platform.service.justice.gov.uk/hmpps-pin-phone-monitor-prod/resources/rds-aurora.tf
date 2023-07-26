@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=2.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=3.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -44,7 +44,5 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
     database_name               = module.rds_aurora.database_name
     database_username           = module.rds_aurora.database_username
     database_password           = module.rds_aurora.database_password
-    access_key_id               = module.rds_aurora.access_key_id
-    secret_access_key           = module.rds_aurora.secret_access_key
   }
 }
