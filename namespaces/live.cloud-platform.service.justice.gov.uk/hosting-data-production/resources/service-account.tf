@@ -1,5 +1,5 @@
 module "github_actions_serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.5"
 
   # service account config
   kubernetes_cluster = var.kubernetes_cluster
