@@ -15,7 +15,7 @@ variable "infrastructure_support" {
 }
 
 variable "application" {
-  default = "HMPPS Book a secure move frontend"
+  default = "book-a-secure-move-frontend"
 }
 
 variable "namespace" {
