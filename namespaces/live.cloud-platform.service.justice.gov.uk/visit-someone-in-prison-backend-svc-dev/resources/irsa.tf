@@ -6,8 +6,8 @@ locals {
     "Digital-Prison-Services-dev-hmpps_prison_visits_event_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-hmpps_prison_visits_event_dlq" = "hmpps-domain-events-dev",
   }
-  sns_queues = {
-    "Digital-Prison-Services-dev-hmpps_domain_events_dev"    = "hmpps-domain-events-dev",
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev",
   }
 
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
@@ -15,7 +15,7 @@ locals {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
-  for_each = local.sns_queues
+  for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
