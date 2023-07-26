@@ -44,33 +44,6 @@ module "pathfinder_probation_offender_events_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
-  queue_url = module.pathfinder_offender_events_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.pathfinder_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.pathfinder_offender_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-                {
-                  "aws:SourceArn": "${module.offender_events.topic_arn}"
-                }
-            }
-        }
-      ]
-  }
-   EOF
-}
-
 resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_policy" {
   queue_url = module.pathfinder_probation_offender_events_queue.sqs_id
 
@@ -194,7 +167,7 @@ data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
   name = "/hmpps-domain-events-prod/topic-arn"
 }
 
-resource "aws_sqs_queue_policy" "hmpps_domain_event_pathfinder_queue_policy" {
+resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
   queue_url = module.pathfinder_offender_events_queue.sqs_id
 
   policy = <<EOF
@@ -212,7 +185,7 @@ resource "aws_sqs_queue_policy" "hmpps_domain_event_pathfinder_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"]
                           }
                         }
         }
