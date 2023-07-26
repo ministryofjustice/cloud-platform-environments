@@ -14,8 +14,8 @@ spec:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
           expr: |-
-            rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"disclosure-checker-production"}[5m]) * 600 > 2
-          for: 4m
+            rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"disclosure-checker-production"}[10m]) * 60 * 10 >= 2
+          for: 1m
           labels:
             severity: cdpt-disclosure-checker
         - alert: KubeDeploymentReplicasMismatch
