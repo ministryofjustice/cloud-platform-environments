@@ -59,19 +59,6 @@ module "probation_offender_events" {
   }
 }
 
-resource "kubernetes_secret" "prison_data_compliance" {
-  metadata {
-    name      = "offender-events-topic"
-    namespace = "prison-data-compliance-prod"
-  }
-
-  data = {
-    access_key_id     = module.offender_events.access_key_id
-    secret_access_key = module.offender_events.secret_access_key
-    topic_arn         = module.offender_events.topic_arn
-  }
-}
-
 module "offender_assessments_events" {
   source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
   topic_display_name = "offender-assessments-events"
