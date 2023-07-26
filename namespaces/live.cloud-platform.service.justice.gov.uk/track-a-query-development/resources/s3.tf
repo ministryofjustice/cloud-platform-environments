@@ -19,7 +19,7 @@ module "track_a_query_s3" {
       allowed_methods = ["GET", "POST", "PUT"]
       allowed_origins = [
         "https://development.track-a-query.service.justice.gov.uk",
-        "https://track-a-query-development.apps.live-1.cloud-platform.service.justice.gov.uk",
+        "http://localhost:3000"
       ]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
