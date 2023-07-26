@@ -11,7 +11,7 @@ spec:
       rules:
         - alert: Client Errors
           expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-crime-applications-adaptor-dev"}[10m])) > 5
-          for: 1
+          for: 1m
           labels:
             severity: laa-crime-applications-adaptor
           annotations:
