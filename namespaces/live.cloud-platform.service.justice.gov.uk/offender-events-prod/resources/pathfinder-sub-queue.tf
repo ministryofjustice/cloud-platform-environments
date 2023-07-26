@@ -183,7 +183,7 @@ resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
           "Action": "SQS:SendMessage",
           "Condition":
                       {
-                        "ArnEquals":
+                        "ForAnyValue:ArnEquals":
                           {
                             "aws:SourceArn": ["${module.offender_events.topic_arn}", "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"]
                           }
