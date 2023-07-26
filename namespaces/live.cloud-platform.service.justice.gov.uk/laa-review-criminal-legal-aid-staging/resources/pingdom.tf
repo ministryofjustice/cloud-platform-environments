@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-review-criminal-legal-aid-healthcheck" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "laa-crime-review, businessunit_${var.business_unit},application_laa-review-criminal-legal-aid,component_ping,isproduction_${var.is_production},environment_staging,infrastructuresupport_crime-apply-team"
+  tags                     = "laa-crime-apply, businessunit_${var.business_unit},application_laa-review-criminal-legal-aid,component_ping,isproduction_${var.is_production},environment_staging,infrastructuresupport_crime-apply-team"
   probefilters             = "region:EU"
   integrationids           = [123196]
 }
@@ -28,7 +28,7 @@ resource "pingdom_check" "laa-review-for-criminal-legal-aid-datastore-healthchec
   url                      = "/datastore/ping"
   encryption               = true
   port                     = 443
-  tags                     = "laa-crime-review,laa-crime-review-datastore-staging,businessunit_${var.business_unit},application_laa-review-criminal-legal-aid,component_ping,isproduction_${var.is_production},environment_staging,infrastructuresupport_crime-apply-team"
+  tags                     = "laa-crime-apply,laa-crime-review-datastore-staging,businessunit_${var.business_unit},application_laa-review-criminal-legal-aid,component_ping,isproduction_${var.is_production},environment_staging,infrastructuresupport_crime-apply-team"
   probefilters             = "region:EU"
   integrationids           = [123196]
 }
