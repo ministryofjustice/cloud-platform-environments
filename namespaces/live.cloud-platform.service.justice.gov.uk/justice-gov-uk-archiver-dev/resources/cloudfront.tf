@@ -2,8 +2,8 @@ module "cloudfront" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.0.0"
 
   # Configuration
-  bucket_id          = module.s3_bucket.bucket_name
-  bucket_domain_name = "${module.s3_bucket.bucket_id}.eu-west-2.amazonaws.com"
+  bucket_id          = module.s3.bucket_name
+  bucket_domain_name = "${module.s3.bucket_name}.eu-west-2.amazonaws.com"
 
   origin = {
     origin_path = "/www.justice.gov.uk/2023-07-28-03-00/"

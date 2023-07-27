@@ -1,4 +1,4 @@
-module "s3_bucket" {
+module "s3" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -12,8 +12,8 @@ module "s3_bucket" {
   }
 }
 
-resource "aws_s3_bucket_website_configuration" "s3_bucket" {
-  bucket = module.s3_bucket.bucket_name
+resource "aws_s3_bucket_website_configuration" "s3" {
+  bucket = module.s3.bucket_name
 
   index_document {
     suffix = "index.html"
@@ -24,16 +24,16 @@ resource "aws_s3_bucket_website_configuration" "s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "s3" {
   metadata {
     name      = "s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = module.s3.access_key_id
+    secret_access_key = module.s3.secret_access_key
+    bucket_arn        = module.s3.bucket_arn
+    bucket_name       = module.s3.bucket_name
   }
 }
