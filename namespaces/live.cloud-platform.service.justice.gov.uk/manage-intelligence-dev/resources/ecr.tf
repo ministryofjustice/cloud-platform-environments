@@ -9,7 +9,7 @@ module "ecr-repo-extractor" {
   github_repositories = ["hmpps-mercury-data-monorepo"]
 }
 
-resource "kubernetes_secret" "ms-legacy-data-extractor" {
+resource "kubernetes_secret" "ims-legacy-data-extractor" {
   metadata {
     name      = "ims-legacy-data-extractor-ecr-output"
     namespace = var.namespace
@@ -34,7 +34,7 @@ module "ecr-repo-generator" {
   github_repositories = ["hmpps-mercury-data-monorepo"]
 }
 
-resource "kubernetes_secret" "ms-legacy-test-generator" {
+resource "kubernetes_secret" "ims-legacy-test-generator" {
   metadata {
     name      = "ims-legacy-test-generator-ecr-output"
     namespace = var.namespace
@@ -59,7 +59,7 @@ module "ecr-repo-transform" {
   github_repositories = ["hmpps-mercury-data-monorepo"]
 }
 
-resource "kubernetes_secret" "ms-legacy-data-transform" {
+resource "kubernetes_secret" "ims-legacy-data-transform" {
   metadata {
     name      = "ims-legacy-data-transform-ecr-output"
     namespace = var.namespace
@@ -84,7 +84,7 @@ module "ecr-repo-validator" {
   github_repositories = ["hmpps-mercury-data-monorepo"]
 }
 
-resource "kubernetes_secret" "ms-legacy-temp-validator" {
+resource "kubernetes_secret" "ims-legacy-temp-validator" {
   metadata {
     name      = "ims-legacy-temp-validator-ecr-output"
     namespace = var.namespace
