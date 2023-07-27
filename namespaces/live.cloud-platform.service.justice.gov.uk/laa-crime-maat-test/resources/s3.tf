@@ -141,6 +141,9 @@ module "s3_bucket" {
       },
       "Action": [
         "s3:GetObject"
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:GetObjectAcl"
       ],
       "Resource": [
         "$${bucket_arn}/*"
