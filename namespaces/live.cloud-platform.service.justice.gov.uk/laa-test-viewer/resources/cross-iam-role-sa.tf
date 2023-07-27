@@ -3,7 +3,9 @@ module "irsa" {
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   service_account_name = "${var.namespace}-sa"
-  role_policy_arns = [aws_iam_policy.allow_s3_access_policy.arn]
+  role_policy_arns = {
+    cross_irsa = aws_iam_policy.allow_s3_access_policy.arn
+  }
 
   # Tags
   business_unit          = var.business_unit
