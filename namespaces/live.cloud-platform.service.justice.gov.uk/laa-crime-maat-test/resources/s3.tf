@@ -127,19 +127,24 @@ module "s3_bucket" {
   /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
- *
+ */
 
    bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "Cross IAM permissions",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
+        "AWS": "arn:aws:iam::754256621582:role/cloud-platform-irsa-af68c89de5f52dc0-live"
       },
       "Action": [
-        "s3:GetObject"
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListObjectsV2",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
       ],
       "Resource": [
         "$${bucket_arn}/*"
@@ -148,8 +153,6 @@ module "s3_bucket" {
   ]
 }
 EOF
-
-*/
 
   /*
  * Override the default policy for the generated machine user of this bucket.

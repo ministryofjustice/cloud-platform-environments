@@ -15,7 +15,7 @@ variable "infrastructure_support" {
 }
 
 variable "application" {
-  default = "HMPPS Book a secure move frontend"
+  default = "book-a-secure-move-frontend"
 }
 
 variable "namespace" {
@@ -43,4 +43,8 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

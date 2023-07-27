@@ -1,8 +1,8 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
 
   namespace          = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
+  kubernetes_cluster = var.eks_cluster_name
 
   github_repositories = [var.repo_name]
 

@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-not-on-libra-auto-search-application-dev-admin
+  namespace: laa-not-on-libra-auto-search-application-dev
+subjects:
+  - kind: Group
+    name: "github:laa-aws-infrastructure"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

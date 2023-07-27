@@ -80,6 +80,7 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
       "prison-offender-events.prisoner.cell.move",
       "prison-offender-events.prisoner.non-association-detail.changed",
       "prison-offender-events.prisoner.activities-changed",
+      "prison-offender-events.prisoner.appointments-changed",
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",
       "incentives.iep-review.deleted"
@@ -91,7 +92,7 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
 resource "kubernetes_secret" "activities_domain_events_queue" {
   metadata {
     name      = "activities-domain-events-sqs-instance-output"
-    namespace = "activities-api-preprod"
+    namespace = "hmpps-activities-management-preprod"
   }
 
   data = {
@@ -106,7 +107,7 @@ resource "kubernetes_secret" "activities_domain_events_queue" {
 resource "kubernetes_secret" "activities_dlq" {
   metadata {
     name      = "activities-domain-events-sqs-dl-instance-output"
-    namespace = "activities-api-preprod"
+    namespace = "hmpps-activities-management-preprod"
   }
 
   data = {

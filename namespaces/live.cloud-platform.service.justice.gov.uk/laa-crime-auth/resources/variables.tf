@@ -88,6 +88,11 @@ variable "user_pool_name_ccp" {
   default     = "laa-crime-auth-userpool-ccp"
 }
 
+variable "user_pool_name_ccc" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-ccc"
+}
+
 variable "cognito_user_pool_ccp_client_name_dev" {
   description = "Cognito user pool CCP client name"
   default     = "crown-court-proceeding-client-dev"
@@ -239,6 +244,25 @@ variable "ccp_scope_description" {
   default = "Standard scope for the Crown Court Proceeding service"
 }
 
+variable "ccc_resource_server_identifier" {
+  default     = "ccc"
+  description = "Cognito resource server identifier for Crown Court Contribution service"
+}
+
+variable "ccc_resource_server_name" {
+  default     = "ccc-resource-server"
+  description = "Cognito resource server name for Crown Court Contribution service"
+}
+
+variable "ccc_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "ccc_scope_description" {
+  default = "Standard scope for the Crown Court Contribution service"
+}
+
 variable "cognito_user_pool_domain_name_evidence" {
   default = "laa-crime-auth-evidence"
 }
@@ -253,4 +277,8 @@ variable "cognito_user_pool_domain_name_cma" {
 
 variable "cognito_user_pool_domain_name_ccp" {
   default = "laa-crime-auth-ccp"
+}
+
+variable "cognito_user_pool_domain_name_ccc" {
+  default = "laa-crime-auth-ccc"
 }

@@ -67,18 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "base_domain" {
-  description = "Base domain where to create the custom hostname"
-  default     = "iac-fees.justice.gov.uk"
-}
-
-variable "hostname" {
-  description = "Host part of the FQDN"
-  default     = "gw-dev"
-}
-
-variable "base_domain_route53_namespace" {
-  description = "Kubernetes namespace where the base domain was created"
-  default     = "iac-fees-prod"
-}

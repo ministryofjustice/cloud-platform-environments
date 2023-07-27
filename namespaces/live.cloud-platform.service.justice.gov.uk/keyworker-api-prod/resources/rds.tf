@@ -11,12 +11,14 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.medium"
   db_allocated_storage        = "20"
-  db_engine_version           = "14"
-  rds_family                  = "postgres14"
+  db_engine_version           = "15"
+  db_engine                   = "postgres"
+  rds_family                  = "postgres15"
   allow_minor_version_upgrade = "true"
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
