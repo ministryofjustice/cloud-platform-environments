@@ -20,11 +20,11 @@ data "aws_iam_policy_document" "allow_s3_access_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:ListBucket",
       "s3:GetObject",
-      "s3:GetObjectAcl"
+      "s3:GetObjectAcl",
+      "s3:ListObjectsV2",
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
     ]
     resources = [
       "arn:aws:s3:::s3-bucket-output/*"
