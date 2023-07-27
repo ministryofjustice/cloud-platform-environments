@@ -8,7 +8,7 @@ locals {
   }
 
   sqs_policies = {
-    module.hmpps_prison_visits_event_queue.sqs_name = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
+    module.hmpps_prison_visits_event_queue.sqs_name = module.hmpps_prison_visits_event_queue.irsa_policy_arn
     module.hmpps_prison_visits_event_dead_letter_queue.sqs_name = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn
   }
 
