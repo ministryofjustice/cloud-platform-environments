@@ -38,6 +38,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  web_acl_id      = module.cloudfront_waf.web_acl_id
   enabled         = true
   is_ipv6_enabled = true
   comment         = "justice.gov.uk Archive"
