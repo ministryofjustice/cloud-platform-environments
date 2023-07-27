@@ -6,7 +6,7 @@ module "cloudfront" {
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
 
   origin = {
-    origin_path = "/www.justice.gov.uk/2023-07-28-03-00/"
+    origin_path = "/www.justice.gov.uk/2023-07-28-03-00"
   }
 
   # Tags
