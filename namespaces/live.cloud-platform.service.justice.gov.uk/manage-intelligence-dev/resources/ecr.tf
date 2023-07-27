@@ -1,8 +1,9 @@
 module "ecr-repo-extractor" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  team_name = var.team_name
-  repo_name = "ims-legacy-data-extractor"
+  team_name             = var.team_name
+  repo_name             = "ims-legacy-data-extractor"
+  github_actions_prefix = "extractor"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-mercury-data-monorepo"]
@@ -23,10 +24,11 @@ resource "kubernetes_secret" "ms-legacy-data-extractor" {
 }
 
 module "ecr-repo-generator" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  team_name = var.team_name
-  repo_name = "ims-legacy-test-generator"
+  team_name             = var.team_name
+  repo_name             = "ims-legacy-test-generator"
+  github_actions_prefix = "generator"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-mercury-data-monorepo"]
@@ -47,10 +49,11 @@ resource "kubernetes_secret" "ms-legacy-test-generator" {
 }
 
 module "ecr-repo-transform" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  team_name = var.team_name
-  repo_name = "ims-legacy-data-transform"
+  team_name             = var.team_name
+  repo_name             = "ims-legacy-data-transform"
+  github_actions_prefix = "transform"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-mercury-data-monorepo"]
@@ -71,10 +74,11 @@ resource "kubernetes_secret" "ms-legacy-data-transform" {
 }
 
 module "ecr-repo-validator" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  team_name = var.team_name
-  repo_name = "ims-legacy-temporary-clean-unmarshall-validator"
+  team_name             = var.team_name
+  repo_name             = "ims-legacy-temporary-clean-unmarshall-validator"
+  github_actions_prefix = "validator"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-mercury-data-monorepo"]
