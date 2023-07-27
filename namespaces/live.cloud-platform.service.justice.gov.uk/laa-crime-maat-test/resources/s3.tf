@@ -140,7 +140,7 @@ module "s3_bucket" {
         "AWS": "arn:aws:iam::754256621582:role/cloud-platform-irsa-af68c89de5f52dc0-live"
       },
       "Action": [
-        "s3:GetObject"
+        "s3:GetObject",
         "s3:GetObjectAcl",
         "s3:ListObjectsV2",
         "s3:ListBucket",
