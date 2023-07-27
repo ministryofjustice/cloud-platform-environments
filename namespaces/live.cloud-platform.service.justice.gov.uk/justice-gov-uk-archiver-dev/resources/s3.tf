@@ -22,39 +22,6 @@ resource "aws_s3_bucket_website_configuration" "s3_bucket" {
   error_document {
     key = "index.html"
   }
-
-  routing_rule {
-    condition {
-      key_prefix_equals = "/"
-    }
-    redirect {
-      replace_key_prefix_with = "www.justice.gov.uk/2023-07-28-03-00/"
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "allow_access" {
-  bucket = module.s3_bucket.bucket_name
-  policy = data.aws_iam_policy_document.allow_access.json
-}
-
-data "aws_iam_policy_document" "allow_access" {
-  policy_id = "PolicyForCloudFrontPrivateContent"
-  statement {
-    sid       = "AllowCloudFrontServicePrincipal"
-    actions   = ["s3:GetObject"]
-    resources = ["${module.s3_bucket.bucket_arn}/*"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["cloudfront.amazonaws.com"]
-    }
-    condition {
-      test     = "StringEquals"
-      variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.s3_distribution.arn]
-    }
-  }
 }
 
 resource "kubernetes_secret" "s3_bucket" {
