@@ -3,8 +3,8 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "book-a-prison-visit-staging-hmpps_prison_visits_event_queue" = "visit-someone-in-prison-backend-svc-staging",
-    "book-a-prison-visit-staging-hmpps_prison_visits_event_dlq" = "visit-someone-in-prison-backend-svc-staging",
+    "book-a-prison-visit-staging-hmpps_prison_visits_event_queue" = var.namespace,
+    "book-a-prison-visit-staging-hmpps_prison_visits_event_dlq" = var.namespace,
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev",
