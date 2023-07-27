@@ -53,6 +53,6 @@ resource "kubernetes_secret" "irsa" {
   }
   data = {
     role           = module.irsa.aws_iam_role_name
-    serviceaccount = module.irsa.service_account_name.name
+    serviceaccount = module.irsa.service_account.name
   }
 }
