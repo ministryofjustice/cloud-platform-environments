@@ -2,10 +2,18 @@ locals {
   s3_origin_id = "MoJ_JusticeWebsiteArchive"
 }
 
+resource "aws_cloudfront_origin_access_control" "cloudfront_s3_oac" {
+  name                              = "CloudFront S3 OAC"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = module.s3_bucket.website_endpoint
+    domain_name = module.s3_bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.cloudfront_s3_oac.id
 
     custom_header {
       name  = "Referer"

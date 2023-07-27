@@ -46,13 +46,13 @@ data "aws_iam_policy_document" "allow_access" {
     resources = ["${module.s3_bucket.bucket_arn}/*"]
 
     principals {
-      type        = "*"
-      identifiers = ["*"]
+      type = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
     }
     condition {
-      test     = "StringLike"
-      variable = "aws:Referer"
-      values   = [module.s3_bucket.id]
+      test = "StringEquals"
+      variable = "AWS:SourceArn"
+      values = [aws_cloudfront_distribution.s3_distribution.arn]
     }
   }
 }
