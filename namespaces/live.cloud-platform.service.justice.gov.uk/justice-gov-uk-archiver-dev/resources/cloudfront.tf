@@ -2,20 +2,6 @@ locals {
   s3_origin_id = "MoJ_JusticeWebsiteArchive"
 }
 
-module "cloudfront_waf" {
-  source = "dod-iac/cloudfront-waf/aws"
-
-  version       = "1.0.0"
-  name          = format("app-%s-%s", var.application, var.environment)
-  metric_name   = format("app%s%s", title(var.application), title(var.environment))
-  allowed_hosts = [module.s3_bucket.website_endpoint]
-
-  tags = {
-    Application = var.application
-    Environment = var.environment
-  }
-}
-
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = module.s3_bucket.website_endpoint
@@ -38,7 +24,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  web_acl_id      = module.cloudfront_waf.web_acl_id
   enabled         = true
   is_ipv6_enabled = true
   comment         = "justice.gov.uk Archive"
