@@ -11,8 +11,8 @@ resource "aws_cloudfront_origin_access_control" "cloudfront_s3_oac" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = module.s3_bucket.bucket_regional_domain_name
-    origin_id   = local.s3_origin_id
+    domain_name              = module.s3_bucket.bucket_regional_domain_name
+    origin_id                = local.s3_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.cloudfront_s3_oac.id
 
     custom_header {
