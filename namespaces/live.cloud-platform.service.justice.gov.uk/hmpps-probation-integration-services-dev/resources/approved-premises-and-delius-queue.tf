@@ -10,9 +10,6 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
       "approved-premises.booking.made",
       "approved-premises.booking.cancelled",
       "approved-premises.booking.changed",
-      "approved-premises.person.arrived",
-      "approved-premises.person.not-arrived",
-      "approved-premises.person.departed",
     ]
   })
 }
