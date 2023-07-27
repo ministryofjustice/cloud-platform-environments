@@ -17,7 +17,7 @@ module "peoplefinder_s3" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://peoplefinder.service.gov.uk", "https://peoplefinder-production.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://peoplefinder.service.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
@@ -97,6 +97,6 @@ resource "kubernetes_secret" "peoplefinder_s3" {
   }
 
   data = {
-    bucket_name       = module.peoplefinder_s3.bucket_name
+    bucket_name = module.peoplefinder_s3.bucket_name
   }
 }
