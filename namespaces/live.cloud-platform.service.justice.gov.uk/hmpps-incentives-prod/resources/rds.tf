@@ -13,7 +13,6 @@ module "dps_rds" {
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
-  allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
   backup_window       = var.backup_window
