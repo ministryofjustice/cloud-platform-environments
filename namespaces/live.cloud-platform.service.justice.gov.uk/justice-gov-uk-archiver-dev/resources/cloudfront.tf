@@ -2,6 +2,20 @@ locals {
   s3_origin_id = "MoJ_JusticeWebsiteArchive"
 }
 
+module "cloudfront_waf" {
+  source = "dod-iac/cloudfront-waf/aws"
+
+  version       = "1.0.0"
+  name          = format("app-%s-%s", var.application, var.environment)
+  metric_name   = format("app%s%s", title(var.application), title(var.environment))
+  allowed_hosts = [module.s3_bucket.website_endpoint]
+
+  tags = {
+    Application = var.application
+    Environment = var.environment
+  }
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = module.s3_bucket.website_endpoint
@@ -19,6 +33,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       origin_read_timeout      = 30
       origin_ssl_protocols = [
         "TLSv1.2",
+        "TLSv1.3",
       ]
     }
   }
