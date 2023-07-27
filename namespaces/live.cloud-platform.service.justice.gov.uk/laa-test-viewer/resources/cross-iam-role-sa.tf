@@ -4,6 +4,14 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
   service_account_name = "${var.namespace}-sa"
   role_policy_arns = [aws_iam_policy.allow_s3_access_policy.arn]
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 data "aws_iam_policy_document" "allow_s3_access_policy" {
