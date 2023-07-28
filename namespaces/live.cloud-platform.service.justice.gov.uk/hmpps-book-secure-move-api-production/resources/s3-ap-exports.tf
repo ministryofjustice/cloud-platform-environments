@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "ap-policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev"
+      "arn:aws:s3:::moj-reg-prod"
     ]
   }
 
@@ -33,8 +33,8 @@ data "aws_iam_policy_document" "ap-policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-book-secure-move-api-dev/data/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-book-secure-move-api-dev/data/"
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-book-secure-move-api-prod/data/*",
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-book-secure-move-api-prod/data/"
     ]
   }
 }
