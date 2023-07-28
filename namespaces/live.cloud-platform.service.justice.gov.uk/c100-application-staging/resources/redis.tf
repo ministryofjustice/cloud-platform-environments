@@ -15,6 +15,7 @@ module "redis-elasticache" {
   business-unit          = var.business_unit
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
+  node_type              = "cache.t4g.micro"
   namespace              = var.namespace
 
   providers = {
