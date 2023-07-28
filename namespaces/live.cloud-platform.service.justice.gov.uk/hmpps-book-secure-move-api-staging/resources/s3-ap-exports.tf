@@ -1,18 +1,18 @@
 # Generate an IAM user with write-only access to AP bucket
-resource "random_id" "id" {
+resource "random_id" "ap-id" {
   byte_length = 16
 }
 
-resource "aws_iam_user" "user" {
-  name = "s3-ap-bucket-user-${random_id.id.hex}"
+resource "aws_iam_user" "ap-user" {
+  name = "s3-ap-bucket-user-${random_id.ap-id.hex}"
   path = "/system/s3-bucket-user/"
 }
 
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
+resource "aws_iam_access_key" "ap-user" {
+  user = aws_iam_user.ap-user.name
 }
 
-data "aws_iam_policy_document" "policy" {
+data "aws_iam_policy_document" "ap-policy" {
   statement {
     sid = "AllowUserListBucket"
     actions = [
@@ -39,10 +39,10 @@ data "aws_iam_policy_document" "policy" {
   }
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "ap-policy" {
   name   = "s3-bucket-write-only"
-  policy = data.aws_iam_policy_document.policy.json
-  user   = aws_iam_user.user.name
+  policy = data.aws_iam_policy_document.ap-policy.json
+  user   = aws_iam_user.ap-user.name
 }
 
 resource "kubernetes_secret" "book_a_secure_move_ap_user" {
@@ -52,7 +52,7 @@ resource "kubernetes_secret" "book_a_secure_move_ap_user" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.user.id
-    secret_access_key = aws_iam_access_key.user.secret
+    access_key_id     = aws_iam_access_key.ap-user.id
+    secret_access_key = aws_iam_access_key.ap-user.secret
   }
 }
