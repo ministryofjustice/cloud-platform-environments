@@ -9,10 +9,11 @@ module "dps_rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
+  allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
   backup_window       = var.backup_window
