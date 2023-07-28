@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "manage-offences-and-delius-queue-subscrip
   protocol  = "sqs"
   endpoint  = module.manage-offences-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter
+    eventType = ["manage-offences.offence.changed"]
   })
 }
 
