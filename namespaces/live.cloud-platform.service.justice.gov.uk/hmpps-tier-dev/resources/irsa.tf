@@ -8,7 +8,7 @@ module "irsa" {
   role_policy_arns = {
     sqs = module.hmpps_tier_domain_events_queue.irsa_policy_arn
     dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn
-    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+    sns = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   }
 
   # Tags
@@ -16,6 +16,6 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
