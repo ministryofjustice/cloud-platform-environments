@@ -78,7 +78,7 @@ module "domain_events_sqs_dead_letter_queue" {
 
 resource "kubernetes_secret" "domain_events_sqs_queue" {
   metadata {
-    name      = "sqs-nomis-update-adjudication-secret"
+    name      = "domain-events-sqs-queue"
     namespace = var.namespace
   }
 
@@ -91,7 +91,7 @@ resource "kubernetes_secret" "domain_events_sqs_queue" {
 
 resource "kubernetes_secret" "domain_events_dlq" {
   metadata {
-    name      = "sqs-nomis-update-adjudication-dlq-secret"
+    name      = "domain-events-dlq"
     namespace = var.namespace
   }
 
