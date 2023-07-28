@@ -8,7 +8,7 @@ module "opensearch" {
   # Cluster configuration
   engine_version = "OpenSearch_2.5"
 
-  cluster_config   = {
+  cluster_config = {
     instance_count = 2
     instance_type  = "t3.medium.search"
   }

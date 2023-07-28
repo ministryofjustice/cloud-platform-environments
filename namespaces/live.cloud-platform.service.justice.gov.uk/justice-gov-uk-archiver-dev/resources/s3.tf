@@ -7,7 +7,7 @@ module "s3_bucket" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-  providers              = {
+  providers = {
     aws = aws.london
   }
 }

@@ -6,10 +6,10 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
     eventType = [
       "approved-premises.application.submitted",
       "approved-premises.application.assessed",
+      "approved-premises.application.withdrawn",
       "approved-premises.booking.made",
-      "approved-premises.person.arrived",
-      "approved-premises.person.not-arrived",
-      "approved-premises.person.departed",
+      "approved-premises.booking.cancelled",
+      "approved-premises.booking.changed",
     ]
   })
 }

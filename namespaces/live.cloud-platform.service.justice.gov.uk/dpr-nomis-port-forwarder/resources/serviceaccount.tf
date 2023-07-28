@@ -4,7 +4,7 @@
  *
 */
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
 
   namespace           = "dpr-nomis-port-forwarder"
   github_repositories = ["dpr-nomis-port-forwarder"]

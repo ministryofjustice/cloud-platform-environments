@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -29,7 +29,7 @@ module "serviceaccount" {
         "serviceaccounts",
         "configmaps",
         "persistentvolumeclaims",
-
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "update",
@@ -49,6 +49,7 @@ module "serviceaccount" {
         "networking.k8s.io",
         "monitoring.coreos.com",
         "rbac.authorization.k8s.io",
+        "autoscaling",
       ]
       resources = [
         "deployments",
@@ -61,7 +62,8 @@ module "serviceaccount" {
         "servicemonitors",
         "prometheusrules",
         "roles",
-        "rolebindings"
+        "rolebindings",
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "get",

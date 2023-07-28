@@ -343,3 +343,18 @@ spec:
   dnsNames:
     - 968d1142.hmpps.service.justice.gov.uk
     - external-api-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-offences-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: manage-offences-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - eee42778.hmpps.service.justice.gov.uk
+    - manage-offences-and-delius.hmpps.service.justice.gov.uk
