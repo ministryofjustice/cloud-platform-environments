@@ -15,6 +15,25 @@ module "contact-moj_ecr_credentials" {
 
   oidc_providers = ["circleci"]
   github_repositories = [var.repo_name]
+
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
 }
 
 resource "kubernetes_secret" "contact-moj_ecr_credentials" {

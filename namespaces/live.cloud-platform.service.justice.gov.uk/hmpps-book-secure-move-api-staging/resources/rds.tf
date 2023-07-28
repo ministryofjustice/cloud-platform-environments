@@ -16,7 +16,7 @@ module "rds-instance" {
   enable_rds_auto_start_stop  = false
 
   db_engine         = "postgres"
-  db_engine_version = "12.11"
+  db_engine_version = "12.14"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres12"
@@ -80,7 +80,7 @@ module "rds-read-replica" {
 
 
   rds_family        = "postgres12"
-  db_engine_version = "12.11"
+  db_engine_version = "12.14"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

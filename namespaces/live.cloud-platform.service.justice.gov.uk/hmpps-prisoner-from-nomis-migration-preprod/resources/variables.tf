@@ -50,7 +50,7 @@ variable "number_cache_clusters" {
 }
 
 variable "node-type" {
-  default = "cache.t2.small"
+  default = "cache.t4g.micro"
 }
 
 variable "eks_cluster_name" {}

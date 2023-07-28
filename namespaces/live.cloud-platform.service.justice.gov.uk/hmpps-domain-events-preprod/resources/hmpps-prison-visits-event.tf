@@ -2,8 +2,6 @@
 ######## hmpps-manage-prison-visits-orchestration service should listen to the configured queue (hmpps_prison_visits_event_queue)
 ######## for the given fevents (filter_policy configured below)!
 
-######## TODO WE DO NOT SUBSCRIBE TO THE DOMAIN EVENTS QUEUE, as the code to consume this is not live
-######## TODO HowTo namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-dev/resources/hmpps-prison-visits-event.tf
 
 ######## Main queue
 
@@ -30,6 +28,33 @@ EOF
   }
 }
 
+resource "aws_sqs_queue_policy" "hmpps_prison_visits_event_queue_policy" {
+  queue_url = module.hmpps_prison_visits_event_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_prison_visits_event_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_prison_visits_event_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+            {
+              "ArnEquals":
+              {
+                "aws:SourceArn": "${module.hmpps-domain-events.topic_arn}"
+              }
+            }
+        }
+      ]
+  }
+EOF
+}
+
 resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
   ## For metadata use - not _
   metadata {
@@ -47,6 +72,19 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
   }
 }
 
+resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "incentives.iep-review.inserted",
+      "incentives.iep-review.updated",
+      "incentives.iep-review.deleted"
+    ]
+  })
+}
 
 ######## Dead letter queue
 

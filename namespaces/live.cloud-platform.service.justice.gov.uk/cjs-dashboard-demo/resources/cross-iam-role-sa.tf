@@ -55,6 +55,12 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
+resource "github_actions_secret" "irsa_service_account" {
+  repository       = "cjs_scorecard_exploratory_analysis"
+  secret_name      = "DEMO_IRSA_SERVICE_ACCOUNT"
+  plaintext_value  = module.irsa.service_account.name
+}
+
 resource "random_id" "cjs-dashboard-demo-ap-id" {
   byte_length = 16
 }
@@ -82,6 +88,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
 
   data = {
     bucket_arn         = "arn:aws:s3:::mojap-cjs-dashboard"
+    bucket_name        = "mojap-cjs-dashboard"
     user_arn           = aws_iam_user.cjs_dashboard_demo_ap_user.arn
     access_key_id      = aws_iam_access_key.cjs_dashboard_demo_ap_user.id
     secret_access_key  = aws_iam_access_key.cjs_dashboard_demo_ap_user.secret

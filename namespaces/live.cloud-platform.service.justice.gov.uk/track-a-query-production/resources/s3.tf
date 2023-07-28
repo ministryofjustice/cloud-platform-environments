@@ -17,7 +17,7 @@ module "track_a_query_s3" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://track-a-query.service.justice.gov.uk", "https://track-a-query.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://track-a-query.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
@@ -42,9 +42,6 @@ resource "kubernetes_secret" "track_a_query_s3" {
   }
 
   data = {
-    access_key_id     = module.track_a_query_s3.access_key_id
-    secret_access_key = module.track_a_query_s3.secret_access_key
-    bucket_arn        = module.track_a_query_s3.bucket_arn
-    bucket_name       = module.track_a_query_s3.bucket_name
+    bucket_name = module.track_a_query_s3.bucket_name
   }
 }

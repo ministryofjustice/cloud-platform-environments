@@ -1,9 +1,3 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
@@ -15,8 +9,6 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -33,10 +25,6 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 }
-
-# To create a read replica, use the below code and update the values to specify the RDS instance
-# from which you are replicating. In this example, we're assuming that rds is the
-# source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
   # default off
@@ -67,20 +55,9 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   providers = {
-    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
-
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -98,12 +75,6 @@ resource "kubernetes_secret" "rds" {
     access_key_id         = module.rds.access_key_id
     secret_access_key     = module.rds.secret_access_key
   }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
 }
 
 
@@ -116,19 +87,7 @@ resource "kubernetes_secret" "read_replica" {
     namespace = var.namespace
   }
 
-  # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-
-  /*
-  data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
-  }
-  */
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 

@@ -54,12 +54,19 @@ spec:
       annotations:
         message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
     - alert: DiskSpace-Threshold-Reached
-      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-uat"} / 1024 / 1024 > 150 or absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-uat"})
+      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-uat"} / 1024 / 1024 > 150
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
-        message: Container disk space usage is more than 150Mb or is not reported
+        message: Container disk space usage is more than 150Mb
+    - alert: DiskSpace-Threshold-NotReported
+      expr: absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-uat"})
+      for: 3m
+      labels:
+        severity: apply-for-legal-aid-uat
+      annotations:
+        message: Container disk space usage is not reported
     - alert: Long-Request
       expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m

@@ -6,18 +6,18 @@
 module "peoplefinder_s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
-  team_name              = "peoplefinder"
-  business-unit          = "Central Digital"
-  application            = "peoplefinder"
-  is-production          = "true"
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
   environment-name       = "production"
-  infrastructure-support = "people-finder-support@digital.justice.gov.uk"
+  infrastructure-support = var.infrastructure_support
 
   cors_rule = [
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://peoplefinder.service.gov.uk", "https://peoplefinder-production.apps.live-1.cloud-platform.service.justice.gov.uk"]
+      allowed_origins = ["https://peoplefinder.service.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
@@ -93,13 +93,10 @@ EOF
 resource "kubernetes_secret" "peoplefinder_s3" {
   metadata {
     name      = "peoplefinder-s3-output"
-    namespace = "peoplefinder-production"
+    namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.peoplefinder_s3.access_key_id
-    secret_access_key = module.peoplefinder_s3.secret_access_key
-    bucket_arn        = module.peoplefinder_s3.bucket_arn
-    bucket_name       = module.peoplefinder_s3.bucket_name
+    bucket_name = module.peoplefinder_s3.bucket_name
   }
 }

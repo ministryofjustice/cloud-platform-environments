@@ -22,9 +22,9 @@ variable "team_name" {
 variable "additional_topic_clients" {
   description = "Create a dedicated access key and store it in a secret named 'hmpps-domain-events-topic' in each of the below namespaces."
   default = [
-    "activities-api-dev",
     "calculate-release-dates-api-dev",
     "court-probation-dev",
+    "hmpps-activities-management-dev",
     "hmpps-adjustments-dev",
     "hmpps-assessments-dev",
     "hmpps-community-accommodation-dev",

@@ -31,6 +31,10 @@ variable "environment" {
   default     = "prod"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "wordpress@digital.justice.gov.uk"
@@ -57,32 +61,32 @@ variable "github_token" {
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_PROD"
+  default     = "KUBE_CLUSTER"
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_PROD"
+  default     = "KUBE_NAMESPACE"
 }
 
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_PROD"
+  default     = "KUBE_CERT"
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_PROD"
+  default     = "KUBE_TOKEN"
 }
 
 variable "github_actions_secret_ecr_name" {
   description = "The name of the github actions secret containing the ECR name"
-  default     = "ECR_NAME_PROD"
+  default     = "ECR_NAME"
 }
 
 variable "github_actions_secret_ecr_url" {
   description = "The name of the github actions secret containing the ECR URL"
-  default     = "ECR_URL_PROD"
+  default     = "ECR_URL"
 }
 
 variable "github_actions_secret_ecr_access_key" {

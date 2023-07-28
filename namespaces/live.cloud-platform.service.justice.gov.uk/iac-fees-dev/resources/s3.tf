@@ -24,7 +24,7 @@ module "s3_bucket" {
         "Principal": {
           "AWS": "${aws_iam_role.api_gateway_role.arn}"
         },
-        "Action": "s3:*",
+        "Action": "s3:PutObject",
         "Resource": [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
@@ -33,42 +33,7 @@ module "s3_bucket" {
     ]
   }
   EOF
-}
 
-resource "aws_s3_bucket_object" "backup_pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/PDF_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "backup_status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "backup_xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees_backup/XML_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "pdf_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/PDF_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "status_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/Status_Files/"
-  content_type = "application/x-directory"
-}
-
-resource "aws_s3_bucket_object" "xml_directory" {
-  bucket       = module.s3_bucket.bucket_name
-  key          = "IACFees.files/XML_Files/"
-  content_type = "application/x-directory"
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -83,17 +48,4 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_arn        = module.s3_bucket.bucket_arn
     bucket_name       = module.s3_bucket.bucket_name
   }
-}
-
-data "kubernetes_secret" "truststore" {
-  metadata {
-    name      = "mutual-tls-auth"
-    namespace = var.namespace
-  }
-}
-
-resource "aws_s3_object" "truststore" {
-  bucket  = module.s3_bucket.bucket_name
-  key     = "truststore.pem"
-  content = data.kubernetes_secret.truststore.data["truststore.pem"]
 }

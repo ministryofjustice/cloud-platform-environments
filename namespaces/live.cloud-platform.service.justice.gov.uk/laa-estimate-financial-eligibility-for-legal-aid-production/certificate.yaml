@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ccq-production-cert
+  namespace: laa-estimate-financial-eligibility-for-legal-aid-production
+spec:
+  secretName: ccq-production-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - check-your-client-qualifies-for-legal-aid.service.gov.uk

@@ -1,66 +1,66 @@
-name: Prometheus Operator Linter
+# name: Prometheus Operator Linter
 
-on:
-  pull_request:
-    paths:
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
-    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
-    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
-  workflow_dispatch:
+# on:
+#   pull_request:
+#     paths:
+#     - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+#     - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+#     - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+#     - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+#   workflow_dispatch:
 
-jobs:
-  po-lint:
-    runs-on: ${{ matrix.os }}
+# jobs:
+#   po-lint:
+#     runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest]
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
 
-      - name: Run po-linter
-        uses: docker://ministryofjustice/cloud-platform-po-linter:latest
-        continue-on-error: true
-        id: po-linter
-        env:
-          GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Run po-linter
+#         uses: docker://ministryofjustice/cloud-platform-po-linter:latest
+#         continue-on-error: true
+#         id: po-linter
+#         env:
+#           GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Successful Result
-        if: steps.po-linter.outcome == 'success'
-        uses: actions/github-script@v6
-        env:
-            summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            script: |
-                const output = `#### Prometheus Operator Linting Results \`${{ steps.po-linter.outcome }}\`
+#       - name: Successful Result
+#         if: steps.po-linter.outcome == 'success'
+#         uses: actions/github-script@v6
+#         env:
+#             summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"
+#         with:
+#             github-token: ${{ secrets.GITHUB_TOKEN }}
+#             script: |
+#                 const output = `#### Prometheus Operator Linting Results \`${{ steps.po-linter.outcome }}\`
 
-      - name: Failed Result
-        if: steps.po-linter.outcome != 'success'
-        uses: actions/github-script@v6
-        env:
-            summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            script: |
-                const output = `#### Prometheus Operator Linting Results \`${{ steps.po-linter.outcome }}\`
+#       - name: Failed Result
+#         if: steps.po-linter.outcome != 'success'
+#         uses: actions/github-script@v6
+#         env:
+#             summary: "Result:\n${{ steps.po-linter.outputs.po-linter }}"
+#         with:
+#             github-token: ${{ secrets.GITHUB_TOKEN }}
+#             script: |
+#                 const output = `#### Prometheus Operator Linting Results \`${{ steps.po-linter.outcome }}\`
 
-                <details><summary>Show</summary>
+#                 <details><summary>Show</summary>
 
-                ${process.env.summary}
+#                 ${process.env.summary}
 
-                </details>`
+#                 </details>`
 
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: output
-                }) 
+#                 github.rest.issues.createComment({
+#                   issue_number: context.issue.number,
+#                   owner: context.repo.owner,
+#                   repo: context.repo.repo,
+#                   body: output
+#                 }) 
        
-      - name: Exitcode
-        if: steps.po-linter.outcome != 'success'
-        run: exit 1
+#       - name: Exitcode
+#         if: steps.po-linter.outcome != 'success'
+#         run: exit 1

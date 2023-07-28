@@ -92,7 +92,7 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
 resource "kubernetes_secret" "activities_domain_events_queue" {
   metadata {
     name      = "activities-domain-events-sqs-instance-output"
-    namespace = "activities-api-dev"
+    namespace = "hmpps-activities-management-dev"
   }
 
   data = {
@@ -107,7 +107,7 @@ resource "kubernetes_secret" "activities_domain_events_queue" {
 resource "kubernetes_secret" "activities_dlq" {
   metadata {
     name      = "activities-domain-events-sqs-dl-instance-output"
-    namespace = "activities-api-dev"
+    namespace = "hmpps-activities-management-dev"
   }
 
   data = {

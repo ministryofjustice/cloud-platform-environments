@@ -110,3 +110,7 @@ variable "resource_server_scope_description" {
 variable "cognito_user_pool_domain_name" {
   default = "laa-crime-evidence-staging"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

@@ -38,9 +38,7 @@ variable "team_name" {
   default = "correspondence"
 }
 
-
-
-variable "kubernetes_cluster" {
+variable "eks_cluster_name" {
 }
 
 variable "github_owner" {
