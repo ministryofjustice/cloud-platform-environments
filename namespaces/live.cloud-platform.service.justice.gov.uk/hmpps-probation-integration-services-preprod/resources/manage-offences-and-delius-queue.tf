@@ -59,7 +59,7 @@ module "service_account" {
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   namespace              = var.namespace
