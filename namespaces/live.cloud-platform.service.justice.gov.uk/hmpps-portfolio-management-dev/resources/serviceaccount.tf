@@ -7,13 +7,14 @@ module "service_account" {
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
   serviceaccount_name                  = "hmpps-portfolio-management"
-  github_environments                  = [github_repository_environment.env.environment]
+  github_environments                  = [var.environment]
   github_repositories                  = local.github_repos
   github_actions_secret_kube_cert      = "${var.environment}-KUBE_CERT"
   github_actions_secret_kube_token     = "${var.environment}-KUBE_TOKEN"
   github_actions_secret_kube_cluster   = "${var.environment}-KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "${var.environment}-KUBE_NAMESPACE"
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  depends_on                           = [github_repository_environment.env]
 }
 
 resource "time_rotating" "weekly" {
