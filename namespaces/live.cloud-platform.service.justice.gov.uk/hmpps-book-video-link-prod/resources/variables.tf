@@ -10,7 +10,7 @@ variable "domain" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Book video link"
+  default     = "book-a-video-link"
 }
 
 variable "namespace" {
@@ -61,3 +61,6 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
