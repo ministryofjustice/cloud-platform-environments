@@ -12,8 +12,6 @@ module "intranet_ecr_credentials" {
   providers = {
     aws = aws.london
   }
-  github_repositories = [var.repo_name]
-
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
