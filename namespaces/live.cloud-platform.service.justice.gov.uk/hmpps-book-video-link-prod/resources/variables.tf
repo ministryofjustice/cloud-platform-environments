@@ -10,7 +10,7 @@ variable "domain" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Book video link"
+  default     = "book-a-video-link"
 }
 
 variable "namespace" {
