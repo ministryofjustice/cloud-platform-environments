@@ -10,7 +10,7 @@ module "dps_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "12.4"
+  db_engine_version      = "12.14"
   db_instance_class      = "db.t3.small"
   db_max_allocated_storage = "10000" # maximum storage for autoscaling
   environment-name       = var.environment-name
