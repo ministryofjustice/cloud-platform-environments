@@ -16,10 +16,12 @@ module "prisoner_offender_search_elasticsearch" {
   namespace                       = var.namespace
   elasticsearch_version           = "7.10"
   aws-es-proxy-replica-count      = 2
+  instance_count                  = 4
   instance_type                   = "t3.medium.elasticsearch"
   s3_manual_snapshot_repository   = module.es_snapshots_s3_bucket.bucket_arn
   ebs_iops                        = 0
   ebs_volume_type                 = "gp2"
+  ebs_volume_size                 = 50
 }
 
 module "es_snapshots_s3_bucket" {
