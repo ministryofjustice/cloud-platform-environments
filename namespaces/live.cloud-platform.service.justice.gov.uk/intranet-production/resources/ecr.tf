@@ -53,7 +53,7 @@ module "intranet_ecr_credentials" {
           "rulePriority": 3,
           "description": "Keep the newest 100 images and mark the rest for expiration",
           "selection": {
-            "tagStatus": "any",
+            "tagStatus": "tagged",
             "countType": "imageCountMoreThan",
             "countNumber": 100,
             "tagPrefixList": ["production"]
