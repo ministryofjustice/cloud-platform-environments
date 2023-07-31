@@ -10,6 +10,18 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
   })
 }
 
+resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-oe-subscription" {
+  topic_arn = data.aws_sns_topic.prison-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.prison-custody-status-to-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "EXTERNAL_MOVEMENT_RECORD-INSERTED",
+      "IMPRISONMENT_STATUS-CHANGED"
+    ]
+  })
+}
+
 module "prison-custody-status-to-delius-queue" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
