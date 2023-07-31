@@ -25,8 +25,8 @@ provider "github" {
 data "aws_iam_policy_document" "irsa_laa_test_viewer" {
   version = "2012-10-17"
   statement {
-    sid    = "AllowBucketActions"
-    effect = "Allow"
+    sid     = "AllowBucketActions"
+    effect  = "Allow"
     actions = [
       "s3:GetBucketLocation",
       "s3:GetBucketPolicy",
@@ -34,13 +34,15 @@ data "aws_iam_policy_document" "irsa_laa_test_viewer" {
       "s3:ListBucketMultipartUploads",
       "s3:ListBucketVersions",
     ]
-    resources = "${module.s3_bucket.bucket_arn}/*"
+    resources = [
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
   }
 
 
   statement {
-    sid    = "AllowObjectActions"
-    effect = "Allow"
+    sid     = "AllowObjectActions"
+    effect  = "Allow"
     actions = [
       "s3:AbortMultipartUpload",
       "s3:DeleteObject",
