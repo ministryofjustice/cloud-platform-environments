@@ -26,10 +26,10 @@ variable "namespace" {
   default = "c100-application-production"
 }
 
-# Database 
+# Database
 
 variable "db_engine_version" {
-  default = "14.4"
+  default = "14.7"
 }
 
 variable "db_instance_class" {
@@ -54,4 +54,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
