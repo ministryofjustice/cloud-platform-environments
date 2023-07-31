@@ -4,7 +4,7 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers        = ["github"]
-  github_repositories   = [var.namespace]
+  github_repositories   = ["apply-for-compensation-prototype"]
   github_actions_prefix = "dev"
 
   # Tags
