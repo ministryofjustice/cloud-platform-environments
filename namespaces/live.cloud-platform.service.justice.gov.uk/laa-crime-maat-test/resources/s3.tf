@@ -127,7 +127,7 @@ module "s3_bucket" {
   /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
- */
+ *
 
    bucket_policy = <<EOF
 {
@@ -153,6 +153,7 @@ module "s3_bucket" {
   ]
 }
 EOF
+*/
 
   /*
  * Override the default policy for the generated machine user of this bucket.

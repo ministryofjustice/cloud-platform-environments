@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Not on LIBRA Auto Search Application"
+  default     = "hmpps-health-ping"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-not-on-libra-auto-search-application-dev"
+  default     = "hmpps-portfolio-management-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-aws-infrastructure"
+  default     = "dps-tech"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "mike.reid@digital.justice.gov.uk"
+  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ops-team"
+  default     = "hmpps_dev"
 }
 
 variable "github_owner" {
@@ -68,6 +68,6 @@ variable "github_token" {
   default     = ""
 }
 
-variable "eks_cluster_name" {
-  description = "For setting up secrets in secret.tf"
+variable "number_cache_clusters" {
+  default = "2"
 }
