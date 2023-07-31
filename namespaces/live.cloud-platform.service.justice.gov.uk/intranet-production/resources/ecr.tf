@@ -56,7 +56,7 @@ module "intranet_ecr_credentials" {
             "tagStatus": "any",
             "countType": "imageCountMoreThan",
             "countNumber": 100,
-            "tagPrefixList": ["production"],
+            "tagPrefixList": ["production"]
           },
           "action": {
             "type": "expire"
