@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "irsa_laa_test_viewer" {
       "s3:ListBucketMultipartUploads",
       "s3:ListBucketVersions",
     ]
-    resources = "$${bucket_arn}/*"
+    resources = "${module.s3_bucket.bucket_arn}/*"
   }
 
 
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "irsa_laa_test_viewer" {
       "s3:RestoreObject",
     ]
     resources = [
-      "$${bucket_arn}/*"
+      "${module.s3_bucket.bucket_arn}/*"
     ]
   }
 }
