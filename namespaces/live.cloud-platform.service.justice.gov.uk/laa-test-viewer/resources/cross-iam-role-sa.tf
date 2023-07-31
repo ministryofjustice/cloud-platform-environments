@@ -22,12 +22,11 @@ data "aws_iam_policy_document" "allow_s3_access_policy" {
     actions = [
       "s3:GetObject",
       "s3:GetObjectAcl",
-      "s3:ListObjectsV2",
       "s3:ListBucket",
       "s3:GetBucketLocation"
     ]
     resources = [
-      "arn:aws:s3:::s3-bucket-output/*"
+      "arn:aws:s3:::cloud-platform-1a62ece4d31a3992fddf8c5f35b0cd96/*"
     ]
   }
 }
