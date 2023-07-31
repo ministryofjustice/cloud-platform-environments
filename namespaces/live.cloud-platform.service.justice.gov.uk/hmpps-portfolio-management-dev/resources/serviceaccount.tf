@@ -1,4 +1,4 @@
-local {
+locals {
   github_repos = ["hmpps-service-catalogue", "hmpps-health-ping", "hmpps-developer-portal"]
 }
 
