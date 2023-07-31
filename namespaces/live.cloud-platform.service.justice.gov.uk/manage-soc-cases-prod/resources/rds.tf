@@ -15,6 +15,7 @@ module "dps_rds" {
   infrastructure-support = var.infrastructure_support
 
   rds_family = "postgres11"
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
