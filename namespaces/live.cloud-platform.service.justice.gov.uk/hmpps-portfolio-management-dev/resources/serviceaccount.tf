@@ -25,10 +25,14 @@ resource "github_repository_environment" "env" {
   environment = var.environment
   repository  = each.key
   reviewers {
-    teams = ["dps-tech"]
+    teams = [data.github_team.dps_tech.id]
   }
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
   }
+}
+
+data "github_team" "dps_tech" {
+  slug = "dps-tech"
 }
