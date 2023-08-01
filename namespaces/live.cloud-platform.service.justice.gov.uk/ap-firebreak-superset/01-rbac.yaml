@@ -5,9 +5,6 @@ metadata:
   namespace: ap-firebreak-superset
 subjects:
   - kind: Group
-    name: "github:ap-firebreak-superset-admin-team"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: github:analytics-hq
     apiGroup: rbac.authorization.k8s.io
 roleRef:
