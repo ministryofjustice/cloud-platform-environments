@@ -1,7 +1,7 @@
 locals {
   sqs_queues = {
-     "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue" = "offender-events-dev"
-     "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl" = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl" = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
@@ -13,9 +13,9 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = var.application
-  namespace             = var.namespace
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = var.application
+  namespace            = var.namespace
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
