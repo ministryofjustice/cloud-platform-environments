@@ -1,17 +1,11 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "s3_bucket" {
+module "drupal_content_storage_cf" {
 
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name              = var.team_name
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment
+  environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -54,6 +48,7 @@ module "s3_bucket" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
+  }
     /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
@@ -74,6 +69,16 @@ module "s3_bucket" {
       expose_headers  = [""]
       max_age_seconds = 3000
     },
+  ]
+  */
+  # Add CORS rule to allow direct s3 file uploading with progress bar (in Drupal CMS).
+  cors_rule = [
+    {
+      allowed_headers = ["Accept", "Content-Type", "Origin"]
+      allowed_methods = ["GET", "PUT", "POST"]
+      allowed_origins = ["https://cms-prisoner-content-hub-development.apps.live.cloud-platform.service.justice.gov.uk"]
+      max_age_seconds = 3000
+    }
   ]
 
 
@@ -177,20 +182,19 @@ user_policy = <<EOF
 EOF
 
 */
-  }
 }
 
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "drupal_content_storage_cf_secret" {
   metadata {
-    name      = "s3-bucket-output"
+    name      = "drupal-s3-cf"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = module.drupal_content_storage_cf.access_key_id
+    secret_access_key = module.drupal_content_storage_cf.secret_access_key
+    bucket_arn        = module.drupal_content_storage_cf.bucket_arn
+    bucket_name       = module.drupal_content_storage_cf.bucket_name
   }
 }
