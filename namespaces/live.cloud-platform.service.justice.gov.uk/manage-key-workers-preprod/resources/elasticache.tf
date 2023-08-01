@@ -8,7 +8,7 @@ module "dps_redis" {
   team_name               = var.team_name
   business-unit           = var.business_unit
   number_cache_clusters   = var.number_cache_clusters
-  node_type               = var.node-type
+  node_type               = "cache.t4g.micro"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
