@@ -10,11 +10,10 @@ module "secrets_manager" {
   eks_cluster_name        = var.eks_cluster_name
 
   secrets = {
-    "azure-app-id" = {
-
-      description             = "The Id for the App registration on Azure", # Required
+    "saml-metadata-uri" = {
+      description             = "The URI for the SAML authentication", # Required
       recovery_window_in_days = 7, # Required
-      k8s_secret_name        = "azure-app-id" # The name of the secret in k8s
+      k8s_secret_name         = "saml-metadata-uri"                    # The name of the secret in k8s
     },
   }
 }
