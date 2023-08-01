@@ -358,3 +358,18 @@ spec:
   dnsNames:
     - eee42778-preprod.hmpps.service.justice.gov.uk
     - manage-offences-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: resettlement-passport-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: resettlement-passport-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 5cf0b2a7-preprod.hmpps.service.justice.gov.uk
+    - resettlement-passport-and-delius-preprod.hmpps.service.justice.gov.uk
