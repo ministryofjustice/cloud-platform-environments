@@ -51,15 +51,3 @@ resource "aws_cognito_identity_provider" "Azure_IDP" {
     name = "name"
   }
 }
-
-resource "aws_cognito_user_pool_client" "Azure_Client" {
-  name = "Azure_Client"
-  user_pool_id = aws_cognito_user_pool.Azure_AD_Test.id
-  explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH","ALLOW_USER_SRP_AUTH"]
-  supported_identity_providers = ["azure-active-directory-idp"]
-  callback_urls = ["https://jwt.io"]
-  prevent_user_existence_errors = "ENABLED"
-  allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes  = ["openid","profile"]
-  allowed_oauth_flows = ["code"]
-}
