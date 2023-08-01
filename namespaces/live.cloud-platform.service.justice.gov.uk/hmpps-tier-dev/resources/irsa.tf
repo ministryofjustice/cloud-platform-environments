@@ -1,7 +1,7 @@
 locals {
   sqs_queues = {
      "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue" = "offender-events-dev"
-     "Digital-Prison-Services-dev-hmpps_tier_offender_events_dead_letter_queue" = "offender-events-dev"
+     "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl" = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
@@ -20,7 +20,7 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { domain_sns = module.hmpps_tier_domain_events_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn },
+    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn }
   )
 
   # Tags
