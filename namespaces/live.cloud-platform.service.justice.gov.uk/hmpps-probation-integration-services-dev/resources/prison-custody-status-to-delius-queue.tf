@@ -6,18 +6,8 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
     eventType = [
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
-    ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-oe-subscription" {
-  topic_arn = data.aws_sns_topic.prison-offender-events.arn
-  protocol  = "sqs"
-  endpoint  = module.prison-custody-status-to-delius-queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "EXTERNAL_MOVEMENT_RECORD-INSERTED",
-      "IMPRISONMENT_STATUS-CHANGED"
+      "probation-case.prison-identifier.added",
+      "probation-case.prison-identifier.updated",
     ]
   })
 }
