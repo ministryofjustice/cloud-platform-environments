@@ -26,6 +26,7 @@ resource "pingdom_check" "pingdom" {
     "domain-events-and-delius",
     "external-api-and-delius",
     "manage-offences-and-delius",
+    "resettlement-passport-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
