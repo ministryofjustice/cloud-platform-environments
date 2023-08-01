@@ -27,7 +27,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_ssm_parameter" "irsa_policy_arns" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
