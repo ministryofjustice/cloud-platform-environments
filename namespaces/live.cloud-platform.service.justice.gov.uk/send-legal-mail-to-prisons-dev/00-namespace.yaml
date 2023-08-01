@@ -8,9 +8,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "prisoner_transactions_team"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "prisoner_transactions_team"
+    cloud-platform.justice.gov.uk/slack-channel: "prison-visit-booking"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "send-legal-mail-alerts"
     cloud-platform.justice.gov.uk/application: "Send legal mail to prisons"
-    cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/send-legal-mail-to-prisons-api.git,https://github.com/ministryofjustice/send-legal-mail-to-prisons.git"
     cloud-platform.justice.gov.uk/team-name: "farsight-devs"
