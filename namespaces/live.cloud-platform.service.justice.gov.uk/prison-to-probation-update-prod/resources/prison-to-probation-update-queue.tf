@@ -5,6 +5,7 @@ resource "aws_sns_topic_subscription" "prison-to-probation-update-queue-subscrip
   filter_policy = jsonencode({
     eventType = [
       "BOOKING_NUMBER-CHANGED",
+      "EXTERNAL_MOVEMENT_RECORD-INSERTED",
       "IMPRISONMENT_STATUS-CHANGED",
     ]
   })
