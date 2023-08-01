@@ -13,9 +13,9 @@ module "irsa" {
   namespace             = var.namespace
 
   role_policy_arns = {
-    sqs = module.hmpps_tier_domain_events_queue.irsa_policy_arn
-    dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn
-    sns = local.sns_policies
+    sqs = module.hmpps_tier_domain_events_queue.irsa_policy_arn,
+    dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn,
+    sns = local.sns_policies,
   }
 
   # Tags
