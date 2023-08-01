@@ -21,6 +21,10 @@ module "ecr" {
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
 
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  # github_actions_prefix = "production"
+
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
   /*
