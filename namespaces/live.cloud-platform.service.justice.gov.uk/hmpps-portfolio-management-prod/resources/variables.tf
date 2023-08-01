@@ -47,7 +47,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
@@ -66,4 +66,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
