@@ -6,19 +6,8 @@ locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
-
-  hmpps_sqs_policies =   { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  domain_sqs_policies = {
-    sqs = module.hmpps_tier_domain_events_queue.irsa_policy_arn,
-    dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn
-    }
-  sqs_policies = merge(
-    hmpps_sqs_policies,
-    domain_sqs_policies
-  )
-
-
-  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies =   { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value
 }
 
 module "irsa" {
@@ -28,8 +17,12 @@ module "irsa" {
   service_account_name  = var.application
   namespace             = var.namespace
   role_policy_arns = merge(
-    sns = local.sns_policies,
-    sqs = local.sqs_policies
+    local.sns_policies,
+    local.sqs_policies,
+    {
+      module.hmpps_tier_domain_events_queue.irsa_policy_arn,
+      module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn
+    }
   )
 
   # Tags
