@@ -1,16 +1,10 @@
-
 module "cccd_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-  repo_name = "cccd"
-  team_name = "laa-get-paid"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  providers = {
-    aws = aws.london
-  }
+  repo_name = "cccd"
 
   oidc_providers      = ["circleci"]
   github_repositories = ["Claim-for-Crown-Court-Defence"]
-  namespace           = var.namespace
 
   lifecycle_policy = <<EOF
   {
@@ -56,6 +50,19 @@ module "cccd_ecr_credentials" {
     ]
   }
   EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "cccd_ecr_credentials" {
@@ -65,9 +72,7 @@ resource "kubernetes_secret" "cccd_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.cccd_ecr_credentials.access_key_id
-    secret_access_key = module.cccd_ecr_credentials.secret_access_key
-    repo_arn          = module.cccd_ecr_credentials.repo_arn
-    repo_url          = module.cccd_ecr_credentials.repo_url
+    repo_arn = module.cccd_ecr_credentials.repo_arn
+    repo_url = module.cccd_ecr_credentials.repo_url
   }
 }

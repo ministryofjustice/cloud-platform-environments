@@ -5,13 +5,9 @@
  *
  */
 module "laa_fee_caclulator_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-  repo_name = var.repo_name
-  team_name = var.team_name
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  providers = {
-    aws = aws.london
-  }
+  repo_name = var.repo_name
 
   # enable the oidc implementation for CircleCI
   oidc_providers = ["circleci"]
@@ -19,9 +15,18 @@ module "laa_fee_caclulator_team_ecr_credentials" {
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = ["laa-fee-calculator"]
 
-  # set your namespace name to create a ConfigMap
-  # of credentials you need in CircleCI
-  namespace = var.namespace
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "laa_fee_caclulator_team_ecr_credentials" {
@@ -31,10 +36,7 @@ resource "kubernetes_secret" "laa_fee_caclulator_team_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.laa_fee_caclulator_team_ecr_credentials.access_key_id
-    secret_access_key = module.laa_fee_caclulator_team_ecr_credentials.secret_access_key
-    repo_arn          = module.laa_fee_caclulator_team_ecr_credentials.repo_arn
-    repo_url          = module.laa_fee_caclulator_team_ecr_credentials.repo_url
+    repo_arn = module.laa_fee_caclulator_team_ecr_credentials.repo_arn
+    repo_url = module.laa_fee_caclulator_team_ecr_credentials.repo_url
   }
 }
-
