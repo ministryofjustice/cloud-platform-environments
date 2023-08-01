@@ -11,7 +11,7 @@ variable "environment-name" {
 }
 
 variable "team_name" {
-  default = "prison-visits-booking"
+  default = "book-a-prison-visit"
 }
 
 variable "is_production" {
@@ -23,7 +23,7 @@ variable "namespace" {
 }
 
 variable "infrastructure_support" {
-  default = "pvb-technical-support@digital.justice.gov.uk"
+  default = "prisonvisitsbooking@digital.justice.gov.uk"
 }
 
 variable "business_unit" {
