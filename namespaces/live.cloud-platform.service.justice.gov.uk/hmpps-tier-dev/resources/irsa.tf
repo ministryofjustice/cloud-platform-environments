@@ -1,7 +1,7 @@
 locals {
   sqs_queues = {
-     "hmpps_tier_offender_events_queue" = "offender-events-dev"
-     "hmpps_tier_offender_events_dead_letter_queue" = "offender-events-dev"
+     "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue" = "offender-events-dev"
+     "Digital-Prison-Services-dev-hmpps_tier_offender_events_dead_letter_queue" = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
