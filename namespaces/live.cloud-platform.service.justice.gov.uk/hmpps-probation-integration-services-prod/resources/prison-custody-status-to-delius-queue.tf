@@ -6,6 +6,8 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
     eventType = [
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
+      "probation-case.prison-identifier.added",
+      "probation-case.prison-identifier.updated",
     ]
   })
 }
