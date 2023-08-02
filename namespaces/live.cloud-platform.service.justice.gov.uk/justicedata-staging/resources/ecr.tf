@@ -4,7 +4,6 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
   github_repositories = ["justice-data"]
   oidc_providers = ["github"]
-  github_actions_prefix = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo" {
