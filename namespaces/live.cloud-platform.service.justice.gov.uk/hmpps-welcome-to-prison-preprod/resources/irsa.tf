@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    redis = module.elasticache_redis.irsa_policy_arn
   }
 
   # Tags
