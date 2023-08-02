@@ -6,7 +6,7 @@ module "ecr-repo-extractor" {
   github_actions_prefix = "extractor"
 
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-mercury-data-monorepo"]
+  github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
 }
 
 resource "kubernetes_secret" "ims-legacy-data-extractor" {
@@ -31,7 +31,7 @@ module "ecr-repo-generator" {
   github_actions_prefix = "generator"
 
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-mercury-data-monorepo"]
+  github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
 }
 
 resource "kubernetes_secret" "ims-legacy-test-generator" {
@@ -56,7 +56,7 @@ module "ecr-repo-transform" {
   github_actions_prefix = "transform"
 
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-mercury-data-monorepo"]
+  github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
 }
 
 resource "kubernetes_secret" "ims-legacy-data-transform" {
@@ -81,7 +81,7 @@ module "ecr-repo-validator" {
   github_actions_prefix = "validator"
 
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-mercury-data-monorepo"]
+  github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
 }
 
 resource "kubernetes_secret" "ims-legacy-temp-validator" {
