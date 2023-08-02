@@ -1,13 +1,9 @@
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
-
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
   github_repositories = ["justice-data"]
+  oidc_providers = ["github"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
