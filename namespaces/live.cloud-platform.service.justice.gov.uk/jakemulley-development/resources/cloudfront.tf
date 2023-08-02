@@ -12,7 +12,7 @@ module "s3" {
 }
 
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=initial" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.0.0" # use the latest release
 
   # Configuration
   bucket_domain_name = module.s3.bucket_domain_name
