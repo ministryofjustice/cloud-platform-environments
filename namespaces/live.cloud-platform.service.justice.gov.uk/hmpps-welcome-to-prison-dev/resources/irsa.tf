@@ -13,7 +13,6 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
-    read_replica  = module.read_replica.irsa_policy_arn
   }
 
   # Tags
