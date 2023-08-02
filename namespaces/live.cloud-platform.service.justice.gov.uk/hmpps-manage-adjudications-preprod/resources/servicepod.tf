@@ -9,7 +9,7 @@ module "irsa" {
   service_account_name = var.application
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    redis = module.dps_redis.irsa_policy_arn
+    redis = module.hmpps_manage_adjudications.irsa_policy_arn
   }
 
   # Tags
