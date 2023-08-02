@@ -6,7 +6,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = var.application
+  service_account_name = "manage-adjudications"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     redis = module.hmpps_manage_adjudications.irsa_policy_arn
@@ -28,5 +28,5 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  service_account_name = "manage-adjudications"
 }
