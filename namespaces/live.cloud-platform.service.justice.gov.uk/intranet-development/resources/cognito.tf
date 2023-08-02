@@ -51,4 +51,16 @@ resource "aws_cognito_user_pool_client" "Azure_Client" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_scopes  = ["openid","profile"]
   allowed_oauth_flows = ["code"]
+  generate_secret = true
+}
+
+resource "kubernetes_secret" "aws_cognito_user_pool_client" {
+  metadata {
+    name      = "cognito-client-credentials"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.Azure_Client.id
+    client_secret = aws_cognito_user_pool_client.Azure_Client.client_secret
+  }
 }
