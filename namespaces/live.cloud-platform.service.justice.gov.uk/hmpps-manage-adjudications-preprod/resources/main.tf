@@ -24,17 +24,6 @@ provider "aws" {
   }
 }
 
-provider "aws" {
-  alias  = "ireland"
-  region = "eu-west-1"
-
-  default_tags {
-    tags = {
-      GithubTeam = var.team_name
-    }
-  }
-}
-
 provider "github" {
   token = var.github_token
   owner = var.github_owner
