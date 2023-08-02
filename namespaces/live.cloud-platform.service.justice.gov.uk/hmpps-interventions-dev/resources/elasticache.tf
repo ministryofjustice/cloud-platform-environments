@@ -16,7 +16,7 @@ module "hmpps_interventions_elasticache_redis" {
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
-  auth_token_rotated_date = "2023-08-03"
+  auth_token_rotated_date = "2023-08-02"
 
   providers = {
     aws = aws.london
