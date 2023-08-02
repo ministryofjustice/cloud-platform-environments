@@ -5,6 +5,10 @@ module "cloudfront" {
   bucket_id          = module.drupal_content_storage_cf.bucket_name
   bucket_domain_name = "${module.drupal_content_storage_cf.bucket_name}.s3.eu-west-2.amazonaws.com"
 
+  origin = {
+    origin_path = "/${module.drupal_content_storage_cf.bucket_name}"
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
