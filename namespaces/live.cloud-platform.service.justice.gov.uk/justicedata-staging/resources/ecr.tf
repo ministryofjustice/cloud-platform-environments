@@ -1,9 +1,9 @@
 module "ecr-repo" {
-  source              = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-  team_name           = var.team_name
-  repo_name           = "${var.namespace}-ecr"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr"
   github_repositories = ["justice-data"]
-  oidc_providers      = ["github"]
+  oidc_providers = ["github"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
@@ -13,6 +13,8 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 
   data = {
-    repo_url  = module.ecr-repo.repo_url
+    repo_url          = module.ecr-repo.repo_url
+    access_key_id     = module.ecr-repo.access_key_id
+    secret_access_key = module.ecr-repo.secret_access_key
   }
 }
