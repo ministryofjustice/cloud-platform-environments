@@ -7,14 +7,14 @@ resource "aws_iam_access_key" "key_2023" {
   user = aws_iam_user.ims_extractor_user.name
 }
 
-data "aws_iam_policy_document" "ims_legacy_extractor_s3_policy" {
+data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
   statement {
     actions = ["s3:PutObject", "sqs:SendMessage"]
 
     resources = [
       module.manage_intelligence_extractor_bucket.bucket_arn,
       "${module.manage_intelligence_extractor_bucket.bucket_arn}/*",
-      "module.ims_extractor_queue.sqs_arn"
+      module.ims_extractor_queue.sqs_arn
     ]
   }
 
@@ -37,8 +37,8 @@ data "aws_iam_policy_document" "ims_legacy_extractor_s3_policy" {
 }
 
 resource "aws_iam_user_policy" "ims_extractor_policy" {
-  name   = "hmpps-manage-intelligence-legacy-extracto-policy-preprod"
-  policy = data.aws_iam_policy_document.ims_legacy_extractor_s3_policy.json
+  name   = "hmpps-manage-intelligence-legacy-extractor-policy-preprod"
+  policy = data.aws_iam_policy_document.ims_legacy_extractor_policy.json
   user   = aws_iam_user.ims_extractor_user.name
 }
 
