@@ -1,4 +1,3 @@
-```
 resource "aws_iam_user" "ims_extractor_user" {
   name = "hmpps-manage-intelligence-preprod-extractor-user"
   path = "/system/hmpps-manage-intelligence-preprod-users/"
@@ -55,4 +54,3 @@ resource "kubernetes_secret" "ims_legacy_extractor_user" {
     secret_access_key = aws_iam_access_key.key_2023.secret
   }
 }
-```
