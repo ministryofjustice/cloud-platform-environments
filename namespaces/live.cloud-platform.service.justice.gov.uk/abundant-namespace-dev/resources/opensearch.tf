@@ -1,3 +1,16 @@
+module "opensearch_snapshot_bucket" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
 module "opensearch" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
 
