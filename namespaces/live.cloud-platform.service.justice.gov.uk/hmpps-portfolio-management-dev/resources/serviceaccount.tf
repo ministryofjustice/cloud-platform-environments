@@ -2,6 +2,16 @@ locals {
   github_repos = ["hmpps-service-catalogue", "hmpps-health-ping", "hmpps-developer-portal"]
 }
 
+# Service account for circleci
+module "circleci-sa" {
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
+  serviceaccount_name = "circleci"
+  role_name           = "circleci"
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+}
+
+# Service account used by github actions
 module "service_account" {
   source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
   namespace                            = var.namespace
