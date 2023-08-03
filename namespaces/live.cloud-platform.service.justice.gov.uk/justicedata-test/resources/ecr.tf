@@ -7,7 +7,6 @@ module "ecr" {
   github_actions_prefix  = "test"
 }
 
-
 resource "kubernetes_secret" "ecr" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
@@ -15,8 +14,6 @@ resource "kubernetes_secret" "ecr" {
   }
 
   data = {
-    access_key_id     = module.ecr.access_key_id
-    secret_access_key = module.ecr.secret_access_key
-    repo_url          = module.ecr.repo_url
+    repo_url  = module.ecr.repo_url
   }
 }
