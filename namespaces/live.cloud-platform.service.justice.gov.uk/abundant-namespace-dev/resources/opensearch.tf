@@ -19,7 +19,8 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_2.7"
+  snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
 
   cluster_config = {
     instance_count = 2
