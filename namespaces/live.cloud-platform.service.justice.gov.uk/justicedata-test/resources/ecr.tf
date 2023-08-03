@@ -6,10 +6,3 @@ module "ecr" {
   oidc_providers         = ["github"]
   github_actions_prefix  = "test"
 }
-
-resource "kubernetes_secret" "ecr" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-}
