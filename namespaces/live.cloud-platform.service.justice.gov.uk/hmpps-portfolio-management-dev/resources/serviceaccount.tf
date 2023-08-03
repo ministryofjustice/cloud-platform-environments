@@ -36,7 +36,7 @@ locals {
         "jobs",
         "replicasets",
         "poddisruptionbudgets",
-        "networkpolicy"
+        "networkpolicies"
       ]
       verbs = [
         "get",
@@ -54,7 +54,7 @@ locals {
       ]
       resources = [
         "prometheusrules",
-        "servicemonitor"
+        "servicemonitors"
       ]
       verbs = [
         "*",
