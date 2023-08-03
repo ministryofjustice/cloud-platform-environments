@@ -14,6 +14,11 @@ variable "application" {
   default     = "manage-intelligence"
 }
 
+variable "number_cache_clusters" {
+  description = "Elasticache cache cluster number"
+  default     = 2
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
