@@ -13,6 +13,6 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 
   data = {
-    repo_url          = module.ecr-repo.repo_url
+    repo_url  = module.ecr-repo.repo_url
   }
 }
