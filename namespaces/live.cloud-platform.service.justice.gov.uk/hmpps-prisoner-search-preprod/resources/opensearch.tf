@@ -1,5 +1,5 @@
 module "hmpps_prisoner_search_opensearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=snapshot-management"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name
