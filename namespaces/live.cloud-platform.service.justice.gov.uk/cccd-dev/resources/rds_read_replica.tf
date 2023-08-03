@@ -35,7 +35,7 @@ module "read_replica" {
 
   # Set the db_identifier of the source db
   # replicate_source_db = module.rds.db_identifier
-  replicate_source_db = module.cccd_rds.rds_instance_address
+  replicate_source_db = module.cccd_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
