@@ -24,8 +24,8 @@ data "aws_iam_policy_document" "ims_legacy_extractor_s3_policy" {
     actions = ["s3:*"]
 
     resources = [
-      module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
-      "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"
+      module.manage_intelligence_extractor_bucket.bucket_arn,
+      "${module.manage_intelligence_extractor_bucket.bucket_arn}/*"
     ]
 
     condition {
