@@ -1,12 +1,12 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version = "OpenSearch_2.5"
+  engine_version = "OpenSearch_2.7"
 
   cluster_config = {
     instance_count = 2
