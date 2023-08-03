@@ -1,17 +1,17 @@
-# module "opensearch_snapshot_bucket" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+module "opensearch_snapshot_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
-#   team_name              = var.team_name
-#   business-unit          = var.business_unit
-#   application            = var.application
-#   is-production          = var.is_production
-#   environment-name       = var.environment
-#   infrastructure-support = var.infrastructure_support
-#   namespace              = var.namespace
-# }
+  team_name              = var.team_name
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+  namespace              = var.namespace
+}
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-sa-name"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=main"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -19,7 +19,7 @@ module "opensearch" {
 
   # Cluster configuration
   engine_version      = "OpenSearch_2.5"
-  # snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
+  snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
 
   cluster_config = {
     instance_count = 2
