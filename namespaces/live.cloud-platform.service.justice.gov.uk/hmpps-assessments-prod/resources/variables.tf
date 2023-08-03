@@ -1,8 +1,4 @@
-
-
-variable "vpc_name" {
-}
-
+variable "vpc_name" {}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -57,3 +53,4 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {}
