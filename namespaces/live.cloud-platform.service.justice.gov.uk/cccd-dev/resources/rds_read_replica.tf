@@ -26,6 +26,7 @@ module "read_replica" {
   rds_family        = "postgres13"
   db_instance_class = "db.t4g.micro"
   db_allocated_storage = "60"
+  db_max_allocated_storage = "500"
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   # It is mandatory to set the below values to create read replica instance
