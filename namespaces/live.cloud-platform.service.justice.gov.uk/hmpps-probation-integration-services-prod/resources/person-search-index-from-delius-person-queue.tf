@@ -59,9 +59,7 @@ resource "kubernetes_secret" "person-search-index-from-delius-person-queue-secre
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-person-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-person-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-person-queue.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-person-queue.sqs_name
   }
 }
 
@@ -71,8 +69,6 @@ resource "kubernetes_secret" "person-search-index-from-delius-person-dlq-secret"
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-person-dlq.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-person-dlq.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-person-dlq.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-person-dlq.sqs_name
   }
 }
