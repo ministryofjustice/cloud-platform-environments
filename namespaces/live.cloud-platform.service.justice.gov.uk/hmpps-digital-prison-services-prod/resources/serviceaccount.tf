@@ -1,5 +1,4 @@
 locals {
-  github_repos = ["hmpps-digital-prison-services"]
   sa_rules = [
     {
       api_groups = [""]
