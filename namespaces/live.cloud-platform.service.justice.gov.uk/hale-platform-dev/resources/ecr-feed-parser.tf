@@ -4,10 +4,10 @@
  * releases page of this repository.
  *
  */
-module "ecr_credentials" {
+module "ecr_feed_parser" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  repo_name = "${var.namespace}-feed-parser-ecr"
 
   lifecycle_policy = <<EOF
   {
@@ -53,20 +53,16 @@ module "ecr_credentials" {
   # this ensures the variable key used in the workflow is unique
   github_actions_prefix = "dev"
 
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
 }
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "ecr_feed_parser" {
   metadata {
     name      = "ecr-repo-feed-parser-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    repo_arn          = module.ecr_feed_parser.repo_arn
+    repo_url          = module.ecr_feed_parser.repo_url
   }
 }
