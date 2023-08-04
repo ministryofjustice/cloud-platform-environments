@@ -57,9 +57,7 @@ resource "kubernetes_secret" "approved-premises-and-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.approved-premises-and-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.approved-premises-and-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.approved-premises-and-delius-queue.secret_access_key
+    QUEUE_NAME = module.approved-premises-and-delius-queue.sqs_name
   }
 }
 

@@ -50,9 +50,7 @@ resource "kubernetes_secret" "unpaid-work-and-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.unpaid-work-and-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.unpaid-work-and-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.unpaid-work-and-delius-queue.secret_access_key
+    QUEUE_NAME = module.unpaid-work-and-delius-queue.sqs_name
   }
 }
 
