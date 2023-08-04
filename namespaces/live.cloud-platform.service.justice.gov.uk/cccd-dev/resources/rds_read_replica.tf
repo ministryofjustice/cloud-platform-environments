@@ -25,7 +25,7 @@ module "read_replica" {
   db_engine_version = "13"
   rds_family        = "postgres13"
 
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   db_allocated_storage = "50"
   db_max_allocated_storage = "500"
 
