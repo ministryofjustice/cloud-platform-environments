@@ -50,9 +50,7 @@ resource "kubernetes_secret" "tier-to-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.tier-to-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.tier-to-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.tier-to-delius-queue.secret_access_key
+    QUEUE_NAME = module.tier-to-delius-queue.sqs_name
   }
 }
 

@@ -50,9 +50,7 @@ resource "kubernetes_secret" "pre-sentence-reports-to-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.pre-sentence-reports-to-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.pre-sentence-reports-to-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.pre-sentence-reports-to-delius-queue.secret_access_key
+    QUEUE_NAME = module.pre-sentence-reports-to-delius-queue.sqs_name
   }
 }
 
