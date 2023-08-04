@@ -4,10 +4,10 @@
  * releases page of this repository.
  *
  */
-module "ecr_credentials" {
+module "ecr_feed_parser" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  repo_name = "${var.namespace}-feed-parser-ecr"
 
   lifecycle_policy = <<EOF
   {
@@ -42,31 +42,27 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["hale-platform"]
+  github_repositories = ["feed-parser"]
 
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["Development"]
+  # github_environments = []
 
   # OPTIONAL:
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
   github_actions_prefix = "dev"
 
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
 }
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "ecr_feed_parser" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name      = "ecr-repo-feed-parser-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    repo_arn          = module.ecr_feed_parser.repo_arn
+    repo_url          = module.ecr_feed_parser.repo_url
   }
 }
