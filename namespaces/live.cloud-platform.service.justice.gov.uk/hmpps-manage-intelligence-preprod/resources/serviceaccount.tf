@@ -79,7 +79,7 @@ module "service_account" {
   source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
-  serviceaccount_name                  = "hmpps-portfolio-management"
+  serviceaccount_name                  = "manage-intelligence-ga"
   github_environments                  = [var.environment]
   github_repositories                  = local.github_repos
   github_actions_secret_kube_cert      = "${upper(var.environment)}_KUBE_CERT"
