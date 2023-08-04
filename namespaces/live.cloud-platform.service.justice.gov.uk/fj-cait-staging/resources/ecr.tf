@@ -3,7 +3,8 @@ module "ecr-repo" {
 
   team_name = var.team_name
   repo_name = var.repo_name
-
+  
+  oidc_providers = ["github"]
   github_repositories = [var.repo_name]
 }
 
