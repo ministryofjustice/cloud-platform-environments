@@ -82,5 +82,5 @@ module "ecr" {
   team_name              = var.team_name # also used for naming the container repository
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
-  1infrastructure_support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
 }
