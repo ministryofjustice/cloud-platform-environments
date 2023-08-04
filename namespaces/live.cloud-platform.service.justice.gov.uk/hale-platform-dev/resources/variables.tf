@@ -81,10 +81,10 @@ variable "github_actions_secret_kube_token" {
 
 variable "github_actions_secret_ecr_name" {
   description = "The name of the github actions secret containing the ECR name"
-  default     = "ECR_NAME"
+  default     = "DEV_ECR_NAME"
 }
 
 variable "github_actions_secret_ecr_url" {
   description = "The name of the github actions secret containing the ECR URL"
-  default     = "ECR_URL"
+  default     = "DEV_ECR_URL"
 }

@@ -42,11 +42,11 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["hale-platform"]
+  github_repositories = ["feed-parser"]
 
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["Development"]
+  # github_environments = []
 
   # OPTIONAL:
   # set this if you use one GitHub repository to push to multiple container repositories
@@ -59,7 +59,7 @@ module "ecr_credentials" {
 
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name      = "ecr-repo-feed-parser-${var.namespace}"
     namespace = var.namespace
   }
 
