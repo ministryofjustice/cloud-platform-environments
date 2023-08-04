@@ -24,6 +24,7 @@ module "irsa" {
     s3_rds              = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
     s3_extractor        = module.manage_intelligence_extractor_bucket.irsa_policy_arn
     s3_transformer      = module.manage_intelligence_transformer_bucket.irsa_policy_arn
+    rds                 = module.rds_aurora.irsa_policy_arn
   }
 
   # Tags
