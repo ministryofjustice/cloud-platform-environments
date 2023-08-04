@@ -1,10 +1,10 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue"    = "offender-events-dev"
-    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl" = "offender-events-dev"
+    "Digital-Prison-Services-prod-hmpps_tier_offender_events_queue"    = "offender-events-prod"
+    "Digital-Prison-Services-prod-hmpps_tier_offender_events_queue_dl" = "offender-events-prod"
   }
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
