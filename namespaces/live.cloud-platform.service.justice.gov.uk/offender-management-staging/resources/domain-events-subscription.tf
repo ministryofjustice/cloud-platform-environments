@@ -3,11 +3,6 @@ resource "aws_sns_topic_subscription" "domain_events" {
   topic_arn = data.aws_ssm_parameter.domain_events_topic_arn.value
   protocol  = "sqs"
   endpoint  = module.domain_events_sqs_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "adjudication.report.created"
-    ]
-  })
 }
 
 module "domain_events_sqs_queue" {
