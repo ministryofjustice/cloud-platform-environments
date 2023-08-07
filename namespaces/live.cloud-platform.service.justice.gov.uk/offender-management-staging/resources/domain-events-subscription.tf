@@ -18,7 +18,7 @@ module "domain_events_sqs_queue" {
   namespace                 = var.namespace
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.domain_events_sqs_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.domain_events_sqs_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -55,7 +55,7 @@ EOF
 
 }
 
-module "domain_events_sqs_dead_letter_queue" {
+module "domain_events_sqs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment_name
@@ -81,9 +81,9 @@ resource "kubernetes_secret" "domain_events" {
     DOMAIN_EVENTS_SQS_QUEUE_URL  = module.domain_events_sqs_queue.sqs_id
     DOMAIN_EVENTS_SQS_QUEUE_ARN  = module.domain_events_sqs_queue.sqs_arn
     DOMAIN_EVENTS_SQS_QUEUE_NAME = module.domain_events_sqs_queue.sqs_name
-    DOMAIN_EVENTS_SQS_DLQ_URL    = module.domain_events_sqs_dead_letter_queue.sqs_id
-    DOMAIN_EVENTS_SQS_DLQ_ARN    = module.domain_events_sqs_dead_letter_queue.sqs_arn
-    DOMAIN_EVENTS_SQS_DLQ_NAME   = module.domain_events_sqs_dead_letter_queue.sqs_name
+    DOMAIN_EVENTS_SQS_DLQ_URL    = module.domain_events_sqs_dlq.sqs_id
+    DOMAIN_EVENTS_SQS_DLQ_ARN    = module.domain_events_sqs_dlq.sqs_arn
+    DOMAIN_EVENTS_SQS_DLQ_NAME   = module.domain_events_sqs_dlq.sqs_name
   }
 }
 
