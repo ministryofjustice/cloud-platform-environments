@@ -58,7 +58,7 @@ resource "aws_cognito_user_pool_client" "maat_client_prd" {
   generate_secret                      = true
 }
 
-// CFE Crime
+# CFE Crime
 
 resource "aws_cognito_user_pool_client" "cfe_client_dev" {
   name                                 = var.cognito_user_pool_cfe_client_name_dev
