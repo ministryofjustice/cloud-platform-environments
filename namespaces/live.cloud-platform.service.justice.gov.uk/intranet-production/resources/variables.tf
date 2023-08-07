@@ -71,5 +71,5 @@ variable "github_token" {
 variable "app_repo" {
   type        = string
   description = "Name of application repository"
-  default     = "intranet"
+  default     = "moj-intranet"
 }
