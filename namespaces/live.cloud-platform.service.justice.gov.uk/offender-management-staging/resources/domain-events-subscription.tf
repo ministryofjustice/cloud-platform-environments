@@ -3,11 +3,6 @@ resource "aws_sns_topic_subscription" "domain_events" {
   topic_arn = data.aws_ssm_parameter.domain_events_topic_arn.value
   protocol  = "sqs"
   endpoint  = module.domain_events_sqs_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "adjudication.report.created"
-    ]
-  })
 }
 
 module "domain_events_sqs_queue" {
@@ -23,7 +18,7 @@ module "domain_events_sqs_queue" {
   namespace                 = var.namespace
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.domain_events_sqs_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.domain_events_sqs_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -60,7 +55,7 @@ EOF
 
 }
 
-module "domain_events_sqs_dead_letter_queue" {
+module "domain_events_sqs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment_name
@@ -76,29 +71,19 @@ module "domain_events_sqs_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "domain_events_sqs_queue" {
+resource "kubernetes_secret" "domain_events" {
   metadata {
-    name      = "domain-events-sqs-queue"
+    name      = "domain-events"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.domain_events_sqs_queue.sqs_id
-    sqs_queue_arn  = module.domain_events_sqs_queue.sqs_arn
-    sqs_queue_name = module.domain_events_sqs_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "domain_events_dlq" {
-  metadata {
-    name      = "domain-events-dlq"
-    namespace = var.namespace
-  }
-
-  data = {
-    sqs_queue_url  = module.domain_events_sqs_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.domain_events_sqs_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.domain_events_sqs_dead_letter_queue.sqs_name
+    DOMAIN_EVENTS_SQS_QUEUE_URL  = module.domain_events_sqs_queue.sqs_id
+    DOMAIN_EVENTS_SQS_QUEUE_ARN  = module.domain_events_sqs_queue.sqs_arn
+    DOMAIN_EVENTS_SQS_QUEUE_NAME = module.domain_events_sqs_queue.sqs_name
+    DOMAIN_EVENTS_SQS_DLQ_URL    = module.domain_events_sqs_dlq.sqs_id
+    DOMAIN_EVENTS_SQS_DLQ_ARN    = module.domain_events_sqs_dlq.sqs_arn
+    DOMAIN_EVENTS_SQS_DLQ_NAME   = module.domain_events_sqs_dlq.sqs_name
   }
 }
 
