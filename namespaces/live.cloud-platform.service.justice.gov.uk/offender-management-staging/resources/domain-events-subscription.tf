@@ -71,29 +71,19 @@ module "domain_events_sqs_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "domain_events_sqs_queue" {
+resource "kubernetes_secret" "domain_events" {
   metadata {
-    name      = "domain-events-sqs-queue"
+    name      = "domain-events"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.domain_events_sqs_queue.sqs_id
-    sqs_queue_arn  = module.domain_events_sqs_queue.sqs_arn
-    sqs_queue_name = module.domain_events_sqs_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "domain_events_dlq" {
-  metadata {
-    name      = "domain-events-dlq"
-    namespace = var.namespace
-  }
-
-  data = {
-    sqs_queue_url  = module.domain_events_sqs_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.domain_events_sqs_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.domain_events_sqs_dead_letter_queue.sqs_name
+    DOMAIN_EVENTS_SQS_QUEUE_URL  = module.domain_events_sqs_queue.sqs_id
+    DOMAIN_EVENTS_SQS_QUEUE_ARN  = module.domain_events_sqs_queue.sqs_arn
+    DOMAIN_EVENTS_SQS_QUEUE_NAME = module.domain_events_sqs_queue.sqs_name
+    DOMAIN_EVENTS_SQS_DLQ_URL    = module.domain_events_sqs_dead_letter_queue.sqs_id
+    DOMAIN_EVENTS_SQS_DLQ_ARN    = module.domain_events_sqs_dead_letter_queue.sqs_arn
+    DOMAIN_EVENTS_SQS_DLQ_NAME   = module.domain_events_sqs_dead_letter_queue.sqs_name
   }
 }
 
