@@ -37,7 +37,7 @@ module "ecr-repo" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the container repository
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
