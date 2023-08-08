@@ -10,10 +10,6 @@ module "ecr-repo" {
   # specify which GitHub repository you're pushing from
   github_repositories = ["operations-engineering-reports"]
 
-  # set this if you use one GitHub repository to push to multiple container repositories
-  # this ensures the variable key used in the workflow is unique
-  github_actions_prefix = "production"
-
   # these will soon be deprecated in favour of the above
   github_actions_secret_ecr_name       = "DEV_ECR_NAME"
   github_actions_secret_ecr_url        = "DEV_ECR_URL"
