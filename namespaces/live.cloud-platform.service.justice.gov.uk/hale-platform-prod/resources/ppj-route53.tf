@@ -23,12 +23,12 @@ resource "kubernetes_secret" "ppj_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "ppj_route53_a_record" {
-  zone_id = "Z1VG2XS4QRU068" # this is in MOJ DSD
+  zone_id = aws_route53_zone.ppj_route53_zone.zone_id
   name    = "prisonandprobationjobs.gov.uk"
   type    = "A"
 
   alias {
-    name                   = "ppj-p-LoadB-1V5G2CM5SI0DU-1234011937.eu-west-2.elb.amazonaws.com"
+    name                   = "dualstack.ppj-p-loadb-1v5g2cm5si0du-1234011937.eu-west-2.elb.amazonaws.com."
     zone_id                = "ZHURV8PSTC4K8"
     evaluate_target_health = false
   }
@@ -105,4 +105,3 @@ resource "aws_route53_record" "ppj_route53_cname_record_acm2" {
   ttl     = "300"
   records = ["_6febb02e2ca1986bfb8a1c6a3f108ef0.acm-validations.aws"]
 }
-
