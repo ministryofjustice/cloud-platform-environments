@@ -1,9 +1,7 @@
 module "ap_irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace        = var.namespace
-  variable "eks_cluster_name" {
-      description = "The name of the eks cluster to retrieve the OIDC information"
-  }
+  eks_cluster_name var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.ap_policy.arn]
   service_account_name  = "${var.namespace}-to-ap-s3"
 
