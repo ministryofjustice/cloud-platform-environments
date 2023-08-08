@@ -15,9 +15,6 @@ module "rds" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  # change the postgres version as you see fit.
-  db_engine_version = "11"
-
   # change the instance class as you see fit.
   db_instance_class = "db.t3.small"
   db_max_allocated_storage = "500"
