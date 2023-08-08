@@ -118,7 +118,7 @@ resource "kubernetes_secret" "ims_transformer_queue" {
   data = {
     sqs_id            = module.ims_transformer_queue.sqs_id
     sqs_arn           = module.ims_transformer_queue.sqs_arn
-    sqs_name          = module.ims_trasnformer_queue.sqs_name
+    sqs_name          = module.ims_transformer_queue.sqs_name
   }
 }
 
