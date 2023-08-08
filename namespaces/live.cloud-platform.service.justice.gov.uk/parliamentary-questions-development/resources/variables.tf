@@ -34,6 +34,10 @@ variable "team_name" {
   default = "pq-team"
 }
 
+variable "business_unit" {
+  default = "HQ"
+}
+
 # The following variable is provided at runtime by the pipeline.
 
 variable "vpc_name" {
