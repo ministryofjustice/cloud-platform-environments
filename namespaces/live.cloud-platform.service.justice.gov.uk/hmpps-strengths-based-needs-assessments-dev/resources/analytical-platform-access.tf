@@ -81,15 +81,3 @@ resource "kubernetes_secret" "ap_aws_secret" {
     secret_access_key  = aws_iam_access_key.user.secret
   }
 }
-
-resource "kubernetes_secret" "ap_irsa" {
-  metadata {
-    name      = "to-ap-s3-irsa"
-    namespace = var.namespace
-  }
-
-  data = {
-    role           = module.ap_irsa.aws_iam_role_name
-    serviceaccount = module.ap_irsa.service_account.name
-  }
-}
