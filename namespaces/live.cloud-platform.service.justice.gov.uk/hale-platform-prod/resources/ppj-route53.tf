@@ -28,8 +28,8 @@ resource "aws_route53_record" "ppj_route53_a_record" {
   type    = "A"
 
   alias {
-    name                   = "dualstack.ppj-p-loadb-1v5g2cm5si0du-1234011937.eu-west-2.elb.amazonaws.com."
-    zone_id                = "Z10430412KWXTD8J6R39X"
+    name                   = "ppj-p-LoadB-1V5G2CM5SI0DU-1234011937.eu-west-2.elb.amazonaws.com"
+    zone_id                = "ZHURV8PSTC4K8"
     evaluate_target_health = false
   }
 
