@@ -5,8 +5,8 @@
  *
  */
 
-module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
+module "ecr_credentials" {
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   deletion_protection = false
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
