@@ -31,3 +31,27 @@ module "manage_intelligence_transformer_bucket" {
     aws = aws.london
   }
 }
+
+resource "kubernetes_secret" "ims_extractor_s3_bucket" {
+  metadata {
+    name      = "ims-extractor-s3-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn        = module.manage_intelligence_extractor_bucket.bucket_arn
+    bucket_name       = module.manage_intelligence_extractor_bucket.bucket_name
+  }
+}
+
+resource "kubernetes_secret" "ims_transformer_s3_bucket" {
+  metadata {
+    name      = "ims-transformer-s3-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn        = module.manage_intelligence_transformer_bucket.bucket_arn
+    bucket_name       = module.manage_intelligence_transformer_bucket.bucket_name
+  }
+}
