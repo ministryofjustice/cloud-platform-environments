@@ -82,3 +82,55 @@ module "ims_transformer_dead_letter_queue" {
     aws = aws.london
   }
 }
+
+resource "kubernetes_secret" "ims_extractor_queue" {
+  metadata {
+    name      = "ims-extractor-queue-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id            = module.ims_extractor_queue.sqs_id
+    sqs_arn           = module.ims_extractor_queue.sqs_arn
+    sqs_name          = module.ims_extractor_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "ims_extractor_dead_letter_queue" {
+  metadata {
+    name      = "ims-extractor-dlq-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id            = module.ims_extractor_dead_letter_queue.sqs_id
+    sqs_arn           = module.ims_extractor_dead_letter_queue.sqs_arn
+    sqs_name          = module.ims_extractor_dead_letter_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "ims_transformer_queue" {
+  metadata {
+    name      = "ims-transformer-queue-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id            = module.ims_transformer_queue.sqs_id
+    sqs_arn           = module.ims_transformer_queue.sqs_arn
+    sqs_name          = module.ims_trasnformer_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "ims_transformer_dead_letter_queue" {
+  metadata {
+    name      = "ims-transformer-dlq-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id            = module.ims_transformer_dead_letter_queue.sqs_id
+    sqs_arn           = module.ims_transformer_dead_letter_queue.sqs_arn
+    sqs_name          = module.ims_transformer_dead_letter_queue.sqs_name
+  }
+}
