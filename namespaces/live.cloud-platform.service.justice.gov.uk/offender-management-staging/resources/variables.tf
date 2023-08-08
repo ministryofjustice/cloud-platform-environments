@@ -1,11 +1,3 @@
-/*
- * When using this module through the cloud-platform-environments, the following
- * variable is automatically supplied by the pipeline.
- *
- */
-variable "vpc_name" {
-}
-
 variable "environment_name" {
   default = "staging"
 }
@@ -45,3 +37,19 @@ variable "github_token" {
   default     = ""
 }
 
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variables are automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+  type = string
+}
+
+variable "eks_cluster_name" {
+  type = string
+}
+
+variable "kubernetes_cluster" {
+  type = string
+}
