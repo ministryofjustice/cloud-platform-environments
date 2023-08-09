@@ -13,7 +13,7 @@ module "ecr_credentials" {
   oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["cfe-civil"]
+  github_repositories = ["cfe-civil", "laa-estimate-financial-eligibility-for-legal-aid"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
