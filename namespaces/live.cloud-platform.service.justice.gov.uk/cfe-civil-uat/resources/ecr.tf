@@ -12,7 +12,7 @@ module "ecr_credentials" {
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
   oidc_providers = ["circleci"]
 
-  # REQUIRED: GitHub repositories that push to this container repository
+  # REQUIRED: GitHub repositories, whose CI will be provided with short-term credentials to access this container repository
   github_repositories = ["cfe-civil", "laa-estimate-financial-eligibility-for-legal-aid"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
