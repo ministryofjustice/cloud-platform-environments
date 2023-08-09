@@ -12,7 +12,7 @@ module "ecr-repo" {
   oidc_providers = ["circleci"]
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [repo_name]
+  github_repositories = [var.repo_name]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
