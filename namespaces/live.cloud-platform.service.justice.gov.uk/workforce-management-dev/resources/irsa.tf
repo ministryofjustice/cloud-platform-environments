@@ -1,7 +1,7 @@
 locals {
   sqs_queues = {
-    "hmpps-allocations-offender-events-sqs-instance-output" = "offender_events-dev"
-    "hmpps-allocations-offender-events-sqs-dl-instance-output" = "offender_events-dev"
+    "Digital-Prison-Services-dev-hmpps-allocations-offender-events-sqs-instance-output" = "offender_events-dev"
+    "Digital-Prison-Services-dev-hmpps-allocations-offender-events-sqs-dl-instance-output" = "offender_events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
