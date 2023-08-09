@@ -13,6 +13,7 @@ module "irsa" {
   role_policy_arns = {
     domain_events_sqs     = module.domain_events_sqs_queue.irsa_policy_arn
     domain_events_sqs_dlq = module.domain_events_sqs_dlq.irsa_policy_arn
+    domain_events_sns     = data.aws_ssm_parameter.irsa_policy_arn_sns_domain_events.value
   }
 
   # Tags
@@ -22,4 +23,8 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_ssm_parameter" "irsa_policy_arn_sns_domain_events" {
+  name = "/hmpps-domain-events-dev/sns/cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573/irsa-policy-arn"
 }
