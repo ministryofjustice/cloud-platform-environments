@@ -1,9 +1,17 @@
-variable "environment" {
+variable "environment_name" {
   default = "test"
 }
 
 variable "team_name" {
   default = "offender-management"
+}
+
+variable "application" {
+  default = "offender-management-allocation-manager"
+}
+
+variable "business_unit" {
+  default = "HMPPS"
 }
 
 variable "is_production" {
@@ -29,3 +37,19 @@ variable "github_token" {
   default     = ""
 }
 
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variables are automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+  type = string
+}
+
+variable "eks_cluster_name" {
+  type = string
+}
+
+variable "kubernetes_cluster" {
+  type = string
+}
