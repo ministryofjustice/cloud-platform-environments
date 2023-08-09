@@ -44,8 +44,6 @@ resource "kubernetes_secret" "track_a_query_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.track_a_query_ecr_credentials.access_key_id
-    secret_access_key = module.track_a_query_ecr_credentials.secret_access_key
     repo_arn          = module.track_a_query_ecr_credentials.repo_arn
     repo_url          = module.track_a_query_ecr_credentials.repo_url
   }
