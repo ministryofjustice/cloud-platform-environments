@@ -43,9 +43,6 @@ variable "additional_topic_clients" {
     "make-recall-decision-dev",
     "offender-case-notes-dev",
     "offender-events-dev",
-    "offender-management-staging",
-    "offender-management-test",
-    "offender-management-test2",
     "prisoner-offender-search-dev",
     "visit-someone-in-prison-backend-svc-dev",
   ]
