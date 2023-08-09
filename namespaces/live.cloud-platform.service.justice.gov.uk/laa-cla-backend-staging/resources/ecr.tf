@@ -7,6 +7,12 @@ module "ecr-repo" {
   providers = {
     aws = aws.london
   }
+
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = [var.repo_name]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
