@@ -16,14 +16,12 @@ module "apply-for-legal-aid-rds" {
   environment-name         = "production"
   infrastructure-support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   db_engine                = "postgres"
-  db_engine_version        = "14.7"
-  db_instance_class        = "db.t3.large"
+  db_engine_version        = "14"
+  db_instance_class        = "db.t4g.small"
   db_name                  = "apply_for_legal_aid_production"
   rds_family               = "postgres14"
   db_max_allocated_storage = "500"
   deletion_protection      = true
-
-  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
