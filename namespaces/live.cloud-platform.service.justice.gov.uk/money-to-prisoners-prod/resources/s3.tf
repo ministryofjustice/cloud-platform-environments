@@ -6,8 +6,8 @@ module "s3" {
     aws = aws.london
   }
 
-  team_name              = var.team_name
   business-unit          = var.business_unit
+  team_name              = var.team_name
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
