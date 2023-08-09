@@ -8,7 +8,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "workforce-management-dev"
+  default     = "workforce-management"
 }
 
 variable "namespace" {
