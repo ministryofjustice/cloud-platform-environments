@@ -1,7 +1,7 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps-allocations-offender-events-sqs-instance-output"    = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-hmpps-allocations-offender-events-sqs-dl-instance-output" = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-hmpps_allocation_domain_events_queue"    = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-hmpps_allocations_offender_events_dead_letter_queue" = "offender-events-preprod"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
