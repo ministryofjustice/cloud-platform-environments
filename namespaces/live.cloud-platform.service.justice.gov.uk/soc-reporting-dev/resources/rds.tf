@@ -16,7 +16,7 @@ module "rds" {
   infrastructure-support = var.infrastructure_support
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
@@ -24,7 +24,7 @@ module "rds" {
   rds_family = "postgres14"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  prepare_for_major_upgrade = "true"
+  prepare_for_major_upgrade = "false"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
