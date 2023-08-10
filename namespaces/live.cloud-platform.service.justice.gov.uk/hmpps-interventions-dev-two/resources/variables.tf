@@ -3,9 +3,8 @@
 variable "vpc_name" {
 }
 
-variable "kubernetes_cluster" {
-  description = "Kubernetes cluster name for references to secrets for service accounts"
-  type        = string
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "application" {
