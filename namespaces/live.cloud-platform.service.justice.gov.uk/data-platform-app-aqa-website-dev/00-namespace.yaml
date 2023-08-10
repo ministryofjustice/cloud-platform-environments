@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "aqa-website"
     cloud-platform.justice.gov.uk/owner: "AQA Corporate Group: asd-aqa-group@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/aqa_website"
-    cloud-platform.justice.gov.uk/team-name: "https://github.com/orgs/moj-analytical-services/teams/aqa-website-admin"
+    cloud-platform.justice.gov.uk/team-name: "aqa-website-admin"
     cloud-platform.justice.gov.uk/review-after: ""

@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-aqa-website-dev
 subjects:
   - kind: Group
-    name: "github:https://github.com/orgs/moj-analytical-services/teams/aqa-website-admin"
+    name: "github:aqa-website-admin"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
