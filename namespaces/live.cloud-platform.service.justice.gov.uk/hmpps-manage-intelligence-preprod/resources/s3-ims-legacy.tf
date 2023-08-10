@@ -64,11 +64,13 @@ module "manage_intelligence_logging_bucket" {
             "s3:PutObject"
         ],
         "Resource": "$${bucket_arn}",
+        /* 
         "Condition": {
             "ArnLike": {
                 "aws:SourceArn": 
  ["${module.manage_intelligence_extractor_bucket.bucket_arn}/*", "${module.manage_intelligence_transformer_bucket.bucket_arn}/*"]
             }
+        */
         }
     }
   ]
