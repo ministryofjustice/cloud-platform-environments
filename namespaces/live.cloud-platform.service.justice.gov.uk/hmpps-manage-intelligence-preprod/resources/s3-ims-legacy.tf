@@ -82,7 +82,7 @@ resource "kubernetes_secret" "ims_transformer_s3_bucket" {
 
 resource "kubernetes_secret" "ims_logging_s3_bucket" {
   metadata {
-    name      = "ims-transformer-s3-output"
+    name      = "ims-logging-s3-output"
     namespace = var.namespace
   }
 
