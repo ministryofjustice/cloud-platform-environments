@@ -16,7 +16,7 @@ data "kubernetes_secret_v1" "service_account_secret" {
     namespace = var.namespace
   }
 
-  depends_on = [ module.github_actions_service_account ]
+  depends_on = [module.github_actions_service_account]
 }
 
 resource "github_actions_environment_secret" "github_secrets" {

@@ -168,6 +168,31 @@ variable "cognito_user_pool_maat_client_name_prd" {
   default     = "maat-client-prd"
 }
 
+variable "cognito_user_pool_cfe_client_name_dev" {
+  description = "Cognito user pool CFE client name"
+  default     = "cfe-client-dev"
+}
+
+variable "cognito_user_pool_cfe_client_name_tst" {
+  description = "Cognito user pool CFE client name"
+  default     = "cfe-client-tst"
+}
+
+variable "cognito_user_pool_cfe_client_name_uat" {
+  description = "Cognito user pool CFE client name"
+  default     = "cfe-client-uat"
+}
+
+variable "cognito_user_pool_cfe_client_name_stg" {
+  description = "Cognito user pool CFE client name"
+  default     = "cfe-client-stg"
+}
+
+variable "cognito_user_pool_cfe_client_name_prd" {
+  description = "Cognito user pool CFE client name"
+  default     = "cfe-client-prd"
+}
+
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"

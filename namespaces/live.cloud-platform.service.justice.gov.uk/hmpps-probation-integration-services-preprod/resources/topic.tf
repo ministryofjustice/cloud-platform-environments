@@ -3,7 +3,7 @@ data "aws_sns_topic" "hmpps-domain-events" {
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-policy-arn" {
-  name     = "/hmpps-domain-events-${var.environment_name}/sns/${data.aws_sns_topic.hmpps-domain-events.name}/irsa-policy-arn"
+  name = "/hmpps-domain-events-${var.environment_name}/sns/${data.aws_sns_topic.hmpps-domain-events.name}/irsa-policy-arn"
 }
 
 data "aws_sns_topic" "prison-offender-events" {
@@ -15,5 +15,5 @@ data "aws_sns_topic" "probation-offender-events" {
 }
 
 data "aws_ssm_parameter" "probation-offender-events-policy-arn" {
-  name     = "/offender-events-${var.environment_name}/sns/${data.aws_sns_topic.probation-offender-events.name}/irsa-policy-arn"
+  name = "/offender-events-${var.environment_name}/sns/${data.aws_sns_topic.probation-offender-events.name}/irsa-policy-arn"
 }

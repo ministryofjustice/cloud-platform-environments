@@ -47,9 +47,6 @@ resource "kubernetes_secret" "contact-moj_rds" {
     database_password     = module.contact-moj_rds.database_password
     rds_instance_address  = module.contact-moj_rds.rds_instance_address
 
-    access_key_id     = module.contact-moj_rds.access_key_id
-    secret_access_key = module.contact-moj_rds.secret_access_key
-
     url = "postgres://${module.contact-moj_rds.database_username}:${module.contact-moj_rds.database_password}@${module.contact-moj_rds.rds_instance_endpoint}/${module.contact-moj_rds.database_name}"
   }
 }

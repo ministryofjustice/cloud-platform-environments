@@ -70,3 +70,8 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "dp_dev_account" {
+  description = "Destination account superset deployment"
+  default     = "013433889002" # nomis-production
+}

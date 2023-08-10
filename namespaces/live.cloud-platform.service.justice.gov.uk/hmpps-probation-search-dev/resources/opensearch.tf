@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -11,7 +11,8 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.5"
+  engine_version      = "OpenSearch_2.7"
+  snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count = 2
     instance_type  = "t3.medium.search"
@@ -20,6 +21,18 @@ module "opensearch" {
   ebs_options = {
     volume_size = 30
   }
+}
+
+module "opensearch_snapshot_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+
+  application            = var.application
+  business-unit          = var.business_unit
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+  is-production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "kubernetes_secret" "probation_search_url" {

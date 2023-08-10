@@ -60,9 +60,7 @@ resource "kubernetes_secret" "prison-case-notes-to-probation-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.prison-case-notes-to-probation-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.prison-case-notes-to-probation-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.prison-case-notes-to-probation-queue.secret_access_key
+    QUEUE_NAME = module.prison-case-notes-to-probation-queue.sqs_name
   }
 }
 

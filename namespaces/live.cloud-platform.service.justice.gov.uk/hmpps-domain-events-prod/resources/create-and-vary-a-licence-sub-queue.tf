@@ -69,7 +69,13 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   topic_arn     = module.hmpps-domain-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.cvl_domain_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.released", 
+      "prison-offender-events.prisoner.received",
+      "prisoner-offender-search.prisoner.updated"
+    ]
+  })
 }
 
 resource "kubernetes_secret" "create_and_vary_a_licence_domain_events_queue" {

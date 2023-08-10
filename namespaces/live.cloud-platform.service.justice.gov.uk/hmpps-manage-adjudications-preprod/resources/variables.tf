@@ -11,7 +11,6 @@ variable "namespace" {
   default = "hmpps-manage-adjudications-preprod"
 }
 
-
 variable "vpc_name" {
 }
 
@@ -64,3 +63,6 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

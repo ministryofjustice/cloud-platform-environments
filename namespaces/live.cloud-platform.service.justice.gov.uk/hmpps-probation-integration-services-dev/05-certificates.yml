@@ -373,3 +373,18 @@ spec:
   dnsNames:
     - 5cf0b2a7-dev.hmpps.service.justice.gov.uk
     - resettlement-passport-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-education-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: prison-education-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 147ffc36-dev.hmpps.service.justice.gov.uk
+    - prison-education-and-delius-dev.hmpps.service.justice.gov.uk
