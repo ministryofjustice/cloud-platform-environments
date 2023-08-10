@@ -8,7 +8,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "workforce-management-dev"
+  default     = "workforce-management"
 }
 
 variable "namespace" {
@@ -56,4 +56,8 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

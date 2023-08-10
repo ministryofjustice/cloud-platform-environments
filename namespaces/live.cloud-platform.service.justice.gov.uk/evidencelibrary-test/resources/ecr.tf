@@ -8,17 +8,16 @@ module "ecr-repo" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories = ["evidence-library"]
+  oidc_providers = ["github"]
 }
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-${var.namespace}"
+    name = "ecr-repo-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    repo_url          = module.ecr-repo.repo_url
-    access_key_id     = module.ecr-repo.access_key_id
-    secret_access_key = module.ecr-repo.secret_access_key
+    repo_url = module.ecr-repo.repo_url
   }
 }

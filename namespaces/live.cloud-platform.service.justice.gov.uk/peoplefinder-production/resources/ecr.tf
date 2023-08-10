@@ -43,8 +43,6 @@ resource "kubernetes_secret" "peoplefinder_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.peoplefinder_ecr_credentials.access_key_id
-    secret_access_key = module.peoplefinder_ecr_credentials.secret_access_key
     repo_arn          = module.peoplefinder_ecr_credentials.repo_arn
     repo_url          = module.peoplefinder_ecr_credentials.repo_url
   }
