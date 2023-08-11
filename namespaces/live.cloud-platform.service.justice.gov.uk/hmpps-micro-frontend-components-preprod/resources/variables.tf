@@ -9,6 +9,11 @@ variable "application" {
   default     = "hmpps-micro-frontend-components"
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "namespace" {
   default = "hmpps-micro-frontend-components-preprod"
 }
