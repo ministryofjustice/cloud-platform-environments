@@ -10,7 +10,7 @@ module "irsa_servicepod" {
 
   # Attach the approprate policies using a key => value map
   role_policy_arns = {
-    ecr  = module.ecr.irsa_policy_arn
+    ecr  = module.ecr_credentials.irsa_policy_arn
   }
 
   # Tags
