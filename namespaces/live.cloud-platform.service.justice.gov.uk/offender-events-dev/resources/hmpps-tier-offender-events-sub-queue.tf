@@ -19,9 +19,8 @@ module "hmpps_tier_offender_events_queue" {
 
 EOF
 
-
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
@@ -66,7 +65,7 @@ module "hmpps_tier_offender_events_dead_letter_queue" {
   namespace              = var.namespace
 
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
