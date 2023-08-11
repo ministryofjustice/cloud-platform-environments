@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "https://app.slack.com/client/T1PU1AP6D/C01U965UE82"
     cloud-platform.justice.gov.uk/application: "aqa-website"
     cloud-platform.justice.gov.uk/owner: "AQA Corporate Group: asd-aqa-group@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/aqa_website"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/aqa-website"
     cloud-platform.justice.gov.uk/team-name: "aqa-website-admin"
     cloud-platform.justice.gov.uk/review-after: ""
