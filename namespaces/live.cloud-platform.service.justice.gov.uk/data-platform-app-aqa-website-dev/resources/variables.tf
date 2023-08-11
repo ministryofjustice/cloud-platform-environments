@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "https://github.com/orgs/moj-analytical-services/teams/aqa-website-admin"
+  default     = "aqa-website-admin"
 }
 
 variable "environment" {
