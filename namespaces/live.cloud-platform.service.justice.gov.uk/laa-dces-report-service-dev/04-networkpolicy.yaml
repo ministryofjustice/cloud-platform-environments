@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: laa-dces-report-service-dev
+      app: laa-dces-report-service
   policyTypes:
     - Ingress
   ingress:
