@@ -19,6 +19,16 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+provider "aws" {
+  alias  = "probation-integration"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "probation-integration"
+    }
+  }
+}
+
 provider "random" {}
 
 provider "github" {
