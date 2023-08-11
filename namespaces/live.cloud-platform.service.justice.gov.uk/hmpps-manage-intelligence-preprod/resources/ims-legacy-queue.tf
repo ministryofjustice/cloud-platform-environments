@@ -90,9 +90,9 @@ resource "kubernetes_secret" "ims_extractor_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_extractor_queue.sqs_id
-    sqs_arn           = module.ims_extractor_queue.sqs_arn
-    sqs_name          = module.ims_extractor_queue.sqs_name
+    sqs_id   = module.ims_extractor_queue.sqs_id
+    sqs_arn  = module.ims_extractor_queue.sqs_arn
+    sqs_name = module.ims_extractor_queue.sqs_name
   }
 }
 
@@ -103,9 +103,9 @@ resource "kubernetes_secret" "ims_extractor_dead_letter_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_extractor_dead_letter_queue.sqs_id
-    sqs_arn           = module.ims_extractor_dead_letter_queue.sqs_arn
-    sqs_name          = module.ims_extractor_dead_letter_queue.sqs_name
+    sqs_id   = module.ims_extractor_dead_letter_queue.sqs_id
+    sqs_arn  = module.ims_extractor_dead_letter_queue.sqs_arn
+    sqs_name = module.ims_extractor_dead_letter_queue.sqs_name
   }
 }
 
@@ -116,9 +116,9 @@ resource "kubernetes_secret" "ims_transformer_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_transformer_queue.sqs_id
-    sqs_arn           = module.ims_transformer_queue.sqs_arn
-    sqs_name          = module.ims_transformer_queue.sqs_name
+    sqs_id   = module.ims_transformer_queue.sqs_id
+    sqs_arn  = module.ims_transformer_queue.sqs_arn
+    sqs_name = module.ims_transformer_queue.sqs_name
   }
 }
 
@@ -129,8 +129,8 @@ resource "kubernetes_secret" "ims_transformer_dead_letter_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_transformer_dead_letter_queue.sqs_id
-    sqs_arn           = module.ims_transformer_dead_letter_queue.sqs_arn
-    sqs_name          = module.ims_transformer_dead_letter_queue.sqs_name
+    sqs_id   = module.ims_transformer_dead_letter_queue.sqs_id
+    sqs_arn  = module.ims_transformer_dead_letter_queue.sqs_arn
+    sqs_name = module.ims_transformer_dead_letter_queue.sqs_name
   }
 }
