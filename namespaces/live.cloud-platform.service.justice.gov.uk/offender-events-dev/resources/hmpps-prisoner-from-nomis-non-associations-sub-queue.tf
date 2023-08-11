@@ -71,7 +71,7 @@ module "prisoner_from_nomis_non_associations_dead_letter_queue" {
 
 resource "kubernetes_secret" "prisoner_from_nomis_non_associations_queue" {
   metadata {
-    name      = "prisoner-from-nomis-non_associations-queue"
+    name      = "prisoner-from-nomis-non-associations-queue"
     namespace = "hmpps-prisoner-from-nomis-migration-dev"
   }
 
@@ -84,7 +84,7 @@ resource "kubernetes_secret" "prisoner_from_nomis_non_associations_queue" {
 
 resource "kubernetes_secret" "prisoner_from_nomis_non_associations_dead_letter_queue" {
   metadata {
-    name      = "prisoner-from-nomis-non_associations-dl-queue"
+    name      = "prisoner-from-nomis-non-associations-dl-queue"
     namespace = "hmpps-prisoner-from-nomis-migration-dev"
   }
 
