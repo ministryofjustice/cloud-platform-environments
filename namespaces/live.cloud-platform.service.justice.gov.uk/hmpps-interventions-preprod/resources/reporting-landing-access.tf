@@ -3,7 +3,7 @@ module "reporting_irsa" {
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.ndmis_policy.arn]
-  service_account  = "${var.namespace}-to-ndmis-s3"
+  service_account  = "hmpps-interventions-to-ndmis-s3"
 }
 
 resource "aws_iam_policy" "ndmis_policy" {
