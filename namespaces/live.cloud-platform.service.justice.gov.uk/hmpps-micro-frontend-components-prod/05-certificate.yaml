@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-micro-frontend-components-cert
+  namespace: hmpps-micro-frontend-components-prod
+spec:
+  secretName: hmpps-micro-frontend-components-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - frontend-components.hmpps.service.justice.gov.uk
