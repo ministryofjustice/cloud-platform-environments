@@ -3,7 +3,7 @@ module "ap_irsa" {
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.ap_policy.arn]
-  service_account  = "${var.namespace}-to-ap-s3"
+  service_account  = "hmpps-interventions-to-ap-s3"
 }
 
 resource "aws_iam_policy" "ap_policy" {
