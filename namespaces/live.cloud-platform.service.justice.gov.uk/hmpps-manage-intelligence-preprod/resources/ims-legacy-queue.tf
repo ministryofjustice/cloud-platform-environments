@@ -1,11 +1,12 @@
 module "ims_extractor_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=fifo-fix"
 
   environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
-  sqs_name                   = "ims_extractor_queue_${var.environment}"
+  sqs_name                   = "ims_extractor_queue_${var.environment}.fifo"
+  fifo_queue                 = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -25,13 +26,14 @@ EOF
 }
 
 module "ims_extractor_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=fifo-fix"
 
   environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "ims_extractor_dl_queue_${var.environment}"
+  sqs_name               = "ims_extractor_dl_queue_${var.environment}.fifo"
+    fifo_queue           = true
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
@@ -42,13 +44,14 @@ module "ims_extractor_dead_letter_queue" {
 
 
 module "ims_transformer_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=fifo-fix"
 
   environment-name           = var.environment
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
-  sqs_name                   = "ims_transformer_queue_${var.environment}"
+  sqs_name                   = "ims_transformer_queue_${var.environment}.fifo"
+    fifo_queue               = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -68,13 +71,14 @@ EOF
 }
 
 module "ims_transformer_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=fifo-fix"
 
   environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
-  sqs_name               = "ims_transformer_dl_queue_${var.environment}"
+  sqs_name               = "ims_transformer_dl_queue_${var.environment}.fifo"
+  fifo_queue             = true
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
 
