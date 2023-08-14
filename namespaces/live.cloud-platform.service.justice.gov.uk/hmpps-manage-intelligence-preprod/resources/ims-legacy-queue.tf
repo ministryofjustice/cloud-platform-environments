@@ -1,5 +1,5 @@
 module "ims_extractor_queue" {
-  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.1"
 
   environment-name           = var.environment
   team_name                  = var.team_name
@@ -26,7 +26,7 @@ EOF
 }
 
 module "ims_extractor_dead_letter_queue" {
-  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.1"
 
   environment-name       = var.environment
   team_name              = var.team_name
@@ -44,7 +44,7 @@ module "ims_extractor_dead_letter_queue" {
 
 
 module "ims_transformer_queue" {
-  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.1"
 
   environment-name           = var.environment
   team_name                  = var.team_name
@@ -71,7 +71,7 @@ EOF
 }
 
 module "ims_transformer_dead_letter_queue" {
-  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/carrb-moj/cloud-platform-terraform-sqs?ref=4.12.1"
 
   environment-name       = var.environment
   team_name              = var.team_name
