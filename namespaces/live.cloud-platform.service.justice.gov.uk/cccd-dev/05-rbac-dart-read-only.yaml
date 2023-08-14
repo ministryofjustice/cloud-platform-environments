@@ -4,7 +4,10 @@ metadata:
   name: cccd-dev-dart-team
   namespace: cccd-dev
 rules:
-- apiGroups: [""] # "" indicates the core API group
+- apiGroups: [""]
   resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["pods/portforward"] # allows port forwarding on a pod
   resourceNames: ["port-forward-pod"]
-  verbs: ["get"]
+  verbs: ["create"]
