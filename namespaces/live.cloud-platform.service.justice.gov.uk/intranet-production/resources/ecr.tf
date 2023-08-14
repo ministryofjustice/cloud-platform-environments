@@ -5,7 +5,7 @@
  *
  */
 module "intranet_ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   repo_name = "intranet-ecr" # Arbitrary module name does not need to reference any existing modules
 
