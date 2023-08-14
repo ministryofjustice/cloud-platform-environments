@@ -15,7 +15,7 @@ variable "db_backup_retention_period" {
 }
 
 variable "db_instance_class" {
-  default = "db.t3.large"
+  default = "db.t4g.small"
 }
 
 variable "infrastructure_support" {
