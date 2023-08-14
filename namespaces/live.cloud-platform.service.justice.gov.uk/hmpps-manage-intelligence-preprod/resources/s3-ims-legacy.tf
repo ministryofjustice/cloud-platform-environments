@@ -61,9 +61,11 @@ module "manage_intelligence_logging_bucket" {
             "Service": "logging.s3.amazonaws.com"
         },
         "Action": [
-            "s3:PutObject"
+          "s3:PutObject"
         ],
-        "Resource": "$${bucket_arn}"
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
     }
   ]
 }
