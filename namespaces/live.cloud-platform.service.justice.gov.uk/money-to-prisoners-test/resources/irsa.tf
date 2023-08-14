@@ -27,14 +27,14 @@ resource "aws_iam_policy" "analytical-platform" {
 }
 
 data "aws_iam_policy_document" "analytical-platform" {
-  # Allows direct put access to a test-only S3 bucket in "mojdsd" AWS account
+  # Allows direct put access to subpath of terraformed S3 bucket for mimicking Analytical Platform
   statement {
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
     ]
     resources = [
-      "arn:aws:s3:::money-to-prisoners-testing/cp/*",
+      "${module.s3.bucket_arn}/faux-ap/*",
     ]
   }
 }
