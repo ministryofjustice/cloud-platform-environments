@@ -14,6 +14,18 @@ locals {
       namespace  = "laa-crime-applications-adaptor-staging"
       rotated_at = "2023-04-27"
     }
+    #
+    # Other MAAT non-prod consumers without direct datastore equivalence
+    # To be removed once they start using a mock
+    #
+    "maat_adapter_dev" = {
+      namespace  = "laa-crime-applications-adaptor-dev"
+      rotated_at = "2023-08-14"
+    }
+    "maat_adapter_uat" = {
+      namespace  = "laa-crime-applications-adaptor-uat"
+      rotated_at = "2023-08-14"
+    }
   }
 }
 
