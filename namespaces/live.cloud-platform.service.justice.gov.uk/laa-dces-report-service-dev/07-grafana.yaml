@@ -7,7 +7,7 @@ metadata:
   labels:
     grafana_dashboard: "laa-dces-report-service"
 data:
-  laa-crime-applications-adaptor-dashboard.json: |
+  laa-dces-report-service-dashboard.json: |
     {
       "annotations": {
         "list": [
@@ -641,8 +641,8 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "LAA Crime Applications Adaptor",
-      "uid": "Kn71716Gz1",
+      "title": "LAA DCES Report Service",
+      "uid": "laaDCESReportService",
       "version": 2,
       "weekStart": ""
     }
