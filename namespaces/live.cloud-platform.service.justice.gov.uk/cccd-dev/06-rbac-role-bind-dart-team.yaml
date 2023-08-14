@@ -4,9 +4,9 @@ metadata:
   name: read-pods
   namespace: default
 subjects:
-  - kind: Group
-    name: "github:cccd-abdi-test"
-    apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: "github:cccd-abdi-test"
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
   kind: Role #this must be Role or ClusterRole
