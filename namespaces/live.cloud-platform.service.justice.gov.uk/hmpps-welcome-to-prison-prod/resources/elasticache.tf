@@ -16,7 +16,7 @@ module "elasticache_redis" {
   engine_version         = "4.0.10"
   parameter_group_name   = "default.redis4.0"
   namespace              = var.namespace
-
+  auth_token_rotated_date = "2023-08-15"
   providers = {
     aws = aws.london
   }
