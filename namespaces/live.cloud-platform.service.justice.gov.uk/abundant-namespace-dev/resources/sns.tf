@@ -5,7 +5,7 @@
  *
  */
 module "abundant_namespace_dev_sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=std-tags"
 
   topic_display_name     = "test-sns"
   business_unit          = var.business_unit

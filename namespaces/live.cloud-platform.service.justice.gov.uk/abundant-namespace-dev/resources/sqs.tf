@@ -1,16 +1,16 @@
 module "abundant_namespace_sqs" {
   # remember to check the latest version
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=main"
 
   sqs_name = "abundant_namespace_sqs"
   # if true, the sqs_name above must end with ".fifo", it's an API quirk
   fifo_queue             = false
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
