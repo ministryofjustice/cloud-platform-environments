@@ -39,3 +39,7 @@ variable "namespace" {
   type        = string
   default     = "formbuilder-repos"
 }
+
+variable "team_name" {
+  default = "formbuilder"
+}
