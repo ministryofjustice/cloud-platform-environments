@@ -114,3 +114,16 @@ resource "kubernetes_secret" "s3" {
     irsa_policy_arn = module.s3.irsa_policy_arn
   }
 }
+
+data "aws_iam_policy_document" "analytical-platform" {
+  # Allows direct put access to subpath of terraformed S3 bucket for mimicking Analytical Platform
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+    ]
+    resources = [
+      "${module.s3.bucket_arn}/faux-ap/*",
+    ]
+  }
+}

@@ -37,18 +37,8 @@ resource "aws_iam_policy" "api" {
 data "aws_iam_policy_document" "api" {
   source_policy_documents = [
     data.aws_iam_policy_document.s3-read.json,
+    data.aws_iam_policy_document.analytical-platform.json,
   ]
-
-  # Allows direct put access to subpath of terraformed S3 bucket for mimicking Analytical Platform
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-    ]
-    resources = [
-      "${module.s3.bucket_arn}/faux-ap/*",
-    ]
-  }
 }
 
 resource "kubernetes_secret" "irsa-api" {
@@ -61,5 +51,276 @@ resource "kubernetes_secret" "irsa-api" {
     role            = module.irsa-api.role_name
     role_arn        = module.irsa-api.role_arn
     service_account = module.irsa-api.service_account.name
+  }
+}
+
+module "irsa-cashbook" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  business_unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "cashbook"
+  role_policy_arns = {
+    policy = aws_iam_policy.cashbook.arn,
+  }
+}
+
+resource "aws_iam_policy" "cashbook" {
+  name   = "${var.namespace}-cashbook"
+  policy = data.aws_iam_policy_document.cashbook.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "cashbook" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.s3-read.json,
+  ]
+}
+
+resource "kubernetes_secret" "irsa-cashbook" {
+  metadata {
+    name      = "irsa-cashbook"
+    namespace = var.namespace
+  }
+
+  data = {
+    role            = module.irsa-cashbook.role_name
+    role_arn        = module.irsa-cashbook.role_arn
+    service_account = module.irsa-cashbook.service_account.name
+  }
+}
+
+module "irsa-bank-admin" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  business_unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "bank-admin"
+  role_policy_arns = {
+    policy = aws_iam_policy.bank-admin.arn,
+  }
+}
+
+resource "aws_iam_policy" "bank-admin" {
+  name   = "${var.namespace}-bank-admin"
+  policy = data.aws_iam_policy_document.bank-admin.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "bank-admin" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.s3-read.json,
+    data.aws_iam_policy_document.s3-write.json,
+  ]
+}
+
+resource "kubernetes_secret" "irsa-bank-admin" {
+  metadata {
+    name      = "irsa-bank-admin"
+    namespace = var.namespace
+  }
+
+  data = {
+    role            = module.irsa-bank-admin.role_name
+    role_arn        = module.irsa-bank-admin.role_arn
+    service_account = module.irsa-bank-admin.service_account.name
+  }
+}
+
+module "irsa-noms-ops" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  business_unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "noms-ops"
+  role_policy_arns = {
+    policy = aws_iam_policy.noms-ops.arn,
+  }
+}
+
+resource "aws_iam_policy" "noms-ops" {
+  name   = "${var.namespace}-noms-ops"
+  policy = data.aws_iam_policy_document.noms-ops.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "noms-ops" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.s3-read.json,
+  ]
+}
+
+resource "kubernetes_secret" "irsa-noms-ops" {
+  metadata {
+    name      = "irsa-noms-ops"
+    namespace = var.namespace
+  }
+
+  data = {
+    role            = module.irsa-noms-ops.role_name
+    role_arn        = module.irsa-noms-ops.role_arn
+    service_account = module.irsa-noms-ops.service_account.name
+  }
+}
+
+module "irsa-send-money" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  business_unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "send-money"
+  role_policy_arns = {
+    policy = aws_iam_policy.send-money.arn,
+  }
+}
+
+resource "aws_iam_policy" "send-money" {
+  name   = "${var.namespace}-send-money"
+  policy = data.aws_iam_policy_document.send-money.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "send-money" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.s3-read.json,
+  ]
+}
+
+resource "kubernetes_secret" "irsa-send-money" {
+  metadata {
+    name      = "irsa-send-money"
+    namespace = var.namespace
+  }
+
+  data = {
+    role            = module.irsa-send-money.role_name
+    role_arn        = module.irsa-send-money.role_arn
+    service_account = module.irsa-send-money.service_account.name
+  }
+}
+
+module "irsa-emails" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  business_unit          = var.business_unit
+  team_name              = var.team_name
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "emails"
+  role_policy_arns = {
+    policy = aws_iam_policy.emails.arn,
+  }
+}
+
+resource "aws_iam_policy" "emails" {
+  name   = "${var.namespace}-emails"
+  policy = data.aws_iam_policy_document.emails.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "emails" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.s3-read.json,
+  ]
+}
+
+resource "kubernetes_secret" "irsa-emails" {
+  metadata {
+    name      = "irsa-emails"
+    namespace = var.namespace
+  }
+
+  data = {
+    role            = module.irsa-emails.role_name
+    role_arn        = module.irsa-emails.role_arn
+    service_account = module.irsa-emails.service_account.name
   }
 }
