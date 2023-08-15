@@ -16,10 +16,6 @@ module "manage_soc_cases_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "manage_soc_cases_elasticache_redis" {
