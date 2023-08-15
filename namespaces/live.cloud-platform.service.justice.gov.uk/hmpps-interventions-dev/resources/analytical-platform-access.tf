@@ -1,9 +1,26 @@
 module "ap_irsa" {
   source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace        = var.namespace
+  #role_policy_arns = [aws_iam_policy.ap_policy.arn]
+  #service_account  = "hmpps-interventions-to-ap-s3"
+
+  # EKS configuration
   eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = [aws_iam_policy.ap_policy.arn]
-  service_account  = "hmpps-interventions-to-ap-s3"
+
+  # IRSA configuration
+  service_account_name = "hmpps-interventions-to-ap-s3"
+  namespace            = var.namespace # this is also used as a tag
+  role_policy_arns = {
+    s3 = aws_iam_policy.ap_policy.arn
+  }
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
 }
 
 resource "aws_iam_policy" "ap_policy" {
