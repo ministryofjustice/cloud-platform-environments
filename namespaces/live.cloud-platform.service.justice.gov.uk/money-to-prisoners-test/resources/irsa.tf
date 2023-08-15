@@ -37,18 +37,8 @@ resource "aws_iam_policy" "api" {
 data "aws_iam_policy_document" "api" {
   source_policy_documents = [
     data.aws_iam_policy_document.s3-read.json,
+    data.aws_iam_policy_document.analytical-platform.json,
   ]
-
-  # Allows direct put access to subpath of terraformed S3 bucket for mimicking Analytical Platform
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-    ]
-    resources = [
-      "${module.s3.bucket_arn}/faux-ap/*",
-    ]
-  }
 }
 
 resource "kubernetes_secret" "irsa-api" {
