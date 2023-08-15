@@ -3,5 +3,5 @@ module "ecr" {
 
   github_repositories = ["fb-deploy"]
 
-  namespace = "formbuilder-repos"
+  namespace = var.namespace
 }
