@@ -14,6 +14,10 @@ variable "db_backup_retention_period" {
   default = "7"
 }
 
+variable "db_instance_class" {
+  default = "db.t4g.small"
+}
+
 variable "infrastructure_support" {
   default = "Form Builder form-builder-developers@digital.justice.gov.uk"
 }
