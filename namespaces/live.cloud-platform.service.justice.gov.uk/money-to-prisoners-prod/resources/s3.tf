@@ -39,6 +39,69 @@ module "s3" {
   ]
 }
 
+data "aws_iam_policy_document" "s3-read" {
+  # Allows read-only access to private S3 bucket
+  statement {
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:GetBucketPolicy",
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+    ]
+    resources = [
+      module.s3.bucket_arn,
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging",
+      "s3:GetObjectTorrent",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionAcl",
+      "s3:GetObjectVersionTagging",
+      "s3:GetObjectVersionTorrent",
+    ]
+    resources = [
+      "${module.s3.bucket_arn}/*",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "s3-write" {
+  # Allows write-only access to private S3 bucket
+  statement {
+    actions = [
+      "s3:ListBucketMultipartUploads",
+    ]
+    resources = [
+      module.s3.bucket_arn,
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:DeleteObject",
+      "s3:DeleteObjectTagging",
+      "s3:DeleteObjectVersion",
+      "s3:DeleteObjectVersionTagging",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:PutObjectTagging",
+      "s3:PutObjectVersionAcl",
+      "s3:PutObjectVersionTagging",
+      "s3:RestoreObject",
+    ]
+    resources = [
+      "${module.s3.bucket_arn}/*",
+    ]
+  }
+}
+
 resource "kubernetes_secret" "s3" {
   metadata {
     name      = "s3"
@@ -46,7 +109,21 @@ resource "kubernetes_secret" "s3" {
   }
 
   data = {
-    bucket_arn  = module.s3.bucket_arn
-    bucket_name = module.s3.bucket_name
+    bucket_arn      = module.s3.bucket_arn
+    bucket_name     = module.s3.bucket_name
+    irsa_policy_arn = module.s3.irsa_policy_arn
+  }
+}
+
+data "aws_iam_policy_document" "analytical-platform" {
+  # Allows direct put access to "landing" S3 bucket for Prison Network App in Analytical Platform AWS account (mojap)
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+    ]
+    resources = [
+      "arn:aws:s3:::mojap-land/hmpps/prisoner-money/*",
+    ]
   }
 }
