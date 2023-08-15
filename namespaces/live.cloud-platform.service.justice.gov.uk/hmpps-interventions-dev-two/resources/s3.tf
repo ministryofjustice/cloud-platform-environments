@@ -14,7 +14,7 @@ module "interventions_s3_bucket" {
   namespace        = var.namespace
 
   providers = {
-    # Can be either "aws.london" or "aws.ireland" 
+    # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 }
