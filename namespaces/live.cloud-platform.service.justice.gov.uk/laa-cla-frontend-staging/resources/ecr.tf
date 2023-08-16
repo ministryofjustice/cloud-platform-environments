@@ -7,6 +7,15 @@ module "cla_frontend_app_credentials" {
   providers = {
     aws = aws.london
   }
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = [var.repo_name]
+
+  # set your namespace name to create a ConfigMap
+  # of credentials you need in CircleCI
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "cla_frontend_app_credentials" {
