@@ -5,7 +5,7 @@ metadata:
   namespace: laa-assess-non-standard-magistrate-fee-dev
 subjects:
   - kind: Group
-    name: "github:laa-assess-non-standard-magistrate-admin-team"
+    name: "github:crm7team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
