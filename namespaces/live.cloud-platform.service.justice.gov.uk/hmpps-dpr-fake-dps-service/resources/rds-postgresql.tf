@@ -22,6 +22,28 @@ module "rds" {
   db_engine_version = "14.7"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_keep_size"
+      value        = "64"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_wal_keep_size"
+      value        = "64"
+      apply_method = "immediate"
+    }
+  ]
 
   # Tags
   application            = var.application
