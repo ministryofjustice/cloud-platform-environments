@@ -21,7 +21,7 @@ variable "team_name" {
   default     = "Digital-Prison-Services"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
@@ -55,3 +55,4 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {}
