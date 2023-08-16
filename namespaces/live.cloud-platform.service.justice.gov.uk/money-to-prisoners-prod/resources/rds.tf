@@ -44,5 +44,6 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     rds_instance_port     = module.rds.rds_instance_port
+    irsa_policy_arn       = module.rds.irsa_policy_arn
   }
 }

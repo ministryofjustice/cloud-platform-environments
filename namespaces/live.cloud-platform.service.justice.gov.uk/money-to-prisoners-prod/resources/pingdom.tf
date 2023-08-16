@@ -21,10 +21,10 @@ resource "pingdom_check" "money-to-prisoners-prod-send-money" {
   integrationids           = [79851]
 }
 
-resource "pingdom_check" "money-to-prisoners-prod-emails" {
-  name = "money-to-prisoners-prod-emails"
-  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_emails,isproduction_${var.is_production},environment_${var.environment}"
-  host = "emails.prisoner-money.service.justice.gov.uk"
+resource "pingdom_check" "money-to-prisoners-prod-start-page" {
+  name = "money-to-prisoners-prod-start-page"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_start-page,isproduction_${var.is_production},environment_${var.environment}"
+  host = "start-page.prisoner-money.service.justice.gov.uk"
   url  = "/ping.json"
 
   type         = "http"
@@ -41,10 +41,10 @@ resource "pingdom_check" "money-to-prisoners-prod-emails" {
   integrationids           = [79851]
 }
 
-resource "pingdom_check" "money-to-prisoners-prod-start-page" {
-  name = "money-to-prisoners-prod-start-page"
-  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_start-page,isproduction_${var.is_production},environment_${var.environment}"
-  host = "start-page.prisoner-money.service.justice.gov.uk"
+resource "pingdom_check" "money-to-prisoners-prod-emails" {
+  name = "money-to-prisoners-prod-emails"
+  tags = "businessunit_${lower(var.business_unit)},application_${var.application},component_emails,isproduction_${var.is_production},environment_${var.environment}"
+  host = "emails.prisoner-money.service.justice.gov.uk"
   url  = "/ping.json"
 
   type         = "http"

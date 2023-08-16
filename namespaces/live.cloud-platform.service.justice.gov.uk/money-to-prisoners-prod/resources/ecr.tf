@@ -25,8 +25,8 @@ module "ecr" {
     "money-to-prisoners-noms-ops",
     "money-to-prisoners-transaction-uploader",
     "money-to-prisoners-send-money",
-    "money-to-prisoners-emails",
     "money-to-prisoners-start-page",
+    "money-to-prisoners-emails",
   ]
 
   oidc_providers = ["circleci", "github"]
