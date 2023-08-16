@@ -7,8 +7,8 @@ locals {
     "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_queue"    = "offender-events-dev"
     "Digital-Prison-Services-dev-prisoner_from_nomis_visits_dl_queue"     = "offender-events-dev"
     "Digital-Prison-Services-dev-prisoner_from_nomis_visits_queue"        = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_non_associations_dl_queue" = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_non_associations_queue" = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_dl_queue" = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_queue" = "offender-events-dev"
     "Digital-Prison-Services-dev-hmpps_audit_queue"                       = "hmpps-audit-dev"
   }
   sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
@@ -31,8 +31,8 @@ module "irsa" {
       migration_visits_dlq         = module.migration_visits_dead_letter_queue.irsa_policy_arn,
       migration_adjudications_queue = module.migration_adjudications_queue.irsa_policy_arn,
       migration_adjudications_dlq   = module.migration_adjudications_dead_letter_queue.irsa_policy_arn,
-      migration_non_associations_queue = module.migration_non_associations_queue.irsa_policy_arn,
-      migration_non_associations_dlq   = module.migration_non_associations_dead_letter_queue.irsa_policy_arn,
+      migration_nonassociations_queue = module.migration_nonassociations_queue.irsa_policy_arn,
+      migration_nonassociations_dlq   = module.migration_nonassociations_dead_letter_queue.irsa_policy_arn,
     }
   )
   # Tags
