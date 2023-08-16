@@ -26,12 +26,12 @@ module "rds" {
     {
       name         = "rds.logical_replication"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
       value        = "pglogical"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "wal_keep_size"
@@ -39,7 +39,7 @@ module "rds" {
       apply_method = "immediate"
     },
     {
-      name         = "max_wal_keep_size"
+      name         = "max_slot_wal_keep_size"
       value        = "64"
       apply_method = "immediate"
     }
