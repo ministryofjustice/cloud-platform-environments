@@ -124,7 +124,7 @@ resource "aws_route53_record" "brookhouse_route53_txt_mta" {
   name    = "_mta-sts.brookhouseinquiry.org.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=STSv1\; id=20230517"]
+  records = ["v=STSv1\\; id=20230517"]
 }
 
 resource "aws_route53_record" "brookhouse_route53_txt_pki" {
