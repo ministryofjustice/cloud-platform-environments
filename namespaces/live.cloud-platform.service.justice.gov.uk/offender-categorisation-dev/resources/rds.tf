@@ -30,6 +30,6 @@ resource "kubernetes_secret" "dps_rds" {
     database_username      = module.dps_rds.database_username
     database_password      = module.dps_rds.database_password
     rds_instance_address   = module.dps_rds.rds_instance_address
-    risk_profiler_password = random_id.risk_profiler_role_password.b64
+    risk_profiler_password = random_id.risk_profiler_role_password.b64_std
   }
 }
