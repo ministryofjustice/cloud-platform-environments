@@ -33,6 +33,8 @@ module "irsa" {
       migration_adjudications_dlq   = module.migration_adjudications_dead_letter_queue.irsa_policy_arn,
       migration_non_associations_queue = module.migration_non_associations_queue.irsa_policy_arn,
       migration_non_associations_dlq   = module.migration_non_associations_dead_letter_queue.irsa_policy_arn,
+      migration_activities_queue = module.migration_activities_queue.irsa_policy_arn,
+      migration_activities_dlq   = module.migration_activities_dead_letter_queue.irsa_policy_arn,
     }
   )
   # Tags
