@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories                  = ["laa-ccms-caab", "laa-ccms-data-api", "laa-ccms-soa-gateway-api", "laa-ccms-caab-saml-mock"]
+  github_repositories                  = ["laa-ccms-caab", "laa-ccms-data-api", "laa-ccms-soa-gateway-api", "laa-ccms-caab-saml-mock", "laa-ccms-caab-api"]
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
