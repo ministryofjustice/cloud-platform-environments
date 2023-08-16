@@ -7,8 +7,8 @@ locals {
     "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_queue"          = "offender-events-dev"
     "Digital-Prison-Services-dev-prisoner_from_nomis_visits_dl_queue"           = "offender-events-dev"
     "Digital-Prison-Services-dev-prisoner_from_nomis_visits_queue"              = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_non_associations_dl_queue" = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_non_associations_queue"    = "offender-events-dev"
+    #"Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_dl_queue"  = "offender-events-dev"
+    #"Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_queue"     = "offender-events-dev"
     "Digital-Prison-Services-dev-hmpps_audit_queue"                             = "hmpps-audit-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
