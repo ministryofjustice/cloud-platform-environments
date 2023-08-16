@@ -81,6 +81,8 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
     eventType = [
       "enforcement.breach.raised",
       "enforcement.breach.concluded",
+      "person.risk.registration.added",
+      "person.risk.registration.ended"
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deregistered"
