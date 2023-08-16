@@ -17,7 +17,7 @@ locals {
 data "aws_iam_policy_document" "combined_local_sqs" {
   version = "2012-10-17"
   statement {
-    sid     = "hmpps-prisoner-from-nomis-migration-sqs"
+    sid     = "hmppsPrisonerFromNomisMigrationSqs"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
