@@ -26,7 +26,7 @@ variable "team_name" {
   default     = "syscon-devs"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
 }
@@ -49,7 +49,7 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "node-type" {
+variable "node_type" {
   default = "cache.t4g.micro"
 }
 
