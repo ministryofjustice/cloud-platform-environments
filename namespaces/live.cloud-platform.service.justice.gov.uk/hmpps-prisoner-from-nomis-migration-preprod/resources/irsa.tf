@@ -7,8 +7,8 @@ locals {
     "Digital-Prison-Services-preprod-prisoner_from_nomis_sentencing_queue"          = "offender-events-preprod"
     "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_dl_queue"           = "offender-events-preprod"
     "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_queue"              = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_non_associations_dl_queue" = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_non_associations_queue"    = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_nonassociations_dl_queue" = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_nonassociations_queue"    = "offender-events-preprod"
     "Digital-Prison-Services-preprod-hmpps_audit_queue"                       = "hmpps-audit-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
@@ -29,8 +29,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.migration_visits_dead_letter_queue.sqs_arn,
       module.migration_adjudications_queue.sqs_arn,
       module.migration_adjudications_dead_letter_queue.sqs_arn,
-      module.migration_non_associations_queue.sqs_arn,
-      module.migration_non_associations_dead_letter_queue.sqs_arn,
+      module.migration_nonassociations_queue.sqs_arn,
+      module.migration_nonassociations_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn
     ]
