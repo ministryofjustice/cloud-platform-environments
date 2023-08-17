@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3_static_files_bucket     = module.s3.irsa_policy_arn
+    redis_celery_broker     = module.celery-broker.irsa_policy_arn
   }
 
   # Tags
