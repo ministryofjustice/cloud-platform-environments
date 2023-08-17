@@ -54,6 +54,28 @@ resource "kubernetes_role" "deploy" {
       "transaction-uploader",
     ]
   }
+
+  rule {
+    api_groups = [""]
+    resources  = ["secrets"]
+    verbs      = ["get"]
+    resource_names = [
+      "route53-app-domain",
+      "route53-send-money",
+      "route53-start-page",
+      "route53-start-page-alias",
+      "ecr",
+      "irsa-deploy",
+      "irsa-api",
+      "irsa-cashbook",
+      "irsa-bank-admin",
+      "irsa-noms-ops",
+      "irsa-send-money",
+      "irsa-emails",
+      "rds",
+      "s3",
+    ]
+  }
 }
 
 resource "kubernetes_role_binding" "deploy" {
