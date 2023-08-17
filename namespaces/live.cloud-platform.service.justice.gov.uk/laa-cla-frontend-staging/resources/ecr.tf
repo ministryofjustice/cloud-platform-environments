@@ -45,7 +45,7 @@ module "cla_frontend_socket_server_credentials" {
   oidc_providers = ["circleci"]
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = ["cla_frontend_socket_server"]
+  github_repositories = [var.repo_name]
 
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI
