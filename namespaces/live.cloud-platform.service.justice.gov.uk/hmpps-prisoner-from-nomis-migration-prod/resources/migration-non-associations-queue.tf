@@ -18,10 +18,6 @@ module "migration_non_associations_queue" {
   }
 
 EOF
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 module "migration_non_associations_dead_letter_queue" {
@@ -34,10 +30,6 @@ module "migration_non_associations_dead_letter_queue" {
   sqs_name               = "migration_non_associations_dlq"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "migration_non_associations_queue" {
