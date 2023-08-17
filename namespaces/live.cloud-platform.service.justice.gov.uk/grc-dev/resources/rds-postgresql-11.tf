@@ -5,7 +5,7 @@
  *
  */
 
-module "rds" {
+module "rds-11" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -37,7 +37,7 @@ module "rds" {
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
   # db_parameter = [
   #   {
-  #     name         = "rds.force_ssl"
+  #     name         = "rds-11.force_ssl"
   #     value        = "0"
   #     apply_method = "pending-reboot"
   #   }
@@ -62,7 +62,7 @@ module "rds" {
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
-module "read_replica" {
+module "read_replica-11" {
   # default off
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
@@ -81,10 +81,10 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name = module.rds-11.database_name
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.rds-11.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
@@ -100,40 +100,40 @@ module "read_replica" {
 
   # db_parameter = [
   #   {
-  #     name         = "rds.force_ssl"
+  #     name         = "rds-11.force_ssl"
   #     value        = "0"
   #     apply_method = "immediate"
   #   }
   # ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "rds-11" {
   metadata {
     name      = "rds-postgresql-11-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
-    sql_alchemy_url       = "postgresql://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    rds_instance_endpoint = module.rds-11.rds_instance_endpoint
+    database_name         = module.rds-11.database_name
+    database_username     = module.rds-11.database_username
+    database_password     = module.rds-11.database_password
+    rds_instance_address  = module.rds-11.rds_instance_address
+    access_key_id         = module.rds-11.access_key_id
+    secret_access_key     = module.rds-11.secret_access_key
+    sql_alchemy_url       = "postgresql://${module.rds-11.database_username}:${module.rds-11.database_password}@${module.rds-11.rds_instance_endpoint}/${module.rds-11.database_name}"
+    url                   = "postgres://${module.rds-11.database_username}:${module.rds-11.database_password}@${module.rds-11.rds_instance_endpoint}/${module.rds-11.database_name}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+     * url = "postgres://${module.rds-11.database_username}:${module.rds-11.database_password}@${module.rds-11.rds_instance_endpoint}/${module.rds-11.database_name}"
      *
      */
 }
 
 
-resource "kubernetes_secret" "read_replica" {
+resource "kubernetes_secret" "read_replica-11" {
   # default off
   count = 0
 
@@ -147,10 +147,10 @@ resource "kubernetes_secret" "read_replica" {
 
   /*
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
+    rds_instance_endpoint = module.read_replica-11.rds_instance_endpoint
+    rds_instance_address  = module.read_replica-11.rds_instance_address
+    access_key_id         = module.read_replica-11.access_key_id
+    secret_access_key     = module.read_replica-11.secret_access_key
   }
   */
 }
@@ -158,15 +158,15 @@ resource "kubernetes_secret" "read_replica" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "rds-11" {
   metadata {
     name      = "rds-postgresql-11-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.rds-11.database_name
+    db_identifier = module.rds-11.db_identifier
 
   }
 }
