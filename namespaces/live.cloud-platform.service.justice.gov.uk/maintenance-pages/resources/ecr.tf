@@ -12,9 +12,6 @@ module "ecr_credentials" {
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
-  # specify which GitHub repository you're pushing from
-  github_repositories = ["cloud-platform-maintenance-pages"]
-
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
