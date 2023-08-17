@@ -20,6 +20,8 @@ module "irsa" {
     sqs_extractor_dlq   = module.ims_extractor_dead_letter_queue.irsa_policy_arn
     sqs_transformer     = module.ims_transformer_queue.irsa_policy_arn
     sqs_transformer_dlq = module.ims_transformer_dead_letter_queue.irsa_policy_arn
+    sqs_lastupdate     = module.ims_lastupdate_queue.irsa_policy_arn
+    sqs_lastupdate_dlq = module.ims_lastupdate_dead_letter_queue.irsa_policy_arn
     s3_ims              = module.manage_intelligence_storage_bucket.irsa_policy_arn
     s3_rds              = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
     s3_extractor        = module.manage_intelligence_extractor_bucket.irsa_policy_arn
