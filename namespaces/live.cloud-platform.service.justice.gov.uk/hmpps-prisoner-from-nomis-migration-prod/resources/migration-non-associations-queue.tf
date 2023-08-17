@@ -1,7 +1,7 @@
 module "migration_non_associations_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment
+  environment-name           = var.environment_name
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -27,7 +27,7 @@ EOF
 module "migration_non_associations_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
