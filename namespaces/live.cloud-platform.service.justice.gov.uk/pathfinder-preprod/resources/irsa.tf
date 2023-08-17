@@ -1,9 +1,9 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-pathfinder_offender_events_queue"              = "offender-events-dev"
-    "Digital-Prison-Services-dev-pathfinder_offender_events_queue_dl"           = "offender-events-dev"
-    "Digital-Prison-Services-dev-pathfinder_probation_offender_events_queue"    = "offender-events-dev"
-    "Digital-Prison-Services-dev-pathfinder_probation_offender_events_queue_dl" = "offender-events-dev"
+    "Digital-Prison-Services-preprod-pathfinder_offender_events_queue"              = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-pathfinder_offender_events_queue_dl"           = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-pathfinder_probation_offender_events_queue"    = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-pathfinder_probation_offender_events_queue_dl" = "offender-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
