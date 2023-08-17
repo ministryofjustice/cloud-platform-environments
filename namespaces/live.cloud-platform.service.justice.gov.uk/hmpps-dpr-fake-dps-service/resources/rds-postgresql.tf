@@ -62,22 +62,8 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
-  }
-}
-
-# Configmap to store non-sensitive data related to the RDS instance
-
-resource "kubernetes_config_map" "rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    url      = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    username = module.rds.database_username
+    password = module.rds.database_password
   }
 }
