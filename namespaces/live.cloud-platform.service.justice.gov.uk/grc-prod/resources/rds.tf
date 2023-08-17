@@ -13,7 +13,7 @@ module "dps_rds" {
   application            = var.application
   is-production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "14.4"
+  db_engine_version      = "14.7"
   db_instance_class      = "db.t3.small"
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
