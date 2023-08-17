@@ -1,9 +1,10 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  oidc_providers = ["github"]
   github_repositories                  = ["operations-engineering-reports"]
   github_actions_secret_ecr_name       = "PROD_ECR_NAME"
   github_actions_secret_ecr_url        = "PROD_ECR_URL"
