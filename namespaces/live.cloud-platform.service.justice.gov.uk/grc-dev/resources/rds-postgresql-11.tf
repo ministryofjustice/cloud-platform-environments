@@ -109,7 +109,7 @@ module "read_replica" {
 
 resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-postgresql-11-instance-output"
     namespace = var.namespace
   }
 
@@ -138,7 +138,7 @@ resource "kubernetes_secret" "read_replica" {
   count = 0
 
   metadata {
-    name      = "rds-postgresql-read-replica-output"
+    name      = "rds-postgresql-11-read-replica-output"
     namespace = var.namespace
   }
 
@@ -160,7 +160,7 @@ resource "kubernetes_secret" "read_replica" {
 
 resource "kubernetes_config_map" "rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-postgresql-11-instance-output"
     namespace = var.namespace
   }
 
