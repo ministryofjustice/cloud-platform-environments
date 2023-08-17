@@ -31,7 +31,7 @@ module "rds" {
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres11"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
