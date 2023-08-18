@@ -15,7 +15,7 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 #
   eks_cluster_name     = var.eks_cluster_name
-  service_account_name = var.application
+  service_account_name = "hmpps-workload"
   namespace            = var.namespace
   role_policy_arns = merge(
     local.sns_policies,
