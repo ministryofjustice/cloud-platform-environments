@@ -52,8 +52,6 @@ resource "kubernetes_secret" "dps_smoketest_queue" {
   }
 
   data = {
-    access_key_id     = module.dps_smoketest_queue.access_key_id
-    secret_access_key = module.dps_smoketest_queue.secret_access_key
     sqs_queue_url     = module.dps_smoketest_queue.sqs_id
     sqs_queue_arn     = module.dps_smoketest_queue.sqs_arn
     sqs_queue_name    = module.dps_smoketest_queue.sqs_name
