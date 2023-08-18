@@ -1,11 +1,3 @@
-module "ap_irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
-  namespace        = var.namespace
-  eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = [aws_iam_policy.ap_policy.arn]
-  service_account  = "${var.namespace}-to-ap-s3"
-}
-
 resource "aws_iam_policy" "ap_policy" {
   name   = "${var.namespace}-ap-policy"
   policy = data.aws_iam_policy_document.pathfinder_ap_access.json
