@@ -27,7 +27,7 @@ resource "kubernetes_secret" "eligibility_team_route53_zone" {
 
 resource "aws_route53_record" "eligibility_team_route53_txt_spf_record" {
   zone_id = aws_route53_zone.eligibility_team_route53_zone.zone_id
-  name    = "https://check-your-client-qualifies-for-legal-aid.service.gov.uk"
+  name    = "check-your-client-qualifies-for-legal-aid.service.gov.uk"
   type    = "TXT"
   records = ["v=spf1 -all"]
 }
