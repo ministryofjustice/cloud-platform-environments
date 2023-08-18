@@ -51,8 +51,6 @@ resource "kubernetes_secret" "manage_soc_cases_document_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_document_s3_bucket.access_key_id
-    secret_access_key = module.manage_soc_cases_document_s3_bucket.secret_access_key
     bucket_arn        = module.manage_soc_cases_document_s3_bucket.bucket_arn
     bucket_name       = module.manage_soc_cases_document_s3_bucket.bucket_name
   }
@@ -65,8 +63,6 @@ resource "kubernetes_secret" "manage_soc_cases_rds_to_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_rds_to_s3_bucket.access_key_id
-    secret_access_key = module.manage_soc_cases_rds_to_s3_bucket.secret_access_key
     bucket_arn        = module.manage_soc_cases_rds_to_s3_bucket.bucket_arn
     bucket_name       = module.manage_soc_cases_rds_to_s3_bucket.bucket_name
   }
