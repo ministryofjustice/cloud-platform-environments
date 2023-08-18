@@ -24,7 +24,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.7"
+  db_engine_version = "14.8"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t3.small"
@@ -44,7 +44,7 @@ module "rds" {
   # ]
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  prepare_for_major_upgrade = "true"
+  prepare_for_major_upgrade = "false"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
