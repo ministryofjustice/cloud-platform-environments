@@ -354,13 +354,13 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(http_server_requests_seconds_sum{outcome=\"SUCCESS\", namespace=\"$namespace\"})/\nsum(http_server_requests_seconds_count{outcome=\"SUCCESS\", namespace=\"$namespace\"})",
-              "legendFormat": "Average Successful Response Time",
+              "expr": "laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}",
+              "legendFormat": "Emails Sent",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Average Successful Response Time",
+          "title": "Emails Sent",
           "type": "timeseries"
         },
         {
