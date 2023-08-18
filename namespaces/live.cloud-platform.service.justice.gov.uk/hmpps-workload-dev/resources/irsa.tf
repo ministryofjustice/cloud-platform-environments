@@ -14,14 +14,24 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 #
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-workload"
-  namespace            = var.namespace
-  role_policy_arns = merge(
+  eks_cluster_name      = var.eks_cluster_name
+  service_account_name  = "hmpps-workload"
+  namespace             = var.namespace
+  role_policy_arns      = merge(
     local.sns_policies,
     local.sqs_policies,
-    { domain_sns = module.hmpps_reductions_completed_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_reductions_completed_dead_letter_queue.irsa_policy_arn }
+    { domain_sns    = module.hmpps_reductions_completed_queue.irsa_policy_arn },
+    { domain_dlq    = module.hmpps_reductions_completed_dead_letter_queue.irsa_policy_arn },
+    { extract_sqs   = module.hmpps_extract_placed_queue.irsa_policy_arn },
+    { extract_dlq   = module.hmpps_extract_placed_dead_letter_queue.irsa_policy_arn },
+    { pop_sqs       = module.hmpps_workload_person_on_probation_queue.irsa_policy_arn },
+    { pop_dlq       = module.hmpps_workload_person_on_probation_dead_letter_queue.irsa_policy_arn },
+    { prisoner_sqs  = module.hmpps_workload_prisoner_queue.irsa_policy_arn },
+    { prisoner_dlq  = module.hmpps_workload_prisoner_dead_letter_queue.irsa_policy_arn },
+    { staff_sqs     = module.hmpps_workload_staff_queue.irsa_policy_arn },
+    { staff_dlq     = module.hmpps_workload_staff_dead_letter_queue.irsa_policy_arn },
+    { dashboard_s3  = module.hmpps-workload-dev-s3-dashboard-bucket.irsa_policy_arn },
+    { extract_s3    = module.hmpps-workload-dev-s3-extract-bucket.irsa_policy_arn },
   )
 
   # Tags
