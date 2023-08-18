@@ -71,8 +71,6 @@ resource "kubernetes_secret" "whereabouts_api_queue" {
   }
 
   data = {
-    access_key_id     = module.whereabouts_api_queue.access_key_id
-    secret_access_key = module.whereabouts_api_queue.secret_access_key
     sqs_wb_url        = module.whereabouts_api_queue.sqs_id
     sqs_wb_arn        = module.whereabouts_api_queue.sqs_arn
     sqs_wb_name       = module.whereabouts_api_queue.sqs_name
@@ -86,8 +84,6 @@ resource "kubernetes_secret" "whereabouts_api_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.whereabouts_api_dead_letter_queue.access_key_id
-    secret_access_key = module.whereabouts_api_dead_letter_queue.secret_access_key
     sqs_wb_url        = module.whereabouts_api_dead_letter_queue.sqs_id
     sqs_wb_arn        = module.whereabouts_api_dead_letter_queue.sqs_arn
     sqs_wb_name       = module.whereabouts_api_dead_letter_queue.sqs_name
