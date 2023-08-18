@@ -30,8 +30,6 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_workload_prisoner_dead_letter_queue.sqs_arn,
       module.hmpps_workload_staff_queue.sqs_arn,
       module.hmpps_workload_staff_dead_letter_queue.sqs_arn,
-      module.hmpps-workload-dev-s3-dashboard-bucket.sqs_arn,
-      module.hmpps-workload-dev-s3-extract-bucket.sqs_arn,
     ]
   }
 }
@@ -50,7 +48,9 @@ module "irsa" {
   role_policy_arns      = merge(
     local.sns_policies,
     local.sqs_policies,
-    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn }
+    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
+    { dashboard_s3 = module.hmpps-workload-dev-s3-dashboard-bucket.irsa_policy_arn },
+    { extract_s3 = module.hmpps-workload-dev-s3-extract-bucket.irsa_policy_arn },
   )
 
   # Tags
