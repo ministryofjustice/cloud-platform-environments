@@ -2,7 +2,9 @@ module "formbuilder_product_page_staging_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   repo_name = "formbuilder-product-page-staging"
   team_name = "formbuilder"
-
+  oidc_providers = ["circleci"]
+  github_repositories = ["formbuilder-product-page"]
+  namespace = var.namespace
   providers = {
     aws = aws.london
   }
