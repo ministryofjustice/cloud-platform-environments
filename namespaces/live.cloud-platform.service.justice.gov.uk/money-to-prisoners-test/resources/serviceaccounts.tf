@@ -7,7 +7,7 @@ resource "kubernetes_role" "deploy" {
 
   rule {
     api_groups = [""]
-    resources  = ["configmaps", "pods"]
+    resources  = ["configmaps", "pods", "services"]
     verbs      = ["get", "list", "watch"]
   }
 
@@ -19,8 +19,20 @@ resource "kubernetes_role" "deploy" {
 
   rule {
     api_groups = ["extensions", "apps"]
-    resources  = ["deployments"]
+    resources  = ["deployments", "replicasets"]
     verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = ["networking.k8s.io"]
+    resources  = ["ingresses"]
+    verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["delete"]
   }
 
   rule {
