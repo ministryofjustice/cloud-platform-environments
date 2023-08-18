@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "ses_send_smtp_email_policy_document" {
     condition {
       test     = "StringEquals"
       variable = "ses:FromAddress"
-      values   = ["${var.email_from_address}"]
+      values   = ["noreply@consider-a-recall-dev.hmpps.service.justice.gov.uk"]
     }
   }
 }
