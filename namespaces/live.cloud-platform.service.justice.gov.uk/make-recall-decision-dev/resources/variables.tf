@@ -16,6 +16,10 @@ variable "namespace" {
   default = "make-recall-decision-dev"
 }
 
+variable "email_from_address" {
+  "noreply@consider-a-recall-dev.hmpps.service.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
