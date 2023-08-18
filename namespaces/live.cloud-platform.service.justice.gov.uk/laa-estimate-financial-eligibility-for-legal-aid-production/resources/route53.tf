@@ -47,10 +47,3 @@ resource "aws_route53_record" "eligibility_team_route53_txt_dkim_record" {
   ttl     = 300
   records = ["v=DKIM1; p="]
 }
-
-resource "aws_route53_record" "eligibility_team_route53_mx_record" {
-  zone_id  = aws_route53_zone.eligibility_team_route53_zone.zone_id
-  type     = "MX"
-  priority = 0
-  value    = "."
-}
