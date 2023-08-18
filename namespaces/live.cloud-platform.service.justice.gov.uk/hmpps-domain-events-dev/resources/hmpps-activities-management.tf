@@ -97,8 +97,6 @@ resource "kubernetes_secret" "activities_domain_events_queue" {
   }
 
   data = {
-    access_key_id     = module.activities_domain_events_queue.access_key_id
-    secret_access_key = module.activities_domain_events_queue.secret_access_key
     sqs_queue_url     = module.activities_domain_events_queue.sqs_id
     sqs_queue_arn     = module.activities_domain_events_queue.sqs_arn
     sqs_queue_name    = module.activities_domain_events_queue.sqs_name
@@ -112,8 +110,6 @@ resource "kubernetes_secret" "activities_dlq" {
   }
 
   data = {
-    access_key_id     = module.activities_domain_events_dead_letter_queue.access_key_id
-    secret_access_key = module.activities_domain_events_dead_letter_queue.secret_access_key
     sqs_queue_url     = module.activities_domain_events_dead_letter_queue.sqs_id
     sqs_queue_arn     = module.activities_domain_events_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.activities_domain_events_dead_letter_queue.sqs_name
