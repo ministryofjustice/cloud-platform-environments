@@ -3,7 +3,7 @@ module "ses_irsa" {
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = {
-    ses = aws_iam_user_policy.policy.policy.arn
+    ses = aws_iam__policy.ses_smtp_policy.arn
   }
   service_account_name  = "${var.namespace}-ses-smtp"
 
@@ -13,6 +13,11 @@ module "ses_irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "aws_iam_policy" "ses_smtp_policy" {
+  name   = "${var.namespace}-ses-smtp-policy"
+  policy = data.aws_iam_policy_document.ses_send_smtp_email_policy_document.json
 }
 
 data "aws_iam_policy_document" "ses_send_smtp_email_policy_document" {
