@@ -8,19 +8,24 @@ resource "aws_sns_topic_subscription" "pre-sentence-reports-to-delius-queue-subs
 }
 
 module "pre-sentence-reports-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "pre-sentence-reports-to-delius-queue"
-  sqs_name    = "pre-sentence-reports-to-delius-queue-queue"
+  # Queue configuration
+  sqs_name = "pre-sentence-reports-to-delius-queue-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.pre-sentence-reports-to-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "pre-sentence-reports-to-delius-queue"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-queue-policy" {
@@ -29,14 +34,19 @@ resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-queue-policy" {
 }
 
 module "pre-sentence-reports-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "pre-sentence-reports-to-delius"
-  sqs_name    = "pre-sentence-reports-to-delius-dlq"
+  # Queue configuration
+  sqs_name = "pre-sentence-reports-to-delius-dlq"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "pre-sentence-reports-to-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-dlq-policy" {
