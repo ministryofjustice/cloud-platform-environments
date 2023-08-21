@@ -33,19 +33,3 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
     namespace              = var.namespace
   }
 }
-
-resource "aws_iam_access_key" "key_2023" {
-  user = module.hmpps-domain-events.user_name
-}
-
-resource "kubernetes_secret" "hmpps-domain-events-new-key" {
-  metadata {
-    name      = "hmpps-domain-events-new-key"
-    namespace = "hmpps-domain-events-dev"
-  }
-
-  data = {
-    access_key_id     = aws_iam_access_key.key_2023.id
-    secret_access_key = aws_iam_access_key.key_2023.secret
-  }
-}

@@ -100,5 +100,5 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_nonassociations_subsc
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.prisoner_from_nomis_nonassociations_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"NON_ASSOCIATION_DETAIL_UPSERTED\",\"NON_ASSOCIATION_DETAIL_DELETED\"]}"
+  filter_policy = "{\"eventType\":[\"NON_ASSOCIATION_DETAIL-UPSERTED\",\"NON_ASSOCIATION_DETAIL-DELETED\"]}"
 }

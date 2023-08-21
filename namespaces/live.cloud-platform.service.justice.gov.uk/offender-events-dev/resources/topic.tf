@@ -23,8 +23,6 @@ resource "kubernetes_secret" "offender_events" {
   }
 
   data = {
-    access_key_id     = module.offender_events.access_key_id
-    secret_access_key = module.offender_events.secret_access_key
     topic_arn         = module.offender_events.topic_arn
   }
 }
@@ -69,8 +67,6 @@ resource "kubernetes_secret" "offender_assessments_events" {
     namespace = var.namespace
   }
   data = {
-    access_key_id     = module.offender_assessments_events.access_key_id
-    secret_access_key = module.offender_assessments_events.secret_access_key
     topic_arn         = module.offender_assessments_events.topic_arn
   }
 }
@@ -82,7 +78,5 @@ resource "kubernetes_secret" "offender-events-and-delius-topic-secret" {
   }
   data = {
     TOPIC_ARN             = module.probation_offender_events.topic_arn
-    AWS_ACCESS_KEY_ID     = module.probation_offender_events.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.probation_offender_events.secret_access_key
   }
 }
