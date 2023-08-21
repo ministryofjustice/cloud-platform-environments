@@ -1,10 +1,10 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
-    "Digital-Prison-Services-dev-activities_domain_events_queue" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-activities_domain_events_dl" = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                       = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-activities_domain_events_queue"          = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-activities_domain_events_dl"             = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue_dl" = "offender-events-dev"
-    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue" = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue"    = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
@@ -41,11 +41,11 @@ resource "aws_iam_policy" "combined_local_sqs" {
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-#
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = "hmpps-workload"
-  namespace             = var.namespace
-  role_policy_arns      = merge(
+  #
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "hmpps-workload"
+  namespace            = var.namespace
+  role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },

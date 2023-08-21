@@ -5,6 +5,6 @@ resource "kubernetes_secret" "hmpps_prisoner_search_topic" {
   }
 
   data = {
-    topic_arn  = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+    topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   }
 }

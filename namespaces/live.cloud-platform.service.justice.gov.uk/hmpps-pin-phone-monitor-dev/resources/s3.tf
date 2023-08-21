@@ -227,16 +227,12 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_dev"
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -244,21 +240,35 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
   }
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq_dev"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_pin_phone_monitor_s3_event_dlq_dev"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -327,9 +337,9 @@ resource "kubernetes_secret" "pcms_s3_event_queue" {
   }
 
   data = {
-    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
-    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
+    sqs_url  = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+    sqs_arn  = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    sqs_name = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
   }
 }
 
@@ -354,8 +364,8 @@ resource "kubernetes_secret" "pcms_s3_event_dead_letter_queue" {
   }
 
   data = {
-    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_id
-    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_arn
-    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_name
+    sqs_url  = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_id
+    sqs_arn  = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_arn
+    sqs_name = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_name
   }
 }
