@@ -105,7 +105,3 @@ resource "kubernetes_secret" "hmpps_prisoner_search_domain_dlq" {
     sqs_queue_name = module.hmpps_prisoner_search_domain_dlq.sqs_name
   }
 }
-
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-${var.environment}/topic-arn"
-}
