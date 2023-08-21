@@ -354,13 +354,13 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(i                                                                                                                                                     mncrease(laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}[10m]))",
-              "legendFormat": "Emails Sent (10m)",
+              "expr": "round(sum(increase(laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "Emails Sent (5m)",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Emails Sent",
+          "title": "Emails Sent (5m)",
           "type": "timeseries"
         },
         {
