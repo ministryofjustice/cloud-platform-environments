@@ -3,7 +3,7 @@ module "ses_irsa" {
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = {
-    ses = aws_iam_user_policy.policy.arn
+    ses = aws_iam_user_policy.policy.policy.arn
   }
   service_account_name  = "${var.namespace}-ses-smtp"
 
@@ -11,7 +11,7 @@ module "ses_irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
