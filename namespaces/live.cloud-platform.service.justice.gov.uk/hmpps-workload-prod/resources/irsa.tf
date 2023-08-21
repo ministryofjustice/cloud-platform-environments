@@ -48,7 +48,7 @@ module "irsa" {
   role_policy_arns      = merge(
     local.sns_policies,
     local.sqs_policies,
-
+    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     { dashboard_s3  = module.hmpps-workload-prod-s3-dashboard-bucket.irsa_policy_arn },
     { extract_s3    = module.hmpps-workload-prod-s3-extract-bucket.irsa_policy_arn },
   )
