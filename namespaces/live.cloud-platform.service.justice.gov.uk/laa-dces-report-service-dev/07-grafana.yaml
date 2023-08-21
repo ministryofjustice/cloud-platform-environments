@@ -354,7 +354,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}",
+              "expr": "increase(laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}[30m])",
               "legendFormat": "Emails Sent",
               "range": true,
               "refId": "A"
