@@ -25,10 +25,11 @@ resource "kubernetes_secret" "eligibility_team_route53_zone" {
   }
 }
 
-resource "aws_route53_record" "eligibility_team_route53_txt_spf_record" {
+resource "aws_route53_record" "eligibility_team_route53_txt_spf_record_2" {
   zone_id = aws_route53_zone.eligibility_team_route53_zone.zone_id
   name    = "check-your-client-qualifies-for-legal-aid.service.gov.uk"
   type    = "TXT"
+  ttl     = 300
   records = ["v=spf1 -all"]
 }
 
