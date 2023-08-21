@@ -47,6 +47,7 @@ resource "kubernetes_role" "deploy" {
     resources  = ["deployments"]
     verbs      = ["patch"]
     resource_names = [
+      "deploy",
       "default",
       "api",
       "cashbook",
