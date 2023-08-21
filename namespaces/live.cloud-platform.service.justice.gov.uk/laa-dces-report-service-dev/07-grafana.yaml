@@ -284,7 +284,7 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Time in Seconds",
+                "axisLabel": "Number",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
@@ -354,8 +354,8 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "increase(laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}[30m])",
-              "legendFormat": "Emails Sent",
+              "expr": "sum(i                                                                                                                                                     mncrease(laa_dces_report_service_send_email_seconds_count{namespace=\"$namespace\"}[10m]))",
+              "legendFormat": "Emails Sent (10m)",
               "range": true,
               "refId": "A"
             }
