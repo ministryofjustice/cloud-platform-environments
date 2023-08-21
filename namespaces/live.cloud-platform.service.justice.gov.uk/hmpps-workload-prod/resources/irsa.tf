@@ -2,13 +2,41 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
     "Digital-Prison-Services-prod-activities_domain_events_queue" = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-activities_domain_events_dl" = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-activities_domain_events_dl" = "hmpps-domain-events-prod",
+    "Digital-Prison-Services-prod-hmpps_workload_offender_events_queue" = "offender-events-prod"
+    "Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl" = "offender-events-prod",
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
+data "aws_iam_policy_document" "combined_local_sqs" {
+  version = "2012-10-17"
+  statement {
+    sid       = "hmppsWorkloadSqs"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = [
+      module.hmpps_reductions_completed_queue.sqs_arn,
+      module.hmpps_reductions_completed_dead_letter_queue.sqs_arn,
+      module.hmpps_extract_placed_queue.sqs_arn,
+      module.hmpps_extract_placed_dead_letter_queue.sqs_arn,
+      module.hmpps_workload_person_on_probation_queue.sqs_arn,
+      module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_arn,
+      module.hmpps_workload_prisoner_queue.sqs_arn,
+      module.hmpps_workload_prisoner_dead_letter_queue.sqs_arn,
+      module.hmpps_workload_staff_queue.sqs_arn,
+      module.hmpps_workload_staff_dead_letter_queue.sqs_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_local_sqs" {
+  policy = data.aws_iam_policy_document.combined_local_sqs.json
+  tags   = local.default_tags
 }
 
 module "irsa" {
@@ -20,16 +48,7 @@ module "irsa" {
   role_policy_arns      = merge(
     local.sns_policies,
     local.sqs_policies,
-    { domain_sns    = module.hmpps_reductions_completed_queue.irsa_policy_arn },
-    { domain_dlq    = module.hmpps_reductions_completed_dead_letter_queue.irsa_policy_arn },
-    { extract_sqs   = module.hmpps_extract_placed_queue.irsa_policy_arn },
-    { extract_dlq   = module.hmpps_extract_placed_dead_letter_queue.irsa_policy_arn },
-    { pop_sqs       = module.hmpps_workload_person_on_probation_queue.irsa_policy_arn },
-    { pop_dlq       = module.hmpps_workload_person_on_probation_dead_letter_queue.irsa_policy_arn },
-    { prisoner_sqs  = module.hmpps_workload_prisoner_queue.irsa_policy_arn },
-    { prisoner_dlq  = module.hmpps_workload_prisoner_dead_letter_queue.irsa_policy_arn },
-    { staff_sqs     = module.hmpps_workload_staff_queue.irsa_policy_arn },
-    { staff_dlq     = module.hmpps_workload_staff_dead_letter_queue.irsa_policy_arn },
+    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     { dashboard_s3  = module.hmpps-workload-prod-s3-dashboard-bucket.irsa_policy_arn },
     { extract_s3    = module.hmpps-workload-prod-s3-extract-bucket.irsa_policy_arn },
   )
