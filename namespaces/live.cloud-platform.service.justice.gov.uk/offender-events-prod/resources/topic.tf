@@ -7,7 +7,7 @@ module "offender_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -50,25 +50,12 @@ module "probation_offender_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
     aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "prison_data_compliance" {
-  metadata {
-    name      = "offender-events-topic"
-    namespace = "prison-data-compliance-prod"
-  }
-
-  data = {
-    access_key_id     = module.offender_events.access_key_id
-    secret_access_key = module.offender_events.secret_access_key
-    topic_arn         = module.offender_events.topic_arn
   }
 }
 
@@ -80,7 +67,7 @@ module "offender_assessments_events" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -104,7 +91,7 @@ resource "kubernetes_secret" "offender_assessments_events" {
 resource "kubernetes_secret" "offender-events-and-delius-topic-secret" {
   metadata {
     name      = "offender-events-and-delius-topic"
-    namespace = "hmpps-probation-integration-services-${var.environment-name}"
+    namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
     TOPIC_ARN             = module.probation_offender_events.topic_arn

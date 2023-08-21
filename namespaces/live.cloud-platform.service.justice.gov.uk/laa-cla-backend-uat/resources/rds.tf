@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -48,7 +48,7 @@ module "cla_backend_rds_postgres_11" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
@@ -59,7 +59,7 @@ module "cla_backend_rds_postgres_14" {
   db_name = "cla_backend"
   # change the postgres version as you see fit.
   db_engine_version      = "14"
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t4g.small"
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 

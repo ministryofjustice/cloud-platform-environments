@@ -5,9 +5,14 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   repo_name = "laa-court-data-adaptor"
   team_name = "laa-crime-apps-team"
+  namespace = var.namespace
+
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["laa-court-data-adaptor"]
 
   providers = {
     aws = aws.london

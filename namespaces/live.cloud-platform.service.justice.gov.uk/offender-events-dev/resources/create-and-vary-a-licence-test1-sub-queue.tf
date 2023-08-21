@@ -1,14 +1,10 @@
 module "cvl_prison_test1_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "cvl_prison_test1_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -16,22 +12,27 @@ module "cvl_prison_test1_events_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
   }
 }
 
 module "cvl_probation_test1_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "cvl_probation_test1_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -39,21 +40,35 @@ module "cvl_probation_test1_events_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
   }
 }
 
 module "cvl_prison_test1_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "cvl_prison_test1_events_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "cvl_prison_test1_events_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -61,15 +76,20 @@ module "cvl_prison_test1_events_dead_letter_queue" {
 }
 
 module "cvl_probation_test1_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "cvl_probation_test1_events_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "cvl_probation_test1_events_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -132,11 +152,16 @@ resource "aws_sqs_queue_policy" "cvl_probation_test1_events_queue_policy" {
 }
 
 resource "aws_sns_topic_subscription" "cvl_prison_test1_events_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.cvl_prison_test1_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"SENTENCE_DATES-CHANGED\", \"CONFIRMED_RELEASE_DATE-CHANGED\"]}"
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.cvl_prison_test1_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "SENTENCE_DATES-CHANGED",
+      "CONFIRMED_RELEASE_DATE-CHANGED"
+    ]
+  })
 }
 
 resource "aws_sns_topic_subscription" "cvl_probation_test1_events_subscription" {
@@ -154,9 +179,9 @@ resource "kubernetes_secret" "create_and_vary_a_licence_prison_test1_events_queu
   }
 
   data = {
-    sqs_id            = module.cvl_prison_test1_events_queue.sqs_id
-    sqs_arn           = module.cvl_prison_test1_events_queue.sqs_arn
-    sqs_name          = module.cvl_prison_test1_events_queue.sqs_name
+    sqs_id   = module.cvl_prison_test1_events_queue.sqs_id
+    sqs_arn  = module.cvl_prison_test1_events_queue.sqs_arn
+    sqs_name = module.cvl_prison_test1_events_queue.sqs_name
   }
 }
 
@@ -167,9 +192,9 @@ resource "kubernetes_secret" "create_and_vary_a_licence_probation_test1_events_q
   }
 
   data = {
-    sqs_id            = module.cvl_probation_test1_events_queue.sqs_id
-    sqs_arn           = module.cvl_probation_test1_events_queue.sqs_arn
-    sqs_name          = module.cvl_probation_test1_events_queue.sqs_name
+    sqs_id   = module.cvl_probation_test1_events_queue.sqs_id
+    sqs_arn  = module.cvl_probation_test1_events_queue.sqs_arn
+    sqs_name = module.cvl_probation_test1_events_queue.sqs_name
   }
 }
 
@@ -180,9 +205,9 @@ resource "kubernetes_secret" "create_and_vary_a_licence_prison_test1_events_dead
   }
 
   data = {
-    sqs_id            = module.cvl_prison_test1_events_dead_letter_queue.sqs_id
-    sqs_arn           = module.cvl_prison_test1_events_dead_letter_queue.sqs_arn
-    sqs_name          = module.cvl_prison_test1_events_dead_letter_queue.sqs_name
+    sqs_id   = module.cvl_prison_test1_events_dead_letter_queue.sqs_id
+    sqs_arn  = module.cvl_prison_test1_events_dead_letter_queue.sqs_arn
+    sqs_name = module.cvl_prison_test1_events_dead_letter_queue.sqs_name
   }
 }
 
@@ -193,8 +218,8 @@ resource "kubernetes_secret" "create_and_vary_a_licence_probation_test1_events_d
   }
 
   data = {
-    sqs_id            = module.cvl_probation_test1_events_dead_letter_queue.sqs_id
-    sqs_arn           = module.cvl_probation_test1_events_dead_letter_queue.sqs_arn
-    sqs_name          = module.cvl_probation_test1_events_dead_letter_queue.sqs_name
+    sqs_id   = module.cvl_probation_test1_events_dead_letter_queue.sqs_id
+    sqs_arn  = module.cvl_probation_test1_events_dead_letter_queue.sqs_arn
+    sqs_name = module.cvl_probation_test1_events_dead_letter_queue.sqs_name
   }
 }

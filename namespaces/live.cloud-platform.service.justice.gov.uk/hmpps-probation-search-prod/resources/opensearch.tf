@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -11,7 +11,8 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.5"
+  engine_version      = "OpenSearch_2.7"
+  snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
     instance_type            = "m6g.xlarge.search"
@@ -26,6 +27,18 @@ module "opensearch" {
   }
 }
 
+module "opensearch_snapshot_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+
+  application            = var.application
+  business-unit          = var.business_unit
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+  is-production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
 resource "kubernetes_secret" "probation_search_url" {
   metadata {
     name      = "opensearch"
@@ -36,19 +49,12 @@ resource "kubernetes_secret" "probation_search_url" {
   }
 }
 
-locals {
-  # Temporarily rewriting the URL to enable access across namespaces until the full URL is outputted directly from the module.
-  # See https://github.com/ministryofjustice/cloud-platform-terraform-opensearch/pull/3
-  proxy_url_without_port        = regex("(.*):9200", module.opensearch.proxy_url)[0]
-  proxy_url_with_cluster_suffix = "${local.proxy_url_without_port}.${var.namespace}.svc.cluster.local:9200"
-}
-
 resource "kubernetes_secret" "indexer_url" {
   metadata {
     name      = "person-search-index-from-delius-opensearch"
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    url = local.proxy_url_with_cluster_suffix
+    url = module.opensearch.proxy_url
   }
 }

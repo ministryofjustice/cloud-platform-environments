@@ -16,6 +16,8 @@ locals {
     (module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name)          = module.hmpps_allocations_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_from_nomis_sentencing_queue.sqs_name)                         = module.prisoner_from_nomis_sentencing_queue.irsa_policy_arn,
     (module.prisoner_from_nomis_sentencing_dead_letter_queue.sqs_name)             = module.prisoner_from_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
+    (module.prisoner_from_nomis_nonassociations_queue.sqs_name)                    = module.prisoner_from_nomis_nonassociations_queue.irsa_policy_arn,
+    (module.prisoner_from_nomis_nonassociations_dead_letter_queue.sqs_name)        = module.prisoner_from_nomis_nonassociations_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_from_nomis_visits_queue.sqs_name)                             = module.prisoner_from_nomis_visits_queue.irsa_policy_arn,
     (module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name)                 = module.prisoner_from_nomis_visits_dead_letter_queue.irsa_policy_arn,
     (module.restricted_patients_queue.sqs_name)                                    = module.restricted_patients_queue.irsa_policy_arn,
@@ -44,8 +46,6 @@ locals {
     (module.pathfinder_probation_offender_events_dead_letter_queue.sqs_name)       = module.pathfinder_probation_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.pic_probation_offender_events_queue.sqs_name)                          = module.pic_probation_offender_events_queue.irsa_policy_arn,
     (module.pic_probation_offender_events_dead_letter_queue.sqs_name)              = module.pic_probation_offender_events_dead_letter_queue.irsa_policy_arn,
-    (module.prison_to_probation_update_queue.sqs_name)                             = module.prison_to_probation_update_queue.irsa_policy_arn,
-    (module.prison_to_probation_update_dead_letter_queue.sqs_name)                 = module.prison_to_probation_update_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_offender_events_queue.sqs_name)                               = module.prisoner_offender_events_queue.irsa_policy_arn,
     (module.prisoner_offender_events_dead_letter_queue.sqs_name)                   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_offender_search_queue.sqs_name)                               = module.prisoner_offender_search_queue.irsa_policy_arn,
@@ -75,4 +75,12 @@ resource "aws_ssm_parameter" "tf-outputs-sns-irsa-policies" {
   name     = "/${var.namespace}/sns/${each.key}/irsa-policy-arn"
   value    = each.value
   tags     = local.tags
+}
+
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.offender_events.topic_arn
+  description = "SNS topic ARN for offender-events-dev; use this parameter from other HMPPS dev namespaces"
+  tags        = local.tags
 }

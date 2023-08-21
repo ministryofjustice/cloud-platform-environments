@@ -4,7 +4,7 @@
 #################################################################################
 
 module "parliamentary_questions_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = "DEX uhura"
@@ -36,4 +36,3 @@ resource "kubernetes_secret" "parliamentary_questions_elasticache_redis" {
     url                      = "rediss://appuser:${module.parliamentary_questions_elasticache_redis.auth_token}@${module.parliamentary_questions_elasticache_redis.primary_endpoint_address}:6379"
   }
 }
-

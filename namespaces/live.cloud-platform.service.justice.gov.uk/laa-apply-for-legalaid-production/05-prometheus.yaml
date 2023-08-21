@@ -54,21 +54,28 @@ spec:
       annotations:
         message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
     - alert: DiskSpace-Threshold-Reached
-      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"} / 1024 / 1024 > 150 or absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"})
+      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"} / 1024 / 1024 > 150
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
-        message: Container disk space usage is more than 150Mb or is not reported
+        message: Container disk space usage is more than 150Mb
+    - alert: DiskSpace-Threshold-NotReported
+      expr: absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-production"})
+      for: 3m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: Container disk space usage is not reported
     - alert: Long-Request
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/bank_statements_controller|v1/bank_statements_controller|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/bank_statements|v1/bank_statements|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Request is taking more than 2 seconds
     - alert: "Long-Request: file_uploads"
-      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/bank_statements_controller|v1/bank_statements_controller|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 10
+      expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/bank_statements|v1/bank_statements|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 10
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
@@ -85,28 +92,28 @@ spec:
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/address_selections"}[30m])) * 1800 > 1
       for: 1m
       labels:
-        severity: apply-for-legal-aid-production
+        severity: apply-for-legal-aid-prod
       annotations:
         message: Address lookup service request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: Benefit Checker
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/check_benefits"}[30m])) * 1800 > 1
       for: 1m
       labels:
-        severity: apply-for-legal-aid-production
+        severity: apply-for-legal-aid-prod
       annotations:
         message: Benefit Checker request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: Provider Details API
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/saml/sign_in"}[30m])) * 1800 > 1
       for: 1m
       labels:
-        severity: apply-for-legal-aid-production
+        severity: apply-for-legal-aid-prod
       annotations:
         message: Provider Details API request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: CCMS Submission
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="check_merits_answers/continue"}[30m])) * 1800 > 1
       for: 1m
       labels:
-        severity: apply-for-legal-aid-production
+        severity: apply-for-legal-aid-prod
       annotations:
         message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: 429(too many requests) alert

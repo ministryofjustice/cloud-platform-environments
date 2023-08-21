@@ -1,5 +1,5 @@
 module "manage_offences_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -32,7 +32,5 @@ resource "kubernetes_secret" "manage_offences_rds" {
     database_username     = module.manage_offences_rds.database_username
     database_password     = module.manage_offences_rds.database_password
     rds_instance_address  = module.manage_offences_rds.rds_instance_address
-    access_key_id         = module.manage_offences_rds.access_key_id
-    secret_access_key     = module.manage_offences_rds.secret_access_key
   }
 }

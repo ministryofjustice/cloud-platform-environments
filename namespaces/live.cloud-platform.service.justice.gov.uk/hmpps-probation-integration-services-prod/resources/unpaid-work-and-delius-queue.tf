@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "unpaid-work-and-delius-queue-subscription
 }
 
 module "unpaid-work-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "unpaid-work-and-delius-queue-policy" {
 }
 
 module "unpaid-work-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -50,8 +50,21 @@ resource "kubernetes_secret" "unpaid-work-and-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.unpaid-work-and-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.unpaid-work-and-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.unpaid-work-and-delius-queue.secret_access_key
+    QUEUE_NAME = module.unpaid-work-and-delius-queue.sqs_name
   }
+}
+
+module "unpaid-work-and-delius-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "unpaid-work-and-delius"
+  role_policy_arns     = { sqs = module.unpaid-work-and-delius-queue.irsa_policy_arn }
 }

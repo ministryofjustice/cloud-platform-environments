@@ -1,7 +1,7 @@
 module "risk_profiler_change" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -13,30 +13,20 @@ module "risk_profiler_change" {
   {
     "deadLetterTargetArn": "${module.risk_profiler_change_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-  
+
 EOF
-
-
-  providers = {
-    aws = aws.london
-  }
 }
 
-
 module "risk_profiler_change_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "risk_profiler_change_dl"
   encrypt_sqs_kms        = "false"
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "risk_profiler_change" {
@@ -71,4 +61,3 @@ resource "kubernetes_secret" "risk_profiler_change_dead_letter_queue" {
     sqs_rpc_name      = module.risk_profiler_change_dead_letter_queue.sqs_name
   }
 }
-

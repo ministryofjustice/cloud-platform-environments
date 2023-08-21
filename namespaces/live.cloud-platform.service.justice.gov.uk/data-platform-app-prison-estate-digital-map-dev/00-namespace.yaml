@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-platform-app-prison-estate-digital-map-dev
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "https://github.com/moj-analytical-services/prison-estate-digital-map"
+    cloud-platform.justice.gov.uk/application: "prison-estate-digital-map"
+    cloud-platform.justice.gov.uk/owner: "prison condition analytics and modelling: Tim Culwick"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prison-estate-digital-map"
+    cloud-platform.justice.gov.uk/team-name: "prison-estate-digital-map-admin-team"
+    cloud-platform.justice.gov.uk/review-after: ""

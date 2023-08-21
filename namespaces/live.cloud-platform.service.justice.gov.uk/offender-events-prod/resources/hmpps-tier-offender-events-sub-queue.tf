@@ -1,7 +1,7 @@
 module "hmpps_tier_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -21,7 +21,7 @@ EOF
 
 
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
@@ -57,7 +57,7 @@ EOF
 module "hmpps_tier_offender_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -66,7 +66,7 @@ module "hmpps_tier_offender_events_dead_letter_queue" {
   namespace              = var.namespace
 
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
@@ -100,7 +100,7 @@ resource "kubernetes_secret" "hmpps_tier_offender_events_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_tier_offender_events_subscription" {
-  provider      = aws.london
+  provider      = aws.probation-integration
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_tier_offender_events_queue.sqs_arn

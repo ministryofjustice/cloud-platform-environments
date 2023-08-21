@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-platform-app-probation-mi-dashboard-prod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "prod"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
+    cloud-platform.justice.gov.uk/application: "Probation Mi Dashboard For Judiciary & Court Users"
+    cloud-platform.justice.gov.uk/owner: "probation operational analysis: "
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/probation-mi-dashboard"
+    cloud-platform.justice.gov.uk/team-name: "probation-mi-dashboard-admin-team"
+    cloud-platform.justice.gov.uk/review-after: ""

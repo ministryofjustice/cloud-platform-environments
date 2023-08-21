@@ -1,5 +1,5 @@
 module "ap_gh_collab_repo_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   acl    = "private"
 
   team_name              = var.team_name

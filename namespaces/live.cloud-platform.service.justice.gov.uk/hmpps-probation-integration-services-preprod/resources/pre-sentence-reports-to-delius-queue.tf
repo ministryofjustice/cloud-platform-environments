@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "pre-sentence-reports-to-delius-queue-subs
 }
 
 module "pre-sentence-reports-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-queue-policy" {
 }
 
 module "pre-sentence-reports-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -50,8 +50,21 @@ resource "kubernetes_secret" "pre-sentence-reports-to-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.pre-sentence-reports-to-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.pre-sentence-reports-to-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.pre-sentence-reports-to-delius-queue.secret_access_key
+    QUEUE_NAME = module.pre-sentence-reports-to-delius-queue.sqs_name
   }
+}
+
+module "pre-sentence-reports-to-delius-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "pre-sentence-reports-to-delius"
+  role_policy_arns     = { sqs = module.pre-sentence-reports-to-delius-queue.irsa_policy_arn }
 }

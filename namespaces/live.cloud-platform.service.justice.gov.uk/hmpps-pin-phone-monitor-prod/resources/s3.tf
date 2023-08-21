@@ -1,5 +1,5 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -244,7 +244,7 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment-name
   team_name                 = var.team_name
@@ -267,7 +267,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment-name
   team_name              = var.team_name
@@ -344,8 +344,6 @@ resource "kubernetes_secret" "pcms_s3_event_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_pin_phone_monitor_s3_event_queue.access_key_id
-    secret_access_key = module.hmpps_pin_phone_monitor_s3_event_queue.secret_access_key
     sqs_url           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
     sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     sqs_name          = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
@@ -359,8 +357,6 @@ resource "kubernetes_secret" "pcms_document_s3_bucket" {
   }
 
   data = {
-    access_key_id               = module.hmpps_pin_phone_monitor_document_s3_bucket.access_key_id
-    secret_access_key           = module.hmpps_pin_phone_monitor_document_s3_bucket.secret_access_key
     bucket_arn                  = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
     bucket_name                 = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name
     translate_s3_data_role_arn  = aws_iam_role.translate_s3_data_role.arn
@@ -375,11 +371,8 @@ resource "kubernetes_secret" "pcms_s3_event_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.secret_access_key
     sqs_url           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_id
     sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_arn
     sqs_name          = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_name
   }
 }
-

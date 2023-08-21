@@ -4,18 +4,20 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
-  business-unit              = "Central Digital"
+  business-unit              = var.business_unit
   application                = var.application
   is-production              = var.is_production
   namespace                  = var.namespace
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
-  environment-name           = var.environment-name
+  environment-name           = var.environment
   infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
@@ -33,17 +35,19 @@ module "peoplefinder_rds" {
 }
 
 module "peoplefinder_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name = var.vpc_name
 
-  application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
-  team_name              = var.team_name
-  rds_family             = "postgres12"
-  db_engine_version      = "12"
+  application               = var.application
+  environment-name          = var.environment
+  is-production             = var.is_production
+  infrastructure-support    = var.infrastructure_support
+  team_name                 = var.team_name
+  db_instance_class         = "db.t4g.small"
+  db_max_allocated_storage  = "10000"
+  rds_family                = "postgres12"
+  db_engine_version         = "12"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.peoplefinder_rds.db_identifier
@@ -70,9 +74,6 @@ resource "kubernetes_secret" "peoplefinder_rds" {
     database_password     = module.peoplefinder_rds.database_password
     rds_instance_address  = module.peoplefinder_rds.rds_instance_address
 
-    access_key_id     = module.peoplefinder_rds.access_key_id
-    secret_access_key = module.peoplefinder_rds.secret_access_key
-
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
 }
@@ -86,8 +87,6 @@ resource "kubernetes_secret" "peoplefinder_rds_replica" {
   data = {
     rds_instance_endpoint = module.peoplefinder_rds_replica.rds_instance_endpoint
     rds_instance_address  = module.peoplefinder_rds_replica.rds_instance_address
-    access_key_id         = module.peoplefinder_rds_replica.access_key_id
-    secret_access_key     = module.peoplefinder_rds_replica.secret_access_key
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds_replica.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }

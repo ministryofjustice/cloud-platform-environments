@@ -1,5 +1,5 @@
 module "hmpps_extract_placed_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -22,7 +22,7 @@ module "hmpps_extract_placed_queue" {
 }
 
 module "hmpps_extract_placed_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment
   team_name              = var.team_name
@@ -90,5 +90,3 @@ resource "kubernetes_secret" "hmpps_extract_placed_dead_letter_queue" {
     sqs_queue_name    = module.hmpps_extract_placed_dead_letter_queue.sqs_name
   }
 }
-
-

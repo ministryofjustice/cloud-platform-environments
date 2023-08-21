@@ -1,7 +1,7 @@
 module "migration_appointments_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name           = var.environment
+  environment-name           = var.environment_name
   team_name                  = var.team_name
   infrastructure-support     = var.infrastructure_support
   application                = var.application
@@ -18,26 +18,18 @@ module "migration_appointments_queue" {
   }
 
 EOF
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 module "migration_appointments_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment
+  environment-name       = var.environment_name
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
   sqs_name               = "migration_appointments_dlq"
   encrypt_sqs_kms        = "true"
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "migration_appointments_queue" {
@@ -47,11 +39,9 @@ resource "kubernetes_secret" "migration_appointments_queue" {
   }
 
   data = {
-    access_key_id     = module.migration_appointments_queue.access_key_id
-    secret_access_key = module.migration_appointments_queue.secret_access_key
-    sqs_id            = module.migration_appointments_queue.sqs_id
-    sqs_arn           = module.migration_appointments_queue.sqs_arn
-    sqs_name          = module.migration_appointments_queue.sqs_name
+    sqs_id   = module.migration_appointments_queue.sqs_id
+    sqs_arn  = module.migration_appointments_queue.sqs_arn
+    sqs_name = module.migration_appointments_queue.sqs_name
   }
 }
 
@@ -62,10 +52,8 @@ resource "kubernetes_secret" "migration_appointments_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.migration_appointments_dead_letter_queue.access_key_id
-    secret_access_key = module.migration_appointments_dead_letter_queue.secret_access_key
-    sqs_id            = module.migration_appointments_dead_letter_queue.sqs_id
-    sqs_arn           = module.migration_appointments_dead_letter_queue.sqs_arn
-    sqs_name          = module.migration_appointments_dead_letter_queue.sqs_name
+    sqs_id   = module.migration_appointments_dead_letter_queue.sqs_id
+    sqs_arn  = module.migration_appointments_dead_letter_queue.sqs_arn
+    sqs_name = module.migration_appointments_dead_letter_queue.sqs_name
   }
 }

@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "pecs"
+  default     = "Move a Prisoner"
 }
 
 variable "environment" {
@@ -40,7 +40,7 @@ variable "environment_suffix" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "pecs-digital-tech@digital.justice.gov.uk"
+  default     = "moveaprisoner@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -49,7 +49,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "move-a-prisoner-digital"
 }
 
 variable "base_domain" {
@@ -66,3 +66,15 @@ variable "base_domain_route53_namespace" {
   description = "Kubernetes namespace where the base domain was created"
   default     = "hmpps-book-secure-move-api-production"
 }
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+

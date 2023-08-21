@@ -1,5 +1,5 @@
 module "submitter-rds-instance-2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_submitter
@@ -29,4 +29,3 @@ resource "kubernetes_secret" "submitter-rds-instance-2" {
     url = "postgres://${module.submitter-rds-instance-2.database_username}:${module.submitter-rds-instance-2.database_password}@${module.submitter-rds-instance-2.rds_instance_endpoint}/${module.submitter-rds-instance-2.database_name}"
   }
 }
-

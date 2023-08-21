@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-not-on-libra-auto-search-application-dev
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-not-on-libra-auto-search-application
+spec:
+  groups:
+  - name: laa-not-on-libra-auto-search-application-dev
+    rules:
+    - alert: CPU-high-threshold
+      expr: "(sum(rate(container_cpu_usage_seconds_total{namespace=\"laa-not-on-libra-auto-search-application-dev\", container=\"not-on-libra-auto-search-application\", image!=\"\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=\"laa-not-on-libra-auto-search-application-dev\", container=\"not-on-libra-auto-search-application\", unit=\"core\"})) * 100 > 75"
+      for: 5m
+      labels:
+        severity: not-on-libra-auto-search-application
+      annotations:
+        message: "The CPU usage compared to the CPU limit on the container is more than 75% for 5m"
+    - alert: Memory-high-threshold
+      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-not-on-libra-auto-search-application-dev\", container=\"not-on-libra-auto-search-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-not-on-libra-auto-search-application-dev\", container=\"not-on-libra-auto-search-application\", unit=\"byte\"})) * 100 > 75"
+      for: 5m
+      labels:
+        severity: not-on-libra-auto-search-application
+      annotations:
+        message: "The Memory usage compared to the Memory limit on the container is more than 75% for 5m"

@@ -5,7 +5,7 @@
  *
  */
 module "abundant_namespace_dev_sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
 
   topic_display_name     = "test-sns"
   business_unit          = var.business_unit
@@ -33,4 +33,3 @@ resource "kubernetes_secret" "example_sns_topic" {
     topic_arn         = module.abundant_namespace_dev_sns.topic_arn
   }
 }
-

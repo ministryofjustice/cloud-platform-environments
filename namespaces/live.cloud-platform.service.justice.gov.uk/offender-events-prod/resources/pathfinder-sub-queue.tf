@@ -1,9 +1,7 @@
-
-
 module "pathfinder_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -26,7 +24,7 @@ module "pathfinder_offender_events_queue" {
 module "pathfinder_probation_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -44,33 +42,6 @@ module "pathfinder_probation_offender_events_queue" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
-  queue_url = module.pathfinder_offender_events_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.pathfinder_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.pathfinder_offender_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-                {
-                  "aws:SourceArn": "${module.offender_events.topic_arn}"
-                }
-            }
-        }
-      ]
-  }
-   EOF
 }
 
 resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_policy" {
@@ -103,7 +74,7 @@ resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_poli
 module "pathfinder_offender_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -119,7 +90,7 @@ module "pathfinder_offender_events_dead_letter_queue" {
 module "pathfinder_probation_offender_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -190,6 +161,50 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_dead_letter_q
     sqs_arn           = module.pathfinder_probation_offender_events_dead_letter_queue.sqs_arn
     sqs_name          = module.pathfinder_probation_offender_events_dead_letter_queue.sqs_name
   }
+}
+
+data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
+  name = "/hmpps-domain-events-prod/topic-arn"
+}
+
+resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
+  queue_url = module.pathfinder_offender_events_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.pathfinder_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.pathfinder_offender_events_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+                      {
+                        "ForAnyValue:ArnEquals":
+                          {
+                            "aws:SourceArn": ["${module.offender_events.topic_arn}", "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"]
+                          }
+                        }
+        }
+      ]
+  }
+
+EOF
+
+}
+
+resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription" {
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.pathfinder_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prisoner-offender-search.prisoner.updated",
+    ]
+  })
 }
 
 resource "aws_sns_topic_subscription" "pathfinder_offender_events_subscription" {

@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "haletest1_route53_zone" {
-  name = "haletest1.service.justice.gov.uk" 
+  name = "haletest1.service.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit

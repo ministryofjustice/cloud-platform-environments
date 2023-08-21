@@ -3,7 +3,7 @@
 ################################################################################
 
 module "oc_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment-name       = var.environment-name
@@ -12,9 +12,9 @@ module "oc_elasticache_redis" {
   team_name              = var.team_name
   business-unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t2.small"
-  engine_version         = "4.0.10"
-  parameter_group_name   = "default.redis4.0"
+  node_type              = "cache.t4g.small"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 }
 
@@ -30,4 +30,3 @@ resource "kubernetes_secret" "oc_elasticache_redis" {
     member_clusters          = jsonencode(module.oc_elasticache_redis.member_clusters)
   }
 }
-

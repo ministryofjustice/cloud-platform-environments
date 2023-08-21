@@ -1,5 +1,5 @@
 module "lcdui_elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -29,4 +29,3 @@ resource "kubernetes_secret" "lcdui_elasticache" {
     url                      = "rediss://dummyuser:${module.lcdui_elasticache.auth_token}@${module.lcdui_elasticache.primary_endpoint_address}:6379"
   }
 }
-

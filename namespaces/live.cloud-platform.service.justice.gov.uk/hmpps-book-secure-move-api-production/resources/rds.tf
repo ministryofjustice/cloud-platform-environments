@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name = var.vpc_name
 
@@ -19,7 +19,7 @@ module "rds-instance" {
   db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
-  db_engine_version = "12.11"
+  db_engine_version = "12.14"
   rds_family        = "postgres12"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
@@ -48,7 +48,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name = var.vpc_name
 
@@ -67,7 +67,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "12.11"
+  db_engine_version = "12.14"
   rds_family        = "postgres12"
 
   providers = {

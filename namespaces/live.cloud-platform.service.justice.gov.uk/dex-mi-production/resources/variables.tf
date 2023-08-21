@@ -17,7 +17,7 @@ variable "is_production" {
   default = "true"
 }
 
-variable "environment-name" {
+variable "environment" {
   default = "production"
 }
 
@@ -26,3 +26,27 @@ variable "infrastructure_support" {
   type        = string
   default     = "Central-Digital-Product-Team@digital.justice.gov.uk"
 }
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+
+variable team_name {
+  default = "correspondence"
+}
+
+variable business_unit {
+  default = "Central Digital"
+}
+
+variable application {
+  default = "dex-mi-metabase"
+}
+

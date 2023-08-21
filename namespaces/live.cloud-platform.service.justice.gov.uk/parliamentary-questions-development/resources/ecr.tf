@@ -3,14 +3,43 @@
 ##########################################
 
 module "pq_ecr_credentials" {
-  repo_name = var.repo_name
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
-  team_name = var.team_name
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  providers = {
-    aws = aws.london
-  }
+  repo_name = var.repo_name
+
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name]
+
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "pq_ecr_credentials" {
@@ -20,23 +49,7 @@ resource "kubernetes_secret" "pq_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.pq_ecr_credentials.access_key_id
-    repo_arn          = module.pq_ecr_credentials.repo_arn
-    repo_url          = module.pq_ecr_credentials.repo_url
-    secret_access_key = module.pq_ecr_credentials.secret_access_key
-  }
-}
-
-resource "kubernetes_secret" "pq_ecr_credentials_production" {
-  metadata {
-    name      = "pq-ecr-credentials-output"
-    namespace = "parliamentary-questions-production"
-  }
-
-  data = {
-    access_key_id     = module.pq_ecr_credentials.access_key_id
-    repo_arn          = module.pq_ecr_credentials.repo_arn
-    repo_url          = module.pq_ecr_credentials.repo_url
-    secret_access_key = module.pq_ecr_credentials.secret_access_key
+    repo_arn = module.pq_ecr_credentials.repo_arn
+    repo_url = module.pq_ecr_credentials.repo_url
   }
 }

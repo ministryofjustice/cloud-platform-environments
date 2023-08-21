@@ -1,14 +1,10 @@
 module "offender_events_ui_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "offender_events_ui_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -17,6 +13,14 @@ module "offender_events_ui_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -53,15 +57,20 @@ EOF
 }
 
 module "offender_events_ui_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "offender_events_ui_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "offender_events_ui_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -75,9 +84,9 @@ resource "kubernetes_secret" "offender_events_ui_queue" {
   }
 
   data = {
-    sqs_ptpu_url      = module.offender_events_ui_queue.sqs_id
-    sqs_ptpu_arn      = module.offender_events_ui_queue.sqs_arn
-    sqs_ptpu_name     = module.offender_events_ui_queue.sqs_name
+    sqs_ptpu_url  = module.offender_events_ui_queue.sqs_id
+    sqs_ptpu_arn  = module.offender_events_ui_queue.sqs_arn
+    sqs_ptpu_name = module.offender_events_ui_queue.sqs_name
   }
 }
 
@@ -88,9 +97,9 @@ resource "kubernetes_secret" "offender_events_ui_dead_letter_queue" {
   }
 
   data = {
-    sqs_ptpu_url      = module.offender_events_ui_dead_letter_queue.sqs_id
-    sqs_ptpu_arn      = module.offender_events_ui_dead_letter_queue.sqs_arn
-    sqs_ptpu_name     = module.offender_events_ui_dead_letter_queue.sqs_name
+    sqs_ptpu_url  = module.offender_events_ui_dead_letter_queue.sqs_id
+    sqs_ptpu_arn  = module.offender_events_ui_dead_letter_queue.sqs_arn
+    sqs_ptpu_name = module.offender_events_ui_dead_letter_queue.sqs_name
   }
 }
 
@@ -121,10 +130,21 @@ resource "aws_sns_topic_subscription" "ou_events_ui_domain_subscription" {
 
 # IRSA role for offender-events-ui app
 module "offender-events-ui-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name = var.eks_cluster_name
-  namespace        = var.namespace
-  service_account  = "offender-events-ui-dev"
-  role_policy_arns = [module.offender_events_ui_dead_letter_queue.irsa_policy_arn, module.offender_events_ui_queue.irsa_policy_arn]
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "offender-events-ui"
+  role_policy_arns = {
+    offender_events_ui_dead_letter_queue = module.offender_events_ui_dead_letter_queue.irsa_policy_arn,
+    offender_events_ui_queue             = module.offender_events_ui_queue.irsa_policy_arn
+  }
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }

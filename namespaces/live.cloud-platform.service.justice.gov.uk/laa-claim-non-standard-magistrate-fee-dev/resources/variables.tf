@@ -36,7 +36,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "sandeep.mittal@digital.justice.gov.uk"
+  default     = "CRM457@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -48,7 +48,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "crmseven"
+  default     = "laa-crm-4-5-7"
 }
 
 variable "github_owner" {
@@ -67,40 +67,24 @@ variable "kubernetes_cluster" {
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_DEV"
+  default     = "KUBE_CLUSTER"
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_DEV"
+  default     = "KUBE_NAMESPACE"
 }
 
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_DEV"
+  default     = "KUBE_CERT"
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_DEV"
+  default     = "KUBE_TOKEN"
 }
 
-variable "github_actions_secret_ecr_name" {
-  description = "The name of the github actions secret containing the ECR name"
-  default     = "ECR_NAME_DEV"
-}
-
-variable "github_actions_secret_ecr_url" {
-  description = "The name of the github actions secret containing the ECR URL"
-  default     = "ECR_URL_DEV"
-}
-
-variable "github_actions_secret_ecr_access_key" {
-  description = "The name of the github actions secret containing the ECR AWS access key"
-  default     = "ECR_AWS_ACCESS_KEY_ID_DEV"
-}
-
-variable "github_actions_secret_ecr_secret_key" {
-  description = "The name of the github actions secret containing the ECR AWS secret key"
-  default     = "ECR_AWS_SECRET_ACCESS_KEY_DEV"
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

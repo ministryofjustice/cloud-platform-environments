@@ -7,7 +7,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "workforce-management-prod"
+  default     = "workforce-management"
 }
 
 variable "namespace" {
@@ -31,7 +31,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "manageaworkforce@justice.gov.uk"
+  default     = "manage-a-workforce-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -55,4 +55,8 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

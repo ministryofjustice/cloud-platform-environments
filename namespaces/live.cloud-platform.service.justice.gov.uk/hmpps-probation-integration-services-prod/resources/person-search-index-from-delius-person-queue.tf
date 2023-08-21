@@ -16,7 +16,7 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-person-qu
 }
 
 module "person-search-index-from-delius-person-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -37,7 +37,7 @@ resource "aws_sqs_queue_policy" "person-search-index-from-delius-person-queue-po
 }
 
 module "person-search-index-from-delius-person-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -59,9 +59,7 @@ resource "kubernetes_secret" "person-search-index-from-delius-person-queue-secre
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-person-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-person-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-person-queue.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-person-queue.sqs_name
   }
 }
 
@@ -71,8 +69,6 @@ resource "kubernetes_secret" "person-search-index-from-delius-person-dlq-secret"
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-person-dlq.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-person-dlq.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-person-dlq.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-person-dlq.sqs_name
   }
 }

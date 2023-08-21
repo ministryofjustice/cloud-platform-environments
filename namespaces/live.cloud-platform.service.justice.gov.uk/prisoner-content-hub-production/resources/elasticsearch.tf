@@ -10,7 +10,7 @@ module "content_hub_elasticsearch" {
   team_name              = var.team_name
   elasticsearch-domain   = "hub-search"
   namespace              = var.namespace
-  elasticsearch_version  = "7.1"
+  elasticsearch_version  = "7.10"
   ebs_volume_size        = 50
   instance_type          = "t3.medium.elasticsearch"
   ebs_iops               = 0

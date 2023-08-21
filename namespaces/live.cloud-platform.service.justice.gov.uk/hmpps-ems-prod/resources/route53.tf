@@ -111,3 +111,51 @@ resource "kubernetes_secret" "route53_zone_sec" {
     zone_id = aws_route53_zone.route53_zone.zone_id
   }
 }
+
+########################
+# RUBY (Telephony G4S) #
+########################
+
+# ACM Validation Record (Preprod)
+resource "aws_route53_record" "ruby_preprod_dns_validation_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "_f32f12ae73a733d24edd43c85757d18b.ruby.preprod.electronic-monitoring.service.justice.gov.uk."
+  type    = "CNAME"
+  ttl     = "7200"
+  records = ["_48d1a9b6ff3eb34ffef392d38d9b1d65.hnyzmxtzsz.acm-validations.aws."]
+}
+
+# API Gateway alias record (Preprod)
+resource "aws_route53_record" "ruby_preprod_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "ruby.preprod.electronic-monitoring.service.justice.gov.uk"
+  type    = "A"
+
+  alias {
+    name                   = "d-pb1rucdbf4.execute-api.eu-west-2.amazonaws.com"
+    zone_id                = "ZJ5UAJN8Y3Z2Q"
+    evaluate_target_health = false
+  }
+}
+
+# ACM Validation Record (Prod)
+resource "aws_route53_record" "ruby_prod_dns_validation_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "_c7c996bb788c4319fe5574b3456c85c5.ruby.electronic-monitoring.service.justice.gov.uk."
+  type    = "CNAME"
+  ttl     = "7200"
+  records = ["_0966f119a76d9832601afe2332cf0b9d.kmjqhnbgnp.acm-validations.aws."]
+}
+
+# API Gateway alias record (Prod)
+resource "aws_route53_record" "ruby_prod_record" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "ruby.electronic-monitoring.service.justice.gov.uk"
+  type    = "A"
+
+  alias {
+    name                   = "d-oylazfufm6.execute-api.eu-west-2.amazonaws.com"
+    zone_id                = "ZJ5UAJN8Y3Z2Q"
+    evaluate_target_health = false
+  }
+}

@@ -1,5 +1,5 @@
 module "update_application_status_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name           = var.environment_name
   team_name                  = var.team_name
@@ -45,7 +45,7 @@ resource "aws_sqs_queue_policy" "update_application_status_queue_m_policy" {
 }
 
 module "update_application_status_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment_name
   team_name              = var.team_name

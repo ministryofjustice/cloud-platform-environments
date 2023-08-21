@@ -242,14 +242,6 @@ resource "aws_route53_record" "ccrc_route53_cname_record_sipdir" {
   records = ["sipdir.online.lync.com"]
 }
 
-resource "aws_route53_record" "ccrc_route53_cname_record_www" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "www.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["ccrc.gov.uk"]
-}
-
 resource "aws_route53_record" "ccrc_route53_cname_record_acm2" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "_2966249ff1f7d496b355eabc821707b3.www.ccrc.gov.uk"

@@ -1,7 +1,7 @@
 module "manage_soc_cases_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -24,7 +24,7 @@ module "manage_soc_cases_offender_events_queue" {
 module "manage_soc_cases_probation_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name          = var.environment-name
+  environment-name          = var.environment
   team_name                 = var.team_name
   infrastructure-support    = var.infrastructure_support
   application               = var.application
@@ -101,7 +101,7 @@ resource "aws_sqs_queue_policy" "manage_soc_cases_probation_offender_events_queu
 module "manage_soc_cases_offender_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -117,7 +117,7 @@ module "manage_soc_cases_offender_events_dead_letter_queue" {
 module "manage_soc_cases_probation_offender_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   team_name              = var.team_name
   infrastructure-support = var.infrastructure_support
   application            = var.application
@@ -137,8 +137,6 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_queue" {
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_offender_events_queue.access_key_id
-    secret_access_key = module.manage_soc_cases_offender_events_queue.secret_access_key
     sqs_id            = module.manage_soc_cases_offender_events_queue.sqs_id
     sqs_arn           = module.manage_soc_cases_offender_events_queue.sqs_arn
     sqs_name          = module.manage_soc_cases_offender_events_queue.sqs_name
@@ -152,8 +150,6 @@ resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_queue" 
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_probation_offender_events_queue.access_key_id
-    secret_access_key = module.manage_soc_cases_probation_offender_events_queue.secret_access_key
     sqs_id            = module.manage_soc_cases_probation_offender_events_queue.sqs_id
     sqs_arn           = module.manage_soc_cases_probation_offender_events_queue.sqs_arn
     sqs_name          = module.manage_soc_cases_probation_offender_events_queue.sqs_name
@@ -167,8 +163,6 @@ resource "kubernetes_secret" "manage_soc_cases_offender_events_dead_letter_queue
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.manage_soc_cases_offender_events_dead_letter_queue.secret_access_key
     sqs_id            = module.manage_soc_cases_offender_events_dead_letter_queue.sqs_id
     sqs_arn           = module.manage_soc_cases_offender_events_dead_letter_queue.sqs_arn
     sqs_name          = module.manage_soc_cases_offender_events_dead_letter_queue.sqs_name
@@ -182,8 +176,6 @@ resource "kubernetes_secret" "manage_soc_cases_probation_offender_events_dead_le
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_probation_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.manage_soc_cases_probation_offender_events_dead_letter_queue.secret_access_key
     sqs_id            = module.manage_soc_cases_probation_offender_events_dead_letter_queue.sqs_id
     sqs_arn           = module.manage_soc_cases_probation_offender_events_dead_letter_queue.sqs_arn
     sqs_name          = module.manage_soc_cases_probation_offender_events_dead_letter_queue.sqs_name

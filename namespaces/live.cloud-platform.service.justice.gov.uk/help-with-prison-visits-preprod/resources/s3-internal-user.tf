@@ -1,17 +1,4 @@
-# Generate an additional IAM user to internal app
-resource "random_id" "hwpv-internal-id" {
-  byte_length = 16
-}
-
-resource "aws_iam_user" "hwpv-internal-user" {
-  name = "hwpv-internal-user-${random_id.hwpv-internal-id.hex}"
-  path = "/system/hwpv-internal-user/"
-}
-
-resource "aws_iam_access_key" "hwpv-internal-user" {
-  user = aws_iam_user.hwpv-internal-user.name
-}
-
+# Define policy for internal app to access S3
 data "aws_iam_policy_document" "hwpv-internal" {
   statement {
     actions = [
@@ -27,10 +14,10 @@ data "aws_iam_policy_document" "hwpv-internal" {
   }
 }
 
-resource "aws_iam_user_policy" "hwpv-internal-policy" {
+resource "aws_iam_policy" "hwpv-internal" {
   name   = "${var.namespace}-hwpv-internal"
+  path   = "/"
   policy = data.aws_iam_policy_document.hwpv-internal.json
-  user   = aws_iam_user.hwpv-internal-user.name
 }
 
 resource "kubernetes_secret" "hwpv_document_s3_bucket_internal" {
@@ -40,9 +27,7 @@ resource "kubernetes_secret" "hwpv_document_s3_bucket_internal" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.hwpv-internal-user.id
-    secret_access_key = aws_iam_access_key.hwpv-internal-user.secret
-    bucket_arn        = module.hwpv_document_s3_bucket.bucket_arn
-    bucket_name       = module.hwpv_document_s3_bucket.bucket_name
+    bucket_arn  = module.hwpv_document_s3_bucket.bucket_arn
+    bucket_name = module.hwpv_document_s3_bucket.bucket_name
   }
 }

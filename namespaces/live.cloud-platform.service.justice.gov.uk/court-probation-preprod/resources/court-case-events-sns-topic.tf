@@ -1,5 +1,5 @@
 module "court-case-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.8.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.9.0"
 
   topic_display_name = "court-case-events"
 
@@ -28,4 +28,3 @@ resource "kubernetes_secret" "court-case-events" {
     topic_arn         = module.court-case-events.topic_arn
   }
 }
-

@@ -94,3 +94,7 @@ variable "github_actions_secret_ecr_secret_key" {
   description = "The name of the github actions secret containing the ECR AWS secret key"
   default     = "ECR_AWS_SECRET_ACCESS_KEY_DEMO"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

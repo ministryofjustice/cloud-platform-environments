@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -11,7 +11,7 @@ module "rds" {
   infrastructure-support = var.email
 
   db_engine                  = "postgres"
-  db_engine_version          = "14.3"
+  db_engine_version          = "14.7"
   db_instance_class          = "db.t3.small"
   db_allocated_storage       = "10"
   db_name                    = "datacaptureservice"
@@ -47,4 +47,3 @@ resource "kubernetes_secret" "rds" {
     secret_access_key     = module.rds.secret_access_key
   }
 }
-

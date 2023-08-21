@@ -11,7 +11,7 @@ variable "environment-name" {
 }
 
 variable "team_name" {
-  default = "prison-visits-booking"
+  default = "book-a-prison-visit"
 }
 
 variable "is_production" {
@@ -23,7 +23,7 @@ variable "namespace" {
 }
 
 variable "infrastructure_support" {
-  default = "pvb-technical-support@digital.justice.gov.uk"
+  default = "prisonvisitsbooking@digital.justice.gov.uk"
 }
 
 variable "application" {
@@ -39,3 +39,15 @@ variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
 }
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+

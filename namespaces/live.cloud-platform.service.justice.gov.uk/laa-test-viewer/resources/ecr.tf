@@ -5,9 +5,15 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+
+  # REQUIRED: Repository configuration
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
+  namespace = var.namespace
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
@@ -36,4 +42,3 @@ resource "kubernetes_secret" "ecr_credentials" {
     repo_url          = module.ecr_credentials.repo_url
   }
 }
-

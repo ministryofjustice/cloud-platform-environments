@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-contact-q
 }
 
 module "person-search-index-from-delius-contact-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "person-search-index-from-delius-contact-queue-p
 }
 
 module "person-search-index-from-delius-contact-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -51,9 +51,7 @@ resource "kubernetes_secret" "person-search-index-from-delius-contact-queue-secr
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-contact-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-contact-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-contact-queue.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-contact-queue.sqs_name
   }
 }
 
@@ -63,8 +61,26 @@ resource "kubernetes_secret" "person-search-index-from-delius-contact-dlq-secret
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.person-search-index-from-delius-contact-dlq.sqs_name
-    AWS_ACCESS_KEY_ID     = module.person-search-index-from-delius-contact-dlq.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.person-search-index-from-delius-contact-dlq.secret_access_key
+    QUEUE_NAME = module.person-search-index-from-delius-contact-dlq.sqs_name
+  }
+}
+
+module "person-search-index-from-delius-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "person-search-index-from-delius"
+  role_policy_arns = {
+    contact-queue = module.person-search-index-from-delius-contact-queue.irsa_policy_arn,
+    contact-dlq   = module.person-search-index-from-delius-contact-dlq.irsa_policy_arn,
+    person-queue  = module.person-search-index-from-delius-person-queue.irsa_policy_arn,
+    person-dlq    = module.person-search-index-from-delius-person-dlq.irsa_policy_arn,
   }
 }

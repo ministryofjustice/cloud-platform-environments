@@ -1,14 +1,10 @@
 module "prisoner_offender_search_domain_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "prisoner_offender_search_domain_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -17,6 +13,14 @@ module "prisoner_offender_search_domain_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -53,15 +57,20 @@ EOF
 }
 
 module "prisoner_offender_search_domain_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "prisoner_offender_search_domain_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "prisoner_offender_search_domain_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -75,11 +84,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_queue" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_queue.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_queue.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_queue.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_queue.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_queue.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_queue.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_queue.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_queue.sqs_name
   }
 }
 
@@ -90,11 +97,9 @@ resource "kubernetes_secret" "prisoner_offender_search_domain_dlq" {
   }
 
   data = {
-    access_key_id     = module.prisoner_offender_search_domain_dlq.access_key_id
-    secret_access_key = module.prisoner_offender_search_domain_dlq.secret_access_key
-    sqs_queue_url     = module.prisoner_offender_search_domain_dlq.sqs_id
-    sqs_queue_arn     = module.prisoner_offender_search_domain_dlq.sqs_arn
-    sqs_queue_name    = module.prisoner_offender_search_domain_dlq.sqs_name
+    sqs_queue_url  = module.prisoner_offender_search_domain_dlq.sqs_id
+    sqs_queue_arn  = module.prisoner_offender_search_domain_dlq.sqs_arn
+    sqs_queue_name = module.prisoner_offender_search_domain_dlq.sqs_name
   }
 }
 

@@ -229,6 +229,20 @@ EOF
       "Resource": [
         "$${bucket_arn}"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
+      },
+      "Action": [
+        "s3:GetObjectAcl",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
     }
   ]
 }

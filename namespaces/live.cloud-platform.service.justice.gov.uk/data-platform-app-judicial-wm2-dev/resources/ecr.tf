@@ -1,16 +1,8 @@
 module "ecr_credentials" {
-  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2.0"
-  team_name      = var.team_name
+  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["github"]
-
-  /*
-    By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
-    / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
-    https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
-    To disable 'scan_on_push', set it to false as below:
-  scan_on_push = "false"
-  */
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
@@ -19,9 +11,7 @@ module "ecr_credentials" {
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["dev"]
-
-  # You must provide a prefix if you're using environments, otherwise Terraform will fail as it will try to overwrite the Actions variable and error saying it exists.
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   /*
@@ -75,6 +65,14 @@ module "ecr_credentials" {
 EOF
 */
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 
@@ -85,9 +83,7 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
   }
 }

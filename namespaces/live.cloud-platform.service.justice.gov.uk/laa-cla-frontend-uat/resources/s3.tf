@@ -1,5 +1,5 @@
 module "cla_frontend_static_files_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
@@ -32,8 +32,6 @@ resource "kubernetes_secret" "cla_frontend_s3" {
   }
 
   data = {
-    access_key_id            = module.cla_frontend_static_files_bucket.access_key_id
-    secret_access_key        = module.cla_frontend_static_files_bucket.secret_access_key
     static_files_bucket_name = module.cla_frontend_static_files_bucket.bucket_name
     static_files_bucket_arn  = module.cla_frontend_static_files_bucket.bucket_arn
   }

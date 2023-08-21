@@ -54,3 +54,7 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "repo_name" {
+  default = "cla-end-to-end-tests"
+}

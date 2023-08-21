@@ -1,7 +1,7 @@
 
 
 module "hmpps_workload_staff_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name          = var.environment
   team_name                 = var.team_name
@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_workload_staff_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
 
   environment-name       = var.environment
   team_name              = var.team_name
@@ -114,4 +114,3 @@ resource "kubernetes_secret" "hmpps_workload_staff_queue_dead_letter_queue" {
     sqs_queue_name    = module.hmpps_workload_staff_dead_letter_queue.sqs_name
   }
 }
-
