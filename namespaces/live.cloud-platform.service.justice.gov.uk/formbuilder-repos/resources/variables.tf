@@ -34,3 +34,7 @@ variable "github_token" {
   default     = ""
 }
 
+variable "namespace" {
+  default = "formbuilder-repos"
+}
+
