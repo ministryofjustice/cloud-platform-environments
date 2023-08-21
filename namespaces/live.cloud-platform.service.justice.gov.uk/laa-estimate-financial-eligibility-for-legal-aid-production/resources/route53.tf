@@ -42,7 +42,7 @@ resource "aws_route53_record" "eligibility_team_route53_txt_dmarc_record" {
 }
 
 resource "aws_route53_record" "eligibility_team_route53_txt_dkim_record" {
-  zone_id = "aws_route53_zone.eligibility_team_route53_zone.zone_id"
+  zone_id = aws_route53_zone.eligibility_team_route53_zone.zone_id
   name    = "*._domainkey"
   type    = "TXT"
   ttl     = 300
