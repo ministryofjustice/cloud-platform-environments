@@ -21,7 +21,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -69,7 +69,7 @@ module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -134,7 +134,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   redrive_policy = <<EOF
@@ -187,7 +187,7 @@ module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -251,7 +251,7 @@ module "hmpps_prisoner_to_nomis_activity_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   redrive_policy = <<EOF
@@ -304,7 +304,7 @@ module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -377,7 +377,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -425,7 +425,7 @@ module "prisoner_to_nomis_appointment_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -497,7 +497,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -546,7 +546,7 @@ module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
