@@ -16,30 +16,40 @@ resource "aws_sqs_queue_policy" "prison-to-probation-update-queue-policy" {
 }
 
 module "prison-to-probation-update-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "prison-to-probation-update"
-  sqs_name    = "prison-to-probation-update-queue"
+  # Queue configuration
+  sqs_name = "prison-to-probation-update-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prison-to-probation-update-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "prison-to-probation-update"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 module "prison-to-probation-update-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "prison-to-probation-update"
-  sqs_name    = "prison-to-probation-update-dlq"
+  # Queue configuration
+  sqs_name = "prison-to-probation-update-dlq"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "prison-to-probation-update"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "prison-to-probation-update-queue-secret" {
