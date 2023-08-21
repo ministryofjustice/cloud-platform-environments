@@ -1,14 +1,10 @@
 module "prisoner_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "prisoner_offender_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -17,6 +13,14 @@ module "prisoner_offender_events_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -53,15 +57,19 @@ EOF
 }
 
 module "prisoner_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  sqs_name        = "prisoner_offender_events_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "prisoner_offender_events_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -95,10 +103,10 @@ resource "kubernetes_secret" "prisoner_offender_events_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
-  provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.prisoner_offender_events_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.prisoner_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_MOVEMENT-RECEPTION",
@@ -122,7 +130,7 @@ locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
-  sns_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value}
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 # IRSA role for prison-offender-events app
@@ -132,13 +140,14 @@ module "prison-offender-events-irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "prison-offender-events"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sns_policies,
     {
       prisoner_offender_events_queue = module.prisoner_offender_events_queue.irsa_policy_arn,
       prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
       offender_events_topic          = module.offender_events.irsa_policy_arn
-    })
+  })
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -152,4 +161,3 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
-

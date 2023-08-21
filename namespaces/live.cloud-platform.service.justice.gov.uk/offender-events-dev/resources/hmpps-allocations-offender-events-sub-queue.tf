@@ -1,14 +1,10 @@
 module "hmpps_allocations_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hmpps_allocations_offender_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
   delay_seconds             = 2
   receive_wait_time_seconds = 20
 
@@ -19,6 +15,14 @@ module "hmpps_allocations_offender_events_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -55,15 +59,20 @@ EOF
 }
 
 module "hmpps_allocations_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_allocations_offender_events_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_allocations_offender_events_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -77,9 +86,9 @@ resource "kubernetes_secret" "hmpps_allocations_offender_events_queue" {
   }
 
   data = {
-    sqs_queue_url     = module.hmpps_allocations_offender_events_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_allocations_offender_events_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_allocations_offender_events_queue.sqs_name
+    sqs_queue_url  = module.hmpps_allocations_offender_events_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_allocations_offender_events_queue.sqs_arn
+    sqs_queue_name = module.hmpps_allocations_offender_events_queue.sqs_name
   }
 }
 
@@ -89,9 +98,9 @@ resource "kubernetes_secret" "hmpps_allocations_offender_events_dead_letter_queu
     namespace = "workforce-management-dev"
   }
   data = {
-    sqs_queue_url     = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name
   }
 }
 
@@ -102,4 +111,3 @@ resource "aws_sns_topic_subscription" "hmpps_allocations_offender_events_subscri
   endpoint      = module.hmpps_allocations_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"CONVICTION_CHANGED\", \"ORDER_MANAGER_CHANGED\"]}"
 }
-
