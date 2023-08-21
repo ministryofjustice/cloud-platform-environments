@@ -4,7 +4,7 @@ module "abundant_namespace_sqs" {
 
   # Queue configuration
   sqs_name        = "abundant_namespace_sqs"
-  encrypt_sqs_kms = "true"
+  encrypt_sqs_kms = "false"
 
   # Tags
   business_unit          = var.business_unit
