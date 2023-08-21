@@ -36,16 +36,13 @@ variable "additional_topic_clients" {
     "hmpps-non-associations-dev",
     "hmpps-probation-integration-services-dev",
     "hmpps-registers-dev",
-    "hmpps-restricted-patients-api-dev",
     "hmpps-tier-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
     "offender-case-notes-dev",
-    "offender-events-dev",
     "offender-management-staging",
     "offender-management-test",
     "offender-management-test2",
-    "prisoner-offender-search-dev",
     "visit-someone-in-prison-backend-svc-dev",
   ]
 }
