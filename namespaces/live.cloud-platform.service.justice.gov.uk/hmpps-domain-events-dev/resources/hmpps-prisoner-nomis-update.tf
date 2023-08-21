@@ -1,24 +1,30 @@
 ######################################## VISITS
 
 module "hmpps_prisoner_to_nomis_visit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name           = var.environment-name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_visit_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
     aws = aws.london
   }
 }
@@ -51,15 +57,20 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_prisoner_to_nomis_visit_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_prisoner_to_nomis_visit_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -93,10 +104,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-visit.booked",
@@ -109,24 +120,29 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscriptio
 ######################################## INCENTIVES
 
 module "hmpps_prisoner_to_nomis_incentive_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name           = var.environment-name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_incentive_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -159,15 +175,20 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_prisoner_to_nomis_incentive_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_prisoner_to_nomis_incentive_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -201,10 +222,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_incentive_dead_letter_queu
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered",
@@ -216,24 +237,29 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
 ######################################## ACTIVITIES
 
 module "hmpps_prisoner_to_nomis_activity_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name           = var.environment-name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_activity_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+  providers = {
     aws = aws.london
   }
 }
@@ -266,15 +292,20 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_prisoner_to_nomis_activity_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_prisoner_to_nomis_activity_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -308,10 +339,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_activity_dead_letter_queue
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "activities.activity-schedule.created", "activities.activity-schedule.amended",
@@ -326,24 +357,30 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
 ######################################## APPOINTMENTS ########################################
 
 module "prisoner_to_nomis_appointment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name           = var.environment-name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "prisoner_to_nomis_appointment_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
     aws = aws.london
   }
 }
@@ -376,15 +413,20 @@ EOF
 }
 
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "prisoner_to_nomis_appointment_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "prisoner_to_nomis_appointment_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -418,10 +460,10 @@ resource "kubernetes_secret" "prisoner_to_nomis_appointment_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.prisoner_to_nomis_appointment_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.prisoner_to_nomis_appointment_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "appointments.appointment-instance.created",
@@ -435,24 +477,30 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
 ######################################## SENTENCING
 
 module "hmpps_prisoner_to_nomis_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name           = var.environment-name
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_sentencing_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 EOF
-  providers      = {
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
     aws = aws.london
   }
 }
@@ -485,15 +533,21 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_prisoner_to_nomis_sentencing_dlq"
+  encrypt_sqs_kms = "true"
+
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_prisoner_to_nomis_sentencing_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -527,10 +581,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_sentencing_dead_letter_que
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_sentencing_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "release-date-adjustments.adjustment.inserted",
