@@ -1,13 +1,9 @@
 module "court-case-matcher-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = "court-case-matcher"
-  sqs_name               = "court-case-matcher-queue"
-  encrypt_sqs_kms        = "true"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name        = "court-case-matcher-queue"
+  encrypt_sqs_kms = "true"
 
   redrive_policy = <<EOF
   {
@@ -15,6 +11,14 @@ module "court-case-matcher-queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = "court-case-matcher"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -58,16 +62,21 @@ resource "aws_sns_topic_subscription" "court-case-matcher-topic-subscription" {
 }
 
 module "court-case-matcher-dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = "court-case-matcher"
+  # Queue configuration
   sqs_name                  = "court-case-matcher-dead-letter-queue"
   encrypt_sqs_kms           = "true"
-  namespace                 = var.namespace
   message_retention_seconds = 1209600
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "court-case-matcher"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
