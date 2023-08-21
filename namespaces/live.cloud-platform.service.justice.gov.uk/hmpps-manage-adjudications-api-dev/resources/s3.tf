@@ -48,6 +48,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListObjectsV2",
+      "s3:ListBucket",
     ]
     resources = [
       "${module.analytical_platform_s3_bucket.bucket_arn}/*"
