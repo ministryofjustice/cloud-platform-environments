@@ -1,3 +1,20 @@
+module "ses_irsa" {
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace        = var.namespace
+  eks_cluster_name = var.eks_cluster_name
+  role_policy_arns = {
+    ses = aws_iam_user_policy.policy.arn
+  }
+  service_account_name  = "${var.namespace}-ses-smtp"
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_iam_policy_document" "ses_send_smtp_email_policy_document" {
   statement {
     sid       = "AWSSESSendEmail"
