@@ -36,17 +36,13 @@ variable "additional_topic_clients" {
     "hmpps-interventions-preprod",
     "hmpps-manage-adjudications-api-preprod",
     "hmpps-manage-offences-api-preprod",
-    "hmpps-prisoner-search-preprod",
     "hmpps-probation-integration-services-preprod",
     "hmpps-registers-preprod",
-    "hmpps-restricted-patients-api-preprod",
     "hmpps-tier-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
     "offender-case-notes-preprod",
-    "offender-events-preprod",
     "offender-management-preprod",
-    "prisoner-offender-search-preprod",
     "visit-someone-in-prison-backend-svc-preprod",
   ]
 }
