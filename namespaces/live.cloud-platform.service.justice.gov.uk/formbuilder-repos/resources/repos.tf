@@ -487,6 +487,10 @@ module "ecr-repo-fb-editor-web" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["fb-editor"]
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-editor-web" {
@@ -510,6 +514,10 @@ module "ecr-repo-fb-editor-workers" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["fb-editor"]
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
