@@ -163,10 +163,6 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_dead_letter_q
   }
 }
 
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-preprod/topic-arn"
-}
-
 resource "aws_sqs_queue_policy" "pathfinder_offender_events_queue_policy" {
   queue_url = module.pathfinder_offender_events_queue.sqs_id
 
