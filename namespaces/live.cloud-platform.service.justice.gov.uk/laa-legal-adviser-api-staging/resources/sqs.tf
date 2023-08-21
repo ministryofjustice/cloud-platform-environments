@@ -1,13 +1,18 @@
 module "laalaa_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.email
+  # Queue configuration
+  sqs_name        = "laalaa_staging_queue"
+  encrypt_sqs_kms = "false"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "laalaa_staging_queue"
-  encrypt_sqs_kms        = "false"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.email
 
   providers = {
     aws = aws.london
