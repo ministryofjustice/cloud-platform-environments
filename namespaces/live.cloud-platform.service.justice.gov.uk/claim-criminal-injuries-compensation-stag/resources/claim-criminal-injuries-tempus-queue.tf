@@ -1,15 +1,9 @@
 module "claim-criminal-injuries-tempus-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  sqs_name               = "claim-criminal-injuries-tempus-queue"
-  fifo_queue             = false
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name   = "claim-criminal-injuries-tempus-queue"
+  fifo_queue = false
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.claim-criminal-injuries-tempus-dlq.sqs_arn
@@ -17,8 +11,17 @@ module "claim-criminal-injuries-tempus-queue" {
   })
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
-  encrypt_sqs_kms = "true"
+  encrypt_sqs_kms     = "true"
   kms_external_access = [data.aws_ssm_parameter.cica_stag_account_id.value]
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -81,20 +84,23 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
 }
 
 module "claim-criminal-injuries-tempus-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  sqs_name               = "claim-criminal-injuries-tempus-dead-letter-queue"
-  fifo_queue             = false
-  team_name              = var.team_name
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name   = "claim-criminal-injuries-tempus-dead-letter-queue"
+  fifo_queue = false
 
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
   encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
