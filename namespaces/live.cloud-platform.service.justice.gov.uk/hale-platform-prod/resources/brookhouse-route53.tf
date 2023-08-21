@@ -50,7 +50,7 @@ resource "aws_route53_record" "brookhouse_route53_a_record_www" {
 resource "aws_route53_record" "brookhouse_route53_a_record_mail1" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "mail1.brookhouseinquiry.org.uk"
-  type    = "A"
+  type    = "MX"
   ttl     = "300"
   records = ["18.168.37.156"]
 }
@@ -58,7 +58,7 @@ resource "aws_route53_record" "brookhouse_route53_a_record_mail1" {
 resource "aws_route53_record" "brookhouse_route53_a_record_mail2" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "mail2.brookhouseinquiry.org.uk"
-  type    = "A"
+  type    = "MX"
   ttl     = "300"
   records = ["18.168.37.157"]
 }
@@ -66,7 +66,7 @@ resource "aws_route53_record" "brookhouse_route53_a_record_mail2" {
 resource "aws_route53_record" "brookhouse_route53_a_record_mail3" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "mail3.brookhouseinquiry.org.uk"
-  type    = "A"
+  type    = "MX"
   ttl     = "300"
   records = ["18.168.37.158"]
 }
@@ -74,7 +74,7 @@ resource "aws_route53_record" "brookhouse_route53_a_record_mail3" {
 resource "aws_route53_record" "brookhouse_route53_a_record_mail4" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "mail4.brookhouseinquiry.org.uk"
-  type    = "A"
+  type    = "MX"
   ttl     = "300"
   records = ["18.168.37.159"]
 }
