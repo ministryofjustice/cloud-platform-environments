@@ -6,21 +6,26 @@ resource "aws_sns_topic_subscription" "domain_events" {
 }
 
 module "domain_events_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "domain-events-sqs-queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.domain_events_sqs_dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -56,15 +61,20 @@ EOF
 }
 
 module "domain_events_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "domain-events-sqs-dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "domain-events-sqs-dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
