@@ -9,18 +9,12 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  /*
-    By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
-    / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
-    https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
-    To disable 'scan_on_push', set it to false as below:
-  scan_on_push = "false"
-  */
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = [var.repo_name]
+
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
