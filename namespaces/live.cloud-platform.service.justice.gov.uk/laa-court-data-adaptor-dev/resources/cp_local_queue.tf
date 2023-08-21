@@ -12,7 +12,7 @@ module "cp_test_queue" {
   is_production          = var.is_production
   team_name              = "crimeapps" # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = "development"
   infrastructure_support = var.infrastructure_support
 
   providers = {
