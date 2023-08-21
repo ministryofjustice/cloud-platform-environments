@@ -3,7 +3,7 @@ module "nsm_elasticache" {
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment-name
+  environment-name       = var.environment
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
@@ -22,9 +22,9 @@ resource "kubernetes_secret" "nsm_elasticache" {
   }
 
   data = {
-    primary_endpoint_address = module.redis.primary_endpoint_address
-    member_clusters          = jsonencode(module.redis.member_clusters)
-    auth_token               = module.redis.auth_token
-    replication_group_id     = module.redis.replication_group_id
+    primary_endpoint_address = module.nsm_elasticache.primary_endpoint_address
+    member_clusters          = jsonencode(module.nsm_elasticache.member_clusters)
+    auth_token               = module.nsm_elasticache.auth_token
+    replication_group_id     = module.nsm_elasticache.replication_group_id
   }
 }
