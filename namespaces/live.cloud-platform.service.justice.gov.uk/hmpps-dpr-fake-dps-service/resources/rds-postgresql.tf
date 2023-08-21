@@ -4,6 +4,11 @@
  * releases page of this repository.
  *
  */
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
@@ -18,10 +23,11 @@ module "rds" {
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_engine                    = "postgres"
+  db_engine_version            = "14.7"
+  rds_family                   = "postgres14"
+  db_instance_class            = "db.t4g.micro"
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [
     {
       name         = "rds.logical_replication"
