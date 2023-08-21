@@ -23,7 +23,7 @@ resource "kubernetes_secret" "offender_events" {
   }
 
   data = {
-    topic_arn         = module.offender_events.topic_arn
+    topic_arn = module.offender_events.topic_arn
   }
 }
 
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "offender_assessments_events" {
     namespace = var.namespace
   }
   data = {
-    topic_arn         = module.offender_assessments_events.topic_arn
+    topic_arn = module.offender_assessments_events.topic_arn
   }
 }
 
@@ -77,6 +77,6 @@ resource "kubernetes_secret" "offender-events-and-delius-topic-secret" {
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    TOPIC_ARN             = module.probation_offender_events.topic_arn
+    TOPIC_ARN = module.probation_offender_events.topic_arn
   }
 }
