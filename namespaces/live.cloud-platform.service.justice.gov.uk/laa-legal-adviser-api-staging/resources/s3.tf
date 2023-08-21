@@ -21,8 +21,8 @@ resource "kubernetes_secret" "s3" {
   }
 
   data = {
-    bucket_arn        = module.s3.bucket_arn
-    bucket_name       = module.s3.bucket_name
-    region            = "eu-west-2"
+    bucket_arn  = module.s3.bucket_arn
+    bucket_name = module.s3.bucket_name
+    region      = "eu-west-2"
   }
 }
