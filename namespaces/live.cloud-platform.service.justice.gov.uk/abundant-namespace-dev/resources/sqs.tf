@@ -3,7 +3,7 @@ module "abundant_namespace_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=main"
 
   # Queue configuration
-  sqs_name        = "example"
+  sqs_name        = "abundant_namespace_sqs"
   encrypt_sqs_kms = "true"
 
   # Tags
