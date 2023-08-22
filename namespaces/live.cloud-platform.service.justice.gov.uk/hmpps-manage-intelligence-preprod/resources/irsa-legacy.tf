@@ -1,4 +1,4 @@
-module "irsa" {
+module "irsa-legacy" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
