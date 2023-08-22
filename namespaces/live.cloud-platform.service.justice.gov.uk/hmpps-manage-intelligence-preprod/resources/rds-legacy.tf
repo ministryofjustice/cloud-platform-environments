@@ -8,7 +8,7 @@ module "rds_aurora_legacy" {
   engine         = "aurora-postgresql"
   engine_version = "15.2"
   engine_mode    = "provisioned"
-  instance_type  = "ddb.t4g.medium"
+  instance_type  = "db.t4g.medium"
   replica_count  = 1
 
   allow_major_version_upgrade = true
