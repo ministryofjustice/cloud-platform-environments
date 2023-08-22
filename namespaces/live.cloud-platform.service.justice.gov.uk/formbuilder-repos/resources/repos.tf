@@ -327,6 +327,10 @@ module "ecr-repo-fb-builder" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["fb-builder"]
+  namespace = var.namespace
   providers = {
     aws = aws.london
   }
