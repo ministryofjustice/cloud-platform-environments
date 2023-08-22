@@ -22,8 +22,6 @@ resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.ap_gh_collab_repo_s3_bucket.access_key_id
-    secret_access_key = module.ap_gh_collab_repo_s3_bucket.secret_access_key
     bucket_arn        = module.ap_gh_collab_repo_s3_bucket.bucket_arn
   }
 }
