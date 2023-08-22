@@ -19,7 +19,7 @@ module "ecr_credentials" {
   # enable the oidc implementation for github
   oidc_providers = ["github"]
 
-  github_repositories = ["socreporting", "socentry"]
+  github_repositories = ["SOCReporting", "SOCEentry"]
 
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
