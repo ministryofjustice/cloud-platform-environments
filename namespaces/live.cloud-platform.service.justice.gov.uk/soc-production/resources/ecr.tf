@@ -19,13 +19,45 @@ module "ecr_credentials" {
   # enable the oidc implementation for github
   oidc_providers = ["github"]
 
-  github_repositories = ["socreporting", "socentry"]
+  github_repositories = ["SOCReporting", "SOCEentry"]
 
 
   github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
   github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
   github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
   github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+          "rulePriority": 1,
+          "description": "Keep the newest 20 production images and mark the rest for expiration",
+          "selection": {
+              "tagStatus": "any",
+              "countType": "imageCountMoreThan",
+              "countNumber": 20
+          },
+          "action": {
+              "type": "expire"
+          }
+      },
+      {
+          "rulePriority": 2,
+          "description": "Expire images older than 30 days",
+          "selection": {
+              "tagStatus": "any",
+              "countType": "sinceImagePushed",
+              "countUnit": "days",
+              "countNumber": 30
+          },
+          "action": {
+              "type": "expire"
+          }
+      }
+    ]
+  }
+  EOF
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
