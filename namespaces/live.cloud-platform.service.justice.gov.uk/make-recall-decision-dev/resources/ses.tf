@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "ses_send_email_policy_document" {
   statement {
     sid       = "AWSSESSendEmail"
     effect    = "Allow"
-    actions   = ["ses:SendEmail"]
+    actions   = ["ses:SendEmail", "ses:SendRawEmail"]
     resources = ["*"]
     condition {
       test     = "StringEquals"
@@ -32,8 +32,4 @@ data "aws_iam_policy_document" "ses_send_email_policy_document" {
       values   = ["noreply@consider-a-recall-dev.hmpps.service.justice.gov.uk"]
     }
   }
-}
-
-resource "random_id" "id" {
-  byte_length = 16
 }
