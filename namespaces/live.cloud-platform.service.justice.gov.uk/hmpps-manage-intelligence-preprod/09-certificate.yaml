@@ -4,7 +4,7 @@ metadata:
   name: mercury-data-transform-load-preprod.prison.service.justice.gov.uk
   namespace: hmpps-manage-intelligence-preprod
 spec:
-  secretName: mercury-data-transform-load
+  secretName: mercury-data-transform-load-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
