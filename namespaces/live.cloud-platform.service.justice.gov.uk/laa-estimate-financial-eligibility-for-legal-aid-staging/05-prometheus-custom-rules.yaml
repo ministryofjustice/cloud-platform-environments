@@ -12,7 +12,7 @@ spec:
       rules:
         - alert: CcqStaging5xxIngressResponses
           expr: |-
-            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-staging",status="500"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-staging",status="500"} offset 2m) > 0
+            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-staging",status=~"5.*"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-staging",status=~"5.*"} offset 2m) > 0
           labels:
             severity: laa-estimate-eligibility-staging
           annotations:
