@@ -12,7 +12,7 @@ module "laalaa_sqs" {
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure_support
+  infrastructure_support = var.email
 
   providers = {
     aws = aws.london
