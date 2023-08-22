@@ -388,3 +388,18 @@ spec:
   dnsNames:
     - 147ffc36-preprod.hmpps.service.justice.gov.uk
     - prison-education-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: arns-and-oasys-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: arns-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 0ebe64c4-preprod.hmpps.service.justice.gov.uk
+    - arns-and-oasys-preprod.hmpps.service.justice.gov.uk
