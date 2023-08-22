@@ -23,7 +23,5 @@ resource "kubernetes_secret" "ap_gh_collab_repo_tf_state_lock" {
   data = {
     table_name        = module.ap_gh_collab_repo_tf_state_lock.table_name
     table_arn         = module.ap_gh_collab_repo_tf_state_lock.table_arn
-    access_key_id     = module.ap_gh_collab_repo_tf_state_lock.access_key_id
-    secret_access_key = module.ap_gh_collab_repo_tf_state_lock.secret_access_key
   }
 }
