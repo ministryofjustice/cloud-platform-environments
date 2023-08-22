@@ -3,13 +3,13 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_sentencing_dl_queue"       = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_sentencing_queue"          = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_dl_queue"           = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_queue"              = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_sentencing_dl_queue"      = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_sentencing_queue"         = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_dl_queue"          = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-prisoner_from_nomis_visits_queue"             = "offender-events-preprod"
     "Digital-Prison-Services-preprod-prisoner_from_nomis_nonassociations_dl_queue" = "offender-events-preprod"
     "Digital-Prison-Services-preprod-prisoner_from_nomis_nonassociations_queue"    = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-hmpps_audit_queue"                       = "hmpps-audit-preprod"
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"                            = "hmpps-audit-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }

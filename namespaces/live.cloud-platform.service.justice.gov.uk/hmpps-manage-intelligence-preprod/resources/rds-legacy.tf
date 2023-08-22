@@ -42,15 +42,15 @@ resource "kubernetes_secret" "ims_legacy_rds_aurora" {
   }
 
   data = {
-    rds_cluster_endpoint                = module.rds_aurora_legacy.rds_cluster_endpoint
-    rds_cluster_reader_endpoint         = module.rds_aurora_legacy.rds_cluster_reader_endpoint
-    db_cluster_identifier               = module.rds_aurora_legacy.db_cluster_identifier
-    database_name                       = module.rds_aurora_legacy.database_name
-    database_username                   = module.rds_aurora_legacy.database_username
-    database_password                   = module.rds_aurora_legacy.database_password
-    ims_legacy_update_password          = random_id.ims_legacy_update_role_password.b64_url
-    ims_legacy_read_password            = random_id.ims_legacy_read_role_password.b64_url
-    url                                 = "postgres://${module.rds_aurora_legacy.database_username}:${module.rds_aurora_legacy.database_password}@${module.rds_aurora_legacy.rds_cluster_endpoint}/${module.rds_aurora_legacy.database_name}"
-    reader_url                          = "postgres://${module.rds_aurora_legacy.database_username}:${module.rds_aurora_legacy.database_password}@${module.rds_aurora_legacy.rds_cluster_reader_endpoint}/${module.rds_aurora_legacy.database_name}"
+    rds_cluster_endpoint        = module.rds_aurora_legacy.rds_cluster_endpoint
+    rds_cluster_reader_endpoint = module.rds_aurora_legacy.rds_cluster_reader_endpoint
+    db_cluster_identifier       = module.rds_aurora_legacy.db_cluster_identifier
+    database_name               = module.rds_aurora_legacy.database_name
+    database_username           = module.rds_aurora_legacy.database_username
+    database_password           = module.rds_aurora_legacy.database_password
+    ims_legacy_update_password  = random_id.ims_legacy_update_role_password.b64_url
+    ims_legacy_read_password    = random_id.ims_legacy_read_role_password.b64_url
+    url                         = "postgres://${module.rds_aurora_legacy.database_username}:${module.rds_aurora_legacy.database_password}@${module.rds_aurora_legacy.rds_cluster_endpoint}/${module.rds_aurora_legacy.database_name}"
+    reader_url                  = "postgres://${module.rds_aurora_legacy.database_username}:${module.rds_aurora_legacy.database_password}@${module.rds_aurora_legacy.rds_cluster_reader_endpoint}/${module.rds_aurora_legacy.database_name}"
   }
 }

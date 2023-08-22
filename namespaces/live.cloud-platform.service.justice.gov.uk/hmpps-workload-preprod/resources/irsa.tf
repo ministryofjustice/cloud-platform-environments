@@ -1,9 +1,9 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
-    "Digital-Prison-Services-preprod-activities_domain_events_queue" = "hmpps-domain-events-preprod",
-    "Digital-Prison-Services-preprod-activities_domain_events_dl" = "hmpps-domain-events-preprod",
-    "Digital-Prison-Services-preprod-hmpps_workload_offender_events_queue" = "offender-events-preprod"
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"                       = "hmpps-audit-preprod",
+    "Digital-Prison-Services-preprod-activities_domain_events_queue"          = "hmpps-domain-events-preprod",
+    "Digital-Prison-Services-preprod-activities_domain_events_dl"             = "hmpps-domain-events-preprod",
+    "Digital-Prison-Services-preprod-hmpps_workload_offender_events_queue"    = "offender-events-preprod"
     "Digital-Prison-Services-preprod-hmpps_workload_offender_events_queue_dl" = "offender-events-preprod",
   }
   sns_topics = {
@@ -38,19 +38,19 @@ resource "aws_iam_policy" "combined_local_sqs" {
   policy = data.aws_iam_policy_document.combined_local_sqs.json
   tags   = local.default_tags
 }
-      
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-#
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = "hmpps-workload"
-  namespace             = var.namespace
-  role_policy_arns      = merge(
+  #
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "hmpps-workload"
+  namespace            = var.namespace
+  role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
-    { dashboard_s3  = module.hmpps-workload-preprod-s3-dashboard-bucket.irsa_policy_arn },
-    { extract_s3    = module.hmpps-workload-preprod-s3-extract-bucket.irsa_policy_arn },
+    { dashboard_s3 = module.hmpps-workload-preprod-s3-dashboard-bucket.irsa_policy_arn },
+    { extract_s3 = module.hmpps-workload-preprod-s3-extract-bucket.irsa_policy_arn },
   )
 
   # Tags
