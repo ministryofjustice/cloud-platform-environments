@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "prison-api-dev.prison.service.justice.gov.uk"
+  default = "nomis-prisoner-api-dev.prison.service.justice.gov.uk"
 }
 
 variable "application" {
