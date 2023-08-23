@@ -32,7 +32,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "pathfinder_irsa" {
   metadata {
     name      = "pathfinder-irsa"
     namespace = var.namespace
