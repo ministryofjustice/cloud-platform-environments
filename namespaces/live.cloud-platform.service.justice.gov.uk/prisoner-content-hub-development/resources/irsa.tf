@@ -53,6 +53,6 @@ resource "kubernetes_secret" "irsa" {
   }
 
   data = {
-    role  = module.irsa.aws_iam_role_arn
+    role  = module.irsa.role_arn
   }
 }
