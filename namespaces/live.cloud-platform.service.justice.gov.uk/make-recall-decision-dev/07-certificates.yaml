@@ -25,16 +25,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - make-recall-decision-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: consider-a-recall-email-dev.hmpps.service.justice.gov.uk
-  namespace: make-recall-decision-dev
-spec:
-  secretName: consider-a-recall-email-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - consider-a-recall-email-dev.hmpps.service.justice.gov.uk
