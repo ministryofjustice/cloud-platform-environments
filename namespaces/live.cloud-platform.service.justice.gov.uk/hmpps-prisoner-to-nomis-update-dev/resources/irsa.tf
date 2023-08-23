@@ -23,9 +23,11 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-to-nomis-update"
-  role_policy_arns = merge({
+  role_policy_arns     = merge({
     hmpps_prisoner_to_nomis_adjudication_queue             = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
     hmpps_prisoner_to_nomis_adjudication_dead_letter_queue = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_nonassociation_queue             = module.hmpps_prisoner_to_nomis_nonassociation_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue = module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.irsa_policy_arn,
   }, local.sqs_policies)
 
   # Tags
