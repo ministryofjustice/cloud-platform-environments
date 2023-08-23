@@ -17,7 +17,8 @@ data "aws_iam_policy_document" "pathfinder_ap_access" {
 
     resources = [
       "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-dev/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-dev"
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-pathfinder-dev",
+      "arn:aws:s3:::mojap-land/hmpps/pathfinder/dev/*"
     ]
   }
 }
