@@ -1,4 +1,4 @@
-module "secrets_manager_multiple_secrets" {
+module "secrets_manager" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=2.0.0"
   team_name              = var.team_name
   application            = var.application
