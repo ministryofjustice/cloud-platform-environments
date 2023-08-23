@@ -12,12 +12,12 @@ module "secrets_manager" {
   secrets = {
     "google-client-id" = {
       description             = "Client Id for google service account",
-      recovery_window_in_days = 7
+      recovery_window_in_days = 7,
       k8s_secret_name         = "google-client-id"
     },
     "google-client-secret-key" = {
       description             = "Secret key for google service account",
-      recovery_window_in_days = 7
+      recovery_window_in_days = 7,
       k8s_secret_name         = "google-client-secret-key"
     },
   }
