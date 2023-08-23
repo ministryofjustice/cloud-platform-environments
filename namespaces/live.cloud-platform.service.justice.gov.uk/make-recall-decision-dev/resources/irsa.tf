@@ -11,7 +11,7 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns = {
-        sns_policies         = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+        sns_policies   = locals.sns_policies
   }
   # Tags
   business_unit          = var.business_unit
