@@ -120,6 +120,20 @@ resource "aws_cognito_user_pool_client" "cfe_client_prd" {
   generate_secret                      = true
 }
 
+# Functional Tests
+
+resource "aws_cognito_user_pool_client" "functional_tests_client" {
+  name                                 = var.cognito_user_pool_functional_tests_name
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
 
 resource "kubernetes_secret" "aws_cognito_user_pool_cma_dev" {
   metadata {
@@ -131,7 +145,9 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_dev" {
     maat_client_secret = aws_cognito_user_pool_client.maat_client_dev.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_dev.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_dev.client_secret
-  }
+    functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
+    functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
+  }brew tap hashicorp/tap
 }
 
 resource "kubernetes_secret" "aws_cognito_user_pool_cma_tst" {
@@ -144,6 +160,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_tst" {
     maat_client_secret = aws_cognito_user_pool_client.maat_client_tst.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_tst.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_tst.client_secret
+    functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
+    functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
   }
 }
 
@@ -157,6 +175,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_uat" {
     maat_client_secret = aws_cognito_user_pool_client.maat_client_uat.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_uat.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_uat.client_secret
+    functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
+    functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
   }
 }
 
@@ -170,6 +190,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_stg" {
     maat_client_secret = aws_cognito_user_pool_client.maat_client_stg.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_stg.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_stg.client_secret
+    functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
+    functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
   }
 }
 
@@ -183,5 +205,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_prd" {
     maat_client_secret = aws_cognito_user_pool_client.maat_client_prd.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_prd.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_prd.client_secret
+    functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
+    functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
   }
 }
