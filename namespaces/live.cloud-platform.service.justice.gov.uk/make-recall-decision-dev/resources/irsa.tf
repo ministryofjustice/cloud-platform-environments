@@ -11,8 +11,6 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns = {
-        rds                  = module.dps_rds.irsa_policy_arn
-        redis                = module.uof_elasticache_redis.irsa_policy_arn
         sns_policies         = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   }
   # Tags
