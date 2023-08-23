@@ -34,7 +34,8 @@ module "ecr_credentials" {
           "rulePriority": 1,
           "description": "Keep the newest 20 production images and mark the rest for expiration",
           "selection": {
-              "tagStatus": "untagged",
+              "tagStatus": "tagged",
+              "tagPrefixList": ["production-reporting", "dev-reporting", "staging-reporting"],
               "countType": "imageCountMoreThan",
               "countNumber": 20
           },
@@ -46,7 +47,7 @@ module "ecr_credentials" {
           "rulePriority": 2,
           "description": "Expire images older than 30 days",
           "selection": {
-              "tagStatus": "untagged",
+              "tagStatus": "any",
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 30
