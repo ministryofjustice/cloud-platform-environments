@@ -147,7 +147,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_dev" {
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_dev.client_secret
     functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id
     functional_tests_client_secret = aws_cognito_user_pool_client.functional_tests_client.client_secret
-  }brew tap hashicorp/tap
+  }
 }
 
 resource "kubernetes_secret" "aws_cognito_user_pool_cma_tst" {
