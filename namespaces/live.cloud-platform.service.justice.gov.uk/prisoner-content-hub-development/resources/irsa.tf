@@ -48,7 +48,7 @@ resource "aws_iam_policy" "s3_add_access_to_prod" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name  = "content_hub-irsa"
+    name  = "content-hub-irsa"
     namespace = var.namespace
   }
 
