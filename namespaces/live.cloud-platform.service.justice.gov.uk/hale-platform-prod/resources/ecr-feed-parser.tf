@@ -6,7 +6,6 @@
  */
 module "ecr_feed_parser" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
-  team_name = var.team_name
   repo_name = "${var.namespace}-feed-parser-ecr"
 
   lifecycle_policy = <<EOF
