@@ -51,8 +51,6 @@ resource "kubernetes_secret" "pathfinder_document_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.pathfinder_document_s3_bucket.access_key_id
-    secret_access_key = module.pathfinder_document_s3_bucket.secret_access_key
     bucket_arn        = module.pathfinder_document_s3_bucket.bucket_arn
     bucket_name       = module.pathfinder_document_s3_bucket.bucket_name
   }
@@ -65,8 +63,6 @@ resource "kubernetes_secret" "pathfinder_rds_to_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.pathfinder_rds_to_s3_bucket.access_key_id
-    secret_access_key = module.pathfinder_rds_to_s3_bucket.secret_access_key
     bucket_arn        = module.pathfinder_rds_to_s3_bucket.bucket_arn
     bucket_name       = module.pathfinder_rds_to_s3_bucket.bucket_name
   }

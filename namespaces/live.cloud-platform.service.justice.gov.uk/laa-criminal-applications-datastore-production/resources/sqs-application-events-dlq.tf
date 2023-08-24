@@ -1,17 +1,18 @@
 module "application-events-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  sqs_name = "application-events-dlq"
-
+  # Queue configuration
+  sqs_name        = "application-events-dlq"
   encrypt_sqs_kms = true
 
-  team_name              = var.team_name
-  business-unit          = var.business_unit
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
