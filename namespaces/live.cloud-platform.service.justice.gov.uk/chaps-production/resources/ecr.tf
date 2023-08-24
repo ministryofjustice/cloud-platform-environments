@@ -24,6 +24,10 @@ module "ecr_credentials" {
   # github actions CI/CD pipelines
   github_repositories = ["chapsdotnet"]
 
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "production"
+
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   # github_environments = ["my-environment"]
