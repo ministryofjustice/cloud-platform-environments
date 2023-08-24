@@ -10,10 +10,15 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "crime-apps-adaptor-alert-webhook-dev" = {
-      description             = "Crime Applications Adaptor Slack Webhook",
+    "google-client-id" = {
+      description             = "Client Id for google service account",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "crime-apps-adaptor-alert-webhook-dev"
+      k8s_secret_name         = "google-client-id"
+    },
+    "google-client-secret-key" = {
+      description             = "Secret key for google service account",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "google-client-secret-key"
     },
   }
 }

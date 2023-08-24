@@ -34,7 +34,8 @@ module "ecr_credentials" {
           "rulePriority": 1,
           "description": "Keep the newest 20 production images and mark the rest for expiration",
           "selection": {
-              "tagStatus": "any",
+              "tagStatus": "tagged",
+              "tagPrefixList": ["production-reporting", "dev-reporting", "staging-reporting", "entry-dev", "entry-staging", "entry-production"],
               "countType": "imageCountMoreThan",
               "countNumber": 20
           },

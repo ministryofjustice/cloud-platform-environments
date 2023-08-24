@@ -13,30 +13,19 @@ resource "aws_iam_policy" "ap_policy" {
 
 data "aws_iam_policy_document" "pathfinder_ap_access" {
   statement {
-    sid = "AllowRdsExportUserToListS3Buckets"
-    actions = [
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
-    ]
-
-    resources = [
-      "arn:aws:s3:::*"
-    ]
-  }
-
-  statement {
     sid = "AllowRdsExportUserWriteToS3"
     actions = [
       "s3:PutObject*",
       "s3:PutObjectAcl",
       "s3:GetObject*",
-      "s3:DeleteObject*"
+      "s3:DeleteObject*",
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-prod/landing/hmpps-${var.namespace}/*",
-      "arn:aws:s3:::moj-reg-prod/landing/hmpps-${var.namespace}/",
-      "arn:aws:s3:::mojap-land/hmpps/pathfinder/prod/*",
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-pathfinder-prod/*",
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-pathfinder-prod"
     ]
   }
 }

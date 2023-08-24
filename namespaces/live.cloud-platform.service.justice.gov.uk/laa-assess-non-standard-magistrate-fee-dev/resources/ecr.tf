@@ -12,7 +12,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
+  oidc_providers      = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-assess-non-standard-magistrate-fee"]

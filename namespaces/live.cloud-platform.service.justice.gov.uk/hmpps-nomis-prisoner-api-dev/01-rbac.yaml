@@ -2,11 +2,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-dps-homepage-dev-admin
-  namespace: hmpps-dps-homepage-dev
+  name: hmpps-nomis-prisoner-api-dev-admin
+  namespace: hmpps-nomis-prisoner-api-dev
 subjects:
   - kind: Group
-    name: "github:connect-dps"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: operations-engineering-certificates
+  namespace: hmpps-nomis-prisoner-api-dev
 spec:
   hard:
     pods: "50"
