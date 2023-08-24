@@ -16,19 +16,24 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-person-qu
 }
 
 module "person-search-index-from-delius-person-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "person-search-index-from-delius"
-  sqs_name    = "person-search-index-from-delius-person-queue"
+  # Queue configuration
+  sqs_name = "person-search-index-from-delius-person-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.person-search-index-from-delius-person-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "person-search-index-from-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "person-search-index-from-delius-person-queue-policy" {
@@ -37,15 +42,20 @@ resource "aws_sqs_queue_policy" "person-search-index-from-delius-person-queue-po
 }
 
 module "person-search-index-from-delius-person-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application               = "person-search-index-from-delius"
+  # Queue configuration
   sqs_name                  = "person-search-index-from-delius-person-dlq"
   message_retention_seconds = 86400 # 1 day
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "person-search-index-from-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "person-search-index-from-delius-person-dlq-policy" {
