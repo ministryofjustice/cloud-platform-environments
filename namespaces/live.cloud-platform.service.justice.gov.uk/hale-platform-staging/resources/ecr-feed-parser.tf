@@ -53,6 +53,14 @@ module "ecr_feed_parser" {
   # this ensures the variable key used in the workflow is unique
   github_actions_prefix = "staging"
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr_feed_parser" {
