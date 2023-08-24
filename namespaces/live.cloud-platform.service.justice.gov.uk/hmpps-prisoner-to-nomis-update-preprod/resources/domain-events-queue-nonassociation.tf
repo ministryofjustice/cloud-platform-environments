@@ -112,7 +112,3 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_nonassociation_dead_letter
     sqs_queue_name = module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.sqs_name
   }
 }
-
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-${var.environment}/topic-arn"
-}
