@@ -55,3 +55,8 @@ variable "github_token" {
   default     = ""
 }
 
+# For Push gateway
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape"
+  default     = true
+}

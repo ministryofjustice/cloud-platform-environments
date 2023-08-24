@@ -15,8 +15,9 @@ module "cccd_rds" {
   namespace                   = var.namespace
   environment-name            = var.environment-name
   infrastructure-support      = var.infrastructure_support
-  db_allocated_storage        = "50"
-  db_instance_class           = "db.t3.small"
+  db_allocated_storage        = "70"
+  db_max_allocated_storage    = "500"
+  db_instance_class           = "db.t4g.micro"
   db_engine_version           = "13"
   rds_family                  = "postgres13"
   allow_major_version_upgrade = "true"

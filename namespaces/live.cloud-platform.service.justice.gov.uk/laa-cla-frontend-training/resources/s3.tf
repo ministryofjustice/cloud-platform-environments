@@ -32,8 +32,6 @@ resource "kubernetes_secret" "cla_frontend_s3" {
   }
 
   data = {
-    access_key_id            = module.cla_frontend_static_files_bucket.access_key_id
-    secret_access_key        = module.cla_frontend_static_files_bucket.secret_access_key
     static_files_bucket_name = module.cla_frontend_static_files_bucket.bucket_name
     static_files_bucket_arn  = module.cla_frontend_static_files_bucket.bucket_arn
   }

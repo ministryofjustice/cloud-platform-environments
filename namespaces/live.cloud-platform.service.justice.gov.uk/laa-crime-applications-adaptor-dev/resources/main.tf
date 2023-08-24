@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-crime-apps-team"
+      GithubTeam    = "laa-crime-apps-team"
     }
   }
 }
@@ -23,7 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-crime-apps-team"
+      GithubTeam    = "laa-crime-apps-team"
     }
   }
 }
@@ -36,7 +36,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-crime-apps-team"
+      GithubTeam    = "laa-crime-apps-team"
     }
   }
 }

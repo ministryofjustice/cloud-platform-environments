@@ -11,7 +11,6 @@ variable "namespace" {
   default = "hmpps-manage-adjudications-preprod"
 }
 
-
 variable "vpc_name" {
 }
 

@@ -1,14 +1,19 @@
 module "cp_test_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = "development"
-  team_name                 = "crimeapps"
-  application               = "crimeapps"
+  # Queue configuration
   sqs_name                  = "cp-test-queue"
-  infrastructure-support    = var.infrastructure_support
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = "crimeapps" # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = "development"
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london

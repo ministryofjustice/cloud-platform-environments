@@ -67,19 +67,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: emails
-  namespace: money-to-prisoners-test
-spec:
-  secretName: cert-emails
-  issuerRef:
-    kind: ClusterIssuer
-    name: letsencrypt-production
-  dnsNames:
-    - emails-test.prisoner-money.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: start-page
   namespace: money-to-prisoners-test
 spec:
@@ -89,4 +76,17 @@ spec:
     name: letsencrypt-production
   dnsNames:
     - start-page-test.prisoner-money.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: emails
+  namespace: money-to-prisoners-test
+spec:
+  secretName: cert-emails
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  dnsNames:
+    - emails-test.prisoner-money.service.justice.gov.uk
 ---

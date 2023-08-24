@@ -6,6 +6,9 @@ spec:
   selector:
     matchLabels:
       app: peoplefinder-service
+  namespaceSelector:
+    matchNames:
+      - peoplefinder-development
   endpoints:
-  - port: http
+  - port: metrics
     interval: 15s

@@ -5,21 +5,17 @@
  *
  */
 module "intranet_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-  repo_name = "intranet-ecr" # Arbitrary module name does not need to reference any existing modules
-  team_name = var.team_name    # Github team name
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  providers = {
-    aws = aws.london
-  }
+  repo_name = "intranet-ecr" # Arbitrary module name does not need to reference any existing modules
+
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
   # specify which GitHub repository you're pushing from
   github_repositories = [var.app_repo]
 
- # Lifecycle policies
-  # Uncomment the below to automatically tidy up old Docker images
+  # Lifecycle policies
   lifecycle_policy = <<EOF
     {
       "rules": [
@@ -65,18 +61,13 @@ module "intranet_ecr_credentials" {
       ]
     }
     EOF
-}
-/*
-resource "kubernetes_secret" "intranet_ecr_credentials" {
-  metadata {
-    name      = "intranet-ecr-credentials-output"
-    namespace = "intranet-production"
-  }
 
-  data = {
-    access_key_id     = module.intranet_ecr_credentials.access_key_id
-    secret_access_key = module.intranet_ecr_credentials.secret_access_key
-    repo_arn          = module.intranet_ecr_credentials.repo_arn
-    repo_url          = module.intranet_ecr_credentials.repo_url
-  }
-}*/
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}

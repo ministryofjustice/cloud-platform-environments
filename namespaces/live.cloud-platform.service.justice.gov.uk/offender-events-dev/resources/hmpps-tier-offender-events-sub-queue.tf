@@ -1,14 +1,10 @@
 module "hmpps_tier_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name          = var.environment
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hmpps_tier_offender_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
   delay_seconds             = 2
   receive_wait_time_seconds = 20
 
@@ -19,9 +15,17 @@ module "hmpps_tier_offender_events_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
@@ -55,18 +59,23 @@ EOF
 }
 
 module "hmpps_tier_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_tier_offender_events_queue_dl"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_tier_offender_events_queue_dl"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london
+    aws = aws.probation-integration
   }
 }
 
@@ -77,11 +86,9 @@ resource "kubernetes_secret" "hmpps_tier_offender_events_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_tier_offender_events_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_queue.secret_access_key
-    sqs_ptpu_url      = module.hmpps_tier_offender_events_queue.sqs_id
-    sqs_ptpu_arn      = module.hmpps_tier_offender_events_queue.sqs_arn
-    sqs_ptpu_name     = module.hmpps_tier_offender_events_queue.sqs_name
+    sqs_ptpu_url  = module.hmpps_tier_offender_events_queue.sqs_id
+    sqs_ptpu_arn  = module.hmpps_tier_offender_events_queue.sqs_arn
+    sqs_ptpu_name = module.hmpps_tier_offender_events_queue.sqs_name
   }
 }
 
@@ -91,19 +98,16 @@ resource "kubernetes_secret" "hmpps_tier_offender_events_dead_letter_queue" {
     namespace = "hmpps-tier-dev"
   }
   data = {
-    access_key_id     = module.hmpps_tier_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_offender_events_dead_letter_queue.secret_access_key
-    sqs_ptpu_url      = module.hmpps_tier_offender_events_dead_letter_queue.sqs_id
-    sqs_ptpu_arn      = module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn
-    sqs_ptpu_name     = module.hmpps_tier_offender_events_dead_letter_queue.sqs_name
+    sqs_ptpu_url  = module.hmpps_tier_offender_events_dead_letter_queue.sqs_id
+    sqs_ptpu_arn  = module.hmpps_tier_offender_events_dead_letter_queue.sqs_arn
+    sqs_ptpu_name = module.hmpps_tier_offender_events_dead_letter_queue.sqs_name
   }
 }
 
 resource "aws_sns_topic_subscription" "hmpps_tier_offender_events_subscription" {
-  provider      = aws.london
+  provider      = aws.probation-integration
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_tier_offender_events_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"OFFENDER_MANAGEMENT_TIER_CALCULATION_REQUIRED\"]}"
 }
-

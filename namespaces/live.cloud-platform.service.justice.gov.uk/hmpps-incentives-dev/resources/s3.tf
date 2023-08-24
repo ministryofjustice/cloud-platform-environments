@@ -56,7 +56,7 @@ resource "kubernetes_secret" "analytical_platform_s3_bucket" {
   }
 
   data = {
-    bucket_arn        = module.analytical_platform_s3_bucket.bucket_arn
-    bucket_name       = module.analytical_platform_s3_bucket.bucket_name
+    bucket_arn  = module.analytical_platform_s3_bucket.bucket_arn
+    bucket_name = module.analytical_platform_s3_bucket.bucket_name
   }
 }

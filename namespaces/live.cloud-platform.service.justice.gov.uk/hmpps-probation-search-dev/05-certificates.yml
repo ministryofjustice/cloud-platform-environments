@@ -4,7 +4,7 @@ metadata:
   name: probation-search
   namespace: hmpps-probation-search-dev
 spec:
-  secretName: probation-search-cert
+  secretName: probation-search-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7, # Required
       k8s_secret_name         = "saml-metadata-uri"                    # The name of the secret in k8s
     },
+    "caab-secrets" = {
+      description             = "SOA urls and database credentials for CAAB", # Required
+      recovery_window_in_days = 7, # Required
+      k8s_secret_name         = "caab-secrets"                    # The name of the secret in k8s
+    },
   }
 }

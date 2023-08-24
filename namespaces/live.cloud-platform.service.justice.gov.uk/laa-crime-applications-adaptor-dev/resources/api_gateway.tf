@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
 }
 
 resource "aws_apigatewayv2_api" "gateway" {
-  name = var.api_gateway_name
+  name          = var.api_gateway_name
   protocol_type = "HTTP"
 
   lifecycle {
@@ -27,11 +27,11 @@ resource "aws_apigatewayv2_authorizer" "auth" {
 }
 
 resource "aws_apigatewayv2_integration" "crime_apply_api_dev" {
-  api_id                          = aws_apigatewayv2_api.gateway.id
-  integration_method              = "ANY"
-  connection_type                 = "INTERNET"
-  integration_type                = "HTTP_PROXY"
-  integration_uri                 = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{proxy}"
+  api_id             = aws_apigatewayv2_api.gateway.id
+  integration_method = "ANY"
+  connection_type    = "INTERNET"
+  integration_type   = "HTTP_PROXY"
+  integration_uri    = "https://laa-crime-applications-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/crimeapply/{proxy}"
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
@@ -40,11 +40,11 @@ resource "aws_apigatewayv2_integration" "crime_apply_api_dev" {
 }
 
 resource "aws_apigatewayv2_route" "route" {
-  api_id    = aws_apigatewayv2_api.gateway.id
-  route_key = "ANY /api/internal/v1/crimeapply/{proxy+}"
-  target = "integrations/${aws_apigatewayv2_integration.crime_apply_api_dev.id}"
-  authorization_type = "JWT"
-  authorizer_id = aws_apigatewayv2_authorizer.auth.id
+  api_id               = aws_apigatewayv2_api.gateway.id
+  route_key            = "ANY /api/internal/v1/crimeapply/{proxy+}"
+  target               = "integrations/${aws_apigatewayv2_integration.crime_apply_api_dev.id}"
+  authorization_type   = "JWT"
+  authorizer_id        = aws_apigatewayv2_authorizer.auth.id
   authorization_scopes = aws_cognito_resource_server.resource.scope_identifiers
 
   depends_on = [
@@ -70,13 +70,13 @@ resource "aws_apigatewayv2_deployment" "deployment" {
 }
 
 resource "aws_apigatewayv2_stage" "stage" {
-  api_id = aws_apigatewayv2_api.gateway.id
-  name   = var.apigw_stage_name
+  api_id        = aws_apigatewayv2_api.gateway.id
+  name          = var.apigw_stage_name
   deployment_id = aws_apigatewayv2_deployment.deployment.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_log_group.arn
-    format          = jsonencode(
+    format = jsonencode(
       {
         requestId         = "$context.requestId"
         extendedRequestId = "$context.extendedRequestId"
@@ -89,7 +89,7 @@ resource "aws_apigatewayv2_stage" "stage" {
         status            = "$context.status"
         protocol          = "$context.protocol"
         responseLength    = "$context.responseLength"
-      })
+    })
   }
 
   lifecycle {
@@ -102,10 +102,10 @@ resource "aws_apigatewayv2_stage" "stage" {
   ]
 
   default_route_settings {
-    logging_level = "INFO"
+    logging_level            = "INFO"
     detailed_metrics_enabled = true
-    throttling_rate_limit  = 100
-    throttling_burst_limit = 100
+    throttling_rate_limit    = 100
+    throttling_burst_limit   = 100
   }
 
 }

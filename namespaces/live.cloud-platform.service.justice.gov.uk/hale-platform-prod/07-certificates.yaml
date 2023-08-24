@@ -127,3 +127,55 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - icrir.independent-inquiry.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisonandprobationjobs.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ppj-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prisonandprobationjobs.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.prisonandprobationjobs.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ppj-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.prisonandprobationjobs.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: brookhouseinquiry.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: brookhouse-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - brookhouseinquiry.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.brookhouseinquiry.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: brookhouse-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.brookhouseinquiry.org.uk

@@ -23,19 +23,24 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-sub
 }
 
 module "custody-key-dates-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "custody-key-dates-and-delius"
-  sqs_name    = "custody-key-dates-and-delius-queue"
+  # Queue configuration
+  sqs_name = "custody-key-dates-and-delius-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.custody-key-dates-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "custody-key-dates-and-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-queue-policy" {
@@ -44,14 +49,19 @@ resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-queue-policy" {
 }
 
 module "custody-key-dates-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "custody-key-dates-and-delius"
-  sqs_name    = "custody-key-dates-and-delius-dlq"
+  # Queue configuration
+  sqs_name = "custody-key-dates-and-delius-dlq"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "custody-key-dates-and-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-dlq-policy" {
@@ -65,9 +75,7 @@ resource "kubernetes_secret" "custody-key-dates-and-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.custody-key-dates-and-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.custody-key-dates-and-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.custody-key-dates-and-delius-queue.secret_access_key
+    QUEUE_NAME = module.custody-key-dates-and-delius-queue.sqs_name
   }
 }
 

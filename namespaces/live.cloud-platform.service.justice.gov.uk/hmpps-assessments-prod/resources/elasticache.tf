@@ -29,7 +29,5 @@ resource "kubernetes_secret" "hmpps_assessments_elasticache_redis" {
     auth_token               = module.hmpps_assessments_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.hmpps_assessments_elasticache_redis.member_clusters)
     replication_group_id     = module.hmpps_assessments_elasticache_redis.replication_group_id
-    access_key_id            = module.hmpps_assessments_elasticache_redis.access_key_id
-    secret_access_key        = module.hmpps_assessments_elasticache_redis.secret_access_key
   }
 }

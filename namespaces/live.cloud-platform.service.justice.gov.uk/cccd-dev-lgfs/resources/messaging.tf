@@ -17,16 +17,12 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "cccd-claims-for-ccr"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name           = "cccd-claims-for-ccr"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
 
   redrive_policy = <<EOF
   {
@@ -35,6 +31,14 @@ module "claims_for_ccr" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -71,16 +75,12 @@ EOF
 }
 
 module "claims_for_cclf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "cccd-claims-for-cclf"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name           = "cccd-claims-for-cclf"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
 
   redrive_policy = <<EOF
   {
@@ -89,6 +89,14 @@ module "claims_for_cclf" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -125,16 +133,12 @@ EOF
 }
 
 module "responses_for_cccd" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "responses-for-cccd"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name           = "responses-for-cccd"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
 
   redrive_policy = <<EOF
   {
@@ -143,6 +147,14 @@ module "responses_for_cccd" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -150,16 +162,21 @@ EOF
 }
 
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name           = "cccd-claims-submitted-ccr-dlq"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "cccd-claims-submitted-ccr-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -167,16 +184,21 @@ module "ccr_dead_letter_queue" {
 }
 
 module "cclf_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name           = "cccd-claims-submitted-cclf-dlq"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "cccd-claims-submitted-cclf-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -184,16 +206,21 @@ module "cclf_dead_letter_queue" {
 }
 
 module "cccd_response_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name           = "reponses-for-cccd-dlq"
+  existing_user_name = module.cccd_claims_submitted.user_name
+  encrypt_sqs_kms    = "false"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "reponses-for-cccd-dlq"
-  existing_user_name     = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms        = "false"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london

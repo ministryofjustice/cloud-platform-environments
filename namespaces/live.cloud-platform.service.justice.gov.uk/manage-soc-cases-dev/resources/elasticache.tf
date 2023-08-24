@@ -6,7 +6,7 @@ module "manage_soc_cases_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
@@ -16,10 +16,6 @@ module "manage_soc_cases_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "manage_soc_cases_elasticache_redis" {

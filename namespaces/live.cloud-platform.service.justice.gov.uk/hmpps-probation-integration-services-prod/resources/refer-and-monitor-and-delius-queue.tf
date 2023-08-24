@@ -56,9 +56,7 @@ resource "kubernetes_secret" "refer-and-monitor-and-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.refer-and-monitor-and-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.refer-and-monitor-and-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.refer-and-monitor-and-delius-queue.secret_access_key
+    QUEUE_NAME = module.refer-and-monitor-and-delius-queue.sqs_name
   }
 }
 

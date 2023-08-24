@@ -12,19 +12,24 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
 }
 
 module "workforce-allocations-to-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "workforce-allocations-to-delius"
-  sqs_name    = "workforce-allocations-to-delius-queue"
+  # Queue configuration
+  sqs_name = "workforce-allocations-to-delius-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.workforce-allocations-to-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "workforce-allocations-to-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-queue-policy" {
@@ -33,14 +38,19 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-queue-policy" {
 }
 
 module "workforce-allocations-to-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "workforce-allocations-to-delius"
-  sqs_name    = "workforce-allocations-to-delius-dlq"
+  # Queue configuration
+  sqs_name = "workforce-allocations-to-delius-dlq"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "workforce-allocations-to-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-dlq-policy" {
@@ -54,9 +64,7 @@ resource "kubernetes_secret" "workforce-allocations-to-delius-queue-secret" {
     namespace = var.namespace
   }
   data = {
-    QUEUE_NAME            = module.workforce-allocations-to-delius-queue.sqs_name
-    AWS_ACCESS_KEY_ID     = module.workforce-allocations-to-delius-queue.access_key_id
-    AWS_SECRET_ACCESS_KEY = module.workforce-allocations-to-delius-queue.secret_access_key
+    QUEUE_NAME = module.workforce-allocations-to-delius-queue.sqs_name
   }
 }
 

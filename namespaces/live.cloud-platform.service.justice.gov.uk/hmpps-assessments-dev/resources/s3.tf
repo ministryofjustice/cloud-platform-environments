@@ -39,8 +39,6 @@ resource "kubernetes_secret" "hmpps_assessments_s3_secret" {
   }
 
   data = {
-    access_key_id     = module.hmpps_assessments_s3.access_key_id
-    secret_access_key = module.hmpps_assessments_s3.secret_access_key
     bucket_arn        = module.hmpps_assessments_s3.bucket_arn
     bucket_name       = module.hmpps_assessments_s3.bucket_name
   }

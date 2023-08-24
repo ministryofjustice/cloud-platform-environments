@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "calculate_release_dates"
     cloud-platform.justice.gov.uk/slack-alert-channel: "farsight-alerts"
     cloud-platform.justice.gov.uk/application: "Calculate Release Dates API"
-    cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Digital Prison Services (CRD): calculatereleasedatesdevelopers@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/calculate-release-dates-api.git"
     cloud-platform.justice.gov.uk/team-name: "farsight-devs"

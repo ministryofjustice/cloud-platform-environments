@@ -16,6 +16,8 @@ module "visit_scheduler_rds" {
   allow_major_version_upgrade = "false"
   db_password_rotated_date    = "2023-05-11"
 
+  performance_insights_enabled  = true
+
   providers = {
     aws = aws.london
   }

@@ -7,7 +7,7 @@ module "nomis_migration_rds" {
   application               = var.application
   is-production             = var.is_production
   namespace                 = var.namespace
-  environment-name          = var.environment
+  environment-name          = var.environment_name
   infrastructure-support    = var.infrastructure_support
   db_instance_class         = "db.t4g.small"
   db_engine                 = "postgres"
@@ -16,10 +16,6 @@ module "nomis_migration_rds" {
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
   prepare_for_major_upgrade = false
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "nomis_migration_rds" {

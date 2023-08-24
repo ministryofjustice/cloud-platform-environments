@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "data-platform-application-migration-support"
+  default     = "segmentation-tool"
 }
 
 variable "github_owner" {
