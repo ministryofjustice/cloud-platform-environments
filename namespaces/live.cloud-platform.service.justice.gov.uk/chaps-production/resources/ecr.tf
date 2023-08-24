@@ -9,8 +9,6 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers = ["github"]
-
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
@@ -22,7 +20,11 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["chapsdotnet"]
+  # github_repositories = ["chapsdotnet"]
+
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "production"
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
