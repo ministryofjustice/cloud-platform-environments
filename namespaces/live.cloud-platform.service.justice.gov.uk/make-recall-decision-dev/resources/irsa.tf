@@ -10,9 +10,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns = {
-        sns_policies   = local.sns_policies
-  }
+  role_policy_arns     = local.sns_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
