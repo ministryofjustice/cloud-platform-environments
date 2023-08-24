@@ -78,5 +78,5 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
   name        = "/${var.namespace}/topic-arn"
   value       = module.offender_events.topic_arn
   description = "SNS topic ARN for offender-events-prod; use this parameter from other HMPPS prod namespaces"
-  tags     = local.tags
+  tags        = local.tags
 }
