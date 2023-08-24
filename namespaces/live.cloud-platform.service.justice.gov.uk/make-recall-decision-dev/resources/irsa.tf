@@ -11,7 +11,7 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns = {
-        sns_policies   = locals.sns_policies
+        sns_policies   = local.sns_policies
   }
   # Tags
   business_unit          = var.business_unit
