@@ -11,6 +11,19 @@ resource "aws_route53_zone" "data_platform_production_route53_zone" {
   }
 }
 
+resource "aws_route53_zone" "data_platform_apps_alpha_route53_zone" {
+  name = "apps.alpha.mojanalytics.xyz"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
 /* Delegating to data-platform-development */
 resource "aws_route53_record" "data_platform_development_zone" {
   zone_id = aws_route53_zone.data_platform_production_route53_zone.zone_id
