@@ -14,6 +14,7 @@ module "irsa" {
   role_policy_arns = {
     s3  = module.calculate-journey-variable-payments_s3_bucket.irsa_policy_arn
     rds = module.rds-instance.irsa_policy_arn
+    basm = data.aws_ssm_parameter.basm-bucket.value
   }
 
   # Tags
