@@ -29,3 +29,17 @@ module "irsa" {
 data "aws_ssm_parameter" "basm-bucket" {
   name     = "/hmpps-book-secure-move-api-staging/reporting-bucket/irsa-policy-arn"
 }
+data "aws_ssm_parameter" "basm-bucket-name" {
+  name     = "/hmpps-book-secure-move-api-staging/reporting-bucket/bucket-arn"
+}
+
+resource "kubernetes_secret" "basm_reporting_bucket" {
+  metadata {
+    name      = "basm-reporting-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_name = data.aws_ssm_parameter.basm-bucket-name.value
+  }
+}
