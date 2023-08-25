@@ -29,7 +29,7 @@ data "aws_ssm_parameter" "basm-bucket" {
   name     = "/hmpps-book-secure-move-api-preprod/reporting-bucket/irsa-policy-arn"
 }
 data "aws_ssm_parameter" "basm-bucket-name" {
-  name     = "/hmpps-book-secure-move-api-preprod/reporting-bucket/bucket-arn"
+  name     = "/hmpps-book-secure-move-api-preprod/reporting-bucket/bucket-name"
 }
 
 resource "kubernetes_secret" "basm_reporting_bucket" {
