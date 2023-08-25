@@ -6,6 +6,6 @@ resource "aws_ssm_parameter" "tf-output-basm-irsa-policy" {
 
 resource "aws_ssm_parameter" "tf-output-basm-reporting-bucket" {
   type     = "String"
-  name     = "/${var.namespace}/reporting-bucket/bucket-arn"
-  value    = module.book_a_secure_move_reporting_s3_bucket.bucket_arn
+  name     = "/${var.namespace}/reporting-bucket/bucket-name"
+  value    = module.book_a_secure_move_reporting_s3_bucket.bucket_name
 }
