@@ -23,10 +23,52 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories                  = ["chapsdotnet"]
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire untagged images older than 14 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 14
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep last 30 dev, staging and production images",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["dev", "staging", "production"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 30
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 3,
+            "description": "Keep the newest 100 images and mark the rest for expiration",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 100
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
