@@ -24,3 +24,21 @@ module "irsa" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 }
+
+data "aws_ssm_parameter" "basm-bucket" {
+  name     = "/hmpps-book-secure-move-api-preprod/reporting-bucket/irsa-policy-arn"
+}
+data "aws_ssm_parameter" "basm-bucket-name" {
+  name     = "/hmpps-book-secure-move-api-preprod/reporting-bucket/bucket-arn"
+}
+
+resource "kubernetes_secret" "basm_reporting_bucket" {
+  metadata {
+    name      = "basm-reporting-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_name = data.aws_ssm_parameter.basm-bucket-name.value
+  }
+}
