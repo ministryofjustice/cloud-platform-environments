@@ -13,9 +13,9 @@ module "irsa-appservice" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     
-    sqs = module.claim-criminal-injuries-application-queue.irsa_policy_arn
-    sqs = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
-    policy = aws_iam_policy.app_service_S3_access_policy.arn
+    sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
+    sqstempusqueue = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
+    policy         = aws_iam_policy.app_service_S3_access_policy.arn
     
   }
 
@@ -55,9 +55,9 @@ module "irsa-dcs" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     
-    sqs = module.claim-criminal-injuries-notify-queue.irsa_policy_arn
-    sqs = module.claim-criminal-injuries-application-queue.irsa_policy_arn
-    policy = aws_iam_policy.dcs_S3_access_policy.arn
+    sqsnotifyqueue = module.claim-criminal-injuries-notify-queue.irsa_policy_arn
+    sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
+    policy         = aws_iam_policy.dcs_S3_access_policy.arn
     
   }
 
