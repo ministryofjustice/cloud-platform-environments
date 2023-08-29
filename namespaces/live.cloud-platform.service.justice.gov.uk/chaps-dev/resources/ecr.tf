@@ -9,6 +9,8 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  oidc_providers = ["github"]
+
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
     / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
@@ -21,10 +23,52 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories                  = ["chapsdotnet"]
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire untagged images older than 14 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 14
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep last 30 dev, staging and production images",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["dev", "staging", "production"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 30
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 3,
+            "description": "Keep the newest 100 images and mark the rest for expiration",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 100
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

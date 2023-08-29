@@ -13,10 +13,36 @@ module "irsa-deploy" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "deploy"
   role_policy_arns = {
-    ecr = module.ecr.irsa_policy_arn,
-    rds = module.rds.irsa_policy_arn,
-    s3  = module.s3.irsa_policy_arn,
+    ecr    = module.ecr.irsa_policy_arn,
+    rds    = module.rds.irsa_policy_arn,
+    s3     = module.s3.irsa_policy_arn,
+    policy = aws_iam_policy.deploy.arn,
   }
+}
+
+resource "aws_iam_policy" "deploy" {
+  name   = "${var.namespace}-deploy"
+  policy = data.aws_iam_policy_document.deploy.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "deploy" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.ecr-cleanup.json,
+    data.aws_iam_policy_document.s3-read.json,
+    data.aws_iam_policy_document.s3-write.json,
+  ]
 }
 
 resource "kubernetes_secret" "irsa-deploy" {

@@ -47,6 +47,14 @@ resource "aws_route53_record" "brookhouse_route53_a_record_www" {
   }
 }
 
+resource "aws_route53_record" "brookhouse_route53_mx_record_mail" {
+  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
+  name    = "brookhouseinquiry.org.uk"
+  type    = "MX"
+  ttl     = "3600"
+  records = ["10 mail1.brookhouseinquiry.org.uk", "10 mail2.brookhouseinquiry.org.uk", "10 mail3.brookhouseinquiry.org.uk", "10 mail4.brookhouseinquiry.org.uk"]
+}
+
 resource "aws_route53_record" "brookhouse_route53_a_record_mail1" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "mail1.brookhouseinquiry.org.uk"

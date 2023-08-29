@@ -54,6 +54,18 @@ locals {
   }
 }
 
+data "aws_iam_policy_document" "ecr-cleanup" {
+  # Allows deletion of images
+  statement {
+    actions = [
+      "ecr:BatchDeleteImage",
+    ]
+    resources = [
+      module.ecr.repo_arn,
+    ]
+  }
+}
+
 resource "kubernetes_secret" "ecr" {
   metadata {
     name      = "ecr"

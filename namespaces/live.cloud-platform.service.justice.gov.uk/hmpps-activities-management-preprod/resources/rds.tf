@@ -36,4 +36,18 @@ resource "kubernetes_secret" "activities_api_rds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-activities-management-prod"
+  }
 
+  data = {
+    database_name         = module.activities_api_rds.database_name
+    database_username     = module.activities_api_rds.database_username
+    database_password     = module.activities_api_rds.database_password
+    rds_instance_address  = module.activities_api_rds.rds_instance_address
+  }
+}

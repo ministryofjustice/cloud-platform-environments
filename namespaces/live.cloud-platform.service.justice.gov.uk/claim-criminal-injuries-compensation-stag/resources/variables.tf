@@ -81,3 +81,6 @@ variable "service_monitor" {
   description = "If true, prometheus will automatically scrape"
   default     = true
 }
+
+variable "eks_cluster_name" {
+}

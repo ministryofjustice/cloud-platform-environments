@@ -3,13 +3,13 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_dl_queue"       = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_queue"          = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_visits_dl_queue"           = "offender-events-dev"
-    "Digital-Prison-Services-dev-prisoner_from_nomis_visits_queue"              = "offender-events-dev"
-    #"Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_dl_queue"  = "offender-events-dev"
-    #"Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_queue"     = "offender-events-dev"
-    "Digital-Prison-Services-dev-hmpps_audit_queue"                             = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_dl_queue"      = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_sentencing_queue"         = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_visits_dl_queue"          = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_visits_queue"             = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_dl_queue" = "offender-events-dev"
+    "Digital-Prison-Services-dev-prisoner_from_nomis_nonassociations_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                            = "hmpps-audit-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
@@ -29,10 +29,12 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.migration_visits_dead_letter_queue.sqs_arn,
       module.migration_adjudications_queue.sqs_arn,
       module.migration_adjudications_dead_letter_queue.sqs_arn,
-      module.migration_non_associations_queue.sqs_arn,
-      module.migration_non_associations_dead_letter_queue.sqs_arn,
+      module.migration_nonassociations_queue.sqs_arn,
+      module.migration_nonassociations_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
-      module.migration_activities_dead_letter_queue.sqs_arn
+      module.migration_activities_dead_letter_queue.sqs_arn,
+      module.migration_allocations_queue.sqs_arn,
+      module.migration_allocations_dead_letter_queue.sqs_arn
     ]
   }
 }

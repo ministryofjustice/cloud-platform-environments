@@ -18,6 +18,26 @@ data "aws_iam_policy_document" "dcs_access" {
       module.claim-criminal-injuries-notify-queue.sqs_arn
     ]
   }
+
+  statement {
+    sid = "AllowDCSToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = [data.aws_ssm_parameter.cica_uat_account_id.value]
+    }
+  }
 }
 # tflint-ignore: all
 resource "random_id" "id" {
@@ -64,6 +84,39 @@ data "aws_iam_policy_document" "app_service_access" {
       module.claim-criminal-injuries-application-queue.sqs_arn
     ]
   }
+
+  statement {
+    sid = "AllowAppServiceToWriteToTempusQueue"
+    actions = [
+      "sqs:SendMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-tempus-queue.sqs_arn
+    ]
+  }
+
+  statement {
+    sid = "AllowAppServiceToWriteToS3"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "aws:ResourceAccount"
+      values   = [data.aws_ssm_parameter.cica_uat_account_id.value]
+    }
+  }
 }
 
 resource "aws_iam_user" "app_service" {
@@ -107,6 +160,18 @@ data "aws_iam_policy_document" "redrive_service_access" {
     ]
   }
 
+statement {
+    sid = "AllowRedriveServiceToReadFromNotifyDLQ"
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    resources = [
+      module.claim-criminal-injuries-notify-dlq.sqs_arn
+    ]
+  }
+
   statement {
     sid = "AllowRedriveServiceToSendToAppQueue"
     actions = [
@@ -114,6 +179,16 @@ data "aws_iam_policy_document" "redrive_service_access" {
     ]
     resources = [
       module.claim-criminal-injuries-application-queue.sqs_arn
+    ]
+  }
+
+  statement {
+    sid = "AllowRedriveServiceToSendToNotifyQueue"
+    actions = [
+      "sqs:SendMessage"
+    ]
+    resources = [
+      module.claim-criminal-injuries-notify-queue.sqs_arn
     ]
   }
 }

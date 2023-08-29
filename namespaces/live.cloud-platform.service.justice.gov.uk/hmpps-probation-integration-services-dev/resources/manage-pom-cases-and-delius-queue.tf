@@ -10,19 +10,24 @@ resource "aws_sns_topic_subscription" "manage-pom-cases-and-delius-queue-subscri
 }
 
 module "manage-pom-cases-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "manage-pom-cases-and-delius"
-  sqs_name    = "manage-pom-cases-and-delius-queue"
+  # Queue configuration
+  sqs_name = "manage-pom-cases-and-delius-queue"
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.manage-pom-cases-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "manage-pom-cases-and-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "manage-pom-cases-and-delius-queue-policy" {
@@ -31,14 +36,19 @@ resource "aws_sqs_queue_policy" "manage-pom-cases-and-delius-queue-policy" {
 }
 
 module "manage-pom-cases-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
-  application = "manage-pom-cases-and-delius"
-  sqs_name    = "manage-pom-cases-and-delius-dlq"
+  # Queue configuration
+  sqs_name = "manage-pom-cases-and-delius-dlq"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "manage-pom-cases-and-delius"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "aws_sqs_queue_policy" "manage-pom-cases-and-delius-dlq-policy" {

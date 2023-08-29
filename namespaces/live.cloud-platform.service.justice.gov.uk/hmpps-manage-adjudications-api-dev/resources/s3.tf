@@ -2,12 +2,12 @@
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  namespace              = var.namespace
-  eks_cluster_name       = var.eks_cluster_name
-  role_policy_arns       = {
+  namespace        = var.namespace
+  eks_cluster_name = var.eks_cluster_name
+  role_policy_arns = {
     analytical-platform = aws_iam_policy.analytical-platform.arn
   }
-  service_account_name   = "${var.namespace}-analytical-platform"
+  service_account_name = "${var.namespace}-analytical-platform"
   # Tags
   business_unit          = var.business_unit
   team_name              = var.team_name
@@ -37,7 +37,7 @@ module "analytical_platform_s3_bucket" {
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
     actions = [
-      "s3:ListBucket",
+      "s3:ListBucket"
     ]
     resources = [
       module.analytical_platform_s3_bucket.bucket_arn
@@ -45,7 +45,8 @@ data "aws_iam_policy_document" "bucket-policy" {
   }
   statement {
     actions = [
-      "s3:GetObject"
+      "s3:GetObject",
+      "s3:PutObject"
     ]
     resources = [
       "${module.analytical_platform_s3_bucket.bucket_arn}/*"
@@ -78,7 +79,7 @@ resource "kubernetes_secret" "analytical-platform" {
   }
 
   data = {
-    bucket_arn        = module.analytical_platform_s3_bucket.bucket_arn
-    bucket_name       = module.analytical_platform_s3_bucket.bucket_name
+    bucket_arn  = module.analytical_platform_s3_bucket.bucket_arn
+    bucket_name = module.analytical_platform_s3_bucket.bucket_name
   }
 }

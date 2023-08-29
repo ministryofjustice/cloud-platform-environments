@@ -6,62 +6,29 @@ module "manage_soc_cases_document_s3_bucket" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
-      "s3:ListBucketMultipartUploads",
-      "s3:GetLifecycleConfiguration",
-      "s3:PutLifecycleConfiguration"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject",
-      "s3:GetObjectVersionTagging",
-      "s3:GetObjectTagging",
-      "s3:GetObjectVersionAcl",
-      "s3:GetObjectAcl",
-      "s3:GetObjectVersion",
-      "s3:GetObjectVersionTorrent",
-      "s3:GetObjectTorrent",
-      "s3:DeleteObject",
-      "s3:DeleteObjectVersion",
-      "s3:DeleteObjectVersionTagging",
-      "s3:DeleteObjectTagging",
-      "s3:RestoreObject",
-      "s3:AbortMultipartUpload",
-      "s3:ListMultipartUploadParts",
-      "s3:PutObjectVersionTagging",
-      "s3:PutObjectTagging",
-      "s3:PutObjectVersionAcl",
-      "s3:PutObjectAcl",
-      "s3:PutObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
 }
-EOF
 
+# The manage-soc-cases app needs extra permissions, in addition to the default policy in the s3 module.
+data "aws_iam_policy_document" "document_s3_additional_policy" {
+  version = "2012-10-17"
+  statement {
+    sid    = "AllowBucketActions"
+    effect = "Allow"
+    actions = [
+      "s3:PutLifecycleConfiguration"
+    ]
+    resources = [module.manage_soc_cases_document_s3_bucket.bucket_arn]
+  }
+}
+
+resource "aws_iam_policy" "irsa_additional_s3_policy" {
+  name   = "cloud-platform-s3-${module.manage_soc_cases_document_s3_bucket.bucket_name}"
+  path   = "/cloud-platform/s3/"
+  policy = data.aws_iam_policy_document.document_s3_additional_policy.json
+  tags   = local.default_tags
 }
 
 module "manage_soc_cases_rds_to_s3_bucket" {
@@ -72,13 +39,9 @@ module "manage_soc_cases_rds_to_s3_bucket" {
   business-unit          = var.business_unit
   application            = var.application
   is-production          = var.is_production
-  environment-name       = var.environment-name
+  environment-name       = var.environment_name
   infrastructure-support = var.infrastructure_support
   namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "manage_soc_cases_document_s3_bucket" {
@@ -88,8 +51,6 @@ resource "kubernetes_secret" "manage_soc_cases_document_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_document_s3_bucket.access_key_id
-    secret_access_key = module.manage_soc_cases_document_s3_bucket.secret_access_key
     bucket_arn        = module.manage_soc_cases_document_s3_bucket.bucket_arn
     bucket_name       = module.manage_soc_cases_document_s3_bucket.bucket_name
   }
@@ -102,8 +63,6 @@ resource "kubernetes_secret" "manage_soc_cases_rds_to_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_soc_cases_rds_to_s3_bucket.access_key_id
-    secret_access_key = module.manage_soc_cases_rds_to_s3_bucket.secret_access_key
     bucket_arn        = module.manage_soc_cases_rds_to_s3_bucket.bucket_arn
     bucket_name       = module.manage_soc_cases_rds_to_s3_bucket.bucket_name
   }

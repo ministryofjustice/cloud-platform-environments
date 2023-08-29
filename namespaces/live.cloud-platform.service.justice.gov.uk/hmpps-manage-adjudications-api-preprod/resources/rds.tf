@@ -15,6 +15,7 @@ module "ma_rds" {
   rds_family                  = "postgres15"
   db_password_rotated_date    = "15-02-2023"
   prepare_for_major_upgrade   = false
+  db_allocated_storage        = "500"
 
   providers = {
     aws = aws.london

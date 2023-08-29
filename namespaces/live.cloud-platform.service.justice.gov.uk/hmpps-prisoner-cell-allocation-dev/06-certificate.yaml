@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-cell-allocation-api-dev.prison.service.justice.gov.uk
+    - cell-allocation-api-dev.prison.service.justice.gov.uk

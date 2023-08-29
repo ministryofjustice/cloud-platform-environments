@@ -193,6 +193,11 @@ variable "cognito_user_pool_cfe_client_name_prd" {
   default     = "cfe-client-prd"
 }
 
+variable "cognito_user_pool_functional_tests_name" {
+  description = "Cognito user pool functional tests client name"
+  default     = "functional-tests-client"
+}
+
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"

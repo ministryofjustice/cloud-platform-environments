@@ -35,11 +35,6 @@ variable "github_token" {
 }
 
 variable "namespace" {
-  description = "Name of the namespace these resources are part of"
-  type        = string
-  default     = "formbuilder-repos"
+  default = "formbuilder-repos"
 }
 
-variable "team_name" {
-  default = "formbuilder"
-}
