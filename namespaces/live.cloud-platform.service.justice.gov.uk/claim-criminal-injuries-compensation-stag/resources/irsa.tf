@@ -157,7 +157,7 @@ resource "kubernetes_secret" "irsards" {
   }
   data = {
     role           = module.irsa-rds.role_name
-    serviceaccount = module.irsa-rds.service_account_name
+    serviceaccount = module.irsa-rds.service_account.name
     rolearn        = module.irsa-rds.role_arn
   }
 }
