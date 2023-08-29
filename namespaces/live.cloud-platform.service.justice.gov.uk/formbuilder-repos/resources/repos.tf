@@ -523,6 +523,7 @@ module "ecr-repo-fb-editor-workers" {
   oidc_providers = ["circleci"]
 
   github_repositories = ["fb-editor"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
