@@ -3,7 +3,7 @@ module "ecr-repo-extractor" {
 
   team_name             = var.team_name
   repo_name             = "ims-legacy-data-extractor-${var.environment-name}"
-  github_actions_prefix = "extractor${var.environment-name}"
+  github_actions_prefix = "extractor_${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -28,7 +28,7 @@ module "ecr-repo-generator" {
 
   team_name             = var.team_name
   repo_name             = "ims-legacy-test-generator-${var.environment-name}"
-  github_actions_prefix = "generator-${var.environment-name}"
+  github_actions_prefix = "generator_${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -53,7 +53,7 @@ module "ecr-repo-transform" {
 
   team_name             = var.team_name
   repo_name             = "ims-legacy-data-transform-${var.environment-name}"
-  github_actions_prefix = "transform-${var.environment-name}"
+  github_actions_prefix = "transform_${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -78,7 +78,7 @@ module "ecr-repo-validator" {
 
   team_name             = var.team_name
   repo_name             = "ims-legacy-temporary-clean-unmarshall-validator-${var.environment-name}"
-  github_actions_prefix = "validator-${var.environment-name}"
+  github_actions_prefix = "validator_${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
