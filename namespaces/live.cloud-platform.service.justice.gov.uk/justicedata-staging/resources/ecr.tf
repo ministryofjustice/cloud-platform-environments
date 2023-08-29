@@ -1,10 +1,10 @@
 module "ecr-repo" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  repo_name              = "${var.namespace}-ecr"
+  repo_name = "${var.namespace}-ecr"
 
-  oidc_providers         = ["github"]
-  github_repositories    = ["justice-data"]
+  oidc_providers      = ["github"]
+  github_repositories = ["justice-data"]
 
   # Tags
   business_unit          = var.business_unit
