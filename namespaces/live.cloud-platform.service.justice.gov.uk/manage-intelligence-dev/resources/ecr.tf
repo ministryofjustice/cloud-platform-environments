@@ -2,8 +2,8 @@ module "ecr-repo-extractor" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
   team_name             = var.team_name
-  repo_name             = "ims-legacy-data-extractor"
-  github_actions_prefix = "extractor"
+  repo_name             = "ims-legacy-data-extractor-${var.environment-name}"
+  github_actions_prefix = "extractor${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -27,8 +27,8 @@ module "ecr-repo-generator" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
   team_name             = var.team_name
-  repo_name             = "ims-legacy-test-generator"
-  github_actions_prefix = "generator"
+  repo_name             = "ims-legacy-test-generator-${var.environment-name}"
+  github_actions_prefix = "generator-${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -52,8 +52,8 @@ module "ecr-repo-transform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
   team_name             = var.team_name
-  repo_name             = "ims-legacy-data-transform"
-  github_actions_prefix = "transform"
+  repo_name             = "ims-legacy-data-transform-${var.environment-name}"
+  github_actions_prefix = "transform-${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
@@ -77,8 +77,8 @@ module "ecr-repo-validator" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
 
   team_name             = var.team_name
-  repo_name             = "ims-legacy-temporary-clean-unmarshall-validator"
-  github_actions_prefix = "validator"
+  repo_name             = "ims-legacy-temporary-clean-unmarshall-validator-${var.environment-name}"
+  github_actions_prefix = "validator-${var.environment-name}"
 
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-manage-intelligence-legacy-data-monorepo"]
