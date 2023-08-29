@@ -32,7 +32,7 @@ module "drupal_content_storage_2" {
       "Sid": "AllowHubStagingS3Sync",
       "Effect": "Allow",
       "Principal": {
-          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-c3b3fc90408e8f9501268e354d44f461"
+          "AWS": "arn:aws:iam::754256621582:role/cloud-platform-irsa-bdac39af1fc11901-live"
       },
       "Action": [
         "s3:ListBucket",
