@@ -2,7 +2,7 @@ module "ims_extractor_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name                   = "ims_extractor_queue_${var.environment}"
+  sqs_name                   = "ims_extractor_queue_${var.environment-name}"
   fifo_queue                 = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -21,7 +21,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -33,7 +33,7 @@ module "ims_extractor_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name        = "ims_extractor_dl_queue_${var.environment}"
+  sqs_name        = "ims_extractor_dl_queue_${var.environment-name}"
   fifo_queue      = true
   encrypt_sqs_kms = "true"
 
@@ -43,7 +43,7 @@ module "ims_extractor_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -56,7 +56,7 @@ module "ims_transformer_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name                   = "ims_transformer_queue_${var.environment}"
+  sqs_name                   = "ims_transformer_queue_${var.environment-name}"
   fifo_queue                 = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -75,7 +75,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -87,7 +87,7 @@ module "ims_transformer_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name        = "ims_transformer_dl_queue_${var.environment}"
+  sqs_name        = "ims_transformer_dl_queue_${var.environment-name}"
   fifo_queue      = true
   encrypt_sqs_kms = "true"
 
@@ -97,7 +97,7 @@ module "ims_transformer_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -109,7 +109,7 @@ module "ims_lastupdate_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name                   = "ims_lastupdate_queue_${var.environment}"
+  sqs_name                   = "ims_lastupdate_queue_${var.environment-name}"
   fifo_queue                 = true
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -128,7 +128,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -140,7 +140,7 @@ module "ims_lastupdate_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
 
   # Queue configuration
-  sqs_name        = "ims_lastupdate_dl_queue_${var.environment}"
+  sqs_name        = "ims_lastupdate_dl_queue_${var.environment-name}"
   fifo_queue      = true
   encrypt_sqs_kms = "true"
 
@@ -150,7 +150,7 @@ module "ims_lastupdate_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
