@@ -324,5 +324,5 @@ resource "aws_iam_policy" "app_service_S3_access_policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = data.aws_iam_policy_document.dcs_S3_access.json
+  policy = data.aws_iam_policy_document.app_service_S3_access.json
 }
