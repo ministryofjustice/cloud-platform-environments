@@ -19,10 +19,6 @@ EOF
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 module "risk_profiler_change_dead_letter_queue" {
@@ -40,10 +36,6 @@ module "risk_profiler_change_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "risk_profiler_change" {
