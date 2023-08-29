@@ -106,9 +106,9 @@ resource "kubernetes_secret" "activities_domain_events_queue" {
   }
 
   data = {
-    sqs_queue_url     = module.activities_domain_events_queue.sqs_id
-    sqs_queue_arn     = module.activities_domain_events_queue.sqs_arn
-    sqs_queue_name    = module.activities_domain_events_queue.sqs_name
+    sqs_queue_url  = module.activities_domain_events_queue.sqs_id
+    sqs_queue_arn  = module.activities_domain_events_queue.sqs_arn
+    sqs_queue_name = module.activities_domain_events_queue.sqs_name
   }
 }
 
@@ -119,8 +119,8 @@ resource "kubernetes_secret" "activities_dlq" {
   }
 
   data = {
-    sqs_queue_url     = module.activities_domain_events_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.activities_domain_events_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.activities_domain_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.activities_domain_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.activities_domain_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.activities_domain_events_dead_letter_queue.sqs_name
   }
 }

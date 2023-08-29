@@ -1,5 +1,5 @@
 module "opensearch_snapshot_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
 
   # Tags
   business-unit          = var.business_unit
