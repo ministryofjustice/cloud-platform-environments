@@ -2,6 +2,11 @@ variable "application" {
   default = "manage-intelligence"
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "namespace" {
   default = "manage-intelligence-dev"
 }
