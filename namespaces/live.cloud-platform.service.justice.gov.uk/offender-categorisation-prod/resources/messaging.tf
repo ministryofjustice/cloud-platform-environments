@@ -17,12 +17,8 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 module "risk_profiler_change_dead_letter_queue" {
@@ -38,12 +34,8 @@ module "risk_profiler_change_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "risk_profiler_change" {
