@@ -48,10 +48,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-tempus-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.app_service.arn}",
-              "${aws_iam_user.redrive_service.arn}"
-            ]
+            "aws:SourceArn": "${module.irsa-appservice.role_arn}"
           }
         }
       },
@@ -116,24 +113,6 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-dlq-policy" {
     "Id": "claim-criminal-injuries-tempus-queue-dlq-policy",
     "Statement": [
       {
-        "Sid": "claim-criminal-injuries-tempus-dlq-allow-redrive-service",
-        "Effect": "Allow",
-        "Principal": {"AWS": "*"},
-        "Action": [
-          "sqs:GetQueueAttributes",
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage"
-        ],
-        "Resource": "${module.claim-criminal-injuries-tempus-dlq.sqs_arn}",
-        "Condition": {
-          "ArnNotEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.redrive_service.arn}"
-            ]
-          }
-        }
-      },
-      {
         "Sid": "AlwaysEncrypted",
         "Effect": "Deny",
         "Principal": {"AWS": "*"},
@@ -157,8 +136,6 @@ resource "kubernetes_secret" "claim-criminal-injuries-tempus-sqs" {
   }
 
   data = {
-    access_key_id     = module.claim-criminal-injuries-tempus-queue.access_key_id
-    secret_access_key = module.claim-criminal-injuries-tempus-queue.secret_access_key
     sqs_id            = module.claim-criminal-injuries-tempus-queue.sqs_id
     sqs_arn           = module.claim-criminal-injuries-tempus-queue.sqs_arn
     sqs_name          = module.claim-criminal-injuries-tempus-queue.sqs_name
@@ -172,8 +149,6 @@ resource "kubernetes_secret" "claim-criminal-injuries-tempus-dlq" {
   }
 
   data = {
-    access_key_id     = module.claim-criminal-injuries-tempus-dlq.access_key_id
-    secret_access_key = module.claim-criminal-injuries-tempus-dlq.secret_access_key
     sqs_id            = module.claim-criminal-injuries-tempus-dlq.sqs_id
     sqs_arn           = module.claim-criminal-injuries-tempus-dlq.sqs_arn
     sqs_name          = module.claim-criminal-injuries-tempus-dlq.sqs_name
