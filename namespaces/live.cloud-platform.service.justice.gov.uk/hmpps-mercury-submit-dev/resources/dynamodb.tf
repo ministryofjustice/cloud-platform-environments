@@ -26,7 +26,5 @@ resource "kubernetes_secret" "report_id_dynamodb" {
   data = {
     table_name        = module.report_id_dynamodb.table_name
     table_arn         = module.report_id_dynamodb.table_arn
-    access_key_id     = module.report_id_dynamodb.access_key_id
-    secret_access_key = module.report_id_dynamodb.secret_access_key
   }
 }
