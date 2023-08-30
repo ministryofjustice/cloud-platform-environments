@@ -12,3 +12,14 @@ module "domain-events-and-delius-service-account" {
   service_account_name = "domain-events-and-delius"
   role_policy_arns     = { sqs = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value }
 }
+
+resource "kubernetes_secret" "hmpps_domain_events_topic" {
+  metadata {
+    name      = "hmpps-domain-events-topic"
+    namespace = var.namespace
+  }
+
+  data = {
+    topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  }
+}
