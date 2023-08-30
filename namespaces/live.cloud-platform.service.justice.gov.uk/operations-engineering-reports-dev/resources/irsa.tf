@@ -24,3 +24,16 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = module.irsa.service_account_name
+    namespace = module.irsa.namespace
+  }
+
+  data = {
+    role           = module.irsa.role_arn
+    serviceaccount = module.irsa.service_account_name
+    role_arn       = module.irsa.role_arn
+  }
+}
+
