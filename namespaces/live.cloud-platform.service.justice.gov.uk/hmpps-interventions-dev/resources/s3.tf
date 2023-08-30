@@ -26,8 +26,6 @@ resource "kubernetes_secret" "interventions_s3_bucket" {
   }
 
   data = {
-#    access_key_id     = module.interventions_s3_bucket.access_key_id
-#    secret_access_key = module.interventions_s3_bucket.secret_access_key
     bucket_arn        = module.interventions_s3_bucket.bucket_arn
     bucket_name       = module.interventions_s3_bucket.bucket_name
   }
