@@ -10,15 +10,15 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "maat-api-client-id" = {
-      description             = "MAAT API client ID",
+    "maat_api_oauth_client_id" = {
+      description             = "MAAT API oauth client ID",
       recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-client-id"
+      k8s_secret_name         = "maat-api-oauth-client-id"
     },
-    "maat-api-client-secret" = {
-      description             = "MAAT API client secret",
+    "maat_api_oauth_client_secret" = {
+      description             = "MAAT API oauth client secret",
       recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-client-secret"
+      k8s_secret_name         = "maat-api-oauth-client-secret"
     },
   }
 }
