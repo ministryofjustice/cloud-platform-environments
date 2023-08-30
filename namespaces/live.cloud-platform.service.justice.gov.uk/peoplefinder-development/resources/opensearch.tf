@@ -32,6 +32,6 @@ resource "kubernetes_secret" "opensearch" {
   }
 
   data = {
-    proxy_url = module.opensearch.proxy_url
+    proxy_url = module.peoplefinder_opensearch.proxy_url
   }
 }
