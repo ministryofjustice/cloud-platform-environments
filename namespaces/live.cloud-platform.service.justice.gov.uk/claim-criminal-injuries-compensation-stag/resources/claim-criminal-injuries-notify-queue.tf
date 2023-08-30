@@ -59,7 +59,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-notify-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            aws:SourceArn": "${module.irsa-notifyservice.role_arn}"
+            "aws:SourceArn": "${module.irsa-notifyservice.role_arn}"
           }
         }
       },
