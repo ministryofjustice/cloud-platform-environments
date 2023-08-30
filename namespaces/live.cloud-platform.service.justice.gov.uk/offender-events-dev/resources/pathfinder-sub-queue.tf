@@ -132,8 +132,6 @@ resource "kubernetes_secret" "pathfinder_offender_events_queue" {
   }
 
   data = {
-    access_key_id     = module.pathfinder_offender_events_queue.access_key_id
-    secret_access_key = module.pathfinder_offender_events_queue.secret_access_key
     sqs_id            = module.pathfinder_offender_events_queue.sqs_id
     sqs_arn           = module.pathfinder_offender_events_queue.sqs_arn
     sqs_name          = module.pathfinder_offender_events_queue.sqs_name
@@ -147,8 +145,6 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_queue" {
   }
 
   data = {
-    access_key_id     = module.pathfinder_probation_offender_events_queue.access_key_id
-    secret_access_key = module.pathfinder_probation_offender_events_queue.secret_access_key
     sqs_id            = module.pathfinder_probation_offender_events_queue.sqs_id
     sqs_arn           = module.pathfinder_probation_offender_events_queue.sqs_arn
     sqs_name          = module.pathfinder_probation_offender_events_queue.sqs_name
@@ -162,8 +158,6 @@ resource "kubernetes_secret" "pathfinder_offender_events_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.pathfinder_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.pathfinder_offender_events_dead_letter_queue.secret_access_key
     sqs_id            = module.pathfinder_offender_events_dead_letter_queue.sqs_id
     sqs_arn           = module.pathfinder_offender_events_dead_letter_queue.sqs_arn
     sqs_name          = module.pathfinder_offender_events_dead_letter_queue.sqs_name
@@ -177,8 +171,6 @@ resource "kubernetes_secret" "pathfinder_probation_offender_events_dead_letter_q
   }
 
   data = {
-    access_key_id     = module.pathfinder_probation_offender_events_dead_letter_queue.access_key_id
-    secret_access_key = module.pathfinder_probation_offender_events_dead_letter_queue.secret_access_key
     sqs_id            = module.pathfinder_probation_offender_events_dead_letter_queue.sqs_id
     sqs_arn           = module.pathfinder_probation_offender_events_dead_letter_queue.sqs_arn
     sqs_name          = module.pathfinder_probation_offender_events_dead_letter_queue.sqs_name
