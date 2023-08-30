@@ -78,5 +78,6 @@ module "ecr" {
   # This flag will allow a non-empty ECR to be deleted.
   # Defaults to true
 
+
   # deletion_protection = false
 }
