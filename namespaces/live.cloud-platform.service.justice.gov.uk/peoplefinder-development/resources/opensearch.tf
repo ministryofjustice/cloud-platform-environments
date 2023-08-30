@@ -1,0 +1,37 @@
+module "peoplefinder_opensearch" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
+
+  application            = var.application
+  business-unit          = var.business_unit
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+  is-production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+
+  vpc_name         = var.vpc_name
+  eks_cluster_name = var.eks_cluster_name
+
+  engine_version      = "OpenSearch_2.7"
+  snapshot_bucket_arn = module.peoplefinder_s3.bucket_arn
+
+  cluster_config = {
+    instance_count = 2
+    instance_type  = "t3.small.search"
+  }
+
+  ebs_options = {
+    volume_size = 10 # Storage (GBs) per node
+  }
+}
+
+resource "kubernetes_secret" "opensearch" {
+  metadata {
+    name      = "opensearch-proxy-url"
+    namespace = var.namespace
+  }
+
+  data = {
+    proxy_url = module.opensearch.proxy_url
+  }
+}
