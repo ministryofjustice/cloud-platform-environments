@@ -5,7 +5,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
   endpoint  = module.hmpps_prisoner_to_nomis_adjudication_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "adjudication.report.created"
+      "adjudication.report.created",
+      "adjudication.damages.updated"
     ]
   })
 }
