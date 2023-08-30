@@ -26,8 +26,8 @@ module "irsa" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = module.irsa.service_account_name
-    namespace = module.irsa.namespace
+    name      = "operations-engineering-reports-irsa"
+    namespace = var.namespace
   }
 
   data = {
