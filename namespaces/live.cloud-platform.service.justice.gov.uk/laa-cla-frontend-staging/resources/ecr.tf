@@ -60,7 +60,5 @@ resource "kubernetes_secret" "cla_frontend_socket_server_credentials" {
 
   data = {
     repo_url          = module.cla_frontend_socket_server_credentials.repo_url
-    access_key_id     = module.cla_frontend_socket_server_credentials.access_key_id
-    secret_access_key = module.cla_frontend_socket_server_credentials.secret_access_key
   }
 }
