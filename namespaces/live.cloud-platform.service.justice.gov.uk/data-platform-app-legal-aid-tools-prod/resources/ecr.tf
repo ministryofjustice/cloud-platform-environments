@@ -65,6 +65,8 @@ module "ecr_credentials" {
 EOF
 */
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
