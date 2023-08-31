@@ -12,10 +12,10 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_submit_queue  = module.mercury_submit_queue.irsa_policy_arn
-    sqs_submit_dlq    = module.mercury_submit_dead_letter_queue.irsa_policy_arn
-    db_report_id      = module.report_id_dynamodb.irsa_policy_arn
-    elasticache       = module.mercury_submit_elasticache_redis.irsa_policy_arn
+    sqs_submit_queue = module.mercury_submit_queue.irsa_policy_arn
+    sqs_submit_dlq   = module.mercury_submit_dead_letter_queue.irsa_policy_arn
+    db_report_id     = module.report_id_dynamodb.irsa_policy_arn
+    elasticache      = module.mercury_submit_elasticache_redis.irsa_policy_arn
   }
 
   # Tags

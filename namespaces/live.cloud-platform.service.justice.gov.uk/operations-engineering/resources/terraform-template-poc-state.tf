@@ -35,7 +35,7 @@ resource "kubernetes_secret" "terraform_template_poc_state_bucket" {
 
 # DynamoDB State Lock
 module "terraform_template_poc_state_lock_table" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
 
   team_name              = var.team_name
   application            = var.application
