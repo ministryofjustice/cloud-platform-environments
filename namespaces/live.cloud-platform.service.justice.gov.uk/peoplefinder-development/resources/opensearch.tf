@@ -25,9 +25,9 @@ module "peoplefinder_opensearch" {
   }
 }
 
-resource "kubernetes_secret" "opensearch" {
+resource "kubernetes_secret" "peoplefinder_opensearch" {
   metadata {
-    name      = "opensearch-proxy-url"
+    name      = "peoplefinder-opensearch-output"
     namespace = var.namespace
   }
 
