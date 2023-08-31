@@ -24,3 +24,18 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
+
+data "aws_sns_topic" "hmpps-domain-events" {
+  name = "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"
+}
+
+resource "kubernetes_secret" "hmpps_domain_events_topic" {
+  metadata {
+    name      = "hmpps-domain-events-topic"
+    namespace = var.namespace
+  }
+  data = {
+    topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  }
+}
+
