@@ -28,6 +28,8 @@ resource "kubernetes_secret" "drupal_content_storage_secret" {
   }
 
   data = {
+    access_key_id     = module.drupal_content_storage.access_key_id
+    secret_access_key = module.drupal_content_storage.secret_access_key
     bucket_arn        = module.drupal_content_storage.bucket_arn
     bucket_name       = module.drupal_content_storage.bucket_name
   }
