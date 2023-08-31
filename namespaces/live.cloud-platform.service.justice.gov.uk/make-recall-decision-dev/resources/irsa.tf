@@ -38,3 +38,4 @@ resource "kubernetes_secret" "hmpps_domain_events_topic" {
     topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   }
 }
+
