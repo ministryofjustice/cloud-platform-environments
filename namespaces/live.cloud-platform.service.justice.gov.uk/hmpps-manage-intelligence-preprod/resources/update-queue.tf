@@ -56,8 +56,6 @@ resource "kubernetes_secret" "ims_index_update_queue" {
   }
 
   data = {
-    access_key_id     = module.ims_index_update_queue.access_key_id
-    secret_access_key = module.ims_index_update_queue.secret_access_key
     sqs_id            = module.ims_index_update_queue.sqs_id
     sqs_arn           = module.ims_index_update_queue.sqs_arn
     sqs_name          = module.ims_index_update_queue.sqs_name
@@ -71,8 +69,6 @@ resource "kubernetes_secret" "ims_index_update_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.ims_index_update_dead_letter_queue.access_key_id
-    secret_access_key = module.ims_index_update_dead_letter_queue.secret_access_key
     sqs_id            = module.ims_index_update_dead_letter_queue.sqs_id
     sqs_arn           = module.ims_index_update_dead_letter_queue.sqs_arn
     sqs_name          = module.ims_index_update_dead_letter_queue.sqs_name
