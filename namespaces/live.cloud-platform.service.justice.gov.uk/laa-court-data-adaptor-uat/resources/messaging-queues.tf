@@ -424,3 +424,15 @@ resource "kubernetes_secret" "create_link_queue" {
     sqs_name_d_prosecution_concluded = module.prosecution_concluded_dead_letter_queue.sqs_name
   }
 }
+
+resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
+  metadata {
+    name      = "sqs-queue-irsa-policy-arn"
+    namespace = var.namespace
+  }
+
+  data = {
+    hearing_resulted_queue_irsa_policy_arn         = module.hearing_resulted_queue.irsa_policy_arn
+    prosecution_concluded_queue_irsa_policy_arn    = module.prosecution_concluded_queue.irsa_policy_arn
+  }
+}
