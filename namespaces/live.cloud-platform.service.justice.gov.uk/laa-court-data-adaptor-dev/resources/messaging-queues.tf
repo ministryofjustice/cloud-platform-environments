@@ -47,7 +47,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
               ]
           },
           "Resource": "${module.create_link_queue_m.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -125,7 +125,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_m_policy" {
               ]
           },
           "Resource": "${module.unlink_queue_m.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -232,7 +232,7 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
               ]
           },
           "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -280,7 +280,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -380,7 +380,7 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
