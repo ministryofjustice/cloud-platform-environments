@@ -26,6 +26,18 @@ module "create_link_queue" {
   }
 }
 
+resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
+  metadata {
+    name      = "sqs-queue-irsa-policy-arn"
+    namespace = var.namespace
+  }
+
+  data = {
+    hearing_resulted_queue_irsa_policy_arn         = module.hearing_resulted_queue.irsa_policy_arn
+    prosecution_concluded_queue_irsa_policy_arn    = module.prosecution_concluded_queue.irsa_policy_arn
+  }
+}
+
 
 resource "aws_sqs_queue_policy" "create_link_queue_policy" {
   queue_url = module.create_link_queue.sqs_id
