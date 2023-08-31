@@ -12,7 +12,6 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    ecr = module.ecr-repo.irsa_policy_arn
     rds = module.rds.irsa_policy_arn
   }
 
