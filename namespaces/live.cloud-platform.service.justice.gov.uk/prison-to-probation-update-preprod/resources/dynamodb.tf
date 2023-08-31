@@ -3,10 +3,10 @@ module "message_dynamodb" {
 
   team_name                    = var.team_name
   application                  = var.application
-  business-unit                = var.business_unit
-  environment-name             = var.environment
-  infrastructure-support       = var.infrastructure_support
-  is-production                = "false"
+  business_unit                = var.business_unit
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+  is_production                = var.is_production
   namespace                    = var.namespace
   autoscale_max_read_capacity  = 150
   autoscale_max_write_capacity = 20
