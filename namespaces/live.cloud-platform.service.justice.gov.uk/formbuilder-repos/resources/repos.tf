@@ -9,6 +9,10 @@ module "ecr-repo-fb-publisher-base" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-publisher"]
+  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
@@ -36,6 +40,10 @@ module "ecr-repo-fb-publisher-web" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-publisher"]
+  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
@@ -62,6 +70,10 @@ module "ecr-repo-fb-publisher-worker" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-publisher"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -93,6 +105,10 @@ module "ecr-repo-fb-runner-node" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-runner-node"]
+  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
@@ -122,6 +138,10 @@ module "ecr-repo-fb-service-token-cache" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-service-token-cache"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -180,6 +200,10 @@ module "ecr-repo-fb-submitter-api" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-submitter"]
+  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
@@ -207,6 +231,10 @@ module "ecr-repo-fb-submitter-workers" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-submitter"]
+
+  namespace = var.namespace
   providers = {
     aws = aws.london
   }
@@ -236,6 +264,10 @@ module "ecr-repo-fb-user-datastore-api" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-user-datastore"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -267,6 +299,10 @@ module "ecr-repo-fb-user-filestore-api" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-user-filestore"]
+  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
@@ -296,6 +332,10 @@ module "ecr-repo-fb-av" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-av"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -360,6 +400,10 @@ module "ecr-repo-fb-pdf-generator" {
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
 
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-pdf-generator"]
+  namespace = var.namespace
+
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-pdf-generator" {
@@ -385,6 +429,10 @@ module "ecr-repo-fb-base-adapter" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-base-adapter"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-base-adapter" {
@@ -410,6 +458,10 @@ module "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["hmcts-complaints-formbuilder-adapter"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -437,6 +489,10 @@ module "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["hmcts-complaints-formbuilder-adapter"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -466,6 +522,10 @@ module "ecr-repo-fb-metadata-api" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-metadata-api"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
@@ -548,6 +608,10 @@ module "ecr-repo-fb-runner" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-runner"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-runner" {
@@ -573,6 +637,10 @@ module "ecr-repo-fb-maintenance-page" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-maintenance-page"]
+  namespace = var.namespace
 }
 
 resource "kubernetes_secret" "ecr-repo-fb-maintenance-page" {
@@ -598,6 +666,10 @@ module "ecr-repo-fb-adapter-template-api" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-adapter-template"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
@@ -625,6 +697,10 @@ module "ecr-repo-fb-adapter-template-worker" {
 
   scan_on_push     = var.scan_on_push
   lifecycle_policy = var.lifecycle_policy
+
+  oidc_providers = ["circleci"]
+  github_repositories = ["fb-adapter-template"]
+  namespace = var.namespace
 
   providers = {
     aws = aws.london
