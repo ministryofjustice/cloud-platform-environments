@@ -1,13 +1,13 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
-  business-unit               = var.business_unit
+  business_unit               = var.business_unit
   application                 = var.application
-  is-production               = var.is_production
+  is_production               = var.is_production
   namespace                   = var.namespace
-  environment-name            = var.environment_name
-  infrastructure-support      = var.infrastructure_support
+  environment_name            = var.environment_name
+  infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
   db_instance_class           = "db.t3.small"
   db_engine_version           = "14"

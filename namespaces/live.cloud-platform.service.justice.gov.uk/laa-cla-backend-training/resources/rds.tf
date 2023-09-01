@@ -6,19 +6,19 @@
  */
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business_unit
+  business_unit = var.business_unit
   application   = var.application
-  is-production = var.is_production
+  is_production = var.is_production
   namespace     = var.namespace
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
   db_engine_version      = "11"
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
@@ -46,15 +46,15 @@ module "cla_backend_rds_postgres_11" {
 }
 
 module "cla_backend_rds_postgres_11_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   # It is mandatory to set the below values to create read replica instance
   db_name = null # "db_name": conflicts with replicate_source_db
@@ -99,20 +99,20 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business_unit
+  business_unit = var.business_unit
   application   = var.application
-  is-production = var.is_production
+  is_production = var.is_production
   namespace     = var.namespace
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
   db_engine_version      = "14"
   db_instance_class      = "db.t4g.small"
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres14
   # Pick the one that defines the postgres version the best
@@ -140,15 +140,15 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   # It is mandatory to set the below values to create read replica instance
   db_name = null # "db_name": conflicts with replicate_source_db
