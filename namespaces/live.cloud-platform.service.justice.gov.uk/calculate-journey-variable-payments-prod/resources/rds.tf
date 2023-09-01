@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
 
   db_engine         = "postgres"
   db_engine_version = "12.14"

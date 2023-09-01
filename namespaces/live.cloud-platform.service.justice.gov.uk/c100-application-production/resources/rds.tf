@@ -13,6 +13,7 @@ module "rds-instance" {
   namespace                   = var.namespace
   infrastructure_support      = var.infrastructure_support
   team_name                   = var.team_name
+  business_unit               = var.business_unit
   db_engine_version           = var.db_engine_version
   db_instance_class           = var.db_instance_class
   allow_major_version_upgrade = "true"

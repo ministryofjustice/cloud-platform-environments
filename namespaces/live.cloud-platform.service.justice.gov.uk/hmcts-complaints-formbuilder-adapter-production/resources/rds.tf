@@ -9,6 +9,7 @@ module "hmcts-complaints-adapter-rds-instance" {
   namespace                  = var.namespace
   infrastructure_support     = var.infrastructure_support
   team_name                  = var.team_name
+  business_unit              = "Platforms"
 
   db_engine_version    = "14.7"
   rds_family           = "postgres14"
