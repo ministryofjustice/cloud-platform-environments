@@ -34,7 +34,6 @@ variable "additional_topic_clients" {
     "hmpps-manage-offences-api-dev",
     "hmpps-manage-adjudications-api-dev",
     "hmpps-non-associations-dev",
-    "hmpps-probation-integration-services-dev",
     "hmpps-registers-dev",
     "hmpps-tier-dev",
     "hmpps-workload-dev",
