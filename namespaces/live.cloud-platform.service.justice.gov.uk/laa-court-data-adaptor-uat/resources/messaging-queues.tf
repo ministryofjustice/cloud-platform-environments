@@ -42,11 +42,11 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
               ]
           },
           "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -120,11 +120,11 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
               ]
           },
           "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -196,11 +196,11 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
               ]
           },
           "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -273,11 +273,11 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -372,11 +372,11 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
