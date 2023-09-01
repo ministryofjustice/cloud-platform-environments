@@ -33,8 +33,6 @@ resource "kubernetes_secret" "slmtp_api_elasticache_redis" {
     primary_endpoint_address = module.slmtp_api_elasticache_redis.primary_endpoint_address
     auth_token               = module.slmtp_api_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.slmtp_api_elasticache_redis.member_clusters)
-    access_key_id            = module.slmtp_api_elasticache_redis.access_key_id
-    secret_access_key        = module.slmtp_api_elasticache_redis.secret_access_key
   }
 }
 

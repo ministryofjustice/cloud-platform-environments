@@ -33,9 +33,6 @@ resource "kubernetes_secret" "uof_elasticache_redis" {
     primary_endpoint_address = module.uof_elasticache_redis.primary_endpoint_address
     auth_token               = module.uof_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.uof_elasticache_redis.member_clusters)
-    access_key_id            = module.uof_elasticache_redis.access_key_id
-    secret_access_key        = module.uof_elasticache_redis.secret_access_key
     replication_group_id     = module.uof_elasticache_redis.replication_group_id
-
   }
 }

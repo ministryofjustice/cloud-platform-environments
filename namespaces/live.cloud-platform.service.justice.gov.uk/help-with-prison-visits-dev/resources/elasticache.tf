@@ -33,7 +33,5 @@ resource "kubernetes_secret" "hwpv_elasticache_redis" {
     primary_endpoint_address = module.hwpv_elasticache_redis.primary_endpoint_address
     auth_token               = module.hwpv_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.hwpv_elasticache_redis.member_clusters)
-    access_key_id            = module.hwpv_elasticache_redis.access_key_id
-    secret_access_key        = module.hwpv_elasticache_redis.secret_access_key
   }
 }
