@@ -1,5 +1,5 @@
 module "elasticache" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.application
   namespace              = var.namespace
@@ -27,8 +27,6 @@ resource "kubernetes_secret" "elasticache" {
     primary_endpoint_address = module.elasticache.primary_endpoint_address
     member_clusters          = jsonencode(module.elasticache.member_clusters)
     auth_token               = module.elasticache.auth_token
-    access_key_id            = module.elasticache.access_key_id
-    secret_access_key        = module.elasticache.secret_access_key
     replication_group_id     = module.elasticache.replication_group_id
     redis_url                = "rediss://:${module.elasticache.auth_token}@${module.elasticache.primary_endpoint_address}:6379"
   }
