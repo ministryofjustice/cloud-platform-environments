@@ -1,6 +1,6 @@
 ######################################## Prison visits event for visit someone in prison
 ######## hmpps-manage-prison-visits-orchestration service should listen to the configured queue (hmpps_prison_visits_event_queue)
-######## for the given fevents (filter_policy configured below)!
+######## for the given events (filter_policy configured below)!
 
 
 ######## Main queue
@@ -87,7 +87,8 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
     eventType = [
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",
-      "incentives.iep-review.deleted"
+      "incentives.iep-review.deleted",
+      "prison-offender-events.prisoner.non-association-detail.changed"
     ]
   })
 }
