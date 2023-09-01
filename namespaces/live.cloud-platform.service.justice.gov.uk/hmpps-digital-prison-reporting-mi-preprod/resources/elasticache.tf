@@ -1,5 +1,5 @@
 module "hmpps_digital_prison_reporting_mi_ui_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -12,11 +12,11 @@ module "hmpps_digital_prison_reporting_mi_ui_ec_cluster" {
   # Tags
   team_name              = var.team_name
   namespace              = var.namespace
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "hmpps_digital_prison_reporting_mi_ui_ec_cluster" {

@@ -1,13 +1,13 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
   node_type              = "cache.t4g.small"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   application            = "offender-management-allocation-manager"
-  is-production          = var.is_production
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
-  business-unit          = var.business_unit
+  is_production          = var.is_production
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  business_unit          = var.business_unit
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
