@@ -78,7 +78,7 @@ module "cfo_dead_letter_queue" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "cfo-queue-user"
+  name = "cfo-queue-user-dev"
   path = "/system/cfo-queue-user/"
 }
 
