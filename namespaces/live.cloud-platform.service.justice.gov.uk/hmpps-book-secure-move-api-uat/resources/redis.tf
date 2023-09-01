@@ -10,7 +10,7 @@ module "redis-elasticache" {
   team_name               = var.team_name
   business_unit           = var.business_unit
   engine_version          = "7.0"
-  parameter_group_name    = "default.redis7"
+  parameter_group_name    = aws_elasticache_parameter_group.basm_api_redis.name
   namespace               = var.namespace
   snapshot_window         = var.backup_window
   maintenance_window      = var.maintenance_window
@@ -35,5 +35,16 @@ resource "kubernetes_secret" "redis-elasticache" {
     access_key_id            = module.redis-elasticache.access_key_id
     secret_access_key        = module.redis-elasticache.secret_access_key
     replication_group_id     = module.redis-elasticache.replication_group_id
+  }
+}
+
+resource "aws_elasticache_parameter_group" "basm_api_redis" {
+  name   = "basm-api-redis-parameter-group-uat"
+  family = "redis7"
+
+  # Prevent Redis from evicting Sidekiq data
+  parameter {
+    name  = "maxmemory-policy"
+    value = "noeviction"
   }
 }
