@@ -38,7 +38,6 @@ variable "additional_topic_clients" {
     "hmpps-registers-dev",
     "hmpps-tier-dev",
     "hmpps-workload-dev",
-    "make-recall-decision-dev",
     "offender-case-notes-dev",
     "offender-management-staging",
     "offender-management-test",
