@@ -48,7 +48,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-tempus-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            "aws:SourceArn": "${aws_iam_user.app_service.arn}"
+            "aws:SourceArn": "${module.irsa-appservice.role_arn}"
           }
         }
       },
