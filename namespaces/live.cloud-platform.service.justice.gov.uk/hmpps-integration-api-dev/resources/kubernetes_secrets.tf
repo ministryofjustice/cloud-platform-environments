@@ -14,10 +14,6 @@ resource "kubernetes_secret" "aws_services" {
     })
 
     "ecr" = jsonencode({
-      "access-credentials" = {
-        "access-key-id"     = module.ecr_credentials.access_key_id
-        "secret-access-key" = module.ecr_credentials.secret_access_key
-      }
       "repo-arn" = module.ecr_credentials.repo_arn
       "repo-url" = module.ecr_credentials.repo_url
     })
