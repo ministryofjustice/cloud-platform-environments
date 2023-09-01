@@ -43,8 +43,6 @@ resource "kubernetes_secret" "hmpps-workload-preprod-s3-dashboard-bucket" {
   }
 
   data = {
-    access_key_id     = module.hmpps-workload-preprod-s3-dashboard-bucket.access_key_id
-    secret_access_key = module.hmpps-workload-preprod-s3-dashboard-bucket.secret_access_key
     bucket_arn        = module.hmpps-workload-preprod-s3-dashboard-bucket.bucket_arn
     bucket_name       = module.hmpps-workload-preprod-s3-dashboard-bucket.bucket_name
   }
