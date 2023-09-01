@@ -1,10 +1,10 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue"                       = "hmpps-audit-prod",
-    "Digital-Prison-Services-prod-activities_domain_events_queue"          = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-activities_domain_events_dl"             = "hmpps-domain-events-prod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue"                       = "hmpps-audit-prod"
+    "Digital-Prison-Services-prod-activities_domain_events_queue"          = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-activities_domain_events_dl"             = "hmpps-domain-events-prod"
     "Digital-Prison-Services-prod-hmpps_workload_offender_events_queue"    = "offender-events-prod"
-    "Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl" = "offender-events-prod",
+    "Digital-Prison-Services-prod-hmpps_workload_offender_events_queue_dl" = "offender-events-prod"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
