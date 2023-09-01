@@ -59,16 +59,13 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
       [
         {
           "Effect": "Allow",
-          "Principal": {"AWS": "*"},
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::411213865113:role/LAA-CCR-development-AppInfrastructureTe-AppEc2Role-PLQM8D8ZB1P2"
+              ]
+          },
           "Resource": "${module.claims_for_ccr.sqs_arn}",
-          "Action": "sqs:*",
-          "Condition":
-            {
-              "ArnEquals":
-                {
-                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
-                }
-              }
+          "Action": "sqs:*"
         }
       ]
   }
@@ -117,16 +114,13 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
       [
         {
           "Effect": "Allow",
-          "Principal": {"AWS": "*"},
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::411213865113:role/LAA-CCR-development-AppInfrastructureTe-AppEc2Role-PLQM8D8ZB1P2"
+              ]
+          },
           "Resource": "${module.claims_for_cclf.sqs_arn}",
-          "Action": "sqs:*",
-          "Condition":
-            {
-              "ArnEquals":
-                {
-                  "aws:SourceArn": "${module.cccd_claims_submitted.topic_arn}"
-                }
-              }
+          "Action": "sqs:*"
         }
       ]
   }
