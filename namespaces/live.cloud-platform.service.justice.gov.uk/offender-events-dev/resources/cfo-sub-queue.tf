@@ -91,6 +91,11 @@ resource "aws_iam_user_policy_attachment" "policy" {
   user   = aws_iam_user.user.name
 }
 
+resource "aws_iam_user_policy_attachment" "dlq-policy" {
+  policy_arn = module.cfo_dead_letter_queue.irsa_policy_arn
+  user   = aws_iam_user.user.name
+}
+
 resource "kubernetes_secret" "cfo_queue" {
   metadata {
     name      = "cfo-sqs-instance-output"
