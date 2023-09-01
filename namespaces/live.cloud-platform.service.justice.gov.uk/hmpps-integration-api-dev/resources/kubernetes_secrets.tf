@@ -19,10 +19,6 @@ resource "kubernetes_secret" "aws_services" {
     })
 
     "s3" = jsonencode({
-      "access-credentials" = {
-        "access-key-id"     = module.truststore_s3_bucket.access_key_id
-        "secret-access-key" = module.truststore_s3_bucket.secret_access_key
-      }
       "bucket-arn"  = module.truststore_s3_bucket.bucket_arn
       "bucket-name" = module.truststore_s3_bucket.bucket_name
     })
