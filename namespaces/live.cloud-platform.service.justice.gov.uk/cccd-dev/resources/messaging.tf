@@ -138,7 +138,6 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Resource": "${module.claims_for_cclf.sqs_arn}",
           "Action": "sqs:*"
         },
-        ,
         {
           "Sid": "CCCDPolicy",
           "Effect": "Allow",
