@@ -102,8 +102,6 @@ resource "kubernetes_secret" "hmpps-workload-preprod-s3-extract-bucket" {
   }
 
   data = {
-    access_key_id     = module.hmpps-workload-preprod-s3-extract-bucket.access_key_id
-    secret_access_key = module.hmpps-workload-preprod-s3-extract-bucket.secret_access_key
     bucket_arn        = module.hmpps-workload-preprod-s3-extract-bucket.bucket_arn
     bucket_name       = module.hmpps-workload-preprod-s3-extract-bucket.bucket_name
   }

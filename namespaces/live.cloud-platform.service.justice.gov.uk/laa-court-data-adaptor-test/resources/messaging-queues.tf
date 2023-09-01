@@ -40,11 +40,11 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "013163512034"
+            "arn:aws:iam::013163512034:role/LAA-maat-cd-api-test-ECSTaskExecutionRole-16OJF9QOHVKZ0"
               ]
           },
           "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -117,11 +117,11 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "013163512034"
+            "arn:aws:iam::013163512034:role/LAA-maat-cd-api-test-ECSTaskExecutionRole-16OJF9QOHVKZ0"
               ]
           },
           "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -193,11 +193,11 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "013163512034"
+            "arn:aws:iam::013163512034:role/LAA-maat-cd-api-test-ECSTaskExecutionRole-16OJF9QOHVKZ0"
               ]
           },
           "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -269,11 +269,11 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "013163512034"
+            "arn:aws:iam::013163512034:role/LAA-maat-cd-api-test-ECSTaskExecutionRole-16OJF9QOHVKZ0"
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -367,11 +367,11 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::013163512034:role/LAA-maat-cd-api-test-ECSTaskExecutionRole-16OJF9QOHVKZ0"
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -417,5 +417,17 @@ resource "kubernetes_secret" "create_link_queue" {
     sqs_url_d_prosecution_concluded  = module.prosecution_concluded_dead_letter_queue.sqs_id
     sqs_arn_d_prosecution_concluded  = module.prosecution_concluded_dead_letter_queue.sqs_arn
     sqs_name_d_prosecution_concluded = module.prosecution_concluded_dead_letter_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
+  metadata {
+    name      = "sqs-queue-irsa-policy-arn"
+    namespace = var.namespace
+  }
+
+  data = {
+    hearing_resulted_queue_irsa_policy_arn         = module.hearing_resulted_queue.irsa_policy_arn
+    prosecution_concluded_queue_irsa_policy_arn    = module.prosecution_concluded_queue.irsa_policy_arn
   }
 }

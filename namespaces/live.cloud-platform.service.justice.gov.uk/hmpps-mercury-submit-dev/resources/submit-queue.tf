@@ -56,9 +56,9 @@ resource "kubernetes_secret" "mercury_submit_queue" {
   }
 
   data = {
-    sqs_id            = module.mercury_submit_queue.sqs_id
-    sqs_arn           = module.mercury_submit_queue.sqs_arn
-    sqs_name          = module.mercury_submit_queue.sqs_name
+    sqs_id   = module.mercury_submit_queue.sqs_id
+    sqs_arn  = module.mercury_submit_queue.sqs_arn
+    sqs_name = module.mercury_submit_queue.sqs_name
   }
 }
 
@@ -69,8 +69,8 @@ resource "kubernetes_secret" "mercury_submit_dead_letter_queue" {
   }
 
   data = {
-    sqs_id            = module.mercury_submit_dead_letter_queue.sqs_id
-    sqs_arn           = module.mercury_submit_dead_letter_queue.sqs_arn
-    sqs_name          = module.mercury_submit_dead_letter_queue.sqs_name
+    sqs_id   = module.mercury_submit_dead_letter_queue.sqs_id
+    sqs_arn  = module.mercury_submit_dead_letter_queue.sqs_arn
+    sqs_name = module.mercury_submit_dead_letter_queue.sqs_name
   }
 }

@@ -39,8 +39,6 @@ resource "kubernetes_secret" "manage_intelligence_storage_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_intelligence_storage_bucket.access_key_id
-    secret_access_key = module.manage_intelligence_storage_bucket.secret_access_key
     bucket_arn        = module.manage_intelligence_storage_bucket.bucket_arn
     bucket_name       = module.manage_intelligence_storage_bucket.bucket_name
   }
@@ -53,8 +51,6 @@ resource "kubernetes_secret" "manage_intelligence_rds_to_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.manage_intelligence_rds_to_s3_bucket.access_key_id
-    secret_access_key = module.manage_intelligence_rds_to_s3_bucket.secret_access_key
     bucket_arn        = module.manage_intelligence_rds_to_s3_bucket.bucket_arn
     bucket_name       = module.manage_intelligence_rds_to_s3_bucket.bucket_name
   }

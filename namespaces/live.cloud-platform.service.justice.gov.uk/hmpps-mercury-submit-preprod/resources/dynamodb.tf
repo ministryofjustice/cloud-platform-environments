@@ -1,12 +1,12 @@
 module "report_id_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
 
   team_name              = var.team_name
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = "false"
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
 
   enable_autoscaler            = "false"
@@ -24,7 +24,7 @@ resource "kubernetes_secret" "report_id_dynamodb" {
   }
 
   data = {
-    table_name        = module.report_id_dynamodb.table_name
-    table_arn         = module.report_id_dynamodb.table_arn
+    table_name = module.report_id_dynamodb.table_name
+    table_arn  = module.report_id_dynamodb.table_arn
   }
 }
