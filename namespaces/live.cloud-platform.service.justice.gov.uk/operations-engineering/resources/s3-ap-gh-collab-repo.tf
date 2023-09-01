@@ -22,6 +22,6 @@ resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {
   }
 
   data = {
-    bucket_arn        = module.ap_gh_collab_repo_s3_bucket.bucket_arn
+    bucket_arn = module.ap_gh_collab_repo_s3_bucket.bucket_arn
   }
 }
