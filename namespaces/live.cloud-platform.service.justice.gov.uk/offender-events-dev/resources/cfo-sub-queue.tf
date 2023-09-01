@@ -86,7 +86,7 @@ resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy_attachment" "policy" {
   name   = "cfo-queue-user-read"
   policy = module.cfo_queue.irsa_policy_arn
   user   = aws_iam_user.user.name
