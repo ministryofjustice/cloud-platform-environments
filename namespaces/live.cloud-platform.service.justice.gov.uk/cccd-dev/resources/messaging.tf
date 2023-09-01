@@ -143,7 +143,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_ccr.sqs_arn}",
-          "Action": "sqs:*",
+          "Action": "sqs:SendMessage",
           "Condition":
             {
               "ArnEquals":
