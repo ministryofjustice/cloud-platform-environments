@@ -76,6 +76,50 @@ module "cfo_dead_letter_queue" {
   }
 }
 
+resource "aws_iam_user" "user" {
+  name = "cfo-queue-user"
+  path = "/system/cfo-queue-user/"
+}
+
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
+
+resource "aws_iam_user_policy_attachment" "policy" {
+  policy_arn = module.cfo_queue.irsa_policy_arn
+  user   = aws_iam_user.user.name
+}
+
+resource "kubernetes_secret" "cfo_queue_credentials" {
+  metadata {
+    name      = "cfo-sqs-credentials"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.user.id
+    secret_access_key = aws_iam_access_key.user.secret
+    sqs_cfo_url       = module.cfo_queue.sqs_id
+    sqs_cfo_arn       = module.cfo_queue.sqs_arn
+    sqs_cfo_name      = module.cfo_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "cfo_dead_letter_queue_credentials" {
+  metadata {
+    name      = "cfo-sqs-dl-credentials"
+    namespace = var.namespace
+  }
+
+  data = {
+    access_key_id     = aws_iam_access_key.user.id
+    secret_access_key = aws_iam_access_key.user.secret
+    sqs_cfo_url       = module.cfo_dead_letter_queue.sqs_id
+    sqs_cfo_arn       = module.cfo_dead_letter_queue.sqs_arn
+    sqs_cfo_name      = module.cfo_dead_letter_queue.sqs_name
+  }
+}
+
 resource "kubernetes_secret" "cfo_queue" {
   metadata {
     name      = "cfo-sqs-instance-output"
