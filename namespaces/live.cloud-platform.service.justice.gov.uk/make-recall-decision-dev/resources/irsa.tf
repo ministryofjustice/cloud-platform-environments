@@ -50,18 +50,3 @@ resource "kubernetes_secret" "hmpps_domain_events_topic" {
     topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   }
 }
-
-data "aws_sqs_queue" "hmpps-audit-queue" {
-  name = "Digital-Prison-Services-dev-hmpps_audit_queue"
-}
-
-resource "kubernetes_secret" "sqs-hmpps-audit-secret" {
-  metadata {
-    name      = "sqs-hmpps-audit-secret"
-    namespace = var.namespace
-  }
-  data = {
-    sqs_queue_url = data.aws_sqs_queue.hmpps-audit-queue.url
-    sqs_queue_name = data.aws_sqs_queue.hmpps-audit-queue.name
-  }
-}
