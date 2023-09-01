@@ -36,16 +36,3 @@ module "ecr-repo" {
 EOF
 }
 
-resource "kubernetes_secret" "ecr-repo" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_url          = module.ecr-repo.repo_url
-    access_key_id     = module.ecr-repo.access_key_id
-    secret_access_key = module.ecr-repo.secret_access_key
-  }
-}
-
