@@ -1,12 +1,12 @@
 module "rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
-  business-unit                = var.business_unit
+  business_unit                = var.business_unit
   application                  = var.application
-  is-production                = var.is_production
-  environment-name             = var.environment
-  infrastructure-support       = var.infrastructure_support
+  is_production                = var.is_production
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
   namespace                    = var.namespace
   performance_insights_enabled = true
   db_engine_version            = "14"
@@ -21,13 +21,13 @@ module "rds" {
 
 module "read_replica" {
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
   db_name                = null # "db_name": conflicts with replicate_source_db
   replicate_source_db    = module.rds.db_identifier
