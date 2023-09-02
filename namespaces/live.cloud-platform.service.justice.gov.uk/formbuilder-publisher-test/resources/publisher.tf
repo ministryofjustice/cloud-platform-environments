@@ -4,10 +4,10 @@ module "publisher-rds-instance" {
   vpc_name                    = var.vpc_name
   db_backup_retention_period  = var.db_backup_retention_period
   application                 = "formbuilderpublisher"
-  environment_name            = var.environment-name
-  is_production               = var.is_production
+  environment-name            = var.environment-name
+  is-production               = var.is_production
   namespace                   = var.namespace
-  infrastructure_support      = var.infrastructure_support
+  infrastructure-support      = var.infrastructure_support
   team_name                   = var.team_name
   db_engine_version           = "12"
   allow_major_version_upgrade = "true"
