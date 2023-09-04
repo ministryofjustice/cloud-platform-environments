@@ -5,7 +5,7 @@
  *
  */
 module "laa-estimate-financial-eligibility-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
