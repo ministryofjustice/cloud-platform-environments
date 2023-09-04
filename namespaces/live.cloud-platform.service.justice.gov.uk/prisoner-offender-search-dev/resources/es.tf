@@ -3,10 +3,10 @@ module "prisoner_offender_search_elasticsearch" {
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
-  business_unit                   = var.business_unit
-  environment_name                = var.environment
-  infrastructure_support          = var.infrastructure_support
-  is_production                   = var.is_production
+  business-unit                   = var.business_unit
+  environment-name                = var.environment
+  infrastructure-support          = var.infrastructure_support
+  is-production                   = var.is_production
   team_name                       = var.team_name
   elasticsearch-domain            = "search-prisoner"
   aws_es_proxy_service_name       = "es-proxy"
