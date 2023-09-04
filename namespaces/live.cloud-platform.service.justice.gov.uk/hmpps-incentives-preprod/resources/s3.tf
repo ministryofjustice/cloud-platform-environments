@@ -1,5 +1,5 @@
 module "analytical_platform_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -56,9 +56,7 @@ resource "kubernetes_secret" "analytical_platform_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.analytical_platform_s3_bucket.access_key_id
-    secret_access_key = module.analytical_platform_s3_bucket.secret_access_key
-    bucket_arn        = module.analytical_platform_s3_bucket.bucket_arn
-    bucket_name       = module.analytical_platform_s3_bucket.bucket_name
+    bucket_arn  = module.analytical_platform_s3_bucket.bucket_arn
+    bucket_name = module.analytical_platform_s3_bucket.bucket_name
   }
 }

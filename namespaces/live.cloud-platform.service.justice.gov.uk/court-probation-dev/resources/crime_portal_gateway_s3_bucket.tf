@@ -1,5 +1,5 @@
 module "crime-portal-gateway-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -39,9 +39,7 @@ resource "kubernetes_secret" "crime-portal-gateway-s3-secret" {
   }
 
   data = {
-    access_key_id     = module.crime-portal-gateway-s3-bucket.access_key_id
-    bucket_arn        = module.crime-portal-gateway-s3-bucket.bucket_arn
-    bucket_name       = module.crime-portal-gateway-s3-bucket.bucket_name
-    secret_access_key = module.crime-portal-gateway-s3-bucket.secret_access_key
+    bucket_arn  = module.crime-portal-gateway-s3-bucket.bucket_arn
+    bucket_name = module.crime-portal-gateway-s3-bucket.bucket_name
   }
 }

@@ -2,7 +2,7 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
  */
 module "calculate-journey-variable-payments_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   team_name              = var.team_name
   business_unit          = "Digital and Technology"
@@ -28,9 +28,7 @@ resource "kubernetes_secret" "calculate-journey-variable-payments_s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.calculate-journey-variable-payments_s3_bucket.access_key_id
-    secret_access_key = module.calculate-journey-variable-payments_s3_bucket.secret_access_key
-    bucket_arn        = module.calculate-journey-variable-payments_s3_bucket.bucket_arn
-    bucket_name       = module.calculate-journey-variable-payments_s3_bucket.bucket_name
+    bucket_arn  = module.calculate-journey-variable-payments_s3_bucket.bucket_arn
+    bucket_name = module.calculate-journey-variable-payments_s3_bucket.bucket_name
   }
 }
