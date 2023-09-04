@@ -142,7 +142,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Sid": "CCCDPolicy",
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.claims_for_ccr.sqs_arn}",
+          "Resource": "${module.claims_for_cclf.sqs_arn}",
           "Action": "sqs:*",
           "Condition":
             {
