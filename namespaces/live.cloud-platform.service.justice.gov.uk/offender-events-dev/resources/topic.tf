@@ -33,7 +33,7 @@ resource "aws_iam_user_policy_attachment" "hmpps_prisoner_events_policy" {
   user       = aws_iam_user.hmpps_prisoner_events.name
 }
 
-resource "kubernetes_secret" " hmpps_prisoner_events" {
+resource "kubernetes_secret" "hmpps_prisoner_events" {
   metadata {
     name      = "hmpps-prisoner-events"
     namespace = var.namespace
