@@ -203,7 +203,7 @@ resource "aws_sqs_queue_policy" "responses_for_cccd" {
             "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD"
               ]
           },
-          "Resource": "${module.claims_for_cclf.sqs_arn}",
+          "Resource": "${module.responses_for_cccd.sqs_arn}",
           "Action": "sqs:SendMessage"
         }
       ]
