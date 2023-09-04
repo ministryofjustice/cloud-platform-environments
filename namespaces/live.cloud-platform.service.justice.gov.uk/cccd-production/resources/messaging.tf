@@ -57,6 +57,18 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
     "Statement":
       [
         {
+          "Sid": "CCRPolicy",
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD"
+              ]
+          },
+          "Resource": "${module.claims_for_ccr.sqs_arn}",
+          "Action": "sqs:*"
+        },
+        {
+          "Sid": "CCCDPolicy",
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_ccr.sqs_arn}",
@@ -114,6 +126,18 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
     "Statement":
       [
         {
+          "Sid": "CCLFPolicy",
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT"
+              ]
+          },
+          "Resource": "${module.claims_for_cclf.sqs_arn}",
+          "Action": "sqs:*"
+        },
+        {
+          "Sid": "CCCDPolicy",
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_cclf.sqs_arn}",
@@ -159,6 +183,34 @@ EOF
   providers = {
     aws = aws.london
   }
+}
+
+resource "aws_sqs_queue_policy" "responses_for_cccd" {
+  queue_url = module.responses_for_cccd.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.responses_for_cccd.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Sid": "LandingZonePolicy",
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT",
+            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD"
+              ]
+          },
+          "Resource": "${module.responses_for_cccd.sqs_arn}",
+          "Action": "sqs:SendMessage"
+        }
+      ]
+  }
+
+EOF
+
 }
 
 module "ccr_dead_letter_queue" {
