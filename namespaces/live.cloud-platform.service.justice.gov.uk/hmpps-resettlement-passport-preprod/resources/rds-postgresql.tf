@@ -43,14 +43,16 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
+
+  # Tags
   application            = var.application
-  environment_name       = var.environment
-  is_production          = var.is_production
-  infrastructure_support = var.infrastructure_support
-  team_name              = var.team_name
-  namespace              = var.namespace
   business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
@@ -97,8 +99,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -125,8 +125,6 @@ resource "kubernetes_secret" "read_replica" {
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
   }
   */
 }
