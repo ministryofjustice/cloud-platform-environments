@@ -1,13 +1,13 @@
 module "hwpv_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -22,7 +22,7 @@ resource "kubernetes_secret" "hwpv_document_s3_bucket_admin" {
   }
 
   data = {
-    bucket_arn        = module.hwpv_document_s3_bucket.bucket_arn
-    bucket_name       = module.hwpv_document_s3_bucket.bucket_name
+    bucket_arn  = module.hwpv_document_s3_bucket.bucket_arn
+    bucket_name = module.hwpv_document_s3_bucket.bucket_name
   }
 }

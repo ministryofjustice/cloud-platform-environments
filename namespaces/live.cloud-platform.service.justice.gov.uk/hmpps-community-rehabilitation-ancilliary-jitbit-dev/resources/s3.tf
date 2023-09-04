@@ -9,13 +9,13 @@
 #  Create bucket and secret for jitbit app files
 ##
 module "s3_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name                     = var.team_name
-  business-unit                 = var.business_unit
+  business_unit                 = var.business_unit
   application                   = var.application
-  is-production                 = var.is_production
-  environment-name              = var.environment
-  infrastructure-support        = var.infrastructure_support
+  is_production                 = var.is_production
+  environment_name              = var.environment
+  infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   enable_allow_block_pub_access = true
   acl                           = "private"
@@ -49,13 +49,13 @@ resource "kubernetes_secret" "s3_bucket" {
 #  Create bucket and secret for jitbit app artefacts - used by the docker build process
 ##
 module "s3_bucket_jitbit_app_artefacts" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name                     = var.team_name
-  business-unit                 = var.business_unit
+  business_unit                 = var.business_unit
   application                   = var.application
-  is-production                 = var.is_production
-  environment-name              = var.environment
-  infrastructure-support        = var.infrastructure_support
+  is_production                 = var.is_production
+  environment_name              = var.environment
+  infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   enable_allow_block_pub_access = true
   acl                           = "private"
