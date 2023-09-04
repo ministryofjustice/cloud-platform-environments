@@ -3,7 +3,7 @@
 ################################################################################
 
 module "education_work_plan_ui_elasticache_redis" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name                = var.vpc_name
   application             = var.application
   environment_name        = var.environment
@@ -33,7 +33,5 @@ resource "kubernetes_secret" "education_work_plan_ui_elasticache_redis" {
     primary_endpoint_address = module.education_work_plan_ui_elasticache_redis.primary_endpoint_address
     auth_token               = module.education_work_plan_ui_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.education_work_plan_ui_elasticache_redis.member_clusters)
-    access_key_id            = module.education_work_plan_ui_elasticache_redis.access_key_id
-    secret_access_key        = module.education_work_plan_ui_elasticache_redis.secret_access_key
   }
 }
