@@ -49,6 +49,8 @@ module "read_replica" {
   is_production          = var.is_production
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  namespace              = var.namespace
+  business_unit          = var.business_unit
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
