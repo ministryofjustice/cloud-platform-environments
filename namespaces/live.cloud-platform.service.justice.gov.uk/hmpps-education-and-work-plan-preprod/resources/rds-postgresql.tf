@@ -26,10 +26,10 @@ module "hmpps_education_work_plan_rds" {
 
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }
@@ -41,15 +41,16 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
+
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 
@@ -98,8 +99,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.hmpps_education_work_plan_rds.database_username
     database_password     = module.hmpps_education_work_plan_rds.database_password
     rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
-    access_key_id         = module.hmpps_education_work_plan_rds.access_key_id
-    secret_access_key     = module.hmpps_education_work_plan_rds.secret_access_key
   }
 }
 
