@@ -35,14 +35,14 @@ resource "aws_iam_user_policy_attachment" "hmpps_prisoner_events_policy" {
 
 resource "kubernetes_secret" " hmpps_prisoner_events" {
   metadata {
-    name      = " hmpps-prisoner-events"
+    name      = "hmpps-prisoner-events"
     namespace = var.namespace
   }
 
   data = {
-    topic_arn                               = module.offender_events.topic_arn
-    hmpps_prisoner_events_access_key_id     = aws_iam_access_key.hmpps_prisoner_events.id
-    hmpps_prisoner_events_secret_access_key = aws_iam_access_key.hmpps_prisoner_events.secret
+    topic_arn         = module.offender_events.topic_arn
+    access_key_id     = aws_iam_access_key.hmpps_prisoner_events.id
+    secret_access_key = aws_iam_access_key.hmpps_prisoner_events.secret
   }
 }
 
