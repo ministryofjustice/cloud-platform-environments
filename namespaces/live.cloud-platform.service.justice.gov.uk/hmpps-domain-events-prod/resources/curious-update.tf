@@ -87,7 +87,7 @@ resource "aws_sns_topic_subscription" "curious_subscription" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "curious-queue-user-dev"
+  name = "curious-queue-user-prod"
   path = "/system/curious-queue-user/"
 }
 
