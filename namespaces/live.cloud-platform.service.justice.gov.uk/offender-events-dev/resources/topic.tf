@@ -53,7 +53,7 @@ resource "kubernetes_secret" "offender_events" {
   }
 
   data = {
-    topic_arn                               = module.offender_events.topic_arn
+    topic_arn = module.offender_events.topic_arn
   }
 }
 
