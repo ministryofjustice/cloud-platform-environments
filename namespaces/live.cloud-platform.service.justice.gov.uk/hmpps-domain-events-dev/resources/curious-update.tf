@@ -86,11 +86,9 @@ resource "kubernetes_secret" "curious_queue" {
   }
 
   data = {
-    access_key_id     = module.curious_queue.access_key_id
-    secret_access_key = module.curious_queue.secret_access_key
-    sqs_queue_url     = module.curious_queue.sqs_id
-    sqs_queue_arn     = module.curious_queue.sqs_arn
-    sqs_queue_name    = module.curious_queue.sqs_name
+    sqs_queue_url  = module.curious_queue.sqs_id
+    sqs_queue_arn  = module.curious_queue.sqs_arn
+    sqs_queue_name = module.curious_queue.sqs_name
   }
 }
 
@@ -102,11 +100,9 @@ resource "kubernetes_secret" "curious_dlq" {
   }
 
   data = {
-    access_key_id     = module.curious_dead_letter_queue.access_key_id
-    secret_access_key = module.curious_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.curious_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.curious_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.curious_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.curious_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.curious_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.curious_dead_letter_queue.sqs_name
   }
 }
 

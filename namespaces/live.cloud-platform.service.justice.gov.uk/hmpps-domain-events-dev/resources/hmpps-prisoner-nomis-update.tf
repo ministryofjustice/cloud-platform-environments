@@ -1,7 +1,7 @@
 ######################################## VISITS
 
 module "hmpps_prisoner_to_nomis_visit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_visit_queue"
@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_visit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_visit_dlq"
@@ -120,7 +120,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_subscriptio
 ######################################## INCENTIVES
 
 module "hmpps_prisoner_to_nomis_incentive_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_incentive_queue"
@@ -175,7 +175,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_incentive_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_incentive_dlq"
@@ -237,7 +237,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscri
 ######################################## ACTIVITIES
 
 module "hmpps_prisoner_to_nomis_activity_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_activity_queue"
@@ -292,7 +292,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_activity_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_activity_dlq"
@@ -357,7 +357,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
 ######################################## APPOINTMENTS ########################################
 
 module "prisoner_to_nomis_appointment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "prisoner_to_nomis_appointment_queue"
@@ -413,7 +413,7 @@ EOF
 }
 
 module "prisoner_to_nomis_appointment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "prisoner_to_nomis_appointment_dlq"
@@ -477,7 +477,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_appointment_subsc
 ######################################## SENTENCING
 
 module "hmpps_prisoner_to_nomis_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_sentencing_queue"
@@ -533,7 +533,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_sentencing_dlq"

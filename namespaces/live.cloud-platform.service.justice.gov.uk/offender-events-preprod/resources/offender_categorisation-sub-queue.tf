@@ -1,5 +1,5 @@
 module "offender_categorisation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "offender_categorisation_events_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_events_queue_policy" {
 }
 
 module "offender_categorisation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "offender_categorisation_events_queue_dl"
@@ -81,9 +81,9 @@ resource "kubernetes_secret" "offender_categorisation_events_queue" {
   }
 
   data = {
-    sqs_oce_url       = module.offender_categorisation_events_queue.sqs_id
-    sqs_oce_arn       = module.offender_categorisation_events_queue.sqs_arn
-    sqs_oce_name      = module.offender_categorisation_events_queue.sqs_name
+    sqs_oce_url  = module.offender_categorisation_events_queue.sqs_id
+    sqs_oce_arn  = module.offender_categorisation_events_queue.sqs_arn
+    sqs_oce_name = module.offender_categorisation_events_queue.sqs_name
   }
 }
 
@@ -94,9 +94,9 @@ resource "kubernetes_secret" "offender_categorisation_events_dead_letter_queue" 
   }
 
   data = {
-    sqs_oce_url       = module.offender_categorisation_events_dead_letter_queue.sqs_id
-    sqs_oce_arn       = module.offender_categorisation_events_dead_letter_queue.sqs_arn
-    sqs_oce_name      = module.offender_categorisation_events_dead_letter_queue.sqs_name
+    sqs_oce_url  = module.offender_categorisation_events_dead_letter_queue.sqs_id
+    sqs_oce_arn  = module.offender_categorisation_events_dead_letter_queue.sqs_arn
+    sqs_oce_name = module.offender_categorisation_events_dead_letter_queue.sqs_name
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_sns_topic_subscription" "offender_categorisation_subscription" {
 
 
 module "offender_categorisation_ui_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "offender_categorisation_ui_events_queue"
@@ -167,7 +167,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_ui_events_queue_policy"
 }
 
 module "offender_categorisation_ui_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "offender_categorisation_ui_events_queue_dl"
@@ -194,9 +194,9 @@ resource "kubernetes_secret" "offender_categorisation_ui_events_queue" {
   }
 
   data = {
-    url               = module.offender_categorisation_ui_events_queue.sqs_id
-    arn               = module.offender_categorisation_ui_events_queue.sqs_arn
-    name              = module.offender_categorisation_ui_events_queue.sqs_name
+    url  = module.offender_categorisation_ui_events_queue.sqs_id
+    arn  = module.offender_categorisation_ui_events_queue.sqs_arn
+    name = module.offender_categorisation_ui_events_queue.sqs_name
   }
 }
 
@@ -207,9 +207,9 @@ resource "kubernetes_secret" "offender_categorisation_ui_events_dead_letter_queu
   }
 
   data = {
-    url               = module.offender_categorisation_ui_events_dead_letter_queue.sqs_id
-    arn               = module.offender_categorisation_ui_events_dead_letter_queue.sqs_arn
-    name              = module.offender_categorisation_ui_events_dead_letter_queue.sqs_name
+    url  = module.offender_categorisation_ui_events_dead_letter_queue.sqs_id
+    arn  = module.offender_categorisation_ui_events_dead_letter_queue.sqs_arn
+    name = module.offender_categorisation_ui_events_dead_letter_queue.sqs_name
   }
 }
 
