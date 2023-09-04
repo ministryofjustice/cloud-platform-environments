@@ -39,8 +39,8 @@ resource "kubernetes_secret" "manage_intelligence_storage_bucket" {
   }
 
   data = {
-    bucket_arn        = module.manage_intelligence_storage_bucket.bucket_arn
-    bucket_name       = module.manage_intelligence_storage_bucket.bucket_name
+    bucket_arn  = module.manage_intelligence_storage_bucket.bucket_arn
+    bucket_name = module.manage_intelligence_storage_bucket.bucket_name
   }
 }
 
@@ -51,7 +51,7 @@ resource "kubernetes_secret" "manage_intelligence_rds_to_s3_bucket" {
   }
 
   data = {
-    bucket_arn        = module.manage_intelligence_rds_to_s3_bucket.bucket_arn
-    bucket_name       = module.manage_intelligence_rds_to_s3_bucket.bucket_name
+    bucket_arn  = module.manage_intelligence_rds_to_s3_bucket.bucket_arn
+    bucket_name = module.manage_intelligence_rds_to_s3_bucket.bucket_name
   }
 }

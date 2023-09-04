@@ -56,9 +56,9 @@ resource "kubernetes_secret" "ims_index_update_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_index_update_queue.sqs_id
-    sqs_arn           = module.ims_index_update_queue.sqs_arn
-    sqs_name          = module.ims_index_update_queue.sqs_name
+    sqs_id   = module.ims_index_update_queue.sqs_id
+    sqs_arn  = module.ims_index_update_queue.sqs_arn
+    sqs_name = module.ims_index_update_queue.sqs_name
   }
 }
 
@@ -69,8 +69,8 @@ resource "kubernetes_secret" "ims_index_update_dead_letter_queue" {
   }
 
   data = {
-    sqs_id            = module.ims_index_update_dead_letter_queue.sqs_id
-    sqs_arn           = module.ims_index_update_dead_letter_queue.sqs_arn
-    sqs_name          = module.ims_index_update_dead_letter_queue.sqs_name
+    sqs_id   = module.ims_index_update_dead_letter_queue.sqs_id
+    sqs_arn  = module.ims_index_update_dead_letter_queue.sqs_arn
+    sqs_name = module.ims_index_update_dead_letter_queue.sqs_name
   }
 }
