@@ -25,7 +25,7 @@ resource "aws_iam_user" "hmpps_prisoner_events" {
 }
 
 resource "aws_iam_access_key" "hmpps_prisoner_events" {
-  user = aws_iam_user.user.name
+  user = aws_iam_user.hmpps_prisoner_events.name
 }
 
 resource "aws_iam_user_policy_attachment" "hmpps_prisoner_events_policy" {
