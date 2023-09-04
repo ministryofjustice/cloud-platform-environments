@@ -1,5 +1,5 @@
 module "analytical_platform_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

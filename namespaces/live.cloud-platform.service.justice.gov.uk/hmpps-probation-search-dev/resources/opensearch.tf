@@ -24,7 +24,7 @@ module "opensearch" {
 }
 
 module "opensearch_snapshot_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   application            = var.application
   business_unit          = var.business_unit
