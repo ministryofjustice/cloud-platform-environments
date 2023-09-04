@@ -18,6 +18,21 @@ module "offender_events" {
   }
 }
 
+# for external access from hmpps-prisoner-events-dev in aks-studio-hosting-dev-1
+resource "aws_iam_user" "hmpps_prisoner_events" {
+  name = "hmpps-prisoner-events-sns-user-${var.environment}"
+  path = "/system/hmpps-prisoner-events-sns-user/"
+}
+
+resource "aws_iam_access_key" "hmpps_prisoner_events" {
+  user = aws_iam_user.user.name
+}
+
+resource "aws_iam_user_policy_attachment" "policy" {
+  policy_arn = module.offender_events.irsa_policy_arn
+  user       = aws_iam_user.hmpps_prisoner_events.name
+}
+
 resource "kubernetes_secret" "offender_events" {
   metadata {
     name      = "offender-events-topic"
@@ -25,7 +40,9 @@ resource "kubernetes_secret" "offender_events" {
   }
 
   data = {
-    topic_arn = module.offender_events.topic_arn
+    topic_arn                               = module.offender_events.topic_arn
+    hmpps_prisoner_events_access_key_id     = aws_iam_access_key.hmpps_prisoner_events.id
+    hmpps_prisoner_events_secret_access_key = aws_iam_access_key.hmpps_prisoner_events.secret
   }
 }
 
