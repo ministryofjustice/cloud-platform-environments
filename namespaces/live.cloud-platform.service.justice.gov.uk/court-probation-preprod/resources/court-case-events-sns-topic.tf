@@ -1,5 +1,5 @@
 module "court-case-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
   topic_display_name = "court-case-events"
@@ -25,8 +25,6 @@ resource "kubernetes_secret" "court-case-events" {
   }
 
   data = {
-    access_key_id     = module.court-case-events.access_key_id
-    secret_access_key = module.court-case-events.secret_access_key
-    topic_arn         = module.court-case-events.topic_arn
+    topic_arn = module.court-case-events.topic_arn
   }
 }

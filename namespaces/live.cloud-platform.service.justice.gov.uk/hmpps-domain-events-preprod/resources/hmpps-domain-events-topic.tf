@@ -1,9 +1,8 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
-  topic_display_name       = "hmpps-domain-events"
-  additional_topic_clients = concat(["oasys"], var.additional_topic_clients)
+  topic_display_name = "hmpps-domain-events"
 
   # Tags
   business_unit          = var.business_unit
