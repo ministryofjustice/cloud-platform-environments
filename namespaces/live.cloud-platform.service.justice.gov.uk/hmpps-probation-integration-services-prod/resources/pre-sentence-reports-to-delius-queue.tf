@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "pre-sentence-reports-to-delius-queue-subs
 }
 
 module "pre-sentence-reports-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "pre-sentence-reports-to-delius-queue-queue"
@@ -34,7 +34,7 @@ resource "aws_sqs_queue_policy" "pre-sentence-reports-to-delius-queue-policy" {
 }
 
 module "pre-sentence-reports-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "pre-sentence-reports-to-delius-dlq"
