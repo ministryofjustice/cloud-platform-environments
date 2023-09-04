@@ -1,5 +1,5 @@
 module "crime_apps_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name                = var.vpc_name
@@ -29,8 +29,6 @@ resource "kubernetes_secret" "crime_apps_ec_cluster" {
     primary_endpoint_address = module.crime_apps_ec_cluster.primary_endpoint_address
     auth_token               = module.crime_apps_ec_cluster.auth_token
     url                      = "rediss://:${module.crime_apps_ec_cluster.auth_token}@${module.crime_apps_ec_cluster.primary_endpoint_address}:6379"
-    access_key_id            = module.crime_apps_ec_cluster.access_key_id
-    secret_access_key        = module.crime_apps_ec_cluster.secret_access_key
     replication_group_id     = module.crime_apps_ec_cluster.replication_group_id
   }
 }
