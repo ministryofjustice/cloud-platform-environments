@@ -44,10 +44,13 @@ module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name               = var.vpc_name
+  # Tags
   application            = var.application
+  business-unit          = var.business_unit
   environment-name       = var.environment
-  is-production          = var.is_production
   infrastructure-support = var.infrastructure_support
+  is-production          = var.is_production
+  namespace              = var.namespace
   team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
