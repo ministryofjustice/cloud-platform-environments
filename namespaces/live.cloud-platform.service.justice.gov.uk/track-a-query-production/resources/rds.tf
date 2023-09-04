@@ -35,15 +35,15 @@ module "track_a_query_rds_replica" {
 
   vpc_name = var.vpc_name
 
-  application               = var.application
-  environment-name          = var.environment
-  is-production             = var.is_production
-  infrastructure-support    = var.infrastructure_support
-  team_name                 = var.team_name
-  db_instance_class         = "db.t4g.small"
-  db_max_allocated_storage  = "10000"
-  rds_family                = "postgres12"
-  db_engine_version         = "12"
+  application              = var.application
+  environment-name         = var.environment
+  is-production            = var.is_production
+  infrastructure-support   = var.infrastructure_support
+  team_name                = var.team_name
+  db_instance_class        = "db.t4g.small"
+  db_max_allocated_storage = "10000"
+  rds_family               = "postgres12"
+  db_engine_version        = "12"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.track_a_query_rds.db_identifier

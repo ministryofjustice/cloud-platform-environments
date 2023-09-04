@@ -16,7 +16,7 @@ module "truststore_s3_bucket" {
 
 data "kubernetes_secret" "truststore" {
   metadata {
-    name = "mutual-tls-auth"
+    name      = "mutual-tls-auth"
     namespace = var.namespace
   }
 }
