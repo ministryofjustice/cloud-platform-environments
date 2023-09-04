@@ -65,7 +65,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
             "arn:aws:iam::140455166311:role/LAA-CCR-uat-AppInfrastructureTemplate-1-AppEc2Role-11WILONUECEUX"
               ]
           },
-          "Resource": "${module.claims_for_cclf.sqs_arn}",
+          "Resource": "${module.claims_for_ccr.sqs_arn}",
           "Action": "sqs:*"
         },
         {
