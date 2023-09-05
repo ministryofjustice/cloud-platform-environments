@@ -56,7 +56,7 @@ module "service-metadata-s3-bucket" {
 EOF
 }
 
-module "irsa" {
+module "service-metadata-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # IRSA configuration

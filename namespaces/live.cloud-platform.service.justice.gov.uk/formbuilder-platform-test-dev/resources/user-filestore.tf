@@ -85,7 +85,7 @@ EOF
   ]
 }
 
-module "irsa" {
+module "user-filestore-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # IRSA configuration
