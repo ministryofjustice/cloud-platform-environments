@@ -44,6 +44,7 @@ module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
+  team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
