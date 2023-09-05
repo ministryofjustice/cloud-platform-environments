@@ -1,9 +1,8 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
   topic_display_name = "cccd-claims-submitted"
-
 
   # Tags
   business_unit          = var.business_unit
@@ -20,12 +19,11 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "cccd-claims-for-ccr"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "cccd-claims-for-ccr"
+  encrypt_sqs_kms = "false"
 
   redrive_policy = <<EOF
   {
@@ -89,12 +87,11 @@ EOF
 }
 
 module "claims_for_cclf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "cccd-claims-for-cclf"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "cccd-claims-for-cclf"
+  encrypt_sqs_kms = "false"
 
   redrive_policy = <<EOF
   {
@@ -158,12 +155,11 @@ EOF
 }
 
 module "responses_for_cccd" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "responses-for-cccd"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "responses-for-cccd"
+  encrypt_sqs_kms = "false"
 
   redrive_policy = <<EOF
   {
@@ -214,12 +210,11 @@ EOF
 }
 
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "cccd-claims-submitted-ccr-dlq"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "cccd-claims-submitted-ccr-dlq"
+  encrypt_sqs_kms = "false"
 
   # Tags
   business_unit          = var.business_unit
@@ -236,12 +231,11 @@ module "ccr_dead_letter_queue" {
 }
 
 module "cclf_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "cccd-claims-submitted-cclf-dlq"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "cccd-claims-submitted-cclf-dlq"
+  encrypt_sqs_kms = "false"
 
   # Tags
   business_unit          = var.business_unit
@@ -258,12 +252,11 @@ module "cclf_dead_letter_queue" {
 }
 
 module "cccd_response_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "reponses-for-cccd-dlq"
-  existing_user_name = module.cccd_claims_submitted.user_name
-  encrypt_sqs_kms    = "false"
+  sqs_name        = "reponses-for-cccd-dlq"
+  encrypt_sqs_kms = "false"
 
   # Tags
   business_unit          = var.business_unit
@@ -286,8 +279,6 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
   }
 
   data = {
-    access_key_id     = module.cccd_claims_submitted.access_key_id
-    secret_access_key = module.cccd_claims_submitted.secret_access_key
     topic_arn         = module.cccd_claims_submitted.topic_arn
     sqs_ccr_name      = module.claims_for_ccr.sqs_name
     sqs_ccr_url       = module.claims_for_ccr.sqs_id

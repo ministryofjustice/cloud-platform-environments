@@ -1,9 +1,8 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
   topic_display_name = "cccd-claims-submitted"
-
 
   # Tags
   business_unit          = var.business_unit
@@ -283,8 +282,6 @@ resource "kubernetes_secret" "cccd_claims_submitted" {
   }
 
   data = {
-    access_key_id     = module.cccd_claims_submitted.access_key_id
-    secret_access_key = module.cccd_claims_submitted.secret_access_key
     topic_arn         = module.cccd_claims_submitted.topic_arn
     sqs_ccr_name      = module.claims_for_ccr.sqs_name
     sqs_ccr_url       = module.claims_for_ccr.sqs_id

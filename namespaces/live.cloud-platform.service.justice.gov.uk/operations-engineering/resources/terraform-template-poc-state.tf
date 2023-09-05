@@ -35,7 +35,7 @@ resource "kubernetes_secret" "terraform_template_poc_state_bucket" {
 
 # DynamoDB State Lock
 module "terraform_template_poc_state_lock_table" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -57,10 +57,8 @@ resource "kubernetes_secret" "terraform_template_poc_state_lock_table" {
   }
 
   data = {
-    table_name        = module.terraform_template_poc_state_lock_table.table_name
-    table_arn         = module.terraform_template_poc_state_lock_table.table_arn
-    access_key_id     = module.terraform_template_poc_state_lock_table.access_key_id
-    secret_access_key = module.terraform_template_poc_state_lock_table.secret_access_key
+    table_name = module.terraform_template_poc_state_lock_table.table_name
+    table_arn  = module.terraform_template_poc_state_lock_table.table_arn
   }
 }
 
