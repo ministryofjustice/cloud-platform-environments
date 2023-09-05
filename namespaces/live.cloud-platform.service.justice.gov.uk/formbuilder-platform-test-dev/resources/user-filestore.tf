@@ -88,7 +88,8 @@ EOF
 module "user-filestore-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  # IRSA configuration
+  eks_cluster_name = var.eks_cluster_name
+
   service_account_name = "user-filestore-irsa-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
 
