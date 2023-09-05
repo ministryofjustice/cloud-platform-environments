@@ -4,7 +4,7 @@ locals {
 
 # S3 Bucket to Store State
 module "terraform_template_poc_state_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -27,9 +27,7 @@ resource "kubernetes_secret" "terraform_template_poc_state_bucket" {
   }
 
   data = {
-    access_key_id     = module.terraform_template_poc_state_bucket.access_key_id
-    secret_access_key = module.terraform_template_poc_state_bucket.secret_access_key
-    bucket_arn        = module.terraform_template_poc_state_bucket.bucket_arn
+    bucket_arn = module.terraform_template_poc_state_bucket.bucket_arn
   }
 }
 

@@ -1,5 +1,5 @@
 module "cla_backend_private_reports_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -50,7 +50,7 @@ EOF
 }
 
 module "cla_backend_deleted_objects_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -98,7 +98,7 @@ EOF
 
 
 module "cla_backend_static_files_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
@@ -131,8 +131,6 @@ resource "kubernetes_secret" "cla_backend_s3" {
   }
 
   data = {
-    access_key_id               = module.cla_backend_private_reports_bucket.access_key_id
-    secret_access_key           = module.cla_backend_private_reports_bucket.secret_access_key
     reports_bucket_arn          = module.cla_backend_private_reports_bucket.bucket_arn
     reports_bucket_name         = module.cla_backend_private_reports_bucket.bucket_name
     deleted_objects_bucket_arn  = module.cla_backend_deleted_objects_bucket.bucket_arn
