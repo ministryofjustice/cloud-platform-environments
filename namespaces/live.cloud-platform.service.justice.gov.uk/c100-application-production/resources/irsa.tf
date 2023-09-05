@@ -23,7 +23,3 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
-data "s3" "irsa_policy_arn" {
-  name = "c100-application-production"
-}
