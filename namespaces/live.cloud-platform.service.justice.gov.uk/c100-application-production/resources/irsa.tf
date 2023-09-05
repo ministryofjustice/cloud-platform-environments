@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3  = module.s3.irsa_policy_arn
+    s3  = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
@@ -22,4 +22,8 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "s3" "irsa_policy_arn" {
+  name = "c100-application-production"
 }
