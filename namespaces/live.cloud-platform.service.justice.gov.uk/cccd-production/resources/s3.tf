@@ -6,7 +6,7 @@
  */
 
 module "cccd_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -60,7 +60,9 @@ resource "kubernetes_secret" "cccd_s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.cccd_s3_bucket.bucket_arn
-    bucket_name = module.cccd_s3_bucket.bucket_name
+    access_key_id     = module.cccd_s3_bucket.access_key_id
+    secret_access_key = module.cccd_s3_bucket.secret_access_key
+    bucket_arn        = module.cccd_s3_bucket.bucket_arn
+    bucket_name       = module.cccd_s3_bucket.bucket_name
   }
 }

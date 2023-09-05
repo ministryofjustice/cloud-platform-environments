@@ -2,7 +2,7 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
   acl                    = "private"
@@ -92,7 +92,9 @@ resource "kubernetes_secret" "user-filestore-s3-bucket" {
   }
 
   data = {
-    bucket_arn  = module.user-filestore-s3-bucket.bucket_arn
-    bucket_name = module.user-filestore-s3-bucket.bucket_name
+    access_key_id     = module.user-filestore-s3-bucket.access_key_id
+    bucket_arn        = module.user-filestore-s3-bucket.bucket_arn
+    bucket_name       = module.user-filestore-s3-bucket.bucket_name
+    secret_access_key = module.user-filestore-s3-bucket.secret_access_key
   }
 }
