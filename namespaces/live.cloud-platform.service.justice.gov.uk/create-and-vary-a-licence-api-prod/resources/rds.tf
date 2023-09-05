@@ -1,13 +1,13 @@
 module "create_and_vary_a_licence_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
-  business-unit               = var.business_unit
+  business_unit               = var.business_unit
   application                 = var.application
-  is-production               = var.is_production
+  is_production               = var.is_production
   namespace                   = var.namespace
-  environment-name            = var.environment
-  infrastructure-support      = var.infrastructure_support
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
   allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"

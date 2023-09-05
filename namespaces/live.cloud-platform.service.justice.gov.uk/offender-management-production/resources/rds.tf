@@ -5,17 +5,17 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name                    = var.vpc_name
   db_instance_class           = "db.m5.large"
   team_name                   = "offender-management"
-  business-unit               = "HMPPS"
+  business_unit               = "HMPPS"
   application                 = "offender-management-allocation-manager"
-  is-production               = "true"
+  is_production               = "true"
   namespace                   = var.namespace
-  environment-name            = "production"
-  infrastructure-support      = "manage-pom-cases@digital.justice.gov.uk"
+  environment_name            = "production"
+  infrastructure_support      = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                   = "postgres"
   db_engine_version           = "14.7"
   rds_family                  = "postgres14"

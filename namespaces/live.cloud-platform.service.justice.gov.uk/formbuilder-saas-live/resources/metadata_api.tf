@@ -1,14 +1,15 @@
 module "metadata-api-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period
   application                = "formbuilder-metadata-api"
-  environment-name           = var.environment_name
-  is-production              = var.is_production
+  environment_name           = var.environment_name
+  is_production              = var.is_production
   namespace                  = var.namespace
-  infrastructure-support     = var.infrastructure_support
+  infrastructure_support     = var.infrastructure_support
   team_name                  = var.team_name
+  business_unit              = "Platforms"
   db_engine_version          = "12"
   rds_family                 = "postgres12"
   db_instance_class          = var.db_instance_class

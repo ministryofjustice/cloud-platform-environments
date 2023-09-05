@@ -5,16 +5,16 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
-  business-unit            = "laa"
+  business_unit            = "laa"
   application              = "laa-apply-for-legal-aid"
-  is-production            = "true"
+  is_production            = "true"
   namespace                = var.namespace
-  environment-name         = "production"
-  infrastructure-support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  environment_name         = "production"
+  infrastructure_support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   db_engine                = "postgres"
   db_engine_version        = "14"
   db_instance_class        = "db.t4g.small"
