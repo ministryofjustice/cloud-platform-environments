@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   application            = var.application
   business_unit          = var.business_unit
