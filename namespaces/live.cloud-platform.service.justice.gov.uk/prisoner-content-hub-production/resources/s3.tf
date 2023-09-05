@@ -89,7 +89,7 @@ EOF
       ],
       "Resource": [
         "$${bucket_arn}",
-        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461",
+        "arn:aws:s3:::cloud-platform-57bd87b9de5df49eb0c391d128d7f938",
         "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b"
       ]
     },
@@ -101,7 +101,7 @@ EOF
       ],
       "Resource": [
         "$${bucket_arn}/*",
-        "arn:aws:s3:::cloud-platform-c3b3fc90408e8f9501268e354d44f461/*",
+        "arn:aws:s3:::cloud-platform-57bd87b9de5df49eb0c391d128d7f938/*",
         "arn:aws:s3:::cloud-platform-5e5f7ac99afe21a0181cbf50a850627b/*"
       ]
     }
