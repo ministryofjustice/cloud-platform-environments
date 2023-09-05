@@ -54,8 +54,10 @@ module "rds-read-replica" {
   application            = var.application
   environment_name       = var.environment-name
   is_production          = var.is_production
+  namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
   db_allocated_storage   = 200
   db_instance_class      = "db.t4g.medium"
 
