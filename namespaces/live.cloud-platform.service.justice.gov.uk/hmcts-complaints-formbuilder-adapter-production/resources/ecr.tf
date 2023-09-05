@@ -6,8 +6,8 @@ module "ecr-repo-hmcts-complaints-adapter" {
   repo_name = "hmcts-complaints-formbuilder-adapter"
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
+  business_unit          = "Platforms"
+  application            = "hmcts-complaints-formbuilder-adapter"
   is_production          = var.is_production
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment-name
