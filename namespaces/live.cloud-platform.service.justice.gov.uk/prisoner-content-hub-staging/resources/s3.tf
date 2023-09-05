@@ -1,8 +1,7 @@
-module "drupal_content_storage" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+module "drupal_content_storage_2" {
 
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name              = var.team_name
-  versioning             = true
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -21,16 +20,16 @@ module "drupal_content_storage" {
   ]
 }
 
-resource "kubernetes_secret" "drupal_content_storage_secret" {
+resource "kubernetes_secret" "drupal_content_storage_2_secret" {
   metadata {
-    name      = "drupal-s3"
+    name      = "drupal-s3-2"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = module.drupal_content_storage.access_key_id
-    secret_access_key = module.drupal_content_storage.secret_access_key
-    bucket_arn        = module.drupal_content_storage.bucket_arn
-    bucket_name       = module.drupal_content_storage.bucket_name
+    access_key_id     = module.drupal_content_storage_2.access_key_id
+    secret_access_key = module.drupal_content_storage_2.secret_access_key
+    bucket_arn        = module.drupal_content_storage_2.bucket_arn
+    bucket_name       = module.drupal_content_storage_2.bucket_name
   }
 }
