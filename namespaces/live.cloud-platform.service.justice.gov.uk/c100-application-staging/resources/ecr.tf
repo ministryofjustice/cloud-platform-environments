@@ -16,6 +16,12 @@ module "ecr-repo" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
+  # enable the oidc implementation for CircleCI
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = ["c100-application"]
+
   providers = {
     aws = aws.london
   }
