@@ -62,8 +62,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -84,6 +82,5 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
-
   }
 }

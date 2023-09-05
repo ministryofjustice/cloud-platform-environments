@@ -34,8 +34,6 @@ resource "kubernetes_secret" "dps_rds" {
     database_username     = module.dps_rds.database_username
     database_password     = module.dps_rds.database_password
     rds_instance_address  = module.dps_rds.rds_instance_address
-    access_key_id         = module.dps_rds.access_key_id
-    secret_access_key     = module.dps_rds.secret_access_key
   }
 }
 
@@ -75,7 +73,5 @@ resource "kubernetes_secret" "prisons_rds" {
     database_username     = module.prisons_rds.database_username
     database_password     = module.prisons_rds.database_password
     rds_instance_address  = module.prisons_rds.rds_instance_address
-    access_key_id         = module.prisons_rds.access_key_id
-    secret_access_key     = module.prisons_rds.secret_access_key
   }
 }

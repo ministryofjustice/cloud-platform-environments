@@ -111,17 +111,15 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_11.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_11.rds_instance_address
-    port              = module.cla_backend_rds_postgres_11.rds_instance_port
-    name              = module.cla_backend_rds_postgres_11.database_name
-    user              = module.cla_backend_rds_postgres_11.database_username
-    password          = module.cla_backend_rds_postgres_11.database_password
-    replica_host      = module.cla_backend_rds_postgres_11_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_11_replica.rds_instance_endpoint
-    access_key_id     = module.cla_backend_rds_postgres_11.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
-    db_identifier     = module.cla_backend_rds_postgres_11.db_identifier
+    endpoint         = module.cla_backend_rds_postgres_11.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_11.rds_instance_address
+    port             = module.cla_backend_rds_postgres_11.rds_instance_port
+    name             = module.cla_backend_rds_postgres_11.database_name
+    user             = module.cla_backend_rds_postgres_11.database_username
+    password         = module.cla_backend_rds_postgres_11.database_password
+    replica_host     = module.cla_backend_rds_postgres_11_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_11_replica.rds_instance_endpoint
+    db_identifier    = module.cla_backend_rds_postgres_11.db_identifier
   }
 }
 
@@ -224,16 +222,14 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_rds_postgres_14.database_name
-    user              = module.cla_backend_rds_postgres_14.database_username
-    password          = module.cla_backend_rds_postgres_14.database_password
-    replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
-    access_key_id     = module.cla_backend_rds_postgres_14.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_14.secret_access_key
-    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
+    endpoint         = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_14.rds_instance_address
+    port             = module.cla_backend_rds_postgres_14.rds_instance_port
+    name             = module.cla_backend_rds_postgres_14.database_name
+    user             = module.cla_backend_rds_postgres_14.database_username
+    password         = module.cla_backend_rds_postgres_14.database_password
+    replica_host     = module.cla_backend_rds_postgres_14_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
+    db_identifier    = module.cla_backend_rds_postgres_14.db_identifier
   }
 }

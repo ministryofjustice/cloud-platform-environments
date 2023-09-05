@@ -49,8 +49,6 @@ resource "kubernetes_secret" "rds-live" {
     database_username     = module.rds-live.database_username
     database_password     = module.rds-live.database_password
     rds_instance_address  = module.rds-live.rds_instance_address
-    access_key_id         = module.rds-live.access_key_id
-    secret_access_key     = module.rds-live.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -69,6 +67,5 @@ resource "kubernetes_config_map" "rds-live" {
   data = {
     database_name = module.rds-live.database_name
     db_identifier = module.rds-live.db_identifier
-
   }
 }

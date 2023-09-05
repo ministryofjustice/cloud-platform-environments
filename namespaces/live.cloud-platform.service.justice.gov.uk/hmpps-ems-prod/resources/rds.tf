@@ -43,8 +43,6 @@ resource "kubernetes_secret" "grafana_rds" {
     database_username     = module.grafana_rds.database_username
     database_password     = module.grafana_rds.database_password
     rds_instance_address  = module.grafana_rds.rds_instance_address
-    access_key_id         = module.grafana_rds.access_key_id
-    secret_access_key     = module.grafana_rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -63,6 +61,5 @@ resource "kubernetes_config_map" "grafana_rds" {
   data = {
     database_name = module.grafana_rds.database_name
     db_identifier = module.grafana_rds.db_identifier
-
   }
 }

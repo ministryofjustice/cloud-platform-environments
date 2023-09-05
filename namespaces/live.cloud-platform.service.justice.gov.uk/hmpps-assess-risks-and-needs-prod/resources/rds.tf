@@ -34,8 +34,6 @@ resource "kubernetes_secret" "hmpps_assess_risks_and_needs_prod_rds_secret" {
     database_username     = module.hmpps_assess_risks_and_needs_prod_rds.database_username
     database_password     = module.hmpps_assess_risks_and_needs_prod_rds.database_password
     rds_instance_address  = module.hmpps_assess_risks_and_needs_prod_rds.rds_instance_address
-    access_key_id         = module.hmpps_assess_risks_and_needs_prod_rds.access_key_id
-    secret_access_key     = module.hmpps_assess_risks_and_needs_prod_rds.secret_access_key
     url                   = "postgres://${module.hmpps_assess_risks_and_needs_prod_rds.database_username}:${module.hmpps_assess_risks_and_needs_prod_rds.database_password}@${module.hmpps_assess_risks_and_needs_prod_rds.rds_instance_endpoint}/${module.hmpps_assess_risks_and_needs_prod_rds.database_name}"
   }
 }

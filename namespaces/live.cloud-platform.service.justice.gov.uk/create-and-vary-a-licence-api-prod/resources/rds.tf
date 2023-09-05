@@ -32,7 +32,5 @@ resource "kubernetes_secret" "create_and_vary_a_licence_api_rds" {
     database_username     = module.create_and_vary_a_licence_api_rds.database_username
     database_password     = module.create_and_vary_a_licence_api_rds.database_password
     rds_instance_address  = module.create_and_vary_a_licence_api_rds.rds_instance_address
-    access_key_id         = module.create_and_vary_a_licence_api_rds.access_key_id
-    secret_access_key     = module.create_and_vary_a_licence_api_rds.secret_access_key
   }
 }

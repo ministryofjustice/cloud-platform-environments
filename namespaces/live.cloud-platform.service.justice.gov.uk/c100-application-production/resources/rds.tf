@@ -38,7 +38,5 @@ resource "kubernetes_secret" "rds-instance" {
     database_username     = module.rds-instance.database_username
     database_password     = module.rds-instance.database_password
     rds_instance_address  = module.rds-instance.rds_instance_address
-    access_key_id         = module.rds-instance.access_key_id
-    secret_access_key     = module.rds-instance.secret_access_key
   }
 }

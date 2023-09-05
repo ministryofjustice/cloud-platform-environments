@@ -27,8 +27,6 @@ resource "kubernetes_secret" "court_data_adaptor_rds" {
   }
 
   data = {
-    access_key_id         = module.court_data_adaptor_rds.access_key_id
-    secret_access_key     = module.court_data_adaptor_rds.secret_access_key
     database_name         = module.court_data_adaptor_rds.database_name
     database_username     = module.court_data_adaptor_rds.database_username
     rds_instance_address  = module.court_data_adaptor_rds.rds_instance_address

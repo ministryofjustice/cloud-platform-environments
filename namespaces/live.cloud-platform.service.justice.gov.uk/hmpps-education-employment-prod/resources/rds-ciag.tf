@@ -32,8 +32,6 @@ resource "kubernetes_secret" "ciag_rds" {
     database_username     = module.ciag_rds.database_username
     database_password     = module.ciag_rds.database_password
     rds_instance_address  = module.ciag_rds.rds_instance_address
-    access_key_id         = module.ciag_rds.access_key_id
-    secret_access_key     = module.ciag_rds.secret_access_key
     url                   = "postgres://${module.ciag_rds.database_username}:${module.ciag_rds.database_password}@${module.ciag_rds.rds_instance_endpoint}/${module.ciag_rds.database_name}"
   }
 }

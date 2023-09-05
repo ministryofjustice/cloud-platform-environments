@@ -32,7 +32,5 @@ resource "kubernetes_secret" "slmtp_api_rds" {
     database_username     = module.slmtp_api_rds.database_username
     database_password     = module.slmtp_api_rds.database_password
     rds_instance_address  = module.slmtp_api_rds.rds_instance_address
-    access_key_id         = module.slmtp_api_rds.access_key_id
-    secret_access_key     = module.slmtp_api_rds.secret_access_key
   }
 }

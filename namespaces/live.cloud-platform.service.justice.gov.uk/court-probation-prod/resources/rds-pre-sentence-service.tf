@@ -32,7 +32,5 @@ resource "kubernetes_secret" "pre_sentence_service_rds" {
     database_password     = module.pre_sentence_service_rds.database_password
     rds_instance_address  = module.pre_sentence_service_rds.rds_instance_address
     url                   = "postgres://${module.pre_sentence_service_rds.database_username}:${module.pre_sentence_service_rds.database_password}@${module.pre_sentence_service_rds.rds_instance_endpoint}/${module.pre_sentence_service_rds.database_name}"
-    access_key_id         = module.pre_sentence_service_rds.access_key_id
-    secret_access_key     = module.pre_sentence_service_rds.secret_access_key
   }
 }

@@ -46,8 +46,6 @@ resource "kubernetes_secret" "rds-history" {
     database_username     = module.rds-history.database_username
     database_password     = module.rds-history.database_password
     rds_instance_address  = module.rds-history.rds_instance_address
-    access_key_id         = module.rds-history.access_key_id
-    secret_access_key     = module.rds-history.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:

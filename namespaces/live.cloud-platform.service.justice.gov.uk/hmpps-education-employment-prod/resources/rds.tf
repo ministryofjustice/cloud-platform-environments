@@ -32,8 +32,6 @@ resource "kubernetes_secret" "edu_rds" {
     database_username     = module.edu_rds.database_username
     database_password     = module.edu_rds.database_password
     rds_instance_address  = module.edu_rds.rds_instance_address
-    access_key_id         = module.edu_rds.access_key_id
-    secret_access_key     = module.edu_rds.secret_access_key
     url                   = "postgres://${module.edu_rds.database_username}:${module.edu_rds.database_password}@${module.edu_rds.rds_instance_endpoint}/${module.edu_rds.database_name}"
   }
 }

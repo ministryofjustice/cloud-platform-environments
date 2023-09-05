@@ -42,10 +42,6 @@ resource "kubernetes_secret" "dex_mi_production_rds" {
     database_username     = module.dex_mi_production_rds.database_username
     database_password     = module.dex_mi_production_rds.database_password
     rds_instance_address  = module.dex_mi_production_rds.rds_instance_address
-
-    access_key_id     = module.dex_mi_production_rds.access_key_id
-    secret_access_key = module.dex_mi_production_rds.secret_access_key
-
-    url = "postgres://${module.dex_mi_production_rds.database_username}:${module.dex_mi_production_rds.database_password}@${module.dex_mi_production_rds.rds_instance_endpoint}/${module.dex_mi_production_rds.database_name}"
+    url                   = "postgres://${module.dex_mi_production_rds.database_username}:${module.dex_mi_production_rds.database_password}@${module.dex_mi_production_rds.rds_instance_endpoint}/${module.dex_mi_production_rds.database_name}"
   }
 }

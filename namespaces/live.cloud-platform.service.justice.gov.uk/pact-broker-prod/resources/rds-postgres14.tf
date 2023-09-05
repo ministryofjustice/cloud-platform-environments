@@ -31,8 +31,6 @@ resource "kubernetes_secret" "pact_broker_rds_postgres14_secrets" {
     database_username     = module.pact_broker_rds_postgres14.database_username
     database_password     = module.pact_broker_rds_postgres14.database_password
     rds_instance_address  = module.pact_broker_rds_postgres14.rds_instance_address
-    access_key_id         = module.pact_broker_rds_postgres14.access_key_id
-    secret_access_key     = module.pact_broker_rds_postgres14.secret_access_key
     url                   = "postgres://${module.pact_broker_rds_postgres14.database_username}:${module.pact_broker_rds_postgres14.database_password}@${module.pact_broker_rds_postgres14.rds_instance_endpoint}/${module.pact_broker_rds_postgres14.database_name}"
   }
 }

@@ -34,7 +34,5 @@ resource "kubernetes_secret" "hmpps_audit_rds" {
     database_username     = module.hmpps_audit_rds.database_username
     database_password     = module.hmpps_audit_rds.database_password
     rds_instance_address  = module.hmpps_audit_rds.rds_instance_address
-    access_key_id         = module.hmpps_audit_rds.access_key_id
-    secret_access_key     = module.hmpps_audit_rds.secret_access_key
   }
 }

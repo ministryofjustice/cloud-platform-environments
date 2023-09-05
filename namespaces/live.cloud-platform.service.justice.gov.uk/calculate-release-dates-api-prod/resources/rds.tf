@@ -32,7 +32,5 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
     database_username     = module.calculate_release_dates_api_rds.database_username
     database_password     = module.calculate_release_dates_api_rds.database_password
     rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
-    access_key_id         = module.calculate_release_dates_api_rds.access_key_id
-    secret_access_key     = module.calculate_release_dates_api_rds.secret_access_key
   }
 }

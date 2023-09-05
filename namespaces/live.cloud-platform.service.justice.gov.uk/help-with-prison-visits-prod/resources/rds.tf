@@ -33,7 +33,5 @@ resource "kubernetes_secret" "hwpv_sqlserver" {
     database_username     = module.hwpv_sqlserver.database_username
     database_password     = module.hwpv_sqlserver.database_password
     rds_instance_address  = module.hwpv_sqlserver.rds_instance_address
-    access_key_id         = module.hwpv_sqlserver.access_key_id
-    secret_access_key     = module.hwpv_sqlserver.secret_access_key
   }
 }

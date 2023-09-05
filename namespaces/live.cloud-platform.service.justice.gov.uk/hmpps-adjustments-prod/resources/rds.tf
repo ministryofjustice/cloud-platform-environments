@@ -30,7 +30,5 @@ resource "kubernetes_secret" "adjustments_rds" {
     database_username     = module.adjustments_rds.database_username
     database_password     = module.adjustments_rds.database_password
     rds_instance_address  = module.adjustments_rds.rds_instance_address
-    access_key_id         = module.adjustments_rds.access_key_id
-    secret_access_key     = module.adjustments_rds.secret_access_key
   }
 }
