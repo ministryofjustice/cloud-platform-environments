@@ -50,30 +50,28 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
 
 # The pathfinder app needs extra permissions, in addition to the default policy in the s3 module.
 data "aws_iam_policy_document" "pin_phone_s3_policy" {
-  version = "2012-10-17"
-  statement = [
-    {
+  statement = {
       sid    = "AllowBucketActions"
       effect = "Allow"
       actions = [
         "s3:ListBucket"
       ]
       resource = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
-    },
-    {
-      sid    = "AllowBucketActions"
-      effect = "Allow"
-      actions = [
-        "s3:GetObject",
-        "s3:GetObjectRetention",
-        "s3:CopyObject",
-        "s3:PutObject",
-        "s3:PutObjectTagging",
-        "s3:DeleteObject"
-      ]
-      resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"
-    }
-  ]
+  }
+
+  statement = {
+    sid    = "AllowBucketActions"
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectRetention",
+      "s3:CopyObject",
+      "s3:PutObject",
+      "s3:PutObjectTagging",
+      "s3:DeleteObject"
+    ]
+    resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"
+  }
 }
 
 resource "aws_iam_policy" "irsa_s3_policy" {
