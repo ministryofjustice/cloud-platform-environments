@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
 }
 
 module "hmpps_prisoner_to_nomis_adjudication_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_to_nomis_adjudication_queue"
@@ -68,7 +68,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_adjudication_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_adjudication_dead_letter_queue"

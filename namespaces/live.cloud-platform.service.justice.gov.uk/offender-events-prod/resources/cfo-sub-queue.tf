@@ -1,5 +1,5 @@
 module "cfo_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "cfo_queue"
@@ -56,7 +56,7 @@ EOF
 }
 
 module "cfo_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "cfo_queue_dl"
@@ -87,12 +87,12 @@ resource "aws_iam_access_key" "user" {
 
 resource "aws_iam_user_policy_attachment" "policy" {
   policy_arn = module.cfo_queue.irsa_policy_arn
-  user   = aws_iam_user.user.name
+  user       = aws_iam_user.user.name
 }
 
 resource "aws_iam_user_policy_attachment" "dlq-policy" {
   policy_arn = module.cfo_dead_letter_queue.irsa_policy_arn
-  user   = aws_iam_user.user.name
+  user       = aws_iam_user.user.name
 }
 
 resource "kubernetes_secret" "cfo_queue_credentials" {
@@ -132,11 +132,9 @@ resource "kubernetes_secret" "cfo_queue" {
   }
 
   data = {
-    access_key_id     = module.cfo_queue.access_key_id
-    secret_access_key = module.cfo_queue.secret_access_key
-    sqs_cfo_url       = module.cfo_queue.sqs_id
-    sqs_cfo_arn       = module.cfo_queue.sqs_arn
-    sqs_cfo_name      = module.cfo_queue.sqs_name
+    sqs_cfo_url  = module.cfo_queue.sqs_id
+    sqs_cfo_arn  = module.cfo_queue.sqs_arn
+    sqs_cfo_name = module.cfo_queue.sqs_name
   }
 }
 
@@ -147,11 +145,9 @@ resource "kubernetes_secret" "cfo_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.cfo_dead_letter_queue.access_key_id
-    secret_access_key = module.cfo_dead_letter_queue.secret_access_key
-    sqs_cfo_url       = module.cfo_dead_letter_queue.sqs_id
-    sqs_cfo_arn       = module.cfo_dead_letter_queue.sqs_arn
-    sqs_cfo_name      = module.cfo_dead_letter_queue.sqs_name
+    sqs_cfo_url  = module.cfo_dead_letter_queue.sqs_id
+    sqs_cfo_arn  = module.cfo_dead_letter_queue.sqs_arn
+    sqs_cfo_name = module.cfo_dead_letter_queue.sqs_name
   }
 }
 
