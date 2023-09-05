@@ -7,6 +7,9 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "Published evidence for both internal and external public viewing"

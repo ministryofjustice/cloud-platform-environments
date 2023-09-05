@@ -8,7 +8,7 @@
 ######## Main queue
 
 module "hmpps_prison_visits_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_event_queue"
@@ -45,11 +45,9 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prison_visits_event_queue.access_key_id
-    secret_access_key = module.hmpps_prison_visits_event_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prison_visits_event_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prison_visits_event_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prison_visits_event_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_event_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_event_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_event_queue.sqs_name
   }
 }
 
@@ -57,7 +55,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
 ######## Dead letter queue
 
 module "hmpps_prison_visits_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_event_dlq"
@@ -86,10 +84,8 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.hmpps_prison_visits_event_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_prison_visits_event_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_prison_visits_event_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prison_visits_event_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_event_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_event_dead_letter_queue.sqs_name
   }
 }

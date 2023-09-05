@@ -16,7 +16,7 @@ resource "aws_sqs_queue_policy" "prison-to-probation-update-queue-policy" {
 }
 
 module "prison-to-probation-update-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "prison-to-probation-update-queue"
@@ -37,7 +37,7 @@ module "prison-to-probation-update-queue" {
 }
 
 module "prison-to-probation-update-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "prison-to-probation-update-dlq"

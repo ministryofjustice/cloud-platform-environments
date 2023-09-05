@@ -1,9 +1,8 @@
----
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-micro-frontend-poc-dev
+  namespace: hmpps-prisoner-events-dev
 spec:
   hard:
     pods: "50"

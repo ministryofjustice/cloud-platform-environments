@@ -1,5 +1,5 @@
 module "laa_cla_backend_uat_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "cla_backend_uat_queue"
@@ -25,9 +25,6 @@ resource "kubernetes_secret" "sqs" {
   }
 
   data = {
-    access_key_id     = module.laa_cla_backend_uat_sqs.access_key_id
-    secret_access_key = module.laa_cla_backend_uat_sqs.secret_access_key
-    # the above will not be set if existing_user_name is defined
     sqs_id   = module.laa_cla_backend_uat_sqs.sqs_id
     sqs_arn  = module.laa_cla_backend_uat_sqs.sqs_arn
     sqs_name = module.laa_cla_backend_uat_sqs.sqs_name

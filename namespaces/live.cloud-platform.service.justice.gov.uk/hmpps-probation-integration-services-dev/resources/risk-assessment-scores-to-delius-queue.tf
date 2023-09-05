@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "risk-assessment-scores-to-delius-queue-su
 }
 
 module "risk-assessment-scores-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "risk-assessment-scores-to-delius-queue"
@@ -34,7 +34,7 @@ resource "aws_sqs_queue_policy" "risk-assessment-scores-to-delius-queue-policy" 
 }
 
 module "risk-assessment-scores-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "risk-assessment-scores-to-delius-dlq"
