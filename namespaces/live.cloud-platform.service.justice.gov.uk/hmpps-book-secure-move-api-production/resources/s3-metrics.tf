@@ -2,15 +2,15 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/main/example
  */
 module "book_a_secure_move_metrics_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
-  business-unit          = "HMPPS"
+  business_unit          = "HMPPS"
   application            = var.application
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
 
-  is-production    = var.is_production
-  environment-name = var.environment-name
+  is_production    = var.is_production
+  environment_name = var.environment-name
   namespace        = var.namespace
 
   providers = {

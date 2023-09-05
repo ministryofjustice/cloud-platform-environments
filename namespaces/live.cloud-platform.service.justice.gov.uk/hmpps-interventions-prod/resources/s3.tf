@@ -2,15 +2,15 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/main/example
  */
 module "interventions_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
 
-  is-production    = var.is_production
-  environment-name = var.environment
+  is_production    = var.is_production
+  environment_name = var.environment
   namespace        = var.namespace
 
   providers = {
