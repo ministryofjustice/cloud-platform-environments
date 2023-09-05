@@ -50,7 +50,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
 
 # The pathfinder app needs extra permissions, in addition to the default policy in the s3 module.
 data "aws_iam_policy_document" "pin_phone_s3_policy" {
-  statement = {
+  statement {
     sid    = "AllowBucketListActions"
     effect = "Allow"
     actions = [
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "pin_phone_s3_policy" {
     resource = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
   }
 
-  statement = {
+  statement {
     sid    = "AllowBucketActions"
     effect = "Allow"
     actions = [
