@@ -37,6 +37,8 @@ module "read_replica" {
   is_production          = var.is_production
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
+  namespace              = var.namespace
 
   # Set the database_name of the source db
   db_name = module.rds.database_name
