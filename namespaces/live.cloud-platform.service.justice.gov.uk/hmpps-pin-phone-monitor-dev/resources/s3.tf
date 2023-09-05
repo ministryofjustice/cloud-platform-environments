@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "pin_phone_s3_policy" {
       actions = [
         "s3:ListBucket"
       ]
-      resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}"
+      resource = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn
     },
     {
       sid    = "AllowBucketActions"
