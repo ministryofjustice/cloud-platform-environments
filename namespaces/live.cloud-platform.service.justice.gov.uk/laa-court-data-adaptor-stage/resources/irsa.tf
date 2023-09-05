@@ -12,25 +12,25 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    create_link_queue = module.create_link_queue.irsa_policy_arn
-    create_link_queue_dead_letter_queue = module.create_link_queue_dead_letter_queue.irsa_policy_arn
-    unlink_queue = module.unlink_queue.irsa_policy_arn
-    unlink_queue_dead_letter_queue = module.unlink_queue_dead_letter_queue.irsa_policy_arn
-    hearing_resulted_queue = module.hearing_resulted_queue.irsa_policy_arn
-    hearing_resulted_dead_letter_queue = module.hearing_resulted_dead_letter_queue.irsa_policy_arn
-    prosecution_concluded_queue = module.prosecution_concluded_queue.irsa_policy_arn
+    create_link_queue                       = module.create_link_queue.irsa_policy_arn
+    create_link_queue_dead_letter_queue     = module.create_link_queue_dead_letter_queue.irsa_policy_arn
+    unlink_queue                            = module.unlink_queue.irsa_policy_arn
+    unlink_queue_dead_letter_queue          = module.unlink_queue_dead_letter_queue.irsa_policy_arn
+    hearing_resulted_queue                  = module.hearing_resulted_queue.irsa_policy_arn
+    hearing_resulted_dead_letter_queue      = module.hearing_resulted_dead_letter_queue.irsa_policy_arn
+    prosecution_concluded_queue             = module.prosecution_concluded_queue.irsa_policy_arn
     prosecution_concluded_dead_letter_queue = module.prosecution_concluded_dead_letter_queue.irsa_policy_arn
-    court_data_adaptor_rds=module.court_data_adaptor_rds.irsa_policy_arn
-    crime_apps_ec_cluster=module.crime_apps_ec_cluster.irsa_policy_arn
-}
+    court_data_adaptor_rds                  = module.court_data_adaptor_rds.irsa_policy_arn
+    crime_apps_ec_cluster                   = module.crime_apps_ec_cluster.irsa_policy_arn
+  }
 
-# Tags
-business_unit          = var.business_unit
-application            = var.application
-is_production          = var.is_production
-team_name              = var.team_name
-environment_name       = var.environment_name
-infrastructure_support = var.infrastructure_support
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "irsa" {

@@ -1,14 +1,14 @@
 module "test_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name                = var.vpc_name
   team_name               = var.team_name
-  business-unit           = var.business_unit
+  business_unit           = var.business_unit
   application             = var.application
-  is-production           = var.is_production
-  environment-name        = var.environment
-  infrastructure-support  = var.infrastructure_support
+  is_production           = var.is_production
+  environment_name        = var.environment
+  infrastructure_support  = var.infrastructure_support
   namespace               = var.namespace
   node_type               = "cache.t4g.micro"
   engine_version          = "7.0"

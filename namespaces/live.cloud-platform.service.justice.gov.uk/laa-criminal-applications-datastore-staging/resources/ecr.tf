@@ -4,6 +4,9 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = var.repo_name
 
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
   github_repositories = [var.repo_name]
 
   lifecycle_policy = <<EOF

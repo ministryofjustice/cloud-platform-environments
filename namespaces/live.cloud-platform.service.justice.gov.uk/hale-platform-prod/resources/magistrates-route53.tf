@@ -27,7 +27,7 @@ resource "aws_route53_record" "magistrates_route53_a_record_apply" {
   name    = "apply.magistrates.judiciary.uk"
   type    = "A"
   ttl     = "300"
-  records = ["18.130.183.123"]
+  records = ["141.193.213.21","141.193.213.20"]
 }
 
 resource "aws_route53_record" "magistrates_route53_cname_record_acm" {

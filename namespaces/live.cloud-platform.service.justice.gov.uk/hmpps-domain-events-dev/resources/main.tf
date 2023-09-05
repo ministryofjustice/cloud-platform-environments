@@ -45,5 +45,3 @@ locals {
     namespace              = var.namespace
   }
 }
-
-

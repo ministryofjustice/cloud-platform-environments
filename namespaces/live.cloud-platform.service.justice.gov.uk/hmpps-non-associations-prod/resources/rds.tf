@@ -1,13 +1,13 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres15"
@@ -16,8 +16,8 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
-  backup_window       = var.backup_window
-  maintenance_window  = var.maintenance_window
+  backup_window      = var.backup_window
+  maintenance_window = var.maintenance_window
 
   providers = {
     aws = aws.london
