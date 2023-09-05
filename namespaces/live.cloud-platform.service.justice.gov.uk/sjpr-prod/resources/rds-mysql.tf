@@ -6,7 +6,7 @@
 */
 
 module "rds_mysql" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -62,8 +62,6 @@ resource "kubernetes_secret" "rds_mysql" {
     database_username     = module.rds_mysql.database_username
     database_password     = module.rds_mysql.database_password
     rds_instance_address  = module.rds_mysql.rds_instance_address
-    access_key_id         = module.rds_mysql.access_key_id
-    secret_access_key     = module.rds_mysql.secret_access_key
   }
 }
 

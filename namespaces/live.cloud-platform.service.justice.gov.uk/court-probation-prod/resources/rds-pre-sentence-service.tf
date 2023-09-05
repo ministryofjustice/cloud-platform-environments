@@ -1,5 +1,5 @@
 module "pre_sentence_service_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -32,7 +32,5 @@ resource "kubernetes_secret" "pre_sentence_service_rds" {
     database_password     = module.pre_sentence_service_rds.database_password
     rds_instance_address  = module.pre_sentence_service_rds.rds_instance_address
     url                   = "postgres://${module.pre_sentence_service_rds.database_username}:${module.pre_sentence_service_rds.database_password}@${module.pre_sentence_service_rds.rds_instance_endpoint}/${module.pre_sentence_service_rds.database_name}"
-    access_key_id         = module.pre_sentence_service_rds.access_key_id
-    secret_access_key     = module.pre_sentence_service_rds.secret_access_key
   }
 }

@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -31,7 +31,7 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name = var.vpc_name
 
@@ -69,11 +69,7 @@ resource "kubernetes_secret" "track_a_query_rds" {
     database_username     = module.track_a_query_rds.database_username
     database_password     = module.track_a_query_rds.database_password
     rds_instance_address  = module.track_a_query_rds.rds_instance_address
-
-    access_key_id     = module.track_a_query_rds.access_key_id
-    secret_access_key = module.track_a_query_rds.secret_access_key
-
-    url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
+    url                   = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
 }
 
@@ -86,9 +82,6 @@ resource "kubernetes_secret" "track_a_query_rds_replica" {
   data = {
     rds_instance_endpoint = module.track_a_query_rds_replica.rds_instance_endpoint
     rds_instance_address  = module.track_a_query_rds_replica.rds_instance_address
-    access_key_id         = module.track_a_query_rds_replica.access_key_id
-    secret_access_key     = module.track_a_query_rds_replica.secret_access_key
-
-    url = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
+    url                   = "postgres://${module.track_a_query_rds.database_username}:${module.track_a_query_rds.database_password}@${module.track_a_query_rds_replica.rds_instance_endpoint}/${module.track_a_query_rds.database_name}"
   }
 }

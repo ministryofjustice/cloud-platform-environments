@@ -20,7 +20,7 @@ module "rds_instance" {
   db_name                    = "parliamentary_questions_production"
   rds_family                 = "postgres12"
   db_backup_retention_period = var.db_backup_retention_period
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   providers = {
     aws = aws.london
@@ -40,7 +40,5 @@ resource "kubernetes_secret" "rds_instance" {
     rds_instance_address  = module.rds_instance.rds_instance_address
     rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
     url                   = "postgres://${module.rds_instance.database_username}:${module.rds_instance.database_password}@${module.rds_instance.rds_instance_endpoint}/${module.rds_instance.database_name}"
-    access_key_id         = module.rds_instance.access_key_id
-    secret_access_key     = module.rds_instance.secret_access_key
   }
 }

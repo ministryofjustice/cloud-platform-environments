@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_11_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -57,7 +57,7 @@ module "cla_backend_rds_postgres_11_replica" {
 }
 
 module "cla_backend_rds_postgres_11" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -111,22 +111,20 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_11" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_11.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_11.rds_instance_address
-    port              = module.cla_backend_rds_postgres_11.rds_instance_port
-    name              = module.cla_backend_rds_postgres_11.database_name
-    user              = module.cla_backend_rds_postgres_11.database_username
-    password          = module.cla_backend_rds_postgres_11.database_password
-    replica_host      = module.cla_backend_rds_postgres_11_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_11_replica.rds_instance_endpoint
-    access_key_id     = module.cla_backend_rds_postgres_11.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_11.secret_access_key
-    db_identifier     = module.cla_backend_rds_postgres_11.db_identifier
+    endpoint         = module.cla_backend_rds_postgres_11.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_11.rds_instance_address
+    port             = module.cla_backend_rds_postgres_11.rds_instance_port
+    name             = module.cla_backend_rds_postgres_11.database_name
+    user             = module.cla_backend_rds_postgres_11.database_username
+    password         = module.cla_backend_rds_postgres_11.database_password
+    replica_host     = module.cla_backend_rds_postgres_11_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_11_replica.rds_instance_endpoint
+    db_identifier    = module.cla_backend_rds_postgres_11.db_identifier
   }
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -171,7 +169,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -224,16 +222,14 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_rds_postgres_14.database_name
-    user              = module.cla_backend_rds_postgres_14.database_username
-    password          = module.cla_backend_rds_postgres_14.database_password
-    replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
-    access_key_id     = module.cla_backend_rds_postgres_14.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_14.secret_access_key
-    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
+    endpoint         = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_14.rds_instance_address
+    port             = module.cla_backend_rds_postgres_14.rds_instance_port
+    name             = module.cla_backend_rds_postgres_14.database_name
+    user             = module.cla_backend_rds_postgres_14.database_username
+    password         = module.cla_backend_rds_postgres_14.database_password
+    replica_host     = module.cla_backend_rds_postgres_14_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
+    db_identifier    = module.cla_backend_rds_postgres_14.db_identifier
   }
 }
