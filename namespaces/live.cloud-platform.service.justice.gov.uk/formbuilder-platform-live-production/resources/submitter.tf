@@ -9,6 +9,7 @@ module "submitter-rds-instance-2" {
   namespace                  = var.namespace
   infrastructure_support     = var.infrastructure_support
   team_name                  = var.team_name
+  business_unit              = "Platforms"
   db_engine_version          = "14"
   rds_family                 = "postgres14"
   db_instance_class          = var.db_instance_class

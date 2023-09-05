@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
 
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
