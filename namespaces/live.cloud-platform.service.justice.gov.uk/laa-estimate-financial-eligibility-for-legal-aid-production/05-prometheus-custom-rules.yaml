@@ -10,8 +10,10 @@ spec:
     - name: application-rules
       rules:
         - alert: CcqProduction5xxIngressResponses
+          # We are explicitly not interested in 501s, as these are used when a client sends an unsupported HTTP verb, which is not an error state.
+          # We are however interested in 499s, as Nginx uses these to mean "Client Closed Request", which can happen if a pod times out.
           expr: |-
-            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-production",status=~"5.*"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-production",status=~"5.*"} offset 2m) > 0
+            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-production",status=~"499|500|502|503|504"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-production",status=~"499|500|502|503|504"} offset 2m) > 0
           labels:
             severity: laa-estimate-eligibility-production
           annotations:
