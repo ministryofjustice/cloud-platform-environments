@@ -8,10 +8,6 @@ module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
-  oidc_providers = ["circleci"]
-
-  # specify which GitHub repository your CircleCI job runs from
-  github_repositories = ["grc-app"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
