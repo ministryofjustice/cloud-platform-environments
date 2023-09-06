@@ -26,10 +26,10 @@ module "rds" {
 
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }
@@ -45,9 +45,9 @@ module "read_replica" {
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
