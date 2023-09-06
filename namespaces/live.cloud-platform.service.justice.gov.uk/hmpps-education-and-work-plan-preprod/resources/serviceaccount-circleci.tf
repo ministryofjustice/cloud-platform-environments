@@ -68,5 +68,5 @@ module "serviceaccount" {
   kubernetes_cluster   = var.kubernetes_cluster
   serviceaccount_name  = "circleci"
   role_name            = "circleci"
-  serviceaccount_rules = locals.sa_rules
+  serviceaccount_rules = local.sa_rules
 }
