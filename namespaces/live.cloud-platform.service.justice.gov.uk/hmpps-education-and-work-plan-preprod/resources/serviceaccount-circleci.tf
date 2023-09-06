@@ -69,5 +69,4 @@ module "serviceaccount" {
   serviceaccount_name  = "circleci"
   role_name            = "circleci"
   serviceaccount_rules = locals.sa_rules
-  ]
 }
