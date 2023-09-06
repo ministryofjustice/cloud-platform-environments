@@ -1,6 +1,6 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_allocations_offender_events_queue" = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_allocations_offender_events_queue"    = "offender-events-dev"
     "Digital-Prison-Services-dev-hmpps_allocations_offender_events_queue_dl" = "offender-events-dev"
   }
   sns_topics = {
@@ -12,7 +12,7 @@ locals {
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-#
+  #
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = var.application
   namespace            = var.namespace

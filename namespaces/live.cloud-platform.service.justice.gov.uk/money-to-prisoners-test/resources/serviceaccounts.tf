@@ -7,7 +7,7 @@ resource "kubernetes_role" "deploy" {
 
   rule {
     api_groups = [""]
-    resources  = ["configmaps", "pods"]
+    resources  = ["configmaps", "pods", "services"]
     verbs      = ["get", "list", "watch"]
   }
 
@@ -19,8 +19,20 @@ resource "kubernetes_role" "deploy" {
 
   rule {
     api_groups = ["extensions", "apps"]
-    resources  = ["deployments"]
+    resources  = ["deployments", "replicasets"]
     verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = ["networking.k8s.io"]
+    resources  = ["ingresses"]
+    verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["delete"]
   }
 
   rule {
@@ -35,6 +47,7 @@ resource "kubernetes_role" "deploy" {
     resources  = ["deployments"]
     verbs      = ["patch"]
     resource_names = [
+      "deploy",
       "default",
       "api",
       "cashbook",
@@ -52,6 +65,23 @@ resource "kubernetes_role" "deploy" {
     verbs      = ["patch"]
     resource_names = [
       "transaction-uploader",
+    ]
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["secrets"]
+    verbs      = ["get"]
+    resource_names = [
+      "irsa-deploy",
+      "irsa-api",
+      "irsa-cashbook",
+      "irsa-bank-admin",
+      "irsa-noms-ops",
+      "irsa-send-money",
+      "irsa-emails",
+      "rds",
+      "s3",
     ]
   }
 }
@@ -72,5 +102,275 @@ resource "kubernetes_role_binding" "deploy" {
     kind      = "ServiceAccount"
     namespace = var.namespace
     name      = module.irsa-deploy.service_account.name
+  }
+}
+
+resource "kubernetes_role" "api" {
+  metadata {
+    namespace = var.namespace
+    name      = "api"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "api" {
+  metadata {
+    namespace = var.namespace
+    name      = "api"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.api.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-api.service_account.name
+  }
+}
+
+resource "kubernetes_role" "cashbook" {
+  metadata {
+    namespace = var.namespace
+    name      = "cashbook"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "cashbook" {
+  metadata {
+    namespace = var.namespace
+    name      = "cashbook"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.cashbook.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-cashbook.service_account.name
+  }
+}
+
+resource "kubernetes_role" "bank-admin" {
+  metadata {
+    namespace = var.namespace
+    name      = "bank-admin"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "bank-admin" {
+  metadata {
+    namespace = var.namespace
+    name      = "bank-admin"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.bank-admin.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-bank-admin.service_account.name
+  }
+}
+
+resource "kubernetes_role" "noms-ops" {
+  metadata {
+    namespace = var.namespace
+    name      = "noms-ops"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "noms-ops" {
+  metadata {
+    namespace = var.namespace
+    name      = "noms-ops"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.noms-ops.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-noms-ops.service_account.name
+  }
+}
+
+resource "kubernetes_role" "send-money" {
+  metadata {
+    namespace = var.namespace
+    name      = "send-money"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "send-money" {
+  metadata {
+    namespace = var.namespace
+    name      = "send-money"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.send-money.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-send-money.service_account.name
+  }
+}
+
+resource "kubernetes_role" "emails" {
+  metadata {
+    namespace = var.namespace
+    name      = "emails"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["s3"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "emails" {
+  metadata {
+    namespace = var.namespace
+    name      = "emails"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.emails.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.irsa-emails.service_account.name
   }
 }

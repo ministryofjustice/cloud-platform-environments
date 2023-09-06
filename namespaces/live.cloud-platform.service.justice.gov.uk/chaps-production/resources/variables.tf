@@ -13,6 +13,10 @@ variable "namespace" {
   default = "chaps-production"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HQ"

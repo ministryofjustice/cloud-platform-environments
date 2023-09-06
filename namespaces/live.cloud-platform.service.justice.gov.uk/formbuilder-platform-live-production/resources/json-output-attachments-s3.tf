@@ -1,14 +1,14 @@
 module "json-output-attachments-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
-  business-unit          = "transformed-department"
+  business_unit          = "transformed-department"
   application            = "formbuilderuserfilestore"
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {

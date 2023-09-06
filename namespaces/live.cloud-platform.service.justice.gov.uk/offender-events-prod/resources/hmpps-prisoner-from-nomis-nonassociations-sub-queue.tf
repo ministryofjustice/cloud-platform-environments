@@ -1,15 +1,11 @@
 module "prisoner_from_nomis_nonassociations_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name           = var.environment
-  team_name                  = var.team_name
-  infrastructure-support     = var.infrastructure_support
-  application                = var.application
+  # Queue configuration
   sqs_name                   = "prisoner_from_nomis_nonassociations_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
-  namespace                  = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -18,6 +14,14 @@ module "prisoner_from_nomis_nonassociations_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -54,15 +58,20 @@ EOF
 }
 
 module "prisoner_from_nomis_nonassociations_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "prisoner_from_nomis_nonassociations_dl_queue"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "prisoner_from_nomis_nonassociations_dl_queue"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -72,7 +81,7 @@ module "prisoner_from_nomis_nonassociations_dead_letter_queue" {
 resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_queue" {
   metadata {
     name      = "prisoner-from-nomis-nonassociations-queue"
-    namespace = "hmpps-prisoner-from-nomis-migration-preprod"
+    namespace = "hmpps-prisoner-from-nomis-migration-prod"
   }
 
   data = {
@@ -85,7 +94,7 @@ resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_queue" {
 resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_dead_letter_queue" {
   metadata {
     name      = "prisoner-from-nomis-nonassociations-dl-queue"
-    namespace = "hmpps-prisoner-from-nomis-migration-preprod"
+    namespace = "hmpps-prisoner-from-nomis-migration-prod"
   }
 
   data = {

@@ -3,15 +3,15 @@
 ################################################################################
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
   node_type             = "cache.t4g.small"

@@ -9,29 +9,29 @@ locals {
 
   sqs_policies = {
     hmpps_prison_visits_event_queue = module.hmpps_prison_visits_event_queue.irsa_policy_arn
-    hmpps_prison_visits_event_dlq = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn
+    hmpps_prison_visits_event_dlq   = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn
   }
 
-  sns_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value}
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
-  name = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
 
   # Tags
-  business_unit = var.business_unit
-  application = var.application
-  is_production = var.is_production
-  team_name = var.team_name
-  environment_name = var.environment
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  eks_cluster_name = var.eks_cluster_name
+  eks_cluster_name       = var.eks_cluster_name
 }

@@ -1,13 +1,9 @@
 module "crime-portal-gateway-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = "crime-portal-gateway"
-  sqs_name               = "crime-portal-gateway-queue"
-  encrypt_sqs_kms        = "true"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name        = "crime-portal-gateway-queue"
+  encrypt_sqs_kms = "true"
 
   redrive_policy = <<EOF
   {
@@ -15,6 +11,14 @@ module "crime-portal-gateway-queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = "crime-portal-gateway"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -22,16 +26,21 @@ module "crime-portal-gateway-queue" {
 }
 
 module "crime-portal-gateway-dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = "crime-portal-gateway"
+  # Queue configuration
   sqs_name                  = "crime-portal-gateway-dead-letter-queue"
   encrypt_sqs_kms           = "true"
-  namespace                 = var.namespace
   message_retention_seconds = 1209600
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "crime-portal-gateway"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -45,12 +54,9 @@ resource "kubernetes_secret" "crime-portal-gateway-queue-secret" {
   }
 
   data = {
-    access_key_id     = module.crime-portal-gateway-queue.access_key_id
-    secret_access_key = module.crime-portal-gateway-queue.secret_access_key
-    sqs_id            = module.crime-portal-gateway-queue.sqs_id
-    sqs_arn           = module.crime-portal-gateway-queue.sqs_arn
-    user_name         = module.crime-portal-gateway-queue.user_name
-    sqs_name          = module.crime-portal-gateway-queue.sqs_name
+    sqs_id   = module.crime-portal-gateway-queue.sqs_id
+    sqs_arn  = module.crime-portal-gateway-queue.sqs_arn
+    sqs_name = module.crime-portal-gateway-queue.sqs_name
   }
 }
 
@@ -61,11 +67,8 @@ resource "kubernetes_secret" "crime-portal-gateway-dead-letter-queue-secret" {
   }
 
   data = {
-    access_key_id     = module.crime-portal-gateway-dead-letter-queue.access_key_id
-    secret_access_key = module.crime-portal-gateway-dead-letter-queue.secret_access_key
-    sqs_id            = module.crime-portal-gateway-dead-letter-queue.sqs_id
-    sqs_arn           = module.crime-portal-gateway-dead-letter-queue.sqs_arn
-    user_name         = module.crime-portal-gateway-dead-letter-queue.user_name
-    sqs_name          = module.crime-portal-gateway-dead-letter-queue.sqs_name
+    sqs_id   = module.crime-portal-gateway-dead-letter-queue.sqs_id
+    sqs_arn  = module.crime-portal-gateway-dead-letter-queue.sqs_arn
+    sqs_name = module.crime-portal-gateway-dead-letter-queue.sqs_name
   }
 }
