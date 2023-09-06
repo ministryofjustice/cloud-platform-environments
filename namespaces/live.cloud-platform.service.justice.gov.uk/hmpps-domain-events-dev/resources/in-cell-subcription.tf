@@ -77,14 +77,6 @@ module "in_cell_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "in_cell_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps-domain-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.in_cell_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
-}
-
 
 resource "aws_iam_user" "in-cell-queue-user" {
   name = "in-cell-queue-user-dev"
