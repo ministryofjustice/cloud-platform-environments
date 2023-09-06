@@ -87,10 +87,6 @@ EOF
 
 }
 
-module "ecr" {
-
-}
-
 
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {
