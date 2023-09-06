@@ -35,7 +35,7 @@ module "irsa" {
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
     { sqs_ccm = module.court-case-matcher-queue.irsa_policy_arn },
     { sqs_ccm_dlq = module.court-case-matcher-dead-letter-queue.irsa_policy_arn },
-    { elasticache = module.pac_elasticache_redis.irsa_policy_ar n}
+    { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
   )
 
   # Tags
