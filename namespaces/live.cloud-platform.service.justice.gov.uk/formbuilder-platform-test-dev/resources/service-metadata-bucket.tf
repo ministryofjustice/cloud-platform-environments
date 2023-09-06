@@ -71,8 +71,6 @@ module "service-metadata-irsa" {
   # Tags
 
   team_name              = var.team_name
-  acl                    = "private"
-  versioning             = false
   business_unit          = "transformed-department"
   application            = "formbuilderservicemetadata"
   is_production          = var.is_production
