@@ -65,7 +65,7 @@ module "service-metadata-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3  = module.s3.irsa_policy_arn
+    s3  = module.service-metadata-s3-bucket.irsa_policy_arn
   }
 
   # Tags

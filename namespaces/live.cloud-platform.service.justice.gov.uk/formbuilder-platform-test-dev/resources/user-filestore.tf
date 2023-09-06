@@ -94,7 +94,7 @@ module "user-filestore-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3  = module.s3.irsa_policy_arn
+    s3  = module.user-filestore-s3-bucket.irsa_policy_arn
   }
 
   team_name              = var.team_name
