@@ -8,6 +8,10 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+}
+
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -29,7 +33,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-crime-apps-team"
+  default     = "laa-dces-team"
 }
 
 variable "environment" {
