@@ -8,6 +8,14 @@ module "ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository your CircleCI job runs from
+  github_repositories = ["grc-app"]
+
+  # set your namespace name to create a ConfigMap
+  # of credentials you need in CircleCI
+  namespace = var.namespace
 
   /*
     By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
@@ -80,14 +88,7 @@ EOF
 }
 
 module "ecr" {
-  oidc_providers = ["circleci"]
 
-  # specify which GitHub repository your CircleCI job runs from
-  github_repositories = ["grc-app"]
-
-  # set your namespace name to create a ConfigMap
-  # of credentials you need in CircleCI
-  namespace = var.namespace
 }
 
 
