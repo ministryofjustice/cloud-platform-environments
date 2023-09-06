@@ -7,7 +7,7 @@ resource "aws_iam_access_key" "delius-domain-event-access" {
   user = aws_iam_user.delius-domain-event-topic-user.name
 }
 
-resource "aws_iam_user_policy_attachment" "topic-policy" {
+resource "aws_iam_user_policy_attachment" "delius-topic-policy" {
   policy_arn = module.hmpps-domain-events.irsa_policy_arn
   user       = aws_iam_user.delius-domain-event-topic-user.name
 }
