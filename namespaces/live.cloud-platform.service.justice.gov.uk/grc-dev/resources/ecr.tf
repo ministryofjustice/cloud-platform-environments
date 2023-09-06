@@ -13,10 +13,6 @@ module "ecr_credentials" {
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = ["grc-app"]
 
-  # set your namespace name to create a ConfigMap
-  # of credentials you need in CircleCI
-  namespace = var.namespace
-
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
