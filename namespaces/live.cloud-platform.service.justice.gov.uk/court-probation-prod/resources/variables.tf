@@ -15,7 +15,7 @@ variable "crime-portal-mirror-gateway-domain" {
 }
 
 variable "application" {
-  default = "prepare-a-case"
+  default = "court-case-service"
 }
 
 variable "namespace" {
