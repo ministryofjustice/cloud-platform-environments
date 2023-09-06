@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.kubernetes_cluster
 
   # IRSA configuration
-  service_account_name = "c100-application-production"
+  service_account_name = "grc-dev"
   namespace            = var.namespace # this is also used as a tag
 
   # Attach the approprate policies using a key => value map
