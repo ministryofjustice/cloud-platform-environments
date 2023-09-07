@@ -15,7 +15,7 @@ module "irsa" {
     s3 = module.s3_bucket.irsa_policy_arn
     s3_lawcom = module.aws_iam_policy.tacticalproducts_lawcom_s3_policy.irsa_policy_arn,
     ecr = module.ecr_credentials.irsa_policy_arn,
-    ecr2 = module.ecr_feed_parser.irsa_policy_arn,§
+    ecr2 = module.ecr_feed_parser.irsa_policy_arn,
   }
 
   data "aws_iam_policy_document" "tacticalproducts_lawcom_s3_policy" {
