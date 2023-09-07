@@ -1,4 +1,4 @@
-local {
+locals {
   sa_name = "formbuilder-editor-workers-test"
 }
 
@@ -36,7 +36,9 @@ module "iam_assumable_role" {
     }
   }
 
-  tags = local.default_tags
+  tags = {
+    namespace = var.namespace
+  }
 }
 
 resource "kubernetes_service_account" "editors_workers" {
