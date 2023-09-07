@@ -1,13 +1,10 @@
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
-
-  # REQUIRED: Repository configuration
-  repo_name = var.namespace
-
+  source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  repo_name      = var.namespace
   oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["https://github.com/ministryofjustice/HMCTS-Certificated-Bailiffs"]
+  github_repositories = ["HMCTS-Certificated-Bailiffs"]
 
   # Tags (commented out until release)
   business_unit          = var.business_unit
