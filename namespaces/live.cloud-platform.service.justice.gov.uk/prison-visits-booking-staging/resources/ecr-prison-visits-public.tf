@@ -1,8 +1,18 @@
 module "ecr-repo-prison-visits-public" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
 
-  team_name = "prison-visits-booking"
   repo_name = "prison-visits-public"
+  oidc_providers = ["circleci"]
+
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = "prison-visits-booking"
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr-repo-prison-visits-public" {
@@ -12,9 +22,7 @@ resource "kubernetes_secret" "ecr-repo-prison-visits-public" {
   }
 
   data = {
+    repo_arn          = module.ecr-repo-prison-visits-public.repo_arn
     repo_url          = module.ecr-repo-prison-visits-public.repo_url
-    access_key_id     = module.ecr-repo-prison-visits-public.access_key_id
-    secret_access_key = module.ecr-repo-prison-visits-public.secret_access_key
   }
 }
-
