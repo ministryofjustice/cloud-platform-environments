@@ -1,6 +1,6 @@
 module "ecr" {
   source         = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
-  repo_name      = "${var.namespace}-ecr"
+  repo_name      = var.namespace
   oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
