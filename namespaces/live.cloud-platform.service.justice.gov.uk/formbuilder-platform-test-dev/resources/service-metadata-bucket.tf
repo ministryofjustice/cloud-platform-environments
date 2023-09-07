@@ -56,6 +56,28 @@ module "service-metadata-s3-bucket" {
 EOF
 }
 
+module "service-metadata-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  
+  eks_cluster_name = var.eks_cluster_name
+
+  service_account_name = "service-metadata-irsa-${var.environment-name}"
+  namespace            = var.namespace # this is also used as a tag
+
+  role_policy_arns = {
+    s3  = module.service-metadata-s3-bucket.irsa_policy_arn
+  }
+
+  # Tags
+
+  team_name              = var.team_name
+  business_unit          = "transformed-department"
+  application            = "formbuilderservicemetadata"
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
+
 resource "kubernetes_secret" "service-metadata-s3-bucket" {
   metadata {
     name      = "s3-service-metadata-${var.environment-name}"

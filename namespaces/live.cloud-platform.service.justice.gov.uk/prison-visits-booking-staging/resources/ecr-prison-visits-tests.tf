@@ -1,9 +1,8 @@
 module "ecr-repo-prison-visits-tests" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   repo_name = "prison-visits-integration-tests"
   oidc_providers = ["circleci"]
-
 
   # Tags
   business_unit          = var.business_unit

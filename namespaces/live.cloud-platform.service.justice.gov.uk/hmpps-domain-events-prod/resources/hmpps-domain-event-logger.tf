@@ -1,5 +1,5 @@
 module "hmpps_domain_event_logger_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_domain_event_logger_queue"
@@ -57,7 +57,7 @@ EOF
 }
 
 module "hmpps_domain_event_logger_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_domain_event_logger_dlq"

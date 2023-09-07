@@ -4,7 +4,7 @@ locals {
 
 # S3 Bucket to Store State
 module "terraform_template_poc_state_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -27,15 +27,13 @@ resource "kubernetes_secret" "terraform_template_poc_state_bucket" {
   }
 
   data = {
-    access_key_id     = module.terraform_template_poc_state_bucket.access_key_id
-    secret_access_key = module.terraform_template_poc_state_bucket.secret_access_key
-    bucket_arn        = module.terraform_template_poc_state_bucket.bucket_arn
+    bucket_arn = module.terraform_template_poc_state_bucket.bucket_arn
   }
 }
 
 # DynamoDB State Lock
 module "terraform_template_poc_state_lock_table" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -57,10 +55,8 @@ resource "kubernetes_secret" "terraform_template_poc_state_lock_table" {
   }
 
   data = {
-    table_name        = module.terraform_template_poc_state_lock_table.table_name
-    table_arn         = module.terraform_template_poc_state_lock_table.table_arn
-    access_key_id     = module.terraform_template_poc_state_lock_table.access_key_id
-    secret_access_key = module.terraform_template_poc_state_lock_table.secret_access_key
+    table_name = module.terraform_template_poc_state_lock_table.table_name
+    table_arn  = module.terraform_template_poc_state_lock_table.table_arn
   }
 }
 

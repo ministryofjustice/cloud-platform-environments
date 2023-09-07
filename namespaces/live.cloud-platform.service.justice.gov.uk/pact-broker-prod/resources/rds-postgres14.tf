@@ -1,13 +1,13 @@
 module "pact_broker_rds_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
   db_engine_version           = "14"
@@ -31,8 +31,6 @@ resource "kubernetes_secret" "pact_broker_rds_postgres14_secrets" {
     database_username     = module.pact_broker_rds_postgres14.database_username
     database_password     = module.pact_broker_rds_postgres14.database_password
     rds_instance_address  = module.pact_broker_rds_postgres14.rds_instance_address
-    access_key_id         = module.pact_broker_rds_postgres14.access_key_id
-    secret_access_key     = module.pact_broker_rds_postgres14.secret_access_key
     url                   = "postgres://${module.pact_broker_rds_postgres14.database_username}:${module.pact_broker_rds_postgres14.database_password}@${module.pact_broker_rds_postgres14.rds_instance_endpoint}/${module.pact_broker_rds_postgres14.database_name}"
   }
 }
