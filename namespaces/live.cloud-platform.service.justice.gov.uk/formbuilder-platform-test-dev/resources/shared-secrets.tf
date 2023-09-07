@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "formbuilder_platform_test_dev" {
   metadata {
-    name      = "policy_arns"
+    name      = "policy-arns"
     namespace = "formbuilder-saas-test"
   }
 
