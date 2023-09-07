@@ -3,6 +3,7 @@ module "ecr-repo-prison-visits-tests" {
 
   repo_name = "prison-visits-integration-tests"
   oidc_providers = ["circleci"]
+  github_repositories = ["prison-visits-integration-tests"]
 
   # Tags
   business_unit          = var.business_unit
