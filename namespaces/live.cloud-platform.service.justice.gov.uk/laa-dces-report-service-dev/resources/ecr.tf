@@ -10,7 +10,7 @@ module "ecr_credentials" {
   repo_name = "${var.namespace}-ecr"
 
   # enable the oidc implementation for GitHub
-  oidc_providers = ["github"]
+  oidc_providers = ["circleci"]
 
   # specify which GitHub repository you're pushing from
   github_repositories = ["laa-dces-report-service"]
