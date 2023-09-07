@@ -47,7 +47,7 @@ resource "kubernetes_service_account" "editors_workers" {
     namespace = var.namespace
 
     annotations = {
-      "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_name
+      "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_arn
     }
   }
 
