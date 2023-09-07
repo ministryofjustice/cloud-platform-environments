@@ -14,39 +14,6 @@ module "cla_backend_private_reports_bucket" {
     aws = aws.london
   }
 
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}",
-      "${module.cla_backend_deleted_objects_bucket.bucket_arn}",
-      "${module.cla_backend_static_files_bucket.bucket_arn}"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*",
-      "${module.cla_backend_deleted_objects_bucket.bucket_arn}/*",
-      "${module.cla_backend_static_files_bucket.bucket_arn}/*"
-    ]
-  }
-]
-}
-EOF
-
 }
 
 module "cla_backend_deleted_objects_bucket" {
@@ -64,35 +31,6 @@ module "cla_backend_deleted_objects_bucket" {
   providers = {
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*"
-    ]
-  }
-]
-}
-EOF
 
 }
 
