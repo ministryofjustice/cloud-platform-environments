@@ -4,7 +4,7 @@ module "rds" {
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
-  application   = var.application
+  application   = "Complexity of Need microservice"
   is_production = var.is_production
   namespace     = var.namespace
 
