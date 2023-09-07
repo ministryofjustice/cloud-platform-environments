@@ -12,10 +12,10 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn,
     s3_lawcom = module.aws_iam_policy.tacticalproducts_lawcom_s3_policy.irsa_policy_arn,
     ecr = module.ecr_credentials.irsa_policy_arn,
-    ecr2 = module.ecr_feed_parser.irsa_policy_arn,
+    ecr2 = module.ecr_feed_parser.irsa_policy_arn
   }
 
   data "aws_iam_policy_document" "tacticalproducts_lawcom_s3_policy" {
@@ -39,17 +39,17 @@ module "irsa" {
   }
 
   resource "aws_iam_policy" "tacticalproducts_lawcom_s3_policy" {
-  name   = "tacticalproducts_lawcom_s3_policy"
-  policy = data.aws_iam_policy_document.tacticalproducts_lawcom_s3_policy.json
+    name   = "tacticalproducts_lawcom_s3_policy"
+    policy = data.aws_iam_policy_document.tacticalproducts_lawcom_s3_policy.json
 
-  tags = {
-    business_unit          = var.business_unit
-    application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
-    }
+    tags = {
+      business_unit          = var.business_unit
+      application            = var.application
+      is_production          = var.is_production
+      team_name              = var.team_name
+      environment_name       = var.environment
+      infrastructure_support = var.infrastructure_support
+      }
   }
 
   resource "kubernetes_secret" "lawcom_aws_secret" {
