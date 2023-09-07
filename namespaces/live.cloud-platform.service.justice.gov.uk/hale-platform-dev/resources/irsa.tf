@@ -13,7 +13,7 @@ module "irsa" {
     # provide an output called `irsa_policy_arn` that can be used.
     role_policy_arns = {
       s3 = module.s3_bucket.irsa_policy_arn,
-      s3_lawcom = aws_iam_policy.tacticalproducts_lawcom_s3_policy.irsa_policy_arn,
+      s3_lawcom = aws_iam_policy.tacticalproducts_lawcom_s3_policy.arn,
       ecr = module.ecr_credentials.irsa_policy_arn,
       ecr2 = module.ecr_feed_parser.irsa_policy_arn
     }
