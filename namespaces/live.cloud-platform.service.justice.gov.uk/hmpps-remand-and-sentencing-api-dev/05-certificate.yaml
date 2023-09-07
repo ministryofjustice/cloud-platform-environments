@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: remand-and-sentencing-api-cert
-  namespace: remand-and-sentencing-api-dev
+  name: hmpps-remand-and-sentencing-api-cert
+  namespace: hmpps-remand-and-sentencing-api-dev
 spec:
-  secretName: remand-and-sentencing-api-cert
+  secretName: hmpps-remand-and-sentencing-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
