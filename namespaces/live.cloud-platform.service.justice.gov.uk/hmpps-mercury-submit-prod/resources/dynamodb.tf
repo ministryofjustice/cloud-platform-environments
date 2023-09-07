@@ -1,5 +1,5 @@
 module "report_id_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -24,7 +24,7 @@ resource "kubernetes_secret" "report_id_dynamodb" {
   }
 
   data = {
-    table_name        = module.report_id_dynamodb.table_name
-    table_arn         = module.report_id_dynamodb.table_arn
+    table_name = module.report_id_dynamodb.table_name
+    table_arn  = module.report_id_dynamodb.table_arn
   }
 }

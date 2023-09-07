@@ -34,7 +34,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
 }
 
 module "hmpps_prisoner_search_offender_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_search_offender_queue"
@@ -90,7 +90,7 @@ EOF
 }
 
 module "hmpps_prisoner_search_offender_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_search_offender_dlq"

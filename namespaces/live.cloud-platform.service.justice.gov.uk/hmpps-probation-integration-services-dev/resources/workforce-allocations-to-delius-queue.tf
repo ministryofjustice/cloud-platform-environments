@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
 }
 
 module "workforce-allocations-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "workforce-allocations-to-delius-queue"
@@ -38,7 +38,7 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-queue-policy" {
 }
 
 module "workforce-allocations-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "workforce-allocations-to-delius-dlq"

@@ -1,5 +1,5 @@
 module "ap_gh_collab_repo_tf_state_lock" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   application            = var.application

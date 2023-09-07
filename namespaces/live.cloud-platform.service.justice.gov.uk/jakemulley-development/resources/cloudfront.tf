@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   # Tags
   business_unit          = var.business_unit
@@ -16,7 +16,7 @@ module "cloudfront" {
 
   # Configuration
   bucket_domain_name = module.s3.bucket_domain_name
-  bucket_id = module.s3.bucket_name
+  bucket_id          = module.s3.bucket_name
 
   # Tags
   business_unit          = var.business_unit

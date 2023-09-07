@@ -6,13 +6,13 @@
  */
 
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
-  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["circleci"]
+  oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-assess-non-standard-magistrate-fee"]
@@ -68,6 +68,11 @@ module "ecr" {
 
 
   # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
   team_name              = var.team_name # also used for naming the container repository
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }

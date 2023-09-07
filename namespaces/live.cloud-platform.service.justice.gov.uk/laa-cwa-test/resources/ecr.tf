@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   # REQUIRED: Repository configuration
   team_name = var.team_name
@@ -13,10 +13,10 @@ module "ecr" {
   namespace = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["github","circleci"]
+  oidc_providers = ["github", "circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-cwa-feature-tests","laa-cwa"]
+  github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
@@ -77,12 +77,10 @@ module "ecr" {
 
   # deletion_protection = false
 
-  # Tags (commented out until release)
-  # business_unit          = var.business_unit
-  # application            = var.application
-  # is_production          = var.is_production
-  # team_name              = var.team_name # also used for naming the container repository
-  # namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  # environment_name       = var.environment
-  # infrastructure_support = var.infrastructure_support
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }

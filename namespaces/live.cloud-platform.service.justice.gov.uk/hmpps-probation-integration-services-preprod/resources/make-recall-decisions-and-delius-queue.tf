@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-su
 }
 
 module "make-recall-decisions-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "make-recall-decisions-and-delius-queue"
@@ -37,7 +37,7 @@ resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-queue-policy" 
 }
 
 module "make-recall-decisions-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "make-recall-decisions-and-delius-dlq"

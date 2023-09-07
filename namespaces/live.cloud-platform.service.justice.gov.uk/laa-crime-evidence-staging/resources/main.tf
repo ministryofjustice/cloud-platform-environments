@@ -21,6 +21,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      GithubTeam    = var.team_name
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }
@@ -33,6 +34,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      GithubTeam    = var.team_name
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }

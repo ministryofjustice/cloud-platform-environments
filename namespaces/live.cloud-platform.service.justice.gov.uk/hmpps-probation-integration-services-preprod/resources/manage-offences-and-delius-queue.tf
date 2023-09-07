@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "manage-offences-and-delius-queue-subscrip
 }
 
 module "manage-offences-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "manage-offences-and-delius-queue"
@@ -34,7 +34,7 @@ resource "aws_sqs_queue_policy" "manage-offences-and-delius-queue-policy" {
 }
 
 module "manage-offences-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "manage-offences-and-delius-dlq"

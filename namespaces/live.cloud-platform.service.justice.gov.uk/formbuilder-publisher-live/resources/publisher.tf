@@ -1,14 +1,15 @@
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name                    = var.vpc_name
   db_backup_retention_period  = var.db_backup_retention_period
   application                 = "formbuilderpublisher"
-  environment-name            = var.environment-name
-  is-production               = var.is_production
+  environment_name            = var.environment-name
+  is_production               = var.is_production
   namespace                   = var.namespace
-  infrastructure-support      = var.infrastructure_support
+  infrastructure_support      = var.infrastructure_support
   team_name                   = var.team_name
+  business_unit               = var.business_unit
   db_engine_version           = "12"
   allow_major_version_upgrade = "true"
   rds_family                  = "postgres12"
@@ -27,9 +28,7 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 
   data = {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
-    url               = "postgres://${module.publisher-rds-instance.database_username}:${module.publisher-rds-instance.database_password}@${module.publisher-rds-instance.rds_instance_endpoint}/${module.publisher-rds-instance.database_name}"
-    access_key_id     = module.publisher-rds-instance.access_key_id
-    secret_access_key = module.publisher-rds-instance.secret_access_key
+    url = "postgres://${module.publisher-rds-instance.database_username}:${module.publisher-rds-instance.database_password}@${module.publisher-rds-instance.rds_instance_endpoint}/${module.publisher-rds-instance.database_name}"
   }
 }
 

@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   team_name = var.team_name
   repo_name = var.repo_name
@@ -17,6 +17,13 @@ module "ecr-repo" {
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI
   namespace = var.namespace
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr-repo" {
@@ -26,6 +33,6 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 
   data = {
-    repo_url          = module.ecr-repo.repo_url
+    repo_url = module.ecr-repo.repo_url
   }
 }

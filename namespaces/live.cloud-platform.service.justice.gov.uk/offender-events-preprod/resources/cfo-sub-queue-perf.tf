@@ -1,5 +1,5 @@
 module "cfo_queue_perf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "cfo_queue_perf"
@@ -57,7 +57,7 @@ EOF
 }
 
 module "cfo_dead_letter_queue_perf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "cfo_queue_dl_perf"
@@ -84,11 +84,9 @@ resource "kubernetes_secret" "cfo_queue_perf" {
   }
 
   data = {
-    access_key_id     = module.cfo_queue_perf.access_key_id
-    secret_access_key = module.cfo_queue_perf.secret_access_key
-    sqs_cfo_url       = module.cfo_queue_perf.sqs_id
-    sqs_cfo_arn       = module.cfo_queue_perf.sqs_arn
-    sqs_cfo_name      = module.cfo_queue_perf.sqs_name
+    sqs_cfo_url  = module.cfo_queue_perf.sqs_id
+    sqs_cfo_arn  = module.cfo_queue_perf.sqs_arn
+    sqs_cfo_name = module.cfo_queue_perf.sqs_name
   }
 }
 
@@ -99,11 +97,9 @@ resource "kubernetes_secret" "cfo_dead_letter_queue_perf" {
   }
 
   data = {
-    access_key_id     = module.cfo_dead_letter_queue_perf.access_key_id
-    secret_access_key = module.cfo_dead_letter_queue_perf.secret_access_key
-    sqs_cfo_url       = module.cfo_dead_letter_queue_perf.sqs_id
-    sqs_cfo_arn       = module.cfo_dead_letter_queue_perf.sqs_arn
-    sqs_cfo_name      = module.cfo_dead_letter_queue_perf.sqs_name
+    sqs_cfo_url  = module.cfo_dead_letter_queue_perf.sqs_id
+    sqs_cfo_arn  = module.cfo_dead_letter_queue_perf.sqs_arn
+    sqs_cfo_name = module.cfo_dead_letter_queue_perf.sqs_name
   }
 }
 
