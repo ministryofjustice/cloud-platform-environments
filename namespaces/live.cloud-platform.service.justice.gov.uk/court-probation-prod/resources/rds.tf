@@ -1,13 +1,13 @@
 module "court_case_service_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
-  business-unit                = var.business_unit
+  business_unit                = var.business_unit
   application                  = var.application
-  is-production                = var.is_production
+  is_production                = var.is_production
   namespace                    = var.namespace
-  environment-name             = var.environment-name
-  infrastructure-support       = var.infrastructure_support
+  environment_name             = var.environment-name
+  infrastructure_support       = var.infrastructure_support
   rds_family                   = var.rds-family
   db_engine_version            = var.db_engine_version
   allow_major_version_upgrade  = false
@@ -32,7 +32,5 @@ resource "kubernetes_secret" "court_case_service_rds" {
     database_password     = module.court_case_service_rds.database_password
     rds_instance_address  = module.court_case_service_rds.rds_instance_address
     url                   = "postgres://${module.court_case_service_rds.database_username}:${module.court_case_service_rds.database_password}@${module.court_case_service_rds.rds_instance_endpoint}/${module.court_case_service_rds.database_name}"
-    access_key_id         = module.court_case_service_rds.access_key_id
-    secret_access_key     = module.court_case_service_rds.secret_access_key
   }
 }

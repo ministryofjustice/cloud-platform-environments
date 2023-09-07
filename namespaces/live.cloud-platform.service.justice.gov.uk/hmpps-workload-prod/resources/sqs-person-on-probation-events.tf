@@ -1,5 +1,5 @@
 module "hmpps_workload_person_on_probation_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_workload_person_on_probation_queue"
@@ -58,7 +58,7 @@ EOF
 }
 
 module "hmpps_workload_person_on_probation_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_workload_person_on_probation_dlq"
@@ -98,9 +98,9 @@ resource "kubernetes_secret" "hmpps_workload_person_on_probation_queue_secret" {
   }
 
   data = {
-    sqs_queue_url     = module.hmpps_workload_person_on_probation_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_workload_person_on_probation_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_workload_person_on_probation_queue.sqs_name
+    sqs_queue_url  = module.hmpps_workload_person_on_probation_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_workload_person_on_probation_queue.sqs_arn
+    sqs_queue_name = module.hmpps_workload_person_on_probation_queue.sqs_name
   }
 }
 
@@ -111,8 +111,8 @@ resource "kubernetes_secret" "hmpps_workload_person_on_probation_queue_dead_lett
   }
 
   data = {
-    sqs_queue_url     = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_workload_person_on_probation_dead_letter_queue.sqs_name
   }
 }

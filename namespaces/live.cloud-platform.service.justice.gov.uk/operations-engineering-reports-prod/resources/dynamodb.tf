@@ -1,5 +1,5 @@
 module "opseng_reports" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   application            = var.application
@@ -22,9 +22,7 @@ resource "kubernetes_secret" "opseng_reports" {
   }
 
   data = {
-    table_name        = module.opseng_reports.table_name
-    table_arn         = module.opseng_reports.table_arn
-    access_key_id     = module.opseng_reports.access_key_id
-    secret_access_key = module.opseng_reports.secret_access_key
+    table_name = module.opseng_reports.table_name
+    table_arn  = module.opseng_reports.table_arn
   }
 }
