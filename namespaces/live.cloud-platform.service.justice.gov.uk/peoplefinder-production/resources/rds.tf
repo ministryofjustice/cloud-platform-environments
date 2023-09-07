@@ -48,6 +48,7 @@ module "peoplefinder_rds_replica" {
   db_max_allocated_storage = "10000"
   rds_family               = "postgres12"
   db_engine_version        = "12"
+  namespace                = var.namespace
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.peoplefinder_rds.db_identifier
