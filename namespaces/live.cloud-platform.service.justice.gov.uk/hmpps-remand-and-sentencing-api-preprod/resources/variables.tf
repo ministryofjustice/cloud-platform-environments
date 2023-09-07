@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "remand-and-sentencing-api"
+  default     = "hmpps-remand-and-sentencing-api-preprod"
 }
 
 variable "business_unit" {

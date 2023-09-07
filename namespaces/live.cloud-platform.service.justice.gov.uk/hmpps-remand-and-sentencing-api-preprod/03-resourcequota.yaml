@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: remand-and-sentencing-api
+  namespace: hmpps-remand-and-sentencing-api-preprod
 spec:
   hard:
     pods: "50"
