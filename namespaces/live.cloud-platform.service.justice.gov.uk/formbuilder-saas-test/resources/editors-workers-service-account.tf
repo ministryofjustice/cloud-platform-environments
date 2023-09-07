@@ -45,14 +45,14 @@ resource "kubernetes_service_account" "editors_workers" {
   metadata {
     name      = local.sa_name
     namespace = var.namespace
+
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_name
+    }
   }
 
   secret {
     name = "${local.sa_name}-token"
-  }
-
-  annotations = {
-    "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_name
   }
 
   automount_service_account_token = true
