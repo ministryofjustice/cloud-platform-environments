@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: remand-and-sentencing-dev-admin
-  namespace: remand-and-sentencing-dev
+  namespace: hmpps-remand-and-sentencing-dev
 subjects:
   - kind: Group
     name: "github:farsight-devs"
