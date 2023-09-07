@@ -49,6 +49,7 @@ module "peoplefinder_rds_replica" {
   rds_family               = "postgres12"
   db_engine_version        = "12"
   namespace                = var.namespace
+  business_unit            = var.business_unit
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.peoplefinder_rds.db_identifier
