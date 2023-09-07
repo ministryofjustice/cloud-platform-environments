@@ -9,6 +9,12 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["circleci"]
+
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["laa-dces-report-service"]
+
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
