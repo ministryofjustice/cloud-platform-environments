@@ -53,6 +53,37 @@ EOF
   ]
 }
 
+module "json-output-attachments-s3-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  eks_cluster_name = var.eks_cluster_name
+
+  service_account_name = "json-output-attachments-irsa-${var.environment-name}"
+  namespace            = var.namespace # this is also used as a tag
+
+  role_policy_arns = {
+    jsonS3       = module.json-output-attachments-s3-bucket.irsa_policy_arn
+  }
+
+  team_name              = var.team_name
+  business_unit          = "transformed-department"
+  application            = "formbuilderuserfilestore"
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "json-output-attachments-s3-bucket-cross-namespace" {
+  metadata {
+    name      = "json-output-s3-arn"
+    namespace = "formbuilder-saas-test"
+  }
+
+  data = {
+    s3_policy_arn = module.json-output-attachments-s3-irsa.irsa_policy_arn
+  }
+}
+
 resource "kubernetes_secret" "json-output-attachments-s3-bucket" {
   metadata {
     name      = "json-output-attachments-s3-bucket-${var.environment-name}"

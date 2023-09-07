@@ -18,6 +18,33 @@ module "editor-rds-instance" {
   }
 }
 
+module "editor-json-output-s3-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  eks_cluster_name = var.eks_cluster_name
+
+  service_account_name = "formbuilder-editor-test" # match existing service account defined in editor-service-account.yaml
+  namespace            = var.namespace # this is also used as a tag
+
+  role_policy_arns = {
+    jsonS3 = data.kubernetes_secret.json-output-s3-secret.data.json-output-s3-arn
+  }
+
+  team_name              = var.team_name
+  business_unit          = "transformed-department"
+  application            = "formbuilder-editor"
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
+
+data "kubernetes_secret" "json-output-s3-secret" {
+  metadata {
+    name      = "json-output-s3-arn"
+    namespace = var.namespace
+  }
+}
+
 resource "kubernetes_secret" "editor-rds-instance" {
   metadata {
     name      = "rds-instance-formbuilder-editor-${var.environment_name}"
