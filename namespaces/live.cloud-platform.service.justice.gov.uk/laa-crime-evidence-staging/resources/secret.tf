@@ -11,12 +11,12 @@ module "secrets_manager" {
 
   secrets = {
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for Hardship staging",
+      description             = "MAAT API oauth client ID for Evidence staging",
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
     },
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for Hardship staging",
+      description             = "MAAT API oauth client secret for Evidence staging",
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
