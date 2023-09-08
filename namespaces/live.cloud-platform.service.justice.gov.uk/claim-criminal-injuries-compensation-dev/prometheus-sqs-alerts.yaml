@@ -10,7 +10,7 @@ spec:
   groups:
   - name: CICA-SQS-dev
     rules:
-    - alert: DEV-SQS-oldest-message
+    - alert: CICA-SQS-DEV-oldest-message
       annotations:
         message: DEV SQS - {{ $labels.queue_name }} has message older than 2mins, check consumers are healthy.
         runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name--labelsnamespace--sqs-oldest-message
@@ -22,7 +22,7 @@ spec:
       for: 10m
       labels:
         severity: cica-dev-team
-    - alert: DEV-SQS-events-dlq-not-empty
+    - alert: CICA-SQS-DEV-events-dlq-not-empty
       annotations:
         message: DEV SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
         runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name--labelsnamespace--sqs-events-dlq-not-empty
