@@ -7,7 +7,7 @@ module "runner-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    metadatas3  = data.kubernetes_secret.service-metadata-s3.s3arn
+    metadatas3  = data.kubernetes_secret.service-metadata-s3-arn-cross-namespace.s3arn
   }
 
   team_name              = var.team_name
@@ -18,7 +18,7 @@ module "runner-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "kubernetes_secret" "service-metadata-s3" {
+data "kubernetes_secret" "service-metadata-s3-arn-cross-namespace" {
   metadata {
     name      = "service-metadata-s3-policy-arn"
     namespace = var.namespace
