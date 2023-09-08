@@ -8,7 +8,7 @@ resource "aws_route53_record" "gold-scorecard-form-app" {
   }
 }
 
-resource "aws_route53_record" "gold-scorecard-form-app" {
+resource "aws_route53_record" "gold-scorecard-form-test" {
   zone_id = aws_route53_zone.data_platform_test_alpha_route53_zone.id
   name    = "gold-scorecard-form"
   alias {
