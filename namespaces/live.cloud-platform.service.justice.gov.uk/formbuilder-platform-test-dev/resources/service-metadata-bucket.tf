@@ -91,3 +91,14 @@ resource "kubernetes_secret" "service-metadata-s3-bucket" {
     secret_access_key = module.service-metadata-s3-bucket.secret_access_key
   }
 }
+
+resource "kubernetes_secret" "service-metadata-s3-arn-cross-namespace" {
+  metadata {
+    name      = "service-metadata-s3-policy-arn"
+    namespace = "formbuilder-services-test-dev"
+  }
+
+  data = {
+    s3arn = module.service-metadata-s3-bucket.irsa_policy_arn
+  }
+}
