@@ -67,3 +67,15 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "dns_zone_id" {
+  description = "Hosted Zone Id for alpha cluster loadbalancer, required for allowing traffic to be temporarily routed to old cluster for apps"
+  type        = string
+  default     = "Z2IFOLAFXWLO4F"
+}
+
+variable "nlb_dns_name" {
+  description = "DNS name for the alpha cluster loadbalancer, required to temporarily route some traffic to the legacy cluster."
+  type        = string
+  default     = "ac024c043c67711e884e302093cf25df-c199fcff8de8a5ae.elb.eu-west-1.amazonaws.com"
+}
