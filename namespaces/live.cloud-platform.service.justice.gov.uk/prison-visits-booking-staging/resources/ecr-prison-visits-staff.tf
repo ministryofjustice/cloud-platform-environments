@@ -1,9 +1,9 @@
 module "ecr-repo-prison-visits-staff" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  repo_name = "prison-visits-2"
+  repo_name = "prison-visits-staff"
   oidc_providers = ["circleci"]
-  github_repositories = ["prison-visits-2"]
+  github_repositories = ["prison-visits-staff"]
 
   # Tags
   business_unit          = var.business_unit
