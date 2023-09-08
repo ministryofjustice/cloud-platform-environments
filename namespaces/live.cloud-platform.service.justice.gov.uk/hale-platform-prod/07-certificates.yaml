@@ -179,3 +179,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - www.brookhouseinquiry.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: layobservers.org
+  namespace: hale-platform-prod
+spec:
+  secretName: layobservers-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - layobservers.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.layobservers.org
+  namespace: hale-platform-prod
+spec:
+  secretName: layobservers-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.layobservers.org
