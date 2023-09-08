@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-remand-and-sentencing-api-cert
-  namespace: hmpps-remand-and-sentencing-api-preprod
+  namespace: hmpps-remand-and-sentencing-preprod
 spec:
   secretName: hmpps-remand-and-sentencing-api-cert
   issuerRef:
