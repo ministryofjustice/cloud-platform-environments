@@ -90,6 +90,8 @@ module "claim-criminal-injuries-tempus-dlq" {
   # Set encrypt_sqs_kms = "true", to enable SSE for SQS using KMS key.
   encrypt_sqs_kms = "true"
 
+  message_retention_seconds = 1209600
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
