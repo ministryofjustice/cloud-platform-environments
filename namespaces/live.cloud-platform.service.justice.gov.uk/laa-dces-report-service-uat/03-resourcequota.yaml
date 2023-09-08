@@ -5,4 +5,4 @@ metadata:
   namespace: laa-dces-report-service-uat
 spec:
   hard:
-    pods: "1"
+    pods: "5"
