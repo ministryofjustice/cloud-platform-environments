@@ -257,3 +257,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - www.nationalpreventivemechanism.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jobs.justice.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: justicejobs-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - jobs.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.jobs.justice.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: justicejobs-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.jobs.justice.gov.uk

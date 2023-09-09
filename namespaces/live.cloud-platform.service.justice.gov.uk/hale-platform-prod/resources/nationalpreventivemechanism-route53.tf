@@ -11,6 +11,17 @@ resource "aws_route53_zone" "nationalpreventivemechanism_route53_zone" {
   }
 }
 
+resource "kubernetes_secret" "nationalpreventivemechanism_route53_zone_sec" {
+  metadata {
+    name      = "npm-route53-zone-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    zone_id = aws_route53_zone.nationalpreventivemechanism_route53_zone.zone_id
+  }
+}
+
 resource "aws_route53_record" "nationalpreventivemechanism_route53_a_record" {
   zone_id = aws_route53_zone.nationalpreventivemechanism_route53_zone.zone_id
   name    = "nationalpreventivemechanism.org.uk"
