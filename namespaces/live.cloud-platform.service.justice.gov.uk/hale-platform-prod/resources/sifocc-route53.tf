@@ -29,7 +29,7 @@ resource "aws_route53_record" "sifocc_route53_a_record" {
 
   alias {
     name                   = "dualstack.sifoc-loadb-11c6rhmgxnvgm-1494124984.eu-west-2.elb.amazonaws.com."
-    zone_id                = ""
+    zone_id                = "ZHURV8PSTC4K8"
     evaluate_target_health = false
   }
 }
