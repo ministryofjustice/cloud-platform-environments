@@ -389,3 +389,18 @@ spec:
     - 147ffc36.hmpps.service.justice.gov.uk
     - prison-education-and-delius.hmpps.service.justice.gov.uk
 
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: opd-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: opd-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 91de1441.hmpps.service.justice.gov.uk
+    - opd-and-delius.hmpps.service.justice.gov.uk

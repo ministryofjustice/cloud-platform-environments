@@ -29,6 +29,7 @@ resource "pingdom_check" "pingdom" {
     "resettlement-passport-and-delius",
     "prison-education-and-delius",
     "arns-and-oasys",
+    "opd-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
