@@ -51,7 +51,7 @@ resource "aws_route53_record" "lawcom_route53_cname_record_acm" {
   records = ["_ce5444e37666bfe61cfea76e99e67b37.jhztdrwbnw.acm-validations.aws."]
 }
 
-resource "aws_route53_record" "lawcom_route53_txt_record_mta_sts" {
+resource "aws_route53_record" "lawcom_route53_txt_record_mta_dmarc2" {
   zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
   name    = "_dmarc.lawcom.gov.uk"
   type    = "TXT"
@@ -59,7 +59,7 @@ resource "aws_route53_record" "lawcom_route53_txt_record_mta_sts" {
   records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
 }
 
-resource "aws_route53_record" "lawcom_route53_cname_record_acm" {
+resource "aws_route53_record" "lawcom_route53_cname_record_acm2" {
   zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
   name    = "www.lawcom.gov.uk"
   type    = "CNAME"

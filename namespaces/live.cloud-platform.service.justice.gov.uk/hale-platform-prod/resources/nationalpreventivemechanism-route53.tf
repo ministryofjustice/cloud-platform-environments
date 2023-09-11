@@ -67,7 +67,7 @@ resource "aws_route53_record" "nationalpreventivemechanism_route53_cname_record_
   records = ["nationalpreventivemechanism.org.uk"]
 }
 
-resource "aws_route53_record" "nationalpreventivemechanism_route53_cname_record_acm" {
+resource "aws_route53_record" "nationalpreventivemechanism_route53_cname_record_acm2" {
   zone_id = aws_route53_zone.nationalpreventivemechanism_route53_zone.zone_id
   name    = "_eed4a6f8ce3ece75879fd1d6f87bc74c.www.nationalpreventivemechanism.org.uk"
   type    = "CNAME"
