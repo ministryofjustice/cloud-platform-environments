@@ -56,7 +56,7 @@ resource "aws_route53_record" "lawcom_route53_txt_record_mta_sts" {
   name    = "_dmarc.lawcom.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1\;p=reject\;sp=reject\;rua=mailto:dmarc-rua@dmarc.service.gov.uk\;"]
+  records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
 }
 
 resource "aws_route53_record" "lawcom_route53_cname_record_acm" {
