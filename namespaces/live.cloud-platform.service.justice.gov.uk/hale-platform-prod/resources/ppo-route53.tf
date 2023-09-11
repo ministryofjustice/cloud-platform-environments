@@ -26,7 +26,6 @@ resource "aws_route53_record" "ppo_route53_a_record" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "ppo.gov.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "dualstack.ppo-p-loadb-1dvbse409la2x-1010225236.eu-west-2.elb.amazonaws.com."

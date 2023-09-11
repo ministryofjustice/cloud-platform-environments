@@ -26,7 +26,6 @@ resource "aws_route53_record" "lawcom_route53_a_record" {
   zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
   name    = "lawcom.gov.uk"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "dualstack.lawco-loadb-iu5qyqrenlez-1402955435.eu-west-2.elb.amazonaws.com."

@@ -26,7 +26,6 @@ resource "aws_route53_record" "sifocc_route53_a_record" {
   zone_id = aws_route53_zone.sifocc_route53_zone.zone_id
   name    = "sifocc.org"
   type    = "A"
-  ttl     = "300"
 
   alias {
     name                   = "dualstack.sifoc-loadb-11c6rhmgxnvgm-1494124984.eu-west-2.elb.amazonaws.com."
