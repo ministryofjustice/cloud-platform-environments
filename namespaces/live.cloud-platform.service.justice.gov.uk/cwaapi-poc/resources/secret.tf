@@ -10,15 +10,10 @@ module "secrets_manager" {
   eks_cluster_name        = var.eks_cluster_name
 
   secrets = {
-    "saml-metadata-uri" = {
-      description             = "The URI for the SAML authentication", # Required
+    "cwaapi-poc-secrets" = {
+      description             = "Db urls and credentials for CWA API POC", # Required
       recovery_window_in_days = 7, # Required
-      k8s_secret_name         = "saml-metadata-uri"                    # The name of the secret in k8s
-    },
-    "caab-secrets" = {
-      description             = "SOA urls and database credentials for CAAB", # Required
-      recovery_window_in_days = 7, # Required
-      k8s_secret_name         = "caab-secrets"                    # The name of the secret in k8s
+      k8s_secret_name         = "cwaapi-poc-secrets"                    # The name of the secret in k8s
     },
   }
 }
