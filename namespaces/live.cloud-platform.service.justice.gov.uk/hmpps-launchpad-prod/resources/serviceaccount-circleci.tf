@@ -1,6 +1,6 @@
 # Service account for circleci
 module "circleci-sa" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.6"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.7"
   serviceaccount_name  = "circleci"
   role_name            = "circleci"
   rolebinding_name     = "circleci"
