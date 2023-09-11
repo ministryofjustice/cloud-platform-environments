@@ -92,6 +92,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: my.imb.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: my-imb-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - my.imb.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: ccrc.gov.uk
   namespace: hale-platform-prod
 spec:
