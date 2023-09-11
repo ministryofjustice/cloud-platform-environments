@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "opd-and-delius-queue-subscription" {
 }
 
 module "opd-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
@@ -29,7 +29,7 @@ resource "aws_sqs_queue_policy" "opd-and-delius-queue-policy" {
 }
 
 module "opd-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
   namespace              = var.namespace
   team_name              = var.team_name
   environment-name       = var.environment_name
