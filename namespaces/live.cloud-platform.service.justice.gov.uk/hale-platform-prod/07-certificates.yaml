@@ -309,4 +309,30 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - www.ppo.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lawcom.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: lawcom-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - lawcom.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.lawcom.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: lawcom-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.lawcom.gov.uk
   

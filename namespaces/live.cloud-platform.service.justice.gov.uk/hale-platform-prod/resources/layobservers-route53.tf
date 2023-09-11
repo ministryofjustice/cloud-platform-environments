@@ -22,8 +22,8 @@ resource "kubernetes_secret" "layobservers_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "imb_route53_a_record" {
-  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+resource "aws_route53_record" "layobservers_route53_a_record" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
   name    = "layobservers.org"
   type    = "A"
   ttl     = "300"
