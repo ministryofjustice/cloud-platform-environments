@@ -58,6 +58,25 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = replace(var.namespace, "preprod", "prod")
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    access_key_id         = module.rds.access_key_id
+    secret_access_key     = module.rds.secret_access_key
+    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}
+
 
 resource "kubernetes_secret" "read_replica" {
   count = 0
