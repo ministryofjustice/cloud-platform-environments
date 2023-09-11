@@ -5,6 +5,9 @@ module "ecr" {
 
   oidc_providers = ["circleci"]
 
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["HMCTS-iacfees"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
