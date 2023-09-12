@@ -4,7 +4,7 @@ module "circleci_serviceaccount" {
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
   serviceaccount_name = "circleci"
-  serviceaccount_rules = var.serviceaccount_rules
+  serviceaccount_rules = var.circleci_rules
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
