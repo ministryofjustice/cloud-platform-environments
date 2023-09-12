@@ -9,6 +9,13 @@ data "kubernetes_secret" "s3_bucket_arns" {
   }
 }
 
+data "kubernetes_secret" "s3_bucket_arns_live" {
+  metadata {
+    name      = "service-metadata-test-production-policy-arns"
+    namespace = var.namespace
+  }
+}
+
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
@@ -27,6 +34,7 @@ module "iam_assumable_role" {
   role_name                  = "formbuilder-saas-test-live"
   role_policy_arns = {
     s3 = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
+    s3prod = data.kubernetes_secret.s3_bucket_arns_live.data.service_metadata_bucket_irsa
   }
 
   oidc_providers = {
