@@ -13,6 +13,8 @@ module "opd-and-delius-queue" {
   team_name              = var.team_name
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  business_unit          = var.business_unit
 
   application = "opd-and-delius"
   sqs_name    = "opd-and-delius-queue"
