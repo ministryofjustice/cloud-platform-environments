@@ -13,6 +13,8 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    hearing_resulted_queue = data.kubernetes_secret.queue_arn.data.hearing_resulted_queue_irsa_policy_arn
+    prosecution_concluded_queue = data.kubernetes_secret.queue_arn.data.prosecution_concluded_queue_irsa_policy_arn
 }
 
 # Tags
@@ -33,5 +35,12 @@ resource "kubernetes_secret" "irsa" {
     role           = module.irsa.role_name
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
+  }
+}
+
+data "kubernetes_secret" "queue_arn" {
+  metadata {
+    name      = "sqs-queue-irsa-policy-arn"
+    namespace = "laa-court-data-adaptor-dev"
   }
 }

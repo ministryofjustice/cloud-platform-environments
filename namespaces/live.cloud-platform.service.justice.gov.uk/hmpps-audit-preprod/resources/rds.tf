@@ -9,13 +9,13 @@ module "hmpps_audit_rds" {
   environment-name       = var.environment-name
   infrastructure-support = var.infrastructure_support
 
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
-  deletion_protection         = true
-  db_engine = "postgres"
-  prepare_for_major_upgrade   = false
+  db_instance_class         = "db.t4g.micro"
+  db_max_allocated_storage  = "500"
+  rds_family                = "postgres15"
+  db_engine_version         = "15"
+  deletion_protection       = true
+  db_engine                 = "postgres"
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london

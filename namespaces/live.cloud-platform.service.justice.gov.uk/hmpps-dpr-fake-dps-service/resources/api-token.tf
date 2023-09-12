@@ -10,6 +10,6 @@ resource "kubernetes_secret" "api_token" {
   }
 
   data = {
-    session_secret = random_password.api_token.result
+    api_token = random_password.api_token.result
   }
 }

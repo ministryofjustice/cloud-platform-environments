@@ -9,7 +9,7 @@ resource "aws_iam_access_key" "key_2023" {
 
 data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
   statement {
-    actions = ["s3:PutObject", "sqs:SendMessage"]
+    actions = ["s3:PutObject", "sqs:SendMessage", "sqs:GetQueueUrl"]
 
     resources = [
       module.manage_intelligence_extractor_bucket.bucket_arn,

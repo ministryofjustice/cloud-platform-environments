@@ -55,3 +55,17 @@ variable "github_token" {
   default     = ""
 }
 
+# For Push gateway
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape"
+  default     = true
+}
+
+variable "eks_cluster_name" {
+}
+
+variable "slack_channel" {
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "cica-digital"
+}

@@ -1,12 +1,12 @@
 module "drupal_content_storage_cf" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   /*
@@ -49,7 +49,7 @@ module "drupal_content_storage_cf" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-    /*
+  /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *
@@ -120,13 +120,13 @@ module "drupal_content_storage_cf" {
 
   */
 
-    /*
+  /*
    * The following are exampls of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-    /*
+  /*
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
@@ -153,7 +153,7 @@ EOF
 
 */
 
-    /*
+  /*
  * Override the default policy for the generated machine user of this bucket.
  *
 

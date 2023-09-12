@@ -18,12 +18,12 @@ resource "aws_iam_policy" "analytical-platform" {
 module "analytical-platform" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  namespace              = var.namespace
-  eks_cluster_name       = var.eks_cluster_name
-  role_policy_arns       = {
+  namespace        = var.namespace
+  eks_cluster_name = var.eks_cluster_name
+  role_policy_arns = {
     analytical-platform = aws_iam_policy.analytical-platform.arn
   }
-  service_account_name   = "${var.namespace}-analytical-platform"
+  service_account_name = "${var.namespace}-analytical-platform"
   # Tags
   business_unit          = var.business_unit
   team_name              = var.team_name
@@ -77,7 +77,7 @@ resource "kubernetes_secret" "analytical_platform_s3_bucket" {
   }
 
   data = {
-    bucket_arn        = "arn:aws:s3:::mojap-adjudications-insights"
-    bucket_name       = "mojap-adjudications-insights"
+    bucket_arn  = "arn:aws:s3:::mojap-adjudications-insights"
+    bucket_name = "mojap-adjudications-insights"
   }
 }

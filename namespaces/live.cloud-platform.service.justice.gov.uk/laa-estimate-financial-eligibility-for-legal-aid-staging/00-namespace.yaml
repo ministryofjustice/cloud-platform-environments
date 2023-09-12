@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-estimate-financial-eligibility-for-legal-aid"
     cloud-platform.justice.gov.uk/team-name: "laa-estimate-eligibility"
     cloud-platform.justice.gov.uk/review-after: ""
+    cloud-platform.justice.gov.uk/runbook: “https://dsdmoj.atlassian.net/wiki/spaces/laagetaccess/pages/4405724996/CCQ+Runbook“

@@ -88,3 +88,71 @@ variable "github_actions_secret_kube_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "circleci_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+  ]
+}

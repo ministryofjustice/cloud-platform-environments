@@ -37,9 +37,9 @@ module "irsa_offender_risk_profiler" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "offender-risk-profiler"
   role_policy_arns = merge(
-    { "s3"                      = module.risk_profiler_s3_bucket.irsa_policy_arn,
-      "risk_profiler_change"    = module.risk_profiler_change.irsa_policy_arn,
-      "risk_profiler_change_dl" = module.risk_profiler_change_dead_letter_queue.irsa_policy_arn },
+    { "s3"                   = module.risk_profiler_s3_bucket.irsa_policy_arn,
+      "risk_profiler_change" = module.risk_profiler_change.irsa_policy_arn,
+    "risk_profiler_change_dl" = module.risk_profiler_change_dead_letter_queue.irsa_policy_arn },
     local.sqs_policies_rp
   )
   business_unit          = var.business_unit

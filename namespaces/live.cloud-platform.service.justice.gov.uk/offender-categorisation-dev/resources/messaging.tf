@@ -1,13 +1,9 @@
 module "risk_profiler_change" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = var.application
-  sqs_name               = "risk_profiler_change"
-  encrypt_sqs_kms        = "false"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name        = "risk_profiler_change"
+  encrypt_sqs_kms = "false"
 
   redrive_policy = <<EOF
   {
@@ -15,18 +11,32 @@ module "risk_profiler_change" {
   }
 
 EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 module "risk_profiler_change_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "risk_profiler_change_dl"
+  encrypt_sqs_kms = "false"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "risk_profiler_change_dl"
-  encrypt_sqs_kms        = "false"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "risk_profiler_change" {
@@ -36,14 +46,12 @@ resource "kubernetes_secret" "risk_profiler_change" {
   }
 
   data = {
-    access_key_id     = module.risk_profiler_change.access_key_id
-    secret_access_key = module.risk_profiler_change.secret_access_key
-    sqs_rpc_url       = module.risk_profiler_change.sqs_id
-    sqs_rpc_arn       = module.risk_profiler_change.sqs_arn
-    sqs_rpc_name      = module.risk_profiler_change.sqs_name
-    sqs_rpc_dlq_url   = module.risk_profiler_change_dead_letter_queue.sqs_id
-    sqs_rpc_dlq_arn   = module.risk_profiler_change_dead_letter_queue.sqs_arn
-    sqs_rpc_dlq_name  = module.risk_profiler_change_dead_letter_queue.sqs_name
+    sqs_rpc_url      = module.risk_profiler_change.sqs_id
+    sqs_rpc_arn      = module.risk_profiler_change.sqs_arn
+    sqs_rpc_name     = module.risk_profiler_change.sqs_name
+    sqs_rpc_dlq_url  = module.risk_profiler_change_dead_letter_queue.sqs_id
+    sqs_rpc_dlq_arn  = module.risk_profiler_change_dead_letter_queue.sqs_arn
+    sqs_rpc_dlq_name = module.risk_profiler_change_dead_letter_queue.sqs_name
   }
 }
 
@@ -54,10 +62,8 @@ resource "kubernetes_secret" "risk_profiler_change_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.risk_profiler_change_dead_letter_queue.access_key_id
-    secret_access_key = module.risk_profiler_change_dead_letter_queue.secret_access_key
-    sqs_rpc_url       = module.risk_profiler_change_dead_letter_queue.sqs_id
-    sqs_rpc_arn       = module.risk_profiler_change_dead_letter_queue.sqs_arn
-    sqs_rpc_name      = module.risk_profiler_change_dead_letter_queue.sqs_name
+    sqs_rpc_url  = module.risk_profiler_change_dead_letter_queue.sqs_id
+    sqs_rpc_arn  = module.risk_profiler_change_dead_letter_queue.sqs_arn
+    sqs_rpc_name = module.risk_profiler_change_dead_letter_queue.sqs_name
   }
 }

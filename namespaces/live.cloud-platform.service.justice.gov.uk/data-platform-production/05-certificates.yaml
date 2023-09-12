@@ -1,0 +1,26 @@
+---
+   apiVersion: cert-manager.io/v1
+   kind: Certificate
+   metadata:
+     name: test-alpha-cert
+     namespace: data-platform-production
+   spec:
+     secretName: test-alpha-certificate
+     issuerRef:
+       name: letsencrypt-production
+       kind: ClusterIssuer
+     dnsNames:
+     - "*.test.alpha.mojanalytics.xyz"
+---
+   apiVersion: cert-manager.io/v1
+   kind: Certificate
+   metadata:
+     name: apps-alpha-cert
+     namespace: data-platform-production
+   spec:
+     secretName: apps-alpha-certificate
+     issuerRef:
+       name: letsencrypt-production
+       kind: ClusterIssuer
+     dnsNames:
+     - "*.apps.alpha.mojanalytics.xyz"

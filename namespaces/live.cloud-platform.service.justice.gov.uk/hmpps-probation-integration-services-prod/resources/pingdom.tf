@@ -28,6 +28,8 @@ resource "pingdom_check" "pingdom" {
     "manage-offences-and-delius",
     "resettlement-passport-and-delius",
     "prison-education-and-delius",
+    "arns-and-oasys",
+    "opd-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

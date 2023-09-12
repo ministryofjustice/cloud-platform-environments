@@ -11,18 +11,6 @@ resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 }
 
-resource "kubernetes_secret" "dashboard-read-only-user-secret" {
-  metadata {
-    name      = "dashboard-read-only-user-secret"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = aws_iam_access_key.user.id
-    secret_access_key = aws_iam_access_key.user.secret
-  }
-}
-
 data "aws_iam_policy_document" "policy" {
 
   statement {
