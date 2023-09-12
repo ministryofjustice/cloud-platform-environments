@@ -11,8 +11,8 @@ module "opd-and-delius-queue" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
   namespace              = var.namespace
   team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   application = "opd-and-delius"
   sqs_name    = "opd-and-delius-queue"
@@ -32,8 +32,10 @@ module "opd-and-delius-dlq" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
   namespace              = var.namespace
   team_name              = var.team_name
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  business_unit          = var.business_unit
 
   application = "opd-and-delius"
   sqs_name    = "opd-and-delius-dlq"
