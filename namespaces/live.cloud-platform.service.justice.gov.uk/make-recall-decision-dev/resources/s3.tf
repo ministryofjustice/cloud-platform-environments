@@ -14,14 +14,14 @@ module "s3_bucket" {
   }
 }
 
-resource "kubernetes_secret" "consider-a-recall-s3" {
+resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "consider-a-recall-s3"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.consider-a-recall-s3.bucket_arn
-    bucket_name = module.consider-a-recall-s3.bucket_name
+    bucket_arn  = module.s3_bucket.bucket_arn
+    bucket_name = module.s3_bucket.bucket_name
   }
 }
