@@ -58,7 +58,7 @@ resource "kubernetes_secret" "opd-and-delius-queue-secret" {
   }
 }
 
-module "opd-and-delius-service_account" {
+module "opd-and-delius-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
   business_unit          = var.business_unit
