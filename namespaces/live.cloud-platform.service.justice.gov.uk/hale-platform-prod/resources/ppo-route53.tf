@@ -50,7 +50,7 @@ resource "aws_route53_record" "ppo_route53_txt_record_ms" {
   records = ["MS=ms15192188"]
 }
 
-resource "aws_route53_record" "ppo_route53_txt_record_spf1" {
+resource "aws_route53_record" "ppo_route53_txt_record_mcsv" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "ppo.gov.uk"
   type    = "TXT"
@@ -58,7 +58,7 @@ resource "aws_route53_record" "ppo_route53_txt_record_spf1" {
   records = ["v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 include:spf.protection.outlook.com include:servers.mcsv.net -all"]
 }
 
-resource "aws_route53_record" "ppo_route53_txt_record_atlassian" {
+resource "aws_route53_record" "ppo_route53_txt_record_atlassian_domain_ver" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "ppo.gov.uk"
   type    = "TXT"
@@ -218,20 +218,16 @@ resource "aws_route53_record" "ppo_route53_cname_record_msoid" {
   records = ["clientconfig.microsoftonline-p.net"]
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_msoid2" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "msoid.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["clientconfig.microsoftonline-p.net"]
-}
-
-resource "aws_route53_record" "ppo_route53_a_record_mta2" {
+resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "mta-sts.ppo.gov.uk"
   type    = "A"
-  ttl     = "300"
-  records = ["d264sf26qsqfi.cloudfront.net."]
+
+  alias {
+    name                   = "d264sf26qsqfi.cloudfront.net."
+    zone_id                = "ZHURV8PSTC4K8"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "ppo_route53_cname_record_mta-sts" {
