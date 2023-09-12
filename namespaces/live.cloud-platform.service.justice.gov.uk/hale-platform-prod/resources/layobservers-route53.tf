@@ -34,6 +34,14 @@ resource "aws_route53_record" "layobservers_route53_a_record" {
   }
 }
 
+resource "aws_route53_record" "layobservers_route53_cname_record_www" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
+  name    = "www.layobservers.org"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["layobservers.org"]
+}
+
 resource "aws_route53_record" "layobservers_route53_cname_record_acm" {
   zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
   name    = "_2dc0af1e023810b4729e89f34abdf9eb.layobservers.org"
