@@ -3,7 +3,7 @@
 ######## Main queue
 
 module "hmpps_prison_visits_notification_alerts_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_notification_alerts_queue"
@@ -90,7 +90,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
 ######## Dead letter queue
 
 module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_notification_alerts_dlq"
