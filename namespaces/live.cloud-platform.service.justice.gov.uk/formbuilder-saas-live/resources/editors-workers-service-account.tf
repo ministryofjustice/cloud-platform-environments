@@ -11,7 +11,7 @@ data "kubernetes_secret" "s3_bucket_arns" {
 
 data "kubernetes_secret" "s3_bucket_arns_live" {
   metadata {
-    name      = "service-metadata-test-production-policy-arns"
+    name      = "live-s3-metadata-bucket-policy-arns"
     namespace = var.namespace
   }
 }
