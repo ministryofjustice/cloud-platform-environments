@@ -40,3 +40,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: hmpps-manage-users-dev
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-auth-dev
