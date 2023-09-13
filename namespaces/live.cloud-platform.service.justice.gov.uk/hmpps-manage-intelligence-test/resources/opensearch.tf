@@ -1,3 +1,16 @@
+module "s3" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2" # use the latest release
+
+  # Tags
+  business-unit          = var.business_unit
+  application            = var.application
+  is-production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment-name       = var.environment
+  infrastructure-support = var.infrastructure_support
+}
+
 module "opensearch" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0" # use the latest release
 
@@ -6,7 +19,8 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version = "OpenSearch_2.5"
+  engine_version = "OpenSearch_2.7"
+  snapshot_bucket_arn = module.s3.bucket_arn
 
   cluster_config = {
     instance_count = 2
