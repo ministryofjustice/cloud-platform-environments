@@ -73,7 +73,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_notification_alerts_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
+resource "aws_sns_topic_subscription" "hmpps_prison_visits_notification_alerts_subscription" {
   provider  = aws.london
   topic_arn = module.hmpps-domain-events.topic_arn
   protocol  = "sqs"
