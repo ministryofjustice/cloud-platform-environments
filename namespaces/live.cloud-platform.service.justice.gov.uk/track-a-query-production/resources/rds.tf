@@ -40,6 +40,8 @@ module "track_a_query_rds_replica" {
   is_production            = var.is_production
   infrastructure_support   = var.infrastructure_support
   team_name                = var.team_name
+  business_unit            = var.business_unit
+  namespace                = var.namespace
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres12"
