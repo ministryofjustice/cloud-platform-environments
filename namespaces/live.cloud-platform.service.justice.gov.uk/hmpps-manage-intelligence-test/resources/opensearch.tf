@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   # Tags
   business-unit          = var.business_unit
@@ -12,7 +12,7 @@ module "s3" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
