@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0" # use the latest release
 
   # Tags
   business-unit          = var.business_unit
@@ -39,4 +39,16 @@ module "opensearch" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+# Output the proxy URL
+resource "kubernetes_secret" "opensearch" {
+  metadata {
+    name      = "${var.team_name}-opensearch-proxy-url"
+    namespace = var.namespace
+  }
+
+  data = {
+    proxy_url = module.opensearch.proxy_url
+  }
 }
