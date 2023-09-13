@@ -13,7 +13,7 @@ module "rds_aurora_legacy" {
     min_capacity = 0.5
     max_capacity = 4
   }
-  replica_count  = 1
+  replica_count = 1
 
   allow_major_version_upgrade = true
 
