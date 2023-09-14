@@ -11,6 +11,7 @@ module "ecr_credentials" {
   github_repositories   = ["cjs_scorecard_exploratory_analysis"]
   oidc_providers        = ["github"]
   github_actions_prefix = "dev"
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
