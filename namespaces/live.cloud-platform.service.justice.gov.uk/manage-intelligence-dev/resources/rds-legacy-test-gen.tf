@@ -53,7 +53,7 @@ resource "kubernetes_secret" "ims_legacy_test_gen_rds_aurora" {
     database_username           = module.rds_aurora_legacy_test_gen.database_username
     database_password           = module.rds_aurora_legacy_test_gen.database_password
     ims_legacy_update_password  = random_id.ims_legacy_test_gen_update_role_password.b64_url
-    ims_legacy_read_password    = random_id.ims_legacy__test_gen_read_role_password.b64_url
+    ims_legacy_read_password    = random_id.ims_legacy_test_gen_read_role_password.b64_url
     url                         = "postgres://${module.rds_aurora_legacy_test_gen.database_username}:${module.rds_aurora_legacy_test_gen.database_password}@${module.rds_aurora_legacy_test_gen.rds_cluster_endpoint}/${module.rds_aurora_legacy_test_gen.database_name}"
     reader_url                  = "postgres://${module.rds_aurora_legacy_test_gen.database_username}:${module.rds_aurora_legacy_test_gen.database_password}@${module.rds_aurora_legacy_test_gen.rds_cluster_reader_endpoint}/${module.rds_aurora_legacy.database_name}"
   }
