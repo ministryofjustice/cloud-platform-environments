@@ -41,6 +41,29 @@ module "opensearch" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "kubernetes_secret" "os_snapshots_role" {
+  metadata {
+    name      = "os-snapshot-role"
+    namespace = var.namespace
+  }
+
+  data = {
+    snapshot_role_arn = module.opensearch.snapshot_role_arn
+  }
+}
+
+resource "kubernetes_secret" "os_snapshots" {
+  metadata {
+    name      = "os-snapshot-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.s3.bucket_arn
+    bucket_name = module.s3.bucket_name
+  }
+}
+
 # Output the proxy URL
 resource "kubernetes_secret" "opensearch" {
   metadata {
