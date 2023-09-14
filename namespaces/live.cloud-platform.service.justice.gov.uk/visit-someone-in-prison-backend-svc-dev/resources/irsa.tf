@@ -5,8 +5,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_prison_visits_event_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-hmpps_prison_visits_event_dlq" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-hmpps_prison_visits_notification_alerts_queue" = "visit-someone-in-prison-backend-svc-dev",
-    "Digital-Prison-Services-dev-hmpps_prison_visits_notification_alerts_dlq" = "visit-someone-in-prison-backend-svc-dev",
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev",
@@ -30,7 +28,13 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = merge(local.sqs_policies,local.sns_policies)
+  role_policy_arns     = merge(
+    local.sqs_policies,
+  {
+    hmpps_prisoner_search_index_queue             = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
+    hmpps_prisoner_search_index_dead_letter_queue = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
+  },
+  local.sns_policies)
 
   # Tags
   business_unit          = var.business_unit
