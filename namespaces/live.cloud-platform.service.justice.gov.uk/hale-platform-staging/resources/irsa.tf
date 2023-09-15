@@ -37,7 +37,16 @@ module "irsa" {
         "s3:DeleteObject",
         "s3:PutObjectTagging"
       ]
-      resources = var.bucket_arns
+      resources = [
+        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
+        "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*", # dev
+        "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
+        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q/*", #tacticalproducts legacy account
+        "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*", #tacticalproducts legacy account
+        "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*", #tacticalproducts legacy account
+        "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*", #tacticalproducts legacy account
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*" #tacticalproducts legacy account
+     ]
     }
   }
 
@@ -58,11 +67,18 @@ module "irsa" {
 
   resource "kubernetes_secret" "s3_x_bucket_secret" {
     metadata {
-    name      = "s3-bucket-x-access-allowlist"
-    namespace = var.namespace
-  }
+      name      = "s3-bucket-x-access-allowlist"
+      namespace = var.namespace
+    }
 
-  data = {
-    bucket_arn = var.bucket_arns
+    string_data = {
+      "bucket_arn_2" = "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f" # prod
+      "bucket_arn_3" = "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f" # dev
+      "bucket_arn_4" = "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119" # demo
+      "bucket_arn_5" = "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q" # tacticalproducts legacy account
+      "bucket_arn_6" = "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm" # tacticalproducts legacy account
+      "bucket_arn_7" = "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir" # tacticalproducts legacy account
+      "bucket_arn_8" = "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk" # tacticalproducts legacy account
+      "bucket_arn_9" = "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd" # tacticalproducts legacy account
+    }
   }
-}
