@@ -67,7 +67,7 @@ resource "kubernetes_secret" "os_snapshots" {
 # Output the proxy URL
 resource "kubernetes_secret" "opensearch" {
   metadata {
-    name      = "${var.team_name}-opensearch-proxy-url"
+    name      = "dps-opensearch-proxy-url"
     namespace = var.namespace
   }
 
