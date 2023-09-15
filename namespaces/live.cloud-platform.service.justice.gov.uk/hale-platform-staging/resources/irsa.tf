@@ -64,12 +64,3 @@ module "irsa" {
       infrastructure_support = var.infrastructure_support
       }
   }
-
-  resource "kubernetes_secret" "s3_x_bucket_secret" {
-    metadata {
-      name      = "s3-bucket-x-access-allowlist"
-      namespace = var.namespace
-    }
-
-    data = var.bucket_arns
-  }
