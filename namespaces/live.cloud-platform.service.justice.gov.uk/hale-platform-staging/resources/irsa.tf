@@ -37,16 +37,7 @@ module "irsa" {
         "s3:DeleteObject",
         "s3:PutObjectTagging"
       ]
-      resources = [
-        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
-        "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*", # dev
-        "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
-        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q/*", #tacticalproducts legacy account
-        "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*", #tacticalproducts legacy account
-        "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*", #tacticalproducts legacy account
-        "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*", #tacticalproducts legacy account
-        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*" #tacticalproducts legacy account
-     ]
+      resources = var.bucket_arns
     }
   }
 
@@ -72,16 +63,6 @@ module "irsa" {
   }
 
   data = {
-    bucket_arn = [
-      "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q",
-      "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f", # prod
-      "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f", # dev
-      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119", # demo
-      "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q", # tacticalproducts legacy account
-      "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm", # tacticalproducts legacy account
-      "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir", # tacticalproducts legacy account
-      "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk", # tacticalproducts legacy account
-      "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd" # tacticalproducts legacy account
-    ]
+    bucket_arn = var.bucket_arns
   }
 }
