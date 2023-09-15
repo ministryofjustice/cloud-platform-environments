@@ -82,7 +82,6 @@ variable "github_actions_secret_kube_token" {
 variable "bucket_arns" {
   type    = list(string)
   default = [
-    "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q",
     "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
     "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*", # dev
     "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
