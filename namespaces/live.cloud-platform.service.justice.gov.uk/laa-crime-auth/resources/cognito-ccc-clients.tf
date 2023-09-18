@@ -34,18 +34,6 @@ resource "aws_cognito_user_pool_client" "maat_client_ccc_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "hardship_client_ccc_dev" {
-  name                                 = var.cognito_user_pool_hardship_client_name_dev
-  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
-  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
-  allowed_oauth_flows                  = ["client_credentials"]
-  allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
-  prevent_user_existence_errors        = "ENABLED"
-  supported_identity_providers         = ["COGNITO"]
-  generate_secret                      = true
-}
-
 resource "aws_cognito_user_pool_client" "maat_client_ccc_stg" {
   name                                 = var.cognito_user_pool_maat_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
@@ -60,6 +48,19 @@ resource "aws_cognito_user_pool_client" "maat_client_ccc_stg" {
 
 resource "aws_cognito_user_pool_client" "maat_client_ccc_prd" {
   name                                 = var.cognito_user_pool_maat_client_name_prd
+  user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.ccc_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+
+resource "aws_cognito_user_pool_client" "hardship_client_ccc_dev" {
+  name                                 = var.cognito_user_pool_hardship_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.ccc_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
