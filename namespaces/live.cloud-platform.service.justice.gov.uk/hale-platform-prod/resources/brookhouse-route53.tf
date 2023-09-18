@@ -102,6 +102,14 @@ resource "aws_route53_record" "brookhouse_route53_txt_dkim_everyone" {
   records = ["v=DKIM1; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDXkYQfwfJJZ+f8aUiS06jOhupWFHRwkL890axNTiJUPRhGZ+y6KHABwyXf06lR8CXzY20pwwy4j5vvQePMgvQbS7AkjhpiKK9O3kSX/KJ6GJ6zpgFO4Bhnq8eRYyBWuy1BZT+HNB5eoytxsUuXi0dmCWmq/rTBEYQMO/kCaWqJWQIDAQAB;"]
 }
 
+resource "aws_route53_record" "brookhouse_route53_txt_dkim_07092023" {
+  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
+  name    = "07092023._domainkey.brookhouseinquiry.org.uk."
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DKIM1; t=s; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApFBvkc4d43rDfJNqF4PxbaTKY3j6hfLVcPrF5TC4IdvHvhMLRE0QSbLi/nJLXskM0MM0ClSUlnPV16HahDgkQdSwRc3nZleV2KqO2fKLdRque2ddG7K+huY9IvAtyqPD9CeCxuxXeakVYFqUYUyM5uhPoDrtQsHT2lhZ/faAN/e6FpdtBbOIpxiITbuZxanaWaTcn3GoN/A0RW;", "Ht0LeLpitU23tepDbysfuZFk7ZCc+qhNKUL+rNd5yWeaHHbs4Ge1KH6rMN7pXgHUMpvNl8YMIR2I1OvTz/R3IKn6M73MdUV8vlgjsdrZ4s+jOYUCBxQL3ukc+ogfWy9babqxgtaQIDAQAB"]
+}
+
 resource "aws_route53_record" "brookhouse_route53_txt_mta" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "_mta-sts.brookhouseinquiry.org.uk"
@@ -196,12 +204,4 @@ resource "aws_route53_record" "brookhouse_route53_srv_record_autodiscover" {
   type    = "SRV"
   ttl     = "3600"
   records = ["10 10 443 autodiscover.homeoffice.gov.uk"]
-}
-
-resource "aws_route53_record" "brookhouse_route53_txt_smtp" {
-  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
-  name    = "07092023._domainkey.brookhouseinquiry.org.uk."
-  type    = "TXT"
-  ttl     = "300"
-  records = ["v=DKIM1; t=s; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApFBvkc4d43rDfJNqF4PxbaTKY3j6hfLVcPrF5TC4IdvHvhMLRE0QSbLi/nJLXskM0MM0ClSUlnPV16HahDgkQdSwRc3nZleV2KqO2fKLdRque2ddG7K+huY9IvAtyqPD9CeCxuxXeakVYFqUYUyM5uhPoDrtQsHT2lhZ/faAN/e6FpdtBbOIpxiITbuZxanaWaTcn3GoN/A0RW;", "Ht0LeLpitU23tepDbysfuZFk7ZCc+qhNKUL+rNd5yWeaHHbs4Ge1KH6rMN7pXgHUMpvNl8YMIR2I1OvTz/R3IKn6M73MdUV8vlgjsdrZ4s+jOYUCBxQL3ukc+ogfWy9babqxgtaQIDAQAB"]
 }
