@@ -49,7 +49,6 @@ module "irsa" {
         "s3:ListBucket",
         "s3:GetObject",
         "s3:PutObject",
-        "s3:PutObjectTagging",
         "s3:GetObjectAcl",
         "s3:PutObjectAcl"
       ]
