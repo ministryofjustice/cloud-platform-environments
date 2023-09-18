@@ -193,6 +193,31 @@ variable "cognito_user_pool_cfe_client_name_prd" {
   default     = "cfe-client-prd"
 }
 
+variable "cognito_user_pool_hardship_client_name_dev" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-dev"
+}
+
+variable "cognito_user_pool_hardship_client_name_tst" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-tst"
+}
+
+variable "cognito_user_pool_hardship_client_name_uat" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-uat"
+}
+
+variable "cognito_user_pool_hardship_client_name_stg" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-stg"
+}
+
+variable "cognito_user_pool_hardship_client_name_prd" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-prd"
+}
+
 variable "cognito_user_pool_functional_tests_name" {
   description = "Cognito user pool functional tests client name"
   default     = "functional-tests-client"

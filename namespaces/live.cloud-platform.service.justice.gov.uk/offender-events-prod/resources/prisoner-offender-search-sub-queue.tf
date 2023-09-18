@@ -133,7 +133,8 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "OFFENDER_PROFILE_DETAILS-UPDATED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_IDENTIFIER-UPDATED",
-      "COURT_SENTENCE-CHANGED"
+      "COURT_SENTENCE-CHANGED",
+      "OFFENDER_CHARGES-UPDATED"
     ]
   })
 }

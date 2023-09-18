@@ -6,14 +6,14 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment_name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
@@ -51,7 +51,7 @@ module "rds" {
   allow_major_version_upgrade = "false"
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop = true
 
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
@@ -69,14 +69,16 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
-  application            = var.application
-  environment-name       = var.environment_name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
