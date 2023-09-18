@@ -15,6 +15,34 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # acl                           = "public-read"
+  enable_allow_block_pub_access = false
+
+  /*
+ * Allow a user (foobar) from another account (012345678901) to get objects from
+ * this bucket.
+*/
+
+  #   bucket_policy = <<EOF
+  # {
+  #   "Version": "2012-10-17",
+  #   "Statement": [
+  #     {
+  #       "Effect": "Allow",
+  #       "Principal": {
+  #         "AWS": "*"
+  #       },
+  #       "Action": [
+  #         "s3:GetObject"
+  #       ],
+  #       "Resource": [
+  #         "$${bucket_arn}/*"
+  #       ]
+  #     }
+  #   ]
+  # }
+  # EOF
+
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
@@ -117,33 +145,6 @@ module "s3_bucket" {
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
-
-  /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
- *
-
-   bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
-*/
 
   /*
  * Override the default policy for the generated machine user of this bucket.

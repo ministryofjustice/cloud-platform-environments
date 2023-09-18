@@ -22,6 +22,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_ALIAS-CHANGED",
       "OFFENDER_BOOKING-CHANGED",
       "OFFENDER_BOOKING-REASSIGNED",
+      "OFFENDER_CHARGES-UPDATED",
       "OFFENDER_DETAILS-CHANGED",
       "OFFENDER_IDENTIFIER-UPDATED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
