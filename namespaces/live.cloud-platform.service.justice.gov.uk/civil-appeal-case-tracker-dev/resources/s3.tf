@@ -15,33 +15,28 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  # acl                           = "public-read"
+  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
-  /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
-*/
-
-  #   bucket_policy = <<EOF
-  # {
-  #   "Version": "2012-10-17",
-  #   "Statement": [
-  #     {
-  #       "Effect": "Allow",
-  #       "Principal": {
-  #         "AWS": "*"
-  #       },
-  #       "Action": [
-  #         "s3:GetObject"
-  #       ],
-  #       "Resource": [
-  #         "$${bucket_arn}/*"
-  #       ]
-  #     }
-  #   ]
-  # }
-  # EOF
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "*"
+        },
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
 
   /*
 
