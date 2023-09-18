@@ -1,0 +1,31 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-education-and-work-plan-api-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-education-and-work-plan-preprod
+spec:
+  secretName:  hmpps-education-and-work-plan-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - plp-api-preprod.hmpps.service.justice.gov.uk
+    - learningandworkprogress-api-preprod.hmpps.service.justice.gov.uk
+    - learning-and-work-progress-api-preprod.hmpps.service.justice.gov.uk
+    - education-and-work-plan-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name:  hmpps-education-and-work-plan-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-education-and-work-plan-preprod
+spec:
+  secretName:  hmpps-education-and-work-plan-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    -  plp-preprod.hmpps.service.justice.gov.uk
+    -  learning-and-work-progress-preprod.hmpps.service.justice.gov.uk
+    -  education-and-work-plan-preprod.hmpps.service.justice.gov.uk

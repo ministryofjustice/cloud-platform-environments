@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-tempus-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-tempus-queue"
@@ -81,7 +81,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-tempus-queue-policy" {
 }
 
 module "claim-criminal-injuries-tempus-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-tempus-dead-letter-queue"
@@ -136,9 +136,9 @@ resource "kubernetes_secret" "claim-criminal-injuries-tempus-sqs" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-tempus-queue.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-tempus-queue.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-tempus-queue.sqs_name
+    sqs_id   = module.claim-criminal-injuries-tempus-queue.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-tempus-queue.sqs_arn
+    sqs_name = module.claim-criminal-injuries-tempus-queue.sqs_name
   }
 }
 
@@ -149,8 +149,8 @@ resource "kubernetes_secret" "claim-criminal-injuries-tempus-dlq" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-tempus-dlq.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-tempus-dlq.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-tempus-dlq.sqs_name
+    sqs_id   = module.claim-criminal-injuries-tempus-dlq.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-tempus-dlq.sqs_arn
+    sqs_name = module.claim-criminal-injuries-tempus-dlq.sqs_name
   }
 }

@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: strengths-based-needs.hmpps.service.justice.gov.uk
+  name: hmpps-strengths-based-needs
   namespace: hmpps-strengths-based-needs-assessments-prod
 spec:
   secretName: hmpps-strengths-based-needs-assessments-cert
@@ -15,7 +15,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: strengths-based-needs.hmpps.service.justice.gov.uk
+  name: hmpps-strengths-based-needs-api
   namespace: hmpps-strengths-based-needs-assessments-prod
 spec:
   secretName: hmpps-strengths-based-needs-assessments-api-cert

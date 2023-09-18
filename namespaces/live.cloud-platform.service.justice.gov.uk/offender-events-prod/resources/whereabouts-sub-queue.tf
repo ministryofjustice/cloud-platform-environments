@@ -1,5 +1,5 @@
 module "whereabouts_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "whereabouts_api_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "whereabouts_api_queue_policy" {
 }
 
 module "whereabouts_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "whereabouts_api_queue_dl"
@@ -81,11 +81,9 @@ resource "kubernetes_secret" "whereabouts_api_queue" {
   }
 
   data = {
-    access_key_id     = module.whereabouts_api_queue.access_key_id
-    secret_access_key = module.whereabouts_api_queue.secret_access_key
-    sqs_wb_url        = module.whereabouts_api_queue.sqs_id
-    sqs_wb_arn        = module.whereabouts_api_queue.sqs_arn
-    sqs_wb_name       = module.whereabouts_api_queue.sqs_name
+    sqs_wb_url  = module.whereabouts_api_queue.sqs_id
+    sqs_wb_arn  = module.whereabouts_api_queue.sqs_arn
+    sqs_wb_name = module.whereabouts_api_queue.sqs_name
   }
 }
 
@@ -96,11 +94,9 @@ resource "kubernetes_secret" "whereabouts_api_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.whereabouts_api_dead_letter_queue.access_key_id
-    secret_access_key = module.whereabouts_api_dead_letter_queue.secret_access_key
-    sqs_wb_url        = module.whereabouts_api_dead_letter_queue.sqs_id
-    sqs_wb_arn        = module.whereabouts_api_dead_letter_queue.sqs_arn
-    sqs_wb_name       = module.whereabouts_api_dead_letter_queue.sqs_name
+    sqs_wb_url  = module.whereabouts_api_dead_letter_queue.sqs_id
+    sqs_wb_arn  = module.whereabouts_api_dead_letter_queue.sqs_arn
+    sqs_wb_name = module.whereabouts_api_dead_letter_queue.sqs_name
   }
 }
 

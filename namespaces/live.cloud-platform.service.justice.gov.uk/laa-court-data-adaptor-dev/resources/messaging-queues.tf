@@ -1,5 +1,5 @@
 module "create_link_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "create-link-queue-m"
@@ -54,12 +54,11 @@ resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
 }
 
 module "create_link_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "create-link-queue-dl-m"
-  existing_user_name = module.create_link_queue_m.user_name
-  encrypt_sqs_kms    = var.encrypt_sqs_kms
+  sqs_name        = "create-link-queue-dl-m"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
   business_unit          = var.business_unit
@@ -76,11 +75,10 @@ module "create_link_queue_m_dead_letter_queue" {
 }
 
 module "unlink_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "unlink-queue-m"
-  existing_user_name         = module.create_link_queue_m.user_name
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   visibility_timeout_seconds = var.visibility_timeout_seconds
@@ -131,12 +129,11 @@ resource "aws_sqs_queue_policy" "unlink_queue_m_policy" {
 }
 
 module "unlink_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "unlink-queue-dl-m"
-  existing_user_name = module.create_link_queue_m.user_name
-  encrypt_sqs_kms    = var.encrypt_sqs_kms
+  sqs_name        = "unlink-queue-dl-m"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
   business_unit          = var.business_unit
@@ -153,11 +150,10 @@ module "unlink_queue_m_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "hearing-resulted-queue"
-  existing_user_name         = module.create_link_queue_m.user_name
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   visibility_timeout_seconds = var.visibility_timeout_seconds
@@ -183,11 +179,10 @@ module "hearing_resulted_queue" {
 }
 
 module "laa_status_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "laa-status-update-queue"
-  existing_user_name        = module.create_link_queue_m.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
 
@@ -237,12 +232,11 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
 }
 
 module "laa_status_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "laa-status-update-queue-dl"
-  existing_user_name = module.create_link_queue_m.user_name
-  encrypt_sqs_kms    = var.encrypt_sqs_kms
+  sqs_name        = "laa-status-update-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
   business_unit          = var.business_unit
@@ -284,12 +278,11 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name           = "hearing-resulted-queue-dl"
-  existing_user_name = module.create_link_queue_m.user_name
-  encrypt_sqs_kms    = var.encrypt_sqs_kms
+  sqs_name        = "hearing-resulted-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
   business_unit          = var.business_unit
@@ -306,11 +299,10 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "prosecution-concluded-queue"
-  existing_user_name         = module.create_link_queue_m.user_name
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
   delay_seconds              = 30
@@ -337,7 +329,7 @@ module "prosecution_concluded_queue" {
 }
 
 module "prosecution_concluded_dl_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "prosecution-concluded-queue-dl"
@@ -389,8 +381,6 @@ resource "kubernetes_secret" "create_link_queue_m" {
   }
 
   data = {
-    access_key_id                    = module.create_link_queue_m.access_key_id
-    secret_access_key                = module.create_link_queue_m.secret_access_key
     sqs_url_link                     = module.create_link_queue_m.sqs_id
     sqs_arn_link                     = module.create_link_queue_m.sqs_arn
     sqs_name_link                    = module.create_link_queue_m.sqs_name
@@ -431,7 +421,7 @@ resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
   }
 
   data = {
-    hearing_resulted_queue_irsa_policy_arn         = module.hearing_resulted_queue.irsa_policy_arn
-    prosecution_concluded_queue_irsa_policy_arn    = module.prosecution_concluded_queue.irsa_policy_arn
+    hearing_resulted_queue_irsa_policy_arn      = module.hearing_resulted_queue.irsa_policy_arn
+    prosecution_concluded_queue_irsa_policy_arn = module.prosecution_concluded_queue.irsa_policy_arn
   }
 }

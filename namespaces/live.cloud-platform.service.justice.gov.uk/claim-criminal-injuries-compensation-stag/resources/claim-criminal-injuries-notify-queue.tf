@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-notify-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-notify-queue"
@@ -82,7 +82,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
 
 
 module "claim-criminal-injuries-notify-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-notify-dead-letter-queue"
@@ -137,9 +137,9 @@ resource "kubernetes_secret" "claim-criminal-injuries-notify-sqs" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-notify-queue.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-notify-queue.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-notify-queue.sqs_name
+    sqs_id   = module.claim-criminal-injuries-notify-queue.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-notify-queue.sqs_arn
+    sqs_name = module.claim-criminal-injuries-notify-queue.sqs_name
   }
 }
 
@@ -150,8 +150,8 @@ resource "kubernetes_secret" "claim-criminal-injuries-notify-dlq" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-notify-dlq.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-notify-dlq.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-notify-dlq.sqs_name
+    sqs_id   = module.claim-criminal-injuries-notify-dlq.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-notify-dlq.sqs_arn
+    sqs_name = module.claim-criminal-injuries-notify-dlq.sqs_name
   }
 }

@@ -1,13 +1,22 @@
 module "formbuilder_product_page_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
   repo_name = "formbuilder-product-page"
-  team_name = "formbuilder"
-  oidc_providers = ["circleci"]
+
+  oidc_providers      = ["circleci"]
   github_repositories = ["formbuilder-product-page"]
-  namespace = var.namespace
+
   providers = {
     aws = aws.london
   }
+
+  # Tags
+  business_unit          = "Platforms"
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = "formbuilder" # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "formbuilder_product_page_ecr_credentials" {
@@ -17,10 +26,7 @@ resource "kubernetes_secret" "formbuilder_product_page_ecr_credentials" {
   }
 
   data = {
-    access_key        = module.formbuilder_product_page_ecr_credentials.access_key_id
-    secret_access_key = module.formbuilder_product_page_ecr_credentials.secret_access_key
-    repo_arn          = module.formbuilder_product_page_ecr_credentials.repo_arn
-    repo_url          = module.formbuilder_product_page_ecr_credentials.repo_url
+    repo_arn = module.formbuilder_product_page_ecr_credentials.repo_arn
+    repo_url = module.formbuilder_product_page_ecr_credentials.repo_url
   }
 }
-

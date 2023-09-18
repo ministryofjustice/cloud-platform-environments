@@ -1,13 +1,13 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -244,7 +244,7 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_prod"
@@ -272,7 +272,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq_prod"

@@ -9,7 +9,7 @@ module "ecr_credentials" {
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   # REQUIRED: Repository configuration
   team_name = var.team_name
@@ -21,6 +21,13 @@ module "ecr_credentials" {
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
@@ -30,9 +37,7 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.ecr_credentials.access_key_id
-    secret_access_key = module.ecr_credentials.secret_access_key
-    repo_arn          = module.ecr_credentials.repo_arn
-    repo_url          = module.ecr_credentials.repo_url
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
   }
 }

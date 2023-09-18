@@ -1,7 +1,7 @@
 module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace        = var.namespace
-  eks_cluster_name = var.eks_cluster_name
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace              = var.namespace
+  eks_cluster_name       = var.eks_cluster_name
   business_unit          = var.business_unit
   application            = var.application
   service_account_name   = "${var.namespace}-sa"
@@ -9,7 +9,7 @@ module "irsa" {
   environment_name       = var.environment
   team_name              = var.team_name
   infrastructure_support = var.infrastructure_support
-  role_policy_arns       = {s3 = aws_iam_policy.cjs_dashboard_prod_ap_policy.arn}
+  role_policy_arns       = { s3 = aws_iam_policy.cjs_dashboard_prod_ap_policy.arn }
 }
 data "aws_iam_policy_document" "cjs_dashboard_prod_ap_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
@@ -56,9 +56,9 @@ resource "kubernetes_secret" "irsa" {
 }
 
 resource "github_actions_secret" "irsa_service_account" {
-  repository       = "cjs_scorecard_exploratory_analysis"
-  secret_name      = "PROD_IRSA_SERVICE_ACCOUNT"
-  plaintext_value  = module.irsa.service_account.name
+  repository      = "cjs_scorecard_exploratory_analysis"
+  secret_name     = "PROD_IRSA_SERVICE_ACCOUNT"
+  plaintext_value = module.irsa.service_account.name
 }
 
 resource "random_id" "cjs-dashboard-prod-ap-id" {
@@ -87,10 +87,10 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    bucket_arn         = "arn:aws:s3:::mojap-cjs-dashboard"
-    bucket_name        = "mojap-cjs-dashboard"
-    user_arn           = aws_iam_user.cjs_dashboard_prod_ap_user.arn
-    access_key_id      = aws_iam_access_key.cjs_dashboard_prod_ap_user.id
-    secret_access_key  = aws_iam_access_key.cjs_dashboard_prod_ap_user.secret
+    bucket_arn        = "arn:aws:s3:::mojap-cjs-dashboard"
+    bucket_name       = "mojap-cjs-dashboard"
+    user_arn          = aws_iam_user.cjs_dashboard_prod_ap_user.arn
+    access_key_id     = aws_iam_access_key.cjs_dashboard_prod_ap_user.id
+    secret_access_key = aws_iam_access_key.cjs_dashboard_prod_ap_user.secret
   }
 }

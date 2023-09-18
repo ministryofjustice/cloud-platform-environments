@@ -1,5 +1,5 @@
 module "application-events-sns-topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
   topic_display_name = "datastore-application-events"
@@ -27,10 +27,8 @@ resource "kubernetes_secret" "application-events-sns-topic" {
   }
 
   data = {
-    access_key_id     = module.application-events-sns-topic.access_key_id
-    secret_access_key = module.application-events-sns-topic.secret_access_key
-    topic_name        = module.application-events-sns-topic.topic_name
-    topic_arn         = module.application-events-sns-topic.topic_arn
+    topic_name = module.application-events-sns-topic.topic_name
+    topic_arn  = module.application-events-sns-topic.topic_arn
   }
 }
 

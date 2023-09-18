@@ -1,5 +1,5 @@
 module "restricted_patients_queue_for_domain_events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "rp_queue_for_domain_events"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "restricted_patients_queue_for_domain_events_que
 }
 
 module "restricted_patients_queue_for_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "rp_queue_for_domain_events_dl"

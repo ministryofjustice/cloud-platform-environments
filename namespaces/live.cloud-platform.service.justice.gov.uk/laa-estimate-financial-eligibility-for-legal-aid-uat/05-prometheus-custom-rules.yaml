@@ -11,8 +11,9 @@ spec:
     - name: application-rules
       rules:
         - alert: CcqUat5xxIngressResponses
+          # We are explicitly not interested in 501s, as these are used when a client sends an unsupported HTTP verb, which is not an error state.
           expr: |-
-            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat",status=~"5.*"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat",status=~"5.*"} offset 2m) > 0
+            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat",status=~"500|502|503|504"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-estimate-financial-eligibility-for-legal-aid-uat",status=~"500|502|503|504"} offset 2m) > 0
           labels:
             severity: laa-estimate-eligibility-uat
           annotations:
