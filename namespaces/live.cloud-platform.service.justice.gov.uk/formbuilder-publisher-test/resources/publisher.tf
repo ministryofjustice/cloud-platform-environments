@@ -9,6 +9,7 @@ module "publisher-rds-instance" {
   namespace                   = var.namespace
   infrastructure_support      = var.infrastructure_support
   team_name                   = var.team_name
+  business_unit               = "transformed-department"
   db_engine_version           = "12"
   allow_major_version_upgrade = "true"
   rds_family                  = "postgres12"

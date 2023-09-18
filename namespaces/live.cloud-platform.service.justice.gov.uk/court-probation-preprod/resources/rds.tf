@@ -7,6 +7,7 @@ module "court_case_service_rds" {
   application                 = var.application
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
+  is_production               = var.is_production
   allow_major_version_upgrade = false
   db_engine_version           = "13"
   db_instance_class           = "db.t3.xlarge"

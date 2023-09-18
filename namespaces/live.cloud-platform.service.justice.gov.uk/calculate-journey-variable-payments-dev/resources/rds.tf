@@ -9,6 +9,7 @@ module "rds-instance" {
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
 
   enable_rds_auto_start_stop = true
 
