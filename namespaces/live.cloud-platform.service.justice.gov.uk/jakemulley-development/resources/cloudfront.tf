@@ -1,6 +1,26 @@
 module "s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
+     bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::012345678901:user/foobar"
+      },
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
