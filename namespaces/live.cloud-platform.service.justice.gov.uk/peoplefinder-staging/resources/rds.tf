@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -48,8 +48,6 @@ resource "kubernetes_secret" "peoplefinder_rds" {
     database_password     = module.peoplefinder_rds.database_password
     rds_instance_address  = module.peoplefinder_rds.rds_instance_address
 
-    access_key_id     = module.peoplefinder_rds.access_key_id
-    secret_access_key = module.peoplefinder_rds.secret_access_key
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }

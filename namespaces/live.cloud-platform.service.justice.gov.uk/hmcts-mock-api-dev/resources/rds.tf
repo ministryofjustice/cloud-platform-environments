@@ -1,5 +1,5 @@
 module "hmcts_mock_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = "laa-crime-apps-team"
@@ -26,8 +26,6 @@ resource "kubernetes_secret" "hmcts_mock_api_rds" {
   }
 
   data = {
-    access_key_id         = module.hmcts_mock_api_rds.access_key_id
-    secret_access_key     = module.hmcts_mock_api_rds.secret_access_key
     database_name         = module.hmcts_mock_api_rds.database_name
     database_username     = module.hmcts_mock_api_rds.database_username
     rds_instance_address  = module.hmcts_mock_api_rds.rds_instance_address

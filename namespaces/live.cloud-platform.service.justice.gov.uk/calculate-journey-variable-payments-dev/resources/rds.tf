@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name = var.vpc_name
 
@@ -45,8 +45,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    access_key_id     = module.rds-instance.access_key_id
-    secret_access_key = module.rds-instance.secret_access_key
     database_name     = module.rds-instance.database_name
     database_host     = module.rds-instance.rds_instance_address
     database_port     = module.rds-instance.rds_instance_port

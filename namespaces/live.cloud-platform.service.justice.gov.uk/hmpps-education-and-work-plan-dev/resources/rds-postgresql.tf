@@ -5,7 +5,7 @@
  *
  */
 module "hmpps_education_work_plan_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -41,7 +41,7 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -97,8 +97,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.hmpps_education_work_plan_rds.database_username
     database_password     = module.hmpps_education_work_plan_rds.database_password
     rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
-    access_key_id         = module.hmpps_education_work_plan_rds.access_key_id
-    secret_access_key     = module.hmpps_education_work_plan_rds.secret_access_key
   }
 }
 
@@ -119,8 +117,6 @@ resource "kubernetes_secret" "read_replica" {
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
   }
   */
 }
