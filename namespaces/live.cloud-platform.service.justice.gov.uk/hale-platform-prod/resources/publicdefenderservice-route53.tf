@@ -51,5 +51,5 @@ resource "aws_route53_record" "publicdefenderservice_route53_txt_dmarc" {
   name    = "_dmarc.publicdefenderservice.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1\;p=reject\;sp=reject\;rua=mailto:dmarc-rua@dmarc.service.gov.uk\;"]
+  records = ["\"v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;\""]
 }
