@@ -34,7 +34,6 @@ module "irsa" {
         "s3:ListBucket",
       ]
       resources = [
-        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f", # prod
         "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf", # staging
         "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f", # dev
         "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119", # demo
@@ -55,7 +54,6 @@ module "irsa" {
         "s3:PutObjectAcl"
       ]
       resources = [
-        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
         "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*", # staging
         "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*", # dev
         "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
