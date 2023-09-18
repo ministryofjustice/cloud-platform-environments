@@ -153,6 +153,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_uat" {
   data = {
     maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_uat.id
     maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_uat.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_uat.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_uat.client_secret
   }
 }
 
@@ -164,6 +166,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_stg" {
   data = {
     maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_stg.id
     maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_stg.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_stg.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_stg.client_secret
   }
 }
 
@@ -175,5 +179,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_prd" {
   data = {
     maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_prd.id
     maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_prd.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_prd.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_prd.client_secret
   }
 }
