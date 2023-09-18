@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -42,7 +42,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -99,7 +99,5 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
     db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
     replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
     replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
-    access_key_id     = module.cla_backend_rds_postgres_14.access_key_id
-    secret_access_key = module.cla_backend_rds_postgres_14.secret_access_key
   }
 }
