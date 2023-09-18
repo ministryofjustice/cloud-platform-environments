@@ -11,7 +11,24 @@ module "ecr_credentials" {
   github_repositories   = ["cjs_scorecard_exploratory_analysis"]
   oidc_providers        = ["github"]
   github_actions_prefix = "prod"
-
+  lifecycle_policy = <<EOF
+    {
+      "rules": [
+        {
+          "rulePriority": 1,
+          "description": "Keep the newest 150 images and mark the rest for expiration",
+          "selection": {
+            "tagStatus": "any",
+            "countType": "imageCountMoreThan",
+            "countNumber": 150
+          },
+          "action": {
+            "type": "expire"
+          }
+        }
+      ]
+    }
+    EOF
   # Tags
   business_unit          = var.business_unit
   application            = var.application
