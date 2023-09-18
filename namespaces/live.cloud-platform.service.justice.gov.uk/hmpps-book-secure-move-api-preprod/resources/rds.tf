@@ -1,21 +1,21 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
+  environment_name       = var.environment-name
+  is_production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
 
-  backup_window               = var.backup_window
-  maintenance_window          = var.maintenance_window
+  backup_window      = var.backup_window
+  maintenance_window = var.maintenance_window
 
   # this isn't possible with a read replica
-  enable_rds_auto_start_stop  = false
+  enable_rds_auto_start_stop = false
 
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.medium"
@@ -73,19 +73,19 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
   namespace              = var.namespace
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
 
-  db_allocated_storage   = 20
+  db_allocated_storage = 20
   db_instance_class    = "db.t4g.small"
 
   db_name             = null # "db_name": conflicts with replicate_source_db

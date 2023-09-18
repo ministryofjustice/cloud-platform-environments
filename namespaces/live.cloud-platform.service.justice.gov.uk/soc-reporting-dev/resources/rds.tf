@@ -1,10 +1,10 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business_unit
+  business_unit = var.business_unit
   application   = var.application
-  is-production = var.is_production
+  is_production = var.is_production
   namespace     = var.namespace
 
   # enable performance insights
@@ -12,11 +12,11 @@ module "rds" {
 
   # change the postgres version as you see fit.
   db_engine_version      = "14.8"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t4g.micro"
+  db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11

@@ -18,7 +18,7 @@ module "service-metadata-s3-bucket" {
 
 module "service-metadata-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  
+
   eks_cluster_name = var.eks_cluster_name
 
   service_account_name = "service-metadata-irsa-${var.environment-name}"
