@@ -1,4 +1,4 @@
-resource "pingdom_check" "laa-maat-orchestration-dev" {
+resource "pingdom_check" "laa-maat-orchestration-staging" {
   type                     = "http"
   name                     = "LAA Maat Orchestration - Staging"
   host                     = "laa-maat-orchestration-staging.apps.live.cloud-platform.service.justice.gov.uk"
