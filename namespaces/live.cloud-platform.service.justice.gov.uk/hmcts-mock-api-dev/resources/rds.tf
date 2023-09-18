@@ -1,15 +1,15 @@
 module "hmcts_mock_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
   team_name              = "laa-crime-apps-team"
-  business-unit          = "Crime Apps"
+  business_unit          = "Crime Apps"
   application            = "hmcts-common-platform-mock-api"
-  is-production          = "false"
+  is_production          = "false"
   namespace              = var.namespace
   db_engine_version      = "11"
-  environment-name       = "development"
-  infrastructure-support = "laa@digital.justice.gov.uk"
+  environment_name       = "development"
+  infrastructure_support = "laa@digital.justice.gov.uk"
   rds_family             = "postgres11"
 
   allow_major_version_upgrade = "true"

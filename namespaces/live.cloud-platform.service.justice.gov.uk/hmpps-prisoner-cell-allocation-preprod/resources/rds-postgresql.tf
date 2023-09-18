@@ -5,14 +5,14 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade    = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -26,10 +26,10 @@ module "rds" {
 
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }

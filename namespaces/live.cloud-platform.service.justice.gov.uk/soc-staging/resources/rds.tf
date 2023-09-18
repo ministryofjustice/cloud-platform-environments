@@ -6,14 +6,14 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
@@ -27,7 +27,7 @@ module "rds" {
   db_engine_version = "14.8"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t4g.micro"
+  db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
@@ -60,14 +60,16 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
 
   vpc_name               = var.vpc_name
-  application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica

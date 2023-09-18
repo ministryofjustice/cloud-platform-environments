@@ -3,14 +3,14 @@
 ############################################
 
 module "rds-instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
-  business-unit              = var.business_unit
+  business_unit              = var.business_unit
   application                = var.application
-  is-production              = var.is_production
-  environment-name           = var.environment_name
-  infrastructure-support     = var.infrastructure_support
+  is_production              = var.is_production
+  environment_name           = var.environment_name
+  infrastructure_support     = var.infrastructure_support
   namespace                  = var.namespace
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"

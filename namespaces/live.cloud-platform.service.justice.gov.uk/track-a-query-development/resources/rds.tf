@@ -4,12 +4,12 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
-  business-unit              = var.business_unit
+  business_unit              = var.business_unit
   application                = var.application
-  is-production              = var.is_production
+  is_production              = var.is_production
   namespace                  = var.namespace
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
@@ -17,8 +17,8 @@ module "track_a_query_rds" {
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_development"
-  environment-name           = var.environment
-  infrastructure-support     = var.infrastructure_support
+  environment_name           = var.environment
+  infrastructure_support     = var.infrastructure_support
   enable_rds_auto_start_stop = true
 
   rds_family = "postgres12"
