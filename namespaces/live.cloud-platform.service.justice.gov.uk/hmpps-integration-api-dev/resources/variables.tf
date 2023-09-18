@@ -53,6 +53,11 @@ variable "github_token" {
   default     = ""
 }
 
+variable "github_repo_name" {
+  description = "Main GitHub repository name"
+  default     = "hmpps-integration-api"
+}
+
 variable "base_domain" {
   default = "hmpps.service.justice.gov.uk"
 }

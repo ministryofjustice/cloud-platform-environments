@@ -6,6 +6,8 @@ locals {
     (module.cvl_domain_events_dead_letter_queue.sqs_name)                           = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.curious_queue.sqs_name)                                                 = module.curious_queue.irsa_policy_arn,
     (module.curious_dead_letter_queue.sqs_name)                                     = module.curious_dead_letter_queue.irsa_policy_arn,
+    (module.activities_domain_events_queue.sqs_name)                                = module.activities_domain_events_queue.irsa_policy_arn,
+    (module.activities_domain_events_dead_letter_queue.sqs_name)                    = module.activities_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_domain_event_logger_queue.sqs_name)                               = module.hmpps_domain_event_logger_queue.irsa_policy_arn,
     (module.hmpps_domain_event_logger_dead_letter_queue.sqs_name)                   = module.hmpps_domain_event_logger_dead_letter_queue.irsa_policy_arn,
     (module.keyworker_api_queue.sqs_name)                                           = module.keyworker_api_queue.irsa_policy_arn,

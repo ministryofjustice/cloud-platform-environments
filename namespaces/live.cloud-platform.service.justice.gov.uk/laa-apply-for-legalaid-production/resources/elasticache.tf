@@ -5,15 +5,15 @@
  *
  */
 module "apply-for-legal-aid-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = "apply-for-legal-aid"
-  business-unit          = "laa"
+  business_unit          = "laa"
   application            = "laa-apply-for-legal-aid"
-  is-production          = "true"
-  environment-name       = "production"
-  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  is_production          = "true"
+  environment_name       = "production"
+  infrastructure_support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   node_type              = "cache.t4g.medium"
   engine_version         = "6.x"
   parameter_group_name   = "default.redis6.x"

@@ -9,7 +9,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "cjs-data-dashboard"
     cloud-platform.justice.gov.uk/application: "CJS Dashboard"
-    cloud-platform.justice.gov.uk/owner: "Data Science Hub (CJS): jeremy.collins@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Data Science Hub (CJS): laura.knowles1@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/moj-analytical-services/cjs_scorecard_exploratory_analysis"
     cloud-platform.justice.gov.uk/team-name: "cjs-dashboard"
     cloud-platform.justice.gov.uk/review-after: ""

@@ -5,7 +5,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Visit Someone in Prison"
+  default     = "visit-someone-in-prison"
 }
 
 variable "namespace" {
@@ -25,6 +25,10 @@ variable "team_name" {
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {

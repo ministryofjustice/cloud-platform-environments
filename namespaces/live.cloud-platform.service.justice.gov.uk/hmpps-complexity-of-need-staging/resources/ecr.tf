@@ -1,8 +1,16 @@
 module "ecr-repo-complexity-of-need" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   team_name = var.team_name
   repo_name = "hmpps-complexity-of-need"
+
+  # Tags
+  business_unit          = "HMPPS"
+  application            = "hmpps-complexity-of-need"
+  is_production          = "false"
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = "manage-pom-cases@digital.justice.gov.uk"
 
   providers = {
     aws = aws.london
@@ -16,9 +24,6 @@ resource "kubernetes_secret" "ecr-repo-complexity-of-need" {
   }
 
   data = {
-    repo_url          = module.ecr-repo-complexity-of-need.repo_url
-    access_key_id     = module.ecr-repo-complexity-of-need.access_key_id
-    secret_access_key = module.ecr-repo-complexity-of-need.secret_access_key
+    repo_url = module.ecr-repo-complexity-of-need.repo_url
   }
 }
-

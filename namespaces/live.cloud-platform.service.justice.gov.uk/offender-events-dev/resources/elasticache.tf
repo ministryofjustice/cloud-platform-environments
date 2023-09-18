@@ -1,12 +1,12 @@
 module "offender_events_ui_elasticache_redis" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name                = var.vpc_name
   application             = var.application
-  environment-name        = var.environment-name
-  is-production           = var.is_production
-  infrastructure-support  = var.infrastructure_support
+  environment_name        = var.environment
+  is_production           = var.is_production
+  infrastructure_support  = var.infrastructure_support
   team_name               = var.team_name
-  business-unit           = var.business_unit
+  business_unit           = var.business_unit
   number_cache_clusters   = var.number-cache-clusters
   node_type               = "cache.t4g.micro"
   engine_version          = "7.0"
@@ -42,5 +42,3 @@ resource "aws_elasticache_parameter_group" "event_store" {
     value = "Ex"
   }
 }
-
-

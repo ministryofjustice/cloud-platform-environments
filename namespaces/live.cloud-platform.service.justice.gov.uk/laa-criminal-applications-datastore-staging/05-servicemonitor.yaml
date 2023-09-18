@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: metrics-service-monitor
+  namespace: laa-criminal-applications-datastore-staging
+spec:
+  selector:
+    matchLabels:
+      app: laa-criminal-applications-datastore-web-staging
+  endpoints:
+  - port: metrics
+    interval: 15s

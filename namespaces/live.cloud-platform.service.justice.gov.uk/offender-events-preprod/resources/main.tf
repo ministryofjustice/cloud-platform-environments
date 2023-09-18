@@ -19,6 +19,16 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+provider "aws" {
+  alias  = "probation-integration"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "probation-integration"
+    }
+  }
+}
+
 provider "random" {}
 
 provider "github" {
@@ -32,7 +42,7 @@ locals {
     application            = var.application
     is-production          = var.is_production
     owner                  = var.team_name
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }

@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-certificate
+  namespace: hmpps-dpr-fake-dps-service
+spec:
+  secretName: hmpps-dpr-fake-dps-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk

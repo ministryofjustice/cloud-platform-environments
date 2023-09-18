@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-platform-app-people-survey-prediction-tool-dev
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-application-migration-support"
+    cloud-platform.justice.gov.uk/application: "2. People Survey Prediction Tool"
+    cloud-platform.justice.gov.uk/owner: "people analytics: "
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/people-survey-prediction-tool"
+    cloud-platform.justice.gov.uk/team-name: "people-survey-prediction-tool-admin-team"
+    cloud-platform.justice.gov.uk/review-after: ""

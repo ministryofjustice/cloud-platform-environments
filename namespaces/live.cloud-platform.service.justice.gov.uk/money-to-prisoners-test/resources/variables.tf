@@ -29,3 +29,11 @@ variable "is_production" {
 variable "namespace" {
   default = "money-to-prisoners-test"
 }
+
+variable "github_owner" {
+  default = "ministryofjustice"
+}
+
+variable "github_token" {
+  default = ""
+}

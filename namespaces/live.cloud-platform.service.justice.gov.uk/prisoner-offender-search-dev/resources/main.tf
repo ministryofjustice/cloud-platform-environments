@@ -5,6 +5,12 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "syscon-devs"
+    }
+  }
 }
 
 # To be use in case the resources need to be created in London
@@ -17,5 +23,10 @@ provider "aws" {
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
+}
+
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
 }
 

@@ -7,7 +7,6 @@ resource "aws_cognito_user_pool" "pool" {
       priority = 1
     }
   }
-  
 }
 
 resource "aws_cognito_user_pool_client" "client" {

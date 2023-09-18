@@ -10,10 +10,9 @@ variable "namespace" {
   default = "prisoner-offender-search-prod"
 }
 
+variable "vpc_name" {}
 
-variable "vpc_name" {
-}
-
+variable "kubernetes_cluster" {}
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
@@ -25,7 +24,7 @@ variable "team_name" {
   default     = "dps"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
@@ -39,5 +38,17 @@ variable "is_production" {
   default = "true"
 }
 
-variable "eks_cluster_name" {
+variable "eks_cluster_name" {}
+
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
 }
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+

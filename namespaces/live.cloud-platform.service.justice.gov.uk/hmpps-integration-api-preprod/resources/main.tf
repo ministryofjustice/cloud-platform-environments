@@ -33,3 +33,8 @@ provider "aws" {
     tags = local.default_tags
   }
 }
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}
+

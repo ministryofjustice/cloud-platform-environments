@@ -1,13 +1,9 @@
 module "court-case-matcher-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
-  application            = "court-case-matcher"
-  sqs_name               = "court-case-matcher-queue"
-  encrypt_sqs_kms        = "true"
-  namespace              = var.namespace
+  # Queue configuration
+  sqs_name        = "court-case-matcher-queue"
+  encrypt_sqs_kms = "true"
 
   redrive_policy = <<EOF
   {
@@ -15,6 +11,14 @@ module "court-case-matcher-queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = "court-case-matcher"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -58,16 +62,21 @@ resource "aws_sns_topic_subscription" "court-case-matcher-topic-subscription" {
 }
 
 module "court-case-matcher-dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = "court-case-matcher"
+  # Queue configuration
   sqs_name                  = "court-case-matcher-dead-letter-queue"
   encrypt_sqs_kms           = "true"
-  namespace                 = var.namespace
   message_retention_seconds = 1209600
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = "court-case-matcher"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -81,12 +90,9 @@ resource "kubernetes_secret" "court-case-matcher-queue-secret" {
   }
 
   data = {
-    access_key_id     = module.court-case-matcher-queue.access_key_id
-    secret_access_key = module.court-case-matcher-queue.secret_access_key
-    sqs_id            = module.court-case-matcher-queue.sqs_id
-    sqs_arn           = module.court-case-matcher-queue.sqs_arn
-    user_name         = module.court-case-matcher-queue.user_name
-    sqs_name          = module.court-case-matcher-queue.sqs_name
+    sqs_id   = module.court-case-matcher-queue.sqs_id
+    sqs_arn  = module.court-case-matcher-queue.sqs_arn
+    sqs_name = module.court-case-matcher-queue.sqs_name
   }
 }
 
@@ -97,11 +103,8 @@ resource "kubernetes_secret" "court-case-matcher-dead-letter-queue-secret" {
   }
 
   data = {
-    access_key_id     = module.court-case-matcher-dead-letter-queue.access_key_id
-    secret_access_key = module.court-case-matcher-dead-letter-queue.secret_access_key
-    sqs_id            = module.court-case-matcher-dead-letter-queue.sqs_id
-    sqs_arn           = module.court-case-matcher-dead-letter-queue.sqs_arn
-    user_name         = module.court-case-matcher-dead-letter-queue.user_name
-    sqs_name          = module.court-case-matcher-dead-letter-queue.sqs_name
+    sqs_id   = module.court-case-matcher-dead-letter-queue.sqs_id
+    sqs_arn  = module.court-case-matcher-dead-letter-queue.sqs_arn
+    sqs_name = module.court-case-matcher-dead-letter-queue.sqs_name
   }
 }

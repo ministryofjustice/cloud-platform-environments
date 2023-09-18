@@ -5,14 +5,14 @@
  *
  */
 module "example_team_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   hash_key  = "example-hash"
@@ -26,9 +26,7 @@ resource "kubernetes_secret" "example_team_dynamodb" {
   }
 
   data = {
-    table_name        = module.example_team_dynamodb.table_name
-    table_arn         = module.example_team_dynamodb.table_arn
-    access_key_id     = module.example_team_dynamodb.access_key_id
-    secret_access_key = module.example_team_dynamodb.secret_access_key
+    table_name = module.example_team_dynamodb.table_name
+    table_arn  = module.example_team_dynamodb.table_arn
   }
 }

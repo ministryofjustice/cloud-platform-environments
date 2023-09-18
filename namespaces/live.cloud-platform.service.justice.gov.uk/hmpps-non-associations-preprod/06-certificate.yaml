@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-non-associations-preprod-cert
+  namespace: hmpps-non-associations-preprod
+spec:
+  secretName: hmpps-non-associations-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - non-associations-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-non-associations-api-preprod-cert
+  namespace: hmpps-non-associations-preprod
+spec:
+  secretName: hmpps-non-associations-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - non-associations-api-preprod.hmpps.service.justice.gov.uk

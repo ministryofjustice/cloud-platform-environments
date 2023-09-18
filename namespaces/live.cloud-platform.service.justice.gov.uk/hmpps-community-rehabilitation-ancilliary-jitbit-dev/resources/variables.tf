@@ -54,3 +54,7 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+# Added during introduction of IRSA capability (IAM roles for service accounts)
+variable "eks_cluster_name" {
+}

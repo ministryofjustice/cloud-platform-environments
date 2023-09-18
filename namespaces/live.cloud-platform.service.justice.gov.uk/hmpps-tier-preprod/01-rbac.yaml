@@ -5,10 +5,13 @@ metadata:
   namespace: hmpps-tier-preprod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:manage-a-workforce"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:manage-a-workforce"
+    name: "github:probation-integration"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -15,7 +15,7 @@ variable "infrastructure_support" {
 }
 
 variable "application" {
-  default = "HMPPS Book a secure move API"
+  default = "book-a-secure-move-api"
 }
 
 variable "namespace" {
@@ -42,3 +42,19 @@ variable "maintenance_window" {
 
 variable "vpc_name" {
 }
+variable "github_owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
+variable "github_token" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+

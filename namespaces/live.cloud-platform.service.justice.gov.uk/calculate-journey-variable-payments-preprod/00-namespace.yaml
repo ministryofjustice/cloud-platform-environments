@@ -7,8 +7,8 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "preprod"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "calculate-journey-payments"
+    cloud-platform.justice.gov.uk/slack-channel: "move-a-prisoner-digital"
     cloud-platform.justice.gov.uk/application: "Calculate Journey Variable Payments"
-    cloud-platform.justice.gov.uk/owner: "PECS: pecs-digital-tech@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "moveaprisoner@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/calculate-journey-variable-payments"
-    cloud-platform.justice.gov.uk/team-name: "calculate-journey-variable-payments"
+    cloud-platform.justice.gov.uk/team-name: "Move a Prisoner"

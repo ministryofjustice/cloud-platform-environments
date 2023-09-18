@@ -11,4 +11,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - make-recall-decision.hmpps.service.justice.gov.uk
+    - consider-a-recall.hmpps.service.justice.gov.uk
     - make-recall-decision-api.hmpps.service.justice.gov.uk

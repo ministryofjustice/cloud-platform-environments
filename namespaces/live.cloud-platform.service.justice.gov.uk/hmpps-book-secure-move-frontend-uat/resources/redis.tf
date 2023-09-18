@@ -1,14 +1,14 @@
 module "redis-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name = var.vpc_name
 
   application             = var.application
-  environment-name        = var.environment-name
-  is-production           = var.is_production
-  infrastructure-support  = var.infrastructure_support
+  environment_name        = var.environment-name
+  is_production           = var.is_production
+  infrastructure_support  = var.infrastructure_support
   team_name               = var.team_name
-  business-unit           = var.business_unit
+  business_unit           = var.business_unit
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
@@ -31,8 +31,6 @@ resource "kubernetes_secret" "redis-elasticache" {
   data = {
     primary_endpoint_address = module.redis-elasticache.primary_endpoint_address
     auth_token               = module.redis-elasticache.auth_token
-    access_key_id            = module.redis-elasticache.access_key_id
-    secret_access_key        = module.redis-elasticache.secret_access_key
     replication_group_id     = module.redis-elasticache.replication_group_id
   }
 }

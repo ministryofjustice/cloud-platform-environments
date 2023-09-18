@@ -3,13 +3,13 @@
 ################################################################################
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name               = var.vpc_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t4g.micro"
@@ -34,4 +34,3 @@ resource "kubernetes_secret" "elasticache_redis" {
     member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
   }
 }
-

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: iac-fees-justice-app-cert
+  namespace: iac-fees-staging
+spec:
+  secretName: iac-fees-justice-app-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - staging.iac-fees.justice.gov.uk

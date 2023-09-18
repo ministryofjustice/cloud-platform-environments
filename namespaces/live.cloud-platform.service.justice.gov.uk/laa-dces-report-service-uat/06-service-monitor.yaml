@@ -11,5 +11,5 @@ spec:
     matchNames:
       - laa-dces-report-service
   endpoints:
-    - port: metrics
+    - port: actuator
       interval: 15s

@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: activities-api-preprod
-spec:
-  hard:
-    pods: "50"

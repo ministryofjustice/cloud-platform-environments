@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "licences_ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.namespace}-landing/*",
-      "arn:aws:s3:::${var.namespace}-landing/"
+      "arn:aws:s3:::moj-reg-preprod/landing/licences-preprod/*",
+      "arn:aws:s3:::moj-reg-preprod/landing/licences-preprod/"
     ]
   }
 }
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://${var.namespace}-landing"
+    destination_bucket = "s3://moj-reg-preprod/landing/licences-preprod/"
     user_arn           = aws_iam_user.licences_ap_user.arn
     access_key_id      = aws_iam_access_key.licences_ap_user.id
     secret_access_key  = aws_iam_access_key.licences_ap_user.secret

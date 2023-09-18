@@ -1,5 +1,5 @@
 module "publisher-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
 
   vpc_name                    = var.vpc_name
   db_backup_retention_period  = var.db_backup_retention_period
@@ -38,15 +38,15 @@ resource "kubernetes_secret" "publisher-rds-instance" {
 ########################################################
 # Publisher Elasticache Redis (for resque + job logging)
 module "publisher-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   application            = "formbuilderpublisher"
-  environment-name       = var.environment-name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   node_type              = "cache.t4g.micro"
@@ -68,4 +68,3 @@ resource "kubernetes_secret" "publisher-elasticache" {
     auth_token               = module.publisher-elasticache.auth_token
   }
 }
-

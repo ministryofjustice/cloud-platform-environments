@@ -49,7 +49,7 @@ spec:
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="claim-criminal-injuries-compensation-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard"} > 0) > 90
       for: 5m
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree
@@ -64,13 +64,13 @@ spec:
         > 0
       for: 15m
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod
     - alert: cica--KubeletTooManyPods--prod
       expr: kubelet_running_pod_count{job="kubelet",namespace="claim-criminal-injuries-compensation-prod"}
         > 0 * 0.9
       for: 5m
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod
       annotations:
         message: Kubelet {{ $labels.instance }} is running {{ $value }} Pods, close to the
           limit of 1 Test.
@@ -83,7 +83,7 @@ spec:
         != kube_deployment_status_replicas_available{job="kube-state-metrics",namespace="claim-criminal-injuries-compensation-prod"}
       for: 1h
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod
     - alert: cica--Unexpected-Data-Retention--prod
       annotations:
         message: RDS {{ $labels.namespace }} has retained application data older than 30 minutes.
@@ -91,7 +91,7 @@ spec:
       expr: cleardown_check{namespace="claim-criminal-injuries-compensation-prod", job="applications_not_deleted"} > 0
       for: 1h
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod
     - alert: cica--Resubmission-failure--prod
       annotations:
         message: The resubmission cronjob on {{ $labels.namespace }} has not been able to resubmit applications.
@@ -99,4 +99,4 @@ spec:
       expr: resubmission_count{namespace="claim-criminal-injuries-compensation-prod", job="applications_resubmitted"} > 3
       for: 1h
       labels:
-        severity: cica-dev-team
+        severity: claim-criminal-injuries-compensation-prod

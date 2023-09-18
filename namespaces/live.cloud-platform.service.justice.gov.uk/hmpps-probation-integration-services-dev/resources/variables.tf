@@ -1,11 +1,6 @@
-
-
-variable "vpc_name" {
-}
-
-
-variable "kubernetes_cluster" {
-}
+variable "vpc_name" {}
+variable "kubernetes_cluster" {}
+variable "eks_cluster_name" {}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -93,8 +88,15 @@ variable "serviceaccount_rules" {
   default = [
     {
       api_groups = [""]
+      resources  = ["pods/log"]
+      verbs      = ["get"]
+    },
+    {
+      api_groups = [""]
       resources = [
         "pods/portforward",
+        "pods/exec",
+        "pods/attach",
         "deployment",
         "secrets",
         "services",

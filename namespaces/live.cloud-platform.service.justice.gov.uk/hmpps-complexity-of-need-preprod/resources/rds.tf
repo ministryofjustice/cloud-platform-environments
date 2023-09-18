@@ -1,9 +1,9 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business-unit = var.business_unit
-  application   = var.application
+  application   = "Complexity of Need microservice"
   is-production = var.is_production
   namespace     = var.namespace
 

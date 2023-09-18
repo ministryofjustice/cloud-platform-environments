@@ -54,3 +54,7 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "domain" {
+  default = "check-your-client-qualifies-for-legal-aid.service.gov.uk"
+}

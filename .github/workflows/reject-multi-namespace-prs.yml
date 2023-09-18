@@ -1,6 +1,7 @@
 on:
   pull_request:
-    types: [opened, edited, reopened]
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
 
 jobs:
   reject-multi-namespace-prs:
@@ -10,4 +11,3 @@ jobs:
       - uses: ministryofjustice/github-actions/reject-multi-namespace-prs@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

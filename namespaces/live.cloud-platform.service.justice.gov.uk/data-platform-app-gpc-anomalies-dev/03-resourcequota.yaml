@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: data-platform-app-gpc-anomalies-dev
+spec:
+  hard:
+    pods: "50"

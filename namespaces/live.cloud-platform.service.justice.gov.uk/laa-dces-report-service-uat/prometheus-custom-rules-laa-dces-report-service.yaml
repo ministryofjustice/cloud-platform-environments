@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-dces-report-service-uat
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laa-dces-report-service
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: Client Errors
+          expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-dces-report-service-uat"}[10m])) > 50
+          for: 1m
+          labels:
+            severity: laa-dces-report-service
+          annotations:
+            message: There have been over 50 client error responses in the DCES Report running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESReportService/laa-dces-report-service?orgId=1&refresh=30s&var-namespace=laa-dces-report-service-uat

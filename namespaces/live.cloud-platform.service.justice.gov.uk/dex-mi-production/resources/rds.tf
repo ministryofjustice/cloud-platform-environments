@@ -4,19 +4,21 @@
 #################################################################################
 
 module "dex_mi_production_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                   = var.vpc_name
-  team_name                  = "correspondence"
-  business-unit              = "Central Digital"
-  application                = "dex-mi-metabase"
-  is-production              = var.is_production
+  team_name                  = var.team_name
+  business_unit              = var.business_unit
+  application                = var.application
+  is_production              = var.is_production
   namespace                  = var.namespace
+  environment_name           = var.environment
+  infrastructure_support     = var.infrastructure_support
+  db_instance_class          = "db.t4g.small"
+  db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   db_engine_version          = "12"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
-  environment-name           = var.environment-name
-  infrastructure-support     = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -40,11 +42,6 @@ resource "kubernetes_secret" "dex_mi_production_rds" {
     database_username     = module.dex_mi_production_rds.database_username
     database_password     = module.dex_mi_production_rds.database_password
     rds_instance_address  = module.dex_mi_production_rds.rds_instance_address
-
-    access_key_id     = module.dex_mi_production_rds.access_key_id
-    secret_access_key = module.dex_mi_production_rds.secret_access_key
-
-    url = "postgres://${module.dex_mi_production_rds.database_username}:${module.dex_mi_production_rds.database_password}@${module.dex_mi_production_rds.rds_instance_endpoint}/${module.dex_mi_production_rds.database_name}"
+    url                   = "postgres://${module.dex_mi_production_rds.database_username}:${module.dex_mi_production_rds.database_password}@${module.dex_mi_production_rds.rds_instance_endpoint}/${module.dex_mi_production_rds.database_name}"
   }
 }
-

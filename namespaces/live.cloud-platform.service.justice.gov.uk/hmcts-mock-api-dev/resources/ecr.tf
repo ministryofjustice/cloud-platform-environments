@@ -5,11 +5,17 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.4"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
   repo_name = "hmcts-common-platform-mock-api"
   team_name = "laa-crime-apps-team"
 
-  # aws_region = "eu-west-2"     # This input is deprecated from version 3.2 of this module
+  # Tags
+  business_unit          = "Crime Apps"
+  application            = "hmcts-common-platform-mock-api"
+  is_production          = "false"
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = "development"
+  infrastructure_support = "laa@digital.justice.gov.uk"
 
   providers = {
     aws = aws.london
@@ -23,10 +29,7 @@ resource "kubernetes_secret" "laa_crime_apps_team_ecr_credentials" {
   }
 
   data = {
-    access_key_id     = module.laa_crime_apps_team_ecr_credentials.access_key_id
-    secret_access_key = module.laa_crime_apps_team_ecr_credentials.secret_access_key
-    repo_arn          = module.laa_crime_apps_team_ecr_credentials.repo_arn
-    repo_url          = module.laa_crime_apps_team_ecr_credentials.repo_url
+    repo_arn = module.laa_crime_apps_team_ecr_credentials.repo_arn
+    repo_url = module.laa_crime_apps_team_ecr_credentials.repo_url
   }
 }
-

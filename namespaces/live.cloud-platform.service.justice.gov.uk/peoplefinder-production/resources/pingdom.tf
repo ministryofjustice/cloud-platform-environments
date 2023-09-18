@@ -3,7 +3,7 @@ provider "pingdom" {}
 resource "pingdom_check" "peoplefinder-production-cloud-platform-healthcheck" {
   type                     = "http"
   name                     = "Peoplefinder - Production - cloud-platform - Healthcheck"
-  host                     = "peoplefinder.service.gov.uk"
+  host                     = var.domain
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 3

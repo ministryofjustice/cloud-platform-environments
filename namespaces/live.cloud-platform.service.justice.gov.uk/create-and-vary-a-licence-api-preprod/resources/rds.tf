@@ -1,5 +1,5 @@
 module "create_and_vary_a_licence_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business-unit               = var.business_unit
@@ -36,3 +36,18 @@ resource "kubernetes_secret" "create_and_vary_a_licence_api_rds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "create-and-vary-a-licence-api-prod"
+  }
+
+  data = {
+    database_name         = module.create_and_vary_a_licence_api_rds.database_name
+    database_username     = module.create_and_vary_a_licence_api_rds.database_username
+    database_password     = module.create_and_vary_a_licence_api_rds.database_password
+    rds_instance_address  = module.create_and_vary_a_licence_api_rds.rds_instance_address
+  }
+}

@@ -4,12 +4,12 @@ metadata:
   name: probation-search
   namespace: hmpps-probation-search-prod
 spec:
-  secretName: probation-search-cert
+  secretName: probation-search-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - probation-search-prod.hmpps.service.justice.gov.uk
+    - probation-search.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

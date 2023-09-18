@@ -6,13 +6,13 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   /*
@@ -21,10 +21,10 @@ module "s3_bucket" {
                     By default buckets are private, however to create a 'public' bucket add the following two variables when calling the module:
   */
 
- acl                           = "public-read"
- enable_allow_block_pub_access = false
+  acl                           = "public-read"
+  enable_allow_block_pub_access = false
 
- /*
+  /*
                     For more information granting public access to S3 buckets, please see AWS documentation:
                     https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
 
@@ -190,9 +190,7 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    access_key_id     = module.s3_bucket.access_key_id
-    secret_access_key = module.s3_bucket.secret_access_key
-    bucket_arn        = module.s3_bucket.bucket_arn
-    bucket_name       = module.s3_bucket.bucket_name
+    bucket_arn  = module.s3_bucket.bucket_arn
+    bucket_name = module.s3_bucket.bucket_name
   }
 }

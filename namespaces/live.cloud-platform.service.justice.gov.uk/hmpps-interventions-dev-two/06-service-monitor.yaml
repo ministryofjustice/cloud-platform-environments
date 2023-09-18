@@ -1,0 +1,32 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: hmpps-interventions-dev-two
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hmpps-interventions-service
+  namespace: hmpps-interventions-dev-two
+spec:
+  selector:
+    matchLabels:
+      app: hmpps-interventions-service
+  namespaceSelector:
+    matchNames:
+      - hmpps-interventions-dev-two
+  endpoints:
+    - port: http
+      path: /prometheus
+      interval: 15s

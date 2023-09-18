@@ -1,19 +1,19 @@
 module "lcdui_elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment-name
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
   namespace              = var.namespace
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
 
-  engine_version         = "6.x"
-  parameter_group_name   = "default.redis6.x"
-  number_cache_clusters  = "2"
-  node_type              = "cache.t2.micro"
+  engine_version        = "6.x"
+  parameter_group_name  = "default.redis6.x"
+  number_cache_clusters = "2"
+  node_type             = "cache.t2.micro"
 }
 
 resource "kubernetes_secret" "lcdui_elasticache" {
@@ -29,4 +29,3 @@ resource "kubernetes_secret" "lcdui_elasticache" {
     url                      = "rediss://dummyuser:${module.lcdui_elasticache.auth_token}@${module.lcdui_elasticache.primary_endpoint_address}:6379"
   }
 }
-

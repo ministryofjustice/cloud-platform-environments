@@ -3,7 +3,7 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   enable_rds_auto_start_stop = true
   vpc_name               = var.vpc_name
   namespace              = var.namespace
@@ -39,5 +39,3 @@ resource "kubernetes_secret" "make_recall_decision_api_rds" {
     password = module.make_recall_decision_api_rds.database_password
   }
 }
-
-

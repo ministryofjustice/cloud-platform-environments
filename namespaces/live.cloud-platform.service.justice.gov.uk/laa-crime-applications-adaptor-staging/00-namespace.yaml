@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crime-applications-adaptor-staging
   labels:
+    component: "laa-crime-applications-adaptor-staging"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
   annotations:

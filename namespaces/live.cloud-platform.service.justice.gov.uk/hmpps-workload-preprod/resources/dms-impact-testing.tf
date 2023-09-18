@@ -1,13 +1,13 @@
 module "hmpps-workload-impact-testing-dms" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=2.4.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=3.0.0"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   team_name              = var.team_name
 }
 
@@ -96,8 +96,6 @@ resource "kubernetes_secret" "dms_impact_testing_instance" {
 
   data = {
     replication_instance_arn = module.hmpps-workload-impact-testing-dms.replication_instance_arn
-    access_key_id            = module.hmpps-workload-impact-testing-dms.access_key_id
-    secret_access_key        = module.hmpps-workload-impact-testing-dms.secret_access_key
     source                   = aws_dms_endpoint.source-prod-db.endpoint_arn
     destination              = aws_dms_endpoint.target-preprod-db.endpoint_arn
     full_task                = aws_dms_replication_task.replication_impact_testing_full_task.replication_task_arn

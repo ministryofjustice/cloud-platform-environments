@@ -1,17 +1,18 @@
 module "application-events-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  sqs_name = "application-events-dlq"
-
+  # Queue configuration
+  sqs_name        = "application-events-dlq"
   encrypt_sqs_kms = true
 
-  team_name              = var.team_name
-  business-unit          = var.business_unit
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -25,9 +26,6 @@ resource "kubernetes_secret" "application-events-dlq" {
   }
 
   data = {
-    access_key_id     = module.application-events-dlq.access_key_id
-    secret_access_key = module.application-events-dlq.secret_access_key
-
     sqs_id   = module.application-events-dlq.sqs_id
     sqs_name = module.application-events-dlq.sqs_name
     sqs_arn  = module.application-events-dlq.sqs_arn

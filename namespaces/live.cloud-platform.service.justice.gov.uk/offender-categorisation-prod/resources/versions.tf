@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.64.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.23.0"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.20.0"
@@ -15,7 +19,7 @@ terraform {
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 2.3.1"
+      version = "~> 3.5.0"
     }
   }
 }

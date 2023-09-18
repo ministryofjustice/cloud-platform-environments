@@ -1,16 +1,10 @@
-
-
 module "hmpps_tier_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hmpps_tier_domain_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
   delay_seconds             = 2
   receive_wait_time_seconds = 20
 
@@ -21,6 +15,14 @@ module "hmpps_tier_domain_events_queue" {
 
 EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -57,15 +59,20 @@ EOF
 }
 
 module "hmpps_tier_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_tier_domain_events_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_tier_domain_events_dlq"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -81,8 +88,14 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
     eventType = [
       "enforcement.breach.raised",
       "enforcement.breach.concluded",
+      "enforcement.recall.raised",
+      "enforcement.recall.concluded",
       "person.risk.registration.added",
-      "person.risk.registration.ended"
+      "person.risk.registration.ended",
+      "probation-case.registration.added",
+      "probation-case.registration.updated",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered"
     ]
   })
 }
@@ -95,11 +108,9 @@ resource "kubernetes_secret" "hmpps_tier_domain_events_queue_secret" {
   }
 
   data = {
-    access_key_id     = module.hmpps_tier_domain_events_queue.access_key_id
-    secret_access_key = module.hmpps_tier_domain_events_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_domain_events_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_domain_events_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_domain_events_queue.sqs_name
+    sqs_queue_url  = module.hmpps_tier_domain_events_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_tier_domain_events_queue.sqs_arn
+    sqs_queue_name = module.hmpps_tier_domain_events_queue.sqs_name
   }
 }
 
@@ -110,11 +121,8 @@ resource "kubernetes_secret" "hmpps_tier_domain_events_queue_secret_dead_letter_
   }
 
   data = {
-    access_key_id     = module.hmpps_tier_domain_events_dead_letter_queue.access_key_id
-    secret_access_key = module.hmpps_tier_domain_events_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.hmpps_tier_domain_events_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_tier_domain_events_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_tier_domain_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_tier_domain_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_tier_domain_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_tier_domain_events_dead_letter_queue.sqs_name
   }
 }
-

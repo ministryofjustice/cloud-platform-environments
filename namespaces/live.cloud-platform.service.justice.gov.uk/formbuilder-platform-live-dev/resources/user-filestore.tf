@@ -2,16 +2,16 @@
 ##################################################
 # User Filestore S3
 module "user-filestore-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
 
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
-  business-unit          = "transformed-department"
+  business_unit          = "transformed-department"
   application            = "formbuilderuserfilestore"
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -85,6 +85,27 @@ EOF
   ]
 }
 
+module "user-filestore-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  eks_cluster_name = var.eks_cluster_name
+
+  service_account_name = "user-filestore-irsa-${var.environment-name}"
+  namespace            = var.namespace # this is also used as a tag
+
+  role_policy_arns = {
+    filestoreS3  = module.user-filestore-s3-bucket.irsa_policy_arn
+    jsonS3       = module.json-output-attachments-s3-bucket.irsa_policy_arn
+  }
+
+  team_name              = var.team_name
+  business_unit          = "transformed-department"
+  application            = "formbuilderuserfilestore"
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
+
 resource "kubernetes_secret" "user-filestore-s3-bucket" {
   metadata {
     name      = "s3-formbuilder-user-filestore-${var.environment-name}"
@@ -98,4 +119,3 @@ resource "kubernetes_secret" "user-filestore-s3-bucket" {
     secret_access_key = module.user-filestore-s3-bucket.secret_access_key
   }
 }
-

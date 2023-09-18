@@ -67,3 +67,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "app_repo" {
+  type        = string
+  description = "Name of application repository"
+  default     = "moj-intranet"
+}

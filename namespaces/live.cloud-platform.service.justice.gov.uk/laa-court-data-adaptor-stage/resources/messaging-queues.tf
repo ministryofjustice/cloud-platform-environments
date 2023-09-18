@@ -1,14 +1,10 @@
 module "create_link_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "create-link-queue"
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -16,8 +12,29 @@ module "create_link_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
+  metadata {
+    name      = "sqs-queue-irsa-policy-arn"
+    namespace = var.namespace
+  }
+
+  data = {
+    hearing_resulted_queue_irsa_policy_arn      = module.hearing_resulted_queue.irsa_policy_arn
+    prosecution_concluded_queue_irsa_policy_arn = module.prosecution_concluded_queue.irsa_policy_arn
   }
 }
 
@@ -36,11 +53,11 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "484221692666"
+            "arn:aws:iam::484221692666:role/LAA-maat-cd-api-staging-ECSTaskExecutionRole-1BWCMVUVV8HNU"
               ]
           },
           "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -49,16 +66,20 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 
 
 module "create_link_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "create-link-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "create-link-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -66,23 +87,27 @@ module "create_link_queue_dead_letter_queue" {
 }
 
 module "unlink_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "unlink-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.unlink_queue_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -103,11 +128,11 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "484221692666"
+            "arn:aws:iam::484221692666:role/LAA-maat-cd-api-staging-ECSTaskExecutionRole-1BWCMVUVV8HNU"
               ]
           },
           "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -115,16 +140,20 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
 }
 
 module "unlink_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "unlink-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "unlink-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -132,23 +161,27 @@ module "unlink_queue_dead_letter_queue" {
 }
 
 module "laa_status_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "laa-status-update-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.laa_status_update_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -169,11 +202,11 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "484221692666"
+            "arn:aws:iam::484221692666:role/LAA-maat-cd-api-staging-ECSTaskExecutionRole-1BWCMVUVV8HNU"
               ]
           },
           "Resource": "${module.laa_status_update_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -181,16 +214,20 @@ resource "aws_sqs_queue_policy" "laa_status_update_queue_policy" {
 }
 
 module "laa_status_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "laa-status-update-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "laa-status-update-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -198,23 +235,27 @@ module "laa_status_update_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hearing-resulted-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hearing_resulted_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -235,11 +276,11 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "484221692666"
+            "arn:aws:iam::484221692666:role/LAA-maat-cd-api-staging-ECSTaskExecutionRole-1BWCMVUVV8HNU"
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -247,16 +288,20 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hearing-resulted-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hearing-resulted-queue-dl"
-  existing_user_name     = module.create_link_queue.user_name
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -264,17 +309,12 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment_name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "prosecution-concluded-queue"
-  existing_user_name        = module.create_link_queue.user_name
   encrypt_sqs_kms           = var.encrypt_sqs_kms
   message_retention_seconds = var.message_retention_seconds
-  namespace                 = var.namespace
   delay_seconds             = "900"
 
   redrive_policy = <<EOF
@@ -283,21 +323,35 @@ module "prosecution_concluded_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
   }
 }
 
 module "prosecution_concluded_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment_name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "prosecution-concluded-queue-dl"
+  encrypt_sqs_kms = var.encrypt_sqs_kms
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "prosecution-concluded-queue-dl"
-  encrypt_sqs_kms        = var.encrypt_sqs_kms
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -318,11 +372,11 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "140455166311"
+            "arn:aws:iam::484221692666:role/LAA-maat-cd-api-staging-ECSTaskExecutionRole-1BWCMVUVV8HNU"
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:ReceiveMessage"
+          "Action": "sqs:*"
         }
       ]
   }
@@ -336,8 +390,6 @@ resource "kubernetes_secret" "create_link_queue" {
   }
 
   data = {
-    access_key_id                    = module.create_link_queue.access_key_id
-    secret_access_key                = module.create_link_queue.secret_access_key
     sqs_url_link                     = module.create_link_queue.sqs_id
     sqs_arn_link                     = module.create_link_queue.sqs_arn
     sqs_name_link                    = module.create_link_queue.sqs_name

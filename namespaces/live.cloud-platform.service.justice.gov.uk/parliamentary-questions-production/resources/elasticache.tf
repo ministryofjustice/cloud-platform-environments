@@ -4,14 +4,14 @@
 #################################################################################
 
 module "parliamentary_questions_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=6.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = "DEX uhura"
+  business_unit          = "DEX uhura"
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   node_type              = "cache.t4g.small"

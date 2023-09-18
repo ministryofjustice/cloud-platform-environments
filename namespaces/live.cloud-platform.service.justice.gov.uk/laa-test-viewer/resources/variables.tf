@@ -4,6 +4,10 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "laa-test-viewer"
@@ -106,5 +110,23 @@ variable "serviceaccount_rules" {
         "watch",
       ]
     },
+    {
+      api_groups = [
+        "batch"
+      ]
+      resources = [
+        "jobs",
+        "cronjobs"
+      ]
+      verbs = [
+        "get",
+        "list",
+        "watch",
+        "create",
+        "update",
+        "patch",
+        "delete"
+      ]
+    }
   ]
 }

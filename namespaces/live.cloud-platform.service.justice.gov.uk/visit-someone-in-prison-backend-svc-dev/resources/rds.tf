@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.18.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -16,7 +16,8 @@ module "visit_scheduler_rds" {
   allow_major_version_upgrade = "false"
   db_password_rotated_date    = "2023-03-22"
 
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop    = true
+  performance_insights_enabled  = true
 
   providers = {
     aws = aws.london

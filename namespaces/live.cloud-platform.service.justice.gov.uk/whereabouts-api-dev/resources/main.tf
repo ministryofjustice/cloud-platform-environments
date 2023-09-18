@@ -4,7 +4,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "eu-west-2"
 
   default_tags {
     tags = {
@@ -36,3 +36,8 @@ provider "aws" {
     }
   }
 }
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}
+

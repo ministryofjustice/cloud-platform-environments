@@ -45,7 +45,4 @@ spec:
           cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-staging
     - namespaceSelector:
         matchLabels:
-          cloud-platform.justice.gov.uk/namespace: check-financial-eligibility-uat
-    - namespaceSelector:
-        matchLabels:
-          cloud-platform.justice.gov.uk/namespace: check-financial-eligibility-staging
+          cloud-platform.justice.gov.uk/namespace: cfe-civil-uat

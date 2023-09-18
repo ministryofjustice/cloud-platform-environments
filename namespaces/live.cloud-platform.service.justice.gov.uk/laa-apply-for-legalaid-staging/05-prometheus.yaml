@@ -54,12 +54,19 @@ spec:
       annotations:
         message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
     - alert: DiskSpace-Threshold-Reached
-      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-staging"} / 1024 / 1024 > 150 or absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-staging"})
+      expr: container_fs_usage_bytes{namespace="laa-apply-for-legalaid-staging"} / 1024 / 1024 > 150
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
-        message: Container disk space usage is more than 150Mb or is not reported
+        message: Container disk space usage is more than 150Mb
+    - alert: DiskSpace-Threshold-NotReported
+      expr: absent(container_fs_usage_bytes{namespace="laa-apply-for-legalaid-staging"})
+      for: 3m
+      labels:
+        severity: apply-for-legal-aid-staging
+      annotations:
+        message: Container disk space usage is not reported
     - alert: Long-Request
       expr: ruby_http_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m
@@ -110,7 +117,7 @@ spec:
       annotations:
         message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: 429(too many requests) alert
-      expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-uat"}[300s])) * 300 > 5
+      expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 5
       labels:
         severity: apply-for-legal-aid-staging
       annotations:

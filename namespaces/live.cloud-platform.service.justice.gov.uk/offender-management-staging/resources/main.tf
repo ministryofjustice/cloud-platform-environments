@@ -20,3 +20,8 @@ provider "aws" {
 locals {
   dev_namespaces = toset([var.namespace, "offender-management-test", "offender-management-test2"])
 }
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}
+

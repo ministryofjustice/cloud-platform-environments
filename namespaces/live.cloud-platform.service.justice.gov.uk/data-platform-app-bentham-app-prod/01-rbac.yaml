@@ -1,0 +1,16 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: data-platform-app-bentham-app-prod-admin
+  namespace: data-platform-app-bentham-app-prod
+subjects:
+  - kind: Group
+    name: "github:bentham-app-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: github:analytics-hq
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

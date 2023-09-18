@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: send-legal-mail-prototype
-spec:
-  hard:
-    pods: "50"

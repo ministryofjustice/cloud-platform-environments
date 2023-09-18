@@ -10,7 +10,7 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
   }
 
   mutual_tls_authentication {
-    truststore_uri = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
+    truststore_uri     = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
     truststore_version = aws_s3_object.truststore.version_id
   }
 
@@ -125,6 +125,7 @@ resource "aws_api_gateway_deployment" "main" {
   triggers = {
     redeployment = sha1(jsonencode([
       # "manual-deploy-trigger",
+      local.clients,
       var.cloud_platform_integration_api_url,
       md5(file("api_gateway.tf"))
     ]))
@@ -142,7 +143,7 @@ resource "aws_api_gateway_deployment" "main" {
 
 resource "aws_api_gateway_api_key" "clients" {
   for_each = toset(local.clients)
-  name = each.key
+  name     = each.key
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -155,7 +156,7 @@ resource "aws_api_gateway_usage_plan" "default" {
 }
 
 resource "aws_api_gateway_usage_plan_key" "clients" {
-  for_each      = aws_api_gateway_api_key.clients
+  for_each = aws_api_gateway_api_key.clients
 
   key_id        = aws_api_gateway_api_key.clients[each.key].id
   key_type      = "API_KEY"
@@ -175,29 +176,29 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client" {
 }
 
 resource "aws_api_gateway_stage" "main" {
-  deployment_id = aws_api_gateway_deployment.main.id
-  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
-  stage_name    = var.namespace
+  deployment_id         = aws_api_gateway_deployment.main.id
+  rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
+  stage_name            = var.namespace
   client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format          = jsonencode({
-      "extendedRequestId" = "$context.extendedRequestId"
-      "ip" =  "$context.identity.sourceIp"
-      "client" = "$context.identity.clientCert.subjectDN"
-      "issuerDN" = "$context.identity.clientCert.issuerDN"
-      "requestTime" = "$context.requestTime"
-      "httpMethod" = "$context.httpMethod"
-      "resourcePath" = "$context.resourcePath"
-      "status" = "$context.status"
-      "responseLength" = "$context.responseLength"
-      "error" = "$context.error.message"
+    format = jsonencode({
+      "extendedRequestId"  = "$context.extendedRequestId"
+      "ip"                 = "$context.identity.sourceIp"
+      "client"             = "$context.identity.clientCert.subjectDN"
+      "issuerDN"           = "$context.identity.clientCert.issuerDN"
+      "requestTime"        = "$context.requestTime"
+      "httpMethod"         = "$context.httpMethod"
+      "resourcePath"       = "$context.resourcePath"
+      "status"             = "$context.status"
+      "responseLength"     = "$context.responseLength"
+      "error"              = "$context.error.message"
       "authenticateStatus" = "$context.authenticate.status"
-      "authenticateError" = "$context.authenticate.error"
-      "integrationStatus" = "$context.integration.status"
-      "integrationError" = "$context.integration.error"
-      "apiKeyId" = "$context.identity.apiKeyId"
+      "authenticateError"  = "$context.authenticate.error"
+      "integrationStatus"  = "$context.integration.status"
+      "integrationError"   = "$context.integration.error"
+      "apiKeyId"           = "$context.identity.apiKeyId"
     })
   }
 
