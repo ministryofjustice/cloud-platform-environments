@@ -203,11 +203,6 @@ variable "cognito_user_pool_hardship_client_name_tst" {
   default     = "hardship-client-tst"
 }
 
-variable "cognito_user_pool_hardship_client_name_tst" {
-  description = "Cognito user pool hardship client name"
-  default     = "hardship-client-tst"
-}
-
 variable "cognito_user_pool_hardship_client_name_uat" {
   description = "Cognito user pool hardship client name"
   default     = "hardship-client-uat"
