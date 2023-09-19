@@ -1,9 +1,26 @@
 ######################################## Prison visits event for visit someone in prison
 ######## hmpps-manage-prison-visits-orchestration service should listen to the configured queue (hmpps_prison_visits_event_queue)
-######## for the given events (filter_policy configured below)!
-
-
 ######## Main queue
+
+resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "incentives.iep-review.inserted",
+      "incentives.iep-review.updated",
+      "incentives.iep-review.deleted",
+      "prison-offender-events.prisoner.non-association-detail.changed",
+      "prison-offender-events.prisoner.person-restriction.changed",
+      "prison-offender-events.visitor.restriction.changed",
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.restriction.changed",
+    ]
+  })
+}
 
 module "hmpps_prison_visits_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
@@ -14,11 +31,10 @@ module "hmpps_prison_visits_event_queue" {
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-EOF
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
+    maxReceiveCount     = 3
+  })
 
   # Tags
   business_unit          = var.business_unit
@@ -26,7 +42,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -52,43 +68,13 @@ resource "aws_sqs_queue_policy" "hmpps_prison_visits_event_queue_policy" {
             {
               "ArnEquals":
               {
-                "aws:SourceArn": "${module.hmpps-domain-events.topic_arn}"
+                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
               }
             }
         }
       ]
   }
 EOF
-}
-
-resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
-  ## For metadata use - not _
-  metadata {
-    name = "sqs-prison-visits-event-secret"
-    ## Name space where the listening service is found
-    namespace = "visit-someone-in-prison-backend-svc-dev"
-  }
-
-  data = {
-    sqs_queue_url  = module.hmpps_prison_visits_event_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_prison_visits_event_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prison_visits_event_queue.sqs_name
-  }
-}
-
-resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
-  provider  = aws.london
-  topic_arn = module.hmpps-domain-events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "incentives.iep-review.inserted",
-      "incentives.iep-review.updated",
-      "incentives.iep-review.deleted",
-      "prison-offender-events.prisoner.non-association-detail.changed"
-    ]
-  })
 }
 
 ######## Dead letter queue
@@ -106,11 +92,28 @@ module "hmpps_prison_visits_event_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
+  }
+}
+
+########  Secrets
+
+resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
+  ## For metadata use - not _
+  metadata {
+    name = "sqs-prison-visits-event-secret"
+    ## Name space where the listening service is found
+    namespace = "visit-someone-in-prison-backend-svc-dev"
+  }
+
+  data = {
+    sqs_queue_url  = module.hmpps_prison_visits_event_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_event_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_event_queue.sqs_name
   }
 }
 
