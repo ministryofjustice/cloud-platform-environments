@@ -2,21 +2,17 @@
 # The value of each item should be the namespace where the SQS/SNS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_prison_visits_event_queue" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-hmpps_prison_visits_event_dlq" = "hmpps-domain-events-dev",
-  }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev",
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 
   all_policies = merge(
-    local.sqs_policies,
     {
-      hmpps_prisoner_search_index_queue             = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
-      hmpps_prisoner_search_index_dead_letter_queue = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_event_index_queue                           = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
+      hmpps_prison_visits_event_index_dead_letter_queue               = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_notification_alerts_index_queue             = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
+      hmpps_prison_visits_notification_alerts_index_dead_letter_queue = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
     },
     local.sns_policies)
 }
@@ -26,10 +22,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
-data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
-}
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
