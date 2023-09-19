@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout PR code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get changes and save to json
         id: get_changes
