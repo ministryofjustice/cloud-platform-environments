@@ -67,7 +67,7 @@ module "irsa" {
 
   # Policy allowing us to move objects between namespace buckets and external AWS accounts
   resource "aws_iam_policy" "s3_cross_bucket_policy" {
-    name   = "hale_platform_staging_s3_cross_bucket_policy"
+    name   = "hale-platform-staging-s3-cross-bucket-policy"
     policy = data.aws_iam_policy_document.s3_cross_bucket_policy.json
 
     tags = {
