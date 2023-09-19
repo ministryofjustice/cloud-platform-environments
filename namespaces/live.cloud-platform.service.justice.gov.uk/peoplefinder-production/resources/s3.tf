@@ -4,7 +4,7 @@
 #################################################################################
 
 module "peoplefinder_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -33,61 +33,6 @@ module "peoplefinder_s3" {
   providers = {
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}",
-      "arn:aws:s3:::peoplefinder-production-assets"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*",
-      "arn:aws:s3:::peoplefinder-production-assets/*"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ],
-    "Resource": [
-      "$${bucket_arn}",
-      "arn:aws:s3:::people-finder-production"
-    ]
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:*"
-    ],
-    "Resource": [
-      "$${bucket_arn}/*",
-      "arn:aws:s3:::people-finder-production/*"
-    ]
-  }
-]
-}
-EOF
-
 }
 
 resource "kubernetes_secret" "peoplefinder_s3" {
