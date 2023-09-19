@@ -105,7 +105,7 @@ module "hmpps_prison_visits_event_dead_letter_queue" {
 resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-prison-visits-event-secret"
+    name = "sqs-hmpps-prison-visits-event-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-dev"
   }
@@ -120,7 +120,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_event_queue" {
 resource "kubernetes_secret" "hmpps_prison_visits_event_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-prison-visits-event-dlq-secret"
+    name = "sqs-hmpps-prison-visits-event-dlq-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-dev"
   }
