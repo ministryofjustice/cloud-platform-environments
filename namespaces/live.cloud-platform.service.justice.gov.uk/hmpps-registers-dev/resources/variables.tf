@@ -1,3 +1,7 @@
+variable "court-application" {
+  default = "court-register"
+}
+
 variable "prison-application" {
   default = "prison-register"
 }
