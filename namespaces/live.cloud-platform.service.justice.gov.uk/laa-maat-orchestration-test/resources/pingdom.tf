@@ -9,7 +9,7 @@ resource "pingdom_check" "laa-maat-orchestration-test" {
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_laa-maat-orchestration,component_ping,isproduction_false,environment_dev,owner_laa-crime-apps-team"
+  tags                     = "businessunit_laa,application_laa-maat-orchestration,component_ping,isproduction_false,environment_test,owner_laa-crime-apps-team"
   probefilters             = "region:EU"
   integrationids           = [121160]
 }
