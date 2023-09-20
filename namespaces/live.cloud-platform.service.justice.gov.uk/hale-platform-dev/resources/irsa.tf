@@ -13,7 +13,7 @@ module "irsa" {
     # provide an output called `irsa_policy_arn` that can be used.
     role_policy_arns = {
       s3 = module.s3_bucket.irsa_policy_arn,
-      s3_lawcom = aws_iam_policy.tacticalproducts_lawcom_s3_policy.arn,
+      s3_cross_bucket_policy = aws_iam_policy.s3_cross_bucket_policy.arn,
       ecr = module.ecr_credentials.irsa_policy_arn,
       ecr2 = module.ecr_feed_parser.irsa_policy_arn
     }
@@ -27,38 +27,49 @@ module "irsa" {
     infrastructure_support = var.infrastructure_support
   }
 
-  data "aws_iam_policy_document" "tacticalproducts_lawcom_s3_policy" {
+  data "aws_iam_policy_document" "s3_cross_bucket_policy" {
     # Provide list of permissions and target AWS account resources to allow access to
     statement {
       actions = [
         "s3:ListBucket",
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:DeleteObject"
       ]
       resources = [
-        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q",
-     ]
+        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f", # prod
+        "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf", # staging
+        "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119", # demo
+        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q", #tacticalproducts legacy account
+        "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm", #tacticalproducts legacy account
+        "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir", #tacticalproducts legacy account
+        "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk", #tacticalproducts legacy account
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd" #tacticalproducts legacy account
+      ]
     }
     statement {
       actions = [
         "s3:ListBucket",
         "s3:GetObject",
         "s3:PutObject",
-        "s3:DeleteObject"
-
+        "s3:GetObjectAcl",
+        "s3:PutObjectAcl"
       ]
       resources = [
-        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q/*"
-      ]
+        "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
+        "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*", # staging
+        "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
+        "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q/*", #tacticalproducts legacy account
+        "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*", #tacticalproducts legacy account
+        "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*", #tacticalproducts legacy account
+        "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*", #tacticalproducts legacy account
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*" #tacticalproducts legacy account
+     ]
     }
   }
 
-  resource "aws_iam_policy" "tacticalproducts_lawcom_s3_policy" {
-    name   = "tacticalproducts_lawcom_s3_policy"
-    policy = data.aws_iam_policy_document.tacticalproducts_lawcom_s3_policy.json
+  resource "aws_iam_policy" "s3_cross_bucket_policy" {
+    name   = "hale-platform-dev-s3-cross-bucket-policy"
+    policy = data.aws_iam_policy_document.s3_cross_bucket_policy.json
 
-    tags = {
+    tags = { 
       business_unit          = var.business_unit
       application            = var.application
       is_production          = var.is_production
@@ -67,14 +78,4 @@ module "irsa" {
       infrastructure_support = var.infrastructure_support
       }
   }
-
-  resource "kubernetes_secret" "lawcom_aws_secret" {
-    metadata {
-    name      = "lawcom-prod-s3-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-      bucket_arn = "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q"
-    }
-  }
+  

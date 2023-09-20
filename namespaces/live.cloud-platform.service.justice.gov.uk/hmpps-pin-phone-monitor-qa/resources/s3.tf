@@ -1,5 +1,5 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -46,35 +46,39 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
       ]
     },
   ]
+}
 
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
+# The pathfinder app needs extra permissions, in addition to the default policy in the s3 module.
+data "aws_iam_policy_document" "pin_phone_s3_policy" {
+  statement {
+    sid    = "AllowBucketListActions"
+    effect = "Allow"
+    actions = [
       "s3:ListBucket"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
+    ]
+    resources = [module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn]
+  }
+
+  statement {
+    sid    = "AllowBucketActions"
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
+      "s3:GetObjectRetention",
       "s3:CopyObject",
       "s3:PutObject",
       "s3:PutObjectTagging",
       "s3:DeleteObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
+    ]
+    resources = ["${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"]
   }
-]
 }
-EOF
 
+resource "aws_iam_policy" "irsa_s3_policy" {
+  name   = "cloud-platform-s3-${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name}"
+  path   = "/cloud-platform/s3/"
+  policy = data.aws_iam_policy_document.pin_phone_s3_policy.json
+  tags   = local.default_tags
 }
 
 # This policy restricts object level access to the bucket to applications running within the VPC and known MoJ VPNs.
