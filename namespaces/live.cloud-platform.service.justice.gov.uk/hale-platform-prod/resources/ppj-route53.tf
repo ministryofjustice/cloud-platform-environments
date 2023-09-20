@@ -78,14 +78,6 @@ resource "aws_route53_record" "ppj_route53_cname_record_acm" {
   records = ["_a908c7c9414b858fb95d100bbbc536c9.acm-validations.aws"]
 }
 
-resource "aws_route53_record" "ppj_route53_cname_record_www" {
-  zone_id = aws_route53_zone.ppj_route53_zone.zone_id
-  name    = "www.prisonandprobationjobs.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["prisonandprobationjobs.gov.uk"]
-}
-
 resource "aws_route53_record" "ppj_route53_cname_record_acm2" {
   zone_id = aws_route53_zone.ppj_route53_zone.zone_id
   name    = "_beead804eed69980ba265b0ec54a91f0.www.prisonandprobationjobs.gov.uk"
