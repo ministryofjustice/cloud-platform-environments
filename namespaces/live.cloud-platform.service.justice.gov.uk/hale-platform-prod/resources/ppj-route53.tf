@@ -22,18 +22,6 @@ resource "kubernetes_secret" "ppj_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "ppj_route53_a_record" {
-  zone_id = aws_route53_zone.ppj_route53_zone.zone_id
-  name    = "prisonandprobationjobs.gov.uk"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.ppj-p-loadb-1v5g2cm5si0du-1234011937.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "ppj_route53_mx_record" {
   zone_id = aws_route53_zone.ppj_route53_zone.zone_id
   name    = "prisonandprobationjobs.gov.uk"
