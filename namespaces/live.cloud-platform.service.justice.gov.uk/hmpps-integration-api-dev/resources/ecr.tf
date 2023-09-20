@@ -5,6 +5,11 @@ module "ecr_credentials" {
   oidc_providers = ["circleci"]
   github_repositories = [var.github_repo_name]
   namespace = var.namespace
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  business_unit = var.business_unit
+  application = var.application
 
   providers = {
     aws = aws.london_without_default_tags
