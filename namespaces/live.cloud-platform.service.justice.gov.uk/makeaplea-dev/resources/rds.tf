@@ -6,18 +6,18 @@
  */
 
 module "dps_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
-  business-unit            = var.business_unit
+  business_unit            = var.business_unit
   application              = var.application
-  is-production            = var.is_production
+  is_production            = var.is_production
   namespace                = var.namespace
   db_engine_version        = "12.14"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
-  environment-name         = var.environment
-  infrastructure-support   = var.infrastructure_support
+  environment_name         = var.environment
+  infrastructure_support   = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -38,8 +38,6 @@ resource "kubernetes_secret" "dps_rds" {
     database_username     = module.dps_rds.database_username
     database_password     = module.dps_rds.database_password
     rds_instance_address  = module.dps_rds.rds_instance_address
-    access_key_id         = module.dps_rds.access_key_id
-    secret_access_key     = module.dps_rds.secret_access_key
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
@@ -60,18 +58,18 @@ resource "kubernetes_config_map" "rds" {
 }
 
 module "mgw_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
-  business-unit            = var.business_unit
+  business_unit            = var.business_unit
   application              = var.application
-  is-production            = var.is_production
+  is_production            = var.is_production
   namespace                = var.namespace
   db_engine_version        = "12.14"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
-  environment-name         = var.environment
-  infrastructure-support   = var.infrastructure_support
+  environment_name         = var.environment
+  infrastructure_support   = var.infrastructure_support
 
   rds_family = "postgres12"
 
@@ -92,8 +90,6 @@ resource "kubernetes_secret" "mgw_rds" {
     database_username     = module.mgw_rds.database_username
     database_password     = module.mgw_rds.database_password
     rds_instance_address  = module.mgw_rds.rds_instance_address
-    access_key_id         = module.mgw_rds.access_key_id
-    secret_access_key     = module.mgw_rds.secret_access_key
     url                   = "postgres://${module.mgw_rds.database_username}:${module.mgw_rds.database_password}@${module.mgw_rds.rds_instance_endpoint}/${module.mgw_rds.database_name}"
   }
 }

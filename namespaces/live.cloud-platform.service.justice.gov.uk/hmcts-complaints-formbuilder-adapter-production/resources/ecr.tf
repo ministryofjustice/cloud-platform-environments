@@ -1,9 +1,17 @@
 # HMCTS Complaints Adapter ECR Repos
 module "ecr-repo-hmcts-complaints-adapter" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   team_name = var.team_name
   repo_name = "hmcts-complaints-formbuilder-adapter"
+
+  # Tags
+  business_unit          = "Platforms"
+  application            = "hmcts-complaints-formbuilder-adapter"
+  is_production          = var.is_production
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr-repo-hmcts-complaints-adapter" {
@@ -13,9 +21,6 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-adapter" {
   }
 
   data = {
-    repo_url          = module.ecr-repo-hmcts-complaints-adapter.repo_url
-    access_key_id     = module.ecr-repo-hmcts-complaints-adapter.access_key_id
-    secret_access_key = module.ecr-repo-hmcts-complaints-adapter.secret_access_key
+    repo_url = module.ecr-repo-hmcts-complaints-adapter.repo_url
   }
 }
-

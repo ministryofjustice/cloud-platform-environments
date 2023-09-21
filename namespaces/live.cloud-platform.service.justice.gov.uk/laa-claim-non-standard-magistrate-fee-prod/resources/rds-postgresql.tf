@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -26,10 +26,10 @@ module "rds" {
 
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }
@@ -41,14 +41,16 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment
-  is-production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
+  namespace              = var.namespace
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
@@ -95,8 +97,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
 
     url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
@@ -125,8 +125,6 @@ resource "kubernetes_secret" "read_replica" {
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
   }
   */
 }

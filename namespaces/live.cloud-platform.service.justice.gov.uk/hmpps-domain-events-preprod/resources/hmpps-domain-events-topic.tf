@@ -1,9 +1,8 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=4.10.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
 
   # Configuration
-  topic_display_name       = "hmpps-domain-events"
-  additional_topic_clients = concat(["oasys"], var.additional_topic_clients)
+  topic_display_name = "hmpps-domain-events"
 
   # Tags
   business_unit          = var.business_unit
@@ -33,21 +32,5 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
     environment-name       = var.environment-name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
-  }
-}
-
-resource "aws_iam_access_key" "key_2023" {
-  user = module.hmpps-domain-events.user_name
-}
-
-resource "kubernetes_secret" "hmpps-domain-events-new-key" {
-  metadata {
-    name      = "hmpps-domain-events-new-key"
-    namespace = "hmpps-domain-events-preprod"
-  }
-
-  data = {
-    access_key_id     = aws_iam_access_key.key_2023.id
-    secret_access_key = aws_iam_access_key.key_2023.secret
   }
 }

@@ -36,7 +36,6 @@ variable "additional_topic_clients" {
     "hmpps-interventions-prod",
     "hmpps-manage-adjudications-api-prod",
     "hmpps-manage-offences-api-prod",
-    "hmpps-probation-integration-services-prod",
     "hmpps-registers-prod",
     "hmpps-tier-prod",
     "hmpps-workload-prod",

@@ -6,10 +6,10 @@ resource "aws_sns_topic_subscription" "domain_events" {
 }
 
 module "domain_events_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                  = "domain-events-sqs-queue"
+  sqs_name                  = "domain-events"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
 
@@ -61,10 +61,10 @@ EOF
 }
 
 module "domain_events_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "domain-events-sqs-dlq"
+  sqs_name        = "domain-events-dlq"
   encrypt_sqs_kms = "true"
 
   # Tags

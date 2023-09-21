@@ -1,15 +1,3 @@
-
-
-variable "vpc_name" {
-}
-variable "kubernetes_cluster" {
-}
-
-variable "application" {
-  description = "Name of Application you are deploying"
-  default     = "Complexity of Need microservice"
-}
-
 variable "namespace" {
   default = "hmpps-complexity-of-need-preprod"
 }
@@ -51,4 +39,26 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "application" {
+  type    = string
+  default = "hmpps-complexity-of-need"
+}
+
+/*
+ * When using this module through the cloud-platform-environments, the following
+ * variables are automatically supplied by the pipeline.
+ *
+ */
+variable "vpc_name" {
+  type = string
+}
+
+variable "eks_cluster_name" {
+  type = string
+}
+
+variable "kubernetes_cluster" {
+  type = string
 }

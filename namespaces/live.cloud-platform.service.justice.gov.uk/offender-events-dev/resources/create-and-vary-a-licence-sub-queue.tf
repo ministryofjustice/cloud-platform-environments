@@ -1,5 +1,5 @@
 module "cvl_prison_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "cvl_prison_events_queue"
@@ -27,7 +27,7 @@ module "cvl_prison_events_queue" {
 }
 
 module "cvl_probation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "cvl_probation_events_queue"
@@ -55,7 +55,7 @@ module "cvl_probation_events_queue" {
 }
 
 module "cvl_prison_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "cvl_prison_events_queue_dl"
@@ -76,7 +76,7 @@ module "cvl_prison_events_dead_letter_queue" {
 }
 
 module "cvl_probation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "cvl_probation_events_queue_dl"

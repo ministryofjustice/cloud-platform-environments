@@ -1,11 +1,11 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business_unit
+  business_unit = var.business_unit
   application   = var.application
-  is-production = var.is_production
+  is_production = var.is_production
   namespace     = var.namespace
 
   # enable performance insights
@@ -17,8 +17,8 @@ module "rds" {
   db_instance_class      = "db.t3.medium"
   db_allocated_storage   = 32
   rds_family             = "sqlserver-ex-15.0"
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
@@ -53,8 +53,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:

@@ -14,8 +14,8 @@ module "irsa-appservice" {
   role_policy_arns = {
     
     sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
- #   sqstempusqueue = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
- #   policy         = aws_iam_policy.app_service_S3_access_policy.arn
+    sqstempusqueue = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
+    policy         = aws_iam_policy.app_service_S3_access_policy.arn
     
   }
 
@@ -57,7 +57,7 @@ module "irsa-dcs" {
     
     sqsnotifyqueue = module.claim-criminal-injuries-notify-queue.irsa_policy_arn
     sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
-#    policy         = aws_iam_policy.dcs_S3_access_policy.arn
+    policy         = aws_iam_policy.dcs_S3_access_policy.arn
     
   }
 

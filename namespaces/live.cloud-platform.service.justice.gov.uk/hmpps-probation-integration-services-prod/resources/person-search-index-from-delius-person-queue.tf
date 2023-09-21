@@ -16,7 +16,7 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-person-qu
 }
 
 module "person-search-index-from-delius-person-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name = "person-search-index-from-delius-person-queue"
@@ -42,7 +42,7 @@ resource "aws_sqs_queue_policy" "person-search-index-from-delius-person-queue-po
 }
 
 module "person-search-index-from-delius-person-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "person-search-index-from-delius-person-dlq"

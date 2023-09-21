@@ -1,5 +1,5 @@
 module "makeaplea_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "makeaplea_queue"
@@ -50,7 +50,7 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
 
 
 module "makeaplea_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "makeaplea_queue_dl"
@@ -78,11 +78,9 @@ resource "kubernetes_secret" "makeaplea_queue" {
   }
 
   data = {
-    access_key_id     = module.makeaplea_queue.access_key_id
-    secret_access_key = module.makeaplea_queue.secret_access_key
-    sqs_id            = module.makeaplea_queue.sqs_id
-    sqs_arn           = module.makeaplea_queue.sqs_arn
-    sqs_name          = module.makeaplea_queue.sqs_name
+    sqs_id   = module.makeaplea_queue.sqs_id
+    sqs_arn  = module.makeaplea_queue.sqs_arn
+    sqs_name = module.makeaplea_queue.sqs_name
   }
 }
 
@@ -94,10 +92,8 @@ resource "kubernetes_secret" "makeaplea_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.makeaplea_dead_letter_queue.access_key_id
-    secret_access_key = module.makeaplea_dead_letter_queue.secret_access_key
-    sqs_id            = module.makeaplea_dead_letter_queue.sqs_id
-    sqs_arn           = module.makeaplea_dead_letter_queue.sqs_arn
-    sqs_name          = module.makeaplea_dead_letter_queue.sqs_name
+    sqs_id   = module.makeaplea_dead_letter_queue.sqs_id
+    sqs_arn  = module.makeaplea_dead_letter_queue.sqs_arn
+    sqs_name = module.makeaplea_dead_letter_queue.sqs_name
   }
 }

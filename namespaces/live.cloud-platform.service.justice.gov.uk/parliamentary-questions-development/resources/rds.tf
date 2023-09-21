@@ -3,15 +3,16 @@
 #############################################
 
 module "rds_instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   application                = var.application
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   db_backup_retention_period = var.db_backup_retention_period
-  environment-name           = var.environment-name
-  infrastructure-support     = var.infrastructure_support
-  is-production              = var.is_production
+  environment_name           = var.environment-name
+  infrastructure_support     = var.infrastructure_support
+  is_production              = var.is_production
   namespace                  = var.namespace
+  business_unit              = var.business_unit
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
@@ -34,7 +35,5 @@ resource "kubernetes_secret" "rds_instance" {
     rds_instance_address  = module.rds_instance.rds_instance_address
     rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
     url                   = "postgres://${module.rds_instance.database_username}:${module.rds_instance.database_password}@${module.rds_instance.rds_instance_endpoint}/${module.rds_instance.database_name}"
-    access_key_id         = module.rds_instance.access_key_id
-    secret_access_key     = module.rds_instance.secret_access_key
   }
 }

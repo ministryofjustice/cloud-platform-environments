@@ -1,5 +1,5 @@
 module "update_application_status_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "update-application-status-queue-m"
@@ -50,7 +50,7 @@ resource "aws_sqs_queue_policy" "update_application_status_queue_m_policy" {
 }
 
 module "update_application_status_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "update-application-status-queue-dl-m"
@@ -77,8 +77,6 @@ resource "kubernetes_secret" "update_application_status_queue_m" {
   }
 
   data = {
-    access_key_id                        = module.update_application_status_queue_m.access_key_id
-    secret_access_key                    = module.update_application_status_queue_m.secret_access_key
     sqs_url_update_application_status    = module.update_application_status_queue_m.sqs_id
     sqs_arn_update_application_status    = module.update_application_status_queue_m.sqs_arn
     sqs_name_update_application_status   = module.update_application_status_queue_m.sqs_name

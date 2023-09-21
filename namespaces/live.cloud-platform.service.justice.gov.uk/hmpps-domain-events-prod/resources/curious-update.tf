@@ -1,6 +1,6 @@
 
 module "curious_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "curious_hmpps_queue"
@@ -58,7 +58,7 @@ EOF
 }
 
 module "curious_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "curious_hmpps_dlq"
@@ -78,39 +78,6 @@ module "curious_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "curious_queue" {
-  metadata {
-    name = "sqs-curious-secret"
-    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.curious_queue.access_key_id
-    secret_access_key = module.curious_queue.secret_access_key
-    sqs_queue_url     = module.curious_queue.sqs_id
-    sqs_queue_arn     = module.curious_queue.sqs_arn
-    sqs_queue_name    = module.curious_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "curious_dlq" {
-  metadata {
-    name = "sqs-curious-dl-secret"
-    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = module.curious_dead_letter_queue.access_key_id
-    secret_access_key = module.curious_dead_letter_queue.secret_access_key
-    sqs_queue_url     = module.curious_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.curious_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.curious_dead_letter_queue.sqs_name
-  }
-}
-
-
 resource "aws_sns_topic_subscription" "curious_subscription" {
   provider      = aws.london
   topic_arn     = module.hmpps-domain-events.topic_arn
@@ -119,42 +86,40 @@ resource "aws_sns_topic_subscription" "curious_subscription" {
   filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.received\"]}"
 }
 
-resource "aws_iam_access_key" "curious_queue_key_2023" {
-  user = module.curious_queue.user_name
+resource "aws_iam_user" "user" {
+  name = "curious-queue-user-prod"
+  path = "/system/curious-queue-user/"
 }
 
-resource "aws_iam_access_key" "curious_dlq_key_2023" {
-  user = module.curious_dead_letter_queue.user_name
+resource "aws_iam_access_key" "curious_queue_key_2023_september" {
+  user = aws_iam_user.user.name
 }
 
-resource "kubernetes_secret" "curious_queue_2023" {
+resource "aws_iam_user_policy_attachment" "policy" {
+  policy_arn = module.curious_queue.irsa_policy_arn
+  user       = aws_iam_user.user.name
+}
+
+resource "aws_iam_user_policy_attachment" "dlq-policy" {
+  policy_arn = module.curious_dead_letter_queue.irsa_policy_arn
+  user       = aws_iam_user.user.name
+}
+
+resource "kubernetes_secret" "curious_queue_2023_september" {
   metadata {
     # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
-    name      = "sqs-curious-secret-2023"
+    name      = "sqs-curious-secret-2023-september"
     namespace = var.namespace
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.curious_queue_key_2023.id
-    secret_access_key = aws_iam_access_key.curious_queue_key_2023.secret
-    sqs_queue_url     = module.curious_queue.sqs_id
-    sqs_queue_arn     = module.curious_queue.sqs_arn
-    sqs_queue_name    = module.curious_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "curious_dlq_2023" {
-  metadata {
-    # injected here and then sent manually over to MegaNexus - an external supplier of the consuming service
-    name      = "sqs-curious-dl-secret-2023"
-    namespace = var.namespace
-  }
-
-  data = {
-    access_key_id     = aws_iam_access_key.curious_dlq_key_2023.id
-    secret_access_key = aws_iam_access_key.curious_dlq_key_2023.secret
-    sqs_queue_url     = module.curious_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.curious_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.curious_dead_letter_queue.sqs_name
+    access_key_id      = aws_iam_access_key.curious_queue_key_2023_september.id
+    secret_access_key  = aws_iam_access_key.curious_queue_key_2023_september.secret
+    sqs_queue_url      = module.curious_queue.sqs_id
+    sqs_queue_arn      = module.curious_queue.sqs_arn
+    sqs_queue_name     = module.curious_queue.sqs_name
+    sqs_dlq_queue_url  = module.curious_dead_letter_queue.sqs_id
+    sqs_dlq_queue_arn  = module.curious_dead_letter_queue.sqs_arn
+    sqs_dlq_queue_name = module.curious_dead_letter_queue.sqs_name
   }
 }

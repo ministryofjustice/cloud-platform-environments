@@ -1,10 +1,10 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
-  business-unit = var.business_unit
+  business_unit = var.business_unit
   application   = var.application
-  is-production = var.is_production
+  is_production = var.is_production
   namespace     = var.namespace
 
   # turn off performance insights
@@ -12,8 +12,8 @@ module "rds" {
 
   # general options
   db_instance_class           = "db.t4g.small"
-  environment-name            = var.environment
-  infrastructure-support      = var.infrastructure_support
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
 
   # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
@@ -55,8 +55,6 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
   }
 }
 
