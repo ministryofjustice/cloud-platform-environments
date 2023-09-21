@@ -13,9 +13,6 @@ module "hmpps_redis" {
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "hmpps_redis" {
