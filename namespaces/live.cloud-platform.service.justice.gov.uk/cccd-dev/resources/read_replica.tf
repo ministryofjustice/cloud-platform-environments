@@ -1,8 +1,3 @@
-
-# To create a read replica, use the below code and update the values to specify the RDS instance
-# from which you are replicating. In this example, we're assuming that rds is the
-# source RDS instance and read-replica is the replica we are creating.
-
 module "read_replica" {
   # default off as in count = 0
   count  = 1
@@ -31,7 +26,7 @@ module "read_replica" {
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   # It is mandatory to set the below values to create read replica instance
 
- # Set the database_name of the source db
+  # Set the database_name of the source db
   db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
@@ -44,8 +39,7 @@ module "read_replica" {
 }
 
 resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -53,11 +47,11 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-  # data = {
-  #   rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-  #   rds_instance_address  = module.read_replica.rds_instance_address
-  #   access_key_id         = module.read_replica.access_key_id
-  #   secret_access_key     = module.read_replica.secret_access_key
-  # }
+  # Uncomment if count > 0 as in on. if count < 0 then it's off
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
+    access_key_id         = module.read_replica.access_key_id
+    secret_access_key     = module.read_replica.secret_access_key
+  }
 }
