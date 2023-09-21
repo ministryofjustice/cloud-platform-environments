@@ -5,7 +5,7 @@ module "read_replica" {
 
   vpc_name               = var.vpc_name
   application            = var.application
-  environment-name       = var.environment_name
+  environment_name       = var.environment-name
   is_production          = var.is_production
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
