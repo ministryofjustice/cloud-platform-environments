@@ -27,6 +27,7 @@ module "serviceaccount-github" {
   github_repositories = ["laa-nolasa"]
 
   serviceaccount_name = "github-actions"
+  github_environments = ["development"]
 
   role_name = "serviceaccount-role-github"
   rolebinding_name = "serviceaccount-rolebinding-github"
