@@ -6,7 +6,7 @@
 module "read_replica" {
   # default off as in count = 0
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
