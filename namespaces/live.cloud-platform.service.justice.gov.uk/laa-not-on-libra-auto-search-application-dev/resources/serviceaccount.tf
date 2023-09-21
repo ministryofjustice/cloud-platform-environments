@@ -28,4 +28,7 @@ module "serviceaccount-github" {
 
   serviceaccount_name = "github-actions"
 
+  role_name = "serviceaccount-role-github"
+  rolebinding_name = "serviceaccount-rolebinding-github"
+
 }
