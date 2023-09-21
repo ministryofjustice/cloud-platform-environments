@@ -102,3 +102,12 @@ spec:
       for: 1h
       labels:
         severity: cica-dev-team
+    - alert: SecretsManagerPutSecretValue
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-claim-criminal-injuries-compensation-dev-d5cf0444eca8186f-2ejXAY"} > 0
+      for: 1m
+      labels:
+        severity: cica-dev-team
+      annotations:
+        message: |
+          {{ $labels.secret_id }} has been modified, the value of "{{ $value }}" has been updated or changed.
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook

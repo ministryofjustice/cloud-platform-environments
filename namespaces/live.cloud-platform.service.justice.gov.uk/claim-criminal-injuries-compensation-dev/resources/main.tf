@@ -40,8 +40,6 @@ provider "aws" {
 
 provider "kubernetes" {}
 
-provider "random" {}
-
 provider "helm" {
   kubernetes {
   }
