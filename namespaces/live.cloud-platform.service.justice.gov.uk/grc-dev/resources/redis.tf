@@ -21,7 +21,7 @@ module "redis" {
 
 resource "kubernetes_secret" "redis_secrets" {
   metadata {
-    name      = "example-team-ec-cluster-output"
+    name      = "elasticache-grc-dev"
     namespace = var.namespace
   }
 
