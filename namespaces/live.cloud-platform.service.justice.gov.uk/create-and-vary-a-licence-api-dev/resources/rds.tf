@@ -1,5 +1,5 @@
 module "create_and_vary_a_licence_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.20.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -31,7 +31,5 @@ resource "kubernetes_secret" "create_and_vary_a_licence_api_rds" {
     database_username     = module.create_and_vary_a_licence_api_rds.database_username
     database_password     = module.create_and_vary_a_licence_api_rds.database_password
     rds_instance_address  = module.create_and_vary_a_licence_api_rds.rds_instance_address
-    access_key_id         = module.create_and_vary_a_licence_api_rds.access_key_id
-    secret_access_key     = module.create_and_vary_a_licence_api_rds.secret_access_key
   }
 }

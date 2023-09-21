@@ -1,5 +1,5 @@
 module "service-metadata-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
 
   team_name              = var.team_name
   acl                    = "private"
@@ -14,46 +14,6 @@ module "service-metadata-s3-bucket" {
   providers = {
     aws = aws.london
   }
-
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
-      "s3:ListBucketMultipartUploads",
-      "s3:ListBucketVersions"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:AbortMultipartUpload",
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:GetObjectTagging",
-      "s3:GetObjectVersion",
-      "s3:GetObjectVersionAcl",
-      "s3:GetObjectVersionTagging",
-      "s3:ListMultipartUploadParts",
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:PutObjectTagging",
-      "s3:PutObjectVersionAcl",
-      "s3:PutObjectVersionTagging",
-      "s3:RestoreObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
-}
-EOF
 }
 
 module "service-metadata-irsa" {
@@ -65,7 +25,7 @@ module "service-metadata-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3  = module.service-metadata-s3-bucket.irsa_policy_arn
+    s3 = module.service-metadata-s3-bucket.irsa_policy_arn
   }
 
   # Tags
@@ -85,10 +45,8 @@ resource "kubernetes_secret" "service-metadata-s3-bucket" {
   }
 
   data = {
-    access_key_id     = module.service-metadata-s3-bucket.access_key_id
-    bucket_arn        = module.service-metadata-s3-bucket.bucket_arn
-    bucket_name       = module.service-metadata-s3-bucket.bucket_name
-    secret_access_key = module.service-metadata-s3-bucket.secret_access_key
+    bucket_arn  = module.service-metadata-s3-bucket.bucket_arn
+    bucket_name = module.service-metadata-s3-bucket.bucket_name
   }
 }
 

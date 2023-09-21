@@ -27,7 +27,7 @@ module "hmpps_prison_visits_notification_alerts_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
-    maxReceiveCount = 3
+    maxReceiveCount     = 3
   })
 
   # Tags
@@ -105,9 +105,9 @@ resource "kubernetes_secret" "hmpps_prison_visits_notification_alerts_queue" {
   }
 
   data = {
-    sqs_queue_url     = module.hmpps_prison_visits_notification_alerts_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prison_visits_notification_alerts_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prison_visits_notification_alerts_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_notification_alerts_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_notification_alerts_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_notification_alerts_queue.sqs_name
   }
 }
 
@@ -120,12 +120,8 @@ resource "kubernetes_secret" "hmpps_prison_visits_notification_alerts_dead_lette
   }
 
   data = {
-    sqs_queue_url     = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_name
   }
-}
-
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-dev/topic-arn"
 }
