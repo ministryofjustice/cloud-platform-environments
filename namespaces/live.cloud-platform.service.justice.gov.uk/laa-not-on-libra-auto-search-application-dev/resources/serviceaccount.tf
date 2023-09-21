@@ -25,6 +25,7 @@ module "serviceaccount-github" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-nolasa"]
+  github_environments = ["development"]
 
   serviceaccount_name = "github-actions"
 
