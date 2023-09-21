@@ -1,7 +1,3 @@
-variable "domain_court_register" {
-  default = "court-register.hmpps.service.justice.gov.uk"
-}
-
 variable "domain_prison_register" {
   default = "prison-register.hmpps.service.justice.gov.uk"
 }
