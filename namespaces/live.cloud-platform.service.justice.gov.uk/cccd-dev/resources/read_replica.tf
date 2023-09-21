@@ -19,7 +19,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "13"
   rds_family        = "postgres13"
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.micro"
   db_allocated_storage = "80"
   db_max_allocated_storage = "550"
   allow_major_version_upgrade = "true"
