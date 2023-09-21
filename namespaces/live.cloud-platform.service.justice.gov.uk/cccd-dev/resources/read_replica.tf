@@ -7,9 +7,9 @@ module "read_replica" {
   application            = var.application
   environment_name       = var.environment_name
   is_production          = var.is_production
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   namespace              = var.namespace
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
