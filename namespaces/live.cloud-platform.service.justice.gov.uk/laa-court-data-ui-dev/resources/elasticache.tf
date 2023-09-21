@@ -13,7 +13,7 @@ module "lcdui_elasticache" {
   engine_version        = "6.x"
   parameter_group_name  = "default.redis6.x"
   number_cache_clusters = "2"
-  node_type             = "cache.t2.micro"
+  node_type             = "cache.t4g.micro"
 }
 
 resource "kubernetes_secret" "lcdui_elasticache" {
