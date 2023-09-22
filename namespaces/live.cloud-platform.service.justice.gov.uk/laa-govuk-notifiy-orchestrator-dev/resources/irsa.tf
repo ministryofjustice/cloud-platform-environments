@@ -9,7 +9,6 @@ module "irsa" {
   role_policy_arns     = {
     s3 = aws_iam_policy.policy.arn
   }
-  namespace            = var.namespace
 
   role_policy_arns = {
         laa_govuk_notify_orchestrator_development_sqs       = module.laa_govuk_notify_orchestrator_development_sqs.irsa_policy_arn
