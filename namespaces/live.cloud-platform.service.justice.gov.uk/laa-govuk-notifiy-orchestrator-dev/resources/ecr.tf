@@ -1,27 +1,20 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  # REQUIRED: Repository configuration
+  # Repository configuration
   repo_name = var.namespace
 
-  # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
+  # OIDC providers to configure, either "github", "circleci", or both
   oidc_providers = ["circleci"]
 
-  # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-maat-orchestration"]
+  # GitHub repositories that push to this container repository
+  github_repositories = [var.repo_name]
 
-  # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
-  # github_environments = ["production"]
+  # GitHub environments, to create variables as actions variables in your environments
+  # github_environments = ["development"]
 
   # Lifecycle policies
-  # Uncomment the below to automatically tidy up old Docker images
-  /*
+  # For tidying up old docker images
   lifecycle_policy = <<EOF
     {
       "rules": [
@@ -66,16 +59,8 @@ module "ecr" {
       ]
     }
     EOF
-  */
 
-  # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
-  # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.
-  # This flag will allow a non-empty ECR to be deleted.
-  # Defaults to true
-
-  # deletion_protection = false
-
-  # Tags (commented out until release)
+  # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -83,18 +68,4 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-
-
-resource "kubernetes_secret" "ecr_credentials" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_arn = module.ecr.repo_arn
-    repo_url = module.ecr.repo_url
-  }
 }

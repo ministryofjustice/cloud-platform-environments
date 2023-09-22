@@ -13,9 +13,6 @@ module "hmpps_redis" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "hmpps_redis" {

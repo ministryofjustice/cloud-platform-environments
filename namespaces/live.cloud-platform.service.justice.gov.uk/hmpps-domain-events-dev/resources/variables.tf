@@ -29,6 +29,7 @@ variable "additional_topic_clients" {
     "hmpps-assessments-dev",
     "hmpps-community-accommodation-dev",
     "hmpps-complexity-of-need-staging",
+    "hmpps-education-and-work-plan-dev",
     "hmpps-incentives-dev",
     "hmpps-interventions-dev",
     "hmpps-manage-offences-api-dev",
