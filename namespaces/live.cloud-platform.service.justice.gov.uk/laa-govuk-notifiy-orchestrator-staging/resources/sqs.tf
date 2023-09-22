@@ -20,7 +20,7 @@ module "laa_govuk_notify_orchestrator_staging_sqs" {
   # Queue Parameters
   fifo_queue                  = "true"
   content_based_deduplication = "false"
-  receive_wait_time_seconds   = 30
+  receive_wait_time_seconds   = 10
 
   providers = {
     aws = aws.london
