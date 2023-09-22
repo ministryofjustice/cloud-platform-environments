@@ -2,7 +2,10 @@ module "laa_govuk_notify_orchestrator_development_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "laa_govuk_notify_orchestrator_development_queue.fifo"
+  # The queue is called "laa_govuk_notify_orchestrator_development_queue.fifo",
+  # however, the fifo text is appended after.
+
+  sqs_name        = "laa_govuk_notify_orchestrator_development_queue"
   encrypt_sqs_kms = "false"
 
   # Tags
