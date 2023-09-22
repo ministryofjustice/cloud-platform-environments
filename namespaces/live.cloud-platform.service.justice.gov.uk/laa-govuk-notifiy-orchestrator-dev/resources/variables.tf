@@ -46,7 +46,7 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
-  type        = string
+  type        = bool
   default     = "false"
 }
 
@@ -70,4 +70,10 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "repo_name" {
+  description = "The GitHub repository associated with this namespace"
+  default     = "laa_govuk_notify_orchestrator"
+  type        = string
 }
