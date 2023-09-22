@@ -68,7 +68,7 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account_name # this uses the service account name from the irsa module
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
