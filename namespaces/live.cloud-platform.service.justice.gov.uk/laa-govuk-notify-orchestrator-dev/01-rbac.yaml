@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-govuk-notifiy-orchestrator-dev-admin
-  namespace: laa-govuk-notifiy-orchestrator-dev
+  name: laa-govuk-notify-orchestrator-dev-admin
+  namespace: laa-govuk-notify-orchestrator-dev
 subjects:
   - kind: Group
     name: "github:laa-get-access"
