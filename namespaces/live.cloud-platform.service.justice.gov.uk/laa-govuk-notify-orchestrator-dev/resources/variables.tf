@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-govuk-notifiy-orchestrator-dev"
+  default     = "laa-govuk-notify-orchestrator-dev"
 }
 
 variable "business_unit" {
