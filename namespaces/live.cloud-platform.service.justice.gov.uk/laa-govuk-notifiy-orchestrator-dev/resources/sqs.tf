@@ -18,7 +18,6 @@ module "laa_govuk_notify_orchestrator_development_sqs" {
   fifo_queue                  = "true"
   content_based_deduplication = "no"
   receive_wait_time_seconds   = 30
-  sqs_managed_sse_enabled     = true
 
   providers = {
     aws = aws.london
