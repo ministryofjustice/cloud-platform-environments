@@ -10,8 +10,8 @@ module "lcdui_elasticache" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version        = "6.x"
-  parameter_group_name  = "default.redis6.x"
+  engine_version        = "7.0"
+  parameter_group_name  = "default.redis7"
   number_cache_clusters = "2"
   node_type             = "cache.t4g.micro"
 }
