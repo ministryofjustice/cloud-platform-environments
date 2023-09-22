@@ -30,5 +30,7 @@ resource "kubernetes_secret" "redis_secrets" {
     member_clusters          = jsonencode(module.redis.member_clusters)
     auth_token               = module.redis.auth_token
     replication_group_id     = module.redis.replication_group_id
+    url                      = "rediss://:${module.redis.auth_token}@${module.redis.primary_endpoint_address}:6379"
+
   }
 }
