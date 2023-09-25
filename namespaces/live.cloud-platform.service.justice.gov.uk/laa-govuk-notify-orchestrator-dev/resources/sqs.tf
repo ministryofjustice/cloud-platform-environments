@@ -2,9 +2,8 @@ module "laa_govuk_notify_orchestrator_development_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  # The queue is called "laa_govuk_notify_orchestrator_development_queue.fifo",
-  # however, the fifo text is appended after.
-
+  # This queue is actually named laa_govuk_notify_orchestrator_development_queue.fifo,
+  # however, .fifo is appended later
   sqs_name        = "laa_govuk_notify_orchestrator_development_queue"
   encrypt_sqs_kms = "false"
 
@@ -20,7 +19,7 @@ module "laa_govuk_notify_orchestrator_development_sqs" {
   # Queue Parameters
   fifo_queue                  = "true"
   content_based_deduplication = "false"
-  receive_wait_time_seconds   = 30
+  receive_wait_time_seconds   = 10
 
   providers = {
     aws = aws.london
@@ -28,7 +27,7 @@ module "laa_govuk_notify_orchestrator_development_sqs" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.laa_govuk_notify_orchestrator_development_dlq.sqs_arn}","maxReceiveCount": 1
+    "deadLetterTargetArn": "${module.laa_govuk_notify_orchestrator_development_dlq.sqs_arn}","maxReceiveCount": 5
   }
   EOF
 }
@@ -61,6 +60,9 @@ module "laa_govuk_notify_orchestrator_development_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  
+  # Queue Parameters
+  fifo_queue             = "true"
 
   providers = {
     aws = aws.london

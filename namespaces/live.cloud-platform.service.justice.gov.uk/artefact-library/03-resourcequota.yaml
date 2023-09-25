@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-govuk-notifiy-orchestrator-dev
+  namespace: artefact-library
 spec:
   hard:
     pods: "50"

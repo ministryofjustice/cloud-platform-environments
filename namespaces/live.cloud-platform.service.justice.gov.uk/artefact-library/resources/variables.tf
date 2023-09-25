@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "LAA GOVUK Notify Orchestrator"
+  default     = "Gov.UK Prototype Kit"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-govuk-notifiy-orchestrator-dev"
+  default     = "artefact-library"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-get-access"
+  default     = "digital-operations"
 }
 
 variable "environment" {
@@ -41,19 +41,19 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "civil-legal-advice@digital.justice.gov.uk"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
-  type        = bool
+  type        = string
   default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-cla-dev"
+  default     = "digital-operations"
 }
 
 variable "github_owner" {
@@ -68,12 +68,14 @@ variable "github_token" {
   default     = ""
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+## Prototype kit variables
+
+variable "basic-auth-username" {
+  description = "Basic auth. username of the deployed prototype website"
+  default     = "digital"
 }
 
-variable "repo_name" {
-  description = "The GitHub repository associated with this namespace"
-  default     = "laa_govuk_notify_orchestrator"
-  type        = string
+variable "basic-auth-password" {
+  description = "Basic auth. password of the deployed prototype website"
+  default     = "operations"
 }

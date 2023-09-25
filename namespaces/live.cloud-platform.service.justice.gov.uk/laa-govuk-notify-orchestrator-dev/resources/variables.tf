@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "laa-maat-orchestration"
+  default     = "LAA GOVUK Notify Orchestrator"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-maat-orchestration-prod"
+  default     = "laa-govuk-notify-orchestrator-dev"
 }
 
 variable "business_unit" {
@@ -29,31 +29,31 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-crime-apps-team"
+  default     = "laa-get-access"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "civil-legal-advice@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crimeapps-modernisation"
+  default     = "laa-cla-dev"
 }
 
 variable "github_owner" {
@@ -70,4 +70,10 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "repo_name" {
+  description = "The GitHub repository associated with this namespace"
+  default     = "laa_govuk_notify_orchestrator"
+  type        = string
 }
