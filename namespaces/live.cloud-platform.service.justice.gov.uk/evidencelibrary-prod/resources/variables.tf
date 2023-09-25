@@ -76,7 +76,11 @@ variable "db_engine_version" {
 }
 
 variable "db_instance_class" {
-  default = "db.t3.small"
+  default = "db.t4g.small"
+}
+
+variable "db_max_allocated_storage" {
+  default = "10000"
 }
 
 variable "github_actions_secret_kube_namespace" {
