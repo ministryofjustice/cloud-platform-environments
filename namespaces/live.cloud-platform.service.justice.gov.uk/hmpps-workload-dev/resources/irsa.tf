@@ -1,10 +1,12 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"                       = "hmpps-audit-dev",
-    "Digital-Prison-Services-dev-activities_domain_events_queue"          = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-activities_domain_events_dl"             = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue_dl" = "offender-events-dev"
-    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-activities_domain_events_queue"              = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-activities_domain_events_dl"                 = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_dl"    = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue_dl"     = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_workload_offender_events_queue"        = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
