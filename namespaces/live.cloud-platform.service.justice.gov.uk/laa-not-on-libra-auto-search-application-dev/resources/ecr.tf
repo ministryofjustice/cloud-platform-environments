@@ -11,6 +11,8 @@ module "ecr_credentials" {
   # github actions CI/CD pipelines
   github_repositories = ["laa-nolasa"]
 
+  deletion_protection = false
+  
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
 
