@@ -9,8 +9,9 @@ module "slmtp_api_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  allow_major_version_upgrade = "true"
-  db_instance_class           = "db.t3.small"
+  allow_major_version_upgrade = "false"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
   rds_family                  = "postgres13"
   db_engine_version           = "13"
   db_password_rotated_date    = "2023-05-11"
