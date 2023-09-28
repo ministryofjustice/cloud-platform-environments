@@ -43,7 +43,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "14.8"
+  default = "14.4"
 }
 
 variable "db_instance_class" {
