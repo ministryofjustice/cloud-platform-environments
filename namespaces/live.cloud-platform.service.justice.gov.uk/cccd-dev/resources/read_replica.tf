@@ -38,7 +38,7 @@ module "read_replica" {
   db_backup_retention_period = 0
 }
 
-resource "kubernetes_secret" "read-replica" {
+resource "kubernetes_secret" "read_replica" {
   count = 1
 
   metadata {
