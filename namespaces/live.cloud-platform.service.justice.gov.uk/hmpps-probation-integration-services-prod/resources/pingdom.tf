@@ -30,6 +30,7 @@ resource "pingdom_check" "pingdom" {
     "prison-education-and-delius",
     "arns-and-oasys",
     "opd-and-delius",
+    "hmpps-auth-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
