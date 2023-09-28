@@ -8,7 +8,9 @@ module "court_case_service_rds" {
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
   is_production              = var.is_production
+  prepare_for_major_upgrade  = true
   rds_family                 = var.rds-family
+  db_engine                  = var.db_engine
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
   enable_rds_auto_start_stop = true
