@@ -10,6 +10,7 @@ module "court_case_service_rds" {
   is_production              = var.is_production
   rds_family                 = var.rds-family
   db_engine_version          = var.db_engine_version
+  db_instance_class          = var.db_instance_class
   enable_rds_auto_start_stop = true
 
   providers = {
