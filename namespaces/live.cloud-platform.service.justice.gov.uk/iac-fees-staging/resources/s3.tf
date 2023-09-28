@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "cgi_s3_access_policy" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "cgi-s3-access-user"
+  name = "cgi-s3-access-user-${var.environment}"
   path = "/system/cgi-s3-access-user/"
 }
 
