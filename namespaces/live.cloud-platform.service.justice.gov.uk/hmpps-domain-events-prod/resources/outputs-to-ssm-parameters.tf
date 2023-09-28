@@ -12,8 +12,6 @@ locals {
     (module.hmpps_domain_event_logger_dead_letter_queue.sqs_name)                   = module.hmpps_domain_event_logger_dead_letter_queue.irsa_policy_arn,
     (module.keyworker_api_queue.sqs_name)                                           = module.keyworker_api_queue.irsa_policy_arn,
     (module.keyworker_api_dead_letter_queue.sqs_name)                               = module.keyworker_api_dead_letter_queue.irsa_policy_arn,
-    (module.hmpps_prison_visits_event_queue.sqs_name)                               = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
-    (module.hmpps_prison_visits_event_dead_letter_queue.sqs_name)                   = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_prisoner_to_nomis_visit_queue.sqs_name)                           = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
     (module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_name)               = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_prisoner_to_nomis_incentive_queue.sqs_name)                       = module.hmpps_prisoner_to_nomis_incentive_queue.irsa_policy_arn,

@@ -11,45 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Education and Work Plan"
+  default     = "LAA GOVUK Notify Orchestrator"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-education-and-work-plan-dev"
+  default     = "laa-govuk-notify-orchestrator-production"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
-}
-
-variable "number_cache_clusters" {
-  default = "2"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "laa-get-access"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "civil-legal-advice@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -61,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "plp-dev"
+  default     = "laa-cla-dev"
 }
 
 variable "github_owner" {
@@ -74,4 +66,14 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "repo_name" {
+  description = "The GitHub repository associated with this namespace"
+  default     = "laa_govuk_notify_orchestrator"
+  type        = string
 }
