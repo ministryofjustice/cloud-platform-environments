@@ -38,7 +38,7 @@ module "read_replica" {
   db_backup_retention_period = 0
 }
 
-resource "kubernetes_secret" "read_replica" {
+resource "kubernetes_secret" "read-replica" {
   count = 1
 
   metadata {
@@ -49,7 +49,7 @@ resource "kubernetes_secret" "read_replica" {
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0 as in on. if count < 0 then it's off
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds-instance-endpoint = module.read-replica.rds-instance-endpoint
     # rds_instance_address  = module.read_replica.rds_instance_address
     # access_key_id         = module.read_replica.access_key_id
     # secret_access_key     = module.read_replica.secret_access_key
