@@ -14,6 +14,8 @@ module "ecr_credentials" {
   # github actions CI/CD pipelines
   github_repositories = ["helloworldcp-fawaz"]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
