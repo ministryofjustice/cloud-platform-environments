@@ -11,9 +11,9 @@ module "secrets_manager" {
 
   secrets = {
     "read_replica" = {
-      description             = "This is the RDS read replica rds_instance_endpoint",
+      description             = "This is the RDS read replica rds_instance_endpoint / rds-instance-endpoint",
       recovery_window_in_days = 7
-      k8s_secret_name         = "rds_instance_endpoint"
+      k8s_secret_name         = "rds-instance-endpoint"
     },
   }
 }
