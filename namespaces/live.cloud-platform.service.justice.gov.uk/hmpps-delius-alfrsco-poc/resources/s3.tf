@@ -148,6 +148,7 @@ EOF
   /*
  * Override the default policy for the generated machine user of this bucket.
  *
+
 user_policy = <<EOF
 {
 "Version": "2012-10-17",
@@ -167,6 +168,9 @@ user_policy = <<EOF
       "s3:GetObject"
     ],
     "Resource": "$${bucket_arn}/*"
+    ]
+  }
+  EOF
 */
 
 }
