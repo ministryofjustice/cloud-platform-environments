@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-person-links-dev"
+  default     = "hmpps-person-links-preprod"
 }
 
 variable "business_unit" {

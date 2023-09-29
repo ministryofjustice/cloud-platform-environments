@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-person-links-dev
+  namespace: hmpps-person-links-preprod
 spec:
   hard:
     pods: "50"
