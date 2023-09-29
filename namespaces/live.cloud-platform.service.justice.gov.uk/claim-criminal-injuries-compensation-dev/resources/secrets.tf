@@ -13,17 +13,17 @@ module "secrets_manager_multiple_secrets" {
     "cica-web-aws-secrets" = {
       description             = "Cica web secrets",
       recovery_window_in_days = 7
-      k8s_secret_name         = "cica-web-aws-secrets"
+      k8s_secret_name         = "cica-web-secrets"
     },
     "data-capture-service-aws-secrets" = {
       description             = "Data capture service secrets",
       recovery_window_in_days = 7
-      k8s_secret_name         = "data-capture-service-aws-secrets"
+      k8s_secret_name         = "data-capture-service-secrets"
     },
     "shared-aws-secrets" = {
       description             = "Shared secrets",
       recovery_window_in_days = 7
-      k8s_secret_name         = "shared-aws-secrets"
+      k8s_secret_name         = "shared-secrets"
     },
   }
 }

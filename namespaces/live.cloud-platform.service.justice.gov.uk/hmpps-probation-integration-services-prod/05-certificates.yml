@@ -404,3 +404,18 @@ spec:
   dnsNames:
     - 91de1441.hmpps.service.justice.gov.uk
     - opd-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-auth-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: hmpps-auth-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4f4dcd3c.hmpps.service.justice.gov.uk
+    - hmpps-auth-and-delius.hmpps.service.justice.gov.uk
