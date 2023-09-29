@@ -176,6 +176,40 @@ EOF
 */
 }
 
+data "aws_iam_policy_document" "s3_bucket_migration_policy" {
+  statement {
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
+    ]
+
+    effect = "Allow"
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket",
+    ]
+  }
+  statement {
+    actions = [
+      "s3:*"
+    ]
+
+    effect = "Allow"
+
+    resources = [
+      "${module.s3_bucket.bucket_arn}/*",
+      "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "s3_bucket_migration_policy" {
+  name        = "s3_bucket_migration_policy"
+  description = "Policy to allow migration of S3 buckets"
+  policy      = data.aws_iam_policy_document.s3_bucket_migration_policy.json
+}
+
 resource "aws_iam_user" "alfresco_user_poc" {
   name = "alfresco_user_poc"
   path = "/system/alfresco_user_poc/"
@@ -197,9 +231,9 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
-    access_key_id = aws_iam_access_key.alfresco_user_poc_access.id
+    bucket_arn        = module.s3_bucket.bucket_arn
+    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = aws_iam_access_key.alfresco_user_poc_access.id
     secret_access_key = aws_iam_access_key.alfresco_user_poc_access.secret
   }
 }
