@@ -168,11 +168,12 @@ user_policy = <<EOF
       "s3:GetObject"
     ],
     "Resource": "$${bucket_arn}/*"
-    ]
   }
-  EOF
-*/
+]
+}
+EOF
 
+*/
 }
 
 data "aws_iam_policy_document" "s3_bucket_migration_policy" {
