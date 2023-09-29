@@ -16,8 +16,8 @@ module "elasticache" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   node_type              = "cache.t4g.medium"
-  engine_version         = "6.x"
-  parameter_group_name   = "default.redis6.x"
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
 
   providers = {
     aws = aws.london
