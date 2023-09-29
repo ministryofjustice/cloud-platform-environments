@@ -148,6 +148,26 @@ EOF
   /*
  * Override the default policy for the generated machine user of this bucket.
  *
+
+ user_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetBucketLocation"
+    ],
+    "Resource": "$${bucket_arn}"
+  },
+  {
+    "Sid": "",
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetObject"
+    ],
+    "Resource": "$${bucket_arn}/*"
 */
 
 }
