@@ -202,6 +202,17 @@ data "aws_iam_policy_document" "s3_bucket_migration_policy" {
       "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket/*",
     ]
   }
+  statement {
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    effect    = "Allow"
+    resources = ["arn:aws:kms:eu-west-2:563502482979:key/cc27c83f-1935-43f8-9867-18018652fd8f"]
+  }
 }
 
 resource "aws_iam_policy" "s3_bucket_migration_policy" {
