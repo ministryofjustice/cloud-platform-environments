@@ -148,8 +148,7 @@ EOF
   /*
  * Override the default policy for the generated machine user of this bucket.
  *
-
- user_policy = <<EOF
+user_policy = <<EOF
 {
 "Version": "2012-10-17",
 "Statement": [
