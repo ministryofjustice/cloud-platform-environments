@@ -47,7 +47,7 @@ variable "db_engine_version" {
 }
 
 variable "db_instance_class" {
-  default = "db.t3.small"
+  default = "db.t4g.small"
 }
 
 variable "number_cache_clusters" {
