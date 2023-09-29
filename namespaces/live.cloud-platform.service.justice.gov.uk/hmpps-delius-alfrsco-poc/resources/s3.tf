@@ -148,32 +148,39 @@ EOF
   /*
  * Override the default policy for the generated machine user of this bucket.
  *
-
-user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
-}
-EOF
-
 */
+
+  user_policy = <<EOF
+        {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetBucketLocation",
+              "s3:ListBucket"
+            ],
+            "Resource": [
+              "arn:aws:s3:::cloud-platform-5ce784402d8052fe1cd006f1e7329f70",
+              "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket",
+            ]
+          },
+          {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+              "s3:*"
+            ],
+            "Resource": [
+              "arn:aws:s3:::cloud-platform-5ce784402d8052fe1cd006f1e7329f70/*",
+              "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket/*",
+            ]
+          }
+        ]
+        }
+        EOF
+
 }
 
 resource "aws_iam_user" "alfresco_user_poc" {
@@ -197,9 +204,9 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
-    access_key_id = aws_iam_access_key.alfresco_user_poc_access.id
+    bucket_arn        = module.s3_bucket.bucket_arn
+    bucket_name       = module.s3_bucket.bucket_name
+    access_key_id     = aws_iam_access_key.alfresco_user_poc_access.id
     secret_access_key = aws_iam_access_key.alfresco_user_poc_access.secret
   }
 }
