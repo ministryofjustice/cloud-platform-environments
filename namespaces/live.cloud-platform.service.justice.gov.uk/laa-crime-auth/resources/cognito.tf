@@ -75,7 +75,23 @@ resource "aws_cognito_user_pool" "ccc_user_pool" {
   }
 }
 
-resource "aws_cognito_user_pool_domain" "ccc_domain" {
-  domain       = var.cognito_user_pool_domain_name_ccc
-  user_pool_id = aws_cognito_user_pool.ccc_user_pool.id
+resource "aws_cognito_user_pool_domain" "orchestration_domain" {
+  domain       = var.cognito_user_pool_domain_name_orchestration
+  user_pool_id = aws_cognito_user_pool.orchestration_user_pool.id
+}
+
+resource "aws_cognito_user_pool" "orchestration_user_pool" {
+  name = var.user_pool_name_orchestration
+
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "admin_only"
+      priority = 1
+    }
+  }
+}
+
+resource "aws_cognito_user_pool_domain" "orchestration_domain" {
+  domain       = var.cognito_user_pool_domain_name_orchestration
+  user_pool_id = aws_cognito_user_pool.orchestration_user_pool.id
 }
