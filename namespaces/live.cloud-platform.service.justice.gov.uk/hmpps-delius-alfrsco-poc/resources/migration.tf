@@ -30,7 +30,8 @@ data "aws_iam_policy_document" "migration_policy" {
       "kms:Decrypt",
       "kms:ReEncrypt*",
       "kms:GenerateDataKey*",
-      "kms:DescribeKey"
+      "kms:DescribeKey",
+      "kms:CreateGrant"
     ]
     effect = "Allow"
     resources = ["arn:aws:kms:eu-west-2:563502482979:key/cc27c83f-1935-43f8-9867-18018652fd8f", "arn:aws:kms:eu-west-2:563502482979:key/46259325-87eb-42d3-8b28-7ff49e944ac5",
