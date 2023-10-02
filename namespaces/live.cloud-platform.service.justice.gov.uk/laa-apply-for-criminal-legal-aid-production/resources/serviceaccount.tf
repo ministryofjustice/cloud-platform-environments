@@ -21,6 +21,7 @@ module "serviceaccount" {
         "services",
         "configmaps",
         "pods",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
