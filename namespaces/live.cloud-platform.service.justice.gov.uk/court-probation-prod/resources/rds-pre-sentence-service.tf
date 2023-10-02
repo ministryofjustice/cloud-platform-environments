@@ -9,7 +9,7 @@ module "pre_sentence_service_rds" {
   infrastructure_support       = var.infrastructure_support
   is_production                = var.is_production
   rds_family                   = "postgres13"
-  db_instance_class            = "db.t3.small"
+  db_instance_class            = "db.t4g.small"
   db_engine_version            = "13"
   allow_major_version_upgrade  = false
   performance_insights_enabled = true
