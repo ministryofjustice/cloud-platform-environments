@@ -63,6 +63,18 @@ resource "kubernetes_secret" "os_snapshots" {
   }
 }
 
+resource "kubernetes_secret" "os_snapshots_preprod" {
+  metadata {
+    name      = "os-snapshot-bucket"
+    namespace = "hmpps-prisoner-search-preprod"
+  }
+
+  data = {
+    bucket_arn  = module.os_snapshots_s3_bucket.bucket_arn
+    bucket_name = module.os_snapshots_s3_bucket.bucket_name
+  }
+}
+
 resource "kubernetes_secret" "opensearch" {
   metadata {
     name      = "opensearch"
