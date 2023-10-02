@@ -11,45 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Education and Work Plan"
+  default     = "Rshiny notes book"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-education-and-work-plan-prod"
+  default     = "data-platform-app-ap-rshiny-notesbook-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
-}
-
-variable "number_cache_clusters" {
-  default = "2"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "analytics-hq"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prod"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "analytical-platform@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -61,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "plp-dev"
+  default     = "analytical-platform-team"
 }
 
 variable "github_owner" {
