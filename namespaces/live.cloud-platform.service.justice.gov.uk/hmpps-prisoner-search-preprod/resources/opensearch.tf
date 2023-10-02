@@ -20,24 +20,11 @@ module "hmpps_prisoner_search_opensearch" {
   ebs_options = {
     volume_size = 20
   }
-  snapshot_bucket_arn = module.os_snapshots_s3_bucket.bucket_arn
+  snapshot_bucket_arn = data.aws_s3_bucket.snapshot_bucket.arn
 }
 
-module "os_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
-  team_name              = var.team_name
-  acl                    = "private"
-  versioning             = false
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
+data "aws_s3_bucket" "snapshot_bucket" {
+  bucket = "cloud-platform-852450f884768027e7dbe48002e188aa"
 }
 
 resource "kubernetes_secret" "os_snapshots_role" {
