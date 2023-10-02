@@ -16,7 +16,6 @@ module "ecr_credentials" {
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-crime-apply-mock-api"]
 
-  namespace = var.namespace
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
