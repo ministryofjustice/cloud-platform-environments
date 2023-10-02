@@ -12,7 +12,7 @@ module "court_case_service_rds" {
   allow_major_version_upgrade = true
   db_engine                   = "postgres"
   db_engine_version           = "14.9"
-  db_instance_class           = "db.t3.xlarge"
+  db_instance_class           = "db.t4g.xlarge"
   rds_family                  = "postgres14"
   db_allocated_storage        = "35"
   enable_rds_auto_start_stop  = true
