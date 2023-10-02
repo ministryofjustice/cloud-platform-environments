@@ -77,7 +77,7 @@ resource "aws_cognito_user_pool" "ccc_user_pool" {
 
 resource "aws_cognito_user_pool_domain" "ccc_domain" {
   domain       = var.cognito_user_pool_domain_name_ccc
-  user_pool_id = aws_cognito_user_pool.orchestration_user_pool.id
+  user_pool_id = aws_cognito_user_pool.ccc_user_pool.id
 }
 
 resource "aws_cognito_user_pool" "orchestration_user_pool" {
