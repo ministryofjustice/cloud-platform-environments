@@ -24,7 +24,10 @@ module "rds" {
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
-  # Tags
+  # snapshot restore
+  snapshot_identifier = "alf-from-dev-to-cp"
+
+  # Tagst
   application            = var.application
   business_unit          = var.business_unit
   environment_name       = var.environment
@@ -43,7 +46,7 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
