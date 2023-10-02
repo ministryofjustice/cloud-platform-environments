@@ -51,18 +51,6 @@ resource "kubernetes_secret" "os_snapshots_role" {
   }
 }
 
-resource "kubernetes_secret" "os_snapshots" {
-  metadata {
-    name      = "os-snapshot-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.os_snapshots_s3_bucket.bucket_arn
-    bucket_name = module.os_snapshots_s3_bucket.bucket_name
-  }
-}
-
 resource "kubernetes_secret" "opensearch" {
   metadata {
     name      = "opensearch"
