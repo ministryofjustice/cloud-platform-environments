@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "migration_policy" {
   }
   statement {
     actions   = ["rds:DescribeDBSnapshots", "rds:CopyDBSnapshot"]
-    resources = ["arn:aws:rds:eu-west-2:563502482979:snapshot:to-cloud-platform"]
+    resources = ["arn:aws:rds:eu-west-2:563502482979:snapshot:to-cloud-platform", "arn:aws:rds:eu-west-2:754256621582:snapshot:alf-from-dev-to-cp"]
   }
 }
 
