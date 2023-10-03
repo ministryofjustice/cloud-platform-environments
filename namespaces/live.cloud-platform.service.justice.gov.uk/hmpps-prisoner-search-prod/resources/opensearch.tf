@@ -10,11 +10,16 @@ module "hmpps_prisoner_search_opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.7"
+  engine_version = "OpenSearch_2.9"
 
   cluster_config = {
-    instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
+    instance_type  = "m6g.large.search"
+
+    # Dedicated primary nodes
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3 # can only either be 3 or 5
+    dedicated_master_type    = "m6g.large.search"
   }
 
   ebs_options = {
