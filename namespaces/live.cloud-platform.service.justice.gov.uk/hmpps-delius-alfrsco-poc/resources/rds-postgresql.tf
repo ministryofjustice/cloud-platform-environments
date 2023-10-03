@@ -10,8 +10,6 @@ module "rds" {
   # VPC configuration
   vpc_name = var.vpc_name
 
-  db_name = "alfresco"
-
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
@@ -26,9 +24,6 @@ module "rds" {
   db_engine_version = "11.17"
   rds_family        = "postgres11"
   db_instance_class = "db.t3.micro"
-
-  # snapshot restore
-  snapshot_identifier = "alf-from-dev-to-cp"
 
   # Tagst
   application            = var.application
@@ -65,9 +60,9 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "11.17"
+  rds_family        = "postgres11"
+  db_instance_class = "db.t3.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
