@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-information-exchange-dev-admin
-  namespace: laa-information-exchange-dev
+  name: laa-information-exchange-development-admin
+  namespace: laa-information-exchange-development
 subjects:
   - kind: Group
     name: "github:laa-aws-infrastructure"

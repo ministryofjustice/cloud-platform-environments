@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-information-exchange-dev"
+  default     = "laa-information-exchange-development"
 }
 
 variable "business_unit" {
