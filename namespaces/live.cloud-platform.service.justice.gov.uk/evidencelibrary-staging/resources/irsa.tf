@@ -52,16 +52,25 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
     }
   }
 
-  resource "aws_iam_policy" "s3_cross_bucket_policy" {
-    name   = "evidencelibrary-staging-s3-cross-bucket-policy"
-    policy = data.aws_iam_policy_document.s3_cross_bucket_policy.json
+resource "aws_iam_policy" "s3_cross_bucket_policy" {
+  name   = "evidencelibrary-staging-s3-cross-bucket-policy"
+  policy = data.aws_iam_policy_document.s3_cross_bucket_policy.json
 
-    tags = { 
-      business_unit          = var.business_unit
-      application            = var.application
-      is_production          = var.is_production
-      team_name              = var.team_name
-      environment_name       = var.environment
-      infrastructure_support = var.infrastructure_support
-      }
-  }
+  tags = { 
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    }
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+}
