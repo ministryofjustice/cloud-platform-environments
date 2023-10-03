@@ -98,7 +98,7 @@ resource "kubernetes_secret" "pic_new_offender_events_queue" {
   metadata {
     name = "sqs-pic-new-offender-events-secret"
     ## Name space where the listening service is found
-    namespace = "court-probation-dev"
+    namespace = var.namespace
   }
 
   data = {
@@ -113,7 +113,7 @@ resource "kubernetes_secret" "pic_new_offender_events_dead_letter_queue" {
   metadata {
     name = "sqs-pic-new-offender-events-dlq-secret"
     ## Name space where the listening service is found
-    namespace = "court-probation-dev"
+    namespace = var.namespace
   }
 
   data = {
