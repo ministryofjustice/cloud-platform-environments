@@ -4,17 +4,18 @@
  * releases page of this repository.
  *
  */
-module "ecr" {
+module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   # REQUIRED: Repository configuration
   repo_name = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["github"]
+  oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-crime-apply-mock-api"]
+
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
@@ -83,4 +84,16 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
+  }
 }
