@@ -4,10 +4,12 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["polygraph-offender-management"]
+
 
   # Tags
   business_unit          = var.business_unit
