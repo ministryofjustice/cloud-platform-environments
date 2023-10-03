@@ -20,8 +20,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
+  db_engine_version = "11.17"
+  rds_family        = "postgres11"
   db_instance_class = "db.t3.micro"
 
   # snapshot restore
