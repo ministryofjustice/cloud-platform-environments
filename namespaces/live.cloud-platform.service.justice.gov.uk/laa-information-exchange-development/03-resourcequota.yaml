@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-infox-dev
+  namespace: laa-information-exchange-dev
 spec:
   hard:
     pods: "50"
