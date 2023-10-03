@@ -10,6 +10,8 @@ module "rds" {
   # VPC configuration
   vpc_name = var.vpc_name
 
+  db_name = "alfresco"
+
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
