@@ -10,6 +10,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "analytical-platform-team"
     cloud-platform.justice.gov.uk/application: "Rshiny notebook"
     cloud-platform.justice.gov.uk/owner: "Analytical Platform team: analytical-platform@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ap-rshiny-notebook"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ap-rshiny-notesbook"
     cloud-platform.justice.gov.uk/team-name: "analytics-hq"
     cloud-platform.justice.gov.uk/review-after: ""
