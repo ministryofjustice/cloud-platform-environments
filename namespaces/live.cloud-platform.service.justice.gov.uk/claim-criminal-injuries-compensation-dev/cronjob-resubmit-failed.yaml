@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: claim-criminal-injuries-dev-resubmit-failed
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+            - name: cica-online-application-resubmit-failed-cronjob
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:push-to-gateway-image
+              imagePullPolicy: Always
+              command:
+                [
+                  "/bin/sh",
+                  "-c",
+                  "RESULT=($(curl -X POST $DCS_URL$ENDPOINT_URL -H \"Authorization: Bearer $DCS_ADMIN_JWT\" -H \"Content-Type: application/vnd.api+json\" -H \"Accept: application/vnd.api+json\")) && echo 'resubmission_count '${#RESULT} | curl --data-binary @- http://$MY_POD_NAMESPACE-pushgateway-prometheus:9091/metrics/job/applications_resubmitted && echo ${RESULT}"
+                ]
+              env:
+                - name: ENDPOINT_URL
+                  value: "/api/admin/questionnaires/resubmit-failed"
+                - name: DCS_URL
+                  value: "http://dcs-service-dev"
+                - name: DCS_ADMIN_JWT
+                  valueFrom:
+                    secretKeyRef:
+                      name: data-capture-service-secrets
+                      key: dcs_admin_jwt
+                - name: MY_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+          restartPolicy: "Never"
