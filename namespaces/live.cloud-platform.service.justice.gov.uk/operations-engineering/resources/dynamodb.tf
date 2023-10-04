@@ -10,7 +10,7 @@ module "opseng_tf_state_lock" {
   namespace              = var.namespace
 
   hash_key          = "LockID"
-  enable_encryption = "false"
+  enable_encryption = "true"
   enable_autoscaler = "true"
 }
 
