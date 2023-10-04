@@ -10,7 +10,7 @@ module "secrets_manager" {
   eks_cluster_name        = var.eks_cluster_name
 
   secrets = {
-    "laa_maat_db_password" = {
+    "laa_infox_db_password" = {
       description             = "InfoX Soap user database password", # Required
       recovery_window_in_days = 7, # Required - number of days that AWS Secrets Manager waits before it can delete the secret
       k8s_secret_name        = "laa-infox-db-password-dev" # The name of the secret in k8s
