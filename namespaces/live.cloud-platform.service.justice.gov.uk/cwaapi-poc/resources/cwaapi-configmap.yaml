@@ -4,7 +4,7 @@ metadata:
   name: CWA-API-DASHBOARD
   namespace: var.namespace
   labels:
-    grafana_dashboard: ""
+    grafana_dashboard: "cwa-api-dashboard"
 data:
   cwa-api-dashboard.json: |
     {
