@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: claim-criminal-injuries-dev-cleardown
+  name: claim-criminal-injuries-dev-push-to-gateway
 spec:
   schedule: "*/2 * * * *"
   concurrencyPolicy: "Forbid"
@@ -16,14 +16,14 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
           containers:
-            - name: cica-online-application-cleardown-cronjob
-              image: governmentpaas/psql
+            - name: cica-online-application-push-gateway-cronjob
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:push-to-gateway-image
               imagePullPolicy: Always
               command:
                 [
                   "/bin/sh",
                   "-c",
-                  'psql $(DATABASE_URL_WITH_CREDENTIALS) -c "DELETE FROM questionnaire WHERE (NOW() > expires AND submission_status = ''NOT_STARTED'') OR (submission_status = ''COMPLETED'');"',
+                  "RESULT=$(psql $DATABASE_URL_WITH_CREDENTIALS -A -t -c \"SELECT COUNT(*) FROM questionnaire WHERE NOW() > expires + INTERVAL '2 minutes';\") && echo 'cleardown_check '$RESULT | curl --data-binary @- http://$MY_POD_NAMESPACE-pushgateway-prometheus:9091/metrics/job/applications_not_deleted",
                 ]
               env:
                 - name: DATABASE_URL_WITH_CREDENTIALS
@@ -31,4 +31,8 @@ spec:
                     secretKeyRef:
                       name: shared-secrets
                       key: database_url_with_credentials
+                - name: MY_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
           restartPolicy: "Never"
