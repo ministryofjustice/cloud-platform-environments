@@ -2,13 +2,13 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hale-platform-prod
+  namespace: sw-psa-audit-test
 spec:
   limits:
   - default:
       cpu: 1000m
       memory: 1000Mi
     defaultRequest:
-      cpu: 200m
-      memory: 600Mi
+      cpu: 10m
+      memory: 100Mi
     type: Container
