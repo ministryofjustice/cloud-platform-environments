@@ -18,8 +18,8 @@ spec:
       expr: |-
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{
           queue_name!~"Digital-Prison-Services-dev-(hmpps_)?prisoner_(to|from)_nomis_.+",
-          queue_name!~"Digital-Prison-Services-dev-hmpps_domain_event_logger_queue",
-          queue_name!~"Digital-Prison-Services-dev-offender_events_ui_queue",
+          queue_name!="Digital-Prison-Services-dev-hmpps_domain_event_logger_queue",
+          queue_name!="Digital-Prison-Services-dev-offender_events_ui_queue",
           queue_name!~"Digital-Prison-Services-dev-hmpps_workload.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",
