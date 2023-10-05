@@ -11,13 +11,13 @@ module "ecr" {
   repo_name = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci"]
+  oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["https://github.com/ministryofjustice/test"]
+  github_repositories = ["https://github.com/ministryofjustice/laa-crime-moj-form-adapter"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
-  # github_environments = ["production"]
+  github_environments = ["pre-production"]
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images

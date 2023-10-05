@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-crime-claims-forms-adapter-dev-admin
-  namespace: laa-crime-claims-forms-adapter-dev
+  name: laa-crime-moj-form-adapter-dev-admin
+  namespace: laa-crime-moj-form-adapter-dev
 subjects:
   - kind: Group
     name: "github:crm7team"

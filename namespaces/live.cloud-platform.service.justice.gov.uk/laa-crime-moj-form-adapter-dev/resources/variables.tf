@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Laa Crime Claims Adapter"
+  default     = "Laa Crime Moj Form Adapter"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-crime-claims-forms-adapter-dev"
+  default     = "laa-crime-moj-form-adapter-dev"
 }
 
 variable "business_unit" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "crm@digital.justice.gov.uk"
+  default     = "crm457@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -70,72 +70,4 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
-variable "serviceaccount_rules" {
-  description = "The capabilities of this serviceaccount"
-
-  type = list(object({
-    api_groups = list(string),
-    resources  = list(string),
-    verbs      = list(string)
-  }))
-
-  # These values are usually sufficient for a CI/CD pipeline
-  default = [
-    {
-      api_groups = [""]
-      resources = [
-        "pods/portforward",
-        "deployment",
-        "secrets",
-        "services",
-        "pods",
-      ]
-      verbs = [
-        "patch",
-        "get",
-        "create",
-        "update",
-        "delete",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "extensions",
-        "apps",
-        "batch",
-        "networking.k8s.io",
-      ]
-      resources = [
-        "deployments",
-        "ingresses",
-        "cronjobs",
-        "jobs",
-        "replicasets",
-      ]
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-      ]
-      verbs = [
-        "*",
-      ]
-    },
-  ]
 }

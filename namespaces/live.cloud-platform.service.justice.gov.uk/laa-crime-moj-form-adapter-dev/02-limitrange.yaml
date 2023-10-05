@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: laa-crime-claims-forms-adapter-dev
+  namespace: laa-crime-moj-form-adapter-dev
 spec:
   limits:
   - default:
