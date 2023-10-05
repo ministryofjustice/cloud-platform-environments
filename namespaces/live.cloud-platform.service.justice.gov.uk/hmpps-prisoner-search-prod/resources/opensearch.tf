@@ -13,8 +13,8 @@ module "hmpps_prisoner_search_opensearch" {
   engine_version = "OpenSearch_2.9"
 
   cluster_config = {
-    instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "m6g.large.search"
+    instance_count = 6 # should always a multiple of 3, to split nodes evenly across three availability zones
+    instance_type  = "m6g.xlarge.search"
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
