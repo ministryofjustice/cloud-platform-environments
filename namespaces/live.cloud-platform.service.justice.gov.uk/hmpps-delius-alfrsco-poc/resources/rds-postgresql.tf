@@ -4,28 +4,28 @@
  * releases page of this repository.
  *
  */
-module "rds" {
+module "rds_alfresco" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
+
+  db_name = "alfresco"
 
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  db_allocated_storage         = 200
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
-
-  # snapshot restore
-  snapshot_identifier = "alf-from-dev-to-cp"
+  db_engine_version = "11.17"
+  rds_family        = "postgres11"
+  db_instance_class = "db.t3.micro"
 
   # Tagst
   application            = var.application
@@ -62,16 +62,16 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "11.17"
+  rds_family        = "postgres11"
+  db_instance_class = "db.t3.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
   db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.rds_alfresco.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
@@ -82,7 +82,7 @@ module "read_replica" {
 
   # db_parameter = [
   #   {
-  #     name         = "rds.force_ssl"
+  #     name         = "rds_alfresco.force_ssl"
   #     value        = "0"
   #     apply_method = "immediate"
   #   }
@@ -91,21 +91,21 @@ module "read_replica" {
 
 resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-alf-psql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.rds_alfresco.rds_instance_endpoint
+    database_name         = module.rds_alfresco.database_name
+    database_username     = module.rds_alfresco.database_username
+    database_password     = module.rds_alfresco.database_password
+    rds_instance_address  = module.rds_alfresco.rds_instance_address
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+     * url = "postgres://${module.rds_alfresco.database_username}:${module.rds_alfresco.database_password}@${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
      *
      */
 }
@@ -116,7 +116,7 @@ resource "kubernetes_secret" "read_replica" {
   count = 0
 
   metadata {
-    name      = "rds-postgresql-read-replica-output"
+    name      = "rds-alf-psql-read-replica-output"
     namespace = var.namespace
   }
 
@@ -136,14 +136,14 @@ resource "kubernetes_secret" "read_replica" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "rds_alfresco" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-alf-pgsql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.rds_alfresco.database_name
+    db_identifier = module.rds_alfresco.db_identifier
   }
 }
