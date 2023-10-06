@@ -3,7 +3,7 @@ provider "pingdom" {
 }
 
 resource "pingdom_check" "resettlement-passport-prod" {
-  type                     = "https"
+  type                     = "http"
   name                     = "resettlement passport - prod"
   host                     = "resettlement-passport-ui.hmpps.service.justice.gov.uk/"
   resolution               = 1
