@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 resource "pingdom_check" "resettlement-passport-preprod" {
-  type                     = "https"
+  type                     = "http"
   name                     = "resettlement passport - preprod"
   host                     = "resettlement-passport-ui-preprod.hmpps.service.justice.gov.uk/"
   resolution               = 1
@@ -12,6 +12,6 @@ resource "pingdom_check" "resettlement-passport-preprod" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_resettlement-passport,component_healthcheck,isproduction_false,environment_preprod"
+  tags                     = "HMPPS,resettlementpassport,component_healthcheck,isproduction_false,environment_preprod"
   probefilters             = "region:EU"
 }
