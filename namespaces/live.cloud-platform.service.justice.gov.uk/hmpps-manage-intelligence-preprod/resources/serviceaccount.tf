@@ -100,7 +100,7 @@ resource "github_repository_environment" "env" {
   environment = var.environment
   repository  = each.key
   reviewers {
-    teams = [data.github_team.dps_soct_tech.id]
+    teams = [data.github_team.dps_ims_prod.id]
   }
   deployment_branch_policy {
     protected_branches     = true
@@ -108,6 +108,6 @@ resource "github_repository_environment" "env" {
   }
 }
 
-data "github_team" "dps_soct_tech" {
-  slug = "dps-soct-tech"
+data "github_team" "dps_ims_prod" {
+  slug = "DPS-IMS-production-releases"
 }

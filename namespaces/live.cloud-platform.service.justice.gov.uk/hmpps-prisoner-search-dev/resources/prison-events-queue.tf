@@ -12,6 +12,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "BED_ASSIGNMENT_HISTORY-INSERTED",
       "BOOKING_NUMBER-CHANGED",
       "CONFIRMED_RELEASE_DATE-CHANGED",
+      "COURT_SENTENCE-CHANGED",
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
       "IMPRISONMENT_STATUS-CHANGED",
@@ -21,6 +22,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_ALIAS-CHANGED",
       "OFFENDER_BOOKING-CHANGED",
       "OFFENDER_BOOKING-REASSIGNED",
+      "OFFENDER_CHARGES-UPDATED",
       "OFFENDER_DETAILS-CHANGED",
       "OFFENDER_IDENTIFIER-UPDATED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
@@ -33,7 +35,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
 }
 
 module "hmpps_prisoner_search_offender_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_search_offender_queue"
@@ -89,7 +91,7 @@ EOF
 }
 
 module "hmpps_prisoner_search_offender_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_search_offender_dlq"

@@ -1,5 +1,5 @@
 module "ims_index_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "ims_index_update_queue_${var.environment}"
@@ -29,7 +29,7 @@ EOF
 }
 
 module "ims_index_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "ims_index_update_dl_queue_${var.environment}"
@@ -56,11 +56,9 @@ resource "kubernetes_secret" "ims_index_update_queue" {
   }
 
   data = {
-    access_key_id     = module.ims_index_update_queue.access_key_id
-    secret_access_key = module.ims_index_update_queue.secret_access_key
-    sqs_id            = module.ims_index_update_queue.sqs_id
-    sqs_arn           = module.ims_index_update_queue.sqs_arn
-    sqs_name          = module.ims_index_update_queue.sqs_name
+    sqs_id   = module.ims_index_update_queue.sqs_id
+    sqs_arn  = module.ims_index_update_queue.sqs_arn
+    sqs_name = module.ims_index_update_queue.sqs_name
   }
 }
 
@@ -71,10 +69,8 @@ resource "kubernetes_secret" "ims_index_update_dead_letter_queue" {
   }
 
   data = {
-    access_key_id     = module.ims_index_update_dead_letter_queue.access_key_id
-    secret_access_key = module.ims_index_update_dead_letter_queue.secret_access_key
-    sqs_id            = module.ims_index_update_dead_letter_queue.sqs_id
-    sqs_arn           = module.ims_index_update_dead_letter_queue.sqs_arn
-    sqs_name          = module.ims_index_update_dead_letter_queue.sqs_name
+    sqs_id   = module.ims_index_update_dead_letter_queue.sqs_id
+    sqs_arn  = module.ims_index_update_dead_letter_queue.sqs_arn
+    sqs_name = module.ims_index_update_dead_letter_queue.sqs_name
   }
 }

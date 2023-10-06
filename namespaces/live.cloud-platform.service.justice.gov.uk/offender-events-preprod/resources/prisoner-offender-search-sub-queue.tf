@@ -1,5 +1,5 @@
 module "prisoner_offender_search_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "prisoner_offender_search_queue"
@@ -56,7 +56,7 @@ EOF
 }
 
 module "prisoner_offender_search_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "prisoner_offender_search_queue_dl"
@@ -131,7 +131,9 @@ resource "aws_sns_topic_subscription" "prisoner_offender_search_subscription" {
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
-      "OFFENDER_IDENTIFIER-UPDATED"
+      "OFFENDER_IDENTIFIER-UPDATED",
+      "COURT_SENTENCE-CHANGED",
+      "OFFENDER_CHARGES-UPDATED"
     ]
   })
 }

@@ -1,5 +1,5 @@
 module "activities_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "activities_domain_events_queue"
@@ -28,7 +28,7 @@ EOF
 }
 
 module "activities_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "activities_domain_events_dl"
@@ -106,9 +106,9 @@ resource "kubernetes_secret" "activities_domain_events_queue" {
   }
 
   data = {
-    sqs_queue_url     = module.activities_domain_events_queue.sqs_id
-    sqs_queue_arn     = module.activities_domain_events_queue.sqs_arn
-    sqs_queue_name    = module.activities_domain_events_queue.sqs_name
+    sqs_queue_url  = module.activities_domain_events_queue.sqs_id
+    sqs_queue_arn  = module.activities_domain_events_queue.sqs_arn
+    sqs_queue_name = module.activities_domain_events_queue.sqs_name
   }
 }
 
@@ -119,8 +119,8 @@ resource "kubernetes_secret" "activities_dlq" {
   }
 
   data = {
-    sqs_queue_url     = module.activities_domain_events_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.activities_domain_events_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.activities_domain_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.activities_domain_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.activities_domain_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.activities_domain_events_dead_letter_queue.sqs_name
   }
 }

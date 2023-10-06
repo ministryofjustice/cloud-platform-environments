@@ -28,14 +28,6 @@ module "ecr_feed_parser" {
   }
   EOF
 
-  /*
-    By default scan_on_push is set to true. When this is enabled then all images pushed to the repo are scanned for any security
-    / software vulnerabilities in your image and the results can be viewed in the console. For further details, please see:
-    https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
-    To disable 'scan_on_push', set it to false as below:
-  scan_on_push = "false"
-  */
-
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 

@@ -13,13 +13,13 @@ spec:
       expr: "(sum(rate(container_cpu_usage_seconds_total{namespace=\"laa-not-on-libra-auto-search-application-prd\", container=\"not-on-libra-auto-search-application\", image!=\"\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=\"laa-not-on-libra-auto-search-application-prd\", container=\"not-on-libra-auto-search-application\", unit=\"core\"})) * 100 > 75"
       for: 5m
       labels:
-        severity: not-on-libra-auto-search-application
+        severity: not-on-libra-auto-search-application-prod
       annotations:
         message: "The CPU usage compared to the CPU limit on the container is more than 75% for 5m"
     - alert: Memory-high-threshold
       expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-not-on-libra-auto-search-application-prd\", container=\"not-on-libra-auto-search-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-not-on-libra-auto-search-application-prd\", container=\"not-on-libra-auto-search-application\", unit=\"byte\"})) * 100 > 75"
       for: 5m
       labels:
-        severity: not-on-libra-auto-search-application
+        severity: not-on-libra-auto-search-application-prod
       annotations:
         message: "The Memory usage compared to the Memory limit on the container is more than 75% for 5m"

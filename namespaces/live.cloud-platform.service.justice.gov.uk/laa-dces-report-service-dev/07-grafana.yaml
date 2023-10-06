@@ -376,7 +376,7 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Increase in Errors",
+                "axisLabel": "Increase in Calls",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
@@ -446,8 +446,8 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(http_server_requests_seconds_count{outcome=\"SERVER_ERROR\", namespace=\"$namespace\"}[10m]))",
-              "legendFormat": "Increase in server errors over the past 10 minutes",
+              "expr": "sum(increase(resilience4j_retry_calls_total{namespace=\"$namespace\",kind=~\"successful_with_retry|successful_without_retry\",name=\"dcesReportFdc\"}[1h]))",
+              "legendFormat": "Successful MAAT API FDC Calls",
               "range": true,
               "refId": "A"
             },
@@ -457,14 +457,38 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(http_server_requests_seconds_count{outcome=\"CLIENT_ERROR\", namespace=\"$namespace\"}[10m]))",
+              "expr": "sum(increase(resilience4j_retry_calls_total{namespace=\"$namespace\",kind=~\"successful_with_retry|successful_without_retry\",name=\"dcesReportContributions\"}[1h]))",
               "hide": false,
-              "legendFormat": "Increase in client errors over the past 10 minutes",
+              "legendFormat": "Successful MAAT API Contributions Calls",
               "range": true,
               "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(resilience4j_retry_calls_total{namespace=\"$namespace\",kind=~\"failed_with_retry|failed_without_retry\",name=\"dcesReportFdc\"}[1h]))",
+              "hide": false,
+              "legendFormat": "Failed MAAT API FDC Calls",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(resilience4j_retry_calls_total{namespace=\"$namespace\",kind=~\"failed_with_retry|failed_without_retry\",name=\"dcesReportContributions\"}[1h]))",
+              "hide": false,
+              "legendFormat": "Failed MAAT API Contributions Calls",
+              "range": true,
+              "refId": "D"
             }
           ],
-          "title": "Increases in Client and Server Error Responses",
+          "title": "MAAT API Calls",
           "type": "timeseries"
         },
         {

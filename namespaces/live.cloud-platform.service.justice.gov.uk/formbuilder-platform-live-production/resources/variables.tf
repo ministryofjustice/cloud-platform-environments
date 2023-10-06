@@ -28,6 +28,9 @@ variable "infrastructure_support" {
 variable "vpc_name" {
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "namespace" {
   default = "formbuilder-platform-live-production"
 }

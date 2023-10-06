@@ -1,14 +1,14 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
+  is_production          = var.is_production
   namespace              = var.namespace
-  environment-name       = var.environment-name
-  infrastructure-support = var.email
+  environment_name       = var.environment-name
+  infrastructure_support = var.email
 
   db_engine                  = "postgres"
   db_engine_version          = "14.3"
@@ -46,7 +46,5 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     rds_instance_port     = module.rds.rds_instance_port
-    access_key_id         = module.rds.access_key_id
-    secret_access_key     = module.rds.secret_access_key
   }
 }

@@ -1,5 +1,5 @@
 module "whereabouts_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "whereabouts_api_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "whereabouts_api_queue_policy" {
 }
 
 module "whereabouts_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "whereabouts_api_queue_dl"

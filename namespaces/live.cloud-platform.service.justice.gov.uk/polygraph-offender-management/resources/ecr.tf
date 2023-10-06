@@ -1,13 +1,23 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  # enable the oidc implementation for GitHub
+  oidc_providers = ["github"]
+
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["polygraph-offender-management"]
+
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "ecr-repo" {
@@ -17,9 +27,6 @@ resource "kubernetes_secret" "ecr-repo" {
   }
 
   data = {
-    repo_url          = module.ecr-repo.repo_url
-    access_key_id     = module.ecr-repo.access_key_id
-    secret_access_key = module.ecr-repo.secret_access_key
+    repo_url = module.ecr-repo.repo_url
   }
 }
-

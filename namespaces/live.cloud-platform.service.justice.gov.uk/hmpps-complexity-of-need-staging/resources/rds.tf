@@ -5,17 +5,17 @@
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name                   = var.vpc_name
   db_instance_class          = "db.t3.small"
   team_name                  = var.team_name
-  business-unit              = "HMPPS"
+  business_unit              = "HMPPS"
   application                = "hmpps-complexity-of-need"
-  is-production              = "false"
+  is_production              = "false"
   namespace                  = var.namespace
-  environment-name           = var.environment
-  infrastructure-support     = "manage-pom-cases@digital.justice.gov.uk"
+  environment_name           = var.environment
+  infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
   db_engine_version          = "14"
   rds_family                 = "postgres14"
@@ -43,7 +43,5 @@ resource "kubernetes_secret" "complexity-of-need-rds" {
     postgres_user         = module.complexity-of-need-rds.database_username
     postgres_password     = module.complexity-of-need-rds.database_password
     rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
-    access_key_id         = module.complexity-of-need-rds.access_key_id
-    secret_access_key     = module.complexity-of-need-rds.secret_access_key
   }
 }

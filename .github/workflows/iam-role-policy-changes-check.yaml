@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout PR code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: Run git diff against repository
@@ -25,7 +25,7 @@ jobs:
           git diff origin/main HEAD > changes
       - name: Run iam/role policy changes check
         id: review_pr
-        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@v11
+        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@v14
       - name: Request changes in the PR
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         if: steps.review_pr.outputs.review_pr_iam_check == 'false'

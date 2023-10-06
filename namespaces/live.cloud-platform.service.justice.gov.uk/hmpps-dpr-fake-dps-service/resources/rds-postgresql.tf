@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -23,11 +23,11 @@ module "rds" {
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
-  db_engine                    = "postgres"
-  db_engine_version            = "14.7"
-  rds_family                   = "postgres14"
-  db_instance_class            = "db.t4g.micro"
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  db_engine              = "postgres"
+  db_engine_version      = "14.7"
+  rds_family             = "postgres14"
+  db_instance_class      = "db.t4g.micro"
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -53,10 +53,10 @@ module "rds" {
 
   # Tags
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }

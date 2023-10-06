@@ -1,12 +1,12 @@
 module "evidencelibrary_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
@@ -20,7 +20,8 @@ module "evidencelibrary_rds" {
   db_engine_version = var.db_engine_version
 
   # change the instance class as you see fit.
-  db_instance_class = var.db_instance_class
+  db_instance_class        = var.db_instance_class
+  db_max_allocated_storage = var.db_max_allocated_storage
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
   # Pick the one that defines the postgres version the best
@@ -57,8 +58,6 @@ resource "kubernetes_secret" "evidencelibrary_rds" {
     database_username     = module.evidencelibrary_rds.database_username
     database_password     = module.evidencelibrary_rds.database_password
     rds_instance_address  = module.evidencelibrary_rds.rds_instance_address
-    access_key_id         = module.evidencelibrary_rds.access_key_id
-    secret_access_key     = module.evidencelibrary_rds.secret_access_key
     url                   = "Host=${module.evidencelibrary_rds.rds_instance_address};Port=5432;Database=${module.evidencelibrary_rds.database_name};Username=${module.evidencelibrary_rds.database_username};Password=${module.evidencelibrary_rds.database_password};SSL Mode=Prefer;Trust Server Certificate=true;"
   }
 }

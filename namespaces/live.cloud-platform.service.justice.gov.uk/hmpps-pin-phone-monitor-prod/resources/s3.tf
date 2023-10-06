@@ -1,13 +1,13 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -61,36 +61,39 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
       ]
     },
   ]
+}
 
-  user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
+# The pathfinder app needs extra permissions, in addition to the default policy in the s3 module.
+data "aws_iam_policy_document" "pin_phone_s3_policy" {
+  statement {
+    sid    = "AllowBucketListActions"
+    effect = "Allow"
+    actions = [
       "s3:ListBucket"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
+    ]
+    resources = [module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn]
+  }
+
+  statement {
+    sid    = "AllowBucketActions"
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
       "s3:GetObjectRetention",
       "s3:CopyObject",
       "s3:PutObject",
       "s3:PutObjectTagging",
       "s3:DeleteObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
+    ]
+    resources = ["${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*"]
   }
-]
 }
-EOF
 
+resource "aws_iam_policy" "irsa_s3_policy" {
+  name   = "cloud-platform-s3-${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_name}"
+  path   = "/cloud-platform/s3/"
+  policy = data.aws_iam_policy_document.pin_phone_s3_policy.json
+  tags   = local.default_tags
 }
 
 # This policy restricts object level access to the bucket to applications running within the VPC and known MoJ VPNs.
@@ -244,16 +247,12 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name          = var.environment-name
-  team_name                 = var.team_name
-  infrastructure-support    = var.infrastructure_support
-  application               = var.application
+  # Queue configuration
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_prod"
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
-  namespace                 = var.namespace
 
   redrive_policy = <<EOF
   {
@@ -261,21 +260,35 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   }
   EOF
 
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+
   providers = {
     aws = aws.london
   }
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.11.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  environment-name       = var.environment-name
-  team_name              = var.team_name
-  infrastructure-support = var.infrastructure_support
+  # Queue configuration
+  sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq_prod"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
   application            = var.application
-  sqs_name               = "hmpps_pin_phone_monitor_s3_event_dlq_prod"
-  encrypt_sqs_kms        = "true"
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -344,9 +357,9 @@ resource "kubernetes_secret" "pcms_s3_event_queue" {
   }
 
   data = {
-    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
-    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
-    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
+    sqs_url  = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_id
+    sqs_arn  = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    sqs_name = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_name
   }
 }
 
@@ -371,8 +384,8 @@ resource "kubernetes_secret" "pcms_s3_event_dead_letter_queue" {
   }
 
   data = {
-    sqs_url           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_id
-    sqs_arn           = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_arn
-    sqs_name          = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_name
+    sqs_url  = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_id
+    sqs_arn  = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_arn
+    sqs_name = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.sqs_name
   }
 }

@@ -10,7 +10,7 @@ spec:
     - name: application-rules
       rules:
         - alert: Client Response Errors
-          expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-crime-applications-adaptor-prod"}[10m])) > 50
+          expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-crime-applications-adaptor-prod", status!="404"}[10m])) > 1
           for: 1m
           labels:
             severity: laa-crime-applications-adaptor

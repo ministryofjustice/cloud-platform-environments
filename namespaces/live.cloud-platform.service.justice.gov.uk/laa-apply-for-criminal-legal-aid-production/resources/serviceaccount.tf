@@ -21,6 +21,7 @@ module "serviceaccount" {
         "services",
         "configmaps",
         "pods",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
@@ -46,6 +47,7 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
         "poddisruptionbudgets",
       ]
       verbs = [

@@ -93,6 +93,11 @@ variable "user_pool_name_ccc" {
   default     = "laa-crime-auth-userpool-ccc"
 }
 
+variable "user_pool_name_orchestration" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-orchestration"
+}
+
 variable "cognito_user_pool_ccp_client_name_dev" {
   description = "Cognito user pool CCP client name"
   default     = "crown-court-proceeding-client-dev"
@@ -143,6 +148,31 @@ variable "cognito_user_pool_ccc_client_name_prd" {
   default     = "crown-court-contribution-client-prd"
 }
 
+variable "cognito_user_pool_orchestration_client_name_dev" {
+  description = "Cognito user pool Orchestration client name"
+  default     = "maat-orchestration-client-dev"
+}
+
+variable "cognito_user_pool_orchestration_client_name_tst" {
+  description = "Cognito user pool Orchestration client name"
+  default     = "maat-orchestration-client-tst"
+}
+
+variable "cognito_user_pool_orchestration_client_name_uat" {
+  description = "Cognito user pool Orchestration client name"
+  default     = "maat-orchestration-client-uat"
+}
+
+variable "cognito_user_pool_orchestration_client_name_stg" {
+  description = "Cognito user pool Orchestration client name"
+  default     = "maat-orchestration-client-stg"
+}
+
+variable "cognito_user_pool_orchestration_client_name_prd" {
+  description = "Cognito user pool Orchestration client name"
+  default     = "maat-orchestration-client-prd"
+}
+
 variable "cognito_user_pool_maat_client_name_dev" {
   description = "Cognito user pool MAAT client name"
   default     = "maat-client-dev"
@@ -191,6 +221,36 @@ variable "cognito_user_pool_cfe_client_name_stg" {
 variable "cognito_user_pool_cfe_client_name_prd" {
   description = "Cognito user pool CFE client name"
   default     = "cfe-client-prd"
+}
+
+variable "cognito_user_pool_hardship_client_name_dev" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-dev"
+}
+
+variable "cognito_user_pool_hardship_client_name_tst" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-tst"
+}
+
+variable "cognito_user_pool_hardship_client_name_uat" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-uat"
+}
+
+variable "cognito_user_pool_hardship_client_name_stg" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-stg"
+}
+
+variable "cognito_user_pool_hardship_client_name_prd" {
+  description = "Cognito user pool hardship client name"
+  default     = "hardship-client-prd"
+}
+
+variable "cognito_user_pool_functional_tests_name" {
+  description = "Cognito user pool functional tests client name"
+  default     = "functional-tests-client"
 }
 
 variable "evidence_resource_server_identifier" {
@@ -288,6 +348,25 @@ variable "ccc_scope_description" {
   default = "Standard scope for the Crown Court Contribution service"
 }
 
+variable "orchestration_resource_server_identifier" {
+  default     = "orchestration"
+  description = "Cognito resource server identifier for MAAT Orchestration service"
+}
+
+variable "orchestration_resource_server_name" {
+  default     = "orchestration-resource-server"
+  description = "Cognito resource server name for MAAT Orchestration service"
+}
+
+variable "orchestration_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "orchestration_scope_description" {
+  default = "Standard scope for the MAAT Orchestration service"
+}
+
 variable "cognito_user_pool_domain_name_evidence" {
   default = "laa-crime-auth-evidence"
 }
@@ -306,4 +385,8 @@ variable "cognito_user_pool_domain_name_ccp" {
 
 variable "cognito_user_pool_domain_name_ccc" {
   default = "laa-crime-auth-ccc"
+}
+
+variable "cognito_user_pool_domain_name_orchestration" {
+  default = "laa-crime-auth-orchestration"
 }

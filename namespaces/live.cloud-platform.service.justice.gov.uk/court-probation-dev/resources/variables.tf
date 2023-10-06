@@ -35,11 +35,19 @@ variable "is_production" {
 }
 
 variable "rds-family" {
-  default = "postgres11"
+  default = "postgres14"
+}
+
+variable "db_engine" {
+  default = "postgres"
 }
 
 variable "db_engine_version" {
-  default = "11"
+  default = "14.4"
+}
+
+variable "db_instance_class" {
+  default = "db.t4g.small"
 }
 
 variable "number_cache_clusters" {
@@ -59,5 +67,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
 }
 
