@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: help-with-child-arrangements-dev
+  namespace: help-with-child-arrangements-staging
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: help-with-child-arrangements-dev
+  namespace: help-with-child-arrangements-staging
 spec:
   podSelector: {}
   policyTypes:

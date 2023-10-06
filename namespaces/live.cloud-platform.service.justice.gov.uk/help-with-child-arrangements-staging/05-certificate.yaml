@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: help-with-child-arrangements-dev-cert
-  namespace: help-with-child-arrangements-dev
+  name: help-with-child-arrangements-staging-cert
+  namespace: help-with-child-arrangements-staging
 spec:
   secretName: help-with-child-arrangements-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - dev.help-with-child-arrangements.service.justice.gov.uk
+  - staging.help-with-child-arrangements.service.justice.gov.uk

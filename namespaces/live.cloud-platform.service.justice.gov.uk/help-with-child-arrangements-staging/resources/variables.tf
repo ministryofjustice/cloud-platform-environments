@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Find unclaimed court money"
+  default     = "Help with child arrangements"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "help-with-child-arrangements-dev"
+  default     = "help-with-child-arrangements-staging"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "staging"
 }
 
 variable "infrastructure_support" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cdpt-help-with-child-arrangements"
+  default     = "cdpt-child-arrangements-information-tool"
 }
 
 variable "github_owner" {
