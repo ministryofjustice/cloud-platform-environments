@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "resettlement-passport-preprod" {
   type                     = "http"
   name                     = "resettlement passport - preprod"
-  host                     = "resettlement-passport-ui-preprod.hmpps.service.justice.gov.uk/"
+  host                     = "resettlement-passport-ui-preprod.hmpps.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
