@@ -71,7 +71,7 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   # Enable delete protection
-  deletion_protection = true
+  deletion_protection = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
