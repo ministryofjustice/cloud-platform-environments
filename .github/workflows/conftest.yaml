@@ -10,6 +10,6 @@ jobs:
       - name: conftest
         uses: YubicoLabs/action-conftest@v3
         with:
-          files: namespaces/live.cloud-platform.service.justice.gov.uk/*/*.y*ml
+          files: namespaces/live.cloud-platform.service.justice.gov.uk/
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           gh-comment-url: ${{ github.event.pull_request.comments_url }}
