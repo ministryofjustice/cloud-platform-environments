@@ -17,7 +17,7 @@ resource "aws_acm_certificate" "icrir_custom_certificate" {
   }
 }
 
-resource kubernetes_secret "icrir_acm_validation_cname" {
+resource "kubernetes_secret" "icrir_acm_validation_cname" {
 
   metadata {
     name      = "icrir-acm-validation-cname-output"
