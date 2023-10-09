@@ -76,3 +76,9 @@ deny[msg] {
   not has_cp_label("environment-name")
   msg := "Namespace must have environment-name label"
 }
+
+deny[msg] {
+  input.kind == "Namespace"
+  not input.metadata.labels["pod-security.kubernetes.io/audit"] == "restricted"
+  msg := "Namespace must have label 'pod-security.kubernetes.io/audit: restricted'"
+}
