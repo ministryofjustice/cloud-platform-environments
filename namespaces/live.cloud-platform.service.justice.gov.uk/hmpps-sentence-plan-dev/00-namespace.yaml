@@ -12,3 +12,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Sentence Plan"
     cloud-platform.justice.gov.uk/owner: "probation-integration: probation-integration-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/team-name: "probation-integration"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-sentence-plan,https://github.com/ministryofjustice/hmpps-sentence-plan-ui"
