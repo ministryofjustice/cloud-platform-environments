@@ -1,4 +1,4 @@
-resource "pingdom_check" "laa-dces-report-service-dev" {
+resource "pingdom_check" "laa-dces-drc-integration-dev" {
   type                     = "http"
   name                     = "LAA DCES DRC Integration - Dev"
   host                     = "laa-dces-drc-integration-dev.apps.live.cloud-platform.service.justice.gov.uk"
