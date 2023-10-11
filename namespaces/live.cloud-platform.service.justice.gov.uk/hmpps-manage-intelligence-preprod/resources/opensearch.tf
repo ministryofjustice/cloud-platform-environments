@@ -24,7 +24,7 @@ module "opensearch" {
 
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.medium.search"
+    instance_type  = "m6g.xlarge.search"
   }
 
   ebs_options = {
