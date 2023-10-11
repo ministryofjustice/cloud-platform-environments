@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -32,7 +32,7 @@ resource "kubernetes_secret" "s3_bucket" {
 }
 
 module "ap_gh_collab_repo_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl    = "private"
 
   team_name              = var.team_name
