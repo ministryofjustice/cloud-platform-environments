@@ -23,8 +23,8 @@ module "opensearch" {
   snapshot_bucket_arn = module.s3.bucket_arn
 
   cluster_config = {
-    instance_count = 2
-    instance_type  = "m6g.xlarge.search"
+    instance_count = 3
+    instance_type  = "m6g.large.search"
   }
 
   ebs_options = {
