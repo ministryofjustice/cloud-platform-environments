@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-dces-drs-integration-dev-admin
-  namespace: laa-dces-drs-integration-dev
+  name: laa-dces-drc-integration-dev-admin
+  namespace: laa-dces-drc-integration-dev
 subjects:
   - kind: Group
     name: "github:laa-crime-apps-team"

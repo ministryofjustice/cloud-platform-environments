@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-dces-drs-integration-dev
+  namespace: laa-dces-drc-integration-dev
 spec:
   hard:
     pods: "50"
