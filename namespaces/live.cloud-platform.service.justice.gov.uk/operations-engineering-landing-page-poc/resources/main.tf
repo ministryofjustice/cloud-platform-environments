@@ -8,6 +8,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      GithubTeam = "operations-engineering"
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }
