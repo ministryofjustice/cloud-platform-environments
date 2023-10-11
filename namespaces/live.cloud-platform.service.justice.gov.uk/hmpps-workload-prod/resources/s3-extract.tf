@@ -1,6 +1,6 @@
 module "hmpps-workload-prod-s3-extract-bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=rm-deprecated-template-provider"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application

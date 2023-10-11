@@ -39,7 +39,7 @@ module "manage_intelligence_transformer_bucket" {
 }
 
 module "manage_intelligence_logging_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=rm-deprecated-template-provider"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
