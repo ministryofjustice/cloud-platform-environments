@@ -25,7 +25,7 @@ resource "pingdom_check" "prisoner-content-hub-backend-production" {
   name                     = "Prisoner Content Hub Backend"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
-  notifywhenbackup         = trueq
+  notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
   url                      = "/https/manage.content-hub.prisoner.service.justice.gov.uk"
