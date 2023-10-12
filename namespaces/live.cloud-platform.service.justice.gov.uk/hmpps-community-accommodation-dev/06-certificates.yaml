@@ -24,6 +24,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - temporary-accommodation-dev.hmpps.service.justice.gov.uk
+    - transitional-accommodation-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
