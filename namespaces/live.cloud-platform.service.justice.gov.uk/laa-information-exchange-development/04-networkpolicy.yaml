@@ -25,19 +25,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: ingress-controllers
-    - ipBlock:
-        cidr: 35.178.209.113/32
-    - ipBlock:
-        cidr: 3.8.51.207/32
-    - ipBlock:
-        cidr: 35.177.252.54/32
-    - ipBlock:
-        cidr: 13.43.9.198/32
-    - ipBlock:
-        cidr: 18.132.208.127/32
-    - ipBlock:
-        cidr: 13.42.163.245/32
+          component: ingress-controllers # This allows all traffic since all traffic comes in via the ingress controller, ipBlocks here does not work
     ports:
     - protocol: TCP
       port: 8080
