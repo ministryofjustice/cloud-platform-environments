@@ -1,6 +1,5 @@
 module "drupal_content_storage_cf" {
-
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.9.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -192,8 +191,6 @@ resource "kubernetes_secret" "drupal_content_storage_cf_secret" {
   }
 
   data = {
-    access_key_id     = module.drupal_content_storage_cf.access_key_id
-    secret_access_key = module.drupal_content_storage_cf.secret_access_key
     bucket_arn        = module.drupal_content_storage_cf.bucket_arn
     bucket_name       = module.drupal_content_storage_cf.bucket_name
     cloudfront_url    = module.cloudfront.cloudfront_url
