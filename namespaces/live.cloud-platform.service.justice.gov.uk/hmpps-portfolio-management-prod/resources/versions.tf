@@ -17,5 +17,9 @@ terraform {
       source  = "hashicorp/time"
       version = "~> 0.9.0"
     }
+    pingdom = {
+      source  = "DrFaust92/pingdom"
+      version = "~> 1.3.1"
+    }
   }
 }
