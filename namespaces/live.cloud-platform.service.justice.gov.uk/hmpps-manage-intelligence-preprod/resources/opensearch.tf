@@ -24,7 +24,10 @@ module "opensearch" {
 
   cluster_config = {
     instance_count = 3
-    instance_type  = "m6g.large.search"
+    instance_type  = "r6g.large.search"
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_type    = "m6g.large.search"
   }
 
   ebs_options = {
