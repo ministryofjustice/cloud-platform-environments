@@ -20,8 +20,29 @@ spec:
   podSelector: {}
   policyTypes:
   - Ingress
+  - Egress
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+    - ipBlock:
+        cidr: 35.178.209.113/32
+    - ipBlock:
+        cidr: 3.8.51.207/32
+    - ipBlock:
+        cidr: 35.177.252.54/32
+    - ipBlock:
+        cidr: 13.43.9.198/32
+    - ipBlock:
+        cidr: 18.132.208.127/32
+    - ipBlock:
+        cidr: 13.42.163.245/32
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to:
+    ports:
+    - protocol: TCP
+      port: 443
