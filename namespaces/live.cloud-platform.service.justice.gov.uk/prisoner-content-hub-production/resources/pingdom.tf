@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 122531 = #launchpad-alerts
+# 132036 = #launchpad-alerts
 
 resource "pingdom_check" "prisoner-content-hub-frontend-production" {
   type                     = "http"
@@ -17,7 +17,7 @@ resource "pingdom_check" "prisoner-content-hub-frontend-production" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed,businessunit_${var.business_unit},application_prisoner_content_hub,component_healthcheck,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [132036]
 }
 
 resource "pingdom_check" "prisoner-content-hub-backend-production" {
@@ -25,7 +25,7 @@ resource "pingdom_check" "prisoner-content-hub-backend-production" {
   name                     = "Prisoner Content Hub Backend"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
-  notifywhenbackup         = true
+  notifywhenbackup         = trueq
   sendnotificationwhendown = 6
   notifyagainevery         = 0
   url                      = "/https/manage.content-hub.prisoner.service.justice.gov.uk"
@@ -33,5 +33,5 @@ resource "pingdom_check" "prisoner-content-hub-backend-production" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed,businessunit_${var.business_unit},application_prisoner_content_hub,component_healthcheck,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [132036]
 }
