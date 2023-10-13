@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/audit: restricted
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "GDS"
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "gdx-platform"
     cloud-platform.justice.gov.uk/application: "gdx-data-share-poc"
     cloud-platform.justice.gov.uk/owner: "gdx-platform: gdx-dev-team@digital.cabinet-office.gov.uk"
