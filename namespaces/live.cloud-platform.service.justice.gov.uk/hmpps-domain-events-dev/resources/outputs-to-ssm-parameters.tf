@@ -6,6 +6,8 @@ locals {
     (module.cvl_domain_events_dead_letter_queue.sqs_name)                           = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.cvl_test1_domain_events_queue.sqs_name)                                 = module.cvl_test1_domain_events_queue.irsa_policy_arn,
     (module.cvl_test1_domain_events_dead_letter_queue.sqs_name)                     = module.cvl_test1_domain_events_dead_letter_queue.irsa_policy_arn,
+    (module.cvl_test2_domain_events_queue.sqs_name)                                 = module.cvl_test2_domain_events_queue.irsa_policy_arn,
+    (module.cvl_test2_domain_events_dead_letter_queue.sqs_name)                     = module.cvl_test2_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.curious_queue.sqs_name)                                                 = module.curious_queue.irsa_policy_arn,
     (module.curious_dead_letter_queue.sqs_name)                                     = module.curious_dead_letter_queue.irsa_policy_arn,
     (module.dps_smoketest_queue.sqs_name)                                           = module.dps_smoketest_queue.irsa_policy_arn,
@@ -13,6 +15,8 @@ locals {
     (module.activities_domain_events_dead_letter_queue.sqs_name)                    = module.activities_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_domain_event_logger_queue.sqs_name)                               = module.hmpps_domain_event_logger_queue.irsa_policy_arn,
     (module.hmpps_domain_event_logger_dead_letter_queue.sqs_name)                   = module.hmpps_domain_event_logger_dead_letter_queue.irsa_policy_arn,
+    (module.education_and_work_plan_domain_events_queue.sqs_name)                   = module.education_and_work_plan_domain_events_queue.irsa_policy_arn,
+    (module.education_and_work_plan_domain_events_dead_letter_queue.sqs_name)       = module.education_and_work_plan_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.keyworker_api_queue.sqs_name)                                           = module.keyworker_api_queue.irsa_policy_arn,
     (module.keyworker_api_dead_letter_queue.sqs_name)                               = module.keyworker_api_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_prisoner_to_nomis_visit_queue.sqs_name)                           = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
@@ -29,8 +33,6 @@ locals {
     (module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_name) = module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.in_cell_queue.sqs_name)                                                 = module.in_cell_queue.irsa_policy_arn,
     (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_domain_queue.sqs_name)                         = module.prisoner_offender_search_domain_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_domain_dlq.sqs_name)                           = module.prisoner_offender_search_domain_dlq.irsa_policy_arn
   }
 
   sns_irsa_policies = {

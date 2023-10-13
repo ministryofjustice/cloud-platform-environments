@@ -31,6 +31,7 @@ variable "additional_topic_clients" {
     "hmpps-assessments-prod",
     "hmpps-community-accommodation-prod",
     "hmpps-complexity-of-need-production",
+    "hmpps-education-and-work-plan-prod",
     "hmpps-incentives-prod",
     "hmpps-non-associations-prod",
     "hmpps-interventions-prod",

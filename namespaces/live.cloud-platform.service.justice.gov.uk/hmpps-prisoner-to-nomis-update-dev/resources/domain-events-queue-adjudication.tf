@@ -6,10 +6,18 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
   filter_policy = jsonencode({
     eventType = [
       "adjudication.report.created",
+      "adjudication.evidence.updated",
       "adjudication.damages.updated",
       "adjudication.hearing.created",
       "adjudication.hearing.updated",
-      "adjudication.hearing.deleted"
+      "adjudication.hearing.deleted",
+      "adjudication.hearingCompleted.created",
+      "adjudication.hearingCompleted.deleted",
+      "adjudication.hearingAdjourn.created",
+      "adjudication.hearingReferral.created",
+      "adjudication.hearingAdjourn.deleted",
+      "adjudication.hearingReferral.deleted",
+      "adjudication.punishments.created"
     ]
   })
 }

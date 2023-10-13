@@ -17,7 +17,9 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-oe-sub
   filter_policy = jsonencode({
     eventType = [
       "CONFIRMED_RELEASE_DATE-CHANGED",
-      "SENTENCE_DATES-CHANGED"
+      "SENTENCE_DATES-CHANGED",
+      "KEY_DATE_ADJUSTMENT_UPSERTED",
+      "KEY_DATE_ADJUSTMENT_DELETED"
     ]
   })
 }

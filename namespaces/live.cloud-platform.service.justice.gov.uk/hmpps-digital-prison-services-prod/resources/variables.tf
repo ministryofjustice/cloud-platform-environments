@@ -1,4 +1,6 @@
-
+variable "domain" {
+  default = "dps.prison.service.justice.gov.uk"
+}
 
 variable "vpc_name" {
 }

@@ -13,7 +13,7 @@ module "publisher-rds-instance" {
   db_engine_version           = "12"
   allow_major_version_upgrade = "true"
   rds_family                  = "postgres12"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
 
   providers = {
     aws = aws.london

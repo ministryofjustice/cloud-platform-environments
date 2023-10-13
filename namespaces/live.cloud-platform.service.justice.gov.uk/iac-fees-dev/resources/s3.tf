@@ -1,6 +1,6 @@
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "cgi_s3_access_policy" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "cgi-s3-access-user"
+  name = "cgi-s3-access-user-${var.environment}"
   path = "/system/cgi-s3-access-user/"
 }
 

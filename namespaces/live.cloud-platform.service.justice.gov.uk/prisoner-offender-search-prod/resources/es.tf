@@ -24,7 +24,7 @@ module "prisoner_offender_search_elasticsearch" {
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
