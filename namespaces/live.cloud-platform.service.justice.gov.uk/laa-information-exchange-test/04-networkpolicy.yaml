@@ -25,7 +25,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: ingress-controllersgit
+          component: ingress-controllers
     ports:
     - protocol: TCP
       port: 8080
