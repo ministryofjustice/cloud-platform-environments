@@ -4,6 +4,8 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  serviceaccount_token_rotated_date = "13-10-2023"
+
   serviceaccount_rules = [
     {
       api_groups = [""]
