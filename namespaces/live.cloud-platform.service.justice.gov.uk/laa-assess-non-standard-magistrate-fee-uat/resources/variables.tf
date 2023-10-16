@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "ministryofjustice"
+  default     = "crm7team"
 }
 
 variable "environment" {
@@ -41,19 +41,19 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "crm@crm.com"
+  default     = "CRM457@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laacrm"
+  default     = "laa-crm-4-5-7"
 }
 
 variable "github_owner" {
