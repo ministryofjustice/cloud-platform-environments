@@ -17,7 +17,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
       "adjudication.hearingReferral.created",
       "adjudication.hearingAdjourn.deleted",
       "adjudication.hearingReferral.deleted",
-      "adjudication.punishments.created"
+      "adjudication.punishments.created",
+      "adjudication.referral.outcome.notProceed",
+      "adjudication.referral.outcome.prosecution"
     ]
   })
 }
