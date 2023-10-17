@@ -4,6 +4,5 @@ module "serviceaccount" {
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
-
-  github_repositories = ["justice-website-archive"]
+  github_repositories = [var.app_repo]
 }
