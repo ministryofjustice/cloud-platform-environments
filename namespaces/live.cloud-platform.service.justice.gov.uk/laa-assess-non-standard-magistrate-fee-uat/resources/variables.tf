@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Alaa-assess-non-standard-magistrate-fee"
+  default     = "laa-assess-non-standard-magistrate-fee"
 }
 
 variable "namespace" {
