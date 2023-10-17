@@ -45,3 +45,11 @@ resource "aws_route53_record" "publicdefenderservice_route53_cname_record_verifi
   ttl     = "300"
   records = ["_883f57125ff59399c0009690a7d3779d.tfmgdnztqk.acm-validations.aws."]
 }
+
+resource "aws_route53_record" "publicdefenderservice_route53_txt_dmarc" {
+  zone_id = aws_route53_zone.publicdefenderservice_route53_zone.zone_id
+  name    = "_dmarc.publicdefenderservice.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
+}

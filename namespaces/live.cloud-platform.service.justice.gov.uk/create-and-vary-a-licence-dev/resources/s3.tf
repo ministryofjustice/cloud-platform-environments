@@ -4,14 +4,14 @@
 #################################################################################
 
 module "create-and-vary-a-licence-s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
   providers = {
@@ -26,9 +26,7 @@ resource "kubernetes_secret" "create-and-vary-a-licence-s3" {
   }
 
   data = {
-    access_key_id     = module.create-and-vary-a-licence-s3.access_key_id
-    secret_access_key = module.create-and-vary-a-licence-s3.secret_access_key
-    bucket_arn        = module.create-and-vary-a-licence-s3.bucket_arn
-    bucket_name       = module.create-and-vary-a-licence-s3.bucket_name
+    bucket_arn  = module.create-and-vary-a-licence-s3.bucket_arn
+    bucket_name = module.create-and-vary-a-licence-s3.bucket_name
   }
 }

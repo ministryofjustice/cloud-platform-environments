@@ -24,13 +24,13 @@ module "opensearch" {
 }
 
 module "opensearch_snapshot_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   application            = var.application
-  business-unit          = var.business_unit
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  is-production          = var.is_production
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
 }

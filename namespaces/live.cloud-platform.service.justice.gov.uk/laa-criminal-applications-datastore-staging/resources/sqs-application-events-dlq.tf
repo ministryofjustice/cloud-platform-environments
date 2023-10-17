@@ -1,5 +1,5 @@
 module "application-events-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "application-events-dlq"
@@ -26,9 +26,6 @@ resource "kubernetes_secret" "application-events-dlq" {
   }
 
   data = {
-    access_key_id     = module.application-events-dlq.access_key_id
-    secret_access_key = module.application-events-dlq.secret_access_key
-
     sqs_id   = module.application-events-dlq.sqs_id
     sqs_name = module.application-events-dlq.sqs_name
     sqs_arn  = module.application-events-dlq.sqs_arn

@@ -1,13 +1,13 @@
 module "cla_frontend_static_files_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl                           = "public-read"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
-  business-unit                 = var.business_unit
+  business_unit                 = var.business_unit
   application                   = var.application
-  is-production                 = var.is_production
-  environment-name              = var.environment-name
-  infrastructure-support        = var.infrastructure_support
+  is_production                 = var.is_production
+  environment_name              = var.environment-name
+  infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
 
   providers = {

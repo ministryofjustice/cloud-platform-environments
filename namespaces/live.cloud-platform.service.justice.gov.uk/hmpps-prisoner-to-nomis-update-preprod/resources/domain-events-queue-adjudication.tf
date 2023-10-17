@@ -6,13 +6,28 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
   filter_policy = jsonencode({
     eventType = [
       "adjudication.report.created",
-      "adjudication.damages.updated"
+      "adjudication.evidence.updated",
+      "adjudication.damages.updated",
+      "adjudication.hearing.created",
+      "adjudication.hearing.updated",
+      "adjudication.hearing.deleted",
+      "adjudication.hearingCompleted.created",
+      "adjudication.hearingCompleted.deleted",
+      "adjudication.hearingAdjourn.created",
+      "adjudication.hearingReferral.created",
+      "adjudication.hearingAdjourn.deleted",
+      "adjudication.hearingReferral.deleted",
+      "adjudication.punishments.created",
+      "adjudication.referral.outcome.notProceed",
+      "adjudication.referral.outcome.prosecution",
+      "adjudication.referral.outcome.referGov",
+      "adjudication.referral.outcome.deleted"
     ]
   })
 }
 
 module "hmpps_prisoner_to_nomis_adjudication_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_to_nomis_adjudication_queue"
@@ -68,7 +83,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_adjudication_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_adjudication_dead_letter_queue"

@@ -10,7 +10,10 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - plp-api-dev.hmpps.service.justice.gov.uk
     - learningandworkprogress-api-dev.hmpps.service.justice.gov.uk
+    - learning-and-work-progress-api-dev.hmpps.service.justice.gov.uk
+    - education-and-work-plan-api-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -23,4 +26,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    -  plp-dev.hmpps.service.justice.gov.uk
     -  learning-and-work-progress-dev.hmpps.service.justice.gov.uk
+    -  education-and-work-plan-dev.hmpps.service.justice.gov.uk

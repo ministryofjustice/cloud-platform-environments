@@ -10,34 +10,21 @@ module "hmpps_prisoner_search_opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.7"
+  engine_version = "OpenSearch_2.9"
 
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_type  = "t3.medium.search"
   }
 
   ebs_options = {
     volume_size = 20
   }
-  snapshot_bucket_arn = module.os_snapshots_s3_bucket.bucket_arn
+  snapshot_bucket_arn = data.aws_s3_bucket.snapshot_bucket.arn
 }
 
-module "os_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
-  team_name              = var.team_name
-  acl                    = "private"
-  versioning             = false
-  business-unit          = var.business_unit
-  application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
-  namespace              = var.namespace
-
-  providers = {
-    aws = aws.london
-  }
+data "aws_s3_bucket" "snapshot_bucket" {
+  bucket = "cloud-platform-852450f884768027e7dbe48002e188aa"
 }
 
 resource "kubernetes_secret" "os_snapshots_role" {
@@ -48,18 +35,6 @@ resource "kubernetes_secret" "os_snapshots_role" {
 
   data = {
     snapshot_role_arn = module.hmpps_prisoner_search_opensearch.snapshot_role_arn
-  }
-}
-
-resource "kubernetes_secret" "os_snapshots" {
-  metadata {
-    name      = "os-snapshot-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.os_snapshots_s3_bucket.bucket_arn
-    bucket_name = module.os_snapshots_s3_bucket.bucket_name
   }
 }
 

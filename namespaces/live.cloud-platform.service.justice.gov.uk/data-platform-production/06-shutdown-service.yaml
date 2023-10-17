@@ -1,0 +1,135 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shutdown-config
+  namespace: data-platform-production
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /tmp/nginx.pid;
+
+    events {
+      worker_connections  1024;
+    }
+
+    http {
+      include       /etc/nginx/mime.types;
+      default_type  application/octet-stream;
+
+      sendfile        on;
+      keepalive_timeout  65;
+
+      server {
+        listen       8080;
+        server_name  localhost;
+
+        location / {
+          root   /usr/share/nginx/html;
+          index  index.html index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+          root   /usr/share/nginx/html;
+        }
+      }
+    }
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Application Shutdown</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Dear App Owner,</p>
+        <p>The application you're trying to access has been shut down. We apologize for any inconvenience this may cause.</p>
+        <p>Should you have any questions or concerns, please don't hesitate to reach out to us via the #analytical-platform-support Slack channel.</p>
+        <p>Thank you for your understanding and cooperation.</p>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shutdown-deployment
+  namespace: data-platform-production
+  labels:
+    app: shutdown
+spec:
+  selector:
+    matchLabels:
+      app: shutdown
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shutdown
+    spec:
+      containers:
+        - name: shutdown-container
+          image: nginxinc/nginx-unprivileged:1.20.0-alpine
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - name: shutdown-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: html-content
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+      volumes:
+        - name: shutdown-config-volume
+          configMap:
+            name: shutdown-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: html-content
+          configMap:
+            name: shutdown-config
+            items:
+              - key: index.html
+                path: index.html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shutdown-service
+  namespace: data-platform-production
+spec:
+  selector:
+    app: shutdown
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

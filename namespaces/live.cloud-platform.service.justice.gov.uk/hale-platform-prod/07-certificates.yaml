@@ -92,6 +92,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: my.imb.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: my-imb-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - my.imb.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: ccrc.gov.uk
   namespace: hale-platform-prod
 spec:
@@ -179,3 +192,160 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - www.brookhouseinquiry.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: layobservers.org
+  namespace: hale-platform-prod
+spec:
+  secretName: layobservers-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - layobservers.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.layobservers.org
+  namespace: hale-platform-prod
+spec:
+  secretName: layobservers-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.layobservers.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sifocc.org
+  namespace: hale-platform-prod
+spec:
+  secretName: sifocc-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - sifocc.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.sifocc.org
+  namespace: hale-platform-prod
+spec:
+  secretName: sifocc-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.sifocc.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nationalpreventivemechanism.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: nationalpreventivemechanism-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - nationalpreventivemechanism.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.nationalpreventivemechanism.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: nationalpreventivemechanism-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.nationalpreventivemechanism.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jobs.justice.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: justicejobs-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - jobs.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.jobs.justice.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: justicejobs-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.jobs.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ppo.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ppo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - ppo.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.ppo.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: ppo-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.ppo.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lawcom.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: lawcom-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - lawcom.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.lawcom.gov.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: lawcom-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.lawcom.gov.uk
+  

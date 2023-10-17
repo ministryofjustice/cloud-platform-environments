@@ -110,5 +110,23 @@ variable "serviceaccount_rules" {
         "watch",
       ]
     },
+    {
+      api_groups = [
+        "batch"
+      ]
+      resources = [
+        "jobs",
+        "cronjobs"
+      ]
+      verbs = [
+        "get",
+        "list",
+        "watch",
+        "create",
+        "update",
+        "patch",
+        "delete"
+      ]
+    }
   ]
 }

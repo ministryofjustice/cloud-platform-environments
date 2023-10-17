@@ -1,12 +1,12 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   team_name              = var.team_name
-  business-unit          = var.business_unit
+  business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment-name
-  infrastructure-support = var.email
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.email
   namespace              = var.namespace
 
   providers = {
@@ -21,10 +21,8 @@ resource "kubernetes_secret" "s3" {
   }
 
   data = {
-    access_key_id     = module.s3.access_key_id
-    secret_access_key = module.s3.secret_access_key
-    bucket_arn        = module.s3.bucket_arn
-    bucket_name       = module.s3.bucket_name
-    region            = "eu-west-2"
+    bucket_arn  = module.s3.bucket_arn
+    bucket_name = module.s3.bucket_name
+    region      = "eu-west-2"
   }
 }

@@ -1,5 +1,5 @@
 module "offender_case_notes_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                  = "offender_case_notes_events_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "offender_case_notes_events_queue_policy" {
 }
 
 module "offender_case_notes_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "offender_case_notes_events_queue_dl"

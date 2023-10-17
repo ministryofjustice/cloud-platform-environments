@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Estimate financial eligibility for Legal Aid"
+  default     = "Check if your client qualifies for legal aid"
 }
 
 variable "namespace" {
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "eligibility-team"
+  default     = "laa-ccq-team"
 }
 
 variable "github_owner" {

@@ -5,8 +5,6 @@ resource "kubernetes_secret" "additional_secrets" {
     namespace = each.value
   }
   data = {
-    access_key_id     = module.hmpps-domain-events.additional_access_keys[each.value].access_key_id
-    secret_access_key = module.hmpps-domain-events.additional_access_keys[each.value].secret_access_key
-    topic_arn         = module.hmpps-domain-events.topic_arn
+    topic_arn = module.hmpps-domain-events.topic_arn
   }
 }

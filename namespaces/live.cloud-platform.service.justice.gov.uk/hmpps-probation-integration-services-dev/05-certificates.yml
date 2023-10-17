@@ -389,17 +389,33 @@ spec:
     - 147ffc36-dev.hmpps.service.justice.gov.uk
     - prison-education-and-delius-dev.hmpps.service.justice.gov.uk
 
+
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: arns-and-oasys-cert
+  name: opd-and-delius-cert
   namespace: hmpps-probation-integration-services-dev
 spec:
-  secretName: arns-and-oasys-cert
+  secretName: opd-and-delius-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - 0ebe64c4-dev.hmpps.service.justice.gov.uk
-    - arns-and-oasys-dev.hmpps.service.justice.gov.uk
+    - 91de1441-dev.hmpps.service.justice.gov.uk
+    - opd-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-auth-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: hmpps-auth-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4f4dcd3c-dev.hmpps.service.justice.gov.uk
+    - hmpps-auth-and-delius-dev.hmpps.service.justice.gov.uk

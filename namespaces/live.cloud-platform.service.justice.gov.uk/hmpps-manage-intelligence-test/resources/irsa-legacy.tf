@@ -18,9 +18,12 @@ module "irsa-legacy" {
     sqs_transformer_dlq = module.ims_transformer_dead_letter_queue.irsa_policy_arn
     sqs_lastupdate      = module.ims_lastupdate_queue.irsa_policy_arn
     sqs_lastupdate_dlq  = module.ims_lastupdate_dead_letter_queue.irsa_policy_arn
+    sqs_generator       = module.ims_test_generator_queue.irsa_policy_arn
+    sqs_generator_dlg   = module.ims_generator_dead_letter_queue.irsa_policy_arn
     s3_extractor        = module.manage_intelligence_extractor_bucket.irsa_policy_arn
     s3_transformer      = module.manage_intelligence_transformer_bucket.irsa_policy_arn
     rds                 = module.rds_aurora_legacy.irsa_policy_arn
+    rds_test_gen        = module.rds_aurora_legacy_test_gen.irsa_policy_arn
   }
 
   # Tags

@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-notify-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-notify-queue"
@@ -43,10 +43,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-notify-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.dcs.arn}",
-              "${aws_iam_user.redrive_service.arn}"
-            ]
+            "aws:SourceArn": "${module.irsa-dcs.role_arn}"
           }
         }
       },
@@ -62,9 +59,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
         "Resource": "${module.claim-criminal-injuries-notify-queue.sqs_arn}",
         "Condition": {
           "ArnEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.notify_gateway.arn}"
-            ]
+            "aws:SourceArn": "${module.irsa-notifyservice.role_arn}"
           }
         }
       },
@@ -87,7 +82,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-queue-policy" {
 
 
 module "claim-criminal-injuries-notify-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-notify-dead-letter-queue"
@@ -119,24 +114,6 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-notify-dlq-policy" {
     "Id": "claim-criminal-injuries-notify-queue-dlq-policy",
     "Statement": [
       {
-        "Sid": "claim-criminal-injuries-notify-dlq-allow-redrive-service",
-        "Effect": "Allow",
-        "Principal": {"AWS": "*"},
-        "Action": [
-          "sqs:GetQueueAttributes",
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage"
-        ],
-        "Resource": "${module.claim-criminal-injuries-notify-dlq.sqs_arn}",
-        "Condition": {
-          "ArnNotEquals": {
-            "aws:SourceArn": [
-              "${aws_iam_user.redrive_service.arn}"
-            ]
-          }
-        }
-      },
-      {
         "Sid": "AlwaysEncrypted",
         "Effect": "Deny",
         "Principal": {"AWS": "*"},
@@ -160,11 +137,9 @@ resource "kubernetes_secret" "claim-criminal-injuries-notify-sqs" {
   }
 
   data = {
-    access_key_id     = module.claim-criminal-injuries-notify-queue.access_key_id
-    secret_access_key = module.claim-criminal-injuries-notify-queue.secret_access_key
-    sqs_id            = module.claim-criminal-injuries-notify-queue.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-notify-queue.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-notify-queue.sqs_name
+    sqs_id   = module.claim-criminal-injuries-notify-queue.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-notify-queue.sqs_arn
+    sqs_name = module.claim-criminal-injuries-notify-queue.sqs_name
   }
 }
 
@@ -175,10 +150,8 @@ resource "kubernetes_secret" "claim-criminal-injuries-notify-dlq" {
   }
 
   data = {
-    access_key_id     = module.claim-criminal-injuries-notify-dlq.access_key_id
-    secret_access_key = module.claim-criminal-injuries-notify-dlq.secret_access_key
-    sqs_id            = module.claim-criminal-injuries-notify-dlq.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-notify-dlq.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-notify-dlq.sqs_name
+    sqs_id   = module.claim-criminal-injuries-notify-dlq.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-notify-dlq.sqs_arn
+    sqs_name = module.claim-criminal-injuries-notify-dlq.sqs_name
   }
 }

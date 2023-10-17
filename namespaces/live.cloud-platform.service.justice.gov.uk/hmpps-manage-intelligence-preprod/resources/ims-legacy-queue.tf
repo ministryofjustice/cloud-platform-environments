@@ -1,5 +1,5 @@
 module "ims_extractor_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "ims_extractor_queue_${var.environment}"
@@ -30,7 +30,7 @@ EOF
 }
 
 module "ims_extractor_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "ims_extractor_dl_queue_${var.environment}"
@@ -53,11 +53,11 @@ module "ims_extractor_dead_letter_queue" {
 
 
 module "ims_transformer_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "ims_transformer_queue_${var.environment}"
-  fifo_queue                 = true
+  fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -84,11 +84,11 @@ EOF
 }
 
 module "ims_transformer_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "ims_transformer_dl_queue_${var.environment}"
-  fifo_queue      = true
+  fifo_queue      = false
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -106,7 +106,7 @@ module "ims_transformer_dead_letter_queue" {
 }
 
 module "ims_lastupdate_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name                   = "ims_lastupdate_queue_${var.environment}"
@@ -137,7 +137,7 @@ EOF
 }
 
 module "ims_lastupdate_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=4.12.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
   sqs_name        = "ims_lastupdate_dl_queue_${var.environment}"

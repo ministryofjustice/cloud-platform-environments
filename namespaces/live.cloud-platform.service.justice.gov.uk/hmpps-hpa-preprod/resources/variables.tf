@@ -17,6 +17,11 @@ variable "eks_cluster_name" {
 variable "vpc_name" {
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"

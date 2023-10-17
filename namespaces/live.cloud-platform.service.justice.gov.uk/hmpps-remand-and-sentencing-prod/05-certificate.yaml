@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-remand-and-sentencing-cert
+  namespace: hmpps-remand-and-sentencing-prod
+spec:
+  secretName: hmpps-remand-and-sentencing-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - remand-and-sentencing.hmpps.service.justice.gov.uk

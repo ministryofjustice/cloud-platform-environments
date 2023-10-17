@@ -1,13 +1,13 @@
 module "authorized-keys" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=4.8.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   team_name              = "apply-for-legal-aid"
   acl                    = "private"
-  business-unit          = "laa"
+  business_unit          = "laa"
   application            = "laa-apply-for-legal-aid"
-  is-production          = "true"
-  environment-name       = "production"
-  infrastructure-support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  is_production          = "true"
+  environment_name       = "production"
+  infrastructure_support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
   namespace              = var.namespace
 
   providers = {
@@ -22,8 +22,6 @@ resource "kubernetes_secret" "apply-for-legal-aid-s3-credentials" {
   }
 
   data = {
-    bucket_name       = module.authorized-keys.bucket_name
-    access_key_id     = module.authorized-keys.access_key_id
-    secret_access_key = module.authorized-keys.secret_access_key
+    bucket_name = module.authorized-keys.bucket_name
   }
 }

@@ -5,17 +5,17 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name                   = var.vpc_name
   db_instance_class          = "db.t4g.small"
   team_name                  = var.team_name
-  business-unit              = var.business_unit
+  business_unit              = var.business_unit
   application                = var.application
-  is-production              = var.is_production
+  is_production              = var.is_production
   namespace                  = var.namespace
-  environment-name           = var.environment_name
-  infrastructure-support     = var.infrastructure_support
+  environment_name           = var.environment_name
+  infrastructure_support     = var.infrastructure_support
   db_engine                  = "postgres"
   rds_family                 = "postgres14"
   db_engine_version          = "14"
@@ -46,8 +46,6 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_host         = module.allocation-rds.rds_instance_address
     postgres_user         = module.allocation-rds.database_username
     postgres_password     = module.allocation-rds.database_password
-    access_key_id         = module.allocation-rds.access_key_id
-    secret_access_key     = module.allocation-rds.secret_access_key
   }
 }
 

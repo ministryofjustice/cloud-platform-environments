@@ -3,19 +3,19 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.64.0"
+      version = "~> 4.67.0"
     }
     github = {
       source  = "integrations/github"
-      version = "~> 5.23.0"
+      version = "~> 5.39.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.20.0"
+      version = "~> 2.23.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 2.3.1"
+      version = "~> 3.5.1"
     }
     pingdom = {
       source  = "DrFaust92/pingdom"

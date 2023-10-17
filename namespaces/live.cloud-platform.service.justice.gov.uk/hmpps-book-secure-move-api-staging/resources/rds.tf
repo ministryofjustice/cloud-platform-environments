@@ -1,19 +1,20 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
+  environment_name       = var.environment-name
+  is_production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
 
-  backup_window               = var.backup_window
-  maintenance_window          = var.maintenance_window
+  backup_window      = var.backup_window
+  maintenance_window = var.maintenance_window
   # this isn't possible with a read replica
-  enable_rds_auto_start_stop  = false
+  enable_rds_auto_start_stop = false
 
   db_engine         = "postgres"
   db_engine_version = "12.14"
@@ -48,23 +49,22 @@ resource "kubernetes_secret" "rds-instance" {
 
   data = {
     resource_id       = module.rds-instance.resource_id
-    access_key_id     = module.rds-instance.access_key_id
-    secret_access_key = module.rds-instance.secret_access_key
     url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=5.19.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name = var.vpc_name
 
   application            = var.application
-  environment-name       = var.environment-name
-  is-production          = var.is_production
+  environment_name       = var.environment-name
+  is_production          = var.is_production
   namespace              = var.namespace
-  infrastructure-support = var.infrastructure_support
+  infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
+  business_unit          = var.business_unit
 
   # enable performance insights
   performance_insights_enabled = true
@@ -75,8 +75,8 @@ module "rds-read-replica" {
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-  db_instance_class = "db.t4g.micro"
-  db_max_allocated_storage = "500" # maximum storage for autoscaling
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500" # maximum storage for autoscaling
 
 
   rds_family        = "postgres12"
@@ -105,8 +105,6 @@ resource "kubernetes_secret" "rds-read-replica" {
 
   data = {
     resource_id       = module.rds-read-replica.resource_id
-    access_key_id     = module.rds-instance.access_key_id
-    secret_access_key = module.rds-instance.secret_access_key
     url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
   }
 }

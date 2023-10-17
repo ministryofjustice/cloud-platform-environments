@@ -1,5 +1,5 @@
 locals {
-  github_repos = ["hmpps-service-catalogue", "hmpps-health-ping", "hmpps-developer-portal"]
+  github_repos = ["hmpps-service-catalogue", "hmpps-health-ping", "hmpps-developer-portal", "hmpps-github-discovery"]
   sa_rules = [
     {
       api_groups = [""]
@@ -99,15 +99,8 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key
-  reviewers {
-    teams = [data.github_team.dps_tech.id]
-  }
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
   }
-}
-
-data "github_team" "dps_tech" {
-  slug = "dps-tech"
 }
