@@ -13,7 +13,13 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "justice-gov-uk-archiver-dev"
+  default     = "justice-gov-uk-archiver"
+}
+
+variable "archive_date" {
+  description = "The date we want to see in the archive"
+  type        = string
+  default     = "justice-gov-uk-archiver"
 }
 
 variable "business_unit" {
