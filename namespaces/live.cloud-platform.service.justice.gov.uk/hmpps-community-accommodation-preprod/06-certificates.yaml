@@ -50,5 +50,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - community-accommodation-tier-2-preprod.hmpps.service.justice.gov.uk
+    - cas2-preprod.hmpps.service.justice.gov.uk
     - community-accommodation-tier-2-preprod.hmpps.service.justice.gov.uk
