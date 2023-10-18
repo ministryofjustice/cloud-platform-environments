@@ -66,6 +66,14 @@ resource "aws_route53_record" "imb_route53_txt_dmarc_record" {
   records = ["v=DMARC1;p=none;sp=none;rua=mailto:dmarc-rua@dmarc.service.gov.uk"]
 }
 
+resource "aws_route53_record" "imb_route53_txt_asvdns_record" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_asvdns-dc13114f-40e1-4aea-870b-b494c231eafe.imb.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_23c13fcf-e91a-4f95-aed0-927fe046ad79"]
+}
+
 resource "aws_route53_record" "imb_route53_txt_mta_sts_record" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_mta-sts.imb.org.uk"
