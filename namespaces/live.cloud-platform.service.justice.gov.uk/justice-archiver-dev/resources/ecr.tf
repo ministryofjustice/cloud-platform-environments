@@ -4,9 +4,6 @@ module "ecr" {
   oidc_providers      = [var.oidc_name]
   github_repositories = [var.app_repo]
 
-  # temporary measure
-  deletion_protection = false
-
   # Tags
   business_unit          = var.business_unit
   application            = var.application
