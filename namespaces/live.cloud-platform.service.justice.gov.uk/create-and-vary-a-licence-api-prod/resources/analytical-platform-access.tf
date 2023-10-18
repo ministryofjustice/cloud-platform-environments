@@ -4,7 +4,6 @@ module "ap_irsa" {
   eks_cluster_name = var.eks_cluster_name
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = [aws_iam_policy.ap_policy.arn]
-  service_account  = "${var.namespace}-to-ap-s3"
 
   # Tags
   business_unit          = var.business_unit
