@@ -30,7 +30,7 @@ resource "aws_route53_record" "publicdefenderservice_route53_txt_verification_re
   records = ["google-site-verification=UjveRRCX7znc8Txa1iunmJ4fi3fqbTlq1PToBYiOoeQ"]
 }
 
-resource "aws_route53_record" "publicdefenderservice_route53_txt_asvdns_record" {
+resource "aws_route53_record" "publicdefenderservice_route53_txt_record_asvdns" {
   zone_id = aws_route53_zone.publicdefenderservice_route53_zone.zone_id
   name    = "_asvdns-83870e39-df50-4cf2-85a7-0d8939682da8.publicdefenderservice.org.uk"
   type    = "TXT"
