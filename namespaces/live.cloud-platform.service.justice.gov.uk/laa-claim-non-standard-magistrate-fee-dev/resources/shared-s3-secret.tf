@@ -6,5 +6,7 @@ resource "kubernetes_secret" "claim-nsm-s3-secret" {
 
   data = {
     service_metadata_bucket_irsa = module.s3_bucket.irsa_policy_arn
+    bucket_arn  = module.s3_bucket.bucket_arn
+    bucket_name = module.s3_bucket.bucket_name
   }
 }

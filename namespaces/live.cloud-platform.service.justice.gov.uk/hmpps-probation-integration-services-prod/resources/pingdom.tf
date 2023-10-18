@@ -31,6 +31,8 @@ resource "pingdom_check" "pingdom" {
     "arns-and-oasys",
     "opd-and-delius",
     "hmpps-auth-and-delius",
+    "dps-and-delius",
+    "arns-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
