@@ -6,9 +6,6 @@ module "ap_irsa" {
   role_policy_arns = [aws_iam_policy.ap_policy.arn]
   service_account  = "${var.namespace}-to-ap-s3"
 
-
-
-  service_account_name
   # Tags
   business_unit          = var.business_unit
   application            = var.application
