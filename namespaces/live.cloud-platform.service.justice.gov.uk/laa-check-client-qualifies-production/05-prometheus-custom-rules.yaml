@@ -1,0 +1,30 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-check-client-qualifies-production
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-ccq
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: CcqProduction5xxIngressResponses
+          # We are explicitly not interested in 501s, as these are used when a client sends an unsupported HTTP verb, which is not an error state.
+          expr: |-
+            sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-check-client-qualifies-production",status=~"500|502|503|504"}) - sum by (ingress)(nginx_ingress_controller_requests{exported_namespace="laa-check-client-qualifies-production",status=~"500|502|503|504"} offset 2m) > 0
+          labels:
+            severity: laa-check-client-qualifies-production
+          annotations:
+            message: Production ingress {{ $labels.ingress }} is serving 5xx responses.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/LE/pages/4405724996/CCQ+Runbook
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-check-client-qualifies-production
+        - alert: CcqProductionLowPodCount
+          expr: |-
+            sum (kube_pod_status_phase{namespace="laa-check-client-qualifies-production", phase="Running"}) < 4
+          labels:
+            severity: laa-check-client-qualifies-production
+          annotations:
+            message: Production environment has fewer than 4 running pods
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/LE/pages/4405724996/CCQ+Runbook
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-check-client-qualifies-production
