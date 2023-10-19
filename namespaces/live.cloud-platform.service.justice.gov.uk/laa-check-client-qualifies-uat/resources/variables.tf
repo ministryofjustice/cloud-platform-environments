@@ -57,7 +57,7 @@ variable "github_token" {
 
 variable "repo_name" {
   description = "The name of github repo"
-  default     = "laa-check-client-qualifies"
+  default     = "laa-estimate-financial-eligibility-for-legal-aid"
 }
 
 variable "eks_cluster_name" {
