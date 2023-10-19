@@ -1,5 +1,5 @@
 # CMA SERVICE
-resource "aws_cognito_user_pool_client" "cma_client_dev" {
+resource "aws_cognito_user_pool_client" "cma_client_validation_dev" {
   name                                 = var.cognito_user_pool_cma_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -11,7 +11,7 @@ resource "aws_cognito_user_pool_client" "cma_client_dev" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "cma_client_tst" {
+resource "aws_cognito_user_pool_client" "cma_client_validation_tst" {
   name                                 = var.cognito_user_pool_cma_client_name_tst
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -23,7 +23,7 @@ resource "aws_cognito_user_pool_client" "cma_client_tst" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "cma_client_uat" {
+resource "aws_cognito_user_pool_client" "cma_client_validation_uat" {
   name                                 = var.cognito_user_pool_cma_client_name_uat
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -35,7 +35,7 @@ resource "aws_cognito_user_pool_client" "cma_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "cma_client_stg" {
+resource "aws_cognito_user_pool_client" "cma_client_validation_stg" {
   name                                 = var.cognito_user_pool_cma_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -47,7 +47,7 @@ resource "aws_cognito_user_pool_client" "cma_client_stg" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "cma_client_prd" {
+resource "aws_cognito_user_pool_client" "cma_client_validation_prd" {
   name                                 = var.cognito_user_pool_cma_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -60,7 +60,7 @@ resource "aws_cognito_user_pool_client" "cma_client_prd" {
 }
 
 # CCP SERVICE
-resource "aws_cognito_user_pool_client" "ccp_client_dev" {
+resource "aws_cognito_user_pool_client" "ccp_client_validation_dev" {
   name                                 = var.cognito_user_pool_ccp_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -72,7 +72,7 @@ resource "aws_cognito_user_pool_client" "ccp_client_dev" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccp_client_tst" {
+resource "aws_cognito_user_pool_client" "ccp_client_validation_tst" {
   name                                 = var.cognito_user_pool_ccp_client_name_tst
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -84,7 +84,7 @@ resource "aws_cognito_user_pool_client" "ccp_client_tst" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccp_client_uat" {
+resource "aws_cognito_user_pool_client" "ccp_client_validation_uat" {
   name                                 = var.cognito_user_pool_ccp_client_name_uat
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -96,7 +96,7 @@ resource "aws_cognito_user_pool_client" "ccp_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccp_client_stg" {
+resource "aws_cognito_user_pool_client" "ccp_client_validation_stg" {
   name                                 = var.cognito_user_pool_ccp_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -108,7 +108,7 @@ resource "aws_cognito_user_pool_client" "ccp_client_stg" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccp_client_prd" {
+resource "aws_cognito_user_pool_client" "ccp_client_validation_prd" {
   name                                 = var.cognito_user_pool_ccp_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -121,7 +121,7 @@ resource "aws_cognito_user_pool_client" "ccp_client_prd" {
 }
 
 # CCC SERVICE
-resource "aws_cognito_user_pool_client" "ccc_client_dev" {
+resource "aws_cognito_user_pool_client" "ccc_client_validation_dev" {
   name                                 = var.cognito_user_pool_ccc_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -133,7 +133,7 @@ resource "aws_cognito_user_pool_client" "ccc_client_dev" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccc_client_tst" {
+resource "aws_cognito_user_pool_client" "ccc_client_validation_tst" {
   name                                 = var.cognito_user_pool_ccc_client_name_tst
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -145,7 +145,7 @@ resource "aws_cognito_user_pool_client" "ccc_client_tst" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccc_client_uat" {
+resource "aws_cognito_user_pool_client" "ccc_client_validation_uat" {
   name                                 = var.cognito_user_pool_ccc_client_name_uat
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -157,7 +157,7 @@ resource "aws_cognito_user_pool_client" "ccc_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccc_client_stg" {
+resource "aws_cognito_user_pool_client" "ccc_client_validation_stg" {
   name                                 = var.cognito_user_pool_ccc_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -169,7 +169,7 @@ resource "aws_cognito_user_pool_client" "ccc_client_stg" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccc_client_prd" {
+resource "aws_cognito_user_pool_client" "ccc_client_validation_prd" {
   name                                 = var.cognito_user_pool_ccc_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -182,7 +182,7 @@ resource "aws_cognito_user_pool_client" "ccc_client_prd" {
 }
 
 # HARDSHIP SERVICE
-resource "aws_cognito_user_pool_client" "hardship_client_dev" {
+resource "aws_cognito_user_pool_client" "hardship_client_validation_dev" {
   name                                 = var.cognito_user_pool_hardship_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -194,7 +194,7 @@ resource "aws_cognito_user_pool_client" "hardship_client_dev" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "hardship_client_tst" {
+resource "aws_cognito_user_pool_client" "hardship_client_validation_tst" {
   name                                 = var.cognito_user_pool_hardship_client_name_tst
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -206,7 +206,7 @@ resource "aws_cognito_user_pool_client" "hardship_client_tst" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "hardship_client_uat" {
+resource "aws_cognito_user_pool_client" "hardship_client_validation_uat" {
   name                                 = var.cognito_user_pool_hardship_client_name_uat
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -218,7 +218,7 @@ resource "aws_cognito_user_pool_client" "hardship_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "hardship_client_stg" {
+resource "aws_cognito_user_pool_client" "hardship_client_validation_stg" {
   name                                 = var.cognito_user_pool_hardship_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -230,7 +230,7 @@ resource "aws_cognito_user_pool_client" "hardship_client_stg" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "hardship_client_prd" {
+resource "aws_cognito_user_pool_client" "hardship_client_validation_prd" {
   name                                 = var.cognito_user_pool_hardship_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.validation_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -248,14 +248,14 @@ resource "kubernetes_secret" "aws_cognito_user_pool_validation_dev" {
     namespace = var.namespace
   }
   data = {
-    cma_client_id     = aws_cognito_user_pool_client.cma_client_dev.id
-    cma_client_secret = aws_cognito_user_pool_client.cma_client_dev.client_secret
-    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_dev.id
-    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_dev.client_secret
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_dev.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_dev.client_secret
-    hardship_client_id = aws_cognito_user_pool_client.hardship_client_dev.id
-    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_dev.client_secret
+    cma_client_id     = aws_cognito_user_pool_client.cma_client_validation_dev.id
+    cma_client_secret = aws_cognito_user_pool_client.cma_client_validation_dev.client_secret
+    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_validation_dev.id
+    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_validation_dev.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_validation_dev.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_validation_dev.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_validation_dev.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_validation_dev.client_secret
   }
 }
 
@@ -265,14 +265,14 @@ resource "kubernetes_secret" "aws_cognito_user_pool_validation_tst" {
     namespace = var.namespace
   }
   data = {
-    cma_client_id     = aws_cognito_user_pool_client.cma_client_tst.id
-    cma_client_secret = aws_cognito_user_pool_client.cma_client_tst.client_secret
-    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_tst.id
-    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_tst.client_secret
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_tst.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_tst.client_secret
-    hardship_client_id = aws_cognito_user_pool_client.hardship_client_tst.id
-    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_tst.client_secret
+    cma_client_id     = aws_cognito_user_pool_client.cma_client_validation_tst.id
+    cma_client_secret = aws_cognito_user_pool_client.cma_client_validation_tst.client_secret
+    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_validation_tst.id
+    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_validation_tst.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_validation_tst.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_validation_tst.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_validation_tst.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_validation_tst.client_secret
   }
 }
 
@@ -282,14 +282,14 @@ resource "kubernetes_secret" "aws_cognito_user_pool_validation_uat" {
     namespace = var.namespace
   }
   data = {
-    cma_client_id     = aws_cognito_user_pool_client.cma_client_uat.id
-    cma_client_secret = aws_cognito_user_pool_client.cma_client_uat.client_secret
-    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_uat.id
-    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_uat.client_secret
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_uat.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_uat.client_secret
-    hardship_client_id = aws_cognito_user_pool_client.hardship_client_uat.id
-    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_uat.client_secret
+    cma_client_id     = aws_cognito_user_pool_client.cma_client_validation_uat.id
+    cma_client_secret = aws_cognito_user_pool_client.cma_client_validation_uat.client_secret
+    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_validation_uat.id
+    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_validation_uat.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_validation_uat.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_validation_uat.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_validation_uat.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_validation_uat.client_secret
   }
 }
 
@@ -299,14 +299,14 @@ resource "kubernetes_secret" "aws_cognito_user_pool_validation_stg" {
     namespace = var.namespace
   }
   data = {
-    cma_client_id     = aws_cognito_user_pool_client.cma_client_stg.id
-    cma_client_secret = aws_cognito_user_pool_client.cma_client_stg.client_secret
-    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_stg.id
-    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_stg.client_secret
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_stg.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_stg.client_secret
-    hardship_client_id = aws_cognito_user_pool_client.hardship_client_stg.id
-    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_stg.client_secret
+    cma_client_id     = aws_cognito_user_pool_client.cma_client_validation_stg.id
+    cma_client_secret = aws_cognito_user_pool_client.cma_client_validation_stg.client_secret
+    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_validation_stg.id
+    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_validation_stg.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_validation_stg.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_validation_stg.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_validation_stg.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_validation_stg.client_secret
   }
 }
 
@@ -316,13 +316,13 @@ resource "kubernetes_secret" "aws_cognito_user_pool_validation_prd" {
     namespace = var.namespace
   }
   data = {
-    cma_client_id     = aws_cognito_user_pool_client.cma_client_prd.id
-    cma_client_secret = aws_cognito_user_pool_client.cma_client_prd.client_secret
-    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_prd.id
-    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_prd.client_secret
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_prd.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_prd.client_secret
-    hardship_client_id = aws_cognito_user_pool_client.hardship_client_prd.id
-    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_prd.client_secret
+    cma_client_id     = aws_cognito_user_pool_client.cma_client_validation_prd.id
+    cma_client_secret = aws_cognito_user_pool_client.cma_client_validation_prd.client_secret
+    ccp_client_id     = aws_cognito_user_pool_client.ccp_client_validation_prd.id
+    ccp_client_secret = aws_cognito_user_pool_client.ccp_client_validation_prd.client_secret
+    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_validation_prd.id
+    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_validation_prd.client_secret
+    hardship_client_id = aws_cognito_user_pool_client.hardship_client_validation_prd.id
+    hardship_client_secret = aws_cognito_user_pool_client.hardship_client_validation_prd.client_secret
   }
 }
