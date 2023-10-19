@@ -36,12 +36,14 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
-resource "kubernetes_secret" "hmpps_domain_events_topic" {
+resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "hmpps-domain-events-topic"
+    name      = "irsa-output"
     namespace = var.namespace
   }
   data = {
-    topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
   }
 }
