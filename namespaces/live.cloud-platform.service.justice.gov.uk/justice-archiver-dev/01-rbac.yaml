@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-interventions-dev-two-admin
-  namespace: hmpps-interventions-dev-two
+  name: justice-archiver-dev-admin
+  namespace: justice-archiver-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-interventions-dev"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-tech"
+    name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

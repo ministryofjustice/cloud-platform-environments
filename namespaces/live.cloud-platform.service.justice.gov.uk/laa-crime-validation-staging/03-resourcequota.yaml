@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-interventions-dev-two
+  namespace: laa-crime-validation-staging
 spec:
   hard:
     pods: "50"
