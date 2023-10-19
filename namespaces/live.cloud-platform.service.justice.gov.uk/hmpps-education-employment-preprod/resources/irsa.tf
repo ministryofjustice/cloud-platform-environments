@@ -3,8 +3,8 @@ locals {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sqs_queues = {
-    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-preprod",
-    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_dl" = "hmpps-domain-events-preprod"
+    "Digital-Prison-Services-preprod-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-preprod",
+    "Digital-Prison-Services-preprod-education_and_work_plan_domain_events_dl" = "hmpps-domain-events-preprod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
