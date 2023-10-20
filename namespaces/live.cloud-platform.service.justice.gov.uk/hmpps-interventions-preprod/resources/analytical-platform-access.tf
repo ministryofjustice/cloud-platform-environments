@@ -80,7 +80,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-dev/landing/hmpps-interventions-preprod/"
+    destination_bucket = "s3://moj-reg-preprod/landing/hmpps-interventions-preprod/"
     user_arn           = aws_iam_user.user.arn
   }
 }
