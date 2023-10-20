@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	envRepo "ministryofjustice/cloud-platform-environments/pkg/repoenvironment"
+	envRepo "github.com/ministryofjustice/cloud-platform-environments/pkg/repoenvironment"
 
 	cpCliUtils "github.com/ministryofjustice/cloud-platform-cli/pkg/util"
 )
