@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: default
   namespace: laa-information-exchange-development
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 35.178.209.113/32, 3.8.51.207/32, 35.177.252.54/32, 13.43.9.198/32, 18.132.208.127/32, 13.42.163.245/32 
 spec:
   podSelector: {}
   policyTypes:
