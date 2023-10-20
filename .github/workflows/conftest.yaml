@@ -16,4 +16,3 @@ jobs:
 
       - name: Run Conftest 
         run: conftest test namespaces/live.cloud-platform.service.justice.gov.uk/ --ignore $IGNORE_LIST
-        continue-on-error: true
