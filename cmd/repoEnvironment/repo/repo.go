@@ -1,4 +1,4 @@
-package repoenvironment
+package namespace
 
 import (
 	"fmt"

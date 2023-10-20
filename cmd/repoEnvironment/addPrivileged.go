@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	envRepo "github.com/ministryofjustice/cloud-platform-environments/pkg/repoenvironment"
+	repoEnvironment "repoEnvironment/namespace"
 
 	cpCliUtils "github.com/ministryofjustice/cloud-platform-cli/pkg/util"
 )
@@ -38,7 +38,7 @@ func main() {
 			panic(err)
 		}
 
-		ns := envRepo.Namespace{
+		ns := repoEnvironment.Namespace{
 			Namespace: folder,
 		}
 
