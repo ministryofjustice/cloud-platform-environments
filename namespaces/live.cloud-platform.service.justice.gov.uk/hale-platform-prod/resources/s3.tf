@@ -127,27 +127,23 @@ module "s3_bucket" {
  * Allow a user (foobar) from another account (012345678901) to get objects from
  * this bucket.
  *
-
+*/
    bucket_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyDir2Access",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f.s3.amazonaws.com/uploads/sites/17/*"
+        }
+    ]
 }
 EOF
 
+/*
 */
 
     /*
