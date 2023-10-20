@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	app "github.com/ministryofjustice/cloud-platform-cli/cmd/repoEnvironment/app"
 	"github.com/ministryofjustice/cloud-platform-cli/pkg/util"
+	app "github.com/ministryofjustice/cloud-platform-environments/cmd/repoEnvironment/app"
 )
 
 func main() {
