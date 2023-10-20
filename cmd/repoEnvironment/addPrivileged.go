@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
 	cpCliUtils "github.com/ministryofjustice/cloud-platform-cli/pkg/util"
 	"gopkg.in/yaml.v2"
@@ -27,6 +27,7 @@ func main() {
 	nsFolders = append(nsFolders, folders[1:]...)
 	for _, folder := range nsFolders {
 
+		fmt.Println(folder)
 		err := changeDir(folder)
 		if err != nil {
 			panic(err)
@@ -36,7 +37,7 @@ func main() {
 			panic(err)
 		}
 
-		if ns.IsProduction != "true" {
+		if ns.IsProduction != "true" && ns.Namespace == "abundant-namespace-dev" {
 			templatePath := filepath.Join(home, gitRepo, "cmd/repoEnvironment/template/pspPrivRoleBinding.tmpl")
 
 			err := ns.CreateRbPSPPrivilegedFile(templatePath, "pspPrivRoleBinding.yaml")
@@ -50,8 +51,12 @@ func main() {
 }
 
 func (ns *Namespace) CreateRbPSPPrivilegedFile(templatePath string, outputFile string) error {
-	fmt.Println(templatePath)
-	t, err := template.New("").Parse(templatePath)
+	fmt.Println(templatePath, outputFile)
+	content, err := os.ReadFile(templatePath)
+	if err != nil {
+		log.Fatalf("unable to read file: %v", err)
+	}
+	t, err := template.New("").Parse(string(content))
 	if err != nil {
 		return err
 	}
@@ -72,11 +77,7 @@ func changeDir(folder string) error {
 		fmt.Printf("Namespace %s does not exist, skipping \n", folder)
 	}
 
-	namespace := folder[strings.LastIndex(folder, ",")+1:]
-
-	fmt.Println(namespace)
-
-	if err := os.Chdir(filepath.Join(namespace)); err != nil {
+	if err := os.Chdir(folder); err != nil {
 		return err
 	}
 	return nil
@@ -84,9 +85,7 @@ func changeDir(folder string) error {
 
 func getNamespaceDetails(folder string) (*Namespace, error) {
 
-	ns := Namespace{
-		Namespace: folder,
-	}
+	ns := Namespace{}
 
 	err := ns.ReadNamespaceYaml()
 	if err != nil {
@@ -120,7 +119,7 @@ func (ns *Namespace) readNamespaceYamlFile(filename string) error {
 	contents, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Printf("Failed to read namespace YAML file: %s", filename)
-		return err
+		return nil
 	}
 	err = ns.parseNamespaceYaml(contents)
 	if err != nil {
