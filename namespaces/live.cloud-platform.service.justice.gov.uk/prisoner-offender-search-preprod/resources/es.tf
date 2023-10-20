@@ -21,6 +21,14 @@ module "prisoner_offender_search_elasticsearch" {
   s3_manual_snapshot_repository   = data.aws_s3_bucket.snapshot_bucket.arn
   ebs_iops                        = 0
   ebs_volume_type                 = "gp2"
+  auto_tune_config                = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2023-10-01T21:00:00.00Z"
+    duration_value                 = 8
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = "00 21 * * *"
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
 }
 
 
