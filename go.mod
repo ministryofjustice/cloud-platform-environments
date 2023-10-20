@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/aws/aws-sdk-go v1.45.15
 	github.com/google/go-github v17.0.0+incompatible
+	github.com/ministryofjustice/cloud-platform-cli v0.0.0-20230927150737-4a4117c178f2
 	github.com/ministryofjustice/cloud-platform-how-out-of-date-are-we/reports/pkg/hoodaw v0.0.0-20230210112905-1665bd8fd8d4
 	golang.org/x/oauth2 v0.12.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -34,7 +35,6 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/ministryofjustice/cloud-platform-cli v0.0.0-20230927150737-4a4117c178f2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect

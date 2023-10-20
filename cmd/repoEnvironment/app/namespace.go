@@ -29,7 +29,7 @@ func GetNamespaceDetails(folder string) (*Namespace, error) {
 
 	ns := Namespace{}
 
-	err := ns.ReadNamespaceYaml()
+	err := ns.readNamespaceYamlFile(NamespaceYamlFile)
 	if err != nil {
 		return nil, nil
 	}
@@ -57,11 +57,6 @@ func (ns *Namespace) CreateRbPSPPrivilegedFile(templatePath string, outputFile s
 		return err
 	}
 	return nil
-}
-
-// This is a public function so that we can use it in our tests
-func (ns *Namespace) ReadNamespaceYaml() error {
-	return ns.readNamespaceYamlFile(NamespaceYamlFile)
 }
 
 func (ns *Namespace) readNamespaceYamlFile(filename string) error {

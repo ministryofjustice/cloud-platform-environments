@@ -10,10 +10,9 @@ import (
 
 func main() {
 
-	home, _ := os.UserHomeDir()
+	wd, _ := os.Getwd()
 	clusterDir := "namespaces/live.cloud-platform.service.justice.gov.uk/"
-	gitRepo := "go/src/ministryofjustice/cloud-platform-environments"
-	repoPath := filepath.Join(home, gitRepo, clusterDir)
+	repoPath := filepath.Join(wd, clusterDir)
 
 	folders, err := util.ListFolderPaths(repoPath)
 	if err != nil {
@@ -21,6 +20,7 @@ func main() {
 	}
 
 	var nsFolders []string
+	// Skip root folder from the list
 	nsFolders = append(nsFolders, folders[1:]...)
 	for _, folder := range nsFolders {
 		err := app.ChangeDir(folder)
@@ -32,10 +32,10 @@ func main() {
 			panic(err)
 		}
 
-		if ns.IsProduction != "true" {
-			templatePath := filepath.Join(home, gitRepo, "cmd/repoEnvironment/template/pspPrivRoleBinding.tmpl")
+		if ns.IsProduction != "true" && ns.Namespace == "abundant-namespace-dev" {
+			templatePath := filepath.Join(wd, "cmd/repoEnvironment/template/pspPrivRoleBinding.tmpl")
 
-			err := ns.CreateRbPSPPrivilegedFile(templatePath, "pspPrivRoleBinding.yaml")
+			err := app.CreateRbPSPPrivilegedFile(templatePath, "pspPrivRoleBinding.yaml")
 			if err != nil {
 				panic(err)
 			}
