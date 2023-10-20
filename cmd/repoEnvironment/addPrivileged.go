@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -24,8 +23,6 @@ func main() {
 	var nsFolders []string
 	nsFolders = append(nsFolders, folders[1:]...)
 	for _, folder := range nsFolders {
-
-		fmt.Println(folder)
 		err := app.ChangeDir(folder)
 		if err != nil {
 			panic(err)
@@ -35,14 +32,13 @@ func main() {
 			panic(err)
 		}
 
-		if ns.IsProduction != "true" && ns.Namespace == "abundant-namespace-dev" {
+		if ns.IsProduction != "true" {
 			templatePath := filepath.Join(home, gitRepo, "cmd/repoEnvironment/template/pspPrivRoleBinding.tmpl")
 
 			err := ns.CreateRbPSPPrivilegedFile(templatePath, "pspPrivRoleBinding.yaml")
 			if err != nil {
 				panic(err)
 			}
-
 		}
 
 	}

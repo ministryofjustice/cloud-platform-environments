@@ -115,7 +115,7 @@ func (ns *Namespace) parseNamespaceYaml(yamlData []byte) error {
 	return nil
 }
 
-func changeDir(folder string) error {
+func ChangeDir(folder string) error {
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
 		fmt.Printf("Namespace %s does not exist, skipping \n", folder)
 	}
