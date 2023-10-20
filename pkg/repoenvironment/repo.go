@@ -78,6 +78,5 @@ func (ns *Namespace) parseNamespaceYaml(yamlData []byte) error {
 	ns.Owner = t.Metadata.Annotations.Owner
 	ns.OwnerEmail = strings.Split(t.Metadata.Annotations.Owner, ": ")[1]
 	ns.SourceCode = t.Metadata.Annotations.SourceCode
-
 	return nil
 }
