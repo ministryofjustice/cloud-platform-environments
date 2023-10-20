@@ -6,7 +6,7 @@ resource "pingdom_check" "laa-dces-drc-integration-prod" {
   notifywhenbackup         = true
   sendnotificationwhendown = 3
   notifyagainevery         = 0
-  url                      = "/actprodor/health"
+  url                      = "/actuator/health"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_laa,application_laa-dces-drc-integration,component_ping,isproduction_false,environment_prod,owner_laa-crime-apps-team"
