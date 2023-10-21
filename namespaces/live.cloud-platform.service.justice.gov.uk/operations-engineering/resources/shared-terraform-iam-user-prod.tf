@@ -1,3 +1,5 @@
+# `shared-*.tf` files contain resources used across multiple services
+
 # This IAM user enables operations engineering projects to use the S3 bucket
 # and dynamodb defined here to implement terraform state-locking. It is
 # required because the cloud platform S3 and DynamoDB modules both create

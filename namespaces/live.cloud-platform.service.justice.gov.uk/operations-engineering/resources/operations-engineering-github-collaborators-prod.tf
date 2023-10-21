@@ -1,3 +1,4 @@
+# S3 Bucket
 module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl    = "private"
@@ -31,30 +32,32 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-module "ap_gh_collab_repo_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
-  acl    = "private"
+
+# State Lock
+module "opseng_tf_state_lock" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
-  business_unit          = var.business_unit
   application            = var.application
-  is_production          = var.is_production
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
 
-  providers = {
-    aws = aws.london
-  }
+  hash_key          = "LockID"
+  enable_encryption = "true"
+  enable_autoscaler = "true"
 }
 
-resource "kubernetes_secret" "ap_gh_collab_repo_s3_bucket" {
+resource "kubernetes_secret" "opseng_tf_state_lock" {
   metadata {
-    name      = "tfstate-s3-bucket-ap-gh-collab-repo"
+    name      = "terraform-state-lock-table"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn = module.ap_gh_collab_repo_s3_bucket.bucket_arn
+    table_name = module.opseng_tf_state_lock.table_name
+    table_arn  = module.opseng_tf_state_lock.table_arn
   }
 }

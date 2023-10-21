@@ -1,3 +1,5 @@
+# `shared-*.tf` files contain resources used across multiple services
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
