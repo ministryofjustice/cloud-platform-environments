@@ -30,5 +30,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "ccc-api-oauth-client-secret"
     },
+    "cma_api_oauth_client_id" = {
+      description             = "CMA API oauth client ID for Hardship UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cma-api-oauth-client-id"
+    },
+    "cma_api_oauth_client_secret" = {
+      description             = "CMA API oauth client secret for Hardship UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cma-api-oauth-client-secret"
+    },
   }
 }

@@ -1,12 +1,12 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.4.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
-  business-unit                   = var.business_unit
-  environment-name                = var.environment
-  infrastructure-support          = var.infrastructure_support
-  is-production                   = var.is_production
+  business_unit                   = var.business_unit
+  environment_name                = var.environment
+  infrastructure_support          = var.infrastructure_support
+  is_production                   = var.is_production
   team_name                       = var.team_name
   elasticsearch-domain            = "search-prisoner"
   aws_es_proxy_service_name       = "es-proxy"
@@ -24,7 +24,7 @@ module "prisoner_offender_search_elasticsearch" {
 }
 
 module "es_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

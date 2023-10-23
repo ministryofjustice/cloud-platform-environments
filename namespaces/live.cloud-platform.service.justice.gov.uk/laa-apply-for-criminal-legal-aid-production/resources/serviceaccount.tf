@@ -47,6 +47,7 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
         "poddisruptionbudgets",
       ]
       verbs = [

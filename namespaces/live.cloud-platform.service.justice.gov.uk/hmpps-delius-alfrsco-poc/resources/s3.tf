@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -174,51 +174,6 @@ user_policy = <<EOF
 EOF
 
 */
-}
-
-data "aws_iam_policy_document" "s3_bucket_migration_policy" {
-  statement {
-    actions = [
-      "s3:GetBucketLocation",
-      "s3:ListBucket"
-    ]
-
-    effect = "Allow"
-
-    resources = [
-      module.s3_bucket.bucket_arn,
-      "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket",
-    ]
-  }
-  statement {
-    actions = [
-      "s3:*"
-    ]
-
-    effect = "Allow"
-
-    resources = [
-      "${module.s3_bucket.bucket_arn}/*",
-      "arn:aws:s3:::tf-alfresco-dev-alfresco-storage-s3bucket/*",
-    ]
-  }
-  statement {
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
-    effect    = "Allow"
-    resources = ["arn:aws:kms:eu-west-2:563502482979:key/cc27c83f-1935-43f8-9867-18018652fd8f"]
-  }
-}
-
-resource "aws_iam_policy" "s3_bucket_migration_policy" {
-  name        = "s3_bucket_migration_policy"
-  description = "Policy to allow migration of S3 buckets"
-  policy      = data.aws_iam_policy_document.s3_bucket_migration_policy.json
 }
 
 resource "aws_iam_user" "alfresco_user_poc" {

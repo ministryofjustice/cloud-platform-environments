@@ -10,7 +10,8 @@ module "manage_offences_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
   db_engine_version           = "14"
 
   db_password_rotated_date = "14-02-2023"

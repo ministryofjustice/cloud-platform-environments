@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk
+    - hmpps-dpr-fake-dps-service-ui.hmpps.service.justice.gov.uk
