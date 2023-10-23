@@ -13,7 +13,7 @@ module "dps_rds" {
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "14.4"
+  db_engine_version      = "14.7"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   prepare_for_major_upgrade = true
