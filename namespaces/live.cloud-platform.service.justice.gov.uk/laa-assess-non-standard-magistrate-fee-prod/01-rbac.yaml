@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-assess-non-standard-magistrate-fee-prod-admin
+  namespace: laa-assess-non-standard-magistrate-fee-prod
+subjects:
+  - kind: Group
+    name: "github:change-to-crm"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
