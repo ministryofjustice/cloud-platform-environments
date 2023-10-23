@@ -14,12 +14,22 @@ module "hmpps_prisoner_search_opensearch" {
 
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.medium.search"
+    instance_type  = "m6g.large.search"
   }
 
   ebs_options = {
     volume_size = 20
   }
+
+  auto_tune_config = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2023-10-23T20:00:00.00Z"
+    duration_value                 = 10
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = ""
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
+
   snapshot_bucket_arn = data.aws_s3_bucket.snapshot_bucket.arn
 }
 
