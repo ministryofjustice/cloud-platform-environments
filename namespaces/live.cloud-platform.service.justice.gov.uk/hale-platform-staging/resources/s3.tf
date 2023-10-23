@@ -22,7 +22,7 @@ module "s3_bucket" {
   */
 
   acl                           = "public-read"
-  enable_allow_block_pub_access = false
+  enable_allow_block_pub_access = true
 
   /*
                     For more information granting public access to S3 buckets, please see AWS documentation:
@@ -123,11 +123,29 @@ module "s3_bucket" {
    *
    */
 
-    /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
+/*
+ * Allow access to key directories
  *
+*/
 
+bucket_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": [
+              "$${bucket_arn}/uploads/*",
+              "$${bucket_arn}/feed-parser/*"
+           ]
+        }
+    ]
+}
+EOF
+
+/*
    bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
