@@ -23,21 +23,20 @@ type Namespace struct {
 	OwnerEmail            string `yaml:"ownerEmail"`
 	SlackChannel          string `yaml:"slackChannel"`
 	SourceCode            string `yaml:"sourceCode"`
+	ReviewAfter           string `yaml:"reviewAfter"`
 }
 
 func GetNamespaceDetails(folder string) (*Namespace, error) {
-
 	ns := Namespace{}
-
-	err := ns.readNamespaceYamlFile(NamespaceYamlFile)
+	namespaceYamlPath := fmt.Sprintf("%s/%s", folder, NamespaceYamlFile)
+	err := ns.readNamespaceYamlFile(namespaceYamlPath)
 	if err != nil {
-		return nil, nil
+		return &ns, err
 	}
 	return &ns, nil
 }
 
 func (ns *Namespace) CreateRbPSPPrivilegedFile(templatePath string, outputFile string) error {
-	fmt.Println(templatePath, outputFile)
 	content, err := os.ReadFile(templatePath)
 	if err != nil {
 		log.Fatalf("unable to read file: %v", err)
@@ -85,9 +84,11 @@ func (ns *Namespace) parseNamespaceYaml(yamlData []byte) error {
 			} `yaml:"labels"`
 			Annotations struct {
 				BusinessUnit string `yaml:"cloud-platform.justice.gov.uk/business-unit"`
+				SlackChannel string `yaml:"cloud-platform.justice.gov.uk/slack-channel"`
 				Application  string `yaml:"cloud-platform.justice.gov.uk/application"`
 				Owner        string `yaml:"cloud-platform.justice.gov.uk/owner"`
 				SourceCode   string `yaml:"cloud-platform.justice.gov.uk/source-code"`
+				ReviewAfter  string `yaml:"cloud-platform.justice.gov.uk/review-after"`
 			} `yaml:"annotations"`
 		} `yaml:"metadata"`
 	}
@@ -102,21 +103,11 @@ func (ns *Namespace) parseNamespaceYaml(yamlData []byte) error {
 
 	ns.Application = t.Metadata.Annotations.Application
 	ns.BusinessUnit = t.Metadata.Annotations.BusinessUnit
+	ns.SlackChannel = t.Metadata.Annotations.SlackChannel
 	ns.Environment = t.Metadata.Labels.Environment
 	ns.IsProduction = t.Metadata.Labels.IsProduction
 	ns.Namespace = t.Metadata.Namespace
 	ns.Owner = t.Metadata.Annotations.Owner
 	ns.SourceCode = t.Metadata.Annotations.SourceCode
-	return nil
-}
-
-func ChangeDir(folder string) error {
-	if _, err := os.Stat(folder); os.IsNotExist(err) {
-		fmt.Printf("Namespace %s does not exist, skipping \n", folder)
-	}
-
-	if err := os.Chdir(folder); err != nil {
-		return err
-	}
 	return nil
 }

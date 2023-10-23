@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -23,19 +24,16 @@ func main() {
 	// Skip root folder from the list
 	nsFolders = append(nsFolders, folders[1:]...)
 	for _, folder := range nsFolders {
-		err := app.ChangeDir(folder)
-		if err != nil {
-			panic(err)
-		}
+		fmt.Println("GetNamespaceDetails in : ", folder)
 		ns, err := app.GetNamespaceDetails(folder)
 		if err != nil {
 			panic(err)
 		}
 
-		if ns.IsProduction != "true" && ns.Namespace == "abundant-namespace-dev" {
+		if ns.Namespace != "" && ns.IsProduction != "true" && ns.Namespace == "abundant-namespace-dev" {
 			templatePath := filepath.Join(wd, "cmd/repoEnvironment/template/pspPrivRoleBinding.tmpl")
-
-			err := app.CreateRbPSPPrivilegedFile(templatePath, "pspPrivRoleBinding.yaml")
+			namespaceYamlPath := fmt.Sprintf("%s/%s", folder, "pspPrivRoleBinding.yaml")
+			err := ns.CreateRbPSPPrivilegedFile(templatePath, namespaceYamlPath)
 			if err != nil {
 				panic(err)
 			}
