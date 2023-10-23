@@ -449,3 +449,18 @@ spec:
   dnsNames:
     - 98ff09bc-dev.hmpps.service.justice.gov.uk
     - arns-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cas3-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: cas3-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 4a0221de-dev.hmpps.service.justice.gov.uk
+    - cas3-and-delius-dev.hmpps.service.justice.gov.uk
