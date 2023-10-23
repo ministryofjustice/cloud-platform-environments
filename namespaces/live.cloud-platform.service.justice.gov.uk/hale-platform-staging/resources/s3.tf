@@ -56,6 +56,23 @@ module "s3_bucket" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
+
+    bucket_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": [
+              "$${bucket_arn}/uploads/*",
+              "$${bucket_arn}/feed-parser/*"
+           ]
+        }
+    ]
+}
+EOF
   }
     /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
@@ -129,22 +146,7 @@ module "s3_bucket" {
  *
 */
 
-bucket_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": [
-              "$${bucket_arn}/uploads/*",
-              "$${bucket_arn}/feed-parser/*"
-           ]
-        }
-    ]
-}
-EOF
+
 }
 
 /*
