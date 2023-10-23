@@ -1,5 +1,14 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-auto-tune-syntax"
+
+  auto_tune_config = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2023-10-01T21:00:00.00Z"
+    duration_value                 = 8
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = "00 21 * * *"
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
