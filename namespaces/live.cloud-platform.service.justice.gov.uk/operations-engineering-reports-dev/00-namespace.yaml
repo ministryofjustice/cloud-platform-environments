@@ -12,5 +12,5 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/environment-name: "development"
     cloud-platform.justice.gov.uk/is-production: "false"
-    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
   name: operations-engineering-reports-dev
