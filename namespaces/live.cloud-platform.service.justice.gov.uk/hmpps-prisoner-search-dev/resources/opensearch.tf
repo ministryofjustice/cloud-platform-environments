@@ -23,7 +23,7 @@ module "hmpps_prisoner_search_opensearch" {
   snapshot_bucket_arn = module.os_snapshots_s3_bucket.bucket_arn
   auto_tune_config    = {
     desired_state                  = "ENABLED"
-    start_at                       = "2023-10-01T21:00:00.00Z"
+    start_at                       = "2023-10-23T21:00:00.00Z"
     duration_value                 = 8
     duration_unit                  = "HOURS"
     cron_expression_for_recurrence = "00 21 * * *"
