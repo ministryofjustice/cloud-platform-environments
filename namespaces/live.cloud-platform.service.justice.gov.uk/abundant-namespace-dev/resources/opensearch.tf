@@ -12,8 +12,16 @@ module "opensearch_snapshot_bucket" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-auto-tune-syntax"
 
+  auto_tune_config                = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2023-10-01T21:00:00.00Z"
+    duration_value                 = 8
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = "00 21 * * *"
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
