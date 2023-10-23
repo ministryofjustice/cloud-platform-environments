@@ -19,7 +19,7 @@ module "dps_rds" {
   infrastructure_support = var.infrastructure_support
   prepare_for_major_upgrade = true
 
-  rds_family = "postgres14"
+  rds_family = "postgres13"
 
   providers = {
     aws = aws.london
