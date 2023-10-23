@@ -14,6 +14,7 @@ module "dps_rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   db_engine_version      = "14.7"
+  db_instance_class      = "db.t4g.micro"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   prepare_for_major_upgrade = true
