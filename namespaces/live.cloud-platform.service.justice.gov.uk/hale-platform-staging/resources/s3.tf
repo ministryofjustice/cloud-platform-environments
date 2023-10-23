@@ -146,23 +146,7 @@ bucket_policy = <<EOF
 EOF
 
 /*
-
- {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": [
-              "$${bucket_arn}/uploads/*",
-              "$${bucket_arn}/feed-parser/*"
-           ]
-        }
-    ]
-}
-
-   bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
