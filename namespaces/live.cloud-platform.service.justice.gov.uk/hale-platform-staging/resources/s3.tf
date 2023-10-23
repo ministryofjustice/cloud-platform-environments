@@ -56,6 +56,7 @@ module "s3_bucket" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
+  }
     /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
@@ -144,6 +145,7 @@ bucket_policy = <<EOF
     ]
 }
 EOF
+}
 
 /*
    bucket_policy = <<EOF
@@ -195,11 +197,7 @@ user_policy = <<EOF
 ]
 }
 EOF
-
 */
-  }
-}
-
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
