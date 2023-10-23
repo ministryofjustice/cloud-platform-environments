@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
   protocol  = "sqs"
   endpoint  = module.cas3-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["queue.name"]
+    eventType = ["accommodation.cas3.referral.submitted"]
   })
 }
 
