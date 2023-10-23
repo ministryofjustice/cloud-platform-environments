@@ -1,5 +1,5 @@
 module "prisoner_offender_search_elasticsearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=fix-auto-tune-syntax"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=fix-auto-tune-syntax"
 
   auto_tune_config = {
     desired_state                  = "ENABLED"
