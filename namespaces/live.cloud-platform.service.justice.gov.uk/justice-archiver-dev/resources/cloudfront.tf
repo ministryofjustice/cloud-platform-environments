@@ -14,3 +14,14 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "cloudfront_url" {
+  metadata {
+    name      = "cloudfront-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    cloudfront_url  = module.cloudfront.cloudfront_url
+  }
+}
