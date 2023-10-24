@@ -6,7 +6,7 @@ resource "pingdom_check" "laa-crime-apply-mock-api-dev" {
   notifywhenbackup         = true
   sendnotificationwhendown = 3
   notifyagainevery         = 0
-  url                      = "/status"
+  url                      = "/api/message"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_laa,application_laa-crime-apply-mock-api,component_ping,isproduction_false,environment_dev,owner_laa-crime-apps-team"
