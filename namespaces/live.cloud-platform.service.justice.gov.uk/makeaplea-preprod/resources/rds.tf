@@ -14,6 +14,8 @@ module "dps_rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   db_engine_version      = "11"
+  db_instance_class      = "db.r5.large"
+  db_max_allocated_storage = "500"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
