@@ -22,7 +22,7 @@ module "s3_bucket" {
   */
 
   acl                           = "public-read"
-  enable_allow_block_pub_access = true
+  enable_allow_block_pub_access = false
 
   /*
                     For more information granting public access to S3 buckets, please see AWS documentation:
@@ -74,7 +74,7 @@ module "s3_bucket" {
       ]
   }
   EOF
-  
+
 }
 
 resource "kubernetes_secret" "s3_bucket" {
