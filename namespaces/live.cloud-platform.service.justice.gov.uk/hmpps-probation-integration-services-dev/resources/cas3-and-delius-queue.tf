@@ -3,7 +3,13 @@ resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
   protocol  = "sqs"
   endpoint  = module.cas3-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["accommodation.cas3.referral.submitted"]
+    eventType = ["accommodation.cas3.referral.submitted",
+      "accommodation.cas3.booking.provisionally-made",
+      "accommodation.cas3.booking.cancelled",
+      "accommodation.cas3.person.arrived",
+      "accommodation.cas3.booking.confirmed",
+      "accommodation.cas3.person.departed"
+    ]
   })
 }
 
