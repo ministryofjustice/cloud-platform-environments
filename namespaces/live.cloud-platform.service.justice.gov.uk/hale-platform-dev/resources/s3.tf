@@ -55,8 +55,25 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-}
 
+  bucket_policy = <<EOF
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": [
+                "$${bucket_arn}/uploads/*",
+                "$${bucket_arn}/feed-parser/*"
+            ]
+          }
+      ]
+  }
+  EOF
+  
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
