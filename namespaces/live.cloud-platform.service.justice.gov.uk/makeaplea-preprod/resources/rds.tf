@@ -18,6 +18,8 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  prepare_for_major_upgrade = true
+
   rds_family = "postgres11"
 
   providers = {
