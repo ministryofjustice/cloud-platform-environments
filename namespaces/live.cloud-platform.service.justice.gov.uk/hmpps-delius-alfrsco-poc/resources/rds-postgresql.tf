@@ -23,7 +23,7 @@ module "rds_alfresco" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine_version = "13.10"
   rds_family        = "postgres13"
   db_instance_class = "db.t3.micro"
