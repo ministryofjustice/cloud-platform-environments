@@ -5,7 +5,7 @@ resource "aws_sns_topic_subscription" "manage-pom-cases-and-delius-queue-subscri
   filter_policy = jsonencode({
     eventType = [
       "offender-management.handover.changed",
-      "offender-management.pom.allocated"
+      "offender-management.allocation.changed"
     ]
   })
 }
