@@ -40,7 +40,7 @@ spec:
     - alert: KubePod-CrashLooping
       expr: |-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-information-exchange-development"}[10m]) * 60 * 10 > 3
-        for: 10m
+      for: 10m
       labels:
         severity: information-exchange-non-prod
       annotations:
