@@ -21,7 +21,7 @@ module "dps_rds" {
 
   prepare_for_major_upgrade = true
 
-  rds_family = "postgres11"
+  rds_family = "postgres14"
 
   providers = {
     aws = aws.london
