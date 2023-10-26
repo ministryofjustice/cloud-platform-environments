@@ -11,14 +11,6 @@ spec:
   - name: laa-information-exchange-development
  
     rules:
-
-    - alert: Namespace-Missing
-      expr: absent(up{namespace="laa-information-exchange-development"}) == 1
-      for: 1m
-      labels:
-        severity: information-exchange-non-prod
-      annotations:
-        message: Namespace {{ $labels.namespace }} is missing.
     
     - alert: Quota-Exceeded
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-information-exchange-development"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-information-exchange-development"} > 0) > 90
@@ -82,7 +74,7 @@ spec:
         message: "Namespace {{ $labels.namespace }} - CPU usage compared to the CPU limit on the container is more than 75% for 5m"
 
     - alert: Memory-high-threshold
-      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-information-exchange-development\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-development\", container=\"infox-application\", unit=\"byte\"})) * 100 > 75"
+      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-information-exchange-development\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-development\", container=\"infox-application\", unit=\"byte\"})) * 100 > 90"
       for: 5m
       labels:
         severity: information-exchange-non-prod 
