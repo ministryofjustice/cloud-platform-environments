@@ -13,10 +13,12 @@ module "dps_rds" {
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
-  db_engine_version      = "14.7"
-  db_instance_class      = "db.t4g.micro"
+  db_engine_version        = "14.7"
+  db_instance_class        = "db.t3.micro"
+  db_max_allocated_storage = "500"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
   prepare_for_major_upgrade = true
 
   rds_family = "postgres14"

@@ -1,9 +1,10 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.2.0"
 
   # Configuration
-  bucket_id          = module.s3_bucket.bucket_name
-  bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
+  bucket_id           = module.s3_bucket.bucket_name
+  bucket_domain_name  = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
+  default_root_object = "index.html"
 
   # Tags
   business_unit          = var.business_unit
@@ -13,4 +14,15 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "cloudfront_url" {
+  metadata {
+    name      = "cloudfront-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    cloudfront_url = module.cloudfront.cloudfront_url
+  }
 }

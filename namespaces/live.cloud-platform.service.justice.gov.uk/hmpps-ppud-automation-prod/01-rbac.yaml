@@ -1,11 +1,14 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-crime-apply-mock-uat-admin
-  namespace: laa-crime-apply-mock-uat
+  name: hmpps-ppud-automation-prod-admin
+  namespace: hmpps-ppud-automation-prod
 subjects:
   - kind: Group
-    name: "github:laa-crime-apps-team"
+    name: "github:making-recall-decision"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

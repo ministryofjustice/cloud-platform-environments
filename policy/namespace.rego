@@ -81,6 +81,7 @@ deny[msg] {
 
 deny[msg] {
   input.kind == "Namespace"
+  not input.metadata.labels["pod-security.kubernetes.io/audit"] == "restricted"
   not input.metadata.labels["pod-security.kubernetes.io/enforce"] == "restricted"
-  msg := "Namespace must have label 'pod-security.kubernetes.io/enforce: restricted'"
+  msg := "Namespace must have label 'pod-security.kubernetes.io/audit: restricted' or 'pod-security.kubernetes.io/enforce: restricted'"
 }

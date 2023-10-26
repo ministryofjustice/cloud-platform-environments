@@ -8,7 +8,8 @@ module "complexity-of-need-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name                   = var.vpc_name
-  db_instance_class          = "db.t3.small"
+  db_instance_class          = "db.t4g.micro"
+  db_max_allocated_storage   = "500"
   team_name                  = var.team_name
   business_unit              = "HMPPS"
   application                = "hmpps-complexity-of-need"

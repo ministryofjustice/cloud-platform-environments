@@ -22,6 +22,15 @@ module "hmpps_prisoner_search_opensearch" {
     dedicated_master_type    = "m6g.large.search"
   }
 
+  auto_tune_config = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2100-10-23T20:00:00.00Z"
+    duration_value                 = 10
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = ""
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
+
   proxy_count = 3
 
   ebs_options = {
