@@ -56,23 +56,6 @@ module "s3_bucket" {
     aws = aws.london
   }
 
-  bucket_policy = <<EOF
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Effect": "Allow",
-              "Principal": "*",
-              "Action": "s3:GetObject",
-              "Resource": [
-                "$${bucket_arn}/uploads/*",
-                "$${bucket_arn}/feed-parser/*"
-            ]
-          }
-      ]
-  }
-  EOF
-  
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -86,4 +69,3 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
-
