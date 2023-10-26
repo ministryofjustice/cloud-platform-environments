@@ -25,3 +25,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-cla-backend-production
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-cla-public-production
