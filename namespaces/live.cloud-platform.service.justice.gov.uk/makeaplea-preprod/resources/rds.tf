@@ -19,7 +19,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   rds_family = "postgres14"
 
