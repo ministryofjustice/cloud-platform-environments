@@ -50,7 +50,8 @@ module "irsa" {
         "s3:GetObject",
         "s3:PutObject",
         "s3:GetObjectAcl",
-        "s3:PutObjectAcl"
+        "s3:PutObjectAcl",
+        "s3:GetObjectTagging"
       ]
       resources = [
         "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*", # staging
