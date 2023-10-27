@@ -1,7 +1,7 @@
 resource "pingdom_check" "ppud_automation_api_health" {
   type                     = "http"
-  name                     = "ppud-automation-api /health - PREPROD"
-  host                     = "ppud-automation-api-preprod.hmpps.service.justice.gov.uk"
+  name                     = "hmpps-ppud-automation-api /health - PREPROD"
+  host                     = "hmpps-ppud-automation-api-preprod.hmpps.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
