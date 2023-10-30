@@ -15,7 +15,6 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
   bucket_policy = <<EOF
