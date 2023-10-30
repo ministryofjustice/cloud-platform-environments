@@ -21,7 +21,6 @@ module "ecr" {
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
-  /*
   lifecycle_policy = <<EOF
     {
       "rules": [
@@ -66,7 +65,6 @@ module "ecr" {
       ]
     }
     EOF
-  */
 
   # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
   # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.
