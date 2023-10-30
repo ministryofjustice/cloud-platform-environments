@@ -7,6 +7,7 @@ module "hmpps_user_preferences_rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   db_engine_version      = var.db_engine_version
+  db_instance_class      = "db.t3.small"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   rds_family             = var.rds_family
