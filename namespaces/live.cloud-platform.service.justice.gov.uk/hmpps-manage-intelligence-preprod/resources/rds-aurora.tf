@@ -13,9 +13,9 @@ module "rds_aurora" {
     min_capacity = 2
     max_capacity = 20
   }
-  replica_count = 1
-
-  allow_major_version_upgrade = true
+  replica_count                = 1
+  performance_insights_enabled = true
+  allow_major_version_upgrade  = true
 
   # Tags
   business_unit          = var.business_unit

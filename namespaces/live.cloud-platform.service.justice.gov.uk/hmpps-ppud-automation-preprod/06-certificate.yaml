@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - ppud-automation-api-preprod.hmpps.service.justice.gov.uk
+    - hmpps-ppud-automation-api-preprod.hmpps.service.justice.gov.uk
