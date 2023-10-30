@@ -1,5 +1,5 @@
 module "cla_backend_private_reports_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -17,7 +17,7 @@ module "cla_backend_private_reports_bucket" {
 }
 
 module "cla_backend_deleted_objects_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   acl    = "private"
 
   team_name              = var.team_name
@@ -36,7 +36,7 @@ module "cla_backend_deleted_objects_bucket" {
 
 
 module "cla_backend_static_files_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   acl                           = "public-read"
   enable_allow_block_pub_access = false

@@ -6,7 +6,9 @@ metadata:
     component: "laa-criminal-applications-metabase"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "metabase"
+    pod-security.kubernetes.io/audit: restricted
   annotations:
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-criminal-applications-datastore"
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-crime-apply"
     cloud-platform.justice.gov.uk/application: "Apply for Criminal Legal Aid - Metabase"

@@ -57,7 +57,7 @@ module "ims_transformer_queue" {
 
   # Queue configuration
   sqs_name                   = "ims_transformer_queue_${var.environment-name}"
-  fifo_queue                 = true
+  fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -88,7 +88,7 @@ module "ims_transformer_dead_letter_queue" {
 
   # Queue configuration
   sqs_name        = "ims_transformer_dl_queue_${var.environment-name}"
-  fifo_queue      = true
+  fifo_queue      = false
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -163,14 +163,14 @@ module "ims_test_generator_queue" {
 
   # Queue configuration
   sqs_name                   = "ims_test_generator_queue_${var.environment-name}"
-  fifo_queue                 = true
+  fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.ims_lastupdate_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.ims_generator_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 
 EOF
@@ -194,7 +194,7 @@ module "ims_generator_dead_letter_queue" {
 
   # Queue configuration
   sqs_name        = "ims_generator_dl_queue_${var.environment-name}"
-  fifo_queue      = true
+  fifo_queue      = false
   encrypt_sqs_kms = "true"
 
   # Tags

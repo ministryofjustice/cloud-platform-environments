@@ -31,7 +31,7 @@ spec:
             - name: LABELS
               value: moj-cloud-platform,hmpps-probation-integration-runner
             - name: REPO_URL
-              value: https://github.com/ministryofjustice/hmpps-probation-integration-services
+              value: https://github.com/ministryofjustice/hmpps-probation-integration-e2e-tests
             - name: RUN_AS_ROOT
               value: 'false'
             - name: ACCESS_TOKEN

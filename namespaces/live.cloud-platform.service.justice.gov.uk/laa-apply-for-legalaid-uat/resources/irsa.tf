@@ -13,7 +13,6 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3          = module.authorized-keys.irsa_policy_arn
-    elasticache = module.apply-for-legal-aid-elasticache.irsa_policy_arn
   }
 
   # Tags
