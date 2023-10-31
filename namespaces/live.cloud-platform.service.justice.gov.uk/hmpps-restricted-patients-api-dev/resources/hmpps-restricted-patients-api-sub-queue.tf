@@ -6,18 +6,17 @@ module "restricted_patients_queue" {
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
 
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.restricted_patients_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-
-EOF
+  redrive_policy = jsonencode({
+    "deadLetterTargetArn" : module.restricted_patients_dead_letter_queue.sqs_arn
+    "maxReceiveCount" : 3
+  })
 
   # Tags
-  business_unit          = var.business_unit
+  business_unit = var.business_unit
+
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "Digital-Prison-Services"
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -45,7 +44,7 @@ resource "aws_sqs_queue_policy" "restricted_patients_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${module.offender_events.topic_arn}"
+                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
                           }
                         }
         }
@@ -67,7 +66,7 @@ module "restricted_patients_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "Digital-Prison-Services"
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -80,7 +79,7 @@ module "restricted_patients_dead_letter_queue" {
 resource "kubernetes_secret" "restricted_patients_queue" {
   metadata {
     name      = "restricted-patients-queue-for-offender-events"
-    namespace = "hmpps-restricted-patients-api-dev"
+    namespace = var.namespace
   }
 
   data = {
@@ -93,7 +92,7 @@ resource "kubernetes_secret" "restricted_patients_queue" {
 resource "kubernetes_secret" "restricted_patients_dead_letter_queue" {
   metadata {
     name      = "restricted-patients-dlq-for-offender-events"
-    namespace = "hmpps-restricted-patients-api-dev"
+    namespace = var.namespace
   }
 
   data = {
@@ -105,8 +104,14 @@ resource "kubernetes_secret" "restricted_patients_dead_letter_queue" {
 
 resource "aws_sns_topic_subscription" "restricted_patients_subscription" {
   provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
+  topic_arn     = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol      = "sqs"
   endpoint      = module.restricted_patients_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"OFFENDER_MOVEMENT-RECEPTION\"]}"
+  filter_policy = jsonencode({
+    eventType = ["OFFENDER_MOVEMENT-RECEPTION"]
+  })
+}
+
+data "aws_ssm_parameter" "offender-events-topic-arn" {
+  name = "/offender-events-dev/topic-arn"
 }

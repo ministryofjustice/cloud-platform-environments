@@ -4,16 +4,17 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-rp_queue_for_domain_events"    = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-rp_queue_for_domain_events_dl" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-restricted_patients_queue"     = "offender-events-dev",
-    "Digital-Prison-Services-dev-restricted_patients_queue_dl"  = "offender-events-dev"
+    "Digital-Prison-Services-dev-rp_queue_for_domain_events_dl" = "hmpps-domain-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sqs_policies  = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies  = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  irsa_policies = merge(local.sqs_policies, local.sns_policies)
+  irsa_policies = merge(local.sqs_policies, local.sns_policies, {
+    restricted_patients_queue = module.restricted_patients_queue.irsa_policy_arn,
+    restricted_patients_dead_letter_queue = module.restricted_patients_dead_letter_queue.irsa_policy_arn,
+  })
 }
 
 module "hmpps-restricted-patients" {
