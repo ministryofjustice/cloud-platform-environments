@@ -22,18 +22,6 @@ resource "kubernetes_secret" "lawcom_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "lawcom_route53_a_record" {
-  zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
-  name    = "lawcom.gov.uk"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.lawco-loadb-iu5qyqrenlez-1402955435.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "lawcom_route53_txt_record_mta_sts" {
   zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
   name    = "lawcom.gov.uk"
@@ -56,14 +44,6 @@ resource "aws_route53_record" "lawcom_route53_txt_record_mta_dmarc2" {
   type    = "TXT"
   ttl     = "300"
   records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
-}
-
-resource "aws_route53_record" "lawcom_route53_cname_record_acm2" {
-  zone_id = aws_route53_zone.lawcom_route53_zone.zone_id
-  name    = "www.lawcom.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["lawcom.gov.uk"]
 }
 
 resource "aws_route53_record" "lawcom_route53_cname_record_www_acm" {

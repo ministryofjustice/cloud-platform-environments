@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -55,8 +55,25 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-}
 
+  bucket_policy = <<EOF
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": [
+                "$${bucket_arn}/uploads/*",
+                "$${bucket_arn}/feed-parser/*"
+            ]
+          }
+      ]
+  }
+  EOF
+  
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
@@ -69,3 +86,4 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
+

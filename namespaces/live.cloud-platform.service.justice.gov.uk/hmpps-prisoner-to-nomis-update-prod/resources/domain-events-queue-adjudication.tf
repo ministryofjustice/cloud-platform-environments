@@ -10,7 +10,26 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_adjudication_subs
       "adjudication.damages.updated",
       "adjudication.hearing.created",
       "adjudication.hearing.updated",
-      "adjudication.hearing.deleted"
+      "adjudication.hearing.deleted",
+      "adjudication.hearingCompleted.created",
+      "adjudication.hearingCompleted.deleted",
+      "adjudication.hearingAdjourn.created",
+      "adjudication.hearingReferral.created",
+      "adjudication.hearingAdjourn.deleted",
+      "adjudication.hearingReferral.deleted",
+      "adjudication.punishments.created",
+      "adjudication.punishments.updated",
+      "adjudication.outcome.quashed",
+      "adjudication.outcome.unquashed",
+      "adjudication.referral.outcome.notProceed",
+      "adjudication.referral.outcome.prosecution",
+      "adjudication.referral.outcome.referGov",
+      "adjudication.referral.outcome.deleted",
+      "adjudication.outcome.referPolice",
+      "adjudication.outcome.notProceed",
+      "adjudication.referral.deleted",
+      "adjudication.outcome.notProceed.deleted",
+      "adjudication.hearingOutcome.updated"
     ]
   })
 }

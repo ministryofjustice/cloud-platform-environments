@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-ppud-automation-api-cert
+  namespace: hmpps-ppud-automation-dev
+spec:
+  secretName: hmpps-ppud-automation-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-ppud-automation-api-dev.hmpps.service.justice.gov.uk

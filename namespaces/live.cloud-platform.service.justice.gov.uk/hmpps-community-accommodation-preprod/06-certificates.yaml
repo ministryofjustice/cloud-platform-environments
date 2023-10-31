@@ -24,6 +24,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - temporary-accommodation-preprod.hmpps.service.justice.gov.uk
+    - transitional-accommodation-preprod.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -37,3 +38,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - approved-premises-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-accommodation-tier-2-preprod-cert
+  namespace: hmpps-community-accommodation-preprod
+spec:
+  secretName: hmpps-community-accommodation-tier-2-preprod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cas2-preprod.hmpps.service.justice.gov.uk
+    - community-accommodation-tier-2-preprod.hmpps.service.justice.gov.uk

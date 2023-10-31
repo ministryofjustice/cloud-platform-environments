@@ -20,8 +20,17 @@ spec:
   podSelector: {}
   policyTypes:
   - Ingress
+  - Egress
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: ingress-controllers
+          component: ingress-controllers # This allows all traffic since all traffic comes in via the ingress controller, ipBlocks here does not work
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to:
+    ports:
+    - protocol: TCP
+      port: 443

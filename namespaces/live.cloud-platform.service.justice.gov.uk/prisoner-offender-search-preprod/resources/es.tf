@@ -1,12 +1,12 @@
 module "prisoner_offender_search_elasticsearch" {
-  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.2.0"
+  source                          = "github.com/ministryofjustice/cloud-platform-terraform-elasticsearch?ref=4.4.0"
   vpc_name                        = var.vpc_name
   eks_cluster_name                = var.eks_cluster_name
   application                     = var.application
-  business-unit                   = var.business_unit
-  environment-name                = var.environment
-  infrastructure-support          = var.infrastructure_support
-  is-production                   = var.is_production
+  business_unit                   = var.business_unit
+  environment_name                = var.environment
+  infrastructure_support          = var.infrastructure_support
+  is_production                   = var.is_production
   team_name                       = var.team_name
   elasticsearch-domain            = "search-prisoner"
   aws_es_proxy_service_name       = "es-proxy"
@@ -21,6 +21,14 @@ module "prisoner_offender_search_elasticsearch" {
   s3_manual_snapshot_repository   = data.aws_s3_bucket.snapshot_bucket.arn
   ebs_iops                        = 0
   ebs_volume_type                 = "gp2"
+  auto_tune_config                = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2100-10-23T20:00:00.00Z"
+    duration_value                 = 10
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = ""
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
 }
 
 

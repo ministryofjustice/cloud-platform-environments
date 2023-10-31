@@ -135,6 +135,70 @@ resource "aws_cognito_user_pool_client" "functional_tests_client" {
 }
 
 
+# HARDSHIP SERVICE
+
+resource "aws_cognito_user_pool_client" "laa_crime_hardship_dev" {
+  name                                 = var.cognito_user_pool_hardship_client_name_dev
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "laa_crime_hardship_tst" {
+  name                                 = var.cognito_user_pool_hardship_client_name_tst
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "laa_crime_hardship_uat" {
+  name                                 = var.cognito_user_pool_hardship_client_name_uat
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "laa_crime_hardship_stg" {
+  name                                 = var.cognito_user_pool_hardship_client_name_stg
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "laa_crime_hardship_prd" {
+  name                                 = var.cognito_user_pool_hardship_client_name_prd
+  user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.cma_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+
+
 resource "kubernetes_secret" "aws_cognito_user_pool_cma_dev" {
   metadata {
     name      = "cma-dev-client-credentials"

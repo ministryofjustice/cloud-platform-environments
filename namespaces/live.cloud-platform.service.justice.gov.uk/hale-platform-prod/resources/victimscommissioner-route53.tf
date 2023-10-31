@@ -82,6 +82,14 @@ resource "aws_route53_record" "victimscommissioner_route53_txt_record_smtp" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
+resource "aws_route53_record" "victimscommissioner_route53_txt_record_asvdns" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_asvdns-3fc79930-2c5e-49b3-8b6e-c38c5e363e7b.victimscommissioner.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_d6acaafb-39b2-4efa-930c-df6581fa5196"]
+}
+
 resource "aws_route53_record" "victimscommissioner_route53_cname_record_acm" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "_763372be03a4e87a04610fa50b15adbd.victimscommissioner.org.uk"

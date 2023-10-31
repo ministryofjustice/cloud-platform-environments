@@ -82,6 +82,14 @@ resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
   records = ["asvdns_feca725b-fbca-49e0-8928-f647ef79edb0"]
 }
 
+resource "aws_route53_record" "ccrc_route53_txt_record_asvdns2" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "_asvdns-8539c3d4-beae-4dfc-bf69-d83ccae823af.ccrc.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_99c04153-9cca-452e-b8af-08f9ae474081"]
+}
+
 resource "aws_route53_record" "ccrc_route53_txt_record_dmarc" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "_dmarc.ccrc.gov.uk"

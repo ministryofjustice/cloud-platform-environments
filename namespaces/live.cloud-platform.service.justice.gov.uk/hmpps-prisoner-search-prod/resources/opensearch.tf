@@ -1,5 +1,5 @@
 module "hmpps_prisoner_search_opensearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.4.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name
@@ -22,6 +22,15 @@ module "hmpps_prisoner_search_opensearch" {
     dedicated_master_type    = "m6g.large.search"
   }
 
+  auto_tune_config = {
+    desired_state                  = "ENABLED"
+    start_at                       = "2100-10-23T20:00:00.00Z"
+    duration_value                 = 10
+    duration_unit                  = "HOURS"
+    cron_expression_for_recurrence = ""
+    rollback_on_disable            = "NO_ROLLBACK"
+  }
+
   proxy_count = 3
 
   ebs_options = {
@@ -31,7 +40,7 @@ module "hmpps_prisoner_search_opensearch" {
 }
 
 module "os_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
