@@ -74,10 +74,10 @@ spec:
         message: "Namespace {{ $labels.namespace }} - CPU usage compared to the CPU limit on the container is more than 75% for 5m"
 
     - alert: Memory-high-threshold
-      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-information-exchange-development\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-development\", container=\"infox-application\", unit=\"byte\"})) * 100 > 90"
+      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-information-exchange-development\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-development\", container=\"infox-application\", unit=\"byte\"})) * 100 > 85"
       for: 5m
       labels:
         severity: information-exchange-non-prod 
       annotations:
-        message: "Namespace {{ $labels.namespace }} - Memory usage compared to the Memory limit on the container is more than 75% for 5m"
+        message: "Namespace {{ $labels.namespace }} - Memory usage compared to the Memory limit on the container is more than 85% for 5m"
 
