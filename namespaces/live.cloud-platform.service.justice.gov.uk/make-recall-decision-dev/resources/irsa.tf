@@ -16,7 +16,8 @@ module "irsa" {
   service_account_name = "make-recall-decision"
   role_policy_arns     = merge(
                            local.sqs_policies,
-                           local.sns_policies
+                           local.sns_policies,
+                           { elasticache = module.elasticache_redis.irsa_policy_arn  }
   )
   # Tags
   business_unit          = var.business_unit
