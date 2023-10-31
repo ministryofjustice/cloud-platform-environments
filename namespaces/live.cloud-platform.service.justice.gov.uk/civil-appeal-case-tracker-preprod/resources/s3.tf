@@ -15,6 +15,7 @@ module "s3_bucket" {
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   enable_allow_block_pub_access = false
+  acl                           = "public-read"
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
