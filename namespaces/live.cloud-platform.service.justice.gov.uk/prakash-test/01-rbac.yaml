@@ -5,7 +5,7 @@ metadata:
   namespace: prakash-test
 subjects:
   - kind: Group
-    name: "github:cloud-platform"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
