@@ -1,5 +1,7 @@
-data "aws_iam_policy_document" "irsa" {
+# Allow the AP push bucket to write to CP S3 bucket
+data "aws_iam_policy_document" "ct_tact_list_ap_access" {
   statement {
+    sid = "AllowAPDataExporterPushToCPTactListS3"
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
@@ -13,11 +15,11 @@ data "aws_iam_policy_document" "irsa" {
   }
 }
 
-resource "aws_iam_policy" "irsa" {
+resource "aws_iam_policy" "ap_push_to_cp_policy" {
   # NB: IAM policy name must be unique within Cloud Platform
-  name        = "${var.namespace}-irsa"
+  name        = "${var.namespace}-ap-push-to-cp-policy"
   policy      = data.aws_iam_policy_document.irsa.json
-  description = "Policy for testing cloud-platform-terraform-irsa"
+  description = "Allow Analytical Platform exporter to push data to CP S3 bucket."
 }
 
 module "irsa" {
@@ -31,8 +33,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    # s3 = aws_iam_policy.policy.arn
-    # s3 = module.s3.irsa_policy_arn
+    s3   = module.s3.irsa_policy_arn
     irsa = aws_iam_policy.irsa.arn
   }
 
