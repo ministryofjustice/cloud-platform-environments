@@ -46,7 +46,7 @@ module "irsa_ap_push_to_cp_tact_list" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "irsa_ap_push_to_cp_tact_list" {
   metadata {
     name      = "${var.team_name}-irsa"
     namespace = var.namespace
