@@ -8,7 +8,11 @@ resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
       "accommodation.cas3.booking.cancelled",
       "accommodation.cas3.person.arrived",
       "accommodation.cas3.booking.confirmed",
-      "accommodation.cas3.person.departed"]
+      "accommodation.cas3.person.departed",
+      "accommodation.cas3.person.arrived.updated",
+      "accommodation.cas3.booking.cancelled.updated",
+      "accommodation.cas3.person.departed.updated"
+    ]
   })
 }
 
