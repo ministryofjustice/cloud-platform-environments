@@ -7,12 +7,10 @@ module "prisoner_from_nomis_nonassociations_queue" {
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
-  redrive_policy = <<EOF
-  {
-    "deadLetterTargetArn": "${module.prisoner_from_nomis_nonassociations_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
-  }
-
-EOF
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.prisoner_from_nomis_nonassociations_dead_letter_queue.sqs_arn
+    maxReceiveCount     = 3
+  })
 
   # Tags
   business_unit          = var.business_unit
@@ -20,7 +18,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -46,7 +44,7 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_nonassociations_queue_polic
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${module.offender_events.topic_arn}"
+                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
                           }
                         }
         }
@@ -70,7 +68,7 @@ module "prisoner_from_nomis_nonassociations_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -80,8 +78,8 @@ module "prisoner_from_nomis_nonassociations_dead_letter_queue" {
 
 resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_queue" {
   metadata {
-    name      = "prisoner-from-nomis-nonassociations-queue"
-    namespace = "hmpps-prisoner-from-nomis-migration-preprod"
+    name      = "prison-events-nonassociations-queue"
+    namespace = var.namespace
   }
 
   data = {
@@ -93,8 +91,8 @@ resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_queue" {
 
 resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_dead_letter_queue" {
   metadata {
-    name      = "prisoner-from-nomis-nonassociations-dl-queue"
-    namespace = "hmpps-prisoner-from-nomis-migration-preprod"
+    name      = "prison-events-nonassociations-dl-queue"
+    namespace = var.namespace
   }
 
   data = {
@@ -106,8 +104,17 @@ resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_dead_letter_qu
 
 resource "aws_sns_topic_subscription" "prisoner_from_nomis_nonassociations_subscription" {
   provider      = aws.london
-  topic_arn     = module.offender_events.topic_arn
+  topic_arn     = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol      = "sqs"
   endpoint      = module.prisoner_from_nomis_nonassociations_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"NON_ASSOCIATION_DETAIL-UPSERTED\",\"NON_ASSOCIATION_DETAIL-DELETED\"]}"
+  filter_policy = jsonencode({
+    eventType = [
+      "NON_ASSOCIATION_DETAIL-UPSERTED",
+      "NON_ASSOCIATION_DETAIL-DELETED"
+    ]
+  })
+}
+
+data "aws_ssm_parameter" "offender-events-topic-arn" {
+  name = "/offender-events-${var.environment_name}/topic-arn"
 }

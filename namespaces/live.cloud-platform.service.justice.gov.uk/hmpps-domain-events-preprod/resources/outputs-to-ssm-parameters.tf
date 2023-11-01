@@ -27,9 +27,7 @@ locals {
     (module.restricted_patients_queue_for_domain_events.sqs_name)                   = module.restricted_patients_queue_for_domain_events.irsa_policy_arn,
     (module.restricted_patients_queue_for_domain_events_dead_letter_queue.sqs_name) = module.restricted_patients_queue_for_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.in_cell_queue.sqs_name)                                                 = module.in_cell_queue.irsa_policy_arn,
-    (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_domain_queue.sqs_name)                         = module.prisoner_offender_search_domain_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_domain_dlq.sqs_name)                           = module.prisoner_offender_search_domain_dlq.irsa_policy_arn
+    (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn
   }
 
   sns_irsa_policies = {
