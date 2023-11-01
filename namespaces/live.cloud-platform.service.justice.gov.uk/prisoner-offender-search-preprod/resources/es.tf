@@ -18,7 +18,6 @@ module "prisoner_offender_search_elasticsearch" {
   aws-es-proxy-replica-count      = 4
   instance_count                  = 6
   instance_type                   = "m6g.xlarge.elasticsearch"
-  s3_manual_snapshot_repository   = data.aws_s3_bucket.snapshot_bucket.arn
   ebs_iops                        = 0
   ebs_volume_type                 = "gp2"
   auto_tune_config                = {
@@ -31,10 +30,6 @@ module "prisoner_offender_search_elasticsearch" {
   }
 }
 
-
-data "aws_s3_bucket" "snapshot_bucket" {
-  bucket = "cloud-platform-915f65c9849654f480afa21d9e389bd7"
-}
 
 resource "kubernetes_secret" "es_snapshots_role" {
   metadata {
