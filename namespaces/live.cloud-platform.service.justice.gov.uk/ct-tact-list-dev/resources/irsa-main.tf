@@ -1,24 +1,4 @@
-data "aws_iam_policy_document" "irsa" {
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:ListBucket",
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-    ]
-    resources = [
-      "arn:aws:s3:::mojap-counter-terrorism-exports",
-    ]
-  }
-}
-
-resource "aws_iam_policy" "irsa" {
-  # NB: IAM policy name must be unique within Cloud Platform
-  name        = "${var.namespace}-irsa"
-  policy      = data.aws_iam_policy_document.irsa.json
-  description = "Policy for testing cloud-platform-terraform-irsa"
-}
+# Main IRSA module for managing short-lived credentials
 
 module "irsa" {
   # always replace with latest version from Github
@@ -27,13 +7,16 @@ module "irsa" {
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
-  # IRSA configuration
+  # IRSA configuration: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/accessing-aws-apis-and-resources-from-your-namespace.html#using-irsa-in-your-namespace
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
+  # Attach the approprate policies using a key => value map
+  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
+  # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    # s3 = aws_iam_policy.policy.arn
-    # s3 = module.s3.irsa_policy_arn
-    irsa = aws_iam_policy.irsa.arn
+    s3  = module.s3_bucket.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
+    ecr = module.ecr_credentials.irsa_policy_arn
   }
 
   # Tags
