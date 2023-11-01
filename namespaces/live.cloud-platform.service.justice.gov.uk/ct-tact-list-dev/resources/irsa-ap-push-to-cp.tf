@@ -1,5 +1,5 @@
 # Allow the AP push bucket to write to CP S3 bucket
-data "aws_iam_policy_document" "ct_tact_list_ap_access" {
+data "aws_iam_policy_document" "ap_push_to_cp_tact_list" {
   statement {
     sid = "AllowAPDataExporterPushToCPTactListS3"
     actions = [
@@ -15,14 +15,14 @@ data "aws_iam_policy_document" "ct_tact_list_ap_access" {
   }
 }
 
-resource "aws_iam_policy" "ap_push_to_cp_policy" {
+resource "aws_iam_policy" "policy_ap_push_to_cp_tact_list" {
   # NB: IAM policy name must be unique within Cloud Platform
   name        = "${var.namespace}-ap-push-to-cp-policy"
   policy      = data.aws_iam_policy_document.irsa.json
   description = "Allow Analytical Platform exporter to push data to CP S3 bucket."
 }
 
-module "irsa" {
+module "irsa_ap_push_to_cp_tact_list" {
   # always replace with latest version from Github
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -52,8 +52,8 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role_name       = module.irsa.role_name
-    role_arn        = module.irsa.role_arn
-    service_account = module.irsa.service_account.name
+    role_name       = module.irsa_ap_push_to_cp_tact_list.role_name
+    role_arn        = module.irsa_ap_push_to_cp_tact_list.role_arn
+    service_account = module.irsa_ap_push_to_cp_tact_list.service_account.name
   }
 }
