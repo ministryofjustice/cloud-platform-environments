@@ -78,7 +78,7 @@ module "prisoner_from_nomis_nonassociations_dead_letter_queue" {
 
 resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_queue" {
   metadata {
-    name      = "prison-events-nomis-nonassociations-queue"
+    name      = "prison-events-nonassociations-queue"
     namespace = var.namespace
   }
 
