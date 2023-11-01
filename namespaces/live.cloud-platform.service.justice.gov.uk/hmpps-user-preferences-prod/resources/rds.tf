@@ -6,13 +6,13 @@ module "hmpps_user_preferences_rds" {
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
+  db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
   db_engine_version      = "14.7"
   rds_family             = "postgres14"
-  db_instance_class      = "db.t3.small"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
