@@ -41,8 +41,9 @@ module "irsa" {
         "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm", #tacticalproducts legacy account
         "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir", #tacticalproducts legacy account
         "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk", #tacticalproducts legacy account
-        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd" #tacticalproducts legacy account
-      ]
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd", #tacticalproducts legacy account
+        "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw" #tacticalproducts legacy account
+       ]
     }
     statement {
       actions = [
@@ -61,8 +62,9 @@ module "irsa" {
         "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*", #tacticalproducts legacy account
         "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*", #tacticalproducts legacy account
         "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*", #tacticalproducts legacy account
-        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*" #tacticalproducts legacy account
-     ]
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*", #tacticalproducts legacy account
+        "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw/*" #tacticalproducts legacy account
+      ]
     }
   }
 
