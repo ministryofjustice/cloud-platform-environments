@@ -1,10 +1,4 @@
 # Main IRSA module for managing short-lived credentials
-resource "aws_iam_policy" "irsa" {
-  # NB: IAM policy name must be unique within Cloud Platform
-  name        = "${var.namespace}-irsa"
-  policy      = data.aws_iam_policy_document.irsa.json
-  description = "Policy for testing cloud-platform-terraform-irsa"
-}
 
 module "irsa" {
   # always replace with latest version from Github
@@ -20,9 +14,9 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3  = module.s3.irsa_policy_arn
+    s3  = module.s3_bucket.irsa_policy_arn
     rds = module.rds.irsa_policy_arn
-    ecr = module.ecr.irsa_policy_arn
+    ecr = module.ecr_credentials.irsa_policy_arn
   }
 
   # Tags
