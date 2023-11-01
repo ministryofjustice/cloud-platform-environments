@@ -1,5 +1,4 @@
 # Main IRSA module for managing short-lived credentials
-
 resource "aws_iam_policy" "irsa" {
   # NB: IAM policy name must be unique within Cloud Platform
   name        = "${var.namespace}-irsa"
@@ -17,11 +16,13 @@ module "irsa" {
   # IRSA configuration: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/accessing-aws-apis-and-resources-from-your-namespace.html#using-irsa-in-your-namespace
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
+  # Attach the approprate policies using a key => value map
+  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
+  # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    irsa = aws_iam_policy.irsa.arn
-    s3   = module.s3.irsa_policy_arn
-    rds  = module.rds.irsa_policy_arn
-    ecr  = module.ecr.irsa_policy_arn
+    s3  = module.s3.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
+    ecr = module.ecr.irsa_policy_arn
   }
 
   # Tags
