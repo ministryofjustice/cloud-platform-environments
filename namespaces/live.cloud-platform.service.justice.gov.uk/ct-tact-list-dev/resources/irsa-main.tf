@@ -18,11 +18,10 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    irsa           = aws_iam_policy.irsa.arn
-    s3             = module.s3.irsa_policy_arn
-    rds            = module.rds.irsa_policy_arn
-    ecr            = module.ecr.irsa_policy_arn
-    serviceaccount = module.serviceaccount.irsa_policy_arn
+    irsa = aws_iam_policy.irsa.arn
+    s3   = module.s3.irsa_policy_arn
+    rds  = module.rds.irsa_policy_arn
+    ecr  = module.ecr.irsa_policy_arn
   }
 
   # Tags
