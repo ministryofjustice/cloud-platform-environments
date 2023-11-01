@@ -2,16 +2,11 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sqs_queues = {
-    "Digital-Prison-Services-prod-rp_queue_for_domain_events"    = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-rp_queue_for_domain_events_dl" = "hmpps-domain-events-prod",
-  }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
-  sqs_policies  = {for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value}
   sns_policies  = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value}
-  irsa_policies = merge(local.sqs_policies, local.sns_policies, {
+  irsa_policies = merge(local.sns_policies, {
     restricted_patients_queue                                     = module.restricted_patients_queue.irsa_policy_arn,
     restricted_patients_dead_letter_queue                         = module.restricted_patients_dead_letter_queue.irsa_policy_arn
     restricted_patients_queue_for_domain_events                   = module.restricted_patients_queue_for_domain_events.irsa_policy_arn
@@ -33,11 +28,6 @@ module "hmpps-restricted-patients" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
