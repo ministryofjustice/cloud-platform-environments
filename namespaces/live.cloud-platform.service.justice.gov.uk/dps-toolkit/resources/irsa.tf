@@ -1,21 +1,23 @@
-
 # Add the names of the SQS which the app needs permissions to access.
 # The value of each item should be the namespace where the SQS was created.
-# This information is used to collect the IAM policies which are used by the IRSA module.
+# This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue" = "hmpps-domain-events-dev"
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sqs_policies  = {for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value}
+  irsa_policies = merge(local.sqs_policies, {
+    dps_smoketest_queue = module.dps_smoketest_queue.irsa_policy_arn
+  })
 }
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name     = var.eks_cluster_name
-  namespace            = var.namespace
-  service_account_name = "dps-smoketest"
-  role_policy_arns     = local.sqs_policies
+  eks_cluster_name       = var.eks_cluster_name
+  namespace              = var.namespace
+  service_account_name   = "dps-smoketest"
+  role_policy_arns       = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
