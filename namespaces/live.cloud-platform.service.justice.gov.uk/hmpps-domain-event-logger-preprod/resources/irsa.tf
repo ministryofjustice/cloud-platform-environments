@@ -6,7 +6,11 @@ locals {
     "Digital-Prison-Services-preprod-hmpps_domain_event_logger_dlq"   = "hmpps-domain-events-preprod"
     "Digital-Prison-Services-preprod-hmpps_domain_event_logger_queue" = "hmpps-domain-events-preprod"
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
+  sqs_policies  = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
+  irsa_policies = merge(local.sqs_policies, {
+    hmpps_domain_event_logger_queue             = module.hmpps_domain_event_logger_queue.irsa_policy_arn
+    hmpps_domain_event_logger_dead_letter_queue = module.hmpps_domain_event_logger_dead_letter_queue.irsa_policy_arn
+  })
 }
 
 module "irsa" {
@@ -15,7 +19,7 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-domain-event-logger"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns       = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
