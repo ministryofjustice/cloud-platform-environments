@@ -46,8 +46,8 @@ module "irsa_push_from_ap_to_s3" {
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3   = module.s3.irsa_policy_arn
-    irsa = aws_iam_policy.irsa.arn
+    s3 = module.s3_bucket.irsa_policy_arn
+    # irsa = aws_iam_policy.irsa.arn
   }
 
   # Tags
