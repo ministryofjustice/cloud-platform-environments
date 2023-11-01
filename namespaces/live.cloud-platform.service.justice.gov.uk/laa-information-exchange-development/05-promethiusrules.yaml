@@ -4,6 +4,7 @@ metadata:
   namespace: laa-information-exchange-development
   labels:
     role: alert-rules
+    namespace: laa-information-exchange-development
   name: prometheus-custom-rules-infox-application
 spec:
 
