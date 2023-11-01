@@ -14,7 +14,7 @@ locals {
     "Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_visit_dlq"        = "hmpps-domain-events-prod"
     "Digital-Prison-Services-prod-hmpps_prisoner_to_nomis_visit_queue"      = "hmpps-domain-events-prod"
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
 }
 
 module "irsa" {
@@ -23,11 +23,21 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-to-nomis-update"
-  role_policy_arns = merge({
-    hmpps_prisoner_to_nomis_adjudication_queue             = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
-    hmpps_prisoner_to_nomis_adjudication_dead_letter_queue = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
+  role_policy_arns     = merge({
+    hmpps_prisoner_to_nomis_adjudication_queue               = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_adjudication_dead_letter_queue   = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
     hmpps_prisoner_to_nomis_nonassociation_queue             = module.hmpps_prisoner_to_nomis_nonassociation_queue.irsa_policy_arn,
     hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue = module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_activity_queue                   = module.hmpps_prisoner_to_nomis_activity_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_activity_dead_letter_queue       = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_appointment_queue                = module.hmpps_prisoner_to_nomis_appointment_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_appointment_dead_letter_queue    = module.hmpps_prisoner_to_nomis_appointment_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_incentive_queue                  = module.hmpps_prisoner_to_nomis_incentive_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_incentive_dead_letter_queue      = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_sentencing_queue                 = module.hmpps_prisoner_to_nomis_sentencing_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_sentencing_dead_letter_queue     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_visit_queue                      = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_visit_queue                      = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
   }, local.sqs_policies)
 
   # Tags
