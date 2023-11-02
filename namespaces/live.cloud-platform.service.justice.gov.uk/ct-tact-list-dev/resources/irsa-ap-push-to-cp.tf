@@ -27,9 +27,10 @@ data "aws_iam_policy_document" "policy_data" {
       "s3:GetObject",
       "s3:GetObjectAcl",
     ]
-    # ARN of the AP bucket
+    # ARN of the AP bucket (mojap-hub-exports is the push bucket)
     resources = [
       "arn:aws:s3:::mojap-counter-terrorism-exports",
+      "arn:aws:s3:::mojap-hub-exports/counter_terrorism_exports/*"
     ]
   }
 }
