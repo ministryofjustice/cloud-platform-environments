@@ -7,28 +7,27 @@
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  # REQUIRED: Repository configuration
+  # Repository configuration
   repo_name = var.namespace
 
-  # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["github"]
-
-  # REQUIRED: GitHub repositories that push to this container repository
+  # OpenID Connect configuration
+  oidc_providers      = ["github"]
   github_repositories = ["operations-engineering-example"]
 
-  github_actions_prefix = ["development"]
+  github_actions_prefix = ["production"]
+
 
   lifecycle_policy = <<EOF
 {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire images older than 14 days",
+            "description": "Expire images older than 30 days",
             "selection": {
                 "tagStatus": "untagged",
                 "countType": "sinceImagePushed",
                 "countUnit": "days",
-                "countNumber": 14
+                "countNumber": 30
             },
             "action": {
                 "type": "expire"
@@ -37,15 +36,7 @@ module "ecr" {
     ]
 }
 EOF
-
-  # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
-  # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.
-  # This flag will allow a non-empty ECR to be deleted.
-  # Defaults to true
-
-  # deletion_protection = false
-
-  # Tags (commented out until release)
+  # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

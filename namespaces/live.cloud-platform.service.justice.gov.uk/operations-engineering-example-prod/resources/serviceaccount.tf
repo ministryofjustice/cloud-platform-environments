@@ -10,9 +10,9 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["operations-engineering-example"]
 
-  github_actions_secret_kube_token     = "DEV_KUBE_TOKEN"
-  github_actions_secret_kube_cert      = "DEV_KUBE_CERT"
-  github_actions_secret_kube_namespace = "DEV_KUBE_NAMESPACE"
-  github_actions_secret_kube_cluster   = "DEV_KUBE_CLUSTER"
+  github_actions_secret_kube_token     = "PROD_KUBE_TOKEN"
+  github_actions_secret_kube_cert      = "PROD_KUBE_CERT"
+  github_actions_secret_kube_namespace = "PROD_KUBE_NAMESPACE"
+  github_actions_secret_kube_cluster   = "PROD_KUBE_CLUSTER"
 
 }
