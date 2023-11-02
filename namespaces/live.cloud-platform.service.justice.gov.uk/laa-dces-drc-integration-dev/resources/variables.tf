@@ -71,3 +71,36 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "dces-drc-api-dev-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "dces-drc-api-dev"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "dces-drc-api-dev"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "dces-drc-api-dev-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "dces-drc-api-dev"
+}
