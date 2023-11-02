@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["operations-engineering-example"]
 
-  github_actions_prefix = ["production"]
+  github_actions_prefix = "production"
 
 
   lifecycle_policy = <<EOF
