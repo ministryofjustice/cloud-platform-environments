@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/hmpps-alfresco"]
+  github_repositories = ["hmpps-alfresco"]
 
   # Tags
   business_unit          = var.business_unit
