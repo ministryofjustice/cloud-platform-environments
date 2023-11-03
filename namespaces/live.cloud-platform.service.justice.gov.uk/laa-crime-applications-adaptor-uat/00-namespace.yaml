@@ -6,7 +6,7 @@ metadata:
     component: "laa-crime-applications-adaptor-uat"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "uat"
-    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-crimeapps-core"

@@ -6,7 +6,7 @@ metadata:
     name: formbuilder-monitoring
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "dev"
-    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/application: "formbuilder-monitoring"
     cloud-platform.justice.gov.uk/business-unit: "HQ"
