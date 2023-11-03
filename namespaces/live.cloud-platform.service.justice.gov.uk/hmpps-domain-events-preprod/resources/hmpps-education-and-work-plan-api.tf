@@ -132,7 +132,7 @@ resource "kubernetes_secret" "ciag_domain_events_queue" {
 
 resource "kubernetes_secret" "ciag_dlq" {
   metadata {
-    name      = "ciag-events-sqs-dl-instance-output"
+    name      = "ciag-domain-events-sqs-dl-instance-output"
     namespace = "hmpps-education-employment-preprod"
   }
 
