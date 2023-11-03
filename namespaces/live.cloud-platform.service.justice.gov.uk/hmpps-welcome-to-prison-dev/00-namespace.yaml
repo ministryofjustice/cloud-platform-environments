@@ -6,7 +6,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
-    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "move-a-prisoner-digital"
