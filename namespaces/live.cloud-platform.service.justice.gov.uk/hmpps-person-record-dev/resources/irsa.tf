@@ -17,7 +17,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = var.application
+  service_account_name = "person-record-service"
   namespace            = var.namespace # this is also used as a tag
 
   # Attach the appropriate policies using a key => value map

@@ -2,7 +2,7 @@ variable "vpc_name" {
 }
 
 variable "application" {
-  default = "person-record-service"
+  default = "HMPPS Person Record Service"
 }
 
 variable "namespace" {
