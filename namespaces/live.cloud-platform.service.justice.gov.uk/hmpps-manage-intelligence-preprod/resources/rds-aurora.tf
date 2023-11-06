@@ -13,7 +13,9 @@ module "rds_aurora" {
     min_capacity = 2
     max_capacity = 20
   }
-  replica_count                = 1
+  replica_count                = 2
+  replica_scale_enabled        = true
+  replica_scale_min            = 1
   performance_insights_enabled = true
   allow_major_version_upgrade  = true
 
