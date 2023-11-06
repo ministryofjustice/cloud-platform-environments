@@ -59,14 +59,14 @@ resource "random_id" "id" {
   byte_length = 16
 }
 
-#resource "aws_iam_user" "user" {
-#  name = "ap-s3-bucket-user-${random_id.id.hex}"
-#  path = "/system/ap-s3-bucket-user/"
-#}
+resource "aws_iam_user" "user" {
+  name = "ap-s3-bucket-user-${random_id.id.hex}"
+  path = "/system/ap-s3-bucket-user/"
+}
 
-#resource "aws_iam_access_key" "user" {
-#  user = aws_iam_user.user.name
-#}
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
 
 resource "aws_iam_user_policy" "policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
