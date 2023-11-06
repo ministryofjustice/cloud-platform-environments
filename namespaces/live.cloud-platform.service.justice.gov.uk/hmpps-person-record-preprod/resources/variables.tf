@@ -41,3 +41,6 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+}
+
