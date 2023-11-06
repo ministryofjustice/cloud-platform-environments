@@ -12,16 +12,6 @@ locals {
     (module.education_and_work_plan_domain_events_dead_letter_queue.sqs_name)       = module.education_and_work_plan_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.keyworker_api_queue.sqs_name)                                           = module.keyworker_api_queue.irsa_policy_arn,
     (module.keyworker_api_dead_letter_queue.sqs_name)                               = module.keyworker_api_dead_letter_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_visit_queue.sqs_name)                           = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_name)               = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_incentive_queue.sqs_name)                       = module.hmpps_prisoner_to_nomis_incentive_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_name)           = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_activity_queue.sqs_name)                        = module.hmpps_prisoner_to_nomis_activity_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_name)            = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_to_nomis_appointment_queue.sqs_name)                           = module.prisoner_to_nomis_appointment_queue.irsa_policy_arn,
-    (module.prisoner_to_nomis_appointment_dead_letter_queue.sqs_name)               = module.prisoner_to_nomis_appointment_dead_letter_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_name)                      = module.hmpps_prisoner_to_nomis_sentencing_queue.irsa_policy_arn,
-    (module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_name)          = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
     (module.in_cell_queue.sqs_name)                                                 = module.in_cell_queue.irsa_policy_arn,
     (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn
   }
