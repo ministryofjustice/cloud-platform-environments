@@ -63,5 +63,5 @@ variable "github_token" {
 }
 
 variable "rds_family" {
-  default = "postgres14"
+  default = "postgres15"
 }
