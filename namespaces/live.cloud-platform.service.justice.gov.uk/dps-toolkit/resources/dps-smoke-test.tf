@@ -40,7 +40,7 @@ resource "aws_sqs_queue_policy" "dps_smoketest_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn-dev.value}"
                           }
                         }
         }
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "dps_smoketest_queue" {
 
 resource "aws_sns_topic_subscription" "dps_smoketest_subscription" {
   provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn-dev.value
   protocol      = "sqs"
   endpoint      = module.dps_smoketest_queue.sqs_arn
   filter_policy = jsonencode({
@@ -77,7 +77,7 @@ resource "aws_sns_topic_subscription" "dps_smoketest_subscription" {
   })
 }
 
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-${var.environment}/topic-arn"
+data "aws_ssm_parameter" "hmpps-domain-events-topic-arn-dev" {
+  name = "/hmpps-domain-events-dev/topic-arn"
 }
 
