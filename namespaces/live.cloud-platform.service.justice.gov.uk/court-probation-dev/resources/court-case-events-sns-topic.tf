@@ -19,6 +19,23 @@ module "court-case-events" {
   }
 }
 
+resource "aws_ssm_parameter" "param-store-topic-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.court-case-events.topic_arn
+  description = "SNS topic ARN for court-case-events; use this parameter from other DPS namespaces"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+
 resource "kubernetes_secret" "court-case-events" {
   metadata {
     name      = "court-case-events-topic"
