@@ -10,20 +10,20 @@ module "irsa" {
   # we've almost hit the limit for policies here (limit is 15).  If wanting to add any more then switch to the
   # approach used in hmpps-prisoner-from-nomis-migration-prod/resources/irsa.tf instead.
   role_policy_arns     = {
-    hmpps_prisoner_to_nomis_adjudication_queue               = module.hmpps_prisoner_to_nomis_adjudication_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_adjudication_dead_letter_queue   = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_nonassociation_queue             = module.hmpps_prisoner_to_nomis_nonassociation_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue = module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_activity_queue                   = module.hmpps_prisoner_to_nomis_activity_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_activity_dead_letter_queue       = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_appointment_queue                = module.hmpps_prisoner_to_nomis_appointment_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_appointment_dead_letter_queue    = module.hmpps_prisoner_to_nomis_appointment_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_incentive_queue                  = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_incentive_dead_letter_queue      = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_sentencing_queue                 = module.hmpps_prisoner_to_nomis_sentencing_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_sentencing_dead_letter_queue     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_visit_queue                      = module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn,
-    hmpps_prisoner_to_nomis_visit_dead_letter_queue          = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn
+    hmpps_prisoner_to_nomis_adjudication_queue               = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_adjudication_dead_letter_queue   = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_nonassociation_queue             = module.hmpps_prisoner_to_nomis_nonassociation_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue = module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_activity_queue                   = module.hmpps_prisoner_to_nomis_activity_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_activity_dead_letter_queue       = module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_appointment_queue                = module.hmpps_prisoner_to_nomis_appointment_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_appointment_dead_letter_queue    = module.hmpps_prisoner_to_nomis_appointment_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_incentive_queue                  = module.hmpps_prisoner_to_nomis_incentive_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_incentive_dead_letter_queue      = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_sentencing_queue                 = module.hmpps_prisoner_to_nomis_sentencing_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_sentencing_dead_letter_queue     = module.hmpps_prisoner_to_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_visit_queue                      = module.hmpps_prisoner_to_nomis_visit_queue.irsa_policy_arn,
+    hmpps_prisoner_to_nomis_visit_dead_letter_queue          = module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.irsa_policy_arn
   }
 
   # Tags
