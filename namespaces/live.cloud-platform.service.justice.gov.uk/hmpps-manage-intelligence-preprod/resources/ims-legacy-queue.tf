@@ -161,7 +161,7 @@ module "ims_reprocess_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                   = "ims_reprocess_queue_${var.environment-name}"
+  sqs_name                   = "ims_reprocess_queue_${var.environment}"
   fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -180,7 +180,7 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -192,7 +192,7 @@ module "ims_reprocess_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "ims_reprocess_dl_queue_${var.environment-name}"
+  sqs_name        = "ims_reprocess_dl_queue_${var.environment}"
   fifo_queue      = false
   encrypt_sqs_kms = "true"
 
@@ -202,7 +202,7 @@ module "ims_reprocess_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
