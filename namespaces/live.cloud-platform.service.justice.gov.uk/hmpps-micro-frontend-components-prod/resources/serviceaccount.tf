@@ -59,6 +59,22 @@ locals {
         "*",
       ]
     },
+    {
+      api_groups = [
+        "autoscaling"
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ]
+      verbs = [
+        "get",
+        "create",
+        "update",
+        "delete",
+        "patch"
+      ]
+    },
   ]
 }
 
