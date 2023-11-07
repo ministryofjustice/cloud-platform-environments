@@ -21,6 +21,10 @@ variable "environment" {
   default = "development"
 }
 
+variable "environment-name" {
+  default = "development"
+}
+
 variable "infrastructure_support" {
   default = "dps-hmpps@digital.justice.gov.uk"
 }
@@ -42,3 +46,5 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+}

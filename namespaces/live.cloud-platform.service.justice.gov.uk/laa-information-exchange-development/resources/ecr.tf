@@ -21,43 +21,16 @@ module "ecr" {
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
-  /*
   lifecycle_policy = <<EOF
     {
       "rules": [
         {
           "rulePriority": 1,
-          "description": "Expire untagged images older than 14 days",
-          "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 14
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 2,
-          "description": "Keep last 30 dev and staging images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPrefixList": ["dev", "staging"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 30
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 3,
-          "description": "Keep the newest 100 images and mark the rest for expiration",
+          "description": "Only keep latest 15 images",
           "selection": {
             "tagStatus": "any",
             "countType": "imageCountMoreThan",
-            "countNumber": 100
+            "countNumber": 15
           },
           "action": {
             "type": "expire"
@@ -66,7 +39,6 @@ module "ecr" {
       ]
     }
     EOF
-  */
 
   # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
   # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.

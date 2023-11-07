@@ -5,7 +5,8 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "production"
-    pod-security.kubernetes.io/audit: restricted
+    cloud-platform.justice.gov.uk/namespace: "laa-govuk-notify-orchestrator-production"
+    pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-cla-dev"

@@ -16,6 +16,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
       "IMPRISONMENT_STATUS-CHANGED",
+      "KEY_DATE_ADJUSTMENT_DELETED",
+      "KEY_DATE_ADJUSTMENT_UPSERTED",
       "OFFENDER-DELETED",
       "OFFENDER-INSERTED",
       "OFFENDER-UPDATED",
@@ -28,6 +30,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",
+      "SENTENCE_ADJUSTMENT_DELETED",
+      "SENTENCE_ADJUSTMENT_UPSERTED",
       "SENTENCE_DATES-CHANGED",
       "SENTENCING-CHANGED"
     ]

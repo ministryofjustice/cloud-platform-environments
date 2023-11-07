@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "opd-and-delius-queue-subscription" {
   protocol  = "sqs"
   endpoint  = module.opd-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["opd.assessment"]
+    eventType = ["opd.produced"]
   })
 }
 

@@ -77,8 +77,6 @@ deny[msg] {
   msg := "Namespace must have environment-name label"
 }
 
-# Deny namespace if no psa enforce restricted label is provided.
-
 deny[msg] {
   input.kind == "Namespace"
   not input.metadata.labels["pod-security.kubernetes.io/enforce"] == "restricted"
