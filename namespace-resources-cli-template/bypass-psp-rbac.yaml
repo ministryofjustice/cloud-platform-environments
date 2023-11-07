@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: temp-bypass-psp
-  namespace: { { .Namespace } }
+  namespace: "{{ .Namespace }}"
   labels:
 subjects:
   - kind: Group
