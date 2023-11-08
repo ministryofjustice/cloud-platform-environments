@@ -14,7 +14,7 @@ module "cloud_platform_reports_dynamodb" {
   enable_autoscaler = "true"
 
   # autoscaling maximums
-  autoscale_max_read_capacity = 50
+  autoscale_max_read_capacity = 100
 }
 
 resource "kubernetes_secret" "cloud_platform_reports_dynamodb" {
