@@ -14,6 +14,20 @@ module "cla_backend_private_reports_bucket" {
     aws = aws.london
   }
 
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "Remove reports after 2 years"
+      prefix  = "exports/"
+
+      expiration = [
+        {
+          days = 730
+        },
+      ]
+    }
+  ]
+
 }
 
 module "cla_backend_deleted_objects_bucket" {
