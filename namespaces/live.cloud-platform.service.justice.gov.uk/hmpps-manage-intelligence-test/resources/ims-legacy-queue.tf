@@ -3,7 +3,7 @@ module "ims_extractor_queue" {
 
   # Queue configuration
   sqs_name                   = "ims_extractor_queue_${var.environment}"
-  fifo_queue                 = true
+  fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -34,7 +34,7 @@ module "ims_extractor_dead_letter_queue" {
 
   # Queue configuration
   sqs_name        = "ims_extractor_dl_queue_${var.environment}"
-  fifo_queue      = true
+  fifo_queue      = false
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -110,7 +110,7 @@ module "ims_lastupdate_queue" {
 
   # Queue configuration
   sqs_name                   = "ims_lastupdate_queue_${var.environment}"
-  fifo_queue                 = true
+  fifo_queue                 = last
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
@@ -141,7 +141,7 @@ module "ims_lastupdate_dead_letter_queue" {
 
   # Queue configuration
   sqs_name        = "ims_lastupdate_dl_queue_${var.environment}"
-  fifo_queue      = true
+  fifo_queue      = false
   encrypt_sqs_kms = "true"
 
   # Tags
