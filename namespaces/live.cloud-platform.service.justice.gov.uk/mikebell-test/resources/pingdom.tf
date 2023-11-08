@@ -15,6 +15,6 @@ resource "pingdom_check" "mikebell-test-check" {
   port                     = 443
   tags                     = "businessunit_platforms,application_mikebell_test,component_healthcheck,isproduction_false,environment_development,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integrationids           = ["C015JL16L8Z"]
+  integrationids           = [132557]
 }
 
