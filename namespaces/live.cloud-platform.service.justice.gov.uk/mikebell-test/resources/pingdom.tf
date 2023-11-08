@@ -6,7 +6,7 @@ resource "pingdom_check" "mikebell-test-check" {
   type                     = "http"
   name                     = "mikebell-test"
   host                     = "mikebell-test.apps.live.cloud-platform.service.justice.gov.uk"
-  resolution               = 10
+  resolution               = 5
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
