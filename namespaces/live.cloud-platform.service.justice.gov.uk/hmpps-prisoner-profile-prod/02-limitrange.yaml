@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -6,10 +5,10 @@ metadata:
   namespace: hmpps-prisoner-profile-prod
 spec:
   limits:
-    - default:
-        cpu: 2000m
-        memory: 1024Mi
-      defaultRequest:
-        cpu: 10m
-        memory: 512Mi
-      type: Container
+  - default:
+      cpu: 2000m
+      memory: 1024Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 512Mi
+    type: Container
