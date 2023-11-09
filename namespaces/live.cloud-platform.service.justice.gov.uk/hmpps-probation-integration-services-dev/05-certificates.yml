@@ -479,3 +479,18 @@ spec:
   dnsNames:
     - 18f35ff8-dev.hmpps.service.justice.gov.uk
     - hdc-licences-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-profile-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: prisoner-profile-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - c482c7f8-dev.hmpps.service.justice.gov.uk
+    - prisoner-profile-and-delius-dev.hmpps.service.justice.gov.uk
