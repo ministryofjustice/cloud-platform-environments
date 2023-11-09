@@ -35,6 +35,7 @@ resource "pingdom_check" "pingdom" {
     "arns-and-delius",
     "cas3-and-delius",
     "hdc-licences-and-delius",
+    "prisoner-profile-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
