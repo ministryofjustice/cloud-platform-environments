@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps-shared"
+  default     = "Move a Prisoner"
 }
 
 variable "environment-name" {
@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps-shared"
+  default     = "move-a-prisoner-digital"
 }
 
 variable "number_cache_clusters" {

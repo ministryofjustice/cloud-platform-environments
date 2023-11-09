@@ -38,6 +38,11 @@ variable "is_production" {
   default = "false"
 }
 
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "move-a-prisoner-digital"
+}
+
 variable "number_cache_clusters" {
   default = "2"
 }
