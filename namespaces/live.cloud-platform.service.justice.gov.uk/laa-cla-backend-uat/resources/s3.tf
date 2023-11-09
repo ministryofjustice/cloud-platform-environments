@@ -25,6 +25,12 @@ module "cla_backend_private_reports_bucket" {
           days = 730
         },
       ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 730
+        },
+      ]
     }
   ]
 
