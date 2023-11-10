@@ -1,5 +1,4 @@
 locals {
-  github_repos = ["hmpps-launchpad"]
   sa_rules = [
     {
       api_groups = [""]
