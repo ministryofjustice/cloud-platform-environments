@@ -23,3 +23,10 @@ spec:
         severity: not-on-libra-auto-search-application
       annotations:
         message: "The Memory usage compared to the Memory limit on the container is more than 75% for 5m"
+    - alert: Pod-status-down
+      expr: "kube_deployment_status_replicas_available{namespace=~\"laa-not-on-libra-auto-search-application-dev\"} < 1"
+      for: 10s
+      labels:
+        severity: not-on-libra-auto-search-application
+      annotations:
+        message: "Env: Development - The pod status is down for more than 10 seconds"
