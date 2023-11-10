@@ -1,0 +1,11 @@
+   apiVersion: monitoring.coreos.com/v1
+   kind: ServiceMonitor
+   metadata:
+     name: example-service
+   spec:
+     selector:
+       matchLabels:
+         app: example-service
+     endpoints:
+     - port: https
+       interval: 15s
