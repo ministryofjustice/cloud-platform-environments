@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: example-app
+      app: mikebell-test-app
   policyTypes:
   - Ingress
   ingress:
