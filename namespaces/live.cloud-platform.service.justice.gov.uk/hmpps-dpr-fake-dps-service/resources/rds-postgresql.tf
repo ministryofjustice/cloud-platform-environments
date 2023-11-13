@@ -41,12 +41,12 @@ module "rds" {
     },
     {
       name         = "wal_keep_size"
-      value        = "2048"
+      value        = "0"
       apply_method = "immediate"
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "2048"
+      value        = "1024"
       apply_method = "immediate"
     }
   ]
