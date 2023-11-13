@@ -32,7 +32,7 @@ module "rds_aurora" {
 }
 
 resource "aws_db_parameter_group" "default" {
-  name   = module.rds_aurora.name
+  name   = module.rds_aurora.db_cluster_identifier
   family = "postgres14"
 
   parameter {
