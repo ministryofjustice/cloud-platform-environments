@@ -18,7 +18,7 @@ module "hmpps_unused_deductions_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -67,7 +67,7 @@ module "hmpps_unused_deductions_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
   providers = {
