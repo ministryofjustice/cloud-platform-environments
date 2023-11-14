@@ -9,17 +9,9 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
   endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "incentives.iep-review.inserted",
-      "incentives.iep-review.updated",
-      "incentives.iep-review.deleted",
       "non-associations.created",
       "non-associations.deleted",
       "non-associations.closed",
-      "prison-offender-events.prisoner.person-restriction.changed",
-      "prison-offender-events.visitor.restriction.changed",
-      "prison-offender-events.prisoner.released",
-      "prison-offender-events.prisoner.received",
-      "prison-offender-events.prisoner.restriction.changed",
     ]
   })
 }
