@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: claim-criminal-injuries-prod-push-to-gateway
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+            - name: cica-online-application-push-gateway-cronjob
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:push-to-gateway-image
+              imagePullPolicy: Always
+              command:
+                [
+                  "/bin/sh",
+                  "-c",
+                  "RESULT=$(psql $DATABASE_URL_WITH_CREDENTIALS -A -t -c \"SELECT COUNT(*) FROM questionnaire WHERE NOW() > expires + INTERVAL '2 minutes';\") && echo 'cleardown_check '$RESULT | curl --data-binary @- http://$MY_POD_NAMESPACE-pushgateway-prometheu:9091/metrics/job/applications_not_deleted",
+                ]
+              env:
+                - name: DATABASE_URL_WITH_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name: shared-secrets
+                      key: database_url_with_credentials
+                - name: MY_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+          restartPolicy: "Never"
