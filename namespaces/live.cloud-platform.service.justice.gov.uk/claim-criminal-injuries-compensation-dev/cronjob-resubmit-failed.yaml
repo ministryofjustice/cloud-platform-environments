@@ -23,7 +23,7 @@ spec:
                 [
                   "/bin/sh",
                   "-c",
-                  "RESULT=($(curl -X POST $DCS_URL$ENDPOINT_URL -H \"Authorization: Bearer $DCS_ADMIN_JWT\" -H \"Content-Type: application/vnd.api+json\" -H \"Accept: application/vnd.api+json\")) && echo 'resubmission_count '${#RESULT} | curl --data-binary @- http://$MY_POD_NAMESPACE-pushgateway-prometheus:9091/metrics/job/applications_resubmitted && echo ${RESULT}"
+                  "RESULT=$(curl -X POST $DCS_URL$ENDPOINT_URL -H \"Authorization: Bearer $DCS_ADMIN_JWT\" -H \"Content-Type: application/vnd.api+json\" -H \"Accept: application/vnd.api+json\") && echo 'resubmission_count '${#RESULT} | curl --data-binary @- http://$MY_POD_NAMESPACE-pushgateway-prometheus:9091/metrics/job/applications_resubmitted && echo ${RESULT}"
                 ]
               env:
                 - name: ENDPOINT_URL
