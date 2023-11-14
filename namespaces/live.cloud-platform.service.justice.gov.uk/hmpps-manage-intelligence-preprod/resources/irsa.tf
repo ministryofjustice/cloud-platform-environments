@@ -16,8 +16,6 @@ module "irsa" {
     sqs_batch_dlq       = module.ims_index_batch_dead_letter_queue.irsa_policy_arn
     sqs_update          = module.ims_index_update_queue.irsa_policy_arn
     sqs_update_dlq      = module.ims_index_update_dead_letter_queue.irsa_policy_arn
-    sqs_extractor       = module.ims_extractor_queue.irsa_policy_arn
-    sqs_extractor_dlq   = module.ims_extractor_dead_letter_queue.irsa_policy_arn
     sqs_transformer     = module.ims_transformer_queue.irsa_policy_arn
     sqs_transformer_dlq = module.ims_transformer_dead_letter_queue.irsa_policy_arn
     sqs_lastupdate      = module.ims_lastupdate_queue.irsa_policy_arn
