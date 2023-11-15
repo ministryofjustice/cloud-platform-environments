@@ -40,13 +40,13 @@ module "rds" {
       apply_method = "pending-reboot"
     },
     {
-      name         = "wal_keep_size"
-      value        = "0"
+      name         = "max_wal_size"
+      value        = "1024"
       apply_method = "immediate"
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "1024"
+      value        = "2048"
       apply_method = "immediate"
     }
   ]
