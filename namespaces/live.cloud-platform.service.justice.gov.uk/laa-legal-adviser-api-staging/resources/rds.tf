@@ -40,7 +40,6 @@ module "laa_laa_rds_postgres_14" {
   db_name                = "laalaa"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres14"
-  snapshot_identifier    = "laalaa-11-backup"
 
   providers = {
     aws = aws.london
