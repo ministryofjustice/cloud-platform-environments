@@ -1,6 +1,6 @@
 resource "helm_release" "actions_scale_set_controller" {
   name       = "actions-runner-controller"
-  repository = "https://actions-runner-controller.github.io/actions-runner-controller"
+  repository = "https://ghcr.io/actions/actions-runner-controller-charts"
   chart      = "gha-runner-scale-set-controller"
   namespace  = "operations-engineering-github-runners-poc"
 
