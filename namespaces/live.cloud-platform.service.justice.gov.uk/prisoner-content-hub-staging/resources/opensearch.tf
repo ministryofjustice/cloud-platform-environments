@@ -51,6 +51,10 @@ module "opensearch" {
     dedicated_master_type    = "m6g.large.search"
   }
 
+  ebs_options = {
+    volume_size = 100
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
