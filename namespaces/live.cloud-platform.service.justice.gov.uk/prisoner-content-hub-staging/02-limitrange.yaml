@@ -3,12 +3,27 @@ kind: LimitRange
 metadata:
   name: limitrange
   namespace: prisoner-content-hub-staging
+
+# These are the normal settings for staging.
+#spec:
+#  limits:
+#  - default:
+#      cpu: 360m
+#      memory: 1024Mi
+#    defaultRequest:
+#      cpu: 10m
+#      memory: 512Mi
+#    type: Container
+
+# These are the settings to flex staging up to match production.
+# These should only be used when setting staging up for load testing, so it accurately
+# matches production and therefore is an accurate prediction of prod behaviour.
 spec:
   limits:
-  - default:
-      cpu: 360m
-      memory: 1024Mi
-    defaultRequest:
-      cpu: 10m
-      memory: 512Mi
-    type: Container
+    - default:
+        cpu: 1000m
+        memory: 2048Mi
+      defaultRequest:
+        cpu: 10m
+        memory: 1024Mi
+      type: Container
