@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: data-platform-production-letsencrypt-http01
+  namespace: data-platform-production
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: "data-platform-tech+certificates@digital.justice.gov.uk"
+    privateKeySecretRef:
+      name: data-platform-production-letsencrypt-http01
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: default
