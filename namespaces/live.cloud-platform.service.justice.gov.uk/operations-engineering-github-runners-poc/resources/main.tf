@@ -44,3 +44,4 @@ provider "github" {
 }
 
 provider "kubernetes" {}
+provider "helm" {}
