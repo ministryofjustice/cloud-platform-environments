@@ -100,3 +100,33 @@ spec:
       for: 1h
       labels:
         severity: claim-criminal-injuries-compensation-prod
+    - alert: CICA-SecretsManager-PROD-cica-web-secrets-changed
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-claim-criminal-injuries-compensation-prod-63ef5c501b8c67e3-TlsbDD"} > 0
+      for: 1m
+      labels:
+        severity: info-claim-criminal-injuries-compensation-prod
+        status_icon: information
+      annotations:
+        message: |
+          Cica-web-secrets has been modified by user "{{ $labels.user_arn }}".
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica-secretsmanager-prod-secrets-changed
+    - alert: CICA-SecretsManager-PROD-data-capture-service-secrets-changed
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-claim-criminal-injuries-compensation-prod-bdbc16d0cdaeb075-ZwJn8L"} > 0
+      for: 1m
+      labels:
+        severity: info-claim-criminal-injuries-compensation-prod
+        status_icon: information
+      annotations:
+        message: |
+          Data-capture-service-secrets has been modified by user "{{ $labels.user_arn }}".
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica-secretsmanager-prod-secrets-changed
+    - alert: CICA-SecretsManager-PROD-shared-secrets-changed
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-claim-criminal-injuries-compensation-prod-be0ead236a28b710-mwCPeJ"} > 0
+      for: 1m
+      labels:
+        severity: info-claim-criminal-injuries-compensation-prod
+        status_icon: information
+      annotations:
+        message: |
+          Shared-secrets has been modified by user "{{ $labels.user_arn }}".
+        runbook_url: https://github.com/CriminalInjuriesCompensationAuthority/q-dev-utilities/wiki/Custom-Prometheus-alerts---Runbook#alert-name-cica-secretsmanager-prod-secrets-changed
