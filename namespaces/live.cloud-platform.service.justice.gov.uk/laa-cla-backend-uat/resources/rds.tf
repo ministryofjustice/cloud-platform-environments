@@ -79,6 +79,7 @@ module "cla_backend_metabase_rds" {
   db_engine_version      = "15"
   db_instance_class      = "db.t4g.micro"
   db_allocated_storage   = "5"
+  db_max_allocated_storage = "500"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
