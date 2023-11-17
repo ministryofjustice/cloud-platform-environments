@@ -22,18 +22,6 @@ resource "kubernetes_secret" "sifocc_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "sifocc_route53_a_record" {
-  zone_id = aws_route53_zone.sifocc_route53_zone.zone_id
-  name    = "sifocc.org"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.sifoc-loadb-11c6rhmgxnvgm-1494124984.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "sifocc_route53_mx_record_dxw" {
   zone_id = aws_route53_zone.sifocc_route53_zone.zone_id
   name    = "sifocc.org"
@@ -120,14 +108,6 @@ resource "aws_route53_record" "sifocc_route53_cname_record_em5025" {
   type    = "CNAME"
   ttl     = "300"
   records = ["u2320754.wl005.sendgrid.net"]
-}
-
-resource "aws_route53_record" "sifocc_route53_cname_record_www" {
-  zone_id = aws_route53_zone.sifocc_route53_zone.zone_id
-  name    = "www.sifocc.org"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sifocc.org"]
 }
 
 resource "aws_route53_record" "sifocc_route53_cname_record_acm3" {
