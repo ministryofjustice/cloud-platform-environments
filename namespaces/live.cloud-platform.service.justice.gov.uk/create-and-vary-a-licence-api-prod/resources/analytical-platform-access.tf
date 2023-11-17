@@ -49,8 +49,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-prod/landing/${var.namespace}/*",
-      "arn:aws:s3:::moj-reg-prod/landing/${var.namespace}-landing/"
+      "arn:aws:s3:::moj-reg-prod/${var.namespace}/*",
+      "arn:aws:s3:::moj-reg-prod/${var.namespace}/"
     ]
   }
 }
