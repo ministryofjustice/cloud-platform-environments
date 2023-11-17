@@ -6,7 +6,7 @@ module "ap_irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "hmpps-interventions-to-ap-s3"
+  service_account_name = "create-and-vary-a-licence-api-to-ap-s3"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     s3 = aws_iam_policy.ap_policy.arn
@@ -49,8 +49,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.namespace}-landing/*",
-      "arn:aws:s3:::${var.namespace}-landing/"
+      "arn:aws:s3:::moj-reg-prod/landing/${var.namespace}/*",
+      "arn:aws:s3:::moj-reg-prod/landing/${var.namespace}/"
     ]
   }
 }
@@ -81,7 +81,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://${var.namespace}-landing"
+    destination_bucket = "s3://moj-reg-prod/landing/${var.namespace}"
     user_arn           = aws_iam_user.user.arn
     access_key_id      = aws_iam_access_key.user.id
     secret_access_key  = aws_iam_access_key.user.secret
