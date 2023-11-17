@@ -14,7 +14,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "hmpps-developers"
+  default = "hmpps-person-record"
 }
 
 variable "environment" {
@@ -26,7 +26,8 @@ variable "environment-name" {
 }
 
 variable "infrastructure_support" {
-  default = "dps-hmpps@digital.justice.gov.uk"
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "hmpps-person-record@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -47,4 +48,9 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "hmpps-person-record-alerts"
 }
