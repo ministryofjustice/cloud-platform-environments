@@ -100,7 +100,7 @@ resource "kubernetes_secret" "book_video_link_domain_events_queue" {
   }
 }
 
-resource "kubernetes_secret" ""book_video_link_domain_events_dead_letter_queue" {
+resource "kubernetes_secret" "book_video_link_domain_events_dead_letter_queue" {
   metadata {
     name      = "book-video-link-domain-events-sqs-dl-instance-output"
     namespace = "book-video-link-dev"
