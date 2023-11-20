@@ -45,8 +45,8 @@ module "rds" {
       apply_method = "immediate"
     },
     {
-      name         = "max_slot_wal_keep_size"
-      value        = "2048"
+      name         = "wal_sender_timeout"
+      value        = "0"
       apply_method = "immediate"
     }
   ]
