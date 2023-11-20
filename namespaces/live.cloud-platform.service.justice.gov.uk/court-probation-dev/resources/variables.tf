@@ -27,7 +27,7 @@ variable "environment-name" {
 }
 
 variable "infrastructure_support" {
-  default = "Probation in Court Team: probation-in-court-team@digital.justice.gov.uk"
+  default = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
 }
 
 variable "is_production" {
