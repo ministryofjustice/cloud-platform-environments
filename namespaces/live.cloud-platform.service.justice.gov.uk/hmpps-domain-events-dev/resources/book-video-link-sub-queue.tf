@@ -90,7 +90,7 @@ resource "aws_sns_topic_subscription" "bvl_domain_events_subscription" {
 resource "kubernetes_secret" "book_video_link_domain_events_queue" {
   metadata {
     name      = "book-video-link-domain-events-sqs-instance-output"
-    namespace = "book-video-link-dev"
+    namespace = "hmpps-book-video-link-dev"
   }
 
   data = {
@@ -103,7 +103,7 @@ resource "kubernetes_secret" "book_video_link_domain_events_queue" {
 resource "kubernetes_secret" "book_video_link_domain_events_dead_letter_queue" {
   metadata {
     name      = "book-video-link-domain-events-sqs-dl-instance-output"
-    namespace = "book-video-link-dev"
+    namespace = "hmpps-book-video-link-dev"
   }
 
   data = {
