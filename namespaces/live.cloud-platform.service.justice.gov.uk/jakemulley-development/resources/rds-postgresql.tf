@@ -11,7 +11,7 @@ module "rds_12" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
   db_engine_version         = "16.1"
   rds_family                = "postgres16"
@@ -40,7 +40,7 @@ module "rds_13" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
   db_engine_version         = "16.1"
   rds_family                = "postgres16"
@@ -69,7 +69,7 @@ module "rds_14" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
   db_engine_version         = "16.1"
   rds_family                = "postgres16"
@@ -98,7 +98,7 @@ module "rds_15" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
   db_engine_version         = "16.1"
   rds_family                = "postgres16"
