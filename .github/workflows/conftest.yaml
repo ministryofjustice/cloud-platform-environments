@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup conftest
-        uses: princespaghetti/setup-conftest@v1.1.18
+        uses: princespaghetti/setup-conftest@v1.1.19
 
       - name: Run Conftest 
         run: conftest test namespaces/live.cloud-platform.service.justice.gov.uk/ --ignore $IGNORE_LIST
