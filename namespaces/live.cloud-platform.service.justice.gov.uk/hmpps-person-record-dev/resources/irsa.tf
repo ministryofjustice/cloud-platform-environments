@@ -26,7 +26,9 @@ module "irsa" {
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
-    { rds = module.hmpps_person_record_rds.irsa_policy_arn }
+    { rds = module.hmpps_person_record_rds.irsa_policy_arn },
+    { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
+    { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn }
   )
 
   # Tags
