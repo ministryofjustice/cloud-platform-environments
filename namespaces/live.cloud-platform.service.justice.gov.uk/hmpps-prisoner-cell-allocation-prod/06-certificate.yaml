@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - cell-allocation-api.prison.service.justice.gov.uk
+    - change-someones-cell.prison.service.justice.gov.uk
