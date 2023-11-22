@@ -39,15 +39,6 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-estimate-financial-eligibility-for-legal-aid-production
-        - namespaceSelector:
-            matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-estimate-financial-eligibility-for-legal-aid-staging
-        - namespaceSelector:
-            matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-estimate-financial-eligibility-for-legal-aid-uat
-        - namespaceSelector:
-            matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-production
         - namespaceSelector:
             matchLabels:
