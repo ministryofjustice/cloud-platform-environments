@@ -40,6 +40,10 @@ resource "aws_db_parameter_group" "default" {
     name  = "log_error_verbosity"
     value = "TERSE"
   }
+  parameter {
+    name  = "work_mem"
+    value = 65536
+  }
 }
 
 resource "random_id" "manage_intelligence_update_role_password" {
