@@ -10,7 +10,6 @@ resource "helm_release" "actions_scale_set_controller" {
   }
 }
 
-
 resource "helm_release" "operations_engineering_runners" {
   name       = "operations-engineering-private-runners"
   repository = "oci://ghcr.io/actions/actions-runner-controller-charts"
@@ -25,5 +24,10 @@ resource "helm_release" "operations_engineering_runners" {
   set {
     name  = "githubConfigSecret"
     value = "poc-classic-token"
+  }
+
+  set {
+    name  = "template.containers.image[0]"
+    value = "json0/actions-runner:latest"
   }
 }
