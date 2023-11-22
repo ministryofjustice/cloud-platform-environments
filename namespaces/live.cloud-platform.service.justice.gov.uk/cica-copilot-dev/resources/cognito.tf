@@ -5,7 +5,7 @@ resource "aws_cognito_user_pool_client" "client" {
   supported_identity_providers         = ["COGNITO"]
   generate_secret                      = true
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = ["${aws_cognito_resource_server.resource.scope_identifiers[0]}"]
+  allowed_oauth_scopes                 = aws_cognito_resource_server.resource.scope_identifiers
 }
 
 resource "aws_cognito_resource_server" "resource" {
