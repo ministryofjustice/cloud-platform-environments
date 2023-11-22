@@ -35,4 +35,9 @@ resource "helm_release" "operations_engineering_runners" {
     name  = "template.spec.containers[0].image"
     value = "json0/actions-runner:latest"
   }
+
+  set {
+    name  = "template.spec.containers[0].command"
+    value = "['/home/runner/run.sh']"
+  }
 }
