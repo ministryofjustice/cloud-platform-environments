@@ -37,7 +37,7 @@ resource "helm_release" "operations_engineering_runners" {
   }
 
   set {
-    name  = "template.spec.containers[0].command"
-    value = ["/home/runner/run.sh"]
+    name  = "template.spec.containers[0].command[0]"
+    value = "/home/runner/run.sh"
   }
 }
