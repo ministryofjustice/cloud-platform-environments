@@ -736,7 +736,7 @@ data:
           "pluginVersion": "7.0.2",
           "targets": [
             {
-              "expr": "aws_es_cluster_status_green_average{domain_name=\"pfs-production-hub-search\"}",
+              "expr": "aws_es_cluster_status_green_average{domain_name=\"cloud-platform-38800316\"}",
               "instant": false,
               "interval": "",
               "legendFormat": "{{domain_name}}",
@@ -810,7 +810,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "aws_es_jvmmemory_pressure_average{domain_name=\"pfs-production-hub-search\"}",
+              "expr": "aws_es_jvmmemory_pressure_average{domain_name=\"cloud-platform-38800316\"}",
               "instant": false,
               "interval": "",
               "legendFormat": "{{domain_name}}",
@@ -920,7 +920,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "aws_es_cpuutilization_average{domain_name=\"pfs-production-hub-search\"}",
+              "expr": "aws_es_cpuutilization_average{domain_name=\"cloud-platform-38800316\"}",
               "instant": false,
               "interval": "",
               "legendFormat": "{{domain_name}}",
@@ -1030,7 +1030,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "aws_es_free_storage_space_average{domain_name=\"pfs-production-hub-search\"}",
+              "expr": "aws_es_free_storage_space_average{domain_name=\"cloud-platform-38800316\"}",
               "instant": false,
               "interval": "",
               "legendFormat": "{{domain_name}}",
