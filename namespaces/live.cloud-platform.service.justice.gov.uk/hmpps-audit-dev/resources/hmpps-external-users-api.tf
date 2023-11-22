@@ -1,10 +1,10 @@
 
 locals {
-  namespaces = [
+  namespaces = toset([
     "hmpps-external-users-api-dev",
     "hmpps-auth-dev",
     "hmpps-authorization-server"
-  ]
+  ])
 }
 
 resource "kubernetes_secret" "hmpps_audit_sqs_secret" {
