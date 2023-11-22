@@ -26,9 +26,12 @@ resource "aws_cognito_user_pool_domain" "main" {
 
 resource "aws_cognito_user_pool" "pool" {
   name = "cica-copilot-pool-dev"
+  admin_create_user_config {
+    allow_admin_create_user_only = true
+  }
   account_recovery_setting {
     recovery_mechanism {
-      name     = "verified_email"
+      name     = "admin_only"
       priority = 1
     }
   }
