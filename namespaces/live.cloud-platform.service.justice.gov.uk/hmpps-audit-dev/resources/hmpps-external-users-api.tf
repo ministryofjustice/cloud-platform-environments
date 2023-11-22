@@ -1,10 +1,10 @@
 
 locals {
-  namespaces = {
-    namespace = "hmpps-external-users-api-dev",
-    namespace = "hmpps-auth-dev",
-    namespace = "hmpps-authorization-server",
-  }
+  namespaces = [
+    "hmpps-external-users-api-dev",
+    "hmpps-auth-dev",
+    "hmpps-authorization-server"
+  ]
 }
 
 resource "kubernetes_secret" "hmpps_audit_sqs_secret" {
