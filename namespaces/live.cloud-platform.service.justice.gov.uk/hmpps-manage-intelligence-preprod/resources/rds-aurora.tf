@@ -42,7 +42,7 @@ resource "aws_db_parameter_group" "default" {
   }
   parameter {
     name  = "work_mem"
-    value = 131072
+    value = 4096
   }
 }
 
