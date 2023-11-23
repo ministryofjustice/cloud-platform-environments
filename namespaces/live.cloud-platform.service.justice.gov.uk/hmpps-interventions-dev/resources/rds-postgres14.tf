@@ -74,6 +74,7 @@ resource "kubernetes_secret" "hmpps_interventions_postgres14_replica" {
   data = {
     rds_instance_endpoint = module.hmpps_interventions_postgres14_replica.rds_instance_endpoint
     rds_instance_address  = module.hmpps_interventions_postgres14_replica.rds_instance_address
-    url                   = "postgres://${module.hmpps_interventions_postgres14.database_username}:${module.hmpps_interventions_postgres14.database_password}@${module.hmpps_interventions_postgres14.rds_instance_endpoint}/${module.hmpps_interventions_postgres14.database_name}"
+    url                   = "postgres://${module.hmpps_interventions_postgres14.database_username}:${module.hmpps_interventions_postgres14.database_password}@${module.hmpps_interventions_postgres14_replica.rds_instance_endpoint}/${module.hmpps_interventions_postgres14.database_name}"
+
   }
 }
