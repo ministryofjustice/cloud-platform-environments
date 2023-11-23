@@ -4,7 +4,7 @@ locals {
     "hmpps-auth-dev",
     "hmpps-authorization-server-dev",
     "hmpps-external-users-api-dev",
-    "hmpps-audit-poc-ui"
+    "hmpps-audit-poc-ui-dev"
   ])
 }
 
