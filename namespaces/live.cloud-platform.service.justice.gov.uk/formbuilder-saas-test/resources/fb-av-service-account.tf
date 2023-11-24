@@ -17,7 +17,7 @@ resource "kubernetes_service_account" "formbuilder_av_saas_test_service_account"
 
 resource "kubernetes_secret_v1" "formbuilder_av_saas_test_service_token" {
   metadata {
-    name      = "formbuilder_av_saas_test_service_token"
+    name      = "${local.fb_av_service_account_name}-token"
     namespace = var.namespace
     annotations = {
       "kubernetes.io/service-account.name" = local.fb_av_service_account_name

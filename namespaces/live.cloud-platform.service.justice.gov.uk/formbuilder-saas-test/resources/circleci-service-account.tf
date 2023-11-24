@@ -17,7 +17,7 @@ resource "kubernetes_service_account" "circleci_formbuilder_saas_test_service_ac
 
 resource "kubernetes_secret_v1" "circleci_formbuilder_saas_test_service_account_token" {
   metadata {
-    name      = "circleci_formbuilder_saas_test_service_account_token"
+    name      = "${local.circleci_sa_name}-token"
     namespace = var.namespace
     annotations = {
       "kubernetes.io/service-account.name" = local.circleci_sa_name
