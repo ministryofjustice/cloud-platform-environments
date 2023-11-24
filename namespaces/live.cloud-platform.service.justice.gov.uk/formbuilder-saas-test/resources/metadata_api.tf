@@ -32,18 +32,18 @@ resource "kubernetes_secret" "metadata-api-rds-instance" {
 }
 
 locals {
-  sa_name = "formbuilder-metadata-api-test"
+  metadata_api_sa_name = "formbuilder-metadata-api-test"
 }
 
 
 resource "kubernetes_service_account" "metadata_api_service_account" {
   metadata {
-    name      = local.sa_name
+    name      = local.metadata_api_sa_name
     namespace = var.namespace
   }
 
   secret {
-    name = "${local.sa_name}-token"
+    name = "${local.metadata_api_sa_name}-token"
   }
 
   automount_service_account_token = true
@@ -54,7 +54,7 @@ resource "kubernetes_secret_v1" "metadata_api_service_account_token" {
     name      = "metadata_api_service_account_token"
     namespace = var.namespace
     annotations = {
-      "kubernetes.io/service-account.name" = local.sa_name
+      "kubernetes.io/service-account.name" = local.metadata_api_sa_name
     }
   }
 

@@ -1,15 +1,15 @@
 locals {
-  sa_name = "formbuilder-av-saas-test"
+  fb_av_service_account_name = "formbuilder-av-saas-test"
 }
 
 resource "kubernetes_service_account" "formbuilder_av_saas_test_service_account" {
   metadata {
-    name      = local.sa_name
+    name      = local.fb_av_service_account_name
     namespace = var.namespace
   }
 
   secret {
-    name = "${local.sa_name}-token"
+    name = "${local.fb_av_service_account_name}-token"
   }
 
   automount_service_account_token = true
@@ -20,7 +20,7 @@ resource "kubernetes_secret_v1" "formbuilder_av_saas_test_service_token" {
     name      = "formbuilder_av_saas_test_service_token"
     namespace = var.namespace
     annotations = {
-      "kubernetes.io/service-account.name" = local.sa_name
+      "kubernetes.io/service-account.name" = local.fb_av_service_account_name
     }
   }
 
