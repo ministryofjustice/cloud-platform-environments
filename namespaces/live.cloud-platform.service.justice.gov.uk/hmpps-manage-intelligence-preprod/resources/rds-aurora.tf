@@ -10,7 +10,7 @@ module "rds_aurora" {
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
-    min_capacity = 2
+    min_capacity = 5
     max_capacity = 40
   }
   replica_count                = 1
@@ -39,6 +39,10 @@ resource "aws_db_parameter_group" "default" {
   parameter {
     name  = "log_error_verbosity"
     value = "TERSE"
+  }
+  parameter {
+    name  = "work_mem"
+    value = 4096
   }
 }
 

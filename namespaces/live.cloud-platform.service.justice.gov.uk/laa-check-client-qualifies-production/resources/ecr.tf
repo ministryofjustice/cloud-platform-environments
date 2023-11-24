@@ -13,8 +13,7 @@ module "ecr_credentials" {
   oidc_providers = ["circleci"]
 
   # specify which GitHub repository your CircleCI job runs from
-  # TODO this needs to be updated when we change repo name
-  github_repositories = ["laa-estimate-financial-eligibility-for-legal-aid"]
+  github_repositories = ["laa-check-client-qualifies"]
 
   # set your namespace name to create a ConfigMap of credentials you need in CircleCI
   namespace = var.namespace

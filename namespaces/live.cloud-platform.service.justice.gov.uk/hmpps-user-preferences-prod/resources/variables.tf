@@ -8,7 +8,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS user preferences"
+  default     = "HMPPS User Preferences"
 }
 
 variable "namespace" {
@@ -32,7 +32,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "probation-in-court-team@digital.justice.gov.uk"
+  default     = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
 }
 
 variable "is_production" {

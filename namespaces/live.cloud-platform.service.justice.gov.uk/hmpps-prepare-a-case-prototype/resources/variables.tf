@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Gov.UK Prototype Kit"
+  default     = "Prepare a Case for Sentence Prototype"
 }
 
 variable "namespace" {
@@ -33,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
 }
 
 variable "is_production" {

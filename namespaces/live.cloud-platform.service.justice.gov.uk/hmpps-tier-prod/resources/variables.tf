@@ -1,8 +1,6 @@
-/*
- * When using this module through the cloud-platform-environments, the following
- * variable is automatically supplied by the pipeline.
- *
- */
+variable "kubernetes_cluster" {
+}
+
 variable "vpc_name" {
 }
 

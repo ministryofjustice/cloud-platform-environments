@@ -23,9 +23,9 @@ module "rds_alfresco" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  prepare_for_major_upgrade = false
-  db_engine_version = "13.10"
-  rds_family        = "postgres13"
+  prepare_for_major_upgrade = true
+  db_engine_version = "14.10"
+  rds_family        = "postgres14"
   db_instance_class = "db.t3.micro"
 
   # Tagst
@@ -63,8 +63,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "11.17"
-  rds_family        = "postgres11"
+  db_engine_version = "14"
+  rds_family        = "postgres14"
   db_instance_class = "db.t3.micro"
   # It is mandatory to set the below values to create read replica instance
 

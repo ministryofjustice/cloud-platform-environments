@@ -12,10 +12,6 @@ module "drupal_rds" {
   db_instance_class        = "db.t4g.xlarge"
   db_password_rotated_date = "2023-05-15"
 
-  providers = {
-    aws = aws.london
-  }
-
   db_engine         = "mariadb"
   db_engine_version = "10.4"
   rds_family        = "mariadb10.4"
