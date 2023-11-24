@@ -107,3 +107,15 @@ resource "aws_sns_topic_subscription" "whereabouts_api_subscription" {
   endpoint      = module.whereabouts_api_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"DATA_COMPLIANCE_DELETE-OFFENDER\", \"APPOINTMENT_CHANGED\"]}"
 }
+
+resource "aws_sns_topic_subscription" "wherebouts_api_domain_event_subscription" {
+  provider  = aws.london
+  topic_arn = module.hmpps-domain-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.whereabouts_api_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.released",
+    ]
+  })
+}
