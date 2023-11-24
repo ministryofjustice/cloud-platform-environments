@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "CCMS API Gateway"
     cloud-platform.justice.gov.uk/owner: "CCMS API: ccms-api-gateway@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-ccms-api-gateway"
-    cloud-platform.justice.gov.uk/team-name: "laa-ccms-devs"
+    cloud-platform.justice.gov.uk/team-name: "laa-ccms-api-gateway-team"
     cloud-platform.justice.gov.uk/review-after: ""

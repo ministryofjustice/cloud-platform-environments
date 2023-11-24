@@ -5,7 +5,7 @@ metadata:
   namespace: laa-ccms-api-gateway-uat
 subjects:
   - kind: Group
-    name: "github:laa-ccms-devs"
+    name: "github:laa-ccms-api-gateway-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
