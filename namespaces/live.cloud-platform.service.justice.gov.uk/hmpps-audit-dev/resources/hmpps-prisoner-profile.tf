@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps_prisoner_profile_dev_secret" {
+resource "kubernetes_secret" "hmpps_prisoner_profile_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
     namespace = "hmpps-prisoner-profile-dev"
