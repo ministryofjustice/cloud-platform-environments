@@ -20,7 +20,10 @@ module "bvl_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-  GithubTeam             = "move-a-prisoner"
+
+  tags = {
+    GithubTeam = "move-a-prisoner"
+  }
 
   providers = {
     aws = aws.london
