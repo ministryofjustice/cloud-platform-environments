@@ -44,6 +44,10 @@ resource "aws_db_parameter_group" "default" {
     name  = "work_mem"
     value = 4096
   }
+  parameter {
+    name  = "max_parallel_workers_per_gather"
+    value = 4
+  }
 }
 
 resource "random_id" "manage_intelligence_update_role_password" {
