@@ -16,7 +16,5 @@ resource "helm_release" "operations_engineering_runners" {
   chart      = "gha-runner-scale-set"
   namespace  = "operations-engineering-github-runners-poc"
 
-  values = [
-    "${file("values.yaml")}"
-  ]
+  values = [file("values.yaml")]
 }
