@@ -29,6 +29,16 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  alias  = "move-a-prisoner"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "move-a-prisoner"
+    }
+  }
+}
+
 provider "github" {
   owner = "ministryofjustice"
   token = var.github_token
