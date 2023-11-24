@@ -46,7 +46,11 @@ resource "aws_db_parameter_group" "default" {
   }
   parameter {
     name  = "max_parallel_workers_per_gather"
-    value = 4
+    value = 6
+  }
+  parameter {
+    name  = "max_worker_processes"
+    value = 10
   }
 }
 
