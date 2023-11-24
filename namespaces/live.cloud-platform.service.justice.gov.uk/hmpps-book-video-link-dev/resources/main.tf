@@ -22,3 +22,12 @@ provider "github" {
   owner = var.github_owner
 }
 
+provider "aws" {
+  alias  = "move-a-prisoner"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = var.team_name
+    }
+  }
+}
