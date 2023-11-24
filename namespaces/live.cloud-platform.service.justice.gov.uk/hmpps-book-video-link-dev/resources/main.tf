@@ -27,7 +27,7 @@ provider "aws" {
   region = "eu-west-2"
   default_tags {
     tags = {
-      GithubTeam = "move-a-prisoner"
+      GithubTeam = var.team_name
     }
   }
 }
