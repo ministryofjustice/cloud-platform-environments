@@ -5,18 +5,33 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "move-a-prisoner"
+    }
+  }
 }
 
 # To be use in case the resources need to be created in London
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "move-a-prisoner"
+    }
+  }
 }
 
 # To be use in case the resources need to be created in Ireland
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
+  default_tags {
+    tags = {
+      GithubTeam = "move-a-prisoner"
+    }
+  }
 }
 
 provider "aws" {
@@ -25,16 +40,6 @@ provider "aws" {
   default_tags {
     tags = {
       GithubTeam = "probation-integration"
-    }
-  }
-}
-
-provider "aws" {
-  alias  = "move-a-prisoner"
-  region = "eu-west-2"
-  default_tags {
-    tags = {
-      GithubTeam = "move-a-prisoner"
     }
   }
 }
