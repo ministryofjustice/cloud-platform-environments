@@ -209,7 +209,7 @@ resource "kubernetes_secret" "s3_bucket" {
 
 resource "kubernetes_secret" "s3_bucket_mgw" {
   metadata {
-    name      = "s3-bucket-output"
+    name      = "s3-bucket-output-mgw"
     namespace = var.namespace
   }
 
