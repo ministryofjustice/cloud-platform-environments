@@ -34,18 +34,6 @@ resource "aws_cognito_user_pool_client" "ccc_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "ccc_client_stg" {
-  name                                 = var.cognito_user_pool_ccc_client_name_stg
-  user_pool_id                         = aws_cognito_user_pool.hardship_user_pool.id
-  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
-  allowed_oauth_flows                  = ["client_credentials"]
-  allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.hardship_resource_server.scope_identifiers
-  prevent_user_existence_errors        = "ENABLED"
-  supported_identity_providers         = ["COGNITO"]
-  generate_secret                      = true
-}
-
 resource "aws_cognito_user_pool_client" "ccc_client_prd" {
   name                                 = var.cognito_user_pool_ccc_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.hardship_user_pool.id
@@ -85,18 +73,6 @@ resource "aws_cognito_user_pool_client" "orchestration_client_hardship_tst" {
 
 resource "aws_cognito_user_pool_client" "orchestration_client_hardship_uat" {
   name                                 = var.cognito_user_pool_orchestration_client_name_uat
-  user_pool_id                         = aws_cognito_user_pool.hardship_user_pool.id
-  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
-  allowed_oauth_flows                  = ["client_credentials"]
-  allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = aws_cognito_resource_server.hardship_resource_server.scope_identifiers
-  prevent_user_existence_errors        = "ENABLED"
-  supported_identity_providers         = ["COGNITO"]
-  generate_secret                      = true
-}
-
-resource "aws_cognito_user_pool_client" "orchestration_client_hardship_stg" {
-  name                                 = var.cognito_user_pool_orchestration_client_name_stg
   user_pool_id                         = aws_cognito_user_pool.hardship_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
@@ -156,19 +132,6 @@ resource "kubernetes_secret" "aws_cognito_user_pool_hardship_uat" {
     ccc_client_secret = aws_cognito_user_pool_client.ccc_client_uat.client_secret
     orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_hardship_uat.id
     orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_hardship_uat.client_secret
-  }
-}
-
-resource "kubernetes_secret" "aws_cognito_user_pool_hardship_stg" {
-  metadata {
-    name      = "hardship-stg-client-credentials"
-    namespace = var.namespace
-  }
-  data = {
-    ccc_client_id     = aws_cognito_user_pool_client.ccc_client_stg.id
-    ccc_client_secret = aws_cognito_user_pool_client.ccc_client_stg.client_secret
-    orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_hardship_stg.id
-    orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_hardship_stg.client_secret
   }
 }
 
