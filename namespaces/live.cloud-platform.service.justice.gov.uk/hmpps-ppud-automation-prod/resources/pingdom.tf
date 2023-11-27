@@ -6,7 +6,7 @@ resource "pingdom_check" "ppud_automation_api_health" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/https/hmpps-ppud-automation-api.hmpps.service.justice.gov.uk/health/ping"
+  url                      = "/https/hmpps-ppud-automation-api.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "hmpps,make-recall-decision,isproduction_true,cloudplatform-managed"
