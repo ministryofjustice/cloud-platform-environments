@@ -1,5 +1,5 @@
 locals {
-  circleci_sa_name = "circleci-formbuilder-saas-test"
+  circleci_sa_name = "circleci-terraform-formbuilder-saas-test"
 }
 
 resource "kubernetes_service_account" "circleci_formbuilder_saas_test_service_account" {

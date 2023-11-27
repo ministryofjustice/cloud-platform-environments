@@ -32,7 +32,7 @@ resource "kubernetes_secret" "metadata-api-rds-instance" {
 }
 
 locals {
-  metadata_api_sa_name = "formbuilder-metadata-api-test"
+  metadata_api_sa_name = "formbuilder-terraform-metadata-api-test"
 }
 
 
