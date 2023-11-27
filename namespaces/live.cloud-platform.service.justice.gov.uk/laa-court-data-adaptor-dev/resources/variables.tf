@@ -18,7 +18,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-crime-apps-team"
+  default     = "crime-apps"
 }
 
 variable "environment_name" {
@@ -72,11 +72,5 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
-variable "slack_channel" {
-  description = "Slack channel name for your team, if we need to contact you about this service"
-  type        = string
-  default     = "laa-crimeapps-core"
 }
 
