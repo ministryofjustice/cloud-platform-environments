@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "crime-apps-adaptor-alert-webhook-prod"
     },
+    "maat_api_oauth_client_credentials" = {
+      description             = "MAAT API oauth client id and secret",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-api-oauth-client-credentials"
+    },
   }
 }
