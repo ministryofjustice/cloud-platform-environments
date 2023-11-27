@@ -42,7 +42,7 @@ resource "pingdom_check" "hmpps-approved-premises-api" {
   sendnotificationwhendown = 6
   integrationids           = [130656, 130657]
   notifyagainevery         = 0
-  url                      = "/https/approved-premises-api.hmpps.service.justice.gov.uk/health_check"
+  url                      = "/https/approved-premises-api.hmpps.service.justice.gov.uk/health"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_hmpps,application_approved-premises-api,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev"
