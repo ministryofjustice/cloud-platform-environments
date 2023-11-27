@@ -10,10 +10,10 @@ module "secrets_manager" {
   eks_cluster_name        = var.eks_cluster_name
 
   secrets = {
-    "cwaapi-poc-secrets" = {
-      description             = "Db urls and credentials for CWA API POC", # Required
+    "laa-provider-details-api-uat-secrets" = {
+      description             = "Db urls and credentials for laa-provider-details-api uat environment", # Required
       recovery_window_in_days = 7, # Required
-      k8s_secret_name         = "cwaapi-poc-secrets"                    # The name of the secret in k8s
+      k8s_secret_name         = "laa-provider-details-api-secrets"                    # The name of the secret in k8s
     },
   }
 }
