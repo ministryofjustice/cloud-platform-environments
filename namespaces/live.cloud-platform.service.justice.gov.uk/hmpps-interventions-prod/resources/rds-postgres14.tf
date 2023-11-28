@@ -11,8 +11,8 @@ module "hmpps_interventions_postgres14" {
 
   rds_family                   = "postgres14"
   db_engine_version            = "14"
-  db_instance_class            = "db.m6g.xlarge"
-  db_allocated_storage         = 20
+  db_instance_class            = "db.m6g.2xlarge"
+  db_allocated_storage         = "50"
   allow_major_version_upgrade  = "false"
   performance_insights_enabled = true
 
