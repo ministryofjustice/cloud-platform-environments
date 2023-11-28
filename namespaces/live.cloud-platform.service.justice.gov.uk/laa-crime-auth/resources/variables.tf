@@ -168,11 +168,6 @@ variable "cognito_user_pool_ccc_client_name_uat" {
   default     = "crown-court-contribution-client-uat"
 }
 
-variable "cognito_user_pool_ccc_client_name_stg" {
-  description = "Cognito user pool CCC client name"
-  default     = "crown-court-contribution-client-stg"
-}
-
 variable "cognito_user_pool_ccc_client_name_prd" {
   description = "Cognito user pool CCC client name"
   default     = "crown-court-contribution-client-prd"
@@ -191,11 +186,6 @@ variable "cognito_user_pool_orchestration_client_name_tst" {
 variable "cognito_user_pool_orchestration_client_name_uat" {
   description = "Cognito user pool Orchestration client name"
   default     = "maat-orchestration-client-uat"
-}
-
-variable "cognito_user_pool_orchestration_client_name_stg" {
-  description = "Cognito user pool Orchestration client name"
-  default     = "maat-orchestration-client-stg"
 }
 
 variable "cognito_user_pool_orchestration_client_name_prd" {
@@ -266,11 +256,6 @@ variable "cognito_user_pool_hardship_client_name_tst" {
 variable "cognito_user_pool_hardship_client_name_uat" {
   description = "Cognito user pool hardship client name"
   default     = "hardship-client-uat"
-}
-
-variable "cognito_user_pool_hardship_client_name_stg" {
-  description = "Cognito user pool hardship client name"
-  default     = "hardship-client-stg"
 }
 
 variable "cognito_user_pool_hardship_client_name_prd" {
