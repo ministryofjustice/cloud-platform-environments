@@ -118,11 +118,6 @@ variable "cognito_user_pool_cma_client_name_uat" {
   default     = "crime-means-assessment-client-uat"
 }
 
-variable "cognito_user_pool_cma_client_name_stg" {
-  description = "Cognito user pool CMA client name"
-  default     = "crime-means-assessment-client-stg"
-}
-
 variable "cognito_user_pool_cma_client_name_prd" {
   description = "Cognito user pool CMA client name"
   default     = "crime-means-assessment-client-prd"
@@ -231,11 +226,6 @@ variable "cognito_user_pool_cfe_client_name_tst" {
 variable "cognito_user_pool_cfe_client_name_uat" {
   description = "Cognito user pool CFE client name"
   default     = "cfe-client-uat"
-}
-
-variable "cognito_user_pool_cfe_client_name_stg" {
-  description = "Cognito user pool CFE client name"
-  default     = "cfe-client-stg"
 }
 
 variable "cognito_user_pool_cfe_client_name_prd" {
