@@ -106,14 +106,6 @@ resource "aws_route53_record" "imb_route53_cname_mts_sts_record" {
   records = ["_9d4ff3184451a4b050bbfa16a32b366d.bkngfjypgb.acm-validations.aws."]
 }
 
-resource "aws_route53_record" "imb_route53_cname_myimb_record" {
-  zone_id = aws_route53_zone.imb_route53_zone.zone_id
-  name    = "my.imb.org.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["imbmembers.prod.wp.dsd.io"]
-}
-
 resource "aws_route53_record" "imb_route53_cname_myimb_acm_validation_record" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_3fc8a2dfb41e5703485146ebfdc6fe3d.my.imb.org.uk"
