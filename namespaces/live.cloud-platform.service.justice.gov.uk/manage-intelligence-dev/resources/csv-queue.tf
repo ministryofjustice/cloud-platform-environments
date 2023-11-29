@@ -49,7 +49,7 @@ module "ims_csv_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "ims_index_batch_queue" {
+resource "kubernetes_secret" "ims_csv_queue" {
   metadata {
     name      = "ims-csv-queue-instance-output"
     namespace = var.namespace
