@@ -73,6 +73,11 @@ variable "user_pool_name_evidence" {
   default     = "laa-crime-auth-userpool-evidence"
 }
 
+variable "user_pool_name_ats" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-ats"
+}
+
 variable "user_pool_name_hardship" {
   description = "Cognito user pool name"
   default     = "laa-crime-auth-userpool-hardship"
@@ -213,6 +218,26 @@ variable "cognito_user_pool_maat_client_name_prd" {
   default     = "maat-client-prd"
 }
 
+variable "cognito_user_pool_maat_os_client_name_dev" {
+  description = "Cognito user pool MAAT OS client name"
+  default     = "maat-os-client-dev"
+}
+
+variable "cognito_user_pool_maat_os_client_name_tst" {
+  description = "Cognito user pool MAAT OS client name"
+  default     = "maat-os-client-tst"
+}
+
+variable "cognito_user_pool_maat_os_client_name_uat" {
+  description = "Cognito user pool MAAT OS client name"
+  default     = "maat-os-client-uat"
+}
+
+variable "cognito_user_pool_maat_os_client_name_prd" {
+  description = "Cognito user pool MAAT OS client name"
+  default     = "maat-os-client-prd"
+}
+
 variable "cognito_user_pool_cfe_client_name_dev" {
   description = "Cognito user pool CFE client name"
   default     = "cfe-client-dev"
@@ -275,6 +300,25 @@ variable "evidence_scope_name" {
 
 variable "evidence_scope_description" {
   default = "Standard scope for the Crime Evidence service"
+}
+
+variable "ats_resource_server_identifier" {
+  default     = "ats"
+  description = "Cognito resource server identifier"
+}
+
+variable "ats_resource_server_name" {
+  default     = "ats-resource-server"
+  description = "Cognito resource server name"
+}
+
+variable "ats_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "ats_scope_description" {
+  default = "Standard scope for the Crime Application Tracking Service"
 }
 
 variable "hardship_resource_server_identifier" {
@@ -393,6 +437,10 @@ variable "validation_scope_description" {
 
 variable "cognito_user_pool_domain_name_evidence" {
   default = "laa-crime-auth-evidence"
+}
+
+variable "cognito_user_pool_domain_name_ats" {
+  default = "laa-crime-auth-ats"
 }
 
 variable "cognito_user_pool_domain_name_hardship" {
