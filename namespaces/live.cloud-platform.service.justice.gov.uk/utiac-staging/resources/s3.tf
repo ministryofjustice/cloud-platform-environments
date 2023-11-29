@@ -26,9 +26,14 @@ module "s3_bucket" {
         "Sid": "AllowBucketAccess",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "${aws_iam_role.api_gateway_role.arn}"
+          "AWS": "${aws_iam_user.user.arn}"
         },
-        "Action": "s3:*",
+        "Action": [
+          "s3:GetObject*",
+          "s3:PutObject*",
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
         "Resource": [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
