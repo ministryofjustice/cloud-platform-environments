@@ -125,5 +125,5 @@ resource "aws_cognito_user_pool" "ats_user_pool" {
 
 resource "aws_cognito_user_pool_domain" "ats_domain" {
   domain       = var.cognito_user_pool_domain_name_ats
-  user_pool_id = aws_cognito_user_pool.evidence_user_pool.id
+  user_pool_id = aws_cognito_user_pool.ats_user_pool.id
 }
