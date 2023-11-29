@@ -13,6 +13,7 @@ module "ecr" {
   namespace = var.namespace
 
   # OpenID Connect configuration
+  oidc_providers      = ["github"]
   github_repositories = ["laa-cwa-data-api"]
   github_actions_prefix = "uat"
 
