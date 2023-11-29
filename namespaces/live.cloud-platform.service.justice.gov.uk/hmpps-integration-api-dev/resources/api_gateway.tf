@@ -116,7 +116,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy",
-    "integration.request.header.api-key-id" = "context.identity.apiKeyId"
+    "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
 }
 
