@@ -494,3 +494,18 @@ spec:
   dnsNames:
     - c482c7f8-preprod.hmpps.service.justice.gov.uk
     - prisoner-profile-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-identifier-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: prison-identifier-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7235bdbc-preprod.hmpps.service.justice.gov.uk
+    - prison-identifier-and-delius-preprod.hmpps.service.justice.gov.uk
