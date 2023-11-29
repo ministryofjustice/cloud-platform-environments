@@ -80,6 +80,7 @@ variable "serviceaccount_rules" {
         "HorizontalPodAutoscaler",
         "configmaps",
         "serviceaccounts",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
