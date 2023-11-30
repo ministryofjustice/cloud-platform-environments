@@ -1,0 +1,25 @@
+# The following manifests contain a self-signed issuer CR and a certificate CR.
+# More document can be found at https://docs.cert-manager.io
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+  namespace: cloud-platform-label-pods
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: serving-cert
+  namespace: cloud-platform-label-pods
+spec:
+  commonName: api.cloud-platform-label-pods.svc
+  dnsNames:
+    - api.cloud-platform-label-pods.svc.cluster.local 
+    - api.cloud-platform-label-pods.svc
+  issuerRef:
+    kind: Issuer
+    name: selfsigned-issuer
+  secretName: webhook-server-cert
+
