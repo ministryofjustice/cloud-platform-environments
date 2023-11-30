@@ -15,7 +15,7 @@ module "ecr" {
   github_repositories = ["laa-decide-civil-legal-aid-frontend"]
 
   # GitHub environments, to create variables as actions variables in your environments
-  github_environments = ["uat"]
+  # github_environments = ["uat"]
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
