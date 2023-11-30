@@ -1,3 +1,39 @@
+data "aws_iam_policy_document" "sqs_full" {
+  version = "2012-10-17"
+  statement {
+    sid     = "hmppsManageIntelligenceSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.ims_index_batch_queue.sqs_arn,
+      module.ims_index_batch_dead_letter_queue.sqs_arn,
+      module.ims_index_update_queue.sqs_arn,
+      module.ims_index_update_dead_letter_queue.sqs_arn,
+      module.ims_transformer_queue.sqs_arn,
+      module.ims_transformer_dead_letter_queue.sqs_arn,
+      module.ims_lastupdate_queue.sqs_arn,
+      module.ims_lastupdate_dead_letter_queue.sqs_arn,
+      module.ims_reprocess_queue.sqs_arn,
+      module.ims_reprocess_dead_letter_queue.sqs_arn,
+      module.ims_csv_queue.sqs_arn,
+      module.ims_csv_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sqs" {
+  policy = data.aws_iam_policy_document.sqs_full.json
+  # Tags
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment-name
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -12,23 +48,12 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_batch           = module.ims_index_batch_queue.irsa_policy_arn
-    sqs_batch_dlq       = module.ims_index_batch_dead_letter_queue.irsa_policy_arn
-    sqs_update          = module.ims_index_update_queue.irsa_policy_arn
-    sqs_update_dlq      = module.ims_index_update_dead_letter_queue.irsa_policy_arn
-    sqs_transformer     = module.ims_transformer_queue.irsa_policy_arn
-    sqs_transformer_dlq = module.ims_transformer_dead_letter_queue.irsa_policy_arn
-    sqs_lastupdate      = module.ims_lastupdate_queue.irsa_policy_arn
-    sqs_lastupdate_dlq  = module.ims_lastupdate_dead_letter_queue.irsa_policy_arn
-    sqs_reprocess       = module.ims_reprocess_queue.irsa_policy_arn
-    sqs_reprocess_dlq   = module.ims_reprocess_dead_letter_queue.irsa_policy_arn
-    sqs_csv             = module.ims_csv_queue.irsa_policy_arn
-    sqs_csv_dlq         = module.ims_csv_dead_letter_queue.irsa_policy_arn
-    s3_ims              = module.manage_intelligence_storage_bucket.irsa_policy_arn
-    s3_rds              = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
-    s3_transformer      = module.manage_intelligence_transformer_bucket.irsa_policy_arn
-    s3_csv              = module.manage_intelligence_csv_bucket.irsa_policy_arn
-    rds                 = module.rds_aurora.irsa_policy_arn
+    policy         = aws_iam_policy.combined_sqs.arn
+    s3_ims         = module.manage_intelligence_storage_bucket.irsa_policy_arn
+    s3_rds         = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
+    s3_transformer = module.manage_intelligence_transformer_bucket.irsa_policy_arn
+    s3_csv         = module.manage_intelligence_csv_bucket.irsa_policy_arn
+    rds            = module.rds_aurora.irsa_policy_arn
   }
 
   # Tags
