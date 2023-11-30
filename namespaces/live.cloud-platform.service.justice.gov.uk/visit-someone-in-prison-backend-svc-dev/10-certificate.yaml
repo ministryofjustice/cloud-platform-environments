@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-vsip-testing-api-dev.prison.service.justice.gov.uk
+    - hmpps-prison-visits-testing-helper-api-dev.prison.service.justice.gov.uk
