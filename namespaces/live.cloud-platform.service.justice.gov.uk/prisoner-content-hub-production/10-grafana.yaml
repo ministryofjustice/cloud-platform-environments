@@ -650,7 +650,7 @@ data:
       "uid": "Lg5ALTKGk",
       "version": 1
     }
-  prisoner-content-hub-production-elasticsearch-dashboard.json: |
+  prisoner-content-hub-production-opensearch-dashboard.json: |
     {
       "annotations": {
         "list": [
@@ -950,7 +950,7 @@ data:
               "format": "short",
               "label": "CPU Usage",
               "logBase": 1,
-              "max": "10",
+              "max": "100",
               "min": "0",
               "show": true
             },
@@ -1117,7 +1117,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Prisoner Content Hub ElasticSearch",
+      "title": "Prisoner Content Hub OpenSearch",
       "uid": "5UaZnkcGz",
       "version": 1
     }
