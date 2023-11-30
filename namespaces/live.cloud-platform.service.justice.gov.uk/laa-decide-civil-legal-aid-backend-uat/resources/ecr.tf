@@ -8,18 +8,19 @@ module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   # Repository configuration
-  repo_name = var.namespace
+  team_name = var.team_name
+  repo_name = var.repo_name
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-decide-civil-legal-aid-backend"]
+  github_repositories = [var.repo_name]
 
- # GitHub environments, to create variables as actions variables in your environments
+  # GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["uat"]
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
-  github_actions_prefix = "uat"
+  # github_actions_prefix = "uat"
 
   # Tags
   business_unit          = var.business_unit
