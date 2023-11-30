@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-civil-decide"
     cloud-platform.justice.gov.uk/application: "Pass application decision to CCMS"
     cloud-platform.justice.gov.uk/owner: "Civil Decide: decide@digital.justice.gov.uk: decide@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-decide-civil-legal-aid-ccms-connector.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-decide-civil-legal-aid-ccms-connector"
     cloud-platform.justice.gov.uk/team-name: "laa-decide"
     cloud-platform.justice.gov.uk/review-after: ""
