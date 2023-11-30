@@ -15,6 +15,7 @@ module "s3_bucket" {
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   versioning                    = true
+  enable_allow_block_pub_access = false
 
   bucket_policy = <<EOF
   {
@@ -27,10 +28,7 @@ module "s3_bucket" {
           "AWS": "${aws_iam_user.user.arn}"
         },
         "Action": [
-          "s3:GetObject*",
-          "s3:PutObject*",
-          "s3:ListBucket",
-          "s3:GetBucketLocation"
+          "s3:*"
         ],
         "Resource": [
           "$${bucket_arn}",
@@ -48,10 +46,7 @@ data "aws_iam_policy_document" "s3_access_policy" {
   statement {
     sid = "AllowUserToReadAndWriteS3"
     actions = [
-      "s3:GetObject*",
-      "s3:PutObject*",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*",
     ]
 
     resources = [
@@ -63,7 +58,6 @@ data "aws_iam_policy_document" "s3_access_policy" {
 
 resource "aws_iam_user" "user" {
   name = "s3-access-user-${var.environment}"
-  path = "/system/s3-access-user/"
 }
 
 resource "aws_iam_access_key" "user" {
