@@ -14,6 +14,13 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-decide-civil-legal-aid-ccms-connector"]
 
+  # GitHub environments, to create variables as actions variables in your environments
+  # github_environments = ["staging"]
+
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "staging"
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
