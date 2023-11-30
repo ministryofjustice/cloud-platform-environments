@@ -22,8 +22,6 @@ module "irsa" {
     sqs_lastupdate_dlq  = module.ims_lastupdate_dead_letter_queue.irsa_policy_arn
     sqs_reprocess       = module.ims_reprocess_queue.irsa_policy_arn
     sqs_reprocess_dlq   = module.ims_reprocess_dead_letter_queue.irsa_policy_arn
-    sqs_csv             = module.ims_csv_queue.irsa_policy_arn
-    sqs_csv_dlq         = module.ims_csv_dead_letter_queue.irsa_policy_arn
     s3_ims              = module.manage_intelligence_storage_bucket.irsa_policy_arn
     s3_rds              = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
     s3_transformer      = module.manage_intelligence_transformer_bucket.irsa_policy_arn
