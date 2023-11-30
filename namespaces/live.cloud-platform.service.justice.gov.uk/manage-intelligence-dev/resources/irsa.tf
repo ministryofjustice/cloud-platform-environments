@@ -1,9 +1,9 @@
 data "aws_iam_policy_document" "sqs_full" {
   version = "2012-10-17"
   statement {
-    sid       = "hmppsManageIntelligenceSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsManageIntelligenceSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.ims_index_batch_queue.sqs_arn,
       module.ims_index_batch_dead_letter_queue.sqs_arn,
@@ -48,12 +48,12 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    policy              = aws_iam_policy.combined_sqs.arn
-    s3_ims              = module.manage_intelligence_storage_bucket.irsa_policy_arn
-    s3_rds              = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
-    s3_transformer      = module.manage_intelligence_transformer_bucket.irsa_policy_arn
-    s3_csv              = module.manage_intelligence_csv_bucket.irsa_policy_arn
-    rds                 = module.rds_aurora.irsa_policy_arn
+    policy         = aws_iam_policy.combined_sqs.arn
+    s3_ims         = module.manage_intelligence_storage_bucket.irsa_policy_arn
+    s3_rds         = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
+    s3_transformer = module.manage_intelligence_transformer_bucket.irsa_policy_arn
+    s3_csv         = module.manage_intelligence_csv_bucket.irsa_policy_arn
+    rds            = module.rds_aurora.irsa_policy_arn
   }
 
   # Tags
