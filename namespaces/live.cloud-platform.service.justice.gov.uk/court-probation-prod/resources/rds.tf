@@ -9,10 +9,12 @@ module "court_case_service_rds" {
   environment_name             = var.environment-name
   infrastructure_support       = var.infrastructure_support
   rds_family                   = var.rds-family
+  db_engine                    = "postgres"
   db_engine_version            = var.db_engine_version
+  prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = true
-  db_instance_class            = "db.t3.xlarge"
+  db_instance_class            = "db.t4g.xlarge"
 
   providers = {
     aws = aws.london

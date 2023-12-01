@@ -10,14 +10,6 @@ locals {
     (module.cvl_probation_events_dead_letter_queue.sqs_name)                       = module.cvl_probation_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_allocations_offender_events_queue.sqs_name)                      = module.hmpps_allocations_offender_events_queue.irsa_policy_arn,
     (module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name)          = module.hmpps_allocations_offender_events_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_sentencing_queue.sqs_name)                         = module.prisoner_from_nomis_sentencing_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_sentencing_dead_letter_queue.sqs_name)             = module.prisoner_from_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_nonassociations_queue.sqs_name)                    = module.prisoner_from_nomis_nonassociations_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_nonassociations_dead_letter_queue.sqs_name)        = module.prisoner_from_nomis_nonassociations_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_visits_queue.sqs_name)                             = module.prisoner_from_nomis_visits_queue.irsa_policy_arn,
-    (module.prisoner_from_nomis_visits_dead_letter_queue.sqs_name)                 = module.prisoner_from_nomis_visits_dead_letter_queue.irsa_policy_arn,
-    (module.restricted_patients_queue.sqs_name)                                    = module.restricted_patients_queue.irsa_policy_arn,
-    (module.restricted_patients_dead_letter_queue.sqs_name)                        = module.restricted_patients_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_tier_offender_events_queue.sqs_name)                             = module.hmpps_tier_offender_events_queue.irsa_policy_arn,
     (module.hmpps_tier_offender_events_dead_letter_queue.sqs_name)                 = module.hmpps_tier_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_workload_offender_events_queue.sqs_name)                         = module.hmpps_workload_offender_events_queue.irsa_policy_arn,
@@ -42,8 +34,6 @@ locals {
     (module.pic_probation_offender_events_dead_letter_queue.sqs_name)              = module.pic_probation_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.prisoner_offender_events_queue.sqs_name)                               = module.prisoner_offender_events_queue.irsa_policy_arn,
     (module.prisoner_offender_events_dead_letter_queue.sqs_name)                   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_queue.sqs_name)                               = module.prisoner_offender_search_queue.irsa_policy_arn,
-    (module.prisoner_offender_search_dead_letter_queue.sqs_name)                   = module.prisoner_offender_search_dead_letter_queue.irsa_policy_arn,
     (module.whereabouts_api_queue.sqs_name)                                        = module.whereabouts_api_queue.irsa_policy_arn,
     (module.whereabouts_api_dead_letter_queue.sqs_name)                            = module.whereabouts_api_dead_letter_queue.irsa_policy_arn
   }

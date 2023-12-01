@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: legacy-systems-x-product-prototype
+spec:
+  hard:
+    pods: "50"

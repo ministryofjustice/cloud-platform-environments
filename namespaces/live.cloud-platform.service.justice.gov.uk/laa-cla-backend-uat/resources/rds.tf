@@ -65,3 +65,53 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
     db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
   }
 }
+
+module "cla_backend_metabase_rds" {
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  vpc_name      = var.vpc_name
+  team_name     = var.team_name
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
+  namespace     = var.namespace
+
+  db_name                = "metabase"
+  db_engine_version      = "15"
+  db_instance_class      = "db.t4g.micro"
+  db_allocated_storage   = "5"
+  db_max_allocated_storage = "500"
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+
+  rds_family = "postgres15"
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "false"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "cla_backend_metabase_rds" {
+  metadata {
+    name      = "metabase"
+    namespace = var.namespace
+  }
+
+  data = {
+    endpoint          = module.cla_backend_metabase_rds.rds_instance_endpoint
+    host              = module.cla_backend_metabase_rds.rds_instance_address
+    port              = module.cla_backend_metabase_rds.rds_instance_port
+    name              = module.cla_backend_metabase_rds.database_name
+    user              = module.cla_backend_metabase_rds.database_username
+    password          = module.cla_backend_metabase_rds.database_password
+    db_identifier     = module.cla_backend_metabase_rds.db_identifier
+
+    # postgres://user:password@host:port/name
+    url = "postgres://${module.cla_backend_metabase_rds.database_username}:${module.cla_backend_metabase_rds.database_password}@${module.cla_backend_metabase_rds.rds_instance_endpoint}/${module.cla_backend_metabase_rds.database_name}"
+   
+    # jdbc:postgresql://host:port/name?user=user&password=password
+    jdbc_url = "jdbc:postgresql://${module.cla_backend_metabase_rds.rds_instance_endpoint}/${module.cla_backend_metabase_rds.database_name}?user=${module.cla_backend_metabase_rds.database_username}&password=${module.cla_backend_metabase_rds.database_password}"
+  }
+}

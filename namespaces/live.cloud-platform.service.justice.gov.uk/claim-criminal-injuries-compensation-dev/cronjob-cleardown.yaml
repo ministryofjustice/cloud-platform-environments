@@ -18,6 +18,7 @@ spec:
           containers:
             - name: cica-online-application-cleardown-cronjob
               image: governmentpaas/psql
+              imagePullPolicy: Always
               command:
                 [
                   "/bin/sh",

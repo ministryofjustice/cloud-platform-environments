@@ -13,8 +13,8 @@ module "rds_aurora" {
     min_capacity = 1
     max_capacity = 4
   }
-  replica_count = 1
-
+  replica_count               = 1
+  db_parameter_group_name     = resource.aws_db_parameter_group.default.name
   allow_major_version_upgrade = true
 
   # Tags
@@ -30,6 +30,17 @@ module "rds_aurora" {
     aws = aws.london
   }
 }
+
+resource "aws_db_parameter_group" "default" {
+  name   = module.rds_aurora.db_cluster_identifier
+  family = "aurora-postgresql14"
+
+  parameter {
+    name  = "log_error_verbosity"
+    value = "TERSE"
+  }
+}
+
 
 resource "random_id" "manage_intelligence_update_role_password" {
   byte_length = 32

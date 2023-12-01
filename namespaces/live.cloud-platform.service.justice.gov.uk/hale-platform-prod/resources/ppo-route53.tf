@@ -22,18 +22,6 @@ resource "kubernetes_secret" "ppo_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "ppo_route53_a_record" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "ppo.gov.uk"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.ppo-p-loadb-1dvbse409la2x-1010225236.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "ppo_route53_mx_record_outlook2" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "ppo.gov.uk"
@@ -228,14 +216,6 @@ resource "aws_route53_record" "ppo_route53_cname_record_sip" {
   type    = "CNAME"
   ttl     = "300"
   records = ["sipdir.online.lync.com"]
-}
-
-resource "aws_route53_record" "ppo_route53_cname_record_www" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "www.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["ppo.gov.uk"]
 }
 
 resource "aws_route53_record" "ppo_route53_cname_record_www_acm" {

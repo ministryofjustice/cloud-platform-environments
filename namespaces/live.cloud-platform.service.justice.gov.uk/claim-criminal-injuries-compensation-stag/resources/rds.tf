@@ -10,13 +10,15 @@ module "rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.email
 
-  db_engine                  = "postgres"
-  db_engine_version          = "14.3"
-  db_instance_class          = "db.t4g.micro"
-  db_allocated_storage       = "50"
-  db_max_allocated_storage   = "500"
-  db_name                    = "datacaptureservice"
-  db_backup_retention_period = var.db_backup_retention_period
+  db_engine                    = "postgres"
+  db_engine_version            = "14.3"
+  db_instance_class            = "db.t4g.micro"
+  db_allocated_storage         = "50"
+  db_max_allocated_storage     = "500"
+  db_name                      = "datacaptureservice"
+  db_backup_retention_period   = var.db_backup_retention_period
+  deletion_protection          = true
+  performance_insights_enabled = true
 
   enable_rds_auto_start_stop = true
 

@@ -1,8 +1,10 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
+
+  serviceaccount_token_rotated_date = "13-10-2023"
 
   serviceaccount_rules = [
     {

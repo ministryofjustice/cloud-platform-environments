@@ -60,6 +60,21 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
         },
       ]
     },
+    {
+      enabled = true
+      id      = "pin-phone-metadata-expiry"
+      prefix  = "metadata/"
+      expiration = [
+        {
+          days = 180
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
   ]
 }
 

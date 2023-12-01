@@ -24,7 +24,7 @@ module "irsa" {
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support 
+  infrastructure_support = var.infrastructure_support
  }
 
   data "aws_iam_policy_document" "s3_cross_bucket_policy" {
@@ -41,7 +41,9 @@ module "irsa" {
         "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm", #tacticalproducts legacy account
         "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir", #tacticalproducts legacy account
         "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk", #tacticalproducts legacy account
-        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd" #tacticalproducts legacy account
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd", #tacticalproducts legacy account
+        "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw", #tacticalproducts legacy account
+        "arn:aws:s3:::imbmembers-prod-storage-k98pxkemaqp0" #tacticalproducts legacy account
       ]
     }
     statement {
@@ -50,7 +52,8 @@ module "irsa" {
         "s3:GetObject",
         "s3:PutObject",
         "s3:GetObjectAcl",
-        "s3:PutObjectAcl"
+        "s3:PutObjectAcl",
+        "s3:GetObjectTagging"
       ]
       resources = [
         "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
@@ -60,7 +63,9 @@ module "irsa" {
         "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*", #tacticalproducts legacy account
         "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*", #tacticalproducts legacy account
         "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*", #tacticalproducts legacy account
-        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*" #tacticalproducts legacy account
+        "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*", #tacticalproducts legacy account
+        "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw/*", #tacticalproducts legacy account
+        "arn:aws:s3:::imbmembers-prod-storage-k98pxkemaqp0/*" #tacticalproducts legacy account
      ]
     }
   }

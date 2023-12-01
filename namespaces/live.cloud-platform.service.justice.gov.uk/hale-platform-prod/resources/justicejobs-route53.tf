@@ -22,18 +22,6 @@ resource "kubernetes_secret" "justicejobs_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "justicejobs_route53_a_record" {
-  zone_id = aws_route53_zone.justicejobs_route53_zone.zone_id
-  name    = "jobs.justice.gov.uk"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.justi-loadb-sq9lna0p02ao-206129886.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "justicejobs_route53_txt_record_goog" {
   zone_id = aws_route53_zone.justicejobs_route53_zone.zone_id
   name    = "jobs.justice.gov.uk"

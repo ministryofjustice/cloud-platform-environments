@@ -22,26 +22,6 @@ resource "kubernetes_secret" "layobservers_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "layobservers_route53_a_record" {
-  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
-  name    = "layobservers.org"
-  type    = "A"
-
-  alias {
-    name                   = "dualstack.layob-loadb-1ihnwblvc4lwo-1400211917.eu-west-2.elb.amazonaws.com."
-    zone_id                = "ZHURV8PSTC4K8"
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "layobservers_route53_cname_record_www" {
-  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
-  name    = "www.layobservers.org"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["layobservers.org"]
-}
-
 resource "aws_route53_record" "layobservers_route53_cname_record_acm" {
   zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
   name    = "_2dc0af1e023810b4729e89f34abdf9eb.layobservers.org"

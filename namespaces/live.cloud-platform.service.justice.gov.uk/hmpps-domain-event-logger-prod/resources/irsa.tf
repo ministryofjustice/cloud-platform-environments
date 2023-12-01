@@ -2,11 +2,10 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_domain_event_logger_dlq"   = "hmpps-domain-events-prod"
-    "Digital-Prison-Services-prod-hmpps_domain_event_logger_queue" = "hmpps-domain-events-prod"
+  irsa_policies = {
+    hmpps_domain_event_logger_queue             = module.hmpps_domain_event_logger_queue.irsa_policy_arn
+    hmpps_domain_event_logger_dead_letter_queue = module.hmpps_domain_event_logger_dead_letter_queue.irsa_policy_arn
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
 }
 
 module "irsa" {
@@ -15,7 +14,7 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-domain-event-logger"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns       = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -23,9 +22,4 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }

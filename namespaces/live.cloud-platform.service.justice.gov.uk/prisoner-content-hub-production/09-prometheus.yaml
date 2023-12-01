@@ -139,7 +139,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-red-cluster-status
-          expr: aws_es_cluster_status_red_maximum{domain_name="pfs-production-hub-search"} >= 1
+          expr: aws_es_cluster_status_red_maximum{domain_name="cloud-platform-38800316"} >= 1
           for: 1m
           labels:
             severity: pfs-hub
@@ -147,7 +147,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-yellow-cluster-status
-          expr: aws_es_cluster_status_yellow_maximum{domain_name=~"pfs-production-hub-search"} >= 1
+          expr: aws_es_cluster_status_yellow_maximum{domain_name="cloud-platform-38800316"} >= 1
           for: 6m
           labels:
             severity: pfs-hub
@@ -155,7 +155,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
-          expr: aws_es_free_storage_space_maximum{domain_name="pfs-production-hub-search"} <= 3072
+          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-38800316"} <= 3072
           for: 1m
           labels:
             severity: pfs-hub
@@ -163,7 +163,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster is blocking write requests"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#troubleshooting-cluster-block
-          expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="pfs-production-hub-search"} >= 1
+          expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="cloud-platform-38800316"} >= 1
           for: 5m
           labels:
             severity: pfs-hub
@@ -171,7 +171,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] An automated snapshot for the ElasticSearch cluster failed"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_automated_snapshot_failure_maximum{domain_name="pfs-production-hub-search"} >= 1
+          expr: aws_es_automated_snapshot_failure_maximum{domain_name="cloud-platform-38800316"} >= 1
           for: 1m
           labels:
             severity: pfs-hub
@@ -179,7 +179,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster could encounter out of memory errors if usage increases"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_jvmmemory_pressure_maximum{domain_name="pfs-production-hub-search"} >= 80
+          expr: aws_es_jvmmemory_pressure_maximum{domain_name="cloud-platform-38800316"} >= 80
           for: 15m
           labels:
             severity: pfs-hub
@@ -187,7 +187,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster has sustained high CPU usage"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_cpuutilization_maximum{domain_name="pfs-production-hub-search"} >= 80
+          expr: aws_es_cpuutilization_maximum{domain_name="cloud-platform-38800316"} >= 80
           for: 15m
           labels:
             severity: pfs-hub

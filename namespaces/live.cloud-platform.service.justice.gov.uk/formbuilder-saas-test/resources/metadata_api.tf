@@ -30,3 +30,37 @@ resource "kubernetes_secret" "metadata-api-rds-instance" {
     url = "postgres://${module.metadata-api-rds-instance.database_username}:${module.metadata-api-rds-instance.database_password}@${module.metadata-api-rds-instance.rds_instance_endpoint}/${module.metadata-api-rds-instance.database_name}"
   }
 }
+
+locals {
+  metadata_api_sa_name = "formbuilder-terraform-metadata-api-test"
+}
+
+
+resource "kubernetes_service_account" "metadata_api_service_account" {
+  metadata {
+    name      = local.metadata_api_sa_name
+    namespace = var.namespace
+  }
+
+  secret {
+    name = "${local.metadata_api_sa_name}-token"
+  }
+
+  automount_service_account_token = true
+}
+
+resource "kubernetes_secret_v1" "metadata_api_service_account_token" {
+  metadata {
+    name      = "${local.metadata_api_sa_name}-token"
+    namespace = var.namespace
+    annotations = {
+      "kubernetes.io/service-account.name" = local.metadata_api_sa_name
+    }
+  }
+
+  type = "kubernetes.io/service-account-token"
+
+  depends_on = [
+    kubernetes_service_account.metadata_api_service_account
+  ]
+}

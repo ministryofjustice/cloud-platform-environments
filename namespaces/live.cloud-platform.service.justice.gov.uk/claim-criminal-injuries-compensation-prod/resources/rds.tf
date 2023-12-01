@@ -10,12 +10,14 @@ module "rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.email
 
-  db_engine                  = "postgres"
-  db_engine_version          = "14.7"
-  db_instance_class          = "db.t3.small"
-  db_allocated_storage       = "10"
-  db_name                    = "datacaptureservice"
-  db_backup_retention_period = var.db_backup_retention_period
+  db_engine                    = "postgres"
+  db_engine_version            = "14.7"
+  db_instance_class            = "db.t3.small"
+  db_allocated_storage         = "10"
+  db_name                      = "datacaptureservice"
+  db_backup_retention_period   = var.db_backup_retention_period
+  deletion_protection          = true
+  performance_insights_enabled = true
 
   # rds_family should be: postgres14
   # Pick the one that defines the postgres version the best

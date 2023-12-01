@@ -55,8 +55,8 @@ module "s3_bucket" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
-}
 
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {

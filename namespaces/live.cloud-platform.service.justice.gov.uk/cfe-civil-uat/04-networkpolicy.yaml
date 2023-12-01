@@ -39,7 +39,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-estimate-financial-eligibility-for-legal-aid-uat
+              cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-uat
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-uat
+              cloud-platform.justice.gov.uk/namespace: laa-check-client-qualifies-uat

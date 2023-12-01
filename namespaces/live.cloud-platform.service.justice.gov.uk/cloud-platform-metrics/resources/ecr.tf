@@ -4,6 +4,10 @@ module "ecr-repo" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
+   # OpenID Connect configuration
+  oidc_providers      = ["github"]
+  github_repositories = ["cloud-platform-metrics"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

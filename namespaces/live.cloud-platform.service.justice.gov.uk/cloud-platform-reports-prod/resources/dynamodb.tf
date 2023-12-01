@@ -12,6 +12,9 @@ module "cloud_platform_reports_dynamodb" {
   hash_key          = "filename"
   enable_encryption = "false"
   enable_autoscaler = "true"
+
+  # autoscaling maximums
+  autoscale_max_read_capacity = 100
 }
 
 resource "kubernetes_secret" "cloud_platform_reports_dynamodb" {

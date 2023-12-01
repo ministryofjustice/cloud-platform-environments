@@ -22,6 +22,8 @@ module "cccd_rds" {
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
+  snapshot_identifier = "rds:cloud-platform-7c41317651c21a33-2023-11-01-04-22"
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london

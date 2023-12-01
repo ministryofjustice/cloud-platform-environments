@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "Move a Prisoner"
 }
 
 variable "environment-name" {
@@ -36,6 +36,11 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "false"
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "move-a-prisoner-digital"
 }
 
 variable "number_cache_clusters" {
