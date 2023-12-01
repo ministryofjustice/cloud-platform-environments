@@ -199,7 +199,7 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn        = module.s3_bucket.bucket_arn
     bucket_name       = module.s3_bucket.bucket_name
-    access_key_id     = aws_iam_access_key.alfresco_user_poc_access.id
-    secret_access_key = aws_iam_access_key.alfresco_user_poc_access.secret
+    ACCESSKEY         = aws_iam_access_key.alfresco_user_poc_access.id
+    SECRETKEY         = aws_iam_access_key.alfresco_user_poc_access.secret
   }
 }
