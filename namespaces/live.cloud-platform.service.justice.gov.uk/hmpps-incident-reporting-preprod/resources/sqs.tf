@@ -34,29 +34,29 @@ module "prisoner-event-queue" {
   }
 }
 
-#data "aws_iam_policy_document" "sqs" {
-#  id = "${module.prisoner-event-queue.sqs_arn}/SQSDefaultPolicy"
-#
-#  statement {
-#    effect = "Allow"
-#    principals {
-#      type        = "AWS"
-#      identifiers = ["*"]
-#    }
-#    resources = [module.prisoner-event-queue.sqs_arn]
-#    actions   = ["SQS:SendMessage"]
-#    condition {
-#      variable = "aws:SourceArn"
-#      test     = "ArnEquals"
-#      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
-#    }
-#  }
-#}
-#
-#resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
-#  queue_url = module.prisoner-event-queue.sqs_id
-#  policy    = data.aws_iam_policy_document.sqs.json
-#}
+data "aws_iam_policy_document" "sqs" {
+  policy_id = "${module.prisoner-event-queue.sqs_arn}/SQSDefaultPolicy"
+
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    resources = [module.prisoner-event-queue.sqs_arn]
+    actions   = ["SQS:SendMessage"]
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
+  queue_url = module.prisoner-event-queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs.json
+}
 
 module "prisoner-event-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
