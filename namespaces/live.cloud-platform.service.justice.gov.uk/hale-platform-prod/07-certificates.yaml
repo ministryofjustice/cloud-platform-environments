@@ -222,6 +222,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: members.layobservers.org
+  namespace: hale-platform-prod
+spec:
+  secretName: layobservers-members-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - members.layobservers.org
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: sifocc.org
   namespace: hale-platform-prod
 spec:
