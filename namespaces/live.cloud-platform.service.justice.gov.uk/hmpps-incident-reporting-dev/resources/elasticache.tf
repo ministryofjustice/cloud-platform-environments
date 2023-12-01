@@ -12,7 +12,7 @@ module "elasticache_redis" {
   node_type             = "cache.t4g.micro"
   engine_version        = "7.1"
   parameter_group_name  = "default.redis7"
-  number_cache_clusters = "1"
+  number_cache_clusters = "2"
 
   providers = {
     aws = aws.london
