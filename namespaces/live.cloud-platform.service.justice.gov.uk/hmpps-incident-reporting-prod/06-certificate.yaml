@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-incident-reporting-api-prod-cert
+  namespace: hmpps-incident-reporting-prod
+spec:
+  secretName: hmpps-incident-reporting-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - incident-reporting-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-incident-reporting-prod-cert
+  namespace: hmpps-incident-reporting-prod
+spec:
+  secretName: hmpps-incident-reporting-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - incident-reporting.hmpps.service.justice.gov.uk
