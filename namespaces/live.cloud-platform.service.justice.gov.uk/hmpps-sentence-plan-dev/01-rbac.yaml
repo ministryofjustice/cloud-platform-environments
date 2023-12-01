@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-sentence-plan-dev
 subjects:
   - kind: Group
-    name: "github:probation-integration"
+    name: "github:hmpps-sentence-planning"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech" # for credentials rotation
