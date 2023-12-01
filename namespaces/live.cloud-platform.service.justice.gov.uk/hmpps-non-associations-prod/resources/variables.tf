@@ -8,7 +8,7 @@ variable "eks_cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Non Associations Apps"
+  default     = "HMPPS Non-associations Apps"
 }
 
 variable "namespace" {
@@ -64,4 +64,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
