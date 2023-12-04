@@ -1,9 +1,3 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
 module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
@@ -56,18 +50,18 @@ data "aws_iam_policy_document" "s3_access_policy" {
   }
 }
 
-resource "aws_iam_user" "user" {
-  name = "s3-access-user-${var.environment}"
+resource "aws_iam_user" "s3_user" {
+  name = "s3-user-${var.environment}"
 }
 
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
+resource "aws_iam_access_key" "s3_user" {
+  user = aws_iam_user.s3_user.name
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "s3_user_policy" {
   name   = "s3-read-write-policy"
   policy = data.aws_iam_policy_document.s3_access_policy.json
-  user   = aws_iam_user.user.name
+  user   = aws_iam_user.s3_user.name
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -79,8 +73,8 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
-    s3_access_user_arn   = aws_iam_user.user.arn
-    s3_access_key_id     = aws_iam_access_key.user.id
-    s3_secret_access_key = aws_iam_access_key.user.secret
+    s3_access_user_arn   = aws_iam_user.s3_user.arn
+    s3_access_key_id     = aws_iam_access_key.s3_user.id
+    s3_secret_access_key = aws_iam_access_key.s3_user.secret
   }
 }
