@@ -74,7 +74,7 @@ data:
             "type": "prometheus",
             "uid": "${DS_THANOS}"
           },
-          "description": "The number of HTTP requests per second received via the ingress.",
+          "description": "The number of HTTP requests by status",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -83,7 +83,7 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Rate Per Second",
+                "axisLabel": "Number of requests",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "bars",
@@ -112,6 +112,7 @@ data:
               },
               "links": [],
               "mappings": [],
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -138,14 +139,16 @@ data:
           "id": 15,
           "options": {
             "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
               "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
-              "sort": "none"
+              "sort": "desc"
             }
           },
           "pluginVersion": "9.2.4",
@@ -157,8 +160,8 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(\n  irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n) by (status)",
-              "interval": "",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__interval])\n) by (status) != 0",
+              "interval": "1m",
               "legendFormat": "{{status}}",
               "range": true,
               "refId": "B"
@@ -1167,7 +1170,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1288,7 +1292,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1384,7 +1389,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1481,7 +1487,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1577,7 +1584,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1676,7 +1684,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1736,11 +1745,7 @@ data:
       "templating": {
         "list": [
           {
-            "current": {
-              "selected": true,
-              "text": "hmpps-assess-risks-and-needs-dev",
-              "value": "hmpps-assess-risks-and-needs-dev"
-            },
+            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -1856,6 +1861,6 @@ data:
       "timezone": "browser",
       "title": "Golden Signals",
       "uid": "golden-signals",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
