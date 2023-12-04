@@ -52,6 +52,7 @@ data "aws_iam_policy_document" "s3_access_policy" {
 
 resource "aws_iam_user" "s3_user" {
   name = "s3-user-${var.environment}"
+  path = "/system/s3-user/"
 }
 
 resource "aws_iam_access_key" "s3_user" {
