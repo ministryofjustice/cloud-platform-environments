@@ -32,7 +32,7 @@ variable "business_unit" {
 
 variable "application" {
   description = "Application name"
-  default     = "HMCTS Mock Api (dev)"
+  default     = "hmcts-common-platform-mock-api"
 }
 
 variable "is_production" {
