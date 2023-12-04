@@ -15,5 +15,23 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "github-token" # The name of the secret in k8s
     },
+
+    "SLACK_APP_TOKEN" = {
+      description             = "slack app token",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "slack-app-token" # The name of the secret in k8s
+    },
+
+    "SLACK_SIGNING_SECRET" = {
+      description             = "slack signing secret",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "slack-signing-secret" # The name of the secret in k8s
+    },
+
+    "SLACK_BOT_TOKEN" = {
+      description             = "slack bot token",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "slack-bot-token" # The name of the secret in k8s
+    },
   }
 }
