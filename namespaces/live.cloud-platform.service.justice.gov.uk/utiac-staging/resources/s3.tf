@@ -19,7 +19,7 @@ module "s3_bucket" {
         "Sid": "AllowBucketAccess",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "${aws_iam_user.user.arn}"
+          "AWS": "${aws_iam_user.s3_user.arn}"
         },
         "Action": [
           "s3:*"
