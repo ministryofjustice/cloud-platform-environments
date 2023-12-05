@@ -75,6 +75,7 @@ resource "kubernetes_secret" "makeaplea_queue" {
   }
 
   data = {
+    irsa_policy_arn = module.makeaplea_queue.irsa_policy_arn
     sqs_id   = module.makeaplea_queue.sqs_id
     sqs_arn  = module.makeaplea_queue.sqs_arn
     sqs_name = module.makeaplea_queue.sqs_name
@@ -89,6 +90,7 @@ resource "kubernetes_secret" "makeaplea_dead_letter_queue" {
   }
 
   data = {
+    irsa_policy_arn = module.makeaplea_dead_letter_queue.irsa_policy_arn
     sqs_id   = module.makeaplea_dead_letter_queue.sqs_id
     sqs_arn  = module.makeaplea_dead_letter_queue.sqs_arn
     sqs_name = module.makeaplea_dead_letter_queue.sqs_name
