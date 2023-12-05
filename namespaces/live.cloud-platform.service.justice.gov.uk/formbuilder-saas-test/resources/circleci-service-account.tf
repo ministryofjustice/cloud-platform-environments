@@ -2,31 +2,14 @@ locals {
   circleci_sa_name = "circleci-terraform-formbuilder-saas-test"
 }
 
-resource "kubernetes_service_account" "circleci_formbuilder_saas_test_service_account" {
-  metadata {
-    name      = local.circleci_sa_name
-    namespace = var.namespace
-  }
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
-  secret {
-    name = "${local.circleci_sa_name}-token"
-  }
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  serviceaccount_name = locals.circleci_sa_name
 
-  automount_service_account_token = true
-}
-
-resource "kubernetes_secret_v1" "circleci_formbuilder_saas_test_service_account_token" {
-  metadata {
-    name      = "${local.circleci_sa_name}-token"
-    namespace = var.namespace
-    annotations = {
-      "kubernetes.io/service-account.name" = local.circleci_sa_name
-    }
-  }
-
-  type = "kubernetes.io/service-account-token"
-
-  depends_on = [
-    kubernetes_service_account.circleci_formbuilder_saas_test_service_account
-  ]
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ca.crt and token for use in github actions CI/CD pipelines
+  github_repositories = ["fb-editor", "fb-metadata-api", "fb-av"]
 }
