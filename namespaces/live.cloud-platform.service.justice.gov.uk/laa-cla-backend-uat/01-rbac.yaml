@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:laa-get-access"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-eligibility-platform"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
