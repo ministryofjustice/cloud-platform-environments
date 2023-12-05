@@ -40,7 +40,13 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.makeaplea_queue.sqs_arn}",
-          "Action": "SQS:SendMessage"
+          "Action": [
+            "SQS:ListQueues",
+            "SQS:GetQueueAttributes",
+            "SQS:SendMessage",
+            "SQS:ReceiveMessage",
+            "SQS:DeleteMessage"
+          ]
         }
       ]
   }
