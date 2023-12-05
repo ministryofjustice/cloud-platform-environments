@@ -27,33 +27,33 @@ module "opensearch" {
   # These are the normal settings for staging.
 
   # Non-production cluster configuration
-#  cluster_config = {
-#    instance_count = 2
-#    instance_type  = "t3.small.search"
-#  }
-#
-#  ebs_options = {
-#    volume_size = 10
-#  }
+  cluster_config = {
+    instance_count = 2
+    instance_type  = "t3.small.search"
+  }
+
+  ebs_options = {
+    volume_size = 10
+  }
 
   # These are the settings to flex staging up to match production.
   # These should only be used when setting staging up for load testing, so it accurately
   # matches production and therefore is an accurate prediction of prod behaviour.
 
   # Production cluster configuration
-  cluster_config = {
-    instance_count = 3
-    instance_type  = "m6g.large.search"
-
-    # Dedicated primary nodes
-    dedicated_master_enabled = true
-    dedicated_master_count   = 3 # can only either be 3 or 5
-    dedicated_master_type    = "m6g.large.search"
-  }
-
-  ebs_options = {
-    volume_size = 100
-  }
+#  cluster_config = {
+#    instance_count = 3
+#    instance_type  = "m6g.large.search"
+#
+#    # Dedicated primary nodes
+#    dedicated_master_enabled = true
+#    dedicated_master_count   = 3 # can only either be 3 or 5
+#    dedicated_master_type    = "m6g.large.search"
+#  }
+#
+#  ebs_options = {
+#    volume_size = 100
+#  }
 
   # Tags
   business_unit          = var.business_unit
