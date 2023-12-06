@@ -12,7 +12,8 @@ module "alfresco-content-ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-alfresco"]
+  github_repositories = ["hmpps-alfresco","hmpps-delius-alfresco-poc"]
+  github_actions_prefix = "content-repository"
 
   # Tags
   business_unit          = var.business_unit
@@ -33,6 +34,7 @@ module "alfresco-share-ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-delius-alfresco-poc"]
+  github_actions_prefix = "share"
 
   # Tags
   business_unit          = var.business_unit
