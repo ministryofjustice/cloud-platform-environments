@@ -21,11 +21,3 @@ resource "kubernetes_secret" "victimandwitnessinformation_route53_zone_sec" {
     zone_id = aws_route53_zone.victimandwitnessinformation_route53_zone.zone_id
   }
 }
-
-resource "aws_route53_record" "victimandwitnessinformation_route53_cname_www" {
-  zone_id = aws_route53_zone.victimandwitnessinformation_route53_zone.zone_id
-  name    = "www.victimandwitnessinformation.org.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["bouncer-cdn.production.govuk.service.gov.uk"]
-}
