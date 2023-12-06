@@ -78,8 +78,7 @@ variable "eks_cluster_name" {
 #   type        = map(string)
 # }
 
-# This only needs to be uncommented if not using the default name
-# variable "service_account_name" {
-#   description = "Name of the service account"
-#   type        = string
-# }
+variable "dp_dev_account" {
+  description = "Destination account superset deployment"
+  default     = "013433889002" # nomis-production
+}
