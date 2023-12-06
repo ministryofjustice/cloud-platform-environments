@@ -361,4 +361,42 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - www.lawcom.gov.uk
-  
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: victimandwitnessinformation.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimandwitnessinformation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - victimandwitnessinformation.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www.victimandwitnessinformation.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimandwitnessinformation-www-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - www.victimandwitnessinformation.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: victimscode.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimscode-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - victimscode.org.uk
