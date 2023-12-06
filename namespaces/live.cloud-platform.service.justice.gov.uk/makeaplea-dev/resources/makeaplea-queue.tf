@@ -114,10 +114,10 @@ resource "kubernetes_secret" "makeaplea_queue" {
   }
 
   data = {
-    irsa_policy_arn               = module.makeaplea_queue.irsa_policy_arn
-    sqs_id                        = module.makeaplea_queue.sqs_id
-    sqs_arn                       = module.makeaplea_queue.sqs_arn
-    sqs_name                      = module.makeaplea_queue.sqs_name
+    irsa_policy_arn                = module.makeaplea_queue.irsa_policy_arn
+    sqs_id                         = module.makeaplea_queue.sqs_id
+    sqs_arn                        = module.makeaplea_queue.sqs_arn
+    sqs_name                       = module.makeaplea_queue.sqs_name
     external_sqs_access_user_arn   = aws_iam_user.user.arn
     external_sqs_access_key_id     = aws_iam_access_key.user.id
     external_sqs_secret_access_key = aws_iam_access_key.user.secret
