@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - manage-intelligence.prison.service.justice.gov.uk
-s
+  
