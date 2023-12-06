@@ -41,11 +41,11 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
           "Principal": {"AWS": "*"},
           "Resource": "${module.makeaplea_queue.sqs_arn}",
           "Action": [
-            "SQS:ListQueues",
-            "SQS:GetQueueAttributes",
-            "SQS:SendMessage",
-            "SQS:ReceiveMessage",
-            "SQS:DeleteMessage"
+            "sqs:ListQueues",
+            "sqs:GetQueueAttributes",
+            "sqs:SendMessage",
+            "sqs:ReceiveMessage",
+            "sqs:DeleteMessage"
           ]
         }
       ]
@@ -57,16 +57,11 @@ data "aws_iam_policy_document" "external_user_sqs_access_policy" {
   statement {
     sid = "AllowExternalUserToAccessSQS"
     actions = [
-      "SQS:ListQueues",
-      "SQS:GetQueueAttributes",
-      "SQS:SendMessage",
-      "SQS:ReceiveMessage",
-      "SQS:DeleteMessage"
+      "sqs:*"
     ]
 
     resources = [
-      module.makeaplea_queue.sqs_arn,
-      "${module.makeaplea_queue.sqs_arn}/*"
+      "*"
     ]
   }
 }
