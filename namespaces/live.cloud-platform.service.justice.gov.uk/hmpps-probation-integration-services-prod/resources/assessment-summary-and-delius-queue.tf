@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "assessment-summary-and-delius-queue-subsc
   protocol  = "sqs"
   endpoint  = module.assessment-summary-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["queue.name"]
+    eventType = ["risk-assessment.scores.determined"]
   })
 }
 
