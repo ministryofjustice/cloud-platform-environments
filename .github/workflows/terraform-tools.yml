@@ -1,37 +1,37 @@
-name: terraform-tools
+name: static-anlysis
 
 on:
   push:
-    branches: [ main ]
+    branches: [ tf-static-analysis ]
   pull_request:
   workflow_dispatch:
 
 jobs:
-  tfsec:
+  static-analysis:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: aquasecurity/tfsec-sarif-action@v0.1.4
-        with:
-          tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
-          sarif_file: tfsec.sarif
-      - uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: tfsec.sarif
-  tflint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v3
-        with:
-          path: ~/.tflint.d/plugins
-          key: tflint-${{ hashFiles('.tflint.hcl') }}
-      - uses: terraform-linters/setup-tflint@v4
-      - run: tflint --init -c $(realpath .tflint.hcl)
-        env:
-          GITHUB_TOKEN: ${{ github.token }} # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
       - run: rm -r namespace-resources-cli-template # remove the template from being linted
       - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
-      - run: tflint -c $(realpath .tflint.hcl) -f compact --recursive --only=terraform_comment_syntax --only=terraform_deprecated_index --only=terraform_deprecated_interpolation --only=terraform_documented_outputs --only=terraform_empty_list_equality --only=terraform_module_pinned_source --only=terraform_module_version --only=terraform_required_providers --only=terraform_required_version --only=terraform_unused_required_providers --only=terraform_workspace_remote # enable rules that pass at the current time only, whilst the others are rectified on multiple namespaces (see: https://github.com/terraform-linters/tflint-ruleset-terraform/tree/main/docs/rules)
+      - name: Run Analysis
+        uses: ministryofjustice/github-actions/terraform-static-analysis@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          scan_type: changed
+          tfsec_exclude: AWS095
+          tflint_config: $(realpath .tflint.hcl)
+          tfsec_output_file: tfsec.sarif
+          tfsec_output_format: sarif
+
+  #     - uses: aquasecurity/tfsec-sarif-action@v0.1.4
+  #       with:
+  #         tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
+  #         sarif_file: tfsec.sarif
+      # - uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: tfsec.sarif
+
+  #     - run: tflint -c $(realpath .tflint.hcl) -f compact --recursive --only=terraform_comment_syntax --only=terraform_deprecated_index --only=terraform_deprecated_interpolation --only=terraform_documented_outputs --only=terraform_empty_list_equality --only=terraform_module_pinned_source --only=terraform_module_version --only=terraform_required_providers --only=terraform_required_version --only=terraform_unused_required_providers --only=terraform_workspace_remote # enable rules that pass at the current time only, whilst the others are rectified on multiple namespaces (see: https://github.com/terraform-linters/tflint-ruleset-terraform/tree/main/docs/rules)
