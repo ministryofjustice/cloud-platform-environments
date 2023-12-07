@@ -67,3 +67,10 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "random_string" {
+  type        = string
+  description = "Required by the GitHub Terraform provider"
+  default     = "1234"
+}
+
