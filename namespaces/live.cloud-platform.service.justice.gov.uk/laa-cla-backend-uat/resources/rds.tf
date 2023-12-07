@@ -49,7 +49,7 @@ module "cla_backend_rds_postgres_14" {
   }
 }
 
-module "cla_backend_eligibility_integration_rds_postgres_14" {
+module "cla_backend_cfe_integration_rds_postgres_14" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
@@ -76,8 +76,6 @@ module "cla_backend_eligibility_integration_rds_postgres_14" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
-  snapshot_identifier = "eligibility-int-uat"
-
   db_parameter = [
     {
       name         = "rds.force_ssl"
@@ -89,23 +87,6 @@ module "cla_backend_eligibility_integration_rds_postgres_14" {
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
-  }
-}
-
-resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
-  metadata {
-    name      = "database-14"
-    namespace = var.namespace
-  }
-
-  data = {
-    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_rds_postgres_14.database_name
-    user              = module.cla_backend_rds_postgres_14.database_username
-    password          = module.cla_backend_rds_postgres_14.database_password
-    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
   }
 }
 
@@ -136,6 +117,22 @@ module "cla_backend_metabase_rds" {
   }
 }
 
+resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
+  metadata {
+    name      = "database-14"
+    namespace = var.namespace
+  }
+
+  data = {
+    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host              = module.cla_backend_rds_postgres_14.rds_instance_address
+    port              = module.cla_backend_rds_postgres_14.rds_instance_port
+    name              = module.cla_backend_rds_postgres_14.database_name
+    user              = module.cla_backend_rds_postgres_14.database_username
+    password          = module.cla_backend_rds_postgres_14.database_password
+    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
+  }
+}
 resource "kubernetes_secret" "cla_backend_metabase_rds" {
   metadata {
     name      = "metabase"
@@ -159,20 +156,20 @@ resource "kubernetes_secret" "cla_backend_metabase_rds" {
   }
 }
 
-resource "kubernetes_secret" "cla_backend_eligibility_integration_rds_postgres_14" {
+resource "kubernetes_secret" "cla_backend_cfe_integration_rds_postgres_14" {
   metadata {
     name      = "eligibility-integration-database-14"
     namespace = var.namespace
   }
 
   data = {
-    endpoint          = module.cla_backend_eligibility_integration_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_eligibility_integration_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_eligibility_integration_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_eligibility_integration_rds_postgres_14.database_name
-    user              = module.cla_backend_eligibility_integration_rds_postgres_14.database_username
-    password          = module.cla_backend_eligibility_integration_rds_postgres_14.database_password
-    db_identifier     = module.cla_backend_eligibility_integration_rds_postgres_14.db_identifier
+    endpoint          = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_endpoint
+    host              = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_address
+    port              = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_port
+    name              = module.cla_backend_cfe_integration_rds_postgres_14.database_name
+    user              = module.cla_backend_cfe_integration_rds_postgres_14.database_username
+    password          = module.cla_backend_cfe_integration_rds_postgres_14.database_password
+    db_identifier     = module.cla_backend_cfe_integration_rds_postgres_14.db_identifier
   }
 
 }
