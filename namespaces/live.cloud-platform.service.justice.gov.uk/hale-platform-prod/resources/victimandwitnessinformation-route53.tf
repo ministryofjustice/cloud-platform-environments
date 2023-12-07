@@ -1,5 +1,5 @@
-resource "aws_route53_zone" "casetracker_route53_zone" {
-  name = "casetracker.justice.gov.uk"
+resource "aws_route53_zone" "victimandwitnessinformation_route53_zone" {
+  name = "victimandwitnessinformation.org.uk"
 
   tags = {
     business-unit          = var.business_unit
@@ -8,17 +8,16 @@ resource "aws_route53_zone" "casetracker_route53_zone" {
     environment-name       = var.environment
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
   }
 }
 
-resource "kubernetes_secret" "casetracker_route53_zone_sec" {
+resource "kubernetes_secret" "victimandwitnessinformation_route53_zone_sec" {
   metadata {
-    name      = "casetracker-route53-zone-output"
+    name      = "victimandwitnessinformation-route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id = aws_route53_zone.casetracker_route53_zone.zone_id
+    zone_id = aws_route53_zone.victimandwitnessinformation_route53_zone.zone_id
   }
 }

@@ -11,12 +11,12 @@ module "drupal_rds" {
   infrastructure_support = var.infrastructure_support
 
   # This is the normal setting for staging.
-#  db_instance_class      = "db.t4g.large"
+  db_instance_class      = "db.t4g.large"
 
   # This setting is to flex staging up to match production.
   # This should only be used when setting staging up for load testing, so it accurately
   # matches production and therefore is an accurate prediction of prod behaviour.
-  db_instance_class      = "db.t4g.xlarge"
+#  db_instance_class      = "db.t4g.xlarge"
 
   db_engine                = "mariadb"
   db_engine_version        = "10.4"

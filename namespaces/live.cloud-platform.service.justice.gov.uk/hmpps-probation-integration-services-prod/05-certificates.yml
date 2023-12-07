@@ -509,3 +509,18 @@ spec:
   dnsNames:
     - 7235bdbc.hmpps.service.justice.gov.uk
     - prison-identifier-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: assessment-summary-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: assessment-summary-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - ee78b0dc.hmpps.service.justice.gov.uk
+    - assessment-summary-and-delius.hmpps.service.justice.gov.uk
