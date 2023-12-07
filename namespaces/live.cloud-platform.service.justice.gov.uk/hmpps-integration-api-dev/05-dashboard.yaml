@@ -64,10 +64,9 @@ data:
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "type": "cloudwatch",
+            "uid": "P896B4444D3F0DAB8"
           },
-          "description": "The number of HTTP requests by status",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -76,36 +75,34 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Number of requests",
+                "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
+                "drawStyle": "line",
+                "fillOpacity": 0,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
-                "lineInterpolation": "stepAfter",
-                "lineWidth": 2,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "showPoints": "never",
+                "showPoints": "auto",
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
-                  "mode": "normal"
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -118,49 +115,271 @@ data:
                     "value": 80
                   }
                 ]
-              },
-              "unit": "short"
+              }
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 8,
             "w": 20,
             "x": 0,
             "y": 0
           },
-          "id": 15,
+          "id": 36,
           "options": {
             "legend": {
-              "calcs": [
-                "sum"
-              ],
-              "displayMode": "table",
-              "placement": "right",
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
               "showLegend": true
             },
             "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
+              "mode": "single",
+              "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
               },
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__interval])\n) by (status) != 0",
-              "interval": "1m",
-              "legendFormat": "{{status}}",
-              "range": true,
-              "refId": "B"
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "id": "",
+              "label": "4xxError",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "4XXError",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "5xxError",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "5XXError",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "ClientError",
+              "matchExact": false,
+              "metricEditorMode": 0,
+              "metricName": "ClientError",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "ConnectCount",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ConnectCount",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "D",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "RequestCount",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "Count",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "E",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "ExecutionError",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ExecutionError",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "F",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "IntegrationError",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "IntegrationError",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "G",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "IntegrationLatency",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "IntegrationLatency",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "H",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "Latency",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "Latency",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "I",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "ApiName": "hmpps-integration-api-dev"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "Latency",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "Latency",
+              "metricQueryType": 0,
+              "namespace": "AWS/ApiGateway",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "J",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
             }
           ],
-          "title": "Requests",
+          "title": "Panel Title",
           "type": "timeseries"
         },
         {
@@ -367,6 +586,107 @@ data:
             "type": "prometheus",
             "uid": "${DS_THANOS}"
           },
+          "description": "The number of HTTP requests by status",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Number of requests",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 20,
+            "x": 0,
+            "y": 8
+          },
+          "id": 15,
+          "options": {
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "9.2.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_THANOS}"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__interval])\n) by (status) != 0",
+              "interval": "1m",
+              "legendFormat": "{{status}}",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Requests",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_THANOS}"
+          },
           "description": "The mean response time (p50 - the 50th percentile requests) over the selected timeframe.",
           "fieldConfig": {
             "defaults": {
@@ -495,7 +815,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 10
+            "y": 18
           },
           "id": 16,
           "options": {
@@ -594,7 +914,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 10
+            "y": 18
           },
           "id": 17,
           "options": {
@@ -721,7 +1041,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 10
+            "y": 18
           },
           "id": 18,
           "options": {
@@ -872,7 +1192,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 18
+            "y": 26
           },
           "id": 26,
           "options": {
@@ -986,7 +1306,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 18
+            "y": 26
           },
           "id": 19,
           "options": {
@@ -1083,7 +1403,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 18
+            "y": 26
           },
           "id": 22,
           "options": {
@@ -1163,7 +1483,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1192,7 +1513,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 26
+            "y": 34
           },
           "id": 24,
           "options": {
@@ -1284,7 +1605,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1300,7 +1622,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 26
+            "y": 34
           },
           "id": 20,
           "options": {
@@ -1380,7 +1702,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1396,7 +1719,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 26
+            "y": 34
           },
           "id": 23,
           "options": {
@@ -1477,7 +1800,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1493,7 +1817,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 34
+            "y": 42
           },
           "id": 21,
           "options": {
@@ -1573,7 +1897,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1589,7 +1914,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 34
+            "y": 42
           },
           "id": 31,
           "options": {
@@ -1672,7 +1997,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1688,7 +2014,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 34
+            "y": 42
           },
           "id": 32,
           "options": {
@@ -1733,7 +2059,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "hmpps-integration-api-dev",
               "value": "hmpps-integration-api-dev"
             },
@@ -1854,9 +2180,10 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "HMPPS Integration API Dev",
-      "uid": "hmpps-integration-api-dev",
-      "version": 3
+      "title": "Golden Signals",
+      "uid": "golden-signals",
+      "version": 3,
+      "weekStart": ""
     }
 kind: ConfigMap
 metadata:
