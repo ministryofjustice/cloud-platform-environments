@@ -71,5 +71,5 @@ variable "github_token" {
 variable "random" {
   type        = string
   description = "Required by the GitHub Terraform provider"
-  default     = "test1"
+  default     = "test"
 }
