@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "bob@bob.com"
+  default     = "laa_ops@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -66,4 +66,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "For setting up secrets in secrets.tf"
 }
