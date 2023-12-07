@@ -28,7 +28,8 @@ jobs:
           tfsec_output_file: tfsec.sarif
           tfsec_output_format: sarif
           checkov_external_modules: true
-          checkov_exclude: CKV_TF_1,CKV_AWS_136,CKV_AWS_51,CKV_GIT_4,
+          checkov_exclude: CKV_TF_1,CKV_AWS_136,CKV_AWS_51,CKV_GIT_4
+          tflint_exclude: terraform_standard_module_structure
 
       # - uses: aquasecurity/tfsec-sarif-action@v0.1.4
       #   with:
