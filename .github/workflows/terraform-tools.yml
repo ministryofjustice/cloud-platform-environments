@@ -2,7 +2,7 @@ name: terraform-tools
 
 on:
   push:
-    branches: [ tfsec-tweak ]
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
 
