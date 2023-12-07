@@ -1,8 +1,3 @@
-variable "vpc_name" {
-  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
-  type        = string
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -66,10 +61,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "random" {
-  type        = string
-  description = "Required by the GitHub Terraform provider"
-  default     = "test"
 }
