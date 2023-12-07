@@ -1860,7 +1860,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: hmpps-integration-api-preprod-dashboard
+  name: Hmpps Integration API Preprod dashboard
   namespace: hmpps-integration-api-preprod
   labels:
     grafana_dashboard: "hmpps-integration-api-preprod"
