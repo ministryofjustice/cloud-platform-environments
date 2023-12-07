@@ -14,6 +14,11 @@ variable "application" {
   default     = "manage-intelligence"
 }
 
+variable "number_cache_clusters" {
+  description = "Elasticache cache cluster number"
+  default     = 2
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
@@ -35,7 +40,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -66,4 +71,7 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
 }
