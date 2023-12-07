@@ -35,7 +35,8 @@ module "serviceaccount" {
         "extensions",
         "apps",
         "monitoring.coreos.com",
-        "networking.k8s.io"
+        "networking.k8s.io",
+        "batch"
       ]
       resources = [
         "deployments",
