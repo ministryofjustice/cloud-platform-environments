@@ -23,7 +23,7 @@ jobs:
         run: |
            mkdir -p .tfsec
            for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              cp --parent $file .tfsec | true
+              cp -r $file .tfsec | true
            done
            ls .tfsec -latr
       - uses: aquasecurity/tfsec-sarif-action@v0.1.4
