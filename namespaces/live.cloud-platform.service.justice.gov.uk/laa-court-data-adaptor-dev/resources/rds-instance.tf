@@ -12,7 +12,8 @@ module "court_data_adaptor_rds" {
 
   rds_family                  = "postgres14"
   db_engine_version           = "14"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
 
