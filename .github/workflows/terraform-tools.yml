@@ -27,6 +27,7 @@ jobs:
           tflint_config: $(realpath .tflint.hcl)
           tfsec_output_file: tfsec.sarif
           tfsec_output_format: sarif
+          checkov_external_modules: true
 
       # - uses: aquasecurity/tfsec-sarif-action@v0.1.4
       #   with:
