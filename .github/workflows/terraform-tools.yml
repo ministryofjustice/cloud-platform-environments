@@ -13,8 +13,10 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      # - run: rm -r namespace-resources-cli-template # remove the template from being linted
-      # - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
+        with:
+          fetch-depth: 0
+      - run: rm -r namespace-resources-cli-template # remove the template from being linted
+      - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
       - name: Run Analysis
         uses: ministryofjustice/github-actions/terraform-static-analysis@main
         env:
