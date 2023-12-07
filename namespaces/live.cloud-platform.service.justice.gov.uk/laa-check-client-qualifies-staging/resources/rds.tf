@@ -106,34 +106,6 @@ module "read_replica" {
   # ]
 }
 
-
-module "ccq_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
-  vpc_name      = var.vpc_name
-  team_name     = var.team_name
-  business_unit = var.business_unit
-  application   = var.application
-  is_production = var.is_production
-  namespace     = var.namespace
-
-  db_name                = "metabase"
-  db_engine_version      = "15"
-  db_instance_class      = "db.t4g.micro"
-  db_allocated_storage   = "5"
-  db_max_allocated_storage = "500"
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-
-  rds_family = "postgres15"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
-
-  providers = {
-    aws = aws.london
-  }
-}
-
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
@@ -147,13 +119,10 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+
+    # jdbc:postgresql://host:port/name?user=user&password=password
+    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
   }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
 }
 
 
@@ -175,29 +144,6 @@ resource "kubernetes_secret" "read_replica" {
     rds_instance_address  = module.read_replica.rds_instance_address
   }
   */
-}
-
-resource "kubernetes_secret" "ccq_metabase_rds" {
-  metadata {
-    name      = "metabase"
-    namespace = var.namespace
-  }
-
-  data = {
-    endpoint      = module.ccq_metabase_rds.rds_instance_endpoint
-    host          = module.ccq_metabase_rds.rds_instance_address
-    port          = module.ccq_metabase_rds.rds_instance_port
-    name          = module.ccq_metabase_rds.database_name
-    user          = module.ccq_metabase_rds.database_username
-    password      = module.ccq_metabase_rds.database_password
-    db_identifier = module.ccq_metabase_rds.db_identifier
-
-    # postgres://user:password@host:port/name
-    url = "postgres://${module.ccq_metabase_rds.database_username}:${module.ccq_metabase_rds.database_password}@${module.ccq_metabase_rds.rds_instance_endpoint}/${module.ccq_metabase_rds.database_name}"
-
-    # jdbc:postgresql://host:port/name?user=user&password=password
-    jdbc_url = "jdbc:postgresql://${module.ccq_metabase_rds.rds_instance_endpoint}/${module.ccq_metabase_rds.database_name}?user=${module.ccq_metabase_rds.database_username}&password=${module.ccq_metabase_rds.database_password}"
-  }
 }
 
 # Configmap to store non-sensitive data related to the RDS instance
