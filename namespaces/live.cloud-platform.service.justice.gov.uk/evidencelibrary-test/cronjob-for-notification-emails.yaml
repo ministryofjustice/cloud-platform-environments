@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: evidence-library-test--send-email-notifications
+spec:
+  #scheduled to run at 1am, Tuesday (for Monday's articles) - Saturday (for Friday's articles)
+  schedule: "0 1 * * 2-6"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 100
+      template:
+        spec:
+          containers:
+          - name: evidence-library-test--send-email-notifications
+            image: curlimages/curl:8.5.0
+            args:
+            - /bin/sh
+            - -c
+            - curl -X POST https://$POD_NAMESPACE$ENDPOINT_URL
+            env:
+              - name: POD_NAMESPACE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.namespace
+              - name: ENDPOINT_URL
+                value: "/Subscription/SendSubscriptionEmails"
+              
+          restartPolicy: OnFailure
