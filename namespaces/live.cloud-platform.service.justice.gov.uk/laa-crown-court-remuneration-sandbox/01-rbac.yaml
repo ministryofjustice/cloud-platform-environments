@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-crown-court-remuneration-sandbox-admin
+  namespace: laa-crown-court-remuneration-sandbox
+subjects:
+  - kind: Group
+    name: "github:laaops"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

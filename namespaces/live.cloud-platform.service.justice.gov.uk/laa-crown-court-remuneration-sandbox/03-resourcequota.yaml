@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: laa-crown-court-remuneration-sandbox
+spec:
+  hard:
+    pods: "50"
