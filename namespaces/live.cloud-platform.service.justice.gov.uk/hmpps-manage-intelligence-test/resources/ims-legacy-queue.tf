@@ -215,7 +215,7 @@ module "ims_test_generator_suite_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                   = "ims_test_generator_suite_queue_${var.environment-name}"
+  sqs_name                   = "ims_test_generator_suite_queue_${var.environment}"
   fifo_queue                 = false
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -246,7 +246,7 @@ module "ims_generator_suite_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "ims_generator_suite_dl_queue_${var.environment-name}"
+  sqs_name        = "ims_generator_suite_dl_queue_${var.environment}"
   fifo_queue      = false
   encrypt_sqs_kms = "true"
 
