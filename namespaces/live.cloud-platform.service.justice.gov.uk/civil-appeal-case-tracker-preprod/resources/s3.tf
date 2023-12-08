@@ -14,6 +14,8 @@ module "s3_bucket" {
   environment_name              = var.environment
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
+
+  enable_allow_block_pub_access = false
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
