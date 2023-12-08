@@ -1,6 +1,6 @@
 resource "aws_iam_user" "ims_extractor_user" {
-  name = "hmpps-manage-intelligence-preprod-extractor-user"
-  path = "/system/hmpps-manage-intelligence-preprod-users/"
+  name = "hmpps-manage-intelligence-prod-extractor-user"
+  path = "/system/hmpps-manage-intelligence-prod-users/"
 }
 
 resource "aws_iam_access_key" "key_2023" {
@@ -37,14 +37,14 @@ data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
 }
 
 resource "aws_iam_user_policy" "ims_extractor_policy" {
-  name   = "hmpps-manage-intelligence-legacy-extractor-policy-preprod"
+  name   = "hmpps-manage-intelligence-legacy-extractor-policy-prod"
   policy = data.aws_iam_policy_document.ims_legacy_extractor_policy.json
   user   = aws_iam_user.ims_extractor_user.name
 }
 
 resource "kubernetes_secret" "ims_legacy_extractor_user" {
   metadata {
-    name      = "ims-extractor-user-preprod"
+    name      = "ims-extractor-user-prod"
     namespace = var.namespace
   }
 
