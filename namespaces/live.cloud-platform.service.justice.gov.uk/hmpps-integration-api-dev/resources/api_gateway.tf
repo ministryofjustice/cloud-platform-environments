@@ -154,6 +154,10 @@ resource "aws_api_gateway_usage_plan" "default" {
     api_id = aws_api_gateway_rest_api.api_gateway.id
     stage  = aws_api_gateway_stage.main.stage_name
   }
+
+  throttle_settings {
+    rate_limit = 5
+  }
 }
 
 resource "aws_api_gateway_usage_plan_key" "clients" {
