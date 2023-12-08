@@ -2,7 +2,7 @@ name: static-anlysis
 
 on:
   push:
-    branches: [ tf-static-analysis ]
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
 
@@ -30,12 +30,3 @@ jobs:
           checkov_external_modules: true
           checkov_exclude: CKV_TF_1,CKV_AWS_136,CKV_AWS_51,CKV_GIT_4
           tflint_exclude: terraform_standard_module_structure
-
-      # - uses: aquasecurity/tfsec-sarif-action@v0.1.4
-      #   with:
-      #     tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
-      #     sarif_file: tfsec.sarif
-      # - uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: tfsec.sarif
-      # - run: tflint -c $(realpath .tflint.hcl) -f compact --recursive --only=terraform_comment_syntax --only=terraform_deprecated_index --only=terraform_deprecated_interpolation --only=terraform_documented_outputs --only=terraform_empty_list_equality --only=terraform_module_pinned_source --only=terraform_module_version --only=terraform_required_providers --only=terraform_required_version --only=terraform_unused_required_providers --only=terraform_workspace_remote # enable rules that pass at the current time only, whilst the others are rectified on multiple namespaces (see: https://github.com/terraform-linters/tflint-ruleset-terraform/tree/main/docs/rules)
