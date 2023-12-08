@@ -2180,14 +2180,14 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Golden Signals",
-      "uid": "golden-signals",
-      "version": 3,
+      "title": "HMPPS Integration API Development",
+      "uid": "hmpps-integration-api-dev",
+      "version": 1
       "weekStart": ""
     }
 kind: ConfigMap
 metadata:
-  name: Hmpps Integration API Dashboard Dev
+  name: hmpps-integration-api-dashboard-dev
   namespace: hmpps-integration-api-dev
   labels:
     grafana_dashboard: "hmpps-integration-api-dev"
