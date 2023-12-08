@@ -6,14 +6,34 @@
  */
 module "s3_bucket" {
 
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
-  team_name                     = var.team_name
-  business_unit                 = var.business_unit
-  application                   = var.application
-  is_production                 = var.is_production
-  environment_name              = var.environment
-  infrastructure_support        = var.infrastructure_support
-  namespace                     = var.namespace
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  bucket_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": [
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
+    EOF
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
