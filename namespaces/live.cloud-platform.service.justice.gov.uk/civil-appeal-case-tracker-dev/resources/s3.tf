@@ -22,21 +22,6 @@ module "s3_bucket" {
         {
           "Effect": "Allow",
           "Principal": {
-            "AWS": [
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/matt-k1998",
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/matthewsearle01"
-            ]
-          },
-          "Action": [
-            "s3:PutObject"
-          ],
-          "Resource": [
-            "$${bucket_arn}/*"
-          ]
-        },
-        {
-          "Effect": "Allow",
-          "Principal": {
             "AWS": "*"
           },
           "Action": [
