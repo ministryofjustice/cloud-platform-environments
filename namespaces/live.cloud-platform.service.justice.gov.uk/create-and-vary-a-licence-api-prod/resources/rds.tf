@@ -14,6 +14,7 @@ module "create_and_vary_a_licence_api_rds" {
   db_engine_version           = "14.7"
   rds_family                  = "postgres14"
   db_password_rotated_date    = "13-04-2023"
+  db_allocated_storage        = 20
 
   providers = {
     aws = aws.london
