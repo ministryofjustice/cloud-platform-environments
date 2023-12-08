@@ -379,7 +379,7 @@ data:
               "statistic": "Sum"
             }
           ],
-          "title": "Panel Title",
+          "title": "API Gateway",
           "type": "timeseries"
         },
         {
@@ -2182,12 +2182,12 @@ data:
       "timezone": "browser",
       "title": "HMPPS Integration API Development",
       "uid": "hmpps-integration-api-dev",
-      "version": 1
+      "version": 1,
       "weekStart": ""
     }
 kind: ConfigMap
 metadata:
-  name: hmpps-integration-api-dashboard-dev
+  name: hmpps-integration-api-dev
   namespace: hmpps-integration-api-dev
   labels:
     grafana_dashboard: "hmpps-integration-api-dev"
