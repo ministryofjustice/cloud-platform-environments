@@ -58,3 +58,8 @@ variable "github_token" {
 # Added during introduction of IRSA capability (IAM roles for service accounts)
 variable "eks_cluster_name" {
 }
+
+variable "deletion_protection" {
+  description = "Whether to enable deletion protection for the ECR repository"
+  default     = "false"
+}
