@@ -13,8 +13,22 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          dir_names: true
+          dir_names_exclude_current_dir: true
+      - name: List of changed files
+        run: |
+           mkdir -p .tfsec
+           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+              cp -r $file .tfsec | true
+           done
+           ls .tfsec -latr
       - uses: aquasecurity/tfsec-sarif-action@v0.1.4
         with:
+          working_directory: .tfsec
           tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
           sarif_file: tfsec.sarif
       - uses: github/codeql-action/upload-sarif@v2
