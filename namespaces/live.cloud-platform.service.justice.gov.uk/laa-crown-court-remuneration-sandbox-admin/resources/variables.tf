@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-crown-court-remuneration-sandbox"
+  default     = "laa-crown-court-remuneration-sandbox-admin"
 }
 
 variable "business_unit" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laaops"
+  default     = "laa-aws-infrastructure"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-ops@digital.justice.gov.uk"
+  default     = "laa_opps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
