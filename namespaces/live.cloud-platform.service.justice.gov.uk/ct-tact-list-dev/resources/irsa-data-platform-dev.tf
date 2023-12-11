@@ -41,7 +41,7 @@ module "irsa-superset" {
 
 resource "kubernetes_secret" "irsa-superset" {
   metadata {
-    name      = "${var.team_name}-irsa"
+    name      = "${var.team_name}-irsa-superset"
     namespace = var.namespace
   }
   data = {
