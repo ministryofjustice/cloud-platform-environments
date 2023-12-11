@@ -12,6 +12,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "incident-reporting-service-dev"
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Incident Reporting Service"
-    cloud-platform.justice.gov.uk/owner: "HMPPS Incident Reporting Service: non-associations-team@digital.justice.gov.uk"  # TODO: change once there is a team email address
+    cloud-platform.justice.gov.uk/owner: "HMPPS Incident Reporting Service: incident-reporting-service@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-incident-reporting-api.git,https://github.com/ministryofjustice/hmpps-incident-reporting.git"
     cloud-platform.justice.gov.uk/team-name: "hmpps-incident-reporting"
