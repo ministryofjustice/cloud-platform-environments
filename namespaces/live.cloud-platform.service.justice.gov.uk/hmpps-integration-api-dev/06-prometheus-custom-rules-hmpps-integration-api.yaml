@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: hmpps-integration-api-dev
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-hmpps-integration-api
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: API Gateway 4XX > 0
+          expr: <alert_query>
+          for: <check_time_length>
+          labels:
+            severity: <custom_severity_level>
+          annotations:
+            message: <alert_message>
+            runbook_url: <http://my-support-docs>
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/hmpps-integration-api-dev/hmpps-integration-api-development?orgId=1
