@@ -41,7 +41,7 @@ resource "kubernetes_secret" "irsa" {
   data = {
     role           = module.irsa.role_name
     serviceaccount = module.irsa.service_account.name
-    rolearn        = module.irsa.role_policy_arns
+    rolearn        = module.irsa.role_arn
   }
 }
 
