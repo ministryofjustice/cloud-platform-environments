@@ -44,7 +44,7 @@ module "rds-instance" {
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
-    name      = "rds-instance-calculate-journey-variable-payments-${var.environment-name}"
+    name      = "rds-instance-calculate-journey-variable-payments-${var.environment}"
     namespace = var.namespace
   }
 
