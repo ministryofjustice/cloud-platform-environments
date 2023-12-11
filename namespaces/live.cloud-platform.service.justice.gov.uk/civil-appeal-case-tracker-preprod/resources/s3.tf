@@ -14,6 +14,28 @@ module "s3_bucket" {
   environment_name              = var.environment
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
+
+  enable_allow_block_pub_access = false
+
+  bucket_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": [
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
+    EOF
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
