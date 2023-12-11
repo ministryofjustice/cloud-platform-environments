@@ -6,7 +6,7 @@ module "secrets_manager" {
   business_unit          = var.business_unit
   is_production          = var.is_production
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   eks_cluster_name       = var.eks_cluster_name
 
