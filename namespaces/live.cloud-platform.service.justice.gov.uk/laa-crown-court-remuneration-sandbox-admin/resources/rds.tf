@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance/tree/add-oracle"
+  source   =  "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=add-oracle"
   vpc_name = var.vpc_name
 
   application            = var.application
