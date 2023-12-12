@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "document" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::${var.dp_dev_account}:role/${var.namespace}",
+      "arn:aws:iam::${var.dp_dev_account}:role/ap-firebreak-superset",
     ]
   }
 }
@@ -16,15 +16,15 @@ resource "aws_iam_policy" "policy" {
   description = "Policy for Cloud Platform Superset demo to assume role in data platform dev account"
 }
 
-module "irsa" {
+module "irsa-superset" {
   #always replace with latest version from Github
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  
+
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment}"
+  service_account_name = "${var.team_name}-superset-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     s3 = aws_iam_policy.policy.arn
@@ -39,13 +39,13 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "irsa-superset" {
   metadata {
-    name      = "${var.team_name}-irsa"
+    name      = "${var.team_name}-irsa-superset"
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    role           = module.irsa-superset.role_name
+    serviceaccount = module.irsa-superset.service_account.name
   }
 }
