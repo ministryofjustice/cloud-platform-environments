@@ -19,6 +19,7 @@ module "rds-instance" {
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   db_max_allocated_storage = "500"
+  db_name                  = "CCR"
   license_model = "license-included"
   db_iops = 0
   character_set_name = "WE8MSWIN1252"   # problem  
