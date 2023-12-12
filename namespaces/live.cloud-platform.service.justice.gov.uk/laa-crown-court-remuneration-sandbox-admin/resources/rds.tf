@@ -33,13 +33,6 @@ module "rds-instance" {
     aws = aws.london
   }
 
- /* db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "0"
-      apply_method = "immediate"
-    }
-  ]*/
 }
 
 resource "kubernetes_secret" "rds-instance" {
