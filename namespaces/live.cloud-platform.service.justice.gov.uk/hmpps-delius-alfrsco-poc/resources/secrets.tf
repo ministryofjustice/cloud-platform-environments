@@ -4,13 +4,7 @@ module "secret" {
   eks_cluster_name = var.eks_cluster_name
 
   # Secrets configuration
-  secrets = {
-    "alfresco-license" = {
-      description             = "Contents of Alfresco .lic file"
-      recovery_window_in_days = 14
-      k8s_secret_name         = "alfresco-license"
-    },
-  }
+  secrets = {}
 
   # Tags
   business_unit          = var.business_unit
