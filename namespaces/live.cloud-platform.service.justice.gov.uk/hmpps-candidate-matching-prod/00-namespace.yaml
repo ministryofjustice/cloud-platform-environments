@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hmpps-candidate-matching-prod"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "prison-education"
+    cloud-platform.justice.gov.uk/application: "Candidate Matching Service"
+    cloud-platform.justice.gov.uk/owner: "Education Skills Work Employment: managing.eswe@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-candidate-matching-ui.git"
+    cloud-platform.justice.gov.uk/team-name: "education-skills-work-employment"
+    cloud-platform.justice.gov.uk/review-after: ""
