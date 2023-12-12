@@ -33,6 +33,9 @@ module "rds-instance" {
     aws = aws.london
   }
 
+  # passing emplty list as oracle repo has parameter defined 
+  db_parameter = []
+
 }
 
 resource "kubernetes_secret" "rds-instance" {
