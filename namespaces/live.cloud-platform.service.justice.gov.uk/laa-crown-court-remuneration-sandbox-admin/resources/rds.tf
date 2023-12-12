@@ -33,13 +33,9 @@ module "rds-instance" {
     aws = aws.london
   }
 
-  db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "0"
-      apply_method = "immediate"
-    }
-  ]
+  # passing emplty list as oracle repo has parameter defined 
+  db_parameter = []
+
 }
 
 resource "kubernetes_secret" "rds-instance" {
