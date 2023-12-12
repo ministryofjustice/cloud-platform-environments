@@ -10,6 +10,7 @@ ingress:
     nginx.ingress.kubernetes.io/custom-http-errors: "404"
     external-dns.alpha.kubernetes.io/set-identifier: ${external_dns}
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/server-snippet: location = /metrics { deny all; }
   path: /
   hosts: 
     - host: ${host_name}
