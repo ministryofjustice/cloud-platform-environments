@@ -36,7 +36,40 @@ module "rds-instance" {
   # passing emplty list as oracle repo has parameter defined 
   db_parameter = []
 
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  
 }
+
+
+# Get VPC id
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+# Additional RDS SG
+resource "aws_security_group" "rds" {
+  name          = "${var.namespace}-RDS-${var.environment}"
+  description   = "RDS VPC Security Group for  Ingress Traffic"
+  vpc_id        = data.aws_vpc.selected.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "rule" {
+  cidr_blocks       = ["10.200.0.0/20"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
+
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
