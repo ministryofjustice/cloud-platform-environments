@@ -18,15 +18,16 @@ jobs:
       - run: rm -r namespace-resources-cli-template # remove the template from being linted
       - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
       - name: Run Analysis
-        uses: ministryofjustice/github-actions/terraform-static-analysis@main
+        uses: ministryofjustice/github-actions/terraform-static-analysis@debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          scan_type: changed
+          tfsec_trivy: tfsec
+          checkov_run: false
+          scan_type: full
           tfsec_exclude: AWS095
-          tflint_config: $(realpath .tflint.hcl)
+          tflint_config: tflint.aws.tf.hcl
           tfsec_output_file: tfsec.sarif
           tfsec_output_format: sarif
           checkov_external_modules: true
           checkov_exclude: CKV_TF_1,CKV_AWS_136,CKV_AWS_51,CKV_GIT_4
-          tflint_exclude: terraform_standard_module_structure
