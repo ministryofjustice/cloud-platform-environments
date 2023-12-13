@@ -55,48 +55,16 @@ data "aws_iam_policy_document" "ap_access" {
   }
 }
 
-# tflint-ignore: all
-resource "random_id" "id" {
-  byte_length = 16
-}
-
-resource "aws_iam_user" "user" {
-  name = "ap-s3-bucket-user-${random_id.id.hex}"
-  path = "/system/ap-s3-bucket-user/"
-}
-
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
-}
-
-resource "aws_iam_user_policy" "policy" {
-  name   = "${var.namespace}-ap-s3-snapshots"
-  policy = data.aws_iam_policy_document.ap_access.json
-  user   = aws_iam_user.user.name
-}
-
-resource "kubernetes_secret" "ap_aws_secret" {
-  metadata {
-    name      = "analytical-platform-reporting-s3-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    destination_bucket = "s3://moj-reg-preprod/landing/${var.namespace}/"
-    user_arn           = aws_iam_user.user.arn
-    access_key_id      = aws_iam_access_key.user.id
-    secret_access_key  = aws_iam_access_key.user.secret
-  }
-}
-
 resource "kubernetes_secret" "ap_irsa" {
   metadata {
-    name      = "to-ap-s3-irsa"
+    name      = "analytical-platform-reporting-s3-irsa"
     namespace = var.namespace
   }
 
   data = {
-    role           = module.ap_irsa.role_name
-    serviceaccount = module.ap_irsa.service_account.name
+    role               = module.ap_irsa.role_name
+    serviceaccount     = module.ap_irsa.service_account.name
+    rolearn            = module.ap_irsa.role_arn
+    destination_bucket = "s3://moj-reg-preprod/landing/${var.namespace}/"
   }
 }
