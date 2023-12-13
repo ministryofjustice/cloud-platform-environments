@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: laa-decide-civil-legal-aid-ccms-connector-uat
-spec:
-  hard:
-    pods: "50"
