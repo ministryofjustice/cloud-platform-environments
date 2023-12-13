@@ -24,10 +24,6 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-   providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
