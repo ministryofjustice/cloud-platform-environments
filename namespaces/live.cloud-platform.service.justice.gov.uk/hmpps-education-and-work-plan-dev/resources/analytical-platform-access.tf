@@ -64,7 +64,7 @@ resource "kubernetes_secret" "ap_irsa" {
   data = {
     role               = module.ap_irsa.role_name
     serviceaccount     = module.ap_irsa.service_account.name
-    rolearn            = module.irsa.role_arn
+    rolearn            = module.ap_irsa.role_arn
     destination_bucket = "s3://moj-reg-dev/landing/${var.namespace}/"
   }
 }
