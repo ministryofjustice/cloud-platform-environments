@@ -5,6 +5,9 @@ metadata:
   namespace: hmpps-candidate-matching-dev
 subjects:
   - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:education-skills-work-employment"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
