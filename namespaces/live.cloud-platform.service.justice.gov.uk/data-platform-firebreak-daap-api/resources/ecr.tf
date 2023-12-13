@@ -7,6 +7,8 @@
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
+  repo_name = var.namespace
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["data-platform-firebreak-python-api"]
