@@ -1,14 +1,8 @@
-name: devsec
-
-# on:
-#   schedule:
-#     - cron: '0 * * * *'
+name: devsec-scan
 
 on:
-  push:
-    branches: [ tfsec-improvements ]
-  pull_request:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   devsec:
