@@ -3,6 +3,19 @@ resource "aws_sns_topic_subscription" "domain_events" {
   topic_arn = data.aws_ssm_parameter.domain_events_topic_arn.value
   protocol  = "sqs"
   endpoint  = module.domain_events_sqs_queue.sqs_arn
+
+  filter_policy = jsonencode({
+    eventType = [
+      "offender-management.noop",
+      "prisoner-offender-search.prisoner.updated",
+      "probation-case.registration.added",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered",
+      "probation-case.registration.updated",
+      "tier.calculation.complete",
+      "OFFENDER_MANAGER_CHANGED"
+    ]
+  })
 }
 
 module "domain_events_sqs_queue" {
