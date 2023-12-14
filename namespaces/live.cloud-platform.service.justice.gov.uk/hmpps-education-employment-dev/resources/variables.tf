@@ -65,3 +65,9 @@ variable "number_cache_clusters" {
 variable "rds_family" {
   default = "postgres14"
 }
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required MP DPR Traffic ingress into DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

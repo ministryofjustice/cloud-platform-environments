@@ -1,3 +1,8 @@
+# Retrieve mp_dps_sg_name SG group ID
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
 module "edu_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name                    = var.vpc_name
@@ -14,6 +19,7 @@ module "edu_rds" {
   db_max_allocated_storage    = "500"
   db_engine_version           = "14"
   enable_rds_auto_start_stop  = true
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   providers = {
     aws = aws.london
