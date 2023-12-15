@@ -2,7 +2,7 @@ name: devsec-scan
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 */4 * * 1-5'
 
 jobs:
   devsec:
