@@ -10,25 +10,19 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "azure_client_id" = {
-      description             = "Client ID for Azure application connection",
+    "azure_app_client_id" = {
+      description             = "App (client) ID for Azure app connection, app",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "azure-client-id"
+      k8s_secret_name         = "azure-app-client-id"
     },
-    "azure_client_secret" = {
-      description             = "Client secret for Azure application connection",
+    "azure_openapi_client_id" = {
+      description             = "App (client) ID for Azure app connection, OpenAPI",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "azure-secret"
+      k8s_secret_name         = "azure-openapi-client-id"
     },
     "azure_tenant_id" = {
-      description             = "Azure tenant ID",
+      description             = "Azure directory (tenant) ID",
       recovery_window_in_days = 7,
       k8s_secret_name         = "azure-tenant-id"
     },
-    "azure_app_id" = {
-      description             = "Application ID in Azure",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "azure-app-id"
-    },
-  }
 }
