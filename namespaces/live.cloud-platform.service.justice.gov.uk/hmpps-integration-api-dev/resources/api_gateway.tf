@@ -207,11 +207,8 @@ resource "aws_api_gateway_stage" "main" {
     create_before_destroy = true
   }
 
-  tags = local.default_tags
-  
-  providers = {
-    aws = aws.london_without_default_tags
-  }
+  tags = local.default_tags  
+
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
 }
 
