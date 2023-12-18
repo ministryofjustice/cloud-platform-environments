@@ -144,7 +144,6 @@ resource "aws_api_gateway_deployment" "main" {
   }
 
   tags = local.default_tags
-  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_api_key" "clients" {
