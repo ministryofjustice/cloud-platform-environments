@@ -17,7 +17,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "configmaps",
-        "pods"
+        "pods",
       ]
       verbs = [
         "patch",
@@ -26,16 +26,16 @@ module "serviceaccount" {
         "update",
         "delete",
         "list",
-        "watch"
+        "watch",
       ]
     },
     {
       api_groups = [
         "extensions",
         "apps",
-        "monitoring.coreos.com",
+        "batch",
         "networking.k8s.io",
-        "batch"
+        "policy",
       ]
       resources = [
         "deployments",
@@ -43,10 +43,8 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "replicasets",
-        "statefulsets",
         "poddisruptionbudgets",
         "networkpolicies",
-        "servicemonitors"
       ]
       verbs = [
         "get",
@@ -55,23 +53,35 @@ module "serviceaccount" {
         "create",
         "patch",
         "list",
-        "watch"
+        "watch",
       ]
     },
     {
       api_groups = [
-        "autoscaling"
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling",
       ]
       resources = [
         "hpa",
-        "horizontalpodautoscalers"
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "get",
         "update",
+        "patch",
         "delete",
         "create",
-        "patch"
       ]
     }
   ]
