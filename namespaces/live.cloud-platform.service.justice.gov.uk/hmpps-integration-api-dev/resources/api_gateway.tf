@@ -86,6 +86,8 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+  tags = local.default_tags
+  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
