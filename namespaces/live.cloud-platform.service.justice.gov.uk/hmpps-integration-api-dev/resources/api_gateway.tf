@@ -86,6 +86,9 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+  
+  tags = local.default_tags
+  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -210,6 +213,7 @@ resource "aws_api_gateway_stage" "main" {
   tags = local.default_tags
   provider = aws.london_without_default_tags
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
+  
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
