@@ -132,6 +132,8 @@ resource "aws_api_gateway_deployment" "main" {
       var.cloud_platform_integration_api_url,
       md5(file("api_gateway.tf"))
     ]))
+    tags = local.default_tags
+    provider = aws.london_without_default_tags
   }
 
   depends_on = [
