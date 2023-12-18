@@ -22,6 +22,30 @@ data "aws_iam_policy_document" "api_gateway" {
       "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
   }
+
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.certificate_backup.bucket_arn
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectAcl"
+    ]
+
+    resources = [
+      "${module.certificate_backup.bucket_arn}/*"
+    ]
+  }
 }
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
