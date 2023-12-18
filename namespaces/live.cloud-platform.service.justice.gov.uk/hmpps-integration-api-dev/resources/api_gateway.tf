@@ -131,9 +131,7 @@ resource "aws_api_gateway_deployment" "main" {
       local.clients,
       var.cloud_platform_integration_api_url,
       md5(file("api_gateway.tf"))
-    ]))
-    tags = local.default_tags
-    provider = aws.london_without_default_tags
+    ]))    
   }
 
   depends_on = [
@@ -144,6 +142,9 @@ resource "aws_api_gateway_deployment" "main" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = local.default_tags
+  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_api_key" "clients" {
