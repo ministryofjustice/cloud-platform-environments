@@ -57,7 +57,7 @@ module "certificate_backup" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_name            = "${var.application}-certificates-backup"
+  bucket_name            = "${var.namespace}-certificates-backup"
   versioning             = true
 
   providers = {
