@@ -72,7 +72,7 @@ module "certificate_backup" {
       "Sid": "AllowBucketAccess",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "${aws_iam_user.api_gateway_user.name}"
+        "AWS": "${aws_iam_user.api_gateway_user.arn}"
       },
       "Action": [
         "s3:GetObject",
