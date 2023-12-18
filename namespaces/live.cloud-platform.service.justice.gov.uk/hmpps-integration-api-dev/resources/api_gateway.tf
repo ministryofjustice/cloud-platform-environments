@@ -185,21 +185,21 @@ resource "aws_api_gateway_stage" "main" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
     format = jsonencode({
-      "extendedRequestId"  = "$context.extendedRequestId"
-      "ip"                 = "$context.identity.sourceIp"
-      "client"             = "$context.identity.clientCert.subjectDN"
-      "issuerDN"           = "$context.identity.clientCert.issuerDN"
-      "requestTime"        = "$context.requestTime"
-      "httpMethod"         = "$context.httpMethod"
-      "resourcePath"       = "$context.resourcePath"
-      "status"             = "$context.status"
-      "responseLength"     = "$context.responseLength"
-      "error"              = "$context.error.message"
-      "authenticateStatus" = "$context.authenticate.status"
-      "authenticateError"  = "$context.authenticate.error"
-      "integrationStatus"  = "$context.integration.status"
-      "integrationError"   = "$context.integration.error"
-      "apiKeyId"           = "$context.identity.apiKeyId"
+      extendedRequestId  = "$context.extendedRequestId"
+      ip                 = "$context.identity.sourceIp"
+      client             = "$context.identity.clientCert.subjectDN"
+      issuerDN           = "$context.identity.clientCert.issuerDN"
+      requestTime        = "$context.requestTime"
+      httpMethod         = "$context.httpMethod"
+      resourcePath       = "$context.resourcePath"
+      status             = "$context.status"
+      responseLength     = "$context.responseLength"
+      error              = "$context.error.message"
+      authenticateStatus = "$context.authenticate.status"
+      authenticateError  = "$context.authenticate.error"
+      integrationStatus  = "$context.integration.status"
+      integrationError   = "$context.integration.error"
+      apiKeyId           = "$context.identity.apiKeyId"
     })
   }
 
