@@ -13,7 +13,8 @@ module "court_data_adaptor_rds" {
   db_engine_version      = "14.7"
 
   allow_major_version_upgrade = "true"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
 
   providers = {
     aws = aws.london
