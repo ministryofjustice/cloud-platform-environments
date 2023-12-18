@@ -126,7 +126,7 @@ resource "aws_api_gateway_stage" "live" {
   stage_name    = "upload"
 }
 
-resource "aws_api_gateway_method_settings" "all" {
+resource "aws_api_gateway_method_settings" " " {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   stage_name  = aws_api_gateway_stage.live.stage_name
   method_path = "*/*"
