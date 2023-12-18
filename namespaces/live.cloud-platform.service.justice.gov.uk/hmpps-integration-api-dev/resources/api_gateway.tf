@@ -218,12 +218,6 @@ resource "aws_api_gateway_stage" "main" {
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
   retention_in_days = 60
-
-  tags = local.default_tags
-  
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 resource "aws_api_gateway_method_settings" "all" {
