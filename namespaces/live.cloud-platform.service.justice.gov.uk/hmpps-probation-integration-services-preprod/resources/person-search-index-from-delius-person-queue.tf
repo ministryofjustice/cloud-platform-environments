@@ -21,11 +21,6 @@ module "person-search-index-from-delius-person-queue" {
   # Queue configuration
   sqs_name = "person-search-index-from-delius-person-queue"
 
-  redrive_policy = jsonencode({
-    deadLetterTargetArn = module.person-search-index-from-delius-person-dlq.sqs_arn
-    maxReceiveCount     = 3
-  })
-
   # Tags
   business_unit          = var.business_unit
   application            = "person-search-index-from-delius"
