@@ -81,8 +81,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.custody-key-dates-and-delius-dlq,
       module.make-recall-decisions-and-delius-dlq,
       module.manage-pom-cases-and-delius-dlq,
-      module.person-search-index-from-delius-contact-dlq,
-      module.person-search-index-from-delius-person-dlq,
       module.pre-sentence-reports-to-delius-dlq,
       module.prison-case-notes-to-probation-dlq,
       module.prison-custody-status-to-delius-dlq,
