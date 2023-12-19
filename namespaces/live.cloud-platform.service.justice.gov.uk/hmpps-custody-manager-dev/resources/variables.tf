@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "application"
+  default     = "Custody manager"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "prakash-test"
+  default     = "hmpps-custody-manager-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cloud-platform"
+  default     = "farsight-devs"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "test"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "prakash.subramani@digital.justice.gov.uk"
+  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "prakashsubramani"
+  default     = "private_x-product_features_legacy"
 }
 
 variable "github_owner" {
@@ -66,4 +66,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }

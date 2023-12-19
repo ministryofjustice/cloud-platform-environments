@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: prakash-test
+  namespace: tim-development
 spec:
   limits:
   - default:
