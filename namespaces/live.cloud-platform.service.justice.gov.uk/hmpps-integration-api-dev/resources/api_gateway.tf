@@ -86,8 +86,6 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -186,39 +184,33 @@ resource "aws_api_gateway_stage" "main" {
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format = jsonencode({
-      extendedRequestId  = "$context.extendedRequestId"
-      ip                 = "$context.identity.sourceIp"
-      client             = "$context.identity.clientCert.subjectDN"
-      issuerDN           = "$context.identity.clientCert.issuerDN"
-      requestTime        = "$context.requestTime"
-      httpMethod         = "$context.httpMethod"
-      resourcePath       = "$context.resourcePath"
-      status             = "$context.status"
-      responseLength     = "$context.responseLength"
-      error              = "$context.error.message"
-      authenticateStatus = "$context.authenticate.status"
-      authenticateError  = "$context.authenticate.error"
-      integrationStatus  = "$context.integration.status"
-      integrationError   = "$context.integration.error"
-      apiKeyId           = "$context.identity.apiKeyId"
+    format          = jsonencode({
+      "extendedRequestId" = "$context.extendedRequestId"
+      "ip" =  "$context.identity.sourceIp"
+      "issuerDN" = "$context.identity.clientCert.issuerDN"
+      "requestTime" = "$context.requestTime"
+      "httpMethod" = "$context.httpMethod"
+      "resourcePath" = "$context.resourcePath"
+      "status" = "$context.status"
+      "responseLength" = "$context.responseLength"
+      "error" = "$context.error.message"
+      "authenticateStatus" = "$context.authenticate.status"
+      "authenticateError" = "$context.authenticate.error"
+      "integrationStatus" = "$context.integration.status"
+      "integrationError" = "$context.integration.error"
     })
   }
 
   lifecycle {
     create_before_destroy = true
   }
-
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
+  
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 60
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
+  retention_in_days = 60  
 }
 
 resource "aws_api_gateway_method_settings" "all" {
