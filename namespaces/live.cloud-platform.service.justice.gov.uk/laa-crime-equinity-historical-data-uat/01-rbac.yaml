@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-crime-equinity-historical-data-uat-admin
+  namespace: laa-crime-equinity-historical-data-uat
+subjects:
+  - kind: Group
+    name: "github:laa-crime-equinity-data"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
