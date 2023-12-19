@@ -94,6 +94,25 @@ resource "aws_iam_role_policy" "api_gw_s3" {
 EOF
 }
 
+resource "aws_iam_role" "cloudwatch" {
+  name               = "api_gateway_cloudwatch_global"
+   assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
 data "aws_iam_policy_document" "cloudwatch" {
   statement {
     effect = "Allow"
@@ -115,6 +134,6 @@ data "aws_iam_policy_document" "cloudwatch" {
 
 resource "aws_iam_role_policy" "cloudwatch" {
   name   = "${var.namespace}-default"
-  role   = aws_iam_role.api_gateway_role.id
+  role   = aws_iam_role.cloudwatch.id
   policy = data.aws_iam_policy_document.cloudwatch.json
 }
