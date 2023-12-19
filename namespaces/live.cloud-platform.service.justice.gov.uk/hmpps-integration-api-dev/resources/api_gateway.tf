@@ -86,8 +86,6 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -206,17 +204,13 @@ resource "aws_api_gateway_stage" "main" {
   lifecycle {
     create_before_destroy = true
   }
-
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
+  
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 60
-  tags = local.default_tags
-  provider = aws.london_without_default_tags
+  retention_in_days = 60  
 }
 
 resource "aws_api_gateway_method_settings" "all" {
