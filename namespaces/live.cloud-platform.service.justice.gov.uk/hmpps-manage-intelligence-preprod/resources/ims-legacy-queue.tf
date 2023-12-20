@@ -166,6 +166,7 @@ module "ims_reprocess_queue" {
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
+  delay_seconds              = 120
 
   redrive_policy = <<EOF
   {
