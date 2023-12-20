@@ -136,6 +136,18 @@ variable "serviceaccount_rules" {
     },
     {
       api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+    {
+      api_groups = [
         "autoscaling",
       ]
       resources = [
