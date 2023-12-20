@@ -5,4 +5,6 @@ module "serviceaccount" {
   kubernetes_cluster   = var.kubernetes_cluster
   github_repositories  = ["hmpps-delius-alfresco-poc"]
   serviceaccount_rules = var.serviceaccount_rules
+  # This GitHub environmet will need to be created manually first
+  github_environments = "poc"
 }
