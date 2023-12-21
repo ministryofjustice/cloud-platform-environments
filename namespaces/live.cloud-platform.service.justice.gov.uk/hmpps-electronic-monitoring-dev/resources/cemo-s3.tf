@@ -13,7 +13,7 @@ module "cemo_s3" {
 
 resource "kubernetes_secret" "cemo_s3" {
   metadata {
-    name      = "cemo_s3"
+    name      = "cemo-s3"
     namespace = var.namespace
   }
 

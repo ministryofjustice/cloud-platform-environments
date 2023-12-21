@@ -46,7 +46,7 @@ resource "kubernetes_secret" "cemo_rds" {
 # Configmap to store non-sensitive data related to the RDS instance
 resource "kubernetes_config_map" "cemo_rds" {
   metadata {
-    name      = "cemo_rds"
+    name      = "cemo-rds"
     namespace = var.namespace
   }
 
