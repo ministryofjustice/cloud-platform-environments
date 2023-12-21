@@ -74,5 +74,4 @@ variable "number_cache_clusters" {
 }
 
 variable "eks_cluster_name" {
-  default = "live"
 }
