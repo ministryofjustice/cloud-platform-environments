@@ -85,10 +85,11 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
   endpoint  = module.hmpps_tier_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "assessment.summary.produced",
       "enforcement.breach.raised",
       "enforcement.breach.concluded",
-      "person.risk.registration.added",
-      "person.risk.registration.ended",
+      "enforcement.recall.raised",
+      "enforcement.recall.concluded",
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deleted",
