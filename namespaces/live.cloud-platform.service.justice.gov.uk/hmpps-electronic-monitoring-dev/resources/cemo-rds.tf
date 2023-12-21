@@ -1,4 +1,4 @@
-module "rds_cemo" {
+module "cemo_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   # VPC configuration
@@ -28,30 +28,30 @@ module "rds_cemo" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "rds_cemo" {
+resource "kubernetes_secret" "cemo_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds_cemo.rds_instance_endpoint
-    database_name         = module.rds_cemo.database_name
-    database_username     = module.rds_cemo.database_username
-    database_password     = module.rds_cemo.database_password
-    rds_instance_address  = module.rds_cemo.rds_instance_address
+    rds_instance_endpoint = module.cemo_rds.rds_instance_endpoint
+    database_name         = module.cemo_rds.database_name
+    database_username     = module.cemo_rds.database_username
+    database_password     = module.cemo_rds.database_password
+    rds_instance_address  = module.cemo_rds.rds_instance_address
   }
 }
 
 # Configmap to store non-sensitive data related to the RDS instance
-resource "kubernetes_config_map" "rds_cemo" {
+resource "kubernetes_config_map" "cemo_rds" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "cemo-rds"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds_cemo.database_name
-    db_identifier = module.rds_cemo.db_identifier
+    database_name = module.cemo_rds.database_name
+    db_identifier = module.cemo_rds.db_identifier
   }
 }
