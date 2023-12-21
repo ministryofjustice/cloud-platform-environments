@@ -58,7 +58,6 @@ module "cla_backend_rds_postgres_14" {
   infrastructure_support = var.infrastructure_support
   db_allocated_storage   = "10"
 
-  snapshot_identifier = "rds:cloud-platform-e485b5986a689b44-2023-12-13-05-29"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres14
   # Pick the one that defines the postgres version the best
