@@ -72,3 +72,9 @@ variable "slack_channel" {
   type        = string
   default     = "cica-digital"
 }
+
+variable "repo_name" {
+  description = "List of repos"
+  type        = list
+  default     = ["cica-gov-uk-notify-gateway"]
+}
