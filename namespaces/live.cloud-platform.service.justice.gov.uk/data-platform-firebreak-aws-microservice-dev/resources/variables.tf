@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "dpat aws microservice"
+  default     = "data platform firebreak aws microservice"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "dpat-aws-microservice-dev"
+  default     = "data-platform-firebreak-aws-microservice-dev"
 }
 
 variable "business_unit" {

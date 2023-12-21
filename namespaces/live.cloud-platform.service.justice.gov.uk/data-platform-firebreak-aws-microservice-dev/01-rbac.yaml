@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: dpat-aws-microservice-dev-admin
-  namespace: dpat-aws-microservice-dev
+  name: data-platform-firebreak-aws-microservice-dev-admin
+  namespace: data-platform-firebreak-aws-microservice-dev
 subjects:
   - kind: Group
     name: "github:analytics-hq"
