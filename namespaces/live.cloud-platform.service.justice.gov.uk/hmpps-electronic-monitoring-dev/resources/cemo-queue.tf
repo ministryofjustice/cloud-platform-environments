@@ -2,14 +2,14 @@ module "cemo_submit_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "cemo_submit_queue"
+  sqs_name        = "cemo-submit-queue"
   encrypt_sqs_kms = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.cemo_submit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.cemo_submit_dl_queue.sqs_arn}","maxReceiveCount": 3
   }
 
   EOF
@@ -24,11 +24,11 @@ module "cemo_submit_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "cemo_submit_dead_letter_queue" {
+module "cemo_submit_dl_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "cemo_submit_dl_queue"
+  sqs_name        = "cemo-submit-dl-queue"
   encrypt_sqs_kms = "true"
 
   # Tags
