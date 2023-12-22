@@ -1,3 +1,5 @@
+##### CEMO Submission Queue
+
 module "cemo_submit_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
@@ -24,6 +26,35 @@ module "cemo_submit_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
+##### CEMO Notifcation from S3 to queue
+resource "aws_sqs_queue_policy" "cemo_submit_queue_policy" {
+  queue_url = module.cemo_submit_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.cemo_submit_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.cemo_submit_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+            {
+              "ArnEquals":
+              {
+                "aws:SourceArn": "${data.cemo-s3.bucket_arn}"
+              }
+            }
+        }
+      ]
+  }
+EOF
+}
+
+##### Dead-letter queue
 module "cemo_submit_dl_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
