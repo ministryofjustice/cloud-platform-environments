@@ -16,6 +16,18 @@ module "secrets_manager" {
       k8s_secret_name         = "github-token" # The name of the secret in k8s
     },
 
+    "GITHUB_USER" = {
+      description             = "github user",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "github-user" # The name of the secret in k8s
+    },
+
+    "GITHUB_URL" = {
+      description             = "github url",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "github-url" # The name of the secret in k8s
+    },
+
     "SLACK_APP_TOKEN" = {
       description             = "slack app token",   # Required
       recovery_window_in_days = 7,               # Required
