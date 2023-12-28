@@ -5,7 +5,7 @@ metadata:
   namespace: tim-development
 subjects:
   - kind: Group
-    name: "github:webops"
+    name: "github:tim-test-admin-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
