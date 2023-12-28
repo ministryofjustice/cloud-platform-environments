@@ -14,13 +14,13 @@ module "person-search-index-from-delius-contact-queue" {
   sqs_name = "person-search-index-from-delius-contact-queue"
 
   # Tags
-  business_unit          = var.business_unit
   application            = "person-search-index-from-delius"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
 }
 
 resource "aws_sqs_queue_policy" "person-search-index-from-delius-contact-queue-policy" {
@@ -52,6 +52,6 @@ module "person-search-index-from-delius-service-account" {
   service_account_name = "person-search-index-from-delius"
   role_policy_arns = {
     contact-queue = module.person-search-index-from-delius-contact-queue.irsa_policy_arn,
-    person-queue  = module.person-search-index-from-delius-person-queue.irsa_policy_arn
+    person-queue  = module.person-search-index-from-delius-person-queue.irsa_policy_arn,
   }
 }
