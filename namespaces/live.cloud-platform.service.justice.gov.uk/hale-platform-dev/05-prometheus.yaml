@@ -18,8 +18,6 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
       expr: |-
         100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="hale-platform-dev"} 
-        * on (namespace)
-        group_left() 
         / ignoring(instance, job, type)
         (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="hale-platform-dev"} > 0)
         > 90
@@ -33,8 +31,6 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
       expr: |-
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="hale-platform-dev"}[15m]) 
-        * on (namespace)
-        group_left() 
         * 60 * 5 > 0
       for: 1h
       labels:
@@ -46,8 +42,6 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
       expr: |-
         sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="hale-platform-dev"}) 
-        * on (namespace) 
-        group_left() 
         > 0
       for: 1h
       labels:
@@ -60,8 +54,6 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
       expr: |-
         kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="hale-platform-dev"}
-        * on (namespace)
-        group_left() 
         !=
         kube_deployment_metadata_generation{job="kube-state-metrics", namespace="hale-platform-dev"}
       for: 15m
