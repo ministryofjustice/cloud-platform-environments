@@ -17,12 +17,11 @@ spec:
           }}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
       expr: |-
-        100 * kube_resourcequota{job="kube-state-metrics", type="used"} 
+        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="hale-platform-dev"} 
         * on (namespace)
         group_left() 
-        kube_namespace_annotations{annotation_cloud_platform_out_of_hours_alert="true"}
         / ignoring(instance, job, type)
-        (kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
+        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="hale-platform-dev"} > 0)
         > 90
       for: 15m
       labels:
@@ -33,10 +32,9 @@ spec:
           }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
       expr: |-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[15m]) 
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="hale-platform-dev"}[15m]) 
         * on (namespace)
         group_left() 
-        kube_namespace_annotations{annotation_cloud_platform_out_of_hours_alert="true"}
         * 60 * 5 > 0
       for: 1h
       labels:
@@ -47,10 +45,9 @@ spec:
           state for longer than an hour.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
       expr: |-
-        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown"}) 
+        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="hale-platform-dev"}) 
         * on (namespace) 
         group_left() 
-        kube_namespace_annotations{annotation_cloud_platform_out_of_hours_alert="true"} 
         > 0
       for: 1h
       labels:
@@ -62,12 +59,11 @@ spec:
           not been rolled back.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
       expr: |-
-        kube_deployment_status_observed_generation{job="kube-state-metrics"}
+        kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="hale-platform-dev"}
         * on (namespace)
         group_left() 
-        kube_namespace_annotations{annotation_cloud_platform_out_of_hours_alert="true"} 
         !=
-        kube_deployment_metadata_generation{job="kube-state-metrics"}
+        kube_deployment_metadata_generation{job="kube-state-metrics", namespace="hale-platform-dev"}
       for: 15m
       labels:
         severity: hale-platform-alerts
