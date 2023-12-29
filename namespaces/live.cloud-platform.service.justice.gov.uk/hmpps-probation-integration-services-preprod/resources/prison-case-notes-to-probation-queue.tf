@@ -22,20 +22,19 @@ module "prison-case-notes-to-probation-queue" {
 
   # Queue configuration
   sqs_name = "prison-case-notes-to-probation-queue"
-
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prison-case-notes-to-probation-dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
   # Tags
-  business_unit          = var.business_unit
   application            = "prison-case-notes-to-probation"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
 }
 
 resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
@@ -47,16 +46,17 @@ module "prison-case-notes-to-probation-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name = "prison-case-notes-to-probation-dlq"
+  sqs_name                  = "prison-case-notes-to-probation-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
-  business_unit          = var.business_unit
   application            = "prison-case-notes-to-probation"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
 }
 
 resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-dlq-policy" {
