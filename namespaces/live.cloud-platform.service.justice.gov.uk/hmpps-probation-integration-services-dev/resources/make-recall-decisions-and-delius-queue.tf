@@ -15,20 +15,19 @@ module "make-recall-decisions-and-delius-queue" {
 
   # Queue configuration
   sqs_name = "make-recall-decisions-and-delius-queue"
-
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.make-recall-decisions-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
   # Tags
-  business_unit          = var.business_unit
   application            = "make-recall-decisions-and-delius"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
 }
 
 resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-queue-policy" {
@@ -40,16 +39,17 @@ module "make-recall-decisions-and-delius-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name = "make-recall-decisions-and-delius-dlq"
+  sqs_name                  = "make-recall-decisions-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
-  business_unit          = var.business_unit
   application            = "make-recall-decisions-and-delius"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
 }
 
 resource "aws_sqs_queue_policy" "make-recall-decisions-and-delius-dlq-policy" {
