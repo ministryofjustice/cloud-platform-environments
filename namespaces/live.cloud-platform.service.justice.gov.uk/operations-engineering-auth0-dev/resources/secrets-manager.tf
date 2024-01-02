@@ -16,9 +16,4 @@ module "secret" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  default_tags {
-    tags = {
-      GithubTeam = var.team_name
-    }
-  }
 }
