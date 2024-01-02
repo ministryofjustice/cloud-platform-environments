@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: data-platform-app-officehub-cms-app-dev
+  namespace: data-platform-app-officehub-cms-app-v2-dev
 spec:
   hard:
     pods: "50"

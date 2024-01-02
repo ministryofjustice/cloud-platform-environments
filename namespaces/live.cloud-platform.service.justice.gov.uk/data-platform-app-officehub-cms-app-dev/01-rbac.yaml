@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: data-platform-app-officehub-cms-app-dev-admin
-  namespace: data-platform-app-officehub-cms-app-dev
+  namespace: data-platform-app-officehub-cms-app-v2-dev
 subjects:
   - kind: Group
     name: "github:officehub-cms-app-v2-admin-team"
