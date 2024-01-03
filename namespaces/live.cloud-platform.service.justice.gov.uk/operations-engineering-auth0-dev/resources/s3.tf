@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "github" {
     condition {
       test     = "StringLike"
       variable = "${local.oidc_provider}:sub"
-      values   = "repo:ministryofjustice/operations-engineering:*"
+      values   = ["repo:ministryofjustice/operations-engineering:*"]
     }
 
     condition {
