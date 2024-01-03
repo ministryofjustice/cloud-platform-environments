@@ -34,3 +34,8 @@ variable "github_token" {
 variable "namespace" {
   default = "formbuilder-repos"
 }
+
+variable "eks_cluster_name" {
+}
+variable "kubernetes_cluster" {
+}
