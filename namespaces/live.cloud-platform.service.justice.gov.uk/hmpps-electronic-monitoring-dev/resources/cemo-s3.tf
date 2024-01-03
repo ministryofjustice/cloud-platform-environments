@@ -18,7 +18,6 @@ resource "aws_s3_bucket_notification" "cemo_s3_notification" {
     id = "cemo-s3-upload-event"
     queue_arn = module.cemo_submit_queue.sqs_arn
     events = ["s3:ObjectCreated:*"]
-    filter_prefix = "upload/"
   }
 }
 
