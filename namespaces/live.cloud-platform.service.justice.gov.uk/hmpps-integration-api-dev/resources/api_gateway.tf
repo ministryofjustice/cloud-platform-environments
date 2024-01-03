@@ -283,7 +283,7 @@ module "notify_slack" {
 
   cloudwatch_log_group_retention_in_days = 7
 
-  slack_webhook_url = data.aws_secretsmanager_secret_version
+  slack_webhook_url = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
   slack_channel     = "#hmpps-integration-api-alerts"
   slack_username    = "aws"
   slack_emoji       = ":warning:"
