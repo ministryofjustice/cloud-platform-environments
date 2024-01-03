@@ -226,3 +226,60 @@ resource "aws_api_gateway_method_settings" "all" {
     data_trace_enabled = true
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
+  alarm_name          = "gateway-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 4xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "4XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+  actions_enabled     = "true"
+  alarm_actions       = [module.sns_topic.slack_topic_arn]
+  dimensions = {
+    ApiName = aws_api_gateway_rest_api.name
+    Stage = "main"
+  }
+}
+
+module "sns_topic" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=version" 
+
+  # Configuration
+  topic_display_name = "integration-api-alert-topic"
+  encrypt_sns_kms    = true
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the topic
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london_without_default_tags
+  }
+}
+
+module "notify_slack" {
+  source = "github.com/terraform-aws-modules/terraform-aws-notify-slack.git?ref=v5.6.0"
+
+  sns_topic_name   = module.sns_topic.topic_name
+  create_sns_topic = false
+
+  lambda_function_name = "notify-slack"
+
+  cloudwatch_log_group_retention_in_days = 7
+
+  slack_webhook_url = "https://hooks.slack.com/services/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"
+  slack_channel     = "#hmpps-integration-api-alerts"
+  slack_username    = "aws"
+  slack_emoji       = ":warning:"
+}
