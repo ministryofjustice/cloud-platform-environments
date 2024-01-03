@@ -17,11 +17,11 @@ module "secret" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  GithubTeam             = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-   providers = {
-    aws = aws.london_without_default_tags
+
+  providers = {
+    aws = aws.london_default_github_tag
   }
 }
