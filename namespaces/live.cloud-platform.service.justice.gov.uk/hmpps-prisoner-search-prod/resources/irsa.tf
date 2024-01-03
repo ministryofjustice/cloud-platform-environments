@@ -18,6 +18,8 @@ module "hmpps-prisoner-search-indexer" {
     hmpps_prisoner_search_domain_dlq              = module.hmpps_prisoner_search_domain_dlq.irsa_policy_arn,
     hmpps_prisoner_search_offender_queue          = module.hmpps_prisoner_search_offender_queue.irsa_policy_arn,
     hmpps_prisoner_search_offender_dlq            = module.hmpps_prisoner_search_offender_dlq.irsa_policy_arn,
+    hmpps_prisoner_search_publish_queue             = module.hmpps_prisoner_search_publish_queue.irsa_policy_arn,
+    hmpps_prisoner_search_publish_dead_letter_queue = module.hmpps_prisoner_search_publish_dead_letter_queue.irsa_policy_arn,
   }, local.sns_policies)
 
   # Tags
