@@ -35,3 +35,20 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
     rds_instance_address  = module.visit_scheduler_rds.rds_instance_address
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "visit_scheduler_rds_refresh_creds" {
+  metadata {
+    name      = "visit-scheduler-rds-output-preprod"
+    namespace = "visit-scheduler-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.visit_scheduler_rds.rds_instance_endpoint
+    database_name         = module.visit_scheduler_rds.database_name
+    database_username     = module.visit_scheduler_rds.database_username
+    database_password     = module.visit_scheduler_rds.database_password
+    rds_instance_address  = module.visit_scheduler_rds.rds_instance_address
+  }
+}
