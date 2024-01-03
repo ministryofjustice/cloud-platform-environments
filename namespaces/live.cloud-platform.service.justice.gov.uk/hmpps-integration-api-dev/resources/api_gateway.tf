@@ -240,11 +240,16 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   statistic           = "Sum"
   unit                = "Count"
   actions_enabled     = "true"
-  alarm_actions       = [module.sns_topic.slack_topic_arn]
+  alarm_actions       = [module.sns_topic.topic_arn]
   dimensions = {
     ApiName = aws_api_gateway_rest_api.api_gateway.name
     Stage = "main"
   }
+
+   depends_on = [
+    module.sns_topic,
+    module.notify_slack
+  ]
 }
 
 module "sns_topic" {
