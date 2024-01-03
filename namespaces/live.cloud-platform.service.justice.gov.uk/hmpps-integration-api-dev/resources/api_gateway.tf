@@ -248,7 +248,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
 }
 
 module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=version" 
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=v5.0.0" 
 
   # Configuration
   topic_display_name = "integration-api-alert-topic"
