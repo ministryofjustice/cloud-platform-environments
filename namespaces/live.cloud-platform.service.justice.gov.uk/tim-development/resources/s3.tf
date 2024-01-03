@@ -14,6 +14,7 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  bucket_name            = var.bucket_name 
 
   /*
 
