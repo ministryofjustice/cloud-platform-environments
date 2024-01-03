@@ -91,6 +91,8 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
       "enforcement.breach.concluded",
       "enforcement.recall.raised",
       "enforcement.recall.concluded",
+      "probation-case.deleted.gdpr",
+      "probation-case.merge.completed",
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deleted",
