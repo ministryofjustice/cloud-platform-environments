@@ -26,6 +26,17 @@ provider "aws" {
 }
 
 provider "aws" {
+  alias  = "london_default_github_tag"
+  region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = var.team_name
+    }
+  }
+}
+
+provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
 
