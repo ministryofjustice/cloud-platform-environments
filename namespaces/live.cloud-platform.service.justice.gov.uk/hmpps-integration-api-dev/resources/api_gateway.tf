@@ -226,3 +226,22 @@ resource "aws_api_gateway_method_settings" "all" {
     data_trace_enabled = true
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "gateway_error_rate" {
+  alarm_name          = "gateway-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 5xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "5XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+
+  dimensions = {
+    ApiName = aws_api_gateway_rest_api.name
+    Stage = "main"
+  }
+}
