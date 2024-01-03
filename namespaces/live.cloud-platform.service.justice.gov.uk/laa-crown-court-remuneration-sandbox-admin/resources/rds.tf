@@ -30,6 +30,8 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
+  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
+
   providers = {
     aws = aws.london
   }
