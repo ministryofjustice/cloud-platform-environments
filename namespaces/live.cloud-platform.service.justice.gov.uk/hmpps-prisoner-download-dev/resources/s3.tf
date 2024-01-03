@@ -20,6 +20,35 @@ module "hmpps-prisoner-download_s3_bucket" {
   ]
 }
 
+data "aws_iam_policy_document" "dso_user_s3_access_policy" {
+  statement {
+    sid = "AllowDsoUserToReadAndPutObjectsInS3"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject"
+    ]
+
+    resources = [
+      "${module.hmpps-prisoner-download_s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_iam_user" "user" {
+  name = "dso-s3-access-user-${var.environment}"
+  path = "/system/dso-s3-access-user/"
+}
+
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
+
+resource "aws_iam_user_policy" "policy" {
+  name   = "dso-s3-read-write-policy"
+  policy = data.aws_iam_policy_document.dso_user_s3_access_policy.json
+  user   = aws_iam_user.user.name
+}
+
 resource "kubernetes_secret" "hmpps-prisoner-download_s3_bucket" {
   metadata {
     name      = "hmpps-prisoner-download-bucket"
@@ -29,5 +58,9 @@ resource "kubernetes_secret" "hmpps-prisoner-download_s3_bucket" {
   data = {
     bucket_arn  = module.hmpps-prisoner-download_s3_bucket.bucket_arn
     bucket_name = module.hmpps-prisoner-download_s3_bucket.bucket_name
+
+    dso_s3_access_user_arn   = aws_iam_user.user.arn
+    dso_s3_access_key_id     = aws_iam_access_key.user.id
+    dso_s3_secret_access_key = aws_iam_access_key.user.secret
   }
 }
