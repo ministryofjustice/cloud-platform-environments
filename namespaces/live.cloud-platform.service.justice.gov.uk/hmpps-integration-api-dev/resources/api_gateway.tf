@@ -247,7 +247,8 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   }
 
    depends_on = [
-    module.sns_topic
+    module.sns_topic,
+    module.notify_slack
   ]
 }
 
@@ -270,4 +271,20 @@ module "sns_topic" {
   providers = {
     aws = aws.london_without_default_tags
   }
+}
+
+module "notify_slack" {
+  source = "github.com/terraform-aws-modules/terraform-aws-notify-slack.git?ref=v5.6.0"
+
+  sns_topic_name   = module.sns_topic.topic_name
+  create_sns_topic = false
+
+  lambda_function_name = "notify-slack"
+
+  cloudwatch_log_group_retention_in_days = 7
+
+  slack_webhook_url = data.aws_secretsmanager_secret_version
+  slack_channel     = "#hmpps-integration-api-alerts"
+  slack_username    = "aws"
+  slack_emoji       = ":warning:"
 }
