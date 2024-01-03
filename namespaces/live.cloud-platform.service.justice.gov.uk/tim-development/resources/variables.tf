@@ -71,3 +71,7 @@ variable "github_token" {
 variable "bucket_name" {
   default = "tim-development-01"
 }
+
+variable "eks_cluster_name" {
+  default = "live"
+}
