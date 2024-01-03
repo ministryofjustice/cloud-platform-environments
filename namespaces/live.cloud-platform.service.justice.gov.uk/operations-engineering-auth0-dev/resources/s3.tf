@@ -15,6 +15,11 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  resource "github_actions_secret" "role_arn" {
+    repository      = var.repository_name
+    secret_name     = "TERRAFORM_AUTH0_S3_ROLE_ARN_DEV"
+    plaintext_value = module.s3_bucket.irsa_policy_arn
+  }
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
