@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: hmpps-prisoner-download-dev
+spec:
+  limits:
+  - default:
+      cpu: 2000m
+      memory: 2048Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 512Mi
+    type: Container
