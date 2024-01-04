@@ -41,7 +41,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
 resource "kubernetes_secret" "visit_scheduler_rds_refresh_creds" {
   metadata {
     name      = "visit-scheduler-rds-output-preprod"
-    namespace = "visit-scheduler-prod"
+    namespace = "visit-someone-in-prison-backend-svc-prod"
   }
 
   data = {
