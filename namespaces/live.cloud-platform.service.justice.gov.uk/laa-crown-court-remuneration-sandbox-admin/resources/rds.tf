@@ -17,7 +17,7 @@ module "rds-instance" {
   db_engine                = "oracle-se2" # or oracle-ee
   db_engine_version        = "19.0.0.0.ru-2019-07.rur-2019-07.r1"
   rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
+  db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
   db_name                  = "CCR"
