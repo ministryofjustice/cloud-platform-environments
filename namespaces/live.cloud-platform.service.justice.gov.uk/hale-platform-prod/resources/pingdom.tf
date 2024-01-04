@@ -36,7 +36,7 @@ resource "pingdom_check" "hale-platform-websites" {
     url                      = each.value.url
     encryption               = true
     port                     = 443
-    tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_${var.application}"
+    tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},infrastructuresupport_${var.application}"
     probefilters             = "region:EU"
     integrationids           = [133317]
 }
