@@ -243,7 +243,6 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   alarm_actions       = [module.sns_topic.topic_arn]
   dimensions = {
     ApiName = aws_api_gateway_rest_api.api_gateway.name
-    Stage = "main"
   }
 
    depends_on = [
@@ -268,7 +267,7 @@ module "sns_topic" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london_without_default_tags
+    aws = aws.london_default_github_tag
   }
 }
 
