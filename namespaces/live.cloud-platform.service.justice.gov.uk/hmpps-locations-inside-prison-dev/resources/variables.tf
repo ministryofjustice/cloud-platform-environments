@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "locations-inside-prison-dev"
+  default = "hmpps-locations-inside-prison-dev"
 }
 
 variable "business_unit" {

@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: locations-inside-prison-api-dev-cert
-  namespace: locations-inside-prison-dev
+  namespace: hmpps-locations-inside-prison-dev
 spec:
   secretName: locations-inside-prison-api-cert
   issuerRef:
@@ -16,7 +16,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: locations-inside-prison-dev-cert
-  namespace: locations-inside-prison-dev
+  namespace: hmpps-locations-inside-prison-dev
 spec:
   secretName: locations-inside-prison-cert
   issuerRef:

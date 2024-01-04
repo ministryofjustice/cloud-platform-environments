@@ -14,7 +14,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "locations-inside-prison-api"
+  service_account_name = "hmpps-locations-inside-prison-api"
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,

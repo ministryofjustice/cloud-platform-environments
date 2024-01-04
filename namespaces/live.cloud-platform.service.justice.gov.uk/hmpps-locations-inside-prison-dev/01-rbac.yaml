@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: locations-inside-prison-dev-admin
-  namespace: locations-inside-prison-dev
+  name: hmpps-locations-inside-prison-dev-admin
+  namespace: hmpps-locations-inside-prison-dev
 subjects:
   - kind: Group
     name: "github:dps-tech"
