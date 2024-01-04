@@ -272,3 +272,8 @@ module "sns_topic" {
   }
 }
 
+resource "aws_sns_topic_subscription" "integration-api-alert-topic-subscription" {
+  topic_arn     = module.sns_topic.topic_arn
+  protocol      = "https"
+  endpoint      = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
+}
