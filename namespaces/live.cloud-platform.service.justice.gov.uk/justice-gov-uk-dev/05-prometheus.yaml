@@ -38,6 +38,7 @@ spec:
       labels:
         severity: justice-gov-uk-alerts
     - alert: KubePodCrashLooping
+      # pint file/disable alerts/template
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
           }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
