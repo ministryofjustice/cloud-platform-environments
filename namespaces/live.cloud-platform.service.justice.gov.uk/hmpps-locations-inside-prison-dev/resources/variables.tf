@@ -45,3 +45,5 @@ variable "github_token" {
   type    = string
   default = ""
 }
+
+variable "kubernetes_cluster" {}
