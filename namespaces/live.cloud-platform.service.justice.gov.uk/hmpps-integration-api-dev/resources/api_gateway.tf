@@ -242,7 +242,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   actions_enabled     = "true"
   alarm_actions       = [module.sns_topic.topic_arn]
   dimensions = {
-    ApiName = aws_api_gateway_rest_api.api_gateway.name
+    ApiName = var.namespace
   }
 
    depends_on = [
