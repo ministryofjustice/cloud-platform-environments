@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: justice-gov-uk-dev-cert
+  namespace: justice-gov-uk-dev
+spec:
+  secretName: justice-gov-uk-dev-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.justice.gov.uk
