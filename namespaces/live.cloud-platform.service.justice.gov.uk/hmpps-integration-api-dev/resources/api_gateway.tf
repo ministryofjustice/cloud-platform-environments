@@ -228,18 +228,18 @@ resource "aws_api_gateway_method_settings" "all" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
-  alarm_name          = "gateway-errors"
+  alarm_name          = "${var.namespace}-gateway-4XX-errors"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   alarm_description   = "Gateway 4xx error greater than 0"
   treat_missing_data  = "notBreaching"
   metric_name         = "4XXError"
   namespace           = "AWS/ApiGateway"
-  period              = 30
+  period              = 300
   evaluation_periods  = 1
   threshold           = 1
   statistic           = "Sum"
   unit                = "Count"
-  actions_enabled     = "true"
+  actions_enabled     = true
   alarm_actions       = [module.sns_topic.topic_arn]
   dimensions = {
     ApiName = var.namespace
