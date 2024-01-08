@@ -7,7 +7,7 @@ data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
 }
 
 data "aws_ssm_parameter" "court-probation-prod-rds-instance-endpoint" {
-  name = "/court-probation-prod/court_case_service_rds/rds_instance_endpoint"
+  name = "/court-probation-prod/court-case-service-rds-instance-output/rds_instance_endpoint"
 }
 
 data "aws_ssm_parameter" "court-probation-prod-rds-database-name" {
