@@ -73,7 +73,7 @@ module "ecr" {
   # This flag will allow a non-empty ECR to be deleted.
   # Defaults to true
 
-  # deletion_protection = false
+  deletion_protection = false
 
   # Tags (commented out until release)
   business_unit          = var.business_unit
