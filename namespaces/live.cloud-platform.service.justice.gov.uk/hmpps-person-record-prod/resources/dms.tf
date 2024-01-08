@@ -31,7 +31,7 @@ resource "aws_dms_endpoint" "source-ccs-prod-db" {
   database_name               = data.kubernetes_secret.dms_secret.data.src_database
   username                    = data.kubernetes_secret.dms_secret.data.src_user
   password                    = data.kubernetes_secret.dms_secret.data.src_pass
-  port                        = data.kubernetes_secret.dms_secret.data.src_port
+  port                        = 5432
   ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
 
   tags = {
@@ -52,7 +52,7 @@ resource "aws_dms_endpoint" "target-cpr-prod-db" {
   database_name               = data.kubernetes_secret.dms_secret.data.dst_database
   username                    = data.kubernetes_secret.dms_secret.data.dst_user
   password                    = data.kubernetes_secret.dms_secret.data.dst_pass
-  port                        = data.kubernetes_secret.dms_secret.data.dst_port
+  port                        = 5432
   ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_ssl
 
   tags = {
