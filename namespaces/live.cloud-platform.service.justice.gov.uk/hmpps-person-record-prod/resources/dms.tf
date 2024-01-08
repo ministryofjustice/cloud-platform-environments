@@ -15,17 +15,24 @@ resource "random_id" "id" {
   byte_length = 8
 }
 
+data "kubernetes_secret" "dms_secret" {
+  metadata {
+    name      = "dms-secret"
+    namespace = var.namespace
+  }
+}
+
 resource "aws_dms_endpoint" "source-ccs-prod-db" {
   endpoint_id                 = "${var.team_name}-src-ccs-prod-${random_id.id.hex}"
   endpoint_type               = "source"
-  engine_name                 = "postgres"
+  engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
   extra_connection_attributes = ""
-  server_name                 = data.aws_ssm_parameter.court-probation-prod-rds-instance-endpoint.value
-  database_name               = data.aws_ssm_parameter.court-probation-prod-rds-database-name.value
-  username                    = data.aws_ssm_parameter.court-probation-prod-rds-database-username.value
-  password                    = data.aws_ssm_parameter.court-probation-prod-rds-database-password.value
-  port                        = 5432
-  ssl_mode                    = "none"
+  server_name                 = data.kubernetes_secret.dms_secret.data.src_addr
+  database_name               = data.kubernetes_secret.dms_secret.data.src_database
+  username                    = data.kubernetes_secret.dms_secret.data.src_user
+  password                    = data.kubernetes_secret.dms_secret.data.src_pass
+  port                        = data.kubernetes_secret.dms_secret.data.src_port
+  ssl_mode                    = data.kubernetes_secret.dms_secret.data.src_ssl
 
   tags = {
     Name        = "${var.team_name} Source Endpoint"
@@ -39,14 +46,14 @@ resource "aws_dms_endpoint" "source-ccs-prod-db" {
 resource "aws_dms_endpoint" "target-cpr-prod-db" {
   endpoint_id                 = "${var.team_name}-target-cpr-prod-${random_id.id.hex}"
   endpoint_type               = "target"
-  engine_name                 = "postgres"
+  engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
   extra_connection_attributes = ""
-  server_name                 = module.hmpps_person_record_rds.rds_instance_address
-  database_name               = module.hmpps_person_record_rds.database_name
-  username                    = module.hmpps_person_record_rds.database_username
-  password                    = module.hmpps_person_record_rds.database_password
-  port                        = module.hmpps_person_record_rds.rds_instance_port
-  ssl_mode                    = "none"
+  server_name                 = data.kubernetes_secret.dms_secret.data.dst_addr
+  database_name               = data.kubernetes_secret.dms_secret.data.dst_database
+  username                    = data.kubernetes_secret.dms_secret.data.dst_user
+  password                    = data.kubernetes_secret.dms_secret.data.dst_pass
+  port                        = data.kubernetes_secret.dms_secret.data.dst_port
+  ssl_mode                    = data.kubernetes_secret.dms_secret.data.dst_ssl
 
   tags = {
     Name        = "${var.team_name} Target Endpoint"
