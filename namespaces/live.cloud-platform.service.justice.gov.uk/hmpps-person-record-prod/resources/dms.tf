@@ -20,10 +20,10 @@ resource "aws_dms_endpoint" "source-ccs-prod-db" {
   endpoint_type               = "source"
   engine_name                 = "postgres"
   extra_connection_attributes = ""
-  server_name                 = data.court-probation-prod-rds-instance-endpoint
-  database_name               = data.court-probation-prod-rds-database-name
-  username                    = data.court-probation-prod-rds-database-username
-  password                    = data.court-probation-prod-rds-database-password
+  server_name                 = data.aws_ssm_parameter.court-probation-prod-rds-instance-endpoint.value
+  database_name               = data.aws_ssm_parameter.court-probation-prod-rds-database-name.value
+  username                    = data.aws_ssm_parameter.court-probation-prod-rds-database-username.value
+  password                    = data.aws_ssm_parameter.court-probation-prod-rds-database-password.value
   port                        = 5432
   ssl_mode                    = "none"
 
