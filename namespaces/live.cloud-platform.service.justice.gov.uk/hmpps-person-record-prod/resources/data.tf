@@ -15,7 +15,7 @@ data "aws_ssm_parameter" "court-probation-prod-rds-database-name" {
 }
 
 data "aws_ssm_parameter" "court-probation-prod-rds-database-username" {
-  name = "/court-probation-prod/court-case-service-rds-instance-output/database_name"
+  name = "/court-probation-prod/court-case-service-rds-instance-output/database_username"
 }
 
 data "aws_ssm_parameter" "court-probation-prod-rds-database-password" {
