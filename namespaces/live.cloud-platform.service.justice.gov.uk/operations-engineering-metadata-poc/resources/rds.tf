@@ -5,11 +5,12 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # Database configuration
-  db_engine                = "postgres"
-  db_engine_version        = "15"
-  rds_family               = "postgres15"
-  db_instance_class        = "db.t4g.micro"
-  db_max_allocated_storage = "500"
+  db_engine                   = "postgres"
+  db_engine_version           = "15"
+  rds_family                  = "postgres15"
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
+  allow_minor_version_upgrade = "true"
 
   # Tags
   business_unit          = var.business_unit
