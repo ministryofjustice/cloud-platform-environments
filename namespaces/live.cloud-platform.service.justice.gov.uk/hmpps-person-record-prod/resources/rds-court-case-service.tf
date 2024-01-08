@@ -10,6 +10,6 @@ resource "kubernetes_secret" "court_case_service_rds" {
     database_username     = data.aws_ssm_parameter.court-probation-prod-rds-database-username.value
     database_password     = data.aws_ssm_parameter.court-probation-prod-rds-database-password.value
     rds_instance_address  = data.aws_ssm_parameter.court-probation-prod-rds-instance-address.value
-    url                   = "postgres://${database_username}:${database_password}@${rds_instance_endpoint}/${database_name}"
+    url                   = "postgres://${data.aws_ssm_parameter.court-probation-prod-rds-database-username.value}:${data.aws_ssm_parameter.court-probation-prod-rds-database-password.value}@${data.aws_ssm_parameter.court-probation-prod-rds-instance-endpoint.value}/${data.aws_ssm_parameter.court-probation-prod-rds-database-name.value}"
   }
 }
