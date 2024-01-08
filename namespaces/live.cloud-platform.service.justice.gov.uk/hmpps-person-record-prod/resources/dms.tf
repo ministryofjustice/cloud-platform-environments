@@ -11,12 +11,12 @@ module "hmpps-person-record-dms" {
   team_name              = var.team_name
 }
 
-resource "random_id" "dms_rand" {
+resource "random_id" "id" {
   byte_length = 8
 }
 
 resource "aws_dms_endpoint" "source-ccs-prod-db" {
-  endpoint_id                 = "${var.team_name}-src-ccs-prod-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-src-ccs-prod-${random_id.id.hex}"
   endpoint_type               = "source"
   engine_name                 = "postgres"
   extra_connection_attributes = ""
@@ -37,7 +37,7 @@ resource "aws_dms_endpoint" "source-ccs-prod-db" {
 }
 
 resource "aws_dms_endpoint" "target-cpr-prod-db" {
-  endpoint_id                 = "${var.team_name}-target-cpr-prod-${random_id.dms_rand.hex}"
+  endpoint_id                 = "${var.team_name}-target-cpr-prod-${random_id.id.hex}"
   endpoint_type               = "target"
   engine_name                 = "postgres"
   extra_connection_attributes = ""
@@ -60,7 +60,7 @@ resource "aws_dms_endpoint" "target-cpr-prod-db" {
 resource "aws_dms_replication_task" "ccs_to_cpr_replication_task" {
   migration_type           = "full-load"
   replication_instance_arn = module.hmpps-person-record-dms.replication_instance_arn
-  replication_task_id      = "${var.team_name}-ccs-to-cpr-replication-instance-${random_id.dms_rand.hex}"
+  replication_task_id      = "${var.team_name}-ccs-to-cpr-replication-instance-${random_id.id.hex}"
 
   source_endpoint_arn = aws_dms_endpoint.source-ccs-prod-db.endpoint_arn
   target_endpoint_arn = aws_dms_endpoint.target-cpr-prod-db.endpoint_arn
