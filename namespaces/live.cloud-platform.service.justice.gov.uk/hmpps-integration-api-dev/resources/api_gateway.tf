@@ -234,7 +234,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   treat_missing_data  = "notBreaching"
   metric_name         = "4XXError"
   namespace           = "AWS/ApiGateway"
-  period              = 300
+  period              = 30
   evaluation_periods  = 1
   threshold           = 1
   statistic           = "Sum"
