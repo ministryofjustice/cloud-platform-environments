@@ -25,7 +25,7 @@ data "kubernetes_secret" "dms_secret" {
 resource "aws_dms_endpoint" "source-ccs-prod-db" {
   endpoint_id                 = "${var.team_name}-src-ccs-prod-${random_id.id.hex}"
   endpoint_type               = "source"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.src_engine
+  engine_name                 = "postgres"
   extra_connection_attributes = ""
   server_name                 = data.kubernetes_secret.dms_secret.data.src_addr
   database_name               = data.kubernetes_secret.dms_secret.data.src_database
@@ -46,7 +46,7 @@ resource "aws_dms_endpoint" "source-ccs-prod-db" {
 resource "aws_dms_endpoint" "target-cpr-prod-db" {
   endpoint_id                 = "${var.team_name}-target-cpr-prod-${random_id.id.hex}"
   endpoint_type               = "target"
-  engine_name                 = data.kubernetes_secret.dms_secret.data.dst_engine
+  engine_name                 = "postgres"
   extra_connection_attributes = ""
   server_name                 = data.kubernetes_secret.dms_secret.data.dst_addr
   database_name               = data.kubernetes_secret.dms_secret.data.dst_database
