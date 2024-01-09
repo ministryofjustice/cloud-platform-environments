@@ -11,7 +11,7 @@ module "ecr_credentials" {
   github_repositories   = ["cjs_scorecard_exploratory_analysis"]
   oidc_providers        = ["github"]
   github_actions_prefix = "dev"
-  lifecycle_policy = <<EOF
+  lifecycle_policy      = <<EOF
     {
       "rules": [
         {

@@ -48,8 +48,8 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    resource_id       = module.rds-instance.resource_id
-    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    resource_id = module.rds-instance.resource_id
+    url         = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
 
@@ -104,7 +104,7 @@ resource "kubernetes_secret" "rds-read-replica" {
   }
 
   data = {
-    resource_id       = module.rds-read-replica.resource_id
-    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
+    resource_id = module.rds-read-replica.resource_id
+    url         = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
   }
 }

@@ -12,7 +12,7 @@ module "irsa-staging" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3  = module.db_backups_storage.irsa_policy_arn
+    s3 = module.db_backups_storage.irsa_policy_arn
   }
 
   # Tags

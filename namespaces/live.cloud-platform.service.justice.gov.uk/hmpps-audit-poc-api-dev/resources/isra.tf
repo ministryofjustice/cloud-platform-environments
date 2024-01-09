@@ -5,16 +5,16 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-audit-poc-api"
-  role_policy_arns       = local.sqs_policies
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-audit-poc-api"
+  role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application

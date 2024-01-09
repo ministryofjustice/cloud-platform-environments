@@ -18,7 +18,7 @@ module "rds" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name             = "ccq-rds-staging"
+  rds_name = "ccq-rds-staging"
 
   # enable performance insights
   performance_insights_enabled = true

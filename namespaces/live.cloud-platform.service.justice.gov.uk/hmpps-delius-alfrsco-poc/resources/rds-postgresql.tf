@@ -22,11 +22,11 @@ module "rds_alfresco" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
+  db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version = "14.10"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t3.micro"
+  db_engine_version         = "14.10"
+  rds_family                = "postgres14"
+  db_instance_class         = "db.t3.micro"
 
   # Tagst
   application            = var.application

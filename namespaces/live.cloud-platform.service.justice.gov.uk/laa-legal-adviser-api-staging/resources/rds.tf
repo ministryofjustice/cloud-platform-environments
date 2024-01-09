@@ -29,13 +29,13 @@ resource "kubernetes_secret" "laa_laa_rds_postgres_14" {
   }
 
   data = {
-    db_identifier     = module.laa_laa_rds_postgres_14.db_identifier
-    endpoint          = module.laa_laa_rds_postgres_14.rds_instance_endpoint
-    name              = module.laa_laa_rds_postgres_14.database_name
-    user              = module.laa_laa_rds_postgres_14.database_username
-    password          = module.laa_laa_rds_postgres_14.database_password
-    host              = module.laa_laa_rds_postgres_14.rds_instance_address
-    port              = module.laa_laa_rds_postgres_14.rds_instance_port
-    url               = "postgis://${module.laa_laa_rds_postgres_14.database_username}:${module.laa_laa_rds_postgres_14.database_password}@${module.laa_laa_rds_postgres_14.rds_instance_endpoint}/${module.laa_laa_rds_postgres_14.database_name}"
+    db_identifier = module.laa_laa_rds_postgres_14.db_identifier
+    endpoint      = module.laa_laa_rds_postgres_14.rds_instance_endpoint
+    name          = module.laa_laa_rds_postgres_14.database_name
+    user          = module.laa_laa_rds_postgres_14.database_username
+    password      = module.laa_laa_rds_postgres_14.database_password
+    host          = module.laa_laa_rds_postgres_14.rds_instance_address
+    port          = module.laa_laa_rds_postgres_14.rds_instance_port
+    url           = "postgis://${module.laa_laa_rds_postgres_14.database_username}:${module.laa_laa_rds_postgres_14.database_password}@${module.laa_laa_rds_postgres_14.rds_instance_endpoint}/${module.laa_laa_rds_postgres_14.database_name}"
   }
 }

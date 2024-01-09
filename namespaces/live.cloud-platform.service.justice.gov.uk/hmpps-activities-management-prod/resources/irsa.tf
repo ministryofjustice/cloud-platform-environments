@@ -1,4 +1,4 @@
- 
+
 
 
 # Add the names of the SQS queues & SNS topics which the app needs permissions to access.
@@ -7,12 +7,12 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue"              = "hmpps-audit-prod",
     "Digital-Prison-Services-prod-activities_domain_events_queue" = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-activities_domain_events_dl" = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-activities_domain_events_dl"    = "hmpps-domain-events-prod"
   }
 
- # The names of the SNS topics used and the namespace which created them
+  # The names of the SNS topics used and the namespace which created them
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }

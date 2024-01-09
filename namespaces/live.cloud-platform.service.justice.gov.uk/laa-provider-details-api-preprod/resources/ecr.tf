@@ -13,8 +13,8 @@ module "ecr" {
   namespace = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-cwa-data-api"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-cwa-data-api"]
   github_actions_prefix = "preprod"
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
@@ -67,7 +67,7 @@ module "ecr" {
       ]
     }
     EOF
-    
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

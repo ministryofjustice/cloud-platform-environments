@@ -72,8 +72,8 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn           = module.s3_bucket.bucket_arn
+    bucket_name          = module.s3_bucket.bucket_name
     s3_access_user_arn   = aws_iam_user.s3_user.arn
     s3_access_key_id     = aws_iam_access_key.s3_user.id
     s3_secret_access_key = aws_iam_access_key.s3_user.secret

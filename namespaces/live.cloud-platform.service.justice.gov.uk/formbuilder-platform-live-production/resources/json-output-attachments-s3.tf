@@ -42,7 +42,7 @@ resource "kubernetes_secret" "json-output-attachments-s3-bucket" {
   }
 
   data = {
-    bucket_arn        = module.json-output-attachments-s3-bucket.bucket_arn
-    bucket_name       = module.json-output-attachments-s3-bucket.bucket_name
+    bucket_arn  = module.json-output-attachments-s3-bucket.bucket_arn
+    bucket_name = module.json-output-attachments-s3-bucket.bucket_name
   }
 }

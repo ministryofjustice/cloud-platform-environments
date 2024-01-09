@@ -5,7 +5,7 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_dl" = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_dl"    = "hmpps-domain-events-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them

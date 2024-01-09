@@ -100,10 +100,10 @@ resource "kubernetes_secret" "restricted_patients_queue_for_domain_events_dead_l
 }
 
 resource "aws_sns_topic_subscription" "restricted_patients_queue_for_domain_events_subscription_details" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.restricted_patients_queue_for_domain_events.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.restricted_patients_queue_for_domain_events.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged"

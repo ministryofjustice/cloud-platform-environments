@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    redis  = module.hmpps_book_video_link_elasticache_redis.irsa_policy_arn
+    redis = module.hmpps_book_video_link_elasticache_redis.irsa_policy_arn
   }
 
   # Tags

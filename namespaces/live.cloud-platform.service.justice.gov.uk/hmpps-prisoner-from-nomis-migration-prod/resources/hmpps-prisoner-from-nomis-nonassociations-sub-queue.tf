@@ -103,10 +103,10 @@ resource "kubernetes_secret" "prisoner_from_nomis_nonassociations_dead_letter_qu
 }
 
 resource "aws_sns_topic_subscription" "prisoner_from_nomis_nonassociations_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.offender-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.prisoner_from_nomis_nonassociations_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_nonassociations_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "NON_ASSOCIATION_DETAIL-UPSERTED",

@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
-    s3  = module.s3_bucket.irsa_policy_arn    
+    s3  = module.s3_bucket.irsa_policy_arn
     sns = module.application-events-sns-topic.irsa_policy_arn
     sqs = module.application-events-dlq.irsa_policy_arn
   }
