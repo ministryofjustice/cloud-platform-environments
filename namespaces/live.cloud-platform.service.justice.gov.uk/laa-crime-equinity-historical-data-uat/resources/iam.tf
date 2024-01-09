@@ -9,9 +9,7 @@ resource "aws_iam_access_key" "upload_user_uat_key" {
 
 data "aws_iam_policy_document" "upload_policy" {
   statement {
-    actions = ["s3:PutObject"]
-    actions = ["s3:GetObject"]
-    actions = ["s3:ListObjects"]
+    actions = ["s3:PutObject", "s3:GetObject", "s3:ListObjects"]
     
     resources = [
       "${module.s3_bucket.bucket_arn}/*"
