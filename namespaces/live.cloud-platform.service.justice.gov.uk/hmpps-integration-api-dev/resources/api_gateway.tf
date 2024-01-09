@@ -115,7 +115,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   uri                     = "${var.cloud_platform_integration_api_url}/{proxy}"
 
   request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy",
+    "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
 }
@@ -200,19 +200,19 @@ resource "aws_api_gateway_stage" "main" {
       integrationStatus  = "$context.integration.status"
       integrationError   = "$context.integration.error"
       apiKeyId           = "$context.identity.apiKeyId"
-    })  
+    })
   }
 
   lifecycle {
     create_before_destroy = true
   }
-  
+
   depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 60  
+  retention_in_days = 60
 }
 
 resource "aws_api_gateway_method_settings" "all" {
@@ -221,8 +221,8 @@ resource "aws_api_gateway_method_settings" "all" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled    = true
+    logging_level      = "INFO"
     data_trace_enabled = true
   }
 }
@@ -245,13 +245,13 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
 
 module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=add-cw-access" 
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
 
   # Configuration
   topic_display_name = "integration-api-alert-topic"
@@ -272,7 +272,7 @@ module "sns_topic" {
 }
 
 resource "aws_sns_topic_subscription" "integration-api-alert-topic-subscription" {
-  topic_arn     = module.sns_topic.topic_arn
-  protocol      = "https"
-  endpoint      = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
+  topic_arn = module.sns_topic.topic_arn
+  protocol  = "https"
+  endpoint  = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
 }

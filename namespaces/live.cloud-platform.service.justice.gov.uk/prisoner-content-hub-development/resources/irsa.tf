@@ -12,8 +12,8 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3      = module.drupal_content_storage_2.irsa_policy_arn
-    s3prod  = aws_iam_policy.s3_add_access_to_prod.arn
+    s3     = module.drupal_content_storage_2.irsa_policy_arn
+    s3prod = aws_iam_policy.s3_add_access_to_prod.arn
   }
 
   # Tags
@@ -48,11 +48,11 @@ resource "aws_iam_policy" "s3_add_access_to_prod" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name  = "content-hub-irsa"
+    name      = "content-hub-irsa"
     namespace = var.namespace
   }
 
   data = {
-    role  = module.irsa.role_arn
+    role = module.irsa.role_arn
   }
 }

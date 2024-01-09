@@ -4,7 +4,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sns_queues = {
-    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd"       = "hmpps-domain-events-preprod"
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }

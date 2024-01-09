@@ -55,15 +55,15 @@ resource "kubernetes_secret" "hmpps_interventions_refresh14_secret" {
 
 
 module "hmpps_interventions_postgres14_replica" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
-  vpc_name                = var.vpc_name
-  team_name               = var.team_name
-  business_unit           = var.business_unit
-  application             = var.application
-  is_production           = var.is_production
-  namespace               = var.namespace
-  environment_name        = var.environment
-  infrastructure_support  = var.infrastructure_support
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
   db_engine_version           = "14"

@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-offender_case_notes_events_queue" = "offender-events-dev",
+    "Digital-Prison-Services-dev-offender_case_notes_events_queue"    = "offender-events-dev",
     "Digital-Prison-Services-dev-offender_case_notes_events_queue_dl" = "offender-events-dev",
   }
   sns_topics = {
@@ -16,10 +16,10 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = var.application
-  role_policy_arns       = merge(
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = var.application
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
   )

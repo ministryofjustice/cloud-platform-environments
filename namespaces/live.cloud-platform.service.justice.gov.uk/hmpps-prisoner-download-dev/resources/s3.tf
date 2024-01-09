@@ -22,7 +22,7 @@ module "hmpps-prisoner-download_s3_bucket" {
 
 data "aws_iam_policy_document" "dso_user_s3_access_policy" {
   statement {
-    sid = "AllowDsoUserToReadAndPutObjectsInS3"
+    sid    = "AllowDsoUserToReadAndPutObjectsInS3"
     effect = "Allow"
     actions = [
       "s3:PutObject"

@@ -15,9 +15,9 @@ module "irsa_pathfinder" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "pathfinder"
   role_policy_arns = merge(
-    { "s3" = module.pathfinder_document_s3_bucket.irsa_policy_arn,
-    "s3-extra" = aws_iam_policy.irsa_additional_s3_policy.arn,
-    "ap-s3-access" = aws_iam_policy.ap_policy.arn},
+    { "s3"       = module.pathfinder_document_s3_bucket.irsa_policy_arn,
+      "s3-extra" = aws_iam_policy.irsa_additional_s3_policy.arn,
+    "ap-s3-access" = aws_iam_policy.ap_policy.arn },
     local.sqs_policies
   )
   business_unit          = var.business_unit

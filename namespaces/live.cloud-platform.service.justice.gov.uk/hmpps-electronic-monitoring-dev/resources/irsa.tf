@@ -10,9 +10,9 @@ module "irsa" {
 
 
   role_policy_arns = {
-    cemo_rds = module.cemo_rds.irsa_policy_arn
-    cemo_s3 = module.cemo_s3.irsa_policy_arn
-    cemo_sqs = module.cemo_submit_queue.irsa_policy_arn
+    cemo_rds    = module.cemo_rds.irsa_policy_arn
+    cemo_s3     = module.cemo_s3.irsa_policy_arn
+    cemo_sqs    = module.cemo_submit_queue.irsa_policy_arn
     cemo_dl_sqs = module.cemo_submit_dl_queue.irsa_policy_arn
   }
 

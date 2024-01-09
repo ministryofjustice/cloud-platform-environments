@@ -24,7 +24,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-custody-manager-api"
-  role_policy_arns = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
 
   # Tags
   business_unit          = var.business_unit

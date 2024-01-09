@@ -11,7 +11,7 @@ module "probation-search-ui-service-account" {
   team_name              = var.team_name
 
   service_account_name = "probation-search-ui"
-  role_policy_arns     = {
+  role_policy_arns = {
     elasticache = module.elasticache.irsa_policy_arn
   }
 }

@@ -1,8 +1,8 @@
 module "ecr-repo-prison-visits-public" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
-  repo_name = "prison-visits-public"
-  oidc_providers = ["circleci"]
+  repo_name           = "prison-visits-public"
+  oidc_providers      = ["circleci"]
   github_repositories = ["prison-visits-public"]
 
   # Tags
@@ -22,7 +22,7 @@ resource "kubernetes_secret" "ecr-repo-prison-visits-public" {
   }
 
   data = {
-    repo_arn          = module.ecr-repo-prison-visits-public.repo_arn
-    repo_url          = module.ecr-repo-prison-visits-public.repo_url
+    repo_arn = module.ecr-repo-prison-visits-public.repo_arn
+    repo_url = module.ecr-repo-prison-visits-public.repo_url
   }
 }

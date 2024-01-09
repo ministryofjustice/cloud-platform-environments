@@ -41,19 +41,19 @@ module "opensearch" {
   # matches production and therefore is an accurate prediction of prod behaviour.
 
   # Production cluster configuration
-#  cluster_config = {
-#    instance_count = 3
-#    instance_type  = "m6g.large.search"
-#
-#    # Dedicated primary nodes
-#    dedicated_master_enabled = true
-#    dedicated_master_count   = 3 # can only either be 3 or 5
-#    dedicated_master_type    = "m6g.large.search"
-#  }
-#
-#  ebs_options = {
-#    volume_size = 100
-#  }
+  #  cluster_config = {
+  #    instance_count = 3
+  #    instance_type  = "m6g.large.search"
+  #
+  #    # Dedicated primary nodes
+  #    dedicated_master_enabled = true
+  #    dedicated_master_count   = 3 # can only either be 3 or 5
+  #    dedicated_master_type    = "m6g.large.search"
+  #  }
+  #
+  #  ebs_options = {
+  #    volume_size = 100
+  #  }
 
   # Tags
   business_unit          = var.business_unit

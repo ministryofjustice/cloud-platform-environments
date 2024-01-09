@@ -6,7 +6,7 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-   github_repositories = ["manchester_traffic_offences_pleas", "makeaplea_dx"]
+  github_repositories = ["manchester_traffic_offences_pleas", "makeaplea_dx"]
 
   serviceaccount_rules = [
     {

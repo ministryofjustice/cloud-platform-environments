@@ -12,12 +12,12 @@ module "hmpps-prisoner-search-indexer" {
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-search-indexer"
   role_policy_arns = merge({
-    hmpps_prisoner_search_index_queue             = module.hmpps_prisoner_search_index_queue.irsa_policy_arn,
-    hmpps_prisoner_search_index_dead_letter_queue = module.hmpps_prisoner_search_index_dead_letter_queue.irsa_policy_arn,
-    hmpps_prisoner_search_domain_queue            = module.hmpps_prisoner_search_domain_queue.irsa_policy_arn,
-    hmpps_prisoner_search_domain_dlq              = module.hmpps_prisoner_search_domain_dlq.irsa_policy_arn,
-    hmpps_prisoner_search_offender_queue          = module.hmpps_prisoner_search_offender_queue.irsa_policy_arn,
-    hmpps_prisoner_search_offender_dlq            = module.hmpps_prisoner_search_offender_dlq.irsa_policy_arn,
+    hmpps_prisoner_search_index_queue               = module.hmpps_prisoner_search_index_queue.irsa_policy_arn,
+    hmpps_prisoner_search_index_dead_letter_queue   = module.hmpps_prisoner_search_index_dead_letter_queue.irsa_policy_arn,
+    hmpps_prisoner_search_domain_queue              = module.hmpps_prisoner_search_domain_queue.irsa_policy_arn,
+    hmpps_prisoner_search_domain_dlq                = module.hmpps_prisoner_search_domain_dlq.irsa_policy_arn,
+    hmpps_prisoner_search_offender_queue            = module.hmpps_prisoner_search_offender_queue.irsa_policy_arn,
+    hmpps_prisoner_search_offender_dlq              = module.hmpps_prisoner_search_offender_dlq.irsa_policy_arn,
     hmpps_prisoner_search_publish_queue             = module.hmpps_prisoner_search_publish_queue.irsa_policy_arn,
     hmpps_prisoner_search_publish_dead_letter_queue = module.hmpps_prisoner_search_publish_dead_letter_queue.irsa_policy_arn,
   }, local.sns_policies)

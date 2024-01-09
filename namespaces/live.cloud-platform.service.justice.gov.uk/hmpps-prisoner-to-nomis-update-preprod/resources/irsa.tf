@@ -9,7 +9,7 @@ module "irsa" {
   service_account_name = "hmpps-prisoner-to-nomis-update"
   # we've almost hit the limit for policies here (limit is 15).  If wanting to add any more then switch to the
   # approach used in hmpps-prisoner-from-nomis-migration-prod/resources/irsa.tf instead.
-  role_policy_arns     = {
+  role_policy_arns = {
     hmpps_prisoner_to_nomis_adjudication_queue               = module.hmpps_prisoner_to_nomis_adjudication_queue.irsa_policy_arn,
     hmpps_prisoner_to_nomis_adjudication_dead_letter_queue   = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
     hmpps_prisoner_to_nomis_nonassociation_queue             = module.hmpps_prisoner_to_nomis_nonassociation_queue.irsa_policy_arn,

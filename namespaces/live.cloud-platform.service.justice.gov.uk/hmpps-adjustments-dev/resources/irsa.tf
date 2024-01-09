@@ -7,9 +7,9 @@ locals {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  sqs_policies     = {
-    hmpps_unused_deductions_queue                       = module.hmpps_unused_deductions_queue.irsa_policy_arn,
-    hmpps_unused_deductions_queue_dead_letter_queue     = module.hmpps_unused_deductions_queue.irsa_policy_arn,
+  sqs_policies = {
+    hmpps_unused_deductions_queue                   = module.hmpps_unused_deductions_queue.irsa_policy_arn,
+    hmpps_unused_deductions_queue_dead_letter_queue = module.hmpps_unused_deductions_queue.irsa_policy_arn,
   }
 }
 
