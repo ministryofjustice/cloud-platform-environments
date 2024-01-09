@@ -228,7 +228,7 @@ resource "aws_api_gateway_method_settings" "all" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
-  alarm_name          = "gateway-errors"
+  alarm_name          = "${var.namespace}-gateway-4XX-errors"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   alarm_description   = "Gateway 4xx error greater than 0"
   treat_missing_data  = "notBreaching"
@@ -239,7 +239,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   threshold           = 1
   statistic           = "Sum"
   unit                = "Count"
-  actions_enabled     = "true"
+  actions_enabled     = true
   alarm_actions       = [module.sns_topic.topic_arn]
   dimensions = {
     ApiName = var.namespace
@@ -271,8 +271,19 @@ module "sns_topic" {
   }
 }
 
-resource "aws_sns_topic_subscription" "integration-api-alert-topic-subscription" {
-  topic_arn = module.sns_topic.topic_arn
-  protocol  = "https"
-  endpoint  = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
+module "notify_slack" {
+  source = "github.com/terraform-aws-modules/terraform-aws-notify-slack.git?ref=v5.6.0"
+
+  sns_topic_name   = module.sns_topic.topic_name
+  create_sns_topic = false
+
+  lambda_function_name = "${var.namespace}-cloudwatch-alarm-notify-slack"
+
+  cloudwatch_log_group_retention_in_days = 7
+
+  slack_webhook_url = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
+  slack_channel     = "#hmpps-integration-api-alerts"
+  slack_username    = "aws"
+  slack_emoji       = ":warning:"
 }
+
