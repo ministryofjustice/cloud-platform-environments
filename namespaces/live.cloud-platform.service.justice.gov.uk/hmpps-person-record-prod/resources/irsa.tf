@@ -30,7 +30,8 @@ module "irsa" {
     { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
     { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
-    { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn }
+    { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
+    { dms = module.hmpps-person-record-dms.irsa_policy_arn }
   )
 
   # Tags
