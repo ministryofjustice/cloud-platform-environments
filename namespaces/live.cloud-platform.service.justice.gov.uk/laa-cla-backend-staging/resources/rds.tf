@@ -7,7 +7,6 @@
 
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
-
 module "cla_backend_rds_postgres_14_replica" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
   vpc_name               = var.vpc_name
@@ -93,14 +92,14 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_rds_postgres_14.database_name
-    user              = module.cla_backend_rds_postgres_14.database_username
-    password          = module.cla_backend_rds_postgres_14.database_password
-    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
-    replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
+    endpoint         = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_14.rds_instance_address
+    port             = module.cla_backend_rds_postgres_14.rds_instance_port
+    name             = module.cla_backend_rds_postgres_14.database_name
+    user             = module.cla_backend_rds_postgres_14.database_username
+    password         = module.cla_backend_rds_postgres_14.database_password
+    db_identifier    = module.cla_backend_rds_postgres_14.db_identifier
+    replica_host     = module.cla_backend_rds_postgres_14_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
   }
 }

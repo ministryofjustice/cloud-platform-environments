@@ -67,3 +67,11 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "bucket_name" {
+  default = "tim-development-01"
+}
+
+variable "eks_cluster_name" {
+  default = "live"
+}

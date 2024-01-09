@@ -6,17 +6,17 @@
  */
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  namespace              = var.namespace
-  db_engine_version      = "14.7"
-  db_instance_class      = "db.t3.small"
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  vpc_name                  = var.vpc_name
+  team_name                 = var.team_name
+  business_unit             = var.business_unit
+  application               = var.application
+  is_production             = var.is_production
+  namespace                 = var.namespace
+  db_engine_version         = "14.7"
+  db_instance_class         = "db.t3.small"
+  environment_name          = var.environment
+  infrastructure_support    = var.infrastructure_support
   prepare_for_major_upgrade = true
 
   rds_family = "postgres14"

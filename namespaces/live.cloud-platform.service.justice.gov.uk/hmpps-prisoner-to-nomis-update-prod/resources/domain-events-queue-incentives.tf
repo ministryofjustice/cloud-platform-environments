@@ -101,10 +101,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_incentive_dead_letter_queu
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incentive_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.hmpps_prisoner_to_nomis_incentive_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "incentives.iep-review.inserted", "incentives.level.changed", "incentives.levels.reordered",

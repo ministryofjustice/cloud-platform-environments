@@ -12,7 +12,7 @@ module "alfresco-content-ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["hmpps-alfresco","hmpps-delius-alfresco-poc"]
+  github_repositories   = ["hmpps-alfresco", "hmpps-delius-alfresco-poc"]
   github_actions_prefix = "content"
 
   # Tags

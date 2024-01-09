@@ -10,14 +10,14 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "make-recall-decision"
-  role_policy_arns     = merge(
-                           local.sqs_policies,
-                           local.sns_policies,
-                           { elasticache = module.elasticache_redis.irsa_policy_arn  }
+  role_policy_arns = merge(
+    local.sqs_policies,
+    local.sns_policies,
+    { elasticache = module.elasticache_redis.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit

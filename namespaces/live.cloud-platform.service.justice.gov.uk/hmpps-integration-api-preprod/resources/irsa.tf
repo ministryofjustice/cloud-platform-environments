@@ -5,7 +5,7 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod"
-    
+
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
@@ -16,7 +16,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -24,7 +24,7 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  
+
   providers = {
     aws = aws.london_without_default_tags
   }

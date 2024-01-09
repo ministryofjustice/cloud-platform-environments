@@ -43,3 +43,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-check-client-qualifies-staging
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-uat

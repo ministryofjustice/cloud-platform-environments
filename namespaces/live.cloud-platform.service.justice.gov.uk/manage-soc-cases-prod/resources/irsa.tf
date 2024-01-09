@@ -16,7 +16,7 @@ module "irsa_manage_soc_cases" {
   service_account_name = "manage-soc-cases"
   role_policy_arns = merge(
     { "rds" = module.dps_rds.irsa_policy_arn,
-    "s3" = module.manage_soc_cases_document_s3_bucket.irsa_policy_arn,
+      "s3"  = module.manage_soc_cases_document_s3_bucket.irsa_policy_arn,
     "s3-extra" = aws_iam_policy.irsa_additional_s3_policy.arn },
     local.sqs_policies
   )

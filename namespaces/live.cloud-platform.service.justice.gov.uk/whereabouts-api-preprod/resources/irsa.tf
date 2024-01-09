@@ -3,9 +3,9 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-whereabouts_api_queue"    = "offender-events-preprod",
-    "Digital-Prison-Services-preprod-whereabouts_api_queue_dl" = "offender-events-preprod",
-    "Digital-Prison-Services-preprod-whereabouts_api_domain_events_queue" = "hmpps-domain-events-preprod"
+    "Digital-Prison-Services-preprod-whereabouts_api_queue"                  = "offender-events-preprod",
+    "Digital-Prison-Services-preprod-whereabouts_api_queue_dl"               = "offender-events-preprod",
+    "Digital-Prison-Services-preprod-whereabouts_api_domain_events_queue"    = "hmpps-domain-events-preprod"
     "Digital-Prison-Services-preprod-whereabouts_api_domain_events_queue_dl" = "hmpps-domain-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }

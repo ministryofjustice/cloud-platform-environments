@@ -102,10 +102,10 @@ resource "kubernetes_secret" "hmpps_unused_deductions_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.hmpps_unused_deductions_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.hmpps_unused_deductions_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "release-date-adjustments.adjustment.inserted",

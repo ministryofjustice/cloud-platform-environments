@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source   =  "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=add-oracle"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=add-oracle"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -13,22 +13,25 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
 
- # Database configuration
+  # Database configuration
   db_engine                = "oracle-se2" # or oracle-ee
-  db_engine_version        = "19.0.0.0.ru-2019-07.rur-2019-07.r1"
+  db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
   rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
+  db_instance_class        = "db.t3.medium"
+  db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
   db_name                  = "CCR"
-  license_model = "license-included"
-  db_iops = 0
-  character_set_name = "WE8MSWIN1252"   # problem  
- 
+  license_model            = "license-included"
+  db_iops                  = 0
+  character_set_name       = "WE8MSWIN1252" # problem  
+
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
   performance_insights_enabled = true
+
+  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
 
   providers = {
     aws = aws.london
@@ -38,7 +41,7 @@ module "rds-instance" {
   db_parameter = []
 
   vpc_security_group_ids = [aws_security_group.rds.id]
-  
+
 }
 
 
@@ -52,9 +55,9 @@ data "aws_vpc" "selected" {
 
 # Additional RDS SG
 resource "aws_security_group" "rds" {
-  name          = "${var.namespace}-RDS-${var.environment}"
-  description   = "RDS VPC Security Group for  Ingress Traffic"
-  vpc_id        = data.aws_vpc.selected.id
+  name        = "${var.namespace}-RDS-${var.environment}"
+  description = "RDS VPC Security Group for  Ingress Traffic"
+  vpc_id      = data.aws_vpc.selected.id
 
   lifecycle {
     create_before_destroy = true

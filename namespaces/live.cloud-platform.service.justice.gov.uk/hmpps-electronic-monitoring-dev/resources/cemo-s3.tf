@@ -11,6 +11,17 @@ module "cemo_s3" {
 }
 
 
+resource "aws_s3_bucket_notification" "cemo_s3_notification" {
+  bucket = module.cemo_s3.bucket_name
+
+  queue {
+    id        = "cemo-s3-upload-event"
+    queue_arn = module.cemo_submit_queue.sqs_arn
+    events    = ["s3:ObjectCreated:*"]
+  }
+}
+
+
 resource "kubernetes_secret" "cemo_s3" {
   metadata {
     name      = "cemo-s3"

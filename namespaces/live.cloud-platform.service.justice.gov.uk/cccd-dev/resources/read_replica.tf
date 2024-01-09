@@ -1,7 +1,7 @@
 module "read_replica" {
   # default off as in count = 0
-  count                  = 1
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  count  = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -16,12 +16,12 @@ module "read_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "13"
-  rds_family        = "postgres13"
-  db_instance_class = "db.t4g.micro"
-  db_allocated_storage = "80"
-  db_max_allocated_storage = "550"
+  db_engine                   = "postgres"
+  db_engine_version           = "13"
+  rds_family                  = "postgres13"
+  db_instance_class           = "db.t4g.micro"
+  db_allocated_storage        = "80"
+  db_max_allocated_storage    = "550"
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   # It is mandatory to set the below values to create read replica instance

@@ -1,6 +1,6 @@
 module "ap_irsa" {
 
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -83,8 +83,8 @@ resource "kubernetes_secret" "ap_aws_secret" {
   data = {
     destination_bucket = "s3://moj-reg-prod/landing/hmpps-interventions-prod/"
     user_arn           = aws_iam_user.user.arn
-#    access_key_id      = aws_iam_access_key.user.id
-#    secret_access_key  = aws_iam_access_key.user.secret
+    #    access_key_id      = aws_iam_access_key.user.id
+    #    secret_access_key  = aws_iam_access_key.user.secret
   }
 }
 

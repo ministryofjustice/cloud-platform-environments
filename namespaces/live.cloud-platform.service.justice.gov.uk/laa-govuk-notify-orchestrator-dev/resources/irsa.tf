@@ -6,10 +6,10 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment}"
-  
+
   role_policy_arns = {
-        laa_govuk_notify_orchestrator_development_sqs       = module.laa_govuk_notify_orchestrator_development_sqs.irsa_policy_arn
-        laa_govuk_notify_orchestrator_development_dlq       = module.laa_govuk_notify_orchestrator_development_dlq.irsa_policy_arn
+    laa_govuk_notify_orchestrator_development_sqs = module.laa_govuk_notify_orchestrator_development_sqs.irsa_policy_arn
+    laa_govuk_notify_orchestrator_development_dlq = module.laa_govuk_notify_orchestrator_development_dlq.irsa_policy_arn
   }
 
   # Tags

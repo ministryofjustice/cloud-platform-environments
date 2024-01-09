@@ -25,7 +25,7 @@ module "service-metadata-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3  = module.service-metadata-s3-bucket.irsa_policy_arn
+    s3 = module.service-metadata-s3-bucket.irsa_policy_arn
   }
 
   # Tags
@@ -45,8 +45,8 @@ resource "kubernetes_secret" "service-metadata-s3-bucket" {
   }
 
   data = {
-    bucket_arn        = module.service-metadata-s3-bucket.bucket_arn
-    bucket_name       = module.service-metadata-s3-bucket.bucket_name
+    bucket_arn  = module.service-metadata-s3-bucket.bucket_arn
+    bucket_name = module.service-metadata-s3-bucket.bucket_name
   }
 }
 

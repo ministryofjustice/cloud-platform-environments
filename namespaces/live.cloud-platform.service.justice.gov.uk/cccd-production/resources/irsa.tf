@@ -12,15 +12,15 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3  = module.cccd_s3_bucket.irsa_policy_arn
-    sns_submitted = module.cccd_claims_submitted.irsa_policy_arn
-    sqs_ccr = module.claims_for_ccr.irsa_policy_arn
-    sqs_cclf = module.claims_for_cclf.irsa_policy_arn
-    sqs_responses = module.responses_for_cccd.irsa_policy_arn
-    sqs_ccr_dlq = module.ccr_dead_letter_queue.irsa_policy_arn
-    sqs_cclf_dlq = module.cclf_dead_letter_queue.irsa_policy_arn
+    s3              = module.cccd_s3_bucket.irsa_policy_arn
+    sns_submitted   = module.cccd_claims_submitted.irsa_policy_arn
+    sqs_ccr         = module.claims_for_ccr.irsa_policy_arn
+    sqs_cclf        = module.claims_for_cclf.irsa_policy_arn
+    sqs_responses   = module.responses_for_cccd.irsa_policy_arn
+    sqs_ccr_dlq     = module.ccr_dead_letter_queue.irsa_policy_arn
+    sqs_cclf_dlq    = module.cclf_dead_letter_queue.irsa_policy_arn
     sqs_respons_dlq = module.cccd_response_dead_letter_queue.irsa_policy_arn
-    rds = module.cccd_rds.irsa_policy_arn
+    rds             = module.cccd_rds.irsa_policy_arn
   }
 
   # Tags

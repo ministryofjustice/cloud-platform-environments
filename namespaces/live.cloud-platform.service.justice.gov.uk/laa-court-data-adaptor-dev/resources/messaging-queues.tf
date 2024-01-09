@@ -423,7 +423,7 @@ resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
   data = {
     hearing_resulted_queue_irsa_policy_arn      = module.hearing_resulted_queue.irsa_policy_arn
     prosecution_concluded_queue_irsa_policy_arn = module.prosecution_concluded_queue.irsa_policy_arn
-    create_link_queue_m_irsa_policy_arn = module.create_link_queue_m.irsa_policy_arn
-    unlink_queue_m_irsa_policy_arn = module.unlink_queue_m.irsa_policy_arn
+    create_link_queue_m_irsa_policy_arn         = module.create_link_queue_m.irsa_policy_arn
+    unlink_queue_m_irsa_policy_arn              = module.unlink_queue_m.irsa_policy_arn
   }
 }

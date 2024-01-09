@@ -4,19 +4,19 @@ locals {
   }
   sqs_queues = {
     "Digital-Prison-Services-preprod-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-preprod",
-    "Digital-Prison-Services-preprod-education_and_work_plan_domain_events_dl" = "hmpps-domain-events-preprod"
+    "Digital-Prison-Services-preprod-education_and_work_plan_domain_events_dl"    = "hmpps-domain-events-preprod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-ciag-careers-induction-api"
   role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
-  
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
