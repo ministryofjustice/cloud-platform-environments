@@ -19,7 +19,7 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "700"
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
