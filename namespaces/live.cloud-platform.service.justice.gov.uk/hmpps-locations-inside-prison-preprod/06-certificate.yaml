@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: locations-inside-prison-api-preprod-cert
+  namespace: hmpps-locations-inside-prison-preprod
+spec:
+  secretName: locations-inside-prison-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - locations-inside-prison-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: locations-inside-prison-preprod-cert
+  namespace: hmpps-locations-inside-prison-preprod
+spec:
+  secretName: locations-inside-prison-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - locations-inside-prison-preprod.hmpps.service.justice.gov.uk
