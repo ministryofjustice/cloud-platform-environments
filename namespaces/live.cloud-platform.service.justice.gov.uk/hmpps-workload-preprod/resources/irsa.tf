@@ -51,6 +51,7 @@ module "irsa" {
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     { dashboard_s3 = module.hmpps-workload-preprod-s3-dashboard-bucket.irsa_policy_arn },
     { extract_s3 = module.hmpps-workload-preprod-s3-extract-bucket.irsa_policy_arn },
+    { dms = module.hmpps-workload-impact-testing-dms.irsa_policy_arn },
   )
 
   # Tags
