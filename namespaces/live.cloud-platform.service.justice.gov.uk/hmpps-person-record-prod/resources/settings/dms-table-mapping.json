@@ -1,0 +1,18 @@
+{
+  "rules": [
+    {
+      "rule-type": "selection",
+      "rule-id": "1",
+      "rule-name": "1",
+      "object-locator": {
+        "schema-name": "courtcaseservice",
+        "table-name": "defendant"
+      },
+      "rule-action": "include",
+      "rename-rule": {
+        "schema-name": "personrecordservice",
+        "table-name": "hmcts_defendant"
+      }
+    }
+  ]
+}
