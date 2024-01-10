@@ -340,7 +340,7 @@ module "notify_slack" {
   sns_topic_name   = module.sns_topic.topic_name
   create_sns_topic = false
 
-  lambda_function_name = "${var.namespace}-cloudwatch-alram-notify-slack"
+  lambda_function_name = "${var.namespace}-cloudwatch-alarm-notify-slack"
 
   cloudwatch_log_group_retention_in_days = 7
 
