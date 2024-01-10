@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["data-platform-firebreak-python-api"]
+  github_repositories = ["mm-cloud-platform-example-application"]
 
   # Tags
   business_unit          = var.business_unit
