@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
     cloud-platform.justice.gov.uk/application: "Community Accommodation"
     cloud-platform.justice.gov.uk/owner: "Community Accommodation: cas3@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-approved-premises-ui.git,https://github.com/ministryofjustice/hmpps-temporary-accommodation-ui.git,https://github.com/ministryofjustice/hmpps-approved-premises-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-approved-premises-ui.git,https://github.com/ministryofjustice/hmpps-temporary-accommodation-ui.git,https://github.com/ministryofjustice/hmpps-approved-premises-api.git,https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-ui.git"
     cloud-platform.justice.gov.uk/team-name: "hmpps-community-accommodation"
