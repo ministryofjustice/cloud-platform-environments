@@ -52,7 +52,7 @@ module "rds" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "1024"
+      value        = "40000"
       apply_method = "immediate"
     },
   ]
