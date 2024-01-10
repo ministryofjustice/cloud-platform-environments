@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-core-person"
+  default     = "hmpps-person-record"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preprod"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
