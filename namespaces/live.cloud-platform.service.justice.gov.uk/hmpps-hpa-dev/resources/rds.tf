@@ -7,14 +7,15 @@ module "hmpps_hpa_rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   db_engine              = "sqlserver-ex"
-  db_engine_version      = "15.00"
+  db_engine_version      = "16.00"
   db_instance_class      = "db.t3.small"
   db_allocated_storage   = 20
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-  rds_family             = "sqlserver-ex-15.0"
+  rds_family             = "sqlserver-ex-16.0"
   db_parameter           = []
   license_model          = "license-included"
+  prepare_for_major_upgrade = true
 
   performance_insights_enabled = true
 
