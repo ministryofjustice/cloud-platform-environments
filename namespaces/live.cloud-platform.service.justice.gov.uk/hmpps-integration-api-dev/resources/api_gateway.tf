@@ -276,7 +276,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
 resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
   alarm_name          = "${var.namespace}-gateway-integration-latency-greater-than-3-seconds"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway 5xx error greater than 0"
+  alarm_description   = "Gateway integration latency greater than 3 seconds"
   treat_missing_data  = "notBreaching"
   metric_name         = "IntegrationLatency"
   namespace           = "AWS/ApiGateway"
@@ -299,7 +299,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
 resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
   alarm_name          = "${var.namespace}-gateway-latency-greater-than-5-seconds"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway 5xx error greater than 0"
+  alarm_description   = "Gateway latency greater than 3 seconds"
   treat_missing_data  = "notBreaching"
   metric_name         = "IntegrationLatency"
   namespace           = "AWS/ApiGateway"
