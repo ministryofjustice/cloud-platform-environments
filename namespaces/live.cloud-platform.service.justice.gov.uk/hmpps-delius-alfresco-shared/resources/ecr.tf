@@ -33,7 +33,7 @@ module "alfresco-share-ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["hmpps-delius-alfresco-poc"]
+  github_repositories   = ["hmpps-alfresco", "hmpps-delius-alfresco-poc"]
   github_actions_prefix = "share"
 
   # Tags
