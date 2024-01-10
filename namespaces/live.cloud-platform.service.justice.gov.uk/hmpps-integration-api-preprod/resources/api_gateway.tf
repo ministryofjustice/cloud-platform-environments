@@ -220,3 +220,116 @@ resource "aws_api_gateway_method_settings" "all" {
     logging_level   = "INFO"
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
+  alarm_name          = "${var.namespace}-gateway-4XX-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 4xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "4XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+   depends_on = [
+    module.sns_topic
+  ]
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
+  alarm_name          = "${var.namespace}-gateway-5XX-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 5xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "5XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+   depends_on = [
+    module.sns_topic
+  ]
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
+  alarm_name          = "${var.namespace}-gateway-integration-latency-greater-than-3-seconds"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway integration latency greater than 3 seconds"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "IntegrationLatency"
+  namespace           = "AWS/ApiGateway"
+  period              = 60
+  evaluation_periods  = 1
+  threshold           = 3000
+  statistic           = "Maximum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+   depends_on = [
+    module.sns_topic
+  ]
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
+  alarm_name          = "${var.namespace}-gateway-latency-greater-than-5-seconds"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway latency greater than 3 seconds"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "IntegrationLatency"
+  namespace           = "AWS/ApiGateway"
+  period              = 60
+  evaluation_periods  = 1
+  threshold           = 5000
+  statistic           = "Maximum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+   depends_on = [
+    module.sns_topic
+  ]
+}
+
+module "sns_topic" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+
+  # Configuration
+  topic_display_name = "integration-api-alert-topic"
+  encrypt_sns_kms    = true
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the topic
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london_without_default_tags
+  }
+}
