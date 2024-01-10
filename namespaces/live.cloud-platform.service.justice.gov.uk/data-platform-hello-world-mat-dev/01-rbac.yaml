@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-person-links-dev-admin
-  namespace: hmpps-person-links-dev
+  name: data-platform-hello-world-mat-dev-admin
+  namespace: data-platform-hello-world-mat-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-person-record"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-tech"
+    name: "github:data-platform-development-sandbox"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
