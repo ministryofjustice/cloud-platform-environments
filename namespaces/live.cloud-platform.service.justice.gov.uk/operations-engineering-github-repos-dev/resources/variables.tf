@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Github Repos Terraform"
+  default     = "github repository state management"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-github-repos-dev"
+  default     = "operations-engineering-github-repos"
 }
 
 variable "business_unit" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "operations-engineering"
+  default     = "operations-engineering-team"
 }
 
 variable "github_owner" {
@@ -66,4 +66,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "repository_name" {
+  description = "The name of the repository to create the GitHub Actions secrets for"
+  type        = string
+  default     = "operations-engineering"
 }
