@@ -11,11 +11,11 @@ module "checkmydiary_rds" {
   infrastructure_support    = var.infrastructure_support
   db_instance_class         = "db.t4g.small"
   db_engine                 = "postgres"
-  db_engine_version         = "15"
-  rds_family                = "postgres15"
+  db_engine_version         = "16"
+  rds_family                = "postgres16"
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
