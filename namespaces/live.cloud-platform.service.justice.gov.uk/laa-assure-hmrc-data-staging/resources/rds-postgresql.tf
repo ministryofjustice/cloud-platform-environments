@@ -19,28 +19,17 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
-  # change the postgres version as you see fit.
-  db_engine_version = "14"
-
-  # change the instance class as you see fit.
-  db_instance_class = "db.t4g.small"
-
-  # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
-
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  # Database configuration
+  db_engine_version           = "14.10"
+  db_instance_class           = "db.t4g.small"
+  rds_family                  = "postgres14"
+  allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "false"
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   #
   # Team Note: could be useful but since we are likely to be using overnight
-  # scheduled jobs we are not enabling on any environments for now.
+  # scheduled jobs we are not enabling on non UAT environments for now.
   #
-  # enable_rds_auto_start_stop  = true
-
-  # This will rotate the db password. Update the value to the current date.
-  # db_password_rotated_date  = "dd-mm-yyyy"
+  enable_rds_auto_start_stop  = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
