@@ -60,4 +60,7 @@ spec:
               cloud-platform.justice.gov.uk/namespace: laa-cla-backend-staging
         - namespaceSelector:
             matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-training
+        - namespaceSelector:
+            matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-cla-backend-production
