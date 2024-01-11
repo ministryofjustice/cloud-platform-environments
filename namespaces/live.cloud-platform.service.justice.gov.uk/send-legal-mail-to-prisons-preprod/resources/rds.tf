@@ -10,10 +10,12 @@ module "slmtp_api_rds" {
   infrastructure_support = var.infrastructure_support
 
   allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = true
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  rds_family                  = "postgres13"
-  db_engine_version           = "13"
+  db_engine                   = "postgres"
+  rds_family                  = "postgres14"
+  db_engine_version           = "14.10"
   db_password_rotated_date    = "2023-03-22"
 
   snapshot_identifier = "rds:cloud-platform-16854fceeeaf4ba2-2022-03-11-01-23"
