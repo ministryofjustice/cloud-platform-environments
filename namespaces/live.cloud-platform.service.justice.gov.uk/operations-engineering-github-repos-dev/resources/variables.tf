@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "github repository state management"
+  default     = "Github Repos Terraform"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-github-repos"
+  default     = "operations-engineering-github-repos-dev"
 }
 
 variable "business_unit" {
