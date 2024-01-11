@@ -6,11 +6,12 @@ module "rds_postgres" {
 
   # Database configuration
   db_engine                  = "postgres"
-  db_engine_version          = "15"
-  rds_family                 = "postgres15"
+  db_engine_version          = "16"
+  rds_family                 = "postgres16"
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   enable_rds_auto_start_stop = true
+  prepare_for_major_upgrade  = true
 
   # Tags
   business_unit          = var.business_unit
