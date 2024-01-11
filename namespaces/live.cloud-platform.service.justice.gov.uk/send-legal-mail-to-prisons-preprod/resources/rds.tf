@@ -10,7 +10,7 @@ module "slmtp_api_rds" {
   infrastructure_support = var.infrastructure_support
 
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
