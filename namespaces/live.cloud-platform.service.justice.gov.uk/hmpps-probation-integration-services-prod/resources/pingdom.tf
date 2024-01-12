@@ -38,6 +38,7 @@ resource "pingdom_check" "pingdom" {
     "prisoner-profile-and-delius",
     "prison-identifier-and-delius",
     "assessment-summary-and-delius",
+    "cas2-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
