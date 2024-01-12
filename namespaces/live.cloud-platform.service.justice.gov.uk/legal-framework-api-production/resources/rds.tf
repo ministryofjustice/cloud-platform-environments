@@ -14,7 +14,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  db_engine_version           = "14"
+  db_engine_version           = "14.10"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres14"
   allow_minor_version_upgrade = "true"
