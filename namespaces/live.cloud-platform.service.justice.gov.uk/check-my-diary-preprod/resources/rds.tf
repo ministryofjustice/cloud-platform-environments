@@ -16,7 +16,7 @@ module "checkmydiary_rds" {
   rds_family                 = "postgres16"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = true
 
   providers = {
