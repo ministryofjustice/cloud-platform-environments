@@ -18,7 +18,7 @@ resource "aws_route53_record" "prison-api-prod" {
   name    = "api.prison.service.justice.gov.uk"
   type    = "A"
   ttl     = "30"
-  records = ["20.39.161.101"]
+  records = ["51.141.55.10"]
 }
 
 
