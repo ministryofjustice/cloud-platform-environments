@@ -11,19 +11,4 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["cjs_scorecard_exploratory_analysis"]
-
-  serviceaccount_rules = [
-     {
-      api_groups = [
-        "aquasecurity.github.io",
-      ]
-      resources = [
-        "vulnerabilityreports",
-      ]
-      verbs = [
-        "get",
-        "list",
-      ]
-    },
-  ]
 }
