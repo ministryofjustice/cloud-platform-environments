@@ -14,12 +14,12 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  db_engine_version           = "14.10"
+  db_engine_version           = "14"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres14"
   allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "false"
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop  = false
   deletion_protection         = true
 
   providers = {
