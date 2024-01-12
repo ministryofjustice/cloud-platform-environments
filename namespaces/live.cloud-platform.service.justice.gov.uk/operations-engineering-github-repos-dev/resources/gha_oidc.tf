@@ -7,7 +7,7 @@ data "aws_iam_openid_connect_provider" "github" {
 }
 
 resource "aws_iam_role" "github" {
-  name               = "operations-engineering-s3-oidc-role"
+  name               = "operations-engineering-github-repos-role"
   assume_role_policy = data.aws_iam_policy_document.github.json
 }
 
