@@ -13,9 +13,10 @@ module "rds_aurora" {
     min_capacity = 1
     max_capacity = 4
   }
-  replica_count               = 1
-  db_parameter_group_name     = resource.aws_db_parameter_group.default.name
-  allow_major_version_upgrade = true
+  replica_count                = 1
+  performance_insights_enabled = true
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
+  allow_major_version_upgrade  = true
 
   # Tags
   business_unit          = var.business_unit
