@@ -524,3 +524,18 @@ spec:
   dnsNames:
     - ee78b0dc-preprod.hmpps.service.justice.gov.uk
     - assessment-summary-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cas2-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: cas2-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - d9e82b57-preprod.hmpps.service.justice.gov.uk
+    - cas2-and-delius-preprod.hmpps.service.justice.gov.uk
