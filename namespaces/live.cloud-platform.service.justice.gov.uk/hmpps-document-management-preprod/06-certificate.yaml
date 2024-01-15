@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-document-management-api-preprod-cert
+  namespace: hmpps-document-management-preprod
+spec:
+  secretName: hmpps-document-management-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - document-api-preprod.hmpps.service.justice.gov.uk

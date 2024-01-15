@@ -24,7 +24,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-activities-management-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.activities_api_rds.irsa_policy_arn})
 
   # Tags
   business_unit          = var.business_unit

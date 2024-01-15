@@ -15,7 +15,7 @@ module "rp_rds" {
   rds_family                = "postgres16"
   db_password_rotated_date  = "15-02-2023"
   deletion_protection       = true
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london

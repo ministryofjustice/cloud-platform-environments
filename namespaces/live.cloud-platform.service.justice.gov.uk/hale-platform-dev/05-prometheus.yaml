@@ -58,3 +58,10 @@ spec:
       for: 15m
       labels:
         severity: hale-platform-alerts
+    - alert: "Kubernetes Container OOM Killer"
+      expr: sum_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled", namespace="hale-platform-dev"}[5m]) > 0
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+      annotations:
+        message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
