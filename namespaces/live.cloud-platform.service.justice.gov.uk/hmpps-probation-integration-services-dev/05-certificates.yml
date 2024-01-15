@@ -529,6 +529,21 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: cas2-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: cas2-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - d9e82b57-dev.hmpps.service.justice.gov.uk
+    - cas2-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: accredited-programmes-and-oasys-cert
   namespace: hmpps-probation-integration-services-dev
 spec:
