@@ -24,7 +24,7 @@ module "rds" {
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres14"
   allow_minor_version_upgrade = "true"
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
   #
   # Team Note: could be useful but since we are likely to be using overnight
   # scheduled jobs we are not enabling on non UAT environments for now.

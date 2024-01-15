@@ -15,7 +15,7 @@ module "nomis_migration_rds" {
   rds_family                = "postgres16"
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 }
 
 resource "kubernetes_secret" "nomis_migration_rds" {
