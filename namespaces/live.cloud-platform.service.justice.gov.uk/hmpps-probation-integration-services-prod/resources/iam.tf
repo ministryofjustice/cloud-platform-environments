@@ -59,6 +59,7 @@ data "aws_sqs_queue" "queues_from_other_namespaces" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.cas2-and-delius-queue,
       module.approved-premises-and-delius-queue,
       module.assessment-summary-and-delius-queue,
       module.cas3-and-delius-queue,
@@ -82,6 +83,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue,
     ]
     dlq = [
+      module.cas2-and-delius-dlq,
       module.approved-premises-and-delius-dlq,
       module.assessment-summary-and-delius-dlq,
       module.cas3-and-delius-dlq,

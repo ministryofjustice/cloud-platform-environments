@@ -539,3 +539,18 @@ spec:
   dnsNames:
     - d9e82b57-preprod.hmpps.service.justice.gov.uk
     - cas2-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: accredited-programmes-and-oasys-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: accredited-programmes-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 23170f7f.hmpps.service.justice.gov.uk
+    - accredited-programmes-and-oasys-preprod.hmpps.service.justice.gov.uk

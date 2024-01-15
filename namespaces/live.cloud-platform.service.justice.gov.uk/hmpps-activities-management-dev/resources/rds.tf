@@ -17,8 +17,33 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "14"
+
+  # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
+  # Add parameters to enable DPR team to configure replication
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london
