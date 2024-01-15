@@ -1,0 +1,32 @@
+name: Conftest k8s yaml checks
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  conftest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get changed files
+        id: files
+        uses: tj-actions/changed-files@v41
+        with:
+          files_ignore: .github/**
+
+      - name: Setup conftest
+        uses: princespaghetti/setup-conftest@v1.1.19
+
+      - name: Run conftest k8s checks on added or modified YAML files
+        run: |
+            status=0
+            for file in ${{ steps.files.outputs.added_files }} ${{ steps.files.outputs.all_changed_and_modified_files }}; do
+            if [[ $file == *.yaml ]]; then
+                conftest test $file || status=$?
+            fi
+            done
+            exit $status
