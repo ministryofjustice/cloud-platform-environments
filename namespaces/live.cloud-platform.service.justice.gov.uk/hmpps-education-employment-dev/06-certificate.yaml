@@ -28,19 +28,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-ciag-careers-induction-ui-dev-cert
-  namespace: hmpps-education-employment-dev
-spec:
-  secretName: hmpps-ciag-careers-induction-ui-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - ciag-induction-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: hmpps-ciag-careers-induction-api-dev-cert
   namespace: hmpps-education-employment-dev
 spec:
