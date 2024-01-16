@@ -1,6 +1,6 @@
 module "s3_bucket" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
-  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+
   team_name                     = var.team_name
   business_unit                 = var.business_unit
   application                   = var.application
@@ -12,31 +12,35 @@ module "s3_bucket" {
   enable_allow_block_pub_access = false
 
   bucket_policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "AWS": "*"
-          },
-          "Action": [
-            "s3:*"
-          ],
-          "Resource": [
-            "$${bucket_arn}/*"
-          ]
-        }
-      ]
-    }
-    EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowBucketAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "${aws_iam_user.s3_user.arn}"
+        },
+        "Action": [
+          "s3:*"
+        ],
+        "Resource": [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
+
 }
 
 data "aws_iam_policy_document" "s3_access_policy" {
+
   statement {
     sid = "AllowUserToReadAndWriteS3"
     actions = [
-      "s3:*"
+      "s3:*",
     ]
 
     resources = [
@@ -61,7 +65,6 @@ resource "aws_iam_user_policy" "s3_user_policy" {
   user   = aws_iam_user.s3_user.name
 }
 
-
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
@@ -69,8 +72,8 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn                    = module.s3_bucket.bucket_arn
-    bucket_name                   = module.s3_bucket.bucket_name
+    bucket_arn           = module.s3_bucket.bucket_arn
+    bucket_name          = module.s3_bucket.bucket_name
     s3_access_user_arn   = aws_iam_user.s3_user.arn
     s3_access_key_id     = aws_iam_access_key.s3_user.id
     s3_secret_access_key = aws_iam_access_key.s3_user.secret
