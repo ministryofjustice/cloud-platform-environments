@@ -10,6 +10,7 @@ module "irsa" {
 
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    s3 = module.s3.irsa_policy_arn
   }
 
   # Tags
