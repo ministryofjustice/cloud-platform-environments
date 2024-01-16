@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-download.prison.service.justice.gov.uk
+  namespace: hmpps-prisoner-download-prod
+spec:
+  secretName: prisoner-download-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-download.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-download-api.prison.service.justice.gov.uk
+  namespace: hmpps-prisoner-download-prod
+spec:
+  secretName: prisoner-download-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-download-api.prison.service.justice.gov.uk
