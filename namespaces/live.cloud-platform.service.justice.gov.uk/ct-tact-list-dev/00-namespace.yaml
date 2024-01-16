@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "ct-data-engineering"
     cloud-platform.justice.gov.uk/application: "TACT List"
     cloud-platform.justice.gov.uk/owner: "Counter-Terrorism Data Engineering: jctpph.data@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ct-tact-list-frontend"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ct-tact-list"
     cloud-platform.justice.gov.uk/team-name: "ct-data-engineering"
     cloud-platform.justice.gov.uk/review-after: ""
