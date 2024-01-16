@@ -14,7 +14,6 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     datahub_rds_postgres                  = module.rds.irsa_policy_arn
-    datahub_opensearch                    = module.opensearch.snapshot_role_arn
   }
 
   # Tags
@@ -22,7 +21,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
