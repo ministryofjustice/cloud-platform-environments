@@ -17,7 +17,7 @@ module "cpr_court_case_events_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.cpr_court_case_events_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 1
   })
 
   # Tags
