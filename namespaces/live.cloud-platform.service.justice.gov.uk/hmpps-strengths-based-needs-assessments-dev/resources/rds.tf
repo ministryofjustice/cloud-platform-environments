@@ -9,13 +9,13 @@ module "hmpps_strengths_based_needs_assessments_dev_rds" {
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-  rds_family             = "postgres15"
+  rds_family             = "postgres16"
   db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
-  db_engine_version      = "15"
+  db_engine_version      = "16"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
