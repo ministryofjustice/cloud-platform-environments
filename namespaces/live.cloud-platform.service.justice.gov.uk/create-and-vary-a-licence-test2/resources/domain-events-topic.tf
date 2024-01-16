@@ -10,5 +10,5 @@ resource "kubernetes_secret" "hmpps_domain_events_topic" {
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-${var.environment}/topic-arn"
+  name = "/hmpps-domain-events-dev/topic-arn"
 }
