@@ -1,6 +1,8 @@
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
+    paths:
+      - 'policy/**'
 
 name: OPA tests
 jobs:
