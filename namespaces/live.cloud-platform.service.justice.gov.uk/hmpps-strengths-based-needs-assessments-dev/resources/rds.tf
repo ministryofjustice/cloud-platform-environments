@@ -15,7 +15,7 @@ module "hmpps_strengths_based_needs_assessments_dev_rds" {
   db_engine_version      = "15"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
