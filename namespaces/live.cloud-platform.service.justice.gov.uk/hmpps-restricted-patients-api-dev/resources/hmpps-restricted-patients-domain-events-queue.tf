@@ -104,10 +104,11 @@ resource "aws_sns_topic_subscription" "restricted_patients_queue_for_domain_even
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.restricted_patients_queue_for_domain_events.sqs_arn
+  filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
-    eventType = [
-      "prison-offender-events.prisoner.merged",
-      "prisoner-offender-search.prisoner.released"
+    "$or": [
+      { "additionalInformation.eventType" : [ "prison-offender-events.prisoner.merged" ] },
+      { [ "additionalInformation.eventType" : [ "prisoner-offender-search.prisoner.released" ], "additionalInformation.reason": [ "RELEASED" ]] }
     ]
   })
 }
