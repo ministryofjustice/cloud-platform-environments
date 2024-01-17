@@ -107,8 +107,8 @@ resource "aws_sns_topic_subscription" "restricted_patients_queue_for_domain_even
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     "$or": [
-      { additionalInformation.eventType = [ "prison-offender-events.prisoner.merged" ] },
-      { [ additionalInformation.eventType = [ "prisoner-offender-search.prisoner.released" ], additionalInformation.reason = [ "RELEASED" ] ] }
+      { "additionalInformation.eventType" = [ "prison-offender-events.prisoner.merged" ] },
+      { "additionalInformation.eventType" = [ "prisoner-offender-search.prisoner.released" ], additionalInformation.reason = [ "RELEASED" ] ] }
     ]
   })
 }
