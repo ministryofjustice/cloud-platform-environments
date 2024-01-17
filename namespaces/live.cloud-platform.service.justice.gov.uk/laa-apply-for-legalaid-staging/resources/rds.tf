@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
