@@ -9,11 +9,13 @@ module "visit_scheduler_rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  db_engine_version           = "13"
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = true
+  db_engine                   = "postgres"
+  db_engine_version           = "14.10"
+  rds_family                  = "postgres14"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  rds_family                  = "postgres13"
-  allow_major_version_upgrade = "false"
   db_password_rotated_date    = "2023-03-22"
 
   enable_rds_auto_start_stop   = true
