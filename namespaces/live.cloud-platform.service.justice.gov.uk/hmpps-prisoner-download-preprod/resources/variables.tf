@@ -49,4 +49,4 @@ variable "kubernetes_cluster" {}
 
 variable "eks_cluster_name" {}
 
-
+variable "vpc_name" {}
