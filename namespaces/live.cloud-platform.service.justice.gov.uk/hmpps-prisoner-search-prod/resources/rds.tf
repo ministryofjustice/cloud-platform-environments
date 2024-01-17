@@ -14,7 +14,7 @@ module "hmpps_prisoner_search_rds" {
   db_engine_version            = "16"
   rds_family                   = "postgres16"
   deletion_protection          = true
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   db_max_allocated_storage     = "500"
   performance_insights_enabled = true
 
