@@ -20,8 +20,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "15"
+  rds_family        = "postgres15"
   db_instance_class = "db.r6g.xlarge"
 
   # Tags
