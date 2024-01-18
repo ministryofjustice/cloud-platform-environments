@@ -38,7 +38,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dex-engage@digital.justice.gov.uk"
+  default     = "central-digital-product-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
