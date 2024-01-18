@@ -3,7 +3,7 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
