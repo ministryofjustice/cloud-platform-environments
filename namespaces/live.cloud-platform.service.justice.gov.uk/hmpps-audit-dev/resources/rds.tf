@@ -17,6 +17,7 @@ module "hmpps_audit_rds" {
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = true
   db_engine                  = "postgres"
+  performance_insights_enabled  = true
 
   providers = {
     aws = aws.london
