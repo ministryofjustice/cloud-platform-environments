@@ -5,7 +5,7 @@
  *
  */
 module "hmpps_education_work_plan_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -40,7 +40,7 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name = var.vpc_name
 
