@@ -11,6 +11,7 @@ data "aws_iam_policy_document" "internal_policy" {
   statement {
     actions = [
       "s3:ListBucket",
+      "s3:ListObjectsV2",
       "s3:GetObject"
     ]
     
