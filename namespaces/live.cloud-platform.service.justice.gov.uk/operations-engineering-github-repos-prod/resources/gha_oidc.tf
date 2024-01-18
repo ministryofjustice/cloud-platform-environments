@@ -61,6 +61,6 @@ resource "aws_iam_role_policy_attachment" "github_role_perms_attachment" {
 
 resource "github_actions_secret" "role_arn" {
   repository      = var.repository_name
-  secret_name     = "TERRAFORM_GITHUB_REPOS_S3_ROLE_ARN_DEV"
+  secret_name     = "TERRAFORM_GITHUB_REPOS_S3_ROLE_ARN_PROD"
   plaintext_value = aws_iam_role.github.arn
 }

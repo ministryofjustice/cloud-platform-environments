@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: operations-engineering-github-repos-dev
+  namespace: operations-engineering-github-repos-prod
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: operations-engineering-github-repos-dev
+  namespace: operations-engineering-github-repos-prod
 spec:
   podSelector: {}
   policyTypes:

@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-github-repos-dev"
+  default     = "operations-engineering-github-repos-prod"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
@@ -47,7 +47,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {

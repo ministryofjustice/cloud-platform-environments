@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: operations-engineering-github-repos-dev
+  namespace: operations-engineering-github-repos-prod
 spec:
   hard:
     pods: "50"
