@@ -1,5 +1,5 @@
 module "hmpps_audit_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -17,6 +17,7 @@ module "hmpps_audit_rds" {
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = true
   db_engine                  = "postgres"
+  performance_insights_enabled  = true
 
   providers = {
     aws = aws.london
