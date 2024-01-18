@@ -15,6 +15,7 @@ module "dps_rds" {
   rds_family                = "postgres16"
   db_engine                 = "postgres"
   db_engine_version         = "16"
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
