@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-datahub-catalogue-dev
 subjects:
   - kind: Group
-    name: "github:data-platform-labs"
+    name: "github:data-platform"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
