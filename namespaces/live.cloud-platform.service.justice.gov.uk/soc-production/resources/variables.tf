@@ -14,7 +14,7 @@ variable "application" {
 }
 
 variable "owner" {
-  default = "dex-engage"
+  default = "Central Digital Product Team"
 }
 
 variable "namespace" {
@@ -28,7 +28,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dex-engage"
+  default     = "Central Digital Product Team"
 }
 
 variable "environment" {
@@ -47,7 +47,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dex-engage-soc"
+  default     = "cdpt-soc"
 }
 
 variable "github_owner" {
