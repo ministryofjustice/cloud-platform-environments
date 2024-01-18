@@ -14,7 +14,7 @@ variable "application" {
 }
 
 variable "owner" {
-  default = "Central Digital Product Team"
+  default = "central-digital-product-team"
 }
 
 variable "namespace" {
@@ -28,7 +28,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Central Digital Product Team"
+  default     = "central-digital-product-team"
 }
 
 variable "environment" {
