@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-strengths-based-needs-test
+  namespace: hmpps-strengths-based-needs-assessments-test
+spec:
+  secretName: hmpps-strengths-based-needs-assessments-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - strengths-based-needs-test.hmpps.service.justice.gov.uk
+    - strengths-based-needs-assessments-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-strengths-based-needs-api-test
+  namespace: hmpps-strengths-based-needs-assessments-test
+spec:
+  secretName: hmpps-strengths-based-needs-assessments-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - api.strengths-based-needs-test.hmpps.service.justice.gov.uk
