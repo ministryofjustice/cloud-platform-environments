@@ -7,7 +7,7 @@ data "aws_iam_openid_connect_provider" "github" {
 }
 
 resource "aws_iam_role" "github" {
-  name               = "operations-engineering-github-repos-role"
+  name               = "operations-engineering-github-repos-prod-role"
   assume_role_policy = data.aws_iam_policy_document.github.json
 }
 
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
 }
 
 resource "aws_iam_policy" "s3_access_policy" {
-  name        = "s3_access_policy"
+  name        = "github_role_prod_s3_access_policy"
   policy      = data.aws_iam_policy_document.s3_access_policy_document.json
 }
 
@@ -64,3 +64,4 @@ resource "github_actions_secret" "role_arn" {
   secret_name     = "TERRAFORM_GITHUB_REPOS_S3_ROLE_ARN_PROD"
   plaintext_value = aws_iam_role.github.arn
 }
+
