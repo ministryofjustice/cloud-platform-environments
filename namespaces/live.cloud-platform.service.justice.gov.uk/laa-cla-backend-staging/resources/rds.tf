@@ -8,7 +8,7 @@
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -41,7 +41,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
