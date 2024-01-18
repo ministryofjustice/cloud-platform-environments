@@ -11,10 +11,11 @@ module "dps_rds" {
   db_instance_class         = "db.t4g.small"
   db_max_allocated_storage  = "10000"
   deletion_protection       = true
-  prepare_for_major_upgrade = false
-  rds_family                = "postgres15"
+  prepare_for_major_upgrade = true
+  rds_family                = "postgres16"
   db_engine                 = "postgres"
-  db_engine_version         = "15"
+  db_engine_version         = "16"
+  performance_insights_enabled = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
