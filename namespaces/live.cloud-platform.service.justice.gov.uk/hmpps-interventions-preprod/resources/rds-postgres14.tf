@@ -14,6 +14,7 @@ module "hmpps_interventions_postgres14" {
   db_instance_class           = "db.m5.large"
   db_allocated_storage        = 20
   allow_major_version_upgrade = "false"
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
