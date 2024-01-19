@@ -6,9 +6,10 @@ module "remand-and-sentencing-api-rds" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
+  prepare_for_major_upgrade = true
   db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
+  db_engine_version = "15.5"
+  rds_family        = "postgres15"
   db_instance_class = "db.t4g.small"
 
   # Tags
