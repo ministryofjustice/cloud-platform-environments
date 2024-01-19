@@ -34,7 +34,7 @@ module "download_api_irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-prisoner-download-api"
-  namespace            = var.namespace # this is also used as a tag
+  namespace            = var.namespace
 
   role_policy_arns = {
     s3 = module.hmpps-prisoner-download_s3_bucket.irsa_policy_arn
