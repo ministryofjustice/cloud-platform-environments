@@ -39,7 +39,7 @@ resource "aws_apigatewayv2_integration" "dces_drc_integration_dev" {
 
 resource "aws_apigatewayv2_route" "route" {
   api_id               = aws_apigatewayv2_api.gateway.id
-  route_key            = "ANY /api/internal/v1/dece-drc-integ/{proxy+}"
+  route_key            = "ANY /api/internal/v1/dece-drc-integration/{proxy+}"
   target               = "integrations/${aws_apigatewayv2_integration.dces_drc_integration_dev.id}"
   authorization_type   = "JWT"
   authorizer_id        = aws_apigatewayv2_authorizer.auth.id
