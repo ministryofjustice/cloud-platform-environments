@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-notifications-alerts-vsip-cert
+  namespace: visit-someone-in-prison-backend-svc-prod
+spec:
+  secretName: hmpps-notifications-alerts-vsip-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-notifi-alerts-vsip.prison.service.justice.gov.uk
+    - hmpps-notifications-alerts-vsip.prison.service.justice.gov.uk
