@@ -15,7 +15,7 @@ module "hmpps_audit_rds" {
   db_engine_version            = "16"
   deletion_protection          = true
   db_engine                    = "postgres"
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = true
 
   providers = {
