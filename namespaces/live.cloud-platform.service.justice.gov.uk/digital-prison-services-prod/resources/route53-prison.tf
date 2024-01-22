@@ -28,7 +28,7 @@ resource "aws_route53_record" "prison-api-preprod" {
   name    = "api-preprod.prison.service.justice.gov.uk"
   type    = "A"
   ttl     = "30"
-  records = ["20.39.160.142"]
+  records = ["52.142.149.4"]
 }
 
 # dev DNS record for Azure based Prison API
@@ -37,14 +37,5 @@ resource "aws_route53_record" "prison-api-dev" {
   name    = "api-dev.prison.service.justice.gov.uk"
   type    = "A"
   ttl     = "30"
-  records = ["20.39.160.233"]
-}
-
-# stage DNS record for Azure based Prison API
-resource "aws_route53_record" "prison-api-stage" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "api-stage.prison.service.justice.gov.uk"
-  type    = "A"
-  ttl     = "30"
-  records = ["20.39.160.251"]
+  records = ["20.77.255.91"]
 }
