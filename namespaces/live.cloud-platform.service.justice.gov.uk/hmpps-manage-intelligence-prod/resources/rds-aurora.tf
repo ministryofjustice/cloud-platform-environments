@@ -5,8 +5,9 @@ module "rds_aurora" {
   vpc_name = var.vpc_name
 
   # Database configuration
+  prepare_for_major_upgrade = true
   engine         = "aurora-postgresql"
-  engine_version = "14.6"
+  engine_version = "15.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
