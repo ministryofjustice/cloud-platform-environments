@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-design-system-frontend-cert
+  namespace: hmpps-design-system-frontend
+spec:
+  secretName: hmpps-design-system-frontend-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - design-system.hmpps.service.justice.gov.uk
