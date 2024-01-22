@@ -14,7 +14,7 @@ module "hmpps_audit_rds" {
   db_engine_version         = "16"
   rds_family                = "postgres16"
   db_max_allocated_storage  = "10000"
-  prepare_for_major_upgrade = alltrue()
+  prepare_for_major_upgrade = true
   deletion_protection       = true
   performance_insights_enabled  = true
 
