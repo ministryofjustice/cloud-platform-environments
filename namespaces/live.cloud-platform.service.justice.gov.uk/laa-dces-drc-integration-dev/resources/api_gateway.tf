@@ -29,7 +29,7 @@ resource "aws_apigatewayv2_integration" "dces_drc_integration_dev" {
   integration_method = "ANY"
   connection_type    = "INTERNET"
   integration_type   = "HTTP_PROXY"
-  integration_uri    = "https://laa-dces-drc-integration-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/dece-drc-integ/{proxy}"
+  integration_uri    = "https://laa-dces-drc-integration-dev.apps.live.cloud-platform.service.justice.gov.uk/api/internal/v1/dece-drc-integration/{proxy}"
 
   depends_on = [
     aws_apigatewayv2_api.gateway,
