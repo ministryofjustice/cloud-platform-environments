@@ -15,8 +15,7 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  #db_parameter_group_name      = resource.aws_db_parameter_group.default.name
-  #db_parameter_group_name       = default.aurora-postgres14
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
   allow_major_version_upgrade  = true
 
   # Tags
@@ -33,23 +32,23 @@ module "rds_aurora" {
   }
 }
 
-# resource "aws_db_parameter_group" "default" {
-#   name   = module.rds_aurora.db_cluster_identifier
-#   family = "aurora-postgresql14"
+resource "aws_db_parameter_group" "default" {
+  name   = module.rds_aurora.db_cluster_identifier
+  family = "aurora-postgresql14"
 
-#   parameter {
-#     name  = "log_error_verbosity"
-#     value = "TERSE"
-#   }
-#   parameter {
-#     name  = "work_mem"
-#     value = 4096
-#   }
-#   parameter {
-#     name  = "max_parallel_workers_per_gather"
-#     value = 4
-#   }
-# }
+  parameter {
+    name  = "log_error_verbosity"
+    value = "TERSE"
+  }
+  parameter {
+    name  = "work_mem"
+    value = 4096
+  }
+  parameter {
+    name  = "max_parallel_workers_per_gather"
+    value = 4
+  }
+}
 
 resource "random_id" "manage_intelligence_update_role_password" {
   byte_length = 32
