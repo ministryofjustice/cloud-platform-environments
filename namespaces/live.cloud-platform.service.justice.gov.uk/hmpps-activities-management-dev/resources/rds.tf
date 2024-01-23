@@ -14,9 +14,11 @@ module "activities_api_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
+  allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14"
+  db_engine_version           = "14.10"
+  
 
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
