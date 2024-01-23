@@ -5,12 +5,7 @@
   "description": "Base",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "GitHub.vscode-pull-request-github",
-        "GitHub.vscode-github-actions",
-        "ms-vsliveshare.vsliveshare",
-        "redhat.vscode-yaml"
-      ]
+      "extensions": ["GitHub.vscode-pull-request-github", "GitHub.vscode-github-actions", "ms-vsliveshare.vsliveshare", "redhat.vscode-yaml"]
     }
   },
   "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
