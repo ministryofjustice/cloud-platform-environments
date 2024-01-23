@@ -58,3 +58,19 @@ resource "kubernetes_secret" "rds_mssql" {
     rds_instance_address  = module.rds_mssql.rds_instance_address
   }
 }
+resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
+  name                     = "sqlserver-backup"
+  option_group_description = "Enable SQL Server Backup/Restore"
+  engine_name              = "sqlserver-ex"
+  major_engine_version     = "15.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+
+    option_settings {
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.sqlserver_backup_s3_iam_role.arn
+    }
+  }
+}
+option_group_name    = aws_db_option_group.sqlserver_backup_rds_option_group.name
