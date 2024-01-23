@@ -21,7 +21,7 @@ module "rds" {
   # rds_name             = "my-rds-name"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # change the postgres version as you see fit.
   db_engine_version = "15.5"
