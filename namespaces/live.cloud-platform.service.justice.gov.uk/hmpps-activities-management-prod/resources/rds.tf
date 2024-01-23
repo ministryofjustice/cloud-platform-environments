@@ -10,7 +10,7 @@ module "activities_api_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
-  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "false"
   db_instance_class           = "db.t4g.medium"
   db_engine_version           = "14.10"
 
