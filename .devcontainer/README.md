@@ -62,23 +62,23 @@ Launch from GitHub
 
 1. Replace the email shown after `kubectl config set-credentials` with `auth0`
 
-    ```bash
-    kubectl config set-credentials "auth0" \
-      --auth-provider=oidc \
-      --auth-provider-arg=client-id="..." \
-      --auth-provider-arg=client-secret="..." \
-      --auth-provider-arg=id-token="..." \
-      --auth-provider-arg=refresh-token="..." \
-      --auth-provider-arg=idp-issuer-url="https://justice-cloud-platform.eu.auth0.com/"
-    ```
+   ```bash
+   kubectl config set-credentials "auth0" \
+     --auth-provider=oidc \
+     --auth-provider-arg=client-id="..." \
+     --auth-provider-arg=client-secret="..." \
+     --auth-provider-arg=id-token="..." \
+     --auth-provider-arg=refresh-token="..." \
+     --auth-provider-arg=idp-issuer-url="https://justice-cloud-platform.eu.auth0.com/"
+   ```
 
 1. Run the modified command
 
 1. Optionally you can set a namespace
 
-    ```bash
-    kubectl config set-context --current --namespace=${NAMESPACE}
-    ```
+   ```bash
+   kubectl config set-context --current --namespace=${NAMESPACE}
+   ```
 
 ## Support
 
