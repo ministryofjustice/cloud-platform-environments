@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
+    sqs = module.sqs.irsa_policy_arn
   }
 
   # Tags
