@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "bh-app-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "babuharidass"
+    cloud-platform.justice.gov.uk/application: "bh-cloud-platform-test"
+    cloud-platform.justice.gov.uk/owner: "hmpps-sre: dps-hmpps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/bh-cloud-platform-example-application.git"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-sre"
+    cloud-platform.justice.gov.uk/review-after: "2024-04-23"
