@@ -1,0 +1,30 @@
+{
+  "id": "terraform",
+  "version": "1.0.0",
+  "name": "terraform",
+  "description": "Terraform",
+  "options": {
+    "terraformSwitcherVersion": {
+      "type": "string",
+      "description": "Terraform Switcher version (https://github.com/warrensbox/terraform-switcher/releases)",
+      "proposals": ["latest"],
+      "default": "latest"
+    },
+    "terraformVersion": {
+      "type": "string",
+      "description": "Terraform version (https://github.com/hashicorp/terraform/releases)",
+      "proposals": ["latest"],
+      "default": "latest"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["hashicorp.terraform"],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "hashicorp.terraform"
+      }
+    }
+  },
+  "installsAfter": ["./features/src/base"]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "base",
+  "version": "1.0.0",
+  "name": "base",
+  "description": "Base",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.vscode-pull-request-github",
+        "GitHub.vscode-github-actions",
+        "ms-vsliveshare.vsliveshare",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "cloud-platform-environments",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
+    "./features/src/base": {},
+    "./features/src/aws": {},
+    "./features/src/cloud-platform": {},
+    "./features/src/kubernetes": {},
+    "./features/src/static-analysis": {},
+    "./features/src/terraform": {}
+  },
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "./features/src/base"
+  ]
+}

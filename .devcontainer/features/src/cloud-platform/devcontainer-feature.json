@@ -1,0 +1,15 @@
+{
+  "id": "cloud-platform",
+  "version": "1.0.0",
+  "name": "cloud-platform",
+  "description": "Cloud Platform",
+  "options": {
+    "cloudPlatformCliVersion": {
+      "type": "string",
+      "description": "Cloud Platform CLI version (https://github.com/ministryofjustice/cloud-platform-cli/releases)",
+      "proposals": ["latest"],
+      "default": "latest"
+    }
+  },
+  "installsAfter": ["./features/src/base"]
+}
