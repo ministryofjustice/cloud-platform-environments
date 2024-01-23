@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-delius-alfrsco-poc-admin
-  namespace: hmpps-delius-alfrsco-poc
+  name: hmpps-delius-alfresco-dev-admin
+  namespace: hmpps-delius-alfresco-dev
 subjects:
   - kind: Group
     name: "github:hmpps-migration"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:zaizi-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

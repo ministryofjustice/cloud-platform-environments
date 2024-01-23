@@ -4,55 +4,34 @@
  * releases page of this repository.
  *
  */
-
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+
+  # VPC configuration
+  vpc_name = var.vpc_name
+
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.micro"
+
+  # Tags
   application            = var.application
-  is_production          = var.is_production
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
-
-  # If the rds_name is not specified a random name will be generated ( cp-* )
-  # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  # rds_name             = "my-rds-name"
-
-  prepare_for_major_upgrade = true
-  # enable performance insights
-  performance_insights_enabled = true
-
-  # change the postgres version as you see fit.
-  db_engine_version = "15.5"
-
-  # change the instance class as you see fit.
-  db_instance_class = "db.t4g.small"
-
-  # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres15"
-
-  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
-  # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "pending-reboot"
-  #   }
-  # ]
-
-  enable_rds_auto_start_stop = true
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  # enable_rds_auto_start_stop  = true
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
+  team_name              = var.team_name
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -65,22 +44,28 @@ module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
+
+  # Tags
   application            = var.application
-  is_production          = var.is_production
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
+  team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "14.7"
+  rds_family        = "postgres14"
+  db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
@@ -88,11 +73,6 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
@@ -144,6 +124,8 @@ resource "kubernetes_secret" "read_replica" {
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
+    access_key_id         = module.read_replica.access_key_id
+    secret_access_key     = module.read_replica.secret_access_key
   }
   */
 }
@@ -160,6 +142,5 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
-
   }
 }
