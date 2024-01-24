@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-credentials"
     },
+    "court-data-adaptor-alert-webhook-prod" = {
+      description             = "Court Data Adaptor Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "court-data-adaptor-alert-webhook-prod"
+    },
   }
 }
