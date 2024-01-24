@@ -176,18 +176,18 @@ EOF
 */
 }
 
-resource "aws_iam_user" "alfresco_user_poc" {
-  name = "alfresco_user_poc"
-  path = "/system/alfresco_user_poc/"
+resource "aws_iam_user" "alfresco_user" {
+  name = "${var.namespace}-alfresco_user"
+  path = "/system/${var.namespace}-alfresco_user/"
 }
 
-resource "aws_iam_access_key" "alfresco_user_poc_access" {
-  user = aws_iam_user.alfresco_user_poc.name
+resource "aws_iam_access_key" "alfresco_user_access" {
+  user = aws_iam_user.alfresco_user.name
 }
 
-resource "aws_iam_user_policy_attachment" "alfresco_user_poc_policy" {
+resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
   policy_arn = module.s3_bucket.irsa_policy_arn
-  user       = aws_iam_user.alfresco_user_poc.name
+  user       = aws_iam_user.alfresco_user.name
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -199,7 +199,7 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
-    ACCESSKEY   = aws_iam_access_key.alfresco_user_poc_access.id
-    SECRETKEY   = aws_iam_access_key.alfresco_user_poc_access.secret
+    ACCESSKEY   = aws_iam_access_key.alfresco_user_access.id
+    SECRETKEY   = aws_iam_access_key.alfresco_user_access.secret
   }
 }
