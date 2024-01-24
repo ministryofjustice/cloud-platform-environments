@@ -44,7 +44,7 @@ resource "aws_sqs_queue_policy" "case-note-queue-policy" {
   policy    = data.aws_iam_policy_document.sqs.json
 }
 
-module "prisoner-event-dlq" {
+module "case-note-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   sqs_name        = "case-note-dlq"
@@ -63,9 +63,9 @@ module "prisoner-event-dlq" {
   }
 }
 
-resource "kubernetes_secret" "prisoner-event-queue" {
+resource "kubernetes_secret" "case-note-queue" {
   metadata {
-    name      = "sqs-case-notes-queue-secret"
+    name      = "sqs-case-note-queue-secret"
     namespace = var.namespace
   }
 
