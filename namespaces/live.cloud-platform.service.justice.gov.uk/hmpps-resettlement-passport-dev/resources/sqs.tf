@@ -1,4 +1,4 @@
-module "prisoner-event-queue" {
+module "case-note-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   sqs_name                  = "case-note-queue"
