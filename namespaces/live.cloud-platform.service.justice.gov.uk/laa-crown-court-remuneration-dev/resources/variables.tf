@@ -67,3 +67,58 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "replicasets"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}
