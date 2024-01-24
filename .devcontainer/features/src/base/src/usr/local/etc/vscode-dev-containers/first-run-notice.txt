@@ -1,5 +1,5 @@
 👋 Welcome! You are using the Cloud Platform Environments dev container image.
 
-🆘 If you need help or assistance, please post in #devcontainer (https://moj.enterprise.slack.com/archives/C06DZ4F04JZ)
+🆘 If you need help or assistance, please post in #devcontainer-community (https://moj.enterprise.slack.com/archives/C06DZ4F04JZ)
 
 🔍 To explore VS Code to its fullest, search using the Command Palette (Cmd/Ctrl + Shift + P or F1)
