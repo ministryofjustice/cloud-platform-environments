@@ -11,6 +11,7 @@ module "irsa" {
 
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
+    rds= module.rds_mssql.irsa_policy_arn
   }
 
   # Tags
