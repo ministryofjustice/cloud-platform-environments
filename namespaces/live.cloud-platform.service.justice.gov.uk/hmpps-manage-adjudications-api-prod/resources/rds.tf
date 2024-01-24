@@ -19,6 +19,7 @@ module "ma_rds" {
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
   prepare_for_major_upgrade   = false
+  db_allocated_storage        = "1500"
 
 
   providers = {
