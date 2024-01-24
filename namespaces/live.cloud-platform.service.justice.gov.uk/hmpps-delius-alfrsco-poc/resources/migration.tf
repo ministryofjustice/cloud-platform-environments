@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "migration_policy" {
 }
 
 resource "aws_iam_policy" "migration_policy" {
-  name        = "bucket_migration_policy"
+  name        = "${var.namespace}-bucket_migration_policy"
   description = "Policy to allow migration to cloud platform"
   policy      = data.aws_iam_policy_document.migration_policy.json
 }
