@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "14.6"
+  engine_version = "15.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
