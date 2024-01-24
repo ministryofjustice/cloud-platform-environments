@@ -7,7 +7,7 @@ module "rds-history" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
