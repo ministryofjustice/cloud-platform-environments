@@ -84,7 +84,7 @@ Launch from GitHub
 
 As this is a community supported feature, help is offered on a best endeavour basis.
 
-If you do need help, please post in [`#devcontainer`](https://moj.enterprise.slack.com/archives/C06DZ4F04JZ)
+If you do need help, please post in [`#devcontainer-community`](https://moj.enterprise.slack.com/archives/C06DZ4F04JZ)
 
 ## Contribution Guidelines
 
