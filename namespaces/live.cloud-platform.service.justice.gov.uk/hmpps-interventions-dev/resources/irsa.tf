@@ -16,6 +16,7 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = merge(local.sns_policies, {
     s3 = module.interventions_s3_bucket.irsa_policy_arn
+    elasticache = module.hmpps_interventions_elasticache_redis.irsa_policy_arn
   })
 
   # Tags
