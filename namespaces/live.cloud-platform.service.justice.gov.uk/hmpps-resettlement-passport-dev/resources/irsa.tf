@@ -14,6 +14,7 @@ module "irsa" {
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
     sqs = module.case-note-queue.irsa_policy_arn
+    dlq = module.case-note-dlq.irsa_policy_arn
   }
 
   # Tags
