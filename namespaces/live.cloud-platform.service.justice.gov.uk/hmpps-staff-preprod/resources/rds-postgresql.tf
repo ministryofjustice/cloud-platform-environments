@@ -20,7 +20,7 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   # rds_name             = "my-rds-name"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # enable performance insights
   performance_insights_enabled = true
 
