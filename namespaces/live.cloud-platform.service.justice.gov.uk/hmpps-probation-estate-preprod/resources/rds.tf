@@ -7,7 +7,7 @@ module "rds" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   performance_insights_enabled = true
   db_instance_class            = "db.t4g.small"
   db_engine_version            = "15.5"
