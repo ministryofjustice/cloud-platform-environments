@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Delius Alfresco"
     cloud-platform.justice.gov.uk/owner: "Probation WebOps: probation-webops@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-delius-alfresco-poc"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-migration"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-migration,zaizi-devs"
     cloud-platform.justice.gov.uk/review-after: ""
