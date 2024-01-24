@@ -10,6 +10,7 @@ module "rds-live" {
   # rotating creds
   db_password_rotated_date = "20-02-2023"
 
+  prepare_for_major_upgrade = true
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
