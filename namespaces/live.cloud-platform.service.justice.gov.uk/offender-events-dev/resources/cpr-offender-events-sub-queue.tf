@@ -81,7 +81,7 @@ module "cpr_offender_events_dead_letter_queue" {
 
 resource "kubernetes_secret" "cpr_offender_events_queue" {
   metadata {
-    name      = "cpr_offender_events_queue"
+    name      = "cpr-offender-events-queue"
     namespace = "hmpps-person-record-dev"
   }
 
@@ -94,7 +94,7 @@ resource "kubernetes_secret" "cpr_offender_events_queue" {
 
 resource "kubernetes_secret" "cpr_offender_events_dead_letter_queue" {
   metadata {
-    name      = "cpr_offender_events_dlq"
+    name      = "cpr-offender-events-dlq"
     namespace = "hmpps-person-record-dev"
   }
   data = {
