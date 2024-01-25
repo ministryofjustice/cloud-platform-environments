@@ -23,7 +23,7 @@ variable "is_production" {
 }
 
 variable "infrastructure_support" {
-  default = "crossjusticedelivery@digital.justice.gov.uk"
+  default = "central-digital-product-team@digital.justice.gov.uk"
 }
 
 variable "application" {
