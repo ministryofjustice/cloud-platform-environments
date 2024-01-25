@@ -36,6 +36,10 @@ resource "aws_db_parameter_group" "default" {
   name   = module.rds_aurora.db_cluster_identifier
   family = "aurora-postgresql15"
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   parameter {
     name  = "log_error_verbosity"
     value = "TERSE"
