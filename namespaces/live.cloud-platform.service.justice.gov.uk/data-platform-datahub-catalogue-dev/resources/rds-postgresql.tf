@@ -23,7 +23,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "15"
   rds_family        = "postgres15"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -62,7 +62,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
