@@ -9,7 +9,9 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
     hmpps_unused_deductions_queue                   = module.hmpps_unused_deductions_queue.irsa_policy_arn,
-    hmpps_unused_deductions_queue_dead_letter_queue = module.hmpps_unused_deductions_queue.irsa_policy_arn,
+    hmpps_unused_deductions_dead_letter_queue       = module.hmpps_unused_deductions_dead_letter_queue.irsa_policy_arn,
+    hmpps_adjustments_prisoner_queue                = module.hmpps_adjustments_prisoner_queue.irsa_policy_arn,
+    hmpps_adjustments_prisoner_dead_letter_queue    = module.hmpps_adjustments_prisoner_dead_letter_queue.irsa_policy_arn,
   }
 }
 
