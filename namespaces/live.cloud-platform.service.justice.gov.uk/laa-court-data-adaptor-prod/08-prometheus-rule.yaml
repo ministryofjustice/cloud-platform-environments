@@ -28,13 +28,13 @@ spec:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
     - alert: Long-Request
-      expr: ruby_http_request_duration_seconds{namespace="laa-court-data-adaptor-prod", controller=~"api/.+"} > 5
+      expr: ruby_http_request_duration_seconds{namespace="laa-court-data-adaptor-prod", controller=~"api/.+"} > 30
       for: 1m
       labels:
         severity: laa-court-data-adaptor-alerts-prod
         namespace: laa-court-data-adaptor-prod
       annotations:
-        message: API request to {{ $labels.controller }} has taken more than 5 seconds.
+        message: API request to {{ $labels.controller }} has taken more than 30 seconds.
     - alert: Internal requests failing
       expr: sum(rate(ruby_http_requests_total{status=~"424|5..", namespace="laa-court-data-adaptor-prod", controller=~"/api/internal/.+"}[10m])) * 600 > 10
       for: 1m
