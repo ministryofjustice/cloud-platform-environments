@@ -34,7 +34,7 @@ module "rds_aurora" {
 
 resource "aws_db_parameter_group" "default" {
   name   = module.rds_aurora.db_cluster_identifier
-  family = "aurora-postgresql14"
+  family = "aurora-postgresql15"
 
   parameter {
     name  = "log_error_verbosity"
