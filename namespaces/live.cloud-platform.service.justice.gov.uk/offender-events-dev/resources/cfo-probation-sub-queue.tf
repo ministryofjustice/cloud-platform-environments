@@ -143,7 +143,7 @@ resource "kubernetes_secret" "cfo_probation_dead_letter_queue_credentials" {
   }
 }
 
-resource "aws_sns_topic_subscription" "cfo_probation_subscription" {
+resource "aws_sns_topic_subscription" "cfo_probation_topic_subscription" {
   provider      = aws.london
   topic_arn     = module.probation_offender_events.topic_arn
   protocol      = "sqs"
