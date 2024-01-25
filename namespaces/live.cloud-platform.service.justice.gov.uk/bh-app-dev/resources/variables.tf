@@ -38,6 +38,10 @@ variable "environment" {
   default     = "development"
 }
 
+variable "number_cache_clusters" {
+  default = "1"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
