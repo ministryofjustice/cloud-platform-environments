@@ -5,7 +5,8 @@ resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-su
   filter_policy = jsonencode({
     eventType = [
       "prison-recall.recommendation.started",
-      "prison-recall.recommendation.management-oversight"
+      "prison-recall.recommendation.management-oversight",
+      "prison-recall.recommendation.deleted"
     ]
   })
 }
