@@ -29,7 +29,7 @@ variable "is_production" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "production"
 }
 
 variable "eks_cluster_name" {

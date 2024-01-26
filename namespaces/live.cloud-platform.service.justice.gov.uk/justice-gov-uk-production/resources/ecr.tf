@@ -32,7 +32,7 @@ module "ecr_credentials" {
 
   # Create secrets in target GitHub environment
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["development"]
+  github_environments = ["production"]
 
   # Tags
   business_unit          = var.business_unit
