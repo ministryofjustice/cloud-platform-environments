@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-portfolio-management-prod-admin
-  namespace: hmpps-portfolio-management-prod
+  name: monitoring-alerts-proxy-admin
+  namespace: monitoring-alerts-proxy
 subjects:
   - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:hmpps-sre"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -47,7 +47,7 @@ variable "slack_channel" {
 variable "domains" {
   description = "List of domains to be put in maintenance"
   type        = any
-  default     = ["nomisqc.justice.gov.uk"]
+  default     = ["nomisqc.justice.gov.uk","operations-engineering.service.justice.gov.uk"]
 }
 
 variable "github_owner" {

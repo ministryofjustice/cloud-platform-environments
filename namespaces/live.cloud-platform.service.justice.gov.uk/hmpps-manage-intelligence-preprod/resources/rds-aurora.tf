@@ -15,7 +15,8 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
+  # db_parameter_group_name      = resource.aws_db_parameter_group.default.name
+  db_parameter_group_name = "default.aurora-postgresql14"
   allow_major_version_upgrade  = true
 
   # Tags
