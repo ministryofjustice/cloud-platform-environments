@@ -39,7 +39,7 @@ __zsh_prompt() {
           else
             echo -n "[ cluster: %{$fg[red]%}${kubectlCurrentContext} (issue with authentication)%{$reset_color%} ] "; \
           fi \
-          && if [[ ! -z "${kubectlCurrentNamespace}" ]] && [[ "${kubectlCurrentNamespace}" == *"production"* ]]; then \
+          && if [[ ! -z "${kubectlCurrentNamespace}" ]] && [[ "${kubectlCurrentNamespace}" == *"-prod"* ]]; then \
             echo -n "[ namespace: %{$fg[red]%}${kubectlCurrentNamespace}%{$reset_color%} ] "; \
           elif [[ ! -z "${kubectlCurrentNamespace}" ]]; then \
             echo -n "[ namespace: %{$fg[green]%}${kubectlCurrentNamespace}%{$reset_color%} ] "; \
