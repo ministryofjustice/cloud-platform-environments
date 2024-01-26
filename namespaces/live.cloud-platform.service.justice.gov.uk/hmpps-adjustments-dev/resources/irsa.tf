@@ -7,11 +7,20 @@ locals {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  sqs_policies = {
-    hmpps_unused_deductions_queue                   = module.hmpps_unused_deductions_queue.irsa_policy_arn,
-    hmpps_unused_deductions_dead_letter_queue       = module.hmpps_unused_deductions_dead_letter_queue.irsa_policy_arn,
-    hmpps_adjustments_prisoner_queue                = module.hmpps_adjustments_prisoner_queue.irsa_policy_arn,
-    hmpps_adjustments_prisoner_dead_letter_queue    = module.hmpps_adjustments_prisoner_dead_letter_queue.irsa_policy_arn,
+}
+
+data "aws_iam_policy_document" "combined_local_sqs" {
+  version = "2012-10-17"
+  statement {
+    sid     = "hmppsLocalSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.hmpps_unused_deductions_queue.irsa_policy_arn,
+      module.hmpps_unused_deductions_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_adjustments_prisoner_queue.irsa_policy_arn,
+      module.hmpps_adjustments_prisoner_dead_letter_queue.irsa_policy_arn
+    ]
   }
 }
 
@@ -21,7 +30,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sns_policies, { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn })
   # Tags
   business_unit          = var.business_unit
   application            = var.application
