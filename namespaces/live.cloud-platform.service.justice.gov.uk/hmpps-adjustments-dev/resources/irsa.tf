@@ -24,13 +24,26 @@ data "aws_iam_policy_document" "combined_local_sqs" {
   }
 }
 
+resource "aws_iam_policy" "combined_sqs" {
+  policy = data.aws_iam_policy_document.sqs_full.json
+  # Tags
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment_name
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = merge(local.sns_policies, { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn })
+  role_policy_arns     = merge(local.sns_policies, { combined_local_sqs = aws_iam_policy.combined_sqs.arn })
   # Tags
   business_unit          = var.business_unit
   application            = var.application
