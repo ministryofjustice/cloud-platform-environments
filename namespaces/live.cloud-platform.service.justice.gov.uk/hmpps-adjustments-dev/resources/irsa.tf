@@ -16,10 +16,10 @@ data "aws_iam_policy_document" "combined_local_sqs" {
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
-      module.hmpps_unused_deductions_queue.irsa_policy_arn,
-      module.hmpps_unused_deductions_dead_letter_queue.irsa_policy_arn,
-      module.hmpps_adjustments_prisoner_queue.irsa_policy_arn,
-      module.hmpps_adjustments_prisoner_dead_letter_queue.irsa_policy_arn
+      module.hmpps_unused_deductions_queue.sqs_arn,
+      module.hmpps_unused_deductions_dead_letter_queue.sqs_arn,
+      module.hmpps_adjustments_prisoner_queue.sqs_arn,
+      module.hmpps_adjustments_prisoner_dead_letter_queue.sqs_arn
     ]
   }
 }
