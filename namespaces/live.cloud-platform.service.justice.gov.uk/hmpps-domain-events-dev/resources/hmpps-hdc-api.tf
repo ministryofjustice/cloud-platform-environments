@@ -93,7 +93,7 @@ resource "aws_sns_topic_subscription" "hdc_domain_events_subscription" {
 resource "kubernetes_secret" "hdc_domain_events_queue" {
   metadata {
     name      = "hdc-domain-events-sqs-instance-output"
-    namespace = "hmpps-hdc-api-dev"
+    namespace = "licences-dev"
   }
 
   data = {
@@ -106,7 +106,7 @@ resource "kubernetes_secret" "hdc_domain_events_queue" {
 resource "kubernetes_secret" "hdc_dlq" {
   metadata {
     name      = "hdc-domain-events-sqs-dl-instance-output"
-    namespace = "hmpps-hdc-api-dev"
+    namespace = "licences-dev"
   }
 
   data = {
