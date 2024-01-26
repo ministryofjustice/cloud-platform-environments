@@ -5,6 +5,8 @@ module "cloudfront" {
   bucket_id          = module.s3_bucket.bucket_name
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
 
+  # Can we get a custom domain for the CDN?
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
