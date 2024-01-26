@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "combined_local_sqs" {
 }
 
 resource "aws_iam_policy" "combined_sqs" {
-  policy = data.aws_iam_policy_document.sqs_full.json
+  policy = data.aws_iam_policy_document.combined_local_sqs.json
   # Tags
   tags = {
     business_unit          = var.business_unit
