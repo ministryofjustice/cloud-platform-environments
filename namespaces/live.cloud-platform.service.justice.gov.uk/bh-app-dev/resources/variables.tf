@@ -39,7 +39,7 @@ variable "environment" {
 }
 
 variable "number_cache_clusters" {
-  default = "1"
+  default = "2"
 }
 
 variable "infrastructure_support" {
