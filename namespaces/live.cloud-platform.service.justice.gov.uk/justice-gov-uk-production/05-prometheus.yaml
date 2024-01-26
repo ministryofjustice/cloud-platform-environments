@@ -30,9 +30,9 @@ spec:
           }}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
       expr: |-
-        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="justice-gov-uk-dev"} 
+        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="justice-gov-uk-production"} 
         / ignoring(instance, job, type)
-        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="justice-gov-uk-dev"} > 0)
+        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="justice-gov-uk-production"} > 0)
         > 90
       for: 15m
       labels:
@@ -44,7 +44,7 @@ spec:
           }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
       expr: |-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-dev"}[15m]) * 60 * 5 > 0
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
         severity: justice-gov-uk-production-alerts
@@ -54,7 +54,7 @@ spec:
           state for longer than an hour.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
       expr: |-
-        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-dev"}) 
+        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-production"}) 
         > 0
       for: 1h
       labels:
@@ -66,9 +66,9 @@ spec:
           not been rolled back.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
       expr: |-
-        kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="justice-gov-uk-dev"}
+        kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
         !=
-        kube_deployment_metadata_generation{job="kube-state-metrics", namespace="justice-gov-uk-dev"}
+        kube_deployment_metadata_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
       for: 15m
       labels:
         severity: justice-gov-uk-production-alerts
