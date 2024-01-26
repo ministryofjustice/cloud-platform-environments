@@ -32,13 +32,12 @@ module "ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire UAT images older than 14 days",
+            "description": "Keep the newest 100 UAT images and mark the rest for expiration",
             "selection": {
                 "tagStatus": "tagged",
                 "tagPrefixList": ["branch"],
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
+                "countType": "imageCountMoreThan",
+                "countNumber": 100
             },
             "action": {
                 "type": "expire"
