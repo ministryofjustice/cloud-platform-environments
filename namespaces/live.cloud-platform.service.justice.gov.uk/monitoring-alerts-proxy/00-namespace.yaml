@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "monitoring-alerts-proxy"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+    cloud-platform.justice.gov.uk/namespace: "monitoring-alerts-proxy"
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
+    cloud-platform.justice.gov.uk/application: "Cloud Platform Monitoring alerts proxy"
+    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform"
+    cloud-platform.justice.gov.uk/team-name: "webops"
+    cloud-platform.justice.gov.uk/review-after: "2024-04-26"
