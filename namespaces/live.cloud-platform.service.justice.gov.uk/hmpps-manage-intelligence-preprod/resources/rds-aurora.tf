@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "145.5"
+  engine_version = "15.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -16,7 +16,7 @@ module "rds_aurora" {
   replica_count                = 1
   performance_insights_enabled = true
   # db_parameter_group_name      = resource.aws_db_parameter_group.default.name
-  db_parameter_group_name = "default.aurora-postgresql14"
+  db_parameter_group_name = "default.aurora-postgresql15"
   allow_major_version_upgrade  = true
 
   # Tags
