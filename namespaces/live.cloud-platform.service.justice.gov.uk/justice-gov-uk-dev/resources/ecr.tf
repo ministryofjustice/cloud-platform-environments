@@ -22,17 +22,10 @@ module "ecr_credentials" {
   }
   EOF
 
-  # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
-
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ECR name, AWS access key, and AWS secret key, for use in
-  # github actions CI/CD pipelines
   github_repositories = ["justice-gov-uk"]
-
-  # Create secrets in target GitHub environment
-  # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["development"]
+  github_actions_prefix = "development"
 
   # Tags
   business_unit          = var.business_unit
