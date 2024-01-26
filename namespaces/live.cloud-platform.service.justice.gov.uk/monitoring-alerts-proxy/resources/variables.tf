@@ -3,10 +3,6 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -15,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Remand and Sentencing"
+  default     = "Cloud Platform Monitoring alerts proxy"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-remand-and-sentencing-dev"
+  default     = "monitoring-alerts-proxy"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "Platforms"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "webops"
 }
 
 variable "environment" {
@@ -45,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "calculatereleasedatesdevelopers@justice.gov.uk"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -57,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = " digital_warrant_folder_public"
+  default     = "cloud-platform"
 }
 
 variable "github_owner" {
@@ -70,8 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
 }
