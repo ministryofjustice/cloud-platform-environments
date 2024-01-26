@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: justice-gov-uk-demo-cert
+  namespace: justice-gov-uk-staging
+spec:
+  secretName: justice-gov-uk-staging-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - preprod.justice.gov.uk
