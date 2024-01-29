@@ -14,7 +14,7 @@ module "rds_mssql" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "1000"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -23,7 +23,7 @@ module "rds_mssql" {
   db_engine_version    = "15.00.4345.5.v1"
   rds_family           = "sqlserver-web-15.0"
   db_instance_class    = "db.t3.small"
-  db_allocated_storage = 500 # minimum of 20GiB for SQL Server
+  db_allocated_storage = 600 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_rds_option_group.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
