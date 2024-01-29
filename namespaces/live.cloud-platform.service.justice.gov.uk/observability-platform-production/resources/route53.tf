@@ -13,7 +13,7 @@ resource "aws_route53_zone" "observability_platform_service_justice_gov_uk" {
 
 resource "aws_route53_record" "github_pages_verification" {
   zone_id = aws_route53_zone.observability_platform_service_justice_gov_uk.zone_id
-  name    = "_github-pages-challenge-ministryofjustice.observability-platform.service.service.justice.gov.uk"
+  name    = "_github-pages-challenge-ministryofjustice.observability-platform.service.justice.gov.uk"
   type    = "TXT"
   ttl     = "300"
   records = ["87d36fcc49f1fb1ff0a853223ed685"]
