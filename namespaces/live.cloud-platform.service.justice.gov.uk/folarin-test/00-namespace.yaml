@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Namespace
 metadata:
+<<<<<<< HEAD
   name: "folarin-test"
+=======
+  name: "folarino"
+>>>>>>> temp-branch
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
