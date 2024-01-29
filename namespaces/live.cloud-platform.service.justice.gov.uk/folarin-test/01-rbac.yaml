@@ -1,7 +1,7 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: folarino-admin
+  name: folarin-test-admin
   namespace: folarin-test
 subjects:
   - kind: Group
