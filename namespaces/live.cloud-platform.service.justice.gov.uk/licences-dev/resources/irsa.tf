@@ -5,7 +5,7 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hdc_domain_events_queue"       = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-hdc_domain_events_queue_dlq"    = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-dev-hdc_domain_events_dl"          = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
