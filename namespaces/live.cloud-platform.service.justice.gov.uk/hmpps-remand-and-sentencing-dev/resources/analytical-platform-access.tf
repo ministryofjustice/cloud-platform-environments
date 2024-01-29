@@ -1,7 +1,5 @@
 module "ap_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  #role_policy_arns = [aws_iam_policy.ap_policy.arn]
-  #service_account  = "hmpps-remand-and-sentencing-to-ap-s3"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -60,51 +58,22 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/"
+      "arn:aws:s3:::moj-reg-dev/landing/${var.namespace}/*",
+      "arn:aws:s3:::moj-reg-dev/landing/${var.namespace}/"
     ]
   }
 }
 
-resource "random_id" "id" {
-  byte_length = 16
-}
-
-resource "aws_iam_user" "user" {
-  name = "ap-s3-bucket-user-${random_id.id.hex}"
-  path = "/system/ap-s3-bucket-user/"
-}
-
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
-}
-
-resource "aws_iam_user_policy" "policy" {
-  name   = "${var.namespace}-ap-s3-snapshots"
-  policy = data.aws_iam_policy_document.ap_access.json
-  user   = aws_iam_user.user.name
-}
-
-resource "kubernetes_secret" "ap_aws_secret" {
+resource "kubernetes_secret" "ap_irsa" {
   metadata {
     name      = "analytical-platform-reporting-s3-bucket"
     namespace = var.namespace
   }
 
   data = {
+    role               = module.ap_irsa.role_name
+    serviceaccount     = module.ap_irsa.service_account.name
+    rolearn            = module.ap_irsa.role_arn
     destination_bucket = "s3://moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/"
-    user_arn           = aws_iam_user.user.arn
-  }
-}
-
-resource "kubernetes_secret" "ap_irsa" {
-  metadata {
-    name      = "to-ap-s3-irsa"
-    namespace = var.namespace
-  }
-
-  data = {
-    role           = module.ap_irsa.role_name
-    serviceaccount = module.ap_irsa.service_account.name
   }
 }
