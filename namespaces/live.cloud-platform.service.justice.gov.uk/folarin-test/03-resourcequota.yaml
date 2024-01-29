@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: folarino
+  namespace: folarin-test
 spec:
   hard:
     pods: "50"

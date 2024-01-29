@@ -4,13 +4,13 @@ metadata:
   name: "folarin-test"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "staging"
+    cloud-platform.justice.gov.uk/environment-name: "test"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
-    cloud-platform.justice.gov.uk/application: "current-time-app"
-    cloud-platform.justice.gov.uk/owner: "cloud-platform: platforms@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/folarinoyenuga/cloud-platform-environments.git"
-    cloud-platform.justice.gov.uk/team-name: "cloud-platform-environments"
+    cloud-platform.justice.gov.uk/application: "current time test app"
+    cloud-platform.justice.gov.uk/owner: "webops: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/folarinoyenuga/my-test-app.git"
+    cloud-platform.justice.gov.uk/team-name: "webops"
     cloud-platform.justice.gov.uk/review-after: ""

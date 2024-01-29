@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "current-time-app"
+  default     = "current time test app"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "folarino"
+  default     = "folarin-test"
 }
 
 variable "business_unit" {
@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cloud-platform-environments"
+  default     = "webops"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "test"
 }
 
 variable "infrastructure_support" {
