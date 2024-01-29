@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "{{ .Namespace }}"
+  name: folarin-test
   labels:
     cloud-platform.justice.gov.uk/is-production: "{{ .IsProduction }}"
     cloud-platform.justice.gov.uk/environment-name: "{{ .Environment }}"

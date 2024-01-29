@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ .Namespace }}-admin
-  namespace: {{ .Namespace }}
+  name: folarin-test-admin
+  namespace: folarin-test
 subjects:
   - kind: Group
-    name: "github:{{ .GithubTeam }}"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
