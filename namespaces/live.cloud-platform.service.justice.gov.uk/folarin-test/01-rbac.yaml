@@ -2,10 +2,10 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: folarino-admin
-  namespace: folarino
+  namespace: folarin-test
 subjects:
   - kind: Group
-    name: "github:cloud-platform-environments"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
