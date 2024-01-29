@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/hmpps-person-on-probation-user-service"]
+  github_repositories = ["hmpps-person-on-probation-user-api"]
 
   # Tags
   business_unit          = var.business_unit
