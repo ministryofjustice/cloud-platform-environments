@@ -46,17 +46,18 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::*"
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/*",
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/"
     ]
   }
 
   statement {
     sid = "AllowRdsExportUserWriteToS3"
     actions = [
-      "s3:PutObject*",
+      "s3:PutObject",
       "s3:PutObjectAcl",
-      "s3:GetObject*",
-      "s3:DeleteObject*"
+      "s3:GetObject",
+      "s3:DeleteObject"
     ]
 
     resources = [
