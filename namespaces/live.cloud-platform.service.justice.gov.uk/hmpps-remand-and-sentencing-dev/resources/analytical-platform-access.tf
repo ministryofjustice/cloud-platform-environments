@@ -40,19 +40,20 @@ resource "aws_iam_policy" "ap_policy" {
 data "aws_iam_policy_document" "ap_access" {
   statement {
     sid = "AllowRdsExportUserToListS3Buckets"
+    effect = "Allow"
     actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation"
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-remand-and-sentencing-dev/"
+      "arn:aws:s3:::moj-reg-dev"
     ]
   }
 
   statement {
     sid = "AllowRdsExportUserWriteToS3"
+    effect = "Allow"
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
