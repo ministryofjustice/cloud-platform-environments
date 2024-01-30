@@ -391,6 +391,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: cym.victimandwitnessinformation.org.uk
+  namespace: hale-platform-prod
+spec:
+  secretName: victimandwitnessinformation-cym-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - cym.victimandwitnessinformation.org.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: victimscode.org.uk
   namespace: hale-platform-prod
 spec:
