@@ -104,3 +104,4 @@ variable "resource_server_scope_description" {
 variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
 }
+
