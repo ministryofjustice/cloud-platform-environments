@@ -105,12 +105,3 @@ variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
 }
 
-variable "api_gateway_name" {
-  description = "The name of the API Gateway"
-  default     = "dcesdrc-api-gateway-dev"
-}
-
-variable "apigw_stage_name" {
-  description = "Named reference to the deployment"
-  default     = "v1"
-}
