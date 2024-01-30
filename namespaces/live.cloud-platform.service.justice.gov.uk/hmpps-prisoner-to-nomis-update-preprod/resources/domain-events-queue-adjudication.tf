@@ -42,6 +42,7 @@ module "hmpps_prisoner_to_nomis_adjudication_queue" {
   sqs_name                  = "hmpps_prisoner_to_nomis_adjudication_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
+  visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.sqs_arn
