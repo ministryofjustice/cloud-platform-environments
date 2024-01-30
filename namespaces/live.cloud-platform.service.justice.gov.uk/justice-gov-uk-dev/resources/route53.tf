@@ -19,7 +19,7 @@ resource "kubernetes_secret" "route53_zone_sec" {
   }
 
   data = {
-    www_dev_zone_id      = aws_route53_zone.dev_justice_gov_uk_route53_zone.zone_id
-    www_dev_name_servers = aws_route53_zone.dev_justice_gov_uk_route53_zone.name_servers
+    zone_id      = aws_route53_zone.dev_justice_gov_uk_route53_zone.zone_id
+    name_servers = join("\n", aws_route53_zone.dev_justice_gov_uk_route53_zone.name_servers)
   }
 }
