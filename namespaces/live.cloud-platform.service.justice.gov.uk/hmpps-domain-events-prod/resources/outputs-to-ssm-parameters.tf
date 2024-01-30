@@ -12,6 +12,8 @@ locals {
     (module.education_and_work_plan_domain_events_dead_letter_queue.sqs_name)       = module.education_and_work_plan_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.keyworker_api_queue.sqs_name)                                           = module.keyworker_api_queue.irsa_policy_arn,
     (module.keyworker_api_dead_letter_queue.sqs_name)                               = module.keyworker_api_dead_letter_queue.irsa_policy_arn,
+    (module.hdc_domain_events_queue.sqs_name)                                       = module.hdc_domain_events_queue.irsa_policy_arn,
+    (module.hdc_domain_events_dead_letter_queue.sqs_name)                           = module.hdc_domain_events_dead_letter_queue.irsa_policy_arn,
     (module.in_cell_queue.sqs_name)                                                 = module.in_cell_queue.irsa_policy_arn,
     (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn,
     (module.whereabouts_api_domain_events_queue.sqs_name)                           = module.whereabouts_api_domain_events_queue.irsa_policy_arn,
