@@ -10,7 +10,7 @@ module "rds-allocation" {
   # rotating creds
   db_password_rotated_date = "09-02-2023"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # enable performance insights
   performance_insights_enabled = true
   # instance class
