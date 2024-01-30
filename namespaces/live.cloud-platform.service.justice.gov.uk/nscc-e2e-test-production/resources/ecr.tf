@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github", "circleci"]
+  oidc_providers      = ["circleci"]
   github_repositories = ["nsm-e2e-test"]
 
    lifecycle_policy = <<EOF
