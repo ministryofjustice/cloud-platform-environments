@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-auth-stagee"
+  default = "hmpps-auth-stage"
 }
 
 variable "business_unit" {
@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "HMPPS Auth & HMPPS Audit"
+  default     = "HMPPS Auth and HMPPS Audit"
 }
 
 variable "environment-name" {
