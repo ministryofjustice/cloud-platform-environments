@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-auth-stagee"
+  default = "hmpps-auth-stage"
 }
 
 variable "business_unit" {
