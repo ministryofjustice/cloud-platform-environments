@@ -54,6 +54,14 @@ resource "aws_route53_record" "icrir_route53_txt_belfast" {
   records = ["v=DKIM1; t=y; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0ggNmsVEbhdvEmeun/kktXh8wz8iiSgVAbH8PTTiRuchE65aCLA0VSSEtX7dN1P4MkB0d4vpFZckbiAA84Q4DgO9bdticphleyHo1tKPL\"\"++ZJSwTvPkGAE2xpl8SmefQpmhN4s3IKHEttvFYMUVqaxBY6dplJJNin4b2usXeZVMT7u3tn3UXGXtyCpn6cBoakC+LMcQDnfM11RAwY7nxe/IMUM69+/y5vjqiHmTUituVJsyfPqJy9TUKDmzirqH9qwQqT0vIQTBLEBY5RkQimT/Kx0vo2u04vcmcxPTKiYtQ4/xCMBWTPOA/Hh6MI839ydniaqfoXr2qVf7ED+oFoQIDAQAB;"]
 }
 
+resource "aws_route53_record" "icrir_route53_txt_asvdns" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "_asvdns-2ac0f8fb-9a02-4dfc-888e-7a804e21d5d2.icrir.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["asvdns_597b5b92-f07e-4cca-95f2-f41a0b123faf"]
+}
+
 resource "aws_route53_record" "icrir_route53_mx" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
