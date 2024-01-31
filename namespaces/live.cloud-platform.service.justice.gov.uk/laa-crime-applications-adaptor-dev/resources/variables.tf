@@ -108,7 +108,7 @@ variable "user_pool_name" {
 
 variable "cognito_user_pool_client_name" {
   description = "Cognito user pool client name"
-  default     = "caa-api-dev"
+  default     = "caa-api-dev-new"
 }
 
 variable "resource_server_identifier" {

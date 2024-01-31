@@ -39,7 +39,7 @@ resource "aws_cognito_user_pool_domain" "domain" {
 
 resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   metadata {
-    name      = "caa-cognito-client-secret-output-dev"
+    name      = "caa-cognito-client-secret-output"
     namespace = var.namespace
   }
 
