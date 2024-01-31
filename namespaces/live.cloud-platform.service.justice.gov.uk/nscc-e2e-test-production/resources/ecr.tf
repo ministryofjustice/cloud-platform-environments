@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["circleci"]
-  github_repositories = ["nsm-e2e-test"]
+  github_repositories = ["nsm-e2e-test", "laa-crime-application-store", "laa-claim-non-standard-magistrate-fee-backend", "laa-assess-non-standard-magistrate-fee"]
 
    lifecycle_policy = <<EOF
     {

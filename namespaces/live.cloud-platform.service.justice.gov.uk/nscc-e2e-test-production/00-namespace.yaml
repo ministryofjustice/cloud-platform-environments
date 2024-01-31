@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "NSCC End to End test"
     cloud-platform.justice.gov.uk/owner: "Non standard crime: CRM457@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/nsm-e2e-test"
-    cloud-platform.justice.gov.uk/team-name: "nsm-e2e-test-admin-team"
+    cloud-platform.justice.gov.uk/team-name: "crm7team"
     cloud-platform.justice.gov.uk/review-after: ""
