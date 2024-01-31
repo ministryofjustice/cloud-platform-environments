@@ -31,7 +31,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "ccr-dev-encrypted-for-cp"
 
   providers = {
     aws = aws.london
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "rule4" {
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
-    name      = "rds-instance-calculate-journey-variable-payments-${var.environment}"
+    name      = "rds-ccr-${var.environment}"
     namespace = var.namespace
   }
 
