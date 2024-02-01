@@ -23,7 +23,7 @@ spec:
                 [
                   "/bin/sh",
                   "-c",
-                  'psql $(DATABASE_URL_WITH_CREDENTIALS) -c "DELETE FROM questionnaire WHERE (NOW() > expires AND submission_status = ''NOT_STARTED'') OR (submission_status = ''COMPLETED'');"',
+                  'psql $(DATABASE_URL_WITH_CREDENTIALS) -c "CALL cleardown();"',
                 ]
               env:
                 - name: DATABASE_URL_WITH_CREDENTIALS
