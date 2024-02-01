@@ -9,7 +9,7 @@ resource "aws_cognito_user_pool" "pool" {
   }
 }
 
-resource "aws_cognito_user_pool_client" "client" {
+resource "aws_cognito_user_pool_client" "maat_client" {
   name                                 = var.cognito_user_pool_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -44,7 +44,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   }
 
   data = {
-    client_id     = aws_cognito_user_pool_client.client.id
-    client_secret = aws_cognito_user_pool_client.client.client_secret
+    client_id     = aws_cognito_user_pool_client.maat_client.id
+    client_secret = aws_cognito_user_pool_client.maat_client.client_secret
   }
 }

@@ -22,6 +22,14 @@ resource "kubernetes_secret" "omagh_route53_zone_sec" {
   }
 }
 
+resource "aws_route53_record" "omagh_route53_txt_asvdns" {
+  zone_id = aws_route53_zone.omagh_route53_zone.zone_id
+  name    = "_asvdns-9bd05310-34f8-4f9e-abf7-9b2dd481be48.omagh.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["asvdns_96a49327-cddb-476d-8cbf-6d218630e474"]
+}
+
 resource "aws_route53_record" "omagh_route53_mx_records" {
   zone_id = aws_route53_zone.omagh_route53_zone.zone_id
   name    = "omagh.independent-inquiry.uk"
