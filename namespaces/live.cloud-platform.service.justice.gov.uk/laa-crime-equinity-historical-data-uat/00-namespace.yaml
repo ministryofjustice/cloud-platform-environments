@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "equinity-data-migration"
     cloud-platform.justice.gov.uk/application: "Equinity Historical Data View APP"
-    cloud-platform.justice.gov.uk/owner: "Equinity Data Migration: laa-crime-apps@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Equinity Data Migration:  laa-eq-data-migration-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-crime-equinity-historical-data"
     cloud-platform.justice.gov.uk/team-name: "laa-crime-equinity-data"
     cloud-platform.justice.gov.uk/review-after: ""
