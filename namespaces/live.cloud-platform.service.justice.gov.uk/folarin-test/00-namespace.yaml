@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
-    cloud-platform.justice.gov.uk/application: "hello-world"
+    cloud-platform.justice.gov.uk/application: "helloworld"
     cloud-platform.justice.gov.uk/owner: "webops: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/team-name: "webops"
