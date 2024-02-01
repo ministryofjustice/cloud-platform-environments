@@ -30,6 +30,14 @@ resource "aws_route53_record" "omagh_route53_txt_asvdns" {
   records = ["asvdns_96a49327-cddb-476d-8cbf-6d218630e474"]
 }
 
+resource "aws_route53_record" "omagh_route53_txt_main" {
+  zone_id = aws_route53_zone.omagh_route53_zone.zone_id
+  name    = "omagh.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["MS=ms93403091"]
+}
+
 resource "aws_route53_record" "omagh_route53_mx_records" {
   zone_id = aws_route53_zone.omagh_route53_zone.zone_id
   name    = "omagh.independent-inquiry.uk"
