@@ -78,3 +78,4 @@ variable "slack_channel" {
   type        = string
   default     = "laa-crimeapps-core"
 }
+variable "kubernetes_cluster" {}
