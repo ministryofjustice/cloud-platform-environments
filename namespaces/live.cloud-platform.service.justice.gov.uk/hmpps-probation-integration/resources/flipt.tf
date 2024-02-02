@@ -9,10 +9,11 @@ module "flipt-db" {
   infrastructure_support       = var.infrastructure_support
   namespace                    = var.namespace
   rds_name                     = "probation-integration-flipt-db"
-  rds_family                   = "postgres14"
-  db_engine_version            = "14.10"
+  rds_family                   = "postgres16"
+  db_engine_version            = "16.1"
   db_instance_class            = "db.t4g.small"
-  allow_major_version_upgrade  = false
+  prepare_for_major_upgrade = true
+  allow_major_version_upgrade  = true
   performance_insights_enabled = true
   maintenance_window = var.maintenance_window
 }
