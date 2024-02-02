@@ -38,6 +38,16 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "manage-a-workforce"
+    }
+  }
+}
+
 provider "github" {
   token = var.github_token
   owner = var.github_owner
