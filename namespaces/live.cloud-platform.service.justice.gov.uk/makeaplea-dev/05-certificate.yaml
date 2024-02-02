@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
       - dev-map-mgw-admin.apps.live.cloud-platform.service.justice.gov.uk
+      - dev-map-mgw.apps.live.cloud-platform.service.justice.gov.uk
