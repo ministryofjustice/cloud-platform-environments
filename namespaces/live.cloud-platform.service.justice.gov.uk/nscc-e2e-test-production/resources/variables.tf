@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "nsm-e2e-test-admin-team"
+  default     = "crm7team"
 }
 
 variable "environment" {
