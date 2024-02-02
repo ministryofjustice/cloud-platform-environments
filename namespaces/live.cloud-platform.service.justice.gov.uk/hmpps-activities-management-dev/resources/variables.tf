@@ -71,3 +71,5 @@ variable "mp_dps_sg_name" {
   default     = "cloudplatform-mp-dps-sg"
 }
 
+
+variable "kubernetes_cluster" {}
