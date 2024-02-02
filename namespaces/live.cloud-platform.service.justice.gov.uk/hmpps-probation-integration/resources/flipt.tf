@@ -10,10 +10,11 @@ module "flipt-db" {
   namespace                    = var.namespace
   rds_name                     = "probation-integration-flipt-db"
   rds_family                   = "postgres14"
-  db_engine_version            = "14"
+  db_engine_version            = "14.10"
   db_instance_class            = "db.t4g.small"
   allow_major_version_upgrade  = false
   performance_insights_enabled = true
+  maintenance_window = var.maintenance_window
 }
 
 resource "kubernetes_secret" "flipt-db" {
