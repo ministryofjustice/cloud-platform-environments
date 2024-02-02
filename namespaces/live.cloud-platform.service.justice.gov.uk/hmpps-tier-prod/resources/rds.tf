@@ -20,6 +20,7 @@ module "rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   maintenance_window = var.maintenance_window
+  backup_window = var.backup_window
 
   prepare_for_major_upgrade = true
 
