@@ -15,7 +15,7 @@ module "ecr" {
   oidc_providers = ["circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-assess-non-standard-magistrate-fee"]
+  github_repositories = ["laa-assess-non-standard-magistrate-fee", nsm-e2e-test", "laa-crime-application-store", "laa-claim-non-standard-magistrate-fee-backend"]
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
