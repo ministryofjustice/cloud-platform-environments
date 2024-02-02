@@ -78,3 +78,4 @@ variable "repo_name" {
   type        = list
   default     = ["cica-gov-uk-notify-gateway"]
 }
+variable "kubernetes_cluster" {}
