@@ -16,13 +16,16 @@ module "rds" {
   db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "14.10"
+  db_engine_version      = "16.1"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  maintenance_window = var.maintenance_window
+
+  prepare_for_major_upgrade = true
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres16"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
