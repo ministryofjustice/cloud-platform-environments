@@ -49,3 +49,5 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps-person-record-alerts"
 }
+
+variable "kubernetes_cluster" {}
