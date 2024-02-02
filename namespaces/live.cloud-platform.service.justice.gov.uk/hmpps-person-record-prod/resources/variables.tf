@@ -51,3 +51,5 @@ variable "slack_channel" {
   default     = "hmpps-person-record-alerts"
 }
 
+
+variable "kubernetes_cluster" {}
