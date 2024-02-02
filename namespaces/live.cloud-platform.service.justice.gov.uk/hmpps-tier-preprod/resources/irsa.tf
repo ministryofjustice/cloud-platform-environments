@@ -1,10 +1,10 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_tier_offender_events_queue"    = "offender-events-preprod"
-    "Digital-Prison-Services-preprod-hmpps_tier_offender_events_queue_dl" = "offender-events-preprod"
+    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_tier_offender_events_queue_dl" = "offender-events-dev"
   }
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -20,7 +20,8 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { domain_sns = module.hmpps_tier_domain_events_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn }
+    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn },
+    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
 
   # Tags
