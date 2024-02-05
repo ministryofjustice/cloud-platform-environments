@@ -75,3 +75,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
