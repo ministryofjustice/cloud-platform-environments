@@ -5,7 +5,7 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   binary_media_types           = ["*/*"]
 
   endpoint_configuration {
-    types = ["EDGE-OPTIMIZED"]
+    types = ["EDGE"]
   }
 
   tags = {
