@@ -4,5 +4,8 @@ module "serviceaccount_circleci" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  serviceaccount_name = "circleci"
+  role_name           = "circleci"
+
 }
 
