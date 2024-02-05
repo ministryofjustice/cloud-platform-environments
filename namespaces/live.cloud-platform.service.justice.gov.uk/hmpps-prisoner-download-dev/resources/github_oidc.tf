@@ -8,7 +8,7 @@ data "aws_iam_openid_connect_provider" "github" {
 
 resource "aws_iam_role" "github" {
   name = "offloc-transfer-gha-role-${var.environment}"
-  assume_role_policy = aws_iam_user_policy_document.github.json
+  assume_role_policy = data.aws_iam_policy_document.github.json
 }
 
 data "aws_iam_policy_document" "github" {
