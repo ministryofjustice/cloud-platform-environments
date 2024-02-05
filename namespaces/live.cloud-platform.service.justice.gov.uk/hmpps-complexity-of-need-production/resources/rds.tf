@@ -12,7 +12,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version        = "14.7"
+  db_engine_version        = "14.10"
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   environment_name         = var.environment
