@@ -49,12 +49,12 @@ resource "aws_iam_role_policy_attachment" "s3_access_policy_attachment" {
 
 resource "github_actions_secret" "role_arn" {
   repository = "ansible-monorepo"
-  secret_name = "OFFLOC_TRANSFER_GHA_ROLE_ARN"
+  secret_name = "OFFLOC_TRANSFER_GHA_ROLE_ARN_${var.environment}"
   plaintext_value = aws_iam_role.github.arn
 }
 
 resource "github_actions_secret" "s3_bucket" {
   repository = "ansible-monorepo"
-  secret_name = "OFFLOC_TRANSFER_S3_BUCKET_NAME"
+  secret_name = "OFFLOC_TRANSFER_S3_BUCKET_NAME_${var.environment}"
   plaintext_value = module.hmpps-prisoner-download_s3_bucket.bucket_name
 }
