@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-person-on-probation-user-api-dev.hmpps.service.justice.gov.uk
+    - person-on-probation-user-api-dev.hmpps.service.justice.gov.uk
