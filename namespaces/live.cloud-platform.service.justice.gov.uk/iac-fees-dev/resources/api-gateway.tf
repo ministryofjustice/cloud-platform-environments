@@ -18,32 +18,32 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   }
 }
 
-resource "aws_api_gateway_rest_api_policy" "api_policy" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+# resource "aws_api_gateway_rest_api_policy" "api_policy" {
+#   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": "*",
-        "Action": "execute-api:Invoke",
-        "Resource": "arn:aws:execute-api:eu-west-2:754256621582:${aws_api_gateway_rest_api.api_gateway.id}/*"
-      },
-      {
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:PutObject",
-      "Resource": [
-        "${module.s3_bucket.bucket_arn}/*",
-        "${module.s3_bucket.bucket_arn}"
-      ]
-    }
-    ]
-  }
-  EOF
-}
+#   policy = <<EOF
+#   {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#       {
+#         "Effect": "Allow",
+#         "Principal": "*",
+#         "Action": "execute-api:Invoke",
+#         "Resource": "arn:aws:execute-api:eu-west-2:754256621582:${aws_api_gateway_rest_api.api_gateway.id}/*"
+#       },
+#       {
+#       "Effect": "Allow",
+#       "Principal": "*",
+#       "Action": "s3:PutObject",
+#       "Resource": [
+#         "${module.s3_bucket.bucket_arn}/*",
+#         "${module.s3_bucket.bucket_arn}"
+#       ]
+#     }
+#     ]
+#   }
+#   EOF
+# }
 
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
@@ -62,24 +62,24 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-resource "aws_api_gateway_integration" "proxy_http_proxy" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.proxy.id
-  http_method             = aws_api_gateway_method.proxy.http_method
-  type                    = "AWS"
-  integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:eu-west-2:s3:path/${module.s3_bucket.bucket_name}/{proxy}"
+# resource "aws_api_gateway_integration" "proxy_http_proxy" {
+#   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+#   resource_id             = aws_api_gateway_resource.proxy.id
+#   http_method             = aws_api_gateway_method.proxy.http_method
+#   type                    = "AWS"
+#   integration_http_method = "PUT"
+#   uri                     = "arn:aws:apigateway:eu-west-2:s3:path/${module.s3_bucket.bucket_name}/{proxy}"
 
-  credentials = aws_iam_role.api_gateway_role.arn
+#   credentials = aws_iam_role.api_gateway_role.arn
 
-  request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy"
-  }
+#   request_parameters = {
+#     "integration.request.path.proxy" = "method.request.path.proxy"
+#   }
 
-  request_templates = {
-    "application/json" = "{\"statusCode\": 200}"
-  }
-}
+#   request_templates = {
+#     "application/json" = "{\"statusCode\": 200}"
+#   }
+# }
 
 resource "aws_api_gateway_method_response" "api_method_response" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id

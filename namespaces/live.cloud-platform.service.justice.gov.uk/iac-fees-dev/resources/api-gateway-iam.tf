@@ -60,28 +60,28 @@ resource "aws_iam_role" "api_gateway_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "api_gw_s3" {
-  name = "${var.namespace}-apigw-s3"
-  role = aws_iam_role.api_gateway_role.name
+# resource "aws_iam_role_policy" "api_gw_s3" {
+#   name = "${var.namespace}-apigw-s3"
+#   role = aws_iam_role.api_gateway_role.name
 
-  policy = <<EOF
-{
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Sid": "AllowPutObject",
-      "Effect": "Allow",
-      "Action": "s3:PutObject",
+#   policy = <<EOF
+# {
+#   "Version" : "2012-10-17",
+#   "Statement" : [
+#     {
+#       "Sid": "AllowPutObject",
+#       "Effect": "Allow",
+#       "Action": "s3:PutObject",
 
-      "Resource": [
-        "${module.s3_bucket.bucket_arn}/*",
-        "${module.s3_bucket.bucket_arn}"
-      ]
-    }
-  ]
-}
-EOF
-}
+#       "Resource": [
+#         "${module.s3_bucket.bucket_arn}/*",
+#         "${module.s3_bucket.bucket_arn}"
+#       ]
+#     }
+#   ]
+# }
+# EOF
+# }
 
 resource "kubernetes_secret" "iac_fees_apigw_iam" {
   metadata {
