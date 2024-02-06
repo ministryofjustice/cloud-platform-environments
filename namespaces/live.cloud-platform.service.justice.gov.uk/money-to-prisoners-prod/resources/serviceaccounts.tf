@@ -379,3 +379,72 @@ resource "kubernetes_role_binding" "emails" {
     name      = module.irsa-emails.service_account.name
   }
 }
+
+resource "kubernetes_role" "github-actions" {
+  metadata {
+    namespace = var.namespace
+    name      = "github-actions"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["configmaps"]
+    verbs      = ["get"]
+  }
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    resource_names = ["ecr"]
+    verbs          = ["get"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments"]
+    verbs      = ["get"]
+  }
+
+  rule {
+    api_groups     = ["extensions", "apps"]
+    resources      = ["deployments"]
+    resource_names = ["default", "deploy"]
+    verbs          = ["patch"]
+  }
+
+  rule {
+    api_groups = ["batch"]
+    resources  = ["cronjobs"]
+    verbs      = ["get"]
+  }
+
+  rule {
+    api_groups = ["batch"]
+    resources  = ["jobs"]
+    verbs      = ["get", "list"]
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods"]
+    verbs      = ["get", "list"]
+  }
+}
+
+resource "kubernetes_role_binding" "github-actions" {
+  metadata {
+    namespace = var.namespace
+    name      = "github-actions"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "github-actions"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = "money-to-prisoners-test"
+    name      = "github-actions"
+  }
+}
