@@ -102,6 +102,7 @@ resource "kubernetes_secret" "iac_fees_apigw_iam" {
 }
 
 resource "aws_iam_policy" "api_gw_cloudwatch_logs_policy" {
+  provider = aws.ireland
   name        = "api_gw_cloudwatch_logs_policy"
   path        = "/"
   description = "API Gateway permissions to write logs to CloudWatch"
@@ -127,6 +128,7 @@ resource "aws_iam_policy" "api_gw_cloudwatch_logs_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_cloudwatch_logs" {
+  provider = aws.ireland
   role       = aws_iam_role.api_gateway_role.name
   policy_arn = aws_iam_policy.api_gw_cloudwatch_logs_policy.arn
 }
