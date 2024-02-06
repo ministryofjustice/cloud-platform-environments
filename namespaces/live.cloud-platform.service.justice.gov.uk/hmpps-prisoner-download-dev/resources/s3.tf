@@ -27,6 +27,7 @@ data "aws_iam_policy_document" "dso_user_s3_access_policy" {
     actions = [
       "s3:PutObject",
       "s3:ListBucket",
+      "kms:Encrypt",
       "kms:GenerateDataKey",
     ]
     resources = [
