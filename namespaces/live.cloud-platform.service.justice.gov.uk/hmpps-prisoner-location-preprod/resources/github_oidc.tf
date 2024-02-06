@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "github" {
 }
 
 resource "aws_iam_policy" "s3_access_policy" {
-  name        = "offloc-transfer-gha-policy"
+  name        = "offloc-transfer-gha-policy-${var.environment}"
   description = "Policy to allow access to S3 bucket"
   policy      = data.aws_iam_policy_document.dso_user_s3_access_policy.json
 }
