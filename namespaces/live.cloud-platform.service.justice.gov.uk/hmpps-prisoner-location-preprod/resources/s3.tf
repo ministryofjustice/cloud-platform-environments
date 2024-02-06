@@ -38,8 +38,8 @@ data "aws_iam_policy_document" "dso_user_s3_access_policy" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "dso-s3-access-user-${var.environment}"
-  path = "/system/dso-s3-access-user/"
+  name = "dso-s3-pl-access-user-${var.environment}"
+  path = "/system/dso-s3-pl-access-user/"
 }
 
 resource "aws_iam_access_key" "user" {
@@ -47,7 +47,7 @@ resource "aws_iam_access_key" "user" {
 }
 
 resource "aws_iam_user_policy" "policy" {
-  name   = "dso-s3-read-write-policy"
+  name   = "dso-s3-pl-read-write-policy"
   policy = data.aws_iam_policy_document.dso_user_s3_access_policy.json
   user   = aws_iam_user.user.name
 }
