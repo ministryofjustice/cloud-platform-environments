@@ -25,9 +25,10 @@ data "aws_iam_policy_document" "dso_user_s3_access_policy" {
     sid    = "AllowDsoUserToReadAndPutObjectsInS3"
     effect = "Allow"
     actions = [
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:ListBucket",
+      "kms:GenerateDataKey",
     ]
-
     resources = [
       "${module.hmpps-prisoner-download_s3_bucket.bucket_arn}/*"
     ]
