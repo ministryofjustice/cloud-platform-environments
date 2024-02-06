@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "apigw" {
       "apigateway:*",
     ]
     resources = [
-      "arn:aws:apigateway:eu-west-2::/restapis"
+      "arn:aws:apigateway:eu-west-1::/restapis"
     ]
     effect = "Allow"
   }
