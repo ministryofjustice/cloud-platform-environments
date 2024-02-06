@@ -16,13 +16,14 @@ module "rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  rds_family           = "postgres14"
+  rds_family           = "postgres15"
   db_engine            = "postgres"
-  db_engine_version    = "14.3"
+  db_engine_version    = "15.5"
   db_instance_class    = "db.m6g.xlarge"
   db_allocated_storage = "175"
   db_name              = "mtp_api"
 
+  prepare_for_major_upgrade    = true
   allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = false
   deletion_protection          = true
