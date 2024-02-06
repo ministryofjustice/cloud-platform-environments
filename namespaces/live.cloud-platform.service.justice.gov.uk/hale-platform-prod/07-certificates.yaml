@@ -1,415 +1,158 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: magistrates.judiciary.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: magistrates-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - magistrates.judiciary.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: victimscommissioner.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimscommissioner-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - victimscommissioner.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.victimscommissioner.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimscommissioner-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.victimscommissioner.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: publicdefenderservice.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: publicdefenderservice-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - publicdefenderservice.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.publicdefenderservice.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: publicdefenderservice-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.publicdefenderservice.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: imb.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: imb-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - imb.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.imb.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: imb-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.imb.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: my.imb.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: my-imb-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - my.imb.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ccrc.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ccrc-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - ccrc.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.ccrc.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ccrc-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.ccrc.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: icrir.independent-inquiry.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: icrir-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - icrir.independent-inquiry.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: prisonandprobationjobs.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ppj-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - prisonandprobationjobs.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.prisonandprobationjobs.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ppj-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.prisonandprobationjobs.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: brookhouseinquiry.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: brookhouse-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - brookhouseinquiry.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.brookhouseinquiry.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: brookhouse-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.brookhouseinquiry.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: layobservers.org
-  namespace: hale-platform-prod
-spec:
-  secretName: layobservers-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - layobservers.org
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.layobservers.org
-  namespace: hale-platform-prod
-spec:
-  secretName: layobservers-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.layobservers.org
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: members.layobservers.org
-  namespace: hale-platform-prod
-spec:
-  secretName: layobservers-members-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - members.layobservers.org
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: sifocc.org
-  namespace: hale-platform-prod
-spec:
-  secretName: sifocc-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - sifocc.org
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.sifocc.org
-  namespace: hale-platform-prod
-spec:
-  secretName: sifocc-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.sifocc.org
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: nationalpreventivemechanism.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: nationalpreventivemechanism-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - nationalpreventivemechanism.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.nationalpreventivemechanism.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: nationalpreventivemechanism-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.nationalpreventivemechanism.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: jobs.justice.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: justicejobs-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - jobs.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.jobs.justice.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: justicejobs-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.jobs.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ppo.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ppo-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - ppo.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.ppo.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: ppo-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.ppo.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: lawcom.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: lawcom-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - lawcom.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.lawcom.gov.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: lawcom-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.lawcom.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: victimandwitnessinformation.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimandwitnessinformation-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - victimandwitnessinformation.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: www.victimandwitnessinformation.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimandwitnessinformation-www-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - www.victimandwitnessinformation.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: cym.victimandwitnessinformation.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimandwitnessinformation-cym-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - cym.victimandwitnessinformation.org.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: victimscode.org.uk
-  namespace: hale-platform-prod
-spec:
-  secretName: victimscode-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - victimscode.org.uk
+resource "cert-manager-certificate" "certificate" {
+  count = length(var.domains)
+
+  metadata {
+    name      = var.domains[count.index].name
+    namespace = "hale-platform-prod"
+  }
+
+  spec {
+    secret_name = "${var.domains[count.index].domain_key}-cert"
+
+    issuer_ref {
+      name = "letsencrypt-production"
+      kind = "ClusterIssuer"
+    }
+
+    dns_names = [
+      var.domains[count.index].name
+    ]
+  }
+}
+
+variable "domains" {
+  type = list(object({
+    name       = string
+    domain_key = string
+  }))
+  default = [
+    {
+      name       = "magistrates.judiciary.uk"
+      domain_key = "magistrates"
+    },
+    {
+      name       = "victimscommissioner.org.uk"
+      domain_key = "victimscommissioner"
+    },
+    {
+      name       = "www.victimscommissioner.org.uk"
+      domain_key = "victimscommissioner-www"
+    },
+    {
+      name       = "publicdefenderservice.org.uk"
+      domain_key = "publicdefenderservice"
+    },
+    {
+      name       = "www.publicdefenderservice.org.uk"
+      domain_key = "publicdefenderservice-www"
+    },
+    {
+      name       = "imb.org.uk"
+      domain_key = "imb"
+    },
+    {
+      name       = "www.imb.org.uk"
+      domain_key = "imb-www"
+    },
+    {
+      name       = "my.imb.org.uk"
+      domain_key = "my-imb"
+    },
+    {
+      name       = "ccrc.gov.uk"
+      domain_key = "ccrc"
+    },
+    {
+      name       = "www.ccrc.gov.uk"
+      domain_key = "ccrc-www"
+    },
+    {
+      name       = "icrir.independent-inquiry.uk"
+      domain_key = "icrir"
+    },
+    {
+      name       = "prisonandprobationjobs.gov.uk"
+      domain_key = "ppj"
+    },
+    {
+      name       = "www.prisonandprobationjobs.gov.uk"
+      domain_key = "ppj-www"
+    },
+    {
+      name       = "brookhouseinquiry.org.uk"
+      domain_key = "brookhouse"
+    },
+    {
+      name       = "www.brookhouseinquiry.org.uk"
+      domain_key = "brookhouse-www"
+    },
+    {
+      name       = "layobservers.org"
+      domain_key = "layobservers"
+    },
+    {
+      name       = "www.layobservers.org"
+      domain_key = "layobservers-www"
+    },
+    {
+      name       = "members.layobservers.org"
+      domain_key = "layobservers-members"
+    },
+    {
+      name       = "sifocc.org"
+      domain_key = "sifocc"
+    },
+    {
+      name       = "www.sifocc.org"
+      domain_key = "sifocc-www"
+    },
+    {
+      name       = "nationalpreventivemechanism.org.uk"
+      domain_key = "nationalpreventivemechanism"
+    },
+    {
+      name       = "www.nationalpreventivemechanism.org.uk"
+      domain_key = "nationalpreventivemechanism-www"
+    },
+    {
+      name       = "jobs.justice.gov.uk"
+      domain_key = "justicejobs"
+    },
+    {
+      name       = "www.jobs.justice.gov.uk"
+      domain_key = "justicejobs-www"
+    },
+    {
+      name       = "ppo.gov.uk"
+      domain_key = "ppo"
+    },
+    {
+      name       = "www.ppo.gov.uk"
+      domain_key = "ppo-www"
+    },
+    {
+      name       = "lawcom.gov.uk"
+      domain_key = "lawcom"
+    },
+    {
+      name       = "www.lawcom.gov.uk"
+      domain_key = "lawcom-www"
+    },
+    {
+      name       = "victimandwitnessinformation.org.uk"
+      domain_key = "victimandwitnessinformation"
+    },
+    {
+      name       = "www.victimandwitnessinformation.org.uk"
+      domain_key = "victimandwitnessinformation-www"
+    },
+    {
+      name       = "cym.victimandwitnessinformation.org.uk"
+      domain_key = "victimandwitnessinformation-cym"
+    },
+    {
+      name       = "victimscode.org.uk"
+      domain_key = "victimscode"
+    }
+  ]
+}
