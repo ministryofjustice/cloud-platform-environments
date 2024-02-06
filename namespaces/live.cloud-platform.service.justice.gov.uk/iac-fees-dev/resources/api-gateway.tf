@@ -20,6 +20,7 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
 }
 
 resource "aws_api_gateway_rest_api_policy" "api_policy" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
   policy = <<EOF
@@ -47,12 +48,14 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
 }
 
 resource "aws_api_gateway_resource" "proxy" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
+  provider = aws.ireland
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   resource_id   = aws_api_gateway_resource.proxy.id
   http_method   = "PUT"
@@ -64,6 +67,7 @@ resource "aws_api_gateway_method" "proxy" {
 }
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  provider = aws.ireland
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
@@ -83,6 +87,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 }
 
 resource "aws_api_gateway_method_response" "api_method_response" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
@@ -93,6 +98,7 @@ resource "aws_api_gateway_method_response" "api_method_response" {
 }
 
 resource "aws_api_gateway_integration_response" "api_integration_response" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
@@ -106,6 +112,7 @@ resource "aws_api_gateway_integration_response" "api_integration_response" {
 }
 
 resource "aws_api_gateway_deployment" "main" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
   #hack to force recreate of the deployment resource
@@ -122,12 +129,14 @@ resource "aws_api_gateway_deployment" "main" {
 }
 
 resource "aws_api_gateway_stage" "live" {
+  provider = aws.ireland
   deployment_id = aws_api_gateway_deployment.main.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   stage_name    = "upload"
 }
 
 resource "aws_api_gateway_method_settings" "all" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   stage_name  = aws_api_gateway_stage.live.stage_name
   method_path = "*/*"
