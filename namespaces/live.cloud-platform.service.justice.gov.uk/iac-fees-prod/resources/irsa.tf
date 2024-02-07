@@ -9,7 +9,7 @@ module "irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    # s3 = module.s3_bucket.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
