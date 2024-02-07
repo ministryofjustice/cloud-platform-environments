@@ -59,6 +59,7 @@ data "aws_iam_policy_document" "dynamodb_state_lock_policy" {
       "dynamodb:PutItem",
       "dynamodb:DeleteItem",
       "dynamodb:DescribeTable",
+      "dynamodb:Scan"
     ]
     resources = [
       module.github_repos_prod_state_lock_table.table_arn
