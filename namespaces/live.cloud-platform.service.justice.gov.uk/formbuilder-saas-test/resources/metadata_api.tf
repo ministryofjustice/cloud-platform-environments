@@ -11,8 +11,8 @@ module "metadata-api-rds-instance" {
   team_name                  = var.team_name
   business_unit              = "Platforms"
   prepare_for_major_upgrade  = true
-  db_engine_version          = "16.1"
-  rds_family                 = "postgres16"
+  db_engine_version          = "15.5"
+  rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 
   providers = {
