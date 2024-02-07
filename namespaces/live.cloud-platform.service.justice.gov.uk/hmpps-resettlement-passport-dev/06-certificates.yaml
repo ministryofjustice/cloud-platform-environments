@@ -32,7 +32,7 @@ metadata:
   name: leaver-tool-ui-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: resettlement-passport-person-on-probation
+  secretName: resettlement-passport-person-on-probation-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
