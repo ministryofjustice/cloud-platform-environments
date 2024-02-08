@@ -29,7 +29,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: person-on-probation-user-ui-cert
+  name: person-on-probation-user-ui-prod-cert
   namespace: hmpps-resettlement-passport-prod
 spec:
   secretName: person-on-probation-user-ui-cert
