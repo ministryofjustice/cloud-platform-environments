@@ -29,3 +29,8 @@ resources:
   requests:
     cpu: 40m
     memory: 16Mi
+
+securityContext:
+  capabilities:
+    drop:
+      - NET_RAW
