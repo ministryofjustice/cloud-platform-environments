@@ -50,6 +50,8 @@ module "irsa" {
     local.sqs_policies,
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     {
+      prisoner_from_nomis_incidents_queue                   = module.prisoner_from_nomis_incidents_queue.irsa_policy_arn,
+      prisoner_from_nomis_incidents_dead_letter_queue       = module.prisoner_from_nomis_incidents_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_nonassociations_queue             = module.prisoner_from_nomis_nonassociations_queue.irsa_policy_arn,
       prisoner_from_nomis_nonassociations_dead_letter_queue = module.prisoner_from_nomis_nonassociations_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_sentencing_queue                  = module.prisoner_from_nomis_sentencing_queue.irsa_policy_arn,
