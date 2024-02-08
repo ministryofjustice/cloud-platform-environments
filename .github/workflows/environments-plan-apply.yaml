@@ -1,0 +1,162 @@
+name: terraform plan, apply
+on:
+  pull_request:
+    paths:
+      - "namespaces/live.digital.justice.gov.uk/*"
+      - "namespaces/live.digital.justice.gov.uk/*/resources/*"
+  push:
+    branches:
+      - main
+  
+
+env:
+  GITHUB_TOKEN: ""
+  WORKSPACE_NAME: "live"
+
+jobs:
+  skip-file:
+    outputs:
+      skip: ${{ steps.skip_file.outputs.skip }}
+    if: github.event_name == 'pull_request' && github.event_name.pull_request.paths == 'namespaces/live.digital.justice.gov.uk/*/'
+    name: "Skip File"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: "Check for Skip File"
+        id: skip_file
+        run: |
+          if [[ -f "${{ github.workspace }}/APPLY_PIPELINE_SKIP_THIS_NAMESPACE" ]]; then
+            echo "Skip file found, skipping terraform plan and apply"
+            echo "::set-output name=skip::true"
+          fi
+      - name: auto-approver-pullrequest
+        if : steps.skip_file.outputs.skip == 'true'
+        id: auto-approver-pullrequest
+        uses: hmarr/auto-approve-action@v4
+        with:
+          github-token: ${{ secrets.pipeline_github_token }}
+
+  plan:
+    if: github.event_name == 'pull_request' && github.event_name.pull_request.paths == 'namespaces/live.digital.justice.gov.uk/*/resources/*' || needs.skip-file.outputs.skip != 'true'
+    name: "plan"
+    needs: skip-file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.2.5"
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        working-directory: "${{ github.workspace }}"
+        run: |
+          terraform --version
+          echo "terraform init"
+          terraform init
+
+      - name: Terraform Workspace Select
+        working-directory: "${{ github.workspace }}"
+        run: |
+          terraform workspace select "live"
+
+      - name: Terraform Plan
+        id: plan
+        run: |
+          set -o pipefail
+          tf_args="-out tfplan.json"
+          echo "terraform plan ${tf_args}"
+          terraform plan ${tf_args} | bash scripts/redact-output.sh
+
+      - name: Evaluate Terraform Plan Modules
+        id: evaluate_terraform_plan
+        working-directory: "${{ github.workspace }}"
+        shell: bash
+        run: |
+          bash -x scripts/terraform-plan-evaluator-modules.sh tfplan.json
+
+
+      - name: Create Plan PR message (Optional)
+        if: steps.plan.outputs.exitcode == '2'
+        working-directory: "${{ github.workspace }}"
+        run: |
+          comment() {
+            url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            len=$(cat tfplan.txt | wc -c)
+            echo '**`${{ github.workspace }}`** terraform plan on `${{ github.event_name }}` event [#${{ github.run_number }}]('${url}')'
+            echo
+            echo '```'
+            head -c 65476 tfplan.txt | sed -n '/Terraform will perform/,$p'
+            echo
+            echo '```'
+            if [[ $len -gt 65476 ]]; then
+              echo "** Truncated output.  See $url for the rest **"
+            fi
+          }
+          
+      - name: Comment if PR Requires Approval
+        id: comment_if_not_approved
+        if: steps.evaluate_terraform_plan.outputs.requires_approval == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.pipeline_github_token }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            await github.rest.issues.createComment({
+              owner: owner,
+              repo: repo,
+              issue_number: context.payload.pull_request.number,
+              body: `@${context.actor} Terraform plan evalaution detected changes to resources that require approval from a member of @ministryofjustice/webops`
+            });
+
+  apply:
+    if: github.event_name.pull_request.merged == 'true'
+    name: "apply"
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: xxxxxxxxxxxxxxxx@xx
+      
+      - name: Setup Terraform
+        uses: xxxxxxxxxxxxxxxxxxxxxxxxx@xx
+        with:
+          terraform_version: "1.2.5"
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        working-directory: "${{ github.workspace }}"
+        run: |
+          terraform --version
+          echo "terraform init"
+          terraform init
+
+      - name: Terraform Workspace Select
+        working-directory: "${{ github.workspace }}"
+        run: |
+          terraform workspace select "live"
+
+      - name: Terraform Apply
+        id: apply
+        working-directory: "${{ github.workspace }}"
+        run: |
+          set -o pipefail
+          echo "terraform apply -auto-approve tfplan.json"
+          terraform apply -auto-approve tfplan.json | bash scripts/redact-output.sh
+
+      - name: Create Apply PR message
+        working-directory: "${{ github.workspace }}"
+        run: |
+          comment() {
+            url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo '**`${{ github.workspace }}`** terraform apply on `${{ github.event_name }}` event [#${{ github.run_number }}]('${url}')'
+          }
+      
+      
