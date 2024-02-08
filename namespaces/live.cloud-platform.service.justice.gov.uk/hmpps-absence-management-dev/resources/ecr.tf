@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
+  oidc_providers = ["circleci"]
   github_repositories = ["hmpps-probation-absence-management"]
 
   # Tags
