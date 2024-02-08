@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TERRAFORM_PLAN=/tmp/terraform-plan
+TERRAFORM_PLAN=$1
 MODULES_TO_CHECK_FOR=(
   module.ecr_credentials,
   module.service_accounts,

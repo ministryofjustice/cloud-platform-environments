@@ -47,39 +47,36 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.2.5"
-          terraform_wrapper: false
+      - name: Setup Cloud Platoform Cli
+        uses: docker://ministryofjustice/cloud-platform-cli:latest
 
-      - name: Terraform Init
-        working-directory: "${{ github.workspace }}"
-        run: |
-          terraform --version
-          echo "terraform init"
-          terraform init
-
-      - name: Terraform Workspace Select
-        working-directory: "${{ github.workspace }}"
-        run: |
-          terraform workspace select "live"
-
-      - name: Terraform Plan
+      - name: Run Plan
         id: plan
+        working-directory: "${{ github.workspace }}"
         run: |
-          set -o pipefail
-          tf_args="-out tfplan.json"
-          echo "terraform plan ${tf_args}"
-          terraform plan ${tf_args} | bash scripts/redact-output.sh
+          echo "cloud-platform-cli version"
+          cloud-platform-cli version
+
+          aws eks --region eu-west-2 update-kubeconfig --name $WORKSPACE_NAME
+
+          cloud-platform environment plan \
+            --skip-version-check \
+            --prNumber $PR \
+            --cluster $PIPELINE_CLUSTER \
+            --clusterdir $PIPELINE_CLUSTER_DIR \
+            --kubecfg $KUBECONFIG \
+            --output-file true
+
+          echo "::set-output name=file::tfplan"
+          echo "::set-output name=exitcode::${?}"
 
       - name: Evaluate Terraform Plan Modules
         id: evaluate_terraform_plan
         working-directory: "${{ github.workspace }}"
         shell: bash
         run: |
-          bash -x scripts/terraform-plan-evaluator-modules.sh tfplan.json
-
+          file = ${{ steps.plan.outputs.file }}
+          bash -x scripts/terraform-plan-evaluator-modules.sh $file
 
       - name: Create Plan PR message (Optional)
         if: steps.plan.outputs.exitcode == '2'
@@ -124,32 +121,30 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.2.5"
-          terraform_wrapper: false
 
-      - name: Terraform Init
+      - name: Setup Cloud Platoform Cli
+        uses: docker://ministryofjustice/cloud-platform-cli:latest
+
+      - name: Run Apply
+        id: plan
         working-directory: "${{ github.workspace }}"
         run: |
-          terraform --version
-          echo "terraform init"
-          terraform init
+          echo "cloud-platform-cli version"
+          cloud-platform-cli version
 
-      - name: Terraform Workspace Select
-        working-directory: "${{ github.workspace }}"
-        run: |
-          terraform workspace select "live"
+          aws eks --region eu-west-2 update-kubeconfig --name $WORKSPACE_NAME
 
-      - name: Terraform Apply
-        id: apply
-        working-directory: "${{ github.workspace }}"
-        run: |
-          set -o pipefail
-          echo "terraform apply -auto-approve tfplan.json"
-          terraform apply -auto-approve tfplan.json | bash scripts/redact-output.sh
+          cloud-platform environment apply \
+            --skip-version-check \
+            --prNumber $PR \
+            --cluster $PIPELINE_CLUSTER \
+            --clusterdir $PIPELINE_CLUSTER_DIR \
+            --kubecfg $KUBECONFIG
+            # would have to add another flag to allow the apply to use the plan file if it exists
+
+          echo "::set-output name=file::tfplan"
+          echo "::set-output name=exitcode::${?}"
+
 
       - name: Create Apply PR message
         working-directory: "${{ github.workspace }}"
@@ -157,6 +152,6 @@ jobs:
           comment() {
             url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             echo '**`${{ github.workspace }}`** terraform apply on `${{ github.event_name }}` event [#${{ github.run_number }}]('${url}')'
-          }
+  #         }
       
       

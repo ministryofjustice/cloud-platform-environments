@@ -1,0 +1,939 @@
+# This file is auto-generated here, do not manually amend.
+
+
+* @ministryofjustice/webops
+
+## Codeowners for live.cloud-platform.service.justice.gov.uk namespaces
+/namespaces/live.cloud-platform.service.justice.gov.uk/makerecalldecisions-design-history @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-preprod @ministryofjustice/calculate-release-dates-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-frontend-svc-prod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-commuter-webapp-xhibit-dev @ministryofjustice/commuter-webapp-xhibit-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-data-platform-new-app-runthrough-dev @ministryofjustice/data-platform-apps-and-tools @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-monitoring-prod @ministryofjustice/cjs_demand_prisons @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-services-feedback-and-support-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/opg-lpa-fd-prototype @ministryofjustice/opg @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-location-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-engagement-prediction-app-dev @ministryofjustice/people-analytics @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/anthony-britton @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/check-my-diary-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/send-legal-mail-to-prisons-dev @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hmpps-hr-dashboard-dev @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-activities-management-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-ui-preprod @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-commuter-webapp-contracts-dev @ministryofjustice/commuter-webapp-contracts-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-claim-non-standard-magistrate-fee-dev @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-not-on-libra-auto-search-application-preprod @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-categorisation-preprod @ministryofjustice/categorisation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-uof-prototype @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/send-legal-mail-to-prisons-prod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-model-redevelopment-website-prod @ministryofjustice/model-redevelopment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-events-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-remuneration-tool-app-dev @ministryofjustice/remuneration-tool-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-ppud-automation-dev @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assess-risks-and-needs-prod @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-categorisation-prod @ministryofjustice/categorisation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-auth-app-dev @ministryofjustice/gifts-auth-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-candidate-matching-prod @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/eligibility-estimate @ministryofjustice/laa-eligibility-calculator @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/recalldecisions-prototype @ministryofjustice/Making Recall Decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-from-nomis-migration-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-stats-web-analytics-dev @ministryofjustice/stats-web-analytics-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-drug-conveyancing-app-dev @ministryofjustice/drug-conveyancing-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-tracking-service-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/licences-dev @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-api-staging @ministryofjustice/laa-assess-a-claim @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/civil-appeal-case-tracker-dev @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-reporting-mi-prod @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-not-on-libra-auto-search-application-dev @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-mi-dashboard-prod @ministryofjustice/probation-mi-dashboard-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dwf-prototype @ministryofjustice/dwf-prototype @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ct-tact-list-dev @ministryofjustice/ct-data-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-backend-svc-staging @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-temporary-accommodation-prototype @ministryofjustice/hmpps-temporary-accommodation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-auth-stage @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assess-non-standard-magistrate-fee-dev-crm4 @ministryofjustice/crm7team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incident-reporting-prod @ministryofjustice/hmpps-incident-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/keyworker-api-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/keyworker-api-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-hardship-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/folarin-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-employment-prod @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/nscc-e2e-test-production @ministryofjustice/crm7team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sw-psa-audit-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fala-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/family-mediators-api-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-intelligence-preprod @ministryofjustice/dps-ims-production-releases @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-legalaid-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-not-on-libra-auto-search-application-prd @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-means-prototype @ministryofjustice/all-org-members @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-transfer-api-dev @ministryofjustice/data-transfer-api @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-journey-variable-payments-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-end-to-end-tests @ministryofjustice/laa-get-access @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/apply-for-legal-aid-prototype @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-recruitment-app-dev @ministryofjustice/probation-recruitment-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-hello-world-mat-dev @ministryofjustice/data-platform-development-sandbox @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-aqa-website-prod @ministryofjustice/aqa-website-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-cell-allocation-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-jdl-visulizer-dev @ministryofjustice/justice-data-lab @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-label-pods @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-authorization-server-dev @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/chaps-production @ministryofjustice/dotnet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-non-associations-dev @ministryofjustice/hmpps-non-associations @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-frontend-training @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/migration-poc-spike-dev @ministryofjustice/analytical-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-platform-live-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-networkanalysis-prod @ministryofjustice/cjsm-networkanalysis-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-production @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-applications-adaptor-staging @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-statistics-explorer-dev @ministryofjustice/statistics-explorer-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-github-repos-prod @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-canary-app-eks @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/haar-prototype @ministryofjustice/haar @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/use-of-force-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-accredited-programmes-prod @ministryofjustice/accredited-programmes-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/certificated-bailiffs-prod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-api-uat @ministryofjustice/laa-assess-a-claim @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-cvl-prototype @ministryofjustice/hmpps-cvl-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-delius-alfrsco-poc @ministryofjustice/hmpps-migration,zaizi-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-staffing-model-dash-app-dev @ministryofjustice/swap @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-evidence-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-auth-prod @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-jdl-visulizer-prod @ministryofjustice/justice-data-lab @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-criminal-applications-datastore-production @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/approved-premises-prototype @ministryofjustice/approved-premises-prototype @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/poornima-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-services-live-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-reports-prod @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-occupeye-shiny-app-dev @ministryofjustice/occupeye-shiny-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incident-reporting-dev @ministryofjustice/hmpps-incident-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-drc-integration-dev @ministryofjustice/laa-dces-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-defcalc-prod @ministryofjustice/defcalc-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-bold-case-info-dashboard-prod @ministryofjustice/bold-rr-ops-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-information-exchange-preproduction @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/launchpad-prototype @ministryofjustice/launchpad-prototype @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-sat-dev @ministryofjustice/sat-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-proceeding-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-maat-orchestration-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-query-qa @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-engagement-prediction-app-prod @ministryofjustice/people-analytics @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/token-verification-api-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-exit-survey-app-dev @ministryofjustice/exit-survey-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-metrics @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/makeaplea-preprod @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-status-dashboard-production @ministryofjustice/laa-pcuam @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cica-apply-prototype @ministryofjustice/cica @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-links-preprod @ministryofjustice/hmpps-person-record @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-api-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-ui-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prison-api-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-email-traffic-app-dev @ministryofjustice/cjsm-email-traffic-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/claim-criminal-injuries-compensation-stag @ministryofjustice/cica @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-moic-prototype @ministryofjustice/hmpps-moic-prototype @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hmcts-ccpt-dev @ministryofjustice/hmcts-ccpt-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-employment-dev @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-bentham-app-dev @ministryofjustice/bentham-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmcts-complaints-formbuilder-adapter-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pact-broker-prod @ministryofjustice/hmpps-interventions @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-remand-and-sentencing-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-cell-allocation-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-opg-mi-dashdemo-prod @ministryofjustice/opg-mi-dashdemo-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justice-archiver-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/court-probation-preprod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-api-certificates @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/courts-local-scorecard-dev @ministryofjustice/central-digital-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-evidence-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-search-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hosting-data-production @ministryofjustice/hosting-data-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-record-preprod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-workload-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-test2 @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-mapping-service-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-opg-mi-dashdemo-dev @ministryofjustice/opg-mi-dashdemo-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-prisoner-api-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-criminal-applications-datastore-staging @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-preprod @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-test-viewer @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/tariq-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-tools-dev @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-video-link-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/request-info-from-moj @ministryofjustice/dex-voyager @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-reporting-app-dev @ministryofjustice/gifts-reporting-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-reference-data-prod @ministryofjustice/hmpps-reference-data @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-commuter-webapp-contracts-prod @ministryofjustice/commuter-webapp-contracts-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-visitor-app-dev @ministryofjustice/prison-visitor-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-ui-prod @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-regime-dashboard-dev @ministryofjustice/moj-analytical-services @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-to-nomis-update-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-public-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-govuk-notify-orchestrator-production @ministryofjustice/laa-get-access @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-intel-app-homepage-prod @ministryofjustice/intel-app-homepage-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cica-copilot-dev @ministryofjustice/cica-copilot-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-strengths-based-needs-assessments-dev @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-reports-dev @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-auth0-dev @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hr-policy-search-tool-dev @ministryofjustice/deds @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-provider-details-api-preprod @ministryofjustice/laa-cwa-data-api-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmcts-complaints-formbuilder-adapter-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-check-client-qualifies-production @ministryofjustice/check-client-qualifies @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/legacy-systems-x-product-prototype @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-interventions-preprod @ministryofjustice/hmpps-interventions @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-candidate-matching-dev @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/categorisation-prototype @ministryofjustice/secure-estate-digital-prototypes @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justicedata-staging @ministryofjustice/justicedata @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-to-probation-update-dev @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-backend-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-applications-adaptor-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-integration-api-preprod @ministryofjustice/hmpps-integration-api @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/whereabouts-api-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-prototype @ministryofjustice/calculate-release-dates-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-reporting-mi-test @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccmbpt-analytics-app-prod @ministryofjustice/ccmbpt-analytics-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-tracking-service-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-absence-management-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/peoplefinder-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-remuneration-tool-app-prod @ministryofjustice/remuneration-tool-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-aqa-website-dev @ministryofjustice/aqa-website-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-to-nomis-update-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cost-to-serve-dev @ministryofjustice/cost-to-serve-read-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-eng-uploader-dev @ministryofjustice/prison-probation-data-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/courts-local-scorecard-prod @ministryofjustice/central-digital-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prepare-a-case-prototype @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/help-with-child-arrangements-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-go-get-module-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assure-hmrc-data-production @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-identify-remand-periods-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-pwb-dev @ministryofjustice/df-bid-shiny-pwb-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-hardship-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-legalaid-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-legal-adviser-api-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/make-recall-decision-dev @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/rob-sandbox @ministryofjustice/designers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-community-accommodation-dev @ministryofjustice/hmpps-community-accommodation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-platform-test-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-query-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/observability-platform-production @ministryofjustice/observability-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/digital-prison-services-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-claim-non-standard-magistrate-fee-high-fidelity-prototype @ministryofjustice/cnsmf @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-location-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-cell-allocation-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-segmentation-tool-draft-prod @ministryofjustice/probation-ds-risk @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/civil-appeal-case-tracker-preprod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-sentence-plan-dev @ministryofjustice/hmpps-sentence-planning @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-hammer-bot @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-api-preprod @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-electronic-monitoring-documentation-dev @ministryofjustice/hmpps-electronic-monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/chaps-staging @ministryofjustice/dotnet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-resettlement-passport-prod @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cjsm-prod @ministryofjustice/cjsm @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-store-dev-crm4 @ministryofjustice/crm7team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/evidencelibrary-prod @ministryofjustice/evidencelibrary @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-non-associations-preprod @ministryofjustice/hmpps-non-associations @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-model-redevelopment-website-dev @ministryofjustice/model-redevelopment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incentives-prod @ministryofjustice/hmpps-incentives @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/accredited-programmes-prototype @ministryofjustice/accredited-programmes-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/tomw-app-dev @ministryofjustice/analytical-platform-support-rota-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-frontend-svc-dev @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-to-probation-update-preprod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-rap-design-history @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-integration-services-preprod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-check-client-qualifies-staging @ministryofjustice/check-client-qualifies @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-ws-prod @ministryofjustice/df-bid-shiny-ws-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incentives-preprod @ministryofjustice/hmpps-incentives @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-hmrc-interface-staging @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cla-reform-design @ministryofjustice/cla-reform-design @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-network-app-prod @ministryofjustice/prison-network-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-development @ministryofjustice/data-platform-cloud-platform-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-moj-officehub-locator-webapp-prod @ministryofjustice/moj-officehub-locator-webapp-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/disclosure-checker-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cccd-api-sandbox @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-services-prod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-matching-prototype @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/make-recall-decision-prod @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-tier-prod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-contribution-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/artefact-library @ministryofjustice/digital-operations @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-frontend-uat @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-contribution-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/bh-app-dev @ministryofjustice/hmpps-sre @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/iac-fees-staging @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ap-shiny-cp-deployment-prod @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-users-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-safety-diagnostic-tool-prod @ministryofjustice/prison-data-science @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-case-notes-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-crown-sitting-days-dev @ministryofjustice/crown-sitting-days @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-visits-booking-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assess-risks-and-needs-dev @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-reports-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-services-dev @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hmpps-hr-dashboard-prod @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/court-probation-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-record-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-integration @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/makeaplea-prod @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-coroner-stat-tool-ext-prod @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-networkanalysis-dev @ministryofjustice/moj-analytical-services @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-dashboard-dev @ministryofjustice/people-survey-dashboard-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-defcalc-dev @ministryofjustice/defcalc-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-dashboard-prod @ministryofjustice/people-survey-dashboard-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-portfolio-management-prod @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-judicial-wm2-dev @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/mwhittaker-dev @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-segmentation-tool-draft-dev @ministryofjustice/probation-ds-risk @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-repos @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-services-feedback-and-support-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incentives-dev @ministryofjustice/hmpps-incentives @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/parliamentary-questions-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-saas-live @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-adjustments-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-case-notes-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/tom-namespace-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-integration-services-prod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-management-test2 @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-poc-dev @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-profile-dev @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cjsm-dev @ministryofjustice/cjsm @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assessments-preprod @ministryofjustice/hmpps-assessments @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-hardship-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-backend-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-it-incident-hub-prod @ministryofjustice/product-support @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-resettlement-passport-preprod @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-platform-live-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fala-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-validation-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justicedata-test @ministryofjustice/justicedata @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-from-nomis-migration-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-means-assessment-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cdpt-redirect-service-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-backend-svc-preprod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hr-policy-search-tool-prod @ministryofjustice/deds @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-portfolio-management-dev @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-locations-inside-prison-preprod @ministryofjustice/locations-inside-prison @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-reporting-mi-preprod @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/jacksapp-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-tier-preprod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-judicial-reviews-app-dev @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-prod @ministryofjustice/df-bid-shiny-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assess-non-standard-magistrate-fee-dev @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ky-first-cp-app-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-employment-preprod @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-and-work-plan-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/iac-fees-dev @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-users-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-publisher-live @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-community-accommodation-test @ministryofjustice/hmpps-community-accommodation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-tracking-service-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-opg-lpa-dashboard-dev @ministryofjustice/deds @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-prisoner-api-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-api-uat @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pi-form-prod @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/jaskaran-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-and-work-plan-prototype @ministryofjustice/education-and-work-plan @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-candidate-matching-preprod @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justice-gov-uk-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-auth-preprod @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-commuter-webapp-xhibit-prod @ministryofjustice/commuter-webapp-xhibit-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-firebreak-aws-microservice-dev @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-platform-test-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-search-dev @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-join-github-dev @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/techdebt-dev @ministryofjustice/techdept-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assess-risks-and-needs-preprod @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-user-preferences-prod @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-staff-prod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/workforce-management-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-prod @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-sentence-plan-prototype @ministryofjustice/hmpps-sentence-plan-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/grc-preprod @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-metadata-poc @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/legal-framework-api-uat @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/isaiah-lakanu @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-backend-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justicedata-prod @ministryofjustice/justicedata @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-visitor-app-prod @ministryofjustice/prison-visitor-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-store-dev @ministryofjustice/laa-crime-application-store-admins @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-means-assessment-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-registers-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-apply-prototype @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cccd-dev-lgfs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/crmfour-proto @ministryofjustice/crmteam-proto @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/claim-non-standard-magistrate-fee-high-fidelity @ministryofjustice/cnsmf @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-document-management-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-historical-prisoner-dev @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-app-prod @ministryofjustice/gifts-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-means-assessment-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/claim-criminal-injuries-compensation-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assure-hmrc-data-uat @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-users-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-mmp-web-app-prod @ministryofjustice/mmp-web-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/interventions-design-history @ministryofjustice/designers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-delius-alfresco-shared @ministryofjustice/hmpps-migration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-report-service-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-soc-cases-prototype @ministryofjustice/secure-estate-digital-prototypes @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-firebreak-daap-api @ministryofjustice/data-platform-labs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-bots @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-network-app-dev @ministryofjustice/prison-network-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-subject-access-request-prod @ministryofjustice/hmpps-subject-access-requests @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccmbpt-guidance-prod @ministryofjustice/ccmbpt-guidance-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-hmrc-interface-uat @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-services-preprod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sqstesting-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-registers-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-api-preprod @ministryofjustice/calculate-release-dates-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-community-accommodation-prod @ministryofjustice/hmpps-community-accommodation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-evidence-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-mercury-submit-preprod @ministryofjustice/dps-soct-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pathfinder-prototype @ministryofjustice/secure-estate-digital-prototypes @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/digital-prison-services-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-identify-remand-periods-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-pom-cases-design-history @ministryofjustice/manage-pom-cases-design-history-write-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-move-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccpt-prod @ministryofjustice/ccpt-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-api-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/licences-prod @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/legal-framework-api-staging @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gpc-anomalies-dev @ministryofjustice/gpc-anomalies-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/digital-prison-reporting-mi-prototype @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-not-on-libra-auto-search-application-tst @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/evidencelibrary-test @ministryofjustice/evidencelibrary @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-provider-details-api-uat @ministryofjustice/laa-cwa-data-api-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/bold-rr-ops-pilot-prototype @ministryofjustice/bold-rr-ops-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sdejong-dev @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-micro-frontend-components-dev @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-equinity-historical-data-prod @ministryofjustice/laa-crime-equinity-data @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-api-staging @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ap-app-poc-bde @ministryofjustice/analytical-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-example-prod @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-dev @ministryofjustice/calculate-release-dates-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-template-typescript @ministryofjustice/hmpps-typescript @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-services-test-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-auth @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/apply-for-compensation-prototype-dev @ministryofjustice/cica @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prison-api-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-contribution-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-equinity-historical-data-staging @ministryofjustice/laa-crime-equinity-data @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/peoplefinder-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-ems-prod @ministryofjustice/hmpps-ems-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/c100-application-staging @ministryofjustice/sustainingdevs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-reporting-app-prod @ministryofjustice/gifts-reporting-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-prediction-tool-prod @ministryofjustice/people-survey-prediction-tool-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/c100-application-production @ministryofjustice/sustainingdevs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-apply-mock-api-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-search-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-case-notes-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-ui-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-links-prod @ministryofjustice/hmpps-person-record @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-auth-dev @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/record-a-goose-sighting @ministryofjustice/accessibility-resources-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-events-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-ui-dev @ministryofjustice/hmpps-typescript @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-evidence-staging @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/help-with-child-arrangements-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-api-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-store-production @ministryofjustice/laa-crime-application-store-admins @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-service-pod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/use-of-force-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-regime-dashboard-prod @ministryofjustice/regime-dashboard-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-frontend-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-identify-remand-periods-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ash-gyngell-app-dev @ministryofjustice/incentives-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-prod @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pi-form-dev @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-delius-alfresco-dev @ministryofjustice/hmpps-migration,zaizi-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ct-prototype @ministryofjustice/correspondence @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dps-toolkit @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-video-link-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-key-workers-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-visits-booking-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-non-associations-prod @ministryofjustice/hmpps-non-associations @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-information-exchange-production @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/c100-application-metabase @ministryofjustice/sustainingdevs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-staff-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/make-recall-decision-db-analysis @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gpc-anomalies-prod @ministryofjustice/gpc-anomalies-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-crown-flow-explorer-dev @ministryofjustice/crown-flow-explorer-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cfe-civil-production @ministryofjustice/laa-eligibility-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pfg-dash-moj-dev @ministryofjustice/pfg-dash-moj-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-external-users-api-prod @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-strengths-based-needs-assessments-preprod @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-one-plan-dev @ministryofjustice/one-plan @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-remuneration-dev @ministryofjustice/laa-clair-taskforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/gds-data-share-dev @ministryofjustice/gdx-vision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/mpc-prototype @ministryofjustice/hmpps-mpc-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-record-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-services-test-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-subject-access-request-dev @ministryofjustice/hmpps-subject-access-requests @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-claim-non-standard-magistrate-fee-prod @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-micro-frontend-components-preprod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-eng-uploader-preprod @ministryofjustice/prison-probation-data-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-officehub-cms-app-prod @ministryofjustice/officehub-cms-app-v2-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/contact-moj-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cfe-civil-uat @ministryofjustice/laa-eligibility-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-it-incident-hub-preprod @ministryofjustice/product-support @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/how-out-of-date-are-we @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/makeaplea-dev @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/apply-for-compensation-prototype @ministryofjustice/cica @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-coroner-stat-tool-ext-dev @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/certificated-bailiffs-dev @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-interventions-vision @ministryofjustice/hmpps-interventions-vision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-api-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-backend-svc-dev @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-judicial-wm2-prod @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-to-nomis-update-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dpr-nomis-port-forwarder @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/mmodhvadia @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cjs-dashboard-demo @ministryofjustice/cjs-dashboard @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-from-nomis-migration-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-remuneration-sandbox-admin @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-claim-non-standard-magistrate-fee-uat @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-mapping-service-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-move-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-journey-variable-payments-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/toyin-dev @ministryofjustice/toyin-test-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-commuter-webapp-familyman-prod @ministryofjustice/data-engineers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-intelligence-test @ministryofjustice/dps-soct-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-drc-integration-staging @ministryofjustice/laa-dces-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/licences-preprod @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pathfinder-preprod @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-example-application @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/opg-sirius-prototypes @ministryofjustice/opg @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dave-learning @ministryofjustice/modernisation-platform-engineers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/rp-prototype @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cfe-civil-staging @ministryofjustice/laa-eligibility-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assessments-dev @ministryofjustice/hmpps-assessments @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/makerecall-prototype @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/civil-appeal-case-tracker-prod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ltc-capabilites-app-dev @ministryofjustice/ltc-capabilites-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-search-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-categorisation-dev @ministryofjustice/categorisation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-electronic-monitoring-preprod @ministryofjustice/hmpps-electronic-monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/disclosure-checker-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-management-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-production @ministryofjustice/data-platform-core-infra @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-proceeding-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-profile-preprod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-base-adapter-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-report-service-staging @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-hmrc-interface-production @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-frontend-staging @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-strengths-based-needs-assessments-prod @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-links-dev @ministryofjustice/hmpps-person-record @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/accessibility-book-club @ministryofjustice/accessibility-resources-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-alerts-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-bentham-app-prod @ministryofjustice/bentham-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-electronic-monitoring-prod @ministryofjustice/hmpps-electronic-monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-api-prod @ministryofjustice/calculate-release-dates-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-drc-integration-uat @ministryofjustice/laa-dces-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-bold-case-info-dashboard-dev @ministryofjustice/bold-rr-ops-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-ui-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/digital-prison-services-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/court-probation-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-complexity-of-need-production @ministryofjustice/offender-management @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/utiac-staging @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-events-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-welcome-to-prison-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-proceeding-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/resettlement-passport-dev @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-prototype-demo @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-decide-prototype @ministryofjustice/laa-decide @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assessments-prod @ministryofjustice/hmpps-assessments @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-maat-orchestration-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-person-on-probation-user-service-dev @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-adjustments-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/iac-fees-prod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-stage @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-api-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-complexity-of-need-preprod @ministryofjustice/offender-management @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pre-sentence-service-prototype @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-frontend-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-dev @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/keyworker-api-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-mercury-submit-prod @ministryofjustice/dps-soct-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-management-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/kv-app-dev @ministryofjustice/hmpps-sre @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-tools-test @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-maat-orchestration-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ap-rshiny-notesbook-dev @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-pay-for-la-dev @ministryofjustice/pay-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-pin-phone-monitor-dev @ministryofjustice/dps-soct-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-auth-app-prod @ministryofjustice/gifts-auth-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-api-dev @ministryofjustice/laa-assess-a-claim @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/legal-framework-api-production @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sm-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-external-users-api-dev @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-estate-digital-map-prod @ministryofjustice/prison-estate-digital-map-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-api-prod @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-registers-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-api-dev @ministryofjustice/calculate-release-dates-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-strengths-based-needs-assessments-test @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-intelligence-dev @ministryofjustice/dps-soct-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccmbpt-analytics-app-dev @ministryofjustice/ccmbpt-analytics-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccma-gold-scorecards-app-prod @ministryofjustice/ccma-gold-scorecards-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-integration-api-dev @ministryofjustice/hmpps-integration-api @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-information-exchange-test @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-proceeding-prod @ministryofjustice/crime-apps @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hr-policy-document-manager-prod @ministryofjustice/hr-policy-document-manager-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/certificated-bailiffs-preprod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-test1 @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/claim-criminal-injuries-compensation-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-event-logger-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-electronic-monitoring-dev @ministryofjustice/hmpps-electronic-monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-api-preprod @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-activities-management-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dv-cloudplatform-dev @ministryofjustice/hmpps-sre @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-exit-survey-app-prod @ministryofjustice/exit-survey-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-criminal-legal-aid-production @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hr-policy-document-manager-dev @ministryofjustice/hr-policy-document-manager-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gifts-app-dev @ministryofjustice/gifts-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/intranet-archive-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fee-calculator-ui-staging @ministryofjustice/laa-clair-taskforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cwa-test @ministryofjustice/laa-pcuam @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/help-with-prison-visits-preprod @ministryofjustice/hmpps-help-with-prison-visits @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-welcome-to-prison-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-criminal-applications-metabase @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-preprod @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-frontend-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-api-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cccd-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/contact-moj-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pay-gap-app-dev @ministryofjustice/pay-gap-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-crown-flow-explorer-prod @ministryofjustice/crown-flow-explorer-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-temperature-check-prod @ministryofjustice/temperature-check-write-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hale-platform-staging @ministryofjustice/jotw-content-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-one-plan-prototype @ministryofjustice/one-plan @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-ui-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-resettlement-passport-dev @ministryofjustice/resettlement-passport @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/polygraph-offender-management @ministryofjustice/polygraph-statistics-application @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-legal-adviser-api-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-frontend-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-maat-orchestration-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/grc-prod @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-mercury-submit-test @ministryofjustice/dps-soct-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-soc-cases-preprod @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/use-of-force-dev @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/monitoring-alerts-proxy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hlt-portal-dev @ministryofjustice/hlt-portal-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-recalls-prototype @ministryofjustice/hmpps-manage-recalls-prototype-write-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/jakemulley-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-bvl-prototype @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-claim-non-standard-magistrate-fee-dev-crm4 @ministryofjustice/crm7team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-it-incident-hub-dev @ministryofjustice/product-support @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-proceeding-staging @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cjs-dashboard-development @ministryofjustice/cjs-dashboard @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/find-unclaimed-court-money-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-query-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pay-gap-app-prod @ministryofjustice/pay-gap-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/chaps-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-view-court-data-prototype @ministryofjustice/laa-assess-a-claim @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-event-logger-preprod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-interventions-prototype @ministryofjustice/designers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-frontend-svc-preprod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fee-calculator-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-product-page-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-auth-dev @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-sat-prod @ministryofjustice/sat-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/moj-frontend @ministryofjustice/mojds-maintainers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-micro-frontend-components-prod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/workforce-management @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incentives-tool @ministryofjustice/hmpps-incentives @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-legalaid-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-location-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-api-dev @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-dev @ministryofjustice/df-bid-shiny-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-assess-risks-and-needs-prototypes @ministryofjustice/hmpps-assess-risks-and-needs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-api-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-aws-control @ministryofjustice/laa-aws-control @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/auth-traffic-test @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-ppud-automation-prod @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-supervisions-design-history @ministryofjustice/hmpps-probation-end-to-end @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/victim-witness-info-prototype @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-soc-cases-dev @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-api-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-search-prod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cjs-dashboard-production @ministryofjustice/cjs-dashboard @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-product-page-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-managing-behaviour-prototyping @ministryofjustice/hmpps-incident-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/soc-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/courtfines-dev @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/verification-report-pilot @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-opg-lpa-dashboard-prod @ministryofjustice/deds @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/maintenance-pages @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-intelligence-prod @ministryofjustice/dps-ims-production-releases @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/soc-reporting-dev @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fee-calculator-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/check-my-diary-preprod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-profile-casenotes-search-prototype @ministryofjustice/connect-dps @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-visit-someone-in-prison-prototype @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-community-accommodation-preprod @ministryofjustice/hmpps-community-accommodation @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-api-prod @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-stats-web-analytics-prod @ministryofjustice/stats-web-analytics-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/help-with-prison-visits-dev @ministryofjustice/hmpps-help-with-prison-visits @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-template-kotlin @ministryofjustice/hmpps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/family-mediators-api-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-education @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-recruitment-app-prod @ministryofjustice/probation-recruitment-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-matrix-booking-prod @ministryofjustice/fact @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-events-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/consider-a-recall-dev @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-user-roles-api-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-pwb-prod @ministryofjustice/df-bid-shiny-pwb-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-applications-adaptor-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-architect-info @ministryofjustice/laa-technical-architects @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-secure-move-frontend-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/dex-mi-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-review-prototype @ministryofjustice/laa-crime-review-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-query-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-alerts-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-domain-event-logger-dev @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/money-to-prisoners-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-management-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/housing-disrepair-oss-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-custody-manager-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/help-with-prison-visits-prod @ministryofjustice/hmpps-help-with-prison-visits @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crown-court-contribution-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-design-system-frontend @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-ciag-induction-prototype @ministryofjustice/education-skills-work-employment @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sjpr-prod @ministryofjustice/sjpr-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ap-auth-proxy-prod @ministryofjustice/analytical-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-status-dashboard-development @ministryofjustice/laa-pcuam @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-and-work-plan-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-publisher-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-estate-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-saas-test @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-complexity-of-need-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-maat-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-mercury-submit-dev @ministryofjustice/dps-soct-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/courtfines-prod @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-information-exchange-development @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pathfinder-dev @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-welcome-to-prison-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-acc-prod @ministryofjustice/df-bid-shiny-acc-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-moj-officehub-locator-webapp-dev @ministryofjustice/moj-officehub-locator-webapp-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cfe-crime-dev @ministryofjustice/laa-eligibility-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-temperature-check-dev @ministryofjustice/temperature-check-write-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/whereabouts-api-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-activities-management-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-external-users-api-preprod @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-backend-svc-prod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-management-preprod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/pathfinder-prod @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hmcts-ccpt-prod @ministryofjustice/hmcts-ccpt-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-data-discovery-dev @ministryofjustice/data-engineers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-staging @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-pfg-dash-moj-prod @ministryofjustice/pfg-dash-moj-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccpt-dev @ministryofjustice/ccpt-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-pin-phone-monitor-qa @ministryofjustice/dps-soct-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-book-video-link-preprod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/nettest @ministryofjustice/modernisation-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-find-moj-data-dev @ministryofjustice/data-platform-labs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-release-dates-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gold-scorecard-form-prod @ministryofjustice/gold-scorecard-form-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-public-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-rap-prototype @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-audit-poc-api-dev @ministryofjustice/dps-tech @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-validation-test @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-survey-prediction-tool-dev @ministryofjustice/people-survey-prediction-tool-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-visits-booking-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/workforce-management-preprod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-adjustments-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-api-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cccd-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-licenses-prototype @ministryofjustice/hmpps-licenses-prototype @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-adjudications-api-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/cccd-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/mrd-proto @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/parliamentary-questions-staging @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-integration-services-dev @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ltc-capabilites-app-prod @ministryofjustice/ltc-capabilites-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-review-send-recall-dev @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-tracking-service-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/philpayne-sandbox @ministryofjustice/laa-ccms-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-staff-preprod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-report-service-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-eng-uploader-prod @ministryofjustice/prison-probation-data-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fee-calculator-production @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-gold-scorecard-form-dev @ministryofjustice/gold-scorecard-form-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-check-client-qualifies-uat @ministryofjustice/check-client-qualifies @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assess-non-standard-magistrate-fee-uat @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-drug-conveyancing-app-prod @ministryofjustice/drug-conveyancing-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-offences-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-digital-prison-reporting-mi-dev @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/grc-dev @ministryofjustice/pet @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-remand-and-sentencing-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-key-workers-dev @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-remand-and-sentencing-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-recalls-prototype-history @ministryofjustice/hmpps-manage-recalls-prototype-history-write-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-judicial-reviews-app-prod @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prisons-ready-reckoner-app-dev @ministryofjustice/mh_cjs_priority_projects @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-imb-fees-consultation-prod @ministryofjustice/imb-fees-consultation-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-document-management-prod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assess-non-standard-magistrate-fee-prod @ministryofjustice/ministryofjustice @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-validation-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/contact-moj-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-prisoner-profile-prod @ministryofjustice/Connect DPS @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-to-probation-update-prod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-ccms-ebs-azure-ad-dev @ministryofjustice/laa-ccms-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-ppud-automation-preprod @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-occupeye-shiny-app-prod @ministryofjustice/occupeye-shiny-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-email-traffic-app-prod @ministryofjustice/cjsm-email-traffic-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-govuk-notify-orchestrator-dev @ministryofjustice/laa-get-access @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-fake-dps-service @ministryofjustice/hmpps-digital-prison-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-acc-dev @ministryofjustice/df-bid-shiny-acc-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-safety-diagnostic-tool-dev @ministryofjustice/prison-data-science @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-hardship-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/gdavies-dev @ministryofjustice/DPS SOCT @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-report-service-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/ap-firebreak-superset @ministryofjustice/analytics-hq @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-segmentation-tool-prod @ministryofjustice/segmentation-tool-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-pin-phone-monitor-prod @ministryofjustice/dps-soct-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-staffing-model-dash-app-prod @ministryofjustice/swap @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-validation-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/visit-someone-in-prison-frontend-svc-staging @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-criminal-scenario-tool-dev @ministryofjustice/criminal-scenario-tool-administrators @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-applications-adaptor-prod @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-ccms-civil @ministryofjustice/laa-ccms-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/claim-criminal-injuries-compensation-uat @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/workforce-management-prod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-hdc-prototype @ministryofjustice/dps-shared @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/abundant-namespace-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-user-preferences-preprod @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-mlp-app-prod @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-evidence-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/send-legal-mail-to-prisons-preprod @ministryofjustice/book-a-prison-visit @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-interventions-prod @ministryofjustice/hmpps-interventions @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-ccma-gold-scorecards-app-dev @ministryofjustice/ccma-gold-scorecards-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/utiac-dev @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-integration-api-prod @ministryofjustice/hmpps-integration-api @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-hpa-dev @ministryofjustice/hmpps-auth-audit-registers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-subject-access-request-preprod @ministryofjustice/hmpps-subject-access-requests @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-equinity-historical-data-uat @ministryofjustice/laa-crime-equinity-data @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-nomis-mapping-service-prod @ministryofjustice/syscon-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-locations-inside-prison-prod @ministryofjustice/locations-inside-prison @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-incident-reporting-preprod @ministryofjustice/hmpps-incident-reporting @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/calculate-journey-variable-payments-prod @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-dces-drc-integration-prod @ministryofjustice/laa-dces-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/create-and-vary-a-licence-dev @ministryofjustice/create-and-vary-a-licence-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-auth-preprod @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/danglen-testing-dev @ministryofjustice/danglen-testingteam @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-datahub-catalogue-dev @ministryofjustice/data-platform @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-data-self-serve-dev @ministryofjustice/people-data-self-serve-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/record-a-goose-exercise @ministryofjustice/accessibility-resources-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-estate-preprod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cost-to-serve-prod @ministryofjustice/cost-to-serve-read-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/tim-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-document-management-preprod @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-soc-cases-prod @ministryofjustice/pathfinder @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-means-assessment-uat @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/intranet-development @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-store-uat @ministryofjustice/non-standard-crime-claims @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-api-production @ministryofjustice/laa-assess-a-claim @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-probation-mi-dashboard-dev @ministryofjustice/probation-mi-dashboard-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prison-estate-digital-map-dev @ministryofjustice/prison-estate-digital-map-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-workload-prod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-invoice-nlp-app-prod @ministryofjustice/invoice-nlp-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/trivy-system @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-cjsm-monitoring-dev @ministryofjustice/cjs_demand_prisons @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justice-gov-uk-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-criminal-legal-aid-staging @ministryofjustice/laa-crime-apply @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-officehub-cms-app-dev @ministryofjustice/officehub-cms-app-v2-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hale-platform-dev @ministryofjustice/jotw-content-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-accredited-programmes-dev @ministryofjustice/accredited-programmes-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-df-bid-shiny-ws-dev @ministryofjustice/df-bid-shiny-ws-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-hlt-portal-prod @ministryofjustice/hlt-portal-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-join-github-prod @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-mlp-app-dev @ministryofjustice/cajs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-locations-inside-prison-dev @ministryofjustice/locations-inside-prison @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-mmp-web-app-dev @ministryofjustice/mmp-web-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-education-and-work-plan-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/intranet-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/soc-staging @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-prisons-ready-reckoner-app-prod @ministryofjustice/mh_cjs_priority_projects @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-example-dev @ministryofjustice/operations-engineering @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-apply-mock-api-dev @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-services-live-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-interventions-dev @ministryofjustice/hmpps-interventions @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-assure-hmrc-data-staging @ministryofjustice/laa-apply-for-legal-aid @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/money-to-prisoners-prod @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-restricted-patients-api-preprod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-intel-app-homepage-dev @ministryofjustice/intel-app-homepage-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-search-preprod @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/whereabouts-api-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-crime-application-tracking-service-staging @ministryofjustice/laa-crime-apps-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/sentence-and-offence-prototype @ministryofjustice/sentence-and-offence-prototype-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-fee-calculator-ui-dev @ministryofjustice/laa-clair-taskforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-a-workforce @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-invoice-nlp-app-dev @ministryofjustice/invoice-nlp-app-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/courtfines-staging @ministryofjustice/dts-legacy @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/offender-events-prod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-tier-dev @ministryofjustice/probation-integration @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-people-data-self-serve-prod @ministryofjustice/people-data-self-serve-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-imb-fees-consultation-dev @ministryofjustice/imb-fees-consultation-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-criminal-scenario-tool-prod @ministryofjustice/criminal-scenario-tool-administrators @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-accredited-programmes-preprod @ministryofjustice/accredited-programmes-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-manage-supervisions-prototype @ministryofjustice/hmpps-probation-end-to-end @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-launchpad-staging @ministryofjustice/prisoner-content-hub-developers @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/manage-key-workers-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/peoplefinder-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-aws-infra-dev @ministryofjustice/laa-aws-infrastructure @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justice-gov-uk-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-provider-details-api-dev @ministryofjustice/laa-cwa-data-api-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-activity-management-prototype @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-crown-sitting-days-prod @ministryofjustice/crown-sitting-days-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-user-preferences-dev @ministryofjustice/probation-in-court @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-alerts-dev @ministryofjustice/farsight-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/token-verification-api-preprod @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prison-services-feedback-and-support-prod @ministryofjustice/dps-core @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/track-a-move-uat @ministryofjustice/Move a Prisoner @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-status-dashboard-staging @ministryofjustice/laa-pcuam @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-matrix-booking-dev @ministryofjustice/fact @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-govuk-notify-orchestrator-staging @ministryofjustice/laa-get-access @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-monitoring @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-workload-preprod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/justice-gov-uk-demo @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/make-recall-decision-preprod @ministryofjustice/making-recall-decision @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmcts-mock-api-dev @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/token-verification-api-dev @ministryofjustice/dps-tech-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/laa-cla-backend-training @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/find-unclaimed-court-money-production @ministryofjustice/central-digital-product-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hale-platform-demo @ministryofjustice/jotw-content-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/evidencelibrary-staging @ministryofjustice/evidencelibrary @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-statistics-explorer-prod @ministryofjustice/statistics-explorer-admin @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-wmt-workload-poc-dev @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-db-backups @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/parliamentary-questions-development @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/data-platform-app-segmentation-tool-dev @ministryofjustice/segmentation-tool-admin-team @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-probation-estate-prod @ministryofjustice/manage-a-workforce @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/hale-platform-prod @ministryofjustice/jotw-content-devs @ministryofjustice/webops
+/namespaces/live.cloud-platform.service.justice.gov.uk/operations-engineering-github-repos-dev @ministryofjustice/operations-engineering @ministryofjustice/webops
+
+## Codeowners for live-2.cloud-platform.service.justice.gov.uk namespaces
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-canary-app-eks @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/poornima-dev @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-go-get-module @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/jacksapp-dev @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-reference-app-github-action-dev @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-reference-app-dev @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-reports-dev @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/monitoring @ministryofjustice/webops
+/namespaces/live-2.cloud-platform.service.justice.gov.uk/cloud-platform-dev @ministryofjustice/webops
