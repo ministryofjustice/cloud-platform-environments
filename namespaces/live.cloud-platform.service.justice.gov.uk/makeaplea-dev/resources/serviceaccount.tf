@@ -46,6 +46,7 @@ module "serviceaccount" {
       resources = [
         "deployments",
         "ingresses",
+        "secrets",
         "cronjobs",
         "jobs",
         "replicasets",
