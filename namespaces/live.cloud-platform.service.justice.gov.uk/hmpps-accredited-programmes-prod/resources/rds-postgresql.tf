@@ -34,6 +34,7 @@ module "rds" {
   team_name              = var.team_name
 }
 
+
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
