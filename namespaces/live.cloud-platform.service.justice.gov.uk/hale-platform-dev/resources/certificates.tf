@@ -3,6 +3,7 @@ variable "domains" {
   default = {
     "test1.magistrates.judiciary.uk"   = "magistrates-test1"
     "test1.victimscommissioner.org.uk" = "victimscommissioner-test1"
+    "test1.layobservers.org"           = "layobservers-test1"
   }
 }
 
