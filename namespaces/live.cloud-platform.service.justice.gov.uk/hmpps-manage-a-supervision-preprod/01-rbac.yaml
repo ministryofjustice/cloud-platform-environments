@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-manage-a-supervision-preprod
 subjects:
   - kind: Group
-    name: "github:probation-integration"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:probation-integration"
