@@ -11,8 +11,11 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["data-platform-new-app-runthrough"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["data-platform-new-app-runthrough"]
+  github_environments   = ["dev"]
+  github_actions_prefix = "dev"
+
 
   # Tags
   business_unit          = var.business_unit
