@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cfe-civil-prod-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: cfe-civil
+  endpoints:
+    - port: http
+      interval: 15s

@@ -60,3 +60,8 @@ variable "github_token" {
 
 variable "kubernetes_cluster" {}
 
+variable "eks_cluster_name" {
+  default = "live"
+}
+
+

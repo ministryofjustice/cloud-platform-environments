@@ -5,20 +5,22 @@ module "prison-visits-rds" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
 
-  allow_major_version_upgrade = "true"
-  enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres12"
-  db_engine_version           = "12.13"
-  db_allocated_storage        = "50"
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
+  db_engine_version           = "15.5"
+  rds_family                  = "postgres15"
+  db_instance_class           = "db.t4g.small"
+  db_allocated_storage        = "50"
   db_name                     = "visits"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_password_rotated_date    = "2023-03-22"
+
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london

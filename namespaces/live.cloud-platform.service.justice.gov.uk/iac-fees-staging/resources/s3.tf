@@ -11,7 +11,7 @@ module "s3_bucket" {
   versioning             = true
 
   providers = {
-    aws = aws.london
+    aws = aws.ireland
   }
 
   bucket_policy = <<EOF

@@ -305,7 +305,6 @@ module "prosecution_concluded_queue" {
   sqs_name                   = "prosecution-concluded-queue"
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
-  delay_seconds              = 30
   visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF

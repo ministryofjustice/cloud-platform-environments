@@ -7,7 +7,7 @@ module "hmpps_user_preferences_rds" {
   is_production             = var.is_production
   namespace                 = var.namespace
   db_engine                 = "postgres"
-  db_engine_version         = "14.7"
+  db_engine_version         = "14.10"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.small"
   environment_name          = var.environment

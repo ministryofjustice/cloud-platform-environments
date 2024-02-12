@@ -10,7 +10,7 @@ module "hmpps_interventions_postgres14" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14"
+  db_engine_version           = "14.10"
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
 

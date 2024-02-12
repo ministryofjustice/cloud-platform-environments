@@ -12,7 +12,7 @@ module "rds-instance" {
   business_unit          = var.business_unit
 
   db_engine         = "postgres"
-  db_engine_version = "12.14"
+  db_engine_version = "12.17"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres12"
