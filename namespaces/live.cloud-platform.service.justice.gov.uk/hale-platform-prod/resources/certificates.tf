@@ -33,6 +33,9 @@ variable "domains" {
     "www.victimandwitnessinformation.org.uk" = "victimandwitnessinformation-www"
     "cym.victimandwitnessinformation.org.uk" = "victimandwitnessinformation-cym"
     "victimscode.org.uk"                     = "victimscode"
+    "cym.victimscode.org.uk"                 = "victimscode-cym"
+    "omagh.independent-inquiry.uk"           = "obi"
+    "www.omagh.independent-inquiry.uk"       = "obi-www"
   }
 }
 
