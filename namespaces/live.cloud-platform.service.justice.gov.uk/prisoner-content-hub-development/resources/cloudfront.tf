@@ -2,9 +2,9 @@ module "cloudfront" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.2.0"
 
   # Configuration
-  bucket_id          = module.drupal_content_storage_2.bucket_name
-  bucket_domain_name = "${module.drupal_content_storage_2.bucket_name}.s3.eu-west-2.amazonaws.com"
-  ip_allow_listing_environment = "development"
+  bucket_id                     = module.drupal_content_storage_2.bucket_name
+  bucket_domain_name            = module.drupal_content_storage_2.bucket_domain_name
+  ip_allow_listing_environment  = var.environment-name
 
   # Tags
   business_unit          = var.business_unit
