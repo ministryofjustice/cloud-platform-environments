@@ -30,3 +30,26 @@ resource "kubernetes_secret" "hmpps_redis" {
     member_clusters = jsonencode(module.hmpps_redis.member_clusters)
   }
 }
+resource "kubernetes_secret" "tva_elasticache_redis" {
+  metadata {
+    name      = "tva-elasticache-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.hmpps_redis.primary_endpoint_address
+    auth_token               = module.hmpps_redis.auth_token
+    member_clusters          = jsonencode(module.hmpps_redis.member_clusters)
+  }
+}
+
+resource "aws_elasticache_parameter_group" "token_store" {
+  name   = "tva-token-store-parameter-group"
+  family = "redis7"
+
+  # Needed in order to get spring boot to expire items from the redis cache
+  parameter {
+    name  = "notify-keyspace-events"
+    value = "Ex"
+  }
+}
