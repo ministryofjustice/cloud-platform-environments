@@ -44,7 +44,7 @@ resource "kubernetes_secret" "tva_elasticache_redis" {
 }
 
 resource "aws_elasticache_parameter_group" "token_store" {
-  name   = "tva-token-store-parameter-group"
+  name   = "tva-token-store-parameter-group-stage"
   family = "redis7"
 
   # Needed in order to get spring boot to expire items from the redis cache
