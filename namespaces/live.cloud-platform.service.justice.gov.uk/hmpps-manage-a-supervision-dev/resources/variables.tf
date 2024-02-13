@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Manage a Workforce"
+  default     = "Manage a Supervision"
 }
 
 variable "namespace" {
@@ -48,6 +48,11 @@ variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
   default     = "false"
+}
+
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "development"
 }
 
 variable "slack_channel" {
