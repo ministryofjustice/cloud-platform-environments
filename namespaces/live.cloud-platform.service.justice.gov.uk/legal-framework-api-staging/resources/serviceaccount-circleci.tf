@@ -4,6 +4,9 @@ module "serviceaccount_circleci" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  role_name = "circleci-legal-framework-staging-sa-migrated"
+  rolebinding_name = "circleci-legal-framework-staging-sa-migrated"
+
   serviceaccount_token_rotated_date = "13-02-2024"
   serviceaccount_name = "circleci-migrated"
   serviceaccount_rules = [
