@@ -23,7 +23,7 @@ module "rds" {
   db_allocated_storage = "175"
   db_name              = "mtp_api"
 
-  prepare_for_major_upgrade    = false
+  prepare_for_major_upgrade    = true
   allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = false
   deletion_protection          = true
