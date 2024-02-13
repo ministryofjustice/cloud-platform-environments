@@ -1,16 +1,7 @@
 {
-  "name": "cloud-platform-environments",
-  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+  "name": "modernisation-platform-environments",
+  "image": "ghcr.io/ministryofjustice/devcontainer-base:latest",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "configureZshAsDefaultShell": true,
-    },
-    "./features/src/base": {},
-    "./features/src/aws": {},
-    "./features/src/cloud-platform": {},
-    "./features/src/kubernetes": {},
-    "./features/src/static-analysis": {},
-    "./features/src/terraform": {},
-  },
-  "overrideFeatureInstallOrder": ["ghcr.io/devcontainers/features/common-utils", "./features/src/base"],
+    "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform:0": {}
+  }
 }
