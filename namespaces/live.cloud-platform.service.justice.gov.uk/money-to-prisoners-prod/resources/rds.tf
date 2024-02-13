@@ -16,9 +16,9 @@ module "rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  rds_family           = "postgres15"
+  rds_family           = "postgres16"
   db_engine            = "postgres"
-  db_engine_version    = "15.5"
+  db_engine_version    = "16.1"
   db_instance_class    = "db.m6g.xlarge"
   db_allocated_storage = "175"
   db_name              = "mtp_api"
