@@ -7,12 +7,50 @@ module "serviceaccount_circleci" {
   role_name = "circleci-legal-framework-uat-sa-migrated"
   rolebinding_name = "circleci-legal-framework-uat-sa-migrated"
 
-  serviceaccount_token_rotated_date = "01-01-2000"
-
+  serviceaccount_token_rotated_date = "13-02-2024"
   serviceaccount_name = "circleci-migrated"
-
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ca.crt and token for use in github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "persistentvolumeclaims",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list"
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "statefulsets",
+        "replicasets"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list"
+      ]
+    },
+  ]
 }
 
