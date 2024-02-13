@@ -1,5 +1,5 @@
 locals {
-  sa_rules = [
+  refresh_clam_sa_rules = [
     {
       api_groups = [
         "apps",
@@ -23,5 +23,5 @@ module "serviceaccount" {
   serviceaccount_name  = "refreshclamav"
   role_name            = "refreshclamav"
   rolebinding_name     = "refreshclamav"
-  serviceaccount_rules = local.sa_rules
+  serviceaccount_rules = local.refresh_clam_sa_rules
 }
