@@ -28,7 +28,7 @@ resource "pingdom_check" "hmpps-education-and-work-plan-api-production-check" {
 	notifywhenbackup         = true
 	sendnotificationwhendown = 6
 	notifyagainevery         = 0
-	url                      = "/https/learning-and-work-progress-api.hmpps.service.justice.gov.uk"
+	url                      = "/https/learningandworkprogress-api.hmpps.service.justice.gov.uk"
 	encryption               = true
 	port                     = 443
 	tags                     = "businessunit_hmpps,application_ciag-careers-induction-api,component_api,isproduction_true,environment_prod"
