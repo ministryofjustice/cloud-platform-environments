@@ -50,6 +50,11 @@ variable "is_production" {
   default     = "true"
 }
 
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "development"
+}
+
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
