@@ -31,6 +31,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
     datahub = aws_iam_policy.datahub.arn
+    rds     = module.rds-instance.irsa_policy_arn
   }
 
   # Tags
