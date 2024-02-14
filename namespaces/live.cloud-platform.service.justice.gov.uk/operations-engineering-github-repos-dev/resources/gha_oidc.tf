@@ -77,7 +77,7 @@ resource "aws_iam_policy" "dynamodb_access_policy" {
   policy = data.aws_iam_policy_document.dynamodb_access_policy_document.json
 }
 
-resource "aws_iam_role_policy_attachment" "s3_access_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "state_s3_access_policy_attachment" {
   role       = aws_iam_role.github.name
   policy_arn = aws_iam_policy.s3_access_policy.arn
 } 
