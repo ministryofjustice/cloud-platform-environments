@@ -10,8 +10,9 @@ module "submitter-rds-instance-2" {
   infrastructure_support     = var.infrastructure_support
   team_name                  = var.team_name
   business_unit              = "transformed-department"
-  db_engine_version          = "14"
-  rds_family                 = "postgres14"
+  prepare_for_major_upgrade  = true
+  db_engine_version          = "15.5"
+  rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 
   providers = {
