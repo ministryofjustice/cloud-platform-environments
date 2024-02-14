@@ -1,7 +1,7 @@
-resource "kubernetes_secret" "hmpps_probation_search" {
+resource "kubernetes_secret" "hmpps_probation_search_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
-    namespace = "hmpps-tier-${var.environment-name}"
+    namespace = "hmpps-probation-search-${var.environment-name}"
   }
 
   data = {
