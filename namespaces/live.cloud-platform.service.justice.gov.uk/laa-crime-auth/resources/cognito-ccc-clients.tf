@@ -115,8 +115,6 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_tst" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_tst.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_tst.client_secret
     hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_tst.id
     hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_tst.client_secret
     orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_ccc_tst.id
@@ -130,8 +128,6 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_uat" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_uat.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_uat.client_secret
     hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_uat.id
     hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_uat.client_secret
     orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_ccc_uat.id
@@ -145,8 +141,6 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ccc_prd" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_ccc_prd.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_ccc_prd.client_secret
     hardship_client_id = aws_cognito_user_pool_client.hardship_client_ccc_prd.id
     hardship_client_secret = aws_cognito_user_pool_client.hardship_client_ccc_prd.client_secret
     orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_ccc_prd.id
