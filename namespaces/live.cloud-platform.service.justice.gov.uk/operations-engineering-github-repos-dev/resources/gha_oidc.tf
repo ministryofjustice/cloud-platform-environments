@@ -49,15 +49,43 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
   }
 }
 
+data "aws_iam_policy_document" "dynamodb_access_policy_document" {
+  version = "2012-10-17"
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem",
+      "dynamodb:DescribeTable",
+      "dynamodb:Scan"
+    ]
+    resources = [
+      module.github_repos_dev_state_lock_table.table_arn
+    ]
+  }
+}
+
 resource "aws_iam_policy" "s3_access_policy" {
   name        = "s3_access_policy"
   policy      = data.aws_iam_policy_document.s3_access_policy_document.json
 }
 
-resource "aws_iam_role_policy_attachment" "github_role_perms_attachment" {
+resource "aws_iam_policy" "dynamodb_access_policy" {
+  name   = "dynamodb_access_policy"
+  policy = data.aws_iam_policy_document.dynamodb_access_policy_document.json
+}
+
+resource "aws_iam_role_policy_attachment" "s3_access_policy_attachment" {
   role       = aws_iam_role.github.name
   policy_arn = aws_iam_policy.s3_access_policy.arn
 } 
+
+resource "aws_iam_role_policy_attachment" "dynamodb_access_policy_attachment" {
+  role       = aws_iam_role.github.name
+  policy_arn = aws_iam_policy.dynamodb_access_policy.arn
+}
 
 resource "github_actions_secret" "role_arn" {
   repository      = var.repository_name
