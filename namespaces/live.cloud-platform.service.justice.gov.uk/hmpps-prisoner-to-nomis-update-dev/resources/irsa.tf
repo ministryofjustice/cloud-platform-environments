@@ -10,6 +10,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.irsa_policy_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_queue.irsa_policy_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prisoner_to_nomis_location_queue.irsa_policy_arn,
+      module.hmpps_prisoner_to_nomis_location_dead_letter_queue.irsa_policy_arn,
       module.hmpps_prisoner_to_nomis_activity_queue.irsa_policy_arn,
       module.hmpps_prisoner_to_nomis_activity_dead_letter_queue.irsa_policy_arn,
       module.hmpps_prisoner_to_nomis_appointment_queue.irsa_policy_arn,
