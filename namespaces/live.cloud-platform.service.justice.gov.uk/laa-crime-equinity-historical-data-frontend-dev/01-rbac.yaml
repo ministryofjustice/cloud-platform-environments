@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-wmt-workload-poc-dev-admin
-  namespace: hmpps-wmt-workload-poc-dev
+  name: laa-crime-equinity-historical-data-frontend-dev-admin
+  namespace: laa-crime-equinity-historical-data-frontend-dev
 subjects:
   - kind: Group
-    name: "github:manage-a-workforce"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-tech"
+    name: "github:laa-crime-equinity-data"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
