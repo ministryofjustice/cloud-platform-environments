@@ -20,12 +20,13 @@ module "rds-instance" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.medium"
   db_engine            = "postgres"
-  db_engine_version    = "12.14"
-  rds_family           = "postgres12"
+  db_engine_version    = "15.2"
+  rds_family           = "postgres15"
 
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_minor_version_upgrade = "false"
-  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
+  allow_major_version_upgrade = "true"
 
 
   # enable performance insights
