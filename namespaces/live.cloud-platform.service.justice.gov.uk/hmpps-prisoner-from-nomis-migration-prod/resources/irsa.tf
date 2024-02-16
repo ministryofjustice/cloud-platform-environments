@@ -25,8 +25,6 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.migration_adjudications_dead_letter_queue.sqs_arn,
       module.migration_incidents_queue.sqs_arn,
       module.migration_incidents_dead_letter_queue.sqs_arn,
-      module.migration_nonassociations_queue.sqs_arn,
-      module.migration_nonassociations_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
@@ -52,8 +50,6 @@ module "irsa" {
     {
       prisoner_from_nomis_incidents_queue                   = module.prisoner_from_nomis_incidents_queue.irsa_policy_arn,
       prisoner_from_nomis_incidents_dead_letter_queue       = module.prisoner_from_nomis_incidents_dead_letter_queue.irsa_policy_arn,
-      prisoner_from_nomis_nonassociations_queue             = module.prisoner_from_nomis_nonassociations_queue.irsa_policy_arn,
-      prisoner_from_nomis_nonassociations_dead_letter_queue = module.prisoner_from_nomis_nonassociations_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_sentencing_queue                  = module.prisoner_from_nomis_sentencing_queue.irsa_policy_arn,
       prisoner_from_nomis_sentencing_dead_letter_queue      = module.prisoner_from_nomis_sentencing_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_visits_queue                      = module.prisoner_from_nomis_visits_queue.irsa_policy_arn,
