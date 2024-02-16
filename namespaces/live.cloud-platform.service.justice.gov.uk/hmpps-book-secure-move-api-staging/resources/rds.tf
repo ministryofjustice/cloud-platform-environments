@@ -14,7 +14,7 @@ module "rds-instance" {
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
   # this isn't possible with a read replica
-  enable_rds_auto_start_stop = false
+  enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
   db_engine_version = "15.2"
@@ -22,9 +22,9 @@ module "rds-instance" {
 
   rds_family = "postgres15"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
 
   # enable performance insights
   performance_insights_enabled = true
