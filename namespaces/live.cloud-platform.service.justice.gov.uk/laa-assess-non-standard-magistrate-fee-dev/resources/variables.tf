@@ -68,6 +68,11 @@ variable "github_token" {
   default     = ""
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-assess-non-standard-magistrate-fee"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
@@ -91,6 +96,9 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "pods",
+        "pods/exec",
+        "configmaps",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
@@ -115,6 +123,7 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
       ]
       verbs = [
         "get",
