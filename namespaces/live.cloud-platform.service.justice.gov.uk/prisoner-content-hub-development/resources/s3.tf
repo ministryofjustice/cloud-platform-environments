@@ -31,5 +31,6 @@ resource "kubernetes_secret" "drupal_content_storage_2_secret" {
     secret_access_key = module.drupal_content_storage_2.secret_access_key
     bucket_arn        = module.drupal_content_storage_2.bucket_arn
     bucket_name       = module.drupal_content_storage_2.bucket_name
+    cloudfront_url    = module.cloudfront.cloudfront_url
   }
 }

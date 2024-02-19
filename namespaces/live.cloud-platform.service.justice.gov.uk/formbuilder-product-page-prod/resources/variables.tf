@@ -1,3 +1,13 @@
+variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}
+
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "application" {
   default = "MOJ Forms Product Page"
 }

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mercury-data-transform-load.prison.service.justice.gov.uk
+  namespace: hmpps-manage-intelligence-prod
+spec:
+  secretName: mercury-data-transform-load-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - mercury-data-transform.prison.service.justice.gov.uk

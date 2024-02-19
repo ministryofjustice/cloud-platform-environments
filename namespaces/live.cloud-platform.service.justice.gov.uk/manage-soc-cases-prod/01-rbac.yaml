@@ -6,9 +6,6 @@ metadata:
   namespace: manage-soc-cases-prod
 subjects:
   - kind: Group
-    name: "github:dps-soct-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:secure-estate-digital-restricted-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:

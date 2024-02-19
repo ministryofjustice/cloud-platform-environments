@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "activities-and-appointments"
 }
 
 variable "environment" {
@@ -64,4 +64,3 @@ variable "github_token" {
 variable "rds_family" {
   default = "postgres14"
 }
-

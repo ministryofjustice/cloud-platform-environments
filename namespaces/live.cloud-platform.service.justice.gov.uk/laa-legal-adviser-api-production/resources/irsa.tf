@@ -14,7 +14,6 @@ module "irsa" {
   role_policy_arns = {
     s3_static_files_bucket = module.s3.irsa_policy_arn
     sqs_laalaa_sqs         = module.laalaa_sqs.irsa_policy_arn
-    rds_rds_11             = module.rds_11.irsa_policy_arn
     rds_postgres_14        = module.laa_laa_rds_postgres_14.irsa_policy_arn
   }
 

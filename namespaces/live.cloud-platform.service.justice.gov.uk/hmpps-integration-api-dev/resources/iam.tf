@@ -22,6 +22,30 @@ data "aws_iam_policy_document" "api_gateway" {
       "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
   }
+
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.certificate_backup.bucket_arn
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectAcl"
+    ]
+
+    resources = [
+      "${module.certificate_backup.bucket_arn}/*"
+    ]
+  }
 }
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
@@ -70,9 +94,29 @@ resource "aws_iam_role_policy" "api_gw_s3" {
 EOF
 }
 
+resource "aws_iam_role" "cloudwatch" {
+  name               = "api_gateway_cloudwatch_global"
+   assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
 data "aws_iam_policy_document" "cloudwatch" {
   statement {
     effect = "Allow"
+
 
     actions = [
       "logs:CreateLogGroup",
@@ -90,6 +134,6 @@ data "aws_iam_policy_document" "cloudwatch" {
 
 resource "aws_iam_role_policy" "cloudwatch" {
   name   = "${var.namespace}-default"
-  role   = aws_iam_role.api_gateway_role.id
+  role   = aws_iam_role.cloudwatch.id
   policy = data.aws_iam_policy_document.cloudwatch.json
 }

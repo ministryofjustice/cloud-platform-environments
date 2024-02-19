@@ -1,5 +1,5 @@
 module "court_data_adaptor_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name      = var.vpc_name
   namespace     = var.namespace
   team_name     = "laa-crime-apps-team"
@@ -10,10 +10,11 @@ module "court_data_adaptor_rds" {
   environment_name       = "prod"
   infrastructure_support = var.infrastructure_support
   rds_family             = "postgres14"
-  db_engine_version      = "14.7"
+  db_engine_version      = "14.10"
 
   allow_major_version_upgrade = "true"
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
 
   providers = {
     aws = aws.london

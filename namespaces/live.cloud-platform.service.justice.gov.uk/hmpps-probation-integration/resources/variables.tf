@@ -3,7 +3,6 @@
 variable "vpc_name" {
 }
 
-
 variable "kubernetes_cluster" {
 }
 
@@ -77,4 +76,8 @@ variable "github_actions_secret_kube_cert" {
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
+}
+
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
 }

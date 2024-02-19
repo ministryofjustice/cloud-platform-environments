@@ -423,7 +423,7 @@ variable "validation_resource_server_identifier" {
 
 variable "validation_resource_server_name" {
   default     = "validation-resource-server"
-  description = "Cognito resource server name for Crime Validation service"
+  description = "Cognito resource server name for Crime Validation service all env"
 }
 
 variable "validation_scope_name" {

@@ -1,5 +1,5 @@
 module "hwpv_sqlserver" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
@@ -7,7 +7,7 @@ module "hwpv_sqlserver" {
   is_production            = var.is_production
   namespace                = var.namespace
   db_engine                = "sqlserver-web"
-  db_engine_version        = "15.00"
+  db_engine_version        = "15.00.4345.5.v1"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "20"
   environment_name         = var.environment-name

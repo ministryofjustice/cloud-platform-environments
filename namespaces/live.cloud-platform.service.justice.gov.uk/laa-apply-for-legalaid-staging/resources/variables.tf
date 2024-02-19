@@ -53,3 +53,5 @@ variable "team_name" {
   description = "The name of your development team"
   default     = "laa-apply-for-legal-aid"
 }
+
+variable "kubernetes_cluster" {}

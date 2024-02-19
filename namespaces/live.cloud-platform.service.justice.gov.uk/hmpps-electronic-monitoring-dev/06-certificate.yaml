@@ -13,3 +13,4 @@ spec:
     - electronic-monitoring-dev.hmpps.service.justice.gov.uk
     - api.electronic-monitoring-dev.hmpps.service.justice.gov.uk
     - architecture.electronic-monitoring-dev.hmpps.service.justice.gov.uk
+    - hmpps-create-electronic-monitoring-order-dev.hmpps.service.justice.gov.uk

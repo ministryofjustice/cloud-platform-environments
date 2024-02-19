@@ -1,5 +1,5 @@
 module "ap_irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   #role_policy_arns = [aws_iam_policy.ap_policy.arn]
   #service_account  = "hmpps-interventions-to-ap-s3"
 

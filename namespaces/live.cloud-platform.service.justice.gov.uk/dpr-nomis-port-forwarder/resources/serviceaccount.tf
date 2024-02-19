@@ -13,5 +13,5 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = "KUBE_PROD_CERT"
   github_actions_secret_kube_token     = "KUBE_PROD_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_PROD_CLUSTER"
-  github_actions_secret_kube_namespace = "KUBE_PROD_NAMESPACE"  
+  github_actions_secret_kube_namespace = "KUBE_PROD_NAMESPACE"
 }

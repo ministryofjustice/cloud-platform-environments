@@ -1,5 +1,5 @@
 module "submitter-rds-instance-2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_submitter
@@ -10,8 +10,8 @@ module "submitter-rds-instance-2" {
   infrastructure_support     = var.infrastructure_support
   team_name                  = var.team_name
   business_unit              = "transformed-department"
-  db_engine_version          = "14"
-  rds_family                 = "postgres14"
+  db_engine_version          = "15.5"
+  rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 
   providers = {

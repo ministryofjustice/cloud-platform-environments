@@ -305,7 +305,6 @@ module "prosecution_concluded_queue" {
   sqs_name                   = "prosecution-concluded-queue"
   encrypt_sqs_kms            = var.encrypt_sqs_kms
   message_retention_seconds  = var.message_retention_seconds
-  delay_seconds              = 30
   visibility_timeout_seconds = var.visibility_timeout_seconds
 
   redrive_policy = <<EOF
@@ -423,7 +422,7 @@ resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
   data = {
     hearing_resulted_queue_irsa_policy_arn      = module.hearing_resulted_queue.irsa_policy_arn
     prosecution_concluded_queue_irsa_policy_arn = module.prosecution_concluded_queue.irsa_policy_arn
-    create_link_queue_m_irsa_policy_arn = module.create_link_queue_m.irsa_policy_arn
-    unlink_queue_m_irsa_policy_arn = module.unlink_queue_m.irsa_policy_arn
+    create_link_queue_m_irsa_policy_arn         = module.create_link_queue_m.irsa_policy_arn
+    unlink_queue_m_irsa_policy_arn              = module.unlink_queue_m.irsa_policy_arn
   }
 }

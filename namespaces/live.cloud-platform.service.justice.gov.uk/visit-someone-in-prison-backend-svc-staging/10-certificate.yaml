@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prison-visits-testing-helper-api-cert
+  namespace: visit-someone-in-prison-backend-svc-staging
+spec:
+  secretName: hmpps-prison-visits-testing-helper-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-vsip-testing-api-staging.prison.service.justice.gov.uk
+    - hmpps-prison-visits-testing-helper-api-staging.prison.service.justice.gov.uk

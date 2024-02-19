@@ -509,3 +509,78 @@ spec:
   dnsNames:
     - 7235bdbc-dev.hmpps.service.justice.gov.uk
     - prison-identifier-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: assessment-summary-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: assessment-summary-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - ee78b0dc-dev.hmpps.service.justice.gov.uk
+    - assessment-summary-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cas2-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: cas2-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - d9e82b57-dev.hmpps.service.justice.gov.uk
+    - cas2-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: accredited-programmes-and-oasys-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: accredited-programmes-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 23170f7f-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-and-oasys-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-supervision-and-oasys-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: manage-supervision-and-oasys-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - eaebb800-dev.hmpps.service.justice.gov.uk
+    - manage-supervision-and-oasys-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-supervision-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: manage-supervision-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 57f6a64b-dev.hmpps.service.justice.gov.uk
+    - manage-supervision-and-delius-dev.hmpps.service.justice.gov.uk

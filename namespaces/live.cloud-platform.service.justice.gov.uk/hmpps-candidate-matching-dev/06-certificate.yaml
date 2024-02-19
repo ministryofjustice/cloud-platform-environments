@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: candidate-matching-api-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-candidate-matching-dev
+spec:
+  secretName:  hmpps-candidate-matching-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - candidate-matching-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name:  candidate-matching-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-candidate-matching-dev
+spec:
+  secretName:  hmpps-candidate-matching-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    -  candidate-matching-dev.hmpps.service.justice.gov.uk

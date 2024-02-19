@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "data-platform-find-moj-data-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/slack-channel: "data-platform-labs"
+    cloud-platform.justice.gov.uk/application: "Find Moj Data"
+    cloud-platform.justice.gov.uk/owner: "Data Platform Labs: dataplatformlabs@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/find-moj-data"
+    cloud-platform.justice.gov.uk/team-name: "data-platform-labs"
+    cloud-platform.justice.gov.uk/review-after: ""

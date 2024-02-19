@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -9,11 +9,13 @@ module "visit_scheduler_rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  db_engine_version           = "13"
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = false
+  db_engine                   = "postgres"
+  db_engine_version           = "15.5"
+  rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
-  rds_family                  = "postgres13"
-  allow_major_version_upgrade = "false"
   db_password_rotated_date    = "2023-05-11"
 
   performance_insights_enabled = true

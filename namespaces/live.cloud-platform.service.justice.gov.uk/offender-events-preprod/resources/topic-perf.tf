@@ -1,5 +1,5 @@
 module "probation_offender_events_perf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
 
   # Configuration
   topic_display_name = "probation-offender-events-perf"

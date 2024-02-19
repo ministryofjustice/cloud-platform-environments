@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
@@ -15,13 +15,17 @@ module "apply-for-legal-aid-rds" {
   namespace                = var.namespace
   environment_name         = "production"
   infrastructure_support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
-  db_engine                = "postgres"
-  db_engine_version        = "14"
-  db_instance_class        = "db.t4g.small"
-  db_name                  = "apply_for_legal_aid_production"
-  rds_family               = "postgres14"
-  db_max_allocated_storage = "500"
-  deletion_protection      = true
+
+  # Database configuration
+  db_engine_version           = "14.10"
+  db_instance_class           = "db.t4g.small"
+  rds_family                  = "postgres14"
+  db_name                     = "apply_for_legal_aid_production"
+  allow_minor_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
+  enable_rds_auto_start_stop  = false
+  db_max_allocated_storage    = "500"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london

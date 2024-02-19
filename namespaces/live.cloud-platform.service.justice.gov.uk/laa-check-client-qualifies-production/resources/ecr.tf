@@ -32,13 +32,12 @@ module "ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire UAT images older than 14 days",
+            "description": "Keep the newest 1000 UAT images (100 branches, 10 commits on each)",
             "selection": {
                 "tagStatus": "tagged",
                 "tagPrefixList": ["branch"],
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
+                "countType": "imageCountMoreThan",
+                "countNumber": 1000
             },
             "action": {
                 "type": "expire"

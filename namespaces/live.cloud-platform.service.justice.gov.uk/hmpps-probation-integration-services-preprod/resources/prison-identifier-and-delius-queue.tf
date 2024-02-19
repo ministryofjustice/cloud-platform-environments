@@ -8,21 +8,23 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-subscr
 }
 
 module "prison-identifier-and-delius-queue" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
-  environment_name       = var.environment_name
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  business_unit          = var.business_unit
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  application = "prison-identifier-and-delius"
-  sqs_name    = "prison-identifier-and-delius-queue"
-
+  # Queue configuration
+  sqs_name = "prison-identifier-and-delius-queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prison-identifier-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
+
+  # Tags
+  application            = "prison-identifier-and-delius"
+  business_unit          = var.business_unit
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "aws_sqs_queue_policy" "prison-identifier-and-delius-queue-policy" {
@@ -31,16 +33,20 @@ resource "aws_sqs_queue_policy" "prison-identifier-and-delius-queue-policy" {
 }
 
 module "prison-identifier-and-delius-dlq" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
-  namespace              = var.namespace
-  team_name              = var.team_name
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+
+  # Queue configuration
+  sqs_name                  = "prison-identifier-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
+
+  # Tags
+  application            = "prison-identifier-and-delius"
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
-  business_unit          = var.business_unit
-
-  application = "prison-identifier-and-delius"
-  sqs_name    = "prison-identifier-and-delius-dlq"
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "aws_sqs_queue_policy" "prison-identifier-and-delius-dlq-policy" {

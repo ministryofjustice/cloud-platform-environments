@@ -1,32 +1,79 @@
-locals {
-  circleci_sa_name = "circleci-terraform-formbuilder-saas-test"
-}
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
-resource "kubernetes_service_account" "circleci_formbuilder_saas_test_service_account" {
-  metadata {
-    name      = local.circleci_sa_name
-    namespace = var.namespace
-  }
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  serviceaccount_name = "circleci-terraform-module-formbuilder-saas-test"
 
-  secret {
-    name = "${local.circleci_sa_name}-token"
-  }
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ca.crt and token for use in github actions CI/CD pipelines
+  github_repositories = ["fb-editor", "fb-metadata-api", "fb-av"]
 
-  automount_service_account_token = true
-}
-
-resource "kubernetes_secret_v1" "circleci_formbuilder_saas_test_service_account_token" {
-  metadata {
-    name      = "${local.circleci_sa_name}-token"
-    namespace = var.namespace
-    annotations = {
-      "kubernetes.io/service-account.name" = local.circleci_sa_name
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods"
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "monitoring.coreos.com",
+        "networking.k8s.io",
+        "batch"
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+        "servicemonitors"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling"
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
     }
-  }
-
-  type = "kubernetes.io/service-account-token"
-
-  depends_on = [
-    kubernetes_service_account.circleci_formbuilder_saas_test_service_account
   ]
 }

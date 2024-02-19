@@ -102,10 +102,10 @@ resource "kubernetes_secret" "restricted_patients_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "restricted_patients_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.offender-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.restricted_patients_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.restricted_patients_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_MOVEMENT-RECEPTION"

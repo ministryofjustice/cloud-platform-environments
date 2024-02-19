@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "activities_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -15,10 +15,37 @@ module "activities_api_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14"
+  db_engine_version           = "14.10"
+  
+
+  # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
+  # Add parameters to enable DPR team to configure replication
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london

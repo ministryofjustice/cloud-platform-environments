@@ -1,5 +1,5 @@
 module "slmtp_api_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -8,13 +8,15 @@ module "slmtp_api_rds" {
   namespace                  = var.namespace
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 
   allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  rds_family                  = "postgres13"
-  db_engine_version           = "13"
+  db_engine                   = "postgres"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15.5"
   db_password_rotated_date    = "2023-03-22"
 
   providers = {

@@ -1,5 +1,5 @@
 module "hmpps_prisoner_search_opensearch" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.4.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name
@@ -22,7 +22,6 @@ module "hmpps_prisoner_search_opensearch" {
   }
 
   auto_tune_config = {
-    desired_state                  = "ENABLED"
     start_at                       = "2100-10-23T20:00:00.00Z"
     duration_value                 = 10
     duration_unit                  = "HOURS"

@@ -1,4 +1,4 @@
- 
+
 
 
 # Add the names of the SQS queues & SNS topics which the app needs permissions to access.
@@ -7,12 +7,12 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue"              = "hmpps-audit-prod",
     "Digital-Prison-Services-prod-activities_domain_events_queue" = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-activities_domain_events_dl" = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-activities_domain_events_dl"    = "hmpps-domain-events-prod"
   }
 
- # The names of the SNS topics used and the namespace which created them
+  # The names of the SNS topics used and the namespace which created them
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
@@ -27,7 +27,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-activities-management-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.activities_api_rds.irsa_policy_arn})
 
   # Tags
   business_unit          = var.business_unit

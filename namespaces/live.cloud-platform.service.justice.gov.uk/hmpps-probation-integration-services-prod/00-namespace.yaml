@@ -5,6 +5,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
+    cloud-platform.justice.gov.uk/namespace: "hmpps-probation-integration-services-prod"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"

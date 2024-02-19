@@ -24,6 +24,7 @@ spec:
           queue_name!~"Digital-Prison-Services-dev-hmpps_allocation.*",
           queue_name!~"Digital-Prison-Services-dev-hmpps_tier.*",
           queue_name!="Digital-Prison-Services-dev-cfo_queue",
+          queue_name!="Digital-Prison-Services-dev-cfo_probation_queue",
           queue_name!="Digital-Prison-Services-dev-in_cell_hmpps_queue",
           queue_name!="Digital-Prison-Services-dev-dps_smoketest_dev_hmpps_queue",
           queue_name!~"Digital-Prison-Services-dev-prison_to_probation_update.*",

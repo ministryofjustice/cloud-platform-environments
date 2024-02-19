@@ -14,7 +14,7 @@ variable "application" {
 }
 
 variable "owner" {
-  default = "dex-engage"
+  default = "central-digital-product-team"
 }
 
 variable "namespace" {
@@ -28,7 +28,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dex-engage"
+  default     = "central-digital-product-team"
 }
 
 variable "environment" {
@@ -38,7 +38,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dex-engage@digital.justice.gov.uk"
+  default     = "central-digital-product-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -47,7 +47,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dex-engage-soc"
+  default     = "cdpt-soc"
 }
 
 variable "github_owner" {

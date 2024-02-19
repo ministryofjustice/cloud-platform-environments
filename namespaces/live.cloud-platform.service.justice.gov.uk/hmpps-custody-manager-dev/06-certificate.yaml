@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-custody-manager-dev-cert
+  namespace: hmpps-custody-manager-dev
+spec:
+  secretName: hmpps-custody-manager-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - custody-manager-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-custody-manager-api-dev-cert
+  namespace: hmpps-custody-manager-dev
+spec:
+  secretName: hmpps-custody-manager-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - custody-manager-api-dev.hmpps.service.justice.gov.uk

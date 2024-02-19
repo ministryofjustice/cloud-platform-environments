@@ -1,6 +1,6 @@
 
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -8,24 +8,19 @@ module "rds" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  # enable performance insights
-  performance_insights_enabled = true
-
-  # change the postgres version as you see fit.
-  db_engine_version      = "14"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  # enable performance insights
+  performance_insights_enabled = true
 
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  # Database configuration
+  db_engine_version           = "14.10"
   db_instance_class           = "db.t4g.small"
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop = true
+  rds_family                  = "postgres14"
+  allow_minor_version_upgrade = "true"
+  allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

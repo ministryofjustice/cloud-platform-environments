@@ -15,10 +15,10 @@ module "cccd_elasticache_redis" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version        = "7.0"
-  parameter_group_name  = "default.redis7"
-  number_cache_clusters = "3"
-  node_type             = "cache.t4g.small"
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
+  number_cache_clusters   = "3"
+  node_type               = "cache.t4g.small"
   auth_token_rotated_date = "2023-11-01"
 }
 

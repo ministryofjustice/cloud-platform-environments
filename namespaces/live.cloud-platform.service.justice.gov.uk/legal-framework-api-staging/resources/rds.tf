@@ -1,6 +1,6 @@
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -14,13 +14,12 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  db_engine_version           = "14"
+  db_engine_version           = "14.10"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres14"
+  allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "true"
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london

@@ -3,8 +3,8 @@ module "ecr_credentials" {
 
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers        = ["github"]
-  github_repositories   = ["help-with-child-arrangements"]
+  oidc_providers      = ["github"]
+  github_repositories = ["help-with-child-arrangements"]
 
   lifecycle_policy = <<EOF
   {

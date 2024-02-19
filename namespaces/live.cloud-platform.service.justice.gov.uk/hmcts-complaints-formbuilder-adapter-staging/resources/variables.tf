@@ -12,7 +12,8 @@ variable "environment-name" {
 
 variable "vpc_name" {
 }
-
+variable "kubernetes_cluster" {
+}
 
 variable "db_backup_retention_period_hmcts_complaints_adapter" {
   default = "2"

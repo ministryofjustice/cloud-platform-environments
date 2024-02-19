@@ -9,9 +9,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
   endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "non-associations.created",
-      "non-associations.deleted",
-      "non-associations.closed",
+      "prison-offender-events.prisoner.released",
     ]
   })
 }

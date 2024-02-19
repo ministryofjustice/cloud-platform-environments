@@ -1,5 +1,5 @@
 module "pre_sentence_service_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -10,7 +10,7 @@ module "pre_sentence_service_rds" {
   is_production                = var.is_production
   rds_family                   = "postgres14"
   db_instance_class            = "db.t4g.small"
-  db_engine_version            = "14.7"
+  db_engine_version            = "14.10"
   allow_major_version_upgrade  = false
   prepare_for_major_upgrade    = false
   performance_insights_enabled = true

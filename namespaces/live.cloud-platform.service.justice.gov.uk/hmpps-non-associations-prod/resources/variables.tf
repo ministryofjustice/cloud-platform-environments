@@ -8,7 +8,7 @@ variable "eks_cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Non Associations Apps"
+  default     = "HMPPS Non-associations Apps"
 }
 
 variable "namespace" {
@@ -44,15 +44,14 @@ variable "slack_channel" {
   default     = "non-associations-dev"
 }
 
-# Database settings
-
-variable "backup_window" {
+variable "rds_backup_window" {
   default = "22:00-23:59"
 }
 
-variable "maintenance_window" {
+variable "rds_maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -64,4 +63,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-

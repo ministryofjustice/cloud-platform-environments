@@ -1,5 +1,5 @@
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -15,7 +15,7 @@ module "ma_rds" {
   rds_family                  = "postgres15"
   db_password_rotated_date    = "15-02-2023"
   prepare_for_major_upgrade   = false
-  db_allocated_storage        = "1000"
+  db_allocated_storage        = "1500"
 
   providers = {
     aws = aws.london

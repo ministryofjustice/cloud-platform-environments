@@ -6,18 +6,18 @@
  */
 
 module "dps_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
-  vpc_name                 = var.vpc_name
-  team_name                = var.team_name
-  business_unit            = var.business_unit
-  application              = var.application
-  is_production            = var.is_production
-  namespace                = var.namespace
-  db_engine_version        = "14.7"
-  db_instance_class        = "db.t4g.micro"
-  db_max_allocated_storage = "500"
-  environment_name         = var.environment
-  infrastructure_support   = var.infrastructure_support
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  vpc_name                  = var.vpc_name
+  team_name                 = var.team_name
+  business_unit             = var.business_unit
+  application               = var.application
+  is_production             = var.is_production
+  namespace                 = var.namespace
+  db_engine_version         = "14.10"
+  db_instance_class         = "db.t4g.micro"
+  db_max_allocated_storage  = "500"
+  environment_name          = var.environment
+  infrastructure_support    = var.infrastructure_support
   prepare_for_major_upgrade = true
 
   rds_family = "postgres14"
@@ -59,14 +59,14 @@ resource "kubernetes_config_map" "rds" {
 }
 
 module "mgw_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "12.14"
+  db_engine_version        = "12.17"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
   environment_name         = var.environment

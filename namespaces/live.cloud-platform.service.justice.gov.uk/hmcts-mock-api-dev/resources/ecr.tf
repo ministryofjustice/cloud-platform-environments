@@ -8,14 +8,18 @@ module "laa_crime_apps_team_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
   repo_name = "hmcts-common-platform-mock-api"
   team_name = "laa-crime-apps-team"
+  namespace = var.namespace
+
+  oidc_providers = ["circleci"]
+
+  github_repositories = ["hmcts-common-platform-mock-api"]
 
   # Tags
   business_unit          = "Crime Apps"
-  application            = "hmcts-common-platform-mock-api"
-  is_production          = "false"
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  application            = var.application
+  is_production          = var.is_production
   environment_name       = "development"
-  infrastructure_support = "laa@digital.justice.gov.uk"
+  infrastructure_support = var.infrastructure_support
 
   providers = {
     aws = aws.london

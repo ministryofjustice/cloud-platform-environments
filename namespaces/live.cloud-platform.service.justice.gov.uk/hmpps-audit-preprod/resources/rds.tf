@@ -1,5 +1,5 @@
 module "hmpps_audit_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -9,13 +9,14 @@ module "hmpps_audit_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  db_instance_class         = "db.t4g.micro"
-  db_max_allocated_storage  = "500"
-  rds_family                = "postgres15"
-  db_engine_version         = "15"
-  deletion_protection       = true
-  db_engine                 = "postgres"
-  prepare_for_major_upgrade = false
+  db_instance_class            = "db.t4g.micro"
+  db_max_allocated_storage     = "500"
+  rds_family                   = "postgres16"
+  db_engine_version            = "16"
+  deletion_protection          = true
+  db_engine                    = "postgres"
+  prepare_for_major_upgrade    = false
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london

@@ -14,7 +14,7 @@ module "s3_opensearch" {
 
 # Create the domain
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.4.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -23,6 +23,8 @@ module "opensearch" {
   # Cluster configuration
   engine_version      = "OpenSearch_2.7"
   snapshot_bucket_arn = module.s3_opensearch.bucket_arn
+
+  # These are the normal settings for staging.
 
   # Non-production cluster configuration
   cluster_config = {
@@ -33,6 +35,25 @@ module "opensearch" {
   ebs_options = {
     volume_size = 10
   }
+
+  # These are the settings to flex staging up to match production.
+  # These should only be used when setting staging up for load testing, so it accurately
+  # matches production and therefore is an accurate prediction of prod behaviour.
+
+  # Production cluster configuration
+  #  cluster_config = {
+  #    instance_count = 3
+  #    instance_type  = "m6g.large.search"
+  #
+  #    # Dedicated primary nodes
+  #    dedicated_master_enabled = true
+  #    dedicated_master_count   = 3 # can only either be 3 or 5
+  #    dedicated_master_type    = "m6g.large.search"
+  #  }
+  #
+  #  ebs_options = {
+  #    volume_size = 100
+  #  }
 
   # Tags
   business_unit          = var.business_unit

@@ -1,5 +1,5 @@
 module "rds-history" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -7,19 +7,20 @@ module "rds-history" {
   is_production = var.is_production
   namespace     = var.namespace
 
+  prepare_for_major_upgrade = false
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
   db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "14"
+  db_engine_version = "15.5"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres15"
 
   enable_rds_auto_start_stop = true
 

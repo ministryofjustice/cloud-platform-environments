@@ -7,9 +7,8 @@
 
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
-
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -42,7 +41,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -56,6 +55,9 @@ module "cla_backend_rds_postgres_14" {
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  db_allocated_storage   = "10"
+
+  snapshot_identifier = "rds:cloud-platform-e485b5986a689b44-2023-12-13-05-29"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres14
   # Pick the one that defines the postgres version the best
@@ -90,14 +92,14 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   }
 
   data = {
-    endpoint          = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host              = module.cla_backend_rds_postgres_14.rds_instance_address
-    port              = module.cla_backend_rds_postgres_14.rds_instance_port
-    name              = module.cla_backend_rds_postgres_14.database_name
-    user              = module.cla_backend_rds_postgres_14.database_username
-    password          = module.cla_backend_rds_postgres_14.database_password
-    db_identifier     = module.cla_backend_rds_postgres_14.db_identifier
-    replica_host      = module.cla_backend_rds_postgres_14_replica.rds_instance_address
-    replica_endpoint  = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
+    endpoint         = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host             = module.cla_backend_rds_postgres_14.rds_instance_address
+    port             = module.cla_backend_rds_postgres_14.rds_instance_port
+    name             = module.cla_backend_rds_postgres_14.database_name
+    user             = module.cla_backend_rds_postgres_14.database_username
+    password         = module.cla_backend_rds_postgres_14.database_password
+    db_identifier    = module.cla_backend_rds_postgres_14.db_identifier
+    replica_host     = module.cla_backend_rds_postgres_14_replica.rds_instance_address
+    replica_endpoint = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
   }
 }

@@ -1,5 +1,5 @@
 module "hmcts-complaints-adapter-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period_hmcts_complaints_adapter
@@ -11,7 +11,7 @@ module "hmcts-complaints-adapter-rds-instance" {
   team_name                  = var.team_name
   business_unit              = "Platforms"
 
-  db_engine_version        = "14.7"
+  db_engine_version        = "14.10"
   rds_family               = "postgres14"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500" # maximum storage for autoscaling

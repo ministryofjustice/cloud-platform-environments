@@ -12,9 +12,9 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    rds = module.rds_aurora.irsa_policy_arn
-    s3 = aws_iam_policy.irsa_s3_policy.arn
-    s3_sqs = module.hmpps_pin_phone_monitor_s3_event_queue.irsa_policy_arn
+    rds        = module.rds_aurora.irsa_policy_arn
+    s3         = aws_iam_policy.irsa_s3_policy.arn
+    s3_sqs     = module.hmpps_pin_phone_monitor_s3_event_queue.irsa_policy_arn
     s3_sqs_dlq = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.irsa_policy_arn
   }
 

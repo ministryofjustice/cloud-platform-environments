@@ -11,7 +11,7 @@ module "rds_aurora_legacy" {
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
     min_capacity = 1
-    max_capacity = 10
+    max_capacity = 16
   }
   replica_count                = 1
   performance_insights_enabled = true

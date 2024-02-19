@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -16,8 +16,8 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
-  backup_window      = var.backup_window
-  maintenance_window = var.maintenance_window
+  backup_window      = var.rds_backup_window
+  maintenance_window = var.rds_maintenance_window
 
   providers = {
     aws = aws.london

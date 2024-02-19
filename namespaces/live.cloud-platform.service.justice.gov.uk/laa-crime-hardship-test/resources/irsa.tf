@@ -13,15 +13,15 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
-}
+  }
 
-# Tags
-business_unit          = var.business_unit
-application            = var.application
-is_production          = var.is_production
-team_name              = var.team_name
-environment_name       = var.environment
-infrastructure_support = var.infrastructure_support
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "irsa" {

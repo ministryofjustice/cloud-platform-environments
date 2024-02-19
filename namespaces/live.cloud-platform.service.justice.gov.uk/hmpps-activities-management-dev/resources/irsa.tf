@@ -4,9 +4,9 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_queue"              = "hmpps-audit-dev",
     "Digital-Prison-Services-dev-activities_domain_events_queue" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-activities_domain_events_dl" = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-dev-activities_domain_events_dl"    = "hmpps-domain-events-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -24,7 +24,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-activities-management-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.activities_api_rds.irsa_policy_arn})
 
   # Tags
   business_unit          = var.business_unit

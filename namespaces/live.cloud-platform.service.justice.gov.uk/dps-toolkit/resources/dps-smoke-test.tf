@@ -65,10 +65,10 @@ resource "kubernetes_secret" "dps_smoketest_queue" {
 }
 
 resource "aws_sns_topic_subscription" "dps_smoketest_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.hmpps-domain-events-topic-arn-dev.value
-  protocol      = "sqs"
-  endpoint      = module.dps_smoketest_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn-dev.value
+  protocol  = "sqs"
+  endpoint  = module.dps_smoketest_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.released",

@@ -1,16 +1,17 @@
 module "rds_postgres" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
   db_engine                  = "postgres"
-  db_engine_version          = "15"
-  rds_family                 = "postgres15"
+  db_engine_version          = "16"
+  rds_family                 = "postgres16"
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   enable_rds_auto_start_stop = true
+  prepare_for_major_upgrade  = false
 
   # Tags
   business_unit          = var.business_unit

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "laa-assess-non-standard-magistrate-fee-dev-crm4"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-non-standard-crime-claims"
+    cloud-platform.justice.gov.uk/application: "Assess a non-standard magnistrates' court claim"
+    cloud-platform.justice.gov.uk/owner: "Non-standard crime claims: CRM457@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-assess-non-standard-magistrate-fee"
+    cloud-platform.justice.gov.uk/team-name: "crm7team"
+    cloud-platform.justice.gov.uk/review-after: ""

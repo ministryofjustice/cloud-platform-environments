@@ -1,4 +1,4 @@
-resource "aws_cognito_user_pool_client" "maat_client_dev" {
+resource "aws_cognito_user_pool_client" "maat_dev" {
   name                                 = var.cognito_user_pool_maat_client_name_dev
   user_pool_id                         = aws_cognito_user_pool.cma_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -218,8 +218,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_cma_dev" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_dev.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_dev.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_dev.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_dev.client_secret
     cfe_client_id     = aws_cognito_user_pool_client.cfe_client_dev.id
     cfe_client_secret = aws_cognito_user_pool_client.cfe_client_dev.client_secret
     functional_tests_client_id = aws_cognito_user_pool_client.functional_tests_client.id

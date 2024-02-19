@@ -14,6 +14,7 @@ spec:
     - learningandworkprogress-api.hmpps.service.justice.gov.uk
     - learning-and-work-progress-api.hmpps.service.justice.gov.uk
     - education-and-work-plan-api.hmpps.service.justice.gov.uk
+
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -29,3 +30,17 @@ spec:
     -  plp.hmpps.service.justice.gov.uk
     -  learning-and-work-progress.hmpps.service.justice.gov.uk
     -  education-and-work-plan.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-ciag-careers-induction-ui-prod-cert
+  namespace: hmpps-education-and-work-plan-prod
+spec:
+  secretName: hmpps-ciag-careers-induction-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - ciag-induction.hmpps.service.justice.gov.uk

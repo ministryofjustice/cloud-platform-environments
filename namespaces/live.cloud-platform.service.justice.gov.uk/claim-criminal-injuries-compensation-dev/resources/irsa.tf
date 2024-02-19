@@ -12,11 +12,11 @@ module "irsa-appservice" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    
+
     sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
     sqstempusqueue = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
     policy         = aws_iam_policy.app_service_S3_access_policy.arn
-    
+
   }
 
   # Tags
@@ -54,11 +54,11 @@ module "irsa-dcs" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    
+
     sqsnotifyqueue = module.claim-criminal-injuries-notify-queue.irsa_policy_arn
     sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
     policy         = aws_iam_policy.dcs_S3_access_policy.arn
-    
+
   }
 
   # Tags
@@ -86,7 +86,7 @@ module "irsa-notifyservice" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
-   eks_cluster_name = var.eks_cluster_name
+  eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
   service_account_name = "irsanotifyservice"
@@ -96,9 +96,9 @@ module "irsa-notifyservice" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    
+
     sqs = module.claim-criminal-injuries-notify-queue.irsa_policy_arn
-    
+
   }
 
   # Tags
@@ -136,9 +136,9 @@ module "irsa-rds" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    
+
     rds = module.rds.irsa_policy_arn
-    
+
   }
 
   # Tags

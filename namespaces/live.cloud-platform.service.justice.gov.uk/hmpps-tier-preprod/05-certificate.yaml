@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - hmpps-tier-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tier-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-tier-preprod
+spec:
+  secretName: hmpps-tier-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - tier-preprod.hmpps.service.justice.gov.uk

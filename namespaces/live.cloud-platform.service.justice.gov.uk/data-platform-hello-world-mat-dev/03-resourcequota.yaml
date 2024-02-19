@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: data-platform-hello-world-mat-dev
+spec:
+  hard:
+    pods: "50"

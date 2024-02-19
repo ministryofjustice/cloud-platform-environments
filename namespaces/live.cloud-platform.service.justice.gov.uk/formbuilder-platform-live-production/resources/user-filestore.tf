@@ -48,8 +48,8 @@ module "user-filestore-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    filestoreS3  = module.user-filestore-s3-bucket.irsa_policy_arn
-    jsonS3       = module.json-output-attachments-s3-bucket.irsa_policy_arn
+    filestoreS3 = module.user-filestore-s3-bucket.irsa_policy_arn
+    jsonS3      = module.json-output-attachments-s3-bucket.irsa_policy_arn
   }
 
   team_name              = var.team_name
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "user-filestore-s3-bucket" {
   }
 
   data = {
-    bucket_arn        = module.user-filestore-s3-bucket.bucket_arn
-    bucket_name       = module.user-filestore-s3-bucket.bucket_name
+    bucket_arn  = module.user-filestore-s3-bucket.bucket_arn
+    bucket_name = module.user-filestore-s3-bucket.bucket_name
   }
 }

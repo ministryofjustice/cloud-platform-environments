@@ -1,0 +1,32 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: hmpps-launchpad-auth-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hmpps-launchpad-auth-service
+  namespace: hmpps-launchpad-auth-dev
+spec:
+  selector:
+    matchLabels:
+      app: hmpps-launchpad-auth-service
+  namespaceSelector:
+    matchNames:
+      - hmpps-launchpad-auth-dev
+  endpoints:
+    - port: http
+      path: /prometheus
+      interval: 15s

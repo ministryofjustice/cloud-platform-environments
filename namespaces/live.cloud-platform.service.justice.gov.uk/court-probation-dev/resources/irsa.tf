@@ -29,7 +29,7 @@ module "irsa" {
     local.sqs_policies,
     { rds_ccs = module.court_case_service_rds.irsa_policy_arn },
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
-    { s3  = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
+    { s3 = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { sns_cce = module.court-case-events.irsa_policy_arn },
     { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },

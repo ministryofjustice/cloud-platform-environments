@@ -7,7 +7,7 @@ module "runner-irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    metadatas3  = data.kubernetes_secret.service-metadata-s3-arn-cross-namespace.data.s3arn
+    metadatas3 = data.kubernetes_secret.service-metadata-s3-arn-cross-namespace.data.s3arn
   }
 
   team_name              = var.team_name

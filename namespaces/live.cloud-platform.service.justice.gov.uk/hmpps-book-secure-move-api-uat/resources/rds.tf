@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name = var.vpc_name
 
@@ -17,8 +17,10 @@ module "rds-instance" {
   db_instance_class = "db.t4g.small"
   db_parameter      = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_engine         = "postgres"
-  db_engine_version = "12.14"
-  rds_family        = "postgres12"
+  db_engine_version = "15.2"
+  rds_family        = "postgres15"
+
+  prepare_for_major_upgrade = false
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
@@ -38,6 +40,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }

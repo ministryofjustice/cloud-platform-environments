@@ -33,7 +33,7 @@ module "iam_assumable_role" {
   force_detach_policies      = true
   role_name                  = "formbuilder-saas-live"
   role_policy_arns = {
-    s3 = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
+    s3     = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
     s3prod = data.kubernetes_secret.s3_bucket_arns_live.data.service_metadata_bucket_irsa
   }
 

@@ -37,6 +37,11 @@ resource "pingdom_check" "pingdom" {
     "hdc-licences-and-delius",
     "prisoner-profile-and-delius",
     "prison-identifier-and-delius",
+    "assessment-summary-and-delius",
+    "cas2-and-delius",
+    "accredited-programmes-and-oasys",
+    "manage-supervision-and-oasys",
+    "manage-supervision-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

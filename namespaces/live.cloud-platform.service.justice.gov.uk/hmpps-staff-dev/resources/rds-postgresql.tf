@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -20,18 +20,19 @@ module "rds" {
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
   # rds_name             = "my-rds-name"
 
+  prepare_for_major_upgrade = false
   # enable performance insights
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14"
+  db_engine_version = "15.5"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres15"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -61,7 +62,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

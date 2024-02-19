@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: laa-assess-non-standard-magistrate-fee-dev-crm4
+spec:
+  hard:
+    pods: "50"

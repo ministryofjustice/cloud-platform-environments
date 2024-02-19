@@ -11,7 +11,8 @@ module "probation-search-ui-service-account" {
   team_name              = var.team_name
 
   service_account_name = "probation-search-ui"
-  role_policy_arns     = {
-    elasticache = module.elasticache.irsa_policy_arn
-  }
+  role_policy_arns = merge(
+    { elasticache = module.elasticache.irsa_policy_arn },
+    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
+  )
 }

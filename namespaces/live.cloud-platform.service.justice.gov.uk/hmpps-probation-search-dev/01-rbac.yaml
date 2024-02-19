@@ -8,6 +8,9 @@ subjects:
     name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:delius-ds-contact-search-team" # for investigation into semantic search capabiltities by data science team
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:dps-tech" # for bootstrapping and OAuth credential rotation
     apiGroup: rbac.authorization.k8s.io
 roleRef:

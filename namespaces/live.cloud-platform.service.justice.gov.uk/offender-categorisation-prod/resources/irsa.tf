@@ -18,10 +18,10 @@ module "irsa_offender_categorisation" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "offender-categorisation"
   role_policy_arns = merge(
-    { "rds" = module.dps_rds.irsa_policy_arn,
+    { "rds"                  = module.dps_rds.irsa_policy_arn,
       "risk_profiler_change" = module.risk_profiler_change.irsa_policy_arn,
-      "risk_profiler_change_dl" = module.risk_profiler_change_dead_letter_queue.irsa_policy_arn },
-      local.sqs_policies_oc
+    "risk_profiler_change_dl" = module.risk_profiler_change_dead_letter_queue.irsa_policy_arn },
+    local.sqs_policies_oc
   )
   business_unit          = var.business_unit
   application            = var.application

@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-prison-api-preprod-admin
+  namespace: hmpps-prison-api-preprod
+subjects:
+  - kind: Group
+    name: "github:syscon-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
