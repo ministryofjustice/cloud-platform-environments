@@ -20,7 +20,7 @@ module "rds_mysql" {
 
   # MySQL specifics
   db_engine         = "mysql"
-  db_engine_version = "8.0.32"
+  db_engine_version = "8.0.35"
   rds_family        = "mysql8.0"
   db_instance_class = "db.t4g.micro"
   db_parameter      = []

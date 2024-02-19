@@ -20,9 +20,10 @@ module "rds-instance" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.medium"
   db_engine            = "postgres"
-  db_engine_version    = "12.14"
-  rds_family           = "postgres12"
+  db_engine_version    = "15.2"
+  rds_family           = "postgres15"
 
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
@@ -49,7 +50,7 @@ provider "postgresql" {
   database         = module.rds-instance.database_name
   username         = module.rds-instance.database_username
   password         = module.rds-instance.database_password
-  expected_version = "10.6"
+  expected_version = "15.2"
   sslmode          = "require"
   connect_timeout  = 15
 }
@@ -93,8 +94,8 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "12.14"
-  rds_family        = "postgres12"
+  db_engine_version = "15.2"
+  rds_family        = "postgres15"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

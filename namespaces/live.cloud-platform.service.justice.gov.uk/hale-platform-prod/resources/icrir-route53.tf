@@ -35,7 +35,7 @@ resource "aws_route53_record" "icrir_route53_txt" {
   name    = "icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "10800"
-  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ~all"]
+  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 -all"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_dmarc" {
