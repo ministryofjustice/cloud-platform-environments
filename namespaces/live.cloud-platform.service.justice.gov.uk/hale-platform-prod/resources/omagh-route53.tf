@@ -35,7 +35,7 @@ resource "aws_route53_record" "omagh_route53_txt_main" {
   name    = "omagh.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms93403091", "v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 -all"]
+  records = ["MS=ms93403091", "v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com -all", "sophos-domain-verification=6a45a9444a7172356133d8ca4413340c498c14a9"]
 }
 
 resource "aws_route53_record" "omagh_route53_txt_belfast" {
