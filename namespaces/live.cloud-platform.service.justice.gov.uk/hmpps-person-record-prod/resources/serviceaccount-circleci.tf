@@ -8,8 +8,4 @@ module "serviceaccount_circleci" {
 
   serviceaccount_name = "circleci-migrated"
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ca.crt and token for use in github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
 }
-
