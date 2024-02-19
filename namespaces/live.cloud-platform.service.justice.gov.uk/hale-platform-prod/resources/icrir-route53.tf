@@ -34,8 +34,8 @@ resource "aws_route53_record" "icrir_route53_txt" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
   type    = "TXT"
-  ttl     = "10800"
-  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 -all"]
+  ttl     = "300"
+  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 -all", "sophos-domain-verification=64f22b1b53453a1059db6e455503ed554f02e94d"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_dmarc" {
