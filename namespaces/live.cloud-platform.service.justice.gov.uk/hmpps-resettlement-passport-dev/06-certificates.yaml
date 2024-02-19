@@ -29,12 +29,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: leaver-tool-ui-dev-cert
+  name: person-on-probation-user-ui-dev-cert
   namespace: hmpps-resettlement-passport-dev
 spec:
-  secretName: resettlement-passport-person-on-probation-ui-cert
+  secretName: person-on-probation-user-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-resettlement-passport-person-on-probation-ui-dev.hmpps.service.justice.gov.uk
+    - person-on-probation-user-ui-dev.hmpps.service.justice.gov.uk

@@ -4,7 +4,7 @@ metadata:
   name: person-on-probation-user-dev-cert
   namespace: hmpps-person-on-probation-user-service-dev
 spec:
-  secretName: person-on-probation-user-dev-cert
+  secretName: person-on-probation-user-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

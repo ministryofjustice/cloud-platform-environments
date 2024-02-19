@@ -38,6 +38,9 @@ variable "environment" {
   default     = "development"
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string

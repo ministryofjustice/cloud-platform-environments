@@ -41,6 +41,7 @@ resource "pingdom_check" "pingdom" {
     "cas2-and-delius",
     "accredited-programmes-and-oasys",
     "manage-supervision-and-oasys",
+    "manage-supervision-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

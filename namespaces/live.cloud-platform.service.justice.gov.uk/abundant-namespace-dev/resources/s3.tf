@@ -15,6 +15,8 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  versioning             = true
+
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
