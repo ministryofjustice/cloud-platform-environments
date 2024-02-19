@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-crm-4-5-7"
     cloud-platform.justice.gov.uk/application: "laa-claim-non-standard-magistrate-fee"
     cloud-platform.justice.gov.uk/owner: "CRM457@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-apply-for-a-criminal-legal-aid-application"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-claim-non-standard-magistrate-fee-backend"
     cloud-platform.justice.gov.uk/team-name: "ministryofjustice"
     cloud-platform.justice.gov.uk/review-after: "2023-07-18"
