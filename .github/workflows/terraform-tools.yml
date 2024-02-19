@@ -30,6 +30,7 @@ jobs:
         with:
           working_directory: .tfsec
           soft_fail: true
+          github_token: ${{ github.token }}
           additional_args: --force-all-dirs -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
   tflint:
     runs-on: ubuntu-latest
