@@ -96,6 +96,9 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "pods",
+        "pods/exec",
+        "configmaps",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
@@ -120,6 +123,7 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
       ]
       verbs = [
         "get",
