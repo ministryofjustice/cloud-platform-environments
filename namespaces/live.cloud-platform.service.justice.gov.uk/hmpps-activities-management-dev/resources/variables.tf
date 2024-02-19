@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "activities-and-appointments"
 }
 
 variable "environment" {
@@ -70,4 +70,3 @@ variable "mp_dps_sg_name" {
   description = "Required MP DPR Traffic ingress into DPS"
   default     = "cloudplatform-mp-dps-sg"
 }
-

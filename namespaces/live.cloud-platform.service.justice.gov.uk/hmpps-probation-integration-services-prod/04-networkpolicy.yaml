@@ -39,4 +39,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: hmpps-tier-prod
+              kubernetes.io/metadata.name: hmpps-tier-prod
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: make-recall-decision-prod

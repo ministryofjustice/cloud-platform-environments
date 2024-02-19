@@ -12,6 +12,7 @@ locals {
         "public-defender-service" = { host = "publicdefenderservice.org.uk", url = "/" }
         "independent-monitoring-boards" = { host = "imb.org.uk", url = "/" }
         "victim-and-witness-information" = { host = "victimandwitnessinformation.org.uk", url = "/" }
+        "victim-and-witness-information-cym" = { host = "cym.victimandwitnessinformation.org.uk", url = "/" }
         "independent-commission-for-reconciliation-and-information-recovery" = { host = "icrir.independent-inquiry.uk", url = "/" }
         "prison-and-probation-jobs" = { host = "prisonandprobationjobs.gov.uk", url = "/" }
         "brook-house-inquiry" = { host = "brookhouseinquiry.org.uk", url = "/" }
@@ -21,6 +22,7 @@ locals {
         "standing-international-forum-of-commercial-courts" = { host = "sifocc.org", url = "/" }
         "imb-members" = { host = "my.imb.org.uk", url = "/" }
         "lay-obs" = { host = "hale-platform-prod.apps.live.cloud-platform.service.justice.gov.uk", url = "/layobsmembers" }
+        "omagh-inquiry" = { host = "omagh.independent-inquiry.uk", url = "/" }
     }
 }
 

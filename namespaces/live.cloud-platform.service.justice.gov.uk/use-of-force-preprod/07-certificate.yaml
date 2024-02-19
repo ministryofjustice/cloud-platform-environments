@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - preprod.use-of-force.service.justice.gov.uk
+  - hmpps-uof-data-api-preprod.hmpps.service.justice.gov.uk

@@ -24,3 +24,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - resettlement-passport-ui-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: person-on-probation-user-ui-preprod-cert
+  namespace: hmpps-resettlement-passport-preprod
+spec:
+  secretName: person-on-probation-user-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - person-on-probation-user-ui-preprod.hmpps.service.justice.gov.uk
