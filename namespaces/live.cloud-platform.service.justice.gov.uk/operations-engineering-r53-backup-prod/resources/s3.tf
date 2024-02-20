@@ -41,7 +41,7 @@ module "github_repos_prod_state_lock_table" {
 
 resource "kubernetes_secret" "github_repos_prod_state_lock_table" {
   metadata {
-    name      = "r53_backup_prod_state_lock_table"
+    name      = "r53-backup-prod-state-lock-table"
     namespace = var.namespace
   }
 
