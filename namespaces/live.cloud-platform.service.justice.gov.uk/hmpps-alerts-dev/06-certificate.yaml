@@ -11,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - alerts-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-alerts-ui-dev-cert
+  namespace: hmpps-alerts-dev
+spec:
+  secretName: hmpps-alerts-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-alerts-ui-dev.hmpps.service.justice.gov.uk
