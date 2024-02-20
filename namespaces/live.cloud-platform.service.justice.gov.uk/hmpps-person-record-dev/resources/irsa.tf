@@ -4,7 +4,7 @@ locals {
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
-    "cloud-platform-probation-in-court-team-5b4824dca700d8b3ec75f25d24adfbb9"= "court-probation-dev"
+    "cloud-platform-probation-in-court-team-5b4824dca700d8b3ec75f25d24adfbb9" = "court-probation-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -27,6 +27,8 @@ module "irsa" {
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
+    { sns_domain_events = module.cpr_delius_offender_events_queue.irsa_policy_arn },
+    { sns_court_probation = module.cpr_court_case_events_queue.irsa_policy_arn },
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
     { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
