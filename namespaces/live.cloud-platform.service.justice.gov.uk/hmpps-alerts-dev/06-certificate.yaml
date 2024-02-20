@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - alerts-ui-dev.hmpps.service.justice.gov.uk
+    - hmpps-alerts-ui-dev.hmpps.service.justice.gov.uk
