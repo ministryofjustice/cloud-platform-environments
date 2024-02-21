@@ -11,15 +11,15 @@ module "state_s3_bucket" {
   namespace              = var.namespace
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "state_s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn  = module.state_s3_bucket.bucket_arn
+    bucket_name = module.state_s3_bucket.bucket_name
   }
 }
 

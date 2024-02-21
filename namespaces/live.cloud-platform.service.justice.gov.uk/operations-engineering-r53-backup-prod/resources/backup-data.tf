@@ -10,14 +10,14 @@ module "backup_s3_bucket" {
   namespace              = var.namespace
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "backup_s3_bucket" {
   metadata {
     name      = "backup-s3-bucket"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn  = module.backup_s3_bucket.bucket_arn
+    bucket_name = module.backup_s3_bucket.bucket_name
   }
 }
