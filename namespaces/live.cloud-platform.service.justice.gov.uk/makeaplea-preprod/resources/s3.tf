@@ -193,7 +193,8 @@ bucket_policy = <<EOF
             "AWS": "*"
           },
           "Action": [
-            "s3:GetObject"
+            "s3:GetObject",
+            "s3:PutObject"
           ],
           "Resource": [
             "$${bucket_arn}/*"
