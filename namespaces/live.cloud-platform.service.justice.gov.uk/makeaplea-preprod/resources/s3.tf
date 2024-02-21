@@ -200,7 +200,7 @@ data "aws_iam_policy_document" "external_user_s3_access_policy" {
 }
 
 resource "aws_iam_user" "s3-user" {
-  name = "external-s3-access-user-${var.environment}"
+  name = "external-s3-access-map-user-${var.environment}"
   path = "/system/external-s3-access-user/"
 }
 
