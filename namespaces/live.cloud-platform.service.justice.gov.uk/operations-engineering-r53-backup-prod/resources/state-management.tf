@@ -1,5 +1,5 @@
 
-module "s3_bucket" {
+module "state_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   team_name              = var.team_name
@@ -41,7 +41,7 @@ module "github_repos_prod_state_lock_table" {
 
 resource "kubernetes_secret" "github_repos_prod_state_lock_table" {
   metadata {
-    name      = "r53-backup-prod-state-lock-table"
+    name      = "state-s3-bucket"
     namespace = var.namespace
   }
 

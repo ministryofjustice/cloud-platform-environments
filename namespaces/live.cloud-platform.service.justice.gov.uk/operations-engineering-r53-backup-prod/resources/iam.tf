@@ -43,8 +43,10 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      module.s3_bucket.bucket_arn,
-      "${module.s3_bucket.bucket_arn}/*"
+      module.state_s3_bucket.bucket_arn,
+      module.backup_s3_bucket.bucket_arn,
+      "${module.state_s3_bucket.bucket_arn}/*",
+      "${module.backup_s3_bucket.bucket_arn}/*"
     ]
   }
 }
