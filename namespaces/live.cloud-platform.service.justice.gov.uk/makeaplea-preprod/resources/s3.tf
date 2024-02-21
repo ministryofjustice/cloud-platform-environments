@@ -205,13 +205,13 @@ resource "aws_iam_user" "s3-user" {
 }
 
 resource "aws_iam_access_key" "s3-user" {
-  user = aws_iam_user.user.name
+  user = aws_iam_user.s3-user.name
 }
 
-resource "aws_iam_user_policy" "policy" {
+resource "aws_iam_user_policy" "s3-policy" {
   name   = "external-s3-read-write-policy"
   policy = data.aws_iam_policy_document.external_user_s3_access_policy.json
-  user   = aws_iam_user.user.name
+  user   = aws_iam_user.s3-user.name
 }
 
 resource "kubernetes_secret" "s3_bucket" {
