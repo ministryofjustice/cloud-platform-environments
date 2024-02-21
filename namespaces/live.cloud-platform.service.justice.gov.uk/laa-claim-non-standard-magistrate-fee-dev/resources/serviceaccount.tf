@@ -32,13 +32,17 @@ variable "serviceaccount_rules" {
         "deployment",
         "secrets",
         "services",
-        "configmaps",
+        "serviceaccounts",
         "pods",
+        "pods/exec",
+        "configmaps",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
         "get",
         "create",
+        "update",
         "delete",
         "list",
         "watch",
@@ -50,11 +54,15 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
+        "batch",
       ]
       resources = [
         "deployments",
         "ingresses",
-        "replicasets"
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
       ]
       verbs = [
         "get",

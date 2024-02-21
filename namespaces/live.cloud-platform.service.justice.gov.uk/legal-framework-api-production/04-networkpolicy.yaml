@@ -46,3 +46,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: cfe-civil-staging
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: cfe-civil-staging-mtr
