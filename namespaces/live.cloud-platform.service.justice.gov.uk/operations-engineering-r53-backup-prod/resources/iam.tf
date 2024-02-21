@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
 }
 
 resource "aws_iam_policy" "s3_access_policy" {
-  name        = "r53_backup_prod_s3_access_policy"
+  name        = "r53_backup_s3_access_policy"
   policy      = data.aws_iam_policy_document.s3_access_policy_document.json
 }
 
