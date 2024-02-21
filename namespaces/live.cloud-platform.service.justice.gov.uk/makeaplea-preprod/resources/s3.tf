@@ -199,12 +199,12 @@ data "aws_iam_policy_document" "external_user_s3_access_policy" {
   }
 }
 
-resource "aws_iam_user" "user" {
+resource "aws_iam_user" "s3-user" {
   name = "external-s3-access-user-${var.environment}"
   path = "/system/external-s3-access-user/"
 }
 
-resource "aws_iam_access_key" "user" {
+resource "aws_iam_access_key" "s3-user" {
   user = aws_iam_user.user.name
 }
 
@@ -223,8 +223,8 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn                    = module.s3_bucket.bucket_arn
     bucket_name                   = module.s3_bucket.bucket_name
-    external_s3_access_user_arn   = aws_iam_user.user.arn
-    external_s3_access_key_id     = aws_iam_access_key.user.id
-    external_s3_secret_access_key = aws_iam_access_key.user.secret
+    external_s3_access_user_arn   = aws_iam_user.s3-user.arn
+    external_s3_access_key_id     = aws_iam_access_key.s3-user.id
+    external_s3_secret_access_key = aws_iam_access_key.s3-user.secret
   }
 }
