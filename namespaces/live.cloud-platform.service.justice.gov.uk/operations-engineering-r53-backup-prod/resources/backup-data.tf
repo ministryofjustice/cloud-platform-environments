@@ -12,7 +12,7 @@ module "backup_s3_bucket" {
 
 resource "kubernetes_secret" "backup_s3_bucket" {
   metadata {
-    name      = "backup-s3-bucket"
+    name      = "backup-s3-bucket-output"
     namespace = var.namespace
   }
 

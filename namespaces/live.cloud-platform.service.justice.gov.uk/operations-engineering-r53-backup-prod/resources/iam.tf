@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "github" {
     condition {
       test     = "StringLike"
       variable = "${local.oidc_provider}:sub"
-      values   = ["repo:ministryofjustice/terraform-aws-route53-backup:*"]
+      values   = ["repo:ministryofjustice/operations-engineering:*"]
     }
 
     condition {
@@ -43,28 +43,8 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      module.state_s3_bucket.bucket_arn,
       module.backup_s3_bucket.bucket_arn,
-      "${module.state_s3_bucket.bucket_arn}/*",
       "${module.backup_s3_bucket.bucket_arn}/*"
-    ]
-  }
-}
-
-data "aws_iam_policy_document" "dynamodb_state_lock_policy" {
-  version = "2012-10-17"
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "dynamodb:GetItem",
-      "dynamodb:PutItem",
-      "dynamodb:DeleteItem",
-      "dynamodb:DescribeTable",
-      "dynamodb:Scan"
-    ]
-    resources = [
-      module.github_repos_prod_state_lock_table.table_arn
     ]
   }
 }
@@ -74,24 +54,14 @@ resource "aws_iam_policy" "s3_access_policy" {
   policy      = data.aws_iam_policy_document.s3_access_policy_document.json
 }
 
-resource "aws_iam_policy" "dynamodb_state_lock" {
-  name   = "r53_backup_prod_dynamodb_state_lock_policy"
-  policy = data.aws_iam_policy_document.dynamodb_state_lock_policy.json
-}
-
 resource "aws_iam_role_policy_attachment" "github_role_perms_attachment" {
   role       = aws_iam_role.github.name
   policy_arn = aws_iam_policy.s3_access_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "dynamodb_state_lock_attachment" {
-  role       = aws_iam_role.github.name
-  policy_arn = aws_iam_policy.dynamodb_state_lock.arn
-}
-
 resource "github_actions_secret" "role_arn" {
   repository      = var.repository_name
-  secret_name     = "R53_BACKUP_STATE_ROLE_ARN"
+  secret_name     = "R53_BACKUP_ROLE_ARN"
   plaintext_value = aws_iam_role.github.arn
 }
 
