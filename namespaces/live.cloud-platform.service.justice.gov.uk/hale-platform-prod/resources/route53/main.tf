@@ -8,6 +8,9 @@ terraform {
     }
   }
 
-  source = "./*-route53.tf"
+  content {
+      source = "./*-route53.tf"
+  }
+ 
 
 }
