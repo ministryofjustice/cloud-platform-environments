@@ -10,6 +10,9 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
+ # delete the ecr 
+  deletion_protection = false
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["folarin-repo"]
