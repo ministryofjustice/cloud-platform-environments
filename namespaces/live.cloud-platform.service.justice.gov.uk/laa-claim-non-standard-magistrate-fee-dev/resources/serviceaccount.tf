@@ -8,7 +8,6 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories                  = ["laa-submit-crime-forms"]
-  github_environments                  = ["development"]
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
