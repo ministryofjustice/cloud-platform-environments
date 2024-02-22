@@ -26,11 +26,10 @@ resource "helm_release" "monitoringConfigTest" {
   chart      = "generic-prometheus-alerts"
   version    = "1.3"
 
-      set {
-            name  = "rdsAlertsDatabases"
-            value = {(local.first_part_of_rds_instance) = module.hmpps_service_catalogue.application}
-
-          }  
+  set {
+    name  = "generic-prometheus-alerts.rdsAlertsDatabases.${local.first_part_of_rds_instance}"
+    value = "hmpps-service-catalogue"
+  }
 }
 
 ## RDS instance address is of format cloud-platform-99a9xxxxx1.cdwm328dlye6.eu-west-2.rds.amazonaws.com. We need to get the first part of the
