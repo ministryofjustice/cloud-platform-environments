@@ -99,30 +99,38 @@ spec:
             message: There had been an error in the logs of the Crime Application Adapter in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crown-court-proceeding?var-namespace=laa-crown-court-proceeding-prod
-        rules:
-    - alert: Instance-Down
-      expr: absent(up{namespace="laa-crown-court-proceeding-prod"}) == 1
-      for: 1m
-      labels:
-        severity: laa-crown-court-proceeding-alerts-prod
-        namespace: laa-crown-court-proceeding-prod
-      annotations:
-        message: The production instance of the Crown Court Proceeding has been down for >1m.
-    - alert: Quota-Exceeded
-      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crown-court-proceeding-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crown-court-proceeding-prod"} > 0) > 90
-      for: 1m
-      labels:
-        severity: laa-crown-court-proceeding-alerts-prod
-        namespace: laa-crown-court-proceeding-prod
-      annotations:
-        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
-    - alert: KubePodCrashLooping
-      expr: round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crown-court-proceeding-prod"}[10m]) * 60 * 10) > 1
-      for: 5m
-      labels:
-        severity: laa-crown-court-proceeding-alerts-prod
-        namespace: laa-crown-court-proceeding-prod
-      annotations:
-        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        - alert: Instance-Down
+          expr: absent(up{namespace="laa-crown-court-proceeding-prod"}) == 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-proceeding-alerts-prod
+            namespace: laa-crown-court-proceeding-prod
+          annotations:
+            message: The production instance of the Crown Court Proceeding has been down for >1m.
+        - alert: Quota-Exceeded
+          expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crown-court-proceeding-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crown-court-proceeding-prod"} > 0) > 90
+          for: 1m
+          labels:
+            severity: laa-crown-court-proceeding-alerts-prod
+            namespace: laa-crown-court-proceeding-prod
+          annotations:
+            message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+        - alert: KubePodCrashLooping
+          expr: round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crown-court-proceeding-prod"}[10m]) * 60 * 10) > 1
+          for: 5m
+          labels:
+            severity: laa-crown-court-proceeding-alerts-prod
+            namespace: laa-crown-court-proceeding-prod
+          annotations:
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        - alert: Increase in 403 Blocked Requests
+          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crime-applications-adaptor-prod", ingress="laa-crime-applications-adaptor", status="403"}[5m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-proceeding-alerts-prod
+            namespace: laa-crown-court-proceeding-prod
+          annotations:
+            message: The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crown-court-proceeding-prod&var-ingress=laa-crown-court-proceeding
