@@ -69,3 +69,5 @@ variable "backup_window" {
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
+variable "kubernetes_cluster" {}

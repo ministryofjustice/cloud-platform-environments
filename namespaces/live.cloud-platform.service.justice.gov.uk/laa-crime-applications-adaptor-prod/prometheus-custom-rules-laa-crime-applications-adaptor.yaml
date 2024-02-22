@@ -90,3 +90,11 @@ spec:
             message: There had been an error in the logs of the Crime Application Adapter in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-applications-adaptor?var-namespace=laa-crime-applications-adaptor-prod
+        - alert: 403 Blocked Request
+          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crime-applications-adaptor-prod", ingress="laa-crime-applications-adaptor", status="403"}[5m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crime-applications-adaptor
+          annotations:
+            message: The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crime-applications-adaptor-prod&var-ingress=laa-crime-applications-adaptor

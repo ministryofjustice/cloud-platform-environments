@@ -55,4 +55,3 @@ resource "kubernetes_secret" "irsa" {
     rolearn        = module.irsa.role_arn
   }
 }
-
