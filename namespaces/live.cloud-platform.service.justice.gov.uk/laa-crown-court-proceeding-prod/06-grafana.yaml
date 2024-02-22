@@ -48,7 +48,7 @@ data:
             "y": 0
           },
           "id": 23,
-          "title": "Crime Application Adaptor Metrics",
+          "title": "Crown Court Proceeding Metrics",
           "type": "row"
         },
         {
@@ -641,7 +641,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "LAA Crime Applications Adaptor",
+      "title": "LAA Crown Court Proceeding",
       "uid": "Kn71716Gz1",
       "version": 2,
       "weekStart": ""
