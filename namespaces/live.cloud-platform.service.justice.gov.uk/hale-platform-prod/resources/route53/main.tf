@@ -8,8 +8,13 @@ terraform {
     }
   }
 
-  content {
-      source = "./*-route53.tf"
+ # Dynamically include all Terraform files in the subfolder as sources
+  dynamic "module" {
+    for_each = fileset("./", "*.tf")
+
+    content {
+      source = "./${module.key}"
+    }
   }
  
 
