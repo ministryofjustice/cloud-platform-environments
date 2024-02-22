@@ -95,6 +95,7 @@ variable "serviceaccount_rules" {
         "deployment",
         "secrets",
         "services",
+        "serviceaccounts",
         "pods",
         "pods/exec",
         "configmaps",

@@ -36,6 +36,8 @@ variable "domains" {
     "cym.victimscode.org.uk"                 = "victimscode-cym"
     "omagh.independent-inquiry.uk"           = "obi"
     "www.omagh.independent-inquiry.uk"       = "obi-www"
+    "websitebuilder.service.justice.gov.uk"  = "websitebuilder"
+    "www.websitebuilder.service.justice.gov.uk" = "websitebuilder-www"
   }
 }
 
