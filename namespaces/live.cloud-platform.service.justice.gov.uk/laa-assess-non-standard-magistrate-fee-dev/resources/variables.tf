@@ -70,7 +70,7 @@ variable "github_token" {
 
 variable "repo_name" {
   description = "The name of github repo"
-  default     = "laa-assess-non-standard-magistrate-fee"
+  default     = "laa-assess-crime-forms"
 }
 
 variable "eks_cluster_name" {
