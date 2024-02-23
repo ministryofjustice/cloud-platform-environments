@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "hello-world-app"
+  default     = "strategic-estates-tool"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "folarin-test"
+  default     = "data-platform-app-strategic-estates-tool-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "webops"
+  default     = "set-admin-team"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "test"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "peopleanalytics@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cloud-platform"
+  default     = "people-analytics"
 }
 
 variable "github_owner" {
