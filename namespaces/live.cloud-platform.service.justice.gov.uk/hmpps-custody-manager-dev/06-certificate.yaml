@@ -11,6 +11,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - custody-manager-dev.hmpps.service.justice.gov.uk
+    - court-cases-release-dates-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -24,3 +25,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - custody-manager-api-dev.hmpps.service.justice.gov.uk
+    - court-cases-release-dates-api-dev.hmpps.service.justice.gov.uk
