@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: default
   namespace: hmpps-accredited-programmes-dev
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 54.217.50.18/32,52.208.202.111/32,52.49.144.209/32,51.155.102.238/32
 spec:
   podSelector: {}
   policyTypes:
