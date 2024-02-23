@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "refer-python-dev"
 }
 
+variable "github_repositories" {
+  description = "Name of the github repo"
+  type        = string
+  default     = "laa-refer-flask-fastapi-app"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
