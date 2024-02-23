@@ -24,20 +24,20 @@ resource "helm_release" "monitoringConfigTest" {
   name       = "generic-prometheus-alerts"
   repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
   chart      = "generic-prometheus-alerts"
-  version    = "1.3"
+  version    = "1.3.10"
 
   set {
-    name  = "generic-prometheus-alerts.rdsAlertsDatabases.${local.first_part_of_rds_instance}"
+    name  = "rdsAlertsDatabases.${local.first_part_of_rds_instance}"
     value = "hmpps-service-catalogue"
   }
 
   set {
-    name  = "generic-prometheus-alerts.targetApplication"
+    name  = "targetApplication"
     value = "hmpps-service-catalogue"
   }
 
   set {
-    name  = "generic-prometheus-alerts.alertSeverity"
+    name  = "alertSeverity"
     value = "digital-prison-service-dev"
   }
 }
