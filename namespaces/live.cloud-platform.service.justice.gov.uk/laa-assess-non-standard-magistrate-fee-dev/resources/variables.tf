@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "laa-assess-non-standard-magistrate-fee"
+  default     = "laa-assess-crime-forms"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "crm7team"
+  default     = "laa-crime-form-team"
 }
 
 variable "environment" {
@@ -70,7 +70,7 @@ variable "github_token" {
 
 variable "repo_name" {
   description = "The name of github repo"
-  default     = "laa-assess-non-standard-magistrate-fee"
+  default     = "laa-assess-crime-forms"
 }
 
 variable "eks_cluster_name" {
