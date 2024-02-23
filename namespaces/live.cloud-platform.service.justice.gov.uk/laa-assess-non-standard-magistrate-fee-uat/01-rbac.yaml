@@ -5,7 +5,7 @@ metadata:
   namespace: laa-assess-non-standard-magistrate-fee-uat
 subjects:
   - kind: Group
-    name: "github:crm7team"
+    name: "github:laa-crime-forms-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
