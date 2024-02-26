@@ -14,28 +14,32 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-}
 
-bucket_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "*"
-        },
-        "Action": [
-          "s3:GetObject",
-          "s3:PutObject"
-        ],
-        "Resource": [
-          "$${bucket_arn}/*"
-        ]
-      }
-    ]
+  bucket_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject"
+          ],
+          "Resource": [
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
+  EOF
+
+  providers = {
+    aws = aws.london
   }
-EOF
+}
 
 data "aws_iam_policy_document" "external_user_s3_grc_access_policy" {
   statement {
