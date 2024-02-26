@@ -44,7 +44,27 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
     actions = ["s3:*"]
     resources = [
       module.backup_s3_bucket.bucket_arn,
-      "${module.backup_s3_bucket.bucket_arn}/*"
+      "${module.backup_s3_bucket.bucket_arn}/*",
+      module.state_s3_bucket.bucket_arn,
+      "${module.state_s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "dynamodb_state_lock_policy" {
+  version = "2012-10-17"
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem",
+      "dynamodb:DescribeTable",
+      "dynamodb:Scan"
+    ]
+    resources = [
+      module.r53_backup_prod_state_lock_table.table_arn
     ]
   }
 }
@@ -57,6 +77,16 @@ resource "aws_iam_policy" "s3_access_policy" {
 resource "aws_iam_role_policy_attachment" "s3_access_policy_attachment" {
   role       = aws_iam_role.github.name
   policy_arn = aws_iam_policy.s3_access_policy.arn
+}
+
+resource "aws_iam_policy" "dynamodb_state_lock" {
+  name   = "r53_backup_prod_dynamodb_state_lock_policy"
+  policy = data.aws_iam_policy_document.dynamodb_state_lock_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_state_lock_attachment" {
+  role       = aws_iam_role.github.name
+  policy_arn = aws_iam_policy.dynamodb_state_lock.arn
 }
 
 resource "github_actions_secret" "role_arn" {
