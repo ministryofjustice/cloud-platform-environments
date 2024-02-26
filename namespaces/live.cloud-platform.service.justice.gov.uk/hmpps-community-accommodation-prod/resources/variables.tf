@@ -57,3 +57,10 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {}
+
+variable "rds_backup_window" {
+  default = "22:00-23:59"
+}
+variable "rds_maintenance_window" {
+  default = "sun:00:00-sun:03:00"
+}
