@@ -23,7 +23,7 @@ module "rds-instance" {
   db_engine_version    = "15.2"
   rds_family           = "postgres15"
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
