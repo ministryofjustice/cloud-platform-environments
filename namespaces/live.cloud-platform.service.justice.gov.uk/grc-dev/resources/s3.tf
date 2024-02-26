@@ -181,6 +181,58 @@ EOF
 }
 
 
+bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "*"
+        },
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+EOF
+
+data "aws_iam_policy_document" "external_user_s3_grc_access_policy" {
+  statement {
+    sid = "AllowExternalUserToReadAndPutObjectsInS3"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject*",
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_iam_user" "s3-grc-user" {
+  name = "external-s3-access-grc-user-${var.environment}"
+  path = "/system/external-s3-access-user/"
+}
+
+resource "aws_iam_access_key" "s3-grc-user" {
+  user = aws_iam_user.s3-grc-user.name
+}
+
+resource "aws_iam_user_policy" "s3-policy" {
+  name   = "external-s3-read-write-policy"
+  policy = data.aws_iam_policy_document.external_user_s3_grc_access_policy.json
+  user   = aws_iam_user.s3-grc-user.name
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
@@ -188,7 +240,10 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn                    = module.s3_bucket.bucket_arn
+    bucket_name                   = module.s3_bucket.bucket_name
+    external_s3_access_user_arn   = aws_iam_user.s3-grc-user.arn
+    external_s3_access_key_id     = aws_iam_access_key.s3-grc-user.id
+    external_s3_secret_access_key = aws_iam_access_key.s3-grc-user.secret
   }
 }
