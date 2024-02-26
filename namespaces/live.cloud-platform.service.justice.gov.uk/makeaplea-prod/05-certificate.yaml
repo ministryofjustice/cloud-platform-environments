@@ -1,0 +1,57 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-a-plea-justice-app-cert
+  namespace: makeaplea-prod
+spec:
+  secretName: make-a-plea-justice-app-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - makeaplea.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-a-plea-justice-api-cert
+  namespace: makeaplea-prod
+spec:
+  secretName: make-a-plea-justice-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - api.makeaplea.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-a-plea-justice-mgw-cert
+  namespace: makeaplea-prod
+spec:
+  secretName: make-a-plea-justice-mgw-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - mgw.makeaplea.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: make-a-plea-justice-mgw-admin-cert
+  namespace: makeaplea-prod
+spec:
+  secretName: make-a-plea-justice-mgw-admin-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - mgw.admin.makeaplea.justice.gov.uk
