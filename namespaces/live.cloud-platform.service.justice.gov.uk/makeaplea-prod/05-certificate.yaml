@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: make-a-plea-justice-app-cert
+  name: make-a-plea-app-cert
   namespace: makeaplea-prod
 spec:
   secretName: make-a-plea-justice-app-cert
@@ -10,18 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
       - makeaplea.justice.gov.uk
-
----
-
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: make-a-plea-justice-api-cert
-  namespace: makeaplea-prod
-spec:
-  secretName: make-a-plea-justice-api-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
       - api.makeaplea.justice.gov.uk
