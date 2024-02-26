@@ -28,7 +28,7 @@ resource "aws_route53_record" "aws_route53_record_prod_1" {
   zone_id = aws_route53_zone.route53_justice_zone.zone_id
   type    = "A"
   alias {
-    zone_id                = "ZHURV8PSTC4K8"
+    zone_id                = "Z2SY7XJSTV3DHZ"
     name                   = "iacfees-prod-alb-waf-1928234551.eu-west-1.elb.amazonaws.com."
     evaluate_target_health = false
   }
