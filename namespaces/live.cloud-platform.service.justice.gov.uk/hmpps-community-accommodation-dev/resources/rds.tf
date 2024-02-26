@@ -12,7 +12,11 @@ module "rds" {
   db_engine_version            = "14"
   db_instance_class            = "db.t3.small"
   rds_family                   = "postgres14"
-  allow_major_version_upgrade  = "true"
+  allow_major_version_upgrade  = "false"
+  allow_minor_version_upgrade  = "true"
+
+  backup_window                = var.rds_backup_window
+  maintenance_window           = var.rds_maintenance_window
 
   providers = {
     aws = aws.london
