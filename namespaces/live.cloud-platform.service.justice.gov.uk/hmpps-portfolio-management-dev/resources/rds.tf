@@ -25,6 +25,7 @@ resource "helm_release" "monitoringConfigTest" {
   repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
   chart      = "generic-prometheus-alerts"
   version    = "1.3.10"
+  namespace  = var.namespace
 
   set {
     name  = "rdsAlertsDatabases.${local.first_part_of_rds_instance}"
