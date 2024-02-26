@@ -19,7 +19,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = var.application
+  service_account_name = "hmpps-accredited-programmes-service-account"
   namespace            = var.namespace
 
   role_policy_arns = merge(
