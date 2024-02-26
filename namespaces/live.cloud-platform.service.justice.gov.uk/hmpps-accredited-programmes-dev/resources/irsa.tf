@@ -21,7 +21,6 @@ module "irsa" {
   role_policy_arns = merge(
     { rds = module.rds.irsa_policy_arn },
     { redis = module.elasticache_redis.irsa_policy_arn },
-    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
     local.sqs_policies
   )
 }
