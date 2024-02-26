@@ -126,7 +126,7 @@ spec:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
         - alert: Increase in 403 Blocked Requests
-          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crime-applications-adaptor-prod", ingress="laa-crime-applications-adaptor", status="403"}[5m])) > 1
+          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-proceeding-prod", ingress="laa-crown-court-proceeding", status="403"}[5m])) > 1
           for: 1m
           labels:
             severity: laa-crown-court-proceeding-alerts-prod

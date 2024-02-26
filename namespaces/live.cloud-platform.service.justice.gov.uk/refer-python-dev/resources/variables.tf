@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Gov.UK Prototype Kit"
+  default     = "refer a client to a legal aid provider"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "folarin-repo"
+  default     = "refer-python-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "webops"
+  default     = "check-client-qualifies"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "eligibility@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cloud-platform"
+  default     = "laa-ccq-dev"
 }
 
 variable "github_owner" {
@@ -66,16 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-## Prototype kit variables
-
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "folarin"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "folarin"
 }

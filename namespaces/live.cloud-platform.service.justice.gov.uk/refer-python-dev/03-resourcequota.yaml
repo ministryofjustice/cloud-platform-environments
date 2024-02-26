@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: folarin-repo
+  namespace: refer-python-dev
 spec:
   hard:
     pods: "50"
