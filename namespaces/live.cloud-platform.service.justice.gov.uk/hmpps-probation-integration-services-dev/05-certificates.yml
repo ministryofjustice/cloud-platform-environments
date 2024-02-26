@@ -584,3 +584,18 @@ spec:
   dnsNames:
     - 57f6a64b-dev.hmpps.service.justice.gov.uk
     - manage-supervision-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: oasys-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: oasys-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 0d276ce2-dev.hmpps.service.justice.gov.uk
+    - oasys-and-delius-dev.hmpps.service.justice.gov.uk
