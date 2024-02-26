@@ -89,7 +89,7 @@ module "rds-read-replica" {
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
