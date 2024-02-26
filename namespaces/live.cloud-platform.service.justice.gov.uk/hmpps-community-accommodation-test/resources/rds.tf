@@ -12,7 +12,7 @@ module "rds" {
   db_engine_version            = "14"
   db_instance_class            = "db.t3.small"
   rds_family                   = "postgres14"
-  allow_major_version_upgrade  = "true"
+  allow_major_version_upgrade  = "false"
 
   providers = {
     aws = aws.london
