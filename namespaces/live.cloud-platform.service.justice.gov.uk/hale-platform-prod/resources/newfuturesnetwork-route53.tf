@@ -22,22 +22,6 @@ resource "kubernetes_secret" "newfuturesnetwork_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "newfuturesnetwork_route53_a_record_main" {
-  zone_id = aws_route53_zone.newfuturesnetwork_route53_zone.zone_id
-  name    = "newfuturesnetwork.gov.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["35.214.109.137"]
-}
-
-resource "aws_route53_record" "newfuturesnetwork_route53_a_record_main_www" {
-  zone_id = aws_route53_zone.newfuturesnetwork_route53_zone.zone_id
-  name    = "www.newfuturesnetwork.gov.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["35.214.109.137"]
-}
-
 resource "aws_route53_record" "newfuturesnetwork_route53_aaaa_record_main" {
   zone_id = aws_route53_zone.newfuturesnetwork_route53_zone.zone_id
   name    = "newfuturesnetwork.gov.uk"
