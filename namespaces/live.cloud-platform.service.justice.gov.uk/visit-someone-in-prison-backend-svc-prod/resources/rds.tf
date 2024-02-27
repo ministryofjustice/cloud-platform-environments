@@ -17,7 +17,6 @@ module "visit_scheduler_rds" {
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "16300"
   db_allocated_storage        = "16000"
-  maintenance_window          = "Tue:22:00-Wed:03:00"
   db_password_rotated_date    = "2023-05-11"
   performance_insights_enabled = true
 
