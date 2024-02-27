@@ -77,3 +77,9 @@ resource "github_actions_secret" "aws_region" {
   secret_name     = "AWS_DEFAULT_REGION"
   plaintext_value = data.aws_region.current.name
 }
+
+resource "github_actions_secret" "aws_account_id" {
+  repository      = "hmpps-github-teams"
+  secret_name     = "AWS_ACCOUNT_ID"
+  plaintext_value = data.aws_caller_identity.current.account_id
+}
