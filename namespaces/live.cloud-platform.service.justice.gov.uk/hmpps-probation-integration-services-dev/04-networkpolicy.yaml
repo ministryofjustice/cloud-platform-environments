@@ -25,3 +25,21 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-source-namespace
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: hmpps-tier-dev
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: make-recall-decision-dev

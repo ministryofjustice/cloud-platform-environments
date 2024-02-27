@@ -21,7 +21,8 @@ module "rds" {
   infrastructure_support = var.infrastructure_support
   maintenance_window = var.maintenance_window
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
+  allow_major_version_upgrade  = true
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best

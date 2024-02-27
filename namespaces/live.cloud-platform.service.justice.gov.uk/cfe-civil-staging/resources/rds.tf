@@ -24,7 +24,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14"
+  db_engine_version = "14.10"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"

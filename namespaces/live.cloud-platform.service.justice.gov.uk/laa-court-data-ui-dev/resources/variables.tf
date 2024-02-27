@@ -61,3 +61,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}
