@@ -71,5 +71,5 @@ variable "github_token" {
 variable "repository_name" {
   description = "The name of the repository to create the GitHub Actions secrets for"
   type        = string
-  default     = "operations-engineering"
+  default     = "terraform-github-repository"
 }

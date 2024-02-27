@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-non-standard-crime-claims"
     cloud-platform.justice.gov.uk/application: "laa-claim-non-standard-magistrate-fee"
     cloud-platform.justice.gov.uk/owner: "Non-standard crime claims: CRM457@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-claim-non-standard-magistrate-fee-backend"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-submit-crime-forms"
     cloud-platform.justice.gov.uk/team-name: "crm7team"
     cloud-platform.justice.gov.uk/review-after: ""

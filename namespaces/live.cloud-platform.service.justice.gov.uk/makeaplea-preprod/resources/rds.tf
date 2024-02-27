@@ -6,14 +6,14 @@
  */
 
 module "dps_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "14.7"
+  db_engine_version        = "14.10"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
   environment_name         = var.environment
@@ -55,6 +55,55 @@ resource "kubernetes_config_map" "rds" {
 
   data = {
     database_name = module.dps_rds.database_name
+
+  }
+}
+
+module "mgw_rds" {
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  vpc_name                 = var.vpc_name
+  team_name                = var.team_name
+  business_unit            = var.business_unit
+  application              = var.application
+  is_production            = var.is_production
+  namespace                = var.namespace
+  db_engine_version        = "14.10"
+  db_instance_class        = "db.t4g.micro"
+  db_max_allocated_storage = "500"
+  environment_name         = var.environment
+  infrastructure_support   = var.infrastructure_support
+
+  rds_family = "postgres14"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "mgw_rds" {
+  metadata {
+    name      = "mgw-rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.mgw_rds.rds_instance_endpoint
+    database_name         = module.mgw_rds.database_name
+    database_username     = module.mgw_rds.database_username
+    database_password     = module.mgw_rds.database_password
+    rds_instance_address  = module.mgw_rds.rds_instance_address
+    url                   = "postgres://${module.mgw_rds.database_username}:${module.mgw_rds.database_password}@${module.mgw_rds.rds_instance_endpoint}/${module.mgw_rds.database_name}"
+  }
+}
+
+resource "kubernetes_config_map" "rds_mgw" {
+  metadata {
+    name      = "mgw-rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.mgw_rds.database_name
 
   }
 }

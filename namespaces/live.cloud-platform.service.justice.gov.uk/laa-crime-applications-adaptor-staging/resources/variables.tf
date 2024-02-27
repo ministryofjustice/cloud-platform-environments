@@ -88,11 +88,6 @@ variable "visibility_timeout_seconds" {
   default     = "120"
 }
 
-variable "api_gateway_name" {
-  description = "The name of the API Gateway"
-  default     = "caa-api-gateway-staging"
-}
-
 variable "apigw_stage_name" {
   description = "Named reference to the deployment"
   default     = "v1"

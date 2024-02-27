@@ -11,7 +11,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version      = "14.8"
+  db_engine_version      = "14.10"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 

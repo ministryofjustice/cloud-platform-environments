@@ -22,7 +22,7 @@ module "rds" {
   maintenance_window = var.maintenance_window
   backup_window = var.backup_window
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
