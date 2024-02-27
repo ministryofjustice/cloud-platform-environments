@@ -1,4 +1,4 @@
-namespaces/live.cloud-platform.service.justice.gov.uk/laa-submit-crime-forms-dev/resources/irsa.tfmodule "irsa" {
+module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
