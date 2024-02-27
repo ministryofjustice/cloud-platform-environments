@@ -5,18 +5,20 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
-  oidc_providers = ["circleci"]
 
-  # specify which GitHub repository your CircleCI job runs from
-  github_repositories = ["manchester_traffic_offences_pleas", "makeaplea_dx"]
+  oidc_providers = [ "circleci"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  github_repositories = ["laa-submit-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-assess-crime-forms"]
+
+  # list of github environments, to create the ECR secrets as environment secrets
+  # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
+  # github_environments = ["my-environment"]
 
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
@@ -44,7 +46,7 @@ module "ecr_credentials" {
             "description": "Keep last 30 dev and staging images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["prod", "live"],
+                "tagPrefixList": ["dev", "staging"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 30
             },
@@ -77,6 +79,7 @@ EOF
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
 
 resource "kubernetes_secret" "ecr_credentials" {
   metadata {

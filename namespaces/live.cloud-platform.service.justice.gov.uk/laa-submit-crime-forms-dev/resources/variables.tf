@@ -3,28 +3,33 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Accredited Programmes"
+  default     = "Submit criminal legal aid forms"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-accredited-programmes-dev"
+  default     = "laa-submit-crime-forms-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "accredited-programmes-team"
+  default     = "laa-crime-forms-team"
 }
 
 variable "environment" {
@@ -36,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "team.acp@digital.justice.gov.uk"
+  default     = "CRM457@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -48,12 +53,9 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "accredited-programme-team"
+  default     = "laa-non-standard-crime-claims"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
-}
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -64,8 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }

@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
     cloud-platform.justice.gov.uk/application: "testing"
     cloud-platform.justice.gov.uk/owner: "cloud platform: tim.cheung@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/tim-test"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/tim-development"
     cloud-platform.justice.gov.uk/team-name: "webops"
     cloud-platform.justice.gov.uk/review-after: "2024-03-14"
