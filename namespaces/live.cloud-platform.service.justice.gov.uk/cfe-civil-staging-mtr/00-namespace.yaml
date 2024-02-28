@@ -4,7 +4,8 @@ metadata:
   name: "cfe-civil-staging-mtr"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "staging"
+    cloud-platform.justice.gov.uk/environment-name: "staging-mtr"
+    cloud-platform.justice.gov.uk/namespace: "cfe-civil-staging-mtr"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"

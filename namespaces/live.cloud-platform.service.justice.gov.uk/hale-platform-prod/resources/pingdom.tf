@@ -23,6 +23,7 @@ locals {
         "imb-members" = { host = "my.imb.org.uk", url = "/" }
         "lay-obs" = { host = "hale-platform-prod.apps.live.cloud-platform.service.justice.gov.uk", url = "/layobsmembers" }
         "omagh-inquiry" = { host = "omagh.independent-inquiry.uk", url = "/" }
+        "new-futures-network" = { host = "newfuturesnetwork.gov.uk", url = "/" }
     }
 }
 
