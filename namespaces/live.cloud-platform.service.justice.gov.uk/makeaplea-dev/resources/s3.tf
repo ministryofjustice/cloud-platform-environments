@@ -17,6 +17,27 @@ module "s3_bucket" {
   acl                           = "private"
   enable_allow_block_pub_access = true
 
+  bucket_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject"
+          ],
+          "Resource": [
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
+  EOF
+
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
