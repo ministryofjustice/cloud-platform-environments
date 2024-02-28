@@ -22,14 +22,6 @@ resource "kubernetes_secret" "newfuturesnetwork_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "newfuturesnetwork_route53_aaaa_record_main" {
-  zone_id = aws_route53_zone.newfuturesnetwork_route53_zone.zone_id
-  name    = "newfuturesnetwork.gov.uk"
-  type    = "AAAA"
-  ttl     = "300"
-  records = ["2a07:7800::124"]
-}
-
 resource "aws_route53_record" "newfuturesnetwork_route53_mx_record_main" {
   zone_id = aws_route53_zone.newfuturesnetwork_route53_zone.zone_id
   name    = "newfuturesnetwork.gov.uk"
