@@ -38,8 +38,6 @@ variable "domains" {
     "www.omagh.independent-inquiry.uk"          = "obi-www"
     "websitebuilder.service.justice.gov.uk"     = "websitebuilder"
     "www.websitebuilder.service.justice.gov.uk" = "websitebuilder-www"
-    "newfuturesnetwork.gov.uk"                  = "newfuturesnetwork"
-    "www.newfuturesnetwork.gov.uk"              = "newfuturesnetwork-www"
   }
 }
 
