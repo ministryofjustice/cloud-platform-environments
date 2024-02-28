@@ -54,10 +54,10 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-resource "github_actions_secret" "s3_bucket" {
-  repository      = "hmpps-github-teams"
-  secret_name     = "TERRAFORM_S3_BUCKET_NAME"
-  plaintext_value = module.s3_bucket.bucket_name
+resource "github_actions_variable" "s3_bucket" {
+  repository    = "hmpps-github-teams"
+  variable_name = "TERRAFORM_S3_BUCKET_NAME"
+  value         = module.s3_bucket.bucket_name
 }
 
 resource "github_actions_secret" "aws_access_key_id" {
@@ -72,14 +72,14 @@ resource "github_actions_secret" "aws_secret_access_key" {
   plaintext_value = aws_iam_access_key.s3_user.secret
 }
 
-resource "github_actions_secret" "aws_region" {
-  repository      = "hmpps-github-teams"
-  secret_name     = "AWS_DEFAULT_REGION"
-  plaintext_value = data.aws_region.current.name
+resource "github_actions_variable" "aws_region" {
+  repository    = "hmpps-github-teams"
+  variable_name = "AWS_DEFAULT_REGION"
+  value         = data.aws_region.current.name
 }
 
-resource "github_actions_secret" "aws_account_id" {
-  repository      = "hmpps-github-teams"
-  secret_name     = "AWS_ACCOUNT_ID"
-  plaintext_value = data.aws_caller_identity.current.account_id
+resource "github_actions_variable" "aws_account_id" {
+  repository    = "hmpps-github-teams"
+  variable_name = "AWS_ACCOUNT_ID"
+  value         = data.aws_caller_identity.current.account_id
 }
