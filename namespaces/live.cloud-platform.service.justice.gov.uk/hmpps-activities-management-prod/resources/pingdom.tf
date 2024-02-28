@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 126338 = #farsight-alerts
+# 133905 = #activities-and-appointments-alerts
 # 96628 = DPS Pager duty
 
 resource "pingdom_check" "hmpps-activities-management-ui-production-check" {
@@ -18,7 +18,7 @@ resource "pingdom_check" "hmpps-activities-management-ui-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [126338, 96628]
+  integrationids           = [133905, 96628]
 }
 
 resource "pingdom_check" "hmpps-activities-management-api-production-check" {
@@ -34,5 +34,5 @@ resource "pingdom_check" "hmpps-activities-management-api-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [126338, 96628]
+  integrationids           = [133905, 96628]
 }

@@ -10,7 +10,7 @@ module "dps_rds" {
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14.7"
+  db_engine_version           = "14.10"
   rds_family                  = "postgres14"
   db_password_rotated_date    = "13-04-2023"
 

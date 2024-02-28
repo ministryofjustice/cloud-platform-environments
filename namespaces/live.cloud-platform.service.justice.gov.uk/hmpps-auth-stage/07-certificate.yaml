@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: token-verification-api-stage.hmpps.service.justice.gov.uk
+  name: token-verification-api-stage.prison.service.justice.gov.uk
   namespace: hmpps-auth-stage
 spec:
   secretName: token-verification-api-cert
@@ -35,7 +35,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - token-verification-api-stage.hmpps.service.justice.gov.uk
+    - token-verification-api-stage.prison.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

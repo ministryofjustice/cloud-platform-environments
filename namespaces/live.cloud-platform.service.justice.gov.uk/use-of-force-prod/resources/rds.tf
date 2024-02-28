@@ -8,10 +8,12 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
+
+  prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14.7"
-  rds_family                  = "postgres14"
+  db_engine_version           = "15.5"
+  rds_family                  = "postgres15"
   db_password_rotated_date    = "13-04-2023"
 
   providers = {
