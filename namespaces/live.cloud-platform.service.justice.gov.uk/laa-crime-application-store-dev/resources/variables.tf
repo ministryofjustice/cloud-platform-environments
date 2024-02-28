@@ -14,6 +14,11 @@ variable "application" {
   default     = "laa-crime-application-store"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-crime-application-store"
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
@@ -90,7 +95,11 @@ variable "serviceaccount_rules" {
         "deployment",
         "secrets",
         "services",
+        "serviceaccounts",
         "pods",
+        "pods/exec",
+        "configmaps",
+        "persistentvolumeclaims",
       ]
       verbs = [
         "patch",
@@ -100,6 +109,7 @@ variable "serviceaccount_rules" {
         "delete",
         "list",
         "watch",
+        "update",
       ]
     },
     {
@@ -115,6 +125,7 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
       ]
       verbs = [
         "get",
