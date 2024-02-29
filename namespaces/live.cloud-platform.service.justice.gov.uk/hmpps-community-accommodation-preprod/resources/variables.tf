@@ -57,3 +57,5 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {}
+
+variable "kubernetes_cluster" {}
