@@ -58,7 +58,7 @@ locals {
   ])
 
   database_details = {
-    for m in local.database_list : "${m.identifier}" => m
+    for m in local.database_list : (m.identifier) => m
   }
 }
 
