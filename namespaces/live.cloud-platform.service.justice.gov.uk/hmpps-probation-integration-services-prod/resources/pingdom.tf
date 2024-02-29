@@ -43,6 +43,7 @@ resource "pingdom_check" "pingdom" {
     "manage-supervision-and-oasys",
     "manage-supervision-and-delius",
     "oasys-and-delius",
+    "feature-flags",
     # ^ add new projects here
   ])
   type                     = "http"
