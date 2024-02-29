@@ -5,6 +5,8 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_token_rotated_date = "22-02-2024"
+  
+  serviceaccount_name               = "circleci"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
