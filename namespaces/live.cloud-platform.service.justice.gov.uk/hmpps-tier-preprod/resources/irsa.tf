@@ -20,7 +20,8 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { domain_sns = module.hmpps_tier_domain_events_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn }
+    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn },
+    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
 
   # Tags

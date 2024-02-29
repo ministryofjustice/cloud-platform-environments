@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -14,6 +14,16 @@ module "secrets_manager" {
       description             = "DCES Report Service Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name         = "dces-report-service-alert-webhook-prod"
+    },
+    "maat_api_oauth_client_id" = {
+      description             = "MAAT API oauth client ID for DCES Report Service Prod.",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-api-oauth-client-id"
+    },
+    "maat_api_oauth_client_secret" = {
+      description             = "MAAT API oauth client secret for DCES Report Service Prod.",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-api-oauth-client-secret"
     },
   }
 }

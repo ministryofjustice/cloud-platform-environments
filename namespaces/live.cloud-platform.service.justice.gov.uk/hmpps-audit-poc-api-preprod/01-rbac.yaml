@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-audit-poc-api-preprod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:haha-audit-dev"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

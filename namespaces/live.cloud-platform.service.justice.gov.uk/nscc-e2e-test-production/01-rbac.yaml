@@ -5,7 +5,7 @@ metadata:
   namespace: nscc-e2e-test-production
 subjects:
   - kind: Group
-    name: "github:nsm-e2e-test-admin-team"
+    name: "github:crm7team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

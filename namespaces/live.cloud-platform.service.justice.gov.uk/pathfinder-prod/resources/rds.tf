@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace                = var.namespace
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000" # maximum storage for autoscaling
-  db_engine_version        = "15.2"
+  db_engine_version        = "15.5"
   environment_name         = var.environment_name
   infrastructure_support   = var.infrastructure_support
 

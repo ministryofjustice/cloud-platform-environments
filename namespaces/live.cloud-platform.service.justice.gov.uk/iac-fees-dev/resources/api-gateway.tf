@@ -1,4 +1,5 @@
 resource "aws_api_gateway_rest_api" "api_gateway" {
+  provider = aws.ireland
   name                         = var.namespace
   disable_execute_api_endpoint = false
   binary_media_types           = ["*/*"]
@@ -19,6 +20,7 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
 }
 
 resource "aws_api_gateway_rest_api_policy" "api_policy" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
   policy = <<EOF
@@ -29,7 +31,7 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
         "Effect": "Allow",
         "Principal": "*",
         "Action": "execute-api:Invoke",
-        "Resource": "arn:aws:execute-api:eu-west-2:754256621582:${aws_api_gateway_rest_api.api_gateway.id}/*"
+        "Resource": "arn:aws:execute-api:eu-west-1:754256621582:${aws_api_gateway_rest_api.api_gateway.id}/*"
       },
       {
       "Effect": "Allow",
@@ -46,12 +48,14 @@ resource "aws_api_gateway_rest_api_policy" "api_policy" {
 }
 
 resource "aws_api_gateway_resource" "proxy" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
+  provider = aws.ireland
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   resource_id   = aws_api_gateway_resource.proxy.id
   http_method   = "PUT"
@@ -63,12 +67,13 @@ resource "aws_api_gateway_method" "proxy" {
 }
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  provider = aws.ireland
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "AWS"
   integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:eu-west-2:s3:path/${module.s3_bucket.bucket_name}/{proxy}"
+  uri                     = "arn:aws:apigateway:eu-west-1:s3:path/${module.s3_bucket.bucket_name}/{proxy}"
 
   credentials = aws_iam_role.api_gateway_role.arn
 
@@ -82,6 +87,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 }
 
 resource "aws_api_gateway_method_response" "api_method_response" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
@@ -92,6 +98,7 @@ resource "aws_api_gateway_method_response" "api_method_response" {
 }
 
 resource "aws_api_gateway_integration_response" "api_integration_response" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
@@ -105,6 +112,7 @@ resource "aws_api_gateway_integration_response" "api_integration_response" {
 }
 
 resource "aws_api_gateway_deployment" "main" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 
   #hack to force recreate of the deployment resource
@@ -121,18 +129,20 @@ resource "aws_api_gateway_deployment" "main" {
 }
 
 resource "aws_api_gateway_stage" "live" {
+  provider = aws.ireland
   deployment_id = aws_api_gateway_deployment.main.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   stage_name    = "upload"
 }
 
 resource "aws_api_gateway_method_settings" "all" {
+  provider = aws.ireland
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   stage_name  = aws_api_gateway_stage.live.stage_name
   method_path = "*/*"
   settings {
     metrics_enabled        = true
-    logging_level          = "INFO"
+    logging_level          = "OFF"
     throttling_burst_limit = 5000
     throttling_rate_limit  = 10000
     data_trace_enabled     = false

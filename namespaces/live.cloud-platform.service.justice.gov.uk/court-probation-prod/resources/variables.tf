@@ -51,7 +51,7 @@ variable "rds-family" {
 }
 
 variable "db_engine_version" {
-  default = "14.7"
+  default = "14.10"
 }
 
 variable "number_cache_clusters" {
@@ -75,3 +75,6 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
+variable "kubernetes_cluster" {
+ }

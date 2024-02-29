@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "hub_dev"
     cloud-platform.justice.gov.uk/application: "HMPPS Launchpad"
     cloud-platform.justice.gov.uk/owner: "prisoner-content-hub-developers: thehub@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-launchpad-home-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-launchpad-home-ui,https://github.com/ministryofjustice/hmpps-launchpad-audit"
     cloud-platform.justice.gov.uk/team-name: "prisoner-content-hub-developers"
     cloud-platform.justice.gov.uk/review-after: ""
