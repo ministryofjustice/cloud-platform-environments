@@ -9,12 +9,12 @@ module "secrets" {
     "elasticache_primary_endpoint_address" = {
       description             = "Elasticache primary endpoint address"
       recovery_window_in_days = 7               
-      k8s_secret_name         = "elasticache_primary_endpoint_address"
+      k8s_secret_name         = "elasticache-primary-endpoint-address"
     },
     "elasticache_auth_token" = {
       description             = "Elasticache auth token"
       recovery_window_in_days = 7               
-      k8s_secret_name         = "elasticache_auth_token"
+      k8s_secret_name         = "elasticache-auth-token"
     }
   }
 
