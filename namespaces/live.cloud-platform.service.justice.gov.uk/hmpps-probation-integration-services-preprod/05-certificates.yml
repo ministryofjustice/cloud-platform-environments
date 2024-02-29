@@ -599,3 +599,18 @@ spec:
   dnsNames:
     - 0d276ce2-preprod.hmpps.service.justice.gov.uk
     - oasys-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: feature-flags-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: feature-flags-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 25e85f23-preprod.hmpps.service.justice.gov.uk
+    - feature-flags-preprod.hmpps.service.justice.gov.uk
