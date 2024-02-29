@@ -203,6 +203,37 @@ EOF
   }
 }
 
+data "aws_iam_policy_document" "external_user_s3_access_policy" {
+  statement {
+    sid = "AllowExternalUserToReadAndPutObjectsInS3"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject*",
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_iam_user" "s3-user" {
+  name = "external-s3-access-map-user-${var.environment}"
+  path = "/system/external-s3-access-user/"
+}
+
+resource "aws_iam_access_key" "s3-user" {
+  user = aws_iam_user.s3-user.name
+}
+
+resource "aws_iam_user_policy" "s3-policy" {
+  name   = "external-s3-read-write-policy"
+  policy = data.aws_iam_policy_document.external_user_s3_access_policy.json
+  user   = aws_iam_user.s3-user.name
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
@@ -210,7 +241,10 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn                    = module.s3_bucket.bucket_arn
+    bucket_name                   = module.s3_bucket.bucket_name
+    external_s3_access_user_arn   = aws_iam_user.s3-user.arn
+    external_s3_access_key_id     = aws_iam_access_key.s3-user.id
+    external_s3_secret_access_key = aws_iam_access_key.s3-user.secret
   }
 }
