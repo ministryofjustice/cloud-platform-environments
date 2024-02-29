@@ -14,8 +14,29 @@ module "s3_bucket" {
   environment_name              = var.environment
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
-  acl                           = "public-read"
-  enable_allow_block_pub_access = false
+  acl                           = "private"
+  enable_allow_block_pub_access = true
+
+  bucket_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject"
+          ],
+          "Resource": [
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
+  EOF
 
   /*
 
@@ -182,19 +203,6 @@ EOF
   }
 }
 
-
-module "s3_bucket_mgw" {
-
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-}
-
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
@@ -204,17 +212,5 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
-  }
-}
-
-resource "kubernetes_secret" "s3_bucket_mgw" {
-  metadata {
-    name      = "s3-bucket-output-mgw"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.s3_bucket_mgw.bucket_arn
-    bucket_name = module.s3_bucket_mgw.bucket_name
   }
 }

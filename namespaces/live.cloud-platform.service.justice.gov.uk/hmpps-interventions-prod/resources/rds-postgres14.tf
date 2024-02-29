@@ -10,7 +10,7 @@ module "hmpps_interventions_postgres14" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                   = "postgres14"
-  db_engine_version            = "14"
+  db_engine_version            = "14.10"
   db_instance_class            = "db.m6g.2xlarge"
   db_allocated_storage         = "50"
   allow_major_version_upgrade  = "false"
@@ -49,7 +49,7 @@ module "hmpps_interventions_postgres14_replica" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                   = "postgres14"
-  db_engine_version            = "14"
+  db_engine_version            = "14.10"
   db_instance_class            = "db.m6g.2xlarge"
   allow_major_version_upgrade  = "false"
   db_max_allocated_storage     = "50"

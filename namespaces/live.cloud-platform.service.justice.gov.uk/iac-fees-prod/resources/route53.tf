@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "route53_justice_zone" {
-  name = "iac-fees.justice.gov.uk"
+  name = "immigrationappealsonline.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit

@@ -53,34 +53,6 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
    EOF
 }
 
-data "aws_iam_policy_document" "external_user_sqs_access_policy" {
-  statement {
-    sid = "AllowExternalUserToAccessSQS"
-    actions = [
-      "sqs:*"
-    ]
-
-    resources = [
-      "*"
-    ]
-  }
-}
-
-resource "aws_iam_user" "user" {
-  name = "external-sqs-access-user-${var.environment}"
-  path = "/system/external-sqs-access-user/"
-}
-
-resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
-}
-
-resource "aws_iam_user_policy" "policy" {
-  name   = "external-sqs-read-write-policy"
-  policy = data.aws_iam_policy_document.external_user_sqs_access_policy.json
-  user   = aws_iam_user.user.name
-}
-
 module "makeaplea_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
@@ -113,9 +85,6 @@ resource "kubernetes_secret" "makeaplea_queue" {
     sqs_id                         = module.makeaplea_queue.sqs_id
     sqs_arn                        = module.makeaplea_queue.sqs_arn
     sqs_name                       = module.makeaplea_queue.sqs_name
-    external_sqs_access_user_arn   = aws_iam_user.user.arn
-    external_sqs_access_key_id     = aws_iam_access_key.user.id
-    external_sqs_secret_access_key = aws_iam_access_key.user.secret
   }
 }
 

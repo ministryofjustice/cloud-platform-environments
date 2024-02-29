@@ -55,3 +55,7 @@ variable "eks_cluster_name" {
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
+variable "backup_window" {
+  default = "21:00-23:00"
+}

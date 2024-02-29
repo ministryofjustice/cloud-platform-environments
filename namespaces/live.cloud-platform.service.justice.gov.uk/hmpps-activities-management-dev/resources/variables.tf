@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "activities-and-appointments"
 }
 
 variable "environment" {
@@ -71,3 +71,4 @@ variable "mp_dps_sg_name" {
   default     = "cloudplatform-mp-dps-sg"
 }
 
+variable "kubernetes_cluster" {}

@@ -24,16 +24,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - education-employment-api.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-ciag-careers-induction-api-prod-cert
-  namespace: hmpps-education-employment-prod
-spec:
-  secretName: hmpps-ciag-careers-induction-api-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - ciag-induction-api.hmpps.service.justice.gov.uk
