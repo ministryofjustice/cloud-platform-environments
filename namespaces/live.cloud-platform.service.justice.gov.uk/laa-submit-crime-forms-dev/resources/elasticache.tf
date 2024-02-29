@@ -14,3 +14,17 @@ module "crm_elasticache" {
   parameter_group_name = "default.redis7"
   node_type            = "cache.t4g.micro"
 }
+
+resource "kubernetes_secret" "crm_elasticache" {
+  metadata {
+    name      = "crm-elasticache"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.crm_elasticache.primary_endpoint_address
+    member_clusters          = jsonencode(module.crm_elasticache.member_clusters)
+    auth_token               = module.crm_elasticache.auth_token
+    replication_group_id     = module.crm_elasticache.replication_group_id
+  }
+}
