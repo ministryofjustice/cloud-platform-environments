@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: intranet-development-admin
-  namespace: intranet-development
+  name: laa-crime-equinity-historical-data-frontend-uat-admin
+  namespace: laa-crime-equinity-historical-data-frontend-uat
 subjects:
   - kind: Group
-    name: "github:central-digital-product-team"
+    name: "github:laa-crime-equinity-data"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
