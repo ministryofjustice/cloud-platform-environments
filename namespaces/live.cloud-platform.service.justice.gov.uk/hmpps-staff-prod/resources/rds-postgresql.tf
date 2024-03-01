@@ -24,14 +24,14 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14"
+  db_engine_version = "15.5"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres15"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -44,7 +44,7 @@ module "rds" {
   # ]
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   # enable_rds_auto_start_stop  = true
