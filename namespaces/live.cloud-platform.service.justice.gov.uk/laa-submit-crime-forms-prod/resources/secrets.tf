@@ -24,7 +24,7 @@ module "secrets" {
     "google-analytics" = {
       description             = "Google Analytics Secrets" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "ga-tracking-key"
+      k8s_secret_name         = "google-analytics"
     },
     "notify-key" = {
       description             = "GOV UK Notify Key" 
