@@ -16,7 +16,7 @@ module "rds-instance" {
   db_max_allocated_storage   = "500"
   rds_family                 = "postgres14"
   db_engine                  = "postgres"
-  db_engine_version          = "14"
+  db_engine_version          = "14.11"
   enable_rds_auto_start_stop = true
 
   providers = {
