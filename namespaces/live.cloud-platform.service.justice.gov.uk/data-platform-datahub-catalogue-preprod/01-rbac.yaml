@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: data-platform-datahub-catalogue-dev-admin
-  namespace: data-platform-datahub-catalogue-dev
+  name: data-platform-datahub-catalogue-preprod-admin
+  namespace: data-platform-datahub-catalogue-preprod
 subjects:
   - kind: Group
     name: "github:data-platform"
