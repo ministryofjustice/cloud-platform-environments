@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Datahub Catalogue"
+  default     = "Equinity data migration"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "data-platform-datahub-catalogue-dev"
+  default     = "laa-crime-equinity-historical-data-frontend-uat"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "data-platform"
+  default     = "laa-crime-equinity-data"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = ""
+  default     = "laa-eq-data-migration-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "data-catalogue"
+  default     = "equinity-data-migration"
 }
 
 variable "github_owner" {
@@ -66,7 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
 }
