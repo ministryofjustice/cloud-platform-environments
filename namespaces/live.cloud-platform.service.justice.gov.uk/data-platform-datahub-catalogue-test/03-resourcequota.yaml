@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: data-platform-datahub-catalogue-dev
+  namespace: data-platform-datahub-catalogue-test
 spec:
   hard:
     pods: "50"
