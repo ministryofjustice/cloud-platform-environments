@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3                        = aws_iam_policy.s3_access_policy.arn
-    sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
+    sqs_map_queue             = aws_iam_policy.sqs_access_policy.arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
   }
 

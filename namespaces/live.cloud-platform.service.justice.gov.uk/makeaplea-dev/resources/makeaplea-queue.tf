@@ -26,6 +26,24 @@ module "makeaplea_queue" {
   }
 }
 
+resource "aws_iam_policy" "sqs_access_policy" {
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sqs:ListQueues",
+          "sqs:GetQueueAttributes",
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage"
+        ]
+        Effect   = "Allow"
+        Resource = "${module.makeaplea_queue.sqs_arn}"
+      },
+    ]
+  })
+}
 
 resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
   queue_url = module.makeaplea_queue.sqs_id
