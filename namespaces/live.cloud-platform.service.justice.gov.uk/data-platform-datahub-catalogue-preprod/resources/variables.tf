@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Intranet"
+  default     = "Datahub Catalogue"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "intranet-production"
+  default     = "data-platform-datahub-catalogue-preprod"
 }
 
 variable "business_unit" {
@@ -29,31 +29,31 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "central-digital-product-team"
+  default     = "data-platform"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "central-digital-product-team@digital.justice.gov.uk"
+  default     = ""
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cdpt-central-digital-product-team"
+  default     = "data-catalogue"
 }
 
 variable "github_owner" {
@@ -68,8 +68,5 @@ variable "github_token" {
   default     = ""
 }
 
-variable "app_repo" {
-  type        = string
-  description = "Name of application repository"
-  default     = "moj-intranet"
+variable "eks_cluster_name" {
 }
