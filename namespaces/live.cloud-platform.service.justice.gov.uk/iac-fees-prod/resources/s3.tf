@@ -44,7 +44,8 @@ data "aws_iam_policy_document" "cgi_s3_access_policy" {
       "s3:GetObject*",
       "s3:DeleteObject*",
       "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:GetBucketLocation",
+      "s3:ListBucketVersions"
     ]
 
     resources = [
