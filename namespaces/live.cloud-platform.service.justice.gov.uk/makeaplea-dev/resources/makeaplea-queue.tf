@@ -38,8 +38,8 @@ resource "aws_iam_policy" "sqs_access_policy" {
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage"
         ]
-        Effect   = "Allow"
-        resources = [
+        Effect = "Allow"
+        Resource = [
           module.makeaplea_queue.sqs_arn,
           "${module.makeaplea_queue.sqs_arn}/*"
         ]

@@ -213,8 +213,8 @@ resource "aws_iam_policy" "s3_access_policy" {
           "s3:ListBucket",
           "s3:GetObject*",
         ]
-        Effect   = "Allow"
-        resources = [
+        Effect = "Allow"
+        Resource = [
           module.s3_bucket.bucket_arn,
           "${module.s3_bucket.bucket_arn}/*"
         ]
