@@ -28,12 +28,12 @@ module "secrets_manager" {
     "catalogue_token" = {
       description             = "Catalogue token for Datahub API Access",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "catalogue_token"
+      k8s_secret_name         = "catalogue-token"
     },
     "secret_key" = {
       description             = "Django secret key",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "secret_key"
+      k8s_secret_name         = "secret-key"
     },
   }
 }
