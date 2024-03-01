@@ -57,7 +57,7 @@ module "secrets" {
       k8s_secret_name         = "sidekiq-auth-username"
     },
     "sidekiq-auth-password" = {
-      description             = "Password for Sidekiq Authentication 
+      description             = "Password for Sidekiq Authentication"
       recovery_window_in_days = 7
       k8s_secret_name         = "sidekiq-auth-password"
     }
