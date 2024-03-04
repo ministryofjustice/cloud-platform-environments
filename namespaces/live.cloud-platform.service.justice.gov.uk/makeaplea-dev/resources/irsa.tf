@@ -21,15 +21,10 @@
 data "aws_iam_policy_document" "sqs_policy_doc" {
   statement {
     actions = [
-      "sqs:ListQueues",
-      "sqs:GetQueueAttributes",
-      "sqs:SendMessage",
-      "sqs:ReceiveMessage",
-      "sqs:DeleteMessage"
+      "sqs:*",
     ]
     resources = [
-        module.makeaplea_queue.sqs_arn,
-        "${module.makeaplea_queue.sqs_arn}/*"
+        "arn:aws:sqs:::*",
     ]
   }
 }
