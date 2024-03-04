@@ -1,3 +1,45 @@
+# data "aws_iam_policy_document" "s3_policy_doc" {
+#   statement {
+#     actions = [
+#       "s3:PutObject",
+#       "s3:ListBucket",
+#       "s3:GetObject*",
+#     ]
+#     resources = [
+#       module.s3_bucket.bucket_arn,
+#       "${module.s3_bucket.bucket_arn}/*"
+#     ]
+#   }
+# }
+
+# resource "aws_iam_policy" "s3_policy" {
+#   name        = "irsa-access-to-s3-bucket"
+#   path        = "/cloud-platform/"
+#   policy      = data.aws_iam_policy_document.s3_policy_doc.json
+# }
+
+data "aws_iam_policy_document" "sqs_policy_doc" {
+  statement {
+    actions = [
+      "sqs:ListQueues",
+      "sqs:GetQueueAttributes",
+      "sqs:SendMessage",
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage"
+    ]
+    resources = [
+        module.makeaplea_queue.sqs_arn,
+        "${module.makeaplea_queue.sqs_arn}/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "sqs_policy" {
+  name        = "irsa-access-to-sqs"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.sqs_policy_doc.json
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -12,8 +54,8 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    # s3                        = module.s3_bucket.irsa_policy_arn
-    sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
+    # s3                        = aws_iam_policy.s3_policy.arn
+    sqs_map_queue             = aws_iam_policy.sqs_policy.arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
   }
 
@@ -24,6 +66,17 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "${var.team_name}-irsa"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+  }
 }
 
 # set up the service pod
