@@ -23,7 +23,9 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_court_sentencing_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_visit_queue.sqs_arn,
-      module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn
+      module.hmpps_prisoner_to_nomis_visit_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_alerts_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_alerts_dead_letter_queue.sqs_arn,
     ]
   }
 }
