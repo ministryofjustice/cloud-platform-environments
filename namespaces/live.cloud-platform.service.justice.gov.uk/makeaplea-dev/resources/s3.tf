@@ -37,10 +37,6 @@ module "s3_bucket" {
       ]
     }
   EOF
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
