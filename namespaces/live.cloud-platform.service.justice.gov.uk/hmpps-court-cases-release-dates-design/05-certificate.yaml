@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-court-cases-release-dates-design-cert
+  namespace: hmpps-court-cases-release-dates-design
+spec:
+  secretName: hmpps-court-cases-release-dates-design-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - court-cases-release-dates-design.hmpps.service.justice.gov.uk
