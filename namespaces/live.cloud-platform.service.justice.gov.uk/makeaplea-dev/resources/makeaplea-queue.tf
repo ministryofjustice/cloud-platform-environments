@@ -26,54 +26,6 @@ module "makeaplea_queue" {
   }
 }
 
-resource "aws_iam_policy" "sqs_access_policy" {
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "sqs:ListQueues",
-          "sqs:GetQueueAttributes",
-          "sqs:SendMessage",
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage"
-        ]
-        Effect = "Allow"
-        Resource = [
-          module.makeaplea_queue.sqs_arn,
-          "${module.makeaplea_queue.sqs_arn}/*"
-        ]
-      },
-    ]
-  })
-}
-
-resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
-  queue_url = module.makeaplea_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.makeaplea_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.makeaplea_queue.sqs_arn}",
-          "Action": [
-            "sqs:ListQueues",
-            "sqs:GetQueueAttributes",
-            "sqs:SendMessage",
-            "sqs:ReceiveMessage",
-            "sqs:DeleteMessage"
-          ]
-        }
-      ]
-  }
-   EOF
-}
-
 module "makeaplea_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
