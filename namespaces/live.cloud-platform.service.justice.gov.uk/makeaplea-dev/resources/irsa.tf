@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "sqs_policy_doc" {
       "sqs:*",
     ]
     resources = [
-      module.makeaplea_queue.sqs_arn
+      "*",
     ]
   }
 }
