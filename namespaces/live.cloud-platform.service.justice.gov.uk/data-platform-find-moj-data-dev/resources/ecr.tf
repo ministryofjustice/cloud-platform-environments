@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["data-catalogue"]
+  github_repositories = ["find-moj-data"]
 
   # Tags
   business_unit          = var.business_unit
