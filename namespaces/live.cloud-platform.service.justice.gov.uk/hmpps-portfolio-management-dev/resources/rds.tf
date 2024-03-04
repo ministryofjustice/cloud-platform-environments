@@ -66,7 +66,7 @@ resource "helm_release" "generic-aws-prometheus-alerts" {
   name       = "generic-aws-prometheus-alerts"
   repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
   chart      = "generic-aws-prometheus-alerts"
-  version    = "1.0.0"
+  version    = "1.0.1"
   namespace  = var.namespace
 
   set {
