@@ -8,6 +8,7 @@ module "serviceaccount_circleci" {
 
   serviceaccount_name = "circleci-migrated"
   role_name = "circleci-migrated-role"
+  rolebinding_name = "circleci-migrated-rolebinding"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
