@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cjs-data-dashboard"
     cloud-platform.justice.gov.uk/application: "CJS Dashboard"
     cloud-platform.justice.gov.uk/owner: "Data Science Hub (CJS): laura.knowles1@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjs-scorecard"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjs-dashboard"
     cloud-platform.justice.gov.uk/team-name: "cjs-dashboard"
     cloud-platform.justice.gov.uk/review-after: ""
