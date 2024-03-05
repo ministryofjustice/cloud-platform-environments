@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "datahub" {
 }
 
 resource "aws_iam_policy" "datahub" {
-  name        = "datahub-policy"
+  name        = "datahub-policy-${var.environment}"
   path        = "/"
   description = "Datahub Policy for Data Ingestion"
   policy      = data.aws_iam_policy_document.datahub.json
