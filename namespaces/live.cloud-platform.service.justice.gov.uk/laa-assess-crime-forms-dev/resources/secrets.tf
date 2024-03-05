@@ -6,65 +6,40 @@ module "secrets" {
 
   # Secrets configuration
   secrets = {
-    "sentry-dsn-url" = {
+    "sentry-dsn" = {
       description             = "DSN URL for Sentry Project" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "sentry-dsn-url"
+      k8s_secret_name         = "sentry-dsn"
     },
-    "secret-key-base" = {
-      description             = "Rails secret_key_base" 
+    "app-secrets" = {
+      description             = "Rails app secrets" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "secret-key-base"
+      k8s_secret_name         = "app-secrets"
     },
-    "app-store-client-id" = {
-      description             = "Intra ID App Registration Client ID" 
+    "app-store-auth" = {
+      description             = "Intra ID App Authentication Details" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "app-store-client-id"
+      k8s_secret_name         = "app-store-auth"
     },
-    "app-store-client-secret" = {
-      description             = "Intra ID App Registration Client Secret" 
+    "google-analytics" = {
+      description             = "Google Analytics Secrets" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "app-store-client-secret"
-    },
-    "azure-tenant-id" = {
-      description             = "Tenant ID for Azure" 
-      recovery_window_in_days = 7
-      k8s_secret_name         = "azure-tenant-id"
-    },
-    "ga-tracking-key" = {
-      description             = "Google Analytics Tracking Key" 
-      recovery_window_in_days = 7
-      k8s_secret_name         = "ga-tracking-key"
+      k8s_secret_name         = "google-analytics"
     },
     "notify-key" = {
       description             = "GOV UK Notify Key" 
       recovery_window_in_days = 7
       k8s_secret_name         = "notify-key"
     },
-    "sidekiq-auth-username" = {
-      description             = "Username for Sidekiq Authentication" 
+    "sidekiq-auth" = {
+      description             = "Credentials for Sidekiq Page" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "sidekiq-auth-username"
-    },
-    "sidekiq-auth-password" = {
-      description             = "Password for Sidekiq Authentication"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "sidekiq-auth-password"
-    },
-    "azure-auth-client-id" = {
+      k8s_secret_name         = "sidekiq-auth"
+    }
+    "azure-auth" = {
       description             = "Client ID for Intra (FKA Azure AD) ID Login"
       recovery_window_in_days = 7
-      k8s_secret_name         = "azure-auth-client-id"
-    },
-    "azure-auth-client-secret" = {
-      description             = "Client Secret for Intra (FKA Azure AD) ID Login"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "azure-auth-client-secret"
-    },
-    "azure-auth-redirect-uri" = {
-      description             = "Redirect URL for Intra (FKA Azure AD) ID Login"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "azure-auth-redirect-uri"
+      k8s_secret_name         = "azure-auth"
     }
   }
 
