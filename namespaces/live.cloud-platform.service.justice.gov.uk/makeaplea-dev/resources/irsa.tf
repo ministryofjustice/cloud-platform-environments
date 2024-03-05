@@ -1,22 +1,19 @@
-# data "aws_iam_policy_document" "s3_policy_doc" {
-#   statement {
-#     actions = [
-#       "s3:PutObject",
-#       "s3:ListBucket",
-#       "s3:GetObject*",
-#     ]
-#     resources = [
-#       module.s3_bucket.bucket_arn,
-#       "${module.s3_bucket.bucket_arn}/*"
-#     ]
-#   }
-# }
+data "aws_iam_policy_document" "s3_policy_doc" {
+  statement {
+    actions = [
+      "s3:*",
+    ]
+    resources = [
+      "*",
+    ]
+  }
+}
 
-# resource "aws_iam_policy" "s3_policy" {
-#   name        = "irsa-access-to-s3-bucket"
-#   path        = "/cloud-platform/"
-#   policy      = data.aws_iam_policy_document.s3_policy_doc.json
-# }
+resource "aws_iam_policy" "s3_policy" {
+  name        = "irsa-access-to-s3-bucket"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.s3_policy_doc.json
+}
 
 data "aws_iam_policy_document" "sqs_policy_doc" {
   statement {
