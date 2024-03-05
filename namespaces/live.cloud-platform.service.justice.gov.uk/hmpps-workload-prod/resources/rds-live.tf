@@ -18,6 +18,7 @@ module "rds-live" {
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = true
   db_engine_version         = "15.5"
+
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
 
