@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "s3_policy_doc" {
       "s3:*",
     ]
     resources = [
-      "*",
+      module.s3_bucket.bucket_arn,
     ]
   }
 }
