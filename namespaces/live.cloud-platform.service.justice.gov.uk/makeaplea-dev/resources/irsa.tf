@@ -46,7 +46,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    # s3                        = aws_iam_policy.s3_policy.arn
+    s3                        = aws_iam_policy.s3_policy.arn
     sqs_map_queue             = aws_iam_policy.sqs_policy.arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
   }
