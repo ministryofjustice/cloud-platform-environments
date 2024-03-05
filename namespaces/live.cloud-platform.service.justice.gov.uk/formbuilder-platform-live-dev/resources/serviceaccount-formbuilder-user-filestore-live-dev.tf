@@ -7,6 +7,8 @@ module "serviceaccount_formbuilder-user-filestore-live-dev" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   serviceaccount_name = "formbuilder-user-filestore-live-dev-migrated"
+  role_name = "formbuilder-user-filestore-live-dev-migrated"
+  rolebinding_name = "formbuilder-user-filestore-live-dev-migrated"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
