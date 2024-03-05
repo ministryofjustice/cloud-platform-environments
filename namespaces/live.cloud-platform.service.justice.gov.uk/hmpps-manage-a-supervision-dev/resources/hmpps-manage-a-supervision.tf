@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "hmpps_audit_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
-    namespace = "hmpps-manage-a-supervision-${var.environment-name}"
+    namespace = "hmpps-manage-a-supervision-${var.environment}"
   }
 
   data = {
