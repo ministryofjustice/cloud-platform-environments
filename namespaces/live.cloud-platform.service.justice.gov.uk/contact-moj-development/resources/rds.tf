@@ -17,7 +17,7 @@ module "contact-moj_rds" {
   db_max_allocated_storage   = "500"
   rds_family                 = "postgres12"
   db_engine                  = "postgres"
-  db_engine_version          = "12.11"
+  db_engine_version          = "12.18"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_development"
   enable_rds_auto_start_stop = true
