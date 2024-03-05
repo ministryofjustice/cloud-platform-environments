@@ -16,26 +16,26 @@ module "s3_bucket" {
   acl                           = "private"
   enable_allow_block_pub_access = true
 
-  bucket_policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "AWS": "*"
-          },
-          "Action": [
-            "s3:GetObject",
-            "s3:PutObject"
-          ],
-          "Resource": [
-            "$${bucket_arn}/*"
-          ]
-        }
-      ]
-    }
-  EOF
+  # bucket_policy = <<EOF
+  #   {
+  #     "Version": "2012-10-17",
+  #     "Statement": [
+  #       {
+  #         "Effect": "Allow",
+  #         "Principal": {
+  #           "AWS": "*"
+  #         },
+  #         "Action": [
+  #           "s3:GetObject",
+  #           "s3:PutObject"
+  #         ],
+  #         "Resource": [
+  #           "$${bucket_arn}/*"
+  #         ]
+  #       }
+  #     ]
+  #   }
+  # EOF
 
   providers = {
     aws = aws.london
@@ -48,7 +48,7 @@ resource "kubernetes_secret" "s3_bucket" {
     namespace = var.namespace
   }
   data = {
-    bucket_arn                    = module.s3_bucket.bucket_arn
-    bucket_name                   = module.s3_bucket.bucket_name
+    bucket_arn  = module.s3_bucket.bucket_arn
+    bucket_name = module.s3_bucket.bucket_name
   }
 }

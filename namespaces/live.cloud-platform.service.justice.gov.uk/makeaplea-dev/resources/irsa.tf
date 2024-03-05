@@ -1,19 +1,19 @@
-data "aws_iam_policy_document" "s3_policy_doc" {
-  statement {
-    actions = [
-      "s3:*",
-    ]
-    resources = [
-      module.s3_bucket.bucket_arn,
-    ]
-  }
-}
+# data "aws_iam_policy_document" "s3_policy_doc" {
+#   statement {
+#     actions = [
+#       "s3:*",
+#     ]
+#     resources = [
+#       module.s3_bucket.bucket_arn,
+#     ]
+#   }
+# }
 
-resource "aws_iam_policy" "s3_policy" {
-  name        = "irsa-access-to-s3-bucket"
-  path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.s3_policy_doc.json
-}
+# resource "aws_iam_policy" "s3_policy" {
+#   name        = "irsa-access-to-s3-bucket"
+#   path        = "/cloud-platform/"
+#   policy      = data.aws_iam_policy_document.s3_policy_doc.json
+# }
 
 data "aws_iam_policy_document" "sqs_policy_doc" {
   statement {
@@ -46,7 +46,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3                        = aws_iam_policy.s3_policy.arn
+    s3                        = module.s3_bucket.irsa_policy_arn
     sqs_map_queue             = aws_iam_policy.sqs_policy.arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
   }
