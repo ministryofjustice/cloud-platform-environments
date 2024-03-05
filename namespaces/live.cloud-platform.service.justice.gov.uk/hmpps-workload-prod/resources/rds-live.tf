@@ -13,7 +13,7 @@ module "rds-live" {
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
-  db_instance_class = "db.t4g.medium"
+  db_instance_class = "db.t4g.large"
 
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = true
