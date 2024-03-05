@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "prison-education"
     cloud-platform.justice.gov.uk/application: "Candidate Matching Service"
     cloud-platform.justice.gov.uk/owner: "Education Skills Work Employment: managing.eswe@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-candidate-matching-ui.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-candidate-matching-api.git"
     cloud-platform.justice.gov.uk/team-name: "education-skills-work-employment"
     cloud-platform.justice.gov.uk/review-after: ""
