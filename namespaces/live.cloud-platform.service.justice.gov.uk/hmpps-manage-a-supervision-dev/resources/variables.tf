@@ -51,12 +51,6 @@ variable "infrastructure_support" {
   default     = "probation-integration-team@digital.justice.gov.uk"
 }
 
-variable "is_production" {
-  description = "Whether this environment type is production or not"
-  type        = string
-  default     = "false"
-}
-
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "development"
