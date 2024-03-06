@@ -31,7 +31,7 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
   }
 }
 
-module "serviceaccount" {
+module "token-cache-serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
   namespace           = var.namespace
