@@ -46,19 +46,10 @@ module "token-cache-serviceaccount" {
     {
       api_groups = [""]
       resources = [
-        "pods/portforward",
-        "deployment",
-        "secrets",
-        "services",
-        "configmaps",
-        "pods",
+        "configmaps"
       ]
       verbs = [
-        "patch",
         "get",
-        "create",
-        "update",
-        "delete",
         "list",
         "watch",
       ]
