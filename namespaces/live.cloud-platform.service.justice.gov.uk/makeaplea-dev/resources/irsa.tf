@@ -47,8 +47,8 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3                        = module.s3_bucket.irsa_policy_arn
-    # sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
-    # sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
+    sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
+    sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
   }
 
   # Tags
