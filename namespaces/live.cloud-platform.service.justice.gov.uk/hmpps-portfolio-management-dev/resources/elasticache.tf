@@ -49,11 +49,11 @@ resource "kubernetes_secret" "elasticache_redis_dev" {
 }
 
 resource "helm_release" "hmpps_developer_portal_elasticache_alerts" {
-  name       = "hmpps-developer-portal-elasticache-alerts"
+  name       = "hmpps-dev-portal-elasticache-alerts"
   repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
-  chart      = "generic-prometheus-alerts"
-  version    = "1.4.0"
-  namespace  = var.namespace
+  chart      = "generic-aws-prometheus-alerts"
+  version    = "1.0.2"
+  namespace  = "hmpps-portfolio-management-dev"
 
   set {
     name  = "targetApplication"
