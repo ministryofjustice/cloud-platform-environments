@@ -8,7 +8,6 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories   = ["find-moj-data"]
-  github_environments   = ["test"]
-  github_actions_prefix = ["test"]
+  github_repositories = ["find-moj-data"]
+  github_environments = ["test"]
 }

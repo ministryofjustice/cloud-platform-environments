@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers        = ["github"]
   github_repositories   = ["find-moj-data"]
   github_environments   = ["test"]
-  github_actions_prefix = ["test"]
+  github_actions_prefix = "test"
 
   # Tags
   business_unit          = var.business_unit
