@@ -17,7 +17,7 @@ module "secrets" {
       k8s_secret_name         = "app-secrets"
     },
     "app-store-auth" = {
-      description             = "Intra ID App Authentication Details" 
+      description             = "App Store Azure Authentication Details" 
       recovery_window_in_days = 7
       k8s_secret_name         = "app-store-auth"
     },
