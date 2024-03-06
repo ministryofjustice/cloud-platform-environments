@@ -41,4 +41,18 @@ module "token-cache-serviceaccount" {
   serviceaccount_token_rotated_date = "06-03-2024"
   role_name = "service-token-cache-service-account-role"
   rolebinding_name = "service-token-cache-service-account-rolebinding"
+
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "configmaps"
+      ]
+      verbs = [
+        "get",
+        "list",
+        "watch",
+      ]
+    }
+  ]
 }
