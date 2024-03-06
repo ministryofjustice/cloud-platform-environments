@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "intranet-prod"
+  default = "intranet-production"
 }
 
 variable "business_unit" {
