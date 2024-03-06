@@ -21,12 +21,12 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
     "cda_oauth_client_id" = {
-      description             = "CDA oauth client ID for CCP Test",
+      description             = "Court Data API oauth client ID for CCP Test",
       recovery_window_in_days = 7
       k8s_secret_name         = "cda-oauth-client-id"
     },
     "cda_oauth_client_secret" = {
-      description             = "CDA oauth client secret for CCP Test",
+      description             = "Court Data API oauth client secret for CCP Test",
       recovery_window_in_days = 7
       k8s_secret_name         = "cda-oauth-client-secret"
     },
