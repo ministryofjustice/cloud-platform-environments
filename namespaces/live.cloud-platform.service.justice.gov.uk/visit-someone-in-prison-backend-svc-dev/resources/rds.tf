@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -42,7 +42,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
 }
 
 module "hmpps_one_login_user_registry_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
