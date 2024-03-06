@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Data Platform Datahub Catalogue"
+  default     = "Datahub Catalogue"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "data-platform-labs"
+  default     = "data-platform"
 }
 
 variable "environment" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "data-platform-labs"
+  default     = "data-catalogue"
 }
 
 variable "github_owner" {

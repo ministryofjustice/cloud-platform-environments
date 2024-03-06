@@ -64,3 +64,5 @@ variable "github_token" {
 variable "rds_family" {
   default = "postgres14"
 }
+
+variable "kubernetes_cluster" {}

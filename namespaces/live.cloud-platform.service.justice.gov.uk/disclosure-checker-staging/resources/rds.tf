@@ -15,7 +15,7 @@ module "rds-instance" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "14"
+  db_engine_version          = "14.11"
   rds_family                 = "postgres14"
   enable_rds_auto_start_stop = true
 

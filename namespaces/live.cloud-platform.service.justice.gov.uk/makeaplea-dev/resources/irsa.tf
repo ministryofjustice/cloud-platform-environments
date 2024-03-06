@@ -1,3 +1,37 @@
+# data "aws_iam_policy_document" "s3_policy_doc" {
+#   statement {
+#     actions = [
+#       "s3:*",
+#     ]
+#     resources = [
+#       module.s3_bucket.bucket_arn,
+#     ]
+#   }
+# }
+
+# resource "aws_iam_policy" "s3_policy" {
+#   name        = "irsa-access-to-s3-bucket"
+#   path        = "/cloud-platform/"
+#   policy      = data.aws_iam_policy_document.s3_policy_doc.json
+# }
+
+# data "aws_iam_policy_document" "sqs_policy_doc" {
+#   statement {
+#     actions = [
+#       "sqs:*",
+#     ]
+#     resources = [
+#       "*",
+#     ]
+#   }
+# }
+
+# resource "aws_iam_policy" "sqs_policy" {
+#   name        = "irsa-access-to-sqs"
+#   path        = "/cloud-platform/"
+#   policy      = data.aws_iam_policy_document.sqs_policy_doc.json
+# }
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -24,6 +58,17 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "${var.team_name}-irsa"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+  }
 }
 
 # set up the service pod

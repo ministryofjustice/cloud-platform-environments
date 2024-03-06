@@ -55,3 +55,5 @@ variable "github_token" {
 variable "repo_name" {
   default = "peoplefinder"
 }
+
+variable "kubernetes_cluster" {}

@@ -54,6 +54,20 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
+resource "kubernetes_secret" "s3_bucket_user" {
+  metadata {
+    name      = "s3-bucket-user-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    aws_region            = data.aws_region.current.name
+    account_id            = data.aws_caller_identity.current.account_id
+    aws_access_key_id     = aws_iam_access_key.s3_user.id
+    aws_secret_access_key = aws_iam_access_key.s3_user.secret
+  }
+}
+
 resource "github_actions_variable" "s3_bucket" {
   repository    = "hmpps-github-teams"
   variable_name = "TERRAFORM_S3_BUCKET_NAME"

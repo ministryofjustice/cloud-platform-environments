@@ -10,6 +10,7 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
       "GEN-OSE",
       "ALERT-ACTIVE",
       "ALERT-INACTIVE",
+      "RESET-BCST",
       { prefix = "OMIC" },
       { prefix = "OMIC_OPD" },
       { prefix = "KA" }

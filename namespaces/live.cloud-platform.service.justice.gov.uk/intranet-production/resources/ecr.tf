@@ -1,66 +1,30 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "intranet_ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+module "ecr_credentials" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
 
-  repo_name = "intranet-ecr" # Arbitrary module name does not need to reference any existing modules
+  repo_name = "${var.namespace}-ecr"
 
-  # enable the oidc implementation for GitHub
-  oidc_providers = ["github"]
-
-  # specify which GitHub repository you're pushing from
-  github_repositories = [var.app_repo]
-
-  # Lifecycle policies
   lifecycle_policy = <<EOF
-    {
-      "rules": [
-        {
-          "rulePriority": 1,
-          "description": "Expire untagged images older than 14 days",
-          "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 14
-          },
-          "action": {
-            "type": "expire"
-          }
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 30 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 30
         },
-        {
-          "rulePriority": 2,
-          "description": "Keep last 30 dev and staging images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPrefixList": ["dev", "staging"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 30
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 3,
-          "description": "Keep the newest 100 images and mark the rest for expiration",
-          "selection": {
-            "tagStatus": "tagged",
-            "countType": "imageCountMoreThan",
-            "countNumber": 100,
-            "tagPrefixList": ["production"]
-          },
-          "action": {
-            "type": "expire"
-          }
+        "action": {
+          "type": "expire"
         }
-      ]
-    }
-    EOF
+      }
+    ]
+  }
+  EOF
+
+  oidc_providers = ["github"]
+  github_repositories = ["intranet"]
+  github_environments = ["production"]
 
   # Tags
   business_unit          = var.business_unit
@@ -70,4 +34,16 @@ module "intranet_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
+  }
 }

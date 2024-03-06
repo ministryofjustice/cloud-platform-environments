@@ -50,3 +50,5 @@ variable "application" {
   default = "contact-moj"
 }
 
+
+variable "kubernetes_cluster" {}
