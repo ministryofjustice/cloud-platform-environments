@@ -30,3 +30,13 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
     auth_token               = module.service-token-cache-elasticache.auth_token
   }
 }
+
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  serviceaccount_name = "service-token-cache-terraform-module-formbuilder-platform-test-dev"
+
+  serviceaccount_token_rotated_date = "06-03-2024"
+}
