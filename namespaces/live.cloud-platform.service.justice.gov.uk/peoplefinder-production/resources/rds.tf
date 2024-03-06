@@ -14,8 +14,8 @@ module "peoplefinder_rds" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  db_engine_version          = "12.18"
   rds_family                 = "postgres12"
+  db_engine_version          = "12.18"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment_name           = var.environment
@@ -42,7 +42,7 @@ module "peoplefinder_rds_replica" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres12"
-  db_engine_version        = "12"
+  db_engine_version        = "12.18"
   namespace                = var.namespace
   business_unit            = var.business_unit
 
