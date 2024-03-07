@@ -42,3 +42,27 @@ variable "github_token" {
   default     = ""
 }
 
+variable "serviceaccount_get_configmap_rules" {
+  description = "Used to allow other namespaces to get configmaps"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # Only allow viewing configmaps
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "configmaps"
+      ]
+      verbs = [
+        "get",
+        "list",
+        "watch"
+      ]
+    }
+  ]
+}

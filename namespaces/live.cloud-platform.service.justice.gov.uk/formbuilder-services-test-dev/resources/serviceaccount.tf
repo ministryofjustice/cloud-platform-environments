@@ -86,3 +86,19 @@ module "serviceaccount" {
     }
   ]
 }
+
+resource "kubernetes_role" "get_configmaps_role" {
+  metadata {
+    name      = "formbuilder-services-test-dev-get-configmaps-role"
+    namespace = var.namespace
+  }
+
+  dynamic "rule" {
+    for_each = var.serviceaccount_get_configmap_rules
+    content {
+      api_groups = rule.value.api_groups
+      resources  = rule.value.resources
+      verbs      = rule.value.verbs
+    }
+  }
+}
