@@ -1,3 +1,7 @@
+locals {
+  sa_name = "formbuilder-service-token-cache-test-dev"
+}
+
 module "service-token-cache-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
@@ -31,41 +35,36 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
   }
 }
 
-module "token-cache-serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
-  namespace           = var.namespace
-  kubernetes_cluster  = var.kubernetes_cluster
-  serviceaccount_name = "service-token-cache-terraform-module-formbuilder-platform-test-dev"
+resource "kubernetes_service_account" "service_token_cache_service_account" {
+  metadata {
+    name      = local.sa_name
+    namespace = var.namespace
 
-  serviceaccount_token_rotated_date = "06-03-2024"
-  role_name = "service-token-cache-service-account-role"
-  rolebinding_name = "service-token-cache-service-account-rolebinding"
-
-  serviceaccount_rules = [
-    {
-      api_groups = [""]
-      resources = [
-        "configmaps"
-      ]
-      verbs = [
-        "get",
-        "list",
-        "watch",
-      ]
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_arn
     }
-  ]
+  }
+
+  secret {
+    name = "${local.sa_name}-token"
+  }
+
+  automount_service_account_token = true
 }
 
-resource "kubernetes_role" "service-token-cache-service-account-role" {
+resource "kubernetes_secret_v1" "service_token_cache_token" {
   metadata {
-    namespace = "formbuilder-sevices-test-dev"
-    name      = "service-token-cache-service-account-role"
+    name      = "formbuilder-service-token-cache-test-dev-token"
+    namespace = var.namespace
+    annotations = {
+      "kubernetes.io/service-account.name" = local.sa_name
+    }
   }
 
-  rule {
-    api_groups = [""]
-    resources  = ["configmaps"]
-    verbs      = ["get", "list"]
-  }
+  type = "kubernetes.io/service-account-token"
+
+  depends_on = [
+    kubernetes_service_account.service_token_cache_service_account
+  ]
 }
