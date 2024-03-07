@@ -10,8 +10,82 @@ module "serviceaccount_formbuilder-pdf-generator-live-dev" {
   role_name = "formbuilder-pdf-generator-live-dev"
   rolebinding_name = "formbuilder-pdf-generator-live-dev"
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ca.crt and token for use in github actions CI/CD pipelines
-  # github_repositories = ["my-repo"]
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling"
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
+  ]
 }
 
