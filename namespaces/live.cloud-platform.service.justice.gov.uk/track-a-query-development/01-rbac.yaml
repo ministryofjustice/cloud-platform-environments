@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: track-a-query-qa-admin
-  namespace: track-a-query-qa
+  name: track-a-query-development-admin
+  namespace: track-a-query-development
 subjects:
   - kind: Group
     name: "github:central-digital-product-team"

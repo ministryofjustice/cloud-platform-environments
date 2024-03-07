@@ -1,5 +1,16 @@
-locals {
-  sa_rules = [
+module "serviceaccount_formbuilder-user-datastore-test-dev" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+
+  namespace = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+
+  serviceaccount_token_rotated_date = "07-03-2024"
+
+  serviceaccount_name = "formbuilder-user-datastore-test-dev"
+  role_name = "formbuilder-user-datastore-test-dev"
+  rolebinding_name = "formbuilder-user-datastore-test-dev"
+
+  serviceaccount_rules = [
     {
       api_groups = [""]
       resources = [
@@ -35,7 +46,7 @@ locals {
         "jobs",
         "replicasets",
         "poddisruptionbudgets",
-        "networkpolicies"
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -53,21 +64,27 @@ locals {
       ]
       resources = [
         "prometheusrules",
-        "servicemonitors"
+        "servicemonitors",
       ]
       verbs = [
         "*",
       ]
     },
+    {
+      api_groups = [
+        "autoscaling"
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
   ]
-}
-
-module "serviceaccount" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
-  namespace            = var.namespace
-  kubernetes_cluster   = var.kubernetes_cluster
-  serviceaccount_name  = "circleci"
-  role_name            = "circleci"
-  rolebinding_name     = "circleci"
-  serviceaccount_rules = local.sa_rules
 }
