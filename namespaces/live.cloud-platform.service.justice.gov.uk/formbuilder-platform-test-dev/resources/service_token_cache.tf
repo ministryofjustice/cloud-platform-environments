@@ -40,10 +40,6 @@ resource "kubernetes_service_account" "service_token_cache_service_account" {
   metadata {
     name      = local.sa_name
     namespace = var.namespace
-
-    annotations = {
-      "eks.amazonaws.com/role-arn" = module.iam_assumable_role.iam_role_arn
-    }
   }
 
   secret {
