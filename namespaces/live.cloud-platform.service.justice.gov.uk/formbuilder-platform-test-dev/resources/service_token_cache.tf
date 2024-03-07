@@ -64,3 +64,20 @@ resource "kubernetes_secret_v1" "service_token_cache_token" {
     kubernetes_service_account.service_token_cache_service_account
   ]
 }
+
+resource "kubernetes_role_binding" "get-configmaps-rolebinding" {
+  metadata {
+    name      = "serviceaccount_get_configmap_rolebinding"
+    namespace = var.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "formbuilder-services-test-dev-get-configmaps-role"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.service_token_cache_service_account.metadata[0].name
+    namespace = var.namespace
+  }
+}
