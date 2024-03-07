@@ -1,5 +1,5 @@
 locals {
-  sa_name = "formbuilder-service-token-cache-test-dev"
+  sa_name = "formbuilder-service-token-cache-cross-namespace-test-dev"
 }
 
 module "service-token-cache-elasticache" {
