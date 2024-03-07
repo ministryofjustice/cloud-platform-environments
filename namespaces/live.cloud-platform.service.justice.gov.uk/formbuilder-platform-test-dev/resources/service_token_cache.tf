@@ -56,3 +56,16 @@ module "token-cache-serviceaccount" {
     }
   ]
 }
+
+resource "kubernetes_role" "service-token-cache-service-account-role" {
+  metadata {
+    namespace = "formbuilder-sevices-test-dev"
+    name      = "service-token-cache-service-account-role"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["configmaps"]
+    verbs      = ["get", "list"]
+  }
+}
