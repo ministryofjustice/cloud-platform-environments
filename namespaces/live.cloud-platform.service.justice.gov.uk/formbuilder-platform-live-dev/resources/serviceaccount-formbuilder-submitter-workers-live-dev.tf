@@ -4,11 +4,11 @@ module "serviceaccount_formbuilder-submitter-workers-live-dev" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "07-03-2024"
 
-  serviceaccount_name = "formbuilder-submitter-workers-live-dev-migrated"
-  role_name = "formbuilder-submitter-workers-live-dev-migrated"
-  rolebinding_name = "formbuilder-submitter-workers-live-dev-migrated"
+  serviceaccount_name = "formbuilder-submitter-workers-live-dev"
+  role_name = "formbuilder-submitter-workers-live-dev"
+  rolebinding_name = "formbuilder-submitter-workers-live-dev"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
