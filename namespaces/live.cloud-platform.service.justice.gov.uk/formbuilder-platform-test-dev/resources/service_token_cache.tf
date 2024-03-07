@@ -51,7 +51,7 @@ resource "kubernetes_service_account" "service_token_cache_service_account" {
 
 resource "kubernetes_secret_v1" "service_token_cache_token" {
   metadata {
-    name      = "${local.sa_name}-token"
+    name      = "formbuilder-service-token-cache-test-dev-token"
     namespace = var.namespace
     annotations = {
       "kubernetes.io/service-account.name" = local.sa_name
