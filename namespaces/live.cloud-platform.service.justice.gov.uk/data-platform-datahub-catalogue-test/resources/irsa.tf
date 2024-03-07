@@ -35,6 +35,13 @@ resource "aws_iam_policy" "datahub" {
   policy      = data.aws_iam_policy_document.datahub.json
 }
 
+resource "aws_iam_policy" "aws_secrets" {
+  name        = "secrets-policy-${var.environment}"
+  path        = "/"
+  description = "Policy for managing aws secrets via service pod"
+  policy      = data.aws_iam_policy_document.aws_secrets.json
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
 
