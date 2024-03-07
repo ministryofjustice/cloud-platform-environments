@@ -14,32 +14,11 @@ data "aws_iam_policy_document" "datahub" {
   }
 }
 
-data "aws_iam_policy_document" "aws_secrets" {
-  statement {
-    sid       = "ManageSecrets"
-    effect    = "Allow"
-    actions   = [
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecrets",
-      "secretsmanager:PutSecretValue",
-      "secretsmanager:UpdateSecret",
-      ]
-    resources = "*"
-  }
-}
-
 resource "aws_iam_policy" "datahub" {
   name        = "datahub-policy-${var.environment}"
   path        = "/"
   description = "Datahub Policy for Data Ingestion"
   policy      = data.aws_iam_policy_document.datahub.json
-}
-
-resource "aws_iam_policy" "aws_secrets" {
-  name        = "secrets-policy-${var.environment}"
-  path        = "/"
-  description = "Policy for managing aws secrets via service pod"
-  policy      = data.aws_iam_policy_document.aws_secrets.json
 }
 
 module "irsa" {
@@ -53,7 +32,7 @@ module "irsa" {
   role_policy_arns = {
     datahub = aws_iam_policy.datahub.arn
     rds     = module.rds.irsa_policy_arn
-    secrets = aws_iam_policy.aws_secrets.arn
+    secrets = module.secrets_manager_multiple_secrets.irsa_policy_arn
   }
 
   # Tags
