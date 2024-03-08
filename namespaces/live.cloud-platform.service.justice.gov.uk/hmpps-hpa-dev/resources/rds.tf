@@ -15,7 +15,7 @@ module "hmpps_hpa_rds" {
   rds_family             = "sqlserver-ex-16.0"
   db_parameter           = []
   license_model          = "license-included"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   performance_insights_enabled = true
 
