@@ -83,3 +83,9 @@ variable "owner" {
   default = "ministryofjustice"
   type    = string
 }
+
+variable "environment_name" {
+  description = "Required by the Route 53"
+  default = "dev"
+  type = string
+}
