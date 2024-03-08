@@ -82,3 +82,8 @@ variable "domain" {
   type    = string
 }
 
+variable "owner" {
+  description = "Required by the Route 53"
+  default = "ministryofjustice"
+  type    = string
+}
