@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "nscc_team_route53_zone" {
+resource "aws_route53_zone" "nscc_route53_zone" {
   name = var.domain
 
   tags = {
