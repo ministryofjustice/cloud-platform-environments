@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - one-plan-api-prod.hmpps.service.justice.gov.uk
+    - one-plan-api.hmpps.service.justice.gov.uk
