@@ -22,7 +22,7 @@ locals {
     (module.in_cell_dead_letter_queue.sqs_name)                                     = module.in_cell_dead_letter_queue.irsa_policy_arn,
     (module.whereabouts_api_domain_events_queue.sqs_name)                           = module.whereabouts_api_domain_events_queue.irsa_policy_arn,
     (module.whereabouts_api_domain_events_dead_letter_queue.sqs_name)               = module.whereabouts_api_domain_events_dead_letter_queue.irsa_policy_arn
-    (module.sis_domain_events_queue.sqs_name)                                       = module.sis_domain_events_queue.irsa_policy_arn,
+    (module.integration_api_domain_events_queue.sqs_name)                           = module.integration_api_domain_events_queue.irsa_policy_arn,
   }
 
   sns_irsa_policies = {
