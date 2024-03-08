@@ -38,6 +38,11 @@ variable "environment" {
   default     = "development"
 }
 
+variable "environment_name" {
+  default = "dev"
+  type    = string
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
@@ -72,3 +77,13 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "domain" {
+  default = "assess-crime-forms.service.justice.gov.uk"
+  type    = string
+}
+
+variable "owner" {
+  description = "Required by the Route 53"
+  default = "ministryofjustice"
+  type    = string
+}
