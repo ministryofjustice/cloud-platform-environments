@@ -46,7 +46,7 @@ module "hmpps_one_login_user_registry_rds" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = "hmpps one login user registry"
+  application            = var.application
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
