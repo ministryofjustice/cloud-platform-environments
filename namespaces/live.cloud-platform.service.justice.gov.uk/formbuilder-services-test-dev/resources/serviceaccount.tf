@@ -107,7 +107,7 @@ resource "kubernetes_role_binding" "get-configmaps-rolebinding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
-    name      = "formbuilder-services-test-dev-get-configmaps-role"
+    name      = kubernetes_role.get_configmaps_role.name
   }
   subject {
     kind      = "ServiceAccount"
