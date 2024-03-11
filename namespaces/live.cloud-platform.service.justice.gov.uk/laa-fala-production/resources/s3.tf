@@ -9,6 +9,9 @@ module "s3" {
   infrastructure_support = var.email
   namespace              = var.namespace
 
+  acl                           = "public-read"
+  enable_allow_block_pub_access = false
+
   providers = {
     aws = aws.london
   }
