@@ -25,11 +25,8 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "13"
-
-  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres13"
+  db_engine_version = "16"
+  rds_family = "postgres16"
 
   # instance class
   db_instance_class = "db.t4g.micro"
@@ -45,8 +42,9 @@ module "rds" {
   #   }
   # ]
 
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
