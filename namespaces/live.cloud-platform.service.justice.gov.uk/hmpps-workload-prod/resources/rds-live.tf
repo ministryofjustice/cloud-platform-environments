@@ -16,7 +16,7 @@ module "rds-live" {
   db_instance_class = "db.t4g.large"
 
   # change the postgres version as you see fit.
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine_version         = "15.5"
 
   environment_name          = var.environment
@@ -30,7 +30,7 @@ module "rds-live" {
   db_allocated_storage = "750"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
