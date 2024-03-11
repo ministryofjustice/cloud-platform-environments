@@ -42,7 +42,8 @@ resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
+            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
               ]
           },
           "Resource": "${module.create_link_queue_m.sqs_arn}",
@@ -117,7 +118,8 @@ resource "aws_sqs_queue_policy" "unlink_queue_m_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
+            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
               ]
           },
           "Resource": "${module.unlink_queue_m.sqs_arn}",
@@ -266,7 +268,8 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
+            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
@@ -362,7 +365,8 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
+            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
