@@ -71,3 +71,21 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+
+variable "domain" {
+  default = "submit-crime-forms.service.justice.gov.uk"
+  type    = string
+}
+
+variable "owner" {
+  description = "Required by the Route 53"
+  default = "ministryofjustice"
+  type    = string
+}
+
+variable "environment_name" {
+  description = "Required by the Route 53"
+  default = "dev"
+  type = string
+}

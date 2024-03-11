@@ -32,6 +32,7 @@ module "irsa" {
   role_policy_arns = {
     datahub = aws_iam_policy.datahub.arn
     rds     = module.rds.irsa_policy_arn
+    secrets = module.secrets_manager_multiple_secrets.irsa_policy_arn
   }
 
   # Tags

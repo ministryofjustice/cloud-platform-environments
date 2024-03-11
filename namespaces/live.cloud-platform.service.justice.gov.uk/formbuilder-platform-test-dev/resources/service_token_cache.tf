@@ -1,3 +1,7 @@
+locals {
+  sa_name = "formbuilder-service-token-cache-cross-namespace-test-dev"
+}
+
 module "service-token-cache-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
@@ -31,14 +35,49 @@ resource "kubernetes_secret" "service-token-cache-elasticache" {
   }
 }
 
-module "token-cache-serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
 
-  namespace           = var.namespace
-  kubernetes_cluster  = var.kubernetes_cluster
-  serviceaccount_name = "service-token-cache-terraform-module-formbuilder-platform-test-dev"
+resource "kubernetes_service_account" "service_token_cache_service_account" {
+  metadata {
+    name      = local.sa_name
+    namespace = var.namespace
+  }
 
-  serviceaccount_token_rotated_date = "06-03-2024"
-  role_name = "service-token-cache-service-account-role"
-  rolebinding_name = "service-token-cache-service-account-rolebinding"
+  secret {
+    name = "${local.sa_name}-token"
+  }
+
+  automount_service_account_token = true
+}
+
+resource "kubernetes_secret_v1" "service_token_cache_token" {
+  metadata {
+    name      = "${local.sa_name}-token"
+    namespace = var.namespace
+    annotations = {
+      "kubernetes.io/service-account.name" = local.sa_name
+    }
+  }
+
+  type = "kubernetes.io/service-account-token"
+
+  depends_on = [
+    kubernetes_service_account.service_token_cache_service_account
+  ]
+}
+
+resource "kubernetes_role_binding" "get-configmaps-rolebinding" {
+  metadata {
+    name      = "serviceaccount_get_configmap_rolebinding"
+    namespace = var.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "formbuilder-services-test-dev-get-configmaps-role"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.service_token_cache_service_account.metadata[0].name
+    namespace = var.namespace
+  }
 }
