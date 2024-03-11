@@ -88,9 +88,9 @@ module "serviceaccount_formbuilder-av-test-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-av-test-production-migrated"
-  role_name           = "formbuilder-av-test-production-migrated"
-  rolebinding_name    = "formbuilder-av-test-production-migrated"
+  serviceaccount_name = "formbuilder-av-test-production"
+  role_name           = "formbuilder-av-test-production"
+  rolebinding_name    = "formbuilder-av-test-production"
 }
 
 module "serviceaccount_formbuilder-pdf-generator-test-production" {
@@ -103,9 +103,9 @@ module "serviceaccount_formbuilder-pdf-generator-test-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-pdf-generator-test-production-migrated"
-  role_name           = "formbuilder-pdf-generator-test-production-migrated"
-  rolebinding_name    = "formbuilder-pdf-generator-test-production-migrated"
+  serviceaccount_name = "formbuilder-pdf-generator-test-production"
+  role_name           = "formbuilder-pdf-generator-test-production"
+  rolebinding_name    = "formbuilder-pdf-generator-test-production"
 }
 
 module "serviceaccount_formbuilder-submitter-workers-test-production" {
@@ -118,9 +118,9 @@ module "serviceaccount_formbuilder-submitter-workers-test-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-submitter-workers-test-production-migrated"
-  role_name           = "formbuilder-submitter-workers-test-production-migrated"
-  rolebinding_name    = "formbuilder-submitter-workers-test-production-migrated"
+  serviceaccount_name = "formbuilder-submitter-workers-test-production"
+  role_name           = "formbuilder-submitter-workers-test-production"
+  rolebinding_name    = "formbuilder-submitter-workers-test-production"
 }
 
 module "serviceaccount_formbuilder-user-datastore-test-production" {
@@ -133,9 +133,9 @@ module "serviceaccount_formbuilder-user-datastore-test-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-user-datastore-test-production-migrated"
-  role_name           = "formbuilder-user-datastore-test-production-migrated"
-  rolebinding_name    = "formbuilder-user-datastore-test-production-migrated"
+  serviceaccount_name = "formbuilder-user-datastore-test-production"
+  role_name           = "formbuilder-user-datastore-test-production"
+  rolebinding_name    = "formbuilder-user-datastore-test-production"
 }
 
 module "serviceaccount_formbuilder-user-filestore-test-production" {
@@ -148,7 +148,7 @@ module "serviceaccount_formbuilder-user-filestore-test-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-user-filestore-test-production-migrated"
-  role_name           = "formbuilder-user-filestore-test-production-migrated"
-  rolebinding_name    = "formbuilder-user-filestore-test-production-migrated"
+  serviceaccount_name = "formbuilder-user-filestore-test-production"
+  role_name           = "formbuilder-user-filestore-test-production"
+  rolebinding_name    = "formbuilder-user-filestore-test-production"
 }
