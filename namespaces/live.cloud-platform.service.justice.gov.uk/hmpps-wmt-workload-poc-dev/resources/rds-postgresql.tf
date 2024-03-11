@@ -4,6 +4,14 @@
  * releases page of this repository.
  *
  */
+
+# RDS with PoC DPS Reporting solution configuration for CDC Ingestion.
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
 
@@ -24,6 +32,36 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+  ]
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
@@ -32,58 +70,6 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-}
-
-# To create a read replica, use the below code and update the values to specify the RDS instance
-# from which you are replicating. In this example, we're assuming that rds is the
-# source RDS instance and read-replica is the replica we are creating.
-
-module "read_replica" {
-  # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
-
-  vpc_name               = var.vpc_name
-
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  # If any other inputs of the RDS is passed in the source db which are different from defaults,
-  # add them to the replica
-
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "14.7"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
-  # It is mandatory to set the below values to create read replica instance
-
-  # Set the database_name of the source db
-  db_name = null # "db_name": conflicts with replicate_source_db
-
-  # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
-
-  # Set to true. No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
-
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
-
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -99,12 +85,6 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
 }
 
 
