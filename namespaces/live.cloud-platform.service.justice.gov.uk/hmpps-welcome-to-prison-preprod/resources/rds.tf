@@ -32,7 +32,8 @@ module "rds" {
   rds_family = "postgres13"
 
   # instance class
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
