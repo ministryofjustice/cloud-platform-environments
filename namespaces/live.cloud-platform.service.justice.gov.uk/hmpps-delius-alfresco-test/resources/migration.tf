@@ -40,10 +40,6 @@ data "aws_iam_policy_document" "migration_policy" {
       "arn:aws:kms:eu-west-2:754256621582:key/26ec2090-94bf-49ae-a272-fc956b6a129a"
     ]
   }
-  statement {
-    actions   = ["rds:DescribeDBSnapshots", "rds:CopyDBSnapshot"]
-    resources = ["arn:aws:rds:eu-west-2:728765553488:snapshot:alf-from-test-to-cp"]
-  }
 }
 
 resource "aws_iam_policy" "migration_policy" {
