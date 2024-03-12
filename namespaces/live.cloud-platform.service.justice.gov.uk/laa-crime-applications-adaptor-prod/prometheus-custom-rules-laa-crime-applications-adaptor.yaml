@@ -15,8 +15,7 @@ spec:
           labels:
             severity: laa-crime-applications-adaptor
           annotations:
-            message: There have been over 50 client error responses in the Crime Applications Adaptor running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            message: There has been an increase in client error responses in the Crime Applications Adaptor running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-applications-adaptor?var-namespace=laa-crime-applications-adaptor-prod
         - alert: Server Response Error
           expr: sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="laa-crime-applications-adaptor-prod"}[10m])) > 1
@@ -24,8 +23,7 @@ spec:
           labels:
             severity: laa-crime-applications-adaptor
           annotations:
-            message: There has been a server error response from the Crime Applications Adaptor running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            message: There has been an increase in server error responses from the Crime Applications Adaptor running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-applications-adaptor?var-namespace=laa-crime-applications-adaptor-prod
         - alert: JVM CPU Usage
           expr: (process_cpu_usage{namespace="laa-crime-applications-adaptor-prod"} * 100) > 95
