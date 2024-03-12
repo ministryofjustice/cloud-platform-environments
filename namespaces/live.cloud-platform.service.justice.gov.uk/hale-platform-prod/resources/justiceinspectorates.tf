@@ -91,7 +91,7 @@ resource "aws_route53_record" "justiceinspectorates_route53_mx_record_main" {
   name    = "justiceinspectorates.gov.uk"
   type    = "MX"
   ttl     = "3600"
-  records = ["mx1.bangdynamics.com", "mx2.bangdynamics.com"]
+  records = ["10 mx1.bangdynamics.com", "20 mx2.bangdynamics.com"]
 }
 
 resource "aws_route53_record" "justiceinspectorates_route53_txt_record_main" {
