@@ -4,6 +4,6 @@ module "bad_module" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_name = "bad name"
+  serviceaccount_name = var.application
 }
 
