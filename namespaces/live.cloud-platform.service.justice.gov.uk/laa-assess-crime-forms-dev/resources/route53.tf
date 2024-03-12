@@ -21,5 +21,6 @@ resource "kubernetes_secret" "nscc_route53_zone_sec" {
 
   data = {
     zone_id = aws_route53_zone.nscc_route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.nscc_route53_zone.name_servers)
   }
 }
