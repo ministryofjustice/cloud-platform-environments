@@ -37,7 +37,7 @@ jobs:
 
       # If the user isn't permitted to make the change, write a comment in the issue.
       - name: Create comment in the PR
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v4
 
         if: steps.review_pr.outputs.reviewOutput == 'false'
         with:
