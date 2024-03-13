@@ -32,11 +32,6 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-editor-workers-test
     namespace: formbuilder-saas-test
-  # ...but only the dev service token cache can read the dev
-  # service tokens
-  - kind: ServiceAccount
-    name: formbuilder-service-token-cache-test-dev
-    namespace: formbuilder-platform-test-dev
 roleRef:
   kind: ClusterRole
   name: admin
