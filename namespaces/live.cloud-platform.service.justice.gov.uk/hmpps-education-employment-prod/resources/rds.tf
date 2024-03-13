@@ -9,8 +9,8 @@ module "edu_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   rds_family                  = "postgres15"
-  prepare_for_major_upgrade   = true
-  allow_major_version_upgrade = true
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
   db_engine_version           = "15.6"
