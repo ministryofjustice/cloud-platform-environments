@@ -75,5 +75,5 @@ variable "eks_cluster_name" {
 variable "db_name" {
   description = "Name of the database"
   type        = string
-  default     = "laa-dces-data-migration-dev-db"
+  default     = "laa_dces_data_migration_dev_db"
 }
