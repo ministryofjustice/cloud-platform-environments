@@ -88,9 +88,9 @@ module "serviceaccount_formbuilder-av-live-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-av-live-production"
-  role_name           = "formbuilder-av-live-production"
-  rolebinding_name    = "formbuilder-av-live-production"
+  serviceaccount_name = "formbuilder-av-live-production-migrated"
+  role_name           = "formbuilder-av-live-production-migrated"
+  rolebinding_name    = "formbuilder-av-live-production-migrated"
 }
 
 module "serviceaccount_formbuilder-pdf-generator-live-production" {
@@ -103,9 +103,9 @@ module "serviceaccount_formbuilder-pdf-generator-live-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-pdf-generator-live-production"
-  role_name           = "formbuilder-pdf-generator-live-production"
-  rolebinding_name    = "formbuilder-pdf-generator-live-production"
+  serviceaccount_name = "formbuilder-pdf-generator-live-production-migrated"
+  role_name           = "formbuilder-pdf-generator-live-production-migrated"
+  rolebinding_name    = "formbuilder-pdf-generator-live-production-migrated"
 }
 
 module "serviceaccount_formbuilder-submitter-workers-live-production" {
@@ -118,9 +118,9 @@ module "serviceaccount_formbuilder-submitter-workers-live-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-submitter-workers-live-production"
-  role_name           = "formbuilder-submitter-workers-live-production"
-  rolebinding_name    = "formbuilder-submitter-workers-live-production"
+  serviceaccount_name = "formbuilder-submitter-workers-live-production-migrated"
+  role_name           = "formbuilder-submitter-workers-live-production-migrated"
+  rolebinding_name    = "formbuilder-submitter-workers-live-production-migrated"
 }
 
 module "serviceaccount_formbuilder-user-datastore-live-production" {
@@ -133,9 +133,9 @@ module "serviceaccount_formbuilder-user-datastore-live-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-user-datastore-live-production"
-  role_name           = "formbuilder-user-datastore-live-production"
-  rolebinding_name    = "formbuilder-user-datastore-live-production"
+  serviceaccount_name = "formbuilder-user-datastore-live-production-migrated"
+  role_name           = "formbuilder-user-datastore-live-production-migrated"
+  rolebinding_name    = "formbuilder-user-datastore-live-production-migrated"
 }
 
 module "serviceaccount_formbuilder-user-filestore-live-production" {
@@ -148,7 +148,7 @@ module "serviceaccount_formbuilder-user-filestore-live-production" {
 
   serviceaccount_rules = local.sa_rules
 
-  serviceaccount_name = "formbuilder-user-filestore-live-production"
-  role_name           = "formbuilder-user-filestore-live-production"
-  rolebinding_name    = "formbuilder-user-filestore-live-production"
+  serviceaccount_name = "formbuilder-user-filestore-live-production-migrated"
+  role_name           = "formbuilder-user-filestore-live-production-migrated"
+  rolebinding_name    = "formbuilder-user-filestore-live-production-migrated"
 }
