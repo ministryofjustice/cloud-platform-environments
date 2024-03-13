@@ -21,6 +21,7 @@ EOF
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  GithubTeam             = "probation-integration"
 
   providers = {
     aws = aws.london
@@ -71,6 +72,7 @@ module "cfo_probation_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  GithubTeam             = "probation-integration"
 
   providers = {
     aws = aws.london
