@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["data-platform-datahub-catalogue"]
+  github_repositories   = ["data-catalogue"]
   github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
