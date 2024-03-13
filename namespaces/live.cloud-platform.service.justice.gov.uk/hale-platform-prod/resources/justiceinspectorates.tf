@@ -30,12 +30,14 @@ resource "aws_route53_record" "justiceinspectorates_route53_cname_record_main_ww
   records = ["inspectorates.live.bangdynamics.com"]
 }
 
-resource "aws_route53_record" "justiceinspectorates_route53_cname_record_main" {
-  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
-  name    = "justiceinspectorates.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["inspectorates.live.bangdynamics.com"]
+resource "aws_route53_record" "justiceinspectorates_route53_a_record_main" {
+ zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
+ name  = "justiceinspectorates.gov.uk"
+  type   = "A"
+  alias {
+    name = "inspectorates.live.bangdynamics.com"
+    zone_id = "Z006562131RSJB1AZVCBJ"
+  }
 }
 
 resource "aws_route53_record" "justiceinspectorates_route53_cname_record_assets" {
