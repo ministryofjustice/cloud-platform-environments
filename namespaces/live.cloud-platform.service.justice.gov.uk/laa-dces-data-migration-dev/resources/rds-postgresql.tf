@@ -24,6 +24,9 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
+  # Set the database_name of the source db
+  db_name = var.db_name
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
