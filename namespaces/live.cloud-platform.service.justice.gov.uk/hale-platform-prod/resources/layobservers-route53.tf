@@ -37,3 +37,11 @@ resource "aws_route53_record" "layobservers_route53_cname_www_record_acm" {
   ttl     = "60"
   records = ["_751d601494e39d5ea435d080d888b065.auiqqraehs.acm-validations.aws."]
 }
+
+resource "aws_route53_record" "layobservers_route53_txt_record_main" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
+  name    = "layobservers.org"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
+}
