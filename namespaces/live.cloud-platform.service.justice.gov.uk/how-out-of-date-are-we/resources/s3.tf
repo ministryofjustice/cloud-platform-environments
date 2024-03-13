@@ -45,6 +45,7 @@ data "aws_iam_policy_document" "allow_irsa_write" {
     }
 
     actions = [
+      "s3:PutObject",
       "s3:GetObject",
       "s3:ListBucket",
     ]
