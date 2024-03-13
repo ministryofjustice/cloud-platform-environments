@@ -30,11 +30,6 @@ subjects:
   - kind: ServiceAccount
     name: formbuilder-editor-workers-live
     namespace: formbuilder-saas-live
-  # ...but only the dev service token cache can read the dev
-  # service tokens
-  - kind: ServiceAccount
-    name: formbuilder-service-token-cache-live-dev
-    namespace: formbuilder-platform-live-dev
 roleRef:
   kind: ClusterRole
   name: admin
