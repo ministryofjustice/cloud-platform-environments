@@ -16,7 +16,7 @@ module "unprocessed_documents_and_events_sqs_dlq" {
 }
 
 resource "aws_sqs_queue_redrive_allow_policy" "terraform_queue_redrive_allow_policy" {
-  queue_url = "${module.unprocessed_documents_and_events_sqs_dlq.sqs_id}"
+  queue_url = module.unprocessed_documents_and_events_sqs_dlq.sqs_id
 
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
@@ -61,7 +61,7 @@ module "unprocessed_documents_and_events_sqs" {
 }
 
 resource "aws_sqs_queue_policy" "unprocessed_documents_and_events_sqs_policy" {
-  queue_url = "${module.unprocessed_documents_and_events_sqs.sqs_id}"
+  queue_url = module.unprocessed_documents_and_events_sqs.sqs_id
 
   policy = <<EOF
   {
