@@ -89,3 +89,9 @@ variable "environment_name" {
   default = "dev"
   type = string
 }
+
+variable "repo_name" {
+  description = "Name of github repository"
+  default = "laa-submit-crime-forms"
+  type = string
+}
