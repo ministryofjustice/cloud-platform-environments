@@ -1,4 +1,4 @@
-module "intranet-dev-dms" {
+module "test_dms" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=3.0.0"
 
   vpc_name               = var.vpc_name
