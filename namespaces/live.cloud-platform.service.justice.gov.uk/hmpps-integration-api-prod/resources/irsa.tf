@@ -8,6 +8,11 @@ locals {
 
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+
+  sns_topics = {
+     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
@@ -16,7 +21,14 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns     = merge(
+    local.sqs_policies,
+    local.sns_policies,
+    {
+    integration_api_domain_events_queue               = module.integration_api_domain_events_queue.irsa_policy_arn,
+    integration_api_domain_events_dead_letter_queue   = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+    }
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -35,7 +47,10 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
-
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
 
 resource "kubernetes_secret" "irsa" {
   metadata {

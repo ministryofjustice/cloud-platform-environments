@@ -87,3 +87,9 @@ variable "owner" {
   default = "ministryofjustice"
   type    = string
 }
+
+variable "repo_name" {
+  description = "Name of github repository"
+  default = "laa-assess-crime-forms"
+  type    = string
+}

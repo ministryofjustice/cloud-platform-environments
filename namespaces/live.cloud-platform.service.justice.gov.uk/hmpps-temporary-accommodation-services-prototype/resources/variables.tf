@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Submit criminal legal aid forms"
+  default     = "Gov.UK Prototype Kit"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-submit-crime-forms-dev"
+  default     = "hmpps-temporary-accommodation-services-prototype"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-crime-forms-team"
+  default     = "transitional-accommodation-services"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "CRM457@digital.justice.gov.uk"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-non-standard-crime-claims"
+  default     = "cas-dev"
 }
 
 variable "github_owner" {
@@ -68,30 +68,14 @@ variable "github_token" {
   default     = ""
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+## Prototype kit variables
+
+variable "basic-auth-username" {
+  description = "Basic auth. username of the deployed prototype website"
+  default     = "hmpps-cas"
 }
 
-
-variable "domain" {
-  default = "submit-crime-forms.service.justice.gov.uk"
-  type    = string
-}
-
-variable "owner" {
-  description = "Required by the Route 53"
-  default = "ministryofjustice"
-  type    = string
-}
-
-variable "environment_name" {
-  description = "Required by the Route 53"
-  default = "dev"
-  type = string
-}
-
-variable "repo_name" {
-  description = "Name of github repository"
-  default = "laa-submit-crime-forms"
-  type = string
+variable "basic-auth-password" {
+  description = "Basic auth. password of the deployed prototype website"
+  default     = "clarity sonar liking"
 }
