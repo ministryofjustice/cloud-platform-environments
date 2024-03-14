@@ -83,7 +83,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
-    = jsonencode({
+  filter_policy  = jsonencode({
     eventType = [      
       "probation-case.registration.added",
       "probation-case.registration.updated"
