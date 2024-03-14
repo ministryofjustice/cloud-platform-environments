@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
 */
-module "rds_mssql-archive" {
+module "rds_mssql_archive" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
 
   # VPC configuration
@@ -46,32 +46,16 @@ module "rds_mssql-archive" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "rds_mssql-archive" {
+resource "kubernetes_secret" "rds_mssql_archive" {
   metadata {
     name      = "rds-mssql-archive-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds_mssql-archive.rds_instance_endpoint
-    database_username     = module.rds_mssql-archive.database_username
-    database_password     = module.rds_mssql-archive.database_password
-    rds_instance_address  = module.rds_mssql-archive.rds_instance_address
-  }
-}
-
-resource "aws_db_option_group" "sqlserver_backup_rds_archive_option_group" {
-  name                     = "sqlserver-backup"
-  option_group_description = "Enable SQL Server Backup/Restore"
-  engine_name              = "sqlserver-web"
-  major_engine_version     = "15.00"
-
-  option {
-    option_name = "SQLSERVER_BACKUP_RESTORE"
-
-    option_settings {
-      name  = "IAM_ROLE_ARN"
-      value = aws_iam_role.sqlserver_backup_s3_iam_role.arn
-    }
+    rds_instance_endpoint = module.rds_mssql_archive.rds_instance_endpoint
+    database_username     = module.rds_mssql_archive.database_username
+    database_password     = module.rds_mssql_archive.database_password
+    rds_instance_address  = module.rds_mssql_archive.rds_instance_address
   }
 }

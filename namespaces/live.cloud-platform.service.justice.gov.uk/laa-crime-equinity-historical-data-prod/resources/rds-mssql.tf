@@ -59,6 +59,7 @@ resource "kubernetes_secret" "rds_mssql" {
     rds_instance_address  = module.rds_mssql.rds_instance_address
   }
 }
+
 resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   name                     = "sqlserver-backup"
   option_group_description = "Enable SQL Server Backup/Restore"
