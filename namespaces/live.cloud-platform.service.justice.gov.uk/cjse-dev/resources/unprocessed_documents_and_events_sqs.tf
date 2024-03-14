@@ -1,5 +1,5 @@
 module "unprocessed_documents_and_events_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=version" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0" # use the latest release
 
   # Queue configuration
   sqs_name        = "unprocessed_documents_and_events_sqs_dlq"
