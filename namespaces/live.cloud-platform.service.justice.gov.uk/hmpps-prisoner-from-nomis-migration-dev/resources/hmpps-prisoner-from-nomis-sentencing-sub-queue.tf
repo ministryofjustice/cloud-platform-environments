@@ -112,7 +112,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_sentencing_subscripti
       "KEY_DATE_ADJUSTMENT_UPSERTED",
       "KEY_DATE_ADJUSTMENT_DELETED",
       "SENTENCE_ADJUSTMENT_UPSERTED",
-      "SENTENCE_ADJUSTMENT_DELETED"
+      "SENTENCE_ADJUSTMENT_DELETED",
+      "BOOKING_NUMBER-CHANGED"
     ]
   })
 }
