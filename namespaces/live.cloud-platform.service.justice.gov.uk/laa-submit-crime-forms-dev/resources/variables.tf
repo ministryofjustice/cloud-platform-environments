@@ -95,3 +95,15 @@ variable "repo_name" {
   default = "laa-submit-crime-forms"
   type = string
 }
+
+variable "role_name" {
+  default     = "serviceaccount-github-role"
+  description = "Kubernetes role name"
+  type        = string
+}
+
+variable "rolebinding_name" {
+  description = "Kubernetes to GitHub actions rolebinding name"
+  default     = "serviceaccount-github-rolebinding"
+  type        = string
+}
