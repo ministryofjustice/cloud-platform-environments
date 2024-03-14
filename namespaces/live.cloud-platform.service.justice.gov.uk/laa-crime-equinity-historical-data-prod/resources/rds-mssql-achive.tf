@@ -60,7 +60,7 @@ resource "kubernetes_secret" "rds_mssql-archive" {
   }
 }
 
-resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
+resource "aws_db_option_group" "sqlserver_backup_rds_archive_option_group" {
   name                     = "sqlserver-backup"
   option_group_description = "Enable SQL Server Backup/Restore"
   engine_name              = "sqlserver-web"
