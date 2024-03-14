@@ -1,6 +1,5 @@
-module "test_dms" {
-  source = "../" # use the latest release
-  # source = "https://github.com/ministryofjustice/cloud-platform-terraform-dms?ref=<latest-version>" # use the latest release
+module "intranet-dev-dms" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=3.0.0"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
