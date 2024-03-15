@@ -15,8 +15,22 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  acl                           = "public-read"
   enable_allow_block_pub_access = false
+}
+
+resource "aws_s3_bucket_ownership_controls" "this" {
+  bucket = module.s3_bucket.bucket_name
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "this" {
+  depends_on = [aws_s3_bucket_ownership_controls.this]
+
+  bucket = module.s3_bucket.bucket_name
+  acl    = "public-read"
 }
 
 
@@ -45,6 +59,7 @@ data "aws_iam_policy_document" "allow_irsa_write" {
     }
 
     actions = [
+      "s3:PutObject",
       "s3:GetObject",
       "s3:ListBucket",
     ]
