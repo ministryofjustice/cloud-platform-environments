@@ -12,7 +12,6 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-
   github_repositories = ["laa-secure-document-storage-api"]
 
   # Tags
