@@ -82,7 +82,7 @@ resource "aws_sqs_queue_policy" "unprocessed_documents_and_events_sqs_policy" {
 
 resource "kubernetes_config_map" "unprocessed_documents_and_events_sqs" {
   metadata {
-    name      = "unprocessed-documents-and-events-sqs-dlq"
+    name      = "unprocessed-documents-and-events-sqs"
     namespace = var.namespace
   }
 
