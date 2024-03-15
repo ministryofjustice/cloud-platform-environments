@@ -13,6 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-secure-document-storage-api"]
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
