@@ -24,7 +24,7 @@ resource "aws_sqs_queue_redrive_allow_policy" "terraform_queue_redrive_allow_pol
   })
 }
 
-resource "kubernetes_secret" "unprocessed_documents_and_events_sqs_dlq" {
+resource "kubernetes_config_map" "unprocessed_documents_and_events_sqs_dlq" {
   metadata {
     name      = "unprocessed-documents-and-events-sqs-dlq"
     namespace = var.namespace
@@ -80,7 +80,7 @@ resource "aws_sqs_queue_policy" "unprocessed_documents_and_events_sqs_policy" {
   EOF
 }
 
-resource "kubernetes_secret" "unprocessed_documents_and_events_sqs" {
+resource "kubernetes_config_map" "unprocessed_documents_and_events_sqs" {
   metadata {
     name      = "unprocessed-documents-and-events-sqs"
     namespace = var.namespace
