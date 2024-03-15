@@ -14,6 +14,8 @@ module "ecr" {
   oidc_providers      = ["github"]
 
   github_repositories = ["laa-secure-document-storage-api"]
+  github_actions_prefix = "test"
+  github_environments = ["test"]
 
   # Tags
   business_unit          = var.business_unit
