@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "allow_irsa_write" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = ["${module.irsa.role_arn}"]
+      identifiers = [module.irsa.role_arn]
     }
 
     actions = [
