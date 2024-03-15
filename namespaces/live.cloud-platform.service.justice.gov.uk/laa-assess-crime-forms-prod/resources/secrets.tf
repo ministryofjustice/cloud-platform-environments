@@ -35,11 +35,16 @@ module "secrets" {
       description             = "Credentials for Sidekiq Page" 
       recovery_window_in_days = 7
       k8s_secret_name         = "sidekiq-auth"
-    }
+    },
     "azure-auth" = {
       description             = "Details for Intra (FKA Azure AD) ID Login"
       recovery_window_in_days = 7
       k8s_secret_name         = "azure-auth"
+    },
+    "ordnance-survey" = {
+      description             = "Credentials to access the Ordnance Survey API"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ordnance-survey"
     }
   }
 
