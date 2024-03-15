@@ -70,3 +70,26 @@ data "aws_iam_policy_document" "allow_irsa_write" {
     ]
   }
 }
+
+resource "aws_s3_bucket_policy" "allow_public_readonly" {
+  bucket = module.s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.allow_public_readonly.json
+}
+
+data "aws_iam_policy_document" "allow_public_readonly" {
+  statement {
+    principals {
+      type        = "*"
+      identifiers = "*"
+    }
+
+    actions = [
+      "s3:GetObject"
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*",
+    ]
+  }
+}
