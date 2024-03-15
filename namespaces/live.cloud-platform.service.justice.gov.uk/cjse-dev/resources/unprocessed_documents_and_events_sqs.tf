@@ -72,8 +72,8 @@ resource "aws_sqs_queue_policy" "unprocessed_documents_and_events_sqs_policy" {
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.unprocessed_documents_and_events_sqs.sqs_arn}",
           "Action": "SQS:*",
+          "Resource": "${module.unprocessed_documents_and_events_sqs.sqs_arn}"
         }
       ]
   }
