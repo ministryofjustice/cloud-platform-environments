@@ -43,3 +43,13 @@ resource "aws_route53_record" "aws_route53_record_cname_1" {
     "_f26e09f08db0cba807d529c8f96282ad.nxntxfsdbd.acm-validations.aws."
   ]
 }
+
+resource "aws_route53_record" "aws_route53_record_cname_2" {
+  name    = "_bb8ace67cedf32f565d5c771b0efa0a7.tribunalsdecisions.service.gov.uk."
+  zone_id = aws_route53_zone.route53_justice_zone.zone_id
+  type    = "CNAME"
+  ttl     = 60
+  records = [
+    "_3e5b44d91cbed8fff70574fa6f2f74ae.auiqqraehs.acm-validations.aws."
+  ]
+}
