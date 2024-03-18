@@ -23,10 +23,10 @@ module "rds-instance" {
   db_engine_version    = "16.2"
   rds_family           = "postgres16"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_minor_version_upgrade = "true"
-  allow_major_version_upgrade = "true"
+  allow_minor_version_upgrade = "false"
+  allow_major_version_upgrade = "false"
 
 
   # enable performance insights
@@ -89,14 +89,14 @@ module "rds-read-replica" {
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "15.2"
-  rds_family        = "postgres15"
+  db_engine_version = "16.2"
+  rds_family        = "postgres16"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
