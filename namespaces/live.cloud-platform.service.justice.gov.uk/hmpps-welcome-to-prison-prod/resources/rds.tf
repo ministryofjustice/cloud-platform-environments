@@ -45,7 +45,7 @@ module "rds" {
   #   }
   # ]
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
 
