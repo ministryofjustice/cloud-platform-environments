@@ -28,7 +28,7 @@ resource "aws_route53_record" "aws_route53_record_prod_1" {
   zone_id = aws_route53_zone.route53_justice_zone.zone_id
   type    = "A"
   alias {
-    zone_id                = "ZHURV8PSTC4K8"
+    zone_id                = "Z32O12XQLNTSW2"
     name                   = "dualstack.dtsla-utiac-lb-prod-1989357889.eu-west-1.elb.amazonaws.com."
     evaluate_target_health = false
   }
