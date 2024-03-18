@@ -34,6 +34,7 @@ resource "aws_route53_record" "justiceinspectorates_route53_a_record_main" {
  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
  name  = "justiceinspectorates.gov.uk"
  type   = "A"
+ ttl    = "3600"
  records = ["35.177.136.224"]
 }
 
