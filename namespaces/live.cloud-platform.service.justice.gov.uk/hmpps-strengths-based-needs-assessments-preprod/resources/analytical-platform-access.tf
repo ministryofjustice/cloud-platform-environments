@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-strengths-based-needs-assessments-preprod/*",
-      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-strengths-based-needs-assessments-preprod/"
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-strengths-based-needs-preprod/*",
+      "arn:aws:s3:::moj-reg-preprod/landing/hmpps-strengths-based-needs-preprod/"
     ]
   }
 }
