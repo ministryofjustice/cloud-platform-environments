@@ -6,7 +6,7 @@ metadata:
   namespace: licences-preprod
 subjects:
   - kind: Group
-    name: "github:dps-shared"
+    name: "github:create-and-vary-a-licence-devs-prod"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"
