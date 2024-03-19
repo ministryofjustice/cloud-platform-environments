@@ -74,6 +74,6 @@ resource "aws_route53_record" "icrir_route53_mx" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
   type    = "MX"
-  ttl     = "3600"
-  records = ["10 mail1.nics.gov.uk.", "10 mail2.nics.gov.uk.", "10 mail3.nics.gov.uk.", "10 mail4.nics.gov.uk.", "10 mail5.nics.gov.uk.", "10 mail6.nics.gov.uk.", "10 mail7.nics.gov.uk.", "10 mail8.nics.gov.uk."]
+  ttl     = "300"
+  records = ["10 mx-01-eu-west-1.prod.hydra.sophos.com", "20 mx-02-eu-west-1.prod.hydra.sophos.com"]
 }
