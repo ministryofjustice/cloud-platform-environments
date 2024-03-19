@@ -69,7 +69,7 @@ resource "aws_dms_endpoint" "target" {
 resource "aws_dms_replication_task" "replication_task" {
   # two values make sense here: full-load or full-load-and-cdc; see https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html for details
   # most notably, Azure SQL does not support CDC
-  migration_type           = "full-load-and-cdc"
+  migration_type           = "full-load"
   replication_instance_arn = module.test_dms.replication_instance_arn
   replication_task_id      = "${var.team_name}-repl-${random_id.id.hex}"
 
