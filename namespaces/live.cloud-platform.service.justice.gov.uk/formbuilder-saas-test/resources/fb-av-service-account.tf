@@ -1,5 +1,5 @@
 locals {
-  fb_av_service_account_name = "formbuilder-av-terraform-saas-test"
+  fb_av_service_account_name = "formbuilder-av-test"
 }
 
 resource "kubernetes_service_account" "formbuilder_av_saas_test_service_account" {
