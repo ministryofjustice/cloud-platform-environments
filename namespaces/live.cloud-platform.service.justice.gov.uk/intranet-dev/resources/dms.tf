@@ -66,7 +66,7 @@ resource "aws_dms_endpoint" "target" {
   }
 }
 
-resource "aws_dms_replication_task" "replication_task" {
+resource "aws_dms_replication_task" "aws_migration_replication_task" {
   # two values make sense here: full-load or full-load-and-cdc; see https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html for details
   # most notably, Azure SQL does not support CDC
   migration_type           = "full-load"
