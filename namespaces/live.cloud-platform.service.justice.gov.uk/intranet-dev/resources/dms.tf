@@ -101,6 +101,6 @@ resource "kubernetes_secret" "dms_instance" {
     replication_instance_arn = module.test_dms.replication_instance_arn
     source                   = aws_dms_endpoint.source.endpoint_arn
     destination              = aws_dms_endpoint.target.endpoint_arn
-    task                     = aws_dms_replication_task.replication_task.replication_task_arn
+    task                     = aws_dms_replication_task.aws_migration_replication_task.replication_task_arn
   }
 }
