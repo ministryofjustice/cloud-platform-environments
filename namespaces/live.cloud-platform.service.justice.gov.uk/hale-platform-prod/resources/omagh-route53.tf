@@ -76,5 +76,5 @@ resource "aws_route53_record" "omagh_route53_mx_records" {
   name    = "omagh.independent-inquiry.uk"
   type    = "MX"
   ttl     = "300"
-  records = ["10 mx-01-eu-west-1.prod.hydra.sophos.com", "20 mx-02-eu-west-1.prod.hydra.sophos.com"]
+  records = ["10 mail1.nics.gov.uk.", "10 mail2.nics.gov.uk.", "10 mail3.nics.gov.uk.", "10 mail4.nics.gov.uk.", "10 mail5.nics.gov.uk.", "10 mail6.nics.gov.uk.", "10 mail7.nics.gov.uk.", "10 mail8.nics.gov.uk.", "10 mx-01-eu-west-1.prod.hydra.sophos.com", "20 mx-02-eu-west-1.prod.hydra.sophos.com"]
 }
