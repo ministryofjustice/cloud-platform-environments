@@ -1,0 +1,46 @@
+# this github action is created to validate the existence of the source-code and team-name annotations used by users
+
+name: Validate Annotations
+
+on:
+    pull_request:
+        branches:
+            - main
+            paths:
+                - 'namespaces/**'
+
+
+jobs:
+
+    validate:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Go
+              uses: actions/setup-go@v3
+              with:
+                go-version: 1.19
+
+            - name: Install dependencies
+              run: |
+                go get gopkg.in/yaml.v2
+                go get github.com/google/go-github/v32/github
+
+            - name: Validate annotations
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                go run validate-annotations.go
+
+            - name: Annotate PR with validation result
+              uses: machine-learning-apps/pr-comment@main
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                path: namespaces/
+                common-styles: |
+                    {
+                        "comment": "### Annotations Validation: robot:\n\n%s"
+                    }
