@@ -1,6 +1,6 @@
 locals {
   datahub_roles = [
-    "arn:aws:iam::593291632749:role/datahub_ingestion_${var.environment}"
+    "arn:aws:iam::593291632749:role/datahub-ingestion-${var.environment}"
   ]
 }
 
