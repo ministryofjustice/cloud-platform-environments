@@ -38,6 +38,14 @@ resource "aws_route53_record" "icrir_route53_txt" {
   records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com -all", "sophos-domain-verification=64f22b1b53453a1059db6e455503ed554f02e94d"]
 }
 
+resource "aws_route53_record" "icrir_route53_txt_sophos" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "sophosf3bd95765ac040c5885192c8f338b89c._domainkey.icrir.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn0zVpXF3yitKcLbCcQkoObTE0zTRFYHsSix/abMrRKH6EfU98bgMOYppzzW9E7UHbx6eOud9HjUM1u5PoPniYVOE1HaGCuZ59R\"\"W/Gy9ZajrWQG4nzujyObKFsrijmhTmlMNTyg07SY0x8zwB59ToXrzaXLHzsFtECsfO1I5QU0Qa87L6XJC4OmToRdqplvD6BXQ2ZYmMrgYme9mQVEjZ/0b1UfAvA32ocxlINbBEkpWoWQaJYkn86b31rvpcc+l7v09W3YbRkiFw5zrX031bVCahSN+pdz8Z99fCRtdOdwFJleSZDEfWYIb0swfM/W1jqBnuFbu65WgSsT/Ewzky5QIDAQAB"]
+}
+
 resource "aws_route53_record" "icrir_route53_txt_dmarc" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "_dmarc.icrir.independent-inquiry.uk"

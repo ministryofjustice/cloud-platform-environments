@@ -17,8 +17,8 @@ module "rds-instance" {
   db_instance_class = "db.t4g.small"
   db_parameter      = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_engine         = "postgres"
-  db_engine_version = "15.2"
-  rds_family        = "postgres15"
+  db_engine_version = "16.2"
+  rds_family        = "postgres16"
 
   prepare_for_major_upgrade = false
 

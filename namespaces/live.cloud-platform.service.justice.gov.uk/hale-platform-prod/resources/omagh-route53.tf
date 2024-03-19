@@ -38,6 +38,14 @@ resource "aws_route53_record" "omagh_route53_txt_main" {
   records = ["MS=ms93403091", "v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com -all", "sophos-domain-verification=6a45a9444a7172356133d8ca4413340c498c14a9"]
 }
 
+resource "aws_route53_record" "omagh_route53_txt_sophos" {
+  zone_id = aws_route53_zone.omagh_route53_zone.zone_id
+  name    = "sophosfc18705ce4c84377aef9698ae91b1e72._domainkey.omagh.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwMPz8SPuwBMKzSvBxcp+lmEOkelEkdIT4oGhGtcr9a5LeSwC96Qd7+jZVjf2Vyhw/4s02bBKFY/C9uSicg41fcHpkwWsW2tA8eDPrhd\"\"Tyjnivik/niIHJmy+nMAzqO9LEK+2jzloc3pbgTU8TLl5c0BY2DY3zI/MjtsshdXXG+cfjaQqArNOlqDf2MtcFGbmOMlU86j/oMTdimcT/W9SBgBGnvymeHnOLBpf7pirEQXtjPGI1X6HgaltkNZNfRFXA7WrXb1ta+326D9orHU8RmKfLSXC0Zsm0KOedpZT5/hgvXdd672dL6J/NNDRoHTh+wrlkJp5qz17fUn75iEFMwIDAQAB"]
+}
+
 resource "aws_route53_record" "omagh_route53_txt_belfast" {
   zone_id = aws_route53_zone.omagh_route53_zone.zone_id
   name    = "belfast._domainkey.omagh.independent-inquiry.uk"

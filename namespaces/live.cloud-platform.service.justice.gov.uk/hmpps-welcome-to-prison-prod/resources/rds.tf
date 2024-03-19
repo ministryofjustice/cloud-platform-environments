@@ -25,14 +25,15 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "13"
+  db_engine_version = "16.1"
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres12, postgres13
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres13"
+  rds_family = "postgres16"
 
   # instance class
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
+  db_max_allocated_storage = "10000"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -44,6 +45,7 @@ module "rds" {
   #   }
   # ]
 
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
