@@ -12,7 +12,7 @@ module "backup_s3_bucket" {
     {
       enabled = true
 
-      expiration {
+      expiration = {
         days = 30
       }
     }
