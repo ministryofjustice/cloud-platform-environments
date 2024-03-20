@@ -45,6 +45,7 @@ resource "pingdom_check" "pingdom" {
     "oasys-and-delius",
     "feature-flags",
     "probation-search-and-delius",
+    "core-person-record-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
