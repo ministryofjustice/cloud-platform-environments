@@ -2,8 +2,6 @@
 
 locals {
   sqs_irsa_policies = {
-    (module.cfo_queue_perf.sqs_name)                                               = module.cfo_queue_perf.irsa_policy_arn,
-    (module.cfo_dead_letter_queue_perf.sqs_name)                                   = module.cfo_dead_letter_queue_perf.irsa_policy_arn,
     (module.cfo_queue.sqs_name)                                                    = module.cfo_queue.irsa_policy_arn,
     (module.cfo_dead_letter_queue.sqs_name)                                        = module.cfo_dead_letter_queue.irsa_policy_arn,
     (module.cvl_prison_events_queue.sqs_name)                                      = module.cvl_prison_events_queue.irsa_policy_arn,
