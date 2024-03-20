@@ -1,22 +1,3 @@
-data "aws_iam_policy_document" "document" {
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:ListBucket"
-    ]
-    resources = [
-      module.s3_bucket.bucket_arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "policy" {
-  name        = "simple-policy-for-writing-to-s3-irsa"
-  path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
-  description = "Policy for writing reports cloud-platform-terraform-irsa"
-}
-
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -24,10 +5,10 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment}"
+  service_account_name = "hoodaw-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
-  role_policy_arns = {
-    s3 = aws_iam_policy.policy.arn
+  role_policy_arns     = {
+    s3 = aws_iam_policy.allow-irsa-read.arn
   }
 
   # Tags
@@ -39,9 +20,27 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "aws_iam_policy" "allow-irsa-read" {
+  name        = "cloud-platform-hoodaw-read-only"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.document.json
+  description = "Policy for reading reports from cloud-platform-hoodaw-reports"
+}
+data "aws_iam_policy_document" "document" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      module.s3_bucket.bucket_arn
+    ]
+  }
+}
+
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "${var.team_name}-irsa"
+    name      = "hoodaw-readonly-irsa"
     namespace = var.namespace
   }
   data = {
