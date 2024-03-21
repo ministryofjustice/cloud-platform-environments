@@ -160,7 +160,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__interval])\n) by (status) != 0",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n) by (status) != 0",
               "interval": "1m",
               "legendFormat": "{{status}}",
               "range": true,
