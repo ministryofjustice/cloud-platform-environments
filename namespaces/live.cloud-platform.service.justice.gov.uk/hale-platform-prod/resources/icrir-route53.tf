@@ -51,7 +51,7 @@ resource "aws_route53_record" "icrir_route53_txt_dmarc" {
   name    = "_dmarc.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=0; sp=none"]
+  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100; sp=reject"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_belfast" {
@@ -68,6 +68,14 @@ resource "aws_route53_record" "icrir_route53_txt_asvdns" {
   type    = "TXT"
   ttl     = "3600"
   records = ["asvdns_597b5b92-f07e-4cca-95f2-f41a0b123faf"]
+}
+
+resource "aws_route53_record" "icrir_route53_txt_smtp" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "_smtp._tls.icrir.independent-inquiry.uk" 
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]  
 }
 
 resource "aws_route53_record" "icrir_route53_mx" {
