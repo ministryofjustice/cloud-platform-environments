@@ -72,6 +72,10 @@ resource "aws_sqs_queue_policy" "event_test_client_queue_policy" {
       ]
   }
    EOF
+
+  depends_on = [
+    module.hmpps-integration-events
+  ]
 }
 
 resource "aws_sns_topic_subscription" "event_test_client_subscription" {
@@ -79,6 +83,10 @@ resource "aws_sns_topic_subscription" "event_test_client_subscription" {
   topic_arn = environmmodule.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_test_client_queue.sqs_arn 
+  
+  depends_on = [
+    module.hmpps-integration-events
+  ]
 }
 
 resource "kubernetes_secret" "event_test_client_queue" {

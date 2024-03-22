@@ -24,6 +24,7 @@ module "event_mapps_queue" {
   providers = {
     aws = aws.london
   }
+ 
 }
 
 module "event_mapps_dead_letter_queue" {
@@ -72,6 +73,9 @@ resource "aws_sqs_queue_policy" "event_mapps_queue_policy" {
       ]
   }
    EOF
+  depends_on = [
+    module.hmpps-integration-events
+  ]
 }
 
 module "mapps-filter-list-secret" {
@@ -109,6 +113,9 @@ resource "aws_sns_topic_subscription" "event_mapps_subscription" {
   topic_arn = environmmodule.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_mapps_queue.sqs_arn 
+  depends_on = [
+    module.hmpps-integration-events
+  ]
 }
 
 resource "kubernetes_secret" "event_mapps_queue" {
