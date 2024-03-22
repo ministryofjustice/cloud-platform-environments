@@ -66,7 +66,7 @@ resource "aws_sqs_queue_policy" "event_mapps_queue_policy" {
             {
               "ArnEquals":
                 {
-                  "aws:SourceArn": "${environmmodule.hmpps-integration-events.topic_arn}"
+                  "aws:SourceArn": "${module.hmpps-integration-events.topic_arn}"
                 }
             }
         }
@@ -110,7 +110,7 @@ module "mapps-filter-list-secret" {
 
 resource "aws_sns_topic_subscription" "event_mapps_subscription" {
   provider  = aws.london
-  topic_arn = environmmodule.hmpps-integration-events.topic_arn
+  topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_mapps_queue.sqs_arn 
   depends_on = [

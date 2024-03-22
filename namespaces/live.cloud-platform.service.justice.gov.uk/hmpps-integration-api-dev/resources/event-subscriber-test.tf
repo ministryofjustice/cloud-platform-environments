@@ -65,7 +65,7 @@ resource "aws_sqs_queue_policy" "event_test_client_queue_policy" {
             {
               "ArnEquals":
                 {
-                  "aws:SourceArn": "${environmmodule.hmpps-integration-events.topic_arn}"
+                  "aws:SourceArn": "${module.hmpps-integration-events.topic_arn}"
                 }
             }
         }
@@ -80,10 +80,10 @@ resource "aws_sqs_queue_policy" "event_test_client_queue_policy" {
 
 resource "aws_sns_topic_subscription" "event_test_client_subscription" {
   provider  = aws.london
-  topic_arn = environmmodule.hmpps-integration-events.topic_arn
+  topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_test_client_queue.sqs_arn 
-  
+
   depends_on = [
     module.hmpps-integration-events
   ]
