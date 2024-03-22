@@ -18,6 +18,8 @@ module "rds_aurora" {
   db_parameter_group_name     = resource.aws_db_parameter_group.default.name
   allow_major_version_upgrade = true
 
+  snapshot_identifier = "rds:cloud-platform-990d4906b6f86ea5-2024-03-21-02-04"
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
