@@ -21,7 +21,7 @@ module "hmpps-integration-events" {
 
 resource "kubernetes_secret" "hmpps-integration-events-secret" {
   metadata {
-    name      = "hmpps-integration-events"
+    name      = "hmpps-integration-events-topic"
     namespace = var.namespace
   }
 
