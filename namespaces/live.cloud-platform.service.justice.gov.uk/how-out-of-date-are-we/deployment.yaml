@@ -35,6 +35,11 @@ spec:
           env:
             - name: NGINX_HTTP_PORT_NUMBER
               value: "4567"
+            - name: READ_ROLE_NAME
+              valueFrom: 
+                secretKeyRef:
+                  name: hoodaw-readonly-irsa
+                  key: role
           volumeMounts:
             - name: my-volume
               mountPath: /app/index.html
