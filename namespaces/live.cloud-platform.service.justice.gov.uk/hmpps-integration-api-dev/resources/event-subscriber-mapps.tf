@@ -74,7 +74,7 @@ resource "aws_sqs_queue_policy" "event_mapps_queue_policy" {
    EOF
 }
 
-module "secret" {
+module "mapps-filter-list-secret" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
