@@ -79,5 +79,8 @@ module "prison-identifier-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-identifier-and-delius"
-  role_policy_arns     = { sqs = module.prison-identifier-and-delius-queue.irsa_policy_arn }
+  role_policy_arns     = {
+    sqs = module.prison-identifier-and-delius-queue.irsa_policy_arn
+    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+  }
 }
