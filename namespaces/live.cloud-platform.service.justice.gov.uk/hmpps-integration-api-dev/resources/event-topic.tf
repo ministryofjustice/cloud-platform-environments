@@ -26,7 +26,8 @@ resource "kubernetes_secret" "hmpps-integration-events-secret" {
   }
 
   data = {  
-    sqs_arn  = module.hmpps-integration-events.topic_arn
-    sqs_name = module.hmpps-integration-events.topic_name
+    sns_arn  = module.hmpps-integration-events.topic_arn
+    sns_name = module.hmpps-integration-events.topic_name
+    sns_irsa_arn= module.integration_api_domain_events_queue.irsa_policy_arn
   }
 }
