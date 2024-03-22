@@ -130,6 +130,16 @@ resource "aws_route53_record" "start_page_txt_root" {
   ]
 }
 
+resource "aws_route53_record" "start_page_txt__dmarc" {
+  name    = "_dmarc.sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = aws_route53_zone.start_page.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"
+  ]
+}
+
 resource "aws_route53_zone" "start_page_alias" {
   name = "sendmoneytoaprisoner.service.justice.gov.uk."
 
