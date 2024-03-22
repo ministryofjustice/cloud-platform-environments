@@ -22,7 +22,7 @@ module "event_test_client_queue" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london
+    aws = aws.london_default_github_tag
   }
 }
 
@@ -43,7 +43,7 @@ module "event_test_client_dead_letter_queue" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london
+    aws = aws.london_default_github_tag
   }
 }
 
