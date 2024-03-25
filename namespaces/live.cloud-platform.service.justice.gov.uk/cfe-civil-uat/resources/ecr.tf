@@ -93,8 +93,7 @@ module "ecr_credentials" {
             "action": {
                 "type": "expire"
             }
-        },
-
+        }
     ]
 }
 EOF
