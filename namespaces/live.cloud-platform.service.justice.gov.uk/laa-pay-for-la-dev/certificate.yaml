@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gpfd-dev-cert
+  namespace: laa-pay-for-la-dev
+spec:
+  secretName: gpfd-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - apps.live.cloud-platform.service.justice.gov.uk
