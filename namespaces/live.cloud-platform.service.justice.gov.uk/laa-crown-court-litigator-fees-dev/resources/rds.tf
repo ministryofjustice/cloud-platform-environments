@@ -15,12 +15,12 @@ module "rds-instance" {
 
   # Database configuration
   db_engine                = "oracle-se2" # or oracle-ee
-  db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
+  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
-  db_name                  = "CCR"
+  db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" # problem  
@@ -31,7 +31,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "************" # update with snapshot value, once created and moved from LZ to CP
 
   providers = {
     aws = aws.london
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "rule4" {
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
-    name      = "rds-ccr-${var.environment}"
+    name      = "rds-cclf-${var.environment}"
     namespace = var.namespace
   }
 
