@@ -17,5 +17,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,                    # Required
       k8s_secret_name         = "gpfd-test-secret-01" # The name of the secret in k8s
     },
+    "gpfd-dev-cert" = {
+          description             = "gpfd dev ssl certificate",   # Required
+          recovery_window_in_days = 7,                    # Required
+          k8s_secret_name         = "gpfd-dev-cert" # The name of the secret in k8s
+
+    }
   }
 }
