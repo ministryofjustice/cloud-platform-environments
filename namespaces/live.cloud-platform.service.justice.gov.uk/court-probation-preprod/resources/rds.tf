@@ -11,7 +11,7 @@ module "court_case_service_rds" {
   prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   db_engine                   = "postgres"
-  db_engine_version           = "14.9"
+  db_engine_version           = "14.11"
   db_instance_class           = "db.t4g.xlarge"
   rds_family                  = "postgres14"
   db_allocated_storage        = "35"
