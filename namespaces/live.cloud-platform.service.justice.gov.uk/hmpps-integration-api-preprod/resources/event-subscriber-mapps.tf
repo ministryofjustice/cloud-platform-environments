@@ -83,7 +83,11 @@ resource "aws_sns_topic_subscription" "event_mapps_subscription" {
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_mapps_queue.sqs_arn 
-  filter_policy = {"eventType":["default"]}
+  filter_policy = jsonencode({
+    eventType = [      
+      "Default"
+    ]
+  })
   depends_on = [
     module.hmpps-integration-events
   ]
