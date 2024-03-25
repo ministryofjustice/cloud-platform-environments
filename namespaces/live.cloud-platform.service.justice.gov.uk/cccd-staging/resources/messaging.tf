@@ -4,7 +4,6 @@ module "cccd_claims_submitted" {
   # Configuration
   topic_display_name = "cccd-claims-submitted"
 
-
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -30,7 +29,6 @@ module "claims_for_ccr" {
   {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -57,7 +55,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
     "Statement":
       [
         {
-          "Sid": "CCLFPolicy",
+          "Sid": "CCRPolicy",
           "Effect": "Allow",
           "Principal": {
           "AWS": [
@@ -99,7 +97,6 @@ module "claims_for_cclf" {
   {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -168,7 +165,6 @@ module "responses_for_cccd" {
   {
     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -279,7 +275,7 @@ module "cccd_response_dead_letter_queue" {
 resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
     name      = "cccd-messaging"
-    namespace = "cccd-staging"
+    namespace = var.namespace
   }
 
   data = {
