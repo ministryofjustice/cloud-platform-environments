@@ -1,4 +1,4 @@
-module "irsa" {
+module "s3-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -38,13 +38,13 @@ data "aws_iam_policy_document" "document" {
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "s3-irsa" {
   metadata {
     name      = "hoodaw-readonly-irsa"
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    role           = module.s3-irsa.role_name
+    serviceaccount = module.s3-irsa.service_account.name
   }
 }

@@ -109,6 +109,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_incidents_subscriptio
   endpoint  = module.prisoner_from_nomis_incidents_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "INCIDENT-INSERTED",
       "INCIDENT-CHANGED-CASES",
       "INCIDENT-CHANGED-PARTIES",
       "INCIDENT-CHANGED-RESPONSES",

@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Jobs Board"
+  default     = "HMPPS Delius Alfresco"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-jobs-board-dev"
+  default     = "hmpps-delius-alfresco-stage"
 }
 
 variable "business_unit" {
@@ -29,19 +29,19 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "education-skills-work-employment"
+  default     = "hmpps-migration"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "stage"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "managing.eswe@digital.justice.gov.uk"
+  default     = "probation-webops@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "prison-education"
+  default     = "ask-probation-webops"
 }
 
 variable "github_owner" {
@@ -68,6 +68,6 @@ variable "github_token" {
   default     = ""
 }
 
-variable "number_cache_clusters" {
-  default = "2"
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
 }
