@@ -31,12 +31,12 @@ module "ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire untagged images older than 14 days",
+            "description": "Keep newest 50 uat images",
             "selection": {
-                "tagStatus": "untagged",
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
+                "tagStatus": "tagged",
+                "tagPrefixList": ["uat"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 50
             },
             "action": {
                 "type": "expire"
@@ -44,12 +44,12 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 2,
-            "description": "Keep last 30 dev and staging images",
+            "description": "Keep newest 5 staging images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["dev", "staging"],
+                "tagPrefixList": ["uat"],
                 "countType": "imageCountMoreThan",
-                "countNumber": 30
+                "countNumber": 5
             },
             "action": {
                 "type": "expire"
@@ -57,11 +57,38 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 3,
-            "description": "Keep the newest 100 images and mark the rest for expiration",
+            "description": "Keep newest 5 staging_mtr images",
             "selection": {
-                "tagStatus": "any",
+                "tagStatus": "tagged",
+                "tagPrefixList": ["staging_mtr"],
                 "countType": "imageCountMoreThan",
-                "countNumber": 100
+                "countNumber": 5
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 4,
+            "description": "Keep the newest 10 production images and mark the rest for expiration",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["production"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 4,
+            "description": "Deprecated tags - keep 5 newest",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["dev", "latest"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 5
             },
             "action": {
                 "type": "expire"
