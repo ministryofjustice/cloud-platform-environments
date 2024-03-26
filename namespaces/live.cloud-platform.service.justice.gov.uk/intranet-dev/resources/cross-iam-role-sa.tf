@@ -52,7 +52,7 @@ resource "kubernetes_secret" "cross_irsa" {
     namespace = var.namespace
   }
   data = {
-    role = module.irsa.aws_iam_role_name
-    serviceaccount = module.irsa.service_account_name.name
+    role = module.cross_irsa.aws_iam_role_name
+    serviceaccount = module.cross_irsa.service_account_name.name
   }
 }
