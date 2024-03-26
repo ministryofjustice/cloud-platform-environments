@@ -9,10 +9,9 @@ module "s3_bucket" {
   namespace              = var.namespace
   providers = {
     aws = aws.london
-  }
-  # Adds staging S3 resources to user-policy to allow one-way sync.
-  # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
-  user_policy = <<EOF
+    # Adds staging S3 resources to user-policy to allow one-way sync.
+    # https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket#migrate-from-existing-buckets
+    user_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -51,6 +50,7 @@ module "s3_bucket" {
   ]
 }
 EOF
+  }
 
 }
 
