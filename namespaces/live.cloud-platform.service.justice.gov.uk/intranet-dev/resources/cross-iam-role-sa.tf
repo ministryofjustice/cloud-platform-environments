@@ -13,22 +13,35 @@ module "cross_irsa" {
 }
 
 data "aws_iam_policy_document" "intranet_dev_s3_staging" {
-  # A list of permissions and target AWS account resources to allow access to
+  # List & location for source & destination S3 bucket.
   statement {
-    actions = [
-      "s3:ListBucket"
+    actions = [ 
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
     ]
-    resources = [
+    resources = [ 
+      module.s3_bucket.bucket_arn,
       "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u"
     ]
   }
+  # Permissions on source S3 bucket contents. 
+  statement {
+    actions = [ 
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectTagging"
+    ]
+    resources = [ "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u/*" ]
+  }
+  # Permissions on destination S3 bucket contents. 
   statement {
     actions = [
-      "s3:GetObject"
+      "s3:PutObject",
+      "s3:PutObjectTagging",
+      "s3:GetObject",
+      "s3:DeleteObject"
     ]
-    resources = [
-      "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u/*"
-    ]
+    resources = [ "${module.s3_bucket.bucket_arn}/*" ]
   }
 }
 
@@ -56,4 +69,13 @@ resource "kubernetes_secret" "cross_irsa" {
     rolearn        = module.cross_irsa.role_arn
     serviceaccount = module.cross_irsa.service_account.name
   }
+}
+
+# set up the service pod
+module "cross_service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.cross_irsa.service_account.name # this uses the service account name from the irsa module
 }
