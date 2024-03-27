@@ -110,7 +110,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_alerts_subscription" 
   filter_policy = jsonencode({
     eventType = [
       "ALERT-INSERTED",
-      "ALERT-UPDATED"
+      "ALERT-UPDATED",
+      "ALERT-DELETED"
     ]
   })
 }

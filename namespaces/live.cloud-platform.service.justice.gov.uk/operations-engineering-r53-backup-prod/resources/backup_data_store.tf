@@ -8,6 +8,15 @@ module "backup_s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  lifecycle_rule = [
+    {
+      enabled = true
+
+      expiration = [{
+        days = 30
+      }]
+    }
+  ]
 }
 
 resource "kubernetes_secret" "backup_s3_bucket" {

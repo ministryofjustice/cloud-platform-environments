@@ -40,7 +40,7 @@ resource "aws_route53_record" "layobservers_route53_cname_www_record_acm" {
 
 resource "aws_route53_record" "layobservers_route53_txt_record_main" {
   zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
-  name    = "layobservers.org"
+  name    = "_dmarc.layobservers.org"
   type    = "TXT"
   ttl     = "300"
   records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]

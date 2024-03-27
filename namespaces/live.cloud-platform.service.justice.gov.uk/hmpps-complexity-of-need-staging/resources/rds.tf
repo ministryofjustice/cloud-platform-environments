@@ -18,13 +18,15 @@ module "complexity-of-need-rds" {
   environment_name           = var.environment
   infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
-  db_engine_version          = "14"
-  rds_family                 = "postgres14"
   db_name                    = "hmpps_complexity_of_need"
   db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   enable_rds_auto_start_stop = true
 
+  db_engine_version           = "15.6"
+  rds_family                  = "postgres15"
+  allow_minor_version_upgrade = true
   allow_major_version_upgrade = true
+  prepare_for_major_upgrade   = true
 
   providers = {
     aws = aws.london

@@ -1,7 +1,6 @@
 locals {
   datahub_roles = [
-    "arn:aws:iam::593291632749:role/openmetadata",
-    "arn:aws:iam::013433889002:role/openmetadata"
+    "arn:aws:iam::593291632749:role/datahub-ingestion-${var.environment}"
   ]
 }
 

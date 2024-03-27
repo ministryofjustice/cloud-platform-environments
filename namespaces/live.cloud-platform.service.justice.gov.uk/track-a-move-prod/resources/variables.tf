@@ -6,7 +6,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Track a Move"
+  default     = "track-a-move"
 }
 
 variable "namespace" {
@@ -36,6 +36,10 @@ variable "environment_name" {
 variable "environment_suffix" {
   description = "The name of environment"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {

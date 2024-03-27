@@ -10,6 +10,11 @@ module "secret" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "slack-webhook-url"
     },
+    "integration-api-event-mapps-filter-list" = {
+      description             = "MAPPS event filter list Pre-prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "mapps-filter-list"
+    }
   }
 
   # Tags

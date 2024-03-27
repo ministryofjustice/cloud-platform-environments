@@ -38,12 +38,20 @@ resource "aws_route53_record" "icrir_route53_txt" {
   records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com -all", "sophos-domain-verification=64f22b1b53453a1059db6e455503ed554f02e94d"]
 }
 
+resource "aws_route53_record" "icrir_route53_txt_sophos" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "sophosf3bd95765ac040c5885192c8f338b89c._domainkey.icrir.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn0zVpXF3yitKcLbCcQkoObTE0zTRFYHsSix/abMrRKH6EfU98bgMOYppzzW9E7UHbx6eOud9HjUM1u5PoPniYVOE1HaGCuZ59R\"\"W/Gy9ZajrWQG4nzujyObKFsrijmhTmlMNTyg07SY0x8zwB59ToXrzaXLHzsFtECsfO1I5QU0Qa87L6XJC4OmToRdqplvD6BXQ2ZYmMrgYme9mQVEjZ/0b1UfAvA32ocxlINbBEkpWoWQaJYkn86b31rvpcc+l7v09W3YbRkiFw5zrX031bVCahSN+pdz8Z99fCRtdOdwFJleSZDEfWYIb0swfM/W1jqBnuFbu65WgSsT/Ewzky5QIDAQAB"]
+}
+
 resource "aws_route53_record" "icrir_route53_txt_dmarc" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "_dmarc.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=0; sp=none"]
+  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100; sp=reject"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_belfast" {
@@ -62,10 +70,18 @@ resource "aws_route53_record" "icrir_route53_txt_asvdns" {
   records = ["asvdns_597b5b92-f07e-4cca-95f2-f41a0b123faf"]
 }
 
+resource "aws_route53_record" "icrir_route53_txt_smtp" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "_smtp._tls.icrir.independent-inquiry.uk" 
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]  
+}
+
 resource "aws_route53_record" "icrir_route53_mx" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
   type    = "MX"
-  ttl     = "3600"
-  records = ["10 mail1.nics.gov.uk.", "10 mail2.nics.gov.uk.", "10 mail3.nics.gov.uk.", "10 mail4.nics.gov.uk.", "10 mail5.nics.gov.uk.", "10 mail6.nics.gov.uk.", "10 mail7.nics.gov.uk.", "10 mail8.nics.gov.uk."]
+  ttl     = "300"
+  records = ["10 mx-01-eu-west-1.prod.hydra.sophos.com", "20 mx-02-eu-west-1.prod.hydra.sophos.com"]
 }

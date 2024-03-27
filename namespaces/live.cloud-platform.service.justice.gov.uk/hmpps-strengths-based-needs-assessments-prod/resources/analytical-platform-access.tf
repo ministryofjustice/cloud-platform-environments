@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-prod/landing/hmpps-strengths-based-needs-assessments-prod/*",
-      "arn:aws:s3:::moj-reg-prod/landing/hmpps-strengths-based-needs-assessments-prod/"
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-strengths-based-needs-prod/*",
+      "arn:aws:s3:::moj-reg-prod/landing/hmpps-strengths-based-needs-prod/"
     ]
   }
 }
@@ -75,7 +75,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-prod/landing/hmpps-strengths-based-needs-assessments-prod/"
+    destination_bucket = "s3://moj-reg-prod/landing/hmpps-strengths-based-needs-prod/"
     user_arn           = aws_iam_user.user.arn
     access_key_id      = aws_iam_access_key.user.id
     secret_access_key  = aws_iam_access_key.user.secret

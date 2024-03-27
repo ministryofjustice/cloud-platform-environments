@@ -36,6 +36,16 @@ resource "aws_route53_record" "app_domain_txt_root" {
   ]
 }
 
+resource "aws_route53_record" "app_domain_txt__dmarc" {
+  name    = "_dmarc.prisoner-money.service.justice.gov.uk."
+  zone_id = aws_route53_zone.app_domain.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"
+  ]
+}
+
 resource "aws_route53_zone" "send_money" {
   name = "send-money-to-prisoner.service.gov.uk."
 
@@ -70,6 +80,16 @@ resource "aws_route53_record" "send_money_txt_root" {
   ttl     = "300"
   records = [
     "google-site-verification=T2qg1AVVzK0DAQSY2SmnS-rRN-hsJFUMeBLiMoyrahY"
+  ]
+}
+
+resource "aws_route53_record" "send_money_txt__dmarc" {
+  name    = "_dmarc.send-money-to-prisoner.service.gov.uk."
+  zone_id = aws_route53_zone.send_money.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"
   ]
 }
 
@@ -110,6 +130,16 @@ resource "aws_route53_record" "start_page_txt_root" {
   ]
 }
 
+resource "aws_route53_record" "start_page_txt__dmarc" {
+  name    = "_dmarc.sendmoneytoaprisoner.justice.gov.uk."
+  zone_id = aws_route53_zone.start_page.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"
+  ]
+}
+
 resource "aws_route53_zone" "start_page_alias" {
   name = "sendmoneytoaprisoner.service.justice.gov.uk."
 
@@ -135,4 +165,14 @@ resource "kubernetes_secret" "start_page_alias" {
     zone_id      = aws_route53_zone.start_page_alias.zone_id
     name_servers = join("\n", aws_route53_zone.start_page_alias.name_servers)
   }
+}
+
+resource "aws_route53_record" "start_page_alias_txt__dmarc" {
+  name    = "_dmarc.sendmoneytoaprisoner.service.justice.gov.uk."
+  zone_id = aws_route53_zone.start_page_alias.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"
+  ]
 }

@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "activities-management"
     cloud-platform.justice.gov.uk/application: "kristian says hello to world"
     cloud-platform.justice.gov.uk/owner: "Activities and Appointments: dpsactivity@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/test/kristian-hello-world"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-tutorial-kristian"
     cloud-platform.justice.gov.uk/team-name: "activities-and-appointments"
     cloud-platform.justice.gov.uk/review-after: "2024-06-13"

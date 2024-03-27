@@ -91,6 +91,9 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
       "prison-offender-events.prisoner.non-association-detail.changed",
       "prison-offender-events.prisoner.activities-changed",
       "prison-offender-events.prisoner.appointments-changed",
+      "prisoner-offender-search.prisoner.alerts-updated",
+      "prisoner-offender-search.prisoner.released",
+      "prisoner-offender-search.prisoner.received",
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",
       "incentives.iep-review.deleted"

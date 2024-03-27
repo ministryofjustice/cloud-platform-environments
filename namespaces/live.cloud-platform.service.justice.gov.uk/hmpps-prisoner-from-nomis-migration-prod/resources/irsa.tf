@@ -5,15 +5,15 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
 }
 
 data "aws_iam_policy_document" "combined_local_sqs" {
   version = "2012-10-17"
   statement {
-    sid     = "hmppsPrisonerFromNomisMigrationSqs"
-    effect  = "Allow"
-    actions = ["sqs:*"]
+    sid       = "hmppsPrisonerFromNomisMigrationSqs"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
     resources = [
       module.migration_appointments_queue.sqs_arn,
       module.migration_appointments_dead_letter_queue.sqs_arn,
@@ -30,7 +30,9 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
-      module.migration_allocations_dead_letter_queue.sqs_arn
+      module.migration_allocations_dead_letter_queue.sqs_arn,
+      module.migration_alerts_queue.sqs_arn,
+      module.migration_alerts_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -46,7 +48,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-from-nomis-migration"
-  role_policy_arns = merge(
+  role_policy_arns     = merge(
     local.sqs_policies,
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     {
@@ -60,6 +62,8 @@ module "irsa" {
       prisoner_from_nomis_visits_dead_letter_queue          = module.prisoner_from_nomis_visits_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_alerts_queue                      = module.prisoner_from_nomis_alerts_queue.irsa_policy_arn,
       prisoner_from_nomis_alerts_dead_letter_queue          = module.prisoner_from_nomis_alerts_dead_letter_queue.irsa_policy_arn,
+      prisoner_from_nomis_courtsentencing_queue             = module.prisoner_from_nomis_courtsentencing_queue.irsa_policy_arn,
+      prisoner_from_nomis_courtsentencing_dead_letter_queue = module.prisoner_from_nomis_courtsentencing_dead_letter_queue.irsa_policy_arn,
     }
   )
   # Tags

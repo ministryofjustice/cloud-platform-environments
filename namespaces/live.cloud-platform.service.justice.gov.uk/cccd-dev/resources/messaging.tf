@@ -29,7 +29,6 @@ module "claims_for_ccr" {
   {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -71,7 +70,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_ccr.sqs_arn}",
-          "Action": "sqs:*",
+          "Action": "SQS:SendMessage",
           "Condition":
             {
               "ArnEquals":
@@ -98,7 +97,6 @@ module "claims_for_cclf" {
   {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -140,7 +138,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_cclf.sqs_arn}",
-          "Action": "sqs:*",
+          "Action": "SQS:SendMessage",
           "Condition":
             {
               "ArnEquals":
@@ -167,7 +165,6 @@ module "responses_for_cccd" {
   {
     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -278,7 +275,7 @@ module "cccd_response_dead_letter_queue" {
 resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
     name      = "cccd-messaging"
-    namespace = "cccd-dev"
+    namespace = var.namespace
   }
 
   data = {
