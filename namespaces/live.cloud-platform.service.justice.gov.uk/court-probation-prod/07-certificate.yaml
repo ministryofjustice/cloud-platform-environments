@@ -12,4 +12,3 @@ spec:
     - prepare-case-probation.service.justice.gov.uk
     - court-list-splitter.hmpps.service.justice.gov.uk
     - court-hearing-event-receiver.hmpps.service.justice.gov.uk
-    - hmpps-person-match-score.hmpps.service.justice.gov.uk
