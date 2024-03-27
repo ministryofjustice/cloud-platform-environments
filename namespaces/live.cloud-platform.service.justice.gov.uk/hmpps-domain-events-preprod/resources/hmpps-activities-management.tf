@@ -84,8 +84,6 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
   endpoint  = module.activities_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.released",
-      "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.cell.move",
       "prison-offender-events.prisoner.non-association-detail.changed",
