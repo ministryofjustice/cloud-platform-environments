@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-clair-taskforce"
+  default     = "laa-crime-higher-billing"
 }
 
 variable "github_owner" {
@@ -66,4 +66,59 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "replicasets"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
