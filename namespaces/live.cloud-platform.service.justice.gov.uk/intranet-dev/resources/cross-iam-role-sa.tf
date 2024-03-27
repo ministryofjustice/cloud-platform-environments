@@ -72,7 +72,7 @@ resource "kubernetes_secret" "cross_irsa" {
 }
 
 # set up the service pod
-module "service_pod" {
+module "cross_service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
 
   # Configuration
