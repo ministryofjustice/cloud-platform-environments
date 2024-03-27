@@ -82,7 +82,7 @@ module "ecr_credentials" {
             }
         },
         {
-            "rulePriority": 4,
+            "rulePriority": 5,
             "description": "Deprecated tags - keep 5 newest",
             "selection": {
                 "tagStatus": "tagged",
