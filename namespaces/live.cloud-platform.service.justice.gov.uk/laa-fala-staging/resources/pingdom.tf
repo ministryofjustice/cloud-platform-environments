@@ -14,5 +14,5 @@ resource "pingdom_check" "fala-staging" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_false,environment_staging,infrastructuresupport_platforms"
   probefilters             = "region:EU"
-  integration ids          = [134779]
+  integrationids           = [134779]
 }
