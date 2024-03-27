@@ -1,48 +1,63 @@
-# This GitHub action will check if the source-code and 
-
+# this action is meant to trigger the workflow on pull requests aimed at the main branch that include changes in the namespaces/ directory
 
 name: Validate Annotations
 
 on:
-    pull_request:
-        branches:
-            - main
-            paths:
-                - 'namespaces/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'namespaces/**'
 
 
 jobs:
+  validate:
+    # env where the job will be executed
+    runs-on: ubuntu-latest
 
-    validate:
-        runs-on: ubuntu-latest
+    steps:
+      # checkout the repo's content to the env and make it available to subsequent steps
+    - uses: actions/checkout@v3
 
-        steps:
-            - uses: actions/checkout@v3
+      # to ensure the script runs consistently, set up a Go env
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+      
+      # execute the validation script
+    - name: Validate annotations
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #GitHub token for API authentication
+      run:  |
+        cd annotations-checker # change directory to where the script is located
+        go run validate-annotations.go
 
-            - name: Set up Go
-              uses: actions/setup-go@v3
-              with:
-                go-version: 1.19
+    - name: Upload validation results for subsequent steps
+      uses: actions/upload-artifact@v2
+      with:
+        name: validation-outcomes
+        path: annotations-checker/validation_outcomes.txt
 
-            - name: Install dependencies
-              run: |
-                go get gopkg.in/yaml.v2
-                go get github.com/google/go-github/v32/github
+    - name: Annotate PR with the validation result
+      uses: actions/github-script@v5
+      if: always()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
 
-# use the custom script (validate-annotations.go) to ascertain the validity of the specified annotations
-            - name: Validate annotations
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: go run validate-annotations.go
+          const resultsPath = path.join(process.env.GITHUB_WORKSPACE, 'validate-annotations', 'annotations-checker/validation_outcomes.txt');
+          const validationOutcomes = fs.readFileSync(resultsPath, 'utf8');
+            
+          const prNumber = context.issue.number;
+          const message = `### Annotations Validation :robot:\n\n${validationOutcomes}`;
 
-# add a comment to the PR with the outcome of the validation
-            - name: Annotate PR with validation result
-              uses: machine-learning-apps/pr-comment@main
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                path: namespaces/
-                common-styles: |
-                    {
-                        "comment": "### Annotations Validation: robot:\n\n%s"
-                    }
+          github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+            body: message
+          });
