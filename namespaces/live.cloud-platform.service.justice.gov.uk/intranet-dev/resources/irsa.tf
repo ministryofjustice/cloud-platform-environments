@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "intranet-dev-service"
+  service_account_name = "${var.namespace}-service"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
