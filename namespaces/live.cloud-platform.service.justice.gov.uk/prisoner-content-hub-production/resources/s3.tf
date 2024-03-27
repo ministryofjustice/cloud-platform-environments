@@ -42,33 +42,6 @@ module "drupal_content_storage_2" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
-    },
-    {
-      "Sid": "AllowListBucketVersions",
-      "Effect": "Allow",
-      "Principal": {
-          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
-      },
-      "Action": [
-        "s3:ListBucketVersions"
-      ],
-      "Resource": [
-        "$${bucket_arn}"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-          "AWS": "arn:aws:iam::754256621582:user/system/s3-bucket-user/s3-bucket-user-ee432bcfffe38a157f08669a6d4b7740"
-      },
-      "Action": [
-        "s3:GetObjectAcl",
-        "s3:PutObjectAcl"
-      ],
-      "Resource": [
-        "$${bucket_arn}",
-        "$${bucket_arn}/*"
-      ]
     }
   ]
 }
@@ -140,8 +113,6 @@ resource "kubernetes_secret" "drupal_content_storage_2_secret" {
   }
 
   data = {
-    access_key_id     = module.drupal_content_storage_2.access_key_id
-    secret_access_key = module.drupal_content_storage_2.secret_access_key
     bucket_arn        = module.drupal_content_storage_2.bucket_arn
     bucket_name       = module.drupal_content_storage_2.bucket_name
     cloudfront_url    = module.cloudfront.cloudfront_url
