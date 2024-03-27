@@ -42,6 +42,14 @@ variable "domains" {
     "www.newfuturesnetwork.gov.uk"              = "newfuturesnetwork-www"
     "justiceinspectorates.gov.uk"               = "justiceinspectorates"
     "www.justiceinspectorates.gov.uk"           = "justiceinspectorates-www"
+    "hmicfrs.justiceinspectorates.gov.uk" = "hmicfrs-justiceinspectorates"
+    "www.hmicfrs.justiceinspectorates.gov.uk" = "hmicfrs-justiceinspectorates-www"
+    "assets-hmicfrs.justiceinspectorates.gov.uk" = "assets-hmicfrs-justiceinspectorates"
+    "www.assets-hmicfrs.justiceinspectorates.gov.uk" = "assets-hmicfrs-justiceinspectorates-www"
+    "hmiprobationeforms.justiceinspectorates.gov.uk" = "hmiprobationeforms-justiceinspectorates"
+    "www.hmiprobationeforms.justiceinspectorates.gov.uk" = "hmiprobationeforms-justiceinspectorates-www"
+    "monitoringportal.justiceinspectorates.gov.uk" = "monitoringportal-justiceinspectorates"
+    "www.monitoringportal.justiceinspectorates.gov.uk" = "monitoringportal-justiceinspectorates-www"
   }
 }
 
