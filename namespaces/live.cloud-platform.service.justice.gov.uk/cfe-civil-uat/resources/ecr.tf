@@ -47,7 +47,7 @@ module "ecr_credentials" {
             "description": "Keep newest 5 staging images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["uat"],
+                "tagPrefixList": ["staging"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 5
             },
