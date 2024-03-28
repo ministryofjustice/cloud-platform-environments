@@ -20,8 +20,8 @@ module "allocation-rds" {
   db_engine_version           = "15.6"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = false
+  prepare_for_major_upgrade   = false
   db_name                    = "allocations"
   db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   enable_rds_auto_start_stop = true
