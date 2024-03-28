@@ -7,7 +7,6 @@ resource "pingdom_check" "fala-staging" {
   host                     = "find-legal-advice.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
   notifyagainevery         = 0
   url                      = "/"
   encryption               = true
