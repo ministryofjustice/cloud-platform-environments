@@ -24,3 +24,31 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
+
+resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+  bucket = module.s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+}
+
+data "aws_iam_policy_document" "allow_access_from_another_account" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [data.aws_iam_user.manager_concourse.arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*",
+    ]
+  }
+}
+
+data "aws_iam_user" "manager_concourse" {
+  user_name = "manager-concourse"
+}
