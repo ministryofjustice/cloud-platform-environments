@@ -50,11 +50,16 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
   }
 }
 
-data "aws_iam_user" "read-only" {
+data "aws_iam_user" "manager_concourse" {
   user_name = "manager-concourse"
 }
 
 ## Allow IRSA to read from the bucket ##
+
+resource "aws_s3_bucket_policy" "allow_access_for_read_only" {
+  bucket = module.s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.allow_access_for_read_only.json
+}
 
 data "aws_iam_policy_document" "allow_access_for_read_only" {
   statement {
