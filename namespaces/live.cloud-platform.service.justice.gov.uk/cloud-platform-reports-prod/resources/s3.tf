@@ -32,6 +32,7 @@ resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
 
 data "aws_iam_policy_document" "allow_access_from_another_account" {
   statement {
+    sid = "AllowAccessForManagerConcourse"
     principals {
       type        = "AWS"
       identifiers = [data.aws_iam_user.manager_concourse.arn]
@@ -50,6 +51,7 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
   }
 
   statement {
+    sid = "AllowAccessForReadOnly"
     principals {
       type        = "AWS"
       identifiers = [module.s3-irsa.role_arn]
