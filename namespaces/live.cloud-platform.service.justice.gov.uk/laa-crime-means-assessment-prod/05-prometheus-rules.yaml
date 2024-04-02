@@ -10,7 +10,7 @@ spec:
     - name: application-rules
       rules:
         - alert: Client Response Errors (excluding 400 and 401)
-          expr: sum(increase(http_server_requests_seconds_count{namespace="laa-crime-means-assessment-prod",outcome="CLIENT_ERROR", status!~"4(00|01)"}[10m])) > 1
+          expr: sum(increase(http_server_requests_seconds_count{namespace="laa-crime-means-assessment-prod",outcome="CLIENT_ERROR",status!~"4(00|01)"}[10m])) > 1
           for: 1m
           labels:
             severity: laa-crime-means-assessment-alerts-prod
@@ -20,7 +20,7 @@ spec:
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-means-assessment?var-namespace=laa-crime-means-assessment-prod
         - alert: Client Response Errors - 401 Unauthorised
-            expr: sum(increase(http_server_requests_seconds_count{status="401", namespace="laa-crime-means-assessment-prod"}[10m])) > 1
+            expr: sum(increase(http_server_requests_seconds_count{status="401",outcome="CLIENT_ERROR",namespace="laa-crime-means-assessment-prod"}[10m])) > 1
             for: 1m
             labels:
               severity: laa-crime-means-assessment-alerts-prod
@@ -30,7 +30,7 @@ spec:
               runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
               dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-means-assessment?var-namespace=laa-crime-means-assessment-prod
         - alert: Client Response Errors - 400 Bad request
-          expr: sum(increase(http_server_requests_seconds_count{status="400", namespace="laa-crime-means-assessment-prod"}[10m])) > 1
+          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-crime-means-assessment-prod"}[10m])) > 1
           for: 1m
           labels:
             severity: laa-crime-means-assessment-alerts-prod
