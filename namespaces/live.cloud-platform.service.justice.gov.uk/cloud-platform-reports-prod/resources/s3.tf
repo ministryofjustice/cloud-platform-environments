@@ -50,6 +50,27 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
   }
 }
 
-data "aws_iam_user" "manager_concourse" {
+data "aws_iam_user" "read-only" {
   user_name = "manager-concourse"
+}
+
+## Allow IRSA to read from the bucket ##
+
+data "aws_iam_policy_document" "allow_access_for_read_only" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_policy.allow-irsa-read.arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*",
+    ]
+  }
 }
