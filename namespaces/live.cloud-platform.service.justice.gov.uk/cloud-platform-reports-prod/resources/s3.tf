@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "allow_access_for_read_only" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_policy.allow-irsa-read.arn]
+      identifiers = [module.s3-irsa.role_arn]
     }
 
     actions = [
