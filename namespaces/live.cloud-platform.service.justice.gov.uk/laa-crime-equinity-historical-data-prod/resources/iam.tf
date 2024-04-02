@@ -9,7 +9,10 @@ resource "aws_iam_access_key" "upload_user_prod_key" {
 
 data "aws_iam_policy_document" "upload_policy" {
   statement {
-    actions = ["s3:PutObject"]
+    actions = [
+      "s3:PutObject",
+      "s3:GetBucketLocation"
+    ]
     
     resources = [
       "${module.s3_bucket.bucket_arn}/*"
