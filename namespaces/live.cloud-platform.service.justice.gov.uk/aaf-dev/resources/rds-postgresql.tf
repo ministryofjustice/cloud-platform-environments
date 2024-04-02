@@ -77,13 +77,13 @@ module "read_replica" {
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+   db_parameter = [
+     {
+       name         = "rds.force_ssl"
+       value        = "0"
+       apply_method = "immediate"
+     }
+   ]
 }
 
 resource "kubernetes_secret" "rds" {
