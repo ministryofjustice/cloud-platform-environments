@@ -15,4 +15,5 @@ resource "pingdom_check" "hello-cloud-platform-app" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.application},isproduction_${var.is_production},owner_${var.team_name}"
   probefilters             = "region:EU"
+  integrationids           = [134879]
 }
