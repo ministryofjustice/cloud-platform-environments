@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "pyf_team_route53_zone" {
-  name = "plan-your-future.gov.uk"
+  name = "plan-your-future.service.gov.uk"
 
   tags = {
     team_name              = var.team_name
