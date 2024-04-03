@@ -1,6 +1,6 @@
 provider "pingdom" {}
 
-resource "pingdom_check" "fb_services_pingdom" {
+resource "pingdom_check" "formbuilder-product-page-prod" {
   type                     = "http"
   name                     = "Form Builder - Product Page"
   host                     = "moj-forms.service.justice.gov.uk"
