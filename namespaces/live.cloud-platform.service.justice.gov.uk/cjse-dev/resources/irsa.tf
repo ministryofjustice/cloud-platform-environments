@@ -9,7 +9,8 @@ module "irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    sqs = module.unprocessed_documents_and_events_sqs.irsa_policy_arn
+    unprocessed_sqs = module.unprocessed_documents_and_events_sqs.irsa_policy_arn
+    process_sqs     = module.process_sqs.irsa_policy_arn
   }
 
   # Tags
