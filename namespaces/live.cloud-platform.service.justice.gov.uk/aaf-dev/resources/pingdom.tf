@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "hello-cloud-platform-app" {
   type                     = "http"
   name                     = "test-hello-cloud-platform-app"
-  host                     = "https://aaf-dev.apps.live.cloud-platform.service.justice.gov.uk/"
+  host                     = "aaf-dev.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   paused                   = false
   notifywhenbackup         = true
