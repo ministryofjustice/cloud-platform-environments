@@ -376,7 +376,7 @@ resource "kubernetes_role_binding" "emails" {
 }
 
 module "service-account-circleci" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -412,7 +412,7 @@ module "service-account-circleci" {
 }
 
 module "service-account-github-actions" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
