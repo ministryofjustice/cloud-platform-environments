@@ -9,6 +9,11 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+resource "aws_s3_bucket_accelerate_configuration" "this" {
+  bucket = module.s3_bucket.bucket_name
+  status = "Enabled"
+}
+
 resource "aws_iam_user" "alfresco_user" {
   name = "${var.namespace}-alfresco_user"
   path = "/system/${var.namespace}-alfresco_user/"
