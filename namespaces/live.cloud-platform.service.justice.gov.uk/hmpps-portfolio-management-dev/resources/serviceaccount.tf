@@ -82,10 +82,10 @@ module "service_account" {
   serviceaccount_name                  = "hmpps-portfolio-management"
   github_environments                  = [var.environment]
   github_repositories                  = local.github_repos
-  github_actions_secret_kube_cert      = "${upper(var.environment)}_KUBE_CERT"
-  github_actions_secret_kube_token     = "${upper(var.environment)}_KUBE_TOKEN"
-  github_actions_secret_kube_cluster   = "${upper(var.environment)}_KUBE_CLUSTER"
-  github_actions_secret_kube_namespace = "${upper(var.environment)}_KUBE_NAMESPACE"
+  github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
+  github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+  github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   serviceaccount_rules                 = local.sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
   depends_on                           = [github_repository_environment.env]
