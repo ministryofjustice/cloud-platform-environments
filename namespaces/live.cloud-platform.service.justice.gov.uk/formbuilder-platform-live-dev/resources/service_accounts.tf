@@ -79,7 +79,7 @@ locals {
 }
 
 module "serviceaccount_formbuilder-av-live-dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -94,7 +94,7 @@ module "serviceaccount_formbuilder-av-live-dev" {
 }
 
 module "serviceaccount_formbuilder-pdf-generator-live-dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -109,7 +109,7 @@ module "serviceaccount_formbuilder-pdf-generator-live-dev" {
 }
 
 module "serviceaccount_formbuilder-submitter-workers-live-dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -124,7 +124,7 @@ module "serviceaccount_formbuilder-submitter-workers-live-dev" {
 }
 
 module "serviceaccount_formbuilder-user-datastore-live-dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -139,7 +139,7 @@ module "serviceaccount_formbuilder-user-datastore-live-dev" {
 }
 
 module "serviceaccount_formbuilder-user-filestore-live-dev" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
