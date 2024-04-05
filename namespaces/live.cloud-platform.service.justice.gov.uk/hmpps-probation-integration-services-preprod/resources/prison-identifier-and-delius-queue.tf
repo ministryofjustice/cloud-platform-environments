@@ -4,7 +4,7 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-subscr
   endpoint  = module.prison-identifier-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.imprisonment-status-changed",
       "prison-offender-events.prisoner.merged",
     ]
   })
