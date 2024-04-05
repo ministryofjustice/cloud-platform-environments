@@ -1,5 +1,6 @@
 locals {
-  github_repos = ["hmpps-service-catalogue", "hmpps-health-ping", "hmpps-developer-portal", "hmpps-github-discovery", "hmpps-veracode-discovery", "hmpps-component-dependencies"]
+  github_repos = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-github-discovery", "hmpps-veracode-discovery", "hmpps-component-dependencies"]
+  github_repos_2 = ["hmpps-health-ping"]
   sa_rules = [
     {
       api_groups = [""]
@@ -86,6 +87,22 @@ module "service_account" {
   github_actions_secret_kube_token     = "${upper(var.environment)}_KUBE_TOKEN"
   github_actions_secret_kube_cluster   = "${upper(var.environment)}_KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "${upper(var.environment)}_KUBE_NAMESPACE"
+  serviceaccount_rules                 = local.sa_rules
+  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  depends_on                           = [github_repository_environment.env]
+}
+
+module "service_account_2" {
+  source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  namespace                            = var.namespace
+  kubernetes_cluster                   = var.kubernetes_cluster
+  serviceaccount_name                  = "hmpps-portfolio-management"
+  github_environments                  = [var.environment]
+  github_repositories                  = local.github_repos_2
+  github_actions_secret_kube_cert      = "KUBE_CERT"
+  github_actions_secret_kube_token     = "KUBE_TOKEN"
+  github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
+  github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
   depends_on                           = [github_repository_environment.env]
