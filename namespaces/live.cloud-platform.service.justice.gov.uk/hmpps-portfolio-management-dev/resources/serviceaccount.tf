@@ -1,5 +1,5 @@
 locals {
-  github_repos = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-github-discovery", "hmpps-veracode-discovery", "hmpps-component-dependencies"]
+  github_repos   = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-github-discovery", "hmpps-veracode-discovery", "hmpps-component-dependencies"]
   github_repos_2 = ["hmpps-health-ping"]
   sa_rules = [
     {
@@ -115,7 +115,7 @@ resource "time_rotating" "weekly" {
 }
 
 resource "github_repository_environment" "env" {
-  for_each    = toset(local.github_repos)
+  for_each    = toset(concat(local.github_repos, local.github_repos_2))
   environment = var.environment
   repository  = each.key
   deployment_branch_policy {
