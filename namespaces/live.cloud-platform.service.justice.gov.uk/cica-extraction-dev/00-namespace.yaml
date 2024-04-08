@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "cica-extraction-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "CICA"
+    cloud-platform.justice.gov.uk/slack-channel: "cica-case-management-discovery"
+    cloud-platform.justice.gov.uk/application: "cica case extraction"
+    cloud-platform.justice.gov.uk/owner: "cica-extract-tool-admins: infrastructure@cica.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cica-poc"
+    cloud-platform.justice.gov.uk/team-name: "cica-extract-tool-admins"
+    cloud-platform.justice.gov.uk/review-after: ""
