@@ -105,6 +105,8 @@ module "service_account_2" {
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  role_name                            = "serviceaccount-role-2"
+  rolebinding_name                     = "serviceaccount-rolebinding-2"
   depends_on                           = [github_repository_environment.env]
 }
 
