@@ -30,6 +30,10 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  providers = {
+    aws = aws.london_without_default_tags
+  }
 }
 
 resource "kubernetes_secret" "rds" {
