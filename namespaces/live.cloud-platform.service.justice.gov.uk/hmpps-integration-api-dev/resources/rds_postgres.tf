@@ -23,7 +23,13 @@ module "rds" {
   db_instance_class        = "db.t4g.micro"
 
   # Tags
-  tags = local.default_tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "kubernetes_secret" "rds" {
