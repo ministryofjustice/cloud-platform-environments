@@ -38,6 +38,8 @@ module "rds" {
     }
   ]
 
+  snapshot_identifier = "rds:hale-dev-snapshot-080424"
+
   providers = {
     aws = aws.london
   }
