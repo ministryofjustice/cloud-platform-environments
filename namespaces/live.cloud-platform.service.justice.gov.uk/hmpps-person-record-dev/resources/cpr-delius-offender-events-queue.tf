@@ -8,8 +8,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" 
   filter_policy = jsonencode({
     eventType = [
       "probation-case.engagement.created",
-      "probation-case.merge.completed",
-      "probation-case.unmerge.completed"
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }
