@@ -11,7 +11,7 @@ module "irsa" {
   role_policy_arns = {
     unprocessed_sqs   = module.unprocessed_documents_and_events_sqs.irsa_policy_arn
     process_sqs       = module.process_sqs.irsa_policy_arn
-    rds_mssql         = module.rds_mssql.irsa_policy_arn
+    # rds_mssql         = module.rds_mssql.irsa_policy_arn
     # rds_mssql_replica = module.rds_mssql_read_replica.irsa_policy_arn
   }
 
