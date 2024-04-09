@@ -20,9 +20,9 @@ module "rds_mssql" {
 
   # SQL Server specifics
   db_engine            = "sqlserver-web"
-  db_engine_version    = "15.00.4345.5.v1"
-  rds_family           = "sqlserver-web-15.0"
-  db_instance_class    = "db.t3.small"
+  db_engine_version    = "16.00.4115.5.v1"
+  rds_family           = "sqlserver-web-16.0"
+  db_instance_class    = "db.m5.large"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
