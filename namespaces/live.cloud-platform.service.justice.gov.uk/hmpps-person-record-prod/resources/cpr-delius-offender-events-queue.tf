@@ -7,7 +7,9 @@ resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" 
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "probation-case.engagement.created"
+      "probation-case.engagement.created",
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }
