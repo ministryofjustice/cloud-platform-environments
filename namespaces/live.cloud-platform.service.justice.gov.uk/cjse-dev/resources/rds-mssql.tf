@@ -27,13 +27,13 @@ module "rds_mssql" {
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
 
   # Tags
   application            = var.application
@@ -69,45 +69,45 @@ resource "kubernetes_config_map" "rds_mssql" {
   }
 }
 
-module "rds_mssql_read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+# module "rds_mssql_read_replica" {
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
 
-  # VPC configuration
-  vpc_name = var.vpc_name
+#   # VPC configuration
+#   vpc_name = var.vpc_name
 
-  # Set the db_identifier of the source db
-  replicate_source_db = module.rds_mssql.db_identifier
+#   # Set the db_identifier of the source db
+#   replicate_source_db = module.rds_mssql.db_identifier
 
-  # Set to true. No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
+#   # Set to true. No backups or snapshots are created for read replica
+#   skip_final_snapshot        = "true"
+#   db_backup_retention_period = 0
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   }
-  # ]
+#   db_parameter = [
+#     {
+#       name         = "rds.force_ssl"
+#       value        = "1"
+#       apply_method = "pending-reboot"
+#     }
+#   ]
 
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-}
+#   # Tags
+#   application            = var.application
+#   business_unit          = var.business_unit
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+#   is_production          = var.is_production
+#   namespace              = var.namespace
+#   team_name              = var.team_name
+# }
 
-resource "kubernetes_config_map" "rds_mssql_read_replica" {
-  metadata {
-    name      = "rds-mssql-read-replica-instance-output"
-    namespace = var.namespace
-  }
+# resource "kubernetes_config_map" "rds_mssql_read_replica" {
+#   metadata {
+#     name      = "rds-mssql-read-replica-instance-output"
+#     namespace = var.namespace
+#   }
 
-  data = {
-    rds_instance_endpoint = module.rds_mssql_read_replica.rds_instance_endpoint
-    rds_instance_address  = module.rds_mssql_read_replica.rds_instance_address
-  }
-}
+#   data = {
+#     rds_instance_endpoint = module.rds_mssql_read_replica.rds_instance_endpoint
+#     rds_instance_address  = module.rds_mssql_read_replica.rds_instance_address
+#   }
+# }
