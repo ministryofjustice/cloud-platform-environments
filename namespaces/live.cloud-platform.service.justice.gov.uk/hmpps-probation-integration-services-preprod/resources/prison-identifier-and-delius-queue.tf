@@ -10,6 +10,15 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-subscr
   })
 }
 
+resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-probation-offender-events-subscription" {
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.prison-identifier-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = ["SENTENCE_CHANGED"]
+  })
+}
+
 module "prison-identifier-and-delius-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
