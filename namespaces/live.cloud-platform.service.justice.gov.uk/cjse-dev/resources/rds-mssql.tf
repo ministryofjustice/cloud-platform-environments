@@ -27,13 +27,13 @@ module "rds_mssql" {
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-  db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "1"
-      apply_method = "pending-reboot"
-    }
-  ]
+  # db_parameter = [
+  #   {
+  #     name         = "rds.force_ssl"
+  #     value        = "1"
+  #     apply_method = "pending-reboot"
+  #   }
+  # ]
 
   # Tags
   application            = var.application
@@ -82,13 +82,13 @@ module "rds_mssql_read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_parameter = [
-    {
-      name         = "rds.force_ssl"
-      value        = "1"
-      apply_method = "pending-reboot"
-    }
-  ]
+  # db_parameter = [
+  #   {
+  #     name         = "rds.force_ssl"
+  #     value        = "1"
+  #     apply_method = "pending-reboot"
+  #   }
+  # ]
 
   # Tags
   application            = var.application
