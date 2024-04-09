@@ -13,6 +13,10 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "cjse: chris.henry@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjse-test,
                                                 https://github.com/ministryofjustice/moj-cjse-xhibit-webportal,
-                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal-api"
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-subscription-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-notification-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-processor"
     cloud-platform.justice.gov.uk/team-name: "moj-cjse"
     cloud-platform.justice.gov.uk/review-after: ""
