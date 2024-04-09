@@ -3,7 +3,11 @@ module "serviceaccount" {
 
   namespace            = var.namespace
   kubernetes_cluster   = var.kubernetes_cluster
-  github_repositories  = ["cjse-test"]
+  github_repositories  = [
+                            "cjse-test",
+                            "moj-cjse-xhibit-webportal",
+                            "moj-cjse-xhibit-webportal-api"
+                         ]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first
   github_environments = ["dev"]
