@@ -13,7 +13,7 @@ resource "pingdom_check" "laa-check-client-qualifies-staging" {
   port             = 443
   tags             = "businessunit_laa,application_check-client-qualifies-for-legal-aid,component_ping,isproduction_false,environment_staging,infrastructuresupport_check-client-qualifies-for-legal-aid,laa,check-client-qualifies-for-legal-aid"
   probefilters     = "region:EU"
-  integrationids   = [125951]
+  integrationids   = [125951, 134947]
 }
 
 resource "pingdom_check" "laa-check-client-qualifies-public-staging" {
@@ -28,5 +28,5 @@ resource "pingdom_check" "laa-check-client-qualifies-public-staging" {
   port             = 443
   tags             = "businessunit_laa,application_check-client-qualifies-for-legal-aid,component_ping,isproduction_false,environment_staging,infrastructuresupport_check-client-qualifies-for-legal-aid,laa,check-client-qualifies-for-legal-aid"
   probefilters     = "region:EU"
-  integrationids   = [125951]
+  integrationids   = [125951, 134947]
 }
