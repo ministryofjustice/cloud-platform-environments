@@ -5,6 +5,7 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-subscr
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.imprisonment-status-changed",
+      "prison-offender-events.prisoner.sentence-dates-changed",
       "prison-offender-events.prisoner.merged",
     ]
   })
