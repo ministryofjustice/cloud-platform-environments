@@ -5,7 +5,7 @@ metadata:
   name: hmpps-prison-visit-booker-registry-cert
   namespace: visit-someone-in-prison-backend-svc-dev
 spec:
-  secretName: hmpps-one-login-user-registry-cert
+  secretName: hmpps-prison-visit-booker-registry-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
