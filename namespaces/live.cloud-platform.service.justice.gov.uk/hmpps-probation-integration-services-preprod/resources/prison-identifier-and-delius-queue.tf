@@ -16,7 +16,10 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-probat
   protocol  = "sqs"
   endpoint  = module.prison-identifier-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["SENTENCE_CHANGED"]
+    eventType = [
+      "OFFENDER_DETAILS_CHANGED",
+      "SENTENCE_CHANGED",
+    ]
   })
 }
 
