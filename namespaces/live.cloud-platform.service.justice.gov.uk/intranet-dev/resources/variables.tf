@@ -75,3 +75,17 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
 }
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution"
+  type        = string
+  default     = "cdn.dev-intranet.apps.live.cloud-platform.service.justice.gov.uk"
+}
+
+variable "public_key_pems" {
+  description = "Public key pems to be used for CloudFront"
+  type        = list(string)
+  default     = [
+    file("${path.module}/public_key_01.pem")
+  ]
+}
