@@ -71,7 +71,7 @@ module "prison_visit_booker_registry_rds" {
 
 resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
   metadata {
-    name      = "prison_visit_booker_registry_rds"
+    name      = "prison-visit-booker-registry-rds"
     namespace = var.namespace
   }
 
