@@ -86,6 +86,16 @@ variable "public_key_pems" {
   description = "Public key pems to be used for CloudFront"
   type        = list(string)
   default     = [
-    file("${path.module}/public_key_01.pem")
+<<EOT
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxWg0l5/+AKzmnvtLusj5
+l5onx+tGZl6fRHbE6CXlqQbmQ3bpr6WakfOT3nedqTYbox/46kn6DtCpJXg/53aN
+3SnkfR7rhNRYjIv5Ye6Oo0BsIvgW/i8uleSIiI8T0XNy8BOZRKxVXahG05/WgNYX
+ygMcck4uQsy0QSP7kJJWwGgbDIKqCwTwJlTJHGlG2T4myOSqjvM3xGVbXwX9XLmL
+e/EayVZ15QK3Ig+wpO/REtkfZ6faMHBaPibd7vutvErtFJA2BPsa71v54xfP6vbd
+Gn5Z2zuqIKRIRsjbgwgnqrdCxhGHecB3g3MdcaGzb2zkI76IHgAzvQDjt/aecrDy
+SQIDAQAB
+-----END PUBLIC KEY-----
+EOT
   ]
 }
