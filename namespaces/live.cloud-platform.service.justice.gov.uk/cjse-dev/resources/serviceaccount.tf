@@ -6,7 +6,11 @@ module "serviceaccount" {
   github_repositories  = [
                             "cjse-test",
                             "moj-cjse-xhibit-webportal",
-                            "moj-cjse-xhibit-webportal-api"
+                            "moj-cjse-xhibit-webportal-api",
+                            "moj-cjse-xhibit-ingestion-api",
+                            "moj-cjse-xhibit-subscription-api",
+                            "moj-cjse-xhibit-notification-api",
+                            "moj-cjse-xhibit-ingestion-processor"
                          ]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first
