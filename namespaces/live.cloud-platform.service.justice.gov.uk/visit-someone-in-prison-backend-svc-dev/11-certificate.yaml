@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-one-login-user-registry-cert
+  name: hmpps-prison-visit-booker-registry-cert
   namespace: visit-someone-in-prison-backend-svc-dev
 spec:
   secretName: hmpps-one-login-user-registry-cert
@@ -10,5 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-onelogin-user-reg-dev.prison.service.justice.gov.uk
-    - hmpps-one-login-user-registry-dev.prison.service.justice.gov.uk
+    - hmpps-bapv-public-booker-reg-dev.prison.service.justice.gov.uk
+    - hmpps-book-a-prison-visit-public-booker-registry-dev.prison.service.justice.gov.uk

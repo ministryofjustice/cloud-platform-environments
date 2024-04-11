@@ -41,7 +41,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
   }
 }
 
-module "hmpps_one_login_user_registry_rds" {
+module "prison_visit_booker_registry_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -69,17 +69,17 @@ module "hmpps_one_login_user_registry_rds" {
   }
 }
 
-resource "kubernetes_secret" "visit_scheduler_booker_details_rds" {
+resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
   metadata {
-    name      = "hmpps-one-login-user-registry-rds"
+    name      = "prison-visit-booker-registry-rds"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_one_login_user_registry_rds.rds_instance_endpoint
-    database_name         = module.hmpps_one_login_user_registry_rds.database_name
-    database_username     = module.hmpps_one_login_user_registry_rds.database_username
-    database_password     = module.hmpps_one_login_user_registry_rds.database_password
-    rds_instance_address  = module.hmpps_one_login_user_registry_rds.rds_instance_address
+    rds_instance_endpoint = module.prison_visit_booker_registry_rds.rds_instance_endpoint
+    database_name         = module.prison_visit_booker_registry_rds.database_name
+    database_username     = module.prison_visit_booker_registry_rds.database_username
+    database_password     = module.prison_visit_booker_registry_rds.database_password
+    rds_instance_address  = module.prison_visit_booker_registry_rds.rds_instance_address
   }
 }
