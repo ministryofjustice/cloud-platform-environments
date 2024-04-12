@@ -76,10 +76,14 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN"
 }
 
+variable "base_domain" {
+  default = "dev.intranet.service.justice.gov.uk"
+}
+
 variable "cloudfront_alias" {
   description = "Aliases for the CloudFront distribution"
   type        = string
-  default     = "cdn.dev-intranet.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "cdn.dev.intranet.service.justice.gov.uk"
 }
 
 variable "trusted_public_keys" {

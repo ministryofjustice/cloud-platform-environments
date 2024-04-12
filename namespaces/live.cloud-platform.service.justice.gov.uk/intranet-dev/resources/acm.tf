@@ -32,7 +32,7 @@ resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
 resource "aws_route53_record" "cert-validations" {
   count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
 
-  zone_id         = aws_route53_zone.cloudfront_route53_zone.zone_id
+  zone_id         = aws_route53_zone.dev_intranet_route53_zone.zone_id
 
   name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
   type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
