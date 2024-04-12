@@ -98,4 +98,4 @@ SQIDAQAB
 -----END PUBLIC KEY-----
 EOT
   ]
-} 
+}
