@@ -32,8 +32,8 @@ resource "kubernetes_secret" "dynamodb-cluster" {
   }
 }
 
-resource "github_actions_variable" "dynamodb" {
-  repository    = "hmpps-github-teams"
-  variable_name = "TERRAFORM_DYNAMODB_TABLE_NAME"
-  value         = module.dynamodb.table_name
-}
+#resource "github_actions_variable" "dynamodb" {
+#  repository    = "hmpps-github-teams"
+#  variable_name = "TERRAFORM_DYNAMODB_TABLE_NAME"
+#  value         = module.dynamodb.table_name
+#}
