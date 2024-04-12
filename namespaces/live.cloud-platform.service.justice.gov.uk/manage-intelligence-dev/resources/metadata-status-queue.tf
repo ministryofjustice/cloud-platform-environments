@@ -51,7 +51,7 @@ module "metatdata_status_dead_letter_queue" {
 
 resource "kubernetes_secret" "metatdata_status_queue" {
   metadata {
-    name      = "attachment-metadata-extractor-queue-instance-output"
+    name      = "metadata-status-queue-instance-output"
     namespace = var.namespace
   }
 
@@ -64,7 +64,7 @@ resource "kubernetes_secret" "metatdata_status_queue" {
 
 resource "kubernetes_secret" "metatdata_status_dead_letter_queue" {
   metadata {
-    name      = "attachment-metadata-extractor-dlq-instance-output"
+    name      = "metadata-status-dlq-instance-output"
     namespace = var.namespace
   }
 
