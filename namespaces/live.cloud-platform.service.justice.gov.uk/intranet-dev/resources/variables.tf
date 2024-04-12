@@ -84,12 +84,10 @@ variable "cloudfront_alias" {
 
 variable "trusted_public_keys" {
   description = "Public key pems to be used for CloudFront"
-  type        = list(
-    object({
-      encoded_key = string
-      comment     = { type = string, default = "" }
-    })
-  )
+  type        = list(object({
+    encoded_key = string
+    comment     = optional(string)
+  }))
   default     = [
     { 
       encoded_key = <<-EOT
