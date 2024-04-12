@@ -116,4 +116,4 @@ variable "trusted_public_keys" {
     EOT
     comment = "Another public key"
   }]
-} 
+}
