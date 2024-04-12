@@ -1,11 +1,11 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront-edits?ref=cloudfront-functions-draft"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.2.0"
 
   # Configuration
   bucket_id           = module.s3_bucket.bucket_name
   bucket_domain_name  = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
-  aliases             = [var.cloudfront_alias]
-  trusted_public_keys = var.trusted_public_keys
+  # aliases             = [var.cloudfront_alias]
+  # trusted_public_keys = var.trusted_public_keys
 
   # Tags
   business_unit          = var.business_unit
@@ -24,8 +24,8 @@ resource "kubernetes_secret" "cloudfront_url" {
   }
 
   data = {
-    cloudfront_alias          = var.cloudfront_alias
+    # cloudfront_alias          = var.cloudfront_alias
     cloudfront_url            = module.cloudfront.cloudfront_url
-    cloudfront_public_key_ids = module.cloudfront.cloudfront_public_key_ids
+    # cloudfront_public_key_ids = module.cloudfront.cloudfront_public_key_ids
   }
 } 
