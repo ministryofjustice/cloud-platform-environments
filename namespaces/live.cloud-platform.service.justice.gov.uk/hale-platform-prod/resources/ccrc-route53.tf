@@ -22,6 +22,14 @@ resource "kubernetes_secret" "ccrc_route53_zone_sec" {
   }
 }
 
+resource "aws_route53_record" "ccrc_route53_a_record_sslvpn" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "sslvpn.ccrc.gov.uk"
+  type    = "A"
+  ttl     = "300"
+  records = ["4.158.26.205"]
+}
+
 resource "aws_route53_record" "ccrc_route53_a_record_connect" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "connect.ccrc.gov.uk"
@@ -71,7 +79,7 @@ resource "aws_route53_record" "ccrc_route53_txt_record_main" {
   name    = "ccrc.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "v=spf1 include:spf.protection.outlook.com ip4:80.6.91.150 -all"]
+  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "v=spf1 include:spf.protection.outlook.com ip4:80.6.91.150 -all", "68mnpg8h53n9jr4htpl2529xm5jyvx4f"]
 }
 
 resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
