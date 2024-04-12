@@ -20,7 +20,7 @@ resource "aws_acm_certificate" "cloudfront_alias_cert" {
 
 resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
   certificate_arn         = aws_acm_certificate.cloudfront_alias_cert.arn
-  validation_record_fqdns = aws_route53_record.cloudfront_alias_cert_validation_record[*].fqdn 
+  validation_record_fqdns = aws_route53_record.cert-validations[*].fqdn 
 
   timeouts {
     create = "5m"
