@@ -1,15 +1,15 @@
-module "metatdata_status_queue" {
+module "metadata_status_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                   = "metatdata_status_queue"
+  sqs_name                   = "metadata_status_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.metatdata_status_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.metadata_status_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 
 EOF
@@ -28,11 +28,11 @@ EOF
   }
 }
 
-module "metatdata_status_dead_letter_queue" {
+module "metadata_status_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "metatdata_status_dl_queue"
+  sqs_name        = "metadata_status_dl_queue"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -49,16 +49,16 @@ module "metatdata_status_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "metatdata_status_queue" {
+resource "kubernetes_secret" "metadata_status_queue" {
   metadata {
     name      = "metadata-status-queue-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.metatdata_status_queue.sqs_id
-    sqs_arn  = module.metatdata_status_queue.sqs_arn
-    sqs_name = module.metatdata_status_queue.sqs_name
+    sqs_id   = module.metadata_status_queue.sqs_id
+    sqs_arn  = module.metadata_status_queue.sqs_arn
+    sqs_name = module.metadata_status_queue.sqs_name
   }
 }
 
@@ -69,8 +69,8 @@ resource "kubernetes_secret" "metatdata_status_dead_letter_queue" {
   }
 
   data = {
-    sqs_id   = module.metatdata_status_dead_letter_queue.sqs_id
-    sqs_arn  = module.metatdata_status_dead_letter_queue.sqs_arn
-    sqs_name = module.metatdata_status_dead_letter_queue.sqs_name
+    sqs_id   = module.metadata_status_dead_letter_queue.sqs_id
+    sqs_arn  = module.metadata_status_dead_letter_queue.sqs_arn
+    sqs_name = module.metadata_status_dead_letter_queue.sqs_name
   }
 }
