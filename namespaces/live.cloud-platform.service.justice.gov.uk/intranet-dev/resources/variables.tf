@@ -82,20 +82,40 @@ variable "cloudfront_alias" {
   default     = "cdn.dev-intranet.apps.live.cloud-platform.service.justice.gov.uk"
 }
 
-variable "public_key_pems" {
+variable "trusted_public_keys" {
   description = "Public key pems to be used for CloudFront"
-  type        = list(string)
+  type        = list(
+    object({
+      encoded_key = string
+      comment     = { type = string, default = "" }
+    })
+  )
   default     = [
-<<EOT
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxWg0l5/+AKzmnvtLusj5
-l5onx+tGZl6fRHbE6CXlqQbmQ3bpr6WakfOT3nedqTYbox/46kn6DtCpJXg/53aN
-3SnkfR7rhNRYjIv5Ye6Oo0BsIvgW/i8uleSIiI8T0XNy8BOZRKxVXahG05/WgNYX
-ygMcck4uQsy0QSP7kJJWwGgbDIKqCwTwJlTJHGlG2T4myOSqjvM3xGVbXwX9XLmL
-e/EayVZ15QK3Ig+wpO/REtkfZ6faMHBaPibd7vutvErtFJA2BPsa71v54xfP6vbd
-Gn5Z2zuqIKRIRsjbgwgnqrdCxhGHecB3g3MdcaGzb2zkI76IHgAzvQDjt/aecrDy
-SQIDAQAB
------END PUBLIC KEY-----
-EOT
-  ]
+    { 
+      encoded_key = <<-EOT
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxWg0l5/+AKzmnvtLusj5
+      l5onx+tGZl6fRHbE6CXlqQbmQ3bpr6WakfOT3nedqTYbox/46kn6DtCpJXg/53aN
+      3SnkfR7rhNRYjIv5Ye6Oo0BsIvgW/i8uleSIiI8T0XNy8BOZRKxVXahG05/WgNYX
+      ygMcck4uQsy0QSP7kJJWwGgbDIKqCwTwJlTJHGlG2T4myOSqjvM3xGVbXwX9XLmL
+      e/EayVZ15QK3Ig+wpO/REtkfZ6faMHBaPibd7vutvErtFJA2BPsa71v54xfP6vbd
+      Gn5Z2zuqIKRIRsjbgwgnqrdCxhGHecB3g3MdcaGzb2zkI76IHgAzvQDjt/aecrDy
+      SQIDAQAB
+      -----END PUBLIC KEY-----
+      EOT
+  },
+  { 
+    encoded_key = <<-EOT
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqhmdbKSd2S+w4YWcbxUT
+    4prLNfKOhXmM2r3eIWkDP1CM1YomLbNffumjwXqvXo9SynXMdTVt6DK0yEcoeBq3
+    DADoKmBvAUjr69nMqlbLz6hfadzmGt3KD65QWn5hTPu/DcQmL0tj+XXHIv04HEoK
+    i20XhRdWh/pf1Ix1Lb8lF4AgKE9EJZX4pLpbb6IjYft9WAjDQTEfS1bkfQ1Q7Yo/
+    fPfSq+8DGF4TgSjqCEZHeEC4vWnXbBxrk8W1exipIBbtjNPYc9vdQeuRuU9QZrXz
+    QcYnJJQGcmmICthXIUn6Ekygx5OVbyU3BFcsYpLcpo/TkH4FJQtSUQTF7EqYIrOG
+    cQIDAQAB
+    -----END PUBLIC KEY-----
+    EOT
+    comment = "Another public key"
+  }]
 } 
