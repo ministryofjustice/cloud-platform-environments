@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "sqs_full" {
+data "aws_iam_policy_document" "sqs_full_legacy" {
   version = "2012-10-17"
   statement {
     sid     = "hmppsManageIntelligenceLegacySqs"
@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "sqs_full" {
   }
 }
 
-resource "aws_iam_policy" "combined_sqs" {
-  policy = data.aws_iam_policy_document.sqs_full.json
+resource "aws_iam_policy" "combined_sqs_legacy" {
+  policy = data.aws_iam_policy_document.sqs_full_legacy.json
   # Tags
   tags = {
     business_unit          = var.business_unit
@@ -53,7 +53,7 @@ module "irsa-legacy" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    policy                  = aws_iam_policy.combined_sqs.arn
+    policy                  = aws_iam_policy.combined_sqs_legacy.arn
     s3_extractor            = module.manage_intelligence_extractor_bucket.irsa_policy_arn
     s3_transformer          = module.manage_intelligence_transformer_bucket.irsa_policy_arn
     rds                     = module.rds_aurora_legacy.irsa_policy_arn
