@@ -13,7 +13,8 @@ module "irsa" {
     process_sqs       = module.process_sqs.irsa_policy_arn
     rds_mssql         = module.rds_mssql.irsa_policy_arn
     notifications_sqs = module.notifications_sqs.irsa_policy_arn
-    # rds_mssql_replica = module.rds_mssql_read_replica.irsa_policy_arn
+    ingestion_api_ecr = module.ingestion_api_ecr.irsa_policy_arn
+
   }
 
   # Tags
