@@ -28,4 +28,4 @@ resource "kubernetes_secret" "cloudfront_url" {
     cloudfront_url            = module.cloudfront.cloudfront_url
     cloudfront_public_key_ids = module.cloudfront.cloudfront_public_key_ids
   }
-}
+} 
