@@ -74,7 +74,7 @@ resource "kubernetes_secret" "rds-instance" {
 resource "kubernetes_secret" "preprod-refresh-creds" {
   metadata {
     name      = "preprod-rds-creds"
-    namespace = hmpps-book-secure-move-api-production
+    namespace = "hmpps-book-secure-move-api-production"
   }
 
   data = {
