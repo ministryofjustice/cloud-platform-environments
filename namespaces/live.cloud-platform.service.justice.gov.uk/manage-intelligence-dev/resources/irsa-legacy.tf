@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "sqs_full" {
   version = "2012-10-17"
   statement {
-    sid     = "hmppsManageIntelligenceSqs"
+    sid     = "hmppsManageIntelligenceLegacySqs"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
