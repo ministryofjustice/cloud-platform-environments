@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - calculate-release-dates-dev.hmpps.service.justice.gov.uk
+    - calculate-release-dates-alt-dev.hmpps.service.justice.gov.uk
