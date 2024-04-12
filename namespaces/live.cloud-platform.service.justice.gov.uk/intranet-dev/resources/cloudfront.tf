@@ -2,10 +2,10 @@ module "cloudfront" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront-edits?ref=cloudfront-functions-draft"
 
   # Configuration
-  bucket_id          = module.s3_bucket.bucket_name
-  bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
-  aliases            = [var.cloudfront_alias]
-  public_key_pems    = var.public_key_pems
+  bucket_id           = module.s3_bucket.bucket_name
+  bucket_domain_name  = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
+  aliases             = [var.cloudfront_alias]
+  trusted_public_keys = var.trusted_public_keys
 
   # Tags
   business_unit          = var.business_unit
