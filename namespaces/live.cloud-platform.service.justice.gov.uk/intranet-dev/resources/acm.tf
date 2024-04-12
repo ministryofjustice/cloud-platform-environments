@@ -42,6 +42,8 @@ resource "aws_route53_record" "cert-validations" {
   records         = [element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_value, count.index)]
   ttl             = 60
   allow_overwrite = true
+
+  depends_on      = [aws_acm_certificate.cloudfront_alias_cert]
 }
 
 resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
