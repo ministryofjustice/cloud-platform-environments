@@ -55,4 +55,4 @@ resource "aws_route53_record" "data" {
     name                   = aws_api_gateway_domain_name.apigw_fqdn.regional_domain_name
     zone_id                = aws_api_gateway_domain_name.apigw_fqdn.regional_zone_id
   }
-} 
+}
