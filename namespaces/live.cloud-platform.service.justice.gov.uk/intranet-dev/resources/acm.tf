@@ -23,17 +23,20 @@ resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
   validation_record_fqdns = aws_route53_record.cert-validations[*].fqdn 
 
   timeouts {
-    create = "5m"
+    create = "10m"
   }
+
+  depends_on = [aws_route53_record.cert-validations]
 }
 
 resource "aws_route53_record" "cert-validations" {
-  count = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
+  count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
 
-  zone_id = aws_route53_zone.cloudfront_route53_zone.zone_id
+  zone_id         = aws_route53_zone.cloudfront_route53_zone.zone_id
 
-  name    = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
-  type    = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
-  records = [element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_value, count.index)]
-  ttl     = 60
+  name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
+  type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
+  records         = [element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_value, count.index)]
+  ttl             = 60
+  allow_overwrite = true
 }
