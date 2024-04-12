@@ -27,8 +27,8 @@ resource "kubernetes_secret" "dynamodb-cluster" {
   data = {
     table_name        = module.dynamodb-cluster.table_name
     table_arn         = module.dynamodb-cluster.table_arn
-    access_key_id     = module.dynamodb-cluster.access_key_id
-    secret_access_key = module.dynamodb-cluster.secret_access_key
+    #access_key_id     = module.dynamodb-cluster.access_key_id
+    #secret_access_key = module.dynamodb-cluster.secret_access_key
   }
 }
 
