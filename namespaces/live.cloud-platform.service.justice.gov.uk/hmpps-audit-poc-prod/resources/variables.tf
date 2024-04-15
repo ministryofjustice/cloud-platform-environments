@@ -3,7 +3,7 @@
 variable "vpc_name" {
 }
 
-variable "application_ui" {
+variable "application" {
   description = "Name of Application you are deploying"
   default     = "hmpps-audit-poc-ui-prod"
 }
