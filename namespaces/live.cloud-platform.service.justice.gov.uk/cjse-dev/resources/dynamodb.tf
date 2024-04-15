@@ -31,9 +31,3 @@ resource "kubernetes_secret" "dynamodb-cluster" {
     #secret_access_key = module.dynamodb-cluster.secret_access_key
   }
 }
-
-#resource "github_actions_variable" "dynamodb" {
-#  repository    = "hmpps-github-teams"
-#  variable_name = "TERRAFORM_DYNAMODB_TABLE_NAME"
-#  value         = module.dynamodb.table_name
-#}
