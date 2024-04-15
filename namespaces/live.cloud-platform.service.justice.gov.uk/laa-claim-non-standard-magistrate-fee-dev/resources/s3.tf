@@ -5,7 +5,6 @@
  *
  */
 module "s3_bucket" {
-  deletion_protection = false
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
