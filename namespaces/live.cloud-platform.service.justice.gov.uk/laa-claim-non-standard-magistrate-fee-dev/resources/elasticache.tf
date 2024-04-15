@@ -1,4 +1,5 @@
 module "nsm_elasticache" {
+  deletion_protection = false
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
 
   vpc_name               = var.vpc_name
