@@ -10,6 +10,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - berwyn.content-hub.prisoner.service.justice.gov.uk
+  - chelmsford.content-hub.prisoner.service.justice.gov.uk
   - cookhamwood.content-hub.prisoner.service.justice.gov.uk
   - erlestoke.content-hub.prisoner.service.justice.gov.uk
   - felthama.content-hub.prisoner.service.justice.gov.uk
