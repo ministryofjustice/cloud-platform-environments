@@ -1,5 +1,4 @@
 module "serviceaccount" {
-  deletion_protection = false
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace            = var.namespace
