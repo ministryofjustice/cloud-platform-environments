@@ -4,12 +4,12 @@ variable "vpc_name" {
 }
 
 
-variable "application-ui" {
+variable "application" {
   description = "Name of Application you are deploying"
   default     = "hmpps-audit-poc-ui-dev"
 }
 
-variable "application-api" {
+variable "application_api" {
   description = "Name of Application you are deploying"
   default     = "hmpps-audit-poc-api-dev"
 }
