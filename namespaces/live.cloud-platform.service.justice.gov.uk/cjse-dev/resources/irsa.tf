@@ -12,6 +12,7 @@ module "irsa" {
     unprocessed_sqs         = module.unprocessed_documents_and_events_sqs.irsa_policy_arn
     process_sqs             = module.process_sqs.irsa_policy_arn
     rds_mssql               = module.rds_mssql.irsa_policy_arn
+    dynamodb                = module.dynamodb-cluster.irsa_policy_arn
     notifications_sqs       = module.notifications_sqs.irsa_policy_arn
     ingestion_api_ecr       = module.ingestion_api_ecr.irsa_policy_arn
     ingestion_processor_ecr = module.ingestion_processor_ecr.irsa_policy_arn
