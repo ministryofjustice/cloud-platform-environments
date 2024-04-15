@@ -76,10 +76,16 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN"
 }
 
-variable "cloudfront_alias" {
-  description = "Aliases for the CloudFront distribution"
+variable "base_domain" {
+  description = "The base domain used for creating the Route53 zone. The website will be available here."
   type        = string
-  default     = "cdn.dev-intranet.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "dev.intranet.justice.gov.uk"
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.dev.intranet.justice.gov.uk"
 }
 
 variable "trusted_public_keys" {

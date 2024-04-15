@@ -25,8 +25,8 @@ resource "kubernetes_secret" "cloudfront_url" {
   }
 
   data = {
-    cloudfront_alias          = var.cloudfront_alias
-    cloudfront_url            = module.cloudfront.cloudfront_url
-    cloudfront_public_key_ids = module.cloudfront.cloudfront_public_key_ids
+    cloudfront_alias       = var.cloudfront_alias
+    cloudfront_url         = module.cloudfront.cloudfront_url
+    cloudfront_public_keys = module.cloudfront.cloudfront_public_keys
   }
 } 
