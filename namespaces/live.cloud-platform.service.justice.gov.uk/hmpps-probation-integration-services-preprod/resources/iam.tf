@@ -48,13 +48,10 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 }
 
 # Policies to manage queues e.g. view and redrive messages
-data "aws_sqs_queue" "queues_from_other_namespaces" {
-  for_each = toset([
-    "${var.team_name}-${var.environment_name}-prison-to-probation-update-queue",
-    "${var.team_name}-${var.environment_name}-prison-to-probation-update-dlq",
-  ])
-  name = each.value
-}
+# data "aws_sqs_queue" "queues_from_other_namespaces" {
+#   for_each = toset([])
+#   name = each.value
+# }
 
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
@@ -106,7 +103,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.unpaid-work-and-delius-dlq,
       module.workforce-allocations-to-delius-dlq,
     ],
-    others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
+#     others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
     sid    = "QueueManagementList"
