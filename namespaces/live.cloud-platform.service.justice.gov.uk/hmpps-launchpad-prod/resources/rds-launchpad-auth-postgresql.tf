@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16.2"
   rds_family        = "postgres16"
-  backup_window = "02:00-03:00"
+  backup_window = "02:00-04:00"
   db_instance_class = "db.t4g.large"
 
   # Tags
