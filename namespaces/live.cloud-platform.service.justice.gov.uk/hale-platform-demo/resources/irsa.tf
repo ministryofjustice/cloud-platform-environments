@@ -16,6 +16,7 @@ module "irsa" {
     s3_cross_bucket_policy = aws_iam_policy.s3_cross_bucket_policy.arn,
     ecr                    = module.ecr_credentials.irsa_policy_arn,
     ecr2                   = module.ecr_feed_parser.irsa_policy_arn,
+    rds                    = module.rds.irsa_policy_arn,
   }
 
   # Tags
