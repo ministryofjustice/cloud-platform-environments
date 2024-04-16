@@ -35,7 +35,7 @@ variable "team_name" {
 }
 
 variable "business_unit" {
-  default = "Central Digital"
+  default = "HQ"
 }
 
 variable "application" {
