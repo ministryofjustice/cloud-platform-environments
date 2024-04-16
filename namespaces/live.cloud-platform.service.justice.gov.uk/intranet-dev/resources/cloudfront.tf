@@ -6,8 +6,14 @@ data "kubernetes_secret" "cloudfront_input_secret" {
 }
 
 locals {
-  trusted_key          = data.kubernetes_secret.cloudfront_input_secret.data["AWS_CLOUDFRONT_PUBLIC_KEY"]
-  expiring_trusted_key = try(data.kubernetes_secret.cloudfront_input_secret.data["AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING"], null)
+  trusted_key          = {
+    encoded_key = data.kubernetes_secret.cloudfront_input_secret.data["AWS_CLOUDFRONT_PUBLIC_KEY"]
+    comment     = ""
+  }
+  expiring_trusted_key = {
+    encoded_key = try(data.kubernetes_secret.cloudfront_input_secret.data["AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING"], null)
+    comment     = ""
+  }
 }
 
 module "cloudfront" {
@@ -20,18 +26,8 @@ module "cloudfront" {
   # aliases              = [var.cloudfront_alias]
   # aliases_cert_arn     = aws_acm_certificate.cloudfront_alias_cert.arn
   
-  # An array of public keys with comments, to be used for CloudFront. 
-  # Includes an optional entry for an expiring key, the compact function will remove null.
-  trusted_public_keys  = compact([
-    {
-      encoded_key = local.trusted_key
-      comment     = ""
-    },
-    local.expiring_trusted_key != null ? {
-      encoded_key = local.expiring_trusted_key
-      comment     = ""
-    } : null
-  ])
+  # An array of public keys with comments, to be used for CloudFront. Includes an optional entry for an expiring key
+  trusted_public_keys = local.expiring_trusted_key.encoded_key == null ? [trusted_key] : [trusted_key, expiring_trusted_key]
 
   # Tags
   business_unit          = var.business_unit
