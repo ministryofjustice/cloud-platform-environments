@@ -27,7 +27,7 @@ module "cloudfront" {
   # aliases_cert_arn     = aws_acm_certificate.cloudfront_alias_cert.arn
   
   # An array of public keys with comments, to be used for CloudFront. Includes an optional entry for an expiring key
-  trusted_public_keys = local.expiring_trusted_key.encoded_key == null ? [trusted_key] : [trusted_key, expiring_trusted_key]
+  trusted_public_keys = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
 
   # Tags
   business_unit          = var.business_unit
