@@ -49,10 +49,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 
 # Policies to manage queues e.g. view and redrive messages
 data "aws_sqs_queue" "queues_from_other_namespaces" {
-  for_each = toset([
-    "${var.team_name}-${var.environment_name}-prison-to-probation-update-queue",
-    "${var.team_name}-${var.environment_name}-prison-to-probation-update-dlq",
-  ])
+  for_each = toset([])
   name = each.value
 }
 
