@@ -28,7 +28,7 @@ module "cloudfront" {
       comment     = ""
     },
     local.expiring_trusted_key != null ? {
-      encoded_key = expiring_trusted_key
+      encoded_key = local.expiring_trusted_key
       comment     = ""
     } : null
   ])
