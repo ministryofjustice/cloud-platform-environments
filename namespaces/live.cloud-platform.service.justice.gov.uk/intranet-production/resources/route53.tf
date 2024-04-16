@@ -18,7 +18,8 @@ resource "aws_route53_record" "redirect_production" {
   zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
   name    = "intranet.justice.gov.uk."
   type    = "A"
-  alias   = {
+
+  alias {
     zone_id                = "ZHURV8PSTC4K8"
     name                   = "dualstack.intra-loadb-1vuugtgd901a4-9454459.eu-west-2.elb.amazonaws.com."
     evaluate_target_health = false
@@ -29,7 +30,8 @@ resource "aws_route53_record" "redirect_production_www" {
   zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
   name    = "www.intranet.justice.gov.uk."
   type    = "A"
-  alias   = {
+
+  alias {
     zone_id                = "ZHURV8PSTC4K8"
     name                   = "dualstack.intra-loadb-1vuugtgd901a4-9454459.eu-west-2.elb.amazonaws.com."
     evaluate_target_health = false
