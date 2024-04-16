@@ -10,5 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-bapv-publ-booker-reg-preprod.prison.service.justice.gov.uk
-    - hmpps-book-a-prison-visit-public-booker-registry-preprod.prison.service.justice.gov.uk
+    - prison-visit-booker-reg-preprod.prison.service.justice.gov.uk
+    - hmpps-prison-visit-booker-registry-preprod.prison.service.justice.gov.uk
