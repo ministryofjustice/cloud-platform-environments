@@ -7,7 +7,7 @@ module "parliamentary_questions_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
-  business_unit          = "DEX uhura"
+  business_unit          = var.business_unit
   application            = var.application
   is_production          = "false"
   environment_name       = var.environment-name
