@@ -9,8 +9,6 @@ data "aws_iam_policy_document" "sqs_full_legacy" {
       module.ims_extractor_dead_letter_queue.sqs_arn,
       module.ims_transformer_queue.sqs_arn,
       module.ims_transformer_dead_letter_queue.sqs_arn,
-      module.ims_lastupdate_queue.sqs_arn,
-      module.ims_lastupdate_dead_letter_queue.sqs_arn,
       module.ims_test_generator_queue.sqs_arn,
       module.ims_generator_dead_letter_queue.sqs_arn,
       module.ims_test_generator_suite_queue.sqs_arn,
@@ -19,8 +17,8 @@ data "aws_iam_policy_document" "sqs_full_legacy" {
       module.attachment_metadata_extractor_dead_letter_queue.sqs_arn,
       module.attachment_metadata_transformer_queue.sqs_arn,
       module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
-      module.metatdata_status_queue.sqs_arn,
-      module.metatdata_status_dead_letter_queue.sqs_arn
+      module.metadata_status_queue.sqs_arn,
+      module.metadata_status_dead_letter_queue.sqs_arn
     ]
   }
 }

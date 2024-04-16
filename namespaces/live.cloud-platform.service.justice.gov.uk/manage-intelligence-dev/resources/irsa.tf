@@ -11,16 +11,14 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_index_update_dead_letter_queue.sqs_arn,
       module.ims_transformer_queue.sqs_arn,
       module.ims_transformer_dead_letter_queue.sqs_arn,
-      module.ims_lastupdate_queue.sqs_arn,
-      module.ims_lastupdate_dead_letter_queue.sqs_arn,
       module.ims_reprocess_queue.sqs_arn,
       module.ims_reprocess_dead_letter_queue.sqs_arn,
       module.ims_csv_queue.sqs_arn,
       module.ims_csv_dead_letter_queue.sqs_arn,
       module.attachment_metadata_transformer_queue.sqs_arn,
       module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
-      module.metatdata_status_queue.sqs_arn,
-      module.metatdata_status_dead_letter_queue.sqs_arn
+      module.metadata_status_queue.sqs_arn,
+      module.metadata_status_dead_letter_queue.sqs_arn
     ]
   }
 }

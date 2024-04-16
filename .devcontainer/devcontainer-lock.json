@@ -1,20 +1,25 @@
 {
   "features": {
     "ghcr.io/ministryofjustice/devcontainer-feature/aws:0": {
-      "version": "0.0.2",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:db720f840ce5015117b1b1e7649dc59b8ac6b34a8786f07ab727dd081140737f",
-      "integrity": "sha256:db720f840ce5015117b1b1e7649dc59b8ac6b34a8786f07ab727dd081140737f"
+      "version": "0.0.3",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:249e6f164df67ce38c8217c25e52d89ac1267d79536669647eed14fd2609f715",
+      "integrity": "sha256:249e6f164df67ce38c8217c25e52d89ac1267d79536669647eed14fd2609f715"
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform:0": {
-      "version": "0.0.3",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform@sha256:1629c0feb5f64cd27ccaca2de356c2648aabebafd89cf5b1fdb699af3c23e6b7",
-      "integrity": "sha256:1629c0feb5f64cd27ccaca2de356c2648aabebafd89cf5b1fdb699af3c23e6b7",
+      "version": "0.0.4",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform@sha256:e5254698b7b38234c01f4dcb3e69eef21a1d00b1148beb27e2c2e18f57588a3a",
+      "integrity": "sha256:e5254698b7b38234c01f4dcb3e69eef21a1d00b1148beb27e2c2e18f57588a3a",
       "dependsOn": ["ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:0"]
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:0": {
-      "version": "0.0.3",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes@sha256:7dee22517978ccf52d5c9052e8a1e160a4e12b3b3fda467b5f3308e45ea32fe9",
-      "integrity": "sha256:7dee22517978ccf52d5c9052e8a1e160a4e12b3b3fda467b5f3308e45ea32fe9"
+      "version": "0.0.4",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes@sha256:8ac98932cf2832b2e451bee7afbbafcdefc1572b3baf909e8b5db8439ad81949",
+      "integrity": "sha256:8ac98932cf2832b2e451bee7afbbafcdefc1572b3baf909e8b5db8439ad81949"
+    },
+    "ghcr.io/ministryofjustice/devcontainer-feature/terraform:0": {
+      "version": "0.0.5",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/terraform@sha256:d9915b6c4320f13835ce7fd08887421c9dde1c38a3f17acd303a22f6fdaf5f00",
+      "integrity": "sha256:d9915b6c4320f13835ce7fd08887421c9dde1c38a3f17acd303a22f6fdaf5f00"
     }
   }
 }

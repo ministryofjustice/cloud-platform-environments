@@ -2,6 +2,7 @@
 locals {
   namespaces = toset([
     "hmpps-external-users-api-preprod",
+    "hmpps-audit-poc-preprod",
   ])
 }
 
