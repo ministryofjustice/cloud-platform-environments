@@ -5,6 +5,7 @@ metadata:
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
+    cloud-platform.justice.gov.uk/namespace: "laa-submit-crime-forms-dev"
     pod-security.kubernetes.io/enforce: restricted
     component: allow-laa-crime-application-store-api-dev
   annotations:
