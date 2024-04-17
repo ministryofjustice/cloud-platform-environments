@@ -16,6 +16,10 @@ module "irsa" {
     notifications_sqs       = module.notifications_sqs.irsa_policy_arn
     ingestion_api_ecr       = module.ingestion_api_ecr.irsa_policy_arn
     ingestion_processor_ecr = module.ingestion_processor_ecr.irsa_policy_arn
+    webportal_ecr           = module.webportal_ecr.irsa_policy_arn
+    webportal_api_ecr       = module.webportal_api_ecr.irsa_policy_arn
+    subscription_api_ecr    = module.subscription_api_ecr.irsa_policy_arn
+    notification_api_ecr    = module.notification_api_ecr.irsa_policy_arn
   }
 
   # Tags
