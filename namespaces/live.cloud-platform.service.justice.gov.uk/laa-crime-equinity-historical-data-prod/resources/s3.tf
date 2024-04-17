@@ -111,39 +111,6 @@ module "s3_bucket" {
   ]
 
   */
-
-  /*
-   * The following are exampls of bucket and user policies. They are treated as
-   * templates. Currently, the only available variable is `$${bucket_arn}`.
-   *
-   */
-
-  /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
- *
-
-   bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
-*/
 }
 
 data "aws_iam_policy_document" "s3_bucket" {
