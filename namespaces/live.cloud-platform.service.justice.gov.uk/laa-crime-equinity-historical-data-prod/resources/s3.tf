@@ -126,11 +126,11 @@ module "s3_bucket" {
           "s3:GetBucketLocation",
           "s3:GetObject",
           "s3:GetObjectAcl",
-          "s3:ListObjectsV2",
+          "s3:ListObjectsV2"
         ],
         "Resource": [
           "$${bucket_arn}",
-          "$${bucket_arn}/*",
+          "$${bucket_arn}/*"
         ]
       }
     ]
@@ -138,6 +138,7 @@ module "s3_bucket" {
   EOF
 
 }
+
 
 
 resource "kubernetes_secret" "s3_bucket" {
