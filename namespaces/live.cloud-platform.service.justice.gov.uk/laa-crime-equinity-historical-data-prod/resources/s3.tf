@@ -136,8 +136,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     }
     actions = [
       "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:ListObjectsV2"
+      "s3:GetObjectAcl"
     ]
     resources = [
       "$${bucket_arn}/*"
