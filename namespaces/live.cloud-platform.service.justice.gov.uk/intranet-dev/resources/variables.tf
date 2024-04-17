@@ -93,6 +93,7 @@ variable "trusted_public_keys" {
   type = list(object({
     encoded_key = string
     comment     = string
+    associate   = bool
   }))
   default     = [{ 
     encoded_key  = <<-EOT
