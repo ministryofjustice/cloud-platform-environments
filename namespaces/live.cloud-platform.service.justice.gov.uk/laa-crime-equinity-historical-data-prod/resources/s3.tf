@@ -119,7 +119,7 @@ module "s3_bucket" {
         "Sid": "AllowBucketAccess",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "${aws_iam_user.upload_user_prod.arn}"
+          "AWS": "*"
         },
         "Action": [
           "s3:ListBucket",
@@ -138,6 +138,7 @@ module "s3_bucket" {
   EOF
 
 }
+
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
