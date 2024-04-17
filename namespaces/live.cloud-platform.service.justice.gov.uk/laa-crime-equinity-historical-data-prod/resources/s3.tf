@@ -119,7 +119,7 @@ module "s3_bucket" {
         "Sid": "AllowBucketAccess",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "*"
+          "AWS": "${aws_iam_user.upload_user_prod.arn}"
         },
         "Action": [
           "s3:ListBucket",
