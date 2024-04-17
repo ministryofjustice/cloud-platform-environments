@@ -109,30 +109,45 @@ module "s3_bucket" {
       ]
     },
   ]
-
   */
-}
 
-data "aws_iam_policy_document" "s3_bucket" {
-  statement {
-    actions = [
-      "s3:ListBucket",
-      "s3:GetBucketLocation",
-    ]
-    resources = [
-      module.s3_bucket.bucket_arn
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowBucketAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "${module.s3_bucket.bucket_arn}"
+        },
+        "Action": [
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+        ],
+        "Resource": [
+          "${module.s3_bucket.bucket_arn}",
+        ]
+      },
+      {
+        "Sid": "AllowBucketObjAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "${module.s3_bucket.bucket_arn}"
+        },
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:ListObjectsV2",
+        ],
+        "Resource": [
+          "${module.s3_bucket.bucket_arn}/*",
+        ]
+      }
     ]
   }
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:ListObjectsV2",
-    ]
-    resources = [
-      "${module.s3_bucket.bucket_arn}/*"
-    ]
-  }
+  EOF
+
 }
 
 resource "kubernetes_secret" "s3_bucket" {
