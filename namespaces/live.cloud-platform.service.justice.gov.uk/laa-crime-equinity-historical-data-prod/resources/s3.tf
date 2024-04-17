@@ -146,6 +146,27 @@ EOF
 */
 }
 
+data "aws_iam_policy_document" "s3_bucket" {
+  statement {
+    actions = [
+      "s3:ListBucket",
+      "s3:GetBucketLocation",
+    ]
+    resources = [
+      module.s3_bucket.bucket_arn
+    ]
+  }
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:ListObjectsV2",
+    ]
+    resources = [
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+  }
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
