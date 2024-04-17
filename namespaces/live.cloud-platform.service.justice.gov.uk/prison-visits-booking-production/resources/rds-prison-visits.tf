@@ -19,8 +19,8 @@ module "prison-visits-rds" {
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade = true
   db_engine                = "postgres"
-  db_engine_version        = "14.4"
-  rds_family               = "postgres14"
+  db_engine_version        = "15.6"
+  rds_family               = "postgres15"
 
   db_instance_class        = "db.m5.xlarge"
   db_allocated_storage     = "50"
