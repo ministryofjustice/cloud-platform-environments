@@ -103,7 +103,7 @@ resource "aws_route53_record" "dev" {
   name    = "dev"
   type    = "CNAME"
   ttl     = 300
-  records = ["dev.${var.root_domain}"]
+  records = [var.root_domain]
 }
 
 resource "kubernetes_secret" "route53_zone_sec" {
