@@ -11,9 +11,9 @@ module "serviceaccount" {
   github_repositories = ["mlops-deployment-example"]
   github_environments = ["dev"]
   serviceaccount_rules = [
-    {
-      api_groups = [""]
-      resources = [
+  {
+  api_groups = [""]
+  resources = [
         "pods/portforward",
         "deployment",
         "secrets",
@@ -22,8 +22,7 @@ module "serviceaccount" {
         "serviceaccounts",
         "configmaps",
         "persistentvolumeclaims",
-
-  ]
+        ]
   verbs = [
     "update",
     "patch",
@@ -33,8 +32,8 @@ module "serviceaccount" {
     "list",
     "watch",
   ]
-},
-{
+  },
+  {
   api_groups = [
     "extensions",
     "apps",
@@ -65,8 +64,8 @@ module "serviceaccount" {
     "list",
     "watch",
   ]
-},
-{
+  },
+  {
   api_groups = [
     "monitoring.coreos.com",
   ]
@@ -76,6 +75,6 @@ module "serviceaccount" {
   verbs = [
     "*",
   ]
-},
-]
+  },
+  ]
 }
