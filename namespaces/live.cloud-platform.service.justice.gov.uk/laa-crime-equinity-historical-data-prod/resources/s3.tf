@@ -122,23 +122,13 @@ data "aws_iam_policy_document" "bucket-policy" {
       identifiers = [aws_iam_user.upload_user_prod.arn]
     }
     actions = [
+      "s3:GetBucketLocation",
       "s3:ListBucket",
-      "s3:GetBucketLocation"
-    ]
-    resources = [
-      "$${bucket_arn}"
-    ]
-  }
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_user.upload_user_prod.arn]
-    }
-    actions = [
       "s3:GetObject",
       "s3:GetObjectAcl"
     ]
     resources = [
+      "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
   }
