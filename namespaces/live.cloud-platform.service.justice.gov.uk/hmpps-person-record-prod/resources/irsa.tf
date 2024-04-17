@@ -32,7 +32,7 @@ module "irsa" {
     { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
     { dms = module.hmpps-person-record-dms.irsa_policy_arn },
-    { s3 = module.hmpps-person-record-s3-extract.irsa_policy_arn }
+    { s3 = module.hmpps-person-record-ndelius-s3-extract.irsa_policy_arn }
   )
 
   # Tags
