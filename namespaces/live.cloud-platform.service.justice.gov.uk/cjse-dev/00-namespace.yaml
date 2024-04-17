@@ -17,6 +17,7 @@ metadata:
                                                 https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-api,
                                                 https://github.com/ministryofjustice/moj-cjse-xhibit-subscription-api,
                                                 https://github.com/ministryofjustice/moj-cjse-xhibit-notification-api,
-                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-processor"
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-processor,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal-prototype"
     cloud-platform.justice.gov.uk/team-name: "moj-cjse"
     cloud-platform.justice.gov.uk/review-after: ""
