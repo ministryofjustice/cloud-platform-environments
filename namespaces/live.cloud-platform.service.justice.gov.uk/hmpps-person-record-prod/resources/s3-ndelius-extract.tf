@@ -1,4 +1,4 @@
-module "hmpps-person-record-s3-extract" {
+module "hmpps-person-record-ndelius-s3-extract" {
 
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
@@ -63,14 +63,14 @@ EOF
 
 }
 
-resource "kubernetes_secret" "hmpps-person-record-ndelius-s3-extract" {
+resource "kubernetes_secret" "hmpps-person-record-ndelius-s3-extract-secret" {
   metadata {
     name      = "ndelius-s3-extract-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.hmpps-person-record-prod-ndelius-s3-extract-bucket.bucket_arn
-    bucket_name = module.hmpps-person-record-prod-ndelius-s3-extract-bucket.bucket_name
+    bucket_arn  = module.hmpps-person-record-ndelius-s3-extract.bucket_arn
+    bucket_name = module.hmpps-person-record-ndelius-s3-extract.bucket_name
   }
 }
