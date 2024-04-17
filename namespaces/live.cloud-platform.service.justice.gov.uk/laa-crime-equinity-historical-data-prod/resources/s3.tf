@@ -119,28 +119,17 @@ module "s3_bucket" {
         "Sid": "AllowBucketAccess",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "${module.s3_bucket.bucket_arn}"
+          "AWS": "*"
         },
         "Action": [
           "s3:ListBucket",
           "s3:GetBucketLocation",
-        ],
-        "Resource": [
-          "${module.s3_bucket.bucket_arn}",
-        ]
-      },
-      {
-        "Sid": "AllowBucketObjAccess",
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "${module.s3_bucket.bucket_arn}"
-        },
-        "Action": [
           "s3:GetObject",
           "s3:GetObjectAcl",
           "s3:ListObjectsV2",
         ],
         "Resource": [
+          "${module.s3_bucket.bucket_arn}",
           "${module.s3_bucket.bucket_arn}/*",
         ]
       }
