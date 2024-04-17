@@ -87,3 +87,27 @@ variable "cloudfront_alias" {
   type        = string
   default     = "cdn.dev.intranet.justice.gov.uk"
 }
+
+variable "trusted_public_keys" {
+  description = "Public key pems to be used for CloudFront"
+  type = list(object({
+    encoded_key = string
+    comment     = string
+    associate   = bool
+  }))
+  default     = [{ 
+    encoded_key  = <<-EOT
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqhmdbKSd2S+w4YWcbxUT
+    4prLNfKOhXmM2r3eIWkDP1CM1YomLbNffumjwXqvXo9SynXMdTVt6DK0yEcoeBq3
+    DADoKmBvAUjr69nMqlbLz6hfadzmGt3KD65QWn5hTPu/DcQmL0tj+XXHIv04HEoK
+    i20XhRdWh/pf1Ix1Lb8lF4AgKE9EJZX4pLpbb6IjYft9WAjDQTEfS1bkfQ1Q7Yo/
+    fPfSq+8DGF4TgSjqCEZHeEC4vWnXbBxrk8W1exipIBbtjNPYc9vdQeuRuU9QZrXz
+    QcYnJJQGcmmICthXIUn6Ekygx5OVbyU3BFcsYpLcpo/TkH4FJQtSUQTF7EqYIrOG
+    cQIDAQAB
+    -----END PUBLIC KEY-----
+    EOT
+    comment  = "Another public key"
+    associate = false
+  }]
+}
