@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["payforlegalaid"]
+  github_actions_prefix = "uat"
 
   # Tags
   business_unit          = var.business_unit
