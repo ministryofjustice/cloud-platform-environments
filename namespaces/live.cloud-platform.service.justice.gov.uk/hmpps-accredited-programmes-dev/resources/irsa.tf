@@ -5,6 +5,7 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "accredited-programmes-team-development-hmpps_acp_domain_events_queue" = "hmpps-accredited-programmes-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them

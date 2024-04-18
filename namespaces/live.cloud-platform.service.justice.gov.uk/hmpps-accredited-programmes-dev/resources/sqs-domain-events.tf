@@ -79,7 +79,7 @@ module "hmpps_tier_domain_events_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
+resource "aws_sns_topic_subscription" "hmpps_acp_domain_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
