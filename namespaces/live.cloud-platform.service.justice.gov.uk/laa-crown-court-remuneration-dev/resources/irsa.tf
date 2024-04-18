@@ -59,11 +59,12 @@ resource "aws_iam_policy" "ccr_policy" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "irsa-output"
+    name      = "${var.team_name}-irsa"
     namespace = var.namespace
   }
   data = {
-    role = module.irsa.role_name
-    serviceaccount = module.irsa.service_account_name
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
   }
 }
