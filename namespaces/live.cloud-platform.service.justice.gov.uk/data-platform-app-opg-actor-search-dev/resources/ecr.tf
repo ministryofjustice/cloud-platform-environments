@@ -1,4 +1,5 @@
 /*
+
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
@@ -13,6 +14,8 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["opg-actor-search"]
+  github_environments = ["dev"]
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
