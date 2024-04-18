@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "ccr-dev-service"
+  service_account_name  = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
 
   # Attach the approprate policies using a key => value map
@@ -59,7 +59,7 @@ resource "aws_iam_policy" "ccr_policy" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "ccr-claims-policy"
+    name      = "irsa-output"
     namespace = var.namespace
   }
   data = {
