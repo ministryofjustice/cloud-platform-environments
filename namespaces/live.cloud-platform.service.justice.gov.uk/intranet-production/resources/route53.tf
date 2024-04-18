@@ -98,30 +98,6 @@ resource "aws_route53_record" "acm_validation_www" {
   ]
 }
 
-resource "aws_route53_record" "dev" {
-  zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
-  name    = "dev"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["dev-intranet.apps.live.cloud-platform.service.justice.gov.uk"]
-}
-
-resource "aws_route53_record" "demo" {
-  zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
-  name    = "demo"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["demo-intranet.apps.live.cloud-platform.service.justice.gov.uk"]
-}
-
-resource "aws_route53_record" "staging" {
-  zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
-  name    = "staging"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["staging-intranet.apps.live.cloud-platform.service.justice.gov.uk"]
-}
-
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
