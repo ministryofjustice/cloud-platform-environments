@@ -10,7 +10,7 @@ module "hmpps_acp_domain_events_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.hmpps_tier_domain_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.hmpps_acp_domain_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
 
 EOF
@@ -58,7 +58,7 @@ EOF
 
 }
 
-module "hmpps_tier_domain_events_dead_letter_queue" {
+module "hmpps_acp_domain_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
@@ -79,7 +79,7 @@ module "hmpps_tier_domain_events_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
+resource "aws_sns_topic_subscription" "hmpps_acp_domain_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
@@ -112,8 +112,8 @@ resource "kubernetes_secret" "hmpps_acp_domain_events_queue_secret_dead_letter_q
   }
 
   data = {
-    sqs_queue_url  = module.hmpps_tier_domain_events_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_tier_domain_events_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.hmpps_tier_domain_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_acp_domain_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_acp_domain_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_acp_domain_events_dead_letter_queue.sqs_name
   }
 }
