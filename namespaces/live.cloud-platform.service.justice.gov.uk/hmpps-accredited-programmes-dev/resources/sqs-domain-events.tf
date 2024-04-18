@@ -62,7 +62,7 @@ module "hmpps_acp_domain_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "hmpps_tier_domain_events_dlq"
+  sqs_name        = "hmpps_acp_domain_events_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
