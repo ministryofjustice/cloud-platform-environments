@@ -4,8 +4,7 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
-    "accredited-programmes-team-development-hmpps_acp_domain_events_queue" = "hmpps-accredited-programmes-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -26,7 +25,9 @@ module "irsa" {
   role_policy_arns = merge(
     { rds = module.rds.irsa_policy_arn },
     { redis = module.elasticache_redis.irsa_policy_arn },
-    local.sqs_policies
+    local.sqs_policies,
+    module.hmpps_acp_domain_events_queue.irsa_policy_arn,
+    module.hmpps_acp_domain_events_dead_letter_queue.irsa_policy_arn
   )
 
   # Tags
