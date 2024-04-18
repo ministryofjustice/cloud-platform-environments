@@ -1,3 +1,4 @@
+# For CloudFront, the ACM certificate must be in the us-east-1 region.
 # An aws_acm_certificate for the CloudFront alias.
 
 resource "aws_acm_certificate" "cloudfront_alias_cert" {
@@ -14,6 +15,8 @@ resource "aws_acm_certificate" "cloudfront_alias_cert" {
     namespace              = var.namespace
     team_name              = var.team_name
   }
+
+  provider = aws.virginia
 
   lifecycle {
     create_before_destroy = true
