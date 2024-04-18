@@ -28,10 +28,7 @@ module "cloudfront" {
   # aliases_cert_arn     = aws_acm_certificate.cloudfront_alias_cert.arn
   
   # An array of public keys with comments, to be used for CloudFront. Includes an optional entry for an expiring key
-  # trusted_public_keys = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
-
-  # var.trusted_public_keys[0] is here so that it can be disassociated from the key group. Then deleted.
-  trusted_public_keys = [local.trusted_key, var.trusted_public_keys[0]]
+  trusted_public_keys = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
 
   # Tags
   business_unit          = var.business_unit
@@ -41,6 +38,8 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
 
 resource "kubernetes_secret" "cloudfront_url" {

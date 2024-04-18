@@ -13,6 +13,11 @@ variable "namespace" {
   default = "intranet-production"
 }
 
+variable "root_domain" {
+  description = "The domain name of the service."
+  default     = "intranet.justice.gov.uk"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HQ"
@@ -24,7 +29,7 @@ variable "team_name" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "environment" {
