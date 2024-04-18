@@ -38,6 +38,8 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
 
 resource "kubernetes_secret" "cloudfront_url" {
