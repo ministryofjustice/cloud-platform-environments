@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account  = "${var.team_name}-${var.environment}"
+  service_account_name  = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
 
   # Attach the approprate policies using a key => value map
@@ -64,7 +64,7 @@ resource "kubernetes_secret" "irsa" {
   }
   data = {
     role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    serviceaccount = module.irsa.service_account_name
     rolearn        = module.irsa.role_arn
   }
 }
