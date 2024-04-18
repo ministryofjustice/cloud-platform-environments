@@ -1,4 +1,3 @@
-# For CloudFront, the ACM certificate must be in the us-east-1 region.
 # An aws_acm_certificate for the CloudFront alias.
 
 resource "aws_acm_certificate" "cloudfront_alias_cert" {
@@ -16,6 +15,8 @@ resource "aws_acm_certificate" "cloudfront_alias_cert" {
     team_name              = var.team_name
   }
 
+  # For CloudFront, the ACM certificate must be in the us-east-1 region.
+  # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html#https-requirements-certificate-issuer
   provider = aws.virginia
 
   lifecycle {
@@ -33,9 +34,14 @@ resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
   certificate_arn         = aws_acm_certificate.cloudfront_alias_cert.arn
   validation_record_fqdns = aws_route53_record.cert_validations[*].fqdn 
 
+  provider = aws.virginia
+
   timeouts {
     create = "10m"
   }
 
-  depends_on = [aws_route53_record.cert_validations]
+  depends_on = [
+    aws_acm_certificate.cloudfront_alias_cert,
+    aws_route53_record.cert_validations
+  ]
 }
