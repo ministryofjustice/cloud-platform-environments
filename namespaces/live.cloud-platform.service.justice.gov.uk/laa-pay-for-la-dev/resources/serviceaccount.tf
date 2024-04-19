@@ -9,9 +9,9 @@ module "serviceaccount" {
   github_repositories = ["payforlegalaid"]
   github_environments = ["dev"]
 
-  dev_kube_cert      = var.github_actions_secret_kube_cert
-  dev_kube_token     = var.github_actions_secret_kube_token
-  dev_kube_cluster   = var.github_actions_secret_kube_cluster
-  dev_kube_namespace = var.github_actions_secret_kube_namespace
+  github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
+  github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+  github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
 
 }
