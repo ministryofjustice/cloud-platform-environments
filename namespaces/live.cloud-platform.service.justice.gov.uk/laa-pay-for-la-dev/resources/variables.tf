@@ -1,4 +1,4 @@
-variable "vpc_name" {
+rvariable "vpc_name" {
   description = "VPC name to create security groups in for the ElastiCache and RDS modules"
   type        = string
 }
@@ -71,3 +71,24 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "dev_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER"
+}
+
+variable "dev_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE"
+}
+
+variable "dev_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT"
+}
+
+variable "dev_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN"
+}
+
