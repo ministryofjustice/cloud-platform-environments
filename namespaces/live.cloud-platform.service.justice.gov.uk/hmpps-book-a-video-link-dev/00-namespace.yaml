@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "farsight-devs"
     cloud-platform.justice.gov.uk/application: "Book a video link"
     cloud-platform.justice.gov.uk/owner: "farsight-devs: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-book-a-video-link.git,https://github.com/ministryofjustice/hmpps-book-a-video-link-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-book-a-video-link-ui.git,https://github.com/ministryofjustice/hmpps-book-a-video-link-api.git"
     cloud-platform.justice.gov.uk/team-name: "farsight-devs"
     cloud-platform.justice.gov.uk/review-after: ""
