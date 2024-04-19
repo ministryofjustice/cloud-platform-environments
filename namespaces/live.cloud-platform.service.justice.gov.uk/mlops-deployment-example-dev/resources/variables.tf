@@ -20,12 +20,6 @@ variable "namespace" {
   default     = "mlops-deployment-example-dev"
 }
 
-variable "repo_name" {
-  description = "The name of github repo AND ecr repo"
-  type        = string
-  default     = "mlops-deployment-example"
-}
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
