@@ -8,7 +8,7 @@ module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
 
   # Repository configuration
-  repo_name = var.namespace
+  repo_name = var.repo_name
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]

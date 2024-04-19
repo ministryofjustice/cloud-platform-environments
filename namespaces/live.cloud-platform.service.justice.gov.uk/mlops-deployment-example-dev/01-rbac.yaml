@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: mlops-deployment-example-admin
-  namespace: mlops-deployment-example
+  namespace: mlops-deployment-example-dev
 subjects:
   - kind: Group
     name: "github:mlops-examples"

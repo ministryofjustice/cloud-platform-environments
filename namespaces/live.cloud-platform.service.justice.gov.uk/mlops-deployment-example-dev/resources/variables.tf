@@ -17,6 +17,12 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
+  default     = "mlops-deployment-example-dev"
+}
+
+variable "repo_name" {
+  description = "The name of github repo AND ecr repo"
+  type        = string
   default     = "mlops-deployment-example"
 }
 
