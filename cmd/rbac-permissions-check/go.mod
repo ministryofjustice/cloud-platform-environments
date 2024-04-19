@@ -10,7 +10,7 @@ require (
 	github.com/ministryofjustice/cloud-platform-environments/pkg/namespace v0.0.0-20210916124513-90931e68f098
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/sethvargo/go-githubactions v0.4.0
-	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
