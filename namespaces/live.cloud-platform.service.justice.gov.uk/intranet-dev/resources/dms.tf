@@ -91,16 +91,16 @@ resource "aws_dms_endpoint" "target" {
 #   }
 # }
 
-resource "kubernetes_secret" "dms_instance" {
-  metadata {
-    name      = "dms-instance"
-    namespace = var.namespace
-  }
+# resource "kubernetes_secret" "dms_instance" {
+#   metadata {
+#     name      = "dms-instance"
+#     namespace = var.namespace
+#   }
 
-  data = {
-    replication_instance_arn = module.test_dms.replication_instance_arn
-    source                   = aws_dms_endpoint.source.endpoint_arn
-    destination              = aws_dms_endpoint.target.endpoint_arn
-    task                     = aws_dms_replication_task.replication_task.replication_task_arn
-  }
-}
+#   data = {
+#     replication_instance_arn = module.test_dms.replication_instance_arn
+#     source                   = aws_dms_endpoint.source.endpoint_arn
+#     destination              = aws_dms_endpoint.target.endpoint_arn
+#     task                     = aws_dms_replication_task.replication_task.replication_task_arn
+#   }
+# }
