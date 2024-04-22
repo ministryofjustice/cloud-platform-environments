@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
       module.manage_intelligence_extractor_bucket.bucket_arn,
       "${module.manage_intelligence_extractor_bucket.bucket_arn}/*",
       module.ims_extractor_queue.sqs_arn,
-      module.ms_extractor_dead_letter_queue.sqs_arn,
+      module.ims_extractor_dead_letter_queue.sqs_arn,
       module.attachment_metadata_extractor_queue.sqs_arn,
       module.attachment_metadata_extractor_dead_letter_queue.sqs_arn
     ]
