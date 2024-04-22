@@ -11,7 +11,9 @@ module "irsa" {
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = [aws_iam_policy.ccr_policy.arn]
+  role_policy_arns = {
+    sqs_ccr_claims  = aws_iam_policy.ccr_policy.arn
+  }
 
   # Tags
   business_unit          = var.business_unit
