@@ -44,7 +44,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   }
 
   data = {
-    client_id     = aws_cognito_user_pool_client.maat_client.id
-    client_secret = aws_cognito_user_pool_client.maat_client.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client.client_secret
   }
 }
