@@ -16,6 +16,7 @@ data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
       "apigateway:*",
+      "sqs:ReceiveMessage"
     ]
 
     resources = [
