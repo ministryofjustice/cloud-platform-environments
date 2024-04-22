@@ -12,10 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_ccr_claims         = "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-cccd-claims-for-ccr"
-    sqs_ccr_claims_dlq     = "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-cccd-claims-submitted-ccr-dlq"
-    sqs_cccd_responses     = "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-responses-for-cccd"
-    sqs_cccd_responses_dlq = "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-reponses-for-cccd-dlq"
+    sqs_ccr_claims  = aws_iam_policy.ccr_policy.arn
   }
 
   # Tags
