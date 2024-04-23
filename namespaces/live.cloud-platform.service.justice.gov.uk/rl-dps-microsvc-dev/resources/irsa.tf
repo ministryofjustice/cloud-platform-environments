@@ -16,8 +16,7 @@ module "irsa" {
   service_account_name = "rl-dps-microsvc-dev"
   role_policy_arns = merge(
     local.sqs_policies,
-    local.sns_policies,
-    { elasticache = module.elasticache_redis.irsa_policy_arn }
+    local.sns_policies
   )
   # Tags
   business_unit          = var.business_unit
