@@ -17,7 +17,7 @@ variable "eks_cluster_name" {
 }
 
 variable "namespace" {
-  default = "rl-dps-microsvc-dev"
+  default = "hmpps-rl-dps-microsvc-dev"
 }
 
 variable "business_unit" {
