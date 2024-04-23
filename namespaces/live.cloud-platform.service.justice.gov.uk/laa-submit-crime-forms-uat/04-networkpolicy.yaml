@@ -40,6 +40,3 @@ spec:
         - namespaceSelector:
             matchLabels:
               component: laa-crime-application-store-uat
-        - namespaceSelector:
-            matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-crime-application-store-uat
