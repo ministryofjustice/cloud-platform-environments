@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rl-dps-microsvc-dev
+  name: hmpps-rl-dps-microsvc-dev
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "make-recall-decisions-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "RL DPS Microsvc Dev"
     cloud-platform.justice.gov.uk/owner: "RL DPS Microsvc Dev: making-recall-decisions-tech@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/rl-dps-microsvc.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-rl-dps-microsvc.git"
     cloud-platform.justice.gov.uk/team-name: "making-recall-decision"

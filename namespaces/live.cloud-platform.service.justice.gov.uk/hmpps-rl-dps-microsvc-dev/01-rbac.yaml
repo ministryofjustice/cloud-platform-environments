@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rl-dps-microsvc-dev-admin
-  namespace: rl-dps-microsvc-dev
+  name: hmpps-rl-dps-microsvc-dev-admin
+  namespace: hmpps-rl-dps-microsvc-dev
 subjects:
   - kind: Group
     name: "github:making-recall-decision"

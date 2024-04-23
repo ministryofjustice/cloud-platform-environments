@@ -1,7 +1,7 @@
 resource "pingdom_check" "rl-dps-microsvc-dev" {
   type                     = "http"
-  name                     = "rl-dps-microsvc-dev - DEV"
-  host                     = "rl-dps-microsvc-dev.hmpps.service.justice.gov.uk"
+  name                     = "hmpps-rl-dps-microsvc-dev - DEV"
+  host                     = "hmpps-rl-dps-microsvc-dev.hmpps.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
