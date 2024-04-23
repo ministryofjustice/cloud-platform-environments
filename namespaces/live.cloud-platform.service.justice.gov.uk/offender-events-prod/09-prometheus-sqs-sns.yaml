@@ -55,23 +55,6 @@ spec:
       labels:
         severity: digital-prison-service
 
-    # - alert: SQS-oldest-message-CFO
-    #   annotations:
-    #     message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
-    #   expr: |-
-    #     sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="Digital-Prison-Services-prod-cfo_queue", queue_name!~".*_dl"} offset 5m) by (queue_name) > 15 * 60
-    #   for: 10m
-    #   labels:
-    #     severity: hmpps-cfo-dms
-    # - alert: SQS-number-of-messages-CFO
-    #   annotations:
-    #     message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 100), check consumers are healthy.  https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
-    #   expr: |-
-    #     sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-cfo_queue", queue_name!~".*_dl"} offset 5m) by (queue_name) > 100
-    #   for: 10m
-    #   labels:
-    #     severity: hmpps-cfo-dms
-
     - alert: SNS-no-messages-published-prison
       annotations:
         message: "SNS topic for Prison Offender Events - {{ $labels.topic_name }} - no messages published in last 20 mins, check offender-events app is healthy"
@@ -113,15 +96,11 @@ spec:
       labels:
         severity: digital-prison-service
 
-    - alert: SQS-events-dlq-not-empty
+    - alert: SQS-CFO-number-of-messages
       annotations:
-        message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
-        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NOM/pages/1739325587/DPS+Runbook
+        message: Queue {{ $labels.queue_name }} has {{ $value }} messages (exceeds 200), check consumers are healthy
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
-      expr: |-
-        sum(aws_sqs_approximate_number_of_messages_visible_maximum{
-          queue_name=~"Digital-Prison-Services-prod-prison_to_probation_update_queue_dl"
-        } offset 5m) by (queue_name) > 0
+      expr: sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"Digital-Prison-Services-.*-cfo_.*"} offset 5m) by (queue_name) > 200
       for: 10m
       labels:
-        severity: probation-integration-notifications
+        severity: cfo-notifications
