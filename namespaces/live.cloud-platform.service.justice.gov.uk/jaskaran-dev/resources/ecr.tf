@@ -14,6 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["sw-ecr-testing"]
   github_environments = ["dev"]
+  github_actions_prefix = "DEV"
 
   # Tags
   business_unit          = var.business_unit
