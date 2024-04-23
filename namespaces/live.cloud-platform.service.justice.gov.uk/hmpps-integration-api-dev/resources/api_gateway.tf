@@ -130,19 +130,23 @@ resource "aws_api_gateway_method_response" "sqs_method_response" {
   status_code = "200"
 
   response_models = {
-    "application/json" = "Json"
+    "application/json" = "Empty"
   }
 }
 
-resource "aws_api_gateway_integration_response" "sqs_integration_response" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  resource_id = aws_api_gateway_resource.sqs_resource.id
-  http_method = aws_api_gateway_method.sqs_method.http_method
-  status_code = aws_api_gateway_method_response.sqs_method_response.status_code
+resource "aws_api_gateway_integration" "sqs_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = aws_api_gateway_resource.sqs_resource.id
+  http_method             = aws_api_gateway_method.sqs_method.http_method
+  type                    = "AWS"
+  integration_http_method = "GET"
+  uri                     = "arn:aws:apigateway:eu-west-2:sqs:path/261219435789/queue-test?Action=ReceiveMessage"
 
-  response_templates = {
-    "application/json" = ""
+  request_parameters = {
+    "integration.request.querystring.Action" = "method.request.querystring.Action"
   }
+
+  credentials = "arn:aws:iam::261219435789:role/API_Gateway_ReceiveMessages"
 }
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
@@ -170,8 +174,20 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   request_parameters = {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
   }
+
+  credentials = "arn:aws:iam::261219435789:role/API_Gateway_ReceiveMessages"
 }
 
+resource "aws_api_gateway_integration_response" "sqs_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  resource_id = aws_api_gateway_resource.sqs_resource.id
+  http_method = "GET"
+  status_code = "200"
+
+  response_templates = {
+    "application/json" = ""
+  }
+}
 
 resource "aws_api_gateway_deployment" "main" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
