@@ -44,7 +44,8 @@ module "hmpps-person-record-ndelius-s3-extract" {
              "Sid": "S3ListPolicy",
              "Effect": "Allow",
              "Principal": {
-                 "AWS": "arn:aws:iam::050243167760:root"
+                 "AWS": ["arn:aws:iam::050243167760:root",
+                 "arn:aws:iam::754256621582:role/cloud-platform-irsa-328cabd0a133b6ac-live"]
              },
              "Action": [
                   "s3:List*",
