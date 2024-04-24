@@ -5,4 +5,5 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   github_repositories = [var.repo_name]
+  github_environments = ["qa"]
 }
