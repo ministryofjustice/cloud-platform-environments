@@ -94,6 +94,12 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
+resource "aws_api_gateway_resource" "sqs_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "{receive-events}"
+}
+
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
   resource_id      = aws_api_gateway_resource.proxy.id
@@ -106,6 +112,30 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
+resource "aws_api_gateway_method" "sqs_method" {
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+  resource_id   = aws_api_gateway_resource.sqs_resource.id
+  http_method   = "GET"
+  authorization = "NONE"
+
+  request_parameters = {
+    "method.request.querystring.Action" = true
+  }
+}
+
+resource "aws_api_gateway_method_response" "sqs_method_response" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  resource_id = aws_api_gateway_resource.sqs_resource.id
+  http_method = aws_api_gateway_method.sqs_method.http_method
+  status_code = "200"
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+
+
+
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.proxy.id
@@ -117,6 +147,32 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   request_parameters = {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
+  }
+}
+
+resource "aws_api_gateway_integration" "sqs_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = aws_api_gateway_resource.sqs_resource.id
+  http_method             = aws_api_gateway_method.sqs_method.http_method
+  type                    = "AWS"
+  integration_http_method = "GET"
+  uri                     = "${var.cloud_platform_integration_api_url}/{receive-events}"
+
+  request_parameters = {
+    "integration.request.querystring.Action" = "method.request.querystring.Action"
+  }
+
+  credentials = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-api-gateway-sqs-role"
+}
+
+resource "aws_api_gateway_integration_response" "sqs_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  resource_id = aws_api_gateway_resource.sqs_resource.id
+  http_method = "GET"
+  status_code = "200"
+
+  response_templates = {
+    "application/json" = ""
   }
 }
 
