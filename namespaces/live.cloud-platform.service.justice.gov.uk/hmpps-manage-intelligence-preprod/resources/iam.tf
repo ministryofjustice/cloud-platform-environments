@@ -9,7 +9,7 @@ resource "aws_iam_access_key" "key_2023" {
 
 data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
   statement {
-    actions = ["s3:PutObject", "s3:ListBucket", "s3:GetObject", "s3:PutObject"]
+    actions = ["s3:PutObject", "s3:ListBucket", "s3:GetObject", "s3:DeleteObject"]
 
     resources = [
       module.ims_images_storage_bucket.bucket_arn,
