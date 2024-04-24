@@ -6,6 +6,7 @@
  */
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  name   = "rds_metabase"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -39,6 +40,8 @@ module "rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
+  name = "read_replica_metabase"
+  
   # default off
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
@@ -86,9 +89,9 @@ module "read_replica" {
   # ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "rds_metabase" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-metabase-instance-output"
     namespace = var.namespace
   }
 
@@ -109,7 +112,7 @@ resource "kubernetes_secret" "rds" {
 }
 
 
-resource "kubernetes_secret" "read_replica" {
+resource "kubernetes_secret" "read_replica_metabase" {
   # default off
   count = 0
 
@@ -134,7 +137,7 @@ resource "kubernetes_secret" "read_replica" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "rds_metabase" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
