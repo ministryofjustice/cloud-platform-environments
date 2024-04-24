@@ -168,7 +168,7 @@ resource "aws_iam_policy" "api_gateway_sqs_policy" {
       {
         Effect   = "Allow"
         Action   = "sqs:ReceiveMessage"
-        Resource = module.event_test_client_queue
+        Resource = module.event_test_client_queue.sqs_arn
       }
     ]
   })

@@ -103,7 +103,7 @@ resource "aws_api_gateway_resource" "sqs_parent_resource" {
 resource "aws_api_gateway_resource" "sqs_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_resource.sqs_parent_resource.id
-  path_part   = "{get-events}"
+  path_part   = "get-events"
 }
 
 resource "aws_api_gateway_method" "proxy" {
@@ -162,7 +162,7 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "${var.cloud_platform_integration_api_url}/{get-events}"
+  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${module.event_test_client_queue.sqs_arn}"
 
   request_parameters = {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
