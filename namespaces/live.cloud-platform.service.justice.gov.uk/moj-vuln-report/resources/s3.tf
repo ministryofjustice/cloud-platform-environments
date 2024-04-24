@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.10.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   bucket_name = "cloud-platform-vulnerabilty-reports"
 
