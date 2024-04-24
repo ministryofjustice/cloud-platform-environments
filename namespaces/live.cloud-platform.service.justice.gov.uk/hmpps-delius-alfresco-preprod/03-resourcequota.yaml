@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-delius-alfresco-pre-prod
+  namespace: hmpps-delius-alfresco-preprod
 spec:
   hard:
     pods: "50"
