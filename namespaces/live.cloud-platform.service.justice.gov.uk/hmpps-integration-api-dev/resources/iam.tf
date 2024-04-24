@@ -166,15 +166,14 @@ resource "aws_iam_policy" "api_gateway_sqs_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
-        Action = "sqs:ReceiveMessage"
-        Resource = [
-          module.event_test_client_queue
-        ]
+        Effect   = "Allow"
+        Action   = "sqs:ReceiveMessage"
+        Resource = module.event_test_client_queue
       }
     ]
   })
 }
+
 
 resource "aws_iam_role_policy_attachment" "api_gateway_sqs_policy_attachment" {
   role       = aws_iam_role.api_gateway_sqs_role.name

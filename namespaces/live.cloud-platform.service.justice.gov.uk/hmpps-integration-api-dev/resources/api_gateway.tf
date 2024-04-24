@@ -94,10 +94,16 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_resource" "sqs_resource" {
+resource "aws_api_gateway_resource" "sqs_parent_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "{receive-events}"
+  path_part   = "events"
+}
+
+resource "aws_api_gateway_resource" "sqs_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_resource.sqs_parent_resource.id
+  path_part   = "{get-events}"
 }
 
 resource "aws_api_gateway_method" "proxy" {
@@ -152,11 +158,11 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
 resource "aws_api_gateway_integration" "sqs_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.sqs_resource.id
+  resource_id             = aws_api_gateway_resource.sqs_parent_resource.id
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "${var.cloud_platform_integration_api_url}/{receive-events}"
+  uri                     = "${var.cloud_platform_integration_api_url}/{get-events}"
 
   request_parameters = {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
