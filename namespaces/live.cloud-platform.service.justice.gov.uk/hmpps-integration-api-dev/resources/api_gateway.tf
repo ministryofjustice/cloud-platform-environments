@@ -140,13 +140,13 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:eu-west-2:sqs:path/261219435789/queue-test?Action=ReceiveMessage"
+  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${data.aws_caller_identity.current.account_id}/${module.event_test_client_queue.sqs_name}?Action=ReceiveMessage"
 
   request_parameters = {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
   }
 
-  credentials = "arn:aws:iam::261219435789:role/API_Gateway_ReceiveMessages"
+  credentials = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-api-gateway-sqs-role"
 }
 
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
@@ -175,7 +175,7 @@ resource "aws_api_gateway_integration" "sqs_integration" {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
   }
 
-  credentials = "arn:aws:iam::261219435789:role/API_Gateway_ReceiveMessages"
+  credentials = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-api-gateway-sqs-role"
 }
 
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
