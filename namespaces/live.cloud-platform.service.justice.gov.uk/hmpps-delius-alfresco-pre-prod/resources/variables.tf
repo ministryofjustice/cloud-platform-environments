@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-delius-alfrsco-poc"
+  default     = "hmpps-delius-alfresco-pre-prod"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "poc"
+  default     = "pre-prod"
 }
 
 variable "infrastructure_support" {
@@ -66,104 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster"
-}
-
-variable "serviceaccount_rules" {
-  description = "The capabilities of this serviceaccount"
-
-  type = list(object({
-    api_groups = list(string),
-    resources  = list(string),
-    verbs      = list(string)
-  }))
-
-  # See the docs at https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount
-  default = [
-    {
-      api_groups = [""]
-      resources = [
-        "pods/exec",
-        "pods/portforward",
-        "deployment",
-        "secrets",
-        "services",
-        "configmaps",
-        "pods",
-        "replicationcontrollers",
-        "persistentvolumeclaims",
-      ]
-      verbs = [
-        "patch",
-        "get",
-        "create",
-        "update",
-        "delete",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "extensions",
-        "apps",
-        "batch",
-        "networking.k8s.io",
-        "policy",
-      ]
-      resources = [
-        "deployments",
-        "deployments/scale",
-        "ingresses",
-        "cronjobs",
-        "jobs",
-        "replicasets",
-        "poddisruptionbudgets",
-        "networkpolicies",
-        "daemonsets",
-        "statefulsets",
-      ]
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-        "servicemonitors",
-      ]
-      verbs = [
-        "*",
-      ]
-    },
-    {
-      api_groups = [
-        "autoscaling",
-      ]
-      resources = [
-        "horizontalpodautoscalers",
-      ]
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch",
-        "list",
-        "watch",
-      ]
-    },
-  ]
 }
