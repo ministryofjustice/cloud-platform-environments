@@ -1,4 +1,4 @@
-module "s3" {
+module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   bucket_name = "cloud-platform-vulnerabilty-reports"
