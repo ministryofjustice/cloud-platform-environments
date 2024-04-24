@@ -3,6 +3,31 @@ module "s3_bucket" {
 
   bucket_name = "cloud-platform-vulnerabilty-reports"
 
+lifecycle_rule = [
+    {
+      enabled = true
+      id      = "remove old vulnerabilities after 180 days for live"
+      prefix  = "live"
+
+      expiration = [
+        {
+          days = 180
+        },
+      ]
+    },
+{
+      enabled = true
+      id      = "remove old vulnerabilities after 180 days for manager"
+      prefix  = "manager"
+
+      expiration = [
+        {
+          days = 180
+        },
+      ]
+    }
+  ]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
