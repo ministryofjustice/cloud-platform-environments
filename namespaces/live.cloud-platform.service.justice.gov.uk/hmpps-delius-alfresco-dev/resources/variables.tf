@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -86,6 +86,7 @@ variable "serviceaccount_rules" {
     {
       api_groups = [""]
       resources = [
+        "pods/exec",
         "pods/portforward",
         "deployment",
         "secrets",

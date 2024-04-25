@@ -128,3 +128,97 @@ variable "resource_server_scope_description" {
 variable "cognito_user_pool_domain_name" {
   default = "caa-api-dev"
 }
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources  = ["pods/exec"]
+      verbs      = ["create"]
+    },
+    {
+    "api_groups": [""],
+    "resources": [
+      "pods/portforward",
+      "deployment",
+      "secrets",
+      "services",
+      "configmaps",
+      "pods"
+    ],
+    "verbs": [
+      "patch",
+      "get",
+      "create",
+      "update",
+      "delete",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "api_groups": [
+      "extensions",
+      "apps",
+      "batch",
+      "networking.k8s.io",
+      "policy"
+    ],
+    "resources": [
+      "deployments",
+      "ingresses",
+      "cronjobs",
+      "jobs",
+      "replicasets",
+      "poddisruptionbudgets",
+      "networkpolicies"
+    ],
+    "verbs": [
+      "get",
+      "update",
+      "delete",
+      "create",
+      "patch",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "api_groups": [
+      "monitoring.coreos.com"
+    ],
+    "resources": [
+      "prometheusrules",
+      "servicemonitors"
+    ],
+    "verbs": [
+      "*"
+    ]
+  },
+  {
+    "api_groups": [
+      "autoscaling"
+    ],
+    "resources": [
+      "hpa",
+      "horizontalpodautoscalers"
+    ],
+    "verbs": [
+      "get",
+      "update",
+      "delete",
+      "create",
+      "patch"
+    ]
+  }
+  ]
+}

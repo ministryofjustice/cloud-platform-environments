@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=fix-perms"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application

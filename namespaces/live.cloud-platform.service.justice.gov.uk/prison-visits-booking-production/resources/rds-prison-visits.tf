@@ -7,26 +7,27 @@
 
 module "prison-visits-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
-
   vpc_name                 = var.vpc_name
   team_name                = "prison-visits-booking"
-  db_instance_class        = "db.m5.xlarge"
-  db_allocated_storage     = "50"
   business_unit            = "HMPPS"
   application              = "prison-visits-booking-production"
   is_production            = var.is_production
-  namespace                = var.namespace
   environment_name         = "production"
   infrastructure_support   = "pvb-technical-support@digital.justice.gov.uk"
+  namespace                = var.namespace
+
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade = false
   db_engine                = "postgres"
-  db_engine_version        = "12.11"
+  db_engine_version        = "15.6"
+  rds_family               = "postgres15"
+
+  db_instance_class        = "db.m5.xlarge"
+  db_allocated_storage     = "50"
   db_name                  = "visits"
   db_parameter             = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
-  rds_family               = "postgres12"
   db_password_rotated_date = "2023-05-11"
 
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_minor_version_upgrade  = "false"
   performance_insights_enabled = true
 
   providers = {

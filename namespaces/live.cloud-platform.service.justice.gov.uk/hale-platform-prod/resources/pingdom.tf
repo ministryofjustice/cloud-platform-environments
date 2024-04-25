@@ -3,6 +3,7 @@ provider "pingdom" {
 
 locals {
     websites = {
+        "Website-Builder-Prod-Platform-Page" = { host = "hale-platform-prod.apps.live.cloud-platform.service.justice.gov.uk", url = "/" }
         "Website-Builder-Staging-Test-Site" = { host = "hale-platform-staging.apps.live.cloud-platform.service.justice.gov.uk", url = "/core" }
         "magistrates-recruitment" = { host = "magistrates.judiciary.uk", url = "/" }
         "criminal-cases-review-commission" = { host = "ccrc.gov.uk", url = "/" }

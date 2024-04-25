@@ -13,7 +13,7 @@ module "hmpps_prisoner_search_opensearch" {
   engine_version = "OpenSearch_2.9"
 
   cluster_config = {
-    instance_count = 6 # should always a multiple of 3, to split nodes evenly across three availability zones
+    instance_count = 6 # should always be a multiple of 3, to split nodes evenly across three availability zones
     instance_type  = "m6g.xlarge.search"
 
     # Dedicated primary nodes
@@ -31,7 +31,7 @@ module "hmpps_prisoner_search_opensearch" {
     rollback_on_disable            = "NO_ROLLBACK"
   }
 
-  proxy_count = 3
+  proxy_count = 6
 
   ebs_options = {
     volume_size = 20

@@ -80,5 +80,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "validation-api-oauth-client-secret"
     },
+    "maat_orchestration_alert_webhook_prod" = {
+      description             = "MAAT Orchestration Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "maat-orchestration-alert-webhook-prod"
+    }
   }
 }

@@ -10,7 +10,8 @@ module "serviceaccount" {
                             "moj-cjse-xhibit-ingestion-api",
                             "moj-cjse-xhibit-subscription-api",
                             "moj-cjse-xhibit-notification-api",
-                            "moj-cjse-xhibit-ingestion-processor"
+                            "moj-cjse-xhibit-ingestion-processor",
+                            "moj-cjse-xhibit-webportal-prototype"
                          ]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first

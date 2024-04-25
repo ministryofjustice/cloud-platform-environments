@@ -44,6 +44,7 @@ variable "domains" {
     "www.andrewmalkinson.independent-inquiry.uk" = "andrewmalkinson-www"
     "justiceinspectorates.gov.uk"               = "justiceinspectorates"
     "www.justiceinspectorates.gov.uk"           = "justiceinspectorates-www"
+    "hmiprisons.justiceinspectorates.gov.uk"    = "justiceinspectorates-hmiprisons"
   }
 }
 
