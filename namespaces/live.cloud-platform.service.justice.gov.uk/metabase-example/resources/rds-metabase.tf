@@ -4,9 +4,8 @@
  * releases page of this repository.
  *
  */
-module "rds" {
+module "rds_metabase" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
-  name   = "rds_metabase"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -39,8 +38,7 @@ module "rds" {
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
-module "read_replica" {
-  name = "read_replica_metabase"
+module "read_replica_metabase" {
   
   # default off
   count  = 0
