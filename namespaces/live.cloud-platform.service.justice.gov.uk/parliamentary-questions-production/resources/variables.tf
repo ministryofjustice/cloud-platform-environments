@@ -2,6 +2,12 @@ variable "application" {
   default = "Parliamentary Questions Tracker"
 }
 
+variable "business_unit" {
+  description = "Area of the MOJ responsible for this service"
+  type        = string
+  default     = "HQ"
+}
+
 variable "db_backup_retention_period" {
   default = "7"
 }
