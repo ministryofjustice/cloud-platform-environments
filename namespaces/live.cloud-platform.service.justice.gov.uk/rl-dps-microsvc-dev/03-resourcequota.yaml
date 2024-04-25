@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: rl-dps-microsvc-dev
-spec:
-  hard:
-    pods: "50"
