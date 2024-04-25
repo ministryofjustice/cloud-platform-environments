@@ -123,6 +123,7 @@ resource "aws_api_gateway_method" "sqs_method" {
   resource_id   = aws_api_gateway_resource.sqs_resource.id
   http_method   = "GET"
   authorization = "NONE"
+  api_key_required = true
 
   request_parameters = {
     "method.request.querystring.Action": true
@@ -161,7 +162,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
 resource "aws_api_gateway_integration" "sqs_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.sqs_parent_resource.id
+  resource_id             = aws_api_gateway_resource.sqs_resource.id
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
