@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "rds_metabase" {
+module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
 
   # VPC configuration
@@ -38,8 +38,7 @@ module "rds_metabase" {
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
-module "read_replica_metabase" {
-  
+module "read_replica" {
   # default off
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
@@ -87,9 +86,9 @@ module "read_replica_metabase" {
   # ]
 }
 
-resource "kubernetes_secret" "rds_metabase" {
+resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "rds-metabase-instance-output"
+    name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
@@ -99,7 +98,6 @@ resource "kubernetes_secret" "rds_metabase" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -110,7 +108,7 @@ resource "kubernetes_secret" "rds_metabase" {
 }
 
 
-resource "kubernetes_secret" "read_replica_metabase" {
+resource "kubernetes_secret" "read_replica" {
   # default off
   count = 0
 
@@ -135,7 +133,7 @@ resource "kubernetes_secret" "read_replica_metabase" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds_metabase" {
+resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
