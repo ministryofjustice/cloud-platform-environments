@@ -123,6 +123,16 @@ resource "aws_api_gateway_method" "sqs_method" {
   resource_id   = aws_api_gateway_resource.sqs_resource.id
   http_method   = "GET"
   authorization = "NONE"
+
+  request_parameters = {
+    "method.request.querystring.Action": true
+  }
+
+  depends_on = [
+    aws_api_gateway_rest_api.api_gateway,
+    aws_api_gateway_resource.sqs_parent_resource,
+    aws_api_gateway_resource.sqs_resource
+  ]
 }
 
 resource "aws_api_gateway_method_response" "sqs_method_response" {
@@ -162,6 +172,7 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   }
 
   depends_on = [
+    aws_api_gateway_rest_api.api_gateway,
     module.event_test_client_queue,
     aws_api_gateway_method.sqs_method
   ]
@@ -179,6 +190,7 @@ resource "aws_api_gateway_integration_response" "sqs_integration_response" {
     "application/json" = ""
   }
     depends_on = [
+      aws_api_gateway_rest_api.api_gateway,
       aws_api_gateway_integration.sqs_integration
     ]
 }
