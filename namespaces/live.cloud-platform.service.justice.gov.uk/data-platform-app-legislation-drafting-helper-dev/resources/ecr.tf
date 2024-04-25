@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["legislation_drafting_helper"]
+  github_repositories = ["legislation-drafting-helper"]
   github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
