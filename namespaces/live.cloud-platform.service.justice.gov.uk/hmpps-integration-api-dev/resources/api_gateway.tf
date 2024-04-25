@@ -135,8 +135,6 @@ resource "aws_api_gateway_method_response" "sqs_method_response" {
   }
 }
 
-
-
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.proxy.id
@@ -163,7 +161,12 @@ resource "aws_api_gateway_integration" "sqs_integration" {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
   }
 
-  credentials = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-api-gateway-sqs-role"
+  depends_on = [
+    module.event_test_client_queue,
+    aws_api_gateway_method.sqs_method
+  ]
+
+  credentials = aws_iam_role.api_gateway_role.arn
 }
 
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
@@ -194,9 +197,9 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
+    aws_api_gateway_method.sqs_method,
     aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.sqs_integration,
-    aws_api_gateway_method.sqs_method
   ]
 
   lifecycle {
