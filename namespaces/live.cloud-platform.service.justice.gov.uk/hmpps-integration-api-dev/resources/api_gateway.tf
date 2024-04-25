@@ -123,10 +123,6 @@ resource "aws_api_gateway_method" "sqs_method" {
   resource_id   = aws_api_gateway_resource.sqs_resource.id
   http_method   = "GET"
   authorization = "NONE"
-
-  request_parameters = {
-    "method.request.querystring.Action" = true
-  }
 }
 
 resource "aws_api_gateway_method_response" "sqs_method_response" {
@@ -134,7 +130,6 @@ resource "aws_api_gateway_method_response" "sqs_method_response" {
   resource_id = aws_api_gateway_resource.sqs_resource.id
   http_method = aws_api_gateway_method.sqs_method.http_method
   status_code = "200"
-
   response_models = {
     "application/json" = "Empty"
   }
@@ -174,12 +169,15 @@ resource "aws_api_gateway_integration" "sqs_integration" {
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   resource_id = aws_api_gateway_resource.sqs_resource.id
-  http_method = "GET"
-  status_code = "200"
+  http_method = aws_api_gateway_method.sqs_method.http_method
+  status_code = aws_api_gateway_method_response.sqs_method_response.status_code
 
   response_templates = {
     "application/json" = ""
   }
+    depends_on = [
+      aws_api_gateway_integration.sqs_integration
+    ]
 }
 
 resource "aws_api_gateway_deployment" "main" {
@@ -196,7 +194,9 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy
+    aws_api_gateway_integration.proxy_http_proxy,
+    aws_api_gateway_integration.sqs_integration,
+    aws_api_gateway_method.sqs_method
   ]
 
   lifecycle {
