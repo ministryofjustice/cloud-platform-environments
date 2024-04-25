@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "dash_ccdlalbs"
     cloud-platform.justice.gov.uk/application: "Legislation search tool"
     cloud-platform.justice.gov.uk/owner: "Courts, Corporate, and Data Linking Data Science team: "
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/legislation-drafting-helper"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/legislation_drafting_helper"
     cloud-platform.justice.gov.uk/team-name: "legislation-admins"
     cloud-platform.justice.gov.uk/review-after: ""
