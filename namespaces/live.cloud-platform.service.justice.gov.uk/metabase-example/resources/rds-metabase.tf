@@ -137,7 +137,7 @@ resource "kubernetes_secret" "read_replica_metabase" {
 
 resource "kubernetes_config_map" "rds_metabase" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-metabase-instance-output"
     namespace = var.namespace
   }
 
