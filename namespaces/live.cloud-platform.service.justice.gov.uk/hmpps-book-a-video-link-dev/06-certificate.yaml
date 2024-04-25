@@ -5,7 +5,7 @@ metadata:
   name: book-a-video-link-dev.prison.service.justice.gov.uk
   namespace: hmpps-book-a-video-link-dev
 spec:
-  secretName: book-a-video-link-cert
+  secretName: hmpps-book-a-video-link-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -19,7 +19,7 @@ metadata:
   name: book-a-video-link-api-dev.prison.service.justice.gov.uk
   namespace: hmpps-book-a-video-link-dev
 spec:
-  secretName: book-a-video-link-api-cert
+  secretName: hmpps-book-a-video-link-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
