@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "staging_justice_gov_uk_route53_zone" {
-  name = "staging.justice.gov.uk"
+  name = "stage.justice.gov.uk"
 
   tags = {
     business_unit          = var.business_unit
