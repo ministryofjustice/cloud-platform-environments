@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "document" {
       "sts:AssumeRole"
     ]
     resources = [
-      "${module.makeaplea_queue.irsa_policy_arn}",
+      module.makeaplea_queue.irsa_policy_arn,
     ]
   }
 }
