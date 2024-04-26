@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/sw-ecr-testing"]
+  github_repositories = ["sw_ecr_testing"]
 
   # Tags
   business_unit          = var.business_unit
