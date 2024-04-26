@@ -1,4 +1,5 @@
 resource "aws_route53_zone" "staging_justice_gov_uk_route53_zone" {
+  # Note. `stage` not the typical `staging` subdomain, because that was unavailable.
   name = "stage.justice.gov.uk"
 
   tags = {
