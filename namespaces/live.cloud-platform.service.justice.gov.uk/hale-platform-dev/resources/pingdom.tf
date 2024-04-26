@@ -20,9 +20,9 @@ resource "pingdom_check" "hale-dev-example" {
 
 resource "pingdom_maintenance" "hale-test" {
   description    = "hale-test-maintenance"
-  from           = 1713996000
-  to             = 1714024800
-  effectiveto    = 1714341600
+  from           = 1714132800
+  to             = 1714140000
+  effectiveto    = 1714550400
   recurrencetype = "day"
   uptimeids      = [pingdom_check.hale-dev-example.id]
 }
@@ -32,5 +32,5 @@ resource "pingdom_occurrence" "test" {
   effective_from = pingdom_maintenance.hale-test.from
   effective_to   = pingdom_maintenance.hale-test.effectiveto
   from           = pingdom_maintenance.hale-test.from
-  to             = "2024-04-28T22:00:00+08:00"
+  to             = "2024-05-01T08:00:00+01:00"
 }
