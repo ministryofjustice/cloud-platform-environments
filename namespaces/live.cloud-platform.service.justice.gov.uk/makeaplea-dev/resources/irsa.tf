@@ -49,7 +49,7 @@ module "irsa" {
     s3                        = module.s3_bucket.irsa_policy_arn
     sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
-    sqs_assume_role           = assume_role_policy.arn
+    sqs_assume_role           = aws_iam_policy.assume_role_policy.arn
   }
 
   # Tags
