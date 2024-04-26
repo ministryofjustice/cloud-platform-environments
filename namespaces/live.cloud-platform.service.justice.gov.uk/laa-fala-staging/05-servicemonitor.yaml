@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: laa-fala
+      app: laa-fala-app
   endpoints:
     - port: http
       interval: 15s
