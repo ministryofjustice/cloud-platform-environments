@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-legal-adviser-api-staging-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: laa-legal-adviser-api
+  endpoints:
+    - port: http
+      interval: 15s
