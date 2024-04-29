@@ -166,7 +166,7 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${module.event_test_client_queue.sqs_arn}"
+  uri                     =  "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${module.event_test_client_queue.sqs_name}"
 
   request_parameters = {
     "integration.request.querystring.Action" = "method.request.querystring.Action"
