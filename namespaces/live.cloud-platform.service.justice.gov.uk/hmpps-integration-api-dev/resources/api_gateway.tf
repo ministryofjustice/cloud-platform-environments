@@ -166,10 +166,15 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${module.event_test_client_queue.sqs_name}/events"
+  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${module.event_test_client_queue.sqs_name}/events/get-events"
 
-  request_parameters = {
-    "integration.request.querystring.Action" = "method.request.querystring.Action"
+  request_templates = {
+    "application/json" = <<EOF
+    {
+     "Action": "ReceiveMessage",
+     "QueueUrl": "${module.event_test_client_queue.sqs_arn}"
+    }
+    EOF
   }
 
   depends_on = [
