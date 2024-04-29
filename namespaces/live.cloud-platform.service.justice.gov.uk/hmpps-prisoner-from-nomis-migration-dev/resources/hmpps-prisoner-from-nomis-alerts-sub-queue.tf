@@ -111,7 +111,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_alerts_subscription" 
     eventType = [
       "ALERT-INSERTED",
       "ALERT-UPDATED",
-      "ALERT-DELETED"
+      "ALERT-DELETED",
+      "BOOKING_NUMBER-CHANGED"
     ]
   })
 }
