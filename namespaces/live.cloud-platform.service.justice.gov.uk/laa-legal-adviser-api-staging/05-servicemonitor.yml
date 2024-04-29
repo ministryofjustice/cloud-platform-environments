@@ -7,5 +7,5 @@ spec:
     matchLabels:
       app: laa-legal-adviser-api
   endpoints:
-    - port: http
+    - port: metrics
       interval: 15s
