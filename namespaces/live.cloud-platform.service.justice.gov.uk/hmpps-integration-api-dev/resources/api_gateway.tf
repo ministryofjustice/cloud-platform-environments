@@ -125,10 +125,6 @@ resource "aws_api_gateway_method" "sqs_method" {
   authorization    = "NONE"
   api_key_required = true
 
-  request_parameters = {
-    "method.request.querystring.Action": true
-  }
-
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
     aws_api_gateway_resource.sqs_parent_resource,
@@ -177,7 +173,7 @@ resource "aws_api_gateway_integration" "sqs_integration" {
     aws_api_gateway_method_response.sqs_method_response,
   ]
 
-  credentials = aws_iam_role.api_gateway_role.arn
+  credentials = aws_iam_role.api_gateway_sqs_role.arn
 }
 
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
