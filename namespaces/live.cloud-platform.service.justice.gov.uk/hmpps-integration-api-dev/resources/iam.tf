@@ -161,7 +161,7 @@ EOF
 
 resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
   name   = "${var.namespace}-api-gateway-sqs-policy"
-  role = aws_iam_role.api_gateway_role
+  role = aws_iam_role.api_gateway_role.id
 
   policy = jsonencode({
     Version = "2012-10-17"
