@@ -49,6 +49,7 @@ module "irsa" {
     s3                        = module.s3_bucket.irsa_policy_arn
     sqs_map_queue             = module.makeaplea_queue.irsa_policy_arn
     sqs_map_queue_dead_letter = module.makeaplea_dead_letter_queue.irsa_policy_arn
+    sqs_assume_role           = aws_iam_policy.assume_role_policy.arn
   }
 
   # Tags
@@ -58,6 +59,24 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_iam_policy_document" "document" {
+  statement {
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      module.makeaplea_queue.irsa_policy_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "assume_role_policy" {
+  name        = "${var.namespace}-assume-role"
+  path        = "/${var.namespace}/"
+  policy      = data.aws_iam_policy_document.document.json
+  description = "Assume role policy for makeaplea sqs queue resource"
 }
 
 resource "kubernetes_secret" "irsa" {
