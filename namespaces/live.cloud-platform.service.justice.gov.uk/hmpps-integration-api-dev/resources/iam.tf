@@ -159,7 +159,7 @@ resource "aws_iam_role" "api_gateway_sqs_role" {
 EOF
 }
 
-resource "aws_iam_policy" "api_gateway_sqs_policy" {
+resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
   name   = "${var.namespace}-api-gateway-sqs-policy"
   role = aws_iam_role.api_gateway_role
 
