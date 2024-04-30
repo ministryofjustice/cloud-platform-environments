@@ -159,8 +159,9 @@ resource "aws_iam_role" "api_gateway_sqs_role" {
 EOF
 }
 
-resource "aws_iam_policy" "api_gateway_sqs_policy" {
+resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
   name   = "${var.namespace}-api-gateway-sqs-policy"
+  role = aws_iam_role.api_gateway_role.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -172,10 +173,4 @@ resource "aws_iam_policy" "api_gateway_sqs_policy" {
       }
     ]
   })
-}
-
-
-resource "aws_iam_role_policy_attachment" "api_gateway_sqs_policy_attachment" {
-  role       = aws_iam_role.api_gateway_sqs_role.name
-  policy_arn = aws_iam_policy.api_gateway_sqs_policy.arn
 }
