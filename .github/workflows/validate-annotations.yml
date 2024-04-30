@@ -11,53 +11,40 @@ on:
 
 
 jobs:
-  validate:
+
+  validate-annotations:
     # env where the job will be executed
+    name: Validate Annotations
     runs-on: ubuntu-latest
-
     steps:
-      # checkout the repo's content to the env and make it available to subsequent steps
-    - uses: actions/checkout@v3
 
-      # to ensure the script runs consistently, set up a Go env
+      #set up a Go env
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
       
       # execute the validation script
-    - name: Validate annotations
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #GitHub token for API authentication
-      run:  |
-        cd annotations-checker # change directory to where the script is located
-        go run validate-annotations.go
+    - name: Check out code
+      uses: actions/checkout@v3
+      
+    - name: Install dependencies
+      run: |
+        go mod download
 
-    - name: Upload validation results for subsequent steps
-      uses: actions/upload-artifact@v2
-      with:
-        name: validation-outcomes
-        path: annotations-checker/validation_outcomes.txt
+    - name: Build
+      run: go build -v ./...
 
-    - name: Annotate PR with the validation result
-      uses: actions/github-script@v5
-      if: always()
+    - name: Build Docker image
+      run: docker build -t validate-annotations .
+
+    - name: Run Validation
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        script: |
-          const fs = require('fs');
-          const path = require('path');
+      run: docker run --rm -e GITHUB_TOKEN=$GITHUB_TOKEN validate_annotations
 
-          const resultsPath = path.join(process.env.GITHUB_WORKSPACE, 'validate-annotations', 'annotations-checker/validation_outcomes.txt');
-          const validationOutcomes = fs.readFileSync(resultsPath, 'utf8');
-            
-          const prNumber = context.issue.number;
-          const message = `### Annotations Validation :robot:\n\n${validationOutcomes}`;
-
-          github.rest.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: prNumber,
-            body: message
-          });
+    - name: Run Validation (Local)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        ./validate-annotations
