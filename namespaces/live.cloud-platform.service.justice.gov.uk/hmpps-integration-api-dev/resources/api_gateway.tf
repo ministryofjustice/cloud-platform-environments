@@ -163,7 +163,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 resource "aws_api_gateway_integration" "sqs_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.sqs_resource.id
-  http_method             = aws_api_gateway_method.proxy.http_method
+  http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
   uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${data.aws_caller_identity.current.account_id}/${module.event_test_client_queue.sqs_name}?Action=ReceiveMessage"
