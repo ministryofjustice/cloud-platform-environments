@@ -1,4 +1,4 @@
-FROM golang:1.19-alpine
+FROM debian:bookworm-slim
 
 WORKDIR /app
 
