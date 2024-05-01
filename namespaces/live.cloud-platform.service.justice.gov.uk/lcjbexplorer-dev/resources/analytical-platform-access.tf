@@ -11,7 +11,7 @@ module "ap_irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
