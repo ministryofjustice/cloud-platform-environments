@@ -2,80 +2,143 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
+	"strings"
 
-	"github.com/google/go-github/v32/github" // GitHub API client library
-	// "github.com/ministryofjustice/cloud-platform-environments/pkg/namespace"
-	"golang.org/x/oauth2" // API requests authentication
-	// "google.golang.org/genproto/googleapis/api/annotations"
+	"github.com/google/go-github/v39/github"
+	"golang.org/x/oauth2"
 	"gopkg.in/yaml.v2"
 )
 
-// Annotations structs to define the structure of annotations in the YAML file
 type Annotations struct {
 	Kind           string `yaml:"kind"`
 	SourceCodeRepo string `yaml:"cloud-platform.justice.gov.uk/source-code"`
 	TeamName       string `yaml:"cloud-platform.justice.gov.uk/team-name"`
 }
 
-// hold the structure for the YAML file
 type KubernetesConfig struct {
 	Metadata struct {
 		Annotations Annotations `yaml:"annotations"`
 	} `yaml:"metadata"`
 }
 
-// gitHub client
 func NewGitHubClient(token string) *github.Client {
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
 	tc := oauth2.NewClient(ctx, ts)
-	client := github.NewClient(tc)
-	return client
+	return github.NewClient(tc)
 }
 
-// validate team name and source code repo
-func ValidateAnnotations(client *github.Client, org string) (string, error) {
-	// get namespace directory
-	namespacesDir := "/path/to/namespaces"
-	files, err := os.ReadDir(namespacesDir)
+func ValidateAnnotations(client *github.Client, org, prEvent string) (string, error) {
+	event, err := parsePREvent(prEvent)
 	if err != nil {
-		return "", fmt.Errorf("Failed to read namespaces directory: %v", err)
+		return "", err
 	}
 
-	// check if kind:Namespace exists in any file
-	foundNamespace := false
-	for _, file := range files {
-		if !file.IsDir() {
-			path := filepath.Join(namespacesDir, file.Name())
-			annotations, err := getAnnotations(path)
-			if err != nil {
-				return "", fmt.Errorf("Failed to get annotation from %s: %v", path, err)
-			}
+	changedFiles, namespaces, err := getChangedFilesAndNamespaces(client, org, event)
+	if err != nil {
+		return "", err
+	}
 
-			if annotations.Kind == "Namespace" {
-				foundNamespace = true
-				passed, message := validateFile(client, org, path, annotations)
-				if passed {
-					return message, nil
-				} else {
-					return "", fmt.Errorf(message)
-				}
+	fileMap := make(map[string]*github.CommitFile)
+	for _, file := range changedFiles {
+		fileMap[*file.Filename] = file
+	}
+
+	foundNamespace := false
+	for path := range fileMap {
+		annotations, err := getAnnotations(path)
+		if err != nil {
+			return "", fmt.Errorf("Failed to get annotation from %s: %v", path, err)
+		}
+
+		if annotations.Kind == "Namespace" {
+			foundNamespace = true
+			passed, message := validateFile(client, org, path, annotations, namespaces)
+			if passed {
+				return message, nil
 			}
 		}
 	}
 
-	// if kind:Namespace isn't found, do nothing
 	if !foundNamespace {
-		return "", nil
+		return "No files with 'kind:Namespace' annotation found.", nil
 	}
 
-	return "No files with 'kind:Namespace' annotation found. Check Passed.", nil
+	return "All namespace validations passed successfully.", nil
 }
 
-// retrieve annotations from yaml file
+func parsePREvent(prEvent string) (*github.PullRequestEvent, error) {
+	event := &github.PullRequestEvent{}
+	err := json.Unmarshal([]byte(prEvent), event)
+	if err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+func getChangedFilesAndNamespaces(client *github.Client, org string, event *github.PullRequestEvent) ([]*github.CommitFile, []string, error) {
+	changedFiles, err := getChangedFiles(client, org, event)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	namespaces, err := getNamespaces(event)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return changedFiles, namespaces, nil
+}
+
+func getChangedFiles(client *github.Client, org string, event *github.PullRequestEvent) ([]*github.CommitFile, error) {
+	var allFiles []*github.CommitFile
+	opts := &github.ListOptions{PerPage: 100}
+
+	for {
+		commits, resp, err := client.PullRequests.ListCommits(context.Background(), org, *event.Repo.Name, *event.Number, opts)
+		if err != nil {
+			return nil, err
+		}
+		for _, commit := range commits {
+			commitDetail, _, err := client.Repositories.GetCommit(context.Background(), org, *event.Repo.Name, commit.GetSHA(), nil)
+			if err != nil {
+				return nil, err
+			}
+			for _, file := range commitDetail.Files {
+				if file.GetStatus() != "removed" {
+					allFiles = append(allFiles, file)
+				}
+			}
+		}
+		if resp.NextPage == 0 {
+			break
+		}
+		opts.Page = resp.NextPage
+	}
+
+	return allFiles, nil
+}
+
+func getNamespaces(event *github.PullRequestEvent) ([]string, error) {
+	namespaces := []string{}
+
+	if event.PullRequest.Body != nil {
+		lines := strings.Split(*event.PullRequest.Body, "\n")
+		for _, line := range lines {
+			if strings.Contains(line, "namespace:") {
+				ns := strings.TrimPrefix(line, "namespace:")
+				ns = strings.TrimSpace(ns)
+				namespaces = append(namespaces, ns)
+			}
+		}
+	}
+
+	return namespaces, nil
+}
+
 func getAnnotations(path string) (Annotations, error) {
 	// read yaml file
 	yamlFile, err := os.ReadFile(path)
@@ -93,27 +156,23 @@ func getAnnotations(path string) (Annotations, error) {
 	return config.Metadata.Annotations, nil
 }
 
-// validate yaml file
-func validateFile(client *github.Client, org, path string, annotations Annotations) (bool, string) {
+func validateFile(client *github.Client, org, path string, annotations Annotations, namespaces []string) (bool, string) {
 	repo := annotations.SourceCodeRepo
 	team := annotations.TeamName
 
-	// validate the repo
-	repository, _, err := client.Repositories.Get(context.Background(), org, repo)
+	repoInfo, _, err := client.Repositories.Get(context.Background(), org, repo)
 	if err != nil {
 		return false, fmt.Sprintf("The repository, %s, does not exist.", repo)
 	}
 
-	if repository.GetPrivate() {
+	if repoInfo.GetPrivate() {
 		return false, fmt.Sprintf("The repository %s is private.", repo)
 	}
 
-	// validate team
 	_, _, err = client.Teams.GetTeamBySlug(context.Background(), org, team)
 	if err != nil {
 		return false, fmt.Sprintf("The team %s does not exist or the PR owner isn't a member.", team)
 	}
 
-	// if everything checks out, return success message
 	return true, fmt.Sprintf("Annotations successfully validated for %s", path)
 }
