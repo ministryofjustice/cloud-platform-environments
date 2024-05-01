@@ -4,6 +4,14 @@ module "irsa" {
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
   role_policy_arns     = [aws_iam_policy.cross_iam_role_mp.arn]
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 data "aws_iam_policy_document" "cross_iam_policy_mp" {
@@ -26,12 +34,12 @@ resource "aws_iam_policy" "cross_iam_role_mp" {
   policy = data.aws_iam_policy_document.cross_iam_policy_mp.json
 
   tags = {
-    business-unit          = "HMPPS"
-    application            = "Digital Prison Reporting Management Information"
-    is-production          = "false"
-    environment-name       = "development"
-    owner                  = "hmpps-digital-prison-reporting"
-    infrastructure-support = "platforms@digital.justice.gov.uk"
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
   }
 }
 
