@@ -14,6 +14,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-crime-equinity-historical-data-frontend"]
+  github_environments = ["staging"]
 
   # Tags
   business_unit          = var.business_unit
