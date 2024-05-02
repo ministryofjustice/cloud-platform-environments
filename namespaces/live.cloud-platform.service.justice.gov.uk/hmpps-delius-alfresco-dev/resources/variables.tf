@@ -72,6 +72,10 @@ variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
 
+variable "versioning" {
+  description = "whether s3 bucket versioning is enabled or not"
+  default     = true
+}
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 
