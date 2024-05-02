@@ -125,7 +125,7 @@ resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
       {
         Effect   = "Allow"
         Action   = "sqs:ReceiveMessage"
-        Resource = module.event_mapps_queue.sqs_arn
+        Resource = module.event_test_client_queue.sqs_arn
       }
     ]
   })
