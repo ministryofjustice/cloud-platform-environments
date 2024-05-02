@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "a@a.com"
+  default     = ""
 }
 
 variable "is_production" {
