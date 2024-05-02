@@ -6,11 +6,11 @@ locals {
         "extensions",
       ]
       resources = [
-        "deployment",
+        "deployments",
       ]
       verbs = [
-        "patch",
         "get",
+        "update",
       ]
     },
   ]
