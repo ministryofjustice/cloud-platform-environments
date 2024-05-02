@@ -81,7 +81,7 @@ resource "aws_route53_record" "data" {
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
   name                         = var.namespace
-  disable_execute_api_endpoint = false
+  disable_execute_api_endpoint = true
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -125,6 +125,10 @@ resource "aws_api_gateway_method" "sqs_method" {
   authorization = "NONE"
   api_key_required = true
 
+  request_parameters = {
+    "method.request.querystring.Action": true
+  }
+
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
     aws_api_gateway_resource.sqs_parent_resource,
@@ -162,18 +166,19 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${data.aws_caller_identity.current.account_id}/${module.event_test_client_queue.sqs_name}?Action=ReceiveMessage"
+  uri                     = "arn:aws:apigateway:eu-west-2:sqs:path/${module.event_test_client_queue.sqs_arn}"
+
+  request_parameters = {
+    "integration.request.querystring.Action" = "method.request.querystring.Action"
+  }
 
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
-    aws_api_gateway_resource.sqs_parent_resource,
-    aws_api_gateway_resource.sqs_resource,
     module.event_test_client_queue,
-    aws_api_gateway_method.sqs_method,
-    aws_api_gateway_method_response.sqs_method_response,
+    aws_api_gateway_method.sqs_method
   ]
 
-  credentials = aws_iam_role.api_gateway_sqs_role.arn
+  credentials = aws_iam_role.api_gateway_role.arn
 }
 
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
@@ -313,7 +318,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -336,7 +341,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -359,7 +364,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -382,7 +387,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }

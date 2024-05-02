@@ -73,7 +73,3 @@ variable "cloud_platform_integration_api_url" {
 }
 
 variable "eks_cluster_name" {}
-
-variable "region" {
-  default = "eu-west-2"
-}
