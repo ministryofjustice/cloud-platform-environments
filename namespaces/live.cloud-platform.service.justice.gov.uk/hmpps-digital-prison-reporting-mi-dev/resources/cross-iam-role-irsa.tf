@@ -3,7 +3,9 @@ module "irsa" {
   eks_cluster_name     = "var.eks_cluster_name"
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns     = [aws_iam_policy.cross_iam_policy_mp.arn]
+  role_policy_arns     = { 
+    secrets = aws_iam_policy.cross_iam_policy_mp.arn 
+  }
 
   # Tags
   business_unit          = var.business_unit
@@ -49,7 +51,7 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role = module.irsa.aws_iam_role_name
+    role = module.irsa.role_name
     serviceaccount = module.irsa.service_account.name
   }
 }
