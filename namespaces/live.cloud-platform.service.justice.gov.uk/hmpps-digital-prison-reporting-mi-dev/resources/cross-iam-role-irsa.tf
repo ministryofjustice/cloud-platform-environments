@@ -1,6 +1,6 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  eks_cluster_name     = "var.eks_cluster_name"
+  eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
   role_policy_arns     = { 
