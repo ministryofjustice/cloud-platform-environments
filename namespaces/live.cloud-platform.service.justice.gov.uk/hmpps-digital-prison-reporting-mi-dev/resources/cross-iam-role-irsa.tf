@@ -32,6 +32,7 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
   statement {
     actions = [
       "kms:Describe*",
+      "kms:Decrypt",
       "kms:Get*",
       "kms:List*",
     ]
