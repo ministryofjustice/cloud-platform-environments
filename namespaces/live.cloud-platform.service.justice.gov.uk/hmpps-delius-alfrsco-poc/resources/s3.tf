@@ -15,16 +15,16 @@ module "s3_bucket" {
 
       noncurrent_version_transition = [
         {
-          days          = "${var.s3_lifecycle_config["noncurrent_version_transition_days"]}"
+          days          = var.s3_lifecycle_config["noncurrent_version_transition_days"]
           storage_class = "STANDARD_IA"
         },
         {
-          days          = "${var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]}"
+          days          = var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]
           storage_class = "GLACIER"
         }
       ]
       noncurrent_version_expiration = {
-        days = "${var.s3_lifecycle_config["noncurrent_version_expiration_days"]}"
+        days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
       }
     }
   ]
