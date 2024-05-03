@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "arn:aws:secretsmanager:eu-west-2:203591025782:secret:dpr-redshift-secret-*-*",
     ]
   },
-  statement {
+  {
     actions = [
       "kms:Describe*",
       "kms:Decrypt",
