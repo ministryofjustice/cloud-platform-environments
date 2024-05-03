@@ -29,6 +29,21 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "arn:aws:secretsmanager:eu-west-2:203591025782:secret:dpr-redshift-secret-*-*",
     ]
   }
+  
+  statement {
+    actions = [
+      "kms:Describe*",
+      "kms:Decrypt",
+      "kms:Get*",
+      "kms:List*",
+    ]
+    resources = [
+      "arn:aws:kms:eu-west-2:771283872747:key/*",
+      "arn:aws:kms:eu-west-2:972272129531:key/*",
+      "arn:aws:kms:eu-west-2:004723187462:key/*",
+      "arn:aws:kms:eu-west-2:203591025782:key/*",
+    ]
+  }  
 }
 
 resource "aws_iam_policy" "cross_iam_policy_mp" {
