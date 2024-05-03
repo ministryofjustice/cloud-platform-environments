@@ -77,6 +77,15 @@ variable "versioning" {
   default     = true
 }
 
+variable "s3_lifecycle_config" {
+  type = map(string)
+  default = {
+    noncurrent_version_transition_days         = 30
+    noncurrent_version_transition_glacier_days = 60
+    noncurrent_version_expiration_days         = 90
+  }
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 
