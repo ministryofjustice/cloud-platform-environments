@@ -21,7 +21,7 @@ module "s3_bucket" {
         {
           days          = var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]
           storage_class = "GLACIER"
-        }
+        },
       ]
       noncurrent_version_expiration = {
         days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
