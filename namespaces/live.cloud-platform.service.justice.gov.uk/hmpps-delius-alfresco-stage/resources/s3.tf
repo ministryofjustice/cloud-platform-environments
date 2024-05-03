@@ -7,6 +7,7 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = var.versioning
 }
 
 resource "aws_s3_bucket_accelerate_configuration" "this" {
