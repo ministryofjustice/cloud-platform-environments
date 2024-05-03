@@ -17,7 +17,7 @@ spec:
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="hmpps-accredited-programmes-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="hmpps-accredited-programmes-prod"} > 0) > 90
       for: 1m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
   
@@ -26,7 +26,7 @@ spec:
         sum by (namespace, pod) (kube_pod_status_phase{namespace="hmpps-accredited-programmes-prod", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
       for: 15m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} - Pod {{ $labels.pod }} has been in a non-ready state for longer than 15 minutes
 
@@ -35,7 +35,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="hmpps-accredited-programmes-prod"}[10m]) * 60 * 10 > 3
       for: 10m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message:  Namespace {{ $labels.namespace }} - Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
 
@@ -46,7 +46,7 @@ spec:
         rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "hmpps-accredited-programmes-prod"}[5m]) > 0) by (ingress) >1
       for: 1m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} - ingress {{ $labels.ingress }} is serving slow responses over 2 seconds
 
@@ -54,7 +54,7 @@ spec:
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="hmpps-accredited-programmes-prod", status=~"5.."}[5m]))*270 > 0
       for: 1m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} - An HTTP 5xx error has occurred
 
@@ -62,7 +62,7 @@ spec:
       expr: sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="hmpps-accredited-programmes-prod"}[10m])) > 1
       for: 1m
       labels:
-        severity: acp-prod
+        severity: hmpps-accredited-programmes-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} - There has been a server error response from the Infox Application in the past 10 minutes. This may indicate a problem with the application processing requests.
 
@@ -70,7 +70,7 @@ spec:
       expr: "(sum(rate(container_cpu_usage_seconds_total{namespace=\"hmpps-accredited-programmes-prod\", container=\"infox-application\", image!=\"\"} [5m])) / sum(kube_pod_container_resource_limits{namespace=\"hmpps-accredited-programmes-prod\", container=\"infox-application\", unit=\"core\"})) * 100 > 75"
       for: 5m
       labels:
-        severity: acp-prod 
+        severity: hmpps-accredited-programmes-alerts-prod 
       annotations:
         message: "Namespace {{ $labels.namespace }} - CPU usage compared to the CPU limit on the container is more than 75% for 5m"
 
@@ -78,7 +78,7 @@ spec:
       expr: "(sum(container_memory_working_set_bytes{namespace=\"hmpps-accredited-programmes-prod\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"hmpps-accredited-programmes-prod\", container=\"infox-application\", unit=\"byte\"})) * 100 > 85"
       for: 5m
       labels:
-        severity: acp-prod 
+        severity: hmpps-accredited-programmes-alerts-prod 
       annotations:
         message: "Namespace {{ $labels.namespace }} - Memory usage compared to the Memory limit on the container is more than 85% for 5m"
 
