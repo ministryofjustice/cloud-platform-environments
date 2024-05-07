@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-csip-api-dev-cert
+  namespace: hmpps-csip-dev
+spec:
+  secretName: hmpps-csip-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-csip-ui-dev-cert
+  namespace: hmpps-csip-dev
+spec:
+  secretName: hmpps-csip-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-dev.hmpps.service.justice.gov.uk
