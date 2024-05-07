@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-csip-api-preprod-cert
+  namespace: hmpps-csip-preprod
+spec:
+  secretName: hmpps-csip-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-csip-ui-preprod-cert
+  namespace: hmpps-csip-preprod
+spec:
+  secretName: hmpps-csip-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-preprod.hmpps.service.justice.gov.uk
