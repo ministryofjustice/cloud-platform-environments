@@ -29,20 +29,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: person-on-probation-user-ui-prod-cert
-  namespace: hmpps-resettlement-passport-prod
-spec:
-  secretName: person-on-probation-user-ui-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - person-on-probation-user-ui.hmpps.service.justice.gov.uk
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: plan-your-future-service-prod-cert
   namespace: hmpps-resettlement-passport-prod
 spec:
