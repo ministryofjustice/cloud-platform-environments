@@ -22,7 +22,7 @@ resource "aws_iam_policy" "ap_policy" {
 
 data "aws_iam_policy_document" "ap_access" {
   statement {
-    sid = "AllowRdsExportUserToListS3Buckets"
+    sid = "AllowExportUserToListS3Buckets"
     actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation"
@@ -34,14 +34,13 @@ data "aws_iam_policy_document" "ap_access" {
   }
 
   statement {
-    sid = "AllowRdsExportUserReadFromS3"
+    sid = "AllowExportUserReadFromS3"
     actions = [
       "s3:GetObject*",
     ]
 
     resources = [
-      "arn:aws:s3:::alpha-cjs-dataset-dip/alpha_cjs/cps_crowncourt_linked/*",
-      "arn:aws:s3:::alpha-cjs-dataset-dip/alpha_cjs/cps_crowncourt_linked/",
+      "arn:aws:s3:::mojap-lcjb-explorer/*",
     ]
   }
 }
@@ -72,7 +71,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://alpha-cjs-dataset-dip/alpha_cjs/cps_crowncourt_linked/"
+    destination_bucket = "s3://mojap-lcjb-explorer/"
     user_arn           = aws_iam_user.user.arn
     access_key_id      = aws_iam_access_key.user.id
     secret_access_key  = aws_iam_access_key.user.secret
