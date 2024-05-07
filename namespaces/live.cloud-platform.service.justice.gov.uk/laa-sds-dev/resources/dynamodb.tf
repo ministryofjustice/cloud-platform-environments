@@ -35,3 +35,23 @@ resource "kubernetes_secret" "audit_dynamodb" {
     table_arn  = module.audit_dynamodb.table_arn
   }
 }
+
+data "aws_iam_policy_document" "audit_db_access" {
+  statement {
+    actions   = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:UpdateItem",
+      "dynamodb:Scan",
+      "dynamodb:Query",
+      "dynamodb:DeleteItem",
+    ]
+    resources = [module.audit_dynamodb.table_arn]
+  }
+}
+
+resource "aws_iam_policy" "auditdb_policy" {
+  name        = "${var.namespace}-auditdb_policy"
+  description = "Grants R/W access to specified DynamoDB table"
+  policy      = data.aws_iam_policy_document.audit_db_access.json
+}
