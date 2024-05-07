@@ -1,5 +1,5 @@
 module "rds_refresh" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=6.0.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name     = var.team_name
   business_unit = var.business_unit
   application   = var.application
