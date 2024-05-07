@@ -43,7 +43,16 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "arn:aws:kms:eu-west-2:004723187462:key/*",
       "arn:aws:kms:eu-west-2:203591025782:key/*",
     ]
-  }  
+  }
+
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+    resources = [
+      "arn:aws:iam::771283872747:role/redshift-cross-account-role",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "cross_iam_policy_mp" {
