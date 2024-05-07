@@ -29,10 +29,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: plan-your-future-service-prod-cert
+  name: plan-your-future-service-ui-prod-cert
   namespace: hmpps-resettlement-passport-prod
 spec:
-  secretName: plan-your-future-service-ui-cert
+  secretName: person-on-probation-user-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
