@@ -1,4 +1,4 @@
-wlocals {
+locals {
   sa_rules = [
     {
       api_groups = [""]
