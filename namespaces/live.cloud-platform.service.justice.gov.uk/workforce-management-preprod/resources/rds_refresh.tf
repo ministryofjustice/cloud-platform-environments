@@ -1,5 +1,5 @@
 module "rds_refresh" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
   team_name     = var.team_name
   business_unit = var.business_unit
   application   = var.application
