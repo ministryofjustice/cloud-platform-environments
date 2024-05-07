@@ -60,7 +60,7 @@ resource "kubernetes_secret" "rds" {
 resource "kubernetes_secret" "rds_refresh_creds" {
   metadata {
     name      = "rds-postgresql-instance-output-preprod"
-    namespace = var.namespace
+    namespace = "hmpps-csip-prod"
   }
 
   data = {
