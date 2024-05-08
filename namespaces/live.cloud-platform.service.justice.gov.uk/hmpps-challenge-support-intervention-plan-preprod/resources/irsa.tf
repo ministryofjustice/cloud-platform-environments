@@ -17,7 +17,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "hmpps-challenge-support-invention-plan-api"
+  service_account_name = "hmpps-challenge-support-intervention-plan-api"
   role_policy_arns     = merge(local.sns_policies)
 
   # Tags

@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Challenge Support Invention Plan"
+  default     = "HMPPS Challenge Support Intervention Plan"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-challenge-support-invention-plan-preprod"
+  default     = "hmpps-challenge-support-intervention-plan-preprod"
 }
 
 variable "business_unit" {

@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-challenge-support-invention-plan-preprod-admin
-  namespace: hmpps-challenge-support-invention-plan-preprod
+  name: hmpps-challenge-support-intervention-plan-preprod-admin
+  namespace: hmpps-challenge-support-intervention-plan-preprod
 subjects:
   - kind: Group
     name: "github:dps-tech"
