@@ -9,6 +9,7 @@ module "irsa" {
   role_policy_arns = {
     s3  = module.s3_bucket.irsa_policy_arn
     rds = module.rds_alfresco.irsa_policy_arn
+    s3_backups_bucket = module.s3_backups_bucket.irsa_policy_arn
   }
 
   # Tags
