@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: operations-engineering-test-gha-runner
+  namespace: operations-engineering-gha-runner-dev
 spec:
   hard:
     pods: "50"

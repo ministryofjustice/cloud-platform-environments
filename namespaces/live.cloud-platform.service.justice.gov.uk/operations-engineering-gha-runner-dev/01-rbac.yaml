@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: operations-engineering-test-gha-runner-admin
-  namespace: operations-engineering-test-gha-runner
+  name: operations-engineering-gha-runner-dev-admin
+  namespace: operations-engineering-gha-runner-dev
 subjects:
   - kind: Group
     name: "github:operations-engineering"
