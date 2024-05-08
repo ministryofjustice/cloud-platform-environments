@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "public_move-and-improve"
     cloud-platform.justice.gov.uk/application: "HMPPS Challenge Support Intervention Plan"
     cloud-platform.justice.gov.uk/owner: "Move and Improve: move-and-improve@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-challenge-support-invention-plan-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-challenge-support-intervention-plan-api"
     cloud-platform.justice.gov.uk/team-name: "farsight-devs"
     cloud-platform.justice.gov.uk/review-after: ""
