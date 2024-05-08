@@ -1,19 +1,3 @@
-resource "pingdom_check" "make_recall_decision" {
-  type                     = "http"
-  name                     = "make-recall-decision - PRE-PROD"
-  host                     = "make-recall-decision-preprod.hmpps.service.justice.gov.uk"
-  resolution               = 1
-  notifywhenbackup         = true
-  sendnotificationwhendown = 6
-  notifyagainevery         = 0
-  url                      = "/"
-  encryption               = true
-  port                     = 443
-  tags                     = "hmpps,make-recall-decision,preprod,isproduction_false,cloudplatform-managed"
-  probefilters             = "region:EU"
-  integrationids           = [121586]
-}
-
 resource "pingdom_check" "make_recall_decision_ui_health" {
   type                     = "http"
   name                     = "make-recall-decision-ui /ping - PRE-PROD"
