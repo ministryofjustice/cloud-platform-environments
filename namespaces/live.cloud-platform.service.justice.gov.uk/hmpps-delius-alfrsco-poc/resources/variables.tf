@@ -82,7 +82,7 @@ variable "s3_lifecycle_config" {
   default = {
     noncurrent_version_transition_days         = 30
     noncurrent_version_transition_glacier_days = 60
-    noncurrent_version_expiration_days         = 90
+    noncurrent_version_expiration_days         = 2560
   }
 }
 
