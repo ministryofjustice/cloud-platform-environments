@@ -14,4 +14,5 @@ resource "pingdom_check" "laa-crown-court-remuneration-dev" {
   port                     = 443
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
   probefilters             = "region:EU"
+  integrationids           = [135401]
 }
