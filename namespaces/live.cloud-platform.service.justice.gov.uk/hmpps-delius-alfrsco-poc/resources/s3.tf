@@ -153,7 +153,6 @@ module "s3_logging_bucket" {
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   versioning                    = var.versioning
-  acl                           = "log-delivery-write"
   enable_allow_block_pub_access = false
 }
 
