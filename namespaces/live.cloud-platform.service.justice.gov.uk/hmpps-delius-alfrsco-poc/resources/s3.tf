@@ -52,7 +52,7 @@ resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
 }
 
 resource "aws_s3_bucket_accelerate_configuration" "aws_s3_bucket_accelerate_config" {
-  bucket = module.s3_bucket.id
+  bucket = module.s3_bucket.bucket_arn
   status = "Enabled"
 }
 
