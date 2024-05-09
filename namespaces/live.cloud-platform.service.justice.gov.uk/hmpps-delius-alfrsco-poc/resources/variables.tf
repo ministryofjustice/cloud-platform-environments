@@ -86,6 +86,10 @@ variable "s3_lifecycle_config" {
   }
 }
 
+variable "log_path" {
+  default = "/log"
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 

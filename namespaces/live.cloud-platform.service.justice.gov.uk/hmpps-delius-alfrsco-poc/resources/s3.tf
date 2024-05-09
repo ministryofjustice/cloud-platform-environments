@@ -1,13 +1,17 @@
 module "s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-  versioning             = var.versioning
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  team_name                     = var.team_name
+  business_unit                 = var.business_unit
+  application                   = var.application
+  is_production                 = var.is_production
+  environment_name              = var.environment
+  infrastructure_support        = var.infrastructure_support
+  namespace                     = var.namespace
+  versioning                    = var.versioning
+  enable_allow_block_pub_access = false
+  logging_enabled               = true
+  log_target_bucket             = module.s3_logging_bucket.bucket_name
+  log_path                      = var.log_path
 
   lifecycle_rule = [
     {
@@ -45,6 +49,11 @@ resource "aws_iam_access_key" "alfresco_user_access" {
 resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
   policy_arn = module.s3_bucket.irsa_policy_arn
   user       = aws_iam_user.alfresco_user.name
+}
+
+resource "aws_s3_bucket_accelerate_configuration" "aws_s3_bucket_accelerate_config" {
+  bucket = module.s3_bucket.bucket_arn
+  status = "Enabled"
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -126,5 +135,36 @@ resource "kubernetes_secret" "s3_backups_bucket" {
   data = {
     BUCKET_ARN  = module.s3_backups_bucket.bucket_arn
     BUCKET_NAME = module.s3_backups_bucket.bucket_name
+  }
+}
+
+
+#######################################
+# s3 bucket for logging all access reqs
+#######################################
+
+module "s3_logging_bucket" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  team_name                     = var.team_name
+  business_unit                 = var.business_unit
+  application                   = var.application
+  is_production                 = var.is_production
+  environment_name              = var.environment
+  infrastructure_support        = var.infrastructure_support
+  namespace                     = var.namespace
+  versioning                    = var.versioning
+  acl                           = "log-delivery-write"
+  enable_allow_block_pub_access = false
+}
+
+resource "kubernetes_secret" "s3_logging_bucket" {
+  metadata {
+    name      = "s3-logging-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_ARN  = module.s3_logging_bucket.bucket_arn
+    BUCKET_NAME = module.s3_logging_bucket.bucket_name
   }
 }
