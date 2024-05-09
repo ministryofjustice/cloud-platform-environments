@@ -94,7 +94,7 @@ data "kubernetes_secret" "certificate_backup" {
     namespace = var.namespace
   }
    data = {
-    bucket_name = certificate_backup.bucket_name
+    bucket_name = module.certificate_backup.bucket_name
     # Secrets require mannual setup after event service certficate uploaded:
     # event_service_certificate_path
     # event_service_certificate_password
