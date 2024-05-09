@@ -88,13 +88,13 @@ module "certificate_backup" {
 EOF
 }
 
-data "kubernetes_secret" "certificate_backup" {
+data "kubernetes_secret" "certificate_backup_secret" {
   metadata {
     name      = "certificate-store"
     namespace = var.namespace
   }
    data = {
-    bucket_name = module.certificate_backup.bucket_name
+    bucket_name = "${var.namespace}-certificates-backup"
     # Secrets require mannual setup after event service certficate uploaded:
     # event_service_certificate_path
     # event_service_certificate_password
