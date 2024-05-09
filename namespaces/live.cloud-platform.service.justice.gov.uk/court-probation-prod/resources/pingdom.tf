@@ -30,4 +30,5 @@ resource "pingdom_check" "crime-portal-gateway-check" {
   port                     = 443
   tags                     = "hmpps, probation-in-court, crime-portal-gateway, cloudplatform-managed"
   probefilters             = "region:EU"
+  integrationids           = [135404]
 }
