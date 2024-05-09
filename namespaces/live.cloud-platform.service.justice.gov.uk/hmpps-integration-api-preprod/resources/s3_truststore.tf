@@ -24,7 +24,8 @@ module "truststore_s3_bucket" {
         "AWS": "${aws_iam_role.api_gateway_role.arn}"
       },
       "Action": [
-        "s3:GetObject"
+        "s3:GetObject",
+        "s3:DeleteObject"
       ],
       "Resource": [
         "$${bucket_arn}/*"
@@ -77,9 +78,12 @@ module "certificate_backup" {
       "Action": [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:GetObjectVersion"
+        "s3:GetObjectVersion",
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
       ],
       "Resource": [
+        "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
     }
