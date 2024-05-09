@@ -110,6 +110,7 @@ resource "kubernetes_secret" "event_mapps_queue" {
     sqs_id   = module.event_mapps_queue.sqs_id
     sqs_arn  = module.event_mapps_queue.sqs_arn
     sqs_name = module.event_mapps_queue.sqs_name
+    mapps_filter_policy_secret_id =     data.aws_secretsmanager_secret_version.mapps_filter_list.secret_id    
   }
 }
 

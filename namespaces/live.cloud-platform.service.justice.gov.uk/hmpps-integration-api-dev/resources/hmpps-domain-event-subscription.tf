@@ -101,6 +101,8 @@ resource "kubernetes_secret" "integration_api_domain_events_queue" {
     sqs_id   = module.integration_api_domain_events_queue.sqs_id
     sqs_arn  = module.integration_api_domain_events_queue.sqs_arn
     sqs_name = module.integration_api_domain_events_queue.sqs_name
+    hmpps-domain-events-topic-arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+        
   }
 }
 
