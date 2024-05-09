@@ -117,7 +117,7 @@ module "cla_backend_metabase_rds" {
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family = "postgres15"
+  rds_family = "postgres16"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
