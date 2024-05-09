@@ -3,16 +3,16 @@ provider "pingdom" {
 
 resource "pingdom_check" "laa-crown-court-remuneration-dev" {
   type                     = "http"
-  name                     = "cica - dev - cloud-platform - claim"
-  host                     = "dev.laa-crown-court-remuneration-dev.service.justice.gov.uk"
+  name                     = "Crown court remuneration dev"
+  host                     = "ccr-dev.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/"
+  url                      = "/ccr/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
+  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_$environment_${var.environment},infrastructuresupport_${var.application}"
   probefilters             = "region:EU"
   integrationids           = [135401]
 }
