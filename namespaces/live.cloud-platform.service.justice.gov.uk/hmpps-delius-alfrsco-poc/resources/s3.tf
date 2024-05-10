@@ -152,7 +152,7 @@ module "s3_logging_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = var.versioning
-  acl                    = "log-delivery-write"
+  acl                    = "private"
 }
 
 resource "kubernetes_secret" "s3_logging_bucket" {
