@@ -18,7 +18,9 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = "arn:aws:iam::771283872747:role/dpr-cross-account-role-demo"
+    resources = [
+      "arn:aws:iam::771283872747:role/dpr-cross-account-role-demo",
+    ]  
   }
 }
 
