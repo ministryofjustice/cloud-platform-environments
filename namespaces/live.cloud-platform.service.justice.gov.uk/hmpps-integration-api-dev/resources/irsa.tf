@@ -41,12 +41,12 @@ module "irsa" {
   }
 }
 
-module "hmpps-event-service-irsa" {
+module "hmpps-integration-event-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-event-service"
+  service_account_name = "hmpps-integration-event"
   role_policy_arns     = merge(     
     {
     integration_api_domain_events_queue               = module.integration_api_domain_events_queue.irsa_policy_arn,
