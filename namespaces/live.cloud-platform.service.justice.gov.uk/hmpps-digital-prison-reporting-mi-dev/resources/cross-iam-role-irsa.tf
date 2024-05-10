@@ -1,3 +1,44 @@
+data "aws_eks_cluster" "eks_cluster" {
+  name = var.eks_cluster_name
+}
+
+# Cluster OIDC
+module "dpr_mi_assume_role" {
+  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version                       = "5.13.0"
+  create_role                   = true
+  role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
+  provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${var.environment}-cross-iam"]
+}
+
+data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
+  statement {
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      "arn:aws:iam::771283872747:role/dpr-cross-account-role-demo",
+    ]  
+  }
+}
+
+resource "aws_iam_policy" "cross_iam_dpr_oidc" {
+  name   = "${var.namespace}-cross-iam-dpr-oidc"
+  policy = data.aws_iam_policy_document.cross_iam_dpr_oidc.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
+# IRSA
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   eks_cluster_name     = var.eks_cluster_name
