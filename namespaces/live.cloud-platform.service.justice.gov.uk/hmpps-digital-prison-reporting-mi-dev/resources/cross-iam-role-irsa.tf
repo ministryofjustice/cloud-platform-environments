@@ -3,7 +3,7 @@ data "aws_eks_cluster" "eks_cluster" {
 }
 
 # Cluster OIDC
-module "datahub_frontend_assumable_role" {
+module "dpr_mi_assume_role" {
   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version                       = "5.13.0"
   create_role                   = true
