@@ -1,3 +1,7 @@
+data "aws_eks_cluster" "eks_cluster" {
+  name = var.eks_cluster_name
+}
+
 # Cluster OIDC
 module "datahub_frontend_assumable_role" {
   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
