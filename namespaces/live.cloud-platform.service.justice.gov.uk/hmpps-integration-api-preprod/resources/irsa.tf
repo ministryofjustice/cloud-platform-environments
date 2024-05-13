@@ -21,12 +21,13 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
     {
-    integration_api_domain_events_queue               = module.integration_api_domain_events_queue.irsa_policy_arn,
-    integration_api_domain_events_dead_letter_queue   = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      s3 = module.certificate_backup.arn
     }
   )
   # Tags
@@ -40,6 +41,14 @@ module "irsa" {
   providers = {
     aws = aws.london_without_default_tags
   }
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account_name
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
