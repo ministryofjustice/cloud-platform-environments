@@ -61,8 +61,10 @@ resource "aws_iam_role_policy" "api_gw_s3" {
   "Statement" : [
     {
       "Effect": "Allow",
-      "Action": "s3:GetObject",
-
+      "Action": [
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
       "Resource": [
         "${module.truststore_s3_bucket.bucket_arn}/*"
       ]
