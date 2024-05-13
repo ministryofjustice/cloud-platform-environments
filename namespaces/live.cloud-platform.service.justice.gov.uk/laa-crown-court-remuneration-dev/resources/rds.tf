@@ -28,11 +28,6 @@ module "rds-instance" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
-  parameter {
-   name = "sqlnetora.sqlnet.allowed_logon_version_server"
-   value = "10"
-   apply_method = "immediate"
-  }
 
   # enable performance insights
   performance_insights_enabled = true
@@ -44,7 +39,13 @@ module "rds-instance" {
   }
 
   # passing emplty list as oracle repo has parameter defined
-  db_parameter = []
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    }
+   ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
 
