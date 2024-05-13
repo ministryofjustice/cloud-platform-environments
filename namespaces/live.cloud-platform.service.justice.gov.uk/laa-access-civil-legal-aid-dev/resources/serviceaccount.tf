@@ -6,4 +6,5 @@ module "serviceaccount" {
 
   # Creates Kubernetes' GitHub actions secrets in the repository
   github_repositories = ["laa-access-civil-legal-aid"]
+  github_environments = ["dev"]
 }
