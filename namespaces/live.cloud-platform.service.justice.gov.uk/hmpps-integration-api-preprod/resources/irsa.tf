@@ -27,7 +27,7 @@ module "irsa" {
     {
       integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      s3 = module.certificate_backup.arn
+      s3 = "arn:aws:s3:::hmpps-integration-api-preprod-certificates-backup/chiara/"
     }
   )
   # Tags
