@@ -48,7 +48,7 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account_name
+  service_account_name = "hmpps-integration-api"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
