@@ -24,10 +24,10 @@ module "rds-instance" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" # problem
+  skip_final_snapshot      = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
-
 
   # enable performance insights
   performance_insights_enabled = true
