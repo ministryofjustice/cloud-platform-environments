@@ -45,6 +45,8 @@ module "rds-instance" {
       value        = "10"
       apply_method = "immediate"
     }
+  ]
+  db_parameter = [
     {
       name         = "remote_dependencies_mode"
       value        = "SIGNATURE"
