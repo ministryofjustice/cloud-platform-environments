@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "laa-access-civil-legal-aid-staging"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "staging"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-cla-dev"
+    cloud-platform.justice.gov.uk/application: "Access Civil Legal Aid"
+    cloud-platform.justice.gov.uk/owner: "CLA: laa-get-access@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-access-civil-legal-aid"
+    cloud-platform.justice.gov.uk/team-name: "laa-get-access"
+    cloud-platform.justice.gov.uk/review-after: ""
