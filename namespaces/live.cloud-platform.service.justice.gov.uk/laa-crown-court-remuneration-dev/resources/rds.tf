@@ -45,6 +45,11 @@ module "rds-instance" {
       value        = "10"
       apply_method = "immediate"
     }
+    {
+      name         = "remote_dependencies_mode"
+      value        = "SIGNATURE"
+      apply_method = "immediate"
+    }
    ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
