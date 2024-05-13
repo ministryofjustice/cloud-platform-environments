@@ -21,5 +21,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "liverpool-pre-pilot-users" # The name of the secret in k8s
     },
+    "probation-in-court-slack-webhook" = {
+      description             = "Contains the slack webhook url to send notifications",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "probation-in-court-slack-webhook"
+    },
   }
 }
