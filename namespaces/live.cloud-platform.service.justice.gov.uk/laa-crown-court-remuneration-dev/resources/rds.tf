@@ -23,10 +23,11 @@ module "rds-instance" {
   db_name                  = "CCR"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem  
+  character_set_name       = "WE8MSWIN1252" # problem
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
+
 
   # enable performance insights
   performance_insights_enabled = true
@@ -37,8 +38,14 @@ module "rds-instance" {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined 
-  db_parameter = []
+  # passing emplty list as oracle repo has parameter defined
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    }
+   ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
 
