@@ -1,0 +1,13 @@
+ ---
+   apiVersion: cert-manager.io/v1
+   kind: Certificate
+   metadata:
+     name: join-github-dev-ssl-certificate
+     namespace: operations-engineering-join-github-dev
+   spec:
+     secretName: ssl-certificate
+     issuerRef:
+       name: letsencrypt-production
+       kind: ClusterIssuer
+     dnsNames:
+     - dev.join-github.service.justice.gov.uk
