@@ -10,7 +10,8 @@ module "dpr_mi_assume_role" {
   role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
   provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${var.environment}-cross-iam"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-development-cross-iam"]
+  oidc_fully_qualified_audiences= ["sts.amazonaws.com"]
 }
 
 data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
