@@ -82,6 +82,19 @@ module "certificate_backup" {
       "Resource": [
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "DeleteObject",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${module.irsa.role_arn}"
+      },
+      "Action": [
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
     }
   ]
 }
