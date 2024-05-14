@@ -74,6 +74,6 @@ variable "eks_cluster_name" {
 }
 
 variable "domain" {
-  default = "dev.join-github.service.(justice).gov.uk"
+  default = "dev.join-github.service.justice.gov.uk"
   type    = string
 }
