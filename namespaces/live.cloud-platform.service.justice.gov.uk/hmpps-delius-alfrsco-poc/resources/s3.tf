@@ -54,12 +54,8 @@ data "aws_s3_bucket" "s3_alf_bucket" {
   bucket = module.s3_bucket.bucket_name
 }
 
-output "s3_bucket_id" {
-  value = data.aws_s3_bucket.s3_alf_bucket.id
-}
-
 resource "aws_s3_bucket_accelerate_configuration" "aws_s3_bucket_accelerate_config" {
-  bucket = module.s3_bucket.s3_bucket_id
+  bucket = data.aws_s3_bucket.s3_alf_bucket.id
   status = "Enabled"
 }
 
