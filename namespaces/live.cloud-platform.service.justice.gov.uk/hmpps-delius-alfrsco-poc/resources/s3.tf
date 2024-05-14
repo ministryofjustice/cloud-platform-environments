@@ -50,18 +50,14 @@ resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
   user       = aws_iam_user.alfresco_user.name
 }
 
-# data "aws_s3_bucket" "s3_alf_bucket" {
-#   bucket = module.s3_bucket.bucket_name
-# }
+data "aws_s3_bucket" "s3_alf_bucket" {
+  bucket = module.s3_bucket.bucket_name
+}
 
-# output "s3_bucket_id" {
-#   value = data.aws_s3_bucket.s3_alf_bucket.id
-# }
-
-# resource "aws_s3_bucket_accelerate_configuration" "aws_s3_bucket_accelerate_config" {
-#   bucket = module.s3_bucket.s3_bucket_id
-#   status = "Enabled"
-# }
+resource "aws_s3_bucket_accelerate_configuration" "aws_s3_bucket_accelerate_config" {
+  bucket = data.aws_s3_bucket.s3_alf_bucket.id
+  status = "Enabled"
+}
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
