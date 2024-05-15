@@ -7,7 +7,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "check-client-qualifies"
+  default = "laa-get-access"
 }
 
 variable "application" {
