@@ -109,5 +109,5 @@ resource "github_repository_environment" "env" {
 }
 
 data "github_team" "dps_ims_prod" {
-  slug = "DPS-IMS-production-releases"
+  slug = "hmpps-intelligence-management-restricted"
 }
