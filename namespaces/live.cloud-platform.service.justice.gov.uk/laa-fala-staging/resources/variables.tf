@@ -53,3 +53,12 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+
+variable "vpc_name" {}
+
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "staging"
+}
