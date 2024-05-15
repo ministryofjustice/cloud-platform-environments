@@ -7,7 +7,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "check-client-qualifies"
+  default = "laa-get-access"
 }
 
 variable "application" {
@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "email" {
-  default = "eligibility@digital.justice.gov.uk"
+  default = "civil-legal-advice@digital.justice.gov.uk"
 }
 
 variable "environment-name" {
@@ -28,7 +28,7 @@ variable "is_production" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "eligibility@digital.justice.gov.uk"
+  default     = "civil-legal-advice@digital.justice.gov.uk"
 }
 
 variable "github_owner" {
