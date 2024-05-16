@@ -30,12 +30,3 @@ resource "aws_route53_record" "prison-api-preprod" {
   ttl     = "30"
   records = ["52.142.149.4"]
 }
-
-# dev DNS record for Azure based Prison API
-resource "aws_route53_record" "prison-api-dev" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "api-dev.prison.service.justice.gov.uk"
-  type    = "A"
-  ttl     = "30"
-  records = ["20.77.255.91"]
-}
