@@ -12,16 +12,6 @@ resource "aws_route53_zone" "www_justice_gov_uk_route53_zone" {
   }
 }
 
-resource "aws_route53_record" "squiz_a_record" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
-  name    = "www.justice.gov.uk."
-  type    = "A"
-  ttl     = 300
-  records = [
-    "185.64.253.120"
-  ]
-}
-
 resource "aws_route53_record" "mx" {
   zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
   name    = "www.justice.gov.uk."
