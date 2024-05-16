@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -10,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prison-api-preprod.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-preprod.prison.service.justice.gov.uk
+  namespace: hmpps-prison-api-preprod
+spec:
+  secretName: old-prison-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - api-preprod.prison.service.justice.gov.uk
