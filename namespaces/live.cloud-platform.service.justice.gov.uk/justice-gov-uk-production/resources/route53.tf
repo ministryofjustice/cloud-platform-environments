@@ -62,16 +62,6 @@ resource "aws_route53_record" "domain_key" {
   ]
 }
 
-resource "aws_route53_record" "acme_challenge_cname" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
-  name    = "_acme-challenge.www.justice.gov.uk."
-  type    = "CNAME"
-  ttl     = 300
-  records = [
-    "tz6w9gwqaey5j0h4oq.fastly-validations.com"
-  ]
-}
-
 resource "aws_route53_record" "github_challenge_moj" {
   zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
   name    = "_github-challenge-ministryofjustice.www.justice.gov.uk."
