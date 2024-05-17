@@ -137,5 +137,21 @@ variable "serviceaccount_rules" {
         "*",
       ]
     },
+    {
+      api_groups = [
+        "autoscaling"
+      ],
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    },
   ]
 }
