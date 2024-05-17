@@ -1,6 +1,6 @@
 resource "aws_iam_user" "upload_user_dev" {
   name = "laa-dces-data-migration-dev-upload-user"
-  path = "/laa-dces-data-migration-dev-upload-users/"
+  path = "/system/laa-dces-data-migration-dev-upload-users/"
 }
 
 resource "aws_iam_access_key" "upload_user_dev_key" {
