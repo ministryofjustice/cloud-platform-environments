@@ -81,7 +81,7 @@ resource "aws_route53_record" "data" {
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
   name                         = var.namespace
-  disable_execute_api_endpoint = true
+  disable_execute_api_endpoint = false
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -125,10 +125,6 @@ resource "aws_api_gateway_method" "sqs_method" {
   authorization = "NONE"
   api_key_required = true
 
-  request_parameters = {
-    "method.request.querystring.Action": true
-  }
-
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
     aws_api_gateway_resource.sqs_parent_resource,
@@ -166,19 +162,18 @@ resource "aws_api_gateway_integration" "sqs_integration" {
   http_method             = aws_api_gateway_method.sqs_method.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:eu-west-2:sqs:path/${module.event_test_client_queue.sqs_arn}"
-
-  request_parameters = {
-    "integration.request.querystring.Action" = "method.request.querystring.Action"
-  }
+  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${data.aws_caller_identity.current.account_id}/${module.event_mapps_queue.sqs_name}?Action=ReceiveMessage"
 
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
-    module.event_test_client_queue,
-    aws_api_gateway_method.sqs_method
+    aws_api_gateway_resource.sqs_parent_resource,
+    aws_api_gateway_resource.sqs_resource,
+    module.event_mapps_queue,
+    aws_api_gateway_method.sqs_method,
+    aws_api_gateway_method_response.sqs_method_response,
   ]
 
-  credentials = aws_iam_role.api_gateway_role.arn
+  credentials = aws_iam_role.api_gateway_sqs_role.arn
 }
 
 resource "aws_api_gateway_integration_response" "sqs_integration_response" {
@@ -254,11 +249,15 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   description = "Client certificate presented to the backend API"
 }
 
+resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
+  description = "Client certificate presented to the backend API expires 16/05/2025"
+}
+
 resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn

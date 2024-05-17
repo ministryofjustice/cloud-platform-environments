@@ -7,7 +7,10 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
-    s3        = module.s3_bucket.irsa_policy_arn
+    s3                = module.s3_bucket.irsa_policy_arn
+    rds               = module.rds_alfresco.irsa_policy_arn
+    s3_backups_bucket = module.s3_backups_bucket.irsa_policy_arn
+    s3_logging_bucket = module.s3_logging_bucket.irsa_policy_arn
   }
 
   # Tags

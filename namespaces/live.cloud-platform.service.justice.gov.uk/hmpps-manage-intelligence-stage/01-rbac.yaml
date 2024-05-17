@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-manage-intelligence-stage
 subjects:
   - kind: Group
-    name: "github:dps-ims-production-releases"
+    name: "github:hmpps-intelligence-management-restricted"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

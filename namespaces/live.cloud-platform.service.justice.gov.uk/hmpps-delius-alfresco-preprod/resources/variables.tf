@@ -72,6 +72,20 @@ variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
 
+variable "versioning" {
+  description = "whether s3 bucket versioning is enabled or not"
+  default     = true
+}
+
+variable "s3_lifecycle_config" {
+  type = map(string)
+  default = {
+    noncurrent_version_transition_days         = 30
+    noncurrent_version_transition_glacier_days = 60
+    noncurrent_version_expiration_days         = 2560
+  }
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 
