@@ -29,12 +29,6 @@ data "aws_iam_policy_document" "ccr_claims_policy" {
   statement {
     sid  = "CCRPolicySQSDev"
     effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = [
-        "arn:aws:iam::754256621582:role/cloud-platform-irsa-3ab329ded7b6e632-live"
-      ]
-    }
     actions = [
       "sqs:*",
       "sts:*"
