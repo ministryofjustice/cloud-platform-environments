@@ -23,12 +23,12 @@ module "opensearch" {
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
 
   cluster_config = {
-    instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_count = 3
+    instance_type  = "t3.medium.search"
   }
 
   ebs_options = {
-    volume_size = 10
+    volume_size = 30
   }
 
   # Tags

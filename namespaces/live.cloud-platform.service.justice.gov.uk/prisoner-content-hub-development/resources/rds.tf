@@ -16,8 +16,8 @@ module "drupal_rds" {
   snapshot_identifier = "rds:cloud-platform-2703fa2c8a00ad83-2020-10-16-04-52"
 
   db_engine                = "mariadb"
-  db_engine_version        = "10.11"
-  rds_family               = "mariadb10.11"
+  db_engine_version        = "10.4"
+  rds_family               = "mariadb10.4"
   db_password_rotated_date = "2023-03-22"
 
   # The recommended transaction isolation level for Drupal is READ-COMMITTED.

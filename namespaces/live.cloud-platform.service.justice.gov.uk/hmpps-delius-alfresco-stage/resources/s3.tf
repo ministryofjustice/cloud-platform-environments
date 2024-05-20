@@ -7,6 +7,35 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  versioning             = var.versioning
+
+  lifecycle_rule = [
+    {
+      enabled = true
+
+      noncurrent_version_transition = [
+        {
+          days          = var.s3_lifecycle_config["noncurrent_version_transition_days"]
+          storage_class = "STANDARD_IA"
+        },
+        {
+          days          = var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]
+          storage_class = "GLACIER"
+        },
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
+        },
+      ]
+    }
+  ]
+}
+
+resource "aws_s3_bucket_accelerate_configuration" "this" {
+  bucket = module.s3_bucket.bucket_name
+  status = "Suspended"
 }
 
 resource "aws_iam_user" "alfresco_user" {

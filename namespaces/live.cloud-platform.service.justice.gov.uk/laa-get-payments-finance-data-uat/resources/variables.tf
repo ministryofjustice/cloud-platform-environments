@@ -67,3 +67,34 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_UAT"
+  type        = string
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_UAT"
+  type        = string
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_UAT"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_UAT"
+  type        = string
+  sensitive   = true
+}

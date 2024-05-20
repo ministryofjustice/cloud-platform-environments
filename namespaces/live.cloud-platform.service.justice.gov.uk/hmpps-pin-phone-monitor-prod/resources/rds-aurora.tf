@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "14.6"
+  engine_version = "14.9"
   engine_mode    = "provisioned"
   instance_type  = "db.r6g.large"
   replica_count  = 2

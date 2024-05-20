@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-aws-infrastructure"
+  default     = "laa-clair-taskforce"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laaops@digital.justice.gov.uk"
+  default     = "laaclairtaskforce@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "ask-laa-team"
+  default     = "laa-crime-higher-billing"
 }
 
 variable "github_owner" {
@@ -67,3 +67,63 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "replicasets"
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}
+

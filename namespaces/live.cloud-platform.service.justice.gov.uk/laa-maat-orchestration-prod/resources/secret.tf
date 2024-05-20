@@ -60,6 +60,16 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "hardship-api-oauth-client-secret"
     },
+    "cat_api_oauth_client_id" = {
+      description             = "CAT API oauth client ID for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cat-api-oauth-client-id"
+    },
+    "cat_api_oauth_client_secret" = {
+      description             = "CAT API oauth client secret for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cat-api-oauth-client-secret"
+    },
     "validation_api_oauth_client_id" = {
       description             = "Validation API oauth client ID for Orchestration Prod",
       recovery_window_in_days = 7,
@@ -70,5 +80,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "validation-api-oauth-client-secret"
     },
+    "maat_orchestration_alert_webhook_prod" = {
+      description             = "MAAT Orchestration Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "maat-orchestration-alert-webhook-prod"
+    }
   }
 }

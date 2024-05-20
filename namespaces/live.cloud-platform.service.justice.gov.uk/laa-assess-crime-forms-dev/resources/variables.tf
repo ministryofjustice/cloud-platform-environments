@@ -93,3 +93,82 @@ variable "repo_name" {
   default = "laa-assess-crime-forms"
   type    = string
 }
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "serviceaccounts",
+        "pods",
+        "pods/exec",
+        "configmaps",
+        "persistentvolumeclaims",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+        "batch",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling"
+      ],
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+        ]
+    }
+  ]
+}

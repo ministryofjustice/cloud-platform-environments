@@ -16,7 +16,6 @@ module "hmpps_prisoner_search_rds" {
   deletion_protection          = true
   prepare_for_major_upgrade    = false
   db_max_allocated_storage     = "500"
-  performance_insights_enabled = true
 
   providers = {
     aws = aws.london

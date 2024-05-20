@@ -51,7 +51,7 @@ variable "rds-family" {
 }
 
 variable "db_engine_version" {
-  default = "14.10"
+  default = "14.11"
 }
 
 variable "number_cache_clusters" {
@@ -78,3 +78,9 @@ variable "eks_cluster_name" {
 
 variable "kubernetes_cluster" {
  }
+
+variable "slack_channel" {
+    type        = string
+    description = "Cloud Platform will contact our team via this slack channel"
+    default     = "pic-mafia"
+}

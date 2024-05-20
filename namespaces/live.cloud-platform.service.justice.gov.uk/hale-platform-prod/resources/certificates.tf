@@ -40,8 +40,11 @@ variable "domains" {
     "www.websitebuilder.service.justice.gov.uk" = "websitebuilder-www"
     "newfuturesnetwork.gov.uk"                  = "newfuturesnetwork"
     "www.newfuturesnetwork.gov.uk"              = "newfuturesnetwork-www"
+    "andrewmalkinson.independent-inquiry.uk"    = "andrewmalkinson"
+    "www.andrewmalkinson.independent-inquiry.uk" = "andrewmalkinson-www"
     "justiceinspectorates.gov.uk"               = "justiceinspectorates"
     "www.justiceinspectorates.gov.uk"           = "justiceinspectorates-www"
+    "hmiprisons.justiceinspectorates.gov.uk"    = "justiceinspectorates-hmiprisons"
   }
 }
 

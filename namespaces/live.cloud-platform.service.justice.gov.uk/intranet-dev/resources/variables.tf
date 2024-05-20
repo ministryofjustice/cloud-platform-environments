@@ -75,3 +75,15 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
 }
+
+variable "base_domain" {
+  description = "The base domain used for creating the Route53 zone. The website will be available here."
+  type        = string
+  default     = "dev.intranet.justice.gov.uk"
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.dev.intranet.justice.gov.uk"
+}

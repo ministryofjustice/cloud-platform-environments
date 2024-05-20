@@ -1,0 +1,166 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-maat-orchestration-prod
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laa-maat-orchestration
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: Client Response Errors (excluding 400 and 401)
+          expr: sum(increase(http_server_requests_seconds_count{namespace="laa-maat-orchestration-prod",outcome="CLIENT_ERROR",status!~"4(00|01)"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There has been an increase in client error responses (excluding 400 and 401) in the MAAT Orchestration Service running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Client Response Errors - 401 Unauthorised
+          expr: sum(increase(http_server_requests_seconds_count{status="401",outcome="CLIENT_ERROR",namespace="laa-maat-orchestration-prod"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There has been an increase in Unauthorised requests in the MAAT Orchestration Service running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Client Response Errors - 400 Bad request
+          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-maat-orchestration-prod"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There has been an increase in Bad Request Errors in the MAAT Orchestration Service running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: MAAT Orchestration Rollback Error
+          expr: sum(increase(http_server_requests_seconds_count{status="555", namespace="laa-maat-orchestration-prod"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There has been an increase in rollbacks from the MAAT Orchestration Service running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Server Response Error
+          expr: sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="laa-maat-orchestration-prod"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There has been an increase in server error response from the MAAT Orchestration Service running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: JVM CPU Usage
+          expr: (process_cpu_usage{namespace="laa-maat-orchestration-prod"} * 100) > 95
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: The maat-orchestration service running on a production pod has been using over 95% of the CPU for a minute. This may indicate the pods running this application require more CPU resources.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: System CPU Usage
+          expr: (system_cpu_usage{namespace="laa-maat-orchestration-prod"} * 100) > 95
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: A pod that runs the maat-orchestration service on production has been using over 95% of the pod's CPU for a minute. This may indicate there is some underlying process other than our application on the pod that is using up all the CPU resources and warrants further investigation.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Object Heap Memory Usage - Tenured Gen
+          expr: ((jvm_memory_used_bytes{area="heap", id="Tenured Gen", namespace="laa-maat-orchestration-prod"}/jvm_memory_max_bytes{area="heap", id="Tenured Gen", namespace="laa-maat-orchestration-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: Over 95% of the "Tenured Gen" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Object Heap Memory Usage - Survivor Space
+          expr: ((jvm_memory_used_bytes{area="heap", id="Survivor Space", namespace="laa-maat-orchestration-prod"}/jvm_memory_max_bytes{area="heap", id="Survivor Space", namespace="laa-maat-orchestration-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: Over 95% of the "Survivor Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Object Heap Memory Usage - Eden Space
+          expr: ((jvm_memory_used_bytes{area="heap", id="Eden Space", namespace="laa-maat-orchestration-prod"}/jvm_memory_max_bytes{area="heap", id="Eden Space", namespace="laa-maat-orchestration-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: Over 95% of the "Eden Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Response Time Excessive
+          expr: (sum(http_server_requests_seconds_sum{outcome="SUCCESS", namespace="laa-maat-orchestration-prod"})/sum(http_server_requests_seconds_count{outcome="SUCCESS", namespace="laa-maat-orchestration-prod"})) > 5
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: The response time for successful responses on production is taking on average over five seconds. This indicates responses to our clients is taking too long.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Logging Error
+          expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: There had been an error in the logs of the MAAT Orchestration service in the past 10 minutes. This indicates that there may be a bug with the application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
+        - alert: Instance-Down
+          expr: absent(up{namespace="laa-maat-orchestration-prod"}) == 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: The production instance of the MAAT Orchestration has been down for >1m.
+        - alert: Quota-Exceeded
+          expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-maat-orchestration-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-maat-orchestration-prod"} > 0) > 90
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+        - alert: KubePodCrashLooping
+          expr: round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-maat-orchestration-prod"}[10m]) * 60 * 10) > 1
+          for: 5m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        - alert: Increase in 403 Blocked Requests
+          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-maat-orchestration-prod", ingress="laa-maat-orchestration", status="403"}[5m])) > 1
+          for: 1m
+          labels:
+            severity: laa-maat-orchestration-alerts-prod
+            namespace: laa-maat-orchestration-prod
+          annotations:
+            message: The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-maat-orchestration-prod&var-ingress=laa-maat-orchestration

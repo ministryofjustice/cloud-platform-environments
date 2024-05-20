@@ -11,7 +11,7 @@ module "rds_instance" {
   is_production              = var.is_production
   namespace                  = var.namespace
   team_name                  = var.team_name
-  business_unit              = "Central Digital"
+  business_unit              = var.business_unit
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"

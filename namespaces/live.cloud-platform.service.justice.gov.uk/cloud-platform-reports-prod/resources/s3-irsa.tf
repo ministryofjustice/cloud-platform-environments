@@ -33,7 +33,8 @@ data "aws_iam_policy_document" "document" {
       "s3:ListBucket"
     ]
     resources = [
-      module.s3_bucket.bucket_arn
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*",
     ]
   }
 }

@@ -11,6 +11,13 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cjse-xhibit-modernisation"
     cloud-platform.justice.gov.uk/application: "CJSE Xhibit Portal system"
     cloud-platform.justice.gov.uk/owner: "cjse: chris.henry@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjse-test"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cjse-test,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-subscription-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-notification-api,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-ingestion-processor,
+                                                https://github.com/ministryofjustice/moj-cjse-xhibit-webportal-prototype"
     cloud-platform.justice.gov.uk/team-name: "moj-cjse"
     cloud-platform.justice.gov.uk/review-after: ""

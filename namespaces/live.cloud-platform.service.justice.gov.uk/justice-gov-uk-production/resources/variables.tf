@@ -24,7 +24,7 @@ variable "team_name" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "environment" {

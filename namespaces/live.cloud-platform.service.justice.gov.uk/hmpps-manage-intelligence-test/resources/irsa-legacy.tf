@@ -1,3 +1,41 @@
+data "aws_iam_policy_document" "sqs_full_legacy" {
+  version = "2012-10-17"
+  statement {
+    sid     = "hmppsManageIntelligenceLegacySqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.ims_extractor_queue.sqs_arn,
+      module.ims_extractor_dead_letter_queue.sqs_arn,
+      module.ims_transformer_queue.sqs_arn,
+      module.ims_transformer_dead_letter_queue.sqs_arn,
+      module.ims_test_generator_queue.sqs_arn,
+      module.ims_generator_dead_letter_queue.sqs_arn,
+      module.ims_test_generator_suite_queue.sqs_arn,
+      module.ims_generator_suite_dead_letter_queue.sqs_arn,
+      module.attachment_metadata_extractor_queue.sqs_arn,
+      module.attachment_metadata_extractor_dead_letter_queue.sqs_arn,
+      module.attachment_metadata_transformer_queue.sqs_arn,
+      module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
+      module.metadata_status_queue.sqs_arn,
+      module.metadata_status_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sqs_legacy" {
+  policy = data.aws_iam_policy_document.sqs_full_legacy.json
+  # Tags
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
 module "irsa-legacy" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -12,16 +50,7 @@ module "irsa-legacy" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_extractor           = module.ims_extractor_queue.irsa_policy_arn
-    sqs_extractor_dlq       = module.ims_extractor_dead_letter_queue.irsa_policy_arn
-    sqs_transformer         = module.ims_transformer_queue.irsa_policy_arn
-    sqs_transformer_dlq     = module.ims_transformer_dead_letter_queue.irsa_policy_arn
-    sqs_lastupdate          = module.ims_lastupdate_queue.irsa_policy_arn
-    sqs_lastupdate_dlq      = module.ims_lastupdate_dead_letter_queue.irsa_policy_arn
-    sqs_generator           = module.ims_test_generator_queue.irsa_policy_arn
-    sqs_generator_dlg       = module.ims_generator_dead_letter_queue.irsa_policy_arn
-    sqs_generator_suite     = module.ims_test_generator_suite_queue.irsa_policy_arn
-    sqs_generator_suite_dlg = module.ims_generator_suite_dead_letter_queue.irsa_policy_arn
+    policy                  = aws_iam_policy.combined_sqs_legacy.arn
     s3_extractor            = module.manage_intelligence_extractor_bucket.irsa_policy_arn
     s3_transformer          = module.manage_intelligence_transformer_bucket.irsa_policy_arn
     rds                     = module.rds_aurora_legacy.irsa_policy_arn

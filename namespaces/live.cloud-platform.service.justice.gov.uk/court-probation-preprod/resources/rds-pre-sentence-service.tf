@@ -10,7 +10,7 @@ module "pre_sentence_service_rds" {
   is_production               = var.is_production
   rds_family                  = "postgres14"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "14.9"
+  db_engine_version           = "14.11"
   prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   enable_rds_auto_start_stop  = true

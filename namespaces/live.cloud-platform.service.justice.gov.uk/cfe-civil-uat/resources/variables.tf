@@ -4,6 +4,10 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "CFE Civil"

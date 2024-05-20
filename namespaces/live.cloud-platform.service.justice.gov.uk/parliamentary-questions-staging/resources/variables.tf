@@ -6,6 +6,12 @@ variable "aws_region" {
   default = "eu-west-2"
 }
 
+variable "business_unit" {
+  description = "Area of the MOJ responsible for this service"
+  type        = string
+  default     = "HQ"
+}
+
 variable "db_backup_retention_period" {
   default = "2"
 }

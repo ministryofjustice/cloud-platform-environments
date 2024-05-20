@@ -33,6 +33,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.migration_allocations_dead_letter_queue.sqs_arn,
       module.migration_alerts_queue.sqs_arn,
       module.migration_alerts_dead_letter_queue.sqs_arn,
+      module.migration_csip_queue.sqs_arn,
+      module.migration_csip_dead_letter_queue.sqs_arn,
     ]
   }
 }

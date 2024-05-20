@@ -8,9 +8,9 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "ask-laa-team"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-crime-higher-billing"
     cloud-platform.justice.gov.uk/application: "Crown Court Litigator Fees"
-    cloud-platform.justice.gov.uk/owner: "Crime Higher Billing: laaops@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Crime Higher Billing: laaclairtaskforce@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-crown-court-litigator-fees"
-    cloud-platform.justice.gov.uk/team-name: "laa-aws-infrastructure"
+    cloud-platform.justice.gov.uk/team-name: "laa-clair-taskforce"
     cloud-platform.justice.gov.uk/review-after: ""

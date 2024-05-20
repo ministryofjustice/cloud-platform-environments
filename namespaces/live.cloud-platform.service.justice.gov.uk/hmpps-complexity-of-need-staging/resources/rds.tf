@@ -25,8 +25,8 @@ module "complexity-of-need-rds" {
   db_engine_version           = "15.6"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london

@@ -6,10 +6,10 @@ metadata:
   namespace: visit-someone-in-prison-backend-svc-staging
 subjects:
   - kind: Group
-    name: "github:book-a-prison-visit"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-prison-visits-booking"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

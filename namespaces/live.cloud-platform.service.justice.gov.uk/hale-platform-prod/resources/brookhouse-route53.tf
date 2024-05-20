@@ -123,7 +123,7 @@ resource "aws_route53_record" "brookhouse_route53_txt_pki" {
   name    = "_pki-validation.brookhouseinquiry.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["96B7-9945-8A8D-BB81-74EB-9617-79D7-ADED"]
+  records = ["A736-F07F-B9BC-9593-19E1-3ED8-17BB-9F45"]
 }
 
 resource "aws_route53_record" "brookhouse_route53_txt_smtp" {

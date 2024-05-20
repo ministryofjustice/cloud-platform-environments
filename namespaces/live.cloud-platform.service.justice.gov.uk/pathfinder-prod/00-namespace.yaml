@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pathfinder.git"
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_sed_alerts"
     cloud-platform.justice.gov.uk/slack-channel: "pathfinder_comms"
-    cloud-platform.justice.gov.uk/team-name: "pathfinder"
+    cloud-platform.justice.gov.uk/team-name: "DPS Pathfinder Production Releases"
     iam.amazonaws.com/permitted: "pathfinder-prod-ap"

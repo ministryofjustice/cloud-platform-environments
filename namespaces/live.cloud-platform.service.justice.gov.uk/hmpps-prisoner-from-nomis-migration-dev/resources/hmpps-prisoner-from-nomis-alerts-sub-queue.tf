@@ -44,7 +44,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_alerts_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            ]
                           }
                         }
         }
@@ -112,6 +115,18 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_alerts_subscription" 
       "ALERT-INSERTED",
       "ALERT-UPDATED",
       "ALERT-DELETED"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_alerts_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_alerts_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }

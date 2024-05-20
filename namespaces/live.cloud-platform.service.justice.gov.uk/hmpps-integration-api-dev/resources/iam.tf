@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 # Generate an additional IAM user to manage API Gateway
 resource "random_id" "api_gateway_id" {
   byte_length = 16
@@ -15,7 +17,7 @@ resource "aws_iam_access_key" "api_gateway_user" {
 data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
-      "apigateway:*",
+      "apigateway:*"
     ]
 
     resources = [
@@ -136,4 +138,39 @@ resource "aws_iam_role_policy" "cloudwatch" {
   name   = "${var.namespace}-default"
   role   = aws_iam_role.cloudwatch.id
   policy = data.aws_iam_policy_document.cloudwatch.json
+}
+
+resource "aws_iam_role" "api_gateway_sqs_role" {
+  name               = "${var.namespace}-api-gateway-sqs-role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
+  name   = "${var.namespace}-api-gateway-sqs-policy"
+  role = aws_iam_role.api_gateway_sqs_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "sqs:ReceiveMessage"
+        Resource = module.event_test_client_queue.sqs_arn
+      }
+    ]
+  })
 }

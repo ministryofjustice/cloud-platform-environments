@@ -283,6 +283,20 @@ variable "cognito_user_pool_functional_tests_name" {
   default     = "functional-tests-client"
 }
 
+variable "cognito_user_pool_functional_tests_name_dev" {
+  description = "Cognito user pool functional tests client name"
+  default     = "functional-tests-client-dev"
+}
+
+variable "cognito_user_pool_functional_tests_name_tst" {
+  description = "Cognito user pool functional tests client name"
+  default     = "functional-tests-client-tst"
+}
+
+variable "cognito_user_pool_functional_tests_name_uat" {
+  description = "Cognito user pool functional tests client name"
+  default     = "functional-tests-client-uat"
+}
 variable "evidence_resource_server_identifier" {
   default     = "evidence"
   description = "Cognito resource server identifier"
