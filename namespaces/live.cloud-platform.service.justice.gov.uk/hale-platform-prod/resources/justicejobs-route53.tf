@@ -35,7 +35,7 @@ resource "aws_route53_record" "justicejobs_route53_txt_record_dkim" {
   name    = "dkim.justicejobs._domainkey.jobs.justice.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1UkRKlZ/DmId+dcvZ8O0w9fD6W56dVO6sDVzjvjZXJAmnknQgdSRGWIH6NgrJodrwkcR8AwCGPhYQtdbkHHD9UIXffJOzjA30c24QBD92iI0cWYpDSJ6wu6NlB+m5512MhUbeNe0ZfRgcY2SViZqY21VUnVbavAjQAfnj6ouDfnwoKBNFfdhTzznaKB2\"\"wzivY6Bprx5x0KUx4wll0HbswgZdefbOhdnrVtC1/yrh64f92CJC4f1j8GZWeK3Of+JOs6oDraHGGPBowQssseEjmrwuMn/7Fus0KpdED2NEmoBAo7BqqGflFO5YfpnGFNeJVhrhnLU067NWORVFM7//FwIDAQAB"]
+  records = ["v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1UkRKlZ/DmId+dcvZ8O0w9fD6W56dVO6sDVzjvj\"\"ZXJAmnknQgdSRGWIH6NgrJodrwkcR8AwCGPhYQtdbkHHD9UIXffJOzjA30c24QBD92iI0cWYpDSJ6wu6NlB+m5512MhUbeNe0ZfRgcY2SViZqY21VUnVbavAjQAfnj6ouDfnwoKBNFfdhTzznaKB2\"\"wzivY6Bprx5x0KUx4wll0HbswgZdefbOhdnrVtC1/yrh64f92CJC4f1j8GZWeK3Of+JOs6oDraHGGPBowQssseEjmrwuMn/7Fus0KpdED2NEmoBAo7BqqGflFO5YfpnGFNeJVhrhnLU067NWORVFM7//FwIDAQAB"]
 }
 
 resource "aws_route53_record" "justicejobs_route53_cname_record_acm" {
