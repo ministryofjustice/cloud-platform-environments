@@ -17,7 +17,7 @@ spec:
           expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
           for: 5m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: RDSCPUUtilization
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
@@ -26,7 +26,7 @@ spec:
           expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 80
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: RDSMaxConnections
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
@@ -35,7 +35,7 @@ spec:
           expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterRedStatus
           annotations:
             message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
@@ -43,7 +43,7 @@ spec:
           expr: aws_es_cluster_status_red_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterYellowStatus
           annotations:
             message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
@@ -51,7 +51,7 @@ spec:
           expr: aws_es_cluster_status_yellow_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
           for: 6m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterFreeStorageSpace
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
@@ -59,7 +59,7 @@ spec:
           expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-a7ab5efa"} <= 3072
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterIndexWritesBlocked
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster is blocking write requests"
@@ -67,7 +67,7 @@ spec:
           expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
           for: 5m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterAutomatedSnapshotFailure
           annotations:
             message: "[{{ $labels.domain_name }}] An automated snapshot for the ElasticSearch cluster failed"
@@ -75,7 +75,7 @@ spec:
           expr: aws_es_automated_snapshot_failure_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterJVMMemoryPressure
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster could encounter out of memory errors if usage increases"
@@ -83,7 +83,7 @@ spec:
           expr: aws_es_jvmmemory_pressure_maximum{domain_name="cloud-platform-a7ab5efa"} >= 80
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ElasticSearchClusterCPUUtilization
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster has sustained high CPU usage"
@@ -91,7 +91,7 @@ spec:
           expr: aws_es_cpuutilization_maximum{domain_name="cloud-platform-a7ab5efa"} >= 80
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
 
     - name: deployment-alert
       rules:
@@ -109,7 +109,7 @@ spec:
             kube_deployment_metadata_generation{namespace="data-platform-datahub-catalogue-dev", job="kube-state-metrics"}
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubeDeploymentReplicasMismatch
           annotations:
             message: >-
@@ -123,7 +123,7 @@ spec:
             kube_deployment_status_replicas_available{namespace="data-platform-datahub-catalogue-dev", job="kube-state-metrics"}
           for: 1h
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubeCronJobRunning
           annotations:
             message: >-
@@ -134,7 +134,7 @@ spec:
           expr: time() - kube_cronjob_next_schedule_time{namespace="data-platform-datahub-catalogue-dev"} > 3600
           for: 1h
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubeJobFailed
           annotations:
             message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
@@ -143,7 +143,7 @@ spec:
           expr: kube_job_status_failed{namespace="data-platform-datahub-catalogue-dev"}  > 0
           for: 1h
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
 
     - name: ingress-alert
       rules:
@@ -156,7 +156,7 @@ spec:
             avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-dev", status="406"}[1m]) * 60 > 0) by (ingress)
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ErrorResponses
           annotations:
             message: ingress {{ $labels.ingress }} is serving 5XX responses
@@ -166,7 +166,7 @@ spec:
             avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-dev", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
 
     - name: pod-status-alert
       rules:
@@ -180,7 +180,7 @@ spec:
             - kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev"} offset 10m >= 1) 
             and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",reason="OOMKilled"}[10m]) == 1
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: TooManyContainerRestarts
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
@@ -189,7 +189,7 @@ spec:
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
           for: 0m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: CrashLoopBackOff
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' CrashLoopBackOff
@@ -198,7 +198,7 @@ spec:
           expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase="CrashLoopBackOff"}) > 0
           for: 0m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: PodNotReadyKube
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has been in a non-ready state for more than 15 minutes
@@ -207,7 +207,7 @@ spec:
           expr: sum by(namespace,pod)(kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase=~"Pending|Unknown"}) > 0
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: ContainerRestartAlert
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has restarted.
@@ -216,7 +216,7 @@ spec:
           expr: (sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev"}[10m])) by (container, namespace)) > 0
           for: 5m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubePodCrashLooping
           annotations:
             message: >-
@@ -229,7 +229,7 @@ spec:
             * 60 * 5 > 0
           for: 1h
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubePodNotReady
           annotations:
             message: >-
@@ -242,7 +242,7 @@ spec:
             phase=~"Pending|Unknown"}) > 0
           for: 1h
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
 
     - name: resource-alert
       rules:
@@ -257,7 +257,7 @@ spec:
             > 90
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: GMSMemUsageHigh
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
@@ -269,7 +269,7 @@ spec:
              > 80
           for: 1m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
@@ -281,7 +281,7 @@ spec:
             > 90
           for: 5m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
         - alert: KubeQuotaExceeded
           annotations:
             message: >-
@@ -296,4 +296,4 @@ spec:
               > 90
           for: 15m
           labels:
-            severity: DataHub-dev
+            severity: datahub_dev
