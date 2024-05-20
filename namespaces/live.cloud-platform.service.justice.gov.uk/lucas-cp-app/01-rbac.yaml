@@ -5,7 +5,7 @@ metadata:
   namespace: lucas-cp-app
 subjects:
   - kind: Group
-    name: "github:cdpt"
+    name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
