@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sentence-plan
+  namespace: hmpps-handover-service-dev
+spec:
+  secretName: hmpps-handover-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - handover-service-dev.hmpps.service.justice.gov.uk
