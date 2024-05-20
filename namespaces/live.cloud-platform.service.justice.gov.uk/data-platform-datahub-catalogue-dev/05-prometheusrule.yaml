@@ -248,7 +248,7 @@ spec:
       rules:
         - alert: GMSCpuUsageHigh
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 60%.
+            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
