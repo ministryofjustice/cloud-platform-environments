@@ -9,8 +9,6 @@ data "aws_iam_policy_document" "sqs_full_legacy" {
       module.ims_extractor_dead_letter_queue.sqs_arn,
       module.ims_transformer_queue.sqs_arn,
       module.ims_transformer_dead_letter_queue.sqs_arn,
-      module.ims_lastupdate_queue.sqs_arn,
-      module.ims_lastupdate_dead_letter_queue.sqs_arn,
       module.attachment_metadata_extractor_queue.sqs_arn,
       module.attachment_metadata_extractor_dead_letter_queue.sqs_arn,
       module.attachment_metadata_transformer_queue.sqs_arn,

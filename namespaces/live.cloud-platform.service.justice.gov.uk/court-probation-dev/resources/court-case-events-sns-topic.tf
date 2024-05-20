@@ -1,5 +1,5 @@
 module "court-case-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
 
   # Configuration
   topic_display_name = "court-case-events"
