@@ -97,7 +97,7 @@ resource "kubernetes_secret" "certificate_backup_secret" {
     bucket_name =  module.certificate_backup.bucket_name
     # Secrets require mannual setup after event service certficate uploaded:
     event_service_certificate_path = "event-service/client.p12"
-    # event_service_certificate_password
+    event_service_certificate_password = "DUMMY_TEST_FOR_DEBUGGING"
 
   }
 }
