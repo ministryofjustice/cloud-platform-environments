@@ -111,15 +111,15 @@ module "s3_bucket" {
   ]
   */
 
-  /*bucket_policy = data.aws_iam_policy_document.bucket-policy.json*/
+  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
 
 }
 
-/*data "aws_iam_policy_document" "bucket-policy" {
+data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.upload_user_prod.arn]
+      identifiers = [aws_iam_user.upload_user_dev.arn]
     }
     actions = [
       "s3:GetBucketLocation",
@@ -132,7 +132,7 @@ module "s3_bucket" {
       "$${bucket_arn}/*"
     ]
   }
-}*/
+}
 
 
 resource "kubernetes_secret" "s3_bucket" {
