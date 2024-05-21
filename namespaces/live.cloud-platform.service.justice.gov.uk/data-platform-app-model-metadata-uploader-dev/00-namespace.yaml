@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "model_metadata_app"
     cloud-platform.justice.gov.uk/application: "Model Metadata Uploader App"
     cloud-platform.justice.gov.uk/owner: "Probation and Electronic Monitoring: michael.hodge@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/model_metadata_app"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/model-metadata-app"
     cloud-platform.justice.gov.uk/team-name: "model-metadata-app"
     cloud-platform.justice.gov.uk/review-after: ""
