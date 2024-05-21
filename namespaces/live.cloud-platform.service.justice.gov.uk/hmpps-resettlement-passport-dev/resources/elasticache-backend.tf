@@ -26,7 +26,7 @@ module "backend_elasticache_redis" {
 
 resource "kubernetes_secret" "backend_elasticache_redis" {
   metadata {
-    name      = "backend_elasticache_redis"
+    name      = "backend-elasticache-redis"
     namespace = var.namespace
   }
 
