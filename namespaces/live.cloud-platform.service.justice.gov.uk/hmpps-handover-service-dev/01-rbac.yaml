@@ -1,14 +1,17 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-alerts-prod-admin
-  namespace: hmpps-alerts-prod
+  name: hmpps-handover-service-dev-admin
+  namespace: hmpps-handover-service-dev
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sentence-planning"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-move-and-improve"
+    name: "github:hmpps-assessments"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
