@@ -24,7 +24,6 @@ spec:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-find-moj-data-dev",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
-          for: 0m
           labels:
             severity: find-moj-data-dev
     - name: resource-alert
