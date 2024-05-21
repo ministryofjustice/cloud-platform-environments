@@ -12,7 +12,7 @@ resource "pingdom_check" "datahub-catalogue-dev" {
   url                      = "/admin"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.business_unit}"
+  tags                     = "businessunit_${var.business_unit},application_datahub_catalogue,component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.business_unit}"
   probefilters             = "region:EU"
   integrationids           = [135556]
 }
