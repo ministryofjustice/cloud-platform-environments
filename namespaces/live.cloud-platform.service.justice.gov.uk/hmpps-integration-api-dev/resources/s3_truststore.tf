@@ -88,6 +88,12 @@ module "certificate_backup" {
 EOF
 }
 
+resource "random_password" "event_service_certificate_password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
 resource "kubernetes_secret" "certificate_backup_secret" {
   metadata {
     name      = "certificate-store"
@@ -95,9 +101,7 @@ resource "kubernetes_secret" "certificate_backup_secret" {
   }
    data = {
     bucket_name =  module.certificate_backup.bucket_name
-    # Secrets require mannual setup after event service certficate uploaded:
     event_service_certificate_path = "event-service/client.p12"
-    event_service_certificate_password = "DUMMY_TEST_FOR_DEBUGGING"
-
+    event_service_certificate_password = random_password.event_service_certificate_password.result
   }
 }
