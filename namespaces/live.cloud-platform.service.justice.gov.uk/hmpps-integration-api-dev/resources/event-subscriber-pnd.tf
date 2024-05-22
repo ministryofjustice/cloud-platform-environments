@@ -101,7 +101,7 @@ resource "aws_sns_topic_subscription" "event_pnd_subscription" {
 
 resource "kubernetes_secret" "event_pnd_queue" {
   metadata {
-    name      = "event-pnd-queue"
+    name      = "pnd_filter_list"
     namespace = var.namespace
   }
 
