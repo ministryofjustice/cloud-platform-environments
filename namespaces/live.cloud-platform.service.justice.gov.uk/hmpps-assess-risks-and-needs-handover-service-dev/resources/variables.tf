@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Handover Service"
+  default     = "HMPPS Assess Risks and Needs Handover Service"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-handover-service-dev"
+  default     = "hmpps-assess-risks-and-needs-handover-service-dev"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "development"
 }
 
 variable "infrastructure_support" {

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-handover-service-dev
+  namespace: hmpps-assess-risks-and-needs-handover-service-dev
 spec:
   hard:
     pods: "50"
