@@ -18,7 +18,7 @@ module "secret" {
     "integration-api-event-pnd-filter-list" = {
       description             = "PND event filter list",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "pnd_filter_list"
+      k8s_secret_name         = "pnd-filter-list"
     }
   }
 
