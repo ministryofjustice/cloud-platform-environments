@@ -62,5 +62,6 @@ resource "kubernetes_secret" "rds_refresh" {
     DATABASE_USERNAME     = module.rds_alfresco.database_username
     DATABASE_PASSWORD     = module.rds_alfresco.database_password
     RDS_INSTANCE_ADDRESS  = module.rds_alfresco.rds_instance_address
+    RDS_JDBC_URL          = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
   }
 }
