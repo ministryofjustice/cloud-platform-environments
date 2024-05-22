@@ -3,7 +3,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "laa-apply-for-legalaid-production" {
   type             = "http"
-  name             = "Apply for legal aid production - ping"
+  name             = "Apply for civil legal aid production - ping"
   host             = "apply-for-legal-aid.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
