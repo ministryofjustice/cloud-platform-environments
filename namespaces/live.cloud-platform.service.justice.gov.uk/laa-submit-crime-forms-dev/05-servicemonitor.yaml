@@ -1,11 +1,11 @@
 apiVersion: monitoring.coreos.com/v1
-   kind: ServiceMonitor
-   metadata:
-     name: application-metrics-monitor
-   spec:
-     selector:
-       matchLabels:
-         app: laa-submit-crime-forms-app
-     endpoints:
-     - port: http
-       interval: 15s
+kind: ServiceMonitor
+metadata:
+  name: application-metrics-monitor
+spec:
+  selector:
+    matchLabels:
+      app: laa-submit-crime-forms-app
+  endpoints:
+  - port: http
+    interval: 15s
