@@ -94,12 +94,12 @@ resource "kubernetes_secret" "rds_metabase" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
+    rds_instance_endpoint = module.rds_metabase.rds_instance_endpoint
+    database_name         = module.rds_metabase.database_name
+    database_username     = module.rds_metabase.database_username
+    database_password     = module.rds_metabase.database_password
+    rds_instance_address  = module.rds_metabase.rds_instance_address
+    jdbc_url = "jdbc:postgresql://${module.rds_metabase.rds_instance_endpoint}/${module.rds_metabase.database_name}?user=${module.rds_metabase.database_username}&password=${module.rds_metabase.database_password}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
