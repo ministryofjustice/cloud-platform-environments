@@ -15,7 +15,7 @@ module "rds" {
   allow_major_version_upgrade  = false
   prepare_for_major_upgrade = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "1000"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -61,6 +61,8 @@ module "read_replica" {
   db_engine_version = "16.1"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage     = "1000"
+  
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
