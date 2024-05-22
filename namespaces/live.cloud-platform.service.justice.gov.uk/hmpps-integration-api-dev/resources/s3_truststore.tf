@@ -101,7 +101,7 @@ resource "kubernetes_secret" "certificate_backup_secret" {
   }
    data = {
     bucket_name =  module.certificate_backup.bucket_name
-    event_service_certificate_path = "event-service/client.p12"
+    event_service_certificate_path = "event-service/client-debug.p12"
     event_service_certificate_password = random_password.event_service_certificate_password.result
   }
 }
