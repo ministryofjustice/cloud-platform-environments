@@ -12,8 +12,8 @@ spec:
     - alert: CCR-RDS-High-CPU
       expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 75
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS CPU usage is over 75%
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -22,8 +22,8 @@ spec:
     - alert: CCR-RDS-Low-Storage
       expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} < 1024*1024*1024
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS free storage space is less than 1GB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -32,8 +32,8 @@ spec:
     - alert: CCR-RDS-High-Read-Latency
       expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 0.5
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS read latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -42,8 +42,8 @@ spec:
     - alert: CCR-RDS-High-Write-Latency
       expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 0.5
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS write latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -52,8 +52,8 @@ spec:
     - alert: CCR-RDS-Low-Freeable-Memory
       expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} < 500*1024*1024
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS freeable memory is less than 500MB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -62,8 +62,8 @@ spec:
     - alert: CCR-RDS-High-Write-IOPS
       expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 300
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS write operations are over 300 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -72,8 +72,8 @@ spec:
     - alert: CCR-RDS-High-Read-IOPS
       expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 300
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS read operations are over 300 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -82,8 +82,8 @@ spec:
     - alert: CCR-RDS-High-Database-Connections
       expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-3a3c188e6142c42f"} > 50
       for: 5m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV RDS number of database connections is over 50
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -94,8 +94,8 @@ spec:
     - alert: CCR-High-Resources
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crown-court-remuneration-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crown-court-remuneration-dev"} > 0) > 85
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -104,8 +104,8 @@ spec:
     - alert: CCR-Slow-Response-Time
       expr: avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "laa-crown-court-remuneration-dev"}[1m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "laa-crown-court-remuneration-dev"}[1m]) > 0) by (ingress) > 60
       for: 1m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV is serving slow responses over 60 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -114,8 +114,8 @@ spec:
     - alert: CCR-5xx-Errors
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-remuneration-dev", status=~"5.."}[5m])) * 300 > 10
       for: 5m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV multiple HTTP 5xx errors have occurred
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -124,8 +124,8 @@ spec:
     - alert: CCR-4xx-Errors
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-remuneration-dev", status=~"4.."}[5m])) * 300 > 10
       for: 5m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV multiple HTTP 4xx errors have occurred
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -134,8 +134,8 @@ spec:
     - alert: CCR-Pod-Not-Ready
       expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-crown-court-remuneration-dev", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
       for: 15m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV - {{ $labels.pod }} has been in a non-ready state for longer than 15 minutes
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
@@ -144,8 +144,8 @@ spec:
     - alert: CCR-Pod-CrashLooping
       expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crown-court-remuneration-dev"}[10m]) * 60 * 10 > 3
       for: 10m
-      # labels:
-      #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
+      labels:
+        severity: laa_crown_court_renumeration_alerts_dev
       annotations:
         message: CCR DEV - {{ $labels.pod }} is restarting excessively
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
