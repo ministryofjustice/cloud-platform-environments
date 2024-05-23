@@ -6,7 +6,7 @@ module "irsa" {
   service_account_name = "laa-sds-serviceaccount-${var.environment}"
   role_policy_arns = {
     dynamodb = aws_iam_policy.auditdb_policy.arn
-    s3       = aws_iam_policy.s3_policy.arn
+    s3       = module.s3_bucket.irsa_policy_arn
   }
 
   business_unit          = var.business_unit
