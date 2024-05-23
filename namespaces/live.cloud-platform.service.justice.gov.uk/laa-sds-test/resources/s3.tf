@@ -14,7 +14,7 @@ module "laa_sds_equiniti" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_name            = "laa-sds-equiniti"
+  bucket_name            = "laa-sds-equiniti-${var.environment}"
 }
 
 
