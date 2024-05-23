@@ -5,7 +5,7 @@ metadata:
   namespace: sw-psa-audit-test
 subjects:
   - kind: Group
-    name: "github:cloud-platform-restricted"
+    name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
