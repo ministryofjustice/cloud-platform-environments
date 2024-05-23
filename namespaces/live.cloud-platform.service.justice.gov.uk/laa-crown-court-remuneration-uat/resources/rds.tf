@@ -77,8 +77,8 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rule" {
-  cidr_blocks       = ["10.202.0.0/20"]
+resource "aws_security_group_rule" "rule1" {
+  cidr_blocks       = ["10.206.0.0/20"]
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 1521
@@ -86,34 +86,14 @@ resource "aws_security_group_rule" "rule" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "aws_security_group_rule" "ruleb" {
-  cidr_blocks       = ["10.202.0.0/20"]
+resource "aws_security_group_rule" "rule2" {
+  cidr_blocks       = ["10.206.0.0/20"]
   type              = "egress"
   protocol          = "tcp"
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
 }
-
-resource "aws_security_group_rule" "rule3" {
-  cidr_blocks       = ["10.200.0.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule4" {
-  cidr_blocks       = ["10.200.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {
