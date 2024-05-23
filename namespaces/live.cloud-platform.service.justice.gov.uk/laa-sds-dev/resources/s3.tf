@@ -29,19 +29,3 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-data "aws_iam_policy_document" "laa-sds-access" {
-  statement {
-    actions   = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject",
-    ]
-    resources = ["${module.s3_bucket.bucket_arn}/*"]
-  }
-}
-
-resource "aws_iam_policy" "s3_policy" {
-  name        = "${var.namespace}-s3_policy"
-  description = "Grants R/W access to specified S3 bucket"
-  policy      = data.aws_iam_policy_document.laa-sds-access.json
-}
