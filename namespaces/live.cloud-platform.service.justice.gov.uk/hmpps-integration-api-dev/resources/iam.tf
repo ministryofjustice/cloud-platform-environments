@@ -174,3 +174,28 @@ resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
     ]
   })
 }
+
+data "aws_iam_policy_document" "secrets_manager_access" {
+  statement {
+    actions = [
+      "secretsmanager:Get*",
+    ]
+    resources = [
+      "arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-hmpps-integration-api-dev-*-*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "secrets_manager_access" {
+  name   = "${var.namespace}-secretsmanager-access"
+  policy = data.aws_iam_policy_document.secrets_manager_access.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}

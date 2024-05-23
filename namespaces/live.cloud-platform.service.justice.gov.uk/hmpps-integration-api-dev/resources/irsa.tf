@@ -15,6 +15,8 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 
+  secrets_policy = aws_iam_policy.secrets_manager_access.arn
+
   
 }
 
@@ -26,7 +28,8 @@ module "irsa" {
   service_account_name = "hmpps-integration-api"
   role_policy_arns     = merge(
     local.sqs_policies,
-    local.sns_policies
+    local.sns_policies,
+    local.secrets_policy
   )
   # Tags
   business_unit          = var.business_unit
@@ -88,7 +91,7 @@ resource "kubernetes_secret" "irsa" {
   }
   data = {
     role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    serviceaccount = module.irsa.service_account_name
     rolearn        = module.irsa.role_arn
   }
 }
