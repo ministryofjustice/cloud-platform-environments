@@ -29,7 +29,7 @@ module "irsa" {
   role_policy_arns     = merge(
     local.sqs_policies,
     local.sns_policies,
-    local.secrets_policy
+    { secrets = local.secrets_policy }
   )
   # Tags
   business_unit          = var.business_unit
