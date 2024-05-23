@@ -30,21 +30,5 @@ resource "kubernetes_secret" "equiniti_s3" {
   }
 }
 
-data "aws_iam_policy_document" "laa-sds-access" {
-  statement {
-    actions   = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:ListBucket",
-      "s3:GetObjectAttributes"
-    ]
-    resources = ["${module.laa_sds_equiniti.bucket_arn}/*"]
-  }
-}
 
-resource "aws_iam_policy" "s3_policy" {
-  name        = "${var.namespace}-s3_policy"
-  description = "Grants R/W access to specified S3 bucket"
-  policy      = data.aws_iam_policy_document.laa-sds-access.json
-}
+
