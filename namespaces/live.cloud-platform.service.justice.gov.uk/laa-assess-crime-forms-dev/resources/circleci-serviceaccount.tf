@@ -11,6 +11,89 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   # github_repositories = ["laa-submit-crime-forms"]
+
+  serviceaccount_rules = [
+    {
+      "api_groups": [
+        ""
+      ],
+      "resources": [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "serviceaccounts",
+        "configmaps",
+        "pods"
+      ],
+      "verbs": [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "rbac.authorization.k8s.io"
+        "policy"
+      ],
+      "resources": [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "monitoring.coreos.com"
+      ],
+      "resources": [
+        "prometheusrules",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "api_groups": [
+        "autoscaling"
+      ],
+      "resources": [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
+  ]
 }
 
 
