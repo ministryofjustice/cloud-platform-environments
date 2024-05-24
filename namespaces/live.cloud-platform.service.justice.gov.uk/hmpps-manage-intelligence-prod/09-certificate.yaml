@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - mercury-data-transform.hmpps.service.justice.gov.uk
+    - mercury-data-transform-load.hmpps.service.justice.gov.uk
