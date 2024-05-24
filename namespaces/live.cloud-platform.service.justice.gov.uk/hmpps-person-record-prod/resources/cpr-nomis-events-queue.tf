@@ -1,31 +1,27 @@
-resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
+resource "aws_sns_topic_subscription" "cpr_nomis_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
+  endpoint  = module.cpr_nomis_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "probation-case.engagement.created",
       "prisoner-offender-search.prisoner.created",
       "prisoner-offender-search.prisoner.updated",
-      "OFFENDER_DETAILS_CHANGED",
-      "OFFENDER_ALIAS_CHANGED",
-      "OFFENDER_ADDRESS_CHANGED"
     ]
   })
 }
 
-module "cpr_delius_offender_events_queue" {
+module "cpr_nomis_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                   = "cpr_delius_offender_events_queue"
+  sqs_name                   = "cpr_nomis_events_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.cpr_nomis_events_dead_letter_queue.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -35,7 +31,7 @@ module "cpr_delius_offender_events_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -43,19 +39,19 @@ module "cpr_delius_offender_events_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
-  queue_url = module.cpr_delius_offender_events_queue.sqs_id
+resource "aws_sqs_queue_policy" "cpr_nomis_events_queue_policy" {
+  queue_url = module.cpr_nomis_events_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.cpr_delius_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.cpr_nomis_events_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.cpr_delius_offender_events_queue.sqs_arn}",
+          "Resource": "${module.cpr_nomis_events_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
@@ -72,11 +68,11 @@ EOF
 
 ######## Dead letter queue
 
-module "cpr_delius_offender_events_dead_letter_queue" {
+module "cpr_nomis_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "cpr_delius_offender_events_dlq"
+  sqs_name        = "cpr_nomis_events_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -85,7 +81,7 @@ module "cpr_delius_offender_events_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -95,32 +91,32 @@ module "cpr_delius_offender_events_dead_letter_queue" {
 
 ########  Secrets
 
-resource "kubernetes_secret" "cpr_delius_offender_events_queue" {
+resource "kubernetes_secret" "cpr_nomis_events_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-offender-events-secret"
+    name = "sqs-cpr-nomis-events-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_delius_offender_events_queue.sqs_id
-    sqs_queue_arn  = module.cpr_delius_offender_events_queue.sqs_arn
-    sqs_queue_name = module.cpr_delius_offender_events_queue.sqs_name
+    sqs_queue_url  = module.cpr_nomis_events_queue.sqs_id
+    sqs_queue_arn  = module.cpr_nomis_events_queue.sqs_arn
+    sqs_queue_name = module.cpr_nomis_events_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "cpr_delius_offender_events_dead_letter_queue" {
+resource "kubernetes_secret" "cpr_nomis_events_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-offender-events-dlq-secret"
+    name = "sqs-cpr-nomis-events-dlq-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_delius_offender_events_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.cpr_delius_offender_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.cpr_nomis_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cpr_nomis_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cpr_nomis_events_dead_letter_queue.sqs_name
   }
 }
