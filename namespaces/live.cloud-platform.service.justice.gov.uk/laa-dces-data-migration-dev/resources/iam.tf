@@ -17,12 +17,12 @@ data "aws_iam_policy_document" "upload_policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}"
+      "${module.s3_bucket.bucket_arn}/"
     ]
     condition {
       test     = "StringLike"
       variable = "s3:prefix"
-      values   = ["hello/*"]
+      values   = ["drc/*"]
     }
 
 
@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "upload_policy" {
       /*"s3:DeleteObject",
       "s3:GetObject",*/
       "s3:GetBucketLocation",
-      "s3:ListBucket",
+      /*"s3:ListBucket",*/
       /*"s3:ListObjectsV2",*/
       /*"s3:ListAllMyBuckets",*/
       "s3:ListMultipartUploadParts",
