@@ -15,8 +15,6 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 
-  secrets_policy = aws_iam_policy.secrets_manager_access.arn
-
   
 }
 
@@ -29,7 +27,6 @@ module "irsa" {
   role_policy_arns     = merge(
     local.sqs_policies,
     local.sns_policies,
-    { secrets = local.secrets_policy }
   )
   # Tags
   business_unit          = var.business_unit
@@ -56,7 +53,8 @@ module "hmpps-integration-event-irsa" {
     integration_api_domain_events_dead_letter_queue   = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
     hmpps-integration-events                          = module.integration_api_domain_events_queue.irsa_policy_arn,
     s3 = module.certificate_backup.irsa_policy_arn,
-    truststore = module.truststore_s3_bucket.irsa_policy_arn
+    truststore = module.truststore_s3_bucket.irsa_policy_arn,
+    secrets = module.secret.irsa_policy_arn
     }
     
   )
