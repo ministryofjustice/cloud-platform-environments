@@ -123,7 +123,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     }
     actions = [
       "s3:GetBucketLocation",
-      "s3:ListBucket",
+      /*"s3:ListBucket",*/
       "s3:GetObject",
       "s3:PutObject",
       "s3:GetObjectAcl"
