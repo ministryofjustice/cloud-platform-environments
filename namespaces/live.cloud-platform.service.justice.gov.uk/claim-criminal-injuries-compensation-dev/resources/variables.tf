@@ -76,7 +76,7 @@ variable "slack_channel" {
 variable "repo_name" {
   description = "List of repos"
   type        = list
-  default     = [ "cica-gov-uk-application-service", "cica-gov-uk-data-capture-service", "cica-apply-web",
+  default     = [ "cica-apply-application-service", "cica-apply-data-capture-service", "cica-apply-web",
   "cica-apply-notify-gateway"]
 }
 variable "kubernetes_cluster" {}
