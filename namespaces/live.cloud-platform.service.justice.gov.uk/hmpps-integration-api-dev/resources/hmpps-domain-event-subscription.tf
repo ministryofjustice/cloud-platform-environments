@@ -84,7 +84,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [      
+    eventType = [
       "probation-case.registration.added",
       "probation-case.registration.updated"
     ]
@@ -98,11 +98,11 @@ resource "kubernetes_secret" "integration_api_domain_events_queue" {
   }
 
   data = {
-    sqs_id   = module.integration_api_domain_events_queue.sqs_id
-    sqs_arn  = module.integration_api_domain_events_queue.sqs_arn
-    sqs_name = module.integration_api_domain_events_queue.sqs_name
+    sqs_id                        = module.integration_api_domain_events_queue.sqs_id
+    sqs_arn                       = module.integration_api_domain_events_queue.sqs_arn
+    sqs_name                      = module.integration_api_domain_events_queue.sqs_name
     hmpps_domain_events_topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-        
+
   }
 }
 

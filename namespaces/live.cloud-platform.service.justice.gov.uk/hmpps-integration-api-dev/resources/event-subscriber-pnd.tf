@@ -89,10 +89,10 @@ data "aws_secretsmanager_secret_version" "pnd_filter_list" {
 
 
 resource "aws_sns_topic_subscription" "event_pnd_subscription" {
-  provider  = aws.london
-  topic_arn = module.hmpps-integration-events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.event_pnd_queue.sqs_arn 
+  provider      = aws.london
+  topic_arn     = module.hmpps-integration-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.event_pnd_queue.sqs_arn
   filter_policy = data.aws_secretsmanager_secret_version.pnd_filter_list.secret_string
   depends_on = [
     module.hmpps-integration-events
@@ -106,10 +106,10 @@ resource "kubernetes_secret" "event_pnd_queue" {
   }
 
   data = {
-    sqs_id   = module.event_pnd_queue.sqs_id
-    sqs_arn  = module.event_pnd_queue.sqs_arn
-    sqs_name = module.event_pnd_queue.sqs_name
-    pnd_filter_policy_secret_id =     data.aws_secretsmanager_secret_version.pnd_filter_list.secret_id    
+    sqs_id                      = module.event_pnd_queue.sqs_id
+    sqs_arn                     = module.event_pnd_queue.sqs_arn
+    sqs_name                    = module.event_pnd_queue.sqs_name
+    pnd_filter_policy_secret_id = data.aws_secretsmanager_secret_version.pnd_filter_list.secret_id
   }
 }
 

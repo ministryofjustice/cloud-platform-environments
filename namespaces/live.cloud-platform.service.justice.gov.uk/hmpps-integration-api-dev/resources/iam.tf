@@ -98,7 +98,7 @@ EOF
 
 resource "aws_iam_role" "cloudwatch" {
   name               = "api_gateway_cloudwatch_global"
-   assume_role_policy = <<EOF
+  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -160,7 +160,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
-  name   = "${var.namespace}-api-gateway-sqs-policy"
+  name = "${var.namespace}-api-gateway-sqs-policy"
   role = aws_iam_role.api_gateway_sqs_role.name
 
   policy = jsonencode({

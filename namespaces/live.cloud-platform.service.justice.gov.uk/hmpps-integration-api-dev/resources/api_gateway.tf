@@ -197,10 +197,10 @@ resource "aws_api_gateway_integration_response" "sqs_integration_response" {
   response_templates = {
     "application/json" = ""
   }
-    depends_on = [
-      aws_api_gateway_rest_api.api_gateway,
-      aws_api_gateway_integration.sqs_integration
-    ]
+  depends_on = [
+    aws_api_gateway_rest_api.api_gateway,
+    aws_api_gateway_integration.sqs_integration
+  ]
 }
 
 resource "aws_api_gateway_deployment" "main" {
@@ -357,7 +357,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -380,7 +380,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -403,7 +403,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
