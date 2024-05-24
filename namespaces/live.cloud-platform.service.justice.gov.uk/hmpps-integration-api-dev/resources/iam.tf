@@ -179,6 +179,8 @@ data "aws_iam_policy_document" "secrets_manager_access" {
   statement {
     actions = [
       "secretsmanager:Get*",
+      "secretsmanager:PutSecretValue",
+      "secretsmanager:DescribeSecret"
     ]
     resources = [
       "arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-hmpps-integration-api-dev-*-*"
