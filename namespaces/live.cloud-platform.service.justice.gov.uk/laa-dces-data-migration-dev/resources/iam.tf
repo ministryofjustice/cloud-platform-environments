@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "upload_policy" {
     condition {
       test     = "StringLike"
       variable = "s3:prefix"
-      values   = ["test/*"]
+      values   = ["hello/*"]
     }
 
   }

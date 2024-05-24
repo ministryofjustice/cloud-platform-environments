@@ -129,7 +129,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObjectAcl"
     ]
     resources = [
-      /*"$${bucket_arn}",*/
+      "$${bucket_arn}",
       "$${bucket_arn}/drc/*"
     ]
   }
