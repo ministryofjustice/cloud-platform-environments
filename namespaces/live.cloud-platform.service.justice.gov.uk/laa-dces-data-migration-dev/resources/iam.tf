@@ -10,7 +10,7 @@ resource "aws_iam_access_key" "upload_user_dev_key" {
 data "aws_iam_policy_document" "upload_policy" {
 
   statement {
-    effect = "Allow"
+    effect = "Deny"
 
     actions = [
       "s3:ListBucket"
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "upload_policy" {
     condition {
       test     = "StringLike"
       variable = "s3:prefix"
-      values   = ["drc/*"]
+      values   = ["test/*"]
     }
 
   }
@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "upload_policy" {
       /*"s3:DeleteObject",
       "s3:GetObject",*/
       "s3:GetBucketLocation",
-      /*"s3:ListBucket",*/
+      "s3:ListBucket",
       /*"s3:ListObjectsV2",*/
       /*"s3:ListAllMyBuckets",*/
       "s3:ListMultipartUploadParts",
