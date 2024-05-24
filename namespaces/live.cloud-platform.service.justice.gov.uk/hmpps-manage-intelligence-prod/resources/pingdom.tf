@@ -3,7 +3,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "transformer" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - transformer"
+  name                     = "DPS - ${var.application} transformer"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -35,7 +35,7 @@ resource "pingdom_check" "manage-intelligence" {
 
 resource "pingdom_check" "manage-intelligence-api" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - api"
+  name                     = "DPS - ${var.application} api"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
