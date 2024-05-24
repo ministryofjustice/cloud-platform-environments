@@ -49,7 +49,7 @@ resource "kubernetes_secret" "consumer_api_keys" {
 
   data = {
     for client in local.clients :
-      client => aws_api_gateway_api_key.clients[client].value
+    client => aws_api_gateway_api_key.clients[client].value
   }
 }
 

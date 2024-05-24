@@ -82,7 +82,7 @@ resource "aws_sns_topic_subscription" "event_test_client_subscription" {
   provider  = aws.london
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
-  endpoint  = module.event_test_client_queue.sqs_arn 
+  endpoint  = module.event_test_client_queue.sqs_arn
 
   depends_on = [
     module.hmpps-integration-events

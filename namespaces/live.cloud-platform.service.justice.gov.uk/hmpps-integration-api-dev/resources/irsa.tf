@@ -5,17 +5,13 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
-
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  
   sns_topics = {
-     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
 
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-
-  
 }
 
 module "irsa" {
@@ -24,7 +20,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
   )
@@ -47,16 +43,16 @@ module "hmpps-integration-event-irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-event"
-  role_policy_arns     = merge(     
+  role_policy_arns = merge(
     {
-    integration_api_domain_events_queue               = module.integration_api_domain_events_queue.irsa_policy_arn,
-    integration_api_domain_events_dead_letter_queue   = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-    hmpps-integration-events                          = module.integration_api_domain_events_queue.irsa_policy_arn,
-    s3 = module.certificate_backup.irsa_policy_arn,
-    truststore = module.truststore_s3_bucket.irsa_policy_arn,
-    secrets = module.secret.irsa_policy_arn
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
+      s3                                              = module.certificate_backup.irsa_policy_arn,
+      truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
+      secrets                                         = module.secret.irsa_policy_arn
     }
-    
+
   )
   # Tags
   business_unit          = var.business_unit
