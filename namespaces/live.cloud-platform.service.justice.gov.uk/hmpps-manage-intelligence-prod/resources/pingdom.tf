@@ -19,7 +19,7 @@ resource "pingdom_check" "transformer" {
 
 resource "pingdom_check" "manage-intelligence" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - manage-intelligence"
+  name                     = "DPS - ${var.application}"
   host                     = "manage-intelligence.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -35,7 +35,7 @@ resource "pingdom_check" "manage-intelligence" {
 
 resource "pingdom_check" "manage-intelligence-api" {
   type                     = "http"
-  name                     = "DPS - ${var.application} - manage-intelligence-api"
+  name                     = "DPS - ${var.application} - api"
   host                     = "manage-intelligence-api.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
