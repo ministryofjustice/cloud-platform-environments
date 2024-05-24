@@ -17,13 +17,16 @@ data "aws_iam_policy_document" "upload_policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}/"
+      "${module.s3_bucket.bucket_arn}"
     ]
     condition {
       test     = "StringLike"
       variable = "s3:prefix"
       values   = ["hello/*"]
     }
+
+
+
 
   }
 
