@@ -23,7 +23,7 @@ module "cross-irsa" {
 
   eks_cluster_name = var.eks_cluster_name
 
-  service_account_name = "laa-sds-serviceaccount-${var.environment}"
+  service_account_name = "laa-sds-serviceaccount-migration-${var.environment}"
   role_policy_arns       = { s3 = aws_iam_policy.s3_migrate_policy.arn }
 
   business_unit          = var.business_unit
