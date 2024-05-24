@@ -1,3 +1,5 @@
+######################################## Delius offender events subscription
+
 resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
@@ -6,9 +8,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" 
   filter_policy = jsonencode({
     eventType = [
       "probation-case.engagement.created",
-      "OFFENDER_DETAILS_CHANGED",
-      "OFFENDER_ALIAS_CHANGED",
-      "OFFENDER_ADDRESS_CHANGED"
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }
@@ -33,7 +34,7 @@ module "cpr_delius_offender_events_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -83,7 +84,7 @@ module "cpr_delius_offender_events_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
