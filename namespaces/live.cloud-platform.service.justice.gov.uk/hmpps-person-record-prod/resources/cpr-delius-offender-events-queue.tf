@@ -1,5 +1,3 @@
-######################################## Delius offender events subscription
-
 resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
@@ -9,7 +7,10 @@ resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" 
     eventType = [
       "probation-case.engagement.created",
       "prisoner-offender-search.prisoner.created",
-      "prisoner-offender-search.prisoner.updated"
+      "prisoner-offender-search.prisoner.updated",
+      "OFFENDER_DETAILS_CHANGED",
+      "OFFENDER_ALIAS_CHANGED",
+      "OFFENDER_ADDRESS_CHANGED"
     ]
   })
 }

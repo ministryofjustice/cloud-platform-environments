@@ -106,6 +106,18 @@ resource "aws_api_gateway_resource" "sqs_resource" {
   path_part   = "get-events"
 }
 
+resource "aws_api_gateway_resource" "sqs_pnd_parent_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "pnd"
+}
+
+resource "aws_api_gateway_resource" "sqs_pnd_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_resource.sqs_pnd_parent_resource.id
+  path_part   = "get-events"
+}
+
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
   resource_id      = aws_api_gateway_resource.proxy.id
@@ -185,10 +197,10 @@ resource "aws_api_gateway_integration_response" "sqs_integration_response" {
   response_templates = {
     "application/json" = ""
   }
-    depends_on = [
-      aws_api_gateway_rest_api.api_gateway,
-      aws_api_gateway_integration.sqs_integration
-    ]
+  depends_on = [
+    aws_api_gateway_rest_api.api_gateway,
+    aws_api_gateway_integration.sqs_integration
+  ]
 }
 
 resource "aws_api_gateway_deployment" "main" {
@@ -249,11 +261,15 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   description = "Client certificate presented to the backend API"
 }
 
+resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
+  description = "Client certificate presented to the backend API expires 15/05/2025"
+}
+
 resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
@@ -341,7 +357,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -364,7 +380,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -387,7 +403,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }

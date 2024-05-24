@@ -98,5 +98,5 @@ resource "github_repository_environment" "env" {
 }
 
 data "github_team" "dps_soct_tech" {
-  slug = "dps-soct-tech"
+  slug = "hmpps-intelligence-management"
 }

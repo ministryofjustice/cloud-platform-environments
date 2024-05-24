@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::771283872747:role/dpr-cross-account-role-demo",
+      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
     ]  
   }
 }
@@ -92,8 +92,7 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "sts:AssumeRole",
     ]
     resources = [
-      "arn:aws:iam::771283872747:role/redshift-cross-account-role",
-      "arn:aws:iam::771283872747:role/dpr-cross-account-role-demo",
+      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
     ]
   }
 }

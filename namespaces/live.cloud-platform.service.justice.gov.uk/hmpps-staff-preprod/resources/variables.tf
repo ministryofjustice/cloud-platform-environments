@@ -21,6 +21,10 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "manage-a-workforce"

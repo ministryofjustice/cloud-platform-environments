@@ -5,14 +5,14 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name  = "${var.team_name}-${var.environment}"
+  service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
 
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_ccr_claims  = aws_iam_policy.ccr_policy.arn
+    sqs_ccr_claims = aws_iam_policy.ccr_policy.arn
   }
 
   # Tags
@@ -27,8 +27,11 @@ module "irsa" {
 data "aws_iam_policy_document" "ccr_claims_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
+    sid  = "CCRPolicySQSDev"
+    effect = "Allow"
     actions = [
       "sqs:*",
+      "sts:*"
     ]
     resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-cccd-claims-for-ccr",
@@ -37,11 +40,12 @@ data "aws_iam_policy_document" "ccr_claims_policy" {
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-reponses-for-cccd-dlq",
     ]
   }
+
 }
 
 resource "aws_iam_policy" "ccr_policy" {
-  name   = "ccr_policy"
-  policy = data.aws_iam_policy_document.ccr_claims_policy.json
+  name        = "ccr_policy"
+  policy      = data.aws_iam_policy_document.ccr_claims_policy.json
   description = "Policy for Cloud Platform to assume role in data platform dev account for CCR"
 
   tags = {
@@ -61,6 +65,7 @@ resource "kubernetes_secret" "irsa" {
   }
   data = {
     role           = module.irsa.role_name
+
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
   }
