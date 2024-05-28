@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM golang:1.19 as builder
 
 WORKDIR /app
 
@@ -6,8 +6,8 @@ COPY go.mod go.sum ./
 
 RUN go mod download
 
-COPY main.go validate-annotations.go ./
+COPY . .
 
-RUN go build -o validate-annotations
+RUN go build -o main .
 
-ENTRYPOINT [ "./validate-annotations" ]
+CMD [ "./main" ]

@@ -3,30 +3,24 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	// "golang.org/x/text/message"
 )
 
 func main() {
-	token := os.Getenv("GITHUB_TOKEN")
-	if token == "" {
-		fmt.Println("GITHUB_TOKEN env var not set")
-		return
-	}
+	dir := "test-annotations"
 
-	org := "https://github.com/ministryofjustice/"
-
-	client := NewGitHubClient(token)
-
-	prEvent := os.Getenv("PR_EVENT_DATA")
-	if prEvent == "" {
-		fmt.Println("PR_EVENT_DATA environment variable is not set")
-		return
-	}
-
-	message, err := ValidateAnnotations(client, org, prEvent)
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && filepath.Ext(path) == ".yaml" {
+			valid, message := validateAnnotations(path)
+			fmt.Printf("validation result for %s: %v - %s\n", path, valid, message)
+		}
+		return nil
+	})
 	if err != nil {
-		fmt.Printf("Error during validation %v\n", err)
-		return
+		fmt.Printf("Error walking the path %s: %v\n", dir, err)
 	}
-
-	fmt.Println(message)
 }
