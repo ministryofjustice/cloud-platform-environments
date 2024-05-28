@@ -129,7 +129,9 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
     resources = [
       "$${bucket_arn}",
-      "$${bucket_arn}/*"
+      "$${bucket_arn}/*",
+      "arn:aws:s3:::cloud-platform-b988a47b75caeabd901c79c3565f642a",
+      "arn:aws:s3:::cloud-platform-b988a47b75caeabd901c79c3565f642a/*"
     ]
   }
 }
