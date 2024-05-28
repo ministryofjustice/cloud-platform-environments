@@ -172,7 +172,7 @@ spec:
       rules:
         - alert: OOMKiller
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}'
+            message: :alert:Service {{ $labels.pod }}
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
@@ -183,37 +183,37 @@ spec:
             severity: datahub_dev
         - alert: TooManyContainerRestarts
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
+            message: :alert:Service {{ $labels.pod }} was restarted many times
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
+          expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev",pod_template_hash=""}[15m])) by (pod,container) > 10
           for: 0m
           labels:
             severity: datahub_dev
         - alert: CrashLoopBackOff
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' CrashLoopBackOff
+            message: :alert:Service {{ $labels.pod }} CrashLoopBackOff
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase="CrashLoopBackOff"}) > 0
+          expr: sum by (pod) (kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase="CrashLoopBackOff"}) > 0
           for: 0m
           labels:
             severity: datahub_dev
         - alert: PodNotReadyKube
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has been in a non-ready state for more than 15 minutes
+            message: :alert:Service {{ $labels.pod }} has been in a non-ready state for more than 15 minutes
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: sum by(namespace,pod)(kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase=~"Pending|Unknown"}) > 0
+          expr: sum by(pod)(kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase=~"Pending|Unknown"}) > 0
           for: 15m
           labels:
             severity: datahub_dev
         - alert: ContainerRestartAlert
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has restarted.
+            message: :alert:Service {{ $labels.container }} has restarted.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: (sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev"}[10m])) by (container, namespace)) > 0
+          expr: (sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev"}[10m])) by (container)) > 0
           for: 5m
           labels:
             severity: datahub_dev
@@ -233,12 +233,11 @@ spec:
         - alert: KubePodNotReady
           annotations:
             message: >-
-              Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
-              state for longer than an hour.
+              Pod {{ $labels.pod }} has been in a non-ready state for longer than an hour.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            sum by (namespace, pod) (kube_pod_status_phase{namespace="data-platform-datahub-catalogue-dev", job="kube-state-metrics",
+            sum by (pod) (kube_pod_status_phase{namespace="data-platform-datahub-catalogue-dev", job="kube-state-metrics",
             phase=~"Pending|Unknown"}) > 0
           for: 1h
           labels:
@@ -248,36 +247,36 @@ spec:
       rules:
         - alert: GMSCpuUsageHigh
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
+            message: :warning:Service '{{ $labels.container }}' cpu usage above threshold of 90%.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-dev", container=~".+gms"}[5m])) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-dev", container=~".+gms", unit="core"})) * 100  
+            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-dev", container=~".+gms"}[5m])) by (container) 
+            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-dev", container=~".+gms", unit="core"}) by (container)) * 100
             > 90
-          for: 1m
+          for: 5m
           labels:
             severity: datahub_dev
         - alert: GMSMemUsageHigh
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
+            message: :warning:Service {{ $labels.container }} memory usage above 80%.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-dev"}) by (namespace,container,pod)  
-            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-dev",unit="byte"}) by (namespace,container,pod) ) * 100 ) < +Inf )
+            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-dev"}) by (container,pod)  
+            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-dev",unit="byte"}) by (container,pod) ) * 100 ) < +Inf )
              > 80
-          for: 1m
+          for: 5m
           labels:
             severity: datahub_dev
         - alert: HighPersistantVolumeUsage
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
+            message: :warning:Service {{ $labels.persistentvolumeclaim }} Persistent volume is using more than 90%
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-datahub-catalogue-dev"}) by (namespace,persistentvolumeclaim)) 
-            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-datahub-catalogue-dev"}) by (namespace,persistentvolumeclaim)))*100) < +Inf ) 
+            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-datahub-catalogue-dev"}) by (persistentvolumeclaim)) 
+            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-datahub-catalogue-dev"}) by (persistentvolumeclaim)))*100) < +Inf ) 
             > 90
           for: 5m
           labels:
