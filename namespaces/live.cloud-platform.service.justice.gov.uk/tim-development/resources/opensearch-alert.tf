@@ -15,12 +15,12 @@ module "opensearch_alert" {
   slack_config_id          = "test"
   aws_secret_name          = "test"
   k8s_secret_name          = "test"
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
+  team_name                = var.team_name
+  business_unit            = var.business_unit
+  application              = var.application
+  is_production            = var.is_production
+  environment_name         = var.environment
+  infrastructure_support   = var.infrastructure_support
+  namespace                = var.namespace
 
 }
