@@ -2,11 +2,7 @@ provider "pingdom" {}
 resource "pingdom_check" "pingdom" {
   for_each = toset([
     "accredited-programmes-api.hmpps",
-    "accredited-programmes-and-oasys.hmpps",
-    "prisoner-search.prison",
-    "assess-risks-and-needs.hmpps",
-    "prison-register.hmpps",
-    "api.prison",
+    "accredited-programmes.hmpps",
   ])
   type                     = "http"
   name                     = "ACP dependent service-  ${each.value}"
