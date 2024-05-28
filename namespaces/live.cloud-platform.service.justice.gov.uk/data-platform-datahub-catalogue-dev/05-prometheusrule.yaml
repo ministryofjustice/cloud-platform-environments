@@ -233,8 +233,7 @@ spec:
         - alert: KubePodNotReady
           annotations:
             message: >-
-              Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
-              state for longer than an hour.
+              Pod {{ $labels.pod }} has been in a non-ready state for longer than an hour.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
