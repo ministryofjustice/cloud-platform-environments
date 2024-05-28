@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "upload_policy" {
       "s3:GetObject",*/
       "s3:GetBucketLocation",
       "s3:ListBucket",
-      /*"s3:ListObjectsV2",*/
+      "s3:ListObjectsV2",
       /*"s3:ListAllMyBuckets",*/
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
