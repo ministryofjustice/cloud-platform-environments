@@ -172,7 +172,7 @@ spec:
       rules:
         - alert: OOMKiller
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}'
+            message: :alert:Service {{ $labels.pod }}
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
@@ -183,7 +183,7 @@ spec:
             severity: datahub_dev
         - alert: TooManyContainerRestarts
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
+            message: :alert:Service {{ $labels.pod }} was restarted many times
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
@@ -192,7 +192,7 @@ spec:
             severity: datahub_dev
         - alert: CrashLoopBackOff
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' CrashLoopBackOff
+            message: :alert:Service {{ $labels.pod }} CrashLoopBackOff
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase="CrashLoopBackOff"}) > 0
@@ -201,7 +201,7 @@ spec:
             severity: datahub_dev
         - alert: PodNotReadyKube
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has been in a non-ready state for more than 15 minutes
+            message: :alert:Service {{ $labels.pod }} has been in a non-ready state for more than 15 minutes
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum by(namespace,pod)(kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-dev",phase=~"Pending|Unknown"}) > 0
@@ -210,7 +210,7 @@ spec:
             severity: datahub_dev
         - alert: ContainerRestartAlert
           annotations:
-            message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has restarted.
+            message: :alert:Service {{ $labels.pod }} has restarted.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: (sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-dev"}[10m])) by (container, namespace)) > 0
@@ -248,7 +248,7 @@ spec:
       rules:
         - alert: GMSCpuUsageHigh
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
+            message: :warning:Service '{{ $labels.container }}' cpu usage above threshold of 90%.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
@@ -260,7 +260,7 @@ spec:
             severity: datahub_dev
         - alert: GMSMemUsageHigh
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
+            message: :warning:Service {{ $labels.container }} memory usage above 80%.
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
@@ -272,7 +272,7 @@ spec:
             severity: datahub_dev
         - alert: HighPersistantVolumeUsage
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
+            message: :warning:Service {{ $labels.container }} Persistent volume is using more than 90%
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
