@@ -13,8 +13,8 @@ module "opensearch_alert" {
   action_id                = "test test"
   action_name              = "test test"
   slack_channel_name       = "test test"
-  aws_secret_name          = "test test"
-  k8s_secret_name          = "test test"
+  aws_secret_name          = "test"
+  k8s_secret_name          = "test"
   slack_message_subject    = "test test"
   team_name                = var.team_name
   business_unit            = var.business_unit
