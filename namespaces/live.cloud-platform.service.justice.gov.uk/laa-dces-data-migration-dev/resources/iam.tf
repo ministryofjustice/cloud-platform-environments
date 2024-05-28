@@ -32,20 +32,21 @@ data "aws_iam_policy_document" "upload_policy" {
     ]
   }
 
+
   statement {
     effect = "Deny"
 
     actions = ["s3:*"]
 
     resources = [
-      module.s3_bucket.bucket_arn,
+      /*module.s3_bucket.bucket_arn,*/
       "${module.s3_bucket.bucket_arn}/*"
     ]
 
     condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values   = ["false"]
+      test     = "stringNotLike"
+      variable = "s3:prefix"
+      values   = ["drc/*"]
     }
   }
 }
