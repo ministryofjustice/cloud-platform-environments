@@ -9,26 +9,21 @@ resource "aws_iam_access_key" "upload_user_dev_key" {
 
 data "aws_iam_policy_document" "upload_policy" {
 
-
-
-
   statement {
     actions = [
       "s3:PutObject",
-      /*"s3:DeleteObject",
-      "s3:GetObject",*/
+      "s3:DeleteObject",
+      "s3:GetObject",
       "s3:GetBucketLocation",
       "s3:ListBucket",
       "s3:ListObjectsV2",
-      /*"s3:ListAllMyBuckets",*/
+      "s3:ListAllMyBuckets",
       "s3:ListMultipartUploadParts",
-      "s3:AbortMultipartUpload",
-      "s3:GetObject"/*,
-      "s3:GetObjectAcl"*/
+      "s3:AbortMultipartUpload"
     ]
-    
+
     resources = [
-      "${module.s3_bucket.bucket_arn}/drc/*"
+      "${module.s3_bucket.bucket_arn}/*"
     ]
   }
 
@@ -39,14 +34,14 @@ data "aws_iam_policy_document" "upload_policy" {
     actions = ["s3:*"]
 
     resources = [
-      /*module.s3_bucket.bucket_arn,*/
+      module.s3_bucket.bucket_arn,
       "${module.s3_bucket.bucket_arn}/*"
     ]
 
     condition {
-      test     = "stringNotLike"
-      variable = "s3:prefix"
-      values   = ["drc/*"]
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
     }
   }
 }

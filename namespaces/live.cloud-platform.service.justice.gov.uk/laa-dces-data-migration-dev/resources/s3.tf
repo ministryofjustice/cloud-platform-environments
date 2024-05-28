@@ -121,24 +121,17 @@ data "aws_iam_policy_document" "bucket-policy" {
       type        = "AWS"
       identifiers = [aws_iam_user.upload_user_dev.arn]
     }
-    effect = "Allow"
-
     actions = [
       "s3:GetBucketLocation",
       "s3:ListBucket",
       "s3:GetObject",
-      "s3:PutObject",
       "s3:GetObjectAcl"
     ]
     resources = [
       "$${bucket_arn}",
-      "$${bucket_arn}/drc/*"
+      "$${bucket_arn}/*"
     ]
-    condition {
-      test     = "StringLike"
-      variable = "s3:prefix"
-      values   = ["drc/*"]
-    }
+
   }
 }
 
