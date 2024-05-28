@@ -110,7 +110,15 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_alerts_subscripti
     eventType = [
       "prisoner-alerts.alert-created",
       "prisoner-alerts.alert-updated",
-      "prisoner-alerts.alert-deleted"
+      "prisoner-alerts.alert-deleted",
+      "prisoner-alerts.alert-code-created",
+      "prisoner-alerts.alert-code-deactivated",
+      "prisoner-alerts.alert-code-reactivated",
+      "prisoner-alerts.alert-code-updated",
+      "prisoner-alerts.alert-type-created",
+      "prisoner-alerts.alert-type-deactivated",
+      "prisoner-alerts.alert-type-reactivated",
+      "prisoner-alerts.alert-type-updated"
     ]
   })
 }
