@@ -68,7 +68,7 @@ TODOs:
 1. check that diff_rul is accessed correctly from the action
 1. make sure that the action _only_ runs when it is an update or an addition (not for deletions), you might need to play around with the string.Contains()
 1. write tests:
-    - valid test passes passing a raw diff for a valid pr
-    - invalid pr fails containing incorrect team name
-    - invalid pr fails containing incorrect source code repo (repo doesnt exist)
+   - valid test passes passing a raw diff for a valid pr
+   - invalid pr fails containing incorrect team name
+   - invalid pr fails containing incorrect source code repo (repo doesnt exist)
 1. update readme
