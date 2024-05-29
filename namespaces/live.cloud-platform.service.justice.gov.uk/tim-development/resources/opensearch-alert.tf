@@ -1,5 +1,5 @@
 module "opensearch_alert" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=opensearch-alert-for-user"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=opensearch-alert-for-user-2"
 
   opensearch_alert_name    = "test alert"
   opensearch_alert_enabled = true
@@ -23,5 +23,5 @@ module "opensearch_alert" {
   environment_name         = var.environment
   infrastructure_support   = var.infrastructure_support
   namespace                = var.namespace
-
+  secret_id                = module.secret.secret_id
 }
