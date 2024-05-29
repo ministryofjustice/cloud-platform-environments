@@ -8,7 +8,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "book-a-prison-visit"
+      GithubTeam = "hmpps-prison-visits-booking"
     }
   }
 }
@@ -19,7 +19,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "book-a-prison-visit"
+      GithubTeam = "hmpps-prison-visits-booking"
     }
   }
 }
@@ -30,7 +30,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "book-a-prison-visit"
+      GithubTeam = "hmpps-prison-visits-booking"
     }
   }
 }
