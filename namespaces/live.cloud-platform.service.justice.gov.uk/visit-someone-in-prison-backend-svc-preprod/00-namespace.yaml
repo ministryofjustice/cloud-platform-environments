@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Visit Someone in Prison"
     cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/visit-scheduler.git,https://github.com/ministryofjustice/hmpps-notifications-alerts-vsip,https://github.com/ministryofjustice/hmpps-prison-visits-testing-helper-api,https://github.com/ministryofjustice/hmpps-prison-visit-booker-registry"
-    cloud-platform.justice.gov.uk/team-name: "book-a-prison-visit"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-prison-visits-booking"
