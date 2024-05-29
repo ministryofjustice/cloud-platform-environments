@@ -50,7 +50,8 @@ module "hmpps-integration-event-irsa" {
       hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
-      secrets                                         = aws_iam_policy.secrets_manager_access.arn
+      secrets                                         = aws_iam_policy.secrets_manager_access.arn,
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
     }
 
   )
