@@ -33,9 +33,7 @@ module "opensearch" {
   }
 
   advanced_options = {
-    "transient": {
-      "search.allow_expensive_queries": "true"
-    }
+    "search.allow_expensive_queries": "true"
   }
 
   # Tags
