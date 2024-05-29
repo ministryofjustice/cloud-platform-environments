@@ -1,7 +1,7 @@
 module "opensearch_alert" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=opensearch-alert-for-user"
 
-  opensearch_alert_name    = "Grafana duplicate UID"
+  opensearch_alert_name    = "test alert"
   opensearch_alert_enabled = true
   monitor_period_interval  = 1
   monitor_period_unit      = "MINUTES"
