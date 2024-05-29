@@ -409,7 +409,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
 }
 
 module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
 
   # Configuration
   topic_display_name = "integration-api-alert-topic"
@@ -425,7 +425,7 @@ module "sns_topic" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london_without_default_tags
+    aws = aws.london_default_github_tag
   }
 }
 
