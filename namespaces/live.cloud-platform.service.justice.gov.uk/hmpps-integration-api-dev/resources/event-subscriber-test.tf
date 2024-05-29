@@ -16,7 +16,7 @@ module "event_test_client_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = var.team_name 
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -37,7 +37,7 @@ module "event_test_client_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = var.team_name 
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
