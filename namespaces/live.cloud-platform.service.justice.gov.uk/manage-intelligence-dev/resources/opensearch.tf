@@ -32,6 +32,12 @@ module "opensearch" {
     volume_size = 10
   }
 
+  advanced_options = {
+    "transient": {
+      "search.allow_expensive_queries": "true"
+    }
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
