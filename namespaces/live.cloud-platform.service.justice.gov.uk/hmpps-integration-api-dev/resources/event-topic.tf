@@ -15,7 +15,7 @@ module "hmpps-integration-events" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london_default_github_tag
+    aws = aws.london_without_default_tags
   }
 }
 
