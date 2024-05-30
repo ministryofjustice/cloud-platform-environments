@@ -27,7 +27,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "book-a-prison-visit"
+  default     = "hmpps-prison-visits-booking"
 }
 
 variable "environment" {

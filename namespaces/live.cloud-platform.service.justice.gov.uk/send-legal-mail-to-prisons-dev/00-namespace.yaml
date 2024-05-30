@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Send legal mail to prisons"
     cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/send-legal-mail-to-prisons-api.git,https://github.com/ministryofjustice/send-legal-mail-to-prisons.git,https://github.com/ministryofjustice/hmpps-send-legal-mail-staff-ui.git"
-    cloud-platform.justice.gov.uk/team-name: "book-a-prison-visit"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-prison-visits-booking"
