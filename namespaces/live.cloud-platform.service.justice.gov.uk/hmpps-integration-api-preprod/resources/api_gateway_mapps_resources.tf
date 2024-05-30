@@ -64,3 +64,42 @@ resource "aws_api_gateway_integration_response" "sqs_mapps_integration_response"
     aws_api_gateway_integration.sqs_integrsqs_mapps_integrationation
   ]
 }
+
+resource "aws_iam_role" "api_gateway_sqs_mapps_role" {
+  name               = "${var.namespace}-api-gateway-sqs-mapps-role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "api_gateway_sqs_mapps_policy" {
+  name   = "${var.namespace}-api-gateway-sqs-mapps-policy"
+  role = aws_iam_role.api_gateway_sqs_mapps_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "sqs:ReceiveMessage"
+        Resource = module.event_mapps_queue.sqs_arn
+      }
+    ]
+  })
+
+  depends_on = [
+    module.event_mapps_queue
+  ]
+}
