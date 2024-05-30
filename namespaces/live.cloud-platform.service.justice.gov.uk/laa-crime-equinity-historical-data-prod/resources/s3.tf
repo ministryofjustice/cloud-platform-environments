@@ -119,7 +119,7 @@ data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.upload_user_prod.arn]
+      identifiers = [aws_iam_user.upload_user_prod.arn , "arn:aws:iam::754256621582:role/cloud-platform-irsa-eebd741d5bddcdd2-live"]
     }
     actions = [
       "s3:GetBucketLocation",
