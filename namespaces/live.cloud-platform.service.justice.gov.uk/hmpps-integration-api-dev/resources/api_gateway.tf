@@ -100,11 +100,6 @@ resource "aws_api_gateway_resource" "sqs_parent_resource" {
   path_part   = "events"
 }
 
-resource "aws_api_gateway_resource" "sqs_resource" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_resource.sqs_parent_resource.id
-  path_part   = "get-events"
-}
 
 resource "aws_api_gateway_resource" "sqs_pnd_parent_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
@@ -130,30 +125,6 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-resource "aws_api_gateway_method" "sqs_method" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
-  resource_id      = aws_api_gateway_resource.sqs_resource.id
-  http_method      = "GET"
-  authorization    = "NONE"
-  api_key_required = true
-
-  depends_on = [
-    aws_api_gateway_rest_api.api_gateway,
-    aws_api_gateway_resource.sqs_parent_resource,
-    aws_api_gateway_resource.sqs_resource
-  ]
-}
-
-resource "aws_api_gateway_method_response" "sqs_method_response" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  resource_id = aws_api_gateway_resource.sqs_resource.id
-  http_method = aws_api_gateway_method.sqs_method.http_method
-  status_code = "200"
-  response_models = {
-    "application/json" = "Empty"
-  }
-}
-
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.proxy.id
@@ -166,41 +137,6 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
-}
-
-resource "aws_api_gateway_integration" "sqs_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.sqs_resource.id
-  http_method             = aws_api_gateway_method.sqs_method.http_method
-  type                    = "AWS"
-  integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${data.aws_caller_identity.current.account_id}/${module.event_test_client_queue.sqs_name}?Action=ReceiveMessage"
-
-  depends_on = [
-    aws_api_gateway_rest_api.api_gateway,
-    aws_api_gateway_resource.sqs_parent_resource,
-    aws_api_gateway_resource.sqs_resource,
-    module.event_test_client_queue,
-    aws_api_gateway_method.sqs_method,
-    aws_api_gateway_method_response.sqs_method_response,
-  ]
-
-  credentials = aws_iam_role.api_gateway_sqs_role.arn
-}
-
-resource "aws_api_gateway_integration_response" "sqs_integration_response" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  resource_id = aws_api_gateway_resource.sqs_resource.id
-  http_method = aws_api_gateway_method.sqs_method.http_method
-  status_code = aws_api_gateway_method_response.sqs_method_response.status_code
-
-  response_templates = {
-    "application/json" = ""
-  }
-  depends_on = [
-    aws_api_gateway_rest_api.api_gateway,
-    aws_api_gateway_integration.sqs_integration
-  ]
 }
 
 resource "aws_api_gateway_deployment" "main" {
@@ -219,7 +155,7 @@ resource "aws_api_gateway_deployment" "main" {
     aws_api_gateway_method.proxy,
     aws_api_gateway_method.sqs_method,
     aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.sqs_integration,
+    aws_api_gateway_integration.sqs_test_client_integration,
   ]
 
   lifecycle {
