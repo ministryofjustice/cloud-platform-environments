@@ -62,6 +62,7 @@ resource "aws_iam_role_policy" "api_gateway_sqs_test_client_policy" {
   })
   depends_on = [
     aws_iam_role.api_gateway_sqs_test_client_role
+    module.event_test_client_queue
   ]
 }
 
