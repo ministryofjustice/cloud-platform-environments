@@ -6,10 +6,10 @@ metadata:
   namespace: offender-categorisation-dev
 subjects:
   - kind: Group
-    name: "github:dps-shared"
+    name: "github:hmpps-lead-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:secure-estate-digital-team"
