@@ -60,6 +60,9 @@ resource "aws_iam_role_policy" "api_gateway_sqs_test_client_policy" {
       }
     ]
   })
+  depends_on = [
+    aws_iam_role.api_gateway_sqs_test_client_role
+  ]
 }
 
 resource "aws_api_gateway_integration" "sqs_test_client_integration" {
