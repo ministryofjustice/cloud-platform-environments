@@ -23,7 +23,7 @@ module "opensearch_alert" {
   infrastructure_support   = var.infrastructure_support
   namespace                = var.namespace
   secret_id                = module.secret.secret_id
-  query = jsonencode(
+  alert_query = jsonencode(
     {
       "size" : 0,
       "query" : {
