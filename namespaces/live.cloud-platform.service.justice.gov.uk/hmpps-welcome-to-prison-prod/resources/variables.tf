@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps_shared"
+  default     = "hmpps-lead-developers"
 }
 
 variable "environment" {
