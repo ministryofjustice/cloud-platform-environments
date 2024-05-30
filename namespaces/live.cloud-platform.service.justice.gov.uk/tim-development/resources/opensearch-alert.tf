@@ -14,7 +14,7 @@ module "opensearch_alert" {
   slack_channel_id         = "test-test"
   slack_channel_name       = "test-test"
   slack_message_subject    = "test-test"
-  message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
+  slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
