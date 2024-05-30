@@ -79,7 +79,7 @@ resource "aws_api_gateway_integration" "sqs_test_client_integration" {
     aws_api_gateway_method_response.sqs_test_client_method_response,
   ]
 
-  credentials = aws_iam_role.api_gateway_sqs_role.arn
+  credentials = aws_iam_role.api_gateway_sqs_test_client_role.arn
 }
 
 resource "aws_api_gateway_integration_response" "sqs_test_client_integration_response" {
