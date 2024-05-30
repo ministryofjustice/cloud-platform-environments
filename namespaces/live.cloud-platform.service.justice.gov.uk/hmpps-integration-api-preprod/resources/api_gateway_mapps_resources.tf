@@ -45,6 +45,7 @@ resource "aws_api_gateway_integration" "sqs_mapps_integration" {
     module.event_mapps_queue,
     aws_api_gateway_method.sqs_mapps_method,
     aws_api_gateway_method_response.sqs_mapps_method_response,
+    aws_iam_role.api_gateway_sqs_role
   ]
 
   credentials = aws_iam_role.api_gateway_sqs_role.arn
