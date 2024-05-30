@@ -28,7 +28,7 @@ resource "aws_api_gateway_method_response" "sqs_test_client_method_response" {
 }
 
 resource "aws_iam_role" "api_gateway_sqs_test_client_role" {
-  name               = "${var.namespace}-api-gateway-sqs-role"
+  name               = "${var.namespace}-api-gateway-sqs-test-client-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -47,7 +47,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
-  name = "${var.namespace}-api-gateway-sqs-policy"
+  name = "${var.namespace}-api-gateway-sqs-test-client-policy"
   role = aws_iam_role.api_gateway_sqs_test_client_role.name
 
   policy = jsonencode({
