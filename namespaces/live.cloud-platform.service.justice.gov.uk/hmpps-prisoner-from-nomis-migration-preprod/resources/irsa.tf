@@ -56,6 +56,8 @@ module "irsa" {
     {
       prisoner_from_nomis_incidents_queue                   = module.prisoner_from_nomis_incidents_queue.irsa_policy_arn,
       prisoner_from_nomis_incidents_dead_letter_queue       = module.prisoner_from_nomis_incidents_dead_letter_queue.irsa_policy_arn,
+      prisoner_from_nomis_csip_queue                        = module.prisoner_from_nomis_csip_queue.irsa_policy_arn,
+      prisoner_from_nomis_csip_dead_letter_queue            = module.prisoner_from_nomis_csip_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_locations_queue                   = module.prisoner_from_nomis_locations_queue.irsa_policy_arn,
       prisoner_from_nomis_locations_dead_letter_queue       = module.prisoner_from_nomis_locations_dead_letter_queue.irsa_policy_arn,
       prisoner_from_nomis_sentencing_queue                  = module.prisoner_from_nomis_sentencing_queue.irsa_policy_arn,
