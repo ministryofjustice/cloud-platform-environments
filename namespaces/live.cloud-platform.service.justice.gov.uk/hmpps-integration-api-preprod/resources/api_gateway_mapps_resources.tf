@@ -61,7 +61,7 @@ resource "aws_api_gateway_integration_response" "sqs_mapps_integration_response"
   }
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,
-    aws_api_gateway_integration.sqs_integrsqs_mapps_integrationation
+    aws_api_gateway_integration.sqs_mapps_integration
   ]
 }
 
