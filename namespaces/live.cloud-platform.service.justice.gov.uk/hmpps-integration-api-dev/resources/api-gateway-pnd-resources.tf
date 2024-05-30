@@ -46,7 +46,7 @@ resource "aws_iam_role" "api_gateway_sqs_pnd_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
+resource "aws_iam_role_policy" "api_gateway_sqs_pnd_policy" {
   name = "${var.namespace}-api-gateway-sqs-pnd-policy"
   role = aws_iam_role.api_gateway_sqs_pnd_role.name
 

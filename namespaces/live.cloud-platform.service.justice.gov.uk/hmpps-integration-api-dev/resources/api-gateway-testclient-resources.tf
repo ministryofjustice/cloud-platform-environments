@@ -46,7 +46,7 @@ resource "aws_iam_role" "api_gateway_sqs_test_client_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
+resource "aws_iam_role_policy" "api_gateway_sqs_test_client_policy" {
   name = "${var.namespace}-api-gateway-sqs-test-client-policy"
   role = aws_iam_role.api_gateway_sqs_test_client_role.name
 
