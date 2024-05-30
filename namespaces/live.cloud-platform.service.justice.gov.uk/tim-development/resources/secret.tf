@@ -7,8 +7,8 @@ module "secret" {
   # Secrets configuration
   secrets = {
     "tim" = {
-      description             = "tim" # required
-      recovery_window_in_days = 7                # required
+      description             = "tim"                # required
+      recovery_window_in_days = 7                    # required
       k8s_secret_name         = "tim-example-secret" # the name of the secret in k8s
     },
   }

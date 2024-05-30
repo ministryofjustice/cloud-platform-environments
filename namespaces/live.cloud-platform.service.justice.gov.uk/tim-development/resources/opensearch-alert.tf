@@ -5,17 +5,16 @@ module "opensearch_alert" {
   opensearch_alert_enabled = true
   monitor_period_interval  = 1
   monitor_period_unit      = "MINUTES"
-  query_start_time         = "{{period_end}}||-10m"
-  query_end_time           = "{{period_end}}"
+  indices                  = ["live_kubernetes_cluster*"]
   query_source             = "ctx.results[0].hits.total.value > 1"
-  trigger_id               = "test test"
-  trigger_name             = "test test"
-  action_id                = "test test"
-  action_name              = "test test"
-  slack_channel_name       = "test test"
-#   aws_secret_name          = "test"
-#   k8s_secret_name          = "test"
-  slack_message_subject    = "test test"
+  trigger_id               = "test-test"
+  trigger_name             = "test-test"
+  action_id                = "test-test"
+  action_name              = "test-test"
+  slack_channel_id         = "test-test"
+  slack_channel_name       = "test-test"
+  slack_message_subject    = "test-test"
+  slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
@@ -24,4 +23,130 @@ module "opensearch_alert" {
   infrastructure_support   = var.infrastructure_support
   namespace                = var.namespace
   secret_id                = module.secret.secret_id
+  alert_query = jsonencode(
+    {
+      "size" : 0,
+      "query" : {
+        "bool" : {
+          "filter" : [
+            {
+              "bool" : {
+                "filter" : [
+                  {
+                    "bool" : {
+                      "should" : [
+                        {
+                          "match_phrase" : {
+                            "kubernetes.namespace_name" : {
+                              "query" : "kube-system",
+                              "slop" : 0,
+                              "zero_terms_query" : "NONE",
+                              "boost" : 1
+                            }
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative" : true,
+                      "minimum_should_match" : "1",
+                      "boost" : 1
+                    }
+                  },
+                  {
+                    "bool" : {
+                      "filter" : [
+                        {
+                          "bool" : {
+                            "should" : [
+                              {
+                                "match_phrase" : {
+                                  "kubernetes.pod_name" : {
+                                    "query" : "external-dns-*",
+                                    "slop" : 0,
+                                    "zero_terms_query" : "NONE",
+                                    "boost" : 1
+                                  }
+                                }
+                              }
+                            ],
+                            "adjust_pure_negative" : true,
+                            "minimum_should_match" : "1",
+                            "boost" : 1
+                          }
+                        },
+                        {
+                          "bool" : {
+                            "filter" : [
+                              {
+                                "bool" : {
+                                  "should" : [
+                                    {
+                                      "match_phrase" : {
+                                        "log" : {
+                                          "query" : "level=error",
+                                          "slop" : 0,
+                                          "zero_terms_query" : "NONE",
+                                          "boost" : 1
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "adjust_pure_negative" : true,
+                                  "minimum_should_match" : "1",
+                                  "boost" : 1
+                                }
+                              },
+                              {
+                                "bool" : {
+                                  "should" : [
+                                    {
+                                      "match_phrase" : {
+                                        "log" : {
+                                          "query" : "Throttling: Rate exceeded",
+                                          "slop" : 0,
+                                          "zero_terms_query" : "NONE",
+                                          "boost" : 1
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "adjust_pure_negative" : true,
+                                  "minimum_should_match" : "1",
+                                  "boost" : 1
+                                }
+                              }
+                            ],
+                            "adjust_pure_negative" : true,
+                            "boost" : 1
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative" : true,
+                      "boost" : 1
+                    }
+                  }
+                ],
+                "adjust_pure_negative" : true,
+                "boost" : 1
+              }
+            },
+            {
+              "range" : {
+                "@timestamp" : {
+                  "from" : "{{period_end}}||-1m",
+                  "to" : "{{period_end}}",
+                  "include_lower" : true,
+                  "include_upper" : true,
+                  "format" : "epoch_millis",
+                  "boost" : 1
+                }
+              }
+            }
+          ],
+          "adjust_pure_negative" : true,
+          "boost" : 1
+        }
+      },
+      "aggregations" : {}
+    }
+  )
 }
