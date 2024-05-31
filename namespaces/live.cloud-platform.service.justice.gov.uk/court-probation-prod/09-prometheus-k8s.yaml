@@ -44,8 +44,7 @@ spec:
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
-      expr: rate(kube_pod_container_status_restarts_total{namespace="court-probation-prod", job="kube-state-metrics"}[15m])
-        * 60 * 5 > 0
+      expr: rate(kube_pod_container_status_restarts_total{namespace="court-probation-prod", job="kube-state-metrics"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
         severity: probation_in_court_alerts_prod
@@ -106,7 +105,7 @@ spec:
         message: Pre Sentence Service wproofreader is returning 5xx responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(rate(nginx_ingress_controller_requests{ingress=~"pre-sentence-service-wproofreader-v1-2", exported_namespace="laa-apply-for-legalaid-production", status=~"5.."}[5m]))*270 > 0
+        sum(rate(nginx_ingress_controller_requests{ingress="pre-sentence-service-wproofreader-v1-2", exported_namespace="court-probation-prod", status=~"5.."}[5m]))*270 > 0
       for: 10m
       labels:
         severity: probation_in_court_alerts_prod  
