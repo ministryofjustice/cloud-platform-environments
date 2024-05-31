@@ -69,7 +69,7 @@ resource "aws_iam_role_policy" "api_gateway_sqs_mapps_policy" {
   })
 
   depends_on = [
-    aws_iam_role.api_gateway_sqs_mapps_role
+    aws_iam_role.api_gateway_sqs_mapps_role,
     module.event_mapps_queue
   ]
 }
