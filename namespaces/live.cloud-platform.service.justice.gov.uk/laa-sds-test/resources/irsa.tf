@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "s3_migrate_policy" {
 }
 
 resource "aws_iam_policy" "s3_migrate_policy" {
-  name   = "s3_migrate_policy"
+  name   = "s3_migrate_policy_${var.environment}"
   policy = data.aws_iam_policy_document.s3_migrate_policy.json
 
   tags = {
