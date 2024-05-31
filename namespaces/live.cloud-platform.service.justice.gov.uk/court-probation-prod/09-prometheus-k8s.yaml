@@ -24,14 +24,13 @@ spec:
         message: ingress {{ $labels.ingress }} is serving 5XX responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress="court-case-service"}[1m]) * 60 > 4)
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress="court-case-service"}[1m]) * 60 > 4) by (ingress)
       for: 1m
       labels:
         severity: probation_in_court_alerts_prod
     - alert: KubeQuotaExceeded
       annotations:
-        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
-          }}% of its {{ $labels.resource }} quota.
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
         100 * kube_resourcequota{namespace="court-probation-prod", job="kube-state-metrics", type="used"}
@@ -43,8 +42,7 @@ spec:
         severity: probation_in_court_alerts_prod
     - alert: KubePodCrashLooping
       annotations:
-        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
-          }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: rate(kube_pod_container_status_restarts_total{namespace="court-probation-prod", job="kube-state-metrics"}[15m])
         * 60 * 5 > 0
@@ -63,8 +61,7 @@ spec:
         severity: probation_in_court_alerts_prod
     - alert: KubeDeploymentGenerationMismatch
       annotations:
-        message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
-          }} does not match, this indicates that the Deployment has failed but has
+        message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this indicates that the Deployment has failed but has
           not been rolled back.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
