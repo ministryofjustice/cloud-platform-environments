@@ -4,6 +4,10 @@ resource "aws_api_gateway_resource" "sqs_mapps_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_resource.sqs_parent_resource.id
   path_part   = "mapps"
+   depends_on = [
+    aws_api_gateway_rest_api.api_gateway,
+    aws_api_gateway_resource.sqs_parent_resource
+  ]
 }
 
 resource "aws_api_gateway_method" "sqs_mapps_method" {
@@ -65,6 +69,7 @@ resource "aws_iam_role_policy" "api_gateway_sqs_mapps_policy" {
   })
 
   depends_on = [
+    aws_iam_role.api_gateway_sqs_mapps_role
     module.event_mapps_queue
   ]
 }
