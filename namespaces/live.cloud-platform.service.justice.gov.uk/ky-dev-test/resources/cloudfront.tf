@@ -1,5 +1,5 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=cloudfront_functions_v2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.0"
 
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
