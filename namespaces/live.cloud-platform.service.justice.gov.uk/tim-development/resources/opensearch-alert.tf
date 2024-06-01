@@ -7,10 +7,10 @@ module "opensearch_alert" {
   monitor_period_unit      = "MINUTES"
   indices                  = ["live_kubernetes_cluster*"]
   query_source             = "ctx.results[0].hits.total.value > 1"
-  trigger_name             = "test-test"
-  action_name              = "test-test"
-  slack_channel_name       = "test-test"
-  slack_message_subject    = "test-test"
+  trigger_name             = "test"
+  action_name              = "test"
+  slack_channel_name       = "test"
+  slack_message_subject    = "test"
   slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
   secret_key               = "url"
   serverity                = 1
