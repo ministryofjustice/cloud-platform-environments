@@ -13,6 +13,7 @@ module "opensearch_alert" {
   slack_message_subject    = "test-test"
   slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
   secret_key               = "url"
+  serverity                = 1
   secret_id                = "live-tim-development-014c5454b9aca2da"
   alert_query = jsonencode(
     {
