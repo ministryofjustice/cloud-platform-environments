@@ -1,4 +1,4 @@
-module "opensearch_alert" {
+module "opensearch_alert_1" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=update-secret-setting"
 
   opensearch_alert_name    = "test-2"
