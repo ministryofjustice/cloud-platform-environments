@@ -22,7 +22,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - cmd-api.service.justice.gov.uk
+  - cmd-api.prison.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -35,4 +35,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - csr-api.service.justice.gov.uk
+  - csr-api.prison.service.justice.gov.uk
