@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     sqs_cclf_claims = aws_iam_policy.cclf_policy.arn
+    rds = module.rds.irsa_policy_arn
   }
 
   # Tags
@@ -56,6 +57,14 @@ resource "aws_iam_policy" "cclf_policy" {
     owner                  = var.github_owner
     infrastructure-support = var.infrastructure_support
   }
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }
 
 resource "kubernetes_secret" "irsa" {
