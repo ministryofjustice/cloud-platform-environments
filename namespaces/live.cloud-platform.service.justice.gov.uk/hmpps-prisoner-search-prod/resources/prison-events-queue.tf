@@ -5,6 +5,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
   endpoint  = module.hmpps_prisoner_search_offender_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "AGENCY_INTERNAL_LOCATIONS-UPDATED",
       "ALERT-INSERTED",
       "ALERT-UPDATED",
       "ASSESSMENT-CHANGED",
