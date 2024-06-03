@@ -25,12 +25,12 @@ resource "pingdom_check" "dps-production-check-check-my-diary" {
 resource "pingdom_check" "dps-production-check-cmd-api" {
   type                     = "http"
   name                     = "CMD - cmd-api.prison.service.justice.gov.uk"
-  host                     = "cmd-api.prison.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/health"
+  url                      = "/https/cmd-api.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
@@ -41,12 +41,12 @@ resource "pingdom_check" "dps-production-check-cmd-api" {
 resource "pingdom_check" "dps-production-check-csr-api" {
   type                     = "http"
   name                     = "CMD - csr-api.prison.service.justice.gov.uk"
-  host                     = "csr-api.prison.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/health"
+  url                      = "/https/csr-api.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
