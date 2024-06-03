@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "example_team_route53_zone" {
+resource "aws_route53_zone" "devcontainer_service_justice_gov_uk" {
   name = "devcontainer.service.justice.gov.uk"
 
   tags = {
