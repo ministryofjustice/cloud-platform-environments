@@ -24,8 +24,8 @@ resource "pingdom_check" "dps-production-check-check-my-diary" {
 
 resource "pingdom_check" "dps-production-check-cmd-api" {
   type                     = "http"
-  name                     = "CMD - cmd-api.service.justice.gov.uk"
-  host                     = "cmd-api.service.justice.gov.uk"
+  name                     = "CMD - cmd-api.prison.service.justice.gov.uk"
+  host                     = "cmd-api.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
@@ -40,8 +40,8 @@ resource "pingdom_check" "dps-production-check-cmd-api" {
 
 resource "pingdom_check" "dps-production-check-csr-api" {
   type                     = "http"
-  name                     = "CMD - csr-api.service.justice.gov.uk"
-  host                     = "csr-api.service.justice.gov.uk"
+  name                     = "CMD - csr-api.prison.service.justice.gov.uk"
+  host                     = "csr-api.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
