@@ -13,9 +13,13 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.25.2"
     }
-    # random = {
-    #   source  = "hashicorp/random"
-    #   version = ">= 2.0.0"
-    # }
+    opensearch = {
+      source  = "opensearch-project/opensearch"
+      version = "2.2.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 2.0.0"
+    }
   }
 }
