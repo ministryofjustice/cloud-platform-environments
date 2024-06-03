@@ -1,16 +1,16 @@
 module "opensearch_alert_1" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=update-secret-setting"
 
-  opensearch_alert_name    = "test-2"
+  opensearch_alert_name    = "test-3"
   opensearch_alert_enabled = true
   monitor_period_interval  = 1
   monitor_period_unit      = "MINUTES"
   indices                  = ["live_kubernetes_cluster*"]
   query_source             = "ctx.results[0].hits.total.value > 1"
-  trigger_name             = "test"
-  action_name              = "test"
-  slack_channel_name       = "test"
-  slack_message_subject    = "test"
+  trigger_name             = "test-3"
+  action_name              = "test-3"
+  slack_channel_name       = "test-3"
+  slack_message_subject    = "test-3"
   slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
   secret_key               = "url"
   serverity                = 1
