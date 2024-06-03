@@ -1,28 +1,20 @@
 module "opensearch_alert" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=opensearch-alert-for-user-2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=update-secret-setting"
 
-  opensearch_alert_name    = "test alert"
+  opensearch_alert_name    = "test-2"
   opensearch_alert_enabled = true
   monitor_period_interval  = 1
   monitor_period_unit      = "MINUTES"
   indices                  = ["live_kubernetes_cluster*"]
   query_source             = "ctx.results[0].hits.total.value > 1"
-  trigger_id               = "test-test"
-  trigger_name             = "test-test"
-  action_id                = "test-test"
-  action_name              = "test-test"
-  slack_channel_id         = "test-test"
-  slack_channel_name       = "test-test"
-  slack_message_subject    = "test-test"
+  trigger_name             = "test"
+  action_name              = "test"
+  slack_channel_name       = "test"
+  slack_message_subject    = "test"
   slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
-  team_name                = var.team_name
-  business_unit            = var.business_unit
-  application              = var.application
-  is_production            = var.is_production
-  environment_name         = var.environment
-  infrastructure_support   = var.infrastructure_support
-  namespace                = var.namespace
-  secret_id                = module.secret.secret_id
+  secret_key               = "url"
+  serverity                = 1
+  secret_id                = "live-tim-development-014c5454b9aca2da"
   alert_query = jsonencode(
     {
       "size" : 0,
