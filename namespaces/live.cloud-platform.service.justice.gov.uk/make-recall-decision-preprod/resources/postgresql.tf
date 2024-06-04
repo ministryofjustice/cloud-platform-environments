@@ -39,3 +39,17 @@ resource "kubernetes_secret" "make_recall_decision_api_rds" {
     password = module.make_recall_decision_api_rds.database_password
   }
 }
+
+resource "kubernetes_secret" "make_recall_decision_api_rds_refresh_creds" {
+  metadata {
+    name      = "make-recall-decision-api-database-output-preprod"
+    namespace = "make-recall-decision-api-prod"
+  }
+
+  data = {
+    host     = module.make_recall_decision_api_rds.rds_instance_address
+    name     = module.make_recall_decision_api_rds.database_name
+    username = module.make_recall_decision_api_rds.database_username
+    password = module.make_recall_decision_api_rds.database_password
+  }
+}
