@@ -43,7 +43,7 @@ resource "kubernetes_secret" "make_recall_decision_api_rds" {
 resource "kubernetes_secret" "make_recall_decision_api_rds_refresh_creds" {
   metadata {
     name      = "make-recall-decision-api-database-output-preprod"
-    namespace = "make-recall-decision-api-prod"
+    namespace = "make-recall-decision-prod"
   }
 
   data = {
