@@ -1,0 +1,42 @@
+name: skip-file-auto-approval
+
+on:
+  pull_request:
+    paths:
+      - '**/APPLY_PIPELINE_SKIP_THIS_NAMESPACE'
+
+jobs:
+  commit-check:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    env:
+      GITHUB_REF: §{{ github.ref }}
+      GITHUB_REPOSITORY: §{{ github.event.repository.name }}
+      FILE_NAME: "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    
+    - id: commit-check
+      name: commit check
+      uses: docker://ministryofjustice/cloud-platform-commit-check:latest
+    
+    - name: auto approve
+      if: ${{ steps.commit-check.outputs.approval == 'approval_not_needed' }}
+      uses: hmarr/auto-approve-action@v4
+      with:
+        review-message: 'Automatically approving PR for skip file'
+      
+    - name: cloud platform approval needed
+      if: ${{ steps.commit-check.outputs.approval == 'approval_needed' }}
+      uses: actions/github-script@v7
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        script: |
+          github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'This PR requires approval from the Cloud Platform team. Please wait for a member of the team to review.'
+            })
