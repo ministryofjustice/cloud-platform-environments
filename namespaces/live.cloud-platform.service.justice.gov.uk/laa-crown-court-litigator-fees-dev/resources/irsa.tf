@@ -63,13 +63,16 @@ resource "aws_iam_policy" "cclf_policy" {
 data "aws_iam_policy_document" "cclf_copy_snapshot_policy_document" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
-    sid  = "CCLFPolicyRDSCopySnapshotDev"
+    sid  = "CCLFPolicyCopySnapshotDev"
     effect = "Allow"
     actions = [
       "rds:CopyDBSnapshot",
+      "kms:CreateGrant",
+      "kms:DescribeKey",
     ]
     resources = [
       "arn:aws:rds:eu-west-2:411213865113:snapshot:cclf-dev-for-copy-over-to-cloud-platform",
+      "arn:aws:kms:eu-west-2:754256621582:key/92d71916-6237-4c84-ac42-6b58fe591fc0",
     ]
   }
 
