@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
 resource "aws_iam_user_policy" "ims_user_s3_policy" {
   name   = "manage-intelligence-user-s3-policy-dev"
   policy = data.aws_iam_policy_document.ims_user_s3_policy.json
-  user   = aws_iam_user.ims_s3_user
+  user   = aws_iam_user.ims_s3_user.name
 }
 
 resource "kubernetes_secret" "ims_s3_kendra_user" {
