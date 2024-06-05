@@ -73,6 +73,7 @@ data "aws_iam_policy_document" "cclf_copy_snapshot_policy_document" {
     resources = [
       "arn:aws:rds:eu-west-2:411213865113:snapshot:cclf-dev-for-copy-over-to-cloud-platform",
       "arn:aws:kms:eu-west-2:754256621582:key/92d71916-6237-4c84-ac42-6b58fe591fc0",
+      "arn:aws:kms:eu-west-2:902837325998:key/8d0bca3a-0e0f-48a7-abee-2c0693d008b1",
     ]
   }
 
