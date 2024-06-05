@@ -20,7 +20,7 @@ jobs:
     
     - id: commit-check
       name: commit check
-      uses: docker://ministryofjustice/cloud-platform-commit-check:latest
+      uses: docker://ministryofjustice/cloud-platform-commit-check:1.0.0
     
     - name: auto approve
       if: ${{ steps.commit-check.outputs.approval == 'approval_not_needed' }}
