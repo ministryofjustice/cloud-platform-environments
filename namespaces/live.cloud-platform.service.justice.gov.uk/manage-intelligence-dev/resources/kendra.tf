@@ -14,7 +14,7 @@ resource "aws_kendra_index" "main" {
   name        = "kendra-${var.application}-${var.environment-name}"
   description = "Kendra-${var.application}-${var.environment-name}"
   edition     = "DEVELOPER_EDITION"
-  role_arn    = data.aws_iam_role.kendra_role.arn
+  role_arn    = aws_iam_role.kendra_role.arn
 
   tags = local.default_tags
 }
