@@ -4,7 +4,7 @@ resource "aws_iam_user" "ims_s3_user" {
 }
 
 resource "aws_iam_access_key" "key_2024" {
-  user = aws_iam_user.ims_extractor_user.name
+  user = aws_iam_user.ims_s3_user.name
 }
 
 data "aws_iam_policy_document" "ims_user_s3_policy" {

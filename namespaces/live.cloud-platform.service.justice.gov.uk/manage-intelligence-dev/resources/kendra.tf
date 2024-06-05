@@ -23,7 +23,7 @@ resource "aws_kendra_data_source" "s3" {
   index_id = aws_kendra_index.main.id
   name     = "ims_attachments_storage_bucket"
   type     = "S3"
-  role_arn = data.aws_iam_role.kendra_role.arn
+  role_arn = aws_iam_role.kendra_role.arn
   schedule = "cron(30 17 * * *)"
 
   configuration {
@@ -64,8 +64,8 @@ resource "aws_iam_policy" "kendra_policy" {
         ]
         Effect = "Allow"
         Resource = [
-          module.ims_attachments_storage_bucket.arn,
-          "${module.ims_attachments_storage_bucket.arn}/*"
+          module.ims_attachments_storage_bucket_arn,
+          "${module.ims_attachments_storage_bucket_arn}/*"
         ]
       },
       {
