@@ -10,6 +10,10 @@ locals {
   }
 }
 
+resource "random_id" "id" {
+  byte_length = 16
+}
+
 resource "aws_kendra_index" "main" {
   name        = "kendra-${var.application}-${var.environment-name}"
   description = "Kendra-${var.application}-${var.environment-name}"
@@ -28,7 +32,7 @@ resource "aws_kendra_data_source" "s3" {
 
   configuration {
     s3_configuration {
-      bucket_name = module.ims_attachments_storage_bucket.name
+      bucket_name = module.ims_attachments_storage_bucket.bucket_name
     }
   }
 }
@@ -64,8 +68,8 @@ resource "aws_iam_policy" "kendra_policy" {
         ]
         Effect = "Allow"
         Resource = [
-          module.ims_attachments_storage_bucket_arn,
-          "${module.ims_attachments_storage_bucket_arn}/*"
+          module.ims_attachments_storage_bucket.bucket_arn_arn,
+          "${module.ims_attachments_storage_bucket.bucket_arn}/*"
         ]
       },
       {
@@ -102,7 +106,7 @@ data "aws_iam_policy_document" "kendra_irsa" {
 resource "aws_iam_policy" "kendra_irsa" {
   name   = "cloud-platform-kendra-${random_id.id.hex}"
   path   = "/cloud-platform/kendra/"
-  policy = data.aws_iam_policy_document.irsa.json
+  policy = data.aws_iam_policy_document.kendra_irsa.json
   tags   = local.default_tags
 }
 
