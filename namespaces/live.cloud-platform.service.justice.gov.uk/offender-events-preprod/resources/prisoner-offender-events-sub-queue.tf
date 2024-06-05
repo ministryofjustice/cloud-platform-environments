@@ -125,6 +125,9 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "PRISONER_APPOINTMENT-UPDATE",
       "IMPRISONMENT_STATUS-CHANGED",
       "SENTENCE_DATES-CHANGED",
+      "OFFENDER_CONTACT-INSERTED",
+      "OFFENDER_CONTACT-UPDATED",
+      "OFFENDER_CONTACT-DELETED",
     ]
   })
 }
