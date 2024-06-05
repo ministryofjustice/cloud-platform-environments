@@ -24,7 +24,7 @@ resource "aws_kendra_data_source" "s3" {
   name     = "ims_attachments_storage_bucket"
   type     = "S3"
   role_arn = data.aws_iam_role.kendra_role.arn
-  schedule = "cron(30 14 * * *)"
+  schedule = "cron(30 17 * * *)"
 
   configuration {
     s3_configuration {
@@ -85,10 +85,6 @@ resource "aws_iam_policy" "kendra_policy" {
 resource "aws_iam_role_policy_attachment" "kendra_policy_attachment" {
   role       = aws_iam_role.kendra_role.name
   policy_arn = aws_iam_policy.kendra_policy.arn
-}
-
-output "role_arn" {
-  value = aws_iam_role.kendra_role.arn
 }
 
 ################## IRSA Role and Polciy #########################
