@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_ccr_claims = aws_iam_policy.ccr_policy.arn
+    sqs_ccr_claims = aws_iam_policy.ccr_policy_uat.arn
   }
 
   # Tags
@@ -24,7 +24,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_iam_policy_document" "ccr_claims_policy" {
+data "aws_iam_policy_document" "ccr_claims_policy_uat" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
     sid  = "CCRPolicySQSUAT"
@@ -43,9 +43,9 @@ data "aws_iam_policy_document" "ccr_claims_policy" {
 
 }
 
-resource "aws_iam_policy" "ccr_policy" {
-  name        = "ccr_policy"
-  policy      = data.aws_iam_policy_document.ccr_claims_policy.json
+resource "aws_iam_policy" "ccr_policy_uat" {
+  name        = "ccr_policy_uat"
+  policy      = data.aws_iam_policy_document.ccr_claims_policy_uat  .json
   description = "Policy for Cloud Platform to assume role in UAT account for CCR"
 
   tags = {
