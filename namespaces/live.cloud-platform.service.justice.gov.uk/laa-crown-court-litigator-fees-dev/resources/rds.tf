@@ -31,7 +31,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  # snapshot_identifier = "************" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "cclf-dev-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
 
   providers = {
     aws = aws.london
