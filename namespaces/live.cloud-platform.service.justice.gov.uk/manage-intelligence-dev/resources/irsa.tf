@@ -58,6 +58,7 @@ module "irsa" {
     s3_images      = module.ims_images_storage_bucket.irsa_policy_arn
     s3_attachments = module.ims_attachments_storage_bucket.irsa_policy_arn
     rds            = module.rds_aurora.irsa_policy_arn
+    kendra         = aws_iam_policy.kendra_irsa.arn
   }
 
   # Tags
