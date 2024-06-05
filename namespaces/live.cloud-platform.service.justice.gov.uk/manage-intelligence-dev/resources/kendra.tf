@@ -68,7 +68,7 @@ resource "aws_iam_policy" "kendra_policy" {
         ]
         Effect = "Allow"
         Resource = [
-          module.ims_attachments_storage_bucket.bucket_arn_arn,
+          module.ims_attachments_storage_bucket.bucket_arn,
           "${module.ims_attachments_storage_bucket.bucket_arn}/*"
         ]
       },
