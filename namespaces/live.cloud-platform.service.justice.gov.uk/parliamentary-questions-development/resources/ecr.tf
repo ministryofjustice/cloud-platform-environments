@@ -7,11 +7,8 @@ module "pq_ecr_credentials" {
 
   repo_name = var.repo_name
 
-  # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
-
-  # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [var.repo_name]
+  oidc_providers      = ["github"]
+  github_repositories = ["parliamentary-questions"]
 
   lifecycle_policy = <<EOF
   {
