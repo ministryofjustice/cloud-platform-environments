@@ -23,14 +23,3 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
-resource "kubernetes_secret" "ecr-repo" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_url = module.ecr-repo.repo_url
-  }
-}
