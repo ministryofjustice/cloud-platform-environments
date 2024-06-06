@@ -28,7 +28,7 @@ resource "aws_kendra_data_source" "s3" {
   name     = "ims_attachments_storage_bucket"
   type     = "S3"
   role_arn = aws_iam_role.kendra_role.arn
-  schedule = "cron(45 14 * * * *)"
+  schedule = "cron(45 14 * * ? *)"
 
   configuration {
     s3_configuration {
