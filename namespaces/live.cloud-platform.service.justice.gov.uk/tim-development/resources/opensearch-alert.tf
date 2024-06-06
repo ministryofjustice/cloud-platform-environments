@@ -1,20 +1,25 @@
 module "opensearch_alert_1" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=update-secret-setting"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=os-alert-module"
 
-  opensearch_alert_name    = "test-1"
-  opensearch_alert_enabled = true
-  monitor_period_interval  = 1
-  monitor_period_unit      = "MINUTES"
-  indices                  = ["live_kubernetes_cluster*"]
-  query_source             = "ctx.results[0].hits.total.value > 100"
-  trigger_name             = "test-1"
-  action_name              = "test-1"
-  slack_channel_name       = "test-1"
-  slack_message_subject    = "test-1"
-  slack_message_template   = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Period start: {{ctx.periodStart}}\n- Period end: {{ctx.periodEnd}}"
-  secret_key               = "url"
-  serverity                = 1
-  secret_id                = "live-tim-development-014c5454b9aca2da"
+  secret_name                    = "live-tim-development-014c5454b9aca2da"
+  secret_key                     = "url"
+  slack_channel_name             = "test-1"
+  slack_channel_name_description = "slack-channel-description"
+  opensearch_alert_name          = "test-1"
+  opensearch_alert_enabled       = true
+  monitor_period_interval        = "1"
+  monitor_period_unit            = "MINUTES"
+
+  trigger_name                   = "test-1"
+  serverity                      = "1"
+  query_source                   = "ctx.results[0].hits.total.value > 1"
+  action_name                    = "test-1"
+  slack_message_subject          = "slack-message-subject"
+  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
+  alert_throttle_enabled         = true
+  throttle_value                 = 60
+  throttle_unit                  = "MINUTES"
+  environment_name               = var.environment
   alert_query = jsonencode(
     {
       "size" : 0,
@@ -137,8 +142,7 @@ module "opensearch_alert_1" {
           "adjust_pure_negative" : true,
           "boost" : 1
         }
-      },
-      "aggregations" : {}
+      }
     }
   )
 }
