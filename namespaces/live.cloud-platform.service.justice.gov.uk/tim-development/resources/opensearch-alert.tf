@@ -11,7 +11,7 @@ module "opensearch_alert_1" {
   monitor_period_unit            = "MINUTES"
 
   trigger_name                   = "test-1"
-  serverity                      = "1"
+  serverity                      = 1
   query_source                   = "ctx.results[0].hits.total.value > 1"
   action_name                    = "test-1"
   slack_message_subject          = "slack-message-subject"
@@ -163,7 +163,7 @@ module "opensearch_alert_3" {
   monitor_period_unit            = "MINUTES"
 
   trigger_name                   = "test-2"
-  serverity                      = "1"
+  serverity                      = 1
   query_source                   = "ctx.results[0].hits.total.value > 1"
   action_name                    = "test-2"
   slack_message_subject          = "slack-message-subject-2"
