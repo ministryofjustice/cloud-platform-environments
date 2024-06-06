@@ -1,5 +1,5 @@
 module "opensearch_alert_1" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=os-alert-module"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=os-alert-module"
 
   secret_name                    = "live-tim-development-014c5454b9aca2da"
   secret_key                     = "url"
