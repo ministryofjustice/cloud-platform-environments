@@ -19,7 +19,7 @@ module "opensearch_alert_1" {
   alert_throttle_enabled         = true
   throttle_value                 = 60
   throttle_unit                  = "MINUTES"
-  environment_name               = var.environment_name
+  environment_name               = var.environment
   alert_query = jsonencode(
     {
       "size" : 0,
