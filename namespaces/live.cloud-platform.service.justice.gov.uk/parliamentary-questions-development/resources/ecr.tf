@@ -7,8 +7,8 @@ module "pq_ecr_credentials" {
 
   repo_name = var.repo_name
 
-  oidc_providers      = ["github"]
-  github_repositories = ["parliamentary-questions"]
+  oidc_providers      = ["circleci", "github"]
+  github_repositories = [var.repo_name]
 
   lifecycle_policy = <<EOF
   {
