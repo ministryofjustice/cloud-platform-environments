@@ -12,7 +12,7 @@ module "opensearch_alert_1" {
 
   trigger_name                   = "test-1"
   serverity                      = 1
-  query_source                   = "ctx.results[0].hits.total.value > 1"
+  query_source                   = "ctx.results[0].hits.total.value > 100"
   action_name                    = "test-1"
   slack_message_subject          = "slack-message-subject"
   slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
@@ -164,7 +164,7 @@ module "opensearch_alert_3" {
 
   trigger_name                   = "test-2"
   serverity                      = 1
-  query_source                   = "ctx.results[0].hits.total.value > 1"
+  query_source                   = "ctx.results[0].hits.total.value > 100"
   action_name                    = "test-2"
   slack_message_subject          = "slack-message-subject-2"
   slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
