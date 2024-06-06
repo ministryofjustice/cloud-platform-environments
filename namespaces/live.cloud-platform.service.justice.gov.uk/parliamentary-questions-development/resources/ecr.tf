@@ -7,6 +7,7 @@ module "pq_ecr_credentials" {
 
   repo_name = var.repo_name
 
+  # enable the oidc implementation for CircleCI and Github Actions
   oidc_providers      = ["circleci", "github"]
   github_repositories = [var.repo_name]
 
