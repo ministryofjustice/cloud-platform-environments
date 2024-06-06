@@ -1,5 +1,5 @@
 module "ap_irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=1.1.0"
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
   role_policy_arns = [aws_iam_policy.ap_policy.arn]
