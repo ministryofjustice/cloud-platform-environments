@@ -10,10 +10,10 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "slack-webhook-url" = {
+    "slack_webhook_url_dev" = {
       description             = "Contains the slack webhook url to send notifications",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "slack-webhook-url"
+      k8s_secret_name         = "slack-webhook-url-dev"
     },
   }
 }
