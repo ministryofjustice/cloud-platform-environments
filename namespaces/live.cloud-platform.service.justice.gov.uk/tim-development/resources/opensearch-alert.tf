@@ -150,7 +150,7 @@ module "opensearch_alert_1" {
 
 
 
-module "opensearch_alert_2" {
+module "opensearch_alert_3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=os-alert-module"
 
   secret_name                    = "live-tim-development-014c5454b9aca2da"
