@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/davidconneely-sandbox"]
+  github_repositories = ["davidconneely-sandbox"]
 
   # Tags
   business_unit          = var.business_unit
