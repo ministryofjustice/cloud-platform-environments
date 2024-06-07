@@ -20,7 +20,7 @@ module "rds-instance-2" {
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
-  db_name                  = "TEST-2"
+  db_name                  = "TEST2"
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" # problem
