@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: "hmpps-activities-management-dev"
+              kubernetes.io/metadata.name: "hmpps-activities-management-dev"
