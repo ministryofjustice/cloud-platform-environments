@@ -4,9 +4,6 @@ module "serviceaccount-github" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  # enable the oidc implementation for CircleCI and Github Actions
-  oidc_providers      = ["circleci", "github"]
-
   serviceaccount_name = "github-serviceaccount"
   role_name = "github-serviceaccount"
   rolebinding_name = "github-serviceaccount"
