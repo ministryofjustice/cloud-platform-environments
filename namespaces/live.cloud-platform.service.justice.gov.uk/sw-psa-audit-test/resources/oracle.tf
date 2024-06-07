@@ -38,6 +38,7 @@ module "rds-instance" {
   # passing emplty list as oracle repo has parameter defined 
   db_parameter = []
 
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:steve-test-oracle-db-snapshot"
 }
 
 
