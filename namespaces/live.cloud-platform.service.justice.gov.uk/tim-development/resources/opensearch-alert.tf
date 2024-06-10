@@ -1,5 +1,5 @@
 module "opensearch_alert_1" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=os-alert-module"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.0"
 
   secret_name                    = "live-tim-development-014c5454b9aca2da"
   secret_key                     = "url"
@@ -151,7 +151,7 @@ module "opensearch_alert_1" {
 
 
 module "opensearch_alert_3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=os-alert-module"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.0"
 
   secret_name                    = "live-tim-development-014c5454b9aca2da"
   secret_key                     = "url"
