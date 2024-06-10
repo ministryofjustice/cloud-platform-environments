@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "ap_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-accredited-programmes-api-dev/*",
-      "arn:aws:s3:::moj-reg-dev/landing/hmpps-accredited-programmes-api-dev/"
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-accredited-programmes-dev/*",
+      "arn:aws:s3:::moj-reg-dev/landing/hmpps-accredited-programmes-dev/"
     ]
   }
 }
