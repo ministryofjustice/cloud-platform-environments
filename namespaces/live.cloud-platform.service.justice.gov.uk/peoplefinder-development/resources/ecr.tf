@@ -38,7 +38,7 @@ module "ecr" {
 
 resource "kubernetes_secret" "ecr" {
   metadata {
-    name      = "pq-ecr-credentials-output"
+    name      = "ecr-output"
     namespace = var.namespace
   }
 
