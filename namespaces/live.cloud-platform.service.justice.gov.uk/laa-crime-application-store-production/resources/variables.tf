@@ -91,6 +91,7 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "pods",
+        "configmaps",
       ]
       verbs = [
         "patch",

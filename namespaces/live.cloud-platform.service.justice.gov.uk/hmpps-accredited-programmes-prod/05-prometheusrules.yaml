@@ -43,7 +43,7 @@ spec:
       expr: |-
         avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "hmpps-accredited-programmes-prod"}[5m])
         /
-        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "hmpps-accredited-programmes-prod"}[5m]) > 0) by (ingress) >1
+        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "hmpps-accredited-programmes-prod"}[5m]) > 0) by (ingress) >2
       for: 1m
       labels:
         severity: hmpps-accredited-programmes-alerts-prod

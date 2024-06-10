@@ -1,3 +1,13 @@
+locals {
+  dpr_accounts = [
+    "771283872747", # dpr-development
+    "203591025782", # dpr-test
+    "972272129531", # dpr-preproduction
+    "004723187462", # dpr-production
+  ]
+  dpr_data_api_role = "dpr-data-api-cross-account-role"
+}
+
 data "aws_eks_cluster" "eks_cluster" {
   name = var.eks_cluster_name
 }
@@ -19,9 +29,7 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = [
-      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
-    ]  
+    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
   }
 }
 
@@ -64,12 +72,7 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "secretsmanager:Get*",
       "secretsmanager:List*",
     ]
-    resources = [
-      "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:972272129531:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:004723187462:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:203591025782:secret:dpr-redshift-secret-*-*",
-    ]
+    resources = formatlist("arn:aws:secretsmanager:eu-west-2:%s:secret:dpr-redshift-secret-*-*", tolist(local.dpr_accounts))
   }
   
   statement {
@@ -79,21 +82,14 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "kms:Get*",
       "kms:List*",
     ]
-    resources = [
-      "arn:aws:kms:eu-west-2:771283872747:key/*",
-      "arn:aws:kms:eu-west-2:972272129531:key/*",
-      "arn:aws:kms:eu-west-2:004723187462:key/*",
-      "arn:aws:kms:eu-west-2:203591025782:key/*",
-    ]
+    resources = formatlist("arn:aws:kms:eu-west-2:%s:key/*", tolist(local.dpr_accounts))
   }
 
   statement {
     actions = [
       "sts:AssumeRole",
     ]
-    resources = [
-      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
-    ]
+    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
   }
 }
 

@@ -32,6 +32,10 @@ variable "namespace" {
   default = "parliamentary-questions-staging"
 }
 
+variable "repo_name" {
+  default = "parliamentary-questions"
+}
+
 variable "team_name" {
   default = "pq-team"
 }
