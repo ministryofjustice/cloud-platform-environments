@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     sqs_cclf_claims = aws_iam_policy.cclf_policy.arn
-    rds = module.rds-instance.irsa_policy_arn
+    # rds = module.rds-instance.irsa_policy_arn
     cclf_copy_snapshot = aws_iam_policy.cclf_copy_snapshot_policy.arn
   }
 
