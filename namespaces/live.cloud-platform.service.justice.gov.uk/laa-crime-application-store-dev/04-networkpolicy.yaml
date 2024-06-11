@@ -43,3 +43,20 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-assess-crime-forms-dev
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: laa-crime-application-store-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: laa-crime-application-store-prometheus
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
