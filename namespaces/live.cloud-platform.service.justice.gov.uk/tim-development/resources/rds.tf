@@ -1,22 +1,29 @@
-module "rds_instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2" # use the latest release
+module "rds" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
-  # Database configuration
-  db_engine                = "postgres"
-  db_engine_version        = "16"
-  rds_family               = "postgres16"
-  db_instance_class        = "db.t4g.micro"
-  db_max_allocated_storage = "500"
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.micro"
 
   # Tags
-  business_unit          = var.business_unit
   application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
