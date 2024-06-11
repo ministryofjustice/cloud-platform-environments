@@ -145,7 +145,8 @@ resource "aws_api_gateway_deployment" "main" {
     aws_api_gateway_method.proxy,
     aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.sqs_test_client_integration,
-    aws_api_gateway_integration.sqs_pnd_integration
+    aws_api_gateway_integration.sqs_pnd_integration,
+    aws_api_gateway_integration.sqs_mapps_integration
   ]
 
   lifecycle {
