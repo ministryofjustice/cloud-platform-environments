@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-court-register-api-cert
+  namespace: hmpps-court-register-dev
+spec:
+  secretName: hmpps-court-register-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-court-register-api-dev.hmpps.service.justice.gov.uk

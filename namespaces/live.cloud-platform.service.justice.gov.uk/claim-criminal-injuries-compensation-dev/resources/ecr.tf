@@ -10,6 +10,7 @@ module "cica_ecr_credentials" {
   # Repository configuration
   repo_name = "cica-repo-dev"
 
+
   # OpenID Connect configuration
   oidc_providers      = ["circleci"]
   github_repositories = var.repo_name
