@@ -9,6 +9,7 @@ module "cica_ecr_credentials" {
   
   # Repository configuration
   repo_name = "cica-repo-dev"
+  team_name = "cica"
 
 
   # OpenID Connect configuration
