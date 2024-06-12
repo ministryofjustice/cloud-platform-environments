@@ -22,6 +22,7 @@ module "cla_backend_rds_postgres_14" {
   db_instance_class        = "db.t4g.2xlarge"
   db_allocated_storage     = "100"
   db_max_allocated_storage = "1000"
+  performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "14"
@@ -116,6 +117,7 @@ module "cla_backend_metabase_rds" {
   db_max_allocated_storage = "500"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
+  performance_insights_enabled = true
 
   rds_family = "postgres16"
 
