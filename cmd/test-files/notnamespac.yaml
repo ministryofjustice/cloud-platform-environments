@@ -1,4 +1,4 @@
-apiVersion: v1 
+apiVersion: v1
 kind: Rolebinding
 metadata:
   name: "hmpps-jobs-board-dev"
