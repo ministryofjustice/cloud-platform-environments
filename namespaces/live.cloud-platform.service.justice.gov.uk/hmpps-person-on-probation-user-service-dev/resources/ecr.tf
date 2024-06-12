@@ -8,7 +8,7 @@ module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
-  repo_name = var.namespace
+  repo_name = "${var.namespace}-ecr"
 
   # Tags
   business_unit          = var.business_unit
