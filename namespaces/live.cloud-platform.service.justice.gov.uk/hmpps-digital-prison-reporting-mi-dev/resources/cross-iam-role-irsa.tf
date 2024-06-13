@@ -6,6 +6,14 @@ locals {
     "004723187462", # dpr-production
   ]
   dpr_data_api_role = "dpr-data-api-cross-account-role"
+
+
+  environments_map = {
+    development = "development",
+    test = "test",
+    preprod = "preproduction",
+    prod = "production"
+  }
 }
 
 data "aws_eks_cluster" "eks_cluster" {
@@ -20,7 +28,7 @@ module "dpr_mi_assume_role" {
   role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
   provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-development-cross-iam"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(environments_map, lower(var.environment))}-cross-iam"]
   oidc_fully_qualified_audiences= ["sts.amazonaws.com"]
 }
 
