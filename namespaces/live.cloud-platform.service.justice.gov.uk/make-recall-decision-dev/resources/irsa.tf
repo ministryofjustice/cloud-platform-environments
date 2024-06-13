@@ -15,9 +15,12 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = "make-recall-decision"
   role_policy_arns = merge(
+    {
+      rds         = module.make_recall_decision_api_rds.irsa_policy_arn
+      elasticache = module.elasticache_redis.irsa_policy_arn
+    },
     local.sqs_policies,
     local.sns_policies,
-    { elasticache = module.elasticache_redis.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
