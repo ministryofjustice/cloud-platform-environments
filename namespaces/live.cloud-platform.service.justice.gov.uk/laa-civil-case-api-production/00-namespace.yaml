@@ -8,7 +8,7 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "laa-get-access"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-cla-dev"
     cloud-platform.justice.gov.uk/application: "LAA-Civil-Case-API"
     cloud-platform.justice.gov.uk/owner: "CLA: civil-legal-advice@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-civil-case-api"
