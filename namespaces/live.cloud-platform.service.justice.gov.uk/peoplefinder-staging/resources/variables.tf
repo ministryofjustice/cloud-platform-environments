@@ -39,6 +39,10 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
+variable "repo_name" {
+  default = "peoplefinder"
+}
+
 variable "eks_cluster_name" {
 }
 variable "github_owner" {

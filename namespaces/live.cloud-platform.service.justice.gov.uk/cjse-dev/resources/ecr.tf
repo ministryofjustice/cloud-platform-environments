@@ -5,7 +5,7 @@
  *
  */
 module "ingestion_api_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-ingestion-api"
@@ -26,7 +26,7 @@ module "ingestion_api_ecr" {
 }
 
 module "ingestion_processor_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-ingestion-processor"
@@ -47,7 +47,7 @@ module "ingestion_processor_ecr" {
 }
 
 module "webportal_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-webportal"
@@ -68,7 +68,7 @@ module "webportal_ecr" {
 }
 
 module "webportal_api_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-webportal-api"
@@ -89,7 +89,7 @@ module "webportal_api_ecr" {
 }
 
 module "subscription_api_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-subscription-api"
@@ -110,7 +110,7 @@ module "subscription_api_ecr" {
 }
 
 module "notification_api_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "xhibit-notification-api"

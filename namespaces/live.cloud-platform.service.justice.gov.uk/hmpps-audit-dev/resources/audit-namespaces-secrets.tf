@@ -5,7 +5,8 @@ locals {
     "hmpps-auth-dev",
     "hmpps-authorization-dev",
     "hmpps-external-users-api-dev",
-    "hmpps-auth-stage"
+    "hmpps-auth-stage",
+    "hmpps-court-register-dev"
   ])
 }
 

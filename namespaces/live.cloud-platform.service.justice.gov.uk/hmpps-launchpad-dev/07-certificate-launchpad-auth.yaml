@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-launchpad-auth-cert
+  namespace: hmpps-launchpad-dev
+spec:
+  secretName: hmpps-launchpad-auth-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - launchpad-auth-dev.hmpps.service.justice.gov.uk

@@ -18,7 +18,7 @@ spec:
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="probation-in-court-prod-crime-portal-gateway-queue"} offset 5m) by (queue_name) > 15 * 60
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-number-of-messages-crime-portal-gateway
       annotations:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 20), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -27,7 +27,7 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-crime-portal-gateway-queue"} offset 5m) by (queue_name) > 20
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-events-dlq-not-empty-crime-portal-gateway
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
@@ -36,7 +36,7 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-crime-portal-gateway-dead-letter-queue"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-oldest-message-court-case-matcher
       annotations:
         message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -45,7 +45,7 @@ spec:
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="probation-in-court-prod-court-case-matcher-queue"} offset 5m) by (queue_name) > 15 * 60
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-number-of-messages-court-case-matcher
       annotations:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 1000), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -54,7 +54,7 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-court-case-matcher-queue"} offset 5m) by (queue_name) > 1000
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-events-dlq-not-empty-court-case-matcher
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
@@ -63,7 +63,7 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="probation-in-court-prod-court-case-matcher-dead-letter-queue"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-oldest-message-court-case-service
       annotations:
         message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -72,7 +72,7 @@ spec:
         sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="Digital-Prison-Services-prod-pic_probation_offender_events_queue"} offset 5m) by (queue_name) > 15 * 60
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-number-of-messages-court-case-service
       annotations:
         message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 1000), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
@@ -81,7 +81,7 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-pic_probation_offender_events_queue"} offset 5m) by (queue_name) > 1000
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: SQS-events-dlq-not-empty-court-case-service
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
@@ -90,4 +90,4 @@ spec:
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="Digital-Prison-Services-prod-pic_probation_offender_events_queue_dl"} offset 5m) by (queue_name) > 0
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod

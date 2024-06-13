@@ -1,3 +1,21 @@
+locals {
+  dpr_data_api_role = "dpr-data-api-cross-account-role"
+
+  accounts_map = {
+    development = "771283872747",
+    test = "203591025782",
+    preprod = "972272129531",
+    prod = "004723187462"
+  }
+
+  environments_map = {
+    development = "development",
+    test = "test",
+    preprod = "preproduction",
+    prod = "production"
+  }
+}
+
 data "aws_eks_cluster" "eks_cluster" {
   name = var.eks_cluster_name
 }
@@ -10,7 +28,7 @@ module "dpr_mi_assume_role" {
   role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
   provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-development-cross-iam"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(local.environments_map, lower(var.environment))}-cross-iam"]
   oidc_fully_qualified_audiences= ["sts.amazonaws.com"]
 }
 
@@ -19,9 +37,7 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = [
-      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
-    ]  
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 
@@ -45,8 +61,8 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns     = { 
-    secrets = aws_iam_policy.cross_iam_policy_mp.arn 
+  role_policy_arns     = {
+    secrets = aws_iam_policy.cross_iam_policy_mp.arn
   }
 
   # Tags
@@ -64,14 +80,9 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "secretsmanager:Get*",
       "secretsmanager:List*",
     ]
-    resources = [
-      "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:972272129531:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:004723187462:secret:dpr-redshift-secret-*-*",
-      "arn:aws:secretsmanager:eu-west-2:203591025782:secret:dpr-redshift-secret-*-*",
-    ]
+    resources = ["arn:aws:secretsmanager:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:secret:dpr-redshift-secret-*-*"]
   }
-  
+
   statement {
     actions = [
       "kms:Describe*",
@@ -79,21 +90,14 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "kms:Get*",
       "kms:List*",
     ]
-    resources = [
-      "arn:aws:kms:eu-west-2:771283872747:key/*",
-      "arn:aws:kms:eu-west-2:972272129531:key/*",
-      "arn:aws:kms:eu-west-2:004723187462:key/*",
-      "arn:aws:kms:eu-west-2:203591025782:key/*",
-    ]
+    resources = ["arn:aws:kms:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:key/*"]
   }
 
   statement {
     actions = [
       "sts:AssumeRole",
     ]
-    resources = [
-      "arn:aws:iam::771283872747:role/dpr-redshift-data-api-cross-role-development",
-    ]
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 

@@ -20,6 +20,7 @@ module "make_recall_decision_api_rds" {
   db_engine_version = "13.14"
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
+  db_allocated_storage = 20
 
   providers = {
     aws = aws.london
@@ -30,6 +31,20 @@ resource "kubernetes_secret" "make_recall_decision_api_rds" {
   metadata {
     name      = "make-recall-decision-api-database"
     namespace = var.namespace
+  }
+
+  data = {
+    host     = module.make_recall_decision_api_rds.rds_instance_address
+    name     = module.make_recall_decision_api_rds.database_name
+    username = module.make_recall_decision_api_rds.database_username
+    password = module.make_recall_decision_api_rds.database_password
+  }
+}
+
+resource "kubernetes_secret" "make_recall_decision_api_rds_refresh_creds" {
+  metadata {
+    name      = "make-recall-decision-api-database-output-preprod"
+    namespace = "make-recall-decision-prod"
   }
 
   data = {

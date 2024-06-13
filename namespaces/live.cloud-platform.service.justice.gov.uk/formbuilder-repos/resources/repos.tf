@@ -1,7 +1,7 @@
 # Publisher ECR Repos
 
 module "ecr-repo-fb-publisher-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-base"
@@ -36,7 +36,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-base" {
 }
 
 module "ecr-repo-fb-publisher-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-web"
@@ -71,7 +71,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-web" {
 }
 
 module "ecr-repo-fb-publisher-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-publisher-worker"
@@ -109,7 +109,7 @@ resource "kubernetes_secret" "ecr-repo-fb-publisher-worker" {
 
 # Runner Node ECR Repos
 module "ecr-repo-fb-runner-node" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-runner-node"
@@ -147,7 +147,7 @@ resource "kubernetes_secret" "ecr-repo-fb-runner-node" {
 
 # Service Token Cache ECR Repos
 module "ecr-repo-fb-service-token-cache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-service-token-cache"
@@ -185,7 +185,7 @@ resource "kubernetes_secret" "ecr-repo-fb-service-token-cache" {
 
 # Submitter ECR Repos
 module "ecr-repo-fb-submitter-base" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-base"
@@ -217,7 +217,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-base" {
 }
 
 module "ecr-repo-fb-submitter-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-api"
@@ -252,7 +252,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-api" {
 }
 
 module "ecr-repo-fb-submitter-workers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-submitter-workers"
@@ -291,7 +291,7 @@ resource "kubernetes_secret" "ecr-repo-fb-submitter-workers" {
 
 # User Datastore ECR Repos
 module "ecr-repo-fb-user-datastore-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-user-datastore-api"
@@ -329,7 +329,7 @@ resource "kubernetes_secret" "ecr-repo-fb-user-datastore-api" {
 
 # User Filestore ECR Repos
 module "ecr-repo-fb-user-filestore-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-user-filestore-api"
@@ -367,7 +367,7 @@ resource "kubernetes_secret" "ecr-repo-fb-user-filestore-api" {
 
 # AV (Anti Virus) ECR Repos
 module "ecr-repo-fb-av" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-av"
@@ -405,7 +405,7 @@ resource "kubernetes_secret" "ecr-repo-fb-av" {
 
 # fb-builder - docker image used to build form builder components
 module "ecr-repo-fb-builder" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-builder"
@@ -443,7 +443,7 @@ resource "kubernetes_secret" "ecr-repo-fb-builder" {
 ##################################################
 
 module "ecr-repo-fb-pdf-generator" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-pdf-generator"
@@ -476,7 +476,7 @@ resource "kubernetes_secret" "ecr-repo-fb-pdf-generator" {
 ##################################################
 
 module "ecr-repo-fb-base-adapter" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-base-adapter"
@@ -509,7 +509,7 @@ resource "kubernetes_secret" "ecr-repo-fb-base-adapter" {
 ##################################################
 
 module "ecr-repo-hmcts-complaints-formbuilder-adapter-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-api"
@@ -544,7 +544,7 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-api"
 }
 
 module "ecr-repo-hmcts-complaints-formbuilder-adapter-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "hmcts-complaints-formbuilder-adapter-worker"
@@ -581,7 +581,7 @@ resource "kubernetes_secret" "ecr-repo-hmcts-complaints-formbuilder-adapter-work
 ##################################################
 
 module "ecr-repo-fb-metadata-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-metadata-api"
@@ -614,7 +614,7 @@ resource "kubernetes_secret" "ecr-repo-fb-metadata-api" {
 ##################################################
 
 module "ecr-repo-fb-editor-web" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-web"
@@ -646,7 +646,7 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-web" {
 }
 
 module "ecr-repo-fb-editor-workers" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-editor-workers"
@@ -679,7 +679,7 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
 ##################################################
 
 module "ecr-repo-fb-runner" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-runner"
@@ -712,7 +712,7 @@ resource "kubernetes_secret" "ecr-repo-fb-runner" {
 ##################################################
 
 module "ecr-repo-fb-maintenance-page" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-maintenance-page"
@@ -745,7 +745,7 @@ resource "kubernetes_secret" "ecr-repo-fb-maintenance-page" {
 ##################################################
 
 module "ecr-repo-fb-adapter-template-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-adapter-template-api"
@@ -780,7 +780,7 @@ resource "kubernetes_secret" "ecr-repo-fb-adapter-template-api" {
 }
 
 module "ecr-repo-fb-adapter-template-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   team_name = "formbuilder"
   repo_name = "fb-adapter-template-worker"

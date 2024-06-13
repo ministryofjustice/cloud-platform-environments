@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -12,9 +12,8 @@ module "rds-instance" {
 
   enable_rds_auto_start_stop = true
 
-
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
+  db_engine                = "oracle-se2"
   db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
@@ -23,8 +22,11 @@ module "rds-instance" {
   db_name                  = "CCR"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem
+  character_set_name       = "WE8MSWIN1252"
   skip_final_snapshot      = true
+
+  # the database is being migrated from another hosting platform
+  is_migration = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -32,7 +34,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-sandbox-dev-encrypted-for-cp"
 
   providers = {
     aws = aws.london
@@ -52,9 +54,7 @@ module "rds-instance" {
     }
   ]
 
-
   vpc_security_group_ids = [aws_security_group.rds.id]
-
 }
 
 
@@ -77,8 +77,8 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rule" {
-  cidr_blocks       = ["10.202.0.0/20"]
+resource "aws_security_group_rule" "rule1" {
+  cidr_blocks       = ["10.206.0.0/20"]
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 1521
@@ -86,34 +86,14 @@ resource "aws_security_group_rule" "rule" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "aws_security_group_rule" "ruleb" {
-  cidr_blocks       = ["10.202.0.0/20"]
+resource "aws_security_group_rule" "rule2" {
+  cidr_blocks       = ["10.206.0.0/20"]
   type              = "egress"
   protocol          = "tcp"
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
 }
-
-resource "aws_security_group_rule" "rule3" {
-  cidr_blocks       = ["10.200.0.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule4" {
-  cidr_blocks       = ["10.200.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-
 
 resource "kubernetes_secret" "rds-instance" {
   metadata {

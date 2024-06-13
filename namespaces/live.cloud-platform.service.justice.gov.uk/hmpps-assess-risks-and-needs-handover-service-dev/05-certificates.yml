@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-handover-service
+  namespace: hmpps-assess-risks-and-needs-handover-service-dev
+spec:
+  secretName: hmpps-assess-risks-and-needs-handover-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-handover-service-dev.hmpps.service.justice.gov.uk
+    - assess-risks-and-needs-handover-service-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-oastub
+  namespace: hmpps-assess-risks-and-needs-handover-service-dev
+spec:
+  secretName: hmpps-assess-risks-and-needs-oastub-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-oastub-dev.hmpps.service.justice.gov.uk
+    - assess-risks-and-needs-oastub-dev.hmpps.service.justice.gov.uk

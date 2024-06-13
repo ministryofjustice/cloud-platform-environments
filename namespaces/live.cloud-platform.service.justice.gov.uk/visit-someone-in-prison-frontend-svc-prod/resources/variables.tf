@@ -62,5 +62,9 @@ variable "github_token" {
   default     = ""
 }
 
+variable "domain" {
+  default = "prison-visits.service.justice.gov.uk"
+  type    = string
+}
 
 variable "kubernetes_cluster" {}

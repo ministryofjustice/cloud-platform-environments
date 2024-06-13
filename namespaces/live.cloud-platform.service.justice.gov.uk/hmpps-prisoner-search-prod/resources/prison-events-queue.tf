@@ -5,6 +5,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
   endpoint  = module.hmpps_prisoner_search_offender_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "AGENCY_INTERNAL_LOCATIONS-UPDATED",
       "ALERT-INSERTED",
       "ALERT-UPDATED",
       "ASSESSMENT-CHANGED",
@@ -37,9 +38,11 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_EMAIL-UPDATED",
       "OFFENDER_EMAIL-DELETED",
       "OFFENDER_IDENTIFIER-UPDATED",
+      "OFFENDER_IDENTIFYING_MARKS-CHANGED",
       "OFFENDER_PHONE-INSERTED",
       "OFFENDER_PHONE-UPDATED",
       "OFFENDER_PHONE-DELETED",
+      "OFFENDER_PHYSICAL_ATTRIBUTES-CHANGED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",

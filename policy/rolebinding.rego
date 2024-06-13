@@ -3,7 +3,8 @@ package main
 deny[msg] {
   input.kind == "RoleBinding"
   input.roleRef.kind == "ClusterRole"
-  input.roleRef.name == "cluster-admin"
+  input.roleRef.name != "admin"
 
-  msg := "ClusterRole cluster-admin is not allowed"
+  msg := sprintf("ClusterRole %v is not allowed", [input.roleRef.name])
 }
+

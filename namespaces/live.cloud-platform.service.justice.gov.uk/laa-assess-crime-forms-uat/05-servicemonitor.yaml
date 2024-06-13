@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: metrics-service-monitor
+  namespace: laa-assess-crime-forms-uat
+spec:
+  selector:
+    matchLabels:
+      app: laa-assess-crime-forms-prometheus
+  endpoints:
+  - port: metrics
+    interval: 15s
