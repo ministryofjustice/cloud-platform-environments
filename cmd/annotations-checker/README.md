@@ -38,29 +38,38 @@ The GitHub Actions workflow will automatically run the checker for pull requests
     Create a file `.github/workflows/validate-annotations.yml` with the following content:
 
     ```yaml
-    name: Annotations Checker
+   name: Annotations Checker
 
-    on:
-      pull_request:
-      branches:
-        - main
-          - annotations-checker
+on:
+  pull_request:
+    branches:
+      - main
+      - annotations-checker
 
-    jobs:
-      validate-annotations:
-      name: Validate Annotations
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out code
-          uses: actions/checkout@v3
+jobs:
+  validate-annotations:
+    name: Validate Annotations
+    runs-on: ubuntu-latest
+    steps:
 
-        - name: Build Docker image
-          run: docker build -t annotations-checker .
+    - name: Check out code
+      uses: actions/checkout@v3
 
-        - name: Run Validation in Docker Container
-          env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: docker run --rm -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} annotations-checker
+    - name: Build Docker image
+      run: docker build -t annotations-checker -f cmd/annotations-checker/Dockerfile .
+
+    - uses: actions/github-script@v7
+      name: Get Diff Url
+      id: get-diff-url
+      with:
+        script: |
+          echo "DIFF_URL=${context.payload.pull_request.diff_url}" >> $GITHUB_OUTPUT
+
+    - name: Run Validation in Docker Container
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: docker run --rm -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -e DIFF_URL=${{ steps.get-diff-url.outputs.DIFF_URL }} annotations-checker
+
     ```
 
 TODOs:
