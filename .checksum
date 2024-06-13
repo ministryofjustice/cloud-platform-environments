@@ -1,3 +1,8 @@
 #This file is used by the auto pr github action. Please commit
+<<<<<<< Updated upstream
 mscproject-dev
 h1:8z/lF0l2rftzNn9pgOtL9l/rZ7SzZEtJj5qPmKgGHbo=
+=======
+utiac-prod
+h1:PJ/uqVuxftlx+onDr7x0v8eRhaEeBEo6/KOyt+ntEWM=
+>>>>>>> Stashed changes
