@@ -15,13 +15,7 @@ type Annotations struct {
 	TeamName   string
 }
 
-func Parse(client *github.Client, org, diffUrl string) (*Annotations, error) {
-	// TODO: check that the diff is a add or a update not deletion
-	diff, getDiffErr := getDiff(diffUrl)
-	if getDiffErr != nil {
-		return nil, getDiffErr
-	}
-
+func Parse(client *github.Client, org, diff string) (*Annotations, error) {
 	isNs := isNamespace(diff)
 
 	if !isNs {
@@ -44,7 +38,7 @@ func Parse(client *github.Client, org, diffUrl string) (*Annotations, error) {
 	}, nil
 }
 
-func getDiff(url string) (string, error) {
+func GetDiff(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", err

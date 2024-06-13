@@ -25,7 +25,14 @@ func main() {
 
 	client := init_github.NewGitHubClient(token)
 
-	annotations, err := validate.Parse(client, org, diffUrl)
+	// TODO: check that the diff is a add or a update not deletion
+	diff, getDiffErr := validate.GetDiff(diffUrl)
+	if getDiffErr != nil {
+		fmt.Printf("Error getting diff URL: %v\n", getDiffErr)
+		os.Exit(1)
+	}
+
+	annotations, err := validate.Parse(client, org, diff)
 	if err != nil {
 		fmt.Printf("Error parsing pr files: %v\n", err)
 		os.Exit(1)
