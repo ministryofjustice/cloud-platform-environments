@@ -24,8 +24,6 @@ module "ecr_credentials" {
 
   oidc_providers = ["github"]
   github_repositories = ["justice-gov-uk"]
-  github_environments = ["production"]
-  github_actions_prefix = "production"
 
   # Tags
   business_unit          = var.business_unit
