@@ -1,12 +1,12 @@
 locals {
-  dpr_accounts = [
-    "771283872747", # dpr-development
-    "203591025782", # dpr-test
-    "972272129531", # dpr-preproduction
-    "004723187462", # dpr-production
-  ]
   dpr_data_api_role = "dpr-data-api-cross-account-role"
 
+  accounts_map = {
+    development = "771283872747",
+    test = "203591025782",
+    preprod = "972272129531",
+    prod = "004723187462"
+  }  
 
   environments_map = {
     development = "development",
@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 
@@ -80,7 +80,7 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "secretsmanager:Get*",
       "secretsmanager:List*",
     ]
-    resources = formatlist("arn:aws:secretsmanager:eu-west-2:%s:secret:dpr-redshift-secret-*-*", tolist(local.dpr_accounts))
+    resources = ["arn:aws:secretsmanager:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:secret:dpr-redshift-secret-*-*"]
   }
   
   statement {
@@ -90,14 +90,14 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "kms:Get*",
       "kms:List*",
     ]
-    resources = formatlist("arn:aws:kms:eu-west-2:%s:key/*", tolist(local.dpr_accounts))
+    resources = ["arn:aws:kms:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:key/*"]
   }
 
   statement {
     actions = [
       "sts:AssumeRole",
     ]
-    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 
