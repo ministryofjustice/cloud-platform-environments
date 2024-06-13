@@ -38,19 +38,18 @@ The GitHub Actions workflow will automatically run the checker for pull requests
     Create a file `.github/workflows/validate-annotations.yml` with the following content:
 
     ```yaml
-   name: Annotations Checker
+    name: Annotations Checker
+    ```
 
 on:
-  pull_request:
-    branches:
-      - main
-      - annotations-checker
+pull_request:
+branches: - main - annotations-checker
 
 jobs:
-  validate-annotations:
-    name: Validate Annotations
-    runs-on: ubuntu-latest
-    steps:
+validate-annotations:
+name: Validate Annotations
+runs-on: ubuntu-latest
+steps:
 
     - name: Check out code
       uses: actions/checkout@v3
