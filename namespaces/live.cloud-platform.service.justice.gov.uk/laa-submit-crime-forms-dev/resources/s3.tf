@@ -181,7 +181,7 @@ EOF
 }
 
 resource "aws_s3_bucket_metric" "entire-bucket-metric" {
-  bucket = module.s3_bucket.id
+  bucket = module.s3_bucket.bucket_name
   name   = "laa-submit-crime-forms-uploads"
 }
 
