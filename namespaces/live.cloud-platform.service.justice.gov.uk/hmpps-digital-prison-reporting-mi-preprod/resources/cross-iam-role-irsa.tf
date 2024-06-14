@@ -12,7 +12,7 @@ locals {
     development = "development",
     test = "test",
     preprod = "preprod",
-    prod = "production"
+    production = "production"
   }
 }
 
