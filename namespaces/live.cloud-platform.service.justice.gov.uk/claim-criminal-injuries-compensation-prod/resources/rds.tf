@@ -12,7 +12,7 @@ module "rds" {
 
   db_engine                    = "postgres"
   db_engine_version            = "14.10"
-  db_instance_class            = "db.t3.small"
+  db_instance_class            = "db.t4g.small"
   db_allocated_storage         = "10"
   db_name                      = "datacaptureservice"
   db_backup_retention_period   = var.db_backup_retention_period
