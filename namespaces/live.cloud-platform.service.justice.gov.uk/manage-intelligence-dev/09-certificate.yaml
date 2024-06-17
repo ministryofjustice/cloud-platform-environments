@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-submit-ims-report-dev.hmpps.service.justice.gov.uk
+  namespace: manage-intelligence-dev
+spec:
+  secretName: hmpps-submit-ims-report-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-submit-ims-report-dev.hmpps.service.justice.gov.uk
