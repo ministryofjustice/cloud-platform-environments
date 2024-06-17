@@ -38,6 +38,12 @@ variable "environment" {
   default     = "production"
 }
 
+variable "environment_name" {
+  description = "Name of the environment type for this service (for Route 53 Zone)"
+  type        = string
+  default     = "production"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
@@ -62,6 +68,12 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+variable "owner" {
+  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
+  type        = string
+  default     = "ministryofjustice"
+}
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
@@ -70,6 +82,11 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "domain" {
+  default = "crime-forms-metabase.service.justice.gov.uk"
+  type    = string
 }
 
 variable "serviceaccount_rules" {
