@@ -4,6 +4,8 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  serviceaccount_name = "circleci-migrated"
+
   serviceaccount_rules = [
     {
       api_groups = [""]
