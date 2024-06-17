@@ -10,6 +10,17 @@ resource "aws_sns_topic_subscription" "manage-pom-cases-and-delius-queue-subscri
   })
 }
 
+resource "aws_sns_topic_subscription" "manage-pom-cases-and-delius-queue-probation-offender-events-subscription" {
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.manage-pom-cases-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "SENTENCE_CHANGED",
+    ]
+  })
+}
+
 module "manage-pom-cases-and-delius-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
