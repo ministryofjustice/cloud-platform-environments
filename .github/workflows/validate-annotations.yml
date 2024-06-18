@@ -15,8 +15,17 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.19
+
+    - name: Download dependencies
+      run: go mod download
+
     - name: Run Validation in Docker Container
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DIFF_URL: ${{ github.event.pull_request.diff_url }}
-      run: go run .
+      run: |
+        cd cmd/annotations-checker
