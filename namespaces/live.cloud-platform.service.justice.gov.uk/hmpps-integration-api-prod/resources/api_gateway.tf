@@ -306,9 +306,9 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   treat_missing_data  = "notBreaching"
   metric_name         = "4XXError"
   namespace           = "AWS/ApiGateway"
-  period              = 30
+  period              = 300
   evaluation_periods  = 1
-  threshold           = 1
+  threshold           = 5
   statistic           = "Sum"
   unit                = "Count"
   actions_enabled     = true
@@ -329,9 +329,9 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
   treat_missing_data  = "notBreaching"
   metric_name         = "5XXError"
   namespace           = "AWS/ApiGateway"
-  period              = 30
+  period              = 300
   evaluation_periods  = 1
-  threshold           = 1
+  threshold           = 5
   statistic           = "Sum"
   unit                = "Count"
   actions_enabled     = true
@@ -352,7 +352,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
   treat_missing_data  = "notBreaching"
   metric_name         = "IntegrationLatency"
   namespace           = "AWS/ApiGateway"
-  period              = 60
+  period              = 300
   evaluation_periods  = 1
   threshold           = 3000
   statistic           = "Maximum"
@@ -373,9 +373,9 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   alarm_description   = "Gateway latency greater than 3 seconds"
   treat_missing_data  = "notBreaching"
-  metric_name         = "IntegrationLatency"
+  metric_name         = "Latency"
   namespace           = "AWS/ApiGateway"
-  period              = 60
+  period              = 300
   evaluation_periods  = 1
   threshold           = 5000
   statistic           = "Maximum"
