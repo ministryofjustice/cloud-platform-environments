@@ -1,3 +1,21 @@
+data "aws_iam_policy_document" "combined_local_sqs" {
+  version = "2012-10-17"
+  statement {
+    sid     = "hmppsBookAVideoLinkSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.hmpps_book_a_video_link_domain_queue.sqs_arn,
+      module.hmpps_book_a_video_link_domain_dlq.sqs_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_local_sqs" {
+  policy = data.aws_iam_policy_document.combined_local_sqs.json
+  tags   = local.default_tags
+}
+
 # Add the names of the SQS queues & SNS topics which the app needs permissions to access.
 # The value of each item should be the namespace where the queue or topic was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
