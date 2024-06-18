@@ -41,7 +41,7 @@ module "rds-temp" {
     }
   ]
 
-  snapshot_identifier = "cloud-platform-dea99d9dcfcabb6c-2024-06-15-06-19"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:rds:cloud-platform-dea99d9dcfcabb6c-2024-06-15-06-19"
 
   	
   providers = {
