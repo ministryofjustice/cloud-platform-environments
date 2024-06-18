@@ -3,6 +3,7 @@ package validate
 import (
 	"errors"
 	"io"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -15,7 +16,14 @@ type Annotations struct {
 	TeamName   string
 }
 
-func Parse(client *github.Client, org, diff string) (*Annotations, error) {
+func Parse(client *github.Client, org, diffUrl string) (*Annotations, error) {
+	// TODO: check that the diff is a add or a update not deletion
+	diff, getDiffErr := GetDiff(diffUrl)
+	log.Println("Diff URL here", diffUrl)
+	if getDiffErr != nil {
+		return nil, getDiffErr
+	}
+
 	isNs := isNamespace(diff)
 
 	if !isNs {
