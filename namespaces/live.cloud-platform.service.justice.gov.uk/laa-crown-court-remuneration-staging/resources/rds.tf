@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.1.0"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -40,7 +40,7 @@ module "rds-instance" {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined
+  # passing empty list as oracle repo has parameter defined
   db_parameter = [
     {
       name         = "sqlnetora.sqlnet.allowed_logon_version_server"
