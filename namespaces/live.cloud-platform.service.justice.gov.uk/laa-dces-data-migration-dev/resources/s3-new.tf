@@ -31,7 +31,7 @@ resource "aws_s3_bucket_notification" "dces_s3_bucket_object_created_notificatio
 
   queue {
     id        = "dces_s3_bucket-upload-event"
-    queue_arn = module.hmpps_extract_placed_queue.sqs_arn
+    queue_arn = module.dces_s3_object_created_queue.sqs_arn
     events = [
     "s3:ObjectCreated:*"]
   }
