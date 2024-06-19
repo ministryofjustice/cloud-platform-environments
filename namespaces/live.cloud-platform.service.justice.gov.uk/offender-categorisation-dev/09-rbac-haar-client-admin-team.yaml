@@ -14,7 +14,7 @@ rules:
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "list", "watch", "create", "update", "patch"]
-  - apiGroups: ["certmanager.k8s.io"]
+  - apiGroups: ["cert-manager.io"]
     resources: ["certificates", "issuers"]
     verbs: ["get", "list", "watch", "create", "update", "patch"]
   - apiGroups: [ "", "extensions" ]
