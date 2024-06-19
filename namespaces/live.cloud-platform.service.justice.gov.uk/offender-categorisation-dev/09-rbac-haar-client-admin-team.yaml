@@ -5,12 +5,18 @@ metadata:
   name: hmpps-haar-client-admin-team
   namespace: offender-categorisation-dev
 rules:
-  - apiGroups: ["apps", "extensions"]
+  - apiGroups: [""]
     resources: ["deployments"]
-    verbs: ["get", "patch"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["get", "watch", "list"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["certificates"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
