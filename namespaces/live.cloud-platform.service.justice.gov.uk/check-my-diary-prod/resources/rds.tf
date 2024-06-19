@@ -1,5 +1,5 @@
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
