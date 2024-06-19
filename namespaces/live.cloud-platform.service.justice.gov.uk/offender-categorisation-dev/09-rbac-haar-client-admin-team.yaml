@@ -20,6 +20,9 @@ rules:
   - apiGroups: [ "", "extensions" ]
     resources: [ "services", "ingresses", "configmaps", "pods/log" ]
     verbs: [ "get", "list", "watch" ]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: [ "get", "list", "watch", "create", "update", "patch"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
