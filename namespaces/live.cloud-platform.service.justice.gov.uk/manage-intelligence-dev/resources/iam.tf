@@ -83,8 +83,10 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
     ]
 
     resources = [
-      resource.aws_kendra_index.main
+      "aws_kendra_index.main.arn",
+      "aws_kendra_index.main.arn/*"
     ]
+
   }
 
   statement {
