@@ -8,6 +8,10 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "domain" {
   description = "Domain from which the application is served"
   type        = string
