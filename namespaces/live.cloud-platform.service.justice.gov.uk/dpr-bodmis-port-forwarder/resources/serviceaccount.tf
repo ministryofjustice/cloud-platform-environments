@@ -9,9 +9,4 @@ module "serviceaccount" {
   namespace           = "dpr-bodmis-port-forwarder"
   github_repositories = ["dpr-bodmis-port-forwarder"]
   kubernetes_cluster  = var.kubernetes_cluster
-
-  github_actions_secret_kube_cert      = "KUBE_PROD_CERT"
-  github_actions_secret_kube_token     = "KUBE_PROD_TOKEN"
-  github_actions_secret_kube_cluster   = "KUBE_PROD_CLUSTER"
-  github_actions_secret_kube_namespace = "KUBE_PROD_NAMESPACE"
 }
