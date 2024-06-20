@@ -20,6 +20,74 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
   }
 
   statement {
+    actions = [
+				"kendra:GetQuerySuggestions",
+				"kendra:AssociateEntitiesToExperience",
+				"kendra:DeleteAccessControlConfiguration",
+				"kendra:CreateExperience",
+				"kendra:ListExperiences",
+				"kendra:DescribeQuerySuggestionsConfig",
+				"kendra:CreateThesaurus",
+				"kendra:BatchDeleteFeaturedResultsSet",
+				"kendra:UpdateThesaurus",
+				"kendra:UpdateQuerySuggestionsBlockList",
+				"kendra:TagResource",
+				"kendra:ListDataSources",
+				"kendra:ListTagsForResource",
+				"kendra:SubmitFeedback",
+				"kendra:DeleteFaq",
+				"kendra:ListGroupsOlderThanOrderingId",
+				"kendra:DescribeFaq",
+				"kendra:DisassociateEntitiesFromExperience",
+				"kendra:ListExperienceEntities",
+				"kendra:DescribeExperience",
+				"kendra:DeleteThesaurus",
+				"kendra:ListAccessControlConfigurations",
+				"kendra:DescribePrincipalMapping",
+				"kendra:UpdateExperience",
+				"kendra:GetSnapshots",
+				"kendra:DisassociatePersonasFromEntities",
+				"kendra:UpdateFeaturedResultsSet",
+				"kendra:DescribeFeaturedResultsSet",
+				"kendra:ListThesauri",
+				"kendra:DescribeDataSource",
+				"kendra:DescribeThesaurus",
+				"kendra:Query",
+				"kendra:StopDataSourceSyncJob",
+				"kendra:BatchPutDocument",
+				"kendra:Retrieve",
+				"kendra:CreateQuerySuggestionsBlockList",
+				"kendra:ClearQuerySuggestions",
+				"kendra:ListFaqs",
+				"kendra:AssociatePersonasToEntities",
+				"kendra:DescribeQuerySuggestionsBlockList",
+				"kendra:StartDataSourceSyncJob",
+				"kendra:ListEntityPersonas",
+				"kendra:PutPrincipalMapping",
+				"kendra:DescribeAccessControlConfiguration",
+				"kendra:ListQuerySuggestionsBlockLists",
+				"kendra:CreateFaq",
+				"kendra:UpdateQuerySuggestionsConfig",
+				"kendra:CreateFeaturedResultsSet",
+				"kendra:DeleteQuerySuggestionsBlockList",
+				"kendra:DescribeIndex",
+				"kendra:DeleteExperience",
+				"kendra:ListFeaturedResultsSets",
+				"kendra:UntagResource",
+				"kendra:ListDataSourceSyncJobs",
+				"kendra:DeletePrincipalMapping",
+				"kendra:BatchGetDocumentStatus",
+				"kendra:UpdateAccessControlConfiguration",
+				"kendra:CreateAccessControlConfiguration",
+				"kendra:BatchDeleteDocument"
+    ]
+
+    resources = [
+      resource.aws_kendra_index.main
+    ]
+  }
+
+  statement {
     effect = "Deny"
 
     actions = ["s3:*"]
