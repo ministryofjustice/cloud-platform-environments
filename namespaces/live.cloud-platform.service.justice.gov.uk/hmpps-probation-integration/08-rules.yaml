@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: hmpps-probation-integration
+    prometheus: cloud-platform
+  name: hmpps-probation-integration-businesshours-rules
+  namespace: hmpps-probation-integration
+spec:
+  groups:
+    - name: hmpps-probation-integration-businesshours-rules
+      rules:
+        - record: hmpps_probation_integration:summer_time_offset
+          expr: |
+            (vector(1) and (month() > 3 and month() < 10))
+            or
+            (vector(1) and (month() == 3 and (day_of_month() - day_of_week()) >= 25) and absent((day_of_month() >= 25) and (day_of_week() == 0)))
+            or
+            (vector(1) and (month() == 10 and (day_of_month() - day_of_week()) < 25) and absent((day_of_month() >= 25) and (day_of_week() == 0)))
+            or
+            (vector(1) and ((month() == 10 and hour() < 1) or (month() == 3 and hour() > 0)) and ((day_of_month() >= 25) and (day_of_week() == 0)))
+            or
+            vector(0)
+        - record: hmpps_probation_integration:british_time
+          expr: time() + 3600 * hmpps_probation_integration:summer_time_offset
+        - record: hmpps_probation_integration:business_day
+          expr: 0 < day_of_week(hmpps_probation_integration:british_time) < 6
+        - record: hmpps_probation_integration:business_hour
+          expr: 8 <= hour(hmpps_probation_integration:british_time) < 18
+        - record: hmpps_probation_integration:business_hours
+          expr: hmpps_probation_integration:business_hour and hmpps_probation_integration:business_day
