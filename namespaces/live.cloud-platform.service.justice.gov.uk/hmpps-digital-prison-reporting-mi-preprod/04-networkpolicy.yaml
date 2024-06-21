@@ -6,10 +6,10 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - podSelector: {}
+    - from:
+      - podSelector: {}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -19,12 +19,12 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            component: ingress-controllers
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: "hmpps-activities-management-preprod"
+              kubernetes.io/metadata.name: "hmpps-activities-management-preprod"
