@@ -1,6 +1,38 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
+  name: hmpps-probation-integration-businesshours-rules
+  labels:
+    app: hmpps-probation-integration
+    prometheus: cloud-platform
+  namespace: hmpps-probation-integration
+spec:
+  groups:
+    - name: hmpps-probation-integration-businesshours-rules
+      rules:
+          - record: hmpps_probation_integration:summer_time_offset
+            expr: |
+              (vector(1) and (month() > 3 and month() < 10))
+              or
+              (vector(1) and (month() == 3 and (day_of_month() - day_of_week()) >= 25) and absent((day_of_month() >= 25) and (day_of_week() == 0)))
+              or
+              (vector(1) and (month() == 10 and (day_of_month() - day_of_week()) < 25) and absent((day_of_month() >= 25) and (day_of_week() == 0)))
+              or
+              (vector(1) and ((month() == 10 and hour() < 1) or (month() == 3 and hour() > 0)) and ((day_of_month() >= 25) and (day_of_week() == 0)))
+              or
+              vector(0)
+          - record: hmpps_probation_integration:british_time
+            expr: time() + 3600 * hmpps_probation_integration:summer_time_offset
+          - record: hmpps_probation_integration:business_day
+            expr: 0 < day_of_week(hmpps_probation_integration:british_time) < 6
+          - record: hmpps_probation_integration:business_hour
+            expr: 8 <= hour(hmpps_probation_integration:british_time) < 18
+          - record: hmpps_probation_integration:business_hours
+            expr: hmpps_probation_integration:business_hour and hmpps_probation_integration:business_day
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
   labels:
     app: hmpps-probation-integration
     prometheus: cloud-platform
@@ -16,7 +48,8 @@ spec:
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/PINT/pages/4087972031/How+to+Access+SQS+Queues+in+the+AWS+Console
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-3h&to=now
           expr: |-
-            sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~".*probation-integration-.*-dlq"} offset 5m) by (queue_name) > 0
+            (sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~".*probation-integration-.*-dlq"} offset 5m) by (queue_name) > 0)
+            and ON() hmpps_probation_integration:business_hours
           for: 15m
           labels:
             severity: probation-integration-notifications
