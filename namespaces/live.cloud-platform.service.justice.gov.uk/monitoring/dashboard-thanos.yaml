@@ -79,7 +79,7 @@ data:
             }
           ],
           "thresholds": [],
-          "title": "Thanos Compactor -- Compaction backlog",
+          "title": "Thanos Compactor -- compaction backlog",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -183,7 +183,527 @@ data:
             }
           ],
           "thresholds": [],
-          "title": "Thanos Compactor -- Compaction block backlog",
+          "title": "Thanos Compactor -- compaction block backlog",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
+              "expr": "sum(thanos_compact_block_cleanup_loops_total)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- number of concurrent cleanup loops of partially uploaded blocks and marked blocks that were executed successfully",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
+              "expr": "sum(thanos_compact_blocks_cleaned_total)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- number of blocks deleted in compactor",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
+              "expr": "sum(thanos_compact_block_cleanup_failures_total)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- failures encountered while deleting blocks in compactor",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
+              "expr": "sum(thanos_compact_blocks_marked_total)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- number of blocks marked in compactor",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
+              "expr": "sum(thanos_compact_garbage_collected_blocks_total)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- number of blocks marked for deletion by compactor",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -241,6 +761,7 @@ data:
           "fillGradient": 0,
           "hiddenSeries": false
         }
+
       ],
       "refresh": "",
       "schemaVersion": 39,
