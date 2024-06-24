@@ -24,7 +24,6 @@ module "ecr_credentials" {
 
   oidc_providers = ["github"]
   github_repositories = ["intranet"]
-  github_environments = ["production"]
 
   # Tags
   business_unit          = var.business_unit
