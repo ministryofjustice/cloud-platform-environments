@@ -123,6 +123,7 @@ variable "serviceaccount_rules" {
         "replicasets",
         "statefulsets",
         "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
