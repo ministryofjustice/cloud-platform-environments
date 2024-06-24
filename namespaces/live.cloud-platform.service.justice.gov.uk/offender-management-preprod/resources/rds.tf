@@ -52,3 +52,19 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_password     = module.allocation-rds.database_password
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "allocation-rds-instance-output-preprod"
+    namespace = "offender-management-production"
+  }
+
+  data = {
+    database_name        = module.allocation-rds.database_name
+    database_username    = module.allocation-rds.database_username
+    database_password    = module.allocation-rds.database_password
+    rds_instance_address = module.allocation-rds.rds_instance_address
+  }
+}
