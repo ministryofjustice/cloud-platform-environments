@@ -72,6 +72,14 @@ resource "aws_route53_record" "github_challenge_moj_as" {
   ]
 }
 
+resource "aws_route53_record" "github_pages" {
+  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+  name    = "howto-admin.www.justice.gov.uk"
+  type    = "A"
+  ttl     = "300"
+  records = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"
