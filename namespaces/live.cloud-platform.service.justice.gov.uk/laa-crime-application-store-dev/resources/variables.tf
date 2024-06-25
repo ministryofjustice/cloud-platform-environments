@@ -134,10 +134,13 @@ variable "serviceaccount_rules" {
     },
     {
       api_groups = [
+        "networking.k8s.io",
         "monitoring.coreos.com",
       ]
       resources = [
         "prometheusrules",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "*",
