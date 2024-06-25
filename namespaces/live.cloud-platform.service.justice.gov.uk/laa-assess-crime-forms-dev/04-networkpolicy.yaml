@@ -25,21 +25,5 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-prometheus-scraping
-  namespace: laa-assess-crime-forms-dev
-spec:
-  podSelector:
-    matchLabels:
-      app: laa-assess-crime-forms-app
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: monitoring
+
 
