@@ -126,32 +126,5 @@ variable "serviceaccount_rules" {
         "watch",
       ]
     },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-      ]
-      verbs = [
-        "*",
-      ]
-    },
-    {
-      api_groups = [
-        "autoscaling"
-      ],
-      resources = [
-        "hpa",
-        "horizontalpodautoscalers"
-      ],
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch"
-      ]
-    },
   ]
 }
