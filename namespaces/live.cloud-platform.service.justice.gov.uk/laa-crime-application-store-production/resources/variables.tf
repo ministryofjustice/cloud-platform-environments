@@ -126,6 +126,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -133,6 +134,9 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -142,33 +146,6 @@ variable "serviceaccount_rules" {
         "patch",
         "list",
         "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-      ]
-      verbs = [
-        "*",
-      ]
-    },
-    {
-      api_groups = [
-        "autoscaling"
-      ],
-      resources = [
-        "hpa",
-        "horizontalpodautoscalers"
-      ],
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch"
       ]
     },
   ]
