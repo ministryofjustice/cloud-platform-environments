@@ -11,7 +11,7 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_2.11"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count = 2
