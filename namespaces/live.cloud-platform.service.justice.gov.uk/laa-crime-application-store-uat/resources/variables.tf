@@ -108,6 +108,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -115,6 +116,9 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
