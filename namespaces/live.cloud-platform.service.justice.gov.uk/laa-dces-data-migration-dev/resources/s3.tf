@@ -139,6 +139,10 @@ data "aws_iam_policy_document" "bucket-policy" {
   }
 
   statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.upload_user_dev.arn]
+    }
     effect = "Deny"
     actions = [
       "s3:DeleteObject"
