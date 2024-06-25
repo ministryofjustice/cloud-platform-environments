@@ -144,7 +144,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:DeleteObject"
     ]
     resources = [
-      "${bucket_arn}/*"  # Restricting delete for all objects in the bucket
+      "$${bucket_arn}/*"  # Restricting delete for all objects in the bucket
     ]
   }
 
