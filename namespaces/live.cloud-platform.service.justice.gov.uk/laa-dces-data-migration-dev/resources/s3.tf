@@ -33,9 +33,13 @@ module "s3_bucket" {
 
   * Versioning: By default this is set to false. When set to true multiple versions of an object can be stored
                 For more details on versioning please visit: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html
+*/
+
 
   versioning             = true
 
+
+/*
   * Logging: By default set to false. When you enable logging, Amazon S3 delivers access logs for a source bucket to a target bucket that you choose.
              The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration.
              For more details on logging please vist: https://docs.aws.amazon.com/AmazonS3/latest/user-guide/server-access-logging.html
