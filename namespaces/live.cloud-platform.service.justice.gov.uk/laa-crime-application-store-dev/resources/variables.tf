@@ -113,6 +113,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -121,6 +122,8 @@ variable "serviceaccount_rules" {
         "jobs",
         "replicasets",
         "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -130,20 +133,6 @@ variable "serviceaccount_rules" {
         "patch",
         "list",
         "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "networking.k8s.io",
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-        "servicemonitors",
-        "networkpolicies",
-      ]
-      verbs = [
-        "*",
       ]
     },
   ]
