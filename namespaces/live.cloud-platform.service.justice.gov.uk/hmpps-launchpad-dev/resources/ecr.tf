@@ -13,7 +13,6 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-launchpad-home-ui","hmpps-launchpad-auth"]
-  github_environments = ["dev"]
 
   # Tags
   business_unit          = var.business_unit
