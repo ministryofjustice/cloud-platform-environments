@@ -20,6 +20,17 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
   }
 
   statement {
+    actions = [
+				"kendra:*"
+    ]
+
+    resources = [
+      aws_kendra_index.main.arn
+    ]
+
+  }
+
+  statement {
     effect = "Deny"
 
     actions = ["s3:*"]

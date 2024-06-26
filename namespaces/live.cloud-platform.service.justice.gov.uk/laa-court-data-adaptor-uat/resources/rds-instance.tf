@@ -14,6 +14,7 @@ module "court_data_adaptor_rds" {
 
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
+  maintenance_window          = "Mon:21:00-Mon:22:00"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
 

@@ -8,7 +8,7 @@ resource "pingdom_check" "parliamentary-questions-production-cloud-platform-heal
   notifywhenbackup         = true
   sendnotificationwhendown = 3
   notifyagainevery         = 0
-  url                      = "/healthcheck"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_central_digital,application_parliamentary_questions,component_healthcheck,isproduction_true,environment_prod,infrastructuresupport_staff_tools_and_services"

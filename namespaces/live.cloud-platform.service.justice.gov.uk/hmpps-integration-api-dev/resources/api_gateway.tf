@@ -146,7 +146,8 @@ resource "aws_api_gateway_deployment" "main" {
     aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.sqs_test_client_integration,
     aws_api_gateway_integration.sqs_pnd_integration,
-    aws_api_gateway_integration.sqs_mapps_integration
+    aws_api_gateway_integration.sqs_mapps_integration,
+    aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
   lifecycle {
@@ -182,6 +183,10 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+   aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {

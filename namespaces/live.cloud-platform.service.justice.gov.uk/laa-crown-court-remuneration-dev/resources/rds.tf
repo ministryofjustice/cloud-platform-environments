@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-mtn" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -14,7 +14,7 @@ module "rds-instance" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
+  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -34,7 +34,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-dev-cp-migration-21062024-manual-copy"
 
   providers = {
     aws = aws.london
@@ -102,10 +102,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-mtn.database_name
+    database_host     = module.rds-mtn.rds_instance_address
+    database_port     = module.rds-mtn.rds_instance_port
+    database_username = module.rds-mtn.database_username
+    database_password = module.rds-mtn.database_password
   }
 }

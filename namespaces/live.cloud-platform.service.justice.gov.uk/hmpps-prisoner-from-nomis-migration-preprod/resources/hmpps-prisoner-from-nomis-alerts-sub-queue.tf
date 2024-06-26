@@ -126,7 +126,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_alerts_subscri
   endpoint  = module.prisoner_from_nomis_alerts_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "prisoner-offender-search.prisoner.received"
     ]
   })
 }

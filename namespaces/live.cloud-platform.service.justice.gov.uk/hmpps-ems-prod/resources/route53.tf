@@ -132,7 +132,7 @@ resource "aws_route53_record" "ruby_preprod_record" {
   type    = "A"
 
   alias {
-    name                   = "d-pb1rucdbf4.execute-api.eu-west-2.amazonaws.com"
+    name                   = "d-t99nlc7pcd.execute-api.eu-west-2.amazonaws.com."
     zone_id                = "ZJ5UAJN8Y3Z2Q"
     evaluate_target_health = false
   }

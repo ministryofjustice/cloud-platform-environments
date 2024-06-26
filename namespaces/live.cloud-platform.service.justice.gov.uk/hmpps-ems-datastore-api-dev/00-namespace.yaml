@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hmpps-ems-datastore-api-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "em-engineers-moj-madetech"
+    cloud-platform.justice.gov.uk/application: "HMPPS EMS Datastore API"
+    cloud-platform.justice.gov.uk/owner: "Electronic Monitoring Service: hmpps-ems-platform-team@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-ems-datastore-api"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring-data-store"
+    cloud-platform.justice.gov.uk/review-after: ""

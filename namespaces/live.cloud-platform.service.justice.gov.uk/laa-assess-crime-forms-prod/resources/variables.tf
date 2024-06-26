@@ -111,8 +111,9 @@ variable "serviceaccount_rules" {
       api_groups = [
         "extensions",
         "apps",
-        "networking.k8s.io",
         "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -121,6 +122,8 @@ variable "serviceaccount_rules" {
         "jobs",
         "replicasets",
         "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -131,22 +134,6 @@ variable "serviceaccount_rules" {
         "list",
         "watch",
       ]
-    },
-    {
-      api_groups = [
-        "autoscaling"
-      ],
-      resources = [
-        "hpa",
-        "horizontalpodautoscalers"
-      ],
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch"
-        ]
     }
   ]
 }

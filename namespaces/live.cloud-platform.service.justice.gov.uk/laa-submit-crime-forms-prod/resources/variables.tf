@@ -123,6 +123,7 @@ variable "serviceaccount_rules" {
         "replicasets",
         "statefulsets",
         "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -132,22 +133,6 @@ variable "serviceaccount_rules" {
         "patch",
         "list",
         "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "autoscaling"
-      ],
-      resources = [
-        "hpa",
-        "horizontalpodautoscalers"
-      ],
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch"
       ]
     }
   ]

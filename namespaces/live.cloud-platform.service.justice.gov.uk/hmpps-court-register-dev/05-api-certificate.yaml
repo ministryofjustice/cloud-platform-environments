@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-court-register-api-dev.hmpps.service.justice.gov.uk
+    - court-register-api-dev.hmpps.service.justice.gov.uk

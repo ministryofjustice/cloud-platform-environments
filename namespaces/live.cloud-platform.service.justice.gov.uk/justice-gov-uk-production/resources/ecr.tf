@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -24,8 +24,6 @@ module "ecr_credentials" {
 
   oidc_providers = ["github"]
   github_repositories = ["justice-gov-uk"]
-  github_environments = ["production"]
-  github_actions_prefix = "production"
 
   # Tags
   business_unit          = var.business_unit

@@ -48,6 +48,7 @@ module "rds" {
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   enable_rds_auto_start_stop = true
+  maintenance_window          = "Mon:21:00-Mon:22:00"
 
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
