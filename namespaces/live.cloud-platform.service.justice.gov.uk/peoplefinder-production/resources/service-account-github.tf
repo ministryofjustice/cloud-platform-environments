@@ -4,6 +4,8 @@ module "serviceaccount_github" {
   namespace          = var.namespace
   kubernetes_cluster = var.eks_cluster_name
 
+  serviceaccount_token_rotated_date = "26-06-2024"
+
   serviceaccount_name = "github-serviceaccount"
   role_name = "github-serviceaccount"
   rolebinding_name = "github-serviceaccount"
