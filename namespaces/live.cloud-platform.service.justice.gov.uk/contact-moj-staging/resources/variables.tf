@@ -38,9 +38,12 @@ variable "github_token" {
   default     = ""
 }
 
-
 variable "team_name" {
   default = "correspondence"
+}
+
+variable "repo_name" {
+  default = "contact-moj"
 }
 
 variable "business_unit" {
