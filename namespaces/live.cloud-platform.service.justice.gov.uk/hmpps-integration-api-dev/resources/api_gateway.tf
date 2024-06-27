@@ -220,7 +220,7 @@ resource "aws_api_gateway_stage" "main" {
   }
 
   depends_on = [
-    aws_api_gateway_deployment,
+    aws_api_gateway_deployment.main,
     aws_cloudwatch_log_group.api_gateway_access_logs
     ]
 }
