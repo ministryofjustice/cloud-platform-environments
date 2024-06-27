@@ -94,14 +94,6 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_resource" "sqs_parent_resource" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "events"
-}
-
-
-
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
@@ -145,10 +137,7 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.sqs_test_client_integration,
-    aws_api_gateway_integration.sqs_pnd_integration,
-    aws_api_gateway_integration.sqs_mapps_integration,
+    aws_api_gateway_integration.proxy_http_proxy,   
     aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
