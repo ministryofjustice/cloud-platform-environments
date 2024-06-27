@@ -90,3 +90,61 @@ spec:
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+
+    - alert: SidekiqDeadJobThresholdReached
+      expr: |-
+        # Any dead jobs added in past 2 minutes
+        #
+        # We exclude pods NOT named laa-submit-crime-forms as branches may have a lot of dead jobs and
+        # be noisey.
+        #
+        # We use average because each worker pod will report the same number of dead jobs.
+        #
+        # To find those added in the last 2 minutes we take current dead jobs and take away either the number
+        # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
+        # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
+        # 
+        # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
+        # that the number could be less than 0 if dead jobs are cleared/deleted.
+        #
+        avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"})
+         - (
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"} offset 2m)
+             or 
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"}) - 1
+           )
+          > 0
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Sidekiq dead job threshold exceeded
+        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+        # TODO: link to grafana dashboard for workers once available
+        # dashboard_url:
+
+    - alert: SidekiqQueueSizeThresholdReached
+      expr: |-
+        # We exclude queues named sidekiq-alive* as this are purely used to test liveness.
+        #
+        # We use `sum by` to "group [counts] by" queue name and `avg by` to divide by the number of worker pods
+        # from which the stats are produced (which are duplicating stats).
+        #
+        # Example: If there are 2 workers and queue1 has size 1 and queue2 has 2 then total queue size is (1+2) * 2 = 6.
+        #          The sum by and avg by "should" result in (6/2)/2 = 1.5
+        #
+        # This is based on guesswork as it is hard to test and we can refine it if we start to see alerts that are not
+        # an issue.
+        #
+        avg by (pod) (
+          sum by (queue) (
+            ruby_sidekiq_queue_backlog{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+", queue!~"sidekiq-alive.*"}
+          )
+        ) > 2
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Total sidekiq queue sizes are more than 2
+        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+        # TODO: link to grafana dashboard for workers once available
+        # dashboard_url:
