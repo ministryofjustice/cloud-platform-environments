@@ -219,7 +219,10 @@ resource "aws_api_gateway_stage" "main" {
     create_before_destroy = true
   }
 
-  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+    ]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
