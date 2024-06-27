@@ -245,14 +245,6 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   stage_name  = aws_api_gateway_stage.main.stage_name
 }
 
-resource "aws_api_gateway_client_certificate" "api_gateway_client" {
-  description = "Client certificate presented to the backend API"
-}
-
-resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
-  description = "Client certificate presented to the backend API expires 16/05/2025"
-}
-
 resource "aws_api_gateway_client_certificate" "api_gateway_client_three" {
   description = "Client certificate presented to the backend API expires 27/06/2025"
 }
