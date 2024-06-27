@@ -56,7 +56,7 @@ module "certificate_backup" {
       "Action": [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:GetObjectVersion",
+        "s3:GetObjectVersion"
       ],
       "Resource": [
         "$${bucket_arn}/*"
