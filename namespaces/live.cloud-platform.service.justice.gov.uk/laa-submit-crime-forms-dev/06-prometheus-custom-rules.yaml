@@ -77,11 +77,3 @@ spec:
         message: Namespace laa-submit-crime-forms-dev has fewer than expected number of running pods
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev
-    - alert: NotFoundThresholdReached
-      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-submit-crime-forms-dev"}[60s])) * 60 > 5
-      for: 1m
-      labels:
-        severity: laa-crime-forms-team-pre-prod
-      annotations:
-        message: TESTING - More than 5 404 errors in one minute
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/discover#/?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(log_processed.upstream_status,log_processed.request_uri,log_processed.http_host),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-submit-crime-forms-dev),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-submit-crime-forms-dev))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!())
