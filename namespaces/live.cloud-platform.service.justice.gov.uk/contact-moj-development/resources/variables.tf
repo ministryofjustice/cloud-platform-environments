@@ -43,7 +43,7 @@ variable "team_name" {
 }
 
 variable "repo_name" {
-  default = "correspondence_tool_public"
+  default = "contact-moj"
 }
 
 variable "business_unit" {
