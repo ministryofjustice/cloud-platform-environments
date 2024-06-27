@@ -42,6 +42,10 @@ variable "team_name" {
   default = "correspondence"
 }
 
+variable "repo_name" {
+  default = "correspondence_tool_public"
+}
+
 variable "business_unit" {
   default = "Central Digital"
 }
