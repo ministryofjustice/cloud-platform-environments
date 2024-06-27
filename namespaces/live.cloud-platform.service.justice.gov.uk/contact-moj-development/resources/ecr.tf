@@ -6,7 +6,7 @@
  */
 module "contact-moj_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
-  repo_name = "contact-moj-ecr"
+  repo_name = var.repo_name
 
   oidc_providers      = ["github", "circleci"]
   github_repositories = [var.repo_name]
