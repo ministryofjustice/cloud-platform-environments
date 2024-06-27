@@ -17,7 +17,7 @@ spec:
         severity: laa-crime-forms-team-pre-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is down.
-        runbook_url: TODO
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev
     - alert: KubeQuotaExceeded
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-submit-crime-forms-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-submit-crime-forms-dev"} > 0) > 90
@@ -26,7 +26,7 @@ spec:
         severity: laa-crime-forms-team-pre-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
-        runbook_url: TODO
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev  
     - alert: Nginx5xxError
       expr: |-
@@ -67,7 +67,7 @@ spec:
         severity: laa-crime-forms-team-pre-prod
       annotations:
         message: Namespace laa-submit-crime-forms-dev encountered one or more HTTP 5xx errors
-        runbook_url: 
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev
     - alert: LowPodCount
       expr: sum (kube_pod_status_phase{namespace="laa-submit-crime-forms-dev", phase="Running"}) < 1
