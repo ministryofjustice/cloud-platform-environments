@@ -137,7 +137,9 @@ resource "aws_api_gateway_deployment" "main" {
       # "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
-      md5(file("api_gateway.tf"))
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-events-proxy.tf"))
     ]))
   }
 
