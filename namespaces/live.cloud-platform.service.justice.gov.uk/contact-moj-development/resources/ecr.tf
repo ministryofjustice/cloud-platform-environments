@@ -41,13 +41,13 @@ infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "contact-moj_ecr_credentials" {
-metadata {
-name      = "contact-moj-ecr-credentials-output"
-namespace = var.namespace
-}
+  metadata {
+    name      = "contact-moj-ecr-credentials-output"
+    namespace = var.namespace
+  }
 
-data = {
-repo_arn = module.contact-moj_ecr_credentials.repo_arn
-repo_url = module.contact-moj_ecr_credentials.repo_url
-}
+  data = {
+    repo_arn = module.contact-moj_ecr_credentials.repo_arn
+    repo_url = module.contact-moj_ecr_credentials.repo_url
+  }
 }
