@@ -62,7 +62,7 @@ spec:
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev
 
-    - alert: LowPodCount
+    - alert: KubeLowPodCount
       expr: sum (kube_pod_status_phase{namespace="laa-submit-crime-forms-dev", phase="Running"}) < 1
       labels:
         severity: laa-crime-forms-team-pre-prod
@@ -78,7 +78,7 @@ spec:
         severity: laa-crime-forms-team-pre-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
-        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubequotaexceeded
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev  
 
     - alert: KubePodCrashLooping
@@ -90,37 +90,39 @@ spec:
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-uat  
 
-    - alert: SidekiqDeadJobThresholdReached
-      expr: |-
-        # Any dead jobs added in past 2 minutes
-        #
-        # We exclude pods NOT named laa-submit-crime-forms as branches may have a lot of dead jobs and
-        # be noisey.
-        #
-        # We use average because each worker pod will report the same number of dead jobs.
-        #
-        # To find those added in the last 2 minutes we take current dead jobs and take away either the number
-        # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
-        # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
-        # 
-        # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
-        # that the number could be less than 0 if dead jobs are cleared/deleted.
-        #
-        avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"})
-         - (
-             avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"} offset 2m)
-             or 
-             avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"}) - 1
-           )
-          > 0
-      labels:
-        severity: laa-crime-forms-team-pre-prod
-      annotations:
-        message: Sidekiq dead job threshold exceeded
-        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
-        # TODO: link to grafana dashboard for workers once available
-        # dashboard_url:
+    # DISABLED on DEV to avoid noise from DEV branch built deployments
+    #
+    # - alert: SidekiqDeadJobThresholdReached
+    #   expr: |-
+    #     # Any dead jobs added in past 2 minutes
+    #     #
+    #     # We exclude pods NOT named laa-submit-crime-forms as branches may have a lot of dead jobs and
+    #     # be noisey.
+    #     #
+    #     # We use average because each worker pod will report the same number of dead jobs.
+    #     #
+    #     # To find those added in the last 2 minutes we take current dead jobs and take away either the number
+    #     # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
+    #     # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
+    #     #
+    #     # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
+    #     # that the number could be less than 0 if dead jobs are cleared/deleted.
+    #     #
+    #     avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"})
+    #      - (
+    #          avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"} offset 2m)
+    #          or
+    #          avg(ruby_sidekiq_stats_dead_size{namespace="laa-submit-crime-forms-dev", pod=~"laa-submit-crime-forms.+"}) - 1
+    #        )
+    #       > 0
+    #   labels:
+    #     severity: laa-crime-forms-team-pre-prod
+    #   annotations:
+    #     message: One or more Sidekiq jobs moved to dead in namespace laa-submit-crime-forms-dev
+    #     runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+    #     dashboard_url: https://dev.submit-crime-forms.service.justice.gov.uk/sidekiq
 
     - alert: SidekiqQueueSizeThresholdReached
       expr: |-
@@ -146,5 +148,4 @@ spec:
       annotations:
         message: Total sidekiq queue sizes are more than 2
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
-        # TODO: link to grafana dashboard for workers once available
-        # dashboard_url:
+        dashboard_url: https://dev.submit-crime-forms.service.justice.gov.uk/sidekiq
