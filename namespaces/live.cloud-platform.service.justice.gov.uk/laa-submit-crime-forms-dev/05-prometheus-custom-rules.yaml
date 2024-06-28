@@ -90,7 +90,7 @@ spec:
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-uat  
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-submit-crime-forms-dev
 
     # DISABLED on DEV to avoid noise from DEV branch built deployments
     #
