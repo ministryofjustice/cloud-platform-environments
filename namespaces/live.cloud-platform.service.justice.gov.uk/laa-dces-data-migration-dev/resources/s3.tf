@@ -133,7 +133,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
     resources = [
       "$${bucket_arn}",
-      "$${bucket_arn}/DRC/*"
+      "$${bucket_arn}/*"
     ]
 
   }
@@ -160,8 +160,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     }
     effect = "Deny"
     actions = [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
+      "s3:ListObjectsV2",
       "s3:GetObject",
       "s3:GetObjectAcl"
     ]
