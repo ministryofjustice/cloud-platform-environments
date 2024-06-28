@@ -120,7 +120,7 @@ spec:
       annotations:
         message: One or more Sidekiq jobs moved to dead in namespace laa-submit-crime-forms-prod
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
-        dashboard_url: https://uat.submit-crime-forms.service.justice.gov.uk/sidekiq
+        dashboard_url: https://submit-crime-forms.service.justice.gov.uk/sidekiq
 
     - alert: SidekiqQueueSizeThresholdReached
       expr: |-
@@ -146,4 +146,4 @@ spec:
       annotations:
         message: Total sidekiq queue sizes are more than 2 in namespace laa-submit-crime-forms-prod
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
-        dashboard_url: https://uat.submit-crime-forms.service.justice.gov.uk/sidekiq
+        dashboard_url: https://submit-crime-forms.service.justice.gov.uk/sidekiq
