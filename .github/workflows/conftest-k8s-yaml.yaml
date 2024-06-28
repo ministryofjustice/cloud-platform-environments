@@ -19,7 +19,7 @@ jobs:
           files_ignore: .github/**
 
       - name: Setup conftest
-        uses: princespaghetti/setup-conftest@v1.1.20
+        uses: princespaghetti/setup-conftest@v1.1.21
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |
