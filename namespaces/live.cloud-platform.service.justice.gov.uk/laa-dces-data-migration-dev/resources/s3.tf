@@ -133,7 +133,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
     resources = [
       "$${bucket_arn}",
-      "$${bucket_arn}/*"
+      "$${bucket_arn}/DRC/*"
     ]
 
   }
