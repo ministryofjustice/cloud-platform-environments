@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "upload_policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}/*"
+      "${module.s3_bucket.bucket_arn}/DRC/*"
     ]
   }
 
