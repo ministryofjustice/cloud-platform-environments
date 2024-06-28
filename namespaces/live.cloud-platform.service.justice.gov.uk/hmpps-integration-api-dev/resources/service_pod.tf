@@ -3,5 +3,5 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.hmpps-integration-event-irsa.service_account.name
+  service_account_name = module.irsa.service_account.name
 }
