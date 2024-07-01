@@ -11,7 +11,7 @@ variable "environment-name" {
 }
 
 variable "team_name" {
-  default = "book-a-prison-visit"
+  default = "hmpps-prison-visits-booking"
 }
 
 variable "is_production" {
