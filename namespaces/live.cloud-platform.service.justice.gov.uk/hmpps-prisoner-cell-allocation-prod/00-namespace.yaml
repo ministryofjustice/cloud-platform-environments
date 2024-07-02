@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
     cloud-platform.justice.gov.uk/application: "HMPPS Prisoner cell allocation"
     cloud-platform.justice.gov.uk/owner: "moveaprisoner@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-cell-allocation-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-change-someones-cell.git"
     cloud-platform.justice.gov.uk/team-name: "Move a Prisoner"
