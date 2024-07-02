@@ -14,8 +14,8 @@ module "opensearch" {
   engine_version      = "OpenSearch_2.11"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
-    instance_count = 6
-    instance_type  = "c6g.4xlarge.search"
+    instance_count = 2
+    instance_type  = "t3.medium.search"
   }
   proxy_count = 2
   ebs_options = {
