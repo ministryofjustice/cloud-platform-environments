@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pecs-profile-ui-prod-cert
+  namespace: hmpps-pecs-profile-ui-prod
+spec:
+  secretName: pecs-profile-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pecs-profile-ui.hmpps.service.justice.gov.uk
