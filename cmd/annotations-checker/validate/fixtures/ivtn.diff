@@ -1,0 +1,259 @@
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/folarins-app/00-namespace.yaml b/namespaces/live.cloud-platform.service.justice.gov.uk/folarins-app/00-namespace.yaml
+new file mode 100644
+index 00000000000..7bd2a05b574
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/folarins-app/00-namespace.yaml
+@@ -0,0 +1,16 @@
++apiVersion: v1
++kind: Namespace
++metadata:
++  name: "folarins-app"
++  labels:
++    cloud-platform.justice.gov.uk/is-production: "false"
++    cloud-platform.justice.gov.uk/environment-name: "development"
++    pod-security.kubernetes.io/enforce: restricted
++  annotations:
++    cloud-platform.justice.gov.uk/business-unit: "Platforms"
++    cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
++    cloud-platform.justice.gov.uk/application: "folarin go test"
++    cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
++    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
++    cloud-platform.justice.gov.uk/team-name: "webop"
++    cloud-platform.justice.gov.uk/review-after: ""
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/01-rbac.yaml b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/01-rbac.yaml
+new file mode 100644
+index 00000000000..e8a1dc963e5
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/01-rbac.yaml
+@@ -0,0 +1,13 @@
++kind: RoleBinding
++apiVersion: rbac.authorization.k8s.io/v1
++metadata:
++  name: hmpps-jobs-board-dev-admin
++  namespace: hmpps-jobs-board-dev
++subjects:
++  - kind: Group
++    name: "github:education-skills-work-employment"
++    apiGroup: rbac.authorization.k8s.io
++roleRef:
++  kind: ClusterRole
++  name: admin
++  apiGroup: rbac.authorization.k8s.io
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/02-limitrange.yaml b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/02-limitrange.yaml
+new file mode 100644
+index 00000000000..148f800e648
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/02-limitrange.yaml
+@@ -0,0 +1,14 @@
++apiVersion: v1
++kind: LimitRange
++metadata:
++  name: limitrange
++  namespace: hmpps-jobs-board-dev
++spec:
++  limits:
++  - default:
++      cpu: 1000m
++      memory: 1000Mi
++    defaultRequest:
++      cpu: 10m
++      memory: 100Mi
++    type: Container
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/03-resourcequota.yaml b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/03-resourcequota.yaml
+new file mode 100644
+index 00000000000..6b6d11b401d
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/03-resourcequota.yaml
+@@ -0,0 +1,8 @@
++apiVersion: v1
++kind: ResourceQuota
++metadata:
++  name: namespace-quota
++  namespace: hmpps-jobs-board-dev
++spec:
++  hard:
++    pods: "50"
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/04-networkpolicy.yaml b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/04-networkpolicy.yaml
+new file mode 100644
+index 00000000000..f633f14be84
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/04-networkpolicy.yaml
+@@ -0,0 +1,27 @@
++apiVersion: networking.k8s.io/v1
++kind: NetworkPolicy
++metadata:
++  name: default
++  namespace: hmpps-jobs-board-dev
++spec:
++  podSelector: {}
++  policyTypes:
++  - Ingress
++  ingress:
++  - from:
++    - podSelector: {}
++---
++kind: NetworkPolicy
++apiVersion: networking.k8s.io/v1
++metadata:
++  name: allow-ingress-controllers
++  namespace: hmpps-jobs-board-dev
++spec:
++  podSelector: {}
++  policyTypes:
++  - Ingress
++  ingress:
++  - from:
++    - namespaceSelector:
++        matchLabels:
++          component: ingress-controllers
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/main.tf b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/main.tf
+new file mode 100644
+index 00000000000..bfd720252e2
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/main.tf
+@@ -0,0 +1,46 @@
++terraform {
++  backend "s3" {
++  }
++}
++
++provider "aws" {
++  region = "eu-west-2"
++
++  default_tags {
++    tags = {
++      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
++      slack-channel = var.slack_channel
++    }
++  }
++}
++
++provider "aws" {
++  alias  = "london"
++  region = "eu-west-2"
++
++  default_tags {
++    tags = {
++      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
++      slack-channel = var.slack_channel
++    }
++  }
++}
++
++provider "aws" {
++  alias  = "ireland"
++  region = "eu-west-1"
++
++  default_tags {
++    tags = {
++      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
++      slack-channel = var.slack_channel
++    }
++  }
++}
++
++provider "github" {
++  token = var.github_token
++  owner = var.github_owner
++}
++
++provider "kubernetes" {}
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/variables.tf b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/variables.tf
+new file mode 100644
+index 00000000000..cb194ab7c33
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/variables.tf
+@@ -0,0 +1,69 @@
++variable "vpc_name" {
++  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
++  type        = string
++}
++
++variable "kubernetes_cluster" {
++  description = "Kubernetes cluster name for references to secrets for service accounts"
++  type        = string
++}
++
++variable "application" {
++  description = "Name of the application you are deploying"
++  type        = string
++  default     = "Jobs Board"
++}
++
++variable "namespace" {
++  description = "Name of the namespace these resources are part of"
++  type        = string
++  default     = "hmpps-jobs-board-dev"
++}
++
++variable "business_unit" {
++  description = "Area of the MOJ responsible for this service"
++  type        = string
++  default     = "HMPPS"
++}
++
++variable "team_name" {
++  description = "Name of the development team responsible for this service"
++  type        = string
++  default     = "education-skills-work-employment"
++}
++
++variable "environment" {
++  description = "Name of the environment type for this service"
++  type        = string
++  default     = "development"
++}
++
++variable "infrastructure_support" {
++  description = "Email address of the team responsible this service"
++  type        = string
++  default     = "managing.eswe@digital.justice.gov.uk"
++}
++
++variable "is_production" {
++  description = "Whether this environment type is production or not"
++  type        = string
++  default     = "false"
++}
++
++variable "slack_channel" {
++  description = "Slack channel name for your team, if we need to contact you about this service"
++  type        = string
++  default     = "prison-education"
++}
++
++variable "github_owner" {
++  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
++  type        = string
++  default     = "ministryofjustice"
++}
++
++variable "github_token" {
++  type        = string
++  description = "Required by the GitHub Terraform provider"
++  default     = ""
++}
+diff --git a/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/versions.tf b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/versions.tf
+new file mode 100644
+index 00000000000..001c7bad981
+--- /dev/null
++++ b/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-jobs-board-dev/resources/versions.tf
+@@ -0,0 +1,17 @@
++terraform {
++  required_version = ">= 1.2.5"
++  required_providers {
++    aws = {
++      source  = "hashicorp/aws"
++      version = "~> 4.67.0"
++    }
++    github = {
++      source  = "integrations/github"
++      version = "~> 5.39.0"
++    }
++    kubernetes = {
++      source  = "hashicorp/kubernetes"
++      version = "~> 2.23.0"
++    }
++  }
++}
+
