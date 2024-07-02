@@ -13,7 +13,7 @@ module "rds_postgresql" {
 
   # change the postgres version as you see fit.
   db_engine              = "postgres"
-  db_engine_version      = "14"
+  db_engine_version      = "14.10"
   db_instance_class      = "db.t3.medium"
   db_allocated_storage   = 32
   rds_family             = "postgres14"
