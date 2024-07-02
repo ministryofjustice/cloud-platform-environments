@@ -31,7 +31,7 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name = var.vpc_name
 
