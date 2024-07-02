@@ -23,7 +23,6 @@ module "allocation-rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_name                    = "allocations"
-  db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   enable_rds_auto_start_stop = true
 
 
