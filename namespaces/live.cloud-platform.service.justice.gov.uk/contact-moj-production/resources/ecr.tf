@@ -12,7 +12,7 @@ module "contact-moj_ecr_credentials" {
     aws = aws.london
   }
 
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["github"]
   github_repositories = [var.repo_name]
 
   lifecycle_policy = <<EOF

@@ -39,21 +39,21 @@ module "s3_bucket" {
   versioning             = true
 
 
-/*
-  * Logging: By default set to false. When you enable logging, Amazon S3 delivers access logs for a source bucket to a target bucket that you choose.
-             The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration.
-             For more details on logging please vist: https://docs.aws.amazon.com/AmazonS3/latest/user-guide/server-access-logging.html
+  /*
+    * Logging: By default set to false. When you enable logging, Amazon S3 delivers access logs for a source bucket to a target bucket that you choose.
+               The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration.
+               For more details on logging please vist: https://docs.aws.amazon.com/AmazonS3/latest/user-guide/server-access-logging.html
 
-  logging_enabled        = true
-  log_target_bucket      = "<TARGET_BUCKET_NAME>"
+    logging_enabled        = true
+    log_target_bucket      = "<TARGET_BUCKET_NAME>"
 
-  # NOTE: Important note that the target bucket for logging must have it's 'acl' property set to 'log-delivery-write'.
-          To apply this to an existing target bucket simply add the followng variable to its terraform module
-          acl = "log-delivery-write"
+    # NOTE: Important note that the target bucket for logging must have it's 'acl' property set to 'log-delivery-write'.
+            To apply this to an existing target bucket simply add the followng variable to its terraform module
+            acl = "log-delivery-write"
 
-  log_path               = "<LOG_PATH>" e.g log/
+    log_path               = "<LOG_PATH>" e.g log/
 
-*/
+  */
 
   /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.

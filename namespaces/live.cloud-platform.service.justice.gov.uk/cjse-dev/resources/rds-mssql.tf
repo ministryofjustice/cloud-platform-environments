@@ -5,7 +5,7 @@
  *
 */
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -70,7 +70,7 @@ resource "kubernetes_config_map" "rds_mssql" {
 }
 
 # module "rds_mssql_read_replica" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
 #   # VPC configuration
 #   vpc_name = var.vpc_name

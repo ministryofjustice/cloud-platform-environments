@@ -1,3 +1,4 @@
+
 resource "aws_iam_user" "upload_user_dev" {
   name = "laa-dces-data-migration-dev-upload-user"
   path = "/system/laa-dces-data-migration-dev-upload-users/"
@@ -23,7 +24,7 @@ data "aws_iam_policy_document" "upload_policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}/*"
+      "${module.s3_bucket.bucket_arn}/DRC/*"
     ]
   }
 
