@@ -24,13 +24,15 @@ resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
   }
 
 }
+
+# Sets the governance mode to 1 day for testing on dev
 resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration" {
   bucket = module.s3.bucket_name
 
   rule {
     default_retention {
       mode = "GOVERNANCE"
-        days = 3650 
+        days = 1
     }
   }
 
