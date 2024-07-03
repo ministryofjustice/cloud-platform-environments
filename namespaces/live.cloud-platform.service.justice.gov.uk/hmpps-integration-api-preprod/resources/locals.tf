@@ -10,5 +10,5 @@ locals {
     GithubTeam             = var.team_name
   }
 
-  clients = [ "ctrlo", "heartbeat","event-service"]
+  clients = ["ctrlo", "heartbeat", "event-service"]
 }
