@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "api_gateway" {
     ]
   }
 
-    statement {
+  statement {
     actions = [
       "s3:ListBucket",
     ]
