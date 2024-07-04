@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "assessment-summary-and-delius-queue-subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  topic_arn = data.aws_sns_topic.hmpps-domain-events-prod.arn
   protocol  = "sqs"
   endpoint  = module.assessment-summary-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
