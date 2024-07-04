@@ -2,6 +2,10 @@ data "aws_sns_topic" "hmpps-domain-events" {
   name = "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd"
 }
 
+data "aws_sns_topic" "hmpps-domain-events-prod" {
+  name = "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08"
+}
+
 data "aws_ssm_parameter" "hmpps-domain-events-policy-arn" {
   name = "/hmpps-domain-events-${var.environment_name}/sns/${data.aws_sns_topic.hmpps-domain-events.name}/irsa-policy-arn"
 }

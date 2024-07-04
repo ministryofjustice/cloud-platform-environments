@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn, data.aws_sns_topic.hmpps-domain-events-prod.arn]
     }
     resources = ["*"]
   }
