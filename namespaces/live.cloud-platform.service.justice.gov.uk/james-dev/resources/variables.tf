@@ -50,6 +50,10 @@ variable "is_production" {
   default     = "false"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
