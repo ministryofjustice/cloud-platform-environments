@@ -47,3 +47,30 @@ resource "kubernetes_secret" "complexity-of-need-rds" {
     rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
   }
 }
+
+resource "kubernetes_secret" "rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.complexity-of-need-rds.rds_instance_endpoint
+    database_name         = module.complexity-of-need-rds.database_name
+    database_username     = module.complexity-of-need-rds.database_username
+    database_password     = module.complexity-of-need-rds.database_password
+    rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_config_map" "rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.complexity-of-need-rds.database_name
+    db_identifier = module.complexity-of-need-rds.db_identifier
+  }
+}
