@@ -37,17 +37,17 @@ spec:
         # 
         # Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that are not positive.
             sum by (ingress) (
-              nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504"}
+              nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504",ingress!~".+metabase"}
             )
           -
             (
                 sum by (ingress) (
-                  nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504"} offset 2m
+                  nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504",ingress!~".+metabase"} offset 2m
                 )
               or
                 (
                     sum by (ingress) (
-                      nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504"}
+                      nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-uat",status=~"500|502|503|504",ingress!~".+metabase"}
                     )
                   -
                     1
