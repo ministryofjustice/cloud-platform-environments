@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: san-typescript-dev.hmpps.service.justice.gov.uk
-  namespace: hmpps-template-typescript
+  namespace: san-dev
 spec:
   secretName: san-typescript-dev
   issuerRef:
