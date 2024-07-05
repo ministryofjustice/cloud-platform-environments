@@ -4,6 +4,8 @@ module "ecr-repo-complexity-of-need" {
   team_name = var.team_name
   repo_name = "hmpps-complexity-of-need"
 
+  deletion_protection = false
+
   # Tags
   business_unit          = "HMPPS"
   application            = "hmpps-complexity-of-need"
