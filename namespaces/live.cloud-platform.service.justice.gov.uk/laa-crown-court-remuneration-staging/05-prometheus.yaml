@@ -1,0 +1,152 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-crown-court-remuneration-staging
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-ccr
+spec:
+  groups:
+  - name: database-rules
+    rules:
+    - alert: CCR-RDS-High-CPU
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 75
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS CPU usage is over 75%
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-Low-Storage
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-258fabb333470810"} < 1024*1024*1024
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS free storage space is less than 1GB
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-High-Read-Latency
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS read latency is over 0.5 seconds
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-High-Write-Latency
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS write latency is over 0.5 seconds
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-Low-Freeable-Memory
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-258fabb333470810"} < 500*1024*1024
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS freeable memory is less than 500MB
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-High-Write-IOPS
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 300
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS write operations are over 300 per second
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-High-Read-IOPS
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 300
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS read operations are over 300 per second
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+    - alert: CCR-RDS-High-Database-Connections
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-258fabb333470810"} > 50
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING RDS number of database connections is over 50
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-258fabb333470810;is-cluster=false;tab=monitoring"
+
+  - name: application-rules
+    rules:
+    - alert: CCR-High-Resources
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crown-court-remuneration-staging"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crown-court-remuneration-staging"} > 0) > 85
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
+
+    - alert: CCR-Slow-Response-Time
+      expr: avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "laa-crown-court-remuneration-staging"}[1m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "laa-crown-court-remuneration-staging"}[1m]) > 0) by (ingress) > 60
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING is serving slow responses over 60 seconds
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
+
+    - alert: CCR-5xx-Errors
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-remuneration-staging", status=~"5.."}[5m])) * 300 > 10
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING multiple HTTP 5xx errors have occurred
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
+
+    - alert: CCR-4xx-Errors
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-remuneration-staging", status=~"4.."}[5m])) * 300 > 10
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING multiple HTTP 4xx errors have occurred
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
+
+    - alert: CCR-Pod-Not-Ready
+      expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-crown-court-remuneration-staging", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
+      for: 15m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING - {{ $labels.pod }} has been in a non-ready state for longer than 15 minutes
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
+
+    - alert: CCR-Pod-CrashLooping
+      expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crown-court-remuneration-staging"}[10m]) * 60 * 10 > 3
+      for: 10m
+      labels:
+        severity: laa-crown-court-remuneration-staging
+      annotations:
+        message: CCR STAGING - {{ $labels.pod }} is restarting excessively
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-staging"
