@@ -13,7 +13,7 @@ module "secrets_manager" {
     "laa-ccms-staging-file-upload-api-dev" = {
       description             = "Secrets for laa-ccms-staging-file-upload-api dev environment", # Required
       recovery_window_in_days = 7,                                                                      # Required
-      k8s_secret_name         = "laa-ccms-staging-file-upload-api-dev-secrets"                                      # The name of the secret in k8s
+      k8s_secret_name         = "laa-ccms-staging-file-upload-api-secrets"                                      # The name of the secret in k8s
     },
   }
 }
