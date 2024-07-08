@@ -9,7 +9,7 @@ module "dps_rds" {
   namespace                 = var.namespace
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
-  db_instance_class         = "db.t4g.small"
+  db_instance_class         = "db.t4g.large"
   db_engine                 = "postgres"
   db_engine_version         = "16"
   rds_family                = "postgres16"
