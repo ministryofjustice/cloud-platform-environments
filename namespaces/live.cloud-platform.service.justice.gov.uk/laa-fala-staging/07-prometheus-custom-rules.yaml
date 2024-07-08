@@ -5,7 +5,7 @@ metadata:
   namespace: laa-fala-staging
   labels:
     role: alert-rules
-  name: prometheus-custom-rules-fala
+  name: prometheus-custom-rules-fala-staging
 spec:
   groups:
     - name: application-rules
