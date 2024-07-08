@@ -27,6 +27,7 @@ variable "domains" {
     "www.jobs.justice.gov.uk"                        = "justicejobs-www"
     "ppo.gov.uk"                                     = "ppo"
     "www.ppo.gov.uk"                                 = "ppo-www"
+    "archive.ppo.gov.uk"                             = "ppo-archive"
     "lawcom.gov.uk"                                  = "lawcom"
     "www.lawcom.gov.uk"                              = "lawcom-www"
     "victimandwitnessinformation.org.uk"             = "victimandwitnessinformation"
