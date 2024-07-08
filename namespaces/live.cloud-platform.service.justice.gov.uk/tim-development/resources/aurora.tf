@@ -24,8 +24,8 @@ module "rds_aurora" {
 
 resource "kubernetes_secret" "aurora_db" {
   metadata {
-    name      = "example-team-rds-cluster-output"
-    namespace = "my-namespace"
+    name      = "tim-development-rds-cluster-output"
+    namespace = "tim-development"
   }
 
   data = {
