@@ -1,0 +1,49 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-legal-adviser-api-staging
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laalaa
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: CcqStaging5xxIngressResponses
+          # We are explicitly not interested in 501s, as these are used when a client sends an unsupported HTTP verb, which is not an error state.
+          expr: |-
+            # Note that this approach, while verbose, is more sensitive than detecting `rate` or `increase` on the nginx_ingress_controller_requests counter.
+            # Start with effectively a dictionary of ingress names with the current value of the errors-since-records-began counter (C) for each
+                sum by (ingress) (
+                  nginx_ingress_controller_requests{exported_namespace="laa-legal-adviser-api-staging",status=~"500|502|503|504"}
+                )
+            # Now subtract the value of the relevant counter 2 minutes ago, so can see how the counter has changed in the last 2 minutes
+            # If for ingress X, C has increased from 3 to 5 in the last 2 minutes, this subtraction will do {X: 5} - {X: 3} and will result in {X: 2}.
+              -
+                (
+                    sum by (ingress) (
+                      nginx_ingress_controller_requests{exported_namespace="laa-legal-adviser-api-staging",status=~"500|502|503|504"} offset 2m
+                    )
+            # But here's the twist: The counter doesn't start at zero, it starts as undefined. If the counter was undefined 2 minutes ago, but now has a value of 1,
+            # by itself the subtraction becomes {X: 1} - {}, and thanks to how PromQL handles vectors, this will result in {}.
+            # So we need to make sure that in this scenario, the second dictionary has a value for X that is less than the current value of C for X.
+            # To achieve this we use "or" to fall back to a value of C - 1, so that our subtraction becomes {X: 1} - {X: 0} = {X: 1}
+                  or
+                    (
+                        sum by (ingress) (
+                          nginx_ingress_controller_requests{exported_namespace="laa-legal-adviser-api-staging",status=~"500|502|503|504"}
+                        )
+                      -
+                        1
+                    )
+            # Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that are not positive.
+                )
+            >
+              0
+          labels:
+            severity: laa-legal-adviser-api-staging
+          annotations:
+            message: Staging ingress {{ $labels.ingress }} is serving 5xx responses.
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/LE/pages/4405724996/CCQ+Runbook
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-check-client-qualifies-staging
