@@ -45,5 +45,5 @@ spec:
             severity: laa-legal-adviser-api-staging
           annotations:
             message: Staging ingress {{ $labels.ingress }} is serving 5xx responses.
-            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/LE/pages/4405724996/CCQ+Runbook
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-check-client-qualifies-staging
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/laagetaccess/pages/4525818190/CLA+FALA+Cheat+Sheet#Find-a-Legal-Advisor-(FALA)
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/681869f897edabb22af5ab13608a515ff0075e6c/laa-legal-adviser-api-ingress-dashboard?orgId=1&var-namespace=laa-legal-adviser-api-staging&var-ingress=laa-legal-adviser-api-v122
