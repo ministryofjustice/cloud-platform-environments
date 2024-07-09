@@ -1,9 +1,9 @@
 {
   "features": {
-    "ghcr.io/ministryofjustice/devcontainer-feature/aws:0": {
-      "version": "0.0.3",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:249e6f164df67ce38c8217c25e52d89ac1267d79536669647eed14fd2609f715",
-      "integrity": "sha256:249e6f164df67ce38c8217c25e52d89ac1267d79536669647eed14fd2609f715"
+    "ghcr.io/ministryofjustice/devcontainer-feature/aws:1": {
+      "version": "1.0.0",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:bb07a76c8e7a6b630a2056ce959addddee436e3f9936c69b9163eff54f58dbd5",
+      "integrity": "sha256:bb07a76c8e7a6b630a2056ce959addddee436e3f9936c69b9163eff54f58dbd5"
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform:0": {
       "version": "0.0.4",
