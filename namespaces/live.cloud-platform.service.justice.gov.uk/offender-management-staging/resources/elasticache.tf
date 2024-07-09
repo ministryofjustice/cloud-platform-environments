@@ -57,3 +57,46 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
     url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }
+
+###
+### New secrets below. Above secrets to be removed once no longer in use
+###
+
+resource "kubernetes_secret" "redis-staging" {
+  metadata {
+    name      = "allocation-elasticache-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
+    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
+    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+  }
+}
+
+resource "kubernetes_secret" "redis-test" {
+  metadata {
+    name      = "allocation-elasticache-redis"
+    namespace = "offender-management-test"
+  }
+
+  data = {
+    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
+    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
+    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+  }
+}
+
+resource "kubernetes_secret" "redis-test2" {
+  metadata {
+    name      = "allocation-elasticache-redis"
+    namespace = "offender-management-test2"
+  }
+
+  data = {
+    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
+    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
+    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+  }
+}
