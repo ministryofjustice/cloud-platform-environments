@@ -25,5 +25,18 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
-
-
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-laa-crime-application-store-api-dev
+  namespace: laa-assess-crime-forms-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: laa-crime-application-store-dev
