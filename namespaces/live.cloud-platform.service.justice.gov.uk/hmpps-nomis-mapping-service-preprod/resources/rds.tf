@@ -18,7 +18,13 @@ module "dps_rds" {
   prepare_for_major_upgrade = false
   db_allocated_storage      = "100"
   db_max_allocated_storage  = "2000"
-
+  db_parameter = [
+    {
+      "apply_method" : "immediate",
+      "name" : "storage_type",
+      "value" : "gp3"
+    }
+  ]
   providers = {
     aws = aws.london
   }
