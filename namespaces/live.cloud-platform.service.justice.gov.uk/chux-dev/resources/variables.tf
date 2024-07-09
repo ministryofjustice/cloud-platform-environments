@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-sre"
+  default     = "j-a-r-v-i-s"
 }
 
 variable "environment" {
@@ -66,4 +66,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
