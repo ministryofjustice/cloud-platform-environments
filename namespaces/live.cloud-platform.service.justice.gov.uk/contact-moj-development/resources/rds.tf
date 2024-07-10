@@ -17,13 +17,13 @@ module "contact-moj_rds" {
   db_max_allocated_storage   = "500"
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
-  db_engine_version          = "16.2"
+  db_engine_version          = "16"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_development"
   enable_rds_auto_start_stop = true
 
   allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
 
   providers = {
     aws = aws.london
