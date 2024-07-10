@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-to-gp3"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -18,7 +18,6 @@ module "dps_rds" {
   prepare_for_major_upgrade = false
   db_allocated_storage      = "100"
   db_max_allocated_storage  = "2000"
-
   providers = {
     aws = aws.london
   }

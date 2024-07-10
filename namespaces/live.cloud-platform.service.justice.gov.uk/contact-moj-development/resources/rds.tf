@@ -15,9 +15,9 @@ module "contact-moj_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
-  rds_family                 = "postgres12"
+  rds_family                 = "postgres16"
   db_engine                  = "postgres"
-  db_engine_version          = "12.18"
+  db_engine_version          = "16"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_development"
   enable_rds_auto_start_stop = true
