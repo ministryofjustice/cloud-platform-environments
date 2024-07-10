@@ -11,4 +11,5 @@ spec:
   dnsNames:
     - prepare-case-probation.service.justice.gov.uk
     - court-list-splitter.hmpps.service.justice.gov.uk
+    - pre-sentence-service.hmpps.service.justice.gov.uk
     - court-hearing-event-receiver.hmpps.service.justice.gov.uk
