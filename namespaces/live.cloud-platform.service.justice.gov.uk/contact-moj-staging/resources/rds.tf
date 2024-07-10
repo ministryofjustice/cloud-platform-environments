@@ -23,7 +23,7 @@ module "contact-moj_rds" {
   enable_rds_auto_start_stop = true
 
   allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
