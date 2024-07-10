@@ -16,7 +16,7 @@ module "contact-moj_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "13.14"
+  db_engine_version          = "13.15"
   rds_family                 = "postgres13"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_staging"
