@@ -22,7 +22,7 @@ module "contact-moj_rds" {
   db_name                    = "contact_moj_production"
 
   allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
