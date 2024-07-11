@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: "data-platform-find-moj-data-prod"
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
