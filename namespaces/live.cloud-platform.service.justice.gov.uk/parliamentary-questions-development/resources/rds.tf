@@ -20,7 +20,7 @@ module "rds_instance" {
   db_name                    = "parliamentary_questions_dev"
   rds_family                 = "postgres16"
   enable_rds_auto_start_stop = true
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade  = true
 }
 
 resource "kubernetes_secret" "rds_instance" {
