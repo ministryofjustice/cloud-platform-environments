@@ -20,15 +20,6 @@ module "ap_irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-# set up the service pod
-module "ap_service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
-
-  # Configuration
-  namespace            = var.namespace
-  service_account_name = module.ap_irsa.service_account.name
-}
-
 resource "aws_iam_policy" "ap_policy" {
   name   = "${var.namespace}-ap-policy"
   policy = data.aws_iam_policy_document.ap_access.json
