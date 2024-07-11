@@ -16,11 +16,11 @@ module "rds_instance" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "13.15"
+  db_engine_version          = "16"
   db_name                    = "parliamentary_questions_dev"
-  rds_family                 = "postgres13"
+  rds_family                 = "postgres16"
   enable_rds_auto_start_stop = true
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade  = true
 }
 
 resource "kubernetes_secret" "rds_instance" {
