@@ -57,3 +57,45 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
+resource "aws_iam_policy" "analytical-platform" {
+  name   = "${var.namespace}-analytical-platform"
+  policy = data.aws_iam_policy_document.analytical-platform.json
+  # NB: IAM policy name must be unique within Cloud Platform
+
+  tags = {
+    business-unit          = var.business_unit
+    team_name              = var.team_name
+    application            = var.application
+    is-production          = var.is_production
+    namespace              = var.namespace
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "analytical-platform" {
+  statement {
+    actions = [
+      "s3:Putobject",
+      "s3:PutobjectAcl"
+    ]
+    resources = [
+      "arn:aws:s3:::moj-reg-dev/var.namespace/*",
+    ]
+  }
+}
+
+resource "kubernetes_secret" "analytical-platform" {
+  metadata {
+    name      = "analytical-platform"
+    namespace = var.namespace
+  }
+
+  data = {
+    role_name       = module.irsa.role_name
+    role_arn        = module.irsa.role_arn
+    service_account = module.irsa.service_account.name
+  }
+}
+
