@@ -4,6 +4,6 @@
   "features": {
     "ghcr.io/ministryofjustice/devcontainer-feature/aws:0": {},
     "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform:0": {},
-    "ghcr.io/ministryofjustice/devcontainer-feature/terraform:0": {}
+    "ghcr.io/ministryofjustice/devcontainer-feature/terraform:1": {}
   }
 }

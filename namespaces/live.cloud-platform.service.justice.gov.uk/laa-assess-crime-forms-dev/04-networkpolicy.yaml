@@ -29,17 +29,14 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-prometheus-scraping
+  name: allow-laa-crime-application-store-api-dev
   namespace: laa-assess-crime-forms-dev
 spec:
-  podSelector:
-    matchLabels:
-      app: laa-assess-crime-forms-app
+  podSelector: {}
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: monitoring
-
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-crime-application-store-dev

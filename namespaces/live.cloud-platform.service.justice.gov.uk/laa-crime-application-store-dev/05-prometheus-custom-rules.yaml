@@ -1,0 +1,151 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-crime-application-store-dev
+  labels:
+    prometheus: cloud-platform
+    role: alert-rules
+  name: prometheus-custom-rules-laa-crime-application-store-dev
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: NamespaceDown
+      expr: absent(up{namespace="laa-crime-application-store-dev"}) == 1
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Namespace {{ $labels.namespace }} is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-crime-application-store-dev
+
+    - alert: Nginx5xxError
+      expr: |-
+        # Any 500|502|503|504 statuses in previous 2 minutes
+        # 
+        # Note that this approach, while verbose, is more sensitive than detecting `rate` or `increase` on the nginx_ingress_controller_requests counter.
+        # Start with effectively a dictionary of ingress names with the current value of the errors-since-records-began counter (C) for each
+        # 
+        # Now subtract the value of the relevant counter 2 minutes ago, so can see how the counter has changed in the last 2 minutes
+        # If for ingress X, C has increased from 3 to 5 in the last 2 minutes, this subtraction will do {X: 5} - {X: 3} and will result in {X: 2}.
+        # 
+        # But here's the twist: The counter doesn't start at zero, it starts as undefined. If the counter was undefined 2 minutes ago, but now 
+        # has a value of 1, by itself the subtraction becomes {X: 1} - {}, and thanks to how PromQL handles vectors, this will result in {}.
+        # So we need to make sure that in this scenario, the second dictionary has a value for X that is less than the current value of C for X.
+        # To achieve this we use "or" to fall back to a value of C - 1, so that our subtraction becomes {X: 1} - {X: 0} = {X: 1}
+        # 
+        # Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that are not positive.
+            sum by (ingress) (
+              nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"}
+            )
+          -
+            (
+                sum by (ingress) (
+                  nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"} offset 2m
+                )
+              or
+                (
+                    sum by (ingress) (
+                      nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"}
+                    )
+                  -
+                    1
+                )
+            )
+        >
+          0
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Namespace laa-crime-application-store-dev encountered one or more HTTP 5xx errors
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-crime-application-store-dev
+
+    - alert: KubeLowPodCount
+      expr: sum (kube_pod_status_phase{namespace="laa-crime-application-store-dev", phase="Running"}) < 1
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Namespace laa-crime-application-store-dev has fewer than expected number of running pods
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-crime-application-store-dev
+
+    - alert: KubeQuotaExceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crime-application-store-dev"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crime-application-store-dev"} > 0) > 90
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubequotaexceeded
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-crime-application-store-dev  
+
+    - alert: KubePodCrashLooping
+      expr: |-
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crime-application-store-dev"}[15m]) * 60 * 5 > 0
+      for: 1h
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-crime-application-store-dev
+
+    # DISABLED on DEV to avoid noise from DEV branch built deployments
+    #
+    # - alert: SidekiqDeadJobThresholdReached
+    #   expr: |-
+    #     # Any dead jobs added in past 2 minutes
+    #     #
+    #     # We exclude pods NOT named laa-crime-application-store as branches may have a lot of dead jobs and
+    #     # be noisey.
+    #     #
+    #     # We use average because each worker pod will report the same number of dead jobs.
+    #     #
+    #     # To find those added in the last 2 minutes we take current dead jobs and take away either the number
+    #     # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
+    #     # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
+    #     #
+    #     # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
+    #     # that the number could be less than 0 if dead jobs are cleared/deleted.
+    #     #
+    #     avg(ruby_sidekiq_stats_dead_size{namespace="laa-crime-application-store-dev", pod=~"laa-crime-application-store.+"})
+    #      - (
+    #          avg(ruby_sidekiq_stats_dead_size{namespace="laa-crime-application-store-dev", pod=~"laa-crime-application-store.+"} offset 2m)
+    #          or
+    #          avg(ruby_sidekiq_stats_dead_size{namespace="laa-crime-application-store-dev", pod=~"laa-crime-application-store.+"}) - 1
+    #        )
+    #       > 0
+    #   labels:
+    #     severity: laa-crime-forms-team-pre-prod
+    #   annotations:
+    #     message: One or more Sidekiq jobs moved to dead in namespace laa-crime-application-store-dev
+    #     runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+    #     dashboard_url: https://main-nscc-store-dev.cloud-platform.service.justice.gov.uk/sidekiq
+
+    - alert: SidekiqQueueSizeThresholdReached
+      expr: |-
+        # We exclude queues named sidekiq-alive* as this are purely used to test liveness.
+        #
+        # We use `sum by` to "group [counts] by" queue name and `avg by` to divide by the number of worker pods
+        # from which the stats are produced (which are duplicating stats).
+        #
+        # Example: If there are 2 workers and queue1 has size 1 and queue2 has 2 then total queue size is (1+2) * 2 = 6.
+        #          The sum by and avg by "should" result in (6/2)/2 = 1.5
+        #
+        # This is based on guesswork as it is hard to test and we can refine it if we start to see alerts that are not
+        # an issue.
+        #
+        avg by (pod) (
+          sum by (queue) (
+            ruby_sidekiq_queue_backlog{namespace="laa-crime-application-store-dev", pod=~"laa-crime-application-store.+", queue!~"sidekiq-alive.*"}
+          )
+        ) > 2
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: Total sidekiq queue sizes are more than 2
+        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+        dashboard_url: https://main-nscc-store-dev.cloud-platform.service.justice.gov.uk/sidekiq

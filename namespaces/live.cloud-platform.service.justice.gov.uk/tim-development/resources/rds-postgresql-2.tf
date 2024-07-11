@@ -5,7 +5,7 @@
  *
  */
 module "rds2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=update-ca-cert-identifier"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -41,7 +41,7 @@ module "rds2" {
 module "read_replica2" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=update-ca-cert-identifier"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name               = var.vpc_name
 

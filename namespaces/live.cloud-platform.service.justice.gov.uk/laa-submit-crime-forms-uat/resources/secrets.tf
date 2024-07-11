@@ -40,6 +40,11 @@ module "secrets" {
       description             = "Credentials for Sidekiq Page" 
       recovery_window_in_days = 7
       k8s_secret_name         = "sidekiq-auth"
+    },
+    "slack-webhook" = {
+      description             = "Slack webhook URL for posting messages to teams pre-prod alerts channel" 
+      recovery_window_in_days = 7
+      k8s_secret_name         = "slack-webhook"
     }
   }
 

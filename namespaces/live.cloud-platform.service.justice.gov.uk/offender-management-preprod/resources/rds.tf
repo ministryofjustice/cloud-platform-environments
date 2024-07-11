@@ -5,7 +5,7 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name                   = var.vpc_name
   db_instance_class          = "db.t4g.small"
@@ -23,7 +23,6 @@ module "allocation-rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_name                    = "allocations"
-  db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   enable_rds_auto_start_stop = true
 
 
@@ -50,5 +49,21 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_host         = module.allocation-rds.rds_instance_address
     postgres_user         = module.allocation-rds.database_username
     postgres_password     = module.allocation-rds.database_password
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "allocation-rds-instance-output-preprod"
+    namespace = "offender-management-production"
+  }
+
+  data = {
+    database_name        = module.allocation-rds.database_name
+    database_username    = module.allocation-rds.database_username
+    database_password    = module.allocation-rds.database_password
+    rds_instance_address = module.allocation-rds.rds_instance_address
   }
 }

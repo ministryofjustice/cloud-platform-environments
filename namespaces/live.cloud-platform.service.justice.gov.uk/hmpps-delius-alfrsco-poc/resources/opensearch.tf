@@ -6,7 +6,7 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_1.3"
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
   # Non-production cluster configuration
   cluster_config = {

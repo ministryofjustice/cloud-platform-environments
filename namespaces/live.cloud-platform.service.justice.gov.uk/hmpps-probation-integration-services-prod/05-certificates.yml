@@ -644,3 +644,18 @@ spec:
   dnsNames:
     - c1af618d.hmpps.service.justice.gov.uk
     - core-person-record-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: subject-access-requests-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: subject-access-requests-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dc5566b4.hmpps.service.justice.gov.uk
+    - subject-access-requests-and-delius.hmpps.service.justice.gov.uk

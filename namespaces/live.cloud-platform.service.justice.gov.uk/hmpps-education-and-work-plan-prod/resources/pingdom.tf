@@ -31,7 +31,7 @@ resource "pingdom_check" "hmpps-education-and-work-plan-api-production-check" {
 	url                      = "/https/learningandworkprogress-api.hmpps.service.justice.gov.uk"
 	encryption               = true
 	port                     = 443
-	tags                     = "businessunit_hmpps,application_ciag-careers-induction-api,component_api,isproduction_true,environment_prod"
+	tags                     = "businessunit_hmpps,application_education-and-work-plan-api,component_api,isproduction_true,environment_prod"
 	probefilters             = "region:EU"
 	integrationids           = [126338]
 }

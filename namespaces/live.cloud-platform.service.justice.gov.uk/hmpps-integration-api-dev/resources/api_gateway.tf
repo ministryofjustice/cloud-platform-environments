@@ -94,14 +94,6 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_resource" "sqs_parent_resource" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "events"
-}
-
-
-
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
@@ -137,16 +129,16 @@ resource "aws_api_gateway_deployment" "main" {
       # "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
-      md5(file("api_gateway.tf"))
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-events-proxy.tf"))
     ]))
   }
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.sqs_test_client_integration,
-    aws_api_gateway_integration.sqs_pnd_integration,
-    aws_api_gateway_integration.sqs_mapps_integration
+    aws_api_gateway_integration.proxy_http_proxy,   
+    aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
   lifecycle {
@@ -182,6 +174,10 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+   aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
@@ -223,7 +219,10 @@ resource "aws_api_gateway_stage" "main" {
     create_before_destroy = true
   }
 
-  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+    ]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {

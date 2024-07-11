@@ -5,7 +5,7 @@
  *
  */
 module "complexity-of-need-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name                   = var.vpc_name
   db_instance_class          = "db.t4g.micro"
@@ -19,7 +19,6 @@ module "complexity-of-need-rds" {
   infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
   db_name                    = "hmpps_complexity_of_need"
-  db_parameter               = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   enable_rds_auto_start_stop = true
 
   db_engine_version           = "15.6"
@@ -33,18 +32,29 @@ module "complexity-of-need-rds" {
   }
 }
 
-resource "kubernetes_secret" "complexity-of-need-rds" {
+resource "kubernetes_secret" "rds" {
   metadata {
-    name      = "hmpps-complexity-of-need-rds-instance-output"
-    namespace = "hmpps-complexity-of-need-staging"
+    name      = "rds-instance-output"
+    namespace = var.namespace
   }
 
   data = {
     rds_instance_endpoint = module.complexity-of-need-rds.rds_instance_endpoint
-    postgres_name         = module.complexity-of-need-rds.database_name
-    postgres_host         = module.complexity-of-need-rds.rds_instance_address
-    postgres_user         = module.complexity-of-need-rds.database_username
-    postgres_password     = module.complexity-of-need-rds.database_password
+    database_name         = module.complexity-of-need-rds.database_name
+    database_username     = module.complexity-of-need-rds.database_username
+    database_password     = module.complexity-of-need-rds.database_password
     rds_instance_address  = module.complexity-of-need-rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_config_map" "rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.complexity-of-need-rds.database_name
+    db_identifier = module.complexity-of-need-rds.db_identifier
   }
 }
