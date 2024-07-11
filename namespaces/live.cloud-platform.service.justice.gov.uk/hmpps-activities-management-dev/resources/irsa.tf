@@ -24,7 +24,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-activities-management-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.activities_api_rds.irsa_policy_arn})
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.activities_api_rds.irsa_policy_arn}, {analytical-platform = aws_iam_policy.analytical-platform.arn})
 
   # Tags
   business_unit          = var.business_unit
@@ -85,17 +85,3 @@ data "aws_iam_policy_document" "analytical-platform" {
     ]
   }
 }
-
-resource "kubernetes_secret" "analytical-platform" {
-  metadata {
-    name      = "analytical-platform"
-    namespace = var.namespace
-  }
-
-  data = {
-    role_name       = module.irsa.role_name
-    role_arn        = module.irsa.role_arn
-    service_account = module.irsa.service_account.name
-  }
-}
-
