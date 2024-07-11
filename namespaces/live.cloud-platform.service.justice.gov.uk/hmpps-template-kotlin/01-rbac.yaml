@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-template-kotlin
 subjects:
   - kind: Group
-    name: "github:hmpps-sre"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
