@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_ccr_claims = aws_iam_policy.ccr_policy_prd.arn
+    sqs_ccr_claims = aws_iam_policy.ccr_policy_prod.arn
   }
 
   # Tags
@@ -24,10 +24,10 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_iam_policy_document" "ccr_claims_policy_prd" {
+data "aws_iam_policy_document" "ccr_claims_policy_prod" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
-    sid  = "CCRPolicySQSPRD"
+    sid  = "CCRPolicySQSPROD"
     effect = "Allow"
     actions = [
       "sqs:*",
@@ -43,10 +43,10 @@ data "aws_iam_policy_document" "ccr_claims_policy_prd" {
 
 }
 
-resource "aws_iam_policy" "ccr_policy_prd" {
-  name        = "ccr_policy_prd"
-  policy      = data.aws_iam_policy_document.ccr_claims_policy_prd  .json
-  description = "Policy for Cloud Platform to assume role in PRD account for CCR"
+resource "aws_iam_policy" "ccr_policy_prod" {
+  name        = "ccr_policy_prod"
+  policy      = data.aws_iam_policy_document.ccr_claims_policy_prod  .json
+  description = "Policy for Cloud Platform to assume role in PROD account for CCR"
 
   tags = {
     business-unit          = var.business_unit
