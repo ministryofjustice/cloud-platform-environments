@@ -20,7 +20,7 @@ module "rds_instance" {
   rds_family                 = "postgres13"
   db_backup_retention_period = var.db_backup_retention_period
   enable_rds_auto_start_stop = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   providers = {
     aws = aws.london
