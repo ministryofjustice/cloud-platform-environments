@@ -24,7 +24,7 @@ module "peoplefinder_rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = "true"
+  prepare_for_major_upgrade = "false"
 
   providers = {
     aws = aws.london
