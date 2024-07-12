@@ -15,11 +15,12 @@ module "rds_instance" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "12.18"
-  db_name                    = "parliamentary_questions_dev"
-  rds_family                 = "postgres12"
+  db_engine_version          = "13.15"
+  db_name                    = "parliamentary_questions_staging"
+  rds_family                 = "postgres13"
   db_backup_retention_period = var.db_backup_retention_period
   enable_rds_auto_start_stop = true
+  prepare_for_major_upgrade  = true
 
   providers = {
     aws = aws.london
