@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -18,6 +18,7 @@ module "rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
+  db_allocated_storage        = "40"
 
   # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
   enable_rds_auto_start_stop = true
