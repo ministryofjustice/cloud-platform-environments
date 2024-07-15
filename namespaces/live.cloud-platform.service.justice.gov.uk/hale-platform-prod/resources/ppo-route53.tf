@@ -64,7 +64,7 @@ resource "aws_route53_record" "ppo_route53_txt_record_dkim1" {
 
 resource "aws_route53_record" "ppo_route53_txt_record_miro" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_miro_verification.ppo.gov.uk"
+  name    = "ppo.gov.uk"
   type    = "TXT"
   ttl     = "300"
   records = ["miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
