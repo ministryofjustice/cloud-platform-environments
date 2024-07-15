@@ -35,15 +35,7 @@ resource "aws_route53_record" "ppo_route53_txt_record_servers" {
   name    = "ppo.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms15192188", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 include:spf.protection.outlook.com include:servers.mcsv.net -all"]
-}
-
-resource "aws_route53_record" "ppo_route53_cname_record_acm" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_253863dcd7c6082e4f0d800941a4e4bb.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_d04ba8ce18e13c0cdea659d1362a86dd.jhztdrwbnw.acm-validations.aws."]
+  records = ["MS=ms15192188", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 include:spf.protection.outlook.com include:servers.mcsv.net -all", "miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
 }
 
 resource "aws_route53_record" "ppo_route53_cname_record_dmarc" {
@@ -60,14 +52,6 @@ resource "aws_route53_record" "ppo_route53_txt_record_dkim1" {
   type    = "TXT"
   ttl     = "300"
   records = ["v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCN/Dnp6gO1PJVQgLljNpkkvVUH/G04C2QkC28j8ddX13V7MAvDWpCxnUfTPy8C27njUImSa8b2TwyeA0P2ONPHQhW652tSxZa0+VT2b5qRFhne3UigZEeKhix988mhlOTO+6PN4+JR7MPXSeE0iGGPWm8m4JsxeaVvwN0XC92yvQIDAQAB;"]
-}
-
-resource "aws_route53_record" "ppo_route53_txt_record_miro" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_miro_verification.ppo.gov.uk"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
 }
 
 resource "aws_route53_record" "ppo_route53_cname_record_k1" {
@@ -217,3 +201,4 @@ resource "aws_route53_record" "ppo_route53_cname_record_sip" {
   ttl     = "300"
   records = ["sipdir.online.lync.com"]
 }
+
