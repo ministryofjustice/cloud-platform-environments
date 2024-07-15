@@ -16,8 +16,8 @@ module "peoplefinder_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "13.15"
-  rds_family                 = "postgres13"
+  db_engine_version          = "12.18"
+  rds_family                 = "postgres12"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_development"
   enable_rds_auto_start_stop = true
