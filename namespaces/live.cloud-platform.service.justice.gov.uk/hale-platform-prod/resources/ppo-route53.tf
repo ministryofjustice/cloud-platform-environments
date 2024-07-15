@@ -210,26 +210,10 @@ resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
   }
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_mta-sts" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_c8b092cc5e6b18d6d6b1785824fb5bf4.mta-sts.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["_708974cacf749aaba82f164334e9e8b4.nhsllhhtvj.acm-validations.aws."]
-}
-
 resource "aws_route53_record" "ppo_route53_cname_record_sip" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "sip.ppo.gov.uk"
   type    = "CNAME"
   ttl     = "300"
   records = ["sipdir.online.lync.com"]
-}
-
-resource "aws_route53_record" "ppo_route53_cname_record_www_acm" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_022696f67f214f732b546ed506caf325.www.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["_a957df26df1020044886408df9f2ee24.jhztdrwbnw.acm-validations.aws."]
 }
