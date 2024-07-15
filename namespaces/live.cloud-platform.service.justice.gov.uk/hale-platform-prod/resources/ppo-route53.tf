@@ -62,6 +62,14 @@ resource "aws_route53_record" "ppo_route53_txt_record_dkim1" {
   records = ["v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCN/Dnp6gO1PJVQgLljNpkkvVUH/G04C2QkC28j8ddX13V7MAvDWpCxnUfTPy8C27njUImSa8b2TwyeA0P2ONPHQhW652tSxZa0+VT2b5qRFhne3UigZEeKhix988mhlOTO+6PN4+JR7MPXSeE0iGGPWm8m4JsxeaVvwN0XC92yvQIDAQAB;"]
 }
 
+resource "aws_route53_record" "ppo_route53_txt_record_miro" {
+  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
+  name    = "ppo.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
+}
+
 resource "aws_route53_record" "ppo_route53_cname_record_k1" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "k1._domainkey.ppo.gov.uk"
@@ -202,26 +210,10 @@ resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
   }
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_mta-sts" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_c8b092cc5e6b18d6d6b1785824fb5bf4.mta-sts.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["_708974cacf749aaba82f164334e9e8b4.nhsllhhtvj.acm-validations.aws."]
-}
-
 resource "aws_route53_record" "ppo_route53_cname_record_sip" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "sip.ppo.gov.uk"
   type    = "CNAME"
   ttl     = "300"
   records = ["sipdir.online.lync.com"]
-}
-
-resource "aws_route53_record" "ppo_route53_cname_record_www_acm" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_022696f67f214f732b546ed506caf325.www.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["_a957df26df1020044886408df9f2ee24.jhztdrwbnw.acm-validations.aws."]
 }
