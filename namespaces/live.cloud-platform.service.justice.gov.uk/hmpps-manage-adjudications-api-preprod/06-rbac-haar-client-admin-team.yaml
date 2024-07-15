@@ -28,7 +28,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: hmpps-haar-client-admin-team
-  namespace: hmpps-manage-adjudications-api-dev
+  namespace: hmpps-manage-adjudications-api-preprod
 subjects:
   - kind: Group
     name: "github:hmpps-haar-client-admin"
