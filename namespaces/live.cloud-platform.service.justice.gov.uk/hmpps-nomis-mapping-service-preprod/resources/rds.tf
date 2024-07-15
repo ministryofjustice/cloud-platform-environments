@@ -16,7 +16,8 @@ module "dps_rds" {
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
   prepare_for_major_upgrade = false
-
+  db_allocated_storage      = "100"
+  db_max_allocated_storage  = "2000"
   providers = {
     aws = aws.london
   }
