@@ -29,7 +29,7 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-laa-ccms-api-dev
+  name: allow-laa-ccms-file-upload-api-dev
   namespace: laa-ccms-staging-api-dev
 spec:
   podSelector: {}
@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: allow-laa-ccms-api-dev
+              component: allow-laa-ccms-file-upload-api-dev
