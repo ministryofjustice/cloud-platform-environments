@@ -62,6 +62,14 @@ resource "aws_route53_record" "ppo_route53_txt_record_dkim1" {
   records = ["v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCN/Dnp6gO1PJVQgLljNpkkvVUH/G04C2QkC28j8ddX13V7MAvDWpCxnUfTPy8C27njUImSa8b2TwyeA0P2ONPHQhW652tSxZa0+VT2b5qRFhne3UigZEeKhix988mhlOTO+6PN4+JR7MPXSeE0iGGPWm8m4JsxeaVvwN0XC92yvQIDAQAB;"]
 }
 
+resource "aws_route53_record" "ppo_route53_txt_record_miro" {
+  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
+  name    = "_miro_verification.ppo.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
+}
+
 resource "aws_route53_record" "ppo_route53_cname_record_k1" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "k1._domainkey.ppo.gov.uk"

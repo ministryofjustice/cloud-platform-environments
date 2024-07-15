@@ -90,6 +90,14 @@ resource "aws_route53_record" "victimscommissioner_route53_txt_record_asvdns" {
   records = ["asvdns_d6acaafb-39b2-4efa-930c-df6581fa5196"]
 }
 
+resource "aws_route53_record" "victimscommissioner_route53_txt_record_miro" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_miro_verification.victimscommissioner.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
+}
+
 resource "aws_route53_record" "victimscommissioner_route53_cname_record_acm" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "_763372be03a4e87a04610fa50b15adbd.victimscommissioner.org.uk"
