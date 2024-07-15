@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "intranet_staging_s3_production" {
     ]
     resources = [ 
       module.s3_bucket.bucket_arn,
-      "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u"
+      "arn:aws:s3:::intranet2-prod-storage-msxbyjnl9m83"
     ]
   }
   # Permissions on source S3 bucket contents. 
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "intranet_staging_s3_production" {
       "s3:GetObjectVersion",
       "s3:GetObjectTagging"
     ]
-    resources = [ "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u/*" ]
+    resources = [ "arn:aws:s3:::intranet2-prod-storage-msxbyjnl9m83/*" ]
   }
   # Permissions on destination S3 bucket contents. 
   statement {
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "intranet_staging_s3_production" {
 }
 
 resource "aws_iam_policy" "intranet_staging_s3_production" {
-  name   = "intranet_demo_s3_staging"
+  name   = "intranet_staging_s3_production"
   policy = data.aws_iam_policy_document.intranet_staging_s3_production.json
 
   tags = {
