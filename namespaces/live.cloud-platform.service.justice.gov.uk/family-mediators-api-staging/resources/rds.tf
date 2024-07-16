@@ -18,7 +18,7 @@ module "rds-instance" {
   db_engine                  = "postgres"
   db_engine_version          = "16"
   enable_rds_auto_start_stop = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
