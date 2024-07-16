@@ -16,15 +16,15 @@ module "peoplefinder_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "16"
-  rds_family                 = "postgres16"
+  db_engine_version          = "13"
+  rds_family                 = "postgres13"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_staging"
   enable_rds_auto_start_stop = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = "true"
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade = "false"
 
   providers = {
     aws = aws.london
