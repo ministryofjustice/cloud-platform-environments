@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-sentence-plan-dev-admin
-  namespace: hmpps-sentence-plan-review
+  name: hmpps-sentence-plan-test-admin
+  namespace: hmpps-sentence-plan-test
 subjects:
   - kind: Group
     name: "github:hmpps-sentence-planning"
