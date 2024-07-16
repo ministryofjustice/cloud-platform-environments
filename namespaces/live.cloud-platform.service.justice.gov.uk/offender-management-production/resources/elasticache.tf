@@ -31,3 +31,20 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
     url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }
+
+###
+### New secret below. Above secret to be removed once no longer in use
+###
+
+resource "kubernetes_secret" "redis-production" {
+  metadata {
+    name      = "allocation-elasticache-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
+    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
+    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+  }
+}
