@@ -112,7 +112,8 @@ resource "aws_sns_topic_subscription" "hmpps_book_a_video_link_domain_subscripti
       "book-a-video-link.video-booking.amended",
       "book-a-video-link.video-booking.cancelled",
       "book-a-video-link.appointment.created",
-      "prisoner-offender-search.prisoner.released"
+      "prisoner-offender-search.prisoner.released",
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
