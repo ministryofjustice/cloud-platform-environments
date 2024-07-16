@@ -14,6 +14,8 @@ module "hmpps_interventions_postgres14" {
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
 
+  snapshot_identifier = "rds:cloud-platform-08b48c376b780aa9-2024-07-12-00-45"
+
   providers = {
     aws = aws.london
   }
