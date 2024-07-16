@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_domain_events_subscription" {
 
 resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
   provider  = aws.london
-  topic_arn = data.probation_offender_events.topic_arn
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
   queue_url = module.cpr_delius_offender_events_queue.sqs_id
-  policy = data.aws_iam_policy_documentation.cpr_delius_sqs_queue_policy_document.json
+  policy = data.aws_iam_policy_document.cpr_delius_sqs_queue_policy_document.json
 }
 
 ######## Dead letter queue
