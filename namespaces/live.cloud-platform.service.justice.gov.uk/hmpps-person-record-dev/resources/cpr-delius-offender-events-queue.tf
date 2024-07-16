@@ -14,7 +14,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_domain_events_subscription" {
 
 resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
   provider  = aws.london
-  topic_arn = module.probation_offender_events.topic_arn
+  topic_arn = data.probation_offender_events.topic_arn
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
