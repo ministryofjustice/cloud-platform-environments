@@ -12,6 +12,7 @@ variable "domains" {
     "ccrc.gov.uk"                                    = "ccrc"
     "www.ccrc.gov.uk"                                = "ccrc-www"
     "icrir.independent-inquiry.uk"                   = "icrir"
+    "intranet.icrir.independent-inquiry.uk"          = "icrir-intranet"
     "prisonandprobationjobs.gov.uk"                  = "ppj"
     "www.prisonandprobationjobs.gov.uk"              = "ppj-www"
     "brookhouseinquiry.org.uk"                       = "brookhouse"
