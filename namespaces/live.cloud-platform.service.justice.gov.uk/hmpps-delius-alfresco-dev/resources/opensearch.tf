@@ -39,3 +39,32 @@ resource "kubernetes_secret" "opensearch" {
     proxy_url = module.opensearch.proxy_url
   }
 }
+
+#######################################
+# s3 bucket for OpenSearch snapshots
+#######################################
+
+module "s3_opensearch_snapshots_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
+  metadata {
+    name      = "s3-opensearch-snapshots-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_ARN  = module.s3_opensearch_snapshots_bucket.bucket_arn
+    BUCKET_NAME = module.s3_opensearch_snapshots_bucket.bucket_name
+  }
+}
