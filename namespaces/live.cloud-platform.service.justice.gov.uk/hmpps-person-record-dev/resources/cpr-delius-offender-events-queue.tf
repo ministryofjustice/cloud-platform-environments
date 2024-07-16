@@ -54,31 +54,42 @@ module "cpr_delius_offender_events_queue" {
   }
 }
 
+data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "ProbationOffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
+    }
+    resources = ["*"]
+  }
+}
+
 resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
   queue_url = module.cpr_delius_offender_events_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.cpr_delius_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cpr_delius_offender_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-              {
-                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-              }
-            }
-        }
-      ]
-  }
-EOF
+  policy = data.aws_iam_policy_documentation.cpr_delius_sqs_queue_policy_document.json
 }
 
 ######## Dead letter queue
