@@ -13,8 +13,8 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias  = "ireland"
-  region = "eu-west-1"
+  alias = "virginia"
+  region = "us-east-1"
 }
 
 provider "github" {
