@@ -69,22 +69,3 @@ resource "kubernetes_secret" "allocation-rds-test" {
     postgres_password     = module.allocation-rds.database_password
   }
 }
-
-resource "kubernetes_secret" "allocation-rds-test2" {
-  metadata {
-    name      = "allocation-rds-instance-output"
-    namespace = "offender-management-test2"
-  }
-
-  data = {
-    rds_instance_endpoint = module.allocation-rds.rds_instance_endpoint
-    rds_instance_address  = module.allocation-rds.rds_instance_address
-    database_name         = module.allocation-rds.database_name
-    database_username     = module.allocation-rds.database_username
-    database_password     = module.allocation-rds.database_password
-    postgres_name         = module.allocation-rds.database_name
-    postgres_host         = module.allocation-rds.rds_instance_address
-    postgres_user         = module.allocation-rds.database_username
-    postgres_password     = module.allocation-rds.database_password
-  }
-}
