@@ -2,24 +2,24 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: sentence-plan
-  namespace: hmpps-sentence-plan-review
+  namespace: hmpps-sentence-plan-test
 spec:
   secretName: hmpps-sentence-plan-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - sentence-plan-review.hmpps.service.justice.gov.uk
+    - sentence-plan-test.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: sentence-plan-api
-  namespace: hmpps-sentence-plan-review
+  namespace: hmpps-sentence-plan-test
 spec:
   secretName: hmpps-sentence-plan-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - sentence-plan-api-review.hmpps.service.justice.gov.uk
+    - sentence-plan-api-test.hmpps.service.justice.gov.uk
