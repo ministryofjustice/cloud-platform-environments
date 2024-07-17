@@ -2,7 +2,7 @@ module "irsa" {
       source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
       eks_cluster_name      = var.eks_cluster_name
       namespace             = var.namespace
-      service_account_name  = "${var.namespace}-sa"
+      service_account_name  = "${var.namespace}-sa2"
       role_policy_arns = { s3 = aws_iam_policy.alpha-cjs-va-dashboard-dev_ap_access_policy.arn }
 
       # Tags

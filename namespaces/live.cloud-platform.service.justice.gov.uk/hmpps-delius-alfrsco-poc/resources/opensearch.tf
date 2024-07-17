@@ -11,7 +11,7 @@ module "opensearch" {
   # Non-production cluster configuration
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_type  = "m6g.large.search"
   }
 
   ebs_options = {

@@ -48,6 +48,10 @@ variable "domains" {
     "www.justiceinspectorates.gov.uk"                = "justiceinspectorates-www"
     "hmiprisons.justiceinspectorates.gov.uk"         = "justiceinspectorates-hmiprisons"
     "showcase.websitebuilder.service.justice.gov.uk" = "websitebuilder-showcase"
+    "seewhatsontheinside.com"                        = "swoti"
+    "www.seewhatsontheinside.com"                    = "swoti-www"
+    "seewhatsontheinside.co.uk"                      = "swoti-uk"
+    "www.seewhatsontheinside.co.uk"                  = "swoti-uk-www"
   }
 }
 
