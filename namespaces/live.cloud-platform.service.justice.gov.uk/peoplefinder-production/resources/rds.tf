@@ -43,7 +43,7 @@ module "peoplefinder_rds_replica" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres16"
-  db_engine_version        = "16.3"q
+  db_engine_version        = "16.3"
   namespace                = var.namespace
   business_unit            = var.business_unit
 
