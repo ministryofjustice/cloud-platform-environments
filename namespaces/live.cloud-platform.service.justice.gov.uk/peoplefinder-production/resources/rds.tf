@@ -14,8 +14,8 @@ module "peoplefinder_rds" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  rds_family                 = "postgres12"
-  db_engine_version          = "12.17"
+  rds_family                 = "postgres13"
+  db_engine_version          = "13.15"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment_name           = var.environment
@@ -23,6 +23,7 @@ module "peoplefinder_rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade = "true"
 
   providers = {
     aws = aws.london
