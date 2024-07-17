@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-aws-infrastructure"
+      GithubTeam = "laa-lz-cp-migration"
     }
   }
 }
