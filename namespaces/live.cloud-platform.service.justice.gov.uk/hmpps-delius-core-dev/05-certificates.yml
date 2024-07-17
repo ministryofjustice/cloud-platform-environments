@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-user-management-cert
+  namespace: hmpps-delius-core-dev
+spec:
+  secretName: delius-user-management-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-user-management-dev.hmpps.service.justice.gov.uk
