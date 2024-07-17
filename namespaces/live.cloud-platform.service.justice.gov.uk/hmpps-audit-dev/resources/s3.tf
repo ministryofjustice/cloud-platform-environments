@@ -13,7 +13,7 @@ module "s3" {
   infrastructure_support = var.infrastructure_support
 }
 
-# Adds object locking to enable a retention period of 10 years before
+# Adds object locking to enable a retention period before
 # an object can be modified.
 # To provide compliance assurance.
 resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
