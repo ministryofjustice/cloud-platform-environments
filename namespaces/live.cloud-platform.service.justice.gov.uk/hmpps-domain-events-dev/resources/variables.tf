@@ -42,7 +42,6 @@ variable "additional_topic_clients" {
     "offender-case-notes-dev",
     "offender-management-staging",
     "offender-management-test",
-    "offender-management-test2",
     "visit-someone-in-prison-backend-svc-dev",
   ]
 }
