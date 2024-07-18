@@ -21,7 +21,7 @@ module "rds_instance" {
   rds_family                 = "postgres16"
   db_backup_retention_period = var.db_backup_retention_period
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   providers = {
     aws = aws.london
