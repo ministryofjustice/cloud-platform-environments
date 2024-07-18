@@ -10,7 +10,7 @@ spec:
   groups:
     - name: application-rules
       rules:
-        - alert: CcqStaging5xxIngressResponses
+        - alert: LaaLegalAdviserApiStaging5xxResponses
           # We are explicitly not interested in 501s, as these are used when a client sends an unsupported HTTP verb, which is not an error state.
           expr: |-
             # Note that this approach, while verbose, is more sensitive than detecting `rate` or `increase` on the nginx_ingress_controller_requests counter.
