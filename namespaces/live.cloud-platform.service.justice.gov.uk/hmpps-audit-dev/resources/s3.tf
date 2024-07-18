@@ -11,8 +11,15 @@ module "s3" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-  versioning = true
 
+}
+
+resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
+  bucket = module.s3.bucket_name
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 # Sets the governance mode to 1 day for testing on dev
@@ -25,6 +32,10 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
         days = 1
     }
   }
+
+  depends_on = [
+    aws_s3_bucket_versioning.s3_bucket_versioning
+  ]
 
 }
 
