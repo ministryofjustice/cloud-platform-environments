@@ -71,8 +71,11 @@ module "cpr_court_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
+  # This queue is actually named cpr_court_events_dlq.fifo,
+  # however, .fifo is appended later
   sqs_name        = "cpr_court_events_dlq"
   encrypt_sqs_kms = "true"
+  fifo_queue      = "true"
 
   # Tags
   business_unit          = var.business_unit
