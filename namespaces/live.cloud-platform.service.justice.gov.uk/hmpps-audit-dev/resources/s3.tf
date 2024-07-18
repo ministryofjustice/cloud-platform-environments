@@ -2,7 +2,7 @@ module "s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
 
   # S3 configuration
-
+  versioning = true
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -14,13 +14,6 @@ module "s3" {
 
 }
 
-resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
-  bucket = module.s3.bucket_name
-
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
 
 # Sets the governance mode to 1 day for testing on dev
 resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration" {
@@ -34,7 +27,7 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
   }
 
   depends_on = [
-    aws_s3_bucket_versioning.s3_bucket_versioning
+    module.s3
   ]
 
 }
