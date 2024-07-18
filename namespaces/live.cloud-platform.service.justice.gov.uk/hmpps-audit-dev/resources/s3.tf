@@ -26,6 +26,10 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
     }
   }
 
+  depends_on = [
+    aws_s3_bucket_versioning.s3_bucket_versioning
+  ]
+
 }
 
 resource "kubernetes_secret" "s3" {
