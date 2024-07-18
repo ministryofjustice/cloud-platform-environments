@@ -1,10 +1,6 @@
 provider "pingdom" {
 }
 
-# Integration IDs
-# 96624 = #dps_alerts
-# 96628 = DPS Pager duty
-
 resource "pingdom_check" "dps-production-check" {
   type                     = "http"
   name                     = "DPS - ${var.application}"
@@ -16,8 +12,8 @@ resource "pingdom_check" "dps-production-check" {
   url                      = "/https/${var.domain}"
   encryption               = true
   port                     = 443
-  tags                     = "dps,hmpps,cloudplatform-managed"
+  tags                     = "move-and-improve,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [136330] # move-and-improve
 }
 
