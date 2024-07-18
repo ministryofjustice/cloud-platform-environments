@@ -11,15 +11,14 @@ module "s3" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-  versioning = true
 
-  resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
-    bucket = module.s3.bucket_name
+}
 
-    versioning_configuration {
-      status = "Enabled"
-    }
+resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
+  bucket = module.s3.bucket_name
 
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
