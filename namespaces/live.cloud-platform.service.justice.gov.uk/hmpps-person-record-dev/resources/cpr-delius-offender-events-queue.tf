@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
     }
     resources = ["*"]
   }
