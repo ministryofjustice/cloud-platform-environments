@@ -11,17 +11,7 @@ module "s3" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-}
-
-# Adds object locking to enable a retention period before
-# an object can be modified.
-# To provide compliance assurance.
-resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
-  bucket = module.s3.bucket_name
-
-  versioning_configuration {
-    status = "Enabled"
-  }
+  versioning = true
 
 }
 
