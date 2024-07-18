@@ -12,6 +12,7 @@ variable "domains" {
     "ccrc.gov.uk"                                    = "ccrc"
     "www.ccrc.gov.uk"                                = "ccrc-www"
     "icrir.independent-inquiry.uk"                   = "icrir"
+    "intranet.icrir.independent-inquiry.uk"          = "icrir-intranet"
     "prisonandprobationjobs.gov.uk"                  = "ppj"
     "www.prisonandprobationjobs.gov.uk"              = "ppj-www"
     "brookhouseinquiry.org.uk"                       = "brookhouse"
@@ -27,6 +28,7 @@ variable "domains" {
     "www.jobs.justice.gov.uk"                        = "justicejobs-www"
     "ppo.gov.uk"                                     = "ppo"
     "www.ppo.gov.uk"                                 = "ppo-www"
+    "archive.ppo.gov.uk"                             = "ppo-archive"
     "lawcom.gov.uk"                                  = "lawcom"
     "www.lawcom.gov.uk"                              = "lawcom-www"
     "victimandwitnessinformation.org.uk"             = "victimandwitnessinformation"
@@ -46,6 +48,10 @@ variable "domains" {
     "www.justiceinspectorates.gov.uk"                = "justiceinspectorates-www"
     "hmiprisons.justiceinspectorates.gov.uk"         = "justiceinspectorates-hmiprisons"
     "showcase.websitebuilder.service.justice.gov.uk" = "websitebuilder-showcase"
+    "seewhatsontheinside.com"                        = "swoti"
+    "www.seewhatsontheinside.com"                    = "swoti-www"
+    "seewhatsontheinside.co.uk"                      = "swoti-uk"
+    "www.seewhatsontheinside.co.uk"                  = "swoti-uk-www"
   }
 }
 

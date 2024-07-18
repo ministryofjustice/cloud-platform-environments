@@ -28,7 +28,7 @@ module "opensearch" {
   }
 
   ebs_options = {
-    volume_size = 20
+    volume_size = 50
   }
 
   # Tags

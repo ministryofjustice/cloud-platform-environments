@@ -37,17 +37,17 @@ spec:
         # 
         # Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that are not positive.
             sum by (ingress) (
-              nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504"}
+              nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"}
             )
           -
             (
                 sum by (ingress) (
-                  nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504"} offset 2m
+                  nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"} offset 2m
                 )
               or
                 (
                     sum by (ingress) (
-                      nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504"}
+                      nginx_ingress_controller_requests{exported_namespace="laa-crime-application-store-dev",status=~"500|502|503|504",ingress!~".+metabase"}
                     )
                   -
                     1
@@ -149,3 +149,14 @@ spec:
         message: Total sidekiq queue sizes are more than 2
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://main-nscc-store-dev.cloud-platform.service.justice.gov.uk/sidekiq
+
+    - alert: ModSecInterventionsThresholdReached
+      expr: |-
+        sum(increase(nginx_ingress_controller_requests{status="423", exported_namespace="laa-crime-application-store-dev"}[1h])) > 10
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: More than 10 modsec interventions detected in the last hour
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
+        dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover

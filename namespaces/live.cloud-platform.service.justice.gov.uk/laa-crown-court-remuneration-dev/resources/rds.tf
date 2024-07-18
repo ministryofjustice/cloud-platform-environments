@@ -10,7 +10,7 @@ module "rds-mtn" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 
   # Database configuration
   db_engine                = "oracle-se2"
@@ -32,7 +32,7 @@ module "rds-mtn" {
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-dev-cp-migration-21062024-manual-copy"
 

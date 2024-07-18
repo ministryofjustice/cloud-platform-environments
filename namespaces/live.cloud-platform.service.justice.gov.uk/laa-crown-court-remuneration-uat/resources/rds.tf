@@ -10,11 +10,11 @@ module "rds-instance" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
+  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -32,9 +32,9 @@ module "rds-instance" {
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-uat-snapshot-initial-migration-cp"
 
   providers = {
     aws = aws.london

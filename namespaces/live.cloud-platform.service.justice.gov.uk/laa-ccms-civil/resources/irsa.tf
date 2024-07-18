@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     ecr = module.ecr.irsa_policy_arn
+    s3  = module.laa_ccms_documents.irsa_policy_arn
   }
 
   # Tags
@@ -34,4 +35,12 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
   }
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

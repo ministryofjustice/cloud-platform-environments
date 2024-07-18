@@ -6,10 +6,10 @@ metadata:
   namespace: send-legal-mail-to-prisons-preprod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-send-legal-mail"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-send-legal-mail"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

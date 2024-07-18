@@ -121,7 +121,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   uri                     = "${var.cloud_platform_integration_api_url}/{proxy}"
 
   request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy",
+    "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
 }
@@ -251,7 +251,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -274,7 +274,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -297,7 +297,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -320,7 +320,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }

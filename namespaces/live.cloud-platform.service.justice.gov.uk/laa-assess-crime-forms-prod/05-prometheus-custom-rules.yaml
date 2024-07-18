@@ -63,7 +63,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-assess-crime-forms-prod
 
     - alert: KubeLowPodCount
-      expr: sum (kube_pod_status_phase{namespace="laa-assess-crime-forms-prod", phase="Running"}) < 1
+      expr: sum (kube_pod_status_phase{namespace="laa-assess-crime-forms-prod", phase="Running"}) < 3
       labels:
         severity: laa-crime-forms-team-prod
       annotations:
@@ -147,3 +147,14 @@ spec:
         message: Total sidekiq queue sizes are more than 2 in namespace laa-assess-crime-forms-prod
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://assess-crime-forms.service.justice.gov.uk/sidekiq
+
+    - alert: ModSecInterventionsThresholdReached
+      expr: |-
+        sum(increase(nginx_ingress_controller_requests{status="423", exported_namespace="laa-assess-crime-forms-prod"}[1h])) > 10
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-prod
+      annotations:
+        message: More than 10 modsec interventions detected in the last hour
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
+        dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover
