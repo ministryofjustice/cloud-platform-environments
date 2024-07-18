@@ -1,8 +1,7 @@
 ######################################## Delius offender events subscription
 
 resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
@@ -13,7 +12,6 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
 }
 
 resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription" {
-  provider  = aws.london
   topic_arn = data.aws_sns_topic.probation-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
