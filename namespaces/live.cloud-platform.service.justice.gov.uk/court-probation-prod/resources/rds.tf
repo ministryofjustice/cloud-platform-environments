@@ -14,7 +14,7 @@ module "court_case_service_rds" {
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = true
-  db_instance_class            = "db.t4g.xlarge"
+  db_instance_class            = "db.t4g.2xlarge"
 
   providers = {
     aws = aws.london
