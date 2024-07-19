@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-jobs-board-reporting-ui-dev-cert
+  namespace: hmpps-jobs-board-reporting-dev
+spec:
+  secretName: hmpps-jobs-board-reporting-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - jobs-board-reporting-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-jobs-board-reporting-api-dev-cert
+  namespace: hmpps-jobs-board-reporting-dev
+spec:
+  secretName: hmpps-jobs-board-reporting-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - jobs-board-reporting-api-dev.hmpps.service.justice.gov.uk
