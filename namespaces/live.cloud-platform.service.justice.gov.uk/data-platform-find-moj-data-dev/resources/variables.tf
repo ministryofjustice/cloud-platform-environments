@@ -70,3 +70,8 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
+variable "domain" {
+  default = "dev.find-moj-data.service.justice.gov.uk"
+  type    = string
+}
