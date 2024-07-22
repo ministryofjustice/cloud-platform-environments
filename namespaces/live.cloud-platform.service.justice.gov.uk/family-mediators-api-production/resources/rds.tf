@@ -20,7 +20,7 @@ module "rds-instance" {
   db_engine                = "postgres"
   db_engine_version        = "16.3"
   rds_family               = "postgres16"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
