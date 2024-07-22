@@ -18,6 +18,10 @@ module "opensearch" {
     volume_size = 50
   }
 
+  advanced_options = {
+    # increase the maxClauseCount to 4096
+    "indices.query.bool.max_clause_count" = "4096"
+  }
   # Tags
   business_unit          = var.business_unit
   application            = var.application
