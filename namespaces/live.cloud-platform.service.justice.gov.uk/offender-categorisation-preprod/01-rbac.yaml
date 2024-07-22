@@ -6,10 +6,7 @@ metadata:
   namespace: offender-categorisation-preprod
 subjects:
   - kind: Group
-    name: "github:dps-shared"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-tech"
+    name: "github:dps-pathfinder-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
