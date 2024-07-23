@@ -20,11 +20,11 @@ module "dex_mi_production_rds" {
   db_engine_version          = "16.3"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = false
 
   providers = {
     aws = aws.london
