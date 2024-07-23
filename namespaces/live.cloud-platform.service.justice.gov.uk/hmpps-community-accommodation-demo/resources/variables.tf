@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-community-accomodation-demo"
+  default     = "hmpps-community-accommodation-demo"
 }
 
 variable "business_unit" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "Community Accomodation Services"
+  default     = "Community Accommodation Services"
 }
 
 variable "environment" {
