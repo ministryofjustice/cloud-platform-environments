@@ -15,9 +15,11 @@ module "rds-instance" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "14.11"
-  rds_family                 = "postgres14"
+  db_engine_version          = "15"
+  rds_family                 = "postgres15"
+
   enable_rds_auto_start_stop = true
+  prepare_for_major_upgrade = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
