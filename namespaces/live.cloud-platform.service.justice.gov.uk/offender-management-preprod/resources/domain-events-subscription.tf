@@ -17,19 +17,6 @@ resource "aws_sns_topic_subscription" "domain_events" {
   })
 }
 
-resource "aws_sns_topic_subscription" "offender_events" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.offender_events_topic_arn.value
-  protocol  = "sqs"
-  endpoint  = module.domain_events_sqs_queue.sqs_arn
-
-  filter_policy = jsonencode({
-    eventType = [
-      "OFFENDER_MANAGER_CHANGED"
-    ]
-  })
-}
-
 resource "aws_sns_topic_subscription" "probation_events" {
   provider  = aws.london
   topic_arn = data.aws_sns_topic.probation_events_topic.arn
@@ -90,7 +77,6 @@ resource "aws_sqs_queue_policy" "domain_events_sqs_queue_policy" {
                           {
                             "aws:SourceArn": [
                               "${data.aws_ssm_parameter.domain_events_topic_arn.value}",
-                              "${data.aws_ssm_parameter.offender_events_topic_arn.value}",
                               "${data.aws_sns_topic.probation_events_topic.arn}"
                             ]
                           }
@@ -141,10 +127,6 @@ resource "kubernetes_secret" "domain_events" {
 
 data "aws_ssm_parameter" "domain_events_topic_arn" {
   name = "/hmpps-domain-events-preprod/topic-arn"
-}
-
-data "aws_ssm_parameter" "offender_events_topic_arn" {
-  name = "/offender-events-preprod/topic-arn"
 }
 
 data "aws_sns_topic" "probation_events_topic" {
