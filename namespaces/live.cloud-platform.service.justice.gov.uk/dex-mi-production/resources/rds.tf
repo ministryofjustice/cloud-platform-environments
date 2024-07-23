@@ -16,11 +16,11 @@ module "dex_mi_production_rds" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  rds_family                 = "postgres13"
-  db_engine_version          = "13.15"
+  rds_family                 = "postgres16"
+  db_engine_version          = "16.3"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade  = true
 
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
