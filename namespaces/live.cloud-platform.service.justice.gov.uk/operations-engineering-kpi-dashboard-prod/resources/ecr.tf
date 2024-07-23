@@ -11,7 +11,7 @@ module "ecr-repo" {
   oidc_providers = ["github"]
 
   # specify which GitHub repository you're pushing from
-  github_repositories = ["operations-engineering-kpi-dashboard"]
+  github_repositories = ["operations-engineering-kpi-dashboard-poc"]
 
   lifecycle_policy = <<EOF
 {
