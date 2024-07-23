@@ -56,8 +56,9 @@ module "prison_visit_booker_registry_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "15.5"
   rds_family                  = "postgres15"
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "16300"
+  db_allocated_storage        = "16000"
   db_password_rotated_date    = "2023-03-22"
   performance_insights_enabled = true
 
