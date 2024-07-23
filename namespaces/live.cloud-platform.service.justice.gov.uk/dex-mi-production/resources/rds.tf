@@ -24,7 +24,7 @@ module "dex_mi_production_rds" {
 
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = false
 
   providers = {
     aws = aws.london
