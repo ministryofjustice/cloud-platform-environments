@@ -59,8 +59,6 @@ module "prison_visit_booker_registry_rds" {
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
   db_password_rotated_date    = "2023-03-22"
-
-  enable_rds_auto_start_stop   = true
   performance_insights_enabled = true
 
   providers = {
