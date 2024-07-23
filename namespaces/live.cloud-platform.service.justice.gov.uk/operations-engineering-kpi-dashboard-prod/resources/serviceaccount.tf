@@ -8,7 +8,7 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories                  = ["operations-engineering-kpi-dashboard-poc"]
+  github_repositories                  = ["operations-engineering-kpi-dashboard"]
   github_actions_secret_kube_namespace = "PROD_KUBE_NAMESPACE"
   github_actions_secret_kube_cert      = "PROD_KUBE_CERT"
   github_actions_secret_kube_token     = "PROD_KUBE_TOKEN"
