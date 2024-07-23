@@ -30,6 +30,19 @@ resource "aws_sns_topic_subscription" "offender_events" {
   })
 }
 
+resource "aws_sns_topic_subscription" "probation_events" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.probation_events_topic_arn.value
+  protocol  = "sqs"
+  endpoint  = module.domain_events_sqs_queue.sqs_arn
+
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER_MANAGER_CHANGED"
+    ]
+  })
+}
+
 module "domain_events_sqs_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
@@ -77,7 +90,8 @@ resource "aws_sqs_queue_policy" "domain_events_sqs_queue_policy" {
                           {
                             "aws:SourceArn": [
                               "${data.aws_ssm_parameter.domain_events_topic_arn.value}",
-                              "${data.aws_ssm_parameter.offender_events_topic_arn.value}"
+                              "${data.aws_ssm_parameter.offender_events_topic_arn.value}",
+                              "${data.aws_ssm_parameter.probation_events_topic_arn.value}"
                             ]
                           }
                         }
@@ -131,4 +145,8 @@ data "aws_ssm_parameter" "domain_events_topic_arn" {
 
 data "aws_ssm_parameter" "offender_events_topic_arn" {
   name = "/offender-events-preprod/topic-arn"
+}
+
+data "aws_ssm_parameter" "probation_events_topic_arn" {
+  name = "/court-probation-preprod/topic-arn"
 }
