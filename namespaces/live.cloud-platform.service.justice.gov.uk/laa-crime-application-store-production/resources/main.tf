@@ -1,6 +1,7 @@
 terraform {
   backend "s3" {
   }
+  required_version = ">= 1.2.5"
 }
 
 provider "aws" {
@@ -10,6 +11,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam = var.team_name
     }
   }
 }
@@ -22,6 +24,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam = var.team_name
     }
   }
 }
@@ -34,6 +37,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam = var.team_name
     }
   }
 }

@@ -25,3 +25,63 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-laa-crime-means-assessment-dev
+  namespace: laa-maat-orchestration-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: laa-crime-means-assessment-dev
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-laa-crown-court-proceeding-dev
+  namespace: laa-maat-orchestration-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: laa-crown-court-proceeding-dev
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-laa-crown-court-contribution-dev
+  namespace: laa-maat-orchestration-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: laa-crown-court-contribution-dev
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-laa-crime-hardship-dev
+  namespace: laa-maat-orchestration-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: laa-crime-hardship-dev

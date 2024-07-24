@@ -12,7 +12,7 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  default = "Central Digital"
+  default = "HQ"
 }
 
 variable "application" {
@@ -36,6 +36,10 @@ variable "infrastructure_support" {
 }
 
 variable "team_name" {
+  default = "peoplefinder"
+}
+
+variable "repo_name" {
   default = "peoplefinder"
 }
 

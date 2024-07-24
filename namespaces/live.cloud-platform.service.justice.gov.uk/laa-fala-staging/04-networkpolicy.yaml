@@ -25,3 +25,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring

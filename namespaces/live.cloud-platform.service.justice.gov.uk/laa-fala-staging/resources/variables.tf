@@ -19,7 +19,7 @@ variable "repo_name" {
 }
 
 variable "email" {
-  default = "civil-legal-advice@digital.justice.gov.uk"
+  default = "eligibility@digital.justice.gov.uk"
 }
 
 variable "environment-name" {
@@ -32,7 +32,7 @@ variable "is_production" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "civil-legal-advice@digital.justice.gov.uk"
+  default     = "eligibility@digital.justice.gov.uk"
 }
 
 
@@ -53,3 +53,12 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+
+variable "vpc_name" {}
+
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "staging"
+}

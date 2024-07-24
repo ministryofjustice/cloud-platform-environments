@@ -110,7 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
     eventType = [
       "release-date-adjustments.adjustment.inserted",
       "release-date-adjustments.adjustment.updated",
-      "release-date-adjustments.adjustment.deleted"
+      "release-date-adjustments.adjustment.deleted",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }

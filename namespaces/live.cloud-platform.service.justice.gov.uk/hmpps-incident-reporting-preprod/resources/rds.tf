@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -11,7 +11,7 @@ module "dps_rds" {
 
   enable_rds_auto_start_stop = true
 
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres16"
   db_engine_version           = "16"
   deletion_protection         = true

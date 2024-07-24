@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-portfolio-management-prod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-lead-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

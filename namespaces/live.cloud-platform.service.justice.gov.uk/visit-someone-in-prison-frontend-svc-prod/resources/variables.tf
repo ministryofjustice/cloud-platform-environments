@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "prison-visit-booking"
+  default     = "visits-dev"
 }
 
 variable "number_cache_clusters" {
@@ -62,5 +62,9 @@ variable "github_token" {
   default     = ""
 }
 
+variable "domain" {
+  default = "prison-visits.service.justice.gov.uk"
+  type    = string
+}
 
 variable "kubernetes_cluster" {}

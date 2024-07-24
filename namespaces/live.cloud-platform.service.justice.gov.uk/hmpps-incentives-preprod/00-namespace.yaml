@@ -10,7 +10,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "incentives-dev"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "incentives-dev"
     cloud-platform.justice.gov.uk/application: "HMPPS Incentives Apps"
     cloud-platform.justice.gov.uk/owner: "HMPPS Incentives: incentives-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-incentives-ui.git"

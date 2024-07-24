@@ -20,6 +20,7 @@ module "make_recall_decision_api_rds" {
   db_engine_version = "13.14"
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
+  db_allocated_storage = 30
 
   providers = {
     aws = aws.london

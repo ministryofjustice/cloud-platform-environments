@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 # Generate an additional IAM user to manage API Gateway
 resource "random_id" "api_gateway_id" {
   byte_length = 16
@@ -22,6 +24,17 @@ data "aws_iam_policy_document" "api_gateway" {
       "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
   }
+
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.certificate_backup.bucket_arn
+    ]
+  }
+
 }
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
@@ -92,4 +105,32 @@ resource "aws_iam_role_policy" "cloudwatch" {
   name   = "${var.namespace}-default"
   role   = aws_iam_role.api_gateway_role.id
   policy = data.aws_iam_policy_document.cloudwatch.json
+}
+
+
+data "aws_iam_policy_document" "secrets_manager_access" {
+  statement {
+    actions = [
+      "secretsmanager:Get*",
+      "secretsmanager:PutSecretValue",
+      "secretsmanager:DescribeSecret"
+    ]
+    resources = [
+      "arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-hmpps-integration-api-preprod-*-*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "secrets_manager_access" {
+  name   = "${var.namespace}-secretsmanager-access"
+  policy = data.aws_iam_policy_document.secrets_manager_access.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
 }

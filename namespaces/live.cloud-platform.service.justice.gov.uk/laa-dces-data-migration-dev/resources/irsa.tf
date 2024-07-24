@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
@@ -24,4 +25,3 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 
 }
-

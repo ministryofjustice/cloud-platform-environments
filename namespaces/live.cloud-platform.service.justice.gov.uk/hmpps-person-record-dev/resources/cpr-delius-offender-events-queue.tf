@@ -1,15 +1,25 @@
 ######################################## Delius offender events subscription
 
-resource "aws_sns_topic_subscription" "cpr_delius_offender_events_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscription" {
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "probation-case.engagement.created",
-      "probation-case.merge.completed",
-      "probation-case.unmerge.completed"
+      "probation-case.engagement.created"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription" {
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER_DETAILS_CHANGED",
+      "OFFENDER_ALIAS_CHANGED",
+      "OFFENDER_ADDRESS_CHANGED"
     ]
   })
 }
@@ -34,7 +44,7 @@ module "cpr_delius_offender_events_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -42,31 +52,42 @@ module "cpr_delius_offender_events_queue" {
   }
 }
 
+data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "ProbationOffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
+    }
+    resources = ["*"]
+  }
+}
+
 resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
   queue_url = module.cpr_delius_offender_events_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.cpr_delius_offender_events_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cpr_delius_offender_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-              {
-                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-              }
-            }
-        }
-      ]
-  }
-EOF
+  policy = data.aws_iam_policy_document.cpr_delius_sqs_queue_policy_document.json
 }
 
 ######## Dead letter queue
@@ -84,7 +105,7 @@ module "cpr_delius_offender_events_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {

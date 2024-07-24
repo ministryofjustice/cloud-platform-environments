@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -41,7 +41,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name               = var.vpc_name
 
@@ -98,8 +98,13 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
+    
     url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    
+    # jdbc:postgresql://host:port/name?user=user&password=password
+    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
   }
+
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *

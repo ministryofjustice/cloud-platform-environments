@@ -83,7 +83,9 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
     eventType = [
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
-      "prisoner-offender-search.prisoner.updated"
+      "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.received",
+      "prisoner-offender-search.prisoner.released"
     ]
   })
 }

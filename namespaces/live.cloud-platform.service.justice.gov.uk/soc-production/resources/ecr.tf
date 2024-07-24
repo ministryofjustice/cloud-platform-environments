@@ -35,7 +35,7 @@ module "ecr_credentials" {
               "tagStatus": "any",
               "countType": "sinceImagePushed",
               "countUnit": "days",
-              "countNumber": 30
+              "countNumber": 90
           },
           "action": {
               "type": "expire"

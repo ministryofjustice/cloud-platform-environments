@@ -10,3 +10,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - checkmydiary.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cmd-api-prod-cert
+  namespace: check-my-diary-prod
+spec:
+  secretName: cmd-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - cmd-api.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: csr-api-prod-cert
+  namespace: check-my-diary-prod
+spec:
+  secretName: csr-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - csr-api.prison.service.justice.gov.uk

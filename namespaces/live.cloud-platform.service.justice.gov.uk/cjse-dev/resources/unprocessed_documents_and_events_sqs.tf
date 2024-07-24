@@ -24,6 +24,27 @@ resource "aws_sqs_queue_redrive_allow_policy" "terraform_queue_redrive_allow_pol
   })
 }
 
+# Should allow actions from within a service pod
+resource "aws_sqs_queue_policy" "unprocessed_documents_and_events_sqs_dlq_policy" {
+  queue_url = module.unprocessed_documents_and_events_sqs_dlq.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.unprocessed_documents_and_events_sqs_dlq.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Action": "SQS:*",
+          "Resource": "${module.unprocessed_documents_and_events_sqs_dlq.sqs_arn}"
+        }
+      ]
+  }
+  EOF
+}
+
 resource "kubernetes_config_map" "unprocessed_documents_and_events_sqs_dlq" {
   metadata {
     name      = "unprocessed-documents-and-events-sqs-dlq"

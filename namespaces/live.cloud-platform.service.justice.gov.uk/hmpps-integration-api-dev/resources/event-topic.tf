@@ -1,5 +1,5 @@
 module "hmpps-integration-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
 
   # Configuration
   topic_display_name = "integration-api-event-topic"
@@ -15,7 +15,7 @@ module "hmpps-integration-events" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london_without_default_tags
+    aws = aws.london_default_github_tag
   }
 }
 
@@ -25,9 +25,9 @@ resource "kubernetes_secret" "hmpps-integration-events-secret" {
     namespace = var.namespace
   }
 
-  data = {  
-    sns_arn  = module.hmpps-integration-events.topic_arn
-    sns_name = module.hmpps-integration-events.topic_name
-    sns_irsa_arn= module.integration_api_domain_events_queue.irsa_policy_arn
+  data = {
+    sns_arn      = module.hmpps-integration-events.topic_arn
+    sns_name     = module.hmpps-integration-events.topic_name
+    sns_irsa_arn = module.integration_api_domain_events_queue.irsa_policy_arn
   }
 }

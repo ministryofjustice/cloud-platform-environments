@@ -87,3 +87,21 @@ module "certificate_backup" {
 }
 EOF
 }
+
+resource "random_password" "event_service_certificate_password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "kubernetes_secret" "certificate_backup_secret" {
+  metadata {
+    name      = "certificate-store"
+    namespace = var.namespace
+  }
+  data = {
+    bucket_name                        = module.certificate_backup.bucket_name
+    event_service_certificate_path     = "event-service/client-debug.p12"
+    event_service_certificate_password = random_password.event_service_certificate_password.result
+  }
+}

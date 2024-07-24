@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "non-standard-crime-claims"
+  default     = "laa-crime-forms-team"
 }
 
 variable "environment" {
@@ -108,6 +108,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -115,6 +116,9 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -124,17 +128,6 @@ variable "serviceaccount_rules" {
         "patch",
         "list",
         "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-      ]
-      verbs = [
-        "*",
       ]
     },
   ]

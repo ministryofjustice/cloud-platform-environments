@@ -13,7 +13,7 @@ module "track_a_query_ecr_credentials" {
   }
 
   github_repositories = [var.repo_name]
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci", "github"]
 
   lifecycle_policy = <<EOF
   {

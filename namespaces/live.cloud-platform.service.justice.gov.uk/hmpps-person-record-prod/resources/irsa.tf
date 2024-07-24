@@ -31,7 +31,10 @@ module "irsa" {
     { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
-    { dms = module.hmpps-person-record-dms.irsa_policy_arn }
+    { sqs_cpr_nomis_oe = module.cpr_nomis_events_queue.irsa_policy_arn },
+    { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn },
+    { dms = module.hmpps-person-record-dms.irsa_policy_arn },
+    { s3 = module.hmpps-person-record-ndelius-s3-extract.irsa_policy_arn }
   )
 
   # Tags
@@ -50,4 +53,12 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name
 }

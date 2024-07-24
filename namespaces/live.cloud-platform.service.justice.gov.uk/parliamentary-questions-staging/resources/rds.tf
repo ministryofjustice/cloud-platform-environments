@@ -3,7 +3,7 @@
 #############################################
 
 module "rds_instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   application                = var.application
   vpc_name                   = var.vpc_name
   environment_name           = var.environment-name
@@ -11,15 +11,16 @@ module "rds_instance" {
   is_production              = var.is_production
   namespace                  = var.namespace
   team_name                  = var.team_name
-  business_unit              = "Central Digital"
+  business_unit              = var.business_unit
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  db_engine_version          = "12.18"
-  db_name                    = "parliamentary_questions_dev"
-  rds_family                 = "postgres12"
+  db_engine_version          = "16"
+  db_name                    = "parliamentary_questions_staging"
+  rds_family                 = "postgres16"
   db_backup_retention_period = var.db_backup_retention_period
   enable_rds_auto_start_stop = true
+  prepare_for_major_upgrade  = false
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "pyf_team_route53_zone" {
-  name = "plan-your-future.gov.uk"
+  name = "plan-your-future.service.justice.gov.uk"
 
   tags = {
     team_name              = var.team_name
@@ -21,5 +21,6 @@ resource "kubernetes_secret" "pyf_route53_zone_sec" {
 
   data = {
     zone_id = aws_route53_zone.pyf_team_route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.pyf_team_route53_zone.name_servers)
   }
 }

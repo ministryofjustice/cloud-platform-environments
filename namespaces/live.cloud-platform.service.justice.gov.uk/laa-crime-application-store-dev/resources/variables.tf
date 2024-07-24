@@ -1,8 +1,3 @@
-variable "vpc_name" {
-  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
-  type        = string
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -118,6 +113,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "monitoring.coreos.com",
       ]
       resources = [
         "deployments",
@@ -126,6 +122,8 @@ variable "serviceaccount_rules" {
         "jobs",
         "replicasets",
         "statefulsets",
+        "servicemonitors",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -135,17 +133,6 @@ variable "serviceaccount_rules" {
         "patch",
         "list",
         "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-      ]
-      verbs = [
-        "*",
       ]
     },
   ]

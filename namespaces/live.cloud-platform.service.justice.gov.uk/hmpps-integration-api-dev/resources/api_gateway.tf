@@ -81,7 +81,7 @@ resource "aws_route53_record" "data" {
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
   name                         = var.namespace
-  disable_execute_api_endpoint = true
+  disable_execute_api_endpoint = false
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -93,6 +93,7 @@ resource "aws_api_gateway_resource" "proxy" {
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
+
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
@@ -128,13 +129,16 @@ resource "aws_api_gateway_deployment" "main" {
       # "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
-      md5(file("api_gateway.tf"))
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-events-proxy.tf"))
     ]))
   }
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy
+    aws_api_gateway_integration.proxy_http_proxy,   
+    aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
   lifecycle {
@@ -170,17 +174,25 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+   aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   description = "Client certificate presented to the backend API"
 }
 
+resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
+  description = "Client certificate presented to the backend API expires 15/05/2025"
+}
+
 resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
@@ -207,7 +219,10 @@ resource "aws_api_gateway_stage" "main" {
     create_before_destroy = true
   }
 
-  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+    ]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
@@ -268,7 +283,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -291,7 +306,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
@@ -314,13 +329,13 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
     ApiName = var.namespace
   }
 
-   depends_on = [
+  depends_on = [
     module.sns_topic
   ]
 }
 
 module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
 
   # Configuration
   topic_display_name = "integration-api-alert-topic"
@@ -336,7 +351,7 @@ module "sns_topic" {
   infrastructure_support = var.infrastructure_support
 
   providers = {
-    aws = aws.london_without_default_tags
+    aws = aws.london_default_github_tag
   }
 }
 

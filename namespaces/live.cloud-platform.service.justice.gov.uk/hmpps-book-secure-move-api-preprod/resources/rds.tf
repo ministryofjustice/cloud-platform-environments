@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name = var.vpc_name
 
@@ -71,8 +71,19 @@ resource "kubernetes_secret" "rds-instance" {
   }
 }
 
+resource "kubernetes_secret" "preprod-refresh-creds" {
+  metadata {
+    name      = "preprod-rds-creds"
+    namespace = "hmpps-book-secure-move-api-production"
+  }
+
+  data = {
+    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+  }
+}
+
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name = var.vpc_name
 

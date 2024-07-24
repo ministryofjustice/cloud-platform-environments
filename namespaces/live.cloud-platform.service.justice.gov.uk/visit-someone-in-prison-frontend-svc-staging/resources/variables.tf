@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "book-a-prison-visit"
+  default     = "hmpps-prison-visits-booking"
 }
 
 variable "environment" {
@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "prison-visit-booking"
+  default     = "visits-dev"
 }
 
 variable "number_cache_clusters" {

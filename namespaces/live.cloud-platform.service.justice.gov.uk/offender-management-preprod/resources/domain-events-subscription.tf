@@ -12,7 +12,19 @@ resource "aws_sns_topic_subscription" "domain_events" {
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
       "probation-case.registration.updated",
-      "tier.calculation.complete",
+      "tier.calculation.complete"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "probation_events" {
+  provider  = aws.london
+  topic_arn = data.aws_sns_topic.probation_events_topic.arn
+  protocol  = "sqs"
+  endpoint  = module.domain_events_sqs_queue.sqs_arn
+
+  filter_policy = jsonencode({
+    eventType = [
       "OFFENDER_MANAGER_CHANGED"
     ]
   })
@@ -63,7 +75,10 @@ resource "aws_sqs_queue_policy" "domain_events_sqs_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.domain_events_topic_arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.domain_events_topic_arn.value}",
+                              "${data.aws_sns_topic.probation_events_topic.arn}"
+                            ]
                           }
                         }
         }
@@ -112,4 +127,8 @@ resource "kubernetes_secret" "domain_events" {
 
 data "aws_ssm_parameter" "domain_events_topic_arn" {
   name = "/hmpps-domain-events-preprod/topic-arn"
+}
+
+data "aws_sns_topic" "probation_events_topic" {
+  name = "cloud-platform-Digital-Prison-Services-dbe10e8d9c1f4d100f0c723d5d9b754e"
 }

@@ -4,8 +4,21 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-subscr
   endpoint  = module.prison-identifier-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.imprisonment-status-changed",
+      "prison-offender-events.prisoner.sentence-dates-changed",
       "prison-offender-events.prisoner.merged",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-probation-offender-events-subscription" {
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.prison-identifier-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER_DETAILS_CHANGED",
+      "SENTENCE_CHANGED",
     ]
   })
 }

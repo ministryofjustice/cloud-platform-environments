@@ -1,5 +1,5 @@
 module "hmpps_service_catalogue" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -24,6 +24,21 @@ resource "kubernetes_secret" "hmpps_service_catalogue" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_service_catalogue.rds_instance_endpoint
+    database_name         = module.hmpps_service_catalogue.database_name
+    database_username     = module.hmpps_service_catalogue.database_username
+    database_password     = module.hmpps_service_catalogue.database_password
+    rds_instance_address  = module.hmpps_service_catalogue.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
+  metadata {
+    name      = "rds-instance-output-dev"
+    namespace = "hmpps-portfolio-management-prod"
   }
 
   data = {

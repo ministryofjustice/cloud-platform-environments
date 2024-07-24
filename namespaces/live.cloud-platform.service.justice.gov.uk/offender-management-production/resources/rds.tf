@@ -5,7 +5,7 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name                    = var.vpc_name
   db_instance_class           = "db.m5.large"
@@ -23,7 +23,6 @@ module "allocation-rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_name                     = "allocations"
-  db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
 

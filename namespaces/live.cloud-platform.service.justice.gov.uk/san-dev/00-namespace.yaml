@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "san-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "ask-prisons-digital-sre"
+    cloud-platform.justice.gov.uk/application: "san-dev"
+    cloud-platform.justice.gov.uk/owner: "sandbox: sandhya.gandalwar@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/santest.git"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-sre"
+    cloud-platform.justice.gov.uk/review-after: "2024-10-01"

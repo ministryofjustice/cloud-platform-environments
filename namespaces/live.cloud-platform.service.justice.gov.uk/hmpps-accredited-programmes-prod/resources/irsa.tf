@@ -27,7 +27,9 @@ module "irsa" {
   role_policy_arns = merge(
     { rds = module.rds.irsa_policy_arn },
     { redis = module.elasticache_redis.irsa_policy_arn },
-    local.sqs_policies
+    local.sqs_policies,
+    { domains_sqs = module.hmpps_acp_domain_events_queue.irsa_policy_arn},
+    { domain_sqs_dlq = module.hmpps_acp_domain_events_dead_letter_queue.irsa_policy_arn}
   )
 
   # Tags

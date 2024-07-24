@@ -18,8 +18,9 @@ module "rds-instance" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   db_engine                = "postgres"
-  db_engine_version        = "14.11"
-  rds_family               = "postgres14"
+  db_engine_version        = "16.3"
+  rds_family               = "postgres16"
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london

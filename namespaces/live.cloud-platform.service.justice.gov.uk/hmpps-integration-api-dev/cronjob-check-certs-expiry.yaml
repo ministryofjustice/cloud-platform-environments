@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: check-certs-expiry
+spec:
+  schedule: "0 7 * * 1-5"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 180
+      template:
+        spec:
+          containers:
+            - name: check-certs-expiry
+              image: bitnami/minideb
+              imagePullPolicy: Always
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  apt-get update && apt-get install -y curl jq openssl
+                  mkdir -p /scripts
+                  curl -o /scripts/check_certs_expiry.sh https://raw.githubusercontent.com/ministryofjustice/hmpps-integration-api/main/scripts/check_certs_expiry.sh
+                  chmod +x /scripts/check_certs_expiry.sh
+                  /scripts/check_certs_expiry.sh
+          restartPolicy: OnFailure

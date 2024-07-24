@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name = "cfe-civil-ecr"
 
@@ -34,7 +34,7 @@ module "ecr_credentials" {
             "description": "Keep newest 50 uat images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["uat"],
+                "tagPrefixList": ["uat-"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 50
             },
@@ -47,7 +47,7 @@ module "ecr_credentials" {
             "description": "Keep newest 5 staging images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["staging"],
+                "tagPrefixList": ["staging-"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 5
             },
@@ -60,7 +60,7 @@ module "ecr_credentials" {
             "description": "Keep newest 5 staging_mtr images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["staging_mtr"],
+                "tagPrefixList": ["staging_mtr-"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 5
             },
@@ -70,10 +70,10 @@ module "ecr_credentials" {
         },
         {
             "rulePriority": 4,
-            "description": "Keep the newest 10 production images and mark the rest for expiration",
+            "description": "Keep the newest 10 production images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["production"],
+                "tagPrefixList": ["production-"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 10
             },

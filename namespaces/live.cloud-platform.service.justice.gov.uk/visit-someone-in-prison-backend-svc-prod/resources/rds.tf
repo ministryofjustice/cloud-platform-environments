@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -40,12 +40,12 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
   }
 }
 
-module "hmpps_one_login_user_registry_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+module "prison_visit_booker_registry_rds" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = "hmpps one login user registry"
+  application            = var.application
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -56,11 +56,10 @@ module "hmpps_one_login_user_registry_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "15.5"
   rds_family                  = "postgres15"
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "16300"
+  db_allocated_storage        = "16000"
   db_password_rotated_date    = "2023-03-22"
-
-  enable_rds_auto_start_stop   = true
   performance_insights_enabled = true
 
   providers = {
@@ -68,19 +67,17 @@ module "hmpps_one_login_user_registry_rds" {
   }
 }
 
-resource "kubernetes_secret" "visit_scheduler_booker_details_rds" {
+resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
   metadata {
-    name      = "hmpps-one-login-user-registry-rds"
+    name      = "prison-visit-booker-registry-rds"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_one_login_user_registry_rds.rds_instance_endpoint
-    database_name         = module.hmpps_one_login_user_registry_rds.database_name
-    database_username     = module.hmpps_one_login_user_registry_rds.database_username
-    database_password     = module.hmpps_one_login_user_registry_rds.database_password
-    rds_instance_address  = module.hmpps_one_login_user_registry_rds.rds_instance_address
+    rds_instance_endpoint = module.prison_visit_booker_registry_rds.rds_instance_endpoint
+    database_name         = module.prison_visit_booker_registry_rds.database_name
+    database_username     = module.prison_visit_booker_registry_rds.database_username
+    database_password     = module.prison_visit_booker_registry_rds.database_password
+    rds_instance_address  = module.prison_visit_booker_registry_rds.rds_instance_address
   }
 }
-
-

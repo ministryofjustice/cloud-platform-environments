@@ -56,7 +56,7 @@ variable "repo_name" {
 }
 
 variable "business_unit" {
-  default = "Central Digital"
+  default = "HQ"
 }
 
 variable "kubernetes_cluster" {}

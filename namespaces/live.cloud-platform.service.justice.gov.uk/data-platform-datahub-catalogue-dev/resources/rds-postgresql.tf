@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -15,7 +15,7 @@ module "rds" {
   allow_major_version_upgrade  = true
   prepare_for_major_upgrade    = true
   performance_insights_enabled = false
-  db_max_allocated_storage     = "10"
+  db_max_allocated_storage     = "100"
   enable_rds_auto_start_stop   = true # Comment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -42,7 +42,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name = var.vpc_name
 

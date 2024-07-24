@@ -79,7 +79,7 @@ locals {
 }
 
 module "serviceaccount_formbuilder-av-test-production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -94,7 +94,7 @@ module "serviceaccount_formbuilder-av-test-production" {
 }
 
 module "serviceaccount_formbuilder-pdf-generator-test-production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -109,7 +109,7 @@ module "serviceaccount_formbuilder-pdf-generator-test-production" {
 }
 
 module "serviceaccount_formbuilder-submitter-workers-test-production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -124,7 +124,7 @@ module "serviceaccount_formbuilder-submitter-workers-test-production" {
 }
 
 module "serviceaccount_formbuilder-user-datastore-test-production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -139,7 +139,7 @@ module "serviceaccount_formbuilder-user-datastore-test-production" {
 }
 
 module "serviceaccount_formbuilder-user-filestore-test-production" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster

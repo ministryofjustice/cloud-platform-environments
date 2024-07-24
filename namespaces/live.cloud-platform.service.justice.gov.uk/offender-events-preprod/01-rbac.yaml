@@ -9,13 +9,10 @@ subjects:
     name: "github:hmpps-lead-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-sre"
-    apiGroup: rbac.authorization.k8s.io  
-  - kind: Group
-    name: "github:probation-integration"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:syscon-devs"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

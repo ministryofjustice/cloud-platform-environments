@@ -5,14 +5,15 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["payforlegalaid"]
+  github_actions_prefix = "uat"
 
   # Tags
   business_unit          = var.business_unit

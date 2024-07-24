@@ -11,12 +11,14 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_index_update_dead_letter_queue.sqs_arn,
       module.ims_transformer_queue.sqs_arn,
       module.ims_transformer_dead_letter_queue.sqs_arn,
-      module.ims_lastupdate_queue.sqs_arn,
-      module.ims_lastupdate_dead_letter_queue.sqs_arn,
       module.ims_reprocess_queue.sqs_arn,
       module.ims_reprocess_dead_letter_queue.sqs_arn,
       module.ims_csv_queue.sqs_arn,
-      module.ims_csv_dead_letter_queue.sqs_arn
+      module.ims_csv_dead_letter_queue.sqs_arn,
+      module.attachment_metadata_transformer_queue.sqs_arn,
+      module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
+      module.metadata_status_queue.sqs_arn,
+      module.metadata_status_dead_letter_queue.sqs_arn
     ]
   }
 }
@@ -53,7 +55,10 @@ module "irsa" {
     s3_rds         = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
     s3_transformer = module.manage_intelligence_transformer_bucket.irsa_policy_arn
     s3_csv         = module.manage_intelligence_csv_bucket.irsa_policy_arn
+    s3_images      = module.ims_images_storage_bucket.irsa_policy_arn
+    s3_attachments = module.ims_attachments_storage_bucket.irsa_policy_arn
     rds            = module.rds_aurora.irsa_policy_arn
+    kendra         = aws_iam_policy.kendra_irsa.arn
   }
 
   # Tags

@@ -24,7 +24,7 @@ module "event_mapps_queue" {
   providers = {
     aws = aws.london_default_github_tag
   }
- 
+
 }
 
 module "event_mapps_dead_letter_queue" {
@@ -88,10 +88,10 @@ data "aws_secretsmanager_secret_version" "mapps_filter_list" {
 }
 
 resource "aws_sns_topic_subscription" "event_mapps_subscription" {
-  provider  = aws.london
-  topic_arn = module.hmpps-integration-events.topic_arn
-  protocol  = "sqs"
-  endpoint  = module.event_mapps_queue.sqs_arn 
+  provider      = aws.london
+  topic_arn     = module.hmpps-integration-events.topic_arn
+  protocol      = "sqs"
+  endpoint      = module.event_mapps_queue.sqs_arn
   filter_policy = data.aws_secretsmanager_secret_version.mapps_filter_list.secret_string
   depends_on = [
     module.hmpps-integration-events
@@ -105,9 +105,10 @@ resource "kubernetes_secret" "event_mapps_queue" {
   }
 
   data = {
-    sqs_id   = module.event_mapps_queue.sqs_id
-    sqs_arn  = module.event_mapps_queue.sqs_arn
-    sqs_name = module.event_mapps_queue.sqs_name
+    sqs_id                        = module.event_mapps_queue.sqs_id
+    sqs_arn                       = module.event_mapps_queue.sqs_arn
+    sqs_name                      = module.event_mapps_queue.sqs_name
+    mapps_filter_policy_secret_id = data.aws_secretsmanager_secret_version.mapps_filter_list.secret_id
   }
 }
 

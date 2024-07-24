@@ -180,6 +180,11 @@ EOF
   }
 }
 
+resource "aws_s3_bucket_metric" "entire-bucket-metric" {
+  bucket = module.s3_bucket.bucket_name
+  name   = "laa-submit-crime-forms-uploads"
+}
+
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {

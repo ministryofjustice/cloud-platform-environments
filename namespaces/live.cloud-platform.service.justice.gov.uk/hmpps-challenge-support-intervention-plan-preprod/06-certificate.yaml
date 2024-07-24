@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-challenge-support-intervention-plan-api-preprod-cert
+  namespace: hmpps-challenge-support-intervention-plan-preprod
+spec:
+  secretName: hmpps-challenge-support-intervention-plan-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-challenge-support-intervention-plan-ui-preprod-cert
+  namespace: hmpps-challenge-support-intervention-plan-preprod
+spec:
+  secretName: hmpps-challenge-support-intervention-plan-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - csip-preprod.hmpps.service.justice.gov.uk

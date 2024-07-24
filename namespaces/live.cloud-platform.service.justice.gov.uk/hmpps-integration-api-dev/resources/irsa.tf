@@ -5,12 +5,11 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
-
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  
   sns_topics = {
-     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
@@ -21,14 +20,44 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
-    {
-    integration_api_domain_events_queue               = module.integration_api_domain_events_queue.irsa_policy_arn,
-    integration_api_domain_events_dead_letter_queue   = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-    hmpps-integration-events                          = module.integration_api_domain_events_queue.irsa_policy_arn,
+  )
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london_without_default_tags
+  }
+}
+
+module "hmpps-integration-event-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-integration-event"
+  role_policy_arns = merge(
+     local.sqs_policies,
+    {      
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
+      s3                                              = module.certificate_backup.irsa_policy_arn,
+      truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
+      secrets                                         = aws_iam_policy.secrets_manager_access.arn,
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
+      pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
+      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn
     }
+
   )
   # Tags
   business_unit          = var.business_unit

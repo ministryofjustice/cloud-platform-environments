@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -28,7 +28,7 @@ module "rds" {
   db_engine = "postgres"
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.7"
+  db_engine_version = "14.11"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -69,7 +69,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
