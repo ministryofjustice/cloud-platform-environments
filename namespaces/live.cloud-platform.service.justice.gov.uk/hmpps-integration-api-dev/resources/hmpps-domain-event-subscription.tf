@@ -86,6 +86,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   filter_policy = jsonencode({
     eventType = [
       "probation-case.registration.added",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered",
       "probation-case.registration.updated",
       "risk-assessment.scores.determined",
       "probation-case.risk-scores.ogrs.manual-calculation",
