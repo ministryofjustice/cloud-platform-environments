@@ -7,7 +7,9 @@ provider "aws" {
   region = "eu-west-2"
 
   default_tags {
-    tags = local.default_tags
+    tags = {
+      GithubTeam = var.team_name
+    }
   }
 }
 
