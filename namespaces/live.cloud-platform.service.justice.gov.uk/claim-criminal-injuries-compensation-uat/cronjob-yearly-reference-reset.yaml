@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: claim-criminal-injuries-uat-reference-reset
+spec:
+  schedule: "0 0 1 1 *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+            - name: cica-online-application-reference-reset-cronjob
+              image: governmentpaas/psql
+              imagePullPolicy: Always
+              command:
+                [
+                  "/bin/sh",
+                  "-c",
+                  'psql $(DATABASE_URL_WITH_CREDENTIALS) -c "ALTER SEQUENCE fatal RESTART WITH 800000; ALTER SEQUENCE non_fatal RESTART WITH 700000;"',
+                ]
+              env:
+                - name: DATABASE_URL_WITH_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name: shared-secrets
+                      key: database_url_with_credentials
+          restartPolicy: "Never"
