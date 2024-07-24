@@ -21,7 +21,7 @@ module "track_a_query_rds" {
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
   enable_rds_auto_start_stop = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   providers = {
     aws = aws.london
