@@ -23,3 +23,17 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    role           = module.irsa.role_name
+    rolearn        = module.irsa.role_arn
+    serviceaccount = module.irsa.service_account.name
+  }
+}
+
