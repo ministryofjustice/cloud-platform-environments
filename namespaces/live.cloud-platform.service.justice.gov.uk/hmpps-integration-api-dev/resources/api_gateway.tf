@@ -137,7 +137,7 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,   
+    aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
@@ -176,7 +176,7 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   stage_name  = aws_api_gateway_stage.main.stage_name
 
   depends_on = [
-   aws_api_gateway_domain_name.api_gateway_fqdn
+    aws_api_gateway_domain_name.api_gateway_fqdn
   ]
 }
 
@@ -222,7 +222,7 @@ resource "aws_api_gateway_stage" "main" {
   depends_on = [
     aws_api_gateway_deployment.main,
     aws_cloudwatch_log_group.api_gateway_access_logs
-    ]
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
@@ -349,10 +349,6 @@ module "sns_topic" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 module "notify_slack" {
@@ -370,4 +366,3 @@ module "notify_slack" {
   slack_username    = "aws"
   slack_emoji       = ":warning:"
 }
-

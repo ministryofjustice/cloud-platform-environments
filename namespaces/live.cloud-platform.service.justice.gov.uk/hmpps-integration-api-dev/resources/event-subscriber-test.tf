@@ -16,14 +16,10 @@ module "event_test_client_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name 
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 module "event_test_client_dead_letter_queue" {
@@ -37,14 +33,10 @@ module "event_test_client_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name 
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 resource "aws_sqs_queue_policy" "event_test_client_queue_policy" {
@@ -79,7 +71,6 @@ resource "aws_sqs_queue_policy" "event_test_client_queue_policy" {
 }
 
 resource "aws_sns_topic_subscription" "event_test_client_subscription" {
-  provider  = aws.london
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_test_client_queue.sqs_arn

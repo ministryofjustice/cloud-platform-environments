@@ -13,10 +13,6 @@ module "hmpps-integration-events" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 resource "kubernetes_secret" "hmpps-integration-events-secret" {
