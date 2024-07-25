@@ -14,15 +14,15 @@ module "track_a_query_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
-  rds_family                 = "postgres12"
-  db_engine_version          = "12.18"
+  rds_family                 = "postgres15"
+  db_engine_version          = "15.6"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_staging"
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
   enable_rds_auto_start_stop = true
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
