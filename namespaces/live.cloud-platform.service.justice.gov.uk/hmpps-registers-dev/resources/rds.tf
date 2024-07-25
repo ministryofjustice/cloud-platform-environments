@@ -53,7 +53,7 @@ module "prisons_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
   deletion_protection        = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
   db_engine_version          = "16.3"
