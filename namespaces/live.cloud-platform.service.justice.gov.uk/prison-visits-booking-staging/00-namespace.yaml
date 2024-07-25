@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "prison-visits-booking-staging"
     cloud-platform.justice.gov.uk/owner: "Prisoner Communications: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/prison-visits-2, https://github.com/ministryofjustice/prison-visits-public"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "prison-visit-booking-alerts-nonprod"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "visits-alerts-nonprod"
     cloud-platform.justice.gov.uk/slack-channel: "ask-visit-someone-in-prison"
