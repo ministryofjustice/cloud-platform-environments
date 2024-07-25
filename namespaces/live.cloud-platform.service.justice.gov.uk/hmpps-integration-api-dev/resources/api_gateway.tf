@@ -18,6 +18,8 @@ resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
     aws_acm_certificate_validation.api_gateway_custom_hostname,
     aws_s3_object.truststore
   ]
+
+  tags = local.default_tags
 }
 
 resource "aws_acm_certificate" "api_gateway_custom_hostname" {
@@ -27,6 +29,8 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
@@ -86,6 +90,8 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -137,7 +143,7 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,   
+    aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.event_proxy_http_proxy
   ]
 
@@ -149,6 +155,8 @@ resource "aws_api_gateway_deployment" "main" {
 resource "aws_api_gateway_api_key" "clients" {
   for_each = toset(local.clients)
   name     = each.key
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -158,6 +166,8 @@ resource "aws_api_gateway_usage_plan" "default" {
     api_id = aws_api_gateway_rest_api.api_gateway.id
     stage  = aws_api_gateway_stage.main.stage_name
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan_key" "clients" {
@@ -176,16 +186,18 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   stage_name  = aws_api_gateway_stage.main.stage_name
 
   depends_on = [
-   aws_api_gateway_domain_name.api_gateway_fqdn
+    aws_api_gateway_domain_name.api_gateway_fqdn
   ]
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   description = "Client certificate presented to the backend API"
+  tags        = local.default_tags
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
   description = "Client certificate presented to the backend API expires 15/05/2025"
+  tags        = local.default_tags
 }
 
 resource "aws_api_gateway_stage" "main" {
@@ -222,12 +234,15 @@ resource "aws_api_gateway_stage" "main" {
   depends_on = [
     aws_api_gateway_deployment.main,
     aws_cloudwatch_log_group.api_gateway_access_logs
-    ]
+  ]
+
+  tags = local.default_tags
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
   retention_in_days = 60
+  tags              = local.default_tags
 }
 
 resource "aws_api_gateway_method_settings" "all" {
@@ -263,6 +278,8 @@ resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
   depends_on = [
     module.sns_topic
   ]
+
+  tags = local.default_tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
@@ -286,6 +303,8 @@ resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
   depends_on = [
     module.sns_topic
   ]
+
+  tags = local.default_tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
@@ -309,6 +328,8 @@ resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
   depends_on = [
     module.sns_topic
   ]
+
+  tags = local.default_tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
@@ -332,6 +353,8 @@ resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
   depends_on = [
     module.sns_topic
   ]
+
+  tags = local.default_tags
 }
 
 module "sns_topic" {
@@ -349,10 +372,6 @@ module "sns_topic" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 module "notify_slack" {
@@ -370,4 +389,3 @@ module "notify_slack" {
   slack_username    = "aws"
   slack_emoji       = ":warning:"
 }
-

@@ -11,6 +11,7 @@ resource "aws_api_gateway_resource" "event_proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_resource.events_parent_resource.id
   path_part   = "{proxy+}"
+
 }
 
 resource "aws_api_gateway_method" "event_proxy" {
