@@ -19,7 +19,7 @@ module "court-case-events-fifo-topic" {
   }
 }
 
-resource "aws_ssm_parameter" "param-store-topic-arn" {
+resource "aws_ssm_parameter" "param-store-fifo-topic-arn" {
   type        = "String"
   name        = "/${var.namespace}/court-case-events-fifo-topic"
   value       = module.court-case-events-fifo-topic.topic_arn
