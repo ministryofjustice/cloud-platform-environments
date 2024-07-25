@@ -10,10 +10,13 @@ module "cpr_court_case_events_fifo_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
+  # .fifo will be added to the sqs-name below
   sqs_name                   = "cpr_court_case_events_fifo_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
+  fifo_queue                  = "true"
+  content_based_deduplication = "true"
 
   # Tags
   business_unit          = var.business_unit
@@ -62,7 +65,6 @@ resource "kubernetes_secret" "cpr_court_case_events_fifo_queue" {
   ## For metadata use - not _
   metadata {
     name = "sqs-cpr-court-case-fifo-events-secret"
-    ## Name space where the listening service is found
     namespace = var.namespace
   }
 

@@ -3,7 +3,7 @@ data "aws_ssm_parameter" "court-case-events-topic-arn" {
 }
 
 data "aws_ssm_parameter" "court-case-events-fifo-topic-arn" {
-  name = "/court-probation-preprod/fifo-topic-arn"
+  name = "/court-probation-preprod/court-case-events-fifo-topic"
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
