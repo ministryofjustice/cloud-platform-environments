@@ -4,6 +4,8 @@ resource "aws_api_gateway_resource" "events_parent_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "events"
+
+  tags = locals.default_tags
 }
 
 
@@ -11,6 +13,8 @@ resource "aws_api_gateway_resource" "event_proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_resource.events_parent_resource.id
   path_part   = "{proxy+}"
+
+  tags = locals.default_tags
 }
 
 resource "aws_api_gateway_method" "event_proxy" {
@@ -23,6 +27,8 @@ resource "aws_api_gateway_method" "event_proxy" {
   request_parameters = {
     "method.request.path.proxy" = true
   }
+
+  tags = locals.default_tags
 }
 
 resource "aws_api_gateway_integration" "event_proxy_http_proxy" {
@@ -37,4 +43,6 @@ resource "aws_api_gateway_integration" "event_proxy_http_proxy" {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
+
+  tags = locals.default_tags
 }
