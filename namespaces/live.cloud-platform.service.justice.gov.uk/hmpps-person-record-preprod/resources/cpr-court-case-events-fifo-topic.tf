@@ -2,14 +2,16 @@ module "court-case-events-fifo-topic" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=sns-fifo"
 
   # Configuration
-  topic_display_name = "court-case-events.fifo"
-  encrypt_sns_kms    = true
+  topic_display_name          = "court-case-events.fifo"
+  encrypt_sns_kms             = true
+  fifo_topic                  = true
+  content_based_deduplication = true
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the topic
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
