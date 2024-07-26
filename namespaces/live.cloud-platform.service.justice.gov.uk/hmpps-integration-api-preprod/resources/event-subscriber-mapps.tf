@@ -20,11 +20,6 @@ module "event_mapps_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
-
 }
 
 module "event_mapps_dead_letter_queue" {
@@ -42,10 +37,6 @@ module "event_mapps_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 resource "aws_sqs_queue_policy" "event_mapps_queue_policy" {
@@ -88,7 +79,6 @@ data "aws_secretsmanager_secret_version" "mapps_filter_list" {
 }
 
 resource "aws_sns_topic_subscription" "event_mapps_subscription" {
-  provider      = aws.london
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.event_mapps_queue.sqs_arn
