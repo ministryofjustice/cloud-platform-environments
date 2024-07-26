@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "cclf_claims_policy" {
 
 }
 
-resource "aws_iam_policy" "cclf_policy" {
+resource "aws_iam_policy" "cclf_uat_stg_policy" {
   name        = "cclf_policy"
   policy      = data.aws_iam_policy_document.cclf_claims_policy.json
   description = "Policy for Cloud Platform to assume role in data platform dev account for CCLF"
