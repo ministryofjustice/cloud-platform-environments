@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_cclf_claims = aws_iam_policy.cclf_policy.arn
+    sqs_cclf_claims = aws_iam_policy.cclf_uat_stg_policy.arn
     rds = module.rds-instance.irsa_policy_arn
     # cclf_copy_snapshot = aws_iam_policy.cclf_copy_snapshot_policy.arn
   }
@@ -46,9 +46,9 @@ data "aws_iam_policy_document" "cclf_claims_policy" {
 }
 
 resource "aws_iam_policy" "cclf_uat_stg_policy" {
-  name        = "cclf_policy"
+  name        = "cclf_uat_stg_policy"
   policy      = data.aws_iam_policy_document.cclf_claims_policy.json
-  description = "Policy for Cloud Platform to assume role in data platform dev account for CCLF"
+  description = "Policy for Cloud Platform to assume role in data platform UAT account for CCLF"
 
   tags = {
     business-unit          = var.business_unit
