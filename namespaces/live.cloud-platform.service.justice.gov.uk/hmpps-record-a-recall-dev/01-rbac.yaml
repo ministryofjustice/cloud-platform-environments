@@ -5,9 +5,6 @@ metadata:
   namespace: hmpps-record-a-recall-dev
 subjects:
   - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:farsight-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
