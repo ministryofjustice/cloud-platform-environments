@@ -1,7 +1,7 @@
 
 resource "aws_sns_topic_subscription" "cpr_court_case_events_fifo_subscription" {
   provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.param-store-fifo-topic-arn.value
+  topic_arn = data.aws_ssm_parameter.court-case-events-fifo-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.cpr_court_case_events_fifo_queue.sqs_arn
 }
