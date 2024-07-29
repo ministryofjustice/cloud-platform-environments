@@ -20,7 +20,7 @@ module "rds_instance" {
   db_name                    = "parliamentary_questions_production"
   rds_family                 = "postgres16"
   db_backup_retention_period = var.db_backup_retention_period
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   prepare_for_major_upgrade  = false
 
   providers = {
