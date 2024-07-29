@@ -13,8 +13,8 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds     = module.rds.irsa_policy_arn
-    route53 = module.route53.irsa_policy_arn
-    ecr     = module.route53.irsa_policy_arn
+    ecr     = module.ecr.irsa_policy_arn
+    route53 = "arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess"
   }
 
   # Tags
