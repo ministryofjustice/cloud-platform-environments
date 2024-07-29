@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-dces-drc-integration-dev
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laa-dces-drc-integration
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: Client Errors
+          expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-dces-drc-integration-dev"}[10m])) > 50
+          for: 1m
+          labels:
+            severity: laa-dces-drc-integration
+          annotations:
+            message: There have been over 50 client error responses in the DCES DRC running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-dces-drc-integration?orgId=1&refresh=30s&var-namespace=laa-dces-drc-integration-dev
