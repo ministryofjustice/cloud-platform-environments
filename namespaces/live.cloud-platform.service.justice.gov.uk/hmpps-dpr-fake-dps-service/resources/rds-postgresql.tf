@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
