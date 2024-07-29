@@ -17,8 +17,6 @@ module "assessment-summary-and-delius-queue" {
     maxReceiveCount     = 3
   })
 
-  delay_seconds = 60 # to allow OASys DB transaction commit to complete. See https://mojdt.slack.com/archives/C034D1073A9/p1719999126571709
-
   # Tags
   application            = "assessment-summary-and-delius"
   business_unit          = var.business_unit
