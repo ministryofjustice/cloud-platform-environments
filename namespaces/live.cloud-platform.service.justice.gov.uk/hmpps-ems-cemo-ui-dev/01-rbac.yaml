@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-ems-cemo-ui-dev-admin
+  namespace: hmpps-ems-cemo-ui-dev
+subjects:
+  - kind: Group
+    name: "github:hmpps-electronic-monitoring"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
