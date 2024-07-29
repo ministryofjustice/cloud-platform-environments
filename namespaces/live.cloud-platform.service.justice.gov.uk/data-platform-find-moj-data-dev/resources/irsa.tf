@@ -14,7 +14,7 @@ module "irsa" {
   role_policy_arns = {
     rds     = module.rds.irsa_policy_arn
     ecr     = module.ecr.irsa_policy_arn
-    route53 = "arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess"
+    route53 = aws_iam_policy.route53_irsa.arn
   }
 
   # Tags
