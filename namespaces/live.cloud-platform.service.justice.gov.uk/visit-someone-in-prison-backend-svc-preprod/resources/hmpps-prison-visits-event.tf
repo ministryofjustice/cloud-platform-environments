@@ -20,7 +20,6 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.restriction.changed",
       "prison-offender-events.prisoner.person-restriction.upserted",
-      "prison-offender-events.prisoner.person-restriction.deleted",
     ]
   })
 }
