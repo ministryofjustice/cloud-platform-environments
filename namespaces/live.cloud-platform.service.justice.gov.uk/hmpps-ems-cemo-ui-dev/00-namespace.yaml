@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "em-engineers-moj-madetech"
     cloud-platform.justice.gov.uk/application: "Create an EM Order"
     cloud-platform.justice.gov.uk/owner: "hmpps-electronic-monitoring: hmpps-ems-platform-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-ems-cemo-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-create-an-order"
     cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring"
     cloud-platform.justice.gov.uk/review-after: ""
