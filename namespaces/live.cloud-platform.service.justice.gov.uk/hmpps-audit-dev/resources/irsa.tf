@@ -52,7 +52,8 @@ data "aws_iam_policy_document" "document" {
   statement {
     actions = [
       "s3:GetObject",
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:ListALLMyBuckets"
     ]
     resources = [
       module.s3.bucket_arn,
