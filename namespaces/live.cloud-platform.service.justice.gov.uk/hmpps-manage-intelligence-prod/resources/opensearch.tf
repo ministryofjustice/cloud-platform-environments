@@ -12,7 +12,7 @@ module "s3" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.1"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
