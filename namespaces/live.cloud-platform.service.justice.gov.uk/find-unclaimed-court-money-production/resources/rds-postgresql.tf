@@ -15,7 +15,7 @@ module "rds" {
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
   namespace                 = var.namespace
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "postgres"
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
