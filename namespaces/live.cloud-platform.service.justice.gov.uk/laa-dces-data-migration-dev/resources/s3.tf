@@ -173,6 +173,21 @@ data "aws_iam_policy_document" "bucket-policy" {
   }
 
 
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.admin_user_dev.arn]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "$${bucket_arn}/*"  # Restricting delete for all objects in the bucket
+    ]
+  }
+
+
 }
 
 
