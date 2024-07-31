@@ -14,3 +14,16 @@ module "dynamodb" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "dynamodb" {
+  metadata {
+    name      = "dynamodb-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    irsa_policy_arn  = module.dynamodb.irsa_policy_arn
+    table_arn = module.dynamodb.table_arn
+    table_name = module.dynamodb.table_name
+  }
+}

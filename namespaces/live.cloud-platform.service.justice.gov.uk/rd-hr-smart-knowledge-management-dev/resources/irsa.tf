@@ -12,8 +12,14 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
+    # for the local S3 bucket
     s3_local = module.s3_bucket.irsa_policy_arn
+
+    # for the Analytical Platform S3 bucket
     s3 = aws_iam_policy.mojap-rd_access_policy.arn
+
+    # for the local dynamodb
+    dynamodb = module.dynamodb.irsa_policy_arn
   }
 
   # Tags
