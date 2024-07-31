@@ -34,7 +34,7 @@ module "irsa" {
     { sqs_cpr_nomis_oe = module.cpr_nomis_events_queue.irsa_policy_arn },
     { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn },
     { sns_cpr_cce_fifo = module.court-case-events-fifo-topic.irsa_policy_arn },
-    { sqs_cpr_temp_cce = module.cpr_court_case_events_temporary_queue.irsa_poligdcy_arn },
+    { sqs_cpr_temp_cce = module.cpr_court_case_events_temporary_queue.irsa_policy_arn },
     { dms = module.hmpps-person-record-dms.irsa_policy_arn },
     { s3 = module.hmpps-person-record-ndelius-s3-extract.irsa_policy_arn }
   )
