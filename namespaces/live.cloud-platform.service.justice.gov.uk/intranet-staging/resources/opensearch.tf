@@ -20,13 +20,18 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_2.13"
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
 
-  # Non-production cluster configuration
+  # Production like configuration.
   cluster_config = {
-    instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_count           = 3
+    instance_type            = "r6g.large.search"
+
+    # Masters do not hold data, they perform other cluster tasks.
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_type    = "t2.medium.search"
   }
 
   ebs_options = {
