@@ -26,12 +26,12 @@ module "opensearch" {
   # Production like configuration.
   cluster_config = {
     instance_count           = 3
-    instance_type            = "r6g.large.search"
+    instance_type            = "r6g.large.search" # memory optimised Graviton
 
     # Masters do not hold data, they perform other cluster tasks.
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "t2.medium.search"
+    dedicated_master_type    = "c6g.large.search" # compute optimised Graviton
   }
 
   ebs_options = {
