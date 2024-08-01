@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - assess-for-early-release.hmpps.service.justice.gov.uk 
+    - assess-for-early-release-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - assess-for-early-release-api.hmpps.service.justice.gov.uk 
+    - assess-for-early-release-api-dev.hmpps.service.justice.gov.uk
