@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Launchpad authentication API"
+  default     = "LLM Webapp Test"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-launchpad-auth-dev"
+  default     = "llm-webapp-test-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "prisoner-content-hub-developers"
+  default     = "llm-document-summarisation-tool"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "thehub@digital.justice.gov.uk"
+  default     = "dataengineering@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hub_dev"
+  default     = "data-innovation-llm-infrastructure"
 }
 
 variable "github_owner" {
