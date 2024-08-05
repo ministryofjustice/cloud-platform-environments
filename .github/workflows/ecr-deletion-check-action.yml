@@ -19,7 +19,7 @@ jobs:
           echo "Deleted files: $DELETED_FILES" 
           cd $GITHUB_WORKSPACE
           ls -al
-          
+          git checkout main          
           ECR_DELETED=$(cat "$DELETED_FILES" | grep -q 'github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials' && echo true || echo false)
           echo "::set-output name=ecr_deleted::${ECR_DELETED}"
 
