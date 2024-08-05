@@ -62,7 +62,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-dev/landing/calculate-release-dates-api-dev/"
+    destination_bucket = "s3://moj-reg-dev/landing/${var.namespace}/"
     role               = module.ap_irsa.role_name
     serviceaccount     = module.ap_irsa.service_account.name
     rolearn            = module.ap_irsa.role_arn
