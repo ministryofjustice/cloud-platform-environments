@@ -2,6 +2,8 @@ on:
   pull_request:
     paths:
       - 'namespaces/live.cloud-platform.service.justice.gov.uk/aaf-dev/**'
+    branches:
+      - 'feature/ecr-deletion-check-action'
   workflow_dispatch:
     
 jobs:
