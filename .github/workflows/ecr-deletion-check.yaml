@@ -1,0 +1,14 @@
+on:
+  pull_request:
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/aaf-dev'
+    
+
+jobs:
+  ecr-deletion-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ministryofjustice/cloud-platform-ecr-deletion-check-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
