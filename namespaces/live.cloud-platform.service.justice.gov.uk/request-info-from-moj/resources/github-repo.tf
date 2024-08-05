@@ -26,7 +26,7 @@ resource "github_repository" "prototype" {
   allow_rebase_merge     = true
   delete_branch_on_merge = true
   auto_init              = false
-  archived               = false
+  archived               = true
   vulnerability_alerts   = true
   topics                 = local.topics
 

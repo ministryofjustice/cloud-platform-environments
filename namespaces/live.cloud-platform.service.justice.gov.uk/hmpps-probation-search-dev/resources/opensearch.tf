@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.1"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -11,7 +11,7 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_2.13"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count = 2
@@ -45,12 +45,13 @@ resource "kubernetes_secret" "probation_search_url" {
   }
 }
 
-resource "kubernetes_secret" "indexer_url" {
+resource "kubernetes_secret" "indexer_secret" {
   metadata {
     name      = "person-search-index-from-delius-opensearch"
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    url = module.opensearch.proxy_url
+    url              = module.opensearch.proxy_url
+    bedrock_role_arn = aws_iam_role.opensearch_bedrock_role.arn
   }
 }

@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -10,12 +10,11 @@ module "rds-instance" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
-
+  enable_rds_auto_start_stop = false
 
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
-  db_engine_version        = "19.0.0.0.ru-2023-07.rur-2023-07.r1"
+  db_engine                = "oracle-se2"
+  db_engine_version        = "19.0.0.0.ru-2024-04.rur-2024-04.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -23,16 +22,19 @@ module "rds-instance" {
   db_name                  = "CCR"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem
+  character_set_name       = "WE8MSWIN1252"
   skip_final_snapshot      = true
+
+  # the database is being migrated from another hosting platform
+  is_migration = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
-  snapshot_identifier = "ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-uat-snapshot-initial-migration-cp"
 
   providers = {
     aws = aws.london
@@ -52,9 +54,7 @@ module "rds-instance" {
     }
   ]
 
-
   vpc_security_group_ids = [aws_security_group.rds.id]
-
 }
 
 

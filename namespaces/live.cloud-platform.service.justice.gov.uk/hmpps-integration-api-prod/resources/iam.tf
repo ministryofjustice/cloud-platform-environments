@@ -24,6 +24,16 @@ data "aws_iam_policy_document" "api_gateway" {
       "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
     ]
   }
+
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.certificate_backup.bucket_arn
+    ]
+  }
 }
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
@@ -116,7 +126,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gateway_sqs_policy" {
-  name   = "${var.namespace}-api-gateway-sqs-policy"
+  name = "${var.namespace}-api-gateway-sqs-policy"
   role = aws_iam_role.api_gateway_sqs_role.name
 
   policy = jsonencode({

@@ -31,10 +31,6 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 module "hmpps-integration-event-irsa" {
@@ -44,6 +40,7 @@ module "hmpps-integration-event-irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-integration-event"
   role_policy_arns = merge(
+    local.sqs_policies,
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
@@ -51,7 +48,10 @@ module "hmpps-integration-event-irsa" {
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
-      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
+      pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
+      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn
     }
 
   )
@@ -62,10 +62,6 @@ module "hmpps-integration-event-irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
@@ -90,4 +86,3 @@ resource "kubernetes_secret" "irsa" {
     rolearn        = module.irsa.role_arn
   }
 }
-

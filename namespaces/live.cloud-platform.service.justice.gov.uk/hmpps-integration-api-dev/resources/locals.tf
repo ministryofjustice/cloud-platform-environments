@@ -7,8 +7,7 @@ locals {
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
-    GithubTeam             = var.team_name
   }
 
-  clients = ["chiara", "mapps", "heartbeat", "ctrlo", "pnd", "event-service"]
+  clients = ["mapps", "heartbeat", "ctrlo", "pnd", "event-service", "mryall", "moj-pes"]
 }

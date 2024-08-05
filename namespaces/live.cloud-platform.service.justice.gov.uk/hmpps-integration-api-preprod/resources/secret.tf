@@ -25,10 +25,6 @@ module "secret" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 data "aws_secretsmanager_secret" "slack_webhook_url" {

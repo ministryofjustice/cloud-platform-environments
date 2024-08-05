@@ -5,15 +5,15 @@ provider "pingdom" {
 # 126335 = #elp_alerts
 # 96628 = DPS Pager duty
 
-resource "pingdom_check" "hmpps-prisoner-cell-allocation-api-production-check" {
+resource "pingdom_check" "hmpps-change-someones-cell-production-check" {
   type                     = "http"
-  name                     = "DPS - HMPPS Prisoner Cell Allocation API"
+  name                     = "DPS - HMPPS Change someones cell service"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/https/prisoner-cell-allocation-api.prison.service.justice.gov.uk"
+  url                      = "/https/change-someones-cell.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"

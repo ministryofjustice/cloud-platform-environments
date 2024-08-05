@@ -19,9 +19,9 @@ module "ec-cluster-offender-management-allocation-manager" {
   }
 }
 
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-staging" {
+resource "kubernetes_secret" "redis-staging" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
+    name      = "allocation-elasticache-redis"
     namespace = var.namespace
   }
 
@@ -32,23 +32,10 @@ resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-
   }
 }
 
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-test" {
+resource "kubernetes_secret" "redis-test" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-test"
+    name      = "allocation-elasticache-redis"
     namespace = "offender-management-test"
-  }
-
-  data = {
-    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
-    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
-  }
-}
-
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-test2" {
-  metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-test2"
-    namespace = "offender-management-test2"
   }
 
   data = {

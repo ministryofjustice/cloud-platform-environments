@@ -1,11 +1,19 @@
 locals {
-  dpr_accounts = [
-    "771283872747", # dpr-development
-    "203591025782", # dpr-test
-    "972272129531", # dpr-preproduction
-    "004723187462", # dpr-production
-  ]
   dpr_data_api_role = "dpr-data-api-cross-account-role"
+
+  accounts_map = {
+    development = "771283872747",
+    test = "203591025782",
+    preprod = "972272129531",
+    prod = "004723187462"
+  }
+
+  environments_map = {
+    development = "development",
+    test = "test",
+    preprod = "preproduction",
+    prod = "production"
+  }
 }
 
 data "aws_eks_cluster" "eks_cluster" {
@@ -20,7 +28,7 @@ module "dpr_mi_assume_role" {
   role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
   provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
   role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-development-cross-iam"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(local.environments_map, lower(var.environment))}-cross-iam"]
   oidc_fully_qualified_audiences= ["sts.amazonaws.com"]
 }
 
@@ -29,7 +37,7 @@ data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 
@@ -53,8 +61,8 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns     = { 
-    secrets = aws_iam_policy.cross_iam_policy_mp.arn 
+  role_policy_arns     = {
+    secrets = aws_iam_policy.cross_iam_policy_mp.arn
   }
 
   # Tags
@@ -72,9 +80,9 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "secretsmanager:Get*",
       "secretsmanager:List*",
     ]
-    resources = formatlist("arn:aws:secretsmanager:eu-west-2:%s:secret:dpr-redshift-secret-*-*", tolist(local.dpr_accounts))
+    resources = ["arn:aws:secretsmanager:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:secret:dpr-redshift-secret-*-*"]
   }
-  
+
   statement {
     actions = [
       "kms:Describe*",
@@ -82,14 +90,14 @@ data "aws_iam_policy_document" "cross_iam_policy_mp" {
       "kms:Get*",
       "kms:List*",
     ]
-    resources = formatlist("arn:aws:kms:eu-west-2:%s:key/*", tolist(local.dpr_accounts))
+    resources = ["arn:aws:kms:eu-west-2:${lookup(local.accounts_map, lower(var.environment))}:key/*"]
   }
 
   statement {
     actions = [
       "sts:AssumeRole",
     ]
-    resources = formatlist("arn:aws:iam::%s:role/${local.dpr_data_api_role}", tolist(local.dpr_accounts))
+    resources = ["arn:aws:iam::${lookup(local.accounts_map, lower(var.environment))}:role/${local.dpr_data_api_role}"]
   }
 }
 

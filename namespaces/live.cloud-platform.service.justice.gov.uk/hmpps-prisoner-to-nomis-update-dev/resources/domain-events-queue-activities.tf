@@ -111,7 +111,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_activity_subscrip
       "activities.scheduled-instance.amended", "activities.prisoner.allocated",
       "activities.prisoner.allocation-amended", "activities.prisoner.deallocated",
       "activities.prisoner.attendance-created", "activities.prisoner.attendance-amended",
-      "activities.prisoner.attendance-expired"
+      "activities.prisoner.attendance-expired", "activities.prisoner.attendance-deleted"
     ]
   })
 }

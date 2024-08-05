@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "operations-engineering-find-a-github-repository-owner-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/slack-channel: "operations-engineering"
+    cloud-platform.justice.gov.uk/application: "Find a GitHub Repository Owner"
+    cloud-platform.justice.gov.uk/owner: "Operations Engineering: operations-engineering@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/operations-engineering-find-a-github-repository-owner-dev"
+    cloud-platform.justice.gov.uk/team-name: "operations-engineering"
+    cloud-platform.justice.gov.uk/review-after: ""

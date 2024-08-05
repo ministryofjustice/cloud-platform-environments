@@ -20,6 +20,31 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
   }
 
   statement {
+    actions = [
+				"kendra:GetQuerySuggestions",
+				"kendra:Query",
+				"kendra:Retrieve",
+				"kendra:ListFaqs",
+				"kendra:DeleteFaq",
+				"kendra:DescribeFaq",
+				"kendra:DescribeQuerySuggestionsConfig",
+				"kendra:DeleteThesaurus",
+				"kendra:CreateThesaurus",
+				"kendra:CreateFaq",
+				"kendra:ListThesauri",
+				"kendra:ListDataSources",
+				"kendra:DescribeThesaurus"
+    ]
+
+    resources = [
+      aws_kendra_index.main.arn,
+      "${aws_kendra_index.main.arn}/thesaurus/*",
+      "${aws_kendra_index.main.arn}/faq/*"
+    ]
+
+  }
+
+  statement {
     effect = "Deny"
 
     actions = ["s3:*"]

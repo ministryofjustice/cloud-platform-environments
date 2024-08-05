@@ -24,10 +24,6 @@ module "integration_api_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 module "integration_api_domain_events_dead_letter_queue" {
@@ -45,10 +41,6 @@ module "integration_api_domain_events_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 resource "aws_sqs_queue_policy" "integration_api_domain_events_queue_policy" {
@@ -79,18 +71,22 @@ resource "aws_sqs_queue_policy" "integration_api_domain_events_queue_policy" {
 }
 
 resource "aws_sns_topic_subscription" "integration_api_domain_events_subscription" {
-  provider  = aws.london_default_github_tag
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "probation-case.registration.added",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered",
       "probation-case.registration.updated",
       "risk-assessment.scores.determined",
       "probation-case.risk-scores.ogrs.manual-calculation",
       "RISK-ASSESSMENT_SCORES_RSR_DETERMINED_RECEIVED",
-      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED"
+      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED",
+      "prisoner-offender-search.prisoner.released",
+      "prison-offender-events.prisoner.released",
+      "calculate-release-dates.prisoner.changed"
     ]
   })
 }

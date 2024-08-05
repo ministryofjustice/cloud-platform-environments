@@ -19,3 +19,8 @@ terraform {
     }
   }
 }
+
+variable "domain" {
+  default = "preprod.find-moj-data.service.justice.gov.uk"
+  type    = string
+}

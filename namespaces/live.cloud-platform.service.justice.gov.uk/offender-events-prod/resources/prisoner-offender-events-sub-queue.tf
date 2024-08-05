@@ -132,6 +132,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "OFFENDER_CONTACT-INSERTED",
       "OFFENDER_CONTACT-UPDATED",
       "OFFENDER_CONTACT-DELETED",
+      "OFFENDER_BOOKING-REASSIGNED",
     ]
   })
 }

@@ -109,9 +109,24 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_csip_subscription" {
   endpoint  = module.prisoner_from_nomis_csip_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "CSIP-INSERTED",
-      "CSIP-UPDATED",
-      "CSIP-DELETED",
+      "CSIP_REPORTS-INSERTED",
+      "CSIP_REPORTS-UPDATED",
+      "CSIP_REPORTS-DELETED",
+      "CSIP_PLANS-INSERTED",
+      "CSIP_PLANS-UPDATED",
+      "CSIP_PLANS-DELETED",
+      "CSIP_REVIEWS-INSERTED",
+      "CSIP_REVIEWS-UPDATED",
+      "CSIP_REVIEWS-DELETED",
+      "CSIP_ATTENDEES-INSERTED",
+      "CSIP_ATTENDEES-UPDATED",
+      "CSIP_ATTENDEES-DELETED",
+      "CSIP_FACTORS-INSERTED",
+      "CSIP_FACTORS-UPDATED",
+      "CSIP_FACTORS-DELETED",
+      "CSIP_INTVW-INSERTED",
+      "CSIP_INTVW-UPDATED",
+      "CSIP_INTVW-DELETED",
     ]
   })
 }

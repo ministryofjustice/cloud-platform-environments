@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -22,6 +22,7 @@ module "cla_backend_rds_postgres_14" {
   db_instance_class        = "db.t4g.2xlarge"
   db_allocated_storage     = "100"
   db_max_allocated_storage = "1000"
+  performance_insights_enabled = true
 
   # change the postgres version as you see fit.
   db_engine_version      = "14"
@@ -54,7 +55,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -101,7 +102,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -116,6 +117,7 @@ module "cla_backend_metabase_rds" {
   db_max_allocated_storage = "500"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
+  performance_insights_enabled = true
 
   rds_family = "postgres16"
 

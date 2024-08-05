@@ -6,7 +6,7 @@ module "hmpps_assess_risks_and_needs_handover_service_dev_elasticache_redis" {
 
   # Redis cluster configuration
   node_type               = "cache.t4g.micro"
-  engine_version          = "7.0"
+  engine_version          = "7.1"
   parameter_group_name    = "default.redis7"
 
   # Tags

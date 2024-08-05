@@ -6,16 +6,13 @@ metadata:
   namespace: hmpps-restricted-patients-dev
 subjects:
   - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:dps-production-releases"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-core"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:syscon-devs"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

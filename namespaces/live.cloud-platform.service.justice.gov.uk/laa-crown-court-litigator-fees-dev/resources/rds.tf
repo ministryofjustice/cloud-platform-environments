@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.2"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -31,7 +31,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "cclf-dev-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-dev-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
 
   providers = {
     aws = aws.london
@@ -41,6 +41,7 @@ module "rds-instance" {
   db_parameter = []
 
   vpc_security_group_ids = [aws_security_group.rds.id]
+  is_migration = true
 
 }
 

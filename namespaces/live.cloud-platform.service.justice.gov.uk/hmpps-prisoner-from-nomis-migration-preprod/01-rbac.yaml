@@ -6,10 +6,10 @@ metadata:
   namespace: hmpps-prisoner-from-nomis-migration-preprod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:syscon-devs"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

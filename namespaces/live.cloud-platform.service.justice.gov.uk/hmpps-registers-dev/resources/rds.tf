@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -39,7 +39,7 @@ resource "kubernetes_secret" "dps_rds" {
 }
 
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -54,9 +54,9 @@ module "prisons_rds" {
   db_max_allocated_storage   = "500"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
-  rds_family                 = "postgres15"
+  rds_family                 = "postgres16"
   db_engine                  = "postgres"
-  db_engine_version          = "15"
+  db_engine_version          = "16.3"
 
   providers = {
     aws = aws.london

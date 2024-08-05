@@ -19,9 +19,9 @@ module "ec-cluster-offender-management-allocation-manager" {
   }
 }
 
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-preprod" {
+resource "kubernetes_secret" "redis-preprod" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
+    name      = "allocation-elasticache-redis"
     namespace = var.namespace
   }
 

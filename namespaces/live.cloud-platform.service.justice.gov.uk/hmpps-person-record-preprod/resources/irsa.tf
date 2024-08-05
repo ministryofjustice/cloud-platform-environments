@@ -28,11 +28,14 @@ module "irsa" {
     local.sqs_policies,
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
+    { sqs_cpr_fifo_cce = module.cpr_court_case_events_fifo_queue.irsa_policy_arn },
+    { sqs_cpr_temp_cce = module.cpr_court_case_events_temporary_queue.irsa_policy_arn },
     { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_nomis_oe = module.cpr_nomis_events_queue.irsa_policy_arn },
-    { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn }
+    { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn },
+    { sns_cpr_cce_fifo = module.court-case-events-fifo-topic.irsa_policy_arn }
   )
 
   # Tags
@@ -51,4 +54,12 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

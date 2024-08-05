@@ -13,10 +13,6 @@ module "hmpps-integration-events" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 resource "kubernetes_secret" "hmpps-integration-events-secret" {
@@ -25,9 +21,9 @@ resource "kubernetes_secret" "hmpps-integration-events-secret" {
     namespace = var.namespace
   }
 
-  data = {  
-    sns_arn  = module.hmpps-integration-events.topic_arn
-    sns_name = module.hmpps-integration-events.topic_name
-    sns_irsa_arn= module.integration_api_domain_events_queue.irsa_policy_arn
+  data = {
+    sns_arn      = module.hmpps-integration-events.topic_arn
+    sns_name     = module.hmpps-integration-events.topic_name
+    sns_irsa_arn = module.integration_api_domain_events_queue.irsa_policy_arn
   }
 }
