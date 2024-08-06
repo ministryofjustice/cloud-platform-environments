@@ -28,8 +28,10 @@ jobs:
         run: |
           for file in $DELETED_FILES $MODIFIED_FILES; do
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+              echo "before : "
               cat $file
               sed '/^#/d' $file > $file.tmp
+              echo "after : "
               cat $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
                 DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
