@@ -26,6 +26,7 @@ module "irsa" {
   service_account_name = "hmpps-document-management-api"
   role_policy_arns = merge(local.sqs_policies, local.sns_policies, {
     s3 = module.s3.irsa_policy_arn
+    s3images = module.s3-images.irsa_policy_arn
   })
 
   # Tags
