@@ -30,7 +30,7 @@ jobs:
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
               echo "before : "
               cat $file
-              sed '/^#/d' $file > $file.tmp
+              sed '/^[[:space:]]*#/d' $file > $file.tmp
               echo "after : "
               cat $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
