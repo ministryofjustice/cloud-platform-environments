@@ -10,16 +10,90 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # - uses: ministryofjustice/cloud-platform-ecr-deletion-check-action@main
-
-      - name: Run ecr deleted files check
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          write_output_files: true
+      
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+            
+      - name: Get deletion protection
+        id: deletion-protection
+        env:
+          DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+          MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
         run: |
-          echo "Hello"
-          DELETED_FILES=$(git diff --name-status origin/main $GITHUB_SHA | awk '$1 == "D" { print $2 }')
-          echo "Deleted files: $DELETED_FILES" 
-          cd $GITHUB_WORKSPACE
-          ls -al
-          git checkout main          
-          ECR_DELETED=$(cat "$DELETED_FILES" | grep -q 'github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials' && echo true || echo false)
-          echo "::set-output name=ecr_deleted::${ECR_DELETED}"
+          for file in $DELETED_FILES $MODIFIED_FILES; do
+            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+              echo "before : "
+              cat $file
+              sed '/^[[:space:]]*#/d' $file > $file.tmp
+              echo "after : "
+              cat $file.tmp
+              if grep -q "deletion_protection" $file.tmp; then
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
+              else
+                DELETION_PROTECTION=true
+              fi
+              # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
+              # cat $file
+              echo $DELETION_PROTECTION
+              break
+            fi
+          done
 
+      # - name: Get all deleted files
+      #   id: deleted-files
+      #   if: steps.changed-files.outputs.deleted_files_count > 0
+      #   env:
+      #     DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+      #     MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
+      #   run: |
+      #     for file in ${DELETED_FILES}; do
+      #       if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+      #         echo "ecrDeleted=true" >> $GITHUB_OUTPUT
+      #         break
+      #       else
+      #         echo "ecrDeleted=false" >> $GITHUB_OUTPUT
+      #       fi
+      #     done
+          
+      # - name: Comment on PR
+      #   env:
+      #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" 
+      #   if: steps.deleted-files.outputs.ecrDeleted == 'true'
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: 'You are deleting an existing ecr resource from your terraform configuration. \
+      #         Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
+      #       });
+        
+      # # Check the PR diff using the current branch and the base branch of the PR
+      # - name: Get diff
+      #   uses: GrantBirki/git-diff-action@v2.7.0
+      #   id: git-diff-action
+      #   with:
+      #     json_diff_file_output: diff.json
+      #     raw_diff_file_output: diff.txt
+      #     file_output_only: "true"
+
+      # # Print the diff in JSON format
+      # - name: print json diff
+      #   env:
+      #     DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
+      #   run: cat $DIFF
+
+      # # Print the diff in raw git format
+      # - name: print raw diff
+      #   env:
+      #     DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
+      #   run: cat $DIFF
+      #     # grep 'deletion_protection' $DIFF
