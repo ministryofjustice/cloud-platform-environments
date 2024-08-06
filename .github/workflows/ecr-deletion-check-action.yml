@@ -28,18 +28,13 @@ jobs:
         run: |
           for file in $DELETED_FILES $MODIFIED_FILES; do
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
-              echo "before : "
-              cat $file
               sed '/^[[:space:]]*#/d' $file > $file.tmp
-              echo "after : "
-              cat $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
-                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
               else
                 DELETION_PROTECTION=true
               fi
-              # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
-              # cat $file
+              echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
               echo $DELETION_PROTECTION
               break
             fi
@@ -76,24 +71,21 @@ jobs:
       #         Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
       #       });
         
-      # # Check the PR diff using the current branch and the base branch of the PR
-      # - name: Get diff
-      #   uses: GrantBirki/git-diff-action@v2.7.0
-      #   id: git-diff-action
-      #   with:
-      #     json_diff_file_output: diff.json
-      #     raw_diff_file_output: diff.txt
-      #     file_output_only: "true"
+      # Check the PR diff using the current branch and the base branch of the PR
+      - uses: actions/checkout@v4
 
-      # # Print the diff in JSON format
-      # - name: print json diff
-      #   env:
-      #     DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-      #   run: cat $DIFF
+      - name: Get diff
+        uses: GrantBirki/git-diff-action@v2.7.0
+        id: git-diff-action
+        with:
+          json_diff_file_output: diff.json
+          raw_diff_file_output: diff.txt
+          file_output_only: "true"
+          git_options: "--word-diff=plain --unified=0"
 
-      # # Print the diff in raw git format
-      # - name: print raw diff
-      #   env:
-      #     DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
-      #   run: cat $DIFF
-      #     # grep 'deletion_protection' $DIFF
+      # Print the diff in raw git format
+      - name: print raw diff
+        env:
+          DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
+        run: cat $DIFF
+          # grep 'deletion_protection' $DIFF
