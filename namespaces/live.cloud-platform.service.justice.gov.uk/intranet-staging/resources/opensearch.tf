@@ -34,6 +34,10 @@ module "opensearch" {
     dedicated_master_type    = "c6g.large.search" # compute optimised Graviton
   }
 
+  advanced_options = {
+    max_clause_count = 10000
+  }
+
   ebs_options = {
     volume_size = 10
   }
