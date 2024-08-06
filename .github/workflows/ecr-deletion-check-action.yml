@@ -10,6 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Check the PR diff using the current branch and the base branch of the PR
+
+      - name: Get diff
+        uses: GrantBirki/git-diff-action@v2.7.0
+        id: git-diff-action
+        with:
+          json_diff_file_output: diff.json
+          raw_diff_file_output: diff.txt
+          file_output_only: "true"
+          git_options: "--word-diff=plain --unified=0"
+
+      # Print the diff in raw git format
+      - name: print raw diff
+        env:
+          DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
+        run: cat $DIFF
+          # grep 'deletion_protection' $DIFF
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
@@ -71,21 +89,3 @@ jobs:
       #         Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
       #       });
         
-      # Check the PR diff using the current branch and the base branch of the PR
-      - uses: actions/checkout@v4
-
-      - name: Get diff
-        uses: GrantBirki/git-diff-action@v2.7.0
-        id: git-diff-action
-        with:
-          json_diff_file_output: diff.json
-          raw_diff_file_output: diff.txt
-          file_output_only: "true"
-          git_options: "--word-diff=plain --unified=0"
-
-      # Print the diff in raw git format
-      - name: print raw diff
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
-        run: cat $DIFF
-          # grep 'deletion_protection' $DIFF
