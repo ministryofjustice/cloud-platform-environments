@@ -26,7 +26,7 @@ jobs:
           DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
           MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
         run: |
-          for file in "$DELETED_FILES $MODIFIED_FILES"; do
+          for file in $DELETED_FILES $MODIFIED_FILES; do
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
               cat $file
               sed '/^#/d' $file > $file.tmp
