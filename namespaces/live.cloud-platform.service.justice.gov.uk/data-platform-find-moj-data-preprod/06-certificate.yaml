@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - proprod.find-moj-data.service.justice.gov.uk
+    - preprod.find-moj-data.service.justice.gov.uk
