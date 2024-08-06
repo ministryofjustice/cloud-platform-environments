@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_cclf_claims = aws_iam_policy.cclf_stg_policy.arn
+    sqs_cclf_claims = aws_iam_policy.cclf_prod_policy.arn
     rds = module.rds-instance.irsa_policy_arn
     # cclf_copy_snapshot = aws_iam_policy.cclf_copy_snapshot_policy.arn
   }
@@ -29,7 +29,7 @@ module "irsa" {
 data "aws_iam_policy_document" "cclf_claims_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
-    sid  = "CCLFPolicySQSStaging"
+    sid  = "CCLFPolicySQSProd"
     effect = "Allow"
     actions = [
       "sqs:*",
@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "cclf_claims_policy" {
 resource "aws_iam_policy" "cclf_prod_policy" {
   name        = "cclf_prod_policy"
   policy      = data.aws_iam_policy_document.cclf_claims_policy.json
-  description = "Policy for Cloud Platform to assume role in data platform Staging account for CCLF"
+  description = "Policy for Cloud Platform to assume role in data platform production account for CCLF"
 
   tags = {
     business-unit          = var.business_unit
@@ -59,40 +59,6 @@ resource "aws_iam_policy" "cclf_prod_policy" {
     infrastructure-support = var.infrastructure_support
   }
 }
-
-# data "aws_iam_policy_document" "cclf_copy_snapshot_policy_document" {
-#   # Provide list of permissions and target AWS account resources to allow access to
-#   statement {
-#     sid  = "CCLFPolicyCopySnapshotUAT"
-#     effect = "Allow"
-#     actions = [
-#       "rds:CopyDBSnapshot",
-#       "kms:CreateGrant",
-#       "kms:DescribeKey",
-#     ]
-#     resources = [
-#       "arn:aws:rds:eu-west-2:411213865113:snapshot:cclf-dev-for-copy-over-to-cloud-platform",
-#       "arn:aws:kms:eu-west-2:754256621582:key/92d71916-6237-4c84-ac42-6b58fe591fc0",
-#       "arn:aws:kms:eu-west-2:902837325998:key/8d0bca3a-0e0f-48a7-abee-2c0693d008b1",
-#     ]
-#   }
-
-# }
-
-# resource "aws_iam_policy" "cclf_copy_snapshot_policy" {
-#   name        = "cclf_copy_snapshot_policy"
-#   policy      = data.aws_iam_policy_document.cclf_copy_snapshot_policy_document.json
-#   description = "Policy for Cloud Platform to assume role in data platform dev account for CCLF"
-
-#   tags = {
-#     business-unit          = var.business_unit
-#     application            = var.application
-#     is-production          = var.is_production
-#     environment-name       = var.environment
-#     owner                  = var.github_owner
-#     infrastructure-support = var.infrastructure_support
-#   }
-# }
 
 module "service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
