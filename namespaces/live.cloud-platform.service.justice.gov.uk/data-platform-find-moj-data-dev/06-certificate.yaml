@@ -5,7 +5,7 @@ metadata:
   name: find-moj-data-dev-cert
   namespace: data-platform-find-moj-data-dev
 spec:
-  secretName: find-moj-data-dev-cert
+  secretName: find-moj-data-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
