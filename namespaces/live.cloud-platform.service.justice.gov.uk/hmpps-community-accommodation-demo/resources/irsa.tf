@@ -1,15 +1,15 @@
 locals {
   sqs_queues_ap = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-demo",
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
   sqs_queues_cas2 = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-demo",
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
   sqs_queues_ta = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-demo",
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-demo"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies      = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies_ap   = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_ap : item.name => item.value }
