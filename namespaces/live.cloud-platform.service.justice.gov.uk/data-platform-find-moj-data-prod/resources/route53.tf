@@ -29,7 +29,7 @@ resource "aws_route53_record" "user_guide" {
   name    = "user-guide.find-moj-data.service.justice.gov.uk"
   zone_id = aws_route53_zone.find_moj_data_prod_zone.zone_id
   type    = "CNAME"
-  records = ["ministryofjustice.github.io/find-moj-data-user-guide/"]
+  records = ["ministryofjustice.github.io"]
   ttl     = "300"
 }
 
@@ -37,6 +37,6 @@ resource "aws_route53_record" "runbooks" {
   name    = "runbooks.find-moj-data.service.justice.gov.uk"
   zone_id = aws_route53_zone.find_moj_data_prod_zone.zone_id
   type    = "CNAME"
-  records = ["ministryofjustice.github.io/find-moj-data-runbooks/"]
+  records = ["ministryofjustice.github.io"]
   ttl     = "300"
 }
