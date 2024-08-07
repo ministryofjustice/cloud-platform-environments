@@ -10,8 +10,4 @@ module "ecr_credentials" {
   infrastructure_support = var.infrastructure_support
   business_unit          = var.business_unit
   application            = var.application
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }

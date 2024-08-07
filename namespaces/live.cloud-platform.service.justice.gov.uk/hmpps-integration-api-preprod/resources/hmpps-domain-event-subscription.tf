@@ -24,10 +24,6 @@ module "integration_api_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 module "integration_api_domain_events_dead_letter_queue" {
@@ -45,10 +41,6 @@ module "integration_api_domain_events_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london_default_github_tag
-  }
 }
 
 resource "aws_sqs_queue_policy" "integration_api_domain_events_queue_policy" {
@@ -79,7 +71,6 @@ resource "aws_sqs_queue_policy" "integration_api_domain_events_queue_policy" {
 }
 
 resource "aws_sns_topic_subscription" "integration_api_domain_events_subscription" {
-  provider  = aws.london_default_github_tag
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn

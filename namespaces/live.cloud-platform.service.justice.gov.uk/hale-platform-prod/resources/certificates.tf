@@ -52,6 +52,8 @@ variable "domains" {
     "www.seewhatsontheinside.com"                    = "swoti-www"
     "seewhatsontheinside.co.uk"                      = "swoti-uk"
     "www.seewhatsontheinside.co.uk"                  = "swoti-uk-www"
+    "iapondeathsincustody.org"                       = "iapdc"
+    "www.iapondeathsincustody.org"                   = "iapdc-www"
   }
 }
 

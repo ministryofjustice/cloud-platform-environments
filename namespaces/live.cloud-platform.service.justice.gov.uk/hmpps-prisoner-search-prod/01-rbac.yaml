@@ -6,9 +6,6 @@ metadata:
   namespace: hmpps-prisoner-search-prod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

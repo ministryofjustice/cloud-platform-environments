@@ -9,10 +9,6 @@ module "truststore_s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
-  providers = {
-    aws = aws.london_without_default_tags
-  }
-
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -59,10 +55,6 @@ module "certificate_backup" {
   namespace              = var.namespace
   bucket_name            = "${var.namespace}-certificates-backup"
   versioning             = true
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 
   bucket_policy = <<EOF
 {

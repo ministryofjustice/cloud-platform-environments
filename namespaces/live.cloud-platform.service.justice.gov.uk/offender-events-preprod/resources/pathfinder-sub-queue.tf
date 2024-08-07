@@ -211,6 +211,8 @@ resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription"
   filter_policy = jsonencode({
     eventType = [
       "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.received",
+      "prisoner-offender-search.prisoner.released",
     ]
   })
 }

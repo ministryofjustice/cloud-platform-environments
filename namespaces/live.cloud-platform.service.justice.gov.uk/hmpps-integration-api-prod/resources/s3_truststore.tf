@@ -8,10 +8,6 @@ module "truststore_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = true
-
-  providers = {
-    aws = aws.london_without_default_tags
-  }
 }
 
 data "kubernetes_secret" "truststore" {
@@ -39,10 +35,6 @@ module "certificate_backup" {
   bucket_name            = "${var.namespace}-certificates-backup"
   versioning             = true
 
-  providers = {
-    aws = aws.london_without_default_tags
-  }
-
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -66,4 +58,3 @@ module "certificate_backup" {
 }
 EOF
 }
-

@@ -218,5 +218,5 @@ resource "aws_sns_topic_subscription" "offender_categorisation_ui_subscription" 
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.offender_categorisation_ui_events_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\",\"BOOKING_NUMBER-CHANGED\",\"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
+  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\",\"BOOKING_NUMBER-CHANGED\",\"prisoner-offender-search.prisoner.released\"]}"
 }

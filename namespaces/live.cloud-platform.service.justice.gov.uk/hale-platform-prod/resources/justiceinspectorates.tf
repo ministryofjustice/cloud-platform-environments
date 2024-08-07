@@ -62,14 +62,6 @@ resource "aws_route53_record" "justiceinspectorates_route53_cname_record_hmiprob
   records = ["hmiprobationeforms.live.bangdynamics.com"]
 }
 
-resource "aws_route53_record" "justiceinspectorates_route53_cname_record_monitoringportal" {
-  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
-  name    = "monitoringportal.justiceinspectorates.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["hmicfrsrecommendations.live.bangdynamics.com"]
-}
-
 resource "aws_route53_record" "justiceinspectorates_route53_cname_record_hmicfrs_acm" {
   zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
   name    = "_4db237fe0679b5055c854f480873647d.hmicfrs.justiceinspectorates.gov.uk"

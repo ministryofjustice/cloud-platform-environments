@@ -2,12 +2,15 @@
 # The value of each item should be the namespace where the queue or topic was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  # The names of the SNS topics used and the namespace which created them
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
 
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies = {
+    domain-events-queue = module.domain-events-queue.irsa_policy_arn,
+    domain-events-dlq = module.domain-events-dlq.irsa_policy_arn,
+  }
 }
 
 module "irsa" {
@@ -18,7 +21,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-prison-person-api"
-  role_policy_arns     = merge(local.sns_policies)
+  role_policy_arns     = merge(local.sns_policies, local.sqs_policies)
 
   # Tags
   business_unit          = var.business_unit
