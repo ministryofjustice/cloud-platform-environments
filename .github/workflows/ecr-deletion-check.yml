@@ -50,7 +50,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             You are deleting an existing ECR resource from your Terraform configuration. \
-            Ensure that you have disabled deletion_protection for your ECR and applied this Terraform change.
+            Kindly make sure to disable deletion_protection for your ECR and applied this Terraform change.
 
       - name: Fail action if ecr is deleted without deletion_protection disabled
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
