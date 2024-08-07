@@ -1,0 +1,57 @@
+on:
+  pull_request:
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/aaf-dev/**'
+  workflow_dispatch:
+    
+jobs:
+  ecr-deletion-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          write_output_files: true
+      
+      - uses: actions/checkout@v4
+        with:
+          ref: temp-main-ecr
+      
+      - name: Get deletion protection
+        id: deletion-protection
+        env:
+          DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+          MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
+        run: |
+          DELETION_PROTECTION=
+          for file in $DELETED_FILES $MODIFIED_FILES; do
+            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+              sed '/^[[:space:]]*#/d' $file > $file.tmp
+              if grep -q "deletion_protection" $file.tmp; then
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
+              else
+                DELETION_PROTECTION=true
+              fi
+              echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
+              echo $DELETION_PROTECTION
+              break
+            fi
+          done
+          echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
+
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v4
+
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            You are deleting an existing ECR resource from your Terraform configuration. \
+            Ensure that you have disabled deletion_protection for your ECR and applied this Terraform change.
+
+      - name: Fail action if ecr is deleted without deletion_protection disabled
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        run: exit 1
