@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+         fetch-depth: 0 
 
       - name: Get changed files
         id: changed-files
@@ -24,6 +26,7 @@ jobs:
           json_diff_file_output: diff.json
           raw_diff_file_output: diff.txt
           file_output_only: "true"
+          git_options: "--word-diff=plain --unified=0"
 
       # Print the diff in raw git format
       - name: print raw diff
@@ -33,7 +36,7 @@ jobs:
       
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: temp-main-ecr
             
       - name: Get deletion protection
         id: deletion-protection
