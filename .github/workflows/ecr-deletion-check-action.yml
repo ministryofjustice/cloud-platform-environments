@@ -52,12 +52,11 @@ jobs:
               echo "after : "
               cat $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
-                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
               else
                 DELETION_PROTECTION=true
               fi
-              # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
-              # cat $file
+              echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
               echo $DELETION_PROTECTION
               break
             fi
