@@ -16,34 +16,57 @@ jobs:
         with:
           write_output_files: true
       
-      - uses: actions/checkout@v4
+      
+          # Check the PR diff using the current branch and the base branch of the PR
+      - name: Get diff
+        uses: GrantBirki/git-diff-action@v2.7.0
+        id: git-diff-action
         with:
-          ref: main
-            
-      - name: Get deletion protection
-        id: deletion-protection
+          json_diff_file_output: diff.json
+          raw_diff_file_output: diff.txt
+          file_output_only: "true"
+
+      # Print the diff in JSON format
+      - name: print json diff
         env:
-          DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
-          MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
-        run: |
-          for file in $DELETED_FILES $MODIFIED_FILES; do
-            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
-              echo "before : "
-              cat $file
-              sed '/^[[:space:]]*#/d' $file > $file.tmp
-              echo "after : "
-              cat $file.tmp
-              if grep -q "deletion_protection" $file.tmp; then
-                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
-              else
-                DELETION_PROTECTION=true
-              fi
-              # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
-              # cat $file
-              echo $DELETION_PROTECTION
-              break
-            fi
-          done
+          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
+        run: cat $DIFF
+
+      # Print the diff in raw git format
+      - name: print raw diff
+        env:
+          DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
+        run: cat $DIFF
+          # grep 'deletion_protection' $DIFF
+      
+      # - uses: actions/checkout@v4
+      #   with:
+      #     ref: main
+            
+      # - name: Get deletion protection
+      #   id: deletion-protection
+      #   env:
+      #     DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+      #     MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
+      #   run: |
+      #     for file in $DELETED_FILES $MODIFIED_FILES; do
+      #       if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+      #         echo "before : "
+      #         cat $file
+      #         sed '/^[[:space:]]*#/d' $file > $file.tmp
+      #         echo "after : "
+      #         cat $file.tmp
+      #         if grep -q "deletion_protection" $file.tmp; then
+      #           DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
+      #         else
+      #           DELETION_PROTECTION=true
+      #         fi
+      #         # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
+      #         # cat $file
+      #         echo $DELETION_PROTECTION
+      #         break
+      #       fi
+      #     done
 
       # - name: Get all deleted files
       #   id: deleted-files
@@ -76,24 +99,4 @@ jobs:
       #         Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
       #       });
         
-      # # Check the PR diff using the current branch and the base branch of the PR
-      # - name: Get diff
-      #   uses: GrantBirki/git-diff-action@v2.7.0
-      #   id: git-diff-action
-      #   with:
-      #     json_diff_file_output: diff.json
-      #     raw_diff_file_output: diff.txt
-      #     file_output_only: "true"
 
-      # # Print the diff in JSON format
-      # - name: print json diff
-      #   env:
-      #     DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-      #   run: cat $DIFF
-
-      # # Print the diff in raw git format
-      # - name: print raw diff
-      #   env:
-      #     DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
-      #   run: cat $DIFF
-      #     # grep 'deletion_protection' $DIFF
