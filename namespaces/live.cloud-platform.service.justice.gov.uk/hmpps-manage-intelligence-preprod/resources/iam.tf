@@ -15,7 +15,9 @@ data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
       module.ims_images_storage_bucket.bucket_arn,
       "${module.ims_images_storage_bucket.bucket_arn}/*",
       module.ims_attachments_storage_bucket.bucket_arn,
-      "${module.ims_attachments_storage_bucket.bucket_arn}/*"
+      "${module.ims_attachments_storage_bucket.bucket_arn}/*",
+      module.mercury_data_entities_bucket.bucket_arn,
+      "${module.mercury_data_entities_bucket.bucket_arn}/*"
     ]
   }
 
