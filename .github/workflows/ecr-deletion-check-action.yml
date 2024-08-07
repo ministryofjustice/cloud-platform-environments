@@ -15,9 +15,8 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           write_output_files: true
-      
-      
-          # Check the PR diff using the current branch and the base branch of the PR
+            
+      # Check the PR diff using the current branch and the base branch of the PR
       - name: Get diff
         uses: GrantBirki/git-diff-action@v2.7.0
         id: git-diff-action
@@ -26,22 +25,15 @@ jobs:
           raw_diff_file_output: diff.txt
           file_output_only: "true"
 
-      # Print the diff in JSON format
-      - name: print json diff
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-        run: cat $DIFF
-
       # Print the diff in raw git format
       - name: print raw diff
         env:
           DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
         run: cat $DIFF
-          # grep 'deletion_protection' $DIFF
       
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: temp-main-ecr
             
       - name: Get deletion protection
         id: deletion-protection
