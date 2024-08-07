@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-         fetch-depth: 0 
+        # with:
+        #  fetch-depth: 0 
 
       - name: Get changed files
         id: changed-files
@@ -18,21 +18,21 @@ jobs:
         with:
           write_output_files: true
             
-      # Check the PR diff using the current branch and the base branch of the PR
-      - name: Get diff
-        uses: GrantBirki/git-diff-action@v2.7.0
-        id: git-diff-action
-        with:
-          json_diff_file_output: diff.json
-          raw_diff_file_output: diff.txt
-          file_output_only: "true"
-          git_options: "--word-diff=plain --unified=0"
+      # # Check the PR diff using the current branch and the base branch of the PR
+      # - name: Get diff
+      #   uses: GrantBirki/git-diff-action@v2.7.0
+      #   id: git-diff-action
+      #   with:
+      #     json_diff_file_output: diff.json
+      #     raw_diff_file_output: diff.txt
+      #     file_output_only: "true"
+      #     git_options: "--word-diff=plain --unified=0"
 
-      # Print the diff in raw git format
-      - name: print raw diff
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
-        run: cat $DIFF
+      # # Print the diff in raw git format
+      # - name: print raw diff
+      #   env:
+      #     DIFF: ${{ steps.git-diff-action.outputs.raw-diff-path }}
+      #   run: cat $DIFF
       
       - uses: actions/checkout@v4
         with:
@@ -47,11 +47,7 @@ jobs:
           DELETION_PROTECTION=
           for file in $DELETED_FILES $MODIFIED_FILES; do
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
-              echo "before : "
-              cat $file
               sed '/^[[:space:]]*#/d' $file > $file.tmp
-              echo "after : "
-              cat $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
                 DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
               else
@@ -77,21 +73,4 @@ jobs:
       - name: Fail action when ecr is deleted without deletion_protection disabled
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
         run: exit 1
-
-          
-      # - name: Comment on PR
-      #   env:
-      #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" 
-      #   if: steps.deleted-files.outputs.ecrDeleted == 'true'
-      #   uses: actions/github-script@v7
-      #   with:
-      #     script: |
-      #       github.rest.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: 'You are deleting an existing ecr resource from your terraform configuration. \
-      #         Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
-      #       });
-        
 
