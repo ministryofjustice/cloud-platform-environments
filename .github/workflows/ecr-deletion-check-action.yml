@@ -37,13 +37,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: temp-main-ecr
-            
+      
       - name: Get deletion protection
         id: deletion-protection
         env:
           DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
           MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
         run: |
+          DELETION_PROTECTION=
           for file in $DELETED_FILES $MODIFIED_FILES; do
             if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
               echo "before : "
@@ -61,22 +62,22 @@ jobs:
               break
             fi
           done
+          echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
 
-      # - name: Get all deleted files
-      #   id: deleted-files
-      #   if: steps.changed-files.outputs.deleted_files_count > 0
-      #   env:
-      #     DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
-      #     MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
-      #   run: |
-      #     for file in ${DELETED_FILES}; do
-      #       if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
-      #         echo "ecrDeleted=true" >> $GITHUB_OUTPUT
-      #         break
-      #       else
-      #         echo "ecrDeleted=false" >> $GITHUB_OUTPUT
-      #       fi
-      #     done
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v4
+
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            You are deleting an existing ecr resource from your terraform configuration. \
+            Make sure you have deletion_protection disabled for your ecr and applied this terraform change'
+
+      - name: Fail action when ecr is deleted without deletion_protection disabled
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        run: exit 1
+
           
       # - name: Comment on PR
       #   env:
