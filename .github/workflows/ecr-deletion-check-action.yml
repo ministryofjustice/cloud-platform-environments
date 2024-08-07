@@ -33,7 +33,7 @@ jobs:
       
       - uses: actions/checkout@v4
         with:
-          ref: temp-main-ecr
+          ref: main
             
       - name: Get deletion protection
         id: deletion-protection
