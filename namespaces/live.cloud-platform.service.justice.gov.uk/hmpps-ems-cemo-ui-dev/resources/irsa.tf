@@ -6,7 +6,7 @@ module "irsa" {
   service_account_name = "hmpps-electronic-monitoring-create-an-order"
   role_policy_arns = merge(    
     {      
-      s3                                              = module.certificate_backup.irsa_policy_arn     
+      s3                                              = module.uploadstore.irsa_policy_arn     
     }
   )
   # Tags
