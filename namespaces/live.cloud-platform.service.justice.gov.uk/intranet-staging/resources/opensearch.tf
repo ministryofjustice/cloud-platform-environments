@@ -35,7 +35,7 @@ module "opensearch" {
   }
 
   advanced_options = {
-    "indices.query.bool.max_clause_count" = 10000
+    "indices.query.bool.max_clause_count" = "10000"
   }
 
   ebs_options = {
