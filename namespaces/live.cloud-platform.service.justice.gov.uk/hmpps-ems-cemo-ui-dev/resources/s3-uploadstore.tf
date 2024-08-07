@@ -7,31 +7,13 @@ module "uploadstore" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_name            = "${var.namespace}-certificates-backup"
+  bucket_name            = "${var.namespace}-upload-store"
   versioning             = true
 
-  bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowBucketAccess",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "${aws_iam_user.api_gateway_user.arn}"
-      },
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:GetObjectVersion"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
 }
 
 
