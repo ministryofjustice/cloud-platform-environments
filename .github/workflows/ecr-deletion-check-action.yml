@@ -39,34 +39,34 @@ jobs:
         run: cat $DIFF
           # grep 'deletion_protection' $DIFF
       
-      # - uses: actions/checkout@v4
-      #   with:
-      #     ref: main
+      - uses: actions/checkout@v4
+        with:
+          ref: main
             
-      # - name: Get deletion protection
-      #   id: deletion-protection
-      #   env:
-      #     DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
-      #     MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
-      #   run: |
-      #     for file in $DELETED_FILES $MODIFIED_FILES; do
-      #       if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
-      #         echo "before : "
-      #         cat $file
-      #         sed '/^[[:space:]]*#/d' $file > $file.tmp
-      #         echo "after : "
-      #         cat $file.tmp
-      #         if grep -q "deletion_protection" $file.tmp; then
-      #           DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
-      #         else
-      #           DELETION_PROTECTION=true
-      #         fi
-      #         # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
-      #         # cat $file
-      #         echo $DELETION_PROTECTION
-      #         break
-      #       fi
-      #     done
+      - name: Get deletion protection
+        id: deletion-protection
+        env:
+          DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+          MODIFIED_FILES: ${{ steps.changed-files.outputs.modified_files }}
+        run: |
+          for file in $DELETED_FILES $MODIFIED_FILES; do
+            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+              echo "before : "
+              cat $file
+              sed '/^[[:space:]]*#/d' $file > $file.tmp
+              echo "after : "
+              cat $file.tmp
+              if grep -q "deletion_protection" $file.tmp; then
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*//p' $file.tmp)
+              else
+                DELETION_PROTECTION=true
+              fi
+              # echo "ecrDeleted=true" >> $GITHUB_OUTPUT
+              # cat $file
+              echo $DELETION_PROTECTION
+              break
+            fi
+          done
 
       # - name: Get all deleted files
       #   id: deleted-files
