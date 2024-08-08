@@ -13,7 +13,7 @@ module "assess-for-early-release_rds" {
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "16.3"
   rds_family                  = "postgres16"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_password_rotated_date    = "14-02-2023"
 
   providers = {
