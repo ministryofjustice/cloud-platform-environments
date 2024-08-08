@@ -27,7 +27,7 @@ jobs:
         run: |
           DELETION_PROTECTION=
           for file in $DELETED_FILES; do
-            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+            if cat $file | grep -q github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials; then
               sed '/^[[:space:]]*[//|#]/d' $file > $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
                 DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
@@ -54,7 +54,7 @@ jobs:
       - name: Fail action if ecr is deleted without deletion_protection disabled
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
         run: |
-            echo "You are deleting an existing ECR resource from your Terraform configuration.
+            echo "You are deleting an existing ECR resource from your Terraform configuration. \
             Kindly make sure to disable deletion_protection by setting `deletion_protection = false` in your ecr module.
             
             See comment on PR for more info"
