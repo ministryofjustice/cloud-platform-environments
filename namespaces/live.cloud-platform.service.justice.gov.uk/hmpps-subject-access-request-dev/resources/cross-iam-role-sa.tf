@@ -4,7 +4,7 @@
       eks_cluster_name      = "var.eks_cluster_name"
       namespace             = "var.namespace"
       service_account_name  = "${var.team_name}-${var.environment}"
-      role_policy_arns = [aws_iam_policy.hmpps_subject_access_request_dev_aws_policy.arn]
+      role_policy_arns = ["aws_iam_policy.hmpps_subject_access_request_dev_aws_policy.arn"]
       # Tags
       business_unit          = var.business_unit
       application            = var.application
