@@ -11,6 +11,7 @@ module "ecr" {
   repo_name           = var.namespace
   # deletion_protection = false
   deletion_protection = true
+   # deletion_protection = false # deletion_protection = false # deletion_protection = false # deletion_protection = false
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
