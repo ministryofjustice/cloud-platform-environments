@@ -27,7 +27,8 @@ jobs:
         run: |
           DELETION_PROTECTION=
           for file in $DELETED_FILES; do
-            if cat $file | grep -q github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials; then
+            if [[ "$file" =~ ^.*/resources/ecr.*\.tf$ ]]; then
+            # if cat $file | grep -q github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials; then
               sed '/^[[:space:]]*[//|#]/d' $file > $file.tmp
               if grep -q "deletion_protection" $file.tmp; then
                 DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
