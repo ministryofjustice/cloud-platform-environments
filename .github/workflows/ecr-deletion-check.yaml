@@ -1,0 +1,61 @@
+on:
+  pull_request:
+    paths:
+      - 'namespaces/live.cloud-platform.service.justice.gov.uk/**'
+  workflow_dispatch:
+
+jobs:
+  ecr-deletion-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          write_output_files: true
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Get deletion protection from main
+        id: deletion-protection
+        env:
+          DELETED_FILES : ${{ steps.changed-files.outputs.deleted_files }}
+        run: |
+          DELETION_PROTECTION=
+          for file in $DELETED_FILES; do
+            if cat $file | grep -q github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials; then
+              sed '/^[[:space:]]*[//|#]/d' $file > $file.tmp
+              if grep -q "deletion_protection" $file.tmp; then
+                DELETION_PROTECTION=$(sed -n 's/^[[:space:]]*deletion_protection[[:space:]]*=[[:space:]]*\(true\|false\).*$/\1/p' $file.tmp)
+              else
+                DELETION_PROTECTION=true
+              fi
+              break
+            fi
+          done
+          echo $DELETION_PROTECTION
+          echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
+
+      - name: Create comment in the PR
+        uses: peter-evans/create-or-update-comment@v4
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            You are deleting an existing ECR resource from your Terraform configuration. \
+            Kindly make sure to disable deletion_protection by setting `deletion_protection = false` in your ecr module.
+            
+            1. Raise and merge a PR with `deletion_protection = false`
+            2. Rebase and rerun the checks on this PR and then merge
+
+      - name: Fail action if ecr is deleted without deletion_protection disabled
+        if: steps.deletion-protection.outputs.deletionProtection == 'true'
+        run: |
+            echo "You are deleting an existing ECR resource from your Terraform configuration.
+            Kindly make sure to disable deletion_protection in your ecr module.            
+            See comment on PR for more info"
+            exit 1
