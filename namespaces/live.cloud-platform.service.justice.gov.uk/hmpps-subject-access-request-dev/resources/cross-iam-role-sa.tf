@@ -5,6 +5,13 @@
       namespace             = "var.namespace"
       service_account_name  = "${var.team_name}-${var.environment}"
       role_policy_arns = [aws_iam_policy.hmpps_subject_access_request_dev_aws_policy.arn]
+      # Tags
+      business_unit          = var.business_unit
+      application            = var.application
+      is_production          = var.is_production
+      team_name              = var.team_name
+      environment_name       = var.environment
+      infrastructure_support = var.infrastructure_support
     }
     data "aws_iam_policy_document" "hmpps_subject_access_request_dev_aws_policy" {
       # Provide list of permissions and target AWS account resources to allow access to
