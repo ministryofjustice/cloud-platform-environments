@@ -1,5 +1,5 @@
 
-    module "irsa" {
+    module "cross-irsa" {
       source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
       eks_cluster_name      = "var.eks_cluster_name"
       namespace             = "var.namespace"
@@ -36,7 +36,7 @@
         namespace = "var.namespace"
       }
       data = {
-        role = module.irsa.aws_iam_role_name
-        serviceaccount = module.irsa.service_account_name.name
+        role = module.cross-irsa.aws_iam_role_name
+        serviceaccount = module.cross-irsa.service_account_name.name
       }
     }
