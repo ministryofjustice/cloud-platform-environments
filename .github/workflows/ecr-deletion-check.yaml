@@ -55,7 +55,6 @@ jobs:
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
         run: |
             echo "You are deleting an existing ECR resource from your Terraform configuration. \
-            Kindly make sure to disable deletion_protection by setting `deletion_protection = false` in your ecr module.
-            
+            Kindly make sure to disable deletion_protection in your ecr module.            
             See comment on PR for more info"
             exit 1
