@@ -3,7 +3,7 @@ on:
     paths:
       - 'namespaces/live.cloud-platform.service.justice.gov.uk/aaf-dev/**'
   workflow_dispatch:
-    
+
 jobs:
   ecr-deletion-check:
     runs-on: ubuntu-latest
@@ -15,11 +15,11 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           write_output_files: true
-      
+
       - uses: actions/checkout@v4
         with:
           ref: temp-main-ecr
-      
+
       - name: Get deletion protection
         id: deletion-protection
         env:
@@ -46,7 +46,10 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             You are deleting an existing ECR resource from your Terraform configuration. \
-            Kindly make sure to disable deletion_protection for your ECR and applied this Terraform change.
+            Kindly make sure to disable deletion_protection by setting `deletion_protection = false` in your ecr module.
+            
+            1. Raise and merge a PR with `deletion_protection = false`
+            2. Rebase and rerun the checks on this PR and then merge
 
       - name: Fail action if ecr is deleted without deletion_protection disabled
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
