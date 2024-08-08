@@ -30,7 +30,7 @@
         infrastructure-support = "var.infrastructure_support"
       }
     }
-    resource "kubernetes_secret" "irsa" {
+    resource "kubernetes_secret_cross" "irsa" {
       metadata {
         name      = "irsa-output"
         namespace = "var.namespace"
