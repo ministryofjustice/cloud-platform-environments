@@ -39,6 +39,7 @@ jobs:
             fi
           done
           echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
+          echo $DELETION_PROTECTION
 
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v4
