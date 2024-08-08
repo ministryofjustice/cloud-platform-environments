@@ -54,8 +54,8 @@ module "prisons_rds" {
   rds_family                = "postgres16"
   db_max_allocated_storage  = "10000"
     # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = true
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade = false
   deletion_protection       = true
 
   providers = {
