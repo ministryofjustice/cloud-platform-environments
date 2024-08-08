@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: temp-main
 
       - name: Get deletion protection from main
         id: deletion-protection
@@ -38,8 +38,8 @@ jobs:
               break
             fi
           done
-          echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
           echo $DELETION_PROTECTION
+          echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
 
       - name: Create comment in the PR
         uses: peter-evans/create-or-update-comment@v4
@@ -56,7 +56,7 @@ jobs:
       - name: Fail action if ecr is deleted without deletion_protection disabled
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
         run: |
-            echo "You are deleting an existing ECR resource from your Terraform configuration. \
+            echo "You are deleting an existing ECR resource from your Terraform configuration.
             Kindly make sure to disable deletion_protection in your ecr module.            
             See comment on PR for more info"
             exit 1
