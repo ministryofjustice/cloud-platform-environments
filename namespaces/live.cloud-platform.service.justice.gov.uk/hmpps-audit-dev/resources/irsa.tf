@@ -29,7 +29,7 @@ module "s3-irsa" {
   service_account_name = "audit-s3-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.allow-irsa-read.arn
+    s3 = module.s3.irsa_policy_arn
   }
 
   # Tags
