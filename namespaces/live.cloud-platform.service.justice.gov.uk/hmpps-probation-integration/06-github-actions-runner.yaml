@@ -34,10 +34,15 @@ spec:
               value: https://github.com/ministryofjustice/hmpps-probation-integration-e2e-tests
             - name: RUN_AS_ROOT
               value: 'false'
-            - name: ACCESS_TOKEN
+            - name: APP_ID
               valueFrom:
                 secretKeyRef:
                   name: github-actions-runner-token
-                  key: ACCESS_TOKEN
+                  key: GITHUB_APP_ID
+            - name: APP_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: GITHUB_APP_PRIVATE_KEY
             - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
               value: ubuntu20
