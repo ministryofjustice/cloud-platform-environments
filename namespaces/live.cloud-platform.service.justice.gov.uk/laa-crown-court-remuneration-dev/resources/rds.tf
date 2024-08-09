@@ -14,7 +14,7 @@ module "rds-mtn" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
+  db_engine_version        = "19.0.0.0.ru-2024-04.rur-2024-04.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -78,7 +78,7 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_security_group_rule" "rule1" {
-  cidr_blocks       = ["10.206.0.0/20"]
+  cidr_blocks       = ["10.202.0.0/20"]
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 1521
@@ -87,7 +87,7 @@ resource "aws_security_group_rule" "rule1" {
 }
 
 resource "aws_security_group_rule" "rule2" {
-  cidr_blocks       = ["10.206.0.0/20"]
+  cidr_blocks       = ["10.202.0.0/20"]
   type              = "egress"
   protocol          = "tcp"
   from_port         = 1521

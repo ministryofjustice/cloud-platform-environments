@@ -84,8 +84,8 @@ resource "aws_sns_topic_subscription" "education_and_work_plan_domain_events_sub
   endpoint  = module.education_and_work_plan_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "ciag-induction.created",
-      "ciag-induction.updated"
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.received"
     ]
   })
 
@@ -108,32 +108,6 @@ resource "kubernetes_secret" "education_and_work_plan_dlq" {
   metadata {
     name      = "education-and-work-plan-domain-events-sqs-dl-instance-output"
     namespace = "hmpps-education-and-work-plan-dev"
-  }
-
-  data = {
-    sqs_queue_url  = module.education_and_work_plan_domain_events_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.education_and_work_plan_domain_events_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.education_and_work_plan_domain_events_dead_letter_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "ciag_domain_events_queue" {
-  metadata {
-    name      = "ciag-domain-events-sqs-instance-output"
-    namespace = "hmpps-education-employment-dev"
-  }
-
-  data = {
-    sqs_queue_url  = module.education_and_work_plan_domain_events_queue.sqs_id
-    sqs_queue_arn  = module.education_and_work_plan_domain_events_queue.sqs_arn
-    sqs_queue_name = module.education_and_work_plan_domain_events_queue.sqs_name
-  }
-}
-
-resource "kubernetes_secret" "ciag_dlq" {
-  metadata {
-    name      = "ciag-domain-events-sqs-dl-instance-output"
-    namespace = "hmpps-education-employment-dev"
   }
 
   data = {

@@ -1,0 +1,66 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-demo-cert
+  namespace: hmpps-community-accommodation-demo
+spec:
+  secretName: hmpps-approved-premises-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-temporary-accommodation-demo-cert
+  namespace: hmpps-community-accommodation-demo
+spec:
+  secretName: hmpps-temporary-accommodation-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - temporary-accommodation-test.hmpps.service.justice.gov.uk
+    - transitional-accommodation-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-api-demo-cert
+  namespace: hmpps-community-accommodation-demo
+spec:
+  secretName: hmpps-approved-premises-api-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - approved-premises-api-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-accommodation-wiremock-demo-cert
+  namespace: hmpps-community-accommodation-demo
+spec:
+  secretName: hmpps-community-accommodation-wiremock-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-accommodation-wiremock.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-accommodation-tier-2-demo-cert
+  namespace: hmpps-community-accommodation-demo
+spec:
+  secretName: hmpps-community-accommodation-tier-2-demo-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-accommodation-tier-2-test.hmpps.service.justice.gov.uk
