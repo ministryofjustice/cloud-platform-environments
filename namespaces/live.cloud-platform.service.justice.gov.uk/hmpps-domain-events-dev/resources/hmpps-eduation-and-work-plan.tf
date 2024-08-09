@@ -84,8 +84,8 @@ resource "aws_sns_topic_subscription" "education_and_work_plan_domain_events_sub
   endpoint  = module.education_and_work_plan_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.released",
-      "prisoner-offender-search.prisoner.received"
+      "prisoner-offender-events.prisoner.released",
+      "prisoner-offender-events.prisoner.received"
     ]
   })
 
