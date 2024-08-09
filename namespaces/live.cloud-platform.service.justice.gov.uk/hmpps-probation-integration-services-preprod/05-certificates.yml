@@ -659,3 +659,18 @@ spec:
   dnsNames:
     - dc5566b4-preprod.hmpps.service.justice.gov.uk
     - subject-access-requests-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-project-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: test-project-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 05f71b6a-preprod.hmpps.service.justice.gov.uk
+    - test-project-preprod.hmpps.service.justice.gov.uk
