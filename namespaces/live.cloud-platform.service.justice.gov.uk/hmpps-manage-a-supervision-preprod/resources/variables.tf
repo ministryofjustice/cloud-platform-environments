@@ -3,6 +3,13 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+}
+
+variable "is_production" {
+  default = "false"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -42,12 +49,6 @@ variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
   default     = "probation-integration-team@digital.justice.gov.uk"
-}
-
-variable "is_production" {
-  description = "Whether this environment type is production or not"
-  type        = string
-  default     = "false"
 }
 
 variable "environment-name" {
