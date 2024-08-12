@@ -11,13 +11,17 @@ module "opensearch" {
   # Non-production cluster configuration
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_type  = "m6g.large.search"
   }
 
   ebs_options = {
     volume_size = 50
   }
 
+  advanced_options = {
+    # increase the maxClauseCount to 4096
+    "indices.query.bool.max_clause_count" = "4096"
+  }
   # Tags
   business_unit          = var.business_unit
   application            = var.application
