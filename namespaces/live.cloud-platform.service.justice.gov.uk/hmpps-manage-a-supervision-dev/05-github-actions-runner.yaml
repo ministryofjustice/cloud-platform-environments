@@ -33,8 +33,13 @@ spec:
               value: https://github.com/ministryofjustice/hmpps-manage-a-supervision-ui
             - name: RUN_AS_ROOT
               value: 'false'
-            - name: ACCESS_TOKEN
+            - name: APP_ID
               valueFrom:
                 secretKeyRef:
                   name: github-actions-runner-token
-                  key: ACCESS_TOKEN
+                  key: GITHUB_APP_ID
+            - name: APP_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: GITHUB_APP_PRIVATE_KEY
