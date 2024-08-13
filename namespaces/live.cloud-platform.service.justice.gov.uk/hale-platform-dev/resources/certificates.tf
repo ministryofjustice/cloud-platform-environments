@@ -1,8 +1,7 @@
 variable "domains" {
   type = map(string)
   default = {
-    "test1.magistrates.judiciary.uk" = "magistrates-test1"
-    "test1.layobservers.org"         = "layobservers-test1"
+    "dev.websitebuilder.service.justice.gov.uk" = "websitebuilder-dev"
   }
 }
 
