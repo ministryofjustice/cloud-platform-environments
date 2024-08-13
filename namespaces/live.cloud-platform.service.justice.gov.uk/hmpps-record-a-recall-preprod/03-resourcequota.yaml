@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-record-a-recall-dev
+  namespace: hmpps-record-a-recall-preprod
 spec:
   hard:
     pods: "50"
