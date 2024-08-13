@@ -41,8 +41,8 @@ module "s3-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_iam_policy" "allow-irsa-read" {
-  name        = "audit-read-only"
+resource "aws_iam_policy" "allow-irsa-read-write" {
+  name        = "audit-read-write"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
   description = "Policy for reading audit json files from audit s3 bucket"
