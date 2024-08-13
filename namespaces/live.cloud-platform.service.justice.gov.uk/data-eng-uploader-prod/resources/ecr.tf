@@ -16,7 +16,7 @@ module "ecr_credentials" {
 
   # list of github environments, to create the ECR secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["dev", "preprod", "prod"]
+  github_environments = [ "fake" ]
 
   # Tags
   business_unit          = var.business_unit
