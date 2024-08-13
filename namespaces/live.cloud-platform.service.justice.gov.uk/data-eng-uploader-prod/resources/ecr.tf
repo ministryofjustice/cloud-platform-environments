@@ -36,5 +36,6 @@ resource "kubernetes_secret" "ecr_credentials" {
   data = {
     repo_arn = module.ecr_credentials.repo_arn
     repo_url = module.ecr_credentials.repo_url
+    ecr_role = module.ecr_credentials.irsa_policy_arn
   }
 }
