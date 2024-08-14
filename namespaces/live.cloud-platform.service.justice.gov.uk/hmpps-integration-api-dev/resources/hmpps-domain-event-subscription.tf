@@ -76,6 +76,10 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "probation-case.engagement.created",
+      "probation-case.prison-identifier.added",
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.updated",
       "probation-case.registration.added",
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
