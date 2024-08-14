@@ -1,4 +1,4 @@
-######################################## Delius offender events subscription
+### Delius merge events subscription
 
 resource "aws_sns_topic_subscription" "cpr_delius_merge_domain_events_subscription" {
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
@@ -89,29 +89,29 @@ module "cpr_delius_merge_events_dead_letter_queue" {
 resource "kubernetes_secret" "cpr_delius_merge_events_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-offender-events-secret"
+    name = "sqs-cpr-delius-merge-events-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_delius_offender_events_queue.sqs_id
-    sqs_queue_arn  = module.cpr_delius_offender_events_queue.sqs_arn
-    sqs_queue_name = module.cpr_delius_offender_events_queue.sqs_name
+    sqs_queue_url  = module.cpr_delius_merge_events_queue.sqs_id
+    sqs_queue_arn  = module.cpr_delius_merge_events_queue.sqs_arn
+    sqs_queue_name = module.cpr_delius_merge_events_queue.sqs_name
   }
 }
 
 resource "kubernetes_secret" "cpr_delius_merge_events_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-offender-events-dlq-secret"
+    name = "sqs-cpr-delius-merge-events-dlq-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_delius_offender_events_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.cpr_delius_offender_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.cpr_delius_merge_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cpr_delius_merge_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cpr_delius_merge_events_dead_letter_queue.sqs_name
   }
 }
