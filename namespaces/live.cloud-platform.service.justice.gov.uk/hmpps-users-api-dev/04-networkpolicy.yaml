@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hmpps-users-api-dev
+  namespace: hmpps-users-dev
 spec:
   podSelector: {}
   policyTypes:
@@ -16,7 +16,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hmpps-users-api-dev
+  namespace: hmpps-users-dev
 spec:
   podSelector: {}
   policyTypes:
