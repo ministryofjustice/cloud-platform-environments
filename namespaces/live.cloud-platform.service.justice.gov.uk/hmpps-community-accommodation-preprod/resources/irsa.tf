@@ -22,7 +22,12 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-community-accommodation-api-service-account"
   namespace              = var.namespace
-  role_policy_arns       = local.sns_policies
+  role_policy_arns       = merge(
+    {
+      rds = module.rds.irsa_policy_arn
+    },
+    local.sns_policies
+  )
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
