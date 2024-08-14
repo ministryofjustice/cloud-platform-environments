@@ -29,7 +29,8 @@ module "s3-irsa" {
   service_account_name = "audit-s3-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = module.s3.irsa_policy_arn
+    s3_1 = aws_iam_policy.allow-irsa-read-write.arn,
+    s3_2 = module.s3.irsa_policy_arn
   }
 
   # Tags
@@ -41,8 +42,8 @@ module "s3-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_iam_policy" "allow-irsa-read" {
-  name        = "audit-read-only"
+resource "aws_iam_policy" "allow-irsa-read-write" {
+  name        = "audit-read-write"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
   description = "Policy for reading audit json files from audit s3 bucket"
@@ -52,8 +53,8 @@ data "aws_iam_policy_document" "document" {
   statement {
     actions = [
       "s3:GetObject",
+      "s3:PutObject",
       "s3:ListBucket",
-      "s3:ListALLMyBuckets"
     ]
     resources = [
       module.s3.bucket_arn,
