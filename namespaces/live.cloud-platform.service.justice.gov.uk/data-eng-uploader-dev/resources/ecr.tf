@@ -13,6 +13,7 @@ module "ecr_credentials" {
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
   github_repositories = ["analytical-platform-uploader"]
+  github_environments = [ "dev" ]
 
   # Tags
   business_unit          = var.business_unit
