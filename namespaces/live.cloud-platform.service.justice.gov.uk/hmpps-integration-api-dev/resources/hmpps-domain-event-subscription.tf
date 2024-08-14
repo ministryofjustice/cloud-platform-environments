@@ -76,6 +76,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "create-and-vary-a-licence.licence.activated",
+      "create-and-vary-a-licence.licence.inactivated",
       "person.alert.created",
       "person.alert.changed",
       "person.alert.deleted",
@@ -90,8 +92,6 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.registration.updated",
       "risk-assessment.scores.determined",
       "probation-case.risk-scores.ogrs.manual-calculation",
-      "RISK-ASSESSMENT_SCORES_RSR_DETERMINED_RECEIVED",
-      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED",
       "prisoner-offender-search.prisoner.released",
       "prison-offender-events.prisoner.released",
       "calculate-release-dates.prisoner.changed"
