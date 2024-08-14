@@ -76,6 +76,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "create-and-vary-a-licence.licence.activated",
+      "create-and-vary-a-licence.licence.inactivated",
       "person.alert.created",
       "person.alert.changed",
       "person.alert.deleted",
