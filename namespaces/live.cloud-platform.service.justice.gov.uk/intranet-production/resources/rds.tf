@@ -14,10 +14,11 @@ module "rds" {
   db_engine                   = "mariadb"
   db_engine_version           = "10.11.6"
   rds_family                  = "mariadb10.11"
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.large"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
+  db_allocated_storage        = "50"
 
   # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
   enable_rds_auto_start_stop = true
