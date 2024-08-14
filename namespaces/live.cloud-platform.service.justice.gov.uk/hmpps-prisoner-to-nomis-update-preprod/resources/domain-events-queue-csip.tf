@@ -108,19 +108,19 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_csip_subscription
   endpoint  = module.hmpps_prisoner_to_nomis_csip_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "csip.record.created",
-      "csip.record.updated",
-      "csip.record.deleted",
-      "csip.contributory-factor.created",
-      "csip.contributory-factor.deleted",
-      "csip.interview.created",
-      "csip.interview.deleted",
-      "csip.identified-need.created",
-      "csip.identified-need.deleted",
-      "csip.review.created",
-      "csip.review.deleted",
-      "csip.attendee.created",
-      "csip.attendee.deleted"
+      "person.csip.record.created",
+      "person.csip.record.updated",
+      "person.csip.record.deleted",
+      "person.csip.contributory-factor.created",
+      "person.csip.contributory-factor.deleted",
+      "person.csip.interview.created",
+      "person.csip.interview.deleted",
+      "person.csip.identified-need.created",
+      "person.csip.identified-need.deleted",
+      "person.csip.review.created",
+      "person.csip.review.deleted",
+      "person.csip.attendee.created",
+      "person.csip.attendee.deleted"
     ]
   })
 }
