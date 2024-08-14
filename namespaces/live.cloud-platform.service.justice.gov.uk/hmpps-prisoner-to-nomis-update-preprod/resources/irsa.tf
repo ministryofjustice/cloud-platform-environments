@@ -8,6 +8,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
     resources = [
       module.hmpps_prisoner_to_nomis_adjudication_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csip_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csip_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_location_queue.sqs_arn,
