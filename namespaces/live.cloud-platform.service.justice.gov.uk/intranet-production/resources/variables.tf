@@ -37,6 +37,12 @@ variable "environment" {
   default     = "production"
 }
 
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.intranet.justice.gov.uk"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }

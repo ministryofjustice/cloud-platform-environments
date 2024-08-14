@@ -5,4 +5,4 @@ metadata:
   namespace: intranet-production
 spec:
   hard:
-    pods: "20"
+    pods: "24"
