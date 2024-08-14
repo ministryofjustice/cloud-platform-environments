@@ -20,9 +20,6 @@ module "rds" {
   allow_major_version_upgrade = "false"
   db_allocated_storage        = "50"
 
-  # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
-  enable_rds_auto_start_stop = true
-
   # overwrite db_parameters
   db_parameter = [
     {
