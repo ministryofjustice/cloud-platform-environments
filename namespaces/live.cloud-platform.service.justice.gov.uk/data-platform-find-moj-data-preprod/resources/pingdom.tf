@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "find-moj-data-preprod" {
   type                     = "http"
   name                     = "find-moj-data - preprod - cloud-platform"
-  host                     = "data-platform-find-moj-data-preprod.apps.live.cloud-platform.service.justice.gov.uk"
+  host                     = "preprod.find-moj-data.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
