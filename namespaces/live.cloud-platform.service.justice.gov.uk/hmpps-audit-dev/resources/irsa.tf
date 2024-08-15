@@ -9,6 +9,7 @@ module "hmpps-audit-api-irsa" {
     (module.hmpps_audit_dead_letter_queue.sqs_name)       = module.hmpps_audit_dead_letter_queue.irsa_policy_arn
     (module.hmpps_audit_users_queue.sqs_name)             = module.hmpps_audit_users_queue.irsa_policy_arn
     (module.hmpps_audit_users_dead_letter_queue.sqs_name) = module.hmpps_audit_users_dead_letter_queue.irsa_policy_arn
+    s3                                                    = module.s3.irsa_policy_arn
   }
   # Tags
   business_unit          = var.business_unit
