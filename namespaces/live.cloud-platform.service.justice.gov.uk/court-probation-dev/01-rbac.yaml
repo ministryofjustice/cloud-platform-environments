@@ -16,6 +16,9 @@ subjects:
   - kind: ServiceAccount
     name: cd-serviceaccount
     namespace: hmpps-probation-integration
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
