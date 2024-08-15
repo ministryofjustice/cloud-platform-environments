@@ -6,7 +6,7 @@ resource "aws_sns_topic_subscription" "cpr_nomis_merge_domain_events_subscriptio
   endpoint  = module.cpr_nomis_merge_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.merged"
+      "prisoner-offender-events.prisoner.merged"
     ]
   })
 }
