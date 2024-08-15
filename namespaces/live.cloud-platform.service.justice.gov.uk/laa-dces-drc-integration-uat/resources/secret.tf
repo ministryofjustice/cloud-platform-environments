@@ -20,5 +20,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
+    "key-store-password" = {
+      description             = "mTLS key store password for DRC Integration UAT",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "key-store-password"
+    },
+    "trust-store-password" = {
+      description             = "mTLS Trust store password for DRC Integration UAT",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "trust-store-password"
+    },
   }
 }
