@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-cwa-test
+  namespace: laa-cwa-deployment-stg
 spec:
   hard:
     pods: "50"
