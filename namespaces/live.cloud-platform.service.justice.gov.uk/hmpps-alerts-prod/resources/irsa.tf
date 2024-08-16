@@ -18,7 +18,12 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-alerts-api"
-  role_policy_arns     = merge(local.sns_policies)
+  role_policy_arns     = merge(
+    {
+      rds = module.rds.irsa_policy_arn
+    },
+    local.sns_policies
+  )
 
   # Tags
   business_unit          = var.business_unit
