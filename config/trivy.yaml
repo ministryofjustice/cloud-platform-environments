@@ -1,0 +1,19 @@
+format: table
+
+ignorefile: ./config/.trivyignore.yaml
+
+exit-code: 0
+
+severity:
+  - HIGH
+  - CRITICAL
+
+scan:
+  scanners:
+    - misconfing
+
+misconfiguration:
+  include-deprecated-checks: true
+
+  scanners:
+    - terraform
