@@ -20,6 +20,9 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns = merge(
+    {
+      rds = module.dps_rds.irsa_policy_arn
+    },
     local.sqs_policies,
     local.sns_policies,
   )
