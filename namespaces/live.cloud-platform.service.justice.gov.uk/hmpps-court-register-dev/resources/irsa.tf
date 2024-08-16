@@ -16,7 +16,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-court-register-api"
-  role_policy_arns     = merge( local.sns_policies, { rds_policy = module.court-register-api-rds.irsa_policy_arn })
+  role_policy_arns     = merge( local.sns_policies, local.sqs_policies, { rds_policy = module.court-register-api-rds.irsa_policy_arn })
   # Tags
   business_unit          = var.business_unit
   application            = var.application
