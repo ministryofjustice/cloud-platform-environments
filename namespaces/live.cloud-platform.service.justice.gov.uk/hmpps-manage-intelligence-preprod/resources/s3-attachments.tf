@@ -1,11 +1,11 @@
 module "ims_images_storage_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=aws-backups"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  enable_backup          = true
-  backup_schedule        = "0 1 ? * * *"
-  backup_retention_days  = 2
+  #enable_backup          = true
+  #backup_schedule        = "0 1 ? * * *"
+  #backup_retention_days  = 2
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -31,13 +31,13 @@ resource "kubernetes_secret" "ims_images_storage_bucket" {
 }
 
 module "ims_attachments_storage_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=aws-backups"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
-  enable_backup          = true
-  backup_schedule        = "0 1 ? * * *"
-  backup_retention_days  = 2
+  #enable_backup          = true
+  #backup_schedule        = "0 1 ? * * *"
+  #backup_retention_days  = 2
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
