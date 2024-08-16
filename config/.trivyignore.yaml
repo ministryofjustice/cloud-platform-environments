@@ -1,0 +1,9 @@
+misconfigurations:
+  - id: AVD-AWS-0057
+  - id: AVD-AWS-0031
+  - id: AVD-AWS-0133
+  - id: AVD-AWS-0132
+  - id: sqs-encryption-enabled
+  - id: AVD-GIT-0001
+  - id: AVD-GIT-0004
+  - id: AVD-GIT-0002

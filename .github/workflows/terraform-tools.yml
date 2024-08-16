@@ -7,6 +7,33 @@ on:
   workflow_dispatch:
 
 jobs:
+  trivy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v43
+        with:
+          dir_names: true
+          dir_names_exclude_current_dir: true
+      
+      - name: List of changed files
+        run: |
+          mkdir -p .trivy
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            cp -r $file .trivy | true
+          done
+          ls .trivy -latr
+
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: 'config'
+          scan-ref: '.trivy'
+          trivy-config: './config/trivy.yaml'
+          
   tfsec:
     runs-on: ubuntu-latest
     permissions:
