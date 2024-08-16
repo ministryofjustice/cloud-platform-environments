@@ -1,9 +1,13 @@
 
 locals {
+  sqs_queues = {
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+  }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value}
 }
 
 module "irsa" {
@@ -25,4 +29,9 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
