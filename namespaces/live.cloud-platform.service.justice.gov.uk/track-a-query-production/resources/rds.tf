@@ -19,7 +19,7 @@ module "track_a_query_rds" {
   db_engine_version          = "15.5"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade  = true
   rds_family                 = "postgres15"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
