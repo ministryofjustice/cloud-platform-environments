@@ -19,7 +19,6 @@ module "rds_tmp" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
-  deletion_protection = true
 
   # overwrite db_parameters
   db_parameter = [
