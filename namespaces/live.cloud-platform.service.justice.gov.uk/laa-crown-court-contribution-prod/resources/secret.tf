@@ -29,6 +29,11 @@ module "secrets_manager" {
       description             = "Hardship API oauth client secret for CCC Prod",
       recovery_window_in_days = 7
       k8s_secret_name         = "hardship-api-oauth-client-secret"
+    },
+    "crown_court_contribution_alert_webhook_prod" = {
+      description             = "Crown Court Contribution Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "crown-court-contribution-alert-webhook-prod"
     }
   }
 }
