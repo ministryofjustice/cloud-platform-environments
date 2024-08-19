@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Assess for early release"
+  default     = "hmpps-assess-for-early-release"
 }
 
 variable "namespace" {
