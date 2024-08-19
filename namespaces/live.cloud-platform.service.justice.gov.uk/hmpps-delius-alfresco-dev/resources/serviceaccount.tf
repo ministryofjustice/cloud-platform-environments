@@ -7,4 +7,5 @@ module "serviceaccount" {
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first
   github_environments = ["dev"]
+  github_environments = ["dev", "dev-preapproved"]
 }
