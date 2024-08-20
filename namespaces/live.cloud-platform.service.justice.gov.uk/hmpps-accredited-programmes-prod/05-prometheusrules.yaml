@@ -51,11 +51,11 @@ spec:
         message: ingress {{ $labels.ingress }} is serving slow responses over 2 seconds
 
     - alert: nginx-5xx-Error
-      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="hmpps-accredited-programmes-prod", status=~"5.."}[5m]))*270 > 10
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="hmpps-accredited-programmes-prod", status=~"5.."}[5m])) * 270 > 10
       for: 1m
       labels:
         severity: hmpps-accredited-programmes-alerts-prod
-      annotations:
+      annotations:-
         message: An HTTP 5xx error has occurred
 
     - alert: nginx-Server-Error
