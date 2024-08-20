@@ -71,3 +71,9 @@ variable "github_token" {
 variable "eks_cluster_name" {
   default = "live"
 }
+
+variable "analytical_platform_iam_role" {
+  type        = string
+  description = "IAM role for accessing analytical platform resources (e.g. bedrock) from cloud platform"
+  default     = "arn:aws:iam::593291632749:role/alpha_app_rd-hr-smart-knowledge-management"
+}
