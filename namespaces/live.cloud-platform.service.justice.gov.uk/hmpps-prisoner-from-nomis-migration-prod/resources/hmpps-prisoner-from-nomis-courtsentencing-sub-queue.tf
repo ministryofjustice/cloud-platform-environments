@@ -109,7 +109,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
   endpoint  = module.prisoner_from_nomis_courtsentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "COURT_CASE-INSERTED",
+      "OFFENDER_CASES-INSERTED",
     ]
   })
 }
