@@ -9,7 +9,7 @@ resource "pingdom_check" "laa-dces-drc-integration-dev" {
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_laa-dces-drc-integration,component_ping,isproduction_false,environment_dev,owner_laa-crime-apps-team"
+  tags                     = "businessunit_laa,application_laa-dces-drc-integration,component_ping,isproduction_false,environment_dev,owner_laa-dces-team"
   probefilters             = "region:EU"
   integrationids           = [121160]
 }
