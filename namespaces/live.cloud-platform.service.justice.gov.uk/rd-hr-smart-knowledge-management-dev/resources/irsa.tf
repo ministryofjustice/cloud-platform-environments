@@ -17,6 +17,9 @@ module "irsa" {
 
     # for the local dynamodb
     dynamodb = module.dynamodb.irsa_policy_arn
+
+    # for bedrock
+    analyticalplatform = var.analytical_platform_iam_role
   }
 
   # Tags
