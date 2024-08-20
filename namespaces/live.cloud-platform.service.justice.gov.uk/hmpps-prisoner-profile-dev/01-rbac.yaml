@@ -9,7 +9,7 @@ subjects:
     name: "github:connect-dps"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:connect-dps-collaborators"
+    name: "github:connect-dps-collaborators-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
