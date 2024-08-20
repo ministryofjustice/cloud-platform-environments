@@ -3,6 +3,8 @@ module "ecr-repo" {
 
   repo_name = "${var.namespace}-ecr"
 
+  deletion_protection = false
+
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
   github_actions_prefix = "development"
