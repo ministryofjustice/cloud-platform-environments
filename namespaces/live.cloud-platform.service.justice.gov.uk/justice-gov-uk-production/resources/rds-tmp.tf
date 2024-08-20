@@ -12,7 +12,7 @@ module "rds_tmp" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version           = "10.11.6"
+  db_engine_version           = "10.11.8"
   rds_family                  = "mariadb10.11"
   db_instance_class           = "db.t4g.medium"
   db_allocated_storage        = "20"
