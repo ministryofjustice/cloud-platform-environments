@@ -13,7 +13,7 @@ module "irsa" {
     ecr = module.ecr_credentials.irsa_policy_arn
 
     rds     = module.rds.irsa_policy_arn
-    # rds_tmp = module.rds_tmp.irsa_policy_arn
+    rds_tmp = module.rds_tmp.irsa_policy_arn
   }
 
   # Tags
