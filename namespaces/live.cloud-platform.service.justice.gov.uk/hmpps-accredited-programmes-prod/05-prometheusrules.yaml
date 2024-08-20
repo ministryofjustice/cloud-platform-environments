@@ -55,7 +55,7 @@ spec:
       for: 1m
       labels:
         severity: hmpps-accredited-programmes-alerts-prod
-      annotations:-
+      annotations:
         message: An HTTP 5xx error has occurred
 
     - alert: nginx-Server-Error
