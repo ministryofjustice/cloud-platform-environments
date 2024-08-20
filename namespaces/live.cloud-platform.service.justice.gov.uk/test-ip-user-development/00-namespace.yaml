@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-cla-dev"
     cloud-platform.justice.gov.uk/application: "Gov.UK Prototype Kit"
     cloud-platform.justice.gov.uk/owner: "Civil Legal Advice: platforms@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/test-ip-user-development"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/test-ip-user"
     cloud-platform.justice.gov.uk/team-name: "laa-get-access"
     cloud-platform.justice.gov.uk/review-after: ""
