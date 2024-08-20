@@ -1,46 +1,106 @@
-module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-
-  # EKS configuration
-  eks_cluster_name = var.eks_cluster_name
-
-  # IRSA configuration
-  service_account_name = "rndserviceaccount"
-  namespace            = var.namespace # this is also used as a tag
-
-  # Attach the appropriate policies using a key => value map
-  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
-  # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = {
-    # for the Analytical Platform S3 bucket
-    s3 = aws_iam_policy.mojap-rd_access_policy.arn
-
-    # for the local dynamodb
-    dynamodb = module.dynamodb.irsa_policy_arn
-
-    # for bedrock
-    analyticalplatform = var.analytical_platform_iam_role
-  }
-
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+locals {
+  service_account_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    }
+  ]
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_service_account" "analytical_platform_access" {
   metadata {
-    name      = "irsa-output"
+    namespace = var.namespace
+    name      = "${var.namespace}-sa"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::593291632749:role/alpha_app_rd-hr-smart-knowledge-management"
+    }
+  }
+}
+
+resource "kubernetes_role" "application_service_account_role" {
+  metadata {
+    name      = "${var.namespace}-role"
     namespace = var.namespace
   }
 
-  data = {
-    role           = module.irsa.role_name
-    rolearn        = module.irsa.role_arn
-    serviceaccount = module.irsa.service_account.name
+  dynamic "rule" {
+    for_each = toset(local.service_account_rules)
+    content {
+      api_groups = rule.value.api_groups
+      resources  = rule.value.resources
+      verbs      = rule.value.verbs
+    }
   }
 }
 
+resource "kubernetes_role_binding" "application_service_account_role_binding" {
+  metadata {
+    name      = "${var.namespace}-role-binding"
+    namespace = var.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.application_service_account_role.metadata[0].name
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.analytical_platform_access.metadata[0].name
+    namespace = var.namespace
+  }
+}
