@@ -23,7 +23,7 @@ module "track_a_query_rds" {
   rds_family                 = "postgres15"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = true
 
   providers = {
     aws = aws.london
@@ -44,8 +44,8 @@ module "track_a_query_rds_replica" {
   namespace                = var.namespace
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
-  rds_family               = "postgres12"
-  db_engine_version        = "12"
+  rds_family               = "postgres15"
+  db_engine_version        = "15.5"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.track_a_query_rds.db_identifier
