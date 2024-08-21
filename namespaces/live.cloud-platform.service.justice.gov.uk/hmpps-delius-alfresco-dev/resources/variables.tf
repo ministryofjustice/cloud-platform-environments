@@ -130,6 +130,7 @@ variable "serviceaccount_rules" {
       ]
       resources = [
         "deployments",
+        "deployments/scale",
         "ingresses",
         "cronjobs",
         "jobs",
