@@ -23,15 +23,15 @@ module "user-filestore-s3-bucket" {
       enabled                                = true
       id                                     = "expire-28d"
       prefix                                 = "28d/"
-      abort_incomplete_multipart_upload_days = 28
+      abort_incomplete_multipart_upload_days = 30
       expiration = [
         {
-          days = 28
+          days = 30
         },
       ]
       noncurrent_version_expiration = [
         {
-          days = 28
+          days = 30
         },
       ]
     },
@@ -69,13 +69,4 @@ resource "kubernetes_secret" "user-filestore-s3-bucket" {
     bucket_arn  = module.user-filestore-s3-bucket.bucket_arn
     bucket_name = module.user-filestore-s3-bucket.bucket_name
   }
-}
-
-# set up the service pod
-module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
-
-  # Configuration
-  namespace            = var.namespace
-  service_account_name = module.user-filestore-irsa.service_account.name # this uses the service account name from the irsa module
 }
