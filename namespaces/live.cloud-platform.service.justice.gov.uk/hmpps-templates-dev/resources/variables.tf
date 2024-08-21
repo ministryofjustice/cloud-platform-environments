@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-template-kotlin"
+  default = "hmpps-templates-dev"
 }
 
 variable "business_unit" {
@@ -40,6 +40,10 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "hmpps_dev"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"

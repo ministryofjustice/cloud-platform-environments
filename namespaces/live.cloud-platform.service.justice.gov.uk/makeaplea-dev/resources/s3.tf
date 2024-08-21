@@ -13,29 +13,41 @@ module "s3_bucket" {
   environment_name              = var.environment
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
-  acl                           = "private"
-  enable_allow_block_pub_access = true
+  enable_allow_block_pub_access = false
 
-  # bucket_policy = <<EOF
-  #   {
-  #     "Version": "2012-10-17",
-  #     "Statement": [
-  #       {
-  #         "Effect": "Allow",
-  #         "Principal": {
-  #           "AWS": "*"
-  #         },
-  #         "Action": [
-  #           "s3:GetObject",
-  #           "s3:PutObject"
-  #         ],
-  #         "Resource": [
-  #           "$${bucket_arn}/*"
-  #         ]
-  #       }
-  #     ]
-  #   }
-  # EOF
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": [
+            "arn:aws:sts::754256621582:assumed-role/access-via-github/matt-k1998"
+          ]
+        },
+        "Action": [
+          "s3:PutObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "*"
+        },
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
 
   providers = {
     aws = aws.london

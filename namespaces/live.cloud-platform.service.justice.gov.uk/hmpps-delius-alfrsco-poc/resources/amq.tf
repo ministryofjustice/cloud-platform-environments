@@ -33,5 +33,5 @@ resource "kubernetes_secret" "alfresco_amq" {
     BROKER_USERNAME = module.alfresco_amq.username
     BROKER_PASSWORD = module.alfresco_amq.password
   }
-  depends_on = [ module.alfresco_amq ]
+  depends_on = [module.alfresco_amq]
 }

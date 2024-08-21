@@ -2,16 +2,17 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-template-kotlin-admin
-  namespace: hmpps-template-kotlin
+  name: hmpps-templates-dev-admin
+  namespace: hmpps-templates-dev
 subjects:
-# Please keep hmpps-sre and hmpps-kotlin groups
-# in this section to help with support
   - kind: Group
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-kotlin"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-typescript"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
