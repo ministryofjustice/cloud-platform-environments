@@ -29,9 +29,9 @@ resource "kubernetes_secret" "alfresco_amq" {
     namespace = var.namespace
   }
   data = {
-    BROKER_URL      = module.alfresco_amq.broker_url
-    BROKER_USERNAME = module.alfresco_amq.broker_username
-    BROKER_PASSWORD = module.alfresco_amq.broker_password
+    BROKER_URL      = module.alfresco_amq.primary_amqp_ssl_endpoint
+    BROKER_USERNAME = module.alfresco_amq.username
+    BROKER_PASSWORD = module.alfresco_amq.password
   }
   depends_on = [ module.alfresco_amq ]
 }
