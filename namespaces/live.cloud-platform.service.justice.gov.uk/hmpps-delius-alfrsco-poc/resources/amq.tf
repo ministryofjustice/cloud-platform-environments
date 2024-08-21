@@ -1,5 +1,5 @@
 module "alfresco_amq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.4"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
@@ -12,7 +12,6 @@ module "alfresco_amq" {
   engine_version     = "5.18.4"
   host_instance_type = "mq.m5.large"
   deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
-
 
   providers = {
     # This can be either "aws.london" or "aws.ireland:
