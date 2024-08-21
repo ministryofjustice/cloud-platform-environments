@@ -1,5 +1,5 @@
 module "alfresco_amq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker"
 
   team_name              = var.team_name
   business-unit          = var.business_unit
