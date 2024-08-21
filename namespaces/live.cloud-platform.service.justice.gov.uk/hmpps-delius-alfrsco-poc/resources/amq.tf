@@ -12,7 +12,7 @@ module "alfresco_amq" {
   cluster_name = var.eks_cluster_name
 
   engine_type        = "ActiveMQ"
-  engine_version     = "5.18.4"
+  engine_version     = "5.18"
   host_instance_type = "mq.m5.large"
   deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
 
@@ -33,5 +33,5 @@ resource "kubernetes_secret" "alfresco_amq" {
     BROKER_USERNAME = module.alfresco_amq.username
     BROKER_PASSWORD = module.alfresco_amq.password
   }
-  depends_on = [ module.alfresco_amq ]
+  depends_on = [module.alfresco_amq]
 }
