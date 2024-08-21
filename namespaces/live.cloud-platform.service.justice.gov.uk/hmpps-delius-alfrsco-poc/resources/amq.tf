@@ -8,15 +8,15 @@ module "alfresco_amq" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
-  engine_type ="ActiveMQ"
-  engine_version = "5.18.4"
+  engine_type        = "ActiveMQ"
+  engine_version     = "5.18.4"
   host_instance_type = "mq.m5.large"
-  deployment_mode = "ACTIVE_STANDBY_MULTI_AZ"
+  deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
 
 
   providers = {
     # This can be either "aws.london" or "aws.ireland:
-     aws = aws.london
+    aws = aws.london
   }
 }
 
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "alfresco_amq" {
   }
 
   data = {
-    BROKER_URL = module.alfresco_amq.broker_url
+    BROKER_URL      = module.alfresco_amq.broker_url
     BROKER_USERNAME = module.alfresco_amq.broker_username
     BROKER_PASSWORD = module.alfresco_amq.broker_password
   }
