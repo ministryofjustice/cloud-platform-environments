@@ -8,6 +8,9 @@ module "alfresco_amq" {
   environment-name       = var.environment
   infrastructure-support = var.infrastructure_support
 
+  namespace    = var.namespace
+  cluster_name = var.eks_cluster_name
+
   engine_type        = "ActiveMQ"
   engine_version     = "5.18.4"
   host_instance_type = "mq.m5.large"
