@@ -13,11 +13,11 @@ module "rds_mssql" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # SQL Server specifics
-  db_engine                = "oracle-se2" # or oracle-ee
-#   db_engine_version        = "19.0.0.0.ru-2024-04.rur-2024-04.r1"
-  db_engine_version        = "19.0.0.0"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.medium"
+  db_engine = "oracle-se2" # or oracle-ee
+  #   db_engine_version        = "19.0.0.0.ru-2024-04.rur-2024-04.r1"
+  db_engine_version    = "19.0.0.0"
+  rds_family           = "oracle-se2-19"
+  db_instance_class    = "db.t3.medium"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).

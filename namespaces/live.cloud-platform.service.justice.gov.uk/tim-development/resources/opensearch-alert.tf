@@ -10,16 +10,16 @@ module "opensearch_alert_1" {
   monitor_period_interval        = "1"
   monitor_period_unit            = "MINUTES"
 
-  trigger_name                   = "test-1"
-  serverity                      = 1
-  query_source                   = "ctx.results[0].hits.total.value > 100"
-  action_name                    = "test-1"
-  slack_message_subject          = "slack-message-subject"
-  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
-  alert_throttle_enabled         = true
-  throttle_value                 = 60
-  throttle_unit                  = "MINUTES"
-  environment_name               = var.environment
+  trigger_name           = "test-1"
+  serverity              = 1
+  query_source           = "ctx.results[0].hits.total.value > 100"
+  action_name            = "test-1"
+  slack_message_subject  = "slack-message-subject"
+  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+  alert_throttle_enabled = true
+  throttle_value         = 60
+  throttle_unit          = "MINUTES"
+  environment_name       = var.environment
   alert_query = jsonencode(
     {
       "size" : 0,
@@ -162,16 +162,16 @@ module "opensearch_alert_3" {
   monitor_period_interval        = "1"
   monitor_period_unit            = "MINUTES"
 
-  trigger_name                   = "test-2"
-  serverity                      = 1
-  query_source                   = "ctx.results[0].hits.total.value > 100"
-  action_name                    = "test-2"
-  slack_message_subject          = "slack-message-subject-2"
-  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
-  alert_throttle_enabled         = true
-  throttle_value                 = 60
-  throttle_unit                  = "MINUTES"
-  environment_name               = var.environment
+  trigger_name           = "test-2"
+  serverity              = 1
+  query_source           = "ctx.results[0].hits.total.value > 100"
+  action_name            = "test-2"
+  slack_message_subject  = "slack-message-subject-2"
+  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+  alert_throttle_enabled = true
+  throttle_value         = 60
+  throttle_unit          = "MINUTES"
+  environment_name       = var.environment
   alert_query = jsonencode(
     {
       "size" : 0,
