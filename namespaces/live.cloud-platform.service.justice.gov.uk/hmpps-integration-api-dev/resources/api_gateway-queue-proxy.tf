@@ -46,7 +46,7 @@ resource "aws_lambda_function" "sqs_routing" {
   role          = aws_iam_role.lambda_to_sqs.arn
   handler       = "index.handler"
   runtime       = "nodejs20.x"
-  source_code_hash = filebase64sha256("lambda.zip")
+  source_code_hash = filebase64sha256(data.archive_file.zip.output_path)
   environment {
     variables = {
       CLIENT_QUEUES = jsonencode(local.client_queue_names)
