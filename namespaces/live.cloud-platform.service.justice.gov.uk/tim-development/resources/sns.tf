@@ -23,7 +23,7 @@ module "sns_topic_fifo" {
   topic_display_name          = "example-sns-fifo"
   encrypt_sns_kms             = true
   fifo_topic                  = true
-  content_based_deduplication = var.content_based_deduplication
+  content_based_deduplication = true
 
   # Tags
   business_unit          = var.business_unit
