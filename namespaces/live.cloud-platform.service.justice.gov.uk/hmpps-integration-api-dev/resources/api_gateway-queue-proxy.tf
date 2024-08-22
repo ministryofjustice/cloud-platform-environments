@@ -91,7 +91,7 @@ resource "aws_iam_role" "lambda_to_sqs" {
           ],
           Effect   = "Allow",
           Sid      = "Allow role to access messages in SQS",
-          Resource = local.client_queue_arns[*]
+          Resource = [for k, v in local.client_queue_arns : v]
         }
       ]
     })
