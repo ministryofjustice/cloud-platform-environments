@@ -1,8 +1,13 @@
 locals {
-  client_queues = {
-    mapps.client.org = module.event_mapps_queue
-    pnd   = module.event_pnd_queue
-    test  = module.event_test_client_queue
+  client_queue_names = {
+    "mapps.client.org" = module.event_mapps_queue.sqs_name
+    pnd                = module.event_pnd_queue.sqs_name
+    test               = module.event_test_client_queue.sqs_name
+  }
+  client_queue_arns = {
+    "mapps.client.org" = module.event_mapps_queue.sqs_arn
+    pnd                = module.event_pnd_queue.sqs_arn
+    test               = module.event_test_client_queue.sqs_arn
   }
 }
 
@@ -44,7 +49,7 @@ resource "aws_lambda_function" "sqs_routing" {
   source_code_hash = filebase64sha256("lambda.zip")
   environment {
     variables = {
-      CLIENT_QUEUES = jsonencode({ for k, v in local.client_queues : k => v.sqs_name })
+      CLIENT_QUEUES = jsonencode(local.client_queue_names)
     }
   }
 }
@@ -58,7 +63,7 @@ resource "aws_lambda_permission" "api_gateway_to_lambda" {
 }
 
 resource "aws_iam_role" "lambda_to_sqs" {
-  name               = "${var.namespace}-sqs-role"
+  name = "${var.namespace}-sqs-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -86,7 +91,7 @@ resource "aws_iam_role" "lambda_to_sqs" {
           ],
           Effect   = "Allow",
           Sid      = "Allow role to access messages in SQS",
-          Resource = local.client_queues[*].sqs_arn
+          Resource = local.client_queue_arns[*]
         }
       ]
     })
