@@ -54,12 +54,14 @@ resource "aws_lambda_function" "sqs_routing" {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_lambda_permission" "api_gateway_to_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.sqs_routing.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:${var.region}:${var.aws_account_id}:${aws_api_gateway_rest_api.api_gateway.id}/*/${aws_api_gateway_method.queue_post.http_method}${aws_api_gateway_resource.queue_resource.path}"
+  source_arn    = "arn:aws:execute-api:${var.region}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api_gateway.id}/*/${aws_api_gateway_method.queue_post.http_method}${aws_api_gateway_resource.queue_resource.path}"
 }
 
 resource "aws_iam_role" "lambda_to_sqs" {
