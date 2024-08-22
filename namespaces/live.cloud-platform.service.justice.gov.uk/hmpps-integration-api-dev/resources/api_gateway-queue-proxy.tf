@@ -45,7 +45,7 @@ resource "aws_lambda_function" "sqs_routing" {
   function_name = "${var.namespace}-sqs-routing"
   role          = aws_iam_role.lambda_to_sqs.arn
   handler       = "index.handler"
-  runtime       = "nodejs20.x"
+  runtime       = "nodejs18.x"
   source_code_hash = filebase64sha256(data.archive_file.zip.output_path)
   environment {
     variables = {
