@@ -54,8 +54,6 @@ resource "aws_lambda_function" "sqs_routing" {
   }
 }
 
-data "aws_caller_identity" "current" {}
-
 resource "aws_lambda_permission" "api_gateway_to_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
