@@ -22,6 +22,7 @@ module "sns_topic_fifo" {
   # Configuration
   topic_display_name = "example-sns-fifo"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
