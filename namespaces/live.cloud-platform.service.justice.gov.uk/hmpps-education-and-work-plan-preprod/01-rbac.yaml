@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-education-and-work-plan-preprod
 subjects:
   - kind: Group
-    name: "github:farsight-devs"
+    name: "github:hmpps-farsight-reduce-re-offend"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
