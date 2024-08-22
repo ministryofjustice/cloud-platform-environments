@@ -26,6 +26,30 @@ module "makeaplea_queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "makeaplea_sqs_policy" {
+  queue_url = module.makeaplea_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.makeaplea_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {
+          "AWS": [
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-1269953a1b321ac6-live"
+              ]
+          },
+          "Resource": "${module.makeaplea_queue.sqs_arn}",
+          "Action": "sqs:*"
+        }
+      ]
+  }
+  EOF
+}
+
 module "makeaplea_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
