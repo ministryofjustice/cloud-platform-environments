@@ -70,7 +70,7 @@ resource "aws_iam_role" "lambda_to_sqs" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid    = "Allow Lambda service to assume role"
+        Sid    = "AllowLambdaToAssume"
         Principal = {
           Service = "lambda.amazonaws.com"
         }
@@ -90,7 +90,7 @@ resource "aws_iam_role" "lambda_to_sqs" {
             "sqs:ReceiveMessage",
           ],
           Effect   = "Allow",
-          Sid      = "Allow role to access messages in SQS",
+          Sid      = "AllowAccessToSQS",
           Resource = [for k, v in local.client_queue_arns : v]
         }
       ]
