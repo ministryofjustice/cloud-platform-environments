@@ -19,9 +19,9 @@
       "integrity": "sha256:8ac98932cf2832b2e451bee7afbbafcdefc1572b3baf909e8b5db8439ad81949"
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/terraform:1": {
-      "version": "1.0.0",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/terraform@sha256:af3b3891cf31ff373df29998c690257d6f21f2ee4536bc4d692856408ef0c83a",
-      "integrity": "sha256:af3b3891cf31ff373df29998c690257d6f21f2ee4536bc4d692856408ef0c83a"
+      "version": "1.1.0",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/terraform@sha256:34eb8c510a11fc44abb8173519215fcb6b82715b94e647c69089ee23773c6dc8",
+      "integrity": "sha256:34eb8c510a11fc44abb8173519215fcb6b82715b94e647c69089ee23773c6dc8"
     }
   }
 }
