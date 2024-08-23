@@ -1,16 +1,3 @@
-locals {
-  client_queue_names = {
-    "mapps.client.org" = module.event_mapps_queue.sqs_name
-    pnd                = module.event_pnd_queue.sqs_name
-    test               = module.event_test_client_queue.sqs_name
-  }
-  client_queue_arns = {
-    "mapps.client.org" = module.event_mapps_queue.sqs_arn
-    pnd                = module.event_pnd_queue.sqs_arn
-    test               = module.event_test_client_queue.sqs_arn
-  }
-}
-
 resource "aws_api_gateway_resource" "queue_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
@@ -49,7 +36,7 @@ resource "aws_lambda_function" "sqs_routing" {
   source_code_hash = filebase64sha256(data.archive_file.zip.output_path)
   environment {
     variables = {
-      CLIENT_QUEUES = jsonencode(local.client_queue_names)
+      CLIENT_QUEUES = jsonencode(local.client_queues)
     }
   }
 }
@@ -91,7 +78,10 @@ resource "aws_iam_role" "lambda_to_sqs" {
           ],
           Effect   = "Allow",
           Sid      = "AllowAccessToSQS",
-          Resource = [for k, v in local.client_queue_arns : v]
+          Resource = [
+            for client, queue_name in local.client_queues :
+            "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"
+          ]
         }
       ]
     })
