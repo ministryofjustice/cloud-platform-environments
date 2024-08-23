@@ -77,7 +77,7 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-
+  db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
