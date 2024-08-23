@@ -17,7 +17,7 @@ module "sns_topic" {
 
 
 module "sns_topic_fifo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=sns-fifo" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0" # use the latest release
 
   # Configuration
   topic_display_name          = "example-sns-fifo"
@@ -37,7 +37,7 @@ module "sns_topic_fifo" {
 
 
 module "sns_topic_new_branch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=sns-fifo" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0" # use the latest release
 
   # Configuration
   topic_display_name = "example-sns-by-new-branch"
