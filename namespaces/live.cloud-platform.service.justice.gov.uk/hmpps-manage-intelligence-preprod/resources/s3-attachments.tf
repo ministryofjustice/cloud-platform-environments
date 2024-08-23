@@ -4,7 +4,7 @@ module "ims_images_storage_bucket" {
   acl                    = "private"
   versioning             = true
   enable_backup          = true
-  backup_schedule        = "0 1 ? * * *"
+  backup_schedule        = "cron(0 1 ? * * *)"
   backup_retention_days  = 2
   business_unit          = var.business_unit
   application            = var.application
@@ -36,7 +36,7 @@ module "ims_attachments_storage_bucket" {
   acl                    = "private"
   versioning             = true
   enable_backup          = true
-  backup_schedule        = "0 1 ? * * *"
+  backup_schedule        = "cron(0 1 ? * * *)"
   backup_retention_days  = 2
   business_unit          = var.business_unit
   application            = var.application
