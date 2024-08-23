@@ -27,11 +27,16 @@ data "archive_file" "zip" {
   output_path = "${path.module}/js.zip"
 }
 
+resource "aws_cloudwatch_log_group" "sqs_routing_logs" {
+  name = "/aws/lambda/${var.namespace}-sqs-routing"
+  retention_in_days = 7
+}
+
 resource "aws_lambda_function" "sqs_routing" {
   filename      = data.archive_file.zip.output_path
   function_name = "${var.namespace}-sqs-routing"
   role          = aws_iam_role.lambda_to_sqs.arn
-  handler       = "index.handler"
+  handler       = "proxy.handler"
   runtime       = "nodejs18.x"
   source_code_hash = filebase64sha256(data.archive_file.zip.output_path)
   environment {
