@@ -27,7 +27,7 @@ resource "aws_api_gateway_method" "queue_post" {
 
 resource "aws_api_gateway_integration" "sqs_proxy_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.event_proxy.id
+  resource_id             = aws_api_gateway_resource.queue_resource.id
   http_method             = aws_api_gateway_method.queue_post.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
