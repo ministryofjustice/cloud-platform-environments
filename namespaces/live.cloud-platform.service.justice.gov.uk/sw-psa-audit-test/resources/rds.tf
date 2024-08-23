@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=replica-fix"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -63,7 +63,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=replica-fix"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -81,7 +81,7 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
