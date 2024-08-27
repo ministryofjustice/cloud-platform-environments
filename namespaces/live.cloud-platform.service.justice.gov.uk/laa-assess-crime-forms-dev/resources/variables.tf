@@ -136,6 +136,7 @@ variable "serviceaccount_rules" {
         "batch",
         "networking.k8s.io",
         "monitoring.coreos.com",
+        "policy",
       ]
       resources = [
         "deployments",
@@ -146,6 +147,7 @@ variable "serviceaccount_rules" {
         "statefulsets",
         "servicemonitors",
         "networkpolicies",
+        "poddisruptionbudgets",
       ]
       verbs = [
         "get",
