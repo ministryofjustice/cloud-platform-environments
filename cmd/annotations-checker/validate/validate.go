@@ -8,6 +8,10 @@ import (
 )
 
 func Validate(client *github.Client, org string, annotations *Annotations) (bool, string) {
+	if client == nil {
+		return false, "github client is nil"
+	}
+
 	repo := annotations.SourceCode
 	team := annotations.TeamName
 

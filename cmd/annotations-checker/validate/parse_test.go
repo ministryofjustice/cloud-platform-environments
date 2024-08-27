@@ -47,12 +47,12 @@ func TestParse(t *testing.T) {
 	tests := []struct {
 		name        string
 		diff        string
-		expectedRes Annotations
+		expectedRes *Annotations
 		wantErr     bool
 	}{
-		{"GIVEN a valid diff THEN parse without errors", string(validBytes), validAnno, false},
-		{"GIVEN a diff with an invalid TEAM NAME THEN parse with errors", string(invalidTeamBytes), invalidTeamAnno, true},
-		{"GIVEN a diff with an invalid SOURCE CODE THEN parse with errors", string(invalidSourceBytes), invalidSourceAnno, true},
+		{"GIVEN a valid diff THEN parse without errors", string(validBytes), &validAnno, false},
+		{"GIVEN a diff with an invalid TEAM NAME THEN parse with errors", string(invalidTeamBytes), &invalidTeamAnno, true},
+		{"GIVEN a diff with an invalid SOURCE CODE THEN parse with errors", string(invalidSourceBytes), &invalidSourceAnno, true},
 	}
 
 	for _, tt := range tests {

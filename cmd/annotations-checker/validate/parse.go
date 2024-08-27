@@ -37,7 +37,6 @@ func Parse(client *github.Client, org, diff string) (*Annotations, error) {
 		return nil, sourceCodeErr
 	}
 	// fmt.Printf("extracted source code: %s\n", sourceCodeVal)
-
 	valid, validationMsg := Validate(client, org, &Annotations{})
 	if !valid {
 		return nil, errors.New(validationMsg)
