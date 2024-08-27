@@ -82,7 +82,8 @@ resource "aws_sns_topic_subscription" "afer_domain_events_subscription" {
   endpoint  = module.afer_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.received"
+      "prison-offender-events.prisoner.received",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }
