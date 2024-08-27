@@ -19,11 +19,11 @@ module "track_a_query_rds" {
   db_engine_version          = "16.3"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
   rds_family                 = "postgres16"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = false
 
   providers = {
     aws = aws.london
