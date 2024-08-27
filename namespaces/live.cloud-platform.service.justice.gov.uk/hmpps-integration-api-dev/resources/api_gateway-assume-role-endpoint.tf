@@ -30,7 +30,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
 }
 
 resource "aws_iam_role" "sqs" {
-  name = "${var.namespace}-sqs-role"
+  name = "${var.namespace}-sqs"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
