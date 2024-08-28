@@ -23,9 +23,9 @@ resource "aws_api_gateway_integration" "sts_integration" {
   request_parameters = {
     "integration.request.querystring.DurationSeconds"     = "'3600'"
     "integration.request.querystring.RoleArn"             = "'arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs'"
-    "integration.request.querystring.RoleSessionName"     = "context.extendedRequestId"
+    "integration.request.querystring.RoleSessionName"     = "$context.extendedRequestId"
     "integration.request.querystring.Tags.member.1.Key"   = "'subject-distinguished-name'"
-    "integration.request.querystring.Tags.member.1.Value" = "context.identity.clientCert.subjectDN"
+    "integration.request.querystring.Tags.member.1.Value" = "$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')"
     "integration.request.querystring.Version"             = "'2011-06-15'"
   }
   passthrough_behavior = "WHEN_NO_TEMPLATES"
@@ -93,8 +93,8 @@ resource "aws_iam_role" "sqs" {
           Sid    = "${client}-to-sqs"
           Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
           Condition = {
-            StringLike = {
-              "aws:PrincipalTag/subject-distinguished-name" = "*,CN=${client}"
+            StringEquals = {
+              "aws:PrincipalTag/subject-distinguished-name" = client
             }
           }
         }
