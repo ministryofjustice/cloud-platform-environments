@@ -137,7 +137,8 @@ resource "aws_api_gateway_deployment" "main" {
       var.cloud_platform_integration_api_url,
       var.cloud_platform_integration_event_url,
       md5(file("api_gateway.tf")),
-      md5(file("api_gateway-events-proxy.tf"))
+      md5(file("api_gateway-events-proxy.tf")),
+      md5(file("api_gateway-assume-role-endpoint.tf")),
     ]))
   }
 
