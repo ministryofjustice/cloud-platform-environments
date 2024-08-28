@@ -21,7 +21,7 @@ module "court-cases" {
   }
 }
 
-resource "aws_ssm_parameter" "param-store-topic-arn" {
+resource "aws_ssm_parameter" "court-cases-topic-arn" {
   type        = "String"
   name        = "/${var.namespace}/topic-arn"
   value       = module.court-cases.topic_arn
