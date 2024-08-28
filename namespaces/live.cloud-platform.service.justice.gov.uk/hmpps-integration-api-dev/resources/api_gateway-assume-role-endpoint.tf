@@ -18,6 +18,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
   type                    = "AWS"
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
+  credentials             = aws_iam_role.sts_integration.arn
 
   request_templates = {
     "application/json" = <<EOF
@@ -26,6 +27,36 @@ resource "aws_api_gateway_integration" "sts_integration" {
     Tags.member.1.Key=subject-distinguished-name&
     Tags.member.1.Value=$context.identity.clientCert.subjectDN
     EOF
+  }
+}
+
+resource "aws_iam_role" "sts_integration" {
+  name = "${var.namespace}-sts"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = "AllowApiGatewayToAssume"
+        Principal = {
+          Service = "apigateway.amazonaws.com"
+        }
+      },
+    ]
+  })
+  inline_policy {
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = ["sts:AssumeRole"],
+          Effect = "Allow"
+          Sid    = "AllowClientToAssumeSqsRole"
+          Resource = [aws_iam_role.sqs.arn]
+        }
+      ]
+    })
   }
 }
 
@@ -46,7 +77,7 @@ resource "aws_iam_role" "sqs" {
   })
   inline_policy {
     policy = jsonencode({
-      Version = "2012-10-17"
+      Version   = "2012-10-17"
       Statement = [
         for client, queue_name in local.client_queues :
         {
@@ -57,8 +88,8 @@ resource "aws_iam_role" "sqs" {
             "sqs:PurgeQueue",
             "sqs:ReceiveMessage",
           ],
-          Effect   = "Allow"
-          Sid      = "${client}-to-sqs"
+          Effect = "Allow"
+          Sid    = "${client}-to-sqs"
           Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
           Condition = {
             StringEquals = {
