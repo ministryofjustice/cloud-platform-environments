@@ -40,8 +40,8 @@ resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::754256621582:role/cloud-platform-irsa-1269953a1b321ac6-live"
-              ]
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-b6c6210885e459a4-live"
+            ]
           },
           "Resource": "${module.makeaplea_queue.sqs_arn}",
           "Action": "sqs:*"
