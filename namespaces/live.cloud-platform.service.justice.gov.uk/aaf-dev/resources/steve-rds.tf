@@ -60,7 +60,7 @@ module "steve-rds" {
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
-module "read_replica" {
+module "steve_read_replica" {
   # default off
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=replica-fix"
