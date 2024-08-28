@@ -12,7 +12,7 @@ module "irsa" {
     s3_backups_bucket                  = module.s3_backups_bucket.irsa_policy_arn
     s3_logging_bucket                  = module.s3_logging_bucket.irsa_policy_arn
     s3_opensearch_snapshots_bucket     = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
-    s3_opensearch_snapshots_bucket_dev = base64decode(data.kubernetes_secret.s3_opensearch_snapshots_bucket_dev.data["IRSA_POLICY_ARN"])
+    s3_opensearch_snapshots_bucket_dev = data.kubernetes_secret.s3_opensearch_snapshots_bucket_dev.data["IRSA_POLICY_ARN"]
   }
 
   # Tags
