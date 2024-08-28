@@ -24,6 +24,15 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name
+}
+
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
