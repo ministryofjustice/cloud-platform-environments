@@ -28,6 +28,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
     "integration.request.querystring.Tags.member.1.Value" = "context.identity.clientCert.subjectDN"
     "integration.request.querystring.Version"             = "'2011-06-15'"
   }
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
 
 resource "aws_iam_role" "sts_integration" {
