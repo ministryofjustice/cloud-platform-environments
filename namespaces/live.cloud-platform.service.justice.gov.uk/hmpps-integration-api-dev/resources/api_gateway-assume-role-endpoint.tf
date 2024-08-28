@@ -5,10 +5,11 @@ resource "aws_api_gateway_resource" "role_assume" {
 }
 
 resource "aws_api_gateway_method" "role_assume_method" {
-  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
-  resource_id   = aws_api_gateway_resource.role_assume.id
-  http_method   = "POST"
-  authorization = "NONE"
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
+  resource_id      = aws_api_gateway_resource.role_assume.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
 }
 
 resource "aws_api_gateway_integration" "sts_integration" {
@@ -23,7 +24,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
   request_templates = {
     "application/json" = <<EOF
     Action=AssumeRole&
-    RoleArn=${aws_iam_role.sqs.arn}&
+    RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs&
     Tags.member.1.Key=subject-distinguished-name&
     Tags.member.1.Value=$context.identity.clientCert.subjectDN
     EOF
@@ -53,7 +54,7 @@ resource "aws_iam_role" "sts_integration" {
           Action = ["sts:AssumeRole"],
           Effect = "Allow"
           Sid    = "AllowClientToAssumeSqsRole"
-          Resource = [aws_iam_role.sqs.arn]
+          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
         }
       ]
     })
@@ -68,9 +69,9 @@ resource "aws_iam_role" "sqs" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid    = "AllowApiGatewayToAssume"
+        Sid    = "AllowIntegrationRoleToAssume"
         Principal = {
-          Service = "apigateway.amazonaws.com"
+          AWS = aws_iam_role.sts_integration.arn
         }
       },
     ]
