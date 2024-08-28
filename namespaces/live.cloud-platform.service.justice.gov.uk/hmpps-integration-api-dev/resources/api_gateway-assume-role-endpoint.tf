@@ -22,6 +22,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
     "integration.request.querystring.RoleArn"             = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"
+    "integration.request.querystring.RoleSessionName"     = "apigw-sqs-$context.extendedRequestId"
     "integration.request.querystring.Tags.member.1.Key"   = "subject-distinguished-name"
     "integration.request.querystring.Tags.member.1.Value" = "$context.identity.clientCert.subjectDN"
   }
