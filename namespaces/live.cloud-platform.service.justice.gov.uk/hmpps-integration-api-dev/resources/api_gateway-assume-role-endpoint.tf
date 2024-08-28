@@ -20,15 +20,12 @@ resource "aws_api_gateway_integration" "sts_integration" {
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
-
-  request_templates = {
-    "application/json" = <<EOF
-    Action=AssumeRole&
-    RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs&
-    Tags.member.1.Key=subject-distinguished-name&
-    Tags.member.1.Value=$context.identity.clientCert.subjectDN
-    EOF
+  request_parameters = {
+    "integration.request.querystring.RoleArn"             = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"
+    "integration.request.querystring.Tags.member.1.Key"   = "subject-distinguished-name"
+    "integration.request.querystring.Tags.member.1.Value" = "$context.identity.clientCert.subjectDN"
   }
+  passthrough_behavior = "NEVER"
 }
 
 resource "aws_iam_role" "sts_integration" {
@@ -93,8 +90,8 @@ resource "aws_iam_role" "sqs" {
           Sid    = "${client}-to-sqs"
           Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
           Condition = {
-            StringEquals = {
-              "aws:PrincipalTag/subject-distinguished-name" = client
+            StringLike = {
+              "aws:PrincipalTag/subject-distinguished-name" = "*,CN=${client}"
             }
           }
         }
