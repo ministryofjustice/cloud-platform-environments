@@ -60,35 +60,37 @@ module "s3_opensearch_snapshots_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  bucket_policy          = data.aws_iam_policy_document.s3_opensearch_snapshots_policy.json
-}
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowBucketAccess"
+        Effect = "Allow"
 
-data "aws_iam_policy_document" "s3_opensearch_snapshots_policy" {
-  statement {
-    sid    = "AllowBucketAccess"
-    effect = "Allow"
+        Principal = {
+          AWS = [
+            module.irsa.role_arn,
+            data.kubernetes_service_account.poc_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"]
+          ]
+        }
 
-    principals {
-      type = "AWS"
-      identifiers = [module.irsa.role_arn,
-      data.kubernetes_service_account.poc_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"]]
-    }
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:GetObjectVersion",
+          "s3:DeleteObject",
+          "s3:ListMultipartUploadParts",
+          "s3:AbortMultipartUpload",
+          "s3:ListBucketMultipartUploads"
+        ]
 
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:GetObjectVersion",
-      "s3:DeleteObject",
-      "s3:ListMultipartUploadParts",
-      "s3:AbortMultipartUpload",
-      "s3:ListBucketMultipartUploads"
+        Resource = [
+          "$${bucket_arn}/*",
+          "$${bucket_arn}"
+        ]
+      }
     ]
-
-    resources = [
-      "${module.s3_opensearch_snapshots_bucket.bucket_arn}/*",
-      module.s3_opensearch_snapshots_bucket.bucket_arn
-    ]
-  }
+  })
 }
 
 resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
