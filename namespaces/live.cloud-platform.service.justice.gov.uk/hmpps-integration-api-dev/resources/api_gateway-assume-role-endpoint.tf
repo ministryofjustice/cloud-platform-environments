@@ -17,14 +17,16 @@ resource "aws_api_gateway_integration" "sts_integration" {
   resource_id             = aws_api_gateway_resource.role_assume.id
   http_method             = aws_api_gateway_method.role_assume_method.http_method
   type                    = "AWS"
-  integration_http_method = "POST"
+  integration_http_method = "GET"
   uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
+    "integration.request.querystring.DurationSeconds"     = "3600"
     "integration.request.querystring.RoleArn"             = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"
     "integration.request.querystring.RoleSessionName"     = "apigw-sqs-$context.extendedRequestId"
     "integration.request.querystring.Tags.member.1.Key"   = "subject-distinguished-name"
     "integration.request.querystring.Tags.member.1.Value" = "$context.identity.clientCert.subjectDN"
+    "integration.request.querystring.Version"             = "2011-06-15"
   }
   passthrough_behavior = "NEVER"
 }
