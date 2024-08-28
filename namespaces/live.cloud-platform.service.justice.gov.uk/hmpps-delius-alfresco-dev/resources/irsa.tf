@@ -24,7 +24,7 @@ module "irsa" {
 
 data "kubernetes_service_account" "poc_irsa" {
   metadata {
-    name      = hmpps-migration-poc
-    namespace = hmpps-delius-alfrsco-poc
+    name      = "hmpps-migration-poc"
+    namespace = "hmpps-delius-alfrsco-poc"
   }
 }
