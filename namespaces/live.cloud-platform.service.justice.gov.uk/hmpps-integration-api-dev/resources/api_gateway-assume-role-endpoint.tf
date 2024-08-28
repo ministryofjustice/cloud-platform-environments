@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
   request_templates = {
     "application/json" = <<EOF
     Action=AssumeRole&
-    RoleArn=aws::iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs&
+    RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs&
     Tags.member.1.Key=subject-distinguished-name&
     Tags.member.1.Value=$context.identity.clientCert.subjectDN
     EOF
@@ -54,7 +54,7 @@ resource "aws_iam_role" "sts_integration" {
           Action = ["sts:AssumeRole"],
           Effect = "Allow"
           Sid    = "AllowClientToAssumeSqsRole"
-          Resource = ["aws::iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
+          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
         }
       ]
     })
