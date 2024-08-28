@@ -23,7 +23,7 @@ module "court-cases" {
 
 resource "aws_ssm_parameter" "court-cases-topic-arn" {
   type        = "String"
-  name        = "/${var.namespace}/topic-arn"
+  name        = "/${var.namespace}/court-cases-topic-arn"
   value       = module.court-cases.topic_arn
   description = "SNS topic ARN for court-cases; use this parameter from other DPS namespaces"
 
