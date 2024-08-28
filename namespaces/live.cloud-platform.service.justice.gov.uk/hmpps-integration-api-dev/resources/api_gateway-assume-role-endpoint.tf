@@ -7,7 +7,7 @@ resource "aws_api_gateway_resource" "role_assume" {
 resource "aws_api_gateway_method" "role_assume_method" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
   resource_id      = aws_api_gateway_resource.role_assume.id
-  http_method      = "POST"
+  http_method      = "GET"
   authorization    = "NONE"
   api_key_required = true
 }
@@ -15,9 +15,9 @@ resource "aws_api_gateway_method" "role_assume_method" {
 resource "aws_api_gateway_integration" "sts_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
   resource_id             = aws_api_gateway_resource.role_assume.id
-  http_method             = aws_api_gateway_method.role_assume_method.http_method
   type                    = "AWS"
-  integration_http_method = "GET"
+  http_method             = aws_api_gateway_method.role_assume_method.http_method
+  integration_http_method = aws_api_gateway_method.role_assume_method.http_method
   uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
