@@ -76,22 +76,6 @@ resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
   }
 }
 
-# This places a secret for this PoC S3 bucket the dev namespace,
-# which can then be used by a kubernetes job to refresh OpenSearch data.
-resource "kubernetes_secret" "s3_opensearch_snapshots_bucket_refresh" {
-  metadata {
-    name      = "s3-opensearch-snapshots-bucket-output-poc"
-    namespace = "hmpps-delius-alfresco-dev"
-  }
-
-  data = {
-    BUCKET_ARN  = module.s3_opensearch_snapshots_bucket.bucket_arn
-    BUCKET_NAME = module.s3_opensearch_snapshots_bucket.bucket_name
-    ACCESSKEY   = aws_iam_access_key.opensearch_snapshots.id
-    SECRETKEY   = aws_iam_access_key.opensearch_snapshots.secret
-  }
-}
-
 resource "aws_iam_user" "opensearch_snapshots" {
   name = "${var.namespace}-opensearch_snapshots_user"
   path = "/system/${var.namespace}-opensearch_snapshots_user/"
@@ -104,4 +88,11 @@ resource "aws_iam_access_key" "opensearch_snapshots" {
 resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
+}
+
+data "kubernetes_secret" "s3_opensearch_snapshots_bucket_dev" {
+  metadata {
+    name      = "s3-opensearch-snapshots-bucket-output-dev"
+    namespace = var.namespace
+  }
 }
