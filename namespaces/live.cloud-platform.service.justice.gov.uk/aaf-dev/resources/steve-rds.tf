@@ -62,7 +62,7 @@ module "steve-rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=replica-fix"
 
   vpc_name               = var.vpc_name
