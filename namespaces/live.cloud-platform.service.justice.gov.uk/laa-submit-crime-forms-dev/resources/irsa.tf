@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
   }
 
   # Tags
@@ -22,6 +23,16 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name
+  service_pod_count = 0
 }
 
 resource "kubernetes_secret" "irsa" {
