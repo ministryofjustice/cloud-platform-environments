@@ -1,7 +1,3 @@
-data "aws_iam_policy" "poc_env_bucket_policy" {
-  name = "cloud-platform-s3-5ce784402d8052fe1cd006f1e7329f70"
-}
-
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -24,4 +20,11 @@ module "irsa" {
   namespace              = var.namespace # this is also used to attach your service account to your namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "kubernetes_service_account" "poc_irsa" {
+  metadata {
+    name      = "hmpps-migration-poc"
+    namespace = "hmpps-delius-alfrsco-poc"
+  }
 }
