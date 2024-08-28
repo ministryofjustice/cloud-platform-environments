@@ -60,12 +60,55 @@ module "s3_opensearch_snapshots_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  bucket_policy          = data.aws_iam_policy_document.s3_opensearch_snapshots_policy.json
+}
+
+data "aws_iam_policy_document" "s3_opensearch_snapshots_policy" {
+  statement {
+    sid    = "AllowBucketAccess"
+    effect = "Allow"
+
+    principals {
+      type = "AWS"
+      identifiers = ["${module.irsa.role_arn}",
+      "${data.kubernetes_service_account.poc_irsa.metadata.0.annotations["eks.amazonaws.com/role-arn"]}"]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:GetObjectVersion",
+      "s3:DeleteObject",
+      "s3:ListMultipartUploadParts",
+      "s3:AbortMultipartUpload",
+      "s3:ListBucketMultipartUploads"
+    ]
+
+    resources = [
+      "${module.s3_opensearch_snapshots_bucket.bucket_arn}/*",
+      "${module.s3_opensearch_snapshots_bucket.bucket_arn}"
+    ]
+  }
 }
 
 resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
   metadata {
     name      = "s3-opensearch-snapshots-bucket-output"
     namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_ARN  = module.s3_opensearch_snapshots_bucket.bucket_arn
+    BUCKET_NAME = module.s3_opensearch_snapshots_bucket.bucket_name
+    ACCESSKEY   = aws_iam_access_key.opensearch_snapshots.id
+    SECRETKEY   = aws_iam_access_key.opensearch_snapshots.secret
+  }
+}
+
+resource "kubernetes_secret" "s3_opensearch_snapshots_bucket_refresh" {
+  metadata {
+    name      = "s3-opensearch-snapshots-bucket-output-dev"
+    namespace = "hmpps-delius-alfrsco-poc"
   }
 
   data = {
