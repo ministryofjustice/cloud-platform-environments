@@ -70,8 +70,8 @@ data "aws_iam_policy_document" "s3_opensearch_snapshots_policy" {
 
     principals {
       type = "AWS"
-      identifiers = ["${module.irsa.role_arn}",
-      "${data.kubernetes_service_account.poc_irsa.metadata.0.annotations["eks.amazonaws.com/role-arn"]}"]
+      identifiers = [module.irsa.role_arn,
+      data.kubernetes_service_account.poc_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"]]
     }
 
     actions = [
@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "s3_opensearch_snapshots_policy" {
 
     resources = [
       "${module.s3_opensearch_snapshots_bucket.bucket_arn}/*",
-      "${module.s3_opensearch_snapshots_bucket.bucket_arn}"
+      module.s3_opensearch_snapshots_bucket.bucket_arn
     ]
   }
 }
