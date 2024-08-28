@@ -76,7 +76,7 @@ module "read_replica" {
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
-  db_engine_version = "16.1"
+  db_engine_version = "16.4"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   db_max_allocated_storage     = "1000"
