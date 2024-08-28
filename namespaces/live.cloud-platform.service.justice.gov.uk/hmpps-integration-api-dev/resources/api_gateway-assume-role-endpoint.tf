@@ -69,9 +69,9 @@ resource "aws_iam_role" "sqs" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid    = "AllowApiGatewayToAssume"
+        Sid    = "AllowIntegrationRoleToAssume"
         Principal = {
-          Service = "apigateway.amazonaws.com"
+          AWS = aws_iam_role.sts_integration.arn
         }
       },
     ]
