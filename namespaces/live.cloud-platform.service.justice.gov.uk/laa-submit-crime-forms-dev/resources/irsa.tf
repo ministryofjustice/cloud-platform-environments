@@ -31,6 +31,7 @@ module "service_pod" {
   # Configuration
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name
+  service_pod_count = 0
 }
 
 resource "kubernetes_secret" "irsa" {
