@@ -48,6 +48,7 @@ resource "aws_api_gateway_integration_response" "sts_integration" {
   response_parameters = {
     "method.response.header.Content-Type" = "'application/json'"
   }
+  depends_on = [aws_api_gateway_method_response.sts_method_response]
 }
 
 resource "aws_api_gateway_method_response" "sts_method_response" {
