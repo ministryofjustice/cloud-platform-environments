@@ -24,15 +24,15 @@ resource "aws_api_gateway_integration" "sts_integration" {
     "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
   }
   request_templates = {
-    "application/json" = <<-EOT
-    Action=AssumeRole
-    &DurationSeconds=3600
-    &RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs
-    &RoleSessionName=$context.extendedRequestId
-    &Tags.member.1.Key=ClientId
-    &Tags.member.1.Value=$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')
-    &Version=2011-06-15
-    EOT
+    "application/json" = join("&", [
+      "Action=AssumeRole",
+      "DurationSeconds=3600",
+      "RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs",
+      "RoleSessionName=$util.urlEncode($context.extendedRequestId)",
+      "Tags.member.1.Key=ClientId",
+      "Tags.member.1.Value=$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')",
+      "Version=2011-06-15"
+    ])
   }
   passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
