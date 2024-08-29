@@ -15,10 +15,10 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers        = ["github"]
   github_repositories   = ["laa-ccms-staging-file-upload-api"]
-  github_actions_prefix = "production"
+  github_actions_prefix = "preprod"
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
-  github_environments = ["production"]
+  github_environments = ["preprod"]
 
   # Tags
   business_unit          = var.business_unit
