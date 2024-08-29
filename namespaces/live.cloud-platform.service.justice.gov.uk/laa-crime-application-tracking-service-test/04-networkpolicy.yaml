@@ -29,7 +29,7 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-laa-maat-orchestration-dev
+  name: allow-laa-maat-orchestration-test
   namespace: laa-crime-application-tracking-service-test
 spec:
   podSelector: {}
@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: laa-maat-orchestration-dev
+              component: laa-maat-orchestration-test
