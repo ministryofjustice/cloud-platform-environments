@@ -18,7 +18,7 @@ resource "aws_api_gateway_integration" "sts_integration" {
   type                    = "AWS"
   http_method             = aws_api_gateway_method.role_assume_method.http_method
   integration_http_method = aws_api_gateway_method.role_assume_method.http_method
-  uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
+  uri                     = "arn:aws:apigateway:us-east-1:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
     "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
@@ -73,7 +73,10 @@ resource "aws_iam_role" "sqs" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession",
+        ]
         Effect = "Allow"
         Sid    = "AllowIntegrationRoleToAssume"
         Principal = {
