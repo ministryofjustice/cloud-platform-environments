@@ -16,7 +16,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "non-associations.deleted",
       "non-associations.closed",
       "non-associations.amended",
-      "prison-offender-events.visitor.restriction.changed",
+      "prison-offender-events.visitor.restriction.upserted",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.restriction.changed",
