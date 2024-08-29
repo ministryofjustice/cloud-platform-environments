@@ -37,6 +37,19 @@ resource "aws_api_gateway_integration" "sts_integration" {
   passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
 
+resource "aws_api_gateway_integration_response" "sts_integration" {
+  rest_api_id = aws_api_gateway_integration.sts_integration.rest_api_id
+  resource_id = aws_api_gateway_integration.sts_integration.resource_id
+  http_method = aws_api_gateway_integration.sts_integration.http_method
+  status_code = "200"
+  response_templates = {
+    "application/json" = "$input.json('$.AssumeRoleResponse.AssumeRoleResult.Credentials')"
+  }
+  response_parameters = {
+    "method.response.header.Content-Type" = "'application/json'"
+  }
+}
+
 resource "aws_iam_role" "sts_integration" {
   name = "${var.namespace}-sts"
   assume_role_policy = jsonencode({
