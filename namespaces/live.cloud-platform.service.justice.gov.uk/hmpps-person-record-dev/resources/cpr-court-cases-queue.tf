@@ -108,7 +108,7 @@ resource "kubernetes_secret" "cpr_court_cases_queue" {
 resource "kubernetes_secret" "cpr_court_cases_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-court-case-events-dlq-secret"
+    name = "sqs-cpr-court-cases-dlq-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
