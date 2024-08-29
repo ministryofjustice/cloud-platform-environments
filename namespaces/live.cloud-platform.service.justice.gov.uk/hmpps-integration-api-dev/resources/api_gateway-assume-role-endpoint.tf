@@ -7,7 +7,7 @@ resource "aws_api_gateway_resource" "role_assume" {
 resource "aws_api_gateway_method" "role_assume_method" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
   resource_id      = aws_api_gateway_resource.role_assume.id
-  http_method      = "GET"
+  http_method      = "POST"
   authorization    = "NONE"
   api_key_required = true
 }
@@ -21,12 +21,18 @@ resource "aws_api_gateway_integration" "sts_integration" {
   uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
-    "integration.request.querystring.DurationSeconds"     = "'3600'"
-    "integration.request.querystring.RoleArn"             = "'arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs'"
-    "integration.request.querystring.RoleSessionName"     = "$context.extendedRequestId"
-    "integration.request.querystring.Tags.member.1.Key"   = "'subject-distinguished-name'"
-    "integration.request.querystring.Tags.member.1.Value" = "$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')"
-    "integration.request.querystring.Version"             = "'2011-06-15'"
+    "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
+  }
+  request_templates = {
+    "application/json" = <<-EOT
+    Action=AssumeRole
+    &DurationSeconds=3600
+    &RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs
+    &RoleSessionName=$context.extendedRequestId
+    &Tags.member.1.Key=ClientId
+    &Tags.member.1.Value=$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')
+    &Version=2011-06-15
+    EOT
   }
   passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
@@ -94,7 +100,7 @@ resource "aws_iam_role" "sqs" {
           Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
           Condition = {
             StringEquals = {
-              "aws:PrincipalTag/subject-distinguished-name" = client
+              "aws:PrincipalTag/ClientId" = client
             }
           }
         }
