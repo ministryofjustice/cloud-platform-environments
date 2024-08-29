@@ -8,12 +8,15 @@ data "aws_vpc" "this" {
   }
 }
 
-data "aws_subnet_ids" "this" {
-  vpc_id = data.aws_vpc.this.id
+data "aws_subnets" "this" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["Private"]
+  }
 }
 
 data "aws_subnet" "this" {
-  for_each = data.aws_subnet_ids.this.ids
+  for_each = toset(data.aws_subnets.this.ids)
   id       = each.value
 }
 
@@ -35,7 +38,7 @@ locals {
   identifier        = "cloud-platform-${random_id.amq_id.hex}"
   mq_admin_user     = "cp${random_string.amq_username.result}"
   mq_admin_password = random_string.amq_password.result
-  subnets           = data.aws_subnet_ids.this.ids
+  subnets           = data.aws_subnets.this.ids
 }
 
 resource "aws_security_group" "broker_sg" {
