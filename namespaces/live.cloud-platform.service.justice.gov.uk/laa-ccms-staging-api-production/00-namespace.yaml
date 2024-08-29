@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-ccms-staging-api-production"
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
     component: allow-laa-ccms-rest-api-production
     pod-security.kubernetes.io/enforce: restricted
