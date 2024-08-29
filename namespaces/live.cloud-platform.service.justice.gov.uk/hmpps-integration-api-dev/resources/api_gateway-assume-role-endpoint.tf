@@ -78,55 +78,13 @@ resource "aws_iam_role" "sts_integration" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = ["sts:AssumeRole"],
-          Effect = "Allow"
-          Sid    = "AllowClientToAssumeSqsRole"
-          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
-        }
-      ]
-    })
-  }
-}
-
-resource "aws_iam_role" "sqs" {
-  name = "${var.namespace}-sqs"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "sts:AssumeRole",
-          "sts:TagSession",
-        ]
-        Effect = "Allow"
-        Sid    = "AllowIntegrationRoleToAssume"
-        Principal = {
-          AWS = aws_iam_role.sts_integration.arn
-        }
-      },
-    ]
-  })
-  inline_policy {
-    policy = jsonencode({
-      Version   = "2012-10-17"
-      Statement = [
-        for client, queue_name in local.client_queues :
-        {
           Action = [
-            "sqs:ChangeMessageVisibility",
-            "sqs:DeleteMessage",
-            "sqs:GetQueueAttributes",
-            "sqs:PurgeQueue",
-            "sqs:ReceiveMessage",
+            "sts:AssumeRole",
+            "sts:TagSession",
           ],
           Effect = "Allow"
-          Sid    = "${client}-to-sqs"
-          Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
-          Condition = {
-            StringEquals = {
-              "aws:PrincipalTag/ClientId" = client
-            }
-          }
+          Sid    = "AllowToAssumeSqsRole"
+          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
         }
       ]
     })
