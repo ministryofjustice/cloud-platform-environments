@@ -9,10 +9,15 @@ data "aws_vpc" "this" {
 }
 
 data "aws_subnets" "this" {
-  filter {
-    name   = "tag:SubnetType"
-    values = ["Private"]
-  }
+    filter {
+        name   = "tag:SubnetType"
+        values = ["Private"]
+    }
+
+    filter {
+        name   = "vpc-id"
+        values = [data.aws_vpc.this.id]
+    }
 }
 
 data "aws_subnet" "this" {
