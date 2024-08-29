@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: laa-ccms-staging-file-upload-api-preprod
+  namespace: laa-ccms-staging-file-upload-api-production
 spec:
   podSelector: {}
   policyTypes:

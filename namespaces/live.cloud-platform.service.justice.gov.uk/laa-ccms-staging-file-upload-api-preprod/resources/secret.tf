@@ -10,8 +10,8 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "laa-ccms-staging-file-upload-api-preprod" = {
-      description             = "Secrets for laa-ccms-staging-file-upload-api preprod environment", # Required
+    "laa-ccms-staging-file-upload-api-production" = {
+      description             = "Secrets for laa-ccms-staging-file-upload-api production environment", # Required
       recovery_window_in_days = 7,                                                                      # Required
       k8s_secret_name         = "laa-ccms-staging-file-upload-api-secrets"                                      # The name of the secret in k8s
     },

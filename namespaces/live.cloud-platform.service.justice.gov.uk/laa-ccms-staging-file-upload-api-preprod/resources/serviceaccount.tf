@@ -14,6 +14,6 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   # github_repositories = ["my-repo"]
   github_repositories = ["laa-ccms-staging-file-upload-api"]
-  github_environments = ["preprod"]
+  github_environments = ["production"]
 
 }

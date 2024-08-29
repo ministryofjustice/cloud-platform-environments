@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-ccms-staging-file-upload-api-preprod
+  namespace: laa-ccms-staging-file-upload-api-production
 spec:
   hard:
     pods: "50"
