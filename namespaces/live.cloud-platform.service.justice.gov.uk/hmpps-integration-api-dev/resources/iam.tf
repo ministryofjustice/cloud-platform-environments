@@ -174,7 +174,10 @@ resource "aws_iam_role" "sqs" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession",
+        ],
         Effect = "Allow"
         Sid    = "AllowApiGatewayStsIntegrationToAssume"
         Principal = {
@@ -201,7 +204,7 @@ resource "aws_iam_role_policy" "sqs" {
           "sqs:ReceiveMessage",
         ],
         Effect = "Allow"
-        Sid    = each.key
+        Sid    = "AccessQueue"
         Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${each.value}"]
         Condition = {
           StringEquals = {
