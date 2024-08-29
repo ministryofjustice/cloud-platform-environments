@@ -10,10 +10,6 @@ data "aws_vpc" "this" {
 
 data "aws_subnet_ids" "this" {
   vpc_id = data.aws_vpc.this.id
-
-  tags = {
-    SubnetType = "Private"
-  }
 }
 
 data "aws_subnet" "this" {
@@ -67,13 +63,15 @@ resource "aws_mq_broker" "this" {
 
   engine_type         = "ActiveMQ"
   engine_version      = "5.18"
-  deployment_mode     = "ACTIVE_STANDBY_MULTI_AZ"
+  deployment_mode     = "CLUSTER_MULTI_AZ"
   host_instance_type  = "mq.t3.micro"
   publicly_accessible = false
   subnet_ids          = local.subnets
   security_groups     = [aws_security_group.broker_sg.id]
 
   auto_minor_version_upgrade = true
+
+  storage_type = "ebs"
 
   user {
     username       = local.mq_admin_user
