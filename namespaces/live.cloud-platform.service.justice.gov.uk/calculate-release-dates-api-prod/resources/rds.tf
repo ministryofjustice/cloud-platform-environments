@@ -1,17 +1,21 @@
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
   vpc_name               = var.vpc_name
-  db_instance_class      = "db.t3.small"
+  db_instance_class      = "db.t4g.xlarge"
   team_name              = var.team_name
+
+  # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  db_engine              = "postgres"
-  db_engine_version      = "13"
-  rds_family             = "postgres13"
+
+  # Database configuration
+  db_engine                = "postgres"
+  db_engine_version        = "13"
+  rds_family               = "postgres13"
 
   db_password_rotated_date = "17-02-2023"
 
