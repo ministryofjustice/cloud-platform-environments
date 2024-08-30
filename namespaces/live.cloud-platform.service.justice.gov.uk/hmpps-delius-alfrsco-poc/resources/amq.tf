@@ -110,3 +110,17 @@ resource "aws_mq_broker" "this" {
     namespace              = var.namespace
   }
 }
+
+resource "kubernetes_secret" "amazon_mq" {
+  metadata {
+    name      = "amazon-mq-broker-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    BROKER_CONSOLE_URL     = aws_mq_broker.this.broker_instances.0.console_url
+    BROKER_URL  = aws_mq_broker.this.broker_instances.0.endpoints.1
+    BROKER_USER    = local.mq_admin_user
+    BROKER_PASSWORD = local.mq_admin_password
+  }
+}
