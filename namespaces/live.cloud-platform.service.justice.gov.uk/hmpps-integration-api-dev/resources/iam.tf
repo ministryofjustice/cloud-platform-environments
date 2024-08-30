@@ -167,3 +167,51 @@ resource "aws_iam_policy" "secrets_manager_access" {
     infrastructure_support = var.infrastructure_support
   }
 }
+
+resource "aws_iam_role" "sqs" {
+  name = "${var.namespace}-sqs"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession",
+        ],
+        Effect = "Allow"
+        Sid    = "AllowApiGatewayStsIntegrationToAssume"
+        Principal = {
+          AWS = aws_iam_role.sts_integration.arn
+        }
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "sqs" {
+  for_each = local.client_queues
+  name     = "${var.namespace}-${each.key}-sqs"
+  role     = aws_iam_role.sqs.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sqs:ChangeMessageVisibility",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:PurgeQueue",
+          "sqs:ReceiveMessage",
+        ],
+        Effect = "Allow"
+        Sid    = "AccessQueue"
+        Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${each.value}"]
+        Condition = {
+          StringEquals = {
+            "aws:PrincipalTag/ClientId" = each.key
+          }
+        }
+      },
+    ]
+  })
+}

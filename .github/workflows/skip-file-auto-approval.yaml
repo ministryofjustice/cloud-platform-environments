@@ -16,7 +16,7 @@ jobs:
       FILE_NAME: "APPLY_PIPELINE_SKIP_THIS_NAMESPACE"
     steps:
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     
     - id: commit-check
       name: commit check

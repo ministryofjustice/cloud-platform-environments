@@ -30,7 +30,7 @@ module "irsa" {
     { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
     { sqs_cpr_cc = module.cpr_court_cases_queue.irsa_policy_arn },
     { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
-    { sqs_cpr_cc_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
+    { sqs_cpr_cc_dlq = module.cpr_court_cases_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
     { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_me = module.cpr_delius_merge_events_queue.irsa_policy_arn },
@@ -57,4 +57,12 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.1" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

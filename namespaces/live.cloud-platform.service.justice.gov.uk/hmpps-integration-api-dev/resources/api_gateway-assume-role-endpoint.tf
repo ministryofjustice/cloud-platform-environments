@@ -7,7 +7,7 @@ resource "aws_api_gateway_resource" "role_assume" {
 resource "aws_api_gateway_method" "role_assume_method" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
   resource_id      = aws_api_gateway_resource.role_assume.id
-  http_method      = "GET"
+  http_method      = "POST"
   authorization    = "NONE"
   api_key_required = true
 }
@@ -18,17 +18,44 @@ resource "aws_api_gateway_integration" "sts_integration" {
   type                    = "AWS"
   http_method             = aws_api_gateway_method.role_assume_method.http_method
   integration_http_method = aws_api_gateway_method.role_assume_method.http_method
-  uri                     = "arn:aws:apigateway:${var.region}:sts:action/AssumeRole"
+  uri                     = "arn:aws:apigateway:us-east-1:sts:action/AssumeRole"
   credentials             = aws_iam_role.sts_integration.arn
   request_parameters = {
-    "integration.request.querystring.DurationSeconds"     = "'3600'"
-    "integration.request.querystring.RoleArn"             = "'arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs'"
-    "integration.request.querystring.RoleSessionName"     = "context.extendedRequestId"
-    "integration.request.querystring.Tags.member.1.Key"   = "'subject-distinguished-name'"
-    "integration.request.querystring.Tags.member.1.Value" = "context.identity.clientCert.subjectDN"
-    "integration.request.querystring.Version"             = "'2011-06-15'"
+    "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
+  }
+  request_templates = {
+    "application/json" = join("&", [
+      "Action=AssumeRole",
+      "DurationSeconds=3600",
+      "RoleArn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs",
+      "RoleSessionName=$util.urlEncode($context.extendedRequestId)",
+      "Tags.member.1.Key=ClientId",
+      "Tags.member.1.Value=$context.identity.clientCert.subjectDN.replaceAll('.*,CN=', '')",
+      "Version=2011-06-15"
+    ])
   }
   passthrough_behavior = "WHEN_NO_TEMPLATES"
+}
+
+resource "aws_api_gateway_integration_response" "sts_integration" {
+  rest_api_id = aws_api_gateway_integration.sts_integration.rest_api_id
+  resource_id = aws_api_gateway_integration.sts_integration.resource_id
+  http_method = aws_api_gateway_integration.sts_integration.http_method
+  status_code = "200"
+  response_templates = {
+    "application/json" = "$input.json('$.AssumeRoleResponse.AssumeRoleResult.Credentials')"
+  }
+  depends_on = [aws_api_gateway_method_response.sts_method_response]
+}
+
+resource "aws_api_gateway_method_response" "sts_method_response" {
+  rest_api_id = aws_api_gateway_integration.sts_integration.rest_api_id
+  resource_id = aws_api_gateway_integration.sts_integration.resource_id
+  http_method = aws_api_gateway_integration.sts_integration.http_method
+  status_code = "200"
+  response_models = {
+    "application/json" = "Empty"
+  }
 }
 
 resource "aws_iam_role" "sts_integration" {
@@ -51,52 +78,13 @@ resource "aws_iam_role" "sts_integration" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = ["sts:AssumeRole"],
-          Effect = "Allow"
-          Sid    = "AllowClientToAssumeSqsRole"
-          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
-        }
-      ]
-    })
-  }
-}
-
-resource "aws_iam_role" "sqs" {
-  name = "${var.namespace}-sqs"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = "AllowIntegrationRoleToAssume"
-        Principal = {
-          AWS = aws_iam_role.sts_integration.arn
-        }
-      },
-    ]
-  })
-  inline_policy {
-    policy = jsonencode({
-      Version   = "2012-10-17"
-      Statement = [
-        for client, queue_name in local.client_queues :
-        {
           Action = [
-            "sqs:ChangeMessageVisibility",
-            "sqs:DeleteMessage",
-            "sqs:GetQueueAttributes",
-            "sqs:PurgeQueue",
-            "sqs:ReceiveMessage",
+            "sts:AssumeRole",
+            "sts:TagSession",
           ],
           Effect = "Allow"
-          Sid    = "${client}-to-sqs"
-          Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${queue_name}"]
-          Condition = {
-            StringLike = {
-              "aws:PrincipalTag/subject-distinguished-name" = "*,CN=${client}"
-            }
-          }
+          Sid    = "AllowToAssumeSqsRole"
+          Resource = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.namespace}-sqs"]
         }
       ]
     })

@@ -21,6 +21,8 @@ module "make_recall_decision_api_rds" {
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
 
+  snapshot_identifier = "rds:make-recall-decision-development-2024-08-28-06-15"
+
   providers = {
     aws = aws.london
   }
