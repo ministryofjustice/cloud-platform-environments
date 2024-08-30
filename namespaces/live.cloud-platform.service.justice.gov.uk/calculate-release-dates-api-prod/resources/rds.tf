@@ -2,12 +2,12 @@ module "calculate_release_dates_api_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
   vpc_name               = var.vpc_name
   db_instance_class       = "db.t4g.xlarge"
+  team_name              = var.team_name
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
