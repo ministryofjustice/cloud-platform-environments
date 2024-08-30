@@ -26,9 +26,9 @@ module "calculate_release_dates_api_rds" {
   }
 }
 
-resource "kubernetes_secret" "calculate_release_dates_rds" {
+resource "kubernetes_secret" "calculate_release_dates_api_rds" {
   metadata {
-    name      = "calculate-release-dates-rds-instance-output"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
