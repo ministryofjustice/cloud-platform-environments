@@ -6,7 +6,7 @@
  */
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -47,7 +47,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -58,7 +58,6 @@ module "cla_backend_rds_postgres_14_replica" {
   infrastructure_support = var.infrastructure_support
 
   # It is mandatory to set the below values to create read replica instance
-  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.cla_backend_rds_postgres_14.db_identifier

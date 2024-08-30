@@ -1,7 +1,7 @@
 module "read_replica" {
   # default off as in count = 0
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -25,9 +25,6 @@ module "read_replica" {
   allow_major_version_upgrade = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   # It is mandatory to set the below values to create read replica instance
-
-  # Set the database_name of the source db
-  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   # replicate_source_db = module.rds.db_identifier
