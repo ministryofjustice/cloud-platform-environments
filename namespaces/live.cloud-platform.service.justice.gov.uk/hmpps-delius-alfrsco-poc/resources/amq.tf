@@ -118,8 +118,8 @@ resource "kubernetes_secret" "amazon_mq" {
   }
 
   data = {
-    BROKER_CONSOLE_URL = aws_mq_broker.this.broker_instances.0.console_url
-    BROKER_URL         = aws_mq_broker.this.broker_instances.0.endpoints.1
+    BROKER_CONSOLE_URL = aws_mq_broker.this.instances.0.console_url
+    BROKER_URL         = aws_mq_broker.this.instances.0.endpoints.1
     BROKER_USER        = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
