@@ -9,15 +9,15 @@ data "aws_vpc" "this" {
 }
 
 data "aws_subnets" "this" {
-    filter {
-        name   = "tag:SubnetType"
-        values = ["Private"]
-    }
+  filter {
+    name   = "tag:SubnetType"
+    values = ["Private"]
+  }
 
-    filter {
-        name   = "vpc-id"
-        values = [data.aws_vpc.this.id]
-    }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
 }
 
 data "aws_subnet" "this" {
@@ -108,5 +108,19 @@ resource "aws_mq_broker" "this" {
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+  }
+}
+
+resource "kubernetes_secret" "amazon_mq" {
+  metadata {
+    name      = "amazon-mq-broker-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
+    BROKER_URL         = aws_mq_broker.this.instances[0].endpoints[1]
+    BROKER_USER        = local.mq_admin_user
+    BROKER_PASSWORD    = local.mq_admin_password
   }
 }
