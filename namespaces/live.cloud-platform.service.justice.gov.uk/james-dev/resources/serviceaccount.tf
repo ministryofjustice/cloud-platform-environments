@@ -79,8 +79,6 @@ module "service_account" {
   serviceaccount_rules                 = local.james-dev-sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
   depends_on                           = [github_repository_environment.env]
-  role_name                            = james-dev-sa
-  rolebinding_name                     = james-dev-sa
 }
 
 resource "time_rotating" "weekly" {
