@@ -88,7 +88,7 @@ resource "time_rotating" "weekly" {
 }
 
 resource "github_repository_environment" "env" {
-  for_each    = local.github_repos
+  for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key
   deployment_branch_policy {
