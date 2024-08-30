@@ -1,6 +1,6 @@
 locals {
   github_repos   = ["james-kotlin-test", "james-typescript-test"]
-  sa_rules = [
+  james-dev-sa_rules = [
     {
       api_groups = [""]
       resources = [
@@ -76,7 +76,7 @@ module "service_account" {
   github_actions_secret_kube_token     = "KUBE_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
-  serviceaccount_rules                 = local.sa_rules
+  serviceaccount_rules                 = local.james-dev-sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
   depends_on                           = [github_repository_environment.env]
   role_name                            = james-dev-sa
