@@ -43,7 +43,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -59,15 +59,12 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
+  db_engine_version = "16.4"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   db_max_allocated_storage     = "1000"
   
   # It is mandatory to set the below values to create read replica instance
-
-  # Set the database_name of the source db
-  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
