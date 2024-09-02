@@ -14,5 +14,6 @@ locals {
     "mapps.client.org" = module.event_mapps_queue.sqs_name
     pnd                = module.event_pnd_queue.sqs_name
     maspin             = module.event_pnd_queue.sqs_name # testing
+    mryall             = module.event_pnd_queue.sqs_name # testing
   }
 }
