@@ -1,6 +1,6 @@
 
 module "court-register-api-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
