@@ -13,11 +13,12 @@ module "mod_bedrock_irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  role_arn               = aws_iam_role.guidance_bedrock_role.arn
 }
 
-resource "kubernetes_secret" "irsadcs" {
+resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "irsa-guidanceoutput"
+    name      = "irsa-output"
     namespace = var.namespace
   }
   data = {
