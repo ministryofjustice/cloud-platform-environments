@@ -15,9 +15,9 @@ module "mod_bedrock_irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "irsadcs" {
+resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "irsa-guidanceoutput"
+    name      = "irsa-output"
     namespace = var.namespace
   }
   data = {

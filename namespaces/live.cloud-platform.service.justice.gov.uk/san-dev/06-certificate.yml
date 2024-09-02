@@ -16,10 +16,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: san-eleventy-test-cert
+  name: san-eleventy-test.hmpps.service.justice.gov.uk
   namespace: san-dev
 spec:
-  secretName: san-eleventy-test-cert
+  secretName: san-eleventy-test
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
