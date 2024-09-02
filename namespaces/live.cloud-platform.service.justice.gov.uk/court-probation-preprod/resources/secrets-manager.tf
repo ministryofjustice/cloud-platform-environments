@@ -15,10 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "probation-in-court-preprod-slack-webhook"
     },
-    "applicationinsights-connection-string" = {
+    "applicationinsights" = {
       description             = "Contains the application insights connection string for preprod",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "applicationinsights-connection-string-preprod"
+      k8s_secret_name         = "applicationinsights-connection-string"
     }
   }
 }
