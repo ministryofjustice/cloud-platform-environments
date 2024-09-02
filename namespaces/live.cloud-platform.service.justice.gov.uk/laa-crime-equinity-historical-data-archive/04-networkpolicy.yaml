@@ -25,3 +25,20 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-scraping
+  namespace: laa-crime-equinity-historical-data-archive
+spec:
+  podSelector:
+    matchLabels:
+      app: laa-crime-equinity-historical-data
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
