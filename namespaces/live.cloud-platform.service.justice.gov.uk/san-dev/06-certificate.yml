@@ -19,7 +19,7 @@ metadata:
   name: san-eleventy-test.hmpps.service.justice.gov.uk
   namespace: san-dev
 spec:
-  secretName: san-eleventy-test-cert
+  secretName: san-eleventy-test
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
