@@ -29,7 +29,6 @@ data "aws_iam_policy_document" "combined_local_sqs" {
 
 resource "aws_iam_policy" "combined_local_sqs" {
   policy = data.aws_iam_policy_document.combined_local_sqs.json
-  tags   = local.default_tags
 }
 
 module "irsa" {
