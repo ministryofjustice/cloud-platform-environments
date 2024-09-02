@@ -1,5 +1,5 @@
 module "hmcts_mock_api_rds_instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = "laa-crime-apps-team"
