@@ -8,6 +8,6 @@ subjects:
     name: "github:vvartak_sandbox"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: ClusterRole
-  name: admin
+  kind: Role
+  name: admin-test
   apiGroup: rbac.authorization.k8s.io

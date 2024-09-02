@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-dces-team"
+  default     = "vvartak_sandbox"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dces@digital.justice.gov.uk"
+  default     = "vidyanand.vartak@digital.justice.gov.uk"
 }
 
 variable "is_production" {
