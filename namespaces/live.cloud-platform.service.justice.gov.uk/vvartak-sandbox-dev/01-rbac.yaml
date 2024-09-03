@@ -5,7 +5,7 @@ metadata:
   namespace: vvartak-sandbox-dev
 subjects:
   - kind: Group
-    name: "github:laa-dces-team"
+    name: "github:vvartak_sandbox"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
