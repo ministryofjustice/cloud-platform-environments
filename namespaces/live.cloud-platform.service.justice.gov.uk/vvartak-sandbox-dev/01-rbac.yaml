@@ -22,6 +22,6 @@ subjects:
     name: "github:vvartak_sandbox"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: secrets-viewer
   apiGroup: rbac.authorization.k8s.io
