@@ -11,17 +11,3 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
-#---
-#kind: RoleBinding
-#apiVersion: rbac.authorization.k8s.io/v1
-#metadata:
-#  name: vvartak-sandbox-dev-admin
-#  namespace: vvartak-sandbox-dev
-#subjects:
-#  - kind: Group
-#    name: "github:laa-dces-team"
-#    apiGroup: rbac.authorization.k8s.io
-#roleRef:
-#  kind: Role
-#  name: secrets-viewer
-#  apiGroup: rbac.authorization.k8s.io
