@@ -8,20 +8,37 @@ module "opensearch" {
   # Cluster configuration
   engine_version      = "OpenSearch_1.3"
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
-  # Non-production cluster configuration
+
+  # Production cluster configuration
   cluster_config = {
-    instance_count = 2
-    instance_type  = "m6g.large.search"
+    # Nodes
+    instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
+    instance_type  = "m7g.xlarge.search"
+
+    # Dedicated primary nodes
+    dedicated_master_enabled = true
+    dedicated_master_count   = 5 # can only either be 3 or 5
+    dedicated_master_type    = "m6g.large.search"
+
+    # Ultrawarm nodes (omit if you aren't going to use this)
+    warm_enabled = false
+    warm_count   = 3
+    warm_type    = "ultrawarm1.medium.search"
   }
 
-  ebs_options = {
-    volume_size = 50
-  }
 
   advanced_options = {
     # increase the maxClauseCount to 4096
     "indices.query.bool.max_clause_count" = "4096"
   }
+
+  ebs_options = {
+    volume_type = "gp3"
+    volume_size = 2048 # Storage (GBs per node)
+    throughput  = 250
+    iops        = 8000
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -89,4 +106,3 @@ resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
 }
-

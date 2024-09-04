@@ -11,17 +11,40 @@ spec:
       ttlSecondsAfterFinished: 180
       template:
         spec:
+          volumes:
+            - name: ca-crt
+              secret:
+                secretName: client-certificate-auth
           containers:
             - name: check-certs-expiry
-              image: bitnami/minideb
+              image: ghcr.io/ministryofjustice/hmpps-devops-tools
               imagePullPolicy: Always
+              env:
+                - name: ENV
+                  value: dev
+                - name: EXPIRY_DAY_CHECK
+                  value: '150'
+                - name: AWS_CREDS
+                  valueFrom:
+                    secretKeyRef:
+                      name: aws-services
+                      key: api-gateway
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: slack-webhook-url
+                      key: slack_webhook_url
+              volumeMounts:
+                - mountPath: "/home/appuser/ca-cert"
+                  name: ca-crt
               command:
                 - /bin/bash
                 - -c
                 - |
-                  apt-get update && apt-get install -y curl jq openssl
-                  mkdir -p /scripts
-                  curl -o /scripts/check_certs_expiry.sh https://raw.githubusercontent.com/ministryofjustice/hmpps-integration-api/main/scripts/check_certs_expiry.sh
-                  chmod +x /scripts/check_certs_expiry.sh
-                  /scripts/check_certs_expiry.sh
+                  mkdir -p /home/appuser/scripts
+                  mkdir -p /home/appuser/pem-certs
+                  curl -o /home/appuser/scripts/check_certs_expiry.sh https://raw.githubusercontent.com/ministryofjustice/hmpps-integration-api/main/scripts/check_certs_expiry.sh
+                  chmod +x /home/appuser/scripts/check_certs_expiry.sh
+                  cd /home/appuser/scripts
+                  ./check_certs_expiry.sh
           restartPolicy: OnFailure
