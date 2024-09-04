@@ -36,7 +36,7 @@ module "opensearch" {
     volume_type = "gp3"
     volume_size = 2048 # Storage (GBs per node)
     throughput  = 250
-    IOPS        = 8000
+    iops        = 8000
   }
 
   # Tags
