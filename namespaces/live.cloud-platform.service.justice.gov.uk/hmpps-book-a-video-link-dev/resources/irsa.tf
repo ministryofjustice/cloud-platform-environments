@@ -7,6 +7,7 @@ data "aws_iam_policy_document" "combined_local_sqs" {
     resources = [
       module.hmpps_book_a_video_link_domain_queue.sqs_arn,
       module.hmpps_book_a_video_link_domain_dlq.sqs_arn,
+      module.hmpps_audit_queue.sqs_arn,
     ]
   }
 }
