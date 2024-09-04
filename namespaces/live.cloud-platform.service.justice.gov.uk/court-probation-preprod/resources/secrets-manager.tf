@@ -14,6 +14,11 @@ module "secrets_manager" {
       description             = "Contains the slack webhook url to send notifications",
       recovery_window_in_days = 7,
       k8s_secret_name         = "probation-in-court-preprod-slack-webhook"
+    },
+    "applicationinsights" = {
+      description             = "Contains the application insights connection string for preprod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "applicationinsights-connection-string"
     }
   }
 }
