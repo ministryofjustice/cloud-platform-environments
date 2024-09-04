@@ -6,10 +6,10 @@ metadata:
   namespace: hmpps-nomis-user-roles-api-dev
 subjects:
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:haha"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:haha"
+    name: "github:hmpps-are"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
