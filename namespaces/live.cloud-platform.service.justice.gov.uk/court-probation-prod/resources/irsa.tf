@@ -10,27 +10,6 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
-data "aws_iam_policy_document" "combined_local_sqs" {
-  version = "2012-10-17"
-  statement {
-    sid       = "CourtProbationProdSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
-    resources = [
-      module.crime-portal-gateway-queue.irsa_policy_arn,
-      module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn,
-      module.court-case-matcher-queue.irsa_policy_arn,
-      module.court-case-matcher-dead-letter-queue.irsa_policy_arn,
-      module.pic_new_offender_events_queue.irsa_policy_arn,
-      module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "combined_local_sqs" {
-  policy = data.aws_iam_policy_document.combined_local_sqs.json
-}
-
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -51,7 +30,12 @@ module "irsa" {
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { sns_cce = module.court-case-events.irsa_policy_arn },
-    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
+    { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
+    { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
+    { sqs_ccm = module.court-case-matcher-queue.irsa_policy_arn },
+    { sqs_ccm_dlq = module.court-case-matcher-dead-letter-queue.irsa_policy_arn },
+    { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
+    { sqs_ccs_dlq = module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn },
     { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
   )
 
